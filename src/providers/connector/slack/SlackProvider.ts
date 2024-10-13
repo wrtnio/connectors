@@ -9,6 +9,8 @@ import { createQueryParameter } from "../../../utils/CreateQueryParameter";
 import { retry } from "../../../utils/retry";
 import { OAuthSecretProvider } from "../../internal/oauth_secret/OAuthSecretProvider";
 import { IOAuthSecret } from "../../internal/oauth_secret/structures/IOAuthSecret";
+import { WebClient } from "@slack/web-api";
+import { SlackTemplateProvider } from "./SlackTemplateProvider";
 
 @Injectable()
 export class SlackProvider {
@@ -114,6 +116,75 @@ export class SlackProvider {
       console.error(JSON.stringify(err));
       throw err;
     }
+  }
+
+  async interactivity(input: ISlack.InteractiveComponentInput): Promise<any[]> {
+    const { user, actions, message, channel } = input.payload;
+
+    const block_id = actions.at(0)?.block_id;
+    const value = actions.at(0)?.value;
+    const blocks = message?.blocks;
+    if (channel && blocks && value) {
+      const selectedItemIdx = blocks.findIndex(
+        (block) => block.block_id === block_id,
+      );
+
+      const [_, secretKey] = value.split("/");
+
+      const users = await this.getAllUsers({ secretKey });
+      const userDetail = users.find((el) => el.id === user.id);
+
+      if (userDetail && selectedItemIdx && selectedItemIdx !== -1) {
+        // 눌린 버튼의 다음 번 객체가 context block 이기 때문에 + 1을 더한다.
+        const contextBlockIdx = selectedItemIdx + 1;
+        const contextBlock = blocks.at(contextBlockIdx);
+        const uniqueUserId = `${userDetail.display_name}(${userDetail.id})`;
+        if (typia.is<ISlack.NoVoted>(contextBlock)) {
+          contextBlock.elements = [
+            {
+              type: "image",
+              image_url: userDetail.profile_image,
+              alt_text: uniqueUserId,
+            },
+          ] as any;
+        } else if (typia.is<ISlack.Voted>(contextBlock)) {
+          const alreadyVoted = contextBlock.elements.findIndex(
+            (voter) => voter.alt_text === uniqueUserId,
+          );
+
+          if (alreadyVoted !== -1) {
+            // 이미 투표를 한 경우, 투표자 명단에서 제거한다.
+            contextBlock.elements.splice(alreadyVoted, 1);
+            if (contextBlock.elements.length === 0) {
+              blocks[contextBlockIdx] = {
+                type: "context",
+                elements: [
+                  {
+                    type: "mrkdwn",
+                    text: "No votes",
+                  },
+                ],
+              };
+            }
+          } else {
+            // 아직 투표를 안한 경우, 투표자 명단에서 추가한다.
+            contextBlock.elements.push({
+              type: "image",
+              image_url: userDetail.profile_image,
+              alt_text: uniqueUserId,
+            });
+          }
+        }
+      }
+
+      await new WebClient(secretKey).chat.update({
+        channel: channel.id,
+        blocks: blocks,
+        ts: message.ts,
+      });
+    }
+
+    return blocks ?? [];
   }
 
   async mark(input: ISlack.IMarkInput): Promise<void> {
@@ -676,6 +747,33 @@ export class SlackProvider {
     });
 
     return res.data;
+  }
+
+  async vote(input: ISlack.IHoldVoteInput): Promise<ISlack.IHoldVoteOutput> {
+    const client = new WebClient(input.secretKey);
+    const auth = await client.auth.test();
+    const user = await client.users.profile.get({ user: auth.user_id });
+
+    const requester = user.profile?.display_name
+      ? user.profile?.display_name
+      : user.profile?.real_name ?? "";
+
+    const res = await client.chat.postMessage({
+      channel: input.channel,
+      blocks: SlackTemplateProvider.voteTemplate({
+        secretKey: input.secretKey,
+        requester,
+        title: input.title,
+        items: input.items,
+      }),
+    });
+
+    const ts = res.ts;
+    if (ts) {
+      return { ts, blocks: res.message?.blocks };
+    }
+
+    throw new Error("슬랙 템플릿 메시지 전송 실패");
   }
 
   private getUserProfileFields(profile: { fields: Record<string, string> }) {

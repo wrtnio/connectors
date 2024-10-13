@@ -11,6 +11,32 @@ export class SlackController {
   constructor(private readonly slackProvider: SlackProvider) {}
 
   /**
+   * @hidden
+   * @param input
+   * @returns array of slack block types
+   */
+  @TypedRoute.Post("interactivity")
+  async interactivity(
+    @TypedBody() input: ISlack.InteractiveComponentInput,
+  ): Promise<any[]> {
+    return await this.slackProvider.interactivity(input);
+  }
+
+  /**
+   * Send Slack Custom Template Messages for Voting
+   *
+   * @summary Send Slack Custom Template Messages for Voting
+   * @param input
+   * @returns
+   */
+  @TypedRoute.Post("vote")
+  async vote(
+    @TypedBody() input: ISlack.IHoldVoteInput,
+  ): Promise<ISlack.IHoldVoteOutput> {
+    return retry(() => this.slackProvider.vote(input))();
+  }
+
+  /**
    * Marks a specific message in a Slack channel as read
    *
    * You need to know both the channel ID and the ts value of the message.
@@ -125,7 +151,7 @@ export class SlackController {
   async sendReply(
     @TypedBody() input: ISlack.IPostMessageReplyInput,
   ): Promise<MyPick<ISlack.Message, "ts">> {
-    return this.slackProvider.sendReply(input);
+    return retry(() => this.slackProvider.sendReply(input))();
   }
 
   /**
@@ -147,7 +173,7 @@ export class SlackController {
   async sendText(
     @TypedBody() input: ISlack.IPostMessageInput,
   ): Promise<MyPick<ISlack.Message, "ts">> {
-    return this.slackProvider.sendText(input);
+    return retry(() => this.slackProvider.sendText(input))();
   }
 
   /**
@@ -170,7 +196,7 @@ export class SlackController {
   async getScheduledMessages(
     @TypedBody() input: ISlack.IGetScheduledMessageListInput,
   ): Promise<ISlack.IGetScheduledMessageListOutput> {
-    return this.slackProvider.getScheduledMessages(input);
+    return retry(() => this.slackProvider.getScheduledMessages(input))();
   }
 
   /**
@@ -192,7 +218,7 @@ export class SlackController {
   async getUserDetails(
     @TypedBody() input: ISlack.IGetUserDetailInput,
   ): Promise<ISlack.IGetUserDetailOutput[]> {
-    return this.slackProvider.getUserDetails(input);
+    return retry(() => this.slackProvider.getUserDetails(input))();
   }
 
   /**
@@ -219,7 +245,7 @@ export class SlackController {
   async getUsers(
     @TypedBody() input: ISlack.IGetUserListInput,
   ): Promise<ISlack.IGetUserListOutput> {
-    return this.slackProvider.getUsers(input);
+    return retry(() => this.slackProvider.getUsers(input))();
   }
 
   /**

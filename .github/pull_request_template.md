@@ -1,6 +1,6 @@
 # Test before submitting
 
-Before submitting a Pull Request, please test your code. If you created a new created a new feature, then create the test function, too. Please refer to [this document](../CONTRIBUTING.md).
+Before submitting a Pull Request, please test your code. If you created a new created a new feature, then create the test function, too. Please refer to [this document](https://github.com/wrtnio/connectors/blob/main/CONTRIBUTING.md).
 
 Put the name of the test function of the service you created in the command below.
 This is a regular expression that returns all tests containing the character string, so if there are several test codes, you can put a keyword including all of the test codes and turn them.

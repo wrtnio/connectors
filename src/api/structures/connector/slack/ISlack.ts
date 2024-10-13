@@ -4,6 +4,7 @@ import { ContentMediaType } from "typia/lib/tags";
 import { MyPick } from "../../types/MyPick";
 import { StrictOmit } from "../../types/strictOmit";
 import { ICommon } from "../common/ISecretValue";
+import { Block, KnownBlock } from "@slack/web-api";
 
 export namespace ISlack {
   export type ISecret = ICommon.ISecret<
@@ -20,6 +21,209 @@ export namespace ISlack {
       "files:read",
     ]
   >;
+
+  export interface IHoldVoteOutput extends Pick<ISlack.Message, "ts"> {
+    /**
+     * @title title blocks
+     */
+    blocks?: any[];
+  }
+
+  export interface IHoldVoteInput extends ISlack.ISecret {
+    /**
+     * @title channel id
+     */
+    channel: Channel["id"] &
+      (
+        | Prerequisite<{
+            method: "post";
+            path: "/connector/slack/get-public-channels";
+            jmesPath: "[].{value:id, label:name}";
+          }>
+        | Prerequisite<{
+            method: "post";
+            path: "/connector/slack/get-private-channels";
+            jmesPath: "[].{value:id, label:name}";
+          }>
+        | Prerequisite<{
+            method: "post";
+            path: "/connector/slack/get-im-channels";
+            jmesPath: "[].{value:id, label:name || '개인 채널'}";
+          }>
+      );
+
+    /**
+     * @title Title of vote to be held
+     *
+     * It should be written as a simple one-line markdown and can include Slack emojis.
+     */
+    title: string;
+
+    /**
+     * @title options available for voting
+     *
+     * It refers to the options available for voting.
+     */
+    items: {
+      /**
+       * @title option title
+       */
+      text: string;
+
+      /**
+       * @title option's link
+       */
+      link?: string;
+    }[];
+  }
+
+  export interface InteractiveComponentInput {
+    payload: InteractiveComponent;
+  }
+
+  export interface InteractiveComponent {
+    /**
+     * Helps identify which type of interactive component sent the payload.
+     * Example: 'block_actions' for block interactions or 'interactive_message' for message attachments.
+     */
+    type: "block_actions" | "interactive_message";
+
+    /**
+     * A short-lived ID that can be used to open modals.
+     */
+    trigger_id: string;
+
+    /**
+     * The user who interacted to trigger this request.
+     */
+    user: {
+      id: string;
+      username: string;
+      team_id: string;
+    };
+
+    /**
+     * The workspace the app is installed on. Null if the app is org-installed.
+     */
+    team: {
+      id: string;
+      domain: string;
+    } | null;
+
+    /**
+     * The container where this block action took place.
+     */
+    container: {
+      type: string;
+      message_ts?: string;
+      channel_id?: string;
+      is_ephemeral?: boolean;
+    };
+
+    /**
+     * A string representing the app ID.
+     */
+    api_app_id: string;
+
+    /**
+     * Contains data from the specific interactive component that was used.
+     */
+    actions: {
+      block_id: string;
+      action_id: string;
+      value: string;
+    }[];
+
+    /**
+     * Represents a deprecated verification token feature. Use signing secret for validation instead.
+     */
+    token: string;
+
+    /**
+     * A unique value optionally used to ensure the correct view is updated.
+     */
+    hash?: string;
+
+    /**
+     * Metadata about the function execution that generated the block where this block action took place.
+     */
+    function_data?: Record<string, unknown>;
+
+    /**
+     * An interactivity object generated as a result of the block action.
+     */
+    interactivity?: Record<string, unknown>;
+
+    /**
+     * A workflow (just-in-time) token generated for this block action.
+     */
+    bot_access_token?: string;
+
+    /**
+     * The enterprise the installed app is part of, if the app is workspace-installed or org-installed. Null otherwise.
+     */
+    enterprise?: {
+      id: string;
+      name: string;
+    } | null;
+
+    /**
+     * The channel where this block action took place, if applicable.
+     */
+    channel?: {
+      id: string;
+      name: string;
+    } | null;
+
+    /**
+     * The message where this block action took place, if applicable.
+     */
+    message?: {
+      type: string;
+      user: string;
+      ts: string;
+      text: string;
+      blocks?: (Block | KnownBlock)[];
+    } | null;
+
+    /**
+     * The view where this block action took place, if applicable.
+     */
+    view?: {
+      id: string;
+      type: string;
+      hash: string;
+    } | null;
+
+    /**
+     * A property including all stateful elements, not just input blocks.
+     */
+    state?: Record<string, any>;
+
+    /**
+     * A short-lived webhook that can be used to send messages in response to interactions. Deprecated for workflow apps.
+     */
+    response_url?: string;
+  }
+
+  export interface NoVoted {
+    type: "context";
+    elements: [
+      {
+        type: "mrkdwn";
+        text: "No votes";
+      },
+    ];
+  }
+
+  export interface Voted {
+    type: "context";
+    elements: {
+      type: "image";
+      image_url: (string & tags.Format<"iri">) | null; // user profile image
+      alt_text: string; // username
+    }[];
+  }
 
   export interface IDeleteSCheduleMessageInput extends ISecret {
     /**
