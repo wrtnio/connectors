@@ -26,7 +26,7 @@ export namespace ISlack {
     payload: InteractiveComponent;
   }
 
-  export type InteractiveComponent = {
+  export interface InteractiveComponent {
     /**
      * Helps identify which type of interactive component sent the payload.
      * Example: 'block_actions' for block interactions or 'interactive_message' for message attachments.
@@ -149,7 +149,26 @@ export namespace ISlack {
      * A short-lived webhook that can be used to send messages in response to interactions. Deprecated for workflow apps.
      */
     response_url?: string;
-  };
+  }
+
+  export interface NoVoted {
+    type: "context";
+    elements: [
+      {
+        type: "mrkdwn";
+        text: "No votes";
+      },
+    ];
+  }
+
+  export interface Voted {
+    type: "context";
+    elements: {
+      type: "image";
+      image_url: (string & tags.Format<"iri">) | null; // user profile image
+      alt_text: string; // username
+    }[];
+  }
 
   export interface IDeleteSCheduleMessageInput extends ISecret {
     /**

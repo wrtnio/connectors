@@ -118,6 +118,62 @@ export class SlackProvider {
     }
   }
 
+  async interactivity(input: ISlack.InteractiveComponentInput) {
+    const { user, actions, message, channel } = input.payload;
+
+    const block_id = actions.at(0)?.block_id;
+    const value = actions.at(0)?.value;
+    const blocks = message?.blocks;
+    if (channel && blocks && value) {
+      const selectedItemIdx = blocks.findIndex(
+        (block) => block.block_id === block_id,
+      );
+
+      const [_, secretKey] = value.split("/");
+
+      const users = await this.getAllUsers({ secretKey });
+      const userDetail = users.find((el) => el.id === user.id);
+
+      if (userDetail && selectedItemIdx && selectedItemIdx !== -1) {
+        // 눌린 버튼의 다음 번 객체가 context block 이기 때문에 + 1을 더한다.
+        const contextBlockIdx = selectedItemIdx + 1;
+        const contextBlock = blocks.at(contextBlockIdx);
+        const uniqueUserId = `${userDetail.display_name}(${userDetail.id})`;
+        if (typia.is<ISlack.NoVoted>(contextBlock)) {
+          contextBlock.elements = [
+            {
+              type: "image",
+              image_url: userDetail.profile_image,
+              alt_text: uniqueUserId,
+            },
+          ] as any;
+        } else if (typia.is<ISlack.Voted>(contextBlock)) {
+          const alreadyVoted = contextBlock.elements.findIndex(
+            (voter) => voter.alt_text === uniqueUserId,
+          );
+
+          if (alreadyVoted) {
+            // 이미 투표를 한 경우, 투표자 명단에서 제거한다.
+            contextBlock.elements.splice(alreadyVoted, 1);
+          } else {
+            // 아직 투표를 안한 경우, 투표자 명단에서 추가한다.
+            contextBlock.elements.push({
+              type: "image",
+              image_url: userDetail.profile_image,
+              alt_text: uniqueUserId,
+            });
+          }
+        }
+      }
+
+      await new WebClient(secretKey).chat.update({
+        channel: channel.id,
+        blocks: blocks,
+        ts: message.ts,
+      });
+    }
+  }
+
   async mark(input: ISlack.IMarkInput): Promise<void> {
     const url = `https://slack.com/api/conversations.mark`;
     const token = await this.getToken(input.secretKey);
@@ -693,6 +749,7 @@ export class SlackProvider {
     const res = await client.chat.postMessage({
       channel: input.channel,
       blocks: SlackTemplateProvider.voteTemplate({
+        secretKey: input.secretKey,
         requester: user.profile?.display_name ?? "",
         title: input.title,
         items: input.items,

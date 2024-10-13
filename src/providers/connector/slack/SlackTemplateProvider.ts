@@ -1,11 +1,23 @@
 import { Block, KnownBlock } from "@slack/web-api";
+import { ISlack } from "@wrtn/connector-api/lib/structures/connector/slack/ISlack";
 
 export namespace SlackTemplateProvider {
   export function voteTemplate(input: {
+    secretKey: string;
     requester: string;
     title: string;
     items: { text: string; link: string }[];
   }): (Block | KnownBlock)[] {
+    const NoVoted: ISlack.NoVoted = {
+      type: "context",
+      elements: [
+        {
+          type: "mrkdwn",
+          text: "No votes",
+        },
+      ],
+    };
+
     return [
       {
         type: "section",
@@ -25,18 +37,10 @@ export namespace SlackTemplateProvider {
             accessory: {
               type: "button",
               text: { type: "plain_text", emoji: true, text: "Vote" },
-              value: `pick_${i}`,
+              value: `pick_${i}/${input.secretKey}`,
             },
           },
-          {
-            type: "context",
-            elements: [
-              {
-                type: "mrkdwn",
-                text: "No votes",
-              },
-            ],
-          },
+          NoVoted,
         ];
       }),
       {

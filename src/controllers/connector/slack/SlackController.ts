@@ -11,6 +11,15 @@ export class SlackController {
   constructor(private readonly slackProvider: SlackProvider) {}
 
   /**
+   * @hidden
+   * @param input
+   */
+  @TypedRoute.Post("interactivity")
+  async interactivity(@TypedBody() input: ISlack.InteractiveComponentInput) {
+    await this.slackProvider.interactivity(input);
+  }
+
+  /**
    * Marks a specific message in a Slack channel as read
    *
    * You need to know both the channel ID and the ts value of the message.
