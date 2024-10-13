@@ -9,6 +9,8 @@ import { createQueryParameter } from "../../../utils/CreateQueryParameter";
 import { retry } from "../../../utils/retry";
 import { OAuthSecretProvider } from "../../internal/oauth_secret/OAuthSecretProvider";
 import { IOAuthSecret } from "../../internal/oauth_secret/structures/IOAuthSecret";
+import { WebClient } from "@slack/web-api";
+import { SlackTemplateProvider } from "./SlackTemplateProvider";
 
 @Injectable()
 export class SlackProvider {
@@ -676,6 +678,22 @@ export class SlackProvider {
     });
 
     return res.data;
+  }
+
+  async vote(input: { secretKey: string; channel: string; title: string }) {
+    const client = new WebClient(input.secretKey);
+    const auth = await client.auth.test();
+    const user = await client.users.profile.get({ user: auth.user_id });
+    const res = await client.chat.postMessage({
+      channel: input.channel,
+      blocks: SlackTemplateProvider.voteTemplate({
+        requester: user.profile?.display_name ?? "",
+        title: input.title,
+        items: [],
+      }),
+    });
+
+    return res;
   }
 
   private getUserProfileFields(profile: { fields: Record<string, string> }) {
