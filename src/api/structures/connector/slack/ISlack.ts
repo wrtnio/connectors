@@ -22,6 +22,61 @@ export namespace ISlack {
     ]
   >;
 
+  export interface IHoldVoteOutput extends Pick<ISlack.Message, "ts"> {
+    /**
+     * @title title blocks
+     */
+    blocks?: any[];
+  }
+
+  export interface IHoldVoteInput extends ISlack.ISecret {
+    /**
+     * @title channel id
+     */
+    channel: Channel["id"] &
+      (
+        | Prerequisite<{
+            method: "post";
+            path: "/connector/slack/get-public-channels";
+            jmesPath: "[].{value:id, label:name}";
+          }>
+        | Prerequisite<{
+            method: "post";
+            path: "/connector/slack/get-private-channels";
+            jmesPath: "[].{value:id, label:name}";
+          }>
+        | Prerequisite<{
+            method: "post";
+            path: "/connector/slack/get-im-channels";
+            jmesPath: "[].{value:id, label:name || '개인 채널'}";
+          }>
+      );
+
+    /**
+     * @title Title of vote to be held
+     *
+     * It should be written as a simple one-line markdown and can include Slack emojis.
+     */
+    title: string;
+
+    /**
+     * @title options available for voting
+     *
+     * It refers to the options available for voting.
+     */
+    items: {
+      /**
+       * @title option title
+       */
+      text: string;
+
+      /**
+       * @title option's link
+       */
+      link?: string;
+    }[];
+  }
+
   export interface InteractiveComponentInput {
     payload: InteractiveComponent;
   }

@@ -1,13 +1,16 @@
 import { Block, KnownBlock } from "@slack/web-api";
 import { ISlack } from "@wrtn/connector-api/lib/structures/connector/slack/ISlack";
+import { StrictOmit } from "@wrtn/connector-api/lib/structures/types/strictOmit";
 
 export namespace SlackTemplateProvider {
-  export function voteTemplate(input: {
-    secretKey: string;
-    requester: string;
-    title: string;
-    items: { text: string; link: string }[];
-  }): (Block | KnownBlock)[] {
+  export function voteTemplate(
+    input: StrictOmit<ISlack.IHoldVoteInput, "channel"> & {
+      /**
+       * @title requester's name
+       */
+      requester: string;
+    },
+  ): (Block | KnownBlock)[] {
     const NoVoted: ISlack.NoVoted = {
       type: "context",
       elements: [
@@ -17,6 +20,24 @@ export namespace SlackTemplateProvider {
         },
       ],
     };
+
+    const options = input.items.flatMap((item, i): (Block | KnownBlock)[] => {
+      return [
+        {
+          type: "section",
+          text: {
+            type: "mrkdwn",
+            text: item.link ? `<${item.link}|${item.text}>` : item.text,
+          },
+          accessory: {
+            type: "button",
+            text: { type: "plain_text", emoji: true, text: "Vote" },
+            value: `pick_${i}/${input.secretKey}`,
+          },
+        },
+        NoVoted,
+      ];
+    });
 
     return [
       {
@@ -29,20 +50,7 @@ export namespace SlackTemplateProvider {
       {
         type: "divider",
       },
-      ...input.items.flatMap((item, i): (Block | KnownBlock)[] => {
-        return [
-          {
-            type: "section",
-            text: { type: "mrkdwn", text: `<${item.link}|${item.text}>` },
-            accessory: {
-              type: "button",
-              text: { type: "plain_text", emoji: true, text: "Vote" },
-              value: `pick_${i}/${input.secretKey}`,
-            },
-          },
-          NoVoted,
-        ];
-      }),
+      ...options,
       {
         type: "divider",
       },
@@ -51,11 +59,7 @@ export namespace SlackTemplateProvider {
         elements: [
           {
             type: "button",
-            text: {
-              type: "plain_text",
-              emoji: true,
-              text: "Add a suggestion",
-            },
+            text: { type: "plain_text", emoji: true, text: "Add a suggestion" },
             value: "suggestion",
           },
         ],

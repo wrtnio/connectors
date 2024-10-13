@@ -20,6 +20,20 @@ export class SlackController {
   }
 
   /**
+   * Send Slack Custom Template Messages for Voting
+   *
+   * @summary Send Slack Custom Template Messages for Voting
+   * @param input
+   * @returns
+   */
+  @TypedRoute.Post("vote")
+  async vote(
+    @TypedBody() input: ISlack.IHoldVoteInput,
+  ): Promise<ISlack.IHoldVoteOutput> {
+    return this.slackProvider.vote(input);
+  }
+
+  /**
    * Marks a specific message in a Slack channel as read
    *
    * You need to know both the channel ID and the ts value of the message.

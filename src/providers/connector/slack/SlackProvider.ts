@@ -736,12 +736,7 @@ export class SlackProvider {
     return res.data;
   }
 
-  async vote(input: {
-    secretKey: string;
-    channel: string;
-    title: string;
-    items: { text: string; link: string }[];
-  }) {
+  async vote(input: ISlack.IHoldVoteInput): Promise<ISlack.IHoldVoteOutput> {
     const client = new WebClient(input.secretKey);
     const auth = await client.auth.test();
     const user = await client.users.profile.get({ user: auth.user_id });
@@ -756,7 +751,13 @@ export class SlackProvider {
       }),
     });
 
-    return res;
+    console.log("sdk", res.message?.blocks?.length);
+    const ts = res.ts;
+    if (ts) {
+      return { ts, blocks: res.message?.blocks };
+    }
+
+    throw new Error("슬랙 템플릿 메시지 전송 실패");
   }
 
   private getUserProfileFields(profile: { fields: Record<string, string> }) {
