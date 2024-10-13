@@ -17,12 +17,71 @@
   "info": {
     "title": "Slack",
     "description": "슬랙에서 대화 내용을 가져오거나 메시지를 보낼 수 있어요.",
-    "version": "0.1.264",
+    "version": "0.1.265",
     "license": {
       "name": "AGPL-3.0-only"
     }
   },
   "paths": {
+    "/connector/slack/interactivity": {
+      "post": {
+        "tags": [],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ISlack.InteractiveComponentInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "array of slack block types",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {}
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/connector/slack/vote": {
+      "post": {
+        "summary": "Send Slack Custom Template Messages for Voting",
+        "description": "Send Slack Custom Template Messages for Voting",
+        "tags": [],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ISlack.IHoldVoteInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ISlack.IHoldVoteOutput"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/connector/slack/conversation/mark": {
       "post": {
         "summary": "Marks a specific message in a Slack channel as read",
@@ -555,6 +614,3093 @@
   },
   "components": {
     "schemas": {
+      "ISlack.InteractiveComponentInput": {
+        "type": "object",
+        "properties": {
+          "payload": {
+            "$ref": "#/components/schemas/ISlack.InteractiveComponent"
+          }
+        },
+        "required": [
+          "payload"
+        ]
+      },
+      "ISlack.InteractiveComponent": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "oneOf": [
+              {
+                "const": "block_actions"
+              },
+              {
+                "const": "interactive_message"
+              }
+            ],
+            "title": "Helps identify which type of interactive component sent the payload",
+            "description": "Helps identify which type of interactive component sent the payload.\nExample: 'block_actions' for block interactions or 'interactive_message' for message attachments."
+          },
+          "trigger_id": {
+            "type": "string",
+            "title": "A short-lived ID that can be used to open modals",
+            "description": "A short-lived ID that can be used to open modals."
+          },
+          "user": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "username": {
+                "type": "string"
+              },
+              "team_id": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id",
+              "username",
+              "team_id"
+            ],
+            "title": "The user who interacted to trigger this request",
+            "description": "The user who interacted to trigger this request."
+          },
+          "team": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string"
+                  },
+                  "domain": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "id",
+                  "domain"
+                ]
+              }
+            ],
+            "title": "The workspace the app is installed on. Null if the app is org-installed",
+            "description": "The workspace the app is installed on. Null if the app is org-installed."
+          },
+          "container": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string"
+              },
+              "message_ts": {
+                "type": "string"
+              },
+              "channel_id": {
+                "type": "string"
+              },
+              "is_ephemeral": {
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "type"
+            ],
+            "title": "The container where this block action took place",
+            "description": "The container where this block action took place."
+          },
+          "api_app_id": {
+            "type": "string",
+            "title": "A string representing the app ID",
+            "description": "A string representing the app ID."
+          },
+          "actions": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "block_id": {
+                  "type": "string"
+                },
+                "action_id": {
+                  "type": "string"
+                },
+                "value": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "block_id",
+                "action_id",
+                "value"
+              ]
+            },
+            "title": "Contains data from the specific interactive component that was used",
+            "description": "Contains data from the specific interactive component that was used."
+          },
+          "token": {
+            "type": "string",
+            "title": "Represents a deprecated verification token feature. Use signing secret for validation instead",
+            "description": "Represents a deprecated verification token feature. Use signing secret for validation instead."
+          },
+          "hash": {
+            "type": "string",
+            "title": "A unique value optionally used to ensure the correct view is updated",
+            "description": "A unique value optionally used to ensure the correct view is updated."
+          },
+          "function_data": {
+            "$ref": "#/components/schemas/Recordstringunknown",
+            "title": "Metadata about the function execution that generated the block where this block action took place",
+            "description": "Metadata about the function execution that generated the block where this block action took place."
+          },
+          "interactivity": {
+            "$ref": "#/components/schemas/Recordstringunknown",
+            "title": "An interactivity object generated as a result of the block action",
+            "description": "An interactivity object generated as a result of the block action."
+          },
+          "bot_access_token": {
+            "type": "string",
+            "title": "A workflow (just-in-time) token generated for this block action",
+            "description": "A workflow (just-in-time) token generated for this block action."
+          },
+          "enterprise": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string"
+                  },
+                  "name": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "id",
+                  "name"
+                ]
+              }
+            ],
+            "title": "The enterprise the installed app is part of, if the app is workspace-installed or org-installed. Null otherwise",
+            "description": "The enterprise the installed app is part of, if the app is workspace-installed or org-installed. Null otherwise."
+          },
+          "channel": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string"
+                  },
+                  "name": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "id",
+                  "name"
+                ]
+              }
+            ],
+            "title": "The channel where this block action took place, if applicable",
+            "description": "The channel where this block action took place, if applicable."
+          },
+          "message": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "type": {
+                    "type": "string"
+                  },
+                  "user": {
+                    "type": "string"
+                  },
+                  "ts": {
+                    "type": "string"
+                  },
+                  "text": {
+                    "type": "string"
+                  },
+                  "blocks": {
+                    "type": "array",
+                    "items": {
+                      "oneOf": [
+                        {
+                          "$ref": "#/components/schemas/Block"
+                        },
+                        {
+                          "$ref": "#/components/schemas/typeimagealt_textstringtitlePlainTextElementundefinedBlockUrlImageObject"
+                        },
+                        {
+                          "$ref": "#/components/schemas/typeimagealt_textstringtitlePlainTextElementundefinedBlockSlackFileImageObject"
+                        },
+                        {
+                          "$ref": "#/components/schemas/ContextBlock"
+                        },
+                        {
+                          "$ref": "#/components/schemas/ActionsBlock"
+                        },
+                        {
+                          "$ref": "#/components/schemas/DividerBlock"
+                        },
+                        {
+                          "$ref": "#/components/schemas/SectionBlock"
+                        },
+                        {
+                          "$ref": "#/components/schemas/InputBlock"
+                        },
+                        {
+                          "$ref": "#/components/schemas/FileBlock"
+                        },
+                        {
+                          "$ref": "#/components/schemas/HeaderBlock"
+                        },
+                        {
+                          "$ref": "#/components/schemas/VideoBlock"
+                        },
+                        {
+                          "$ref": "#/components/schemas/RichTextBlock"
+                        }
+                      ]
+                    }
+                  }
+                },
+                "required": [
+                  "type",
+                  "user",
+                  "ts",
+                  "text"
+                ]
+              }
+            ],
+            "title": "The message where this block action took place, if applicable",
+            "description": "The message where this block action took place, if applicable."
+          },
+          "view": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string"
+                  },
+                  "type": {
+                    "type": "string"
+                  },
+                  "hash": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "id",
+                  "type",
+                  "hash"
+                ]
+              }
+            ],
+            "title": "The view where this block action took place, if applicable",
+            "description": "The view where this block action took place, if applicable."
+          },
+          "state": {
+            "$ref": "#/components/schemas/Recordstringany",
+            "title": "A property including all stateful elements, not just input blocks",
+            "description": "A property including all stateful elements, not just input blocks."
+          },
+          "response_url": {
+            "type": "string",
+            "title": "A short-lived webhook that can be used to send messages in response to interactions. Deprecated for workflow apps",
+            "description": "A short-lived webhook that can be used to send messages in response to interactions. Deprecated for workflow apps."
+          }
+        },
+        "required": [
+          "type",
+          "trigger_id",
+          "user",
+          "team",
+          "container",
+          "api_app_id",
+          "actions",
+          "token"
+        ]
+      },
+      "Recordstringunknown": {
+        "type": "object",
+        "properties": {},
+        "description": "Construct a type with a set of properties K of type T",
+        "additionalProperties": {}
+      },
+      "Block": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "description": "The type of block."
+          },
+          "block_id": {
+            "type": "string",
+            "description": "A string acting as a unique identifier for a block. If not specified, a `block_id` will be generated.\nYou can use this `block_id` when you receive an interaction payload to\n"
+          }
+        },
+        "required": [
+          "type"
+        ]
+      },
+      "typeimagealt_textstringtitlePlainTextElementundefinedBlockUrlImageObject": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "const": "image",
+            "description": "The type of block. For an image block, `type` is always `image`."
+          },
+          "alt_text": {
+            "type": "string",
+            "description": "A plain-text summary of the image. This should not contain any markup.\nMaximum length for this field is 2000 characters."
+          },
+          "title": {
+            "$ref": "#/components/schemas/PlainTextElement",
+            "description": "An optional title for the image in the form of a "
+          },
+          "block_id": {
+            "type": "string",
+            "description": "A string acting as a unique identifier for a block. If not specified, a `block_id` will be generated.\nYou can use this `block_id` when you receive an interaction payload to\n"
+          },
+          "image_url": {
+            "type": "string",
+            "description": "The URL of the image to be displayed."
+          }
+        },
+        "required": [
+          "type",
+          "alt_text",
+          "image_url"
+        ]
+      },
+      "PlainTextElement": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "const": "plain_text",
+            "description": "The formatting to use for this text object."
+          },
+          "text": {
+            "type": "string",
+            "description": "The text for the block. The minimum length is 1 and maximum length is 3000 characters."
+          },
+          "emoji": {
+            "type": "boolean",
+            "description": "Indicates whether emojis in a text field should be escaped into the colon emoji format."
+          }
+        },
+        "required": [
+          "type",
+          "text"
+        ],
+        "description": "Defines an object containing some text."
+      },
+      "typeimagealt_textstringtitlePlainTextElementundefinedBlockSlackFileImageObject": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "const": "image",
+            "description": "The type of block. For an image block, `type` is always `image`."
+          },
+          "alt_text": {
+            "type": "string",
+            "description": "A plain-text summary of the image. This should not contain any markup.\nMaximum length for this field is 2000 characters."
+          },
+          "title": {
+            "$ref": "#/components/schemas/PlainTextElement",
+            "description": "An optional title for the image in the form of a "
+          },
+          "block_id": {
+            "type": "string",
+            "description": "A string acting as a unique identifier for a block. If not specified, a `block_id` will be generated.\nYou can use this `block_id` when you receive an interaction payload to\n"
+          },
+          "slack_file": {
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/SlackFileViaUrl"
+              },
+              {
+                "$ref": "#/components/schemas/SlackFileViaId"
+              }
+            ],
+            "description": "The slack file of the image to be displayed."
+          }
+        },
+        "required": [
+          "type",
+          "alt_text",
+          "slack_file"
+        ]
+      },
+      "SlackFileViaUrl": {
+        "type": "object",
+        "properties": {
+          "url": {
+            "type": "string",
+            "description": "This URL can be the `url_private` or the `permalink` of the "
+          }
+        },
+        "required": [
+          "url"
+        ]
+      },
+      "SlackFileViaId": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "`id` of the "
+          }
+        },
+        "required": [
+          "id"
+        ]
+      },
+      "ContextBlock": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "const": "context",
+            "description": "The type of block. For a context block, `type` is always `context`."
+          },
+          "elements": {
+            "type": "array",
+            "items": {
+              "oneOf": [
+                {
+                  "$ref": "#/components/schemas/typeimagealt_textstringUrlImageObject"
+                },
+                {
+                  "$ref": "#/components/schemas/typeimagealt_textstringSlackFileImageObject"
+                },
+                {
+                  "$ref": "#/components/schemas/PlainTextElement"
+                },
+                {
+                  "$ref": "#/components/schemas/MrkdwnElement"
+                }
+              ]
+            },
+            "description": "An array of "
+          },
+          "block_id": {
+            "type": "string",
+            "description": "A string acting as a unique identifier for a block. If not specified, a `block_id` will be generated.\nYou can use this `block_id` when you receive an interaction payload to\n"
+          }
+        },
+        "required": [
+          "type",
+          "elements"
+        ],
+        "description": "Displays contextual info, which can include both images and text."
+      },
+      "typeimagealt_textstringUrlImageObject": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "const": "image",
+            "description": "The type of element. In this case `type` is always `image`."
+          },
+          "alt_text": {
+            "type": "string",
+            "description": "A plain-text summary of the image. This should not contain any markup."
+          },
+          "image_url": {
+            "type": "string",
+            "description": "The URL of the image to be displayed."
+          }
+        },
+        "required": [
+          "type",
+          "alt_text",
+          "image_url"
+        ]
+      },
+      "typeimagealt_textstringSlackFileImageObject": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "const": "image",
+            "description": "The type of element. In this case `type` is always `image`."
+          },
+          "alt_text": {
+            "type": "string",
+            "description": "A plain-text summary of the image. This should not contain any markup."
+          },
+          "slack_file": {
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/SlackFileViaUrl"
+              },
+              {
+                "$ref": "#/components/schemas/SlackFileViaId"
+              }
+            ],
+            "description": "The slack file of the image to be displayed."
+          }
+        },
+        "required": [
+          "type",
+          "alt_text",
+          "slack_file"
+        ]
+      },
+      "MrkdwnElement": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "const": "mrkdwn",
+            "description": "The formatting to use for this text object."
+          },
+          "text": {
+            "type": "string",
+            "description": "The text for the block. This field accepts any of the standard text formatting markup.\nThe minimum length is 1 and maximum length is 3000 characters."
+          },
+          "verbatim": {
+            "type": "boolean",
+            "description": "When set to `false` (as is default) URLs will be auto-converted into links, conversation names will\nbe link-ified, and certain mentions will be "
+          }
+        },
+        "required": [
+          "type",
+          "text"
+        ],
+        "description": "Defines an object containing some text."
+      },
+      "ActionsBlock": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "const": "actions",
+            "description": "The type of block. For an actions block, `type` is always `actions`."
+          },
+          "elements": {
+            "type": "array",
+            "items": {
+              "oneOf": [
+                {
+                  "$ref": "#/components/schemas/Button"
+                },
+                {
+                  "$ref": "#/components/schemas/Checkboxes"
+                },
+                {
+                  "$ref": "#/components/schemas/Datepicker"
+                },
+                {
+                  "$ref": "#/components/schemas/DateTimepicker"
+                },
+                {
+                  "$ref": "#/components/schemas/MultiUsersSelect"
+                },
+                {
+                  "$ref": "#/components/schemas/MultiStaticSelect"
+                },
+                {
+                  "$ref": "#/components/schemas/MultiConversationsSelect"
+                },
+                {
+                  "$ref": "#/components/schemas/MultiChannelsSelect"
+                },
+                {
+                  "$ref": "#/components/schemas/MultiExternalSelect"
+                },
+                {
+                  "$ref": "#/components/schemas/Overflow"
+                },
+                {
+                  "$ref": "#/components/schemas/RadioButtons"
+                },
+                {
+                  "$ref": "#/components/schemas/UsersSelect"
+                },
+                {
+                  "$ref": "#/components/schemas/StaticSelect"
+                },
+                {
+                  "$ref": "#/components/schemas/ConversationsSelect"
+                },
+                {
+                  "$ref": "#/components/schemas/ChannelsSelect"
+                },
+                {
+                  "$ref": "#/components/schemas/ExternalSelect"
+                },
+                {
+                  "$ref": "#/components/schemas/Timepicker"
+                },
+                {
+                  "$ref": "#/components/schemas/WorkflowButton"
+                },
+                {
+                  "$ref": "#/components/schemas/RichTextInput"
+                }
+              ],
+              "discriminator": {
+                "propertyName": "type",
+                "mapping": {
+                  "button": "#/components/schemas/Button",
+                  "checkboxes": "#/components/schemas/Checkboxes",
+                  "datepicker": "#/components/schemas/Datepicker",
+                  "datetimepicker": "#/components/schemas/DateTimepicker",
+                  "multi_users_select": "#/components/schemas/MultiUsersSelect",
+                  "multi_static_select": "#/components/schemas/MultiStaticSelect",
+                  "multi_conversations_select": "#/components/schemas/MultiConversationsSelect",
+                  "multi_channels_select": "#/components/schemas/MultiChannelsSelect",
+                  "multi_external_select": "#/components/schemas/MultiExternalSelect",
+                  "overflow": "#/components/schemas/Overflow",
+                  "radio_buttons": "#/components/schemas/RadioButtons",
+                  "users_select": "#/components/schemas/UsersSelect",
+                  "static_select": "#/components/schemas/StaticSelect",
+                  "conversations_select": "#/components/schemas/ConversationsSelect",
+                  "channels_select": "#/components/schemas/ChannelsSelect",
+                  "external_select": "#/components/schemas/ExternalSelect",
+                  "timepicker": "#/components/schemas/Timepicker",
+                  "workflow_button": "#/components/schemas/WorkflowButton",
+                  "rich_text_input": "#/components/schemas/RichTextInput"
+                }
+              }
+            },
+            "description": "An array of "
+          },
+          "block_id": {
+            "type": "string",
+            "description": "A string acting as a unique identifier for a block. If not specified, a `block_id` will be generated.\nYou can use this `block_id` when you receive an interaction payload to\n"
+          }
+        },
+        "required": [
+          "type",
+          "elements"
+        ],
+        "description": "Holds multiple interactive elements."
+      },
+      "Button": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "const": "button",
+            "description": "The type of element. In this case `type` is always `button`."
+          },
+          "text": {
+            "$ref": "#/components/schemas/PlainTextElement",
+            "description": "A "
+          },
+          "value": {
+            "type": "string",
+            "description": "The value to send along with the "
+          },
+          "url": {
+            "type": "string",
+            "description": "A URL to load in the user's browser when the button is clicked. Maximum length for this field is 3000\ncharacters. If you're using `url`, you'll still receive an "
+          },
+          "style": {
+            "oneOf": [
+              {
+                "const": "primary"
+              },
+              {
+                "const": "danger"
+              }
+            ],
+            "description": "Decorates buttons with alternative visual color schemes. Use this option with restraint.\n`primary` gives buttons a green outline and text, ideal for affirmation or confirmation actions. `primary` should\nonly be used for one button within a set.\n`danger` gives buttons a red outline and text, and should be used when the action is destructive. Use `danger` even\nmore sparingly than primary.\nIf you don't include this field, the default button style will be used."
+          },
+          "accessibility_label": {
+            "type": "string",
+            "description": "A label for longer descriptive text about a button element. This label will be read out by screen\nreaders instead of the button `text` object. Maximum length for this field is 75 characters."
+          },
+          "action_id": {
+            "type": "string",
+            "description": ": An identifier for this action. You can use this when you receive an interaction payload to\n"
+          },
+          "confirm": {
+            "$ref": "#/components/schemas/ConfirmationDialog",
+            "description": "A "
+          }
+        },
+        "required": [
+          "type",
+          "text"
+        ],
+        "description": "Allows users a direct path to performing basic actions."
+      },
+      "ConfirmationDialog": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "$ref": "#/components/schemas/PlainTextElement",
+            "description": "A "
+          },
+          "text": {
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/PlainTextElement"
+              },
+              {
+                "$ref": "#/components/schemas/MrkdwnElement"
+              }
+            ],
+            "discriminator": {
+              "propertyName": "type",
+              "mapping": {
+                "plain_text": "#/components/schemas/PlainTextElement",
+                "mrkdwn": "#/components/schemas/MrkdwnElement"
+              }
+            },
+            "description": "A "
+          },
+          "confirm": {
+            "$ref": "#/components/schemas/PlainTextElement",
+            "description": "A "
+          },
+          "deny": {
+            "$ref": "#/components/schemas/PlainTextElement",
+            "description": "A "
+          },
+          "style": {
+            "oneOf": [
+              {
+                "const": "primary"
+              },
+              {
+                "const": "danger"
+              }
+            ],
+            "description": "Defines the color scheme applied to the `confirm` button. A value of `danger` will display the button\nwith a red background on desktop, or red text on mobile. A value of `primary` will display the button with a green\nbackground on desktop, or blue text on mobile. If this field is not provided, the default value will be `primary`."
+          }
+        },
+        "required": [
+          "text"
+        ],
+        "description": "Defines a dialog that adds a confirmation step to interactive elements."
+      },
+      "Checkboxes": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "const": "checkboxes",
+            "description": "The type of element. In this case `type` is always `checkboxes`."
+          },
+          "initial_options": {
+            "type": "array",
+            "items": {
+              "oneOf": [
+                {
+                  "$ref": "#/components/schemas/MrkdwnOption"
+                },
+                {
+                  "$ref": "#/components/schemas/PlainTextOption"
+                }
+              ]
+            },
+            "description": "An array of "
+          },
+          "options": {
+            "type": "array",
+            "items": {
+              "oneOf": [
+                {
+                  "$ref": "#/components/schemas/MrkdwnOption"
+                },
+                {
+                  "$ref": "#/components/schemas/PlainTextOption"
+                }
+              ]
+            },
+            "description": "An array of "
+          },
+          "action_id": {
+            "type": "string",
+            "description": ": An identifier for this action. You can use this when you receive an interaction payload to\n"
+          },
+          "confirm": {
+            "$ref": "#/components/schemas/ConfirmationDialog",
+            "description": "A "
+          },
+          "focus_on_load": {
+            "type": "boolean",
+            "description": "Indicates whether the element will be set to auto focus within the\n"
+          }
+        },
+        "required": [
+          "type",
+          "options"
+        ],
+        "description": "Allows users to choose multiple items from a list of options."
+      },
+      "MrkdwnOption": {
+        "type": "object",
+        "properties": {
+          "text": {
+            "$ref": "#/components/schemas/MrkdwnElement",
+            "description": "A "
+          },
+          "value": {
+            "type": "string",
+            "description": "A unique string value that will be passed to your app when this option is chosen.\nMaximum length for this field is 75 characters."
+          },
+          "url": {
+            "type": "string",
+            "description": "Only available in overflow menus! A URL to load in the user's browser when the option is clicked.\nMaximum length for this field is 3000 characters."
+          },
+          "description": {
+            "$ref": "#/components/schemas/PlainTextElement",
+            "description": "A "
+          }
+        },
+        "required": [
+          "text"
+        ]
+      },
+      "PlainTextOption": {
+        "type": "object",
+        "properties": {
+          "text": {
+            "$ref": "#/components/schemas/PlainTextElement",
+            "description": "A "
+          },
+          "value": {
+            "type": "string",
+            "description": "A unique string value that will be passed to your app when this option is chosen.\nMaximum length for this field is 75 characters."
+          },
+          "url": {
+            "type": "string",
+            "description": "Only available in overflow menus! A URL to load in the user's browser when the option is clicked.\nMaximum length for this field is 3000 characters."
+          },
+          "description": {
+            "$ref": "#/components/schemas/PlainTextElement",
+            "description": "A "
+          }
+        },
+        "required": [
+          "text"
+        ]
+      },
+      "Datepicker": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "const": "datepicker",
+            "description": "The type of element. In this case `type` is always `datepicker`."
+          },
+          "initial_date": {
+            "type": "string",
+            "description": "The initial date that is selected when the element is loaded.\nThis should be in the format `YYYY-MM-DD`."
+          },
+          "action_id": {
+            "type": "string",
+            "description": ": An identifier for this action. You can use this when you receive an interaction payload to\n"
+          },
+          "confirm": {
+            "$ref": "#/components/schemas/ConfirmationDialog",
+            "description": "A "
+          },
+          "focus_on_load": {
+            "type": "boolean",
+            "description": "Indicates whether the element will be set to auto focus within the\n"
+          },
+          "placeholder": {
+            "$ref": "#/components/schemas/PlainTextElement",
+            "description": "A "
+          }
+        },
+        "required": [
+          "type"
+        ],
+        "description": "Allows users to select a date from a calendar style UI."
+      },
+      "DateTimepicker": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "const": "datetimepicker",
+            "description": "The type of element. In this case `type` is always `datetimepicker`."
+          },
+          "initial_date_time": {
+            "type": "number",
+            "description": "The initial date and time that is selected when the element is loaded, represented as a UNIX\ntimestamp in seconds. This should be in the format of 10 digits, for example `1628633820` represents the date and\ntime August 10th, 2021 at 03:17pm PST."
+          },
+          "action_id": {
+            "type": "string",
+            "description": ": An identifier for this action. You can use this when you receive an interaction payload to\n"
+          },
+          "confirm": {
+            "$ref": "#/components/schemas/ConfirmationDialog",
+            "description": "A "
+          },
+          "focus_on_load": {
+            "type": "boolean",
+            "description": "Indicates whether the element will be set to auto focus within the\n"
+          }
+        },
+        "required": [
+          "type"
+        ],
+        "description": "Allows users to select both a date and a time of day, formatted as a Unix timestamp. On desktop\nclients, this time picker will take the form of a dropdown list and the date picker will take the form of a dropdown\ncalendar. Both options will have free-text entry for precise choices. On mobile clients, the time picker and date\npicker will use native UIs."
+      },
+      "MultiUsersSelect": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "const": "multi_users_select",
+            "description": "The type of element. In this case `type` is always `multi_users_select`."
+          },
+          "initial_users": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "An array of user IDs of any valid users to be pre-selected when the menu loads."
+          },
+          "action_id": {
+            "type": "string",
+            "description": ": An identifier for this action. You can use this when you receive an interaction payload to\n"
+          },
+          "confirm": {
+            "$ref": "#/components/schemas/ConfirmationDialog",
+            "description": "A "
+          },
+          "focus_on_load": {
+            "type": "boolean",
+            "description": "Indicates whether the element will be set to auto focus within the\n"
+          },
+          "max_selected_items": {
+            "type": "number",
+            "description": "Specifies the maximum number of items that can be selected. Minimum number is 1."
+          },
+          "placeholder": {
+            "$ref": "#/components/schemas/PlainTextElement",
+            "description": "A "
+          }
+        },
+        "required": [
+          "type"
+        ],
+        "description": "This multi-select menu will populate its options with a list of Slack users visible to the current user\nin the active workspace."
+      },
+      "MultiStaticSelect": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "const": "multi_static_select",
+            "description": "The type of element. In this case `type` is always `multi_static_select`."
+          },
+          "initial_options": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PlainTextOption"
+            },
+            "description": "An array of option objects that exactly match one or more of the options within `options` or\n`option_groups`. These options will be selected when the menu initially loads."
+          },
+          "options": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PlainTextOption"
+            },
+            "description": "An array of "
+          },
+          "option_groups": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "label": {
+                  "$ref": "#/components/schemas/PlainTextElement"
+                },
+                "options": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/PlainTextOption"
+                  }
+                }
+              },
+              "required": [
+                "label",
+                "options"
+              ]
+            },
+            "description": "An array of option group objects. Maximum number of option groups is 100. If `options` is specified,\nthis field should not be."
+          },
+          "action_id": {
+            "type": "string",
+            "description": ": An identifier for this action. You can use this when you receive an interaction payload to\n"
+          },
+          "confirm": {
+            "$ref": "#/components/schemas/ConfirmationDialog",
+            "description": "A "
+          },
+          "focus_on_load": {
+            "type": "boolean",
+            "description": "Indicates whether the element will be set to auto focus within the\n"
+          },
+          "max_selected_items": {
+            "type": "number",
+            "description": "Specifies the maximum number of items that can be selected. Minimum number is 1."
+          },
+          "placeholder": {
+            "$ref": "#/components/schemas/PlainTextElement",
+            "description": "A "
+          }
+        },
+        "required": [
+          "type"
+        ],
+        "description": "This is the simplest form of select menu, with a static list of options passed in when defining the\nelement."
+      },
+      "MultiConversationsSelect": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "const": "multi_conversations_select",
+            "description": "The type of element. In this case `type` is always `conversations_select`."
+          },
+          "initial_conversations": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "An array of one or more IDs of any valid conversations to be pre-selected when the menu loads. If\n`default_to_current_conversation` is also supplied, `initial_conversation` will be ignored."
+          },
+          "default_to_current_conversation": {
+            "type": "boolean",
+            "description": "Pre-populates the select menu with the conversation that the user was viewing when they opened the\nmodal, if available. Default is `false`."
+          },
+          "filter": {
+            "type": "object",
+            "properties": {
+              "include": {
+                "type": "array",
+                "items": {
+                  "oneOf": [
+                    {
+                      "const": "public"
+                    },
+                    {
+                      "const": "private"
+                    },
+                    {
+                      "const": "im"
+                    },
+                    {
+                      "const": "mpim"
+                    }
+                  ]
+                }
+              },
+              "exclude_external_shared_channels": {
+                "type": "boolean"
+              },
+              "exclude_bot_users": {
+                "type": "boolean"
+              }
+            },
+            "description": "A filter object that reduces the list of available conversations using the specified criteria."
+          },
+          "action_id": {
+            "type": "string",
+            "description": ": An identifier for this action. You can use this when you receive an interaction payload to\n"
+          },
+          "confirm": {
+            "$ref": "#/components/schemas/ConfirmationDialog",
+            "description": "A "
+          },
+          "focus_on_load": {
+            "type": "boolean",
+            "description": "Indicates whether the element will be set to auto focus within the\n"
+          },
+          "max_selected_items": {
+            "type": "number",
+            "description": "Specifies the maximum number of items that can be selected. Minimum number is 1."
+          },
+          "placeholder": {
+            "$ref": "#/components/schemas/PlainTextElement",
+            "description": "A "
+          }
+        },
+        "required": [
+          "type"
+        ],
+        "description": "This multi-select menu will populate its options with a list of public and private channels, DMs, and\nMPIMs visible to the current user in the active workspace."
+      },
+      "MultiChannelsSelect": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "const": "multi_channels_select",
+            "description": "The type of element. In this case `type` is always `multi_channels_select`."
+          },
+          "initial_channels": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "An array of one or more IDs of any valid public channel to be pre-selected when the menu loads."
+          },
+          "action_id": {
+            "type": "string",
+            "description": ": An identifier for this action. You can use this when you receive an interaction payload to\n"
+          },
+          "confirm": {
+            "$ref": "#/components/schemas/ConfirmationDialog",
+            "description": "A "
+          },
+          "focus_on_load": {
+            "type": "boolean",
+            "description": "Indicates whether the element will be set to auto focus within the\n"
+          },
+          "max_selected_items": {
+            "type": "number",
+            "description": "Specifies the maximum number of items that can be selected. Minimum number is 1."
+          },
+          "placeholder": {
+            "$ref": "#/components/schemas/PlainTextElement",
+            "description": "A "
+          }
+        },
+        "required": [
+          "type"
+        ],
+        "description": "This multi-select menu will populate its options with a list of public channels visible to the current\nuser in the active workspace."
+      },
+      "MultiExternalSelect": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "const": "multi_external_select",
+            "description": "The type of element. In this case `type` is always `multi_external_select`."
+          },
+          "initial_options": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PlainTextOption"
+            },
+            "description": "An array of options to be selected when the menu initially loads."
+          },
+          "min_query_length": {
+            "type": "number",
+            "description": "When the typeahead field is used, a request will be sent on every character change. If you prefer\nfewer requests or more fully ideated queries, use the `min_query_length` attribute to tell Slack the fewest number\nof typed characters required before dispatch. The default value is `3`."
+          },
+          "action_id": {
+            "type": "string",
+            "description": ": An identifier for this action. You can use this when you receive an interaction payload to\n"
+          },
+          "confirm": {
+            "$ref": "#/components/schemas/ConfirmationDialog",
+            "description": "A "
+          },
+          "focus_on_load": {
+            "type": "boolean",
+            "description": "Indicates whether the element will be set to auto focus within the\n"
+          },
+          "max_selected_items": {
+            "type": "number",
+            "description": "Specifies the maximum number of items that can be selected. Minimum number is 1."
+          },
+          "placeholder": {
+            "$ref": "#/components/schemas/PlainTextElement",
+            "description": "A "
+          }
+        },
+        "required": [
+          "type"
+        ],
+        "description": "This menu will load its options from an external data source, allowing for a dynamic list of options."
+      },
+      "Overflow": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "const": "overflow",
+            "description": "The type of element. In this case `type` is always `number_input`."
+          },
+          "options": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PlainTextOption"
+            },
+            "description": "An array of up to 5 "
+          },
+          "action_id": {
+            "type": "string",
+            "description": ": An identifier for this action. You can use this when you receive an interaction payload to\n"
+          },
+          "confirm": {
+            "$ref": "#/components/schemas/ConfirmationDialog",
+            "description": "A "
+          }
+        },
+        "required": [
+          "type",
+          "options"
+        ],
+        "description": "Allows users to press a button to view a list of options.\nUnlike the select menu, there is no typeahead field, and the button always appears with an ellipsis ('…') rather\nthan customizable text. As such, it is usually used if you want a more compact layout than a select menu, or to\nsupply a list of less visually important actions after a row of buttons. You can also specify simple URL links as\noverflow menu options, instead of actions."
+      },
+      "RadioButtons": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "const": "radio_buttons",
+            "description": "The type of element. In this case `type` is always `radio_buttons`."
+          },
+          "initial_option": {
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/MrkdwnOption"
+              },
+              {
+                "$ref": "#/components/schemas/PlainTextOption"
+              }
+            ],
+            "description": "An "
+          },
+          "options": {
+            "type": "array",
+            "items": {
+              "oneOf": [
+                {
+                  "$ref": "#/components/schemas/MrkdwnOption"
+                },
+                {
+                  "$ref": "#/components/schemas/PlainTextOption"
+                }
+              ]
+            },
+            "description": "An array of "
+          },
+          "action_id": {
+            "type": "string",
+            "description": ": An identifier for this action. You can use this when you receive an interaction payload to\n"
+          },
+          "confirm": {
+            "$ref": "#/components/schemas/ConfirmationDialog",
+            "description": "A "
+          },
+          "focus_on_load": {
+            "type": "boolean",
+            "description": "Indicates whether the element will be set to auto focus within the\n"
+          }
+        },
+        "required": [
+          "type",
+          "options"
+        ],
+        "description": "Allows users to choose one item from a list of possible options."
+      },
+      "UsersSelect": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "const": "users_select",
+            "description": "The type of element. In this case `type` is always `users_select`."
+          },
+          "initial_user": {
+            "type": "string",
+            "description": "The user ID of any valid user to be pre-selected when the menu loads."
+          },
+          "action_id": {
+            "type": "string",
+            "description": ": An identifier for this action. You can use this when you receive an interaction payload to\n"
+          },
+          "confirm": {
+            "$ref": "#/components/schemas/ConfirmationDialog",
+            "description": "A "
+          },
+          "focus_on_load": {
+            "type": "boolean",
+            "description": "Indicates whether the element will be set to auto focus within the\n"
+          },
+          "placeholder": {
+            "$ref": "#/components/schemas/PlainTextElement",
+            "description": "A "
+          }
+        },
+        "required": [
+          "type"
+        ],
+        "description": "This select menu will populate its options with a list of Slack users visible to the current user in the\nactive workspace."
+      },
+      "StaticSelect": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "const": "static_select",
+            "description": "The type of element. In this case `type` is always `static_select`."
+          },
+          "initial_option": {
+            "$ref": "#/components/schemas/PlainTextOption",
+            "description": "A single option that exactly matches one of the options within `options` or `option_groups`.\nThis option will be selected when the menu initially loads."
+          },
+          "options": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PlainTextOption"
+            },
+            "description": "An array of "
+          },
+          "option_groups": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "label": {
+                  "$ref": "#/components/schemas/PlainTextElement"
+                },
+                "options": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/PlainTextOption"
+                  }
+                }
+              },
+              "required": [
+                "label",
+                "options"
+              ]
+            },
+            "description": "An array of option group objects. Maximum number of option groups is 100. If `options` is specified,\nthis field should not be."
+          },
+          "action_id": {
+            "type": "string",
+            "description": ": An identifier for this action. You can use this when you receive an interaction payload to\n"
+          },
+          "confirm": {
+            "$ref": "#/components/schemas/ConfirmationDialog",
+            "description": "A "
+          },
+          "focus_on_load": {
+            "type": "boolean",
+            "description": "Indicates whether the element will be set to auto focus within the\n"
+          },
+          "placeholder": {
+            "$ref": "#/components/schemas/PlainTextElement",
+            "description": "A "
+          }
+        },
+        "required": [
+          "type"
+        ],
+        "description": "This is the simplest form of select menu, with a static list of options passed in when defining the\nelement."
+      },
+      "ConversationsSelect": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "const": "conversations_select",
+            "description": "The type of element. In this case `type` is always `conversations_select`."
+          },
+          "initial_conversation": {
+            "type": "string",
+            "description": "The ID of any valid conversation to be pre-selected when the menu loads. If\n`default_to_current_conversation` is also supplied, `initial_conversation` will take precedence."
+          },
+          "default_to_current_conversation": {
+            "type": "boolean",
+            "description": "Pre-populates the select menu with the conversation that the user was viewing when they opened the\nmodal, if available. Default is `false`."
+          },
+          "filter": {
+            "type": "object",
+            "properties": {
+              "include": {
+                "type": "array",
+                "items": {
+                  "oneOf": [
+                    {
+                      "const": "public"
+                    },
+                    {
+                      "const": "private"
+                    },
+                    {
+                      "const": "im"
+                    },
+                    {
+                      "const": "mpim"
+                    }
+                  ]
+                }
+              },
+              "exclude_external_shared_channels": {
+                "type": "boolean"
+              },
+              "exclude_bot_users": {
+                "type": "boolean"
+              }
+            },
+            "description": "A filter object that reduces the list of available conversations using the specified criteria."
+          },
+          "action_id": {
+            "type": "string",
+            "description": ": An identifier for this action. You can use this when you receive an interaction payload to\n"
+          },
+          "confirm": {
+            "$ref": "#/components/schemas/ConfirmationDialog",
+            "description": "A "
+          },
+          "focus_on_load": {
+            "type": "boolean",
+            "description": "Indicates whether the element will be set to auto focus within the\n"
+          },
+          "placeholder": {
+            "$ref": "#/components/schemas/PlainTextElement",
+            "description": "A "
+          },
+          "response_url_enabled": {
+            "type": "boolean",
+            "description": "When set to `true`, the "
+          }
+        },
+        "required": [
+          "type"
+        ],
+        "description": "This select menu will populate its options with a list of public and private channels, DMs, and MPIMs\nvisible to the current user in the active workspace."
+      },
+      "ChannelsSelect": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "const": "channels_select",
+            "description": "The type of element. In this case `type` is always `channels_select`."
+          },
+          "initial_channel": {
+            "type": "string",
+            "description": "The ID of any valid public channel to be pre-selected when the menu loads."
+          },
+          "action_id": {
+            "type": "string",
+            "description": ": An identifier for this action. You can use this when you receive an interaction payload to\n"
+          },
+          "confirm": {
+            "$ref": "#/components/schemas/ConfirmationDialog",
+            "description": "A "
+          },
+          "focus_on_load": {
+            "type": "boolean",
+            "description": "Indicates whether the element will be set to auto focus within the\n"
+          },
+          "placeholder": {
+            "$ref": "#/components/schemas/PlainTextElement",
+            "description": "A "
+          },
+          "response_url_enabled": {
+            "type": "boolean",
+            "description": "When set to `true`, the "
+          }
+        },
+        "required": [
+          "type"
+        ],
+        "description": "This select menu will populate its options with a list of public channels visible to the current user\nin the active workspace."
+      },
+      "ExternalSelect": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "const": "external_select",
+            "description": "The type of element. In this case `type` is always `external_select`."
+          },
+          "initial_option": {
+            "$ref": "#/components/schemas/PlainTextOption",
+            "description": "A single option to be selected when the menu initially loads."
+          },
+          "min_query_length": {
+            "type": "number",
+            "description": "When the typeahead field is used, a request will be sent on every character change. If you prefer\nfewer requests or more fully ideated queries, use the `min_query_length` attribute to tell Slack the fewest number\nof typed characters required before dispatch. The default value is `3`."
+          },
+          "action_id": {
+            "type": "string",
+            "description": ": An identifier for this action. You can use this when you receive an interaction payload to\n"
+          },
+          "confirm": {
+            "$ref": "#/components/schemas/ConfirmationDialog",
+            "description": "A "
+          },
+          "focus_on_load": {
+            "type": "boolean",
+            "description": "Indicates whether the element will be set to auto focus within the\n"
+          },
+          "placeholder": {
+            "$ref": "#/components/schemas/PlainTextElement",
+            "description": "A "
+          }
+        },
+        "required": [
+          "type"
+        ],
+        "description": "This select menu will load its options from an external data source, allowing for a dynamic list of\noptions."
+      },
+      "Timepicker": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "const": "timepicker",
+            "description": "The type of element. In this case `type` is always `timepicker`."
+          },
+          "initial_time": {
+            "type": "string",
+            "description": "The initial time that is selected when the element is loaded. This should be in the format `HH:mm`,\nwhere `HH` is the 24-hour format of an hour (00 to 23) and `mm` is minutes with leading zeros (00 to 59),\nfor example 22:25 for 10:25pm."
+          },
+          "timezone": {
+            "type": "string",
+            "description": "A string in the IANA format, e.g. 'America/Chicago'. The timezone is displayed to end users as hint\ntext underneath the time picker. It is also passed to the app upon certain interactions, such as view_submission."
+          },
+          "action_id": {
+            "type": "string",
+            "description": ": An identifier for this action. You can use this when you receive an interaction payload to\n"
+          },
+          "confirm": {
+            "$ref": "#/components/schemas/ConfirmationDialog",
+            "description": "A "
+          },
+          "focus_on_load": {
+            "type": "boolean",
+            "description": "Indicates whether the element will be set to auto focus within the\n"
+          },
+          "placeholder": {
+            "$ref": "#/components/schemas/PlainTextElement",
+            "description": "A "
+          }
+        },
+        "required": [
+          "type"
+        ],
+        "description": "Allows users to choose a time from a rich dropdown UI. On desktop clients, this time picker will take\nthe form of a dropdown list with free-text entry for precise choices. On mobile clients, the time picker will use\nnative time picker UIs."
+      },
+      "WorkflowButton": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "const": "workflow_button",
+            "description": "The type of element. In this case `type` is always `workflow_button`."
+          },
+          "text": {
+            "$ref": "#/components/schemas/PlainTextElement",
+            "description": "A "
+          },
+          "workflow": {
+            "type": "object",
+            "properties": {
+              "trigger": {
+                "type": "object",
+                "properties": {
+                  "url": {
+                    "type": "string",
+                    "description": "The trigger URL of the "
+                  },
+                  "customizable_input_parameters": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "name": {
+                          "type": "string",
+                          "description": "Name of the customizable input, which should be the name of a workflow input parameter for the\nmatching workflow of the link trigger."
+                        },
+                        "value": {
+                          "type": "string",
+                          "description": "The value of the customizable input parameter. The type of the value is expected to match the\nspecified type for the matching workflow input parameter."
+                        }
+                      },
+                      "required": [
+                        "name",
+                        "value"
+                      ]
+                    },
+                    "description": "List of customizable input parameters and their values. Should match input parameters specified on\nthe provided trigger."
+                  }
+                },
+                "required": [
+                  "url"
+                ],
+                "description": "Properties of the "
+              }
+            },
+            "required": [
+              "trigger"
+            ],
+            "description": "A workflow object that contains details about the workflow that will run when the button is clicked."
+          },
+          "style": {
+            "oneOf": [
+              {
+                "const": "primary"
+              },
+              {
+                "const": "danger"
+              }
+            ],
+            "description": "Decorates buttons with alternative visual color schemes. Use this option with restraint.\n`primary` gives buttons a green outline and text, ideal for affirmation or confirmation actions. `primary` should\nonly be used for one button within a set.\n`danger` gives buttons a red outline and text, and should be used when the action is destructive. Use `danger` even\nmore sparingly than primary.\nIf you don't include this field, the default button style will be used."
+          },
+          "accessibility_label": {
+            "type": "string",
+            "description": "A label for longer descriptive text about a button element. This label will be read out by screen\nreaders instead of the button `text` object. Maximum length for this field is 75 characters."
+          },
+          "confirm": {
+            "$ref": "#/components/schemas/ConfirmationDialog",
+            "description": "A "
+          }
+        },
+        "required": [
+          "type",
+          "text",
+          "workflow"
+        ],
+        "description": "Allows users to run a "
+      },
+      "RichTextInput": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "const": "rich_text_input",
+            "description": "The type of element. In this case `type` is always `rich_text_input`."
+          },
+          "initial_value": {
+            "$ref": "#/components/schemas/RichTextBlock",
+            "description": "Initial contents of the input when it is loaded."
+          },
+          "action_id": {
+            "type": "string",
+            "description": ": An identifier for this action. You can use this when you receive an interaction payload to\n"
+          },
+          "dispatch_action_config": {
+            "$ref": "#/components/schemas/DispatchActionConfig",
+            "description": "A "
+          },
+          "focus_on_load": {
+            "type": "boolean",
+            "description": "Indicates whether the element will be set to auto focus within the\n"
+          },
+          "placeholder": {
+            "$ref": "#/components/schemas/PlainTextElement",
+            "description": "A "
+          }
+        },
+        "required": [
+          "type"
+        ],
+        "description": "A rich text input creates a composer/WYSIWYG editor for entering formatted text, offering nearly the\nsame experience you have writing messages in Slack."
+      },
+      "RichTextBlock": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "const": "rich_text",
+            "description": "The type of block. For a rich text block, `type` is always `rich_text`."
+          },
+          "elements": {
+            "type": "array",
+            "items": {
+              "oneOf": [
+                {
+                  "$ref": "#/components/schemas/RichTextSection"
+                },
+                {
+                  "$ref": "#/components/schemas/RichTextList"
+                },
+                {
+                  "$ref": "#/components/schemas/RichTextQuote"
+                },
+                {
+                  "$ref": "#/components/schemas/RichTextPreformatted"
+                }
+              ],
+              "discriminator": {
+                "propertyName": "type",
+                "mapping": {
+                  "rich_text_section": "#/components/schemas/RichTextSection",
+                  "rich_text_list": "#/components/schemas/RichTextList",
+                  "rich_text_quote": "#/components/schemas/RichTextQuote",
+                  "rich_text_preformatted": "#/components/schemas/RichTextPreformatted"
+                }
+              }
+            }
+          },
+          "block_id": {
+            "type": "string",
+            "description": "A string acting as a unique identifier for a block. If not specified, a `block_id` will be generated.\nYou can use this `block_id` when you receive an interaction payload to\n"
+          }
+        },
+        "required": [
+          "type",
+          "elements"
+        ],
+        "description": "Displays formatted, structured representation of text. It is also the output of the Slack client's\nWYSIWYG message composer, so all messages sent by end-users will have this format. Use this block to include\nuser-defined formatted text in your Block Kit payload. While it is possible to format text with `mrkdwn`,\n`rich_text` is strongly preferred and allows greater flexibility.\nYou might encounter a `rich_text` block in a message payload, as a built-in type in workflow apps, or as output of\nthe "
+      },
+      "RichTextSection": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "const": "rich_text_section",
+            "description": "The type of element. In this case `type` is always `rich_text_section`."
+          },
+          "elements": {
+            "type": "array",
+            "items": {
+              "oneOf": [
+                {
+                  "$ref": "#/components/schemas/RichTextBroadcastMention"
+                },
+                {
+                  "$ref": "#/components/schemas/RichTextColor"
+                },
+                {
+                  "$ref": "#/components/schemas/RichTextChannelMention"
+                },
+                {
+                  "$ref": "#/components/schemas/RichTextDate"
+                },
+                {
+                  "$ref": "#/components/schemas/RichTextEmoji"
+                },
+                {
+                  "$ref": "#/components/schemas/RichTextLink"
+                },
+                {
+                  "$ref": "#/components/schemas/RichTextTeamMention"
+                },
+                {
+                  "$ref": "#/components/schemas/RichTextText"
+                },
+                {
+                  "$ref": "#/components/schemas/RichTextUserMention"
+                },
+                {
+                  "$ref": "#/components/schemas/RichTextUsergroupMention"
+                }
+              ],
+              "discriminator": {
+                "propertyName": "type",
+                "mapping": {
+                  "broadcast": "#/components/schemas/RichTextBroadcastMention",
+                  "color": "#/components/schemas/RichTextColor",
+                  "channel": "#/components/schemas/RichTextChannelMention",
+                  "date": "#/components/schemas/RichTextDate",
+                  "emoji": "#/components/schemas/RichTextEmoji",
+                  "link": "#/components/schemas/RichTextLink",
+                  "team": "#/components/schemas/RichTextTeamMention",
+                  "text": "#/components/schemas/RichTextText",
+                  "user": "#/components/schemas/RichTextUserMention",
+                  "usergroup": "#/components/schemas/RichTextUsergroupMention"
+                }
+              }
+            }
+          }
+        },
+        "required": [
+          "type",
+          "elements"
+        ],
+        "description": "A section block within a rich text field."
+      },
+      "RichTextBroadcastMention": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "const": "broadcast",
+            "description": "The type of element. In this case `type` is always `broadcast`."
+          },
+          "range": {
+            "oneOf": [
+              {
+                "const": "channel"
+              },
+              {
+                "const": "here"
+              },
+              {
+                "const": "everyone"
+              }
+            ],
+            "description": "The range of the broadcast; can be one of `here`, `channel` and `everyone`."
+          },
+          "style": {
+            "type": "object",
+            "properties": {
+              "bold": {
+                "type": "boolean",
+                "description": "When `true`, boldens the text in this element. Defaults to `false`."
+              },
+              "code": {
+                "type": "boolean",
+                "description": "When `true`, the text is preformatted in an inline code style. Defaults to `false."
+              },
+              "italic": {
+                "type": "boolean",
+                "description": "When `true`, italicizes the text in this element. Defaults to `false`."
+              },
+              "strike": {
+                "type": "boolean",
+                "description": "When `true`, strikes through the text in this element. Defaults to `false`."
+              }
+            },
+            "description": "A limited style object for styling rich text `text` elements."
+          }
+        },
+        "required": [
+          "type",
+          "range"
+        ],
+        "description": "A broadcast mention element for use in a rich text message."
+      },
+      "RichTextColor": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "const": "color",
+            "description": "The type of element. In this case `type` is always `color`."
+          },
+          "value": {
+            "type": "string",
+            "description": "The hex value for the color."
+          },
+          "style": {
+            "type": "object",
+            "properties": {
+              "bold": {
+                "type": "boolean",
+                "description": "When `true`, boldens the text in this element. Defaults to `false`."
+              },
+              "code": {
+                "type": "boolean",
+                "description": "When `true`, the text is preformatted in an inline code style. Defaults to `false."
+              },
+              "italic": {
+                "type": "boolean",
+                "description": "When `true`, italicizes the text in this element. Defaults to `false`."
+              },
+              "strike": {
+                "type": "boolean",
+                "description": "When `true`, strikes through the text in this element. Defaults to `false`."
+              }
+            },
+            "description": "A limited style object for styling rich text `text` elements."
+          }
+        },
+        "required": [
+          "type",
+          "value"
+        ],
+        "description": "A hex color element for use in a rich text message."
+      },
+      "RichTextChannelMention": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "const": "channel",
+            "description": "The type of element. In this case `type` is always `channel`."
+          },
+          "channel_id": {
+            "type": "string",
+            "description": "The encoded channel ID, e.g. C1234ABCD."
+          },
+          "style": {
+            "type": "object",
+            "properties": {
+              "bold": {
+                "type": "boolean",
+                "description": "When `true`, boldens the text in this element. Defaults to `false`."
+              },
+              "code": {
+                "type": "boolean",
+                "description": "When `true`, the text is preformatted in an inline code style. Defaults to `false."
+              },
+              "italic": {
+                "type": "boolean",
+                "description": "When `true`, italicizes the text in this element. Defaults to `false`."
+              },
+              "strike": {
+                "type": "boolean",
+                "description": "When `true`, strikes through the text in this element. Defaults to `false`."
+              }
+            },
+            "description": "A limited style object for styling rich text `text` elements."
+          }
+        },
+        "required": [
+          "type",
+          "channel_id"
+        ],
+        "description": "A channel mention element for use in a rich text message."
+      },
+      "RichTextDate": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "const": "date",
+            "description": "The type of element. In this case `type` is always `date`."
+          },
+          "timestamp": {
+            "type": "number",
+            "description": "A UNIX timestamp for the date to be displayed in seconds."
+          },
+          "format": {
+            "type": "string",
+            "description": "A template string containing curly-brace-enclosed tokens to substitute your provided `timestamp`\nin a particularly-formatted way. For example: `Posted at {date_long}`. The available date formatting tokens are:\n- `{day_divider_pretty}`: Shows `today`, `yesterday` or `tomorrow` if applicable. Otherwise, if the date is in\ncurrent year, uses the `{date_long}` format without the year. Otherwise, falls back to using the `{date_long}`\nformat.\n- `{date_num}`: Shows date as YYYY-MM-DD.\n- `{date_slash}`: Shows date as DD/MM/YYYY (subject to locale preferences).\n- `{date_long}`: Shows date as a long-form sentence including day-of-week, e.g. `Monday, December 23rd, 2013`.\n- `{date_long_full}`: Shows date as a long-form sentence without day-of-week, e.g. `August 9, 2020`.\n- `{date_long_pretty}`: Shows `yesterday`, `today` or `tomorrow`, otherwise uses the `{date_long}` format.\n- `{date}`: Same as `{date_long_full}` but without the year.\n- `{date_pretty}`: Shows `today`, `yesterday` or `tomorrow` if applicable, otherwise uses the `{date}` format.\n- `{date_short}`: Shows date using short month names without day-of-week, e.g. `Aug 9, 2020`.\n- `{date_short_pretty}`: Shows `today`, `yesterday` or `tomorrow` if applicable, otherwise uses the `{date_short}`\nformat.\n- `{time}`: Depending on user preferences, shows just the time-of-day portion of the timestamp using either 12 or\n24 hour clock formats, e.g. `2:34 PM` or `14:34`.\n- `{time_secs}`: Depending on user preferences, shows just the time-of-day portion of the timestamp using either 12\nor 24 hour clock formats, including seconds, e.g. `2:34:56 PM` or `14:34:56`.\n- `{ago}`: A human-readable period of time, e.g. `3 minutes ago`, `4 hours ago`, `2 days ago`.\nTODO: test/document `{member_local_time}`, `{status_expiration}` and `{calendar_header}`"
+          },
+          "url": {
+            "type": "string",
+            "description": "URL to link the entire `format` string to."
+          },
+          "fallback": {
+            "type": "string",
+            "description": "Text to display in place of the date should parsing, formatting or displaying fails."
+          },
+          "style": {
+            "type": "object",
+            "properties": {
+              "bold": {
+                "type": "boolean",
+                "description": "When `true`, boldens the text in this element. Defaults to `false`."
+              },
+              "code": {
+                "type": "boolean",
+                "description": "When `true`, the text is preformatted in an inline code style. Defaults to `false."
+              },
+              "italic": {
+                "type": "boolean",
+                "description": "When `true`, italicizes the text in this element. Defaults to `false`."
+              },
+              "strike": {
+                "type": "boolean",
+                "description": "When `true`, strikes through the text in this element. Defaults to `false`."
+              }
+            },
+            "description": "A limited style object for styling rich text `text` elements."
+          }
+        },
+        "required": [
+          "type",
+          "timestamp",
+          "format"
+        ],
+        "description": "A date element for use in a rich text message."
+      },
+      "RichTextEmoji": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "const": "emoji",
+            "description": "The type of element. In this case `type` is always `emoji`."
+          },
+          "name": {
+            "type": "string",
+            "description": "Name of emoji, without colons or skin tones, e.g. `wave`"
+          },
+          "unicode": {
+            "type": "string",
+            "description": "Lowercase hexadecimal Unicode representation of a standard emoji (not for use with custom emoji)."
+          },
+          "url": {
+            "type": "string",
+            "description": "URL of emoji asset. Only used when sharing custom emoji across workspaces."
+          },
+          "style": {
+            "type": "object",
+            "properties": {
+              "bold": {
+                "type": "boolean",
+                "description": "When `true`, boldens the text in this element. Defaults to `false`."
+              },
+              "code": {
+                "type": "boolean",
+                "description": "When `true`, the text is preformatted in an inline code style. Defaults to `false."
+              },
+              "italic": {
+                "type": "boolean",
+                "description": "When `true`, italicizes the text in this element. Defaults to `false`."
+              },
+              "strike": {
+                "type": "boolean",
+                "description": "When `true`, strikes through the text in this element. Defaults to `false`."
+              }
+            },
+            "description": "A limited style object for styling rich text `text` elements."
+          }
+        },
+        "required": [
+          "type",
+          "name"
+        ],
+        "description": "An emoji element for use in a rich text message."
+      },
+      "RichTextLink": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "const": "link",
+            "description": "The type of element. In this case `type` is always `link`."
+          },
+          "text": {
+            "type": "string",
+            "description": "The text to link."
+          },
+          "unsafe": {
+            "type": "boolean",
+            "description": "TODO: ?"
+          },
+          "url": {
+            "type": "string",
+            "description": "URL to link to."
+          },
+          "style": {
+            "type": "object",
+            "properties": {
+              "bold": {
+                "type": "boolean",
+                "description": "When `true`, boldens the text in this element. Defaults to `false`."
+              },
+              "code": {
+                "type": "boolean",
+                "description": "When `true`, the text is preformatted in an inline code style. Defaults to `false."
+              },
+              "italic": {
+                "type": "boolean",
+                "description": "When `true`, italicizes the text in this element. Defaults to `false`."
+              },
+              "strike": {
+                "type": "boolean",
+                "description": "When `true`, strikes through the text in this element. Defaults to `false`."
+              }
+            },
+            "description": "A limited style object for styling rich text `text` elements."
+          }
+        },
+        "required": [
+          "type",
+          "url"
+        ],
+        "description": "A link element for use in a rich text message."
+      },
+      "RichTextTeamMention": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "const": "team",
+            "description": "The type of element. In this case `type` is always `team`."
+          },
+          "team_id": {
+            "type": "string",
+            "description": "The encoded team ID, e.g. T1234ABCD."
+          },
+          "style": {
+            "type": "object",
+            "properties": {
+              "bold": {
+                "type": "boolean",
+                "description": "When `true`, boldens the text in this element. Defaults to `false`."
+              },
+              "code": {
+                "type": "boolean",
+                "description": "When `true`, the text is preformatted in an inline code style. Defaults to `false."
+              },
+              "italic": {
+                "type": "boolean",
+                "description": "When `true`, italicizes the text in this element. Defaults to `false`."
+              },
+              "strike": {
+                "type": "boolean",
+                "description": "When `true`, strikes through the text in this element. Defaults to `false`."
+              }
+            },
+            "description": "A limited style object for styling rich text `text` elements."
+          }
+        },
+        "required": [
+          "type",
+          "team_id"
+        ],
+        "description": "A workspace or team mention element for use in a rich text message."
+      },
+      "RichTextText": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "const": "text",
+            "description": "The type of element. In this case `type` is always `text`."
+          },
+          "text": {
+            "type": "string",
+            "description": "The text to render."
+          },
+          "style": {
+            "type": "object",
+            "properties": {
+              "bold": {
+                "type": "boolean",
+                "description": "When `true`, boldens the text in this element. Defaults to `false`."
+              },
+              "code": {
+                "type": "boolean",
+                "description": "When `true`, the text is preformatted in an inline code style. Defaults to `false."
+              },
+              "italic": {
+                "type": "boolean",
+                "description": "When `true`, italicizes the text in this element. Defaults to `false`."
+              },
+              "strike": {
+                "type": "boolean",
+                "description": "When `true`, strikes through the text in this element. Defaults to `false`."
+              }
+            },
+            "description": "A limited style object for styling rich text `text` elements."
+          }
+        },
+        "required": [
+          "type",
+          "text"
+        ],
+        "description": "A generic text element for use in a rich text message."
+      },
+      "RichTextUserMention": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "const": "user",
+            "description": "The type of element. In this case `type` is always `user`."
+          },
+          "user_id": {
+            "type": "string",
+            "description": "The encoded user ID, e.g. U1234ABCD."
+          },
+          "style": {
+            "type": "object",
+            "properties": {
+              "bold": {
+                "type": "boolean",
+                "description": "When `true`, boldens the text in this element. Defaults to `false`."
+              },
+              "code": {
+                "type": "boolean",
+                "description": "When `true`, the text is preformatted in an inline code style. Defaults to `false."
+              },
+              "italic": {
+                "type": "boolean",
+                "description": "When `true`, italicizes the text in this element. Defaults to `false`."
+              },
+              "strike": {
+                "type": "boolean",
+                "description": "When `true`, strikes through the text in this element. Defaults to `false`."
+              }
+            },
+            "description": "A limited style object for styling rich text `text` elements."
+          }
+        },
+        "required": [
+          "type",
+          "user_id"
+        ],
+        "description": "A user mention element for use in a rich text message."
+      },
+      "RichTextUsergroupMention": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "const": "usergroup",
+            "description": "The type of element. In this case `type` is always `usergroup`."
+          },
+          "usergroup_id": {
+            "type": "string",
+            "description": "The encoded usergroup ID, e.g. S1234ABCD."
+          },
+          "style": {
+            "type": "object",
+            "properties": {
+              "bold": {
+                "type": "boolean",
+                "description": "When `true`, boldens the text in this element. Defaults to `false`."
+              },
+              "code": {
+                "type": "boolean",
+                "description": "When `true`, the text is preformatted in an inline code style. Defaults to `false."
+              },
+              "italic": {
+                "type": "boolean",
+                "description": "When `true`, italicizes the text in this element. Defaults to `false`."
+              },
+              "strike": {
+                "type": "boolean",
+                "description": "When `true`, strikes through the text in this element. Defaults to `false`."
+              }
+            },
+            "description": "A limited style object for styling rich text `text` elements."
+          }
+        },
+        "required": [
+          "type",
+          "usergroup_id"
+        ],
+        "description": "A usergroup mention element for use in a rich text message."
+      },
+      "RichTextList": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "const": "rich_text_list",
+            "description": "The type of element. In this case `type` is always `rich_text_list`."
+          },
+          "elements": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/RichTextSection"
+            },
+            "description": "An array of "
+          },
+          "style": {
+            "oneOf": [
+              {
+                "const": "bullet"
+              },
+              {
+                "const": "ordered"
+              }
+            ],
+            "description": "The type of list. Can be either `bullet` (the list points are all rendered the same way) or `ordered`\n(the list points increase numerically from 1)."
+          },
+          "indent": {
+            "type": "number",
+            "description": "The style of the list points. Can be a number from `0` (default) to `8`. Yields a different character\nor characters rendered as the list points. Also affected by the `style` property."
+          },
+          "border": {
+            "oneOf": [
+              {
+                "const": 0
+              },
+              {
+                "const": 1
+              }
+            ],
+            "description": "Whether to render a quote-block-like border on the inline side of the list. `0` renders no border\nwhile `1` renders a border."
+          }
+        },
+        "required": [
+          "type",
+          "elements",
+          "style"
+        ],
+        "description": "A list block within a rich text field."
+      },
+      "RichTextQuote": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "const": "rich_text_quote",
+            "description": "The type of element. In this case `type` is always `rich_text_quote`."
+          },
+          "elements": {
+            "type": "array",
+            "items": {
+              "oneOf": [
+                {
+                  "$ref": "#/components/schemas/RichTextBroadcastMention"
+                },
+                {
+                  "$ref": "#/components/schemas/RichTextColor"
+                },
+                {
+                  "$ref": "#/components/schemas/RichTextChannelMention"
+                },
+                {
+                  "$ref": "#/components/schemas/RichTextDate"
+                },
+                {
+                  "$ref": "#/components/schemas/RichTextEmoji"
+                },
+                {
+                  "$ref": "#/components/schemas/RichTextLink"
+                },
+                {
+                  "$ref": "#/components/schemas/RichTextTeamMention"
+                },
+                {
+                  "$ref": "#/components/schemas/RichTextText"
+                },
+                {
+                  "$ref": "#/components/schemas/RichTextUserMention"
+                },
+                {
+                  "$ref": "#/components/schemas/RichTextUsergroupMention"
+                }
+              ],
+              "discriminator": {
+                "propertyName": "type",
+                "mapping": {
+                  "broadcast": "#/components/schemas/RichTextBroadcastMention",
+                  "color": "#/components/schemas/RichTextColor",
+                  "channel": "#/components/schemas/RichTextChannelMention",
+                  "date": "#/components/schemas/RichTextDate",
+                  "emoji": "#/components/schemas/RichTextEmoji",
+                  "link": "#/components/schemas/RichTextLink",
+                  "team": "#/components/schemas/RichTextTeamMention",
+                  "text": "#/components/schemas/RichTextText",
+                  "user": "#/components/schemas/RichTextUserMention",
+                  "usergroup": "#/components/schemas/RichTextUsergroupMention"
+                }
+              }
+            },
+            "description": "An array of "
+          },
+          "border": {
+            "oneOf": [
+              {
+                "const": 0
+              },
+              {
+                "const": 1
+              }
+            ],
+            "description": "Whether to render a quote-block-like border on the inline side of the list. `0` renders no border\nwhile `1` renders a border."
+          }
+        },
+        "required": [
+          "type",
+          "elements"
+        ],
+        "description": "A quote block within a rich text field."
+      },
+      "RichTextPreformatted": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "const": "rich_text_preformatted",
+            "description": "The type of element. In this case `type` is always `rich_text_preformatted`."
+          },
+          "elements": {
+            "type": "array",
+            "items": {
+              "oneOf": [
+                {
+                  "$ref": "#/components/schemas/RichTextLink"
+                },
+                {
+                  "$ref": "#/components/schemas/RichTextText"
+                }
+              ],
+              "discriminator": {
+                "propertyName": "type",
+                "mapping": {
+                  "link": "#/components/schemas/RichTextLink",
+                  "text": "#/components/schemas/RichTextText"
+                }
+              }
+            },
+            "description": "An array of either "
+          },
+          "border": {
+            "oneOf": [
+              {
+                "const": 0
+              },
+              {
+                "const": 1
+              }
+            ],
+            "description": "Whether to render a quote-block-like border on the inline side of the list. `0` renders no border\nwhile `1` renders a border."
+          }
+        },
+        "required": [
+          "type",
+          "elements"
+        ],
+        "description": "A block of preformatted text within a rich text field."
+      },
+      "DispatchActionConfig": {
+        "type": "object",
+        "properties": {
+          "trigger_actions_on": {
+            "type": "array",
+            "items": {
+              "oneOf": [
+                {
+                  "const": "on_enter_pressed"
+                },
+                {
+                  "const": "on_character_entered"
+                }
+              ]
+            },
+            "description": "An array of interaction types that you would like to receive a\n"
+          }
+        },
+        "description": "Defines when a "
+      },
+      "DividerBlock": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "const": "divider",
+            "description": "The type of block. For a divider block, `type` is always `divider`."
+          },
+          "block_id": {
+            "type": "string",
+            "description": "A string acting as a unique identifier for a block. If not specified, a `block_id` will be generated.\nYou can use this `block_id` when you receive an interaction payload to\n"
+          }
+        },
+        "required": [
+          "type"
+        ],
+        "description": "Visually separates pieces of info inside of a message. A content divider, like an `<hr>`, to split up\ndifferent blocks inside of a message. The divider block is nice and neat, requiring only a `type`."
+      },
+      "SectionBlock": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "const": "section",
+            "description": "The type of block. For a section block, `type` is always `section`."
+          },
+          "text": {
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/PlainTextElement"
+              },
+              {
+                "$ref": "#/components/schemas/MrkdwnElement"
+              }
+            ],
+            "discriminator": {
+              "propertyName": "type",
+              "mapping": {
+                "plain_text": "#/components/schemas/PlainTextElement",
+                "mrkdwn": "#/components/schemas/MrkdwnElement"
+              }
+            },
+            "description": "The text for the block, in the form of a "
+          },
+          "fields": {
+            "type": "array",
+            "items": {
+              "oneOf": [
+                {
+                  "$ref": "#/components/schemas/PlainTextElement"
+                },
+                {
+                  "$ref": "#/components/schemas/MrkdwnElement"
+                }
+              ],
+              "discriminator": {
+                "propertyName": "type",
+                "mapping": {
+                  "plain_text": "#/components/schemas/PlainTextElement",
+                  "mrkdwn": "#/components/schemas/MrkdwnElement"
+                }
+              }
+            },
+            "description": "Required if no `text` is provided. An array of text objects. Any text objects included with `fields`\nwill be rendered in a compact format that allows for 2 columns of side-by-side text. Maximum number of items is 10.\nMaximum length for the text in each item is 2000 characters.\n"
+          },
+          "accessory": {
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/typeimagealt_textstringUrlImageObject"
+              },
+              {
+                "$ref": "#/components/schemas/typeimagealt_textstringSlackFileImageObject"
+              },
+              {
+                "$ref": "#/components/schemas/Button"
+              },
+              {
+                "$ref": "#/components/schemas/Checkboxes"
+              },
+              {
+                "$ref": "#/components/schemas/Datepicker"
+              },
+              {
+                "$ref": "#/components/schemas/MultiUsersSelect"
+              },
+              {
+                "$ref": "#/components/schemas/MultiStaticSelect"
+              },
+              {
+                "$ref": "#/components/schemas/MultiConversationsSelect"
+              },
+              {
+                "$ref": "#/components/schemas/MultiChannelsSelect"
+              },
+              {
+                "$ref": "#/components/schemas/MultiExternalSelect"
+              },
+              {
+                "$ref": "#/components/schemas/Overflow"
+              },
+              {
+                "$ref": "#/components/schemas/RadioButtons"
+              },
+              {
+                "$ref": "#/components/schemas/UsersSelect"
+              },
+              {
+                "$ref": "#/components/schemas/StaticSelect"
+              },
+              {
+                "$ref": "#/components/schemas/ConversationsSelect"
+              },
+              {
+                "$ref": "#/components/schemas/ChannelsSelect"
+              },
+              {
+                "$ref": "#/components/schemas/ExternalSelect"
+              },
+              {
+                "$ref": "#/components/schemas/Timepicker"
+              },
+              {
+                "$ref": "#/components/schemas/WorkflowButton"
+              }
+            ],
+            "description": "One of the compatible element objects."
+          },
+          "block_id": {
+            "type": "string",
+            "description": "A string acting as a unique identifier for a block. If not specified, a `block_id` will be generated.\nYou can use this `block_id` when you receive an interaction payload to\n"
+          }
+        },
+        "required": [
+          "type"
+        ],
+        "description": "Displays text, possibly alongside block elements. A section can be used as a simple text block, in\ncombination with text fields, or side-by-side with certain\n"
+      },
+      "InputBlock": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "const": "input",
+            "description": "The type of block. For an input block, `type` is always `input`."
+          },
+          "label": {
+            "$ref": "#/components/schemas/PlainTextElement",
+            "description": "A label that appears above an input element in the form of a "
+          },
+          "hint": {
+            "$ref": "#/components/schemas/PlainTextElement",
+            "description": "An optional hint that appears below an input element in a lighter grey. It must be a\n"
+          },
+          "optional": {
+            "type": "boolean",
+            "description": "A boolean that indicates whether the input element may be empty when a user submits the modal.\nDefaults to `false`."
+          },
+          "element": {
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/Checkboxes"
+              },
+              {
+                "$ref": "#/components/schemas/Datepicker"
+              },
+              {
+                "$ref": "#/components/schemas/DateTimepicker"
+              },
+              {
+                "$ref": "#/components/schemas/MultiUsersSelect"
+              },
+              {
+                "$ref": "#/components/schemas/MultiStaticSelect"
+              },
+              {
+                "$ref": "#/components/schemas/MultiConversationsSelect"
+              },
+              {
+                "$ref": "#/components/schemas/MultiChannelsSelect"
+              },
+              {
+                "$ref": "#/components/schemas/MultiExternalSelect"
+              },
+              {
+                "$ref": "#/components/schemas/RadioButtons"
+              },
+              {
+                "$ref": "#/components/schemas/UsersSelect"
+              },
+              {
+                "$ref": "#/components/schemas/StaticSelect"
+              },
+              {
+                "$ref": "#/components/schemas/ConversationsSelect"
+              },
+              {
+                "$ref": "#/components/schemas/ChannelsSelect"
+              },
+              {
+                "$ref": "#/components/schemas/ExternalSelect"
+              },
+              {
+                "$ref": "#/components/schemas/Timepicker"
+              },
+              {
+                "$ref": "#/components/schemas/RichTextInput"
+              },
+              {
+                "$ref": "#/components/schemas/EmailInput"
+              },
+              {
+                "$ref": "#/components/schemas/URLInput"
+              },
+              {
+                "$ref": "#/components/schemas/FileInput"
+              },
+              {
+                "$ref": "#/components/schemas/NumberInput"
+              },
+              {
+                "$ref": "#/components/schemas/PlainTextInput"
+              }
+            ],
+            "discriminator": {
+              "propertyName": "type",
+              "mapping": {
+                "checkboxes": "#/components/schemas/Checkboxes",
+                "datepicker": "#/components/schemas/Datepicker",
+                "datetimepicker": "#/components/schemas/DateTimepicker",
+                "multi_users_select": "#/components/schemas/MultiUsersSelect",
+                "multi_static_select": "#/components/schemas/MultiStaticSelect",
+                "multi_conversations_select": "#/components/schemas/MultiConversationsSelect",
+                "multi_channels_select": "#/components/schemas/MultiChannelsSelect",
+                "multi_external_select": "#/components/schemas/MultiExternalSelect",
+                "radio_buttons": "#/components/schemas/RadioButtons",
+                "users_select": "#/components/schemas/UsersSelect",
+                "static_select": "#/components/schemas/StaticSelect",
+                "conversations_select": "#/components/schemas/ConversationsSelect",
+                "channels_select": "#/components/schemas/ChannelsSelect",
+                "external_select": "#/components/schemas/ExternalSelect",
+                "timepicker": "#/components/schemas/Timepicker",
+                "rich_text_input": "#/components/schemas/RichTextInput",
+                "email_text_input": "#/components/schemas/EmailInput",
+                "url_text_input": "#/components/schemas/URLInput",
+                "file_input": "#/components/schemas/FileInput",
+                "number_input": "#/components/schemas/NumberInput",
+                "plain_text_input": "#/components/schemas/PlainTextInput"
+              }
+            },
+            "description": "A block element."
+          },
+          "dispatch_action": {
+            "type": "boolean",
+            "description": "A boolean that indicates whether or not the use of elements in this block should dispatch a\n"
+          },
+          "block_id": {
+            "type": "string",
+            "description": "A string acting as a unique identifier for a block. If not specified, a `block_id` will be generated.\nYou can use this `block_id` when you receive an interaction payload to\n"
+          }
+        },
+        "required": [
+          "type",
+          "label",
+          "element"
+        ],
+        "description": "Collects information from users via block elements."
+      },
+      "EmailInput": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "const": "email_text_input",
+            "description": "The type of element. In this case `type` is always `email_text_input`."
+          },
+          "initial_value": {
+            "type": "string",
+            "description": "The initial value in the email input when it is loaded."
+          },
+          "action_id": {
+            "type": "string",
+            "description": ": An identifier for this action. You can use this when you receive an interaction payload to\n"
+          },
+          "dispatch_action_config": {
+            "$ref": "#/components/schemas/DispatchActionConfig",
+            "description": "A "
+          },
+          "focus_on_load": {
+            "type": "boolean",
+            "description": "Indicates whether the element will be set to auto focus within the\n"
+          },
+          "placeholder": {
+            "$ref": "#/components/schemas/PlainTextElement",
+            "description": "A "
+          }
+        },
+        "required": [
+          "type"
+        ],
+        "description": "Allows user to enter an email into a single-line field."
+      },
+      "URLInput": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "const": "url_text_input",
+            "description": "The type of element. In this case `type` is always `url_text_input`."
+          },
+          "initial_value": {
+            "type": "string",
+            "description": "The initial value in the URL input when it is loaded."
+          },
+          "action_id": {
+            "type": "string",
+            "description": ": An identifier for this action. You can use this when you receive an interaction payload to\n"
+          },
+          "dispatch_action_config": {
+            "$ref": "#/components/schemas/DispatchActionConfig",
+            "description": "A "
+          },
+          "focus_on_load": {
+            "type": "boolean",
+            "description": "Indicates whether the element will be set to auto focus within the\n"
+          },
+          "placeholder": {
+            "$ref": "#/components/schemas/PlainTextElement",
+            "description": "A "
+          }
+        },
+        "required": [
+          "type"
+        ],
+        "description": "Allows user to enter a URL into a single-line field."
+      },
+      "FileInput": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "const": "file_input",
+            "description": "The type of element. In this case `type` is always `file_input`."
+          },
+          "filetypes": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "An array of valid "
+          },
+          "max_files": {
+            "type": "number",
+            "description": "Maximum number of files that can be uploaded for this `file_input` element. Minimum of `1`, maximum of\n`10`. Defaults to `10` if not specified."
+          },
+          "action_id": {
+            "type": "string",
+            "description": ": An identifier for this action. You can use this when you receive an interaction payload to\n"
+          }
+        },
+        "required": [
+          "type"
+        ],
+        "description": "Allows user to upload files. In order to use the `file_input` element within your app,\nyour app must have the `files:read` scope."
+      },
+      "NumberInput": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "const": "number_input",
+            "description": "The type of element. In this case `type` is always `number_input`."
+          },
+          "is_decimal_allowed": {
+            "type": "boolean",
+            "description": "Decimal numbers are allowed if this property is `true`, set the value to `false` otherwise."
+          },
+          "initial_value": {
+            "type": "string",
+            "description": "The initial value in the input when it is loaded."
+          },
+          "min_value": {
+            "type": "string",
+            "description": "The minimum value, cannot be greater than `max_value`."
+          },
+          "max_value": {
+            "type": "string",
+            "description": "The maximum value, cannot be less than `min_value`."
+          },
+          "action_id": {
+            "type": "string",
+            "description": ": An identifier for this action. You can use this when you receive an interaction payload to\n"
+          },
+          "dispatch_action_config": {
+            "$ref": "#/components/schemas/DispatchActionConfig",
+            "description": "A "
+          },
+          "focus_on_load": {
+            "type": "boolean",
+            "description": "Indicates whether the element will be set to auto focus within the\n"
+          },
+          "placeholder": {
+            "$ref": "#/components/schemas/PlainTextElement",
+            "description": "A "
+          }
+        },
+        "required": [
+          "type",
+          "is_decimal_allowed"
+        ],
+        "description": "Allows user to enter a number into a single-line field. The number input element accepts both whole and\ndecimal numbers. For example, 0.25, 5.5, and -10 are all valid input values. Decimal numbers are only allowed when\n`is_decimal_allowed` is equal to `true`."
+      },
+      "PlainTextInput": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "const": "plain_text_input",
+            "description": "The type of element. In this case `type` is always `plain_text_input`."
+          },
+          "initial_value": {
+            "type": "string",
+            "description": "The initial value in the plain-text input when it is loaded."
+          },
+          "multiline": {
+            "type": "boolean",
+            "description": "Indicates whether the input will be a single line (`false`) or a larger textarea (`true`).\nDefaults to `false`."
+          },
+          "min_length": {
+            "type": "number",
+            "description": "The minimum length of input that the user must provide. If the user provides less, they will receive\nan error. Maximum value is 3000."
+          },
+          "max_length": {
+            "type": "number",
+            "description": "The maximum length of input that the user can provide. If the user provides more,\nthey will receive an error."
+          },
+          "action_id": {
+            "type": "string",
+            "description": ": An identifier for this action. You can use this when you receive an interaction payload to\n"
+          },
+          "dispatch_action_config": {
+            "$ref": "#/components/schemas/DispatchActionConfig",
+            "description": "A "
+          },
+          "focus_on_load": {
+            "type": "boolean",
+            "description": "Indicates whether the element will be set to auto focus within the\n"
+          },
+          "placeholder": {
+            "$ref": "#/components/schemas/PlainTextElement",
+            "description": "A "
+          }
+        },
+        "required": [
+          "type"
+        ],
+        "description": "Allows users to enter freeform text data into a single-line or multi-line field."
+      },
+      "FileBlock": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "const": "file",
+            "description": "The type of block. For a file block, `type` is always `file`."
+          },
+          "source": {
+            "type": "string",
+            "description": "At the moment, source will always be `remote` for a remote file."
+          },
+          "external_id": {
+            "type": "string",
+            "description": "The external unique ID for this file."
+          },
+          "block_id": {
+            "type": "string",
+            "description": "A string acting as a unique identifier for a block. If not specified, a `block_id` will be generated.\nYou can use this `block_id` when you receive an interaction payload to\n"
+          }
+        },
+        "required": [
+          "type",
+          "source",
+          "external_id"
+        ],
+        "description": "Displays a "
+      },
+      "HeaderBlock": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "const": "header",
+            "description": "The type of block. For a header block, `type` is always `header`."
+          },
+          "text": {
+            "$ref": "#/components/schemas/PlainTextElement",
+            "description": "The text for the block, in the form of a "
+          },
+          "block_id": {
+            "type": "string",
+            "description": "A string acting as a unique identifier for a block. If not specified, a `block_id` will be generated.\nYou can use this `block_id` when you receive an interaction payload to\n"
+          }
+        },
+        "required": [
+          "type",
+          "text"
+        ],
+        "description": "Displays a larger-sized text block. A `header` is a plain-text block that displays in a larger, bold\nfont. Use it to delineate between different groups of content in your app's surfaces."
+      },
+      "VideoBlock": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "const": "video",
+            "description": "The type of block. For a video block, `type` is always `video`."
+          },
+          "video_url": {
+            "type": "string",
+            "description": "The URL to be embedded. Must match any existing\n"
+          },
+          "thumbnail_url": {
+            "type": "string",
+            "description": "The thumbnail image URL."
+          },
+          "alt_text": {
+            "type": "string",
+            "description": "A tooltip for the video. Required for accessibility."
+          },
+          "title": {
+            "$ref": "#/components/schemas/PlainTextElement",
+            "description": "Video title as a "
+          },
+          "title_url": {
+            "type": "string",
+            "description": "Hyperlink for the title text. Must correspond to the non-embeddable URL for the video.\nMust go to an HTTPS URL."
+          },
+          "author_name": {
+            "type": "string",
+            "description": "Author name to be displayed. Must be less than 50 characters."
+          },
+          "provider_name": {
+            "type": "string",
+            "description": "The originating application or domain of the video, e.g. YouTube."
+          },
+          "provider_icon_url": {
+            "type": "string",
+            "description": "Icon for the video provider, e.g. YouTube icon."
+          },
+          "description": {
+            "$ref": "#/components/schemas/PlainTextElement",
+            "description": "Description for video using a "
+          },
+          "block_id": {
+            "type": "string",
+            "description": "A string acting as a unique identifier for a block. If not specified, a `block_id` will be generated.\nYou can use this `block_id` when you receive an interaction payload to\n"
+          }
+        },
+        "required": [
+          "type",
+          "video_url",
+          "thumbnail_url",
+          "alt_text",
+          "title"
+        ],
+        "description": "Displays an embedded video player. A video block is designed to embed videos in all app surfaces (e.g.\nlink unfurls, messages, modals, App Home) — anywhere you can put blocks! To use the video block within your app, you\nmust have the "
+      },
+      "Recordstringany": {
+        "type": "object",
+        "properties": {},
+        "description": "Construct a type with a set of properties K of type T",
+        "additionalProperties": {}
+      },
+      "ISlack.IHoldVoteOutput": {
+        "type": "object",
+        "properties": {
+          "blocks": {
+            "type": "array",
+            "items": {},
+            "title": "title blocks"
+          },
+          "ts": {
+            "type": "string",
+            "x-wrtn-placeholder": "1234567890.123456",
+            "title": "timestamp\n\nfor example, `1721804246.083609`.\nThis is the time value expression method used by Slack."
+          }
+        },
+        "required": [
+          "ts"
+        ]
+      },
+      "ISlack.IHoldVoteInput": {
+        "type": "object",
+        "properties": {
+          "channel": {
+            "oneOf": [
+              {
+                "type": "string",
+                "pattern": "^((C(.*))|(D(.*))|(G(.*)))",
+                "x-wrtn-prerequisite": {
+                  "method": "post",
+                  "path": "/connector/slack/get-public-channels",
+                  "jmesPath": "[].{value:id, label:name}"
+                }
+              },
+              {
+                "type": "string",
+                "pattern": "^((C(.*))|(D(.*))|(G(.*)))",
+                "x-wrtn-prerequisite": {
+                  "method": "post",
+                  "path": "/connector/slack/get-private-channels",
+                  "jmesPath": "[].{value:id, label:name}"
+                }
+              },
+              {
+                "type": "string",
+                "pattern": "^((C(.*))|(D(.*))|(G(.*)))",
+                "x-wrtn-prerequisite": {
+                  "method": "post",
+                  "path": "/connector/slack/get-im-channels",
+                  "jmesPath": "[].{value:id, label:name || '개인 채널'}"
+                }
+              }
+            ],
+            "title": "channel id"
+          },
+          "title": {
+            "type": "string",
+            "title": "Title of vote to be held\n\nIt should be written as a simple one-line markdown and can include Slack emojis."
+          },
+          "items": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "text": {
+                  "type": "string",
+                  "title": "option title"
+                },
+                "link": {
+                  "type": "string",
+                  "title": "option's link"
+                }
+              },
+              "required": [
+                "text"
+              ]
+            },
+            "title": "options available for voting\n\nIt refers to the options available for voting."
+          },
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "slack",
+            "x-wrtn-secret-scopes": [
+              "channels:read",
+              "channels:history",
+              "users.profile:read",
+              "im:read",
+              "groups:history",
+              "groups:read",
+              "chat:write",
+              "users:read",
+              "files:read"
+            ],
+            "title": "Select authentication information",
+            "description": "secret key."
+          }
+        },
+        "required": [
+          "channel",
+          "title",
+          "items",
+          "secretKey"
+        ]
+      },
       "ISlack.IMarkInput": {
         "type": "object",
         "properties": {
