@@ -4,6 +4,7 @@ import { ContentMediaType } from "typia/lib/tags";
 import { MyPick } from "../../types/MyPick";
 import { StrictOmit } from "../../types/strictOmit";
 import { ICommon } from "../common/ISecretValue";
+import { Block, KnownBlock } from "@slack/web-api";
 
 export namespace ISlack {
   export type ISecret = ICommon.ISecret<
@@ -127,6 +128,7 @@ export namespace ISlack {
       user: string;
       ts: string;
       text: string;
+      blocks?: (Block | KnownBlock)[];
     } | null;
 
     /**
