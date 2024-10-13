@@ -750,7 +750,8 @@ export class SlackProvider {
   }
 
   async vote(input: ISlack.IHoldVoteInput): Promise<ISlack.IHoldVoteOutput> {
-    const client = new WebClient(input.secretKey);
+    const token = await this.getToken(input.secretKey);
+    const client = new WebClient(token);
     const auth = await client.auth.test();
     const user = await client.users.profile.get({ user: auth.user_id });
 
@@ -761,7 +762,7 @@ export class SlackProvider {
     const res = await client.chat.postMessage({
       channel: input.channel,
       blocks: SlackTemplateProvider.voteTemplate({
-        secretKey: input.secretKey,
+        secretKey: token,
         requester,
         title: input.title,
         items: input.items,
