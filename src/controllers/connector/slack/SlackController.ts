@@ -33,7 +33,7 @@ export class SlackController {
   async vote(
     @TypedBody() input: ISlack.IHoldVoteInput,
   ): Promise<ISlack.IHoldVoteOutput> {
-    return this.slackProvider.vote(input);
+    return retry(() => this.slackProvider.vote(input))();
   }
 
   /**
@@ -151,7 +151,7 @@ export class SlackController {
   async sendReply(
     @TypedBody() input: ISlack.IPostMessageReplyInput,
   ): Promise<MyPick<ISlack.Message, "ts">> {
-    return this.slackProvider.sendReply(input);
+    return retry(() => this.slackProvider.sendReply(input))();
   }
 
   /**
@@ -173,7 +173,7 @@ export class SlackController {
   async sendText(
     @TypedBody() input: ISlack.IPostMessageInput,
   ): Promise<MyPick<ISlack.Message, "ts">> {
-    return this.slackProvider.sendText(input);
+    return retry(() => this.slackProvider.sendText(input))();
   }
 
   /**
@@ -196,7 +196,7 @@ export class SlackController {
   async getScheduledMessages(
     @TypedBody() input: ISlack.IGetScheduledMessageListInput,
   ): Promise<ISlack.IGetScheduledMessageListOutput> {
-    return this.slackProvider.getScheduledMessages(input);
+    return retry(() => this.slackProvider.getScheduledMessages(input))();
   }
 
   /**
@@ -218,7 +218,7 @@ export class SlackController {
   async getUserDetails(
     @TypedBody() input: ISlack.IGetUserDetailInput,
   ): Promise<ISlack.IGetUserDetailOutput[]> {
-    return this.slackProvider.getUserDetails(input);
+    return retry(() => this.slackProvider.getUserDetails(input))();
   }
 
   /**
@@ -245,7 +245,7 @@ export class SlackController {
   async getUsers(
     @TypedBody() input: ISlack.IGetUserListInput,
   ): Promise<ISlack.IGetUserListOutput> {
-    return this.slackProvider.getUsers(input);
+    return retry(() => this.slackProvider.getUsers(input))();
   }
 
   /**
