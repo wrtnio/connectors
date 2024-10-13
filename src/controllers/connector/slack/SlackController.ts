@@ -13,10 +13,13 @@ export class SlackController {
   /**
    * @hidden
    * @param input
+   * @returns array of slack block types
    */
   @TypedRoute.Post("interactivity")
-  async interactivity(@TypedBody() input: ISlack.InteractiveComponentInput) {
-    await this.slackProvider.interactivity(input);
+  async interactivity(
+    @TypedBody() input: ISlack.InteractiveComponentInput,
+  ): Promise<any[]> {
+    return await this.slackProvider.interactivity(input);
   }
 
   /**

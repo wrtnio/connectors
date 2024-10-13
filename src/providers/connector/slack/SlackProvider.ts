@@ -118,7 +118,7 @@ export class SlackProvider {
     }
   }
 
-  async interactivity(input: ISlack.InteractiveComponentInput) {
+  async interactivity(input: ISlack.InteractiveComponentInput): Promise<any[]> {
     const { user, actions, message, channel } = input.payload;
 
     const block_id = actions.at(0)?.block_id;
@@ -152,9 +152,20 @@ export class SlackProvider {
             (voter) => voter.alt_text === uniqueUserId,
           );
 
-          if (alreadyVoted) {
+          if (alreadyVoted !== -1) {
             // 이미 투표를 한 경우, 투표자 명단에서 제거한다.
             contextBlock.elements.splice(alreadyVoted, 1);
+            if (contextBlock.elements.length === 0) {
+              blocks[contextBlockIdx] = {
+                type: "context",
+                elements: [
+                  {
+                    type: "mrkdwn",
+                    text: "No votes",
+                  },
+                ],
+              };
+            }
           } else {
             // 아직 투표를 안한 경우, 투표자 명단에서 추가한다.
             contextBlock.elements.push({
@@ -172,6 +183,8 @@ export class SlackProvider {
         ts: message.ts,
       });
     }
+
+    return blocks ?? [];
   }
 
   async mark(input: ISlack.IMarkInput): Promise<void> {
@@ -751,7 +764,6 @@ export class SlackProvider {
       }),
     });
 
-    console.log("sdk", res.message?.blocks?.length);
     const ts = res.ts;
     if (ts) {
       return { ts, blocks: res.message?.blocks };
