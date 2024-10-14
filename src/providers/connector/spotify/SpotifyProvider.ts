@@ -1,16 +1,19 @@
 import { Injectable } from "@nestjs/common";
 import { ISpotify } from "@wrtn/connector-api/lib/structures/connector/spotify/ISpotify";
 import axios from "axios";
+import { ConnectorGlobal } from "../../../ConnectorGlobal";
+import { OAuthSecretProvider } from "../../internal/oauth_secret/OAuthSecretProvider";
 
 @Injectable()
 export class SpotifyProvider {
   async getUserPlaylists(
     input: ISpotify.IGetUserPlaylistsInput,
   ): Promise<ISpotify.IGetUserPlaylistsOutput> {
+    const accessToken = await this.refresh(input.secretKey);
     const response = await axios.get(
       "https://api.spotify.com/v1/me/playlists",
       {
-        headers: { Authorization: `Bearer ${input.secretKey}` },
+        headers: { Authorization: `Bearer ${accessToken}` },
         params: {
           limit: input.limit ?? 20,
           offset: input.offset ?? 0,
@@ -33,9 +36,10 @@ export class SpotifyProvider {
   async getArtistAlbums(
     input: ISpotify.IGetArtistAlbumsInput,
   ): Promise<ISpotify.IGetArtistAlbumsOutput> {
+    const accessToken = await this.refresh(input.secretKey);
     const response = await axios.get(
       `https://api.spotify.com/v1/artists/${input.artistId}/albums`,
-      { headers: { Authorization: `Bearer ${input.secretKey}` } },
+      { headers: { Authorization: `Bearer ${accessToken}` } },
     );
     const albums = response.data.items.map((album: any) => ({
       id: album.id,
@@ -48,9 +52,10 @@ export class SpotifyProvider {
   async getCurrentPlayingTrack(
     input: ISpotify.IGetCurrentPlayingTrackInput,
   ): Promise<ISpotify.IGetCurrentPlayingTrackOutput> {
+    const accessToken = await this.refresh(input.secretKey);
     const response = await axios.get(
       "https://api.spotify.com/v1/me/player/currently-playing",
-      { headers: { Authorization: `Bearer ${input.secretKey}` } },
+      { headers: { Authorization: `Bearer ${accessToken}` } },
     );
     const track = response.data.item;
     return {
@@ -66,12 +71,13 @@ export class SpotifyProvider {
   async createPlaylist(
     input: ISpotify.ICreatePlaylistInput,
   ): Promise<ISpotify.ICreatePlaylistOutput> {
+    const accessToken = await this.refresh(input.secretKey);
     const response = await axios.post(
       `https://api.spotify.com/v1/users/${input.userId}/playlists`,
       { name: input.playlistName, public: false },
       {
         headers: {
-          Authorization: `Bearer ${input.secretKey}`,
+          Authorization: `Bearer ${accessToken}`,
           "Content-Type": "application/json",
         },
       },
@@ -82,10 +88,11 @@ export class SpotifyProvider {
   async getRecommendations(
     input: ISpotify.IGetRecommendationsInput,
   ): Promise<ISpotify.IGetRecommendationsOutput> {
+    const accessToken = await this.refresh(input.secretKey);
     const response = await axios.get(
       "https://api.spotify.com/v1/recommendations",
       {
-        headers: { Authorization: `Bearer ${input.secretKey}` },
+        headers: { Authorization: `Bearer ${accessToken}` },
         params: { seed_tracks: input.seedTracks.join(",") },
       },
     );
@@ -95,5 +102,17 @@ export class SpotifyProvider {
       artist: track.artists[0].name,
     }));
     return { tracks };
+  }
+
+  async refresh(secretKey: string): Promise<string> {
+    const refresh_token = await OAuthSecretProvider.getSecretValue(secretKey);
+    const url = "https://accounts.spotify.com/api/token";
+    const res = await axios.post(url, {
+      refresh_token,
+      client_id: ConnectorGlobal.env.SPOTIFY_CLIENT_SECRET,
+      grant_type: "refresh_token",
+    });
+
+    return res.data.access_token;
   }
 }

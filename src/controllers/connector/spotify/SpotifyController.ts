@@ -3,7 +3,7 @@ import { Controller } from "@nestjs/common";
 import { ISpotify } from "@wrtn/connector-api/lib/structures/connector/spotify/ISpotify";
 import { SpotifyProvider } from "../../../providers/connector/spotify/SpotifyProvider";
 
-@Controller("spotify")
+@Controller("connector/spotify")
 export class SpotifyController {
   constructor(private readonly spotifyProvider: SpotifyProvider) {}
 
