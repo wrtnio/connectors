@@ -218,6 +218,8 @@ import CApi from "@wrtn/connector-api/lib/index";
 export const test_api_connector_wrtn_get_something = async (
   connection: CApi.IConnection,
 ) => {
+  // `connector.wrtn.get_something` means that the endpoint is connected with a dot character and a snake case character.
+  // `getSomething` is the method name of the controller.
   const res = await CApi.functional.connector.wrtn.get_something.getSomething(
     connection,
     {} as IWrtn.IGetSomethingInput, // Fill in the parameters of the function
