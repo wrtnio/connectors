@@ -8,7 +8,19 @@ export namespace ISpotify {
    * Input interface for retrieving user playlists.
    */
   export interface IGetUserPlaylistsInput extends ICommon.ISecret<"spotify"> {
-    // No additional properties are needed.
+    /**
+     * @title Limit
+     * 
+     * The number of items to return. Default is 20.
+     */
+    limit?: number & tags.Default<20>;
+
+    /**
+     * @title Offset
+     * 
+     * The index of the first item to return. Default is 0.
+     */
+    offset?: number & tags.Default<0>;
   }
 
   /**
@@ -23,6 +35,17 @@ export namespace ISpotify {
      * An array containing the ID, name, and track count of playlists.
      */
     playlists: Array<{ id: string; name: string; tracks: number }>;
+
+    /**
+     * @title Pagination Info
+     * 
+     * Information about pagination for the playlists.
+     */
+    pagination: {
+      total: number; // Total number of playlists
+      limit: number; // Number of playlists per page
+      offset: number; // Current offset
+    };
   }
 
   /**
