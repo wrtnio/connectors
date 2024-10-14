@@ -9,99 +9,124 @@ export class SpotifyProvider {
   async getUserPlaylists(
     input: ISpotify.IGetUserPlaylistsInput,
   ): Promise<ISpotify.IGetUserPlaylistsOutput> {
-    const accessToken = await this.refresh(input.secretKey);
-    const response = await axios.get(
-      "https://api.spotify.com/v1/me/playlists",
-      {
-        headers: { Authorization: `Bearer ${accessToken}` },
-        params: {
-          limit: input.limit ?? 20,
-          offset: input.offset ?? 0,
+    try {
+      const accessToken = await this.refresh(input.secretKey);
+      const response = await axios.get(
+        "https://api.spotify.com/v1/me/playlists",
+        {
+          headers: { Authorization: `Bearer ${accessToken}` },
+          params: {
+            limit: input.limit ?? 20,
+            offset: input.offset ?? 0,
+          },
         },
-      },
-    );
-    const playlists = response.data.items.map((playlist: any) => ({
-      id: playlist.id,
-      name: playlist.name,
-      tracks: playlist.tracks.total,
-    }));
-    const pagination = {
-      total: response.data.total,
-      limit: response.data.limit,
-      offset: response.data.offset,
-    };
-    return { playlists, pagination };
+      );
+      const playlists = response.data.items.map((playlist: any) => ({
+        id: playlist.id,
+        name: playlist.name,
+        tracks: playlist.tracks.total,
+      }));
+      const pagination = {
+        total: response.data.total,
+        limit: response.data.limit,
+        offset: response.data.offset,
+      };
+      return { playlists, pagination };
+    } catch (err) {
+      console.error(JSON.stringify(err));
+      throw err;
+    }
   }
 
   async getArtistAlbums(
     input: ISpotify.IGetArtistAlbumsInput,
   ): Promise<ISpotify.IGetArtistAlbumsOutput> {
-    const accessToken = await this.refresh(input.secretKey);
-    const response = await axios.get(
-      `https://api.spotify.com/v1/artists/${input.artistId}/albums`,
-      { headers: { Authorization: `Bearer ${accessToken}` } },
-    );
-    const albums = response.data.items.map((album: any) => ({
-      id: album.id,
-      name: album.name,
-      release_date: album.release_date,
-    }));
-    return { albums };
+    try {
+      const accessToken = await this.refresh(input.secretKey);
+      const response = await axios.get(
+        `https://api.spotify.com/v1/artists/${input.artistId}/albums`,
+        { headers: { Authorization: `Bearer ${accessToken}` } },
+      );
+      const albums = response.data.items.map((album: any) => ({
+        id: album.id,
+        name: album.name,
+        release_date: album.release_date,
+      }));
+      return { albums };
+    } catch (err) {
+      console.error(JSON.stringify(err));
+      throw err;
+    }
   }
 
   async getCurrentPlayingTrack(
     input: ISpotify.IGetCurrentPlayingTrackInput,
   ): Promise<ISpotify.IGetCurrentPlayingTrackOutput> {
-    const accessToken = await this.refresh(input.secretKey);
-    const response = await axios.get(
-      "https://api.spotify.com/v1/me/player/currently-playing",
-      { headers: { Authorization: `Bearer ${accessToken}` } },
-    );
-    const track = response.data.item;
-    return {
-      track: {
-        id: track.id,
-        name: track.name,
-        artist: track.artists[0].name,
-        album: track.album.name,
-      },
-    };
+    try {
+      const accessToken = await this.refresh(input.secretKey);
+      const response = await axios.get(
+        "https://api.spotify.com/v1/me/player/currently-playing",
+        { headers: { Authorization: `Bearer ${accessToken}` } },
+      );
+      const track = response.data.item;
+      return {
+        track: {
+          id: track.id,
+          name: track.name,
+          artist: track.artists[0].name,
+          album: track.album.name,
+        },
+      };
+    } catch (err) {
+      console.error(JSON.stringify(err));
+      throw err;
+    }
   }
 
   async createPlaylist(
     input: ISpotify.ICreatePlaylistInput,
   ): Promise<ISpotify.ICreatePlaylistOutput> {
-    const accessToken = await this.refresh(input.secretKey);
-    const response = await axios.post(
-      `https://api.spotify.com/v1/users/${input.userId}/playlists`,
-      { name: input.playlistName, public: false },
-      {
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-          "Content-Type": "application/json",
+    try {
+      const accessToken = await this.refresh(input.secretKey);
+      const response = await axios.post(
+        `https://api.spotify.com/v1/users/${input.userId}/playlists`,
+        { name: input.playlistName, public: false },
+        {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+            "Content-Type": "application/json",
+          },
         },
-      },
-    );
-    return { playlistId: response.data.id };
+      );
+      return { playlistId: response.data.id };
+    } catch (err) {
+      console.error(JSON.stringify(err));
+      throw err;
+    }
   }
 
   async getRecommendations(
     input: ISpotify.IGetRecommendationsInput,
   ): Promise<ISpotify.IGetRecommendationsOutput> {
-    const accessToken = await this.refresh(input.secretKey);
-    const response = await axios.get(
-      "https://api.spotify.com/v1/recommendations",
-      {
-        headers: { Authorization: `Bearer ${accessToken}` },
-        params: { seed_tracks: input.seedTracks.join(",") },
-      },
-    );
-    const tracks = response.data.tracks.map((track: any) => ({
-      id: track.id,
-      name: track.name,
-      artist: track.artists[0].name,
-    }));
-    return { tracks };
+    try {
+      const accessToken = await this.refresh(input.secretKey);
+      const response = await axios.get(
+        "https://api.spotify.com/v1/recommendations",
+        {
+          headers: { Authorization: `Bearer ${accessToken}` },
+          params: { seed_tracks: input.seedTracks.join(",") },
+        },
+      );
+      const tracks = response.data.tracks.map((track: any) => ({
+        id: track.id,
+        name: track.name,
+        artist: track.artists[0].name,
+      }));
+      return { tracks };
+    } catch (err) {
+      console.error(JSON.stringify(err));
+      throw err;
+    }
   }
 
   async refresh(secretKey: string): Promise<string> {
