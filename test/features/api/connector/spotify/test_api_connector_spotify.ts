@@ -3,6 +3,25 @@ import { ISpotify } from "@wrtn/connector-api/lib/structures/connector/spotify/I
 import typia from "typia";
 import { ConnectorGlobal } from "../../../../../src/ConnectorGlobal";
 
+export const test_api_connector_spotify_search_artists = async (
+  connection: CApi.IConnection,
+) => {
+  const input: ISpotify.ISearchArtistsInput = {
+    artistName: "BTS",
+    secretKey: ConnectorGlobal.env.SPOTIFY_TEST_SECRET, // Spotify API 호출을 위한 시크릿 키
+    limit: 5,
+  };
+
+  const res =
+    await CApi.functional.connector.spotify.search_artists.searchArtists(
+      connection,
+      input,
+    );
+
+  typia.assert(res);
+  console.log("검색된 가수 목록:", res);
+};
+
 export const test_api_connector_spotify_get_users_top_artists = async (
   connection: CApi.IConnection,
 ) => {
