@@ -191,6 +191,8 @@ export namespace ICommon {
 There is an interface called 'ICommon.ISsecret' in our code. The service sometimes needs to inherit this interface to implement the body type of the request. The reason for the existence of 'ICommon.ISsecret' is to receive the SecretKey from the user and call the user's API instead. For example, it can be implemented as follows.
 
 ```ts
+import { ICommon } from "../common/ISecretValue"; // src/api/structures/connector/common/ISecretValue.ts
+
 export namespace IWrtn {
   export interface ISecret
     extends ICommon.ISecret<
