@@ -1,5 +1,5 @@
-import { TypedBody, TypedQuery, TypedRoute } from "@nestia/core";
-import { Controller } from "@nestjs/common";
+import { TypedBody, TypedRoute } from "@nestia/core";
+import { Body, Controller } from "@nestjs/common";
 import { ApiTags } from "@nestjs/swagger";
 import { ISlack } from "@wrtn/connector-api/lib/structures/connector/slack/ISlack";
 import { MyPick } from "@wrtn/connector-api/lib/structures/types/MyPick";
@@ -17,7 +17,7 @@ export class SlackController {
    */
   @TypedRoute.Post("interactivity")
   async interactivity(
-    @TypedQuery.Body() input: ISlack.InteractiveComponentInput,
+    @Body() input: ISlack.InteractiveComponentInput,
   ): Promise<any[]> {
     return await this.slackProvider.interactivity(input);
   }
