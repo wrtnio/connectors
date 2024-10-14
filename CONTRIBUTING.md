@@ -60,7 +60,7 @@ Let's take a closer look one by one.
 
 ```ts
 // in your controller
-@Controller()
+@Controller("connector/service-name") // routing path is also our convention.
 class WrtnController {
   constructor(private readonly wrtnProvider: WrtnProvider) {}
 
