@@ -7,13 +7,15 @@ import { SpotifyProvider } from "../../../providers/connector/spotify/SpotifyPro
 export class SpotifyController {
   constructor(private readonly spotifyProvider: SpotifyProvider) {}
 
-  @core.TypedRoute.Post("get-user-playlists") async getUserPlaylists(
+  @core.TypedRoute.Post("get-user-playlists")
+  async getUserPlaylists(
     @TypedBody() input: ISpotify.IGetUserPlaylistsInput,
   ): Promise<ISpotify.IGetUserPlaylistsOutput> {
     return this.spotifyProvider.getUserPlaylists(input);
   }
 
-  @core.TypedRoute.Post("get-artist-albums") async getArtistAlbums(
+  @core.TypedRoute.Post("get-artist-albums")
+  async getArtistAlbums(
     @TypedBody() input: ISpotify.IGetArtistAlbumsInput,
   ): Promise<ISpotify.IGetArtistAlbumsOutput> {
     return this.spotifyProvider.getArtistAlbums(input);
@@ -26,13 +28,15 @@ export class SpotifyController {
     return this.spotifyProvider.getCurrentPlayingTrack(input);
   }
 
-  @core.TypedRoute.Post("create-playlist") async createPlaylist(
+  @core.TypedRoute.Post("create-playlist")
+  async createPlaylist(
     @TypedBody() input: ISpotify.ICreatePlaylistInput,
   ): Promise<ISpotify.ICreatePlaylistOutput> {
     return this.spotifyProvider.createPlaylist(input);
   }
 
-  @core.TypedRoute.Post("get-recommendations") async getRecommendations(
+  @core.TypedRoute.Post("get-recommendations")
+  async getRecommendations(
     @TypedBody() input: ISpotify.IGetRecommendationsInput,
   ): Promise<ISpotify.IGetRecommendationsOutput> {
     return this.spotifyProvider.getRecommendations(input);
