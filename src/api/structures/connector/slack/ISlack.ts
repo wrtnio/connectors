@@ -1,10 +1,10 @@
+import { Block, KnownBlock } from "@slack/web-api";
 import { Placeholder, Prerequisite } from "@wrtnio/decorators";
 import { tags } from "typia";
 import { ContentMediaType } from "typia/lib/tags";
 import { MyPick } from "../../types/MyPick";
 import { StrictOmit } from "../../types/strictOmit";
 import { ICommon } from "../common/ISecretValue";
-import { Block, KnownBlock } from "@slack/web-api";
 
 export namespace ISlack {
   export type ISecret = ICommon.ISecret<
@@ -79,6 +79,10 @@ export namespace ISlack {
 
   export interface InteractiveComponentInput {
     payload: InteractiveComponent;
+  }
+
+  export interface Payload {
+    payload: string;
   }
 
   export interface InteractiveComponent {

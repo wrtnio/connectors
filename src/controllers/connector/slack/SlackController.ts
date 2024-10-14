@@ -16,7 +16,7 @@ export class SlackController {
    * @returns array of slack block types
    */
   @Post("interactivity")
-  async interactivity(@Body() input: { payload: string }): Promise<any[]> {
+  async interactivity(@Body() input: ISlack.Payload): Promise<any[]> {
     const parsed: ISlack.InteractiveComponent = JSON.parse(input.payload);
     return await this.slackProvider.interactivity({ payload: parsed });
   }
