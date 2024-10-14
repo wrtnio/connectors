@@ -6,6 +6,36 @@ import { OAuthSecretProvider } from "../../internal/oauth_secret/OAuthSecretProv
 
 @Injectable()
 export class SpotifyProvider {
+  async getArtists(
+    input: ISpotify.IGetArtistsInput,
+  ): Promise<ISpotify.IGetArtistsOutput> {
+    try {
+      const accessToken = await this.refresh(input.secretKey);
+      const response = await axios.get(`https://api.spotify.com/v1/artists`, {
+        headers: { Authorization: `Bearer ${accessToken}` },
+        params: {
+          ids: input.artistIds,
+          limit: input.limit ?? 20,
+          offset: input.offset ?? 0,
+        },
+      });
+      const artists = response.data.artists.map((artist: any) => ({
+        id: artist.id,
+        name: artist.name,
+        genres: artist.genres,
+      }));
+      const pagination = {
+        total: response.data.total,
+        limit: input.limit ?? 20,
+        offset: input.offset ?? 0,
+      };
+      return { artists, pagination };
+    } catch (err) {
+      console.error(JSON.stringify(err));
+      throw err;
+    }
+  }
+
   async getUserPlaylists(
     input: ISpotify.IGetUserPlaylistsInput,
   ): Promise<ISpotify.IGetUserPlaylistsOutput> {
