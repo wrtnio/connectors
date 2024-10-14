@@ -105,14 +105,34 @@ export class SpotifyProvider {
   }
 
   async refresh(secretKey: string): Promise<string> {
-    const refresh_token = await OAuthSecretProvider.getSecretValue(secretKey);
-    const url = "https://accounts.spotify.com/api/token";
-    const res = await axios.post(url, {
-      refresh_token,
-      client_id: ConnectorGlobal.env.SPOTIFY_CLIENT_SECRET,
-      grant_type: "refresh_token",
-    });
+    try {
+      const refresh_token = await OAuthSecretProvider.getSecretValue(secretKey);
+      // Basic Auth에 필요한 사용자 이름과 비밀번호를 설정합니다.
+      const username = ConnectorGlobal.env.SPOTIFY_CLIENT_ID;
+      const password = ConnectorGlobal.env.SPOTIFY_CLIENT_SECRET;
 
-    return res.data.access_token;
+      // Base64로 인코딩된 자격 증명을 생성합니다.
+      const encodedCredentials = btoa(`${username}:${password}`);
+      const url = "https://accounts.spotify.com/api/token";
+      const res = await axios.post(
+        url,
+        {
+          refresh_token,
+          client_id: ConnectorGlobal.env.SPOTIFY_CLIENT_ID,
+          grant_type: "refresh_token",
+        },
+        {
+          headers: {
+            Authorization: `Basic ${encodedCredentials}`,
+            "Content-Type": "application/x-www-form-urlencoded",
+          },
+        },
+      );
+
+      return res.data.access_token;
+    } catch (err) {
+      console.error(JSON.stringify(err));
+      throw err;
+    }
   }
 }

@@ -13,14 +13,21 @@ export namespace ISpotify {
      *
      * The number of items to return. Default is 20.
      */
-    limit?: number & tags.Default<20>;
+    limit?: number &
+      tags.Type<"uint64"> &
+      tags.Default<20> &
+      tags.Minimum<0> &
+      tags.Maximum<50>;
 
     /**
      * @title Offset
      *
      * The index of the first item to return. Default is 0.
      */
-    offset?: number & tags.Default<0>;
+    offset?: number &
+      tags.Type<"uint64"> &
+      tags.Default<0> &
+      tags.Maximum<100000>;
   }
 
   /**
