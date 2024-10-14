@@ -3,6 +3,62 @@ import { ISpotify } from "@wrtn/connector-api/lib/structures/connector/spotify/I
 import typia from "typia";
 import { ConnectorGlobal } from "../../../../../src/ConnectorGlobal";
 
+export const test_api_connector_spotify_get_users_top_artists = async (
+  connection: CApi.IConnection,
+) => {
+  const input: ISpotify.IGetUsersTopArtistsInput = {
+    secretKey: ConnectorGlobal.env.SPOTIFY_TEST_SECRET, // Spotify API 호출을 위한 시크릿 키
+    timeRange: "long_term", // 시간 범위
+    limit: 10, // 가져올 아티스트의 수
+    offset: 0, // 시작 위치
+  };
+
+  const res =
+    await CApi.functional.connector.spotify.get_users_top_artists.getUsersTopArtists(
+      connection,
+      input,
+    );
+
+  typia.assert(res); // 타입 체크
+  console.log("사용자의 상위 아티스트:", res.artists);
+};
+
+// 아티스트 추천 기능 테스트
+export const test_api_connector_spotify_get_recommended_artists = async (
+  connection: CApi.IConnection,
+) => {
+  const input: ISpotify.IGetRecommendedArtistsInput = {
+    secretKey: ConnectorGlobal.env.SPOTIFY_TEST_SECRET, // Spotify API 호출을 위한 시크릿 키
+    seedArtists: ["artist_id_1", "artist_id_2"], // 추천을 위한 시드 아티스트 ID
+    limit: 10, // 가져올 아티스트의 수
+    offset: 0, // 시작 위치
+  };
+
+  const res =
+    await CApi.functional.connector.spotify.get_recommended_artists.getRecommendedArtists(
+      connection,
+      input,
+    );
+
+  typia.assert(res); // 타입 체크
+  console.log("추천 아티스트:", res.artists);
+};
+
+export const test_api_connector_spotify_get_artist = async (
+  connection: CApi.IConnection,
+) => {
+  const res = await CApi.functional.connector.spotify.get_artists.getArtists(
+    connection,
+    {
+      secretKey: ConnectorGlobal.env.SPOTIFY_TEST_SECRET, // Spotify API 호출을 위한 시크릿 키
+      artistIds: [],
+    },
+  );
+
+  typia.assert(res);
+  return res;
+};
+
 // 사용자 플레이리스트 가져오기 테스트
 export const test_api_connector_spotify_get_user_playlists = async (
   connection: CApi.IConnection,

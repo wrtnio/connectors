@@ -7,6 +7,20 @@ import { SpotifyProvider } from "../../../providers/connector/spotify/SpotifyPro
 export class SpotifyController {
   constructor(private readonly spotifyProvider: SpotifyProvider) {}
 
+  @core.TypedRoute.Post("get-users-top-artists")
+  async getUsersTopArtists(
+    @TypedBody() input: ISpotify.IGetUsersTopArtistsInput,
+  ): Promise<ISpotify.IGetUsersTopArtistsOutput> {
+    return this.spotifyProvider.getUsersTopArtists(input);
+  }
+
+  @core.TypedRoute.Post("get-recommended-artists")
+  async getRecommendedArtists(
+    @TypedBody() input: ISpotify.IGetRecommendedArtistsInput,
+  ): Promise<ISpotify.IGetRecommendedArtistsOutput> {
+    return this.spotifyProvider.getRecommendedArtists(input);
+  }
+
   @core.TypedRoute.Post("get-artists")
   async getArtists(
     @TypedBody() input: ISpotify.IGetArtistsInput,

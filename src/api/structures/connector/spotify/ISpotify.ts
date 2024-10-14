@@ -3,6 +3,131 @@ import { ICommon } from "../common/ISecretValue";
 
 export namespace ISpotify {
   /**
+   * @title Get User's Top Artists Input
+   *
+   * Input interface for retrieving user's top artists.
+   */
+  export interface IGetUsersTopArtistsInput
+    extends ICommon.ISecret<"spotify", ["user-top-read"]> {
+    /**
+     * @title Time Range
+     *
+     * Over what time frame the affinities are computed. Valid values: short_term (4 weeks), medium_term (6 months), long_term (several years). Default: medium_term.
+     */
+    timeRange?:
+      | tags.Constant<"short_term", { title: "short_term" }>
+      | tags.Constant<"medium_term", { title: "medium_term" }>
+      | tags.Constant<"long_term", { title: "long_term" }>;
+
+    /**
+     * @title Limit
+     *
+     * The number of items to return. Default is 20.
+     */
+    limit?: number &
+      tags.Type<"uint64"> &
+      tags.Default<20> &
+      tags.Minimum<0> &
+      tags.Maximum<50>;
+
+    /**
+     * @title Offset
+     *
+     * The index of the first item to return. Default is 0.
+     */
+    offset?: number &
+      tags.Type<"uint64"> &
+      tags.Default<0> &
+      tags.Maximum<100000>;
+  }
+
+  /**
+   * @title Get User's Top Artists Output
+   *
+   * Output interface for retrieving user's top artists.
+   */
+  export interface IGetUsersTopArtistsOutput {
+    /**
+     * @title Artists
+     *
+     * An array containing the ID, name, and genres of top artists.
+     */
+    artists: Array<{ id: string; name: string; genres: string[] }>;
+
+    /**
+     * @title Pagination Info
+     *
+     * Information about pagination for the artists.
+     */
+    pagination: {
+      total: number; // Total number of artists
+      limit: number; // Number of artists per page
+      offset: number; // Current offset
+    };
+  }
+
+  /**
+   * @title Get Recommended Artists Input
+   *
+   * Input interface for retrieving recommended artists.
+   */
+  export interface IGetRecommendedArtistsInput
+    extends ICommon.ISecret<"spotify"> {
+    /**
+     * @title Seed Artists
+     *
+     * An array of seed artist IDs for recommendations.
+     */
+    seedArtists: string[] & tags.MinItems<1> & tags.MaxItems<5>;
+
+    /**
+     * @title Limit
+     *
+     * The number of items to return. Default is 20.
+     */
+    limit?: number &
+      tags.Type<"uint64"> &
+      tags.Default<20> &
+      tags.Minimum<0> &
+      tags.Maximum<50>;
+
+    /**
+     * @title Offset
+     *
+     * The index of the first item to return. Default is 0.
+     */
+    offset?: number &
+      tags.Type<"uint64"> &
+      tags.Default<0> &
+      tags.Maximum<100000>;
+  }
+
+  /**
+   * @title Get Recommended Artists Output
+   *
+   * Output interface for retrieving recommended artists.
+   */
+  export interface IGetRecommendedArtistsOutput {
+    /**
+     * @title Artists
+     *
+     * An array containing the ID, name, and genres of recommended artists.
+     */
+    artists: Array<{ id: string; name: string; genres: string[] }>;
+
+    /**
+     * @title Pagination Info
+     *
+     * Information about pagination for the artists.
+     */
+    pagination: {
+      total: number; // Total number of artists
+      limit: number; // Number of artists per page
+      offset: number; // Current offset
+    };
+  }
+
+  /**
    * @title Get Artists Input
    *
    * Input interface for retrieving artists.
@@ -13,7 +138,7 @@ export namespace ISpotify {
      *
      * A comma-separated list of the Spotify IDs for the artists.
      */
-    artistIds: string & tags.Format<"csv">;
+    artistIds: string[] & tags.MaxItems<50>;
 
     /**
      * @title Limit

@@ -6,6 +6,72 @@ import { OAuthSecretProvider } from "../../internal/oauth_secret/OAuthSecretProv
 
 @Injectable()
 export class SpotifyProvider {
+  async getUsersTopArtists(
+    input: ISpotify.IGetUsersTopArtistsInput,
+  ): Promise<ISpotify.IGetUsersTopArtistsOutput> {
+    try {
+      const accessToken = await this.refresh(input.secretKey);
+      const response = await axios.get(
+        "https://api.spotify.com/v1/me/top/artists",
+        {
+          headers: { Authorization: `Bearer ${accessToken}` },
+          params: {
+            time_range: input.timeRange ?? "medium_term",
+            limit: input.limit ?? 20,
+            offset: input.offset ?? 0,
+          },
+        },
+      );
+      const artists = response.data.items.map((artist: any) => ({
+        id: artist.id,
+        name: artist.name,
+        genres: artist.genres,
+      }));
+      const pagination = {
+        total: response.data.total,
+        limit: input.limit ?? 20,
+        offset: input.offset ?? 0,
+      };
+      return { artists, pagination };
+    } catch (err) {
+      console.error(JSON.stringify(err));
+      throw err;
+    }
+  }
+
+  async getRecommendedArtists(
+    input: ISpotify.IGetRecommendedArtistsInput,
+  ): Promise<ISpotify.IGetRecommendedArtistsOutput> {
+    try {
+      const accessToken = await this.refresh(input.secretKey);
+      const response = await axios.get(
+        "https://api.spotify.com/v1/recommendations",
+        {
+          headers: { Authorization: `Bearer ${accessToken}` },
+          params: {
+            seed_artists: input.seedArtists.join(","),
+            limit: input.limit ?? 20,
+            offset: input.offset ?? 0,
+          },
+        },
+      );
+      const artists = response.data.artists.map((artist: any) => ({
+        id: artist.id,
+        name: artist.name,
+        genres: artist.genres,
+      }));
+      const pagination = {
+        total: response.data.total,
+        limit: input.limit ?? 20,
+        offset: input.offset ?? 0,
+      };
+      return { artists, pagination };
+    } catch (err) {
+      console.error(JSON.stringify(err));
+      throw err;
+    }
+  }
+
   async getArtists(
     input: ISpotify.IGetArtistsInput,
   ): Promise<ISpotify.IGetArtistsOutput> {
@@ -14,11 +80,12 @@ export class SpotifyProvider {
       const response = await axios.get(`https://api.spotify.com/v1/artists`, {
         headers: { Authorization: `Bearer ${accessToken}` },
         params: {
-          ids: input.artistIds,
+          ids: input.artistIds.join(","),
           limit: input.limit ?? 20,
           offset: input.offset ?? 0,
         },
       });
+
       const artists = response.data.artists.map((artist: any) => ({
         id: artist.id,
         name: artist.name,
