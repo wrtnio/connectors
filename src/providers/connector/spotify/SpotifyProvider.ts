@@ -22,13 +22,7 @@ export class SpotifyProvider {
         },
       });
 
-      const artists = response.data.artists.items.map((artist: any) => ({
-        id: artist.id,
-        name: artist.name,
-        genres: artist.genres,
-        popularity: artist.popularity,
-      }));
-
+      const artists = response.data.artists.items;
       const pagination = {
         total: response.data.artists.total,
         limit: response.data.artists.limit,
@@ -75,9 +69,9 @@ export class SpotifyProvider {
     }
   }
 
-  async getRecommendedArtists(
-    input: ISpotify.IGetRecommendedArtistsInput,
-  ): Promise<ISpotify.IGetRecommendedArtistsOutput> {
+  async getRecommendedTracks(
+    input: ISpotify.IGetRecommendedTracksInput,
+  ): Promise<ISpotify.IGetRecommendedTracksOutput> {
     try {
       const accessToken = await this.refresh(input.secretKey);
       const response = await axios.get(
@@ -91,17 +85,9 @@ export class SpotifyProvider {
           },
         },
       );
-      const artists = response.data.artists.map((artist: any) => ({
-        id: artist.id,
-        name: artist.name,
-        genres: artist.genres,
-      }));
-      const pagination = {
-        total: response.data.total,
-        limit: input.limit ?? 20,
-        offset: input.offset ?? 0,
-      };
-      return { artists, pagination };
+
+      const tracks = response.data.tracks;
+      return { tracks };
     } catch (err) {
       console.error(JSON.stringify(err));
       throw err;
@@ -122,17 +108,8 @@ export class SpotifyProvider {
         },
       });
 
-      const artists = response.data.artists.map((artist: any) => ({
-        id: artist.id,
-        name: artist.name,
-        genres: artist.genres,
-      }));
-      const pagination = {
-        total: response.data.total,
-        limit: input.limit ?? 20,
-        offset: input.offset ?? 0,
-      };
-      return { artists, pagination };
+      const artists = response.data.artists;
+      return { artists };
     } catch (err) {
       console.error(JSON.stringify(err));
       throw err;
@@ -154,11 +131,11 @@ export class SpotifyProvider {
           },
         },
       );
-      const playlists = response.data.items.map((playlist: any) => ({
-        id: playlist.id,
-        name: playlist.name,
-        tracks: playlist.tracks.total,
-      }));
+
+      const playlists = response.data.items.map((item: any) => {
+        item.tracks = item.tracks.total;
+        return item;
+      });
       const pagination = {
         total: response.data.total,
         limit: response.data.limit,
@@ -180,11 +157,8 @@ export class SpotifyProvider {
         `https://api.spotify.com/v1/artists/${input.artistId}/albums`,
         { headers: { Authorization: `Bearer ${accessToken}` } },
       );
-      const albums = response.data.items.map((album: any) => ({
-        id: album.id,
-        name: album.name,
-        release_date: album.release_date,
-      }));
+
+      const albums = response.data.items;
       return { albums };
     } catch (err) {
       console.error(JSON.stringify(err));
@@ -192,38 +166,33 @@ export class SpotifyProvider {
     }
   }
 
-  async getCurrentPlayingTrack(
-    input: ISpotify.IGetCurrentPlayingTrackInput,
-  ): Promise<ISpotify.IGetCurrentPlayingTrackOutput> {
-    try {
-      const accessToken = await this.refresh(input.secretKey);
-      const response = await axios.get(
-        "https://api.spotify.com/v1/me/player/currently-playing",
-        { headers: { Authorization: `Bearer ${accessToken}` } },
-      );
-      const track = response.data.item;
-      return {
-        track: {
-          id: track.id,
-          name: track.name,
-          artist: track.artists[0].name,
-          album: track.album.name,
-        },
-      };
-    } catch (err) {
-      console.error(JSON.stringify(err));
-      throw err;
-    }
-  }
+  // async getCurrentPlayingTrack(
+  //   input: ISpotify.IGetCurrentPlayingTrackInput,
+  // ): Promise<ISpotify.IGetCurrentPlayingTrackOutput> {
+  //   try {
+  //     const accessToken = await this.refresh(input.secretKey);
+  //     const response = await axios.get(
+  //       "https://api.spotify.com/v1/me/player/currently-playing",
+  //       { headers: { Authorization: `Bearer ${accessToken}` } },
+  //     );
+  //     const track = response.data.item;
+  //     return track;
+  //   } catch (err) {
+  //     console.error(JSON.stringify(err));
+  //     throw err;
+  //   }
+  // }
 
   async createPlaylist(
     input: ISpotify.ICreatePlaylistInput,
   ): Promise<ISpotify.ICreatePlaylistOutput> {
     try {
       const accessToken = await this.refresh(input.secretKey);
+      const getUserIdInput = input as ISpotify.IGetCurrentUserProfileInput;
+      const { id } = await this.getCurrentUserId(getUserIdInput);
       const response = await axios.post(
-        `https://api.spotify.com/v1/users/${input.userId}/playlists`,
-        { name: input.playlistName, public: false },
+        `https://api.spotify.com/v1/users/${id}/playlists`,
+        { name: input.playlistName, public: input.public },
         {
           headers: {
             Authorization: `Bearer ${accessToken}`,
@@ -288,6 +257,22 @@ export class SpotifyProvider {
       );
 
       return res.data.access_token;
+    } catch (err) {
+      console.error(JSON.stringify(err));
+      throw err;
+    }
+  }
+
+  async getCurrentUserId(
+    input: ISpotify.IGetCurrentUserProfileInput,
+  ): Promise<{ id: string; email: string }> {
+    try {
+      const accessToken = await this.refresh(input.secretKey);
+      const response = await axios.get("https://api.spotify.com/v1/me", {
+        headers: { Authorization: `Bearer ${accessToken}` },
+      });
+
+      return response.data;
     } catch (err) {
       console.error(JSON.stringify(err));
       throw err;

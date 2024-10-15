@@ -1,4 +1,5 @@
 import { tags } from "typia";
+import { MyPick } from "../../types/MyPick";
 import { ICommon } from "../common/ISecretValue";
 
 export namespace ISpotify {
@@ -48,35 +49,7 @@ export namespace ISpotify {
      *
      * An array containing the list of searched artists.
      */
-    artists: Array<{
-      /**
-       * @title Artist ID
-       *
-       * The Spotify ID of the artist.
-       */
-      id: string;
-
-      /**
-       * @title Artist Name
-       *
-       * The name of the artist.
-       */
-      name: string;
-
-      /**
-       * @title Genres
-       *
-       * A list of genres the artist belongs to.
-       */
-      genres: string[];
-
-      /**
-       * @title Popularity
-       *
-       * A score representing the popularity of the artist.
-       */
-      popularity: number;
-    }>;
+    artists: Array<ISpotify.Artist>;
 
     /**
      * @title Pagination Info
@@ -140,7 +113,7 @@ export namespace ISpotify {
      *
      * An array containing the ID, name, and genres of top artists.
      */
-    artists: Array<{ id: string; name: string; genres: string[] }>;
+    artists: Array<ISpotify.Artist>;
 
     /**
      * @title Pagination Info
@@ -155,18 +128,18 @@ export namespace ISpotify {
   }
 
   /**
-   * @title Get Recommended Artists Input
+   * @title Get Recommended Tracks Input
    *
-   * Input interface for retrieving recommended artists.
+   * Input interface for retrieving recommended tracks.
    */
-  export interface IGetRecommendedArtistsInput
+  export interface IGetRecommendedTracksInput
     extends ICommon.ISecret<"spotify"> {
     /**
      * @title Seed Artists
      *
-     * An array of seed artist IDs for recommendations.
+     * An array of seed track IDs for recommendations.
      */
-    seedArtists: string[] & tags.MinItems<1> & tags.MaxItems<5>;
+    seedArtists: Artist["id"][] & tags.MinItems<1> & tags.MaxItems<5>;
 
     /**
      * @title Limit
@@ -191,28 +164,17 @@ export namespace ISpotify {
   }
 
   /**
-   * @title Get Recommended Artists Output
+   * @title Get Recommended Tracks Output
    *
-   * Output interface for retrieving recommended artists.
+   * Output interface for retrieving recommended tracks.
    */
-  export interface IGetRecommendedArtistsOutput {
+  export interface IGetRecommendedTracksOutput {
     /**
-     * @title Artists
+     * @title Tracks
      *
-     * An array containing the ID, name, and genres of recommended artists.
+     * An array containing the ID, name, and genres of recommended tracks.
      */
-    artists: Array<{ id: string; name: string; genres: string[] }>;
-
-    /**
-     * @title Pagination Info
-     *
-     * Information about pagination for the artists.
-     */
-    pagination: {
-      total: number; // Total number of artists
-      limit: number; // Number of artists per page
-      offset: number; // Current offset
-    };
+    tracks: Array<MyPick<ISpotify.Artist, "id" | "name">>;
   }
 
   /**
@@ -261,18 +223,7 @@ export namespace ISpotify {
      *
      * An array containing the ID, name, and genres of artists.
      */
-    artists: Array<{ id: string; name: string; genres: string[] }>;
-
-    /**
-     * @title Pagination Info
-     *
-     * Information about pagination for the artists.
-     */
-    pagination: {
-      total: number; // Total number of artists
-      limit: number; // Number of artists per page
-      offset: number; // Current offset
-    };
+    artists: Array<ISpotify.Artist>;
   }
 
   /**
@@ -280,7 +231,8 @@ export namespace ISpotify {
    *
    * Input interface for retrieving user playlists.
    */
-  export interface IGetUserPlaylistsInput extends ICommon.ISecret<"spotify"> {
+  export interface IGetUserPlaylistsInput
+    extends ICommon.ISecret<"spotify", ["playlist-read-private"]> {
     /**
      * @title Limit
      *
@@ -314,7 +266,40 @@ export namespace ISpotify {
      *
      * An array containing the ID, name, and track count of playlists.
      */
-    playlists: Array<{ id: string; name: string; tracks: number }>;
+    playlists: Array<{
+      /**
+       * @title Playlist ID
+       */
+      id: string;
+
+      /**
+       * @title PlayList Name
+       */
+      name: string;
+
+      /**
+       * @title PlayList Description
+       */
+      description: string;
+
+      /**
+       * @title Total Tracks
+       */
+      tracks: number;
+
+      /**
+       * @title Track Images
+       */
+      images: {
+        height: number | null;
+        width: number | null;
+
+        /**
+         * @title Image Link
+         */
+        url: string & tags.Format<"iri">;
+      }[];
+    }>;
 
     /**
      * @title Pagination Info
@@ -353,7 +338,38 @@ export namespace ISpotify {
      *
      * An array containing the ID, name, and release date of albums.
      */
-    albums: Array<{ id: string; name: string; release_date: string }>;
+    albums: Array<{
+      id: string;
+
+      /**
+       * @title Total Tracks
+       */
+      total_tracks: number & tags.Type<"uint64">;
+
+      /**
+       * @title Album Name
+       */
+      name: string;
+
+      /**
+       * @title Release Date
+       */
+      release_date: string;
+      images: {
+        height: number | null;
+        width: number | null;
+
+        /**
+         * @title Image Link
+         */
+        url: string & tags.Format<"iri">;
+      }[];
+
+      /**
+       * @title Artists
+       */
+      artists: MyPick<ISpotify.Artist, "id" | "name">[];
+    }>;
   }
 
   /**
@@ -361,7 +377,10 @@ export namespace ISpotify {
    *
    * Input interface for retrieving the currently playing track.
    */
-  export type IGetCurrentPlayingTrackInput = ICommon.ISecret<"spotify">;
+  export type IGetCurrentPlayingTrackInput = ICommon.ISecret<
+    "spotify",
+    ["user-read-currently-playing"]
+  >;
 
   /**
    * @title Get Current Playing Track Output
@@ -382,7 +401,16 @@ export namespace ISpotify {
    *
    * Input interface for creating a playlist.
    */
-  export interface ICreatePlaylistInput extends ICommon.ISecret<"spotify"> {
+  export interface ICreatePlaylistInput
+    extends ICommon.ISecret<
+      "spotify",
+      [
+        "playlist-modify-public",
+        "playlist-modify-private",
+        "user-read-private", // 유저의 아이디를 알아야 추가할 수 있으나, 유저 아이디를 조회하려면 이 스코프가 필요
+        "user-read-email", // 유저의 아이디를 알아야 추가할 수 있으나, 유저 아이디를 조회하려면 이 스코프가 필요
+      ]
+    > {
     /**
      * @title User ID
      *
@@ -396,6 +424,11 @@ export namespace ISpotify {
      * The name of the playlist to be created.
      */
     playlistName: string;
+
+    /**
+     * @title public
+     */
+    public: boolean;
   }
 
   /**
@@ -438,5 +471,74 @@ export namespace ISpotify {
      * An array containing the ID, name, and artist information of recommended tracks.
      */
     tracks: Array<{ id: string; name: string; artist: string }>;
+  }
+
+  export type IGetCurrentUserProfileInput = ICommon.ISecret<
+    "spotify",
+    ["user-read-private", "user-read-email"]
+  >;
+
+  export interface Artist {
+    /**
+     * @title Artist ID
+     *
+     * The Spotify ID of the artist.
+     */
+    id: string;
+
+    /**
+     * @title Artist Name
+     *
+     * The name of the artist.
+     */
+    name: string;
+
+    /**
+     * @title Genres
+     *
+     * A list of genres the artist belongs to.
+     */
+    genres: string[];
+
+    /**
+     * @title Popularity
+     *
+     * A score representing the popularity of the artist.
+     */
+    popularity: number & tags.Type<"uint32">;
+  }
+
+  export interface Track {
+    /**
+     * @title Track ID
+     */
+    id: string;
+
+    /**
+     * @title Track Name
+     */
+    name: string;
+
+    /**
+     * @title Artist List
+     */
+    artists: Array<ISpotify.Artist>;
+
+    /**
+     * @title Duration
+     */
+    duration_ms: number & tags.Type<"uint64">;
+
+    /**
+     * @title Popularity
+     *
+     * A score representing the popularity of the artist.
+     */
+    popularity: number & tags.Type<"uint32">;
+
+    /**
+     * @title preview audio link
+     */
+    preview_url: string & tags.Format<"iri">;
   }
 }

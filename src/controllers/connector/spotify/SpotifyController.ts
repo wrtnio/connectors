@@ -20,11 +20,11 @@ export class SpotifyController {
     return this.spotifyProvider.getUsersTopArtists(input);
   }
 
-  @core.TypedRoute.Post("get-recommended-artists")
-  async getRecommendedArtists(
-    @TypedBody() input: ISpotify.IGetRecommendedArtistsInput,
-  ): Promise<ISpotify.IGetRecommendedArtistsOutput> {
-    return this.spotifyProvider.getRecommendedArtists(input);
+  @core.TypedRoute.Post("get-recommended-tracks")
+  async getRecommendedTracks(
+    @TypedBody() input: ISpotify.IGetRecommendedTracksInput,
+  ): Promise<ISpotify.IGetRecommendedTracksOutput> {
+    return this.spotifyProvider.getRecommendedTracks(input);
   }
 
   @core.TypedRoute.Post("get-artists")
@@ -48,12 +48,13 @@ export class SpotifyController {
     return this.spotifyProvider.getArtistAlbums(input);
   }
 
-  @core.TypedRoute.Post("get-current-playing-track")
-  async getCurrentPlayingTrack(
-    @TypedBody() input: ISpotify.IGetCurrentPlayingTrackInput,
-  ): Promise<ISpotify.IGetCurrentPlayingTrackOutput> {
-    return this.spotifyProvider.getCurrentPlayingTrack(input);
-  }
+  // 현재 듣고 있는 트랙을 조회하는 기능이 필요할 것으로 보이지 않아 수정
+  // @core.TypedRoute.Post("get-current-playing-track")
+  // async getCurrentPlayingTrack(
+  //   @TypedBody() input: ISpotify.IGetCurrentPlayingTrackInput,
+  // ): Promise<ISpotify.IGetCurrentPlayingTrackOutput> {
+  //   return this.spotifyProvider.getCurrentPlayingTrack(input);
+  // }
 
   @core.TypedRoute.Post("create-playlist")
   async createPlaylist(
