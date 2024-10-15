@@ -504,8 +504,10 @@ export namespace IJira {
 
         /**
          * @title version
+         *
+         * version only can be number 1
          */
-        version: 1;
+        version: 1 & tags.Pattern<"^1$">;
 
         /**
          * @title contents of description
@@ -603,6 +605,8 @@ export namespace IJira {
        * Issues must inevitably belong to the project.
        * At this point, the project can be specified by receiving an ID or key.
        * If you do not know the key or ID of the project, you should first look up the project.
+       *
+       * project's id is number or number string type and project's key type is only string.
        */
       project:
         | {
@@ -881,7 +885,7 @@ export namespace IJira {
     /**
      * @title issue type
      */
-    issuetype?: string &
+    issuetype?: IssueType["id"] &
       Prerequisite<{
         method: "post";
         path: "/connector/jira/get-issue-types";
@@ -1837,7 +1841,10 @@ export namespace IJira {
   }
 
   export interface IssueType {
-    id: `${number}`;
+    /**
+     * @title issuetype's id
+     */
+    id: (string & tags.Pattern<"^(0|[1-9]\\d*)$">) | number;
 
     /**
      * @title issue type name
@@ -2057,7 +2064,7 @@ export namespace IJira {
     /**
      * @title id
      */
-    id: `${number}`;
+    id: (string & tags.Pattern<"^(0|[1-9]\\d*)$">) | number;
 
     /**
      * @title key of project
