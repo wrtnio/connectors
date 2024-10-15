@@ -507,7 +507,7 @@ export namespace IJira {
          *
          * version only can be number 1
          */
-        version: 1 & tags.Pattern<"^1$">;
+        version: 1;
 
         /**
          * @title contents of description
