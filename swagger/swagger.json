@@ -15,7 +15,7 @@
     }
   ],
   "info": {
-    "version": "0.1.267",
+    "version": "0.1.268",
     "title": "@wrtn/connector",
     "description": "wrtn-ecosystem connectors and sdk",
     "license": {
@@ -37983,15 +37983,25 @@
             "type": "object",
             "properties": {
               "id": {
-                "0": {
-                  "type": "string",
-                  "pattern": "([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)",
-                  "x-wrtn-prerequisite": {
-                    "method": "post",
-                    "path": "/connector/jira/get-issue-types",
-                    "jmesPath": "issuetypes[].{value:id, label:name}"
+                "oneOf": [
+                  {
+                    "type": "number",
+                    "x-wrtn-prerequisite": {
+                      "method": "post",
+                      "path": "/connector/jira/get-issue-types",
+                      "jmesPath": "issuetypes[].{value:id, label:name}"
+                    }
+                  },
+                  {
+                    "type": "string",
+                    "pattern": "^(0|[1-9]\\d*)$",
+                    "x-wrtn-prerequisite": {
+                      "method": "post",
+                      "path": "/connector/jira/get-issue-types",
+                      "jmesPath": "issuetypes[].{value:id, label:name}"
+                    }
                   }
-                },
+                ],
                 "title": "id of issue type\n\nThe ID of the issue.\nSometimes the user can say the name of the issue type,\nsuch as 'bug' or 'story', but you cannot specify the issue type with the name of the issue type.\nBecause there can be types with the same name.\nTherefore, you must check the issue type with a different connector to verify that it is an issue type that can be used in the project.\n\nHowever, if you handed over the number string type from the beginning, it could be the ID of the issue type."
               }
             },
@@ -38052,15 +38062,25 @@
                 "type": "object",
                 "properties": {
                   "id": {
-                    "0": {
-                      "type": "string",
-                      "pattern": "([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)",
-                      "x-wrtn-prerequisite": {
-                        "method": "post",
-                        "path": "/connector/jira/get-projects",
-                        "jmesPath": "[].{value:id, label:name}"
+                    "oneOf": [
+                      {
+                        "type": "number",
+                        "x-wrtn-prerequisite": {
+                          "method": "post",
+                          "path": "/connector/jira/get-projects",
+                          "jmesPath": "[].{value:id, label:name}"
+                        }
+                      },
+                      {
+                        "type": "string",
+                        "pattern": "^(0|[1-9]\\d*)$",
+                        "x-wrtn-prerequisite": {
+                          "method": "post",
+                          "path": "/connector/jira/get-projects",
+                          "jmesPath": "[].{value:id, label:name}"
+                        }
                       }
-                    },
+                    ],
                     "title": "id of project"
                   }
                 },
@@ -38160,7 +38180,7 @@
                   },
                   "version": {
                     "const": 1,
-                    "title": "version"
+                    "title": "version\n\nversion only can be number 1"
                   },
                   "content": {
                     "type": "string",
@@ -38183,15 +38203,25 @@
                 "type": "object",
                 "properties": {
                   "id": {
-                    "0": {
-                      "type": "string",
-                      "pattern": "([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)",
-                      "x-wrtn-prerequisite": {
-                        "method": "post",
-                        "path": "/connector/jira/get-issue-types",
-                        "jmesPath": "issuetypes[].{value:id, label:name}"
+                    "oneOf": [
+                      {
+                        "type": "number",
+                        "x-wrtn-prerequisite": {
+                          "method": "post",
+                          "path": "/connector/jira/get-issue-types",
+                          "jmesPath": "issuetypes[].{value:id, label:name}"
+                        }
+                      },
+                      {
+                        "type": "string",
+                        "pattern": "^(0|[1-9]\\d*)$",
+                        "x-wrtn-prerequisite": {
+                          "method": "post",
+                          "path": "/connector/jira/get-issue-types",
+                          "jmesPath": "issuetypes[].{value:id, label:name}"
+                        }
                       }
-                    },
+                    ],
                     "title": "id of issue type\n\nThe ID of the issue.\nSometimes the user can say the name of the issue type,\nsuch as 'bug' or 'story', but you cannot specify the issue type with the name of the issue type.\nBecause there can be types with the same name.\nTherefore, you must check the issue type with a different connector to verify that it is an issue type that can be used in the project.\n\nHowever, if you handed over the number string type from the beginning, it could be the ID of the issue type."
                   }
                 },
@@ -38252,15 +38282,25 @@
                     "type": "object",
                     "properties": {
                       "id": {
-                        "0": {
-                          "type": "string",
-                          "pattern": "([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)",
-                          "x-wrtn-prerequisite": {
-                            "method": "post",
-                            "path": "/connector/jira/get-projects",
-                            "jmesPath": "[].{value:id, label:name}"
+                        "oneOf": [
+                          {
+                            "type": "number",
+                            "x-wrtn-prerequisite": {
+                              "method": "post",
+                              "path": "/connector/jira/get-projects",
+                              "jmesPath": "[].{value:id, label:name}"
+                            }
+                          },
+                          {
+                            "type": "string",
+                            "pattern": "^(0|[1-9]\\d*)$",
+                            "x-wrtn-prerequisite": {
+                              "method": "post",
+                              "path": "/connector/jira/get-projects",
+                              "jmesPath": "[].{value:id, label:name}"
+                            }
                           }
-                        },
+                        ],
                         "title": "id of project"
                       }
                     },
@@ -38286,7 +38326,7 @@
                     ]
                   }
                 ],
-                "title": "project\n\nIssues must inevitably belong to the project.\nAt this point, the project can be specified by receiving an ID or key.\nIf you do not know the key or ID of the project, you should first look up the project."
+                "title": "project\n\nIssues must inevitably belong to the project.\nAt this point, the project can be specified by receiving an ID or key.\nIf you do not know the key or ID of the project, you should first look up the project.\n\nproject's id is number or number string type and project's key type is only string."
               },
               "summary": {
                 "type": "string",
@@ -38620,8 +38660,16 @@
             "title": "issue type name\n\nIt may be name, bug, story or etc."
           },
           "id": {
-            "type": "string",
-            "pattern": "^([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)$"
+            "oneOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "string",
+                "pattern": "^(0|[1-9]\\d*)$"
+              }
+            ],
+            "title": "issuetype's id"
           }
         },
         "required": [
@@ -38926,12 +38974,25 @@
             "title": "key of project"
           },
           "issuetype": {
-            "type": "string",
-            "x-wrtn-prerequisite": {
-              "method": "post",
-              "path": "/connector/jira/get-issue-types",
-              "jmesPath": "[].{label:untranslatedName, value:untranslatedName}"
-            },
+            "oneOf": [
+              {
+                "type": "number",
+                "x-wrtn-prerequisite": {
+                  "method": "post",
+                  "path": "/connector/jira/get-issue-types",
+                  "jmesPath": "[].{label:untranslatedName, value:untranslatedName}"
+                }
+              },
+              {
+                "type": "string",
+                "pattern": "^(0|[1-9]\\d*)$",
+                "x-wrtn-prerequisite": {
+                  "method": "post",
+                  "path": "/connector/jira/get-issue-types",
+                  "jmesPath": "[].{label:untranslatedName, value:untranslatedName}"
+                }
+              }
+            ],
             "title": "issue type"
           },
           "assignee": {
@@ -39021,8 +39082,15 @@
         "type": "object",
         "properties": {
           "id": {
-            "type": "string",
-            "pattern": "^([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)$",
+            "oneOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "string",
+                "pattern": "^(0|[1-9]\\d*)$"
+              }
+            ],
             "title": "id"
           },
           "key": {
@@ -39191,8 +39259,16 @@
         "type": "object",
         "properties": {
           "id": {
-            "type": "string",
-            "pattern": "^([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)$"
+            "oneOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "string",
+                "pattern": "^(0|[1-9]\\d*)$"
+              }
+            ],
+            "title": "issuetype's id"
           },
           "name": {
             "type": "string",
@@ -39219,15 +39295,25 @@
         "type": "object",
         "properties": {
           "projectId": {
-            "0": {
-              "type": "string",
-              "pattern": "([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)",
-              "x-wrtn-prerequisite": {
-                "method": "post",
-                "path": "/connectors/jira/get-projects",
-                "jmesPath": "values[].{value:id,label:name}"
+            "oneOf": [
+              {
+                "type": "number",
+                "x-wrtn-prerequisite": {
+                  "method": "post",
+                  "path": "/connectors/jira/get-projects",
+                  "jmesPath": "values[].{value:id,label:name}"
+                }
+              },
+              {
+                "type": "string",
+                "pattern": "^(0|[1-9]\\d*)$",
+                "x-wrtn-prerequisite": {
+                  "method": "post",
+                  "path": "/connectors/jira/get-projects",
+                  "jmesPath": "values[].{value:id,label:name}"
+                }
               }
-            },
+            ],
             "title": "id of project"
           },
           "secretKey": {
@@ -39285,15 +39371,25 @@
         "type": "object",
         "properties": {
           "projectId": {
-            "0": {
-              "type": "string",
-              "pattern": "([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)",
-              "x-wrtn-prerequisite": {
-                "method": "post",
-                "path": "/connectors/jira/get-projects",
-                "jmesPath": "values[].{value:id,label:name}"
+            "oneOf": [
+              {
+                "type": "number",
+                "x-wrtn-prerequisite": {
+                  "method": "post",
+                  "path": "/connectors/jira/get-projects",
+                  "jmesPath": "values[].{value:id,label:name}"
+                }
+              },
+              {
+                "type": "string",
+                "pattern": "^(0|[1-9]\\d*)$",
+                "x-wrtn-prerequisite": {
+                  "method": "post",
+                  "path": "/connectors/jira/get-projects",
+                  "jmesPath": "values[].{value:id,label:name}"
+                }
               }
-            },
+            ],
             "title": "id of project\n\nIf the status does not have the project ID,\nit means this status is beyond the scope of the project and can be selected by the entire team.\nIt can also be the default status created from the beginning by Jira."
           },
           "secretKey": {
