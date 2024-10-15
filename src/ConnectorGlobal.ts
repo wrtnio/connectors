@@ -160,6 +160,11 @@ export namespace ConnectorGlobal {
     SLACK_CLIENT_SECRET: string;
     SLACK_TEST_SECRET: string;
 
+    // SPOTIFY
+    SPOTIFY_CLIENT_ID: string;
+    SPOTIFY_CLIENT_SECRET: string;
+    SPOTIFY_TEST_SECRET: string;
+
     // DISCORD
     DISCORD_BOT_TOKEN: string;
 
