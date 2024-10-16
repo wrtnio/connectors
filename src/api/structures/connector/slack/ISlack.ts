@@ -564,6 +564,13 @@ export namespace ISlack {
      * @title replies
      */
     replies: ISlack.Reply[];
+
+    /**
+     * @title members
+     *
+     * This is a list of people who participated in the conversation in this conversation list.
+     */
+    members: MyPick<IGetUserOutput, "id" | "display_name">[];
   }
 
   export interface IGetReplyInput extends IGetChannelHistoryInput {
