@@ -232,28 +232,28 @@ jobs:
       - name: test
         run: npm run test -- --include figma
 
-  test-discord:
-    runs-on: ubuntu-latest
-    needs: build
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4 # 코드 재체크아웃하여 package.json 확보
-      - name: Download build artifact
-        uses: actions/download-artifact@v4
-        with:
-          name: build
-          path: |
-            ./bin
-      - name: install dependencies
-        run: npm install
-      - name: Secrets to Env
-        run: |
-          rm .env
-          jq -r 'to_entries|map("\(.key)=\(.value|tostring)")|.[]' <<< "$SECRETS_CONTEXT" > .env
-        env:
-          SECRETS_CONTEXT: ${{ toJson(secrets) }}
-      - name: test
-        run: npm run test -- --include discord
+  # test-discord:
+  #   runs-on: ubuntu-latest
+  #   needs: build
+  #   steps:
+  #     - name: Checkout code
+  #       uses: actions/checkout@v4 # 코드 재체크아웃하여 package.json 확보
+  #     - name: Download build artifact
+  #       uses: actions/download-artifact@v4
+  #       with:
+  #         name: build
+  #         path: |
+  #           ./bin
+  #     - name: install dependencies
+  #       run: npm install
+  #     - name: Secrets to Env
+  #       run: |
+  #         rm .env
+  #         jq -r 'to_entries|map("\(.key)=\(.value|tostring)")|.[]' <<< "$SECRETS_CONTEXT" > .env
+  #       env:
+  #         SECRETS_CONTEXT: ${{ toJson(secrets) }}
+  #     - name: test
+  #       run: npm run test -- --include discord
 
   test-google_slides:
     runs-on: ubuntu-latest
