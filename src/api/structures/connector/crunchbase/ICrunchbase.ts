@@ -365,7 +365,7 @@ export namespace ICrunchbase {
      *
      * Total amount of funds raised by the organization.
      */
-    funds_total?: number;
+    funds_total?: number | null;
 
     /**
      * @title Acquisition Information
@@ -379,14 +379,14 @@ export namespace ICrunchbase {
      *
      * The type or category of investors (e.g., Angel, Venture Capital).
      */
-    investor_type?: string;
+    investor_type?: string | null;
 
     /**
      * @title Investment Stage
      *
      * The stage at which the company receives investments (e.g., Seed, Series A).
      */
-    investment_stage?: string;
+    investment_stage?: string | null;
 
     /**
      * @title Current Employees
@@ -736,21 +736,21 @@ export namespace ICrunchbase {
      *
      * The date of the IPO.
      */
-    date?: string;
+    date?: string | null;
 
     /**
      * @title Stock Link
      *
      * URL link to the stock.
      */
-    stock_link?: string;
+    stock_link?: string | null;
 
     /**
      * @title Stock Symbol
      *
      * The stock symbol (ticker).
      */
-    stock_symbol?: string;
+    stock_symbol?: string | null;
   }
 
   /**
@@ -763,35 +763,35 @@ export namespace ICrunchbase {
      *
      * The name of the company that acquired this organization.
      */
-    acquirer?: string;
+    acquirer?: string | null;
 
     /**
      * @title Acquirer Permalink
      *
      * URL permalink of the acquirer.
      */
-    acquirer_permalink?: string;
+    acquirer_permalink?: string | null;
 
     /**
      * @title Acquisition Price
      *
      * The price at which the company was acquired.
      */
-    acquisition_price?: string;
+    acquisition_price?: string | null;
 
     /**
      * @title Date
      *
      * The date of the acquisition.
      */
-    date?: string;
+    date?: string | null;
 
     /**
      * @title Transaction Name
      *
      * The name of the acquisition transaction.
      */
-    transaction_name?: string;
+    transaction_name?: string | null;
   }
 
   /**
@@ -852,14 +852,14 @@ export namespace ICrunchbase {
      *
      * Month-over-month percentage change in rank.
      */
-    rank_mom_pct: number;
+    rank_mom_pct: number | null;
 
     /**
      * @title Visits MoM Percentage
      *
      * Month-over-month percentage change in visits.
      */
-    visits_mom_pct: number;
+    visits_mom_pct: number | null;
 
     /**
      * @title Visits Percentage
@@ -981,14 +981,14 @@ export namespace ICrunchbase {
      *
      * Unique identifier for the event.
      */
-    id?: string;
+    id?: string | null;
 
     /**
      * @title Image ID
      *
      * Image ID associated with the event.
      */
-    image_id?: string;
+    image_id?: string | null;
 
     /**
      * @title Lead Investors
@@ -1057,7 +1057,7 @@ export namespace ICrunchbase {
      *
      * Week-over-week growth percentage.
      */
-    wow_growth?: number;
+    wow_growth?: number | null;
   }
 
   /**
@@ -1091,7 +1091,7 @@ export namespace ICrunchbase {
      *
      * Indicates whether the investor is a lead investor.
      */
-    lead_investor?: boolean;
+    lead_investor?: boolean | null;
 
     /**
      * @title Type
@@ -1159,7 +1159,7 @@ export namespace ICrunchbase {
     /**
      * @title Contact Information
      */
-    contact_info?: string; // optional field for contact details
+    contact_info?: string; // optional field for contact detail|nulls
   }
 
   /**
@@ -1182,7 +1182,7 @@ export namespace ICrunchbase {
     /**
      * @title 썸네일 URL
      */
-    thumbnail_url?: string;
+    thumbnail_url?: string | null;
     /**
      * @title 제목
      */
