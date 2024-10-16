@@ -86,8 +86,7 @@ export namespace ICrunchbase {
   }
 
   /**
-   * @title Crunchbase 응답
-   * @description Crunchbase API의 응답 형식을 정의합니다.
+   * @title Crunchbase Response
    */
   export interface CrunchbaseResponse {
     /**
@@ -105,729 +104,1013 @@ export namespace ICrunchbase {
   }
 
   /**
-   * @title 조직 데이터
-   * @description 조직의 존재 여부와 조직 정보를 포함합니다.
+   * @title Orgnization Data
    */
   export interface OrganizationData {
     /**
-     * @title 조직 존재 여부
+     * @title organizationExists
      */
     organizationExists: boolean;
     /**
-     * @title 조직 정보
+     * @title Orgnization Info
      */
     organization: Organization;
   }
 
   /**
-   * @title 조직
-   * @description 조직의 세부 정보를 포함합니다.
+   * @title Orgnization
+   * @description Detailed Organization Info
    */
   export interface Organization {
     /**
-     * @title 조직 ID
+     * @title Unique identifier of the organization.
+     *
+     * A unique string representing the organization in Crunchbase.
      */
     id: string;
+
     /**
-     * @title 조직 이름
+     * @title Name of the organization.
+     *
+     * The official name of the organization.
      */
     name: string;
+
     /**
-     * @title 조직 URL
+     * @title URL to the organization's Crunchbase page.
+     *
+     * A link to the organization's profile on Crunchbase.
      */
     url: string;
+
     /**
-     * @title 회사 순위
+     * @title Ranking of the company.
+     *
+     * The position of the company relative to others in Crunchbase based on certain metrics.
      */
     rank_company: number;
+
     /**
-     * @title 위치 목록
+     * @title List of locations where the organization operates.
+     *
+     * The physical addresses of the company's offices or facilities.
      */
     locations: Location[];
+
     /**
-     * @title 주소
+     * @title Address of the organization.
+     *
+     * The primary physical address of the company.
      */
     address: string;
+
     /**
-     * @title 소개
+     * @title Short description of the organization.
+     *
+     * A brief summary of what the company does.
      */
     about: string;
+
     /**
-     * @title 전체 설명
+     * @title Full description of the organization.
+     *
+     * A detailed explanation of the company's operations, history, and business model.
      */
     full_description: string;
+
     /**
-     * @title 산업 분야
+     * @title List of industries the organization is involved in.
+     *
+     * The sectors or markets where the company operates.
      */
     industries: string[];
+
     /**
-     * @title 운영 상태
+     * @title Current operating status of the organization.
+     *
+     * Indicates whether the company is active, inactive, or has another status.
      */
     operating_status: string;
+
     /**
-     * @title 설립 날짜
+     * @title Date the organization was founded.
+     *
+     * The founding year or date of the company.
      */
     founded_date: string;
+
     /**
-     * @title 회사 유형
+     * @title Type of company (e.g., Private, Public).
+     *
+     * The legal or business classification of the company.
      */
     company_type: string;
+
     /**
-     * @title 소셜 미디어
+     * @title List of the organization's social media profiles.
+     *
+     * Links to the company's social media accounts.
      */
     social_media: SocialMedia[];
+
     /**
-     * @title 직원 수
+     * @title Number of employees working for the organization.
+     *
+     * A count or estimate of the company's workforce.
      */
     num_employees: string;
+
     /**
-     * @title 웹사이트
+     * @title The official website of the organization.
+     *
+     * The company's main website URL.
      */
     website: string;
+
     /**
-     * @title IPO 상태
+     * @title IPO status of the organization.
+     *
+     * Indicates whether the company is publicly traded or privately held.
      */
     ipo_status: string;
+
     /**
-     * @title 연락 이메일
+     * @title Primary contact email for the organization.
+     *
+     * The main email address for contacting the company.
      */
     contact_email: string;
+
     /**
-     * @title 연락 전화번호
+     * @title Primary contact phone number for the organization.
+     *
+     * The main phone number for contacting the company.
      */
     contact_phone: string;
+
     /**
-     * @title 자금 정보
+     * @title Information about the organization's funding history.
+     *
+     * Details on the company's fundraising rounds, including investors and amounts raised.
      */
     funding_info: FundingInfo[];
+
     /**
-     * @title 유사 회사
+     * @title List of similar companies.
+     *
+     * Companies that share similarities in industry, business model, or other factors with the organization.
      */
     similar_companies: SimilarCompany[];
+
     /**
-     * @title 로고
+     * @title Logo of the organization.
+     *
+     * URL to the organization's logo image.
      */
     logo: string;
+
     /**
-     * @title SEMrush 월간 방문자 수
+     * @title Monthly visits according to SEMrush.
+     *
+     * The number of visits the company's website receives, as reported by SEMrush.
      */
     semrush_monthly_visits: number;
+
     /**
-     * @title SEMrush 월간 방문자 성장률
+     * @title Monthly visit growth according to SEMrush.
+     *
+     * The percentage growth of monthly website visits compared to the previous month.
      */
     semrush_monthly_visits_growth: number;
+
     /**
-     * @title SEMrush 마지막 업데이트
+     * @title Date of the last SEMrush update.
+     *
+     * The date SEMrush last updated the visit data.
      */
     semrush_last_updated: string;
+
     /**
-     * @title 연락처 수
+     * @title Number of contacts the organization has.
+     *
+     * The total number of contacts within the organization.
      */
     num_contacts: number;
+
     /**
-     * @title 직원 프로필 수
+     * @title Number of employee profiles.
+     *
+     * The total number of employee profiles available for the organization.
      */
     num_employee_profiles: number;
+
     /**
-     * @title 활성 제품 수
+     * @title Number of active products.
+     *
+     * The total count of products currently offered by the organization.
      */
     total_active_products: number;
+
     /**
-     * @title 뉴스 수
+     * @title Number of news articles about the organization.
+     *
+     * The total number of news mentions or articles about the company.
      */
     num_news: number;
+
     /**
-     * @title 자금 조달 라운드
+     * @title Funding round details for the organization.
+     *
+     * Information about the various rounds of funding the company has gone through.
      */
     funding_rounds: FundingRounds;
+
     /**
-     * @title Bombora 마지막 업데이트
+     * @title Date of the last Bombora update.
+     *
+     * The date Bombora last updated the company's data.
      */
     bombora_last_updated: string;
+
     /**
-     * @title 투자자 수
+     * @title Number of investors in the organization.
+     *
+     * The total number of investors who have invested in the company.
      */
     num_investors: number;
+
     /**
-     * @title 법적 이름
+     * @title Legal name of the organization.
+     *
+     * The registered legal name of the company.
      */
     legal_name: string;
+
     /**
-     * @title 이벤트 출연 수
-     */
-    num_event_appearances?: number;
-    /**
-     * @title 인수 수
-     */
-    num_acquisitions?: number;
-    /**
-     * @title 투자 수
-     */
-    num_investments?: number;
-    /**
-     * @title 자문직 수
-     */
-    num_advisor_positions?: number;
-    /**
-     * @title 종료 수
-     */
-    num_exits?: number;
-    /**
-     * @title 리드 투자 수
-     */
-    num_investments_lead?: number;
-    /**
-     * @title 하위 조직 수
-     */
-    num_sub_organizations?: number;
-    /**
-     * @title 동문 수
-     */
-    num_alumni?: number;
-    /**
-     * @title 창립자 동문 수
-     */
-    num_founder_alumni?: number;
-    /**
-     * @title 다양성 투자 수
-     */
-    num_diversity_spotlight_investments?: number;
-    /**
-     * @title 펀드 수
-     */
-    num_funds?: number;
-    /**
-     * @title 주식 심볼
-     */
-    stock_symbol?: string;
-    /**
-     * @title 연락처
+     * @title Contact details of the organization.
+     *
+     * The primary contacts for the company, such as executives or HR.
      */
     contacts: Contact[];
+
     /**
-     * @title 이벤트 출연
-     */
-    event_appearances: any[];
-    /**
-     * @title 하위 조직
-     */
-    sub_organizations: any[];
-    /**
-     * @title 동문
-     */
-    alumni: any[];
-    /**
-     * @title 다양성 투자
-     */
-    diversity_investments: any[];
-    /**
-     * @title 펀드
-     */
-    funds: any[];
-    /**
-     * @title 해고
-     */
-    layoff: any[];
-    /**
-     * @title IPO 정보
+     * @title IPO details of the organization.
+     *
+     * Information about the company's IPO, if it has one.
      */
     ipo: IPO;
+
     /**
-     * @title 총 펀드
+     * @title Total Funds
+     *
+     * Total amount of funds raised by the organization.
      */
     funds_total?: number;
+
     /**
-     * @title 인수 정보
+     * @title Acquisition Information
+     *
+     * Details about the company that acquired this organization.
      */
     acquired_by: AcquiredBy;
+
     /**
-     * @title 투자자 유형
+     * @title Investor Type
+     *
+     * The type or category of investors (e.g., Angel, Venture Capital).
      */
     investor_type?: string;
+
     /**
-     * @title 투자 단계
+     * @title Investment Stage
+     *
+     * The stage at which the company receives investments (e.g., Seed, Series A).
      */
     investment_stage?: string;
+
     /**
-     * @title 현재 직원
+     * @title Current Employees
+     *
+     * List of employees currently working at the organization.
      */
     current_employees: CurrentEmployee[];
+
     /**
-     * @title SEMrush 위치 목록
+     * @title SEMrush Location List
+     *
+     * List of locations according to SEMrush data.
      */
     semrush_location_list: SemrushLocation[];
+
     /**
-     * @title Siftery 제품
+     * @title Siftery Products
+     *
+     * List of products offered by the organization as recorded by Siftery.
      */
     siftery_products: any[];
+
     /**
-     * @title 자금 조달 라운드 목록
+     * @title Funding Rounds List
+     *
+     * Information on various funding rounds the organization has been part of.
      */
     funding_rounds_list: FundingRound[];
+
     /**
-     * @title 개요 타임라인
+     * @title Overview Timeline
+     *
+     * Timeline overview of the organization's key events and milestones.
      */
     overview_timeline: OverviewTimeline[];
+
     /**
      * @title Bombora
+     *
+     * Bombora data related to the organization's market intelligence.
      */
     bombora: Bombora[];
+
     /**
-     * @title 투자자
+     * @title Investors
+     *
+     * List of investors who have invested in the company.
      */
     investors: Investor[];
+
     /**
-     * @title 인수
+     * @title Acquisitions
+     *
+     * Information about companies the organization has acquired.
      */
     acquisitions: any[];
+
     /**
-     * @title 펀드 조달
+     * @title Funds Raised
+     *
+     * Details of the funds raised by the organization over time.
      */
     funds_raised: any[];
+
     /**
-     * @title 투자
+     * @title Investments
+     *
+     * Information on the organization's investments in other companies.
      */
     investments: any[];
+
     /**
      * @title Apptopia
+     *
+     * Apptopia data for the organization's app performance or analytics.
      */
     apptopia: any[];
+
     /**
-     * @title 현재 자문
+     * @title Current Advisors
+     *
+     * List of current advisors working with the organization.
      */
     current_advisors: any[];
+
     /**
-     * @title 종료
+     * @title Exits
+     *
+     * Details on company exits (e.g., IPOs, acquisitions).
      */
     exits: any[];
+
     /**
-     * @title 뉴스
+     * @title News
+     *
+     * News articles or mentions related to the organization.
      */
     news: News[];
+
     /**
-     * @title Aberdeen IT 지출
+     * @title Aberdeen IT Spend
+     *
+     * IT spending data sourced from Aberdeen.
      */
     aberdeen_it_spend: any;
+
     /**
-     * @title 본사 지역
+     * @title Headquarters Regions
+     *
+     * Geographic regions where the organization's headquarters are located.
      */
     headquarters_regions: HeadquartersRegion[];
+
     /**
-     * @title 재무 하이라이트
+     * @title Financial Highlights
+     *
+     * Key financial data points about the organization.
      */
     financials_highlights: FinancialsHighlights;
+
     /**
      * @title IPQwery
+     *
+     * Data from IPQwery related to the organization's intellectual property.
      */
     ipqwery: IPQwery;
+
     /**
-     * @title 개요 하이라이트
+     * @title Overview Highlights
+     *
+     * Summary of key highlights in the organization's history and performance.
      */
     overview_highlights: OverviewHighlights;
+
     /**
-     * @title 인물 하이라이트
+     * @title People Highlights
+     *
+     * Key personnel highlights, such as notable employees or founders.
      */
     people_highlights: PeopleHighlights;
+
     /**
-     * @title 기술 하이라이트
+     * @title Technology Highlights
+     *
+     * Information on the organization's technology stack or notable tech achievements.
      */
     technology_highlights: TechnologyHighlights;
+
     /**
-     * @title 창립자
+     * @title Founders
+     *
+     * List of founders of the organization.
      */
     founders: Founder[];
   }
 
   /**
-   * @title 위치
-   * @description 조직의 위치 정보를 포함합니다.
+   * @title Location
    */
-  export interface Location {
+  export type Location = {
     /**
-     * @title 값
+     * @title The value or name of the location.
+     *
+     * The specific name or address of the company's location.
      */
     value: string;
+
     /**
-     * @title 위치 유형
+     * @title Type of the location.
+     *
+     * The category or function of this location (e.g., headquarters, branch).
      */
     location_type: string;
-  }
-
+  };
   /**
-   * @title 소셜 미디어
-   * @description 조직의 소셜 미디어 정보를 포함합니다.
+   * @title SocialMedia
    */
-  export interface SocialMedia {
+  export type SocialMedia = {
     /**
-     * @title 이름
+     * @title Name of the social media platform.
+     *
+     * The name of the social platform where the company is active (e.g., Twitter, LinkedIn).
      */
     name: string;
+
     /**
-     * @title 링크
+     * @title Link to the company's social media profile.
+     *
+     * The URL to the company's social media account on the respective platform.
      */
     link: string;
-  }
+  };
 
   /**
-   * @title 자금 정보
-   * @description 조직의 자금 정보를 포함합니다.
+   * @title Funding Info
    */
-  export interface FundingInfo {
+  export type FundingInfo = {
     /**
-     * @title 제목
+     * @title Title of the funding information.
+     *
+     * The name or title of the funding-related data.
      */
     title: string;
+
     /**
-     * @title 조직 수
+     * @title Number of organizations involved in the funding.
+     *
+     * The number of companies or investors involved.
      */
     org_num: number;
+
     /**
-     * @title 투자자 수
+     * @title Number of investors involved.
+     *
+     * The total count of investors participating in the funding.
      */
     org_num_investors: number;
+
     /**
-     * @title 총 자금
+     * @title Total funding amount.
+     *
+     * The total amount of funding raised in USD or another currency.
      */
     org_funding_total: FundingTotal;
-  }
+  };
 
   /**
-   * @title 자금 총액
-   * @description 자금의 총액 정보를 포함합니다.
+   * @title Funding Total
    */
-  export interface FundingTotal {
+  export type FundingTotal = {
     /**
-     * @title USD 값
+     * @title Total value in USD.
+     *
+     * The total amount of funding, expressed in US dollars.
      */
     value_usd: number;
+
     /**
-     * @title 통화
+     * @title Currency of the funding.
+     *
+     * The currency in which the funding is denominated.
      */
     currency: string;
+
     /**
-     * @title 값
+     * @title The raw value of the funding.
+     *
+     * The total value of the funding before conversion to USD.
      */
     value: number;
-  }
+  };
 
   /**
-   * @title 유사 회사
-   * @description 유사한 회사 정보를 포함합니다.
+   * @title Similar Companies
    */
-  export interface SimilarCompany {
+  export type SimilarCompany = {
     /**
-     * @title 이름
+     * @title Name of the similar company.
+     *
+     * The name of a company that is similar to this organization.
      */
     name: string;
+
     /**
-     * @title URL
+     * @title URL to the similar company's profile.
+     *
+     * A link to the similar company's page on Crunchbase or other platform.
      */
     url: string;
-  }
+  };
 
   /**
-   * @title 자금 조달 라운드
-   * @description 자금 조달 라운드 정보를 포함합니다.
+   * @title Funding Rounds
+   * @description Includes information about funding rounds.
    */
   export interface FundingRounds {
     /**
-     * @title 마지막 자금 조달 날짜
+     * @title Last Funding Date
+     *
+     * The date of the last funding round.
      */
     last_funding_at: string;
+
     /**
-     * @title 마지막 자금 조달 유형
+     * @title Last Funding Type
+     *
+     * The type of the last funding round.
      */
     last_funding_type: string;
+
     /**
-     * @title 자금 조달 라운드 수
+     * @title Number of Funding Rounds
+     *
+     * The total number of funding rounds.
      */
     num_funding_rounds: number;
+
     /**
-     * @title 값
+     * @title Value
+     *
+     * Total amount of funds raised.
      */
     value: FundingTotal;
   }
 
   /**
-   * @title 연락처
-   * @description 조직의 연락처 정보를 포함합니다.
+   * @title Contact
+   * @description Includes information about the contact person.
    */
   export interface Contact {
     /**
-     * @title 이름
+     * @title Name
+     *
+     * Name of the contact person.
      */
     name: string;
+
     /**
      * @title LinkedIn ID
+     *
+     * LinkedIn ID of the contact.
      */
     linkedin_id: string;
+
     /**
-     * @title 레벨
+     * @title Levels
+     *
+     * Job levels of the contact person.
      */
     levels: string[];
+
     /**
-     * @title 부서
+     * @title Departments
+     *
+     * The department(s) the contact person is associated with.
      */
     departments: any;
   }
 
   /**
    * @title IPO
-   * @description IPO 정보를 포함합니다.
+   * @description Includes information about the company's IPO (Initial Public Offering).
    */
   export interface IPO {
     /**
-     * @title 날짜
+     * @title Date
+     *
+     * The date of the IPO.
      */
     date?: string;
+
     /**
-     * @title 주식 링크
+     * @title Stock Link
+     *
+     * URL link to the stock.
      */
     stock_link?: string;
+
     /**
-     * @title 주식 심볼
+     * @title Stock Symbol
+     *
+     * The stock symbol (ticker).
      */
     stock_symbol?: string;
   }
 
   /**
-   * @title 인수 정보
-   * @description 인수 정보를 포함합니다.
+   * @title Acquisition Information
+   * @description Includes details about the acquisition.
    */
   export interface AcquiredBy {
     /**
-     * @title 인수자
+     * @title Acquirer
+     *
+     * The name of the company that acquired this organization.
      */
     acquirer?: string;
+
     /**
-     * @title 인수자 permalink
+     * @title Acquirer Permalink
+     *
+     * URL permalink of the acquirer.
      */
     acquirer_permalink?: string;
+
     /**
-     * @title 인수 가격
+     * @title Acquisition Price
+     *
+     * The price at which the company was acquired.
      */
     acquisition_price?: string;
+
     /**
-     * @title 날짜
+     * @title Date
+     *
+     * The date of the acquisition.
      */
     date?: string;
+
     /**
-     * @title 거래 이름
+     * @title Transaction Name
+     *
+     * The name of the acquisition transaction.
      */
     transaction_name?: string;
   }
 
   /**
-   * @title 현재 직원
-   * @description 현재 직원 정보를 포함합니다.
+   * @title Current Employee
+   * @description Includes details about current employees.
    */
   export interface CurrentEmployee {
     /**
-     * @title 이미지
+     * @title Image
+     *
+     * URL of the employee's image.
      */
     image: string;
+
     /**
-     * @title 이름
+     * @title Name
+     *
+     * The employee's name.
      */
     name: string;
+
     /**
-     * @title permalink
+     * @title Permalink
+     *
+     * URL permalink to the employee's profile.
      */
     permalink: string;
+
     /**
-     * @title 직함
+     * @title Title
+     *
+     * The employee's job title.
      */
     title: string;
   }
 
   /**
-   * @title SEMrush 위치
-   * @description SEMrush 위치 정보를 포함합니다.
+   * @title SEMrush Location
+   * @description Includes information about SEMrush locations.
    */
   export interface SemrushLocation {
     /**
-     * @title 위치 목록
+     * @title Location List
+     *
+     * List of detailed location information.
      */
     locations: LocationDetail[];
+
     /**
-     * @title 순위
+     * @title Rank
+     *
+     * The rank of the location.
      */
     rank: number;
+
     /**
-     * @title 순위 MoM 비율
+     * @title Rank MoM Percentage
+     *
+     * Month-over-month percentage change in rank.
      */
     rank_mom_pct: number;
+
     /**
-     * @title 방문 MoM 비율
+     * @title Visits MoM Percentage
+     *
+     * Month-over-month percentage change in visits.
      */
     visits_mom_pct: number;
+
     /**
-     * @title 방문 비율
+     * @title Visits Percentage
+     *
+     * Percentage of total visits.
      */
     visits_pct: number;
   }
 
   /**
-   * @title 위치 세부 정보
-   * @description 위치의 세부 정보를 포함합니다.
+   * @title Location Detail
+   * @description Includes detailed information about a specific location.
    */
   export interface LocationDetail {
     /**
-     * @title 이름
+     * @title Name
+     *
+     * The name of the location.
      */
     name: string;
+
     /**
-     * @title permalink
+     * @title Permalink
+     *
+     * URL permalink to the location details.
      */
     permalink: string;
   }
 
   /**
-   * @title 자금 조달 라운드
-   * @description 자금 조달 라운드 정보를 포함합니다.
+   * @title Funding Round
+   * @description Includes information about specific funding rounds.
    */
   export interface FundingRound {
     /**
-     * @title 발표 날짜
+     * @title Announced Date
+     *
+     * The date the funding round was announced.
      */
     announced_on: string;
+
     /**
      * @title ID
+     *
+     * Unique identifier for the funding round.
      */
     id: string;
+
     /**
-     * @title 이미지 ID
+     * @title Image ID
+     *
+     * Image ID associated with the funding round.
      */
     image_id: string;
+
     /**
-     * @title 투자자 수
+     * @title Number of Investors
+     *
+     * The total number of investors in the funding round.
      */
     num_investors: number;
+
     /**
-     * @title 리드 투자자
+     * @title Lead Investors
+     *
+     * List of lead investors in the funding round.
      */
     lead_investors: LeadInvestor[];
+
     /**
-     * @title 모금액
+     * @title Money Raised
+     *
+     * The total amount of money raised in this funding round.
      */
     money_raised: FundingTotal;
   }
 
   /**
-   * @title 리드 투자자
-   * @description 리드 투자자 정보를 포함합니다.
+   * @title Lead Investor
+   * @description Includes details about lead investors.
    */
   export interface LeadInvestor {
     /**
-     * @title 이미지
+     * @title Image
+     *
+     * URL of the investor's image.
      */
     image: string;
+
     /**
-     * @title 이름
+     * @title Name
+     *
+     * Name of the lead investor.
      */
     name: string;
+
     /**
-     * @title permalink
+     * @title Permalink
+     *
+     * URL permalink to the lead investor's profile.
      */
     permalink: string;
   }
 
   /**
-   * @title 개요 타임라인
-   * @description 개요 타임라인 정보를 포함합니다.
+   * @title Overview Timeline
+   * @description Includes information about the timeline of key events in the organization's history.
    */
   export interface OverviewTimeline {
     /**
-     * @title 발표 날짜
+     * @title Announced Date
+     *
+     * The date the event was announced.
      */
     announced_on: string;
+
     /**
      * @title ID
+     *
+     * Unique identifier for the event.
      */
     id?: string;
+
     /**
-     * @title 이미지 ID
+     * @title Image ID
+     *
+     * Image ID associated with the event.
      */
     image_id?: string;
+
     /**
-     * @title 리드 투자자
+     * @title Lead Investors
+     *
+     * List of lead investors associated with this event.
      */
     lead_investors: LeadInvestor[];
+
     /**
-     * @title 모금액
+     * @title Money Raised
+     *
+     * The total amount of money raised in this event.
      */
     money_raised: FundingTotal;
+
     /**
-     * @title 제목
+     * @title Title
+     *
+     * The title of the event.
      */
     title: string;
+
     /**
      * @title UUID
+     *
+     * Unique identifier (UUID) for the event.
      */
     uuid: string;
   }
 
   /**
    * @title Bombora
-   * @description Bombora 정보를 포함합니다.
+   * @description Includes information from Bombora market intelligence data.
    */
   export interface Bombora {
     /**
-     * @title 카테고리
+     * @title Category
+     *
+     * The category of interest.
      */
     category: string;
+
     /**
-     * @title 점수
+     * @title Score
+     *
+     * Bombora score for the topic.
      */
     score: number;
+
     /**
-     * @title 주제
+     * @title Topic
+     *
+     * The topic associated with the score.
      */
     topic: string;
+
     /**
-     * @title 주간 서징
+     * @title Weeks Surging
+     *
+     * Number of weeks the topic has been surging in popularity.
      */
     weeks_surging: number;
+
     /**
-     * @title WoW 성장
+     * @title WoW Growth
+     *
+     * Week-over-week growth percentage.
      */
     wow_growth?: number;
   }
 
   /**
-   * @title 투자자
-   * @description 투자자 정보를 포함합니다.
+   * @title Investor
+   * @description Includes details about the investors.
    */
   export interface Investor {
     /**
-     * @title 자금 조달 라운드
+     * @title Funding Round
+     *
+     * Details of the funding round this investor participated in.
      */
     funding_round: FundingRoundDetail;
+
     /**
      * @title ID
+     *
+     * Unique identifier for the investor.
      */
     id: string;
+
     /**
-     * @title 투자자
+     * @title Investor
+     *
+     * Details about the investor.
      */
     investor: InvestorDetail;
+
     /**
-     * @title 리드 투자자 여부
+     * @title Lead Investor
+     *
+     * Indicates whether the investor is a lead investor.
      */
     lead_investor?: boolean;
+
     /**
-     * @title 유형
+     * @title Type
+     *
+     * Type of investment (e.g., equity, venture capital).
      */
     type: string;
+
     /**
-     * @title 값
+     * @title Value
+     *
+     * The value of the investment.
      */
     value: string;
   }
 
   /**
-   * @title 자금 조달 라운드 세부 정보
-   * @description 자금 조달 라운드의 세부 정보를 포함합니다.
+   * @title Funding Round Detail
+   * @description Contains details of a funding round.
    */
   export interface FundingRoundDetail {
     /**
@@ -835,22 +1118,26 @@ export namespace ICrunchbase {
      */
     id: string;
     /**
-     * @title 이미지 ID
+     * @title Date
      */
-    image_id: string;
+    date: string;
     /**
-     * @title 유형
+     * @title Amount Raised
      */
-    type: string;
+    amount_raised: number;
     /**
-     * @title 값
+     * @title Round Type
      */
-    value: string;
+    round_type: string; // e.g., Seed, Series A, Series B, etc.
+    /**
+     * @title Investors
+     */
+    investors: InvestorDetail[];
   }
 
   /**
-   * @title 투자자 세부 정보
-   * @description 투자자의 세부 정보를 포함합니다.
+   * @title Investor Detail
+   * @description Contains details of an investor.
    */
   export interface InvestorDetail {
     /**
@@ -858,17 +1145,21 @@ export namespace ICrunchbase {
      */
     id: string;
     /**
-     * @title 이미지 ID
+     * @title Name
      */
-    image_id: string;
+    name: string;
     /**
-     * @title 유형
+     * @title Organization
      */
-    type: string;
+    organization: string;
     /**
-     * @title 값
+     * @title Type
      */
-    value: string;
+    type: string; // e.g., Angel, Venture Capital, etc.
+    /**
+     * @title Contact Information
+     */
+    contact_info?: string; // optional field for contact details
   }
 
   /**
