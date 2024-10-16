@@ -4,10 +4,10 @@ import {
   ExceptionFilter,
   HttpException,
   HttpStatus,
-  InternalServerErrorException,
   Logger,
 } from "@nestjs/common";
 import { Request, Response } from "express";
+import { ErrorUtil } from "../../utils/ErrorUtil";
 
 @Catch()
 export class HttpExceptionFilter implements ExceptionFilter {
@@ -30,17 +30,13 @@ export class HttpExceptionFilter implements ExceptionFilter {
       this.logger.log(JSON.stringify(exception));
     }
 
-    if (!(exception instanceof HttpException)) {
-      exception = new InternalServerErrorException(JSON.stringify(exception));
-    }
-
+    const message = ErrorUtil.toJSON(exception);
     res.status(statusCode).json({
       statusCode: customCode,
       timestamp: new Date().toISOString(),
       path: req.url,
       arguments: req.body,
-      message: exception.message,
-      ttl: (exception as any)?.ttl,
+      message: "response" in message ? message.response : message,
     });
   }
 }
