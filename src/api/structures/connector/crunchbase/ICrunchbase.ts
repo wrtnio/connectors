@@ -1,4 +1,4 @@
-import { Placeholder } from "@wrtnio/decorators";
+import { Placeholder, Prerequisite } from "@wrtnio/decorators";
 
 export namespace ICrunchbase {
   /**
@@ -68,6 +68,21 @@ export namespace ICrunchbase {
      * You can use the company name to obtain an identifier that can be used by the company's name or Crunchbase.
      */
     query: string;
+  }
+
+  export interface IGetOrganizationDataInput {
+    /**
+     * @title organization_identifier
+     *
+     * Use the crashbase's autocomplete connector to find out the exact identifier of the company.
+     * Typically, there is no way to find out this identifier without a query, so call the autocomplete connector first.
+     */
+    organization_identifier: string &
+      Prerequisite<{
+        method: "post";
+        path: "connector/crunchbase/autocomplete";
+        jmesPath: "data[].{value:organization_identifier, label: organization_name}";
+      }>;
   }
 
   /**
