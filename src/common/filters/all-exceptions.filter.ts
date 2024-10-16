@@ -31,7 +31,7 @@ export class HttpExceptionFilter implements ExceptionFilter {
     }
 
     if (!(exception instanceof HttpException)) {
-      exception = new InternalServerErrorException(exception.message);
+      exception = new InternalServerErrorException(JSON.stringify(exception));
     }
 
     res.status(statusCode).json({
