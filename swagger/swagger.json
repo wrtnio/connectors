@@ -15,7 +15,7 @@
     }
   ],
   "info": {
-    "version": "0.1.268",
+    "version": "0.1.269",
     "title": "@wrtn/connector",
     "description": "wrtn-ecosystem connectors and sdk",
     "license": {
@@ -38039,15 +38039,25 @@
             "type": "object",
             "properties": {
               "id": {
-                "0": {
-                  "type": "string",
-                  "pattern": "([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)",
-                  "x-wrtn-prerequisite": {
-                    "method": "post",
-                    "path": "/connector/jira/get-issue-priorities",
-                    "jmesPath": "[].{value:id, label:name}"
+                "oneOf": [
+                  {
+                    "type": "number",
+                    "x-wrtn-prerequisite": {
+                      "method": "post",
+                      "path": "/connector/jira/get-issue-priorities",
+                      "jmesPath": "[].{value:id, label:name}"
+                    }
+                  },
+                  {
+                    "type": "string",
+                    "pattern": "([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)",
+                    "x-wrtn-prerequisite": {
+                      "method": "post",
+                      "path": "/connector/jira/get-issue-priorities",
+                      "jmesPath": "[].{value:id, label:name}"
+                    }
                   }
-                },
+                ],
                 "title": "id of proirity\n\nYou can prioritize issues.\nUsers can also prioritize issues in natural languages such as Low, Medium, High, and so on,\nbut when creating issues, ID values for these priorities are required.\nTherefore, you should first call a connector that looks up what priorities are available for the project and issue."
               }
             },
@@ -38259,15 +38269,25 @@
                 "type": "object",
                 "properties": {
                   "id": {
-                    "0": {
-                      "type": "string",
-                      "pattern": "([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)",
-                      "x-wrtn-prerequisite": {
-                        "method": "post",
-                        "path": "/connector/jira/get-issue-priorities",
-                        "jmesPath": "[].{value:id, label:name}"
+                    "oneOf": [
+                      {
+                        "type": "number",
+                        "x-wrtn-prerequisite": {
+                          "method": "post",
+                          "path": "/connector/jira/get-issue-priorities",
+                          "jmesPath": "[].{value:id, label:name}"
+                        }
+                      },
+                      {
+                        "type": "string",
+                        "pattern": "([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)",
+                        "x-wrtn-prerequisite": {
+                          "method": "post",
+                          "path": "/connector/jira/get-issue-priorities",
+                          "jmesPath": "[].{value:id, label:name}"
+                        }
                       }
-                    },
+                    ],
                     "title": "id of proirity\n\nYou can prioritize issues.\nUsers can also prioritize issues in natural languages such as Low, Medium, High, and so on,\nbut when creating issues, ID values for these priorities are required.\nTherefore, you should first call a connector that looks up what priorities are available for the project and issue."
                   }
                 },
@@ -38732,8 +38752,15 @@
             "title": "priority name\n\nIt may be Low, Medium, High."
           },
           "id": {
-            "type": "string",
-            "pattern": "^([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)$",
+            "oneOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "string",
+                "pattern": "([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)"
+              }
+            ],
             "title": "id"
           }
         },
