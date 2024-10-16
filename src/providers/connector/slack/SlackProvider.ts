@@ -256,7 +256,8 @@ export class SlackProvider {
     let link_count = 0;
     const allMembers = await this.getAllUsers(input);
     const next_cursor = res.data.response_metadata?.next_cursor;
-    const replies = res.data.messages
+
+    const replies: ISlack.Reply[] = res.data.messages
       .slice(1) // 0번째 인덱스는 부모 스레드가 나오기 때문
       .map((message: ISlack.Reply): ISlack.Reply => {
         const timestamp = this.transformTsToTimestamp(message.ts);
@@ -283,7 +284,22 @@ export class SlackProvider {
         };
       });
 
-    return { replies, next_cursor: next_cursor ? next_cursor : null };
+    const userIds = Array.from(
+      new Set(replies.map((message) => message.user).filter(Boolean)),
+    );
+
+    const members = userIds
+      .map((userId) => {
+        const member = allMembers.find((el) => el.id === userId);
+        return member;
+      })
+      .filter(Boolean) as Pick<ISlack.IGetUserOutput, "id" | "display_name">[];
+
+    return {
+      replies,
+      next_cursor: next_cursor ? next_cursor : null,
+      members,
+    };
   }
 
   async getAllUsers(input: {
