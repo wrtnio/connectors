@@ -815,7 +815,7 @@ export namespace ISlack {
   export interface Reply
     extends MyPick<
       Message,
-      "type" | "user" | "text" | "ts" | "ts_date" | "attachments"
+      "type" | "user" | "text" | "ts" | "ts_date" | "attachments" | "link"
     > {
     /**
      * @title thread ts
@@ -830,6 +830,13 @@ export namespace ISlack {
      * there is no parent_user_id.
      */
     parent_user_id: User["id"] | null;
+
+    /**
+     * @title links
+     *
+     * Links from the chat
+     */
+    links: (string & tags.Format<"iri">)[];
   }
 
   export interface ScheduledMessage
@@ -888,6 +895,10 @@ export namespace ISlack {
      * @title message contents
      *
      * When users occasionally call others, they can be called in the form of '@USERNAME', which is called a tag.
+     * In the conversation history, the link and code box are abbreviated to <LINK/> and <CODE/>, respectively.
+     * For users, it is replaced by a user name, Like <@USERNAME>.
+     * <@USERNAME> is about calling someone else, and it's not the name of the person who started the conversation, so be careful.
+     * if you want to find who started this conversation, check 'user' property.
      */
     text: string;
 
