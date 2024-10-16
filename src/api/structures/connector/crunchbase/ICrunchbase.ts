@@ -1,4 +1,5 @@
 import { Placeholder, Prerequisite } from "@wrtnio/decorators";
+import { tags } from "typia";
 
 export namespace ICrunchbase {
   /**
@@ -622,21 +623,21 @@ export namespace ICrunchbase {
      *
      * The total amount of funding, expressed in US dollars.
      */
-    value_usd: number;
+    value_usd: number | string | null;
 
     /**
      * @title Currency of the funding.
      *
      * The currency in which the funding is denominated.
      */
-    currency: string;
+    currency: string | null;
 
     /**
      * @title The raw value of the funding.
      *
      * The total value of the funding before conversion to USD.
      */
-    value: number;
+    value: number | string | null;
   };
 
   /**
@@ -927,7 +928,7 @@ export namespace ICrunchbase {
      *
      * List of lead investors in the funding round.
      */
-    lead_investors: LeadInvestor[];
+    lead_investors: LeadInvestor[] | null;
 
     /**
      * @title Money Raised
@@ -942,6 +943,11 @@ export namespace ICrunchbase {
    * @description Includes details about lead investors.
    */
   export interface LeadInvestor {
+    /**
+     * @title UUID
+     */
+    uuid?: string & tags.Format<"uuid">;
+
     /**
      * @title Image
      *
@@ -1016,7 +1022,7 @@ export namespace ICrunchbase {
      *
      * Unique identifier (UUID) for the event.
      */
-    uuid: string;
+    uuid: string & tags.Format<"uuid">;
   }
 
   /**
@@ -1117,22 +1123,36 @@ export namespace ICrunchbase {
      * @title ID
      */
     id: string;
+
     /**
-     * @title Date
+     * @title value
      */
-    date: string;
+    type: string;
+
     /**
-     * @title Amount Raised
+     * @title Value
      */
-    amount_raised: number;
-    /**
-     * @title Round Type
-     */
-    round_type: string; // e.g., Seed, Series A, Series B, etc.
-    /**
-     * @title Investors
-     */
-    investors: InvestorDetail[];
+    value: string;
+
+    // /**
+    //  * @title Date
+    //  */
+    // date?: string | null;
+
+    // /**
+    //  * @title Amount Raised
+    //  */
+    // amount_raised: number;
+
+    // /**
+    //  * @title Round Type
+    //  */
+    // round_type: string; // e.g., Seed, Series A, Series B, etc.
+
+    // /**
+    //  * @title Investors
+    //  */
+    // investors: InvestorDetail[];
   }
 
   /**
@@ -1144,22 +1164,21 @@ export namespace ICrunchbase {
      * @title ID
      */
     id: string;
+
     /**
-     * @title Name
+     * @title Value
      */
-    name: string;
-    /**
-     * @title Organization
-     */
-    organization: string;
+    value: string;
+
     /**
      * @title Type
      */
     type: string; // e.g., Angel, Venture Capital, etc.
+
     /**
      * @title Contact Information
      */
-    contact_info?: string; // optional field for contact detail|nulls
+    contact_info?: string | null;
   }
 
   /**
@@ -1178,7 +1197,7 @@ export namespace ICrunchbase {
     /**
      * @title 발행자
      */
-    publisher: string;
+    publisher: string | null;
     /**
      * @title 썸네일 URL
      */
@@ -1186,11 +1205,11 @@ export namespace ICrunchbase {
     /**
      * @title 제목
      */
-    title: string;
+    title: string | null;
     /**
      * @title URL
      */
-    url: string;
+    url: string | null;
   }
 
   /**
