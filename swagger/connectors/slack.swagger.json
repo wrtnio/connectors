@@ -17,7 +17,7 @@
   "info": {
     "title": "Slack",
     "description": "슬랙에서 대화 내용을 가져오거나 메시지를 보낼 수 있어요.",
-    "version": "0.1.270",
+    "version": "0.1.271",
     "license": {
       "name": "AGPL-3.0-only"
     }
@@ -1507,6 +1507,13 @@
             "title": "replies",
             "description": "This value refers to replies that depend on the currently viewed thread."
           },
+          "members": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/MyPickISlack.IGetUserOutputiddisplay_name"
+            },
+            "title": "members\n\nThis is a list of people who participated in the conversation in this conversation list."
+          },
           "next_cursor": {
             "oneOf": [
               {
@@ -1521,6 +1528,7 @@
         },
         "required": [
           "replies",
+          "members",
           "next_cursor"
         ]
       },
@@ -1602,6 +1610,30 @@
           "text",
           "ts",
           "ts_date"
+        ]
+      },
+      "MyPickISlack.IGetUserOutputiddisplay_name": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "display_name": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "title": "display name",
+            "description": "The user has a separate display name.\nA display name is a name that the user has chosen to show.\nTherefore, it would be best to use this name as a courtesy."
+          }
+        },
+        "required": [
+          "id",
+          "display_name"
         ]
       },
       "ISlack.IGetReplyInput": {
@@ -1794,30 +1826,6 @@
           "reply_users_count",
           "ts_date",
           "links"
-        ]
-      },
-      "MyPickISlack.IGetUserOutputiddisplay_name": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "display_name": {
-            "oneOf": [
-              {
-                "type": "null"
-              },
-              {
-                "type": "string"
-              }
-            ],
-            "title": "display name",
-            "description": "The user has a separate display name.\nA display name is a name that the user has chosen to show.\nTherefore, it would be best to use this name as a courtesy."
-          }
-        },
-        "required": [
-          "id",
-          "display_name"
         ]
       },
       "ISlack.IGetChannelHistoryInput": {
