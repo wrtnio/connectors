@@ -815,7 +815,7 @@ export namespace ISlack {
   export interface Reply
     extends MyPick<
       Message,
-      "type" | "user" | "text" | "ts" | "ts_date" | "attachments"
+      "type" | "user" | "text" | "ts" | "ts_date" | "attachments" | "link"
     > {
     /**
      * @title thread ts
@@ -830,6 +830,13 @@ export namespace ISlack {
      * there is no parent_user_id.
      */
     parent_user_id: User["id"] | null;
+
+    /**
+     * @title links
+     *
+     * Links from the chat
+     */
+    links: (string & tags.Format<"iri">)[];
   }
 
   export interface ScheduledMessage

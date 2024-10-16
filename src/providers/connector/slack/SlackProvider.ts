@@ -237,21 +237,50 @@ export class SlackProvider {
       },
     });
 
+    const { url: workspaceUrl } = await this.authTest(input);
+
+    function extractLinks(text: string): string[] {
+      // URL 패턴을 찾는 정규식
+      /**
+       * <LINK|ALT>에서 LINK만 뽑도록 정의한 RegExp
+       */
+      const linkRegex = /(?<=<)https?:\/\/[^>|]+(?=>|)/g;
+
+      // 입력 문자열에서 URL을 추출
+      const links = text.match(linkRegex);
+
+      // 링크가 없다면 빈 문자열 반환
+      return links ? Array.from(new Set(links)) : [];
+    }
+
+    let link_count = 0;
+    const allMembers = await this.getAllUsers(input);
     const next_cursor = res.data.response_metadata?.next_cursor;
     const replies = res.data.messages
-      .slice(1)
+      .slice(1) // 0번째 인덱스는 부모 스레드가 나오기 때문
       .map((message: ISlack.Reply): ISlack.Reply => {
         const timestamp = this.transformTsToTimestamp(message.ts);
+        const links = extractLinks(message.text);
 
         return {
           type: message.type,
           user: message.user ?? null,
-          text: message.text,
+          text: message.text
+            .replaceAll(/```[\s\S]+?```/g, "<CODE/>")
+            .replaceAll(/<https?:\/\/[^\>]+>/g, () => {
+              return `<LINK${link_count++}/>`;
+            })
+            .replace(/@(\w+)/g, (_, id) => {
+              const member = allMembers.find((member) => member.id === id);
+              return member ? `@${member.name}` : `@${id}`; // 멤버가 없으면 원래 아이디를 유지
+            }),
+          links,
           ts: String(message.ts),
           thread_ts: message.thread_ts,
           parent_user_id: message.parent_user_id ?? null,
           ts_date: new Date(timestamp).toISOString(),
-          ...(message.attachments && { attachments: message.attachments }),
+          link: `${workspaceUrl}archives/${input.channel}/p${message.ts.replace(".", "")}`,
+          // ...(message.attachments && { attachments: message.attachments }),
         };
       });
 
@@ -462,7 +491,7 @@ export class SlackProvider {
     const messages: ISlack.LinkMessage[] = res.data.messages
       .map((message: ISlack.Message): ISlack.LinkMessage => {
         const timestamp = this.transformTsToTimestamp(message.ts);
-        const text = extractLinks(message.text);
+        const links = extractLinks(message.text);
         return {
           type: message.type,
           user: message.user ?? null,
@@ -475,7 +504,7 @@ export class SlackProvider {
               const member = allMembers.find((member) => member.id === id);
               return member ? `@${member.name}` : `@${id}`; // 멤버가 없으면 원래 아이디를 유지
             }),
-          links: text,
+          links,
           ts: String(message.ts),
           channel: input.channel,
           reply_count: message?.reply_count ?? 0,
