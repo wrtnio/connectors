@@ -1,4 +1,75 @@
+import { Placeholder } from "@wrtnio/decorators";
+
 export namespace ICrunchbase {
+  /**
+   * @title Represents the output of an autocomplete response.
+   */
+  export interface IAutocompleteOutput {
+    /**
+     * @title Description
+     *
+     * A description of the autocomplete result, which is always "OK".
+     */
+    description: string & Placeholder<"OK">;
+
+    /**
+     * @title Status
+     *
+     * The status code of the response, which is always 200 (success).
+     */
+    status: number & Placeholder<"200">;
+
+    /**
+     * @title Response Data
+     */
+    data: {
+      /**
+       * @title Entities
+       *
+       * An array of entities related to the organization.
+       */
+      entities: {
+        /**
+         * @title organization_identifier for crunchbase api
+         *
+         * The unique identifier of the organization
+         */
+        organization_identifier: string & Placeholder<"wrtn-technologies">;
+
+        /**
+         * @title short_description
+         *
+         * A brief description of the organization
+         */
+        short_description: string;
+
+        /**
+         * @title organization_name
+         *
+         * The name of the organization
+         */
+        organization_name: string & Placeholder<"Wrtn Technologies">;
+      }[];
+
+      /**
+       * @title hasEntities
+       *
+       * A flag indicating if there are any entities in the response.
+       */
+      hasEntities: boolean;
+    };
+  }
+
+  export interface IAutocompleteInput {
+    /**
+     * @title query
+     *
+     * As a search word, regardless of whether it is Korean or English, you can enter keywords related to the company you want to see.
+     * You can use the company name to obtain an identifier that can be used by the company's name or Crunchbase.
+     */
+    query: string;
+  }
+
   /**
    * @title Crunchbase 응답
    * @description Crunchbase API의 응답 형식을 정의합니다.
