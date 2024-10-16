@@ -15,7 +15,7 @@
     }
   ],
   "info": {
-    "version": "0.1.269",
+    "version": "0.1.270",
     "title": "@wrtn/connector",
     "description": "wrtn-ecosystem connectors and sdk",
     "license": {
@@ -34709,7 +34709,7 @@
           },
           "text": {
             "type": "string",
-            "title": "message contents\n\nWhen users occasionally call others, they can be called in the form of '@USERNAME', which is called a tag."
+            "title": "message contents\n\nWhen users occasionally call others, they can be called in the form of '@USERNAME', which is called a tag.\nIn the conversation history, the link and code box are abbreviated to <LINK/> and <CODE/>, respectively.\nFor users, it is replaced by a user name, Like <@USERNAME>.\n<@USERNAME> is about calling someone else, and it's not the name of the person who started the conversation, so be careful.\nif you want to find who started this conversation, check 'user' property."
           },
           "attachments": {
             "type": "array",
@@ -35076,6 +35076,14 @@
             ],
             "title": "ID of the person who made parent message of this message\n\nIf this Reply has been published from thread to thread,\noutside of thread, and also as a channel,\nthere is no parent_user_id."
           },
+          "links": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "iri"
+            },
+            "title": "links\n\nLinks from the chat"
+          },
           "type": {
             "const": "message",
             "title": "type"
@@ -35091,9 +35099,14 @@
             ],
             "title": "ID of the person who made this message\n\nIf not a user, message does not have an ID."
           },
+          "link": {
+            "type": "string",
+            "format": "iri",
+            "title": "shortcut link\n\nLink to view the conversation history immediately.\nWe can provide you with a shortcut link if user want, but you don't have to expose it to them in normal times."
+          },
           "text": {
             "type": "string",
-            "title": "message contents\n\nWhen users occasionally call others, they can be called in the form of '@USERNAME', which is called a tag."
+            "title": "message contents\n\nWhen users occasionally call others, they can be called in the form of '@USERNAME', which is called a tag.\nIn the conversation history, the link and code box are abbreviated to <LINK/> and <CODE/>, respectively.\nFor users, it is replaced by a user name, Like <@USERNAME>.\n<@USERNAME> is about calling someone else, and it's not the name of the person who started the conversation, so be careful.\nif you want to find who started this conversation, check 'user' property."
           },
           "attachments": {
             "type": "array",
@@ -35115,8 +35128,10 @@
         "required": [
           "thread_ts",
           "parent_user_id",
+          "links",
           "type",
           "user",
+          "link",
           "text",
           "ts",
           "ts_date"
@@ -35269,7 +35284,7 @@
           },
           "text": {
             "type": "string",
-            "title": "message contents\n\nWhen users occasionally call others, they can be called in the form of '@USERNAME', which is called a tag."
+            "title": "message contents\n\nWhen users occasionally call others, they can be called in the form of '@USERNAME', which is called a tag.\nIn the conversation history, the link and code box are abbreviated to <LINK/> and <CODE/>, respectively.\nFor users, it is replaced by a user name, Like <@USERNAME>.\n<@USERNAME> is about calling someone else, and it's not the name of the person who started the conversation, so be careful.\nif you want to find who started this conversation, check 'user' property."
           },
           "channel": {
             "type": "string",
@@ -35473,7 +35488,7 @@
           },
           "text": {
             "type": "string",
-            "title": "message contents\n\nWhen users occasionally call others, they can be called in the form of '@USERNAME', which is called a tag."
+            "title": "message contents\n\nWhen users occasionally call others, they can be called in the form of '@USERNAME', which is called a tag.\nIn the conversation history, the link and code box are abbreviated to <LINK/> and <CODE/>, respectively.\nFor users, it is replaced by a user name, Like <@USERNAME>.\n<@USERNAME> is about calling someone else, and it's not the name of the person who started the conversation, so be careful.\nif you want to find who started this conversation, check 'user' property."
           },
           "channel": {
             "type": "string",
