@@ -2140,7 +2140,9 @@ export namespace IJira {
     /**
      * @title id
      */
-    id: `${number}`;
+    id:
+      | (string & tags.Pattern<"([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)">)
+      | number;
 
     /**
      * @title meaning of this priority level
