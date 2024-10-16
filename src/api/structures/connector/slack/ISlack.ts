@@ -895,6 +895,10 @@ export namespace ISlack {
      * @title message contents
      *
      * When users occasionally call others, they can be called in the form of '@USERNAME', which is called a tag.
+     * In the conversation history, the link and code box are abbreviated to <LINK/> and <CODE/>, respectively.
+     * For users, it is replaced by a user name, Like <@USERNAME>.
+     * <@USERNAME> is about calling someone else, and it's not the name of the person who started the conversation, so be careful.
+     * if you want to find who started this conversation, check 'user' property.
      */
     text: string;
 

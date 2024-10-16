@@ -261,7 +261,6 @@ export class SlackProvider {
       .map((message: ISlack.Reply): ISlack.Reply => {
         const timestamp = this.transformTsToTimestamp(message.ts);
         const links = extractLinks(message.text);
-
         return {
           type: message.type,
           user: message.user ?? null,
