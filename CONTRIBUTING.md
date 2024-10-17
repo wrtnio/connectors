@@ -64,6 +64,13 @@ Let's take a closer look one by one.
 class WrtnController {
   constructor(private readonly wrtnProvider: WrtnProvider) {}
 
+  /**
+   * Get something is something.
+   *
+   * This connector get something from wrtn service.
+   *
+   * @summary Get Something in wrtn
+   */
   @core.TypedRoute.Post("get-something")
   async getSomething(
     @TypedBody() input: IWrtn.IGetSomethingInput,
@@ -72,6 +79,9 @@ class WrtnController {
   }
 }
 ```
+
+JSDoc must have a @summary tag, which acts like a summary for Swagger.
+Other untagged comments are automatically categorized as a description of the corresponding connector API, and the first line based on the two lines is a summary of the description.
 
 ```ts
 // in your provider
