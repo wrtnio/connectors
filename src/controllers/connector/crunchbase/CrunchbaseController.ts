@@ -2,6 +2,7 @@ import { TypedBody, TypedRoute } from "@nestia/core";
 import { Controller } from "@nestjs/common";
 import { ICrunchbase } from "@wrtn/connector-api/lib/structures/connector/crunchbase/ICrunchbase";
 import { CrunchbaseProvider } from "../../../providers/connector/crunchbase/CrunchbaseProvider";
+import { retry } from "../../../utils/retry";
 
 @Controller("connector/crunchbase")
 export class CrunchbaseController {
@@ -19,7 +20,7 @@ export class CrunchbaseController {
   async getOrganizationData(
     @TypedBody() input: ICrunchbase.IGetOrganizationDataInput,
   ): Promise<ICrunchbase.CrunchbaseResponse> {
-    return this.crunchbaseProvider.getOrganizationData(input);
+    return retry(() => this.crunchbaseProvider.getOrganizationData(input))();
   }
 
   /**
@@ -34,6 +35,6 @@ export class CrunchbaseController {
   async autocomplete(
     @TypedBody() input: ICrunchbase.IAutocompleteInput,
   ): Promise<ICrunchbase.IAutocompleteOutput> {
-    return this.crunchbaseProvider.autocomplete(input);
+    return retry(() => this.crunchbaseProvider.autocomplete(input))();
   }
 }
