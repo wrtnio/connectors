@@ -13,7 +13,6 @@ export const test_api_connector_x_make_txt_file_and_upload_s3 = async (
   const res =
     await CApi.functional.connector.x.make_txt_file_and_upload.makeTxtFileForTweetAndUploadToS3(
       connection,
-      "leo",
       tweets,
     );
   typia.assert(res);

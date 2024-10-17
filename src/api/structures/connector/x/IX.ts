@@ -15,9 +15,9 @@ export namespace IX {
     /**
      * User name for search
      *
-     * @title user name
+     * @title Twitter user name
      */
-    userName: string;
+    userName: string[] & tags.MinItems<1>;
   }
 
   /**
@@ -69,9 +69,21 @@ export namespace IX {
         }>;
 
       /**
-       * The user name of the user for search user tweet time line
+       * The original user name
        *
        * @title user name
+       */
+      name: string &
+        Prerequisite<{
+          method: "post";
+          path: "/connector/x/get-user";
+          jmesPath: JMESPath<IUserResponse, "data.{value:name, label:name}">;
+        }>;
+
+      /**
+       * The user name of twitter
+       *
+       * @title twitter user name
        */
       userName: string &
         Prerequisite<{
@@ -115,7 +127,35 @@ export namespace IX {
      *
      * @title tweet link
      */
-    tweet_link: string;
+    tweet_link: string & tags.Format<"iri">;
+
+    /**
+     * The type of the tweet
+     *
+     * @title tweet type
+     */
+    type?: "original" | "retweeted" | "quoted";
+
+    /**
+     * Username who wrote the original tweet of the referenced tweet
+     *
+     * @title referred user name
+     */
+    referredUserName?: string;
+
+    /**
+     * Link to the original tweet of the referenced tweet
+     *
+     * @title referred tweet link
+     */
+    referredTweetLink?: string & tags.Format<"iri">;
+
+    /**
+     * Content of the referenced tweet
+     *
+     * @title tweet content
+     */
+    referredTweetText?: string;
   }
 
   export interface IGetTweetRequest extends ISecret {

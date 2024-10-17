@@ -4,7 +4,6 @@ import { Controller } from "@nestjs/common";
 import { IX } from "@wrtn/connector-api/lib/structures/connector/x/IX";
 
 import { XProvider } from "../../../providers/connector/x/XProvider";
-import { retry } from "../../../utils/retry";
 import { RouteIcon } from "@wrtnio/decorators";
 import { IRag } from "@wrtn/connector-api/lib/structures/connector/rag/IRag";
 
@@ -22,11 +21,29 @@ export class XController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/X_full.svg",
   )
-  @core.TypedRoute.Post("/get-user")
-  async getUser(
+  @core.TypedRoute.Post("/get-users")
+  async getUsers(
     @core.TypedBody() input: IX.IUserRequest,
-  ): Promise<IX.IUserResponse> {
-    return this.XProvider.getUser(input);
+  ): Promise<IX.IUserResponse[]> {
+    return this.XProvider.getUsers(input);
+  }
+
+  /**
+   * Get Influencer Information
+   *
+   * @summary Get Influencer Information
+   *
+   * @param input username
+   * @returns user information
+   */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/X_full.svg",
+  )
+  @core.TypedRoute.Post("/get-influencers")
+  async getPreDefinedInfluencers(
+    @core.TypedBody() input: IX.ISecret,
+  ): Promise<IX.IUserResponse[]> {
+    return this.XProvider.getPreDefinedInfluencers(input);
   }
 
   /**
@@ -76,12 +93,11 @@ export class XController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/X_full.svg",
   )
-  @core.TypedRoute.Post("/make-txt-file-and-upload/:userName")
+  @core.TypedRoute.Post("/make-txt-file-and-upload")
   async makeTxtFileForTweetAndUploadToS3(
-    @core.TypedParam("userName") userName: string,
     @core.TypedBody() input: IX.ITweetResponse[],
   ): Promise<IX.IMakeTxtFileAndUploadResponse> {
-    return this.XProvider.makeTxtFileForTweetAndUploadToS3(userName, input);
+    return this.XProvider.makeTxtFileForTweetAndUploadToS3(input);
   }
 
   /**
@@ -99,5 +115,10 @@ export class XController {
     @core.TypedBody() input: IX.ISummarizeTweetRequest,
   ): Promise<IRag.IGenerateOutput> {
     return this.XProvider.summarizeTweet(input);
+  }
+
+  @core.TypedRoute.Post("/multion")
+  async multion(): Promise<void> {
+    return this.XProvider.multion();
   }
 }
