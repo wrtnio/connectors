@@ -30,7 +30,7 @@ export namespace ISimilarweb {
   export interface IGetDomainInfoInput {
     /**
      * @title Domain
-     * @description Domain name to retrieve information for
+     * Domain name to retrieve information for. (e.g, 'wrtn.ai' or 'https://wrtn.ai')
      */
     domain: string;
   }

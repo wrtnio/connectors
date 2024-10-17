@@ -11,7 +11,7 @@ export class SimilarwebProvider {
     const url = `https://similarweb13.p.rapidapi.com/v2/getdomain?exclude-countries=true&domain=${input.domain}`;
     const res = await axios.get(url, {
       headers: {
-        "x-rapidapi-host": "crunchbase-api.p.rapidapi.com",
+        "x-rapidapi-host": "similarweb13.p.rapidapi.com",
         "x-rapidapi-key": ConnectorGlobal.env.RAPIDAPI_KEY,
       },
     });
