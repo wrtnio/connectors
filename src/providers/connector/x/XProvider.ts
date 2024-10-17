@@ -9,7 +9,8 @@ import { AwsProvider } from "../aws/AwsProvider";
 import { RagProvider } from "../rag/RagProvider";
 import { IRag } from "@wrtn/connector-api/lib/structures/connector/rag/IRag";
 import typia, { tags } from "typia";
-
+import { MultiOnClient } from "multion";
+import { v4 } from "uuid";
 @Injectable()
 export class XProvider {
   constructor(
@@ -18,26 +19,73 @@ export class XProvider {
   ) {}
   private readonly logger = new Logger("XProvider");
 
-  async getUser(input: IX.IUserRequest): Promise<IX.IUserResponse> {
+  async getUsers(input: IX.IUserRequest): Promise<IX.IUserResponse[]> {
     try {
       const accessToken = await this.refresh(input);
-      const user = await axios.get(
-        `https://api.x.com/2/users/by/username/${input.userName}`,
-        {
-          headers: {
-            Authorization: `Bearer ${accessToken}`,
+      const result: IX.IUserResponse[] = [];
+      for (const userName of input.userName) {
+        const user = await axios.get(
+          `https://api.x.com/2/users/by/username/${userName}`,
+          {
+            headers: {
+              Authorization: `Bearer ${accessToken}`,
+            },
           },
-        },
-      );
-      return {
-        id: user.data.data.id,
-        name: user.data.data.name,
-        userName: user.data.data.username,
-      };
+        );
+        result.push({
+          id: user.data.data.id,
+          name: user.data.data.name,
+          userName: user.data.data.username,
+        });
+      }
+
+      return result;
     } catch (err) {
       console.error(JSON.stringify(err));
       throw err;
     }
+  }
+
+  async getPreDefinedInfluencers(
+    input: IX.ISecret,
+  ): Promise<IX.IUserResponse[]> {
+    try {
+      const accessToken = await this.refresh(input);
+      const result: IX.IUserResponse[] = [];
+
+      // influencer's twitter username list
+      const influencerList: string[] = [];
+      for (const userName of influencerList) {
+        const user = await axios.get(
+          `https://api.x.com/2/users/by/username/${userName}`,
+          {
+            headers: {
+              Authorization: `Bearer ${accessToken}`,
+            },
+          },
+        );
+        result.push({
+          id: user.data.data.id,
+          name: user.data.data.name,
+          userName: user.data.data.username,
+        });
+      }
+      return result;
+    } catch (err) {
+      console.error(JSON.stringify(err));
+      throw err;
+    }
+  }
+
+  async multion(): Promise<void> {
+    const multion = new MultiOnClient({
+      apiKey: "c57a898d945a4d36bb88f4f7478d55ac",
+    });
+    const browse = await multion.browse({
+      cmd: "Bring me a day tweet from Elon Musk and summarize it. My twitter id is seunghwako17 and password is Dnflwlq1!",
+      url: "https://x.com",
+    });
+    console.log("BROWSE", browse);
   }
 
   async getTweet(
@@ -70,7 +118,7 @@ export class XProvider {
       return {
         id: tweet.data.data.id,
         text: tweet.data.data.text,
-        userName: user.data.data.username,
+        userName: user.data.data.name,
         tweet_link: `https://twitter.com/${user.data.data.username}/status/${tweet.data.data.id}`,
       };
     } catch (err) {
@@ -87,7 +135,7 @@ export class XProvider {
       const result: IX.ITweetResponse[] = [];
 
       for (const user of input.user) {
-        if (!user.userId || !user.userName) {
+        if (!user.userId || !user.name) {
           this.logger.error("X User id and user name are required");
         }
 
@@ -95,7 +143,7 @@ export class XProvider {
           `https://api.x.com/2/users/${user.userId}/tweets`,
           {
             params: {
-              max_results: 50,
+              max_results: 100,
               expansions: "referenced_tweets.id",
               end_time: new Date().toISOString(),
               start_time: new Date(
@@ -108,37 +156,53 @@ export class XProvider {
           },
         );
 
-        for (const userTweetTimeLine of userTweetTimeLines.data.data) {
-          // If Retweet or Quoted Tweet, get the original tweet. Exclude the replied tweet.
-          if (
-            userTweetTimeLine.referenced_tweets &&
-            userTweetTimeLine.referenced_tweets.length > 0
-          ) {
-            for (const referencedTweet of userTweetTimeLine.referenced_tweets) {
-              if (referencedTweet.type !== "replied") {
-                const originalTweet = await this.getTweet(
-                  {
-                    secretKey: input.secretKey,
-                    tweetId: referencedTweet.id,
-                  },
-                  accessToken,
-                );
-                result.push({
-                  id: originalTweet.id,
-                  userName: originalTweet.userName,
-                  text: originalTweet.text,
-                  tweet_link: originalTweet.tweet_link,
-                });
+        if (
+          userTweetTimeLines &&
+          userTweetTimeLines.data &&
+          userTweetTimeLines.data.data
+        ) {
+          for (const userTweetTimeLine of userTweetTimeLines.data.data) {
+            // If Retweet or Quoted Tweet, get the original tweet. Exclude the replied tweet.
+            if (
+              userTweetTimeLine.referenced_tweets &&
+              userTweetTimeLine.referenced_tweets.length > 0
+            ) {
+              for (const referencedTweet of userTweetTimeLine.referenced_tweets) {
+                if (referencedTweet.type !== "replied") {
+                  const originalTweet = await this.getTweet(
+                    {
+                      secretKey: input.secretKey,
+                      tweetId: referencedTweet.id,
+                    },
+                    accessToken,
+                  );
+                  result.push({
+                    id: userTweetTimeLine.id,
+                    userName: user.name,
+                    text: userTweetTimeLine.text,
+                    tweet_link: `https://twitter.com/${user.userName}/status/${userTweetTimeLine.id}`,
+                    type:
+                      referencedTweet.type === "retweeted"
+                        ? "retweeted"
+                        : "quoted",
+                    referredUserName: originalTweet.userName,
+                    referredTweetLink: originalTweet.tweet_link,
+                    referredTweetText: originalTweet.text,
+                  });
+                }
               }
+            } else {
+              result.push({
+                id: userTweetTimeLine.id,
+                userName: user.name,
+                text: userTweetTimeLine.text,
+                tweet_link: `https://twitter.com/${user.userName}/status/${userTweetTimeLine.id}`,
+                type: "original",
+              });
             }
           }
-
-          result.push({
-            id: userTweetTimeLine.id,
-            userName: user.userName,
-            text: userTweetTimeLine.text,
-            tweet_link: `https://twitter.com/${user.userName}/status/${userTweetTimeLine.id}`,
-          });
+        } else {
+          this.logger.log(`X ${user.name} tweet timeline is empty`);
         }
       }
       return result;
@@ -149,10 +213,9 @@ export class XProvider {
   }
 
   async makeTxtFileForTweetAndUploadToS3(
-    userName: string,
     input: IX.ITweetResponse[],
   ): Promise<IX.IMakeTxtFileAndUploadResponse> {
-    const fileName = `${userName}_${new Date().toISOString()}_tweet.txt`;
+    const fileName = `${v4()}_${new Date().toISOString()}_tweet.txt`;
     let fileContent = "";
     fileContent += `<tweets>\n`;
     input.map((tweet) => {
@@ -161,6 +224,16 @@ export class XProvider {
       fileContent += `timeStamp: ${tweet.userName}\n`;
       fileContent += `content: ${tweet.text}\n`;
       fileContent += `link: ${tweet.tweet_link}\n`;
+      fileContent += `type: ${tweet.type}\n`;
+      if (tweet.referredUserName) {
+        fileContent += `referredUserName: ${tweet.referredUserName}\n`;
+      }
+      if (tweet.referredTweetLink) {
+        fileContent += `referredTweetLink: ${tweet.referredTweetLink}\n`;
+      }
+      if (tweet.referredTweetText) {
+        fileContent += `referredTweetContent: ${tweet.referredTweetText}\n`;
+      }
       fileContent += `</tweet>\n`;
     });
     fileContent += `</tweets>\n`;
@@ -168,8 +241,8 @@ export class XProvider {
     try {
       const fileUrl = await this.awsProvider.uploadObject({
         key: `tweets/${fileName}`,
-        data: Buffer.from(fileContent),
-        contentType: "text/plain",
+        data: Buffer.from(fileContent, "utf-8"),
+        contentType: "text/plain; charset=utf-8",
       });
       this.logger.log(`Successfully uploaded ${fileName} to S3`);
       return {
@@ -186,10 +259,21 @@ export class XProvider {
   ): Promise<IRag.IGenerateOutput> {
     const analyze = await this.ragProvider.analyze({ url: [input.fileUrl] });
     return await this.ragProvider.generate(
-      { query: "이 파일의 내용을 요약해줘." },
+      {
+        query:
+          "이 파일의 내용을 한국어로 요약해줘. 파일에 있는 userName별로 트윗의 내용을 요약해줘.",
+      },
       analyze.chatId,
     );
   }
+
+  /**
+   * 뉴스레터 시나리오
+   *
+   * 정해진 인플루언서들의 트윗을 가져와서 텍스트 파일로 만들어서 S3에 업로드 한 후 RAG로 요약한 뒤 GMAIL로 전송.
+   *
+   * getUser -> getUserTimelineTweets -> makeTxtFileForTweetAndUploadToS3 -> summarizeTweet -> sendEmail
+   */
 
   async refresh(input: IX.ISecret): Promise<string> {
     try {

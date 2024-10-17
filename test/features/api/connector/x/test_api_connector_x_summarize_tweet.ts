@@ -16,7 +16,7 @@ export const test_api_connector_x_summarize_tweet = async (
       fileUrl: file.fileUrl,
     },
   );
-  console.log("res", res);
+  console.log("SUMMARIZE_RESULT", res);
   typia.assert(res);
   return res;
 };
