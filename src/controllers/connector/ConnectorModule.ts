@@ -60,6 +60,7 @@ import { OpenDataModule } from "./open_data/OpenDataModule";
 import { PromptModule } from "./prompts/PromptModule";
 import { RagModule } from "./rag/RagModule";
 import { ShortLinkModule } from "./short_link/ShortLinkModule";
+import { SimilarwebModule } from "./similarweb/SimilarwebModule";
 import { SlackModule } from "./slack/SlackModule";
 import { RankModule } from "./sort/RankModule";
 import { StableDiffusionBetaModule } from "./stable_diffustion_beta/StableDiffusionBetaModule";
@@ -147,6 +148,7 @@ import { ZoomModule } from "./zoom/ZoomModule";
     TypeformModule,
     MarpModule,
     CrunchbaseModule,
+    SimilarwebModule,
   ],
 })
 export class ConnectorModule {}
