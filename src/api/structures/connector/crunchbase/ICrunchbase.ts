@@ -82,7 +82,7 @@ export namespace ICrunchbase {
       Prerequisite<{
         method: "post";
         path: "connector/crunchbase/autocomplete";
-        jmesPath: "data[].{value:organization_identifier, label: organization_name}";
+        jmesPath: "data.entities[].{value:organization_identifier, label: organization_name}";
       }>;
   }
 
