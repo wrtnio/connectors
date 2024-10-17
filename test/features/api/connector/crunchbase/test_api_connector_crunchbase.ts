@@ -4,16 +4,15 @@ import typia from "typia";
 export const test_api_connector_crunchbase = async (
   connection: CApi.IConnection,
 ) => {
-  // autocomplete
-  // const autocomplete =
-  //   await CApi.functional.connector.crunchbase.auto_complete.autocomplete(
-  //     connection,
-  //     {
-  //       query: "wrtn-technologies",
-  //     },
-  //   );
+  const autocomplete =
+    await CApi.functional.connector.crunchbase.auto_complete.autocomplete(
+      connection,
+      {
+        query: "wrtn-technologies",
+      },
+    );
 
-  // typia.assert(autocomplete);
+  typia.assert(autocomplete);
 
   const organizationData =
     await CApi.functional.connector.crunchbase.get_organization_data.getOrganizationData(
@@ -23,6 +22,5 @@ export const test_api_connector_crunchbase = async (
       },
     );
 
-  console.log(JSON.stringify(organizationData, null, 2));
   typia.assert(organizationData);
 };
