@@ -18,7 +18,7 @@
     "title": "구글 광고 캠페인 운영",
     "summary": "구글 광고를 쉽게 만들고 관리해요.",
     "description": "키워드 검색을 통한 SEO 전략을 최적화하고, 노출 광고의 효과를 높여 잠재 고객에게 효과적으로 도달할 수 있어요.구글 광고에서 검색 광고, 디스플레이 광고, 동영상 광고 등 다양한 유형의 광고를 만들고 수정할 수 있어요. 이후 광고 상태를 관리하고, 성과를 조회할 수 있어요.",
-    "version": "0.1.272",
+    "version": "0.1.273",
     "license": {
       "name": "AGPL-3.0-only"
     }
@@ -298,7 +298,7 @@
                 "schema": {
                   "type": "array",
                   "items": {
-                    "$ref": "#/components/schemas/MyPickIGoogleAds.AdGroupAdresourceNamestatuspolicySummary"
+                    "$ref": "#/components/schemas/MyPickIGoogleAds.AdGroupAdstatusresourceNamepolicySummary"
                   }
                 }
               }
@@ -1292,7 +1292,7 @@
         "type": "object",
         "properties": {
           "campaign": {
-            "$ref": "#/components/schemas/MyPickIGoogleAds.CampaignidresourceNamestatus",
+            "$ref": "#/components/schemas/MyPickIGoogleAds.CampaignstatusidresourceName",
             "title": "campaign"
           },
           "adGroup": {
@@ -1321,21 +1321,9 @@
           "keywords"
         ]
       },
-      "MyPickIGoogleAds.CampaignidresourceNamestatus": {
+      "MyPickIGoogleAds.CampaignstatusidresourceName": {
         "type": "object",
         "properties": {
-          "id": {
-            "type": "string",
-            "pattern": "([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)",
-            "x-wrtn-placeholder": "1",
-            "title": "Campaign ID"
-          },
-          "resourceName": {
-            "type": "string",
-            "pattern": "(customers\\/[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?\\/campaigns\\/[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)",
-            "x-wrtn-placeholder": "customers/1/campaigns/1",
-            "title": "Campaign Resource Name"
-          },
           "status": {
             "oneOf": [
               {
@@ -1360,12 +1348,24 @@
               }
             ],
             "title": "Campaign Status"
+          },
+          "id": {
+            "type": "string",
+            "pattern": "([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)",
+            "x-wrtn-placeholder": "1",
+            "title": "Campaign ID"
+          },
+          "resourceName": {
+            "type": "string",
+            "pattern": "(customers\\/[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?\\/campaigns\\/[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)",
+            "x-wrtn-placeholder": "customers/1/campaigns/1",
+            "title": "Campaign Resource Name"
           }
         },
         "required": [
+          "status",
           "id",
-          "resourceName",
-          "status"
+          "resourceName"
         ]
       },
       "MyPickIGoogleAds.AdGrouptypeidresourceName": {
@@ -1584,16 +1584,9 @@
           "secretKey"
         ]
       },
-      "MyPickIGoogleAds.AdGroupAdresourceNamestatuspolicySummary": {
+      "MyPickIGoogleAds.AdGroupAdstatusresourceNamepolicySummary": {
         "type": "object",
         "properties": {
-          "resourceName": {
-            "type": "string",
-            "pattern": "(customers\\/[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?\\/adGroupAds\\/[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?~[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)",
-            "x-wrtn-placeholder": "customers/1/adGroupAds/1~1",
-            "title": "Resource name of the ad group ad",
-            "description": "`customers/${number}/adGroupAds/${number}~${number}` format"
-          },
           "status": {
             "oneOf": [
               {
@@ -1618,6 +1611,13 @@
               }
             ],
             "title": "Status of the ad"
+          },
+          "resourceName": {
+            "type": "string",
+            "pattern": "(customers\\/[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?\\/adGroupAds\\/[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?~[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)",
+            "x-wrtn-placeholder": "customers/1/adGroupAds/1~1",
+            "title": "Resource name of the ad group ad",
+            "description": "`customers/${number}/adGroupAds/${number}~${number}` format"
           },
           "policySummary": {
             "type": "object",
@@ -1691,8 +1691,8 @@
           }
         },
         "required": [
-          "resourceName",
           "status",
+          "resourceName",
           "policySummary"
         ]
       },
@@ -1859,29 +1859,19 @@
         "type": "object",
         "properties": {
           "adGroupCriterion": {
-            "$ref": "#/components/schemas/MyPickAdGroupCriteriontypekeywordresourceNamestatuscriterionIdKeyword"
+            "$ref": "#/components/schemas/MyPickAdGroupCriteriontypestatuskeywordresourceNamecriterionIdKeyword"
           }
         },
         "required": [
           "adGroupCriterion"
         ]
       },
-      "MyPickAdGroupCriteriontypekeywordresourceNamestatuscriterionIdKeyword": {
+      "MyPickAdGroupCriteriontypestatuskeywordresourceNamecriterionIdKeyword": {
         "type": "object",
         "properties": {
           "type": {
             "const": "KEYWORD",
             "title": "type"
-          },
-          "keyword": {
-            "$ref": "#/components/schemas/IGoogleAds.Keyword",
-            "title": "keyword"
-          },
-          "resourceName": {
-            "type": "string",
-            "pattern": "(customers\\/(.*)\\/adGroupCriteria\\/[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?~[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)",
-            "x-wrtn-placeholder": "customers/1/adGroupCriteria/1",
-            "title": "Ad Group Standard Resource Name\n\nFormat: `customers/${number}/adGroupCriteria/number~${number}`"
           },
           "status": {
             "oneOf": [
@@ -1907,6 +1897,16 @@
               }
             ],
             "title": "Ad Group Standard Status"
+          },
+          "keyword": {
+            "$ref": "#/components/schemas/IGoogleAds.Keyword",
+            "title": "keyword"
+          },
+          "resourceName": {
+            "type": "string",
+            "pattern": "(customers\\/(.*)\\/adGroupCriteria\\/[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?~[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)",
+            "x-wrtn-placeholder": "customers/1/adGroupCriteria/1",
+            "title": "Ad Group Standard Resource Name\n\nFormat: `customers/${number}/adGroupCriteria/number~${number}`"
           },
           "criterionId": {
             "type": "string",
@@ -1945,9 +1945,9 @@
         },
         "required": [
           "type",
+          "status",
           "keyword",
           "resourceName",
-          "status",
           "criterionId",
           "text",
           "matchType"

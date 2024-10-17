@@ -17,7 +17,7 @@
   "info": {
     "title": "Jira",
     "description": "Jira로 프로젝트 이슈를 관리해요.",
-    "version": "0.1.272",
+    "version": "0.1.273",
     "license": {
       "name": "AGPL-3.0-only"
     }
@@ -871,7 +871,7 @@
           "comments": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/MyPickIJira.CommentidbodyupdatedcreatedauthorupdateAuthor"
+              "$ref": "#/components/schemas/MyPickIJira.CommentidbodyauthorcreatedupdatedupdateAuthor"
             },
             "title": "comments"
           },
@@ -901,7 +901,7 @@
           "total"
         ]
       },
-      "MyPickIJira.CommentidbodyupdatedcreatedauthorupdateAuthor": {
+      "MyPickIJira.CommentidbodyauthorcreatedupdatedupdateAuthor": {
         "type": "object",
         "properties": {
           "id": {
@@ -964,17 +964,17 @@
             ],
             "title": "body of comment"
           },
-          "updated": {
-            "type": "string",
-            "title": "updated time of this comment"
+          "author": {
+            "$ref": "#/components/schemas/MyPickIJira.UseractiveaccountIddisplayName",
+            "title": "author of this comment"
           },
           "created": {
             "type": "string",
             "title": "created time of this comment"
           },
-          "author": {
-            "$ref": "#/components/schemas/MyPickIJira.UseractiveaccountIddisplayName",
-            "title": "author of this comment"
+          "updated": {
+            "type": "string",
+            "title": "updated time of this comment"
           },
           "updateAuthor": {
             "$ref": "#/components/schemas/MyPickIJira.UseractiveaccountIddisplayName",
@@ -984,9 +984,9 @@
         "required": [
           "id",
           "body",
-          "updated",
-          "created",
           "author",
+          "created",
+          "updated",
           "updateAuthor"
         ]
       },
@@ -3798,16 +3798,6 @@
       "StrictOmitIGetIssueInputByBasicAuthemaildomaintokenIBasicSecret": {
         "type": "object",
         "properties": {
-          "keyword": {
-            "type": "string",
-            "title": "search keyword\n\nIt is a keyword you want to find in the title or explanation of an issue, which is useful when searching."
-          },
-          "maxResults": {
-            "type": "integer",
-            "default": 50,
-            "title": "max results",
-            "description": "The maximum number of items to return per page.\nIn the issue, it seems that up to 100 can be viewed at a time."
-          },
           "status": {
             "type": "string",
             "x-wrtn-prerequisite": {
@@ -3816,6 +3806,27 @@
               "jmesPath": "[].{value:id, label:untranslatedName}"
             },
             "title": "status"
+          },
+          "keyword": {
+            "type": "string",
+            "title": "search keyword\n\nIt is a keyword you want to find in the title or explanation of an issue, which is useful when searching."
+          },
+          "labels": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "title": "label titles\n\nComplex searches are possible using various labels."
+          },
+          "assignee": {
+            "type": "string",
+            "title": "name of assignee"
+          },
+          "maxResults": {
+            "type": "integer",
+            "default": 50,
+            "title": "max results",
+            "description": "The maximum number of items to return per page.\nIn the issue, it seems that up to 100 can be viewed at a time."
           },
           "startAt": {
             "type": "integer",
@@ -3854,10 +3865,6 @@
             ],
             "title": "issue type"
           },
-          "assignee": {
-            "type": "string",
-            "title": "name of assignee"
-          },
           "reporter": {
             "type": "string",
             "title": "name of reporter"
@@ -3880,13 +3887,6 @@
               "jmesPath": "[].{value:name, label:name}"
             },
             "title": "priority name\n\nIf you want to search based on priority, deliver the name of the priority.\nThere are five priorities: 'Highest', 'High', 'Medium', 'Low', and 'Lowest'.\nAlthough it is a Deprecated feature, you can still query the priority level that can be assigned to an issue with the API.\nIt also exists as our connector, so use it if necessary."
-          },
-          "labels": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            },
-            "title": "label titles\n\nComplex searches are possible using various labels."
           },
           "secretKey": {
             "type": "string",

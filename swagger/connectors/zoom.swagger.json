@@ -17,7 +17,7 @@
   "info": {
     "title": "Zoom",
     "description": "",
-    "version": "0.1.272",
+    "version": "0.1.273",
     "license": {
       "name": "AGPL-3.0-only"
     }
@@ -232,10 +232,10 @@
           "status": {
             "oneOf": [
               {
-                "const": "deleted"
+                "const": "available"
               },
               {
-                "const": "available"
+                "const": "deleted"
               }
             ],
             "title": "Status of webinar occurrence",

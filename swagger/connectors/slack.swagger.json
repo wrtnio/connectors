@@ -17,7 +17,7 @@
   "info": {
     "title": "Slack",
     "description": "슬랙에서 대화 내용을 가져오거나 메시지를 보낼 수 있어요.",
-    "version": "0.1.272",
+    "version": "0.1.273",
     "license": {
       "name": "AGPL-3.0-only"
     }
@@ -1559,9 +1559,18 @@
             },
             "title": "links\n\nLinks from the chat"
           },
+          "link": {
+            "type": "string",
+            "format": "iri",
+            "title": "shortcut link\n\nLink to view the conversation history immediately.\nWe can provide you with a shortcut link if user want, but you don't have to expose it to them in normal times."
+          },
           "type": {
             "const": "message",
             "title": "type"
+          },
+          "text": {
+            "type": "string",
+            "title": "message contents\n\nWhen users occasionally call others, they can be called in the form of '@USERNAME', which is called a tag.\nIn the conversation history, the link and code box are abbreviated to <LINK/> and <CODE/>, respectively.\nFor users, it is replaced by a user name, Like <@USERNAME>.\n<@USERNAME> is about calling someone else, and it's not the name of the person who started the conversation, so be careful.\nif you want to find who started this conversation, check 'user' property."
           },
           "user": {
             "oneOf": [
@@ -1573,15 +1582,6 @@
               }
             ],
             "title": "ID of the person who made this message\n\nIf not a user, message does not have an ID."
-          },
-          "link": {
-            "type": "string",
-            "format": "iri",
-            "title": "shortcut link\n\nLink to view the conversation history immediately.\nWe can provide you with a shortcut link if user want, but you don't have to expose it to them in normal times."
-          },
-          "text": {
-            "type": "string",
-            "title": "message contents\n\nWhen users occasionally call others, they can be called in the form of '@USERNAME', which is called a tag.\nIn the conversation history, the link and code box are abbreviated to <LINK/> and <CODE/>, respectively.\nFor users, it is replaced by a user name, Like <@USERNAME>.\n<@USERNAME> is about calling someone else, and it's not the name of the person who started the conversation, so be careful.\nif you want to find who started this conversation, check 'user' property."
           },
           "attachments": {
             "type": "array",
@@ -1604,10 +1604,10 @@
           "thread_ts",
           "parent_user_id",
           "links",
-          "type",
-          "user",
           "link",
+          "type",
           "text",
+          "user",
           "ts",
           "ts_date"
         ]
@@ -1765,6 +1765,15 @@
       "StrictOmitISlack.LinkMessagetypeattachments": {
         "type": "object",
         "properties": {
+          "link": {
+            "type": "string",
+            "format": "iri",
+            "title": "shortcut link\n\nLink to view the conversation history immediately.\nWe can provide you with a shortcut link if user want, but you don't have to expose it to them in normal times."
+          },
+          "text": {
+            "type": "string",
+            "title": "message contents\n\nWhen users occasionally call others, they can be called in the form of '@USERNAME', which is called a tag.\nIn the conversation history, the link and code box are abbreviated to <LINK/> and <CODE/>, respectively.\nFor users, it is replaced by a user name, Like <@USERNAME>.\n<@USERNAME> is about calling someone else, and it's not the name of the person who started the conversation, so be careful.\nif you want to find who started this conversation, check 'user' property."
+          },
           "user": {
             "oneOf": [
               {
@@ -1775,15 +1784,6 @@
               }
             ],
             "title": "ID of the person who made this message\n\nIf not a user, message does not have an ID."
-          },
-          "link": {
-            "type": "string",
-            "format": "iri",
-            "title": "shortcut link\n\nLink to view the conversation history immediately.\nWe can provide you with a shortcut link if user want, but you don't have to expose it to them in normal times."
-          },
-          "text": {
-            "type": "string",
-            "title": "message contents\n\nWhen users occasionally call others, they can be called in the form of '@USERNAME', which is called a tag.\nIn the conversation history, the link and code box are abbreviated to <LINK/> and <CODE/>, respectively.\nFor users, it is replaced by a user name, Like <@USERNAME>.\n<@USERNAME> is about calling someone else, and it's not the name of the person who started the conversation, so be careful.\nif you want to find who started this conversation, check 'user' property."
           },
           "channel": {
             "type": "string",
@@ -1817,9 +1817,9 @@
           }
         },
         "required": [
-          "user",
           "link",
           "text",
+          "user",
           "channel",
           "ts",
           "reply_count",
@@ -1945,6 +1945,15 @@
       "StrictOmitISlack.Messagetypeattachments": {
         "type": "object",
         "properties": {
+          "link": {
+            "type": "string",
+            "format": "iri",
+            "title": "shortcut link\n\nLink to view the conversation history immediately.\nWe can provide you with a shortcut link if user want, but you don't have to expose it to them in normal times."
+          },
+          "text": {
+            "type": "string",
+            "title": "message contents\n\nWhen users occasionally call others, they can be called in the form of '@USERNAME', which is called a tag.\nIn the conversation history, the link and code box are abbreviated to <LINK/> and <CODE/>, respectively.\nFor users, it is replaced by a user name, Like <@USERNAME>.\n<@USERNAME> is about calling someone else, and it's not the name of the person who started the conversation, so be careful.\nif you want to find who started this conversation, check 'user' property."
+          },
           "user": {
             "oneOf": [
               {
@@ -1955,15 +1964,6 @@
               }
             ],
             "title": "ID of the person who made this message\n\nIf not a user, message does not have an ID."
-          },
-          "link": {
-            "type": "string",
-            "format": "iri",
-            "title": "shortcut link\n\nLink to view the conversation history immediately.\nWe can provide you with a shortcut link if user want, but you don't have to expose it to them in normal times."
-          },
-          "text": {
-            "type": "string",
-            "title": "message contents\n\nWhen users occasionally call others, they can be called in the form of '@USERNAME', which is called a tag.\nIn the conversation history, the link and code box are abbreviated to <LINK/> and <CODE/>, respectively.\nFor users, it is replaced by a user name, Like <@USERNAME>.\n<@USERNAME> is about calling someone else, and it's not the name of the person who started the conversation, so be careful.\nif you want to find who started this conversation, check 'user' property."
           },
           "channel": {
             "type": "string",
@@ -1989,9 +1989,9 @@
           }
         },
         "required": [
-          "user",
           "link",
           "text",
+          "user",
           "channel",
           "ts",
           "reply_count",
@@ -2126,7 +2126,7 @@
           "files": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/MyPickISlack.Filenameusersizeidchannelscomments_countcreatedmimetypeurl_privateurl_private_downloadthumb_1024"
+              "$ref": "#/components/schemas/MyPickISlack.Filenameusersizeidcreatedchannelscomments_countmimetypeurl_privateurl_private_downloadthumb_1024"
             }
           },
           "paging": {
@@ -2164,7 +2164,7 @@
         ],
         "title": "File Lookup Results"
       },
-      "MyPickISlack.Filenameusersizeidchannelscomments_countcreatedmimetypeurl_privateurl_private_downloadthumb_1024": {
+      "MyPickISlack.Filenameusersizeidcreatedchannelscomments_countmimetypeurl_privateurl_private_downloadthumb_1024": {
         "type": "object",
         "properties": {
           "name": {
@@ -2183,6 +2183,10 @@
             "type": "string",
             "title": "id"
           },
+          "created": {
+            "type": "number",
+            "title": "created"
+          },
           "channels": {
             "type": "array",
             "items": {
@@ -2194,10 +2198,6 @@
           "comments_count": {
             "type": "integer",
             "title": "comments_count"
-          },
-          "created": {
-            "type": "number",
-            "title": "created"
           },
           "mimetype": {
             "type": "string",
@@ -2224,9 +2224,9 @@
           "user",
           "size",
           "id",
+          "created",
           "channels",
           "comments_count",
-          "created",
           "mimetype"
         ]
       },

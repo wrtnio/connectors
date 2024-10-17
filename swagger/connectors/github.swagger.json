@@ -17,7 +17,7 @@
   "info": {
     "title": "Github",
     "description": "Github에서 코드를 읽고 분석하고 작성해요",
-    "version": "0.1.272",
+    "version": "0.1.273",
     "license": {
       "name": "AGPL-3.0-only"
     }
@@ -2576,7 +2576,7 @@
             "title": "body"
           },
           "user": {
-            "$ref": "#/components/schemas/MyPickIGithub.Usertypeidloginhtml_urlavatar_url",
+            "$ref": "#/components/schemas/MyPickIGithub.Usertypeavatar_urlidloginhtml_url",
             "title": "user"
           },
           "created_at": {
@@ -2604,7 +2604,7 @@
           "updated_at"
         ]
       },
-      "MyPickIGithub.Usertypeidloginhtml_urlavatar_url": {
+      "MyPickIGithub.Usertypeavatar_urlidloginhtml_url": {
         "type": "object",
         "properties": {
           "type": {
@@ -2621,6 +2621,11 @@
             ],
             "title": "type"
           },
+          "avatar_url": {
+            "type": "string",
+            "format": "iri",
+            "title": "avatar url\n\nThis means the user's profile image."
+          },
           "id": {
             "type": "number",
             "title": "id\n\nThis means the user's ID."
@@ -2633,19 +2638,14 @@
             "type": "string",
             "format": "iri",
             "title": "html_url\n\nIf you want to look up your profile, you can access this website."
-          },
-          "avatar_url": {
-            "type": "string",
-            "format": "iri",
-            "title": "avatar url\n\nThis means the user's profile image."
           }
         },
         "required": [
           "type",
+          "avatar_url",
           "id",
           "login",
-          "html_url",
-          "avatar_url"
+          "html_url"
         ]
       },
       "IGithub.Page": {
@@ -3158,11 +3158,11 @@
           "sort": {
             "oneOf": [
               {
-                "const": "updated",
+                "const": "created",
                 "default": "full_name"
               },
               {
-                "const": "created",
+                "const": "updated",
                 "default": "full_name"
               },
               {
@@ -3179,11 +3179,11 @@
           "direction": {
             "oneOf": [
               {
-                "const": "asc",
+                "const": "desc",
                 "default": "desc"
               },
               {
-                "const": "desc",
+                "const": "asc",
                 "default": "desc"
               }
             ],
@@ -3316,11 +3316,11 @@
           "direction": {
             "oneOf": [
               {
-                "const": "asc",
+                "const": "desc",
                 "default": "desc"
               },
               {
-                "const": "desc",
+                "const": "asc",
                 "default": "desc"
               }
             ],
@@ -3847,6 +3847,11 @@
             ],
             "title": "type"
           },
+          "avatar_url": {
+            "type": "string",
+            "format": "iri",
+            "title": "avatar url\n\nThis means the user's profile image."
+          },
           "id": {
             "type": "number",
             "title": "id\n\nThis means the user's ID."
@@ -3859,19 +3864,14 @@
             "type": "string",
             "format": "iri",
             "title": "html_url\n\nIf you want to look up your profile, you can access this website."
-          },
-          "avatar_url": {
-            "type": "string",
-            "format": "iri",
-            "title": "avatar url\n\nThis means the user's profile image."
           }
         },
         "required": [
           "type",
+          "avatar_url",
           "id",
           "login",
-          "html_url",
-          "avatar_url"
+          "html_url"
         ]
       },
       "IGithub.IGetCollaboratorInput": {
@@ -3965,9 +3965,9 @@
             "type": "string",
             "title": "commit message\nMany repositories are working on commit conventions. Before committing, it's a good idea to look up the commit-list to see how you leave the commit message."
           },
-          "path": {
+          "owner": {
             "type": "string",
-            "title": "path parameters\n\nIt refers to the path of the file, and is the path of the file including folders and extensions.\nIf you want to make index.ts in src, you need to add 'src/index.ts'."
+            "title": "owner's name\n\nThe owner's name and the repository's name can be combined to form '${owner}/${repo}' and can be a unique path name for a single repository.\nSo the owner here is the nickname of the repository owner, not the name of the person committing or the author."
           },
           "secretKey": {
             "type": "string",
@@ -3978,9 +3978,22 @@
             "title": "Select authentication information",
             "description": "secret key."
           },
-          "owner": {
+          "path": {
             "type": "string",
-            "title": "owner's name\n\nThe owner's name and the repository's name can be combined to form '${owner}/${repo}' and can be a unique path name for a single repository.\nSo the owner here is the nickname of the repository owner, not the name of the person committing or the author."
+            "title": "path parameters\n\nIt refers to the path of the file, and is the path of the file including folders and extensions.\nIf you want to make index.ts in src, you need to add 'src/index.ts'."
+          },
+          "repo": {
+            "type": "string",
+            "title": "repository name\n\nThe owner's name and the repository's name can be combined to form '${owner}/${repo}' and can be a unique path name for a single repository."
+          },
+          "sha": {
+            "type": "string",
+            "x-wrtn-prerequisite": {
+              "method": "post",
+              "path": "/connector/github/repos/get-contents",
+              "jmesPath": "[].{value:sha, label:path} || {value:sha, label:path}"
+            },
+            "title": "sha of file content\n\nAs the sha value of the file to be modified, a conflict may occur if it is not the latest sha value among the sha values of the file.\nIt's safe when you look up a list of files through API to check sha and put in a value, or want to re-modify the sha value of a file you just created."
           },
           "author": {
             "type": "object",
@@ -4004,19 +4017,6 @@
               "date"
             ],
             "title": "The author of the file.\n\nIf you don't put anything in, your own information will be injected, so you can leave the value alone.\nSince the user's email cannot necessarily be guaranteed to be the same as Github's email, it is advantageous not to get confirmation from the user or put it in.\n\nDefault: The committer or the authenticated user if you omit committer."
-          },
-          "repo": {
-            "type": "string",
-            "title": "repository name\n\nThe owner's name and the repository's name can be combined to form '${owner}/${repo}' and can be a unique path name for a single repository."
-          },
-          "sha": {
-            "type": "string",
-            "x-wrtn-prerequisite": {
-              "method": "post",
-              "path": "/connector/github/repos/get-contents",
-              "jmesPath": "[].{value:sha, label:path} || {value:sha, label:path}"
-            },
-            "title": "sha of file content\n\nAs the sha value of the file to be modified, a conflict may occur if it is not the latest sha value among the sha values of the file.\nIt's safe when you look up a list of files through API to check sha and put in a value, or want to re-modify the sha value of a file you just created."
           },
           "committer": {
             "type": "object",
@@ -4048,9 +4048,9 @@
         },
         "required": [
           "message",
-          "path",
-          "secretKey",
           "owner",
+          "secretKey",
+          "path",
           "repo",
           "sha"
         ]
@@ -4340,13 +4340,13 @@
       "StrictOmitIGithub.RepositoryFilecontentencoding": {
         "type": "object",
         "properties": {
-          "name": {
-            "type": "string",
-            "title": "name of this file"
-          },
           "url": {
             "type": "string",
             "title": "url\n\nA link that allows you to view the contents of the file as an Url value for viewing the details of the file."
+          },
+          "name": {
+            "type": "string",
+            "title": "name of this file"
           },
           "type": {
             "const": "file"
@@ -4376,8 +4376,8 @@
           }
         },
         "required": [
-          "name",
           "url",
+          "name",
           "type",
           "path",
           "size",
@@ -4392,15 +4392,15 @@
             "default": "",
             "title": "folder name\n\nThe path delivered is treated like a Root folder and continues the navigation from this folder.\nBrowse by this folder, and it must be a folder, not a file.\nIf omitted, start the circuit based on the top Root folder."
           },
+          "owner": {
+            "type": "string",
+            "title": "owner's name\n\nThe owner's name and the repository's name can be combined to form '${owner}/${repo}' and can be a unique path name for a single repository.\nSo the owner here is the nickname of the repository owner, not the name of the person committing or the author.\n\nIf it is an organization's repository, it can also be the name of the organization."
+          },
           "secretKey": {
             "type": "string",
             "x-wrtn-secret-key": "github",
             "title": "Select authentication information",
             "description": "secret key."
-          },
-          "owner": {
-            "type": "string",
-            "title": "owner's name\n\nThe owner's name and the repository's name can be combined to form '${owner}/${repo}' and can be a unique path name for a single repository.\nSo the owner here is the nickname of the repository owner, not the name of the person committing or the author.\n\nIf it is an organization's repository, it can also be the name of the organization."
           },
           "repo": {
             "type": "string",
@@ -4408,8 +4408,8 @@
           }
         },
         "required": [
-          "secretKey",
           "owner",
+          "secretKey",
           "repo"
         ]
       },
@@ -4515,15 +4515,15 @@
       "IGithub.IGetReadmeFileContentInput": {
         "type": "object",
         "properties": {
+          "owner": {
+            "type": "string",
+            "title": "owner's name\n\nThe owner's name and the repository's name can be combined to form '${owner}/${repo}' and can be a unique path name for a single repository.\nSo the owner here is the nickname of the repository owner, not the name of the person committing or the author.\n\nIf it is an organization's repository, it can also be the name of the organization."
+          },
           "secretKey": {
             "type": "string",
             "x-wrtn-secret-key": "github",
             "title": "Select authentication information",
             "description": "secret key."
-          },
-          "owner": {
-            "type": "string",
-            "title": "owner's name\n\nThe owner's name and the repository's name can be combined to form '${owner}/${repo}' and can be a unique path name for a single repository.\nSo the owner here is the nickname of the repository owner, not the name of the person committing or the author.\n\nIf it is an organization's repository, it can also be the name of the organization."
           },
           "repo": {
             "type": "string",
@@ -4531,8 +4531,8 @@
           }
         },
         "required": [
-          "secretKey",
           "owner",
+          "secretKey",
           "repo"
         ]
       },
@@ -4846,7 +4846,7 @@
             "title": "activity type"
           },
           "actor": {
-            "$ref": "#/components/schemas/MyPickIGithub.Usertypeidloginavatar_url",
+            "$ref": "#/components/schemas/MyPickIGithub.Usertypeavatar_urlidlogin",
             "title": "actor"
           }
         },
@@ -4858,7 +4858,7 @@
           "actor"
         ]
       },
-      "MyPickIGithub.Usertypeidloginavatar_url": {
+      "MyPickIGithub.Usertypeavatar_urlidlogin": {
         "type": "object",
         "properties": {
           "type": {
@@ -4875,6 +4875,11 @@
             ],
             "title": "type"
           },
+          "avatar_url": {
+            "type": "string",
+            "format": "iri",
+            "title": "avatar url\n\nThis means the user's profile image."
+          },
           "id": {
             "type": "number",
             "title": "id\n\nThis means the user's ID."
@@ -4882,18 +4887,13 @@
           "login": {
             "type": "string",
             "title": "login\n\nThis means the user's nickname.\nIn github, nicknames are unique at least until that user changes their own nickname.\nThis means that only one person can own the nickname at a time.\nTherefore, it may be important to know the exact nickname because the github API calls the appi using the user's nickname."
-          },
-          "avatar_url": {
-            "type": "string",
-            "format": "iri",
-            "title": "avatar url\n\nThis means the user's profile image."
           }
         },
         "required": [
           "type",
+          "avatar_url",
           "id",
-          "login",
-          "avatar_url"
+          "login"
         ]
       },
       "IGithub.IGetRepositoryActivityInput": {
@@ -4902,11 +4902,11 @@
           "direction": {
             "oneOf": [
               {
-                "const": "asc",
+                "const": "desc",
                 "default": "desc"
               },
               {
-                "const": "desc",
+                "const": "asc",
                 "default": "desc"
               }
             ],
@@ -4944,19 +4944,19 @@
           "time_period": {
             "oneOf": [
               {
-                "const": "year"
-              },
-              {
-                "const": "month"
-              },
-              {
                 "const": "day"
               },
               {
                 "const": "week"
               },
               {
+                "const": "month"
+              },
+              {
                 "const": "quarter"
+              },
+              {
+                "const": "year"
               }
             ],
             "title": "time_period"
@@ -5084,6 +5084,10 @@
             "type": "string",
             "title": "title\n\nThe title of the new pull request. Required unless issue is specified."
           },
+          "owner": {
+            "type": "string",
+            "title": "owner's name\n\nThe owner's name and the repository's name can be combined to form '${owner}/${repo}' and can be a unique path name for a single repository.\nSo the owner here is the nickname of the repository owner, not the name of the person committing or the author."
+          },
           "secretKey": {
             "type": "string",
             "x-wrtn-secret-key": "github",
@@ -5093,21 +5097,13 @@
             "title": "Select authentication information",
             "description": "secret key."
           },
-          "owner": {
+          "repo": {
             "type": "string",
-            "title": "owner's name\n\nThe owner's name and the repository's name can be combined to form '${owner}/${repo}' and can be a unique path name for a single repository.\nSo the owner here is the nickname of the repository owner, not the name of the person committing or the author."
+            "title": "repository name\n\nThe owner's name and the repository's name can be combined to form '${owner}/${repo}' and can be a unique path name for a single repository."
           },
           "body": {
             "type": "string",
             "title": "body\n\nThe contents of the pull request."
-          },
-          "draft": {
-            "type": "boolean",
-            "title": "draft\n\nIndicates whether the pull request is a draft. See \"Draft Pull Requests\" in the GitHub Help documentation to learn more."
-          },
-          "repo": {
-            "type": "string",
-            "title": "repository name\n\nThe owner's name and the repository's name can be combined to form '${owner}/${repo}' and can be a unique path name for a single repository."
           },
           "head_repo": {
             "type": "string",
@@ -5116,6 +5112,10 @@
           "maintainer_can_modify": {
             "type": "boolean",
             "title": "maintainer_can_modify\n\nIndicates whether maintainers can modify the pull request."
+          },
+          "draft": {
+            "type": "boolean",
+            "title": "draft\n\nIndicates whether the pull request is a draft. See \"Draft Pull Requests\" in the GitHub Help documentation to learn more."
           },
           "issue": {
             "type": "number",
@@ -5131,8 +5131,8 @@
         },
         "required": [
           "pull_number",
-          "secretKey",
           "owner",
+          "secretKey",
           "repo"
         ]
       },
@@ -5287,9 +5287,6 @@
           "author_association": {
             "oneOf": [
               {
-                "const": "NONE"
-              },
-              {
                 "const": "COLLABORATOR"
               },
               {
@@ -5308,22 +5305,13 @@
                 "const": "MEMBER"
               },
               {
+                "const": "NONE"
+              },
+              {
                 "const": "OWNER"
               }
             ],
             "title": "author_association"
-          },
-          "user": {
-            "$ref": "#/components/schemas/MyPickIGithub.Usertypeidloginhtml_urlavatar_url",
-            "title": "user"
-          },
-          "id": {
-            "type": "integer",
-            "title": "id"
-          },
-          "body": {
-            "type": "string",
-            "title": "body"
           },
           "created_at": {
             "type": "string",
@@ -5334,15 +5322,27 @@
             "type": "string",
             "format": "date-time",
             "title": "updated_at"
+          },
+          "user": {
+            "$ref": "#/components/schemas/MyPickIGithub.Usertypeavatar_urlidloginhtml_url",
+            "title": "user"
+          },
+          "id": {
+            "type": "integer",
+            "title": "id"
+          },
+          "body": {
+            "type": "string",
+            "title": "body"
           }
         },
         "required": [
           "issue_url",
           "author_association",
-          "user",
-          "id",
           "created_at",
-          "updated_at"
+          "updated_at",
+          "user",
+          "id"
         ]
       },
       "IGithub.IGetPullRequestCommentsInput": {
@@ -5459,7 +5459,7 @@
           "teams": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/MyPickIGithub.Teamdescriptionnameidpermissionslugnotification_settingprivacy"
+              "$ref": "#/components/schemas/MyPickIGithub.Teamdescriptionnameslugidnotification_settingpermissionprivacy"
             },
             "title": "team"
           }
@@ -5469,7 +5469,7 @@
           "teams"
         ]
       },
-      "MyPickIGithub.Teamdescriptionnameidpermissionslugnotification_settingprivacy": {
+      "MyPickIGithub.Teamdescriptionnameslugidnotification_settingpermissionprivacy": {
         "type": "object",
         "properties": {
           "description": {
@@ -5480,21 +5480,21 @@
             "type": "string",
             "title": "name"
           },
-          "id": {
-            "type": "number",
-            "title": "id"
-          },
-          "permission": {
-            "type": "string",
-            "title": "permission"
-          },
           "slug": {
             "type": "string",
             "title": "slug"
           },
+          "id": {
+            "type": "number",
+            "title": "id"
+          },
           "notification_setting": {
             "type": "string",
             "title": "notification_setting"
+          },
+          "permission": {
+            "type": "string",
+            "title": "permission"
           },
           "privacy": {
             "oneOf": [
@@ -5511,10 +5511,10 @@
         "required": [
           "description",
           "name",
-          "id",
-          "permission",
           "slug",
+          "id",
           "notification_setting",
+          "permission",
           "privacy"
         ]
       },
@@ -5750,9 +5750,6 @@
           "author_association": {
             "oneOf": [
               {
-                "const": "NONE"
-              },
-              {
                 "const": "COLLABORATOR"
               },
               {
@@ -5771,18 +5768,13 @@
                 "const": "MEMBER"
               },
               {
+                "const": "NONE"
+              },
+              {
                 "const": "OWNER"
               }
             ],
             "title": "author_association"
-          },
-          "id": {
-            "type": "integer",
-            "title": "id"
-          },
-          "body": {
-            "type": "string",
-            "title": "body"
           },
           "created_at": {
             "type": "string",
@@ -5793,6 +5785,14 @@
             "type": "string",
             "format": "date-time",
             "title": "updated_at"
+          },
+          "id": {
+            "type": "integer",
+            "title": "id"
+          },
+          "body": {
+            "type": "string",
+            "title": "body"
           }
         },
         "required": [
@@ -5806,9 +5806,9 @@
           "user",
           "html_url",
           "author_association",
-          "id",
           "created_at",
-          "updated_at"
+          "updated_at",
+          "id"
         ]
       },
       "IGithub.IGetReviewCommentInput": {
@@ -5990,9 +5990,6 @@
           "author_association": {
             "oneOf": [
               {
-                "const": "NONE"
-              },
-              {
                 "const": "COLLABORATOR"
               },
               {
@@ -6009,6 +6006,9 @@
               },
               {
                 "const": "MEMBER"
+              },
+              {
+                "const": "NONE"
               },
               {
                 "const": "OWNER"
@@ -6200,14 +6200,6 @@
           "start_side": {
             "type": "string"
           },
-          "path": {
-            "type": "string",
-            "title": "path"
-          },
-          "body": {
-            "type": "string",
-            "title": "body"
-          },
           "position": {
             "oneOf": [
               {
@@ -6218,6 +6210,14 @@
               }
             ],
             "title": "position\n\nThe position in the diff where you want to add a review comment.\nNote this value is not the same as the line number in the file.\nThe position value equals the number of lines down from the first \"@@\" hunk header in the file you want to add a comment.\nThe line just below the \"@@\" line is position 1, the next line is position 2, and so on. The position in the diff continues to increase through lines of whitespace and additional hunks until the beginning of a new file.\n\nPosition value, which is the number of rows based on diff_hunk."
+          },
+          "path": {
+            "type": "string",
+            "title": "path"
+          },
+          "body": {
+            "type": "string",
+            "title": "body"
           }
         },
         "required": [
@@ -6225,8 +6225,8 @@
           "side",
           "start_line",
           "start_side",
-          "path",
-          "position"
+          "position",
+          "path"
         ]
       },
       "IGithub.IReadPullRequestFileOutput": {
@@ -6727,9 +6727,6 @@
           "author_association": {
             "oneOf": [
               {
-                "const": "NONE"
-              },
-              {
                 "const": "COLLABORATOR"
               },
               {
@@ -6746,6 +6743,9 @@
               },
               {
                 "const": "MEMBER"
+              },
+              {
+                "const": "NONE"
               },
               {
                 "const": "OWNER"
@@ -7370,22 +7370,15 @@
             ],
             "title": "sort\nIt must be one of: \"CREATED_AT\", \"UPDATED_AT\"."
           },
+          "owner": {
+            "type": "string",
+            "title": "owner's name\n\nThe owner's name and the repository's name can be combined to form '${owner}/${repo}' and can be a unique path name for a single repository.\nSo the owner here is the nickname of the repository owner, not the name of the person committing or the author."
+          },
           "secretKey": {
             "type": "string",
             "x-wrtn-secret-key": "github",
             "title": "Select authentication information",
             "description": "secret key."
-          },
-          "owner": {
-            "type": "string",
-            "title": "owner's name\n\nThe owner's name and the repository's name can be combined to form '${owner}/${repo}' and can be a unique path name for a single repository.\nSo the owner here is the nickname of the repository owner, not the name of the person committing or the author."
-          },
-          "labels": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            },
-            "title": "labels\nIf you want to filter the issue by label, pass the string.\nIf it is an empty array, it is ignored."
           },
           "per_page": {
             "type": "integer",
@@ -7417,6 +7410,13 @@
             ],
             "title": "state\n\nIf you don't want to filter, you don't put anything in.\nIt must be one of: \"OPEN\", \"CLOSED\", \"MERGED\"."
           },
+          "labels": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "title": "labels\nIf you want to filter the issue by label, pass the string.\nIf it is an empty array, it is ignored."
+          },
           "direction": {
             "oneOf": [
               {
@@ -7433,8 +7433,8 @@
         },
         "required": [
           "sort",
-          "secretKey",
           "owner",
+          "secretKey",
           "repo",
           "direction"
         ]
@@ -7798,21 +7798,6 @@
             ],
             "title": "comments"
           },
-          "labels": {
-            "type": "object",
-            "properties": {
-              "nodes": {
-                "type": "array",
-                "items": {
-                  "$ref": "#/components/schemas/MyPickIGithub.Labeldescriptionname"
-                }
-              }
-            },
-            "required": [
-              "nodes"
-            ],
-            "title": "labels"
-          },
           "author": {
             "$ref": "#/components/schemas/MyPickIGithub.Userlogin",
             "title": "author"
@@ -7833,6 +7818,21 @@
               }
             ],
             "title": "issue state"
+          },
+          "labels": {
+            "type": "object",
+            "properties": {
+              "nodes": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/MyPickIGithub.Labeldescriptionname"
+                }
+              }
+            },
+            "required": [
+              "nodes"
+            ],
+            "title": "labels"
           },
           "stateReason": {
             "oneOf": [
@@ -7890,8 +7890,8 @@
           "title",
           "id",
           "comments",
-          "labels",
           "author",
+          "labels",
           "reactions",
           "assignees",
           "createdAt",
@@ -8129,11 +8129,11 @@
           "order": {
             "oneOf": [
               {
-                "const": "asc",
+                "const": "desc",
                 "default": "desc"
               },
               {
-                "const": "desc",
+                "const": "asc",
                 "default": "desc"
               }
             ],
@@ -8289,6 +8289,11 @@
             ],
             "title": "type"
           },
+          "avatar_url": {
+            "type": "string",
+            "format": "iri",
+            "title": "avatar url\n\nThis means the user's profile image."
+          },
           "id": {
             "type": "number",
             "title": "id\n\nThis means the user's ID."
@@ -8296,11 +8301,6 @@
           "login": {
             "type": "string",
             "title": "login\n\nThis means the user's nickname.\nIn github, nicknames are unique at least until that user changes their own nickname.\nThis means that only one person can own the nickname at a time.\nTherefore, it may be important to know the exact nickname because the github API calls the appi using the user's nickname."
-          },
-          "avatar_url": {
-            "type": "string",
-            "format": "iri",
-            "title": "avatar url\n\nThis means the user's profile image."
           }
         },
         "required": [
@@ -8313,9 +8313,9 @@
           "profile_repository",
           "pinned_repositories",
           "type",
+          "avatar_url",
           "id",
-          "login",
-          "avatar_url"
+          "login"
         ]
       },
       "RepositoryreadmeIGetReadmeFileContentOutput": {
@@ -8943,10 +8943,6 @@
             ],
             "title": "base branch info"
           },
-          "user": {
-            "$ref": "#/components/schemas/MyPickIGithub.Usertypeidlogin",
-            "title": "user"
-          },
           "head": {
             "type": "object",
             "properties": {
@@ -8987,6 +8983,20 @@
             ],
             "title": "head branch info"
           },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "created_at"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "updated_at"
+          },
+          "user": {
+            "$ref": "#/components/schemas/MyPickIGithub.Usertypeidlogin",
+            "title": "user"
+          },
           "id": {
             "type": "integer"
           },
@@ -9001,25 +9011,9 @@
             ],
             "title": "body\n\nContents of the issue\n\nYou can also render this content because it is in a markdown format."
           },
-          "draft": {
-            "type": "boolean",
-            "title": "draft\n\nIndicates whether or not the pull request is a draft."
-          },
-          "created_at": {
+          "state": {
             "type": "string",
-            "format": "date-time",
-            "title": "created_at"
-          },
-          "assignee": {
-            "oneOf": [
-              {
-                "type": "null"
-              },
-              {
-                "$ref": "#/components/schemas/MyPickIGithub.Userlogin"
-              }
-            ],
-            "title": "assignee"
+            "title": "state\n\nState of the issue; either 'open' or 'closed'"
           },
           "labels": {
             "type": "array",
@@ -9070,10 +9064,6 @@
             },
             "title": "labels\n\nLabels to associate with this issue; pass one or more label names to replace the set of labels on this issue; send an empty array to clear all labels from the issue; note that the labels are silently dropped for users without push access to the repository"
           },
-          "state": {
-            "type": "string",
-            "title": "state\n\nState of the issue; either 'open' or 'closed'"
-          },
           "assignees": {
             "oneOf": [
               {
@@ -9093,10 +9083,9 @@
             "format": "iri",
             "title": "html_url\n\nIf you want to see the issue or pull_request on the web, you can go to this link.\nIf pull is included on this link path, it is pull_request, and if issue is included, it is issue.\nIn essence, pull_request and issue are numbered together from the beginning, so while this connector does not distinguish the two, it can be distinguished by the url path."
           },
-          "updated_at": {
-            "type": "string",
-            "format": "date-time",
-            "title": "updated_at"
+          "draft": {
+            "type": "boolean",
+            "title": "draft\n\nIndicates whether or not the pull request is a draft."
           },
           "milestone": {
             "oneOf": [
@@ -9111,9 +9100,6 @@
           },
           "author_association": {
             "oneOf": [
-              {
-                "const": "NONE"
-              },
               {
                 "const": "COLLABORATOR"
               },
@@ -9131,6 +9117,9 @@
               },
               {
                 "const": "MEMBER"
+              },
+              {
+                "const": "NONE"
               },
               {
                 "const": "OWNER"
@@ -9203,21 +9192,31 @@
               }
             ],
             "description": "The reason for the current state"
+          },
+          "assignee": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/MyPickIGithub.Userlogin"
+              }
+            ],
+            "title": "assignee"
           }
         },
         "required": [
           "number",
           "title",
           "base",
-          "user",
           "head",
-          "id",
           "created_at",
-          "assignee",
-          "labels",
-          "state",
-          "html_url",
           "updated_at",
+          "user",
+          "id",
+          "state",
+          "labels",
+          "html_url",
           "milestone",
           "author_association",
           "requested_reviewers",
@@ -9225,7 +9224,8 @@
           "auto_merge",
           "locked",
           "closed_at",
-          "merged_at"
+          "merged_at",
+          "assignee"
         ]
       },
       "IGithub.IGetPullRequestInput": {
@@ -9688,11 +9688,11 @@
           "order": {
             "oneOf": [
               {
-                "const": "asc",
+                "const": "desc",
                 "default": "desc"
               },
               {
-                "const": "desc",
+                "const": "asc",
                 "default": "desc"
               }
             ],
@@ -9720,7 +9720,7 @@
           "result": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/MyPickIGithub.Useridloginhtml_urlavatar_url"
+              "$ref": "#/components/schemas/MyPickIGithub.Useravatar_urlidloginhtml_url"
             },
             "title": "followers"
           },
@@ -9772,9 +9772,14 @@
           "nextPage"
         ]
       },
-      "MyPickIGithub.Useridloginhtml_urlavatar_url": {
+      "MyPickIGithub.Useravatar_urlidloginhtml_url": {
         "type": "object",
         "properties": {
+          "avatar_url": {
+            "type": "string",
+            "format": "iri",
+            "title": "avatar url\n\nThis means the user's profile image."
+          },
           "id": {
             "type": "number",
             "title": "id\n\nThis means the user's ID."
@@ -9787,18 +9792,13 @@
             "type": "string",
             "format": "iri",
             "title": "html_url\n\nIf you want to look up your profile, you can access this website."
-          },
-          "avatar_url": {
-            "type": "string",
-            "format": "iri",
-            "title": "avatar url\n\nThis means the user's profile image."
           }
         },
         "required": [
+          "avatar_url",
           "id",
           "login",
-          "html_url",
-          "avatar_url"
+          "html_url"
         ]
       },
       "IGithub.IGetFollowerInput": {
@@ -9822,11 +9822,11 @@
           "order": {
             "oneOf": [
               {
-                "const": "asc",
+                "const": "desc",
                 "default": "desc"
               },
               {
-                "const": "desc",
+                "const": "asc",
                 "default": "desc"
               }
             ],
@@ -9853,7 +9853,7 @@
           "result": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/MyPickIGithub.Useridloginhtml_urlavatar_url"
+              "$ref": "#/components/schemas/MyPickIGithub.Useravatar_urlidloginhtml_url"
             },
             "title": "followees"
           },
@@ -9926,11 +9926,11 @@
           "order": {
             "oneOf": [
               {
-                "const": "asc",
+                "const": "desc",
                 "default": "desc"
               },
               {
-                "const": "desc",
+                "const": "asc",
                 "default": "desc"
               }
             ],
@@ -10110,6 +10110,10 @@
             "type": "string",
             "title": "tite of this issue"
           },
+          "owner": {
+            "type": "string",
+            "title": "user's nickname"
+          },
           "secretKey": {
             "type": "string",
             "x-wrtn-secret-key": "github",
@@ -10119,9 +10123,9 @@
             "title": "Select authentication information",
             "description": "secret key."
           },
-          "owner": {
+          "repo": {
             "type": "string",
-            "title": "user's nickname"
+            "title": "The name of the repository"
           },
           "body": {
             "type": "string",
@@ -10133,10 +10137,6 @@
               "type": "string"
             },
             "title": "labels"
-          },
-          "repo": {
-            "type": "string",
-            "title": "The name of the repository"
           },
           "assignees": {
             "type": "array",
@@ -10153,8 +10153,8 @@
         },
         "required": [
           "issue_number",
-          "secretKey",
           "owner",
+          "secretKey",
           "repo"
         ]
       },
