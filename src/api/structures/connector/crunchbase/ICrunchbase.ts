@@ -120,7 +120,8 @@ export namespace ICrunchbase {
 
   /**
    * @title Orgnization
-   * @description Detailed Organization Info
+   *
+   * Detailed Organization Info
    */
   export interface Organization {
     /**
@@ -766,7 +767,8 @@ export namespace ICrunchbase {
 
   /**
    * @title Funding Rounds
-   * @description Includes information about funding rounds.
+   *
+   * Includes information about funding rounds.
    */
   export interface FundingRounds {
     /**
@@ -800,7 +802,8 @@ export namespace ICrunchbase {
 
   /**
    * @title Contact
-   * @description Includes information about the contact person.
+   *
+   * Includes information about the contact person.
    */
   export interface Contact {
     /**
@@ -834,7 +837,8 @@ export namespace ICrunchbase {
 
   /**
    * @title IPO
-   * @description Includes information about the company's IPO (Initial Public Offering).
+   *
+   * Includes information about the company's IPO (Initial Public Offering).
    */
   export interface IPO {
     /**
@@ -861,7 +865,8 @@ export namespace ICrunchbase {
 
   /**
    * @title Acquisition Information
-   * @description Includes details about the acquisition.
+   *
+   * Includes details about the acquisition.
    */
   export interface AcquiredBy {
     /**
@@ -902,7 +907,8 @@ export namespace ICrunchbase {
 
   /**
    * @title Current Employee
-   * @description Includes details about current employees.
+   *
+   * Includes details about current employees.
    */
   export interface CurrentEmployee {
     /**
@@ -936,7 +942,8 @@ export namespace ICrunchbase {
 
   /**
    * @title SEMrush Location
-   * @description Includes information about SEMrush locations.
+   *
+   * Includes information about SEMrush locations.
    */
   export interface SemrushLocation {
     /**
@@ -977,7 +984,8 @@ export namespace ICrunchbase {
 
   /**
    * @title Location Detail
-   * @description Includes detailed information about a specific location.
+   *
+   * Includes detailed information about a specific location.
    */
   export interface LocationDetail {
     /**
@@ -997,7 +1005,8 @@ export namespace ICrunchbase {
 
   /**
    * @title Funding Round
-   * @description Includes information about specific funding rounds.
+   *
+   * Includes information about specific funding rounds.
    */
   export interface FundingRound {
     /**
@@ -1043,7 +1052,8 @@ export namespace ICrunchbase {
 
   /**
    * @title Lead Investor
-   * @description Includes details about lead investors.
+   *
+   * Includes details about lead investors.
    */
   export interface LeadInvestor {
     /**
@@ -1075,7 +1085,8 @@ export namespace ICrunchbase {
 
   /**
    * @title Overview Timeline
-   * @description Includes information about the timeline of key events in the organization's history.
+   *
+   * Includes information about the timeline of key events in the organization's history.
    */
   export interface OverviewTimeline {
     /**
@@ -1130,7 +1141,8 @@ export namespace ICrunchbase {
 
   /**
    * @title Bombora
-   * @description Includes information from Bombora market intelligence data.
+   *
+   * Includes information from Bombora market intelligence data.
    */
   export interface Bombora {
     /**
@@ -1171,7 +1183,8 @@ export namespace ICrunchbase {
 
   /**
    * @title Investor
-   * @description Includes details about the investors.
+   *
+   * Includes details about the investors.
    */
   export interface Investor {
     /**
@@ -1219,312 +1232,405 @@ export namespace ICrunchbase {
 
   /**
    * @title Funding Round Detail
-   * @description Contains details of a funding round.
+   *
+   * Contains details of a funding round.
    */
   export interface FundingRoundDetail {
     /**
      * @title ID
+     *
+     * Unique identifier for the funding round.
      */
     id: string;
 
     /**
      * @title image_id
+     *
+     * Image ID associated with the funding round.
      */
     image_id: string | null;
 
     /**
      * @title value
+     *
+     * The type of the funding round.
      */
     type: string;
 
     /**
      * @title Value
+     *
+     * The value of the funding round.
      */
     value: string;
-
-    // /**
-    //  * @title Date
-    //  */
-    // date?: string | null;
-
-    // /**
-    //  * @title Amount Raised
-    //  */
-    // amount_raised: number;
-
-    // /**
-    //  * @title Round Type
-    //  */
-    // round_type: string; // e.g., Seed, Series A, Series B, etc.
-
-    // /**
-    //  * @title Investors
-    //  */
-    // investors: InvestorDetail[];
   }
 
   /**
    * @title Investor Detail
-   * @description Contains details of an investor.
+   *
+   * Contains details of an investor.
    */
   export interface InvestorDetail {
     /**
      * @title ID
+     *
+     * Unique identifier for the investor.
      */
     id: string;
 
     /**
      * @title image_id
+     *
+     * Image ID associated with the investor.
      */
     image_id: string | null;
 
     /**
      * @title Value
+     *
+     * The value associated with the investor.
      */
     value: string;
 
     /**
      * @title Type
+     *
+     * The type of the investor (e.g., Angel, Venture Capital, etc.).
      */
-    type: string; // e.g., Angel, Venture Capital, etc.
+    type: string;
 
     /**
      * @title Contact Information
+     *
+     * Contact information for the investor.
      */
     contact_info?: string | null;
   }
 
   /**
    * @title News
+   *
+   * Represents news articles or mentions related to the organization.
    */
   export interface News {
     /**
      * @title Date
+     *
+     * The date of the news article.
      */
     date: string;
 
     /**
      * @title Organization
+     *
+     * The organization related to the news article.
      */
     organization: string;
 
     /**
      * @title Publisher
+     *
+     * The publisher of the news article.
      */
     publisher: string | null;
 
     /**
      * @title Thumbnail URL
+     *
+     * The URL of the thumbnail image for the news article.
      */
     thumbnail_url?: string | null;
 
     /**
      * @title Title
+     *
+     * The title of the news article.
      */
     title: string | null;
 
     /**
      * @title URL
+     *
+     * The URL of the news article.
      */
     url: string | null;
   }
 
   /**
    * @title Headquarters Region
+   *
+   * Represents the geographic region where the organization's headquarters are located.
    */
   export interface HeadquartersRegion {
     /**
      * @title ID
+     *
+     * Unique identifier for the headquarters region.
      */
     id: string;
 
     /**
      * @title Value
+     *
+     * The value or name of the headquarters region.
      */
     value: string;
   }
 
   /**
    * @title Financials Highlights
+   *
+   * Contains key financial data points about the organization.
    */
   export interface FinancialsHighlights {
     /**
      * @title funding_total
+     *
+     * The total funding amount for the organization.
      */
     funding_total?: FundingTotal;
 
     /**
      * @title num_funding_rounds
+     *
+     * The number of funding rounds for the organization.
      */
     num_funding_rounds?: number;
 
     /**
      * @title num_investors
+     *
+     * The number of investors in the organization.
      */
     num_investors?: number;
 
     /**
      * @title num_lead_investors
+     *
+     * The number of lead investors in the organization.
      */
     num_lead_investors?: number;
 
     /**
      * @title num_lead_investments
+     *
+     * The number of lead investments by the organization.
      */
     num_lead_investments?: number;
 
     /**
      * @title num_funds
+     *
+     * The number of funds managed by the organization.
      */
     num_funds?: number;
 
     /**
      * @title num_investments
+     *
+     * The number of investments made by the organization.
      */
     num_investments?: number;
 
     /**
      * @title listed_stock_symbol
+     *
+     * The stock symbol of the organization, if listed.
      */
     listed_stock_symbol?: string;
 
     /**
      * @title num_exits
+     *
+     * The number of exits by the organization.
      */
     num_exits?: number;
   }
 
   /**
    * @title IPQwery
+   *
+   * Contains data from IPQwery related to the organization's intellectual property.
    */
   export interface IPQwery {
     /**
      * @title ipqwery_popular_patent_category
+     *
+     * The most popular patent category for the organization.
      */
     ipqwery_popular_patent_category?: string;
 
     /**
      * @title ipqwery_popular_trademark_class
+     *
+     * The most popular trademark class for the organization.
      */
     ipqwery_popular_trademark_class?: string;
 
     /**
      * @title ipqwery_num_trademark_registered
+     *
+     * The number of trademarks registered by the organization.
      */
     ipqwery_num_trademark_registered?: number;
 
     /**
      * @title ipqwery_num_patent_granted
+     *
+     * The number of patents granted to the organization.
      */
     ipqwery_num_patent_granted?: number;
   }
-
   /**
    * @title Overview Highlights
+   *
+   * Provides a summary of key highlights in the organization's history and performance.
    */
   export interface OverviewHighlights {
     /**
      * @title num_org_similarities
+     *
+     * The number of organizations similar to this one.
      */
     num_org_similarities?: number;
 
     /**
      * @title num_current_positions
+     *
+     * The number of current positions within the organization.
      */
     num_current_positions?: number;
 
     /**
      * @title num_investments
+     *
+     * The number of investments made by the organization.
      */
     num_investments?: number;
 
     /**
      * @title listed_stock_symbol
+     *
+     * The stock symbol of the organization, if listed.
      */
     listed_stock_symbol?: string;
 
     /**
      * @title num_investors
+     *
+     * The number of investors in the organization.
      */
     num_investors?: number;
 
     /**
      * @title num_contacts
+     *
+     * The number of contacts within the organization.
      */
     num_contacts?: number;
 
     /**
      * @title funding_total
+     *
+     * The total funding amount for the organization.
      */
     funding_total?: FundingTotal;
   }
 
   /**
    * @title People Highlights
+   *
+   * Highlights key personnel, such as notable employees or founders.
    */
   export interface PeopleHighlights {
     /**
      * @title num_contacts
+     *
+     * The number of contacts within the organization.
      */
     num_contacts?: number;
 
     /**
      * @title num_current_advisor_positions
+     *
+     * The number of current advisor positions within the organization.
      */
     num_current_advisor_positions?: number;
 
     /**
      * @title num_current_positions
+     *
+     * The number of current positions within the organization.
      */
     num_current_positions?: number;
   }
 
   /**
    * @title Technology Highlights
+   *
+   * Provides information on the organization's technology stack or notable tech achievements.
    */
   export interface TechnologyHighlights {
     /**
      * @title apptopia_total_downloads
+     *
+     * The total number of downloads for the organization's apps, according to Apptopia.
      */
     apptopia_total_downloads?: number;
 
     /**
      * @title builtwith_num_technologies_used
+     *
+     * The number of technologies used by the organization, according to BuiltWith.
      */
     builtwith_num_technologies_used?: number;
 
     /**
      * @title semrush_visits_latest_month
+     *
+     * The number of visits to the organization's website in the latest month, according to SEMrush.
      */
     semrush_visits_latest_month?: number;
 
     /**
      * @title semrush_visits_mom_pct
+     *
+     * The month-over-month percentage change in visits to the organization's website, according to SEMrush.
      */
     semrush_visits_mom_pct?: number;
 
     /**
      * @title siftery_num_products
+     *
+     * The number of products offered by the organization, according to Siftery.
      */
     siftery_num_products?: number;
   }
 
   /**
    * @title Founder
+   *
+   * Represents a founder of the organization.
    */
   export interface Founder {
     /**
      * @title ID
+     *
+     * Unique identifier for the founder.
      */
     id: string;
 
     /**
      * @title Type
+     *
+     * The type of the founder (e.g., individual, organization).
      */
     type: string;
 
     /**
      * @title Value
+     *
+     * The value or name of the founder.
      */
     value: string;
   }
