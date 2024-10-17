@@ -149,14 +149,14 @@ export namespace ICrunchbase {
      *
      * The position of the company relative to others in Crunchbase based on certain metrics.
      */
-    rank_company: number;
+    rank_company: number | null;
 
     /**
      * @title List of locations where the organization operates.
      *
      * The physical addresses of the company's offices or facilities.
      */
-    locations: Location[];
+    locations: Location[] | null;
 
     /**
      * @title Address of the organization.
@@ -177,7 +177,7 @@ export namespace ICrunchbase {
      *
      * A detailed explanation of the company's operations, history, and business model.
      */
-    full_description: string;
+    full_description: string | null;
 
     /**
      * @title List of industries the organization is involved in.
@@ -198,7 +198,7 @@ export namespace ICrunchbase {
      *
      * The founding year or date of the company.
      */
-    founded_date: string;
+    founded_date: string | null;
 
     /**
      * @title Type of company (e.g., Private, Public).
@@ -219,35 +219,35 @@ export namespace ICrunchbase {
      *
      * A count or estimate of the company's workforce.
      */
-    num_employees: string;
+    num_employees: string | null;
 
     /**
      * @title The official website of the organization.
      *
      * The company's main website URL.
      */
-    website: string;
+    website: string | null;
 
     /**
      * @title IPO status of the organization.
      *
      * Indicates whether the company is publicly traded or privately held.
      */
-    ipo_status: string;
+    ipo_status: string | null;
 
     /**
      * @title Primary contact email for the organization.
      *
      * The main email address for contacting the company.
      */
-    contact_email: string;
+    contact_email: string | null;
 
     /**
      * @title Primary contact phone number for the organization.
      *
      * The main phone number for contacting the company.
      */
-    contact_phone: string;
+    contact_phone: string | null;
 
     /**
      * @title Information about the organization's funding history.
@@ -275,28 +275,28 @@ export namespace ICrunchbase {
      *
      * The number of visits the company's website receives, as reported by SEMrush.
      */
-    semrush_monthly_visits: number;
+    semrush_monthly_visits: number | null;
 
     /**
      * @title Monthly visit growth according to SEMrush.
      *
      * The percentage growth of monthly website visits compared to the previous month.
      */
-    semrush_monthly_visits_growth: number;
+    semrush_monthly_visits_growth: number | null;
 
     /**
      * @title Date of the last SEMrush update.
      *
      * The date SEMrush last updated the visit data.
      */
-    semrush_last_updated: string;
+    semrush_last_updated: string | null;
 
     /**
      * @title Number of contacts the organization has.
      *
      * The total number of contacts within the organization.
      */
-    num_contacts: number;
+    num_contacts: number | null;
 
     /**
      * @title Number of employee profiles.
@@ -317,7 +317,7 @@ export namespace ICrunchbase {
      *
      * The total number of news mentions or articles about the company.
      */
-    num_news: number;
+    num_news: number | null;
 
     /**
      * @title Funding round details for the organization.
@@ -331,21 +331,21 @@ export namespace ICrunchbase {
      *
      * The date Bombora last updated the company's data.
      */
-    bombora_last_updated: string;
+    bombora_last_updated: string | null;
 
     /**
      * @title Number of investors in the organization.
      *
      * The total number of investors who have invested in the company.
      */
-    num_investors: number;
+    num_investors: number | null;
 
     /**
      * @title Legal name of the organization.
      *
      * The registered legal name of the company.
      */
-    legal_name: string;
+    legal_name: string | null;
 
     /**
      * @title num_event_appearances
@@ -456,7 +456,22 @@ export namespace ICrunchbase {
      *
      * Total amount of funds raised by the organization.
      */
-    funds_total?: number | null;
+    funds_total?: {
+      /**
+       * @title value
+       */
+      value: number;
+
+      /**
+       * @title currency
+       */
+      currency: string;
+
+      /**
+       * @title value_usd
+       */
+      value_usd: number;
+    } | null;
 
     /**
      * @title Acquisition Information
@@ -596,7 +611,7 @@ export namespace ICrunchbase {
      *
      * Key financial data points about the organization.
      */
-    financials_highlights: FinancialsHighlights;
+    financials_highlights: FinancialsHighlights | null;
 
     /**
      * @title IPQwery
@@ -610,7 +625,7 @@ export namespace ICrunchbase {
      *
      * Summary of key highlights in the organization's history and performance.
      */
-    overview_highlights: OverviewHighlights;
+    overview_highlights: OverviewHighlights | null;
 
     /**
      * @title People Highlights
@@ -759,21 +774,21 @@ export namespace ICrunchbase {
      *
      * The date of the last funding round.
      */
-    last_funding_at: string;
+    last_funding_at: string | null;
 
     /**
      * @title Last Funding Type
      *
      * The type of the last funding round.
      */
-    last_funding_type: string;
+    last_funding_type: string | null;
 
     /**
      * @title Number of Funding Rounds
      *
      * The total number of funding rounds.
      */
-    num_funding_rounds: number;
+    num_funding_rounds: number | null;
 
     /**
      * @title Value
@@ -1000,6 +1015,11 @@ export namespace ICrunchbase {
     id: string;
 
     /**
+     * @title image_id
+     */
+    image_id: string | null;
+
+    /**
      * @title Number of Investors
      *
      * The total number of investors in the funding round.
@@ -1036,7 +1056,7 @@ export namespace ICrunchbase {
      *
      * URL of the investor's image.
      */
-    image: string;
+    image: string | null;
 
     /**
      * @title Name
@@ -1208,6 +1228,11 @@ export namespace ICrunchbase {
     id: string;
 
     /**
+     * @title image_id
+     */
+    image_id: string | null;
+
+    /**
      * @title value
      */
     type: string;
@@ -1249,6 +1274,11 @@ export namespace ICrunchbase {
     id: string;
 
     /**
+     * @title image_id
+     */
+    image_id: string | null;
+
+    /**
      * @title Value
      */
     value: string;
@@ -1265,30 +1295,34 @@ export namespace ICrunchbase {
   }
 
   /**
-   * @title 뉴스
-   * @description 뉴스 정보를 포함합니다.
+   * @title News
    */
   export interface News {
     /**
-     * @title 날짜
+     * @title Date
      */
     date: string;
+
     /**
-     * @title 조직
+     * @title Organization
      */
     organization: string;
+
     /**
-     * @title 발행자
+     * @title Publisher
      */
     publisher: string | null;
+
     /**
-     * @title 썸네일 URL
+     * @title Thumbnail URL
      */
     thumbnail_url?: string | null;
+
     /**
-     * @title 제목
+     * @title Title
      */
     title: string | null;
+
     /**
      * @title URL
      */
@@ -1296,142 +1330,201 @@ export namespace ICrunchbase {
   }
 
   /**
-   * @title 본사 지역
-   * @description 본사 지역 정보를 포함합니다.
+   * @title Headquarters Region
    */
   export interface HeadquartersRegion {
     /**
      * @title ID
      */
     id: string;
+
     /**
-     * @title 값
+     * @title Value
      */
     value: string;
   }
 
   /**
-   * @title 재무 하이라이트
-   * @description 재무 하이라이트 정보를 포함합니다.
+   * @title Financials Highlights
    */
   export interface FinancialsHighlights {
     /**
-     * @title 총 자금
+     * @title funding_total
      */
-    funding_total: FundingTotal;
+    funding_total?: FundingTotal;
+
     /**
-     * @title 자금 조달 라운드 수
+     * @title num_funding_rounds
      */
-    num_funding_rounds: number;
+    num_funding_rounds?: number;
+
     /**
-     * @title 투자자 수
+     * @title num_investors
      */
-    num_investors: number;
+    num_investors?: number;
+
     /**
-     * @title 리드 투자자 수
+     * @title num_lead_investors
      */
-    num_lead_investors: number;
+    num_lead_investors?: number;
+
+    /**
+     * @title num_lead_investments
+     */
+    num_lead_investments?: number;
+
+    /**
+     * @title num_funds
+     */
+    num_funds?: number;
+
+    /**
+     * @title num_investments
+     */
+    num_investments?: number;
+
+    /**
+     * @title listed_stock_symbol
+     */
+    listed_stock_symbol?: string;
+
+    /**
+     * @title num_exits
+     */
+    num_exits?: number;
   }
 
   /**
    * @title IPQwery
-   * @description IPQwery 정보를 포함합니다.
    */
   export interface IPQwery {
     /**
-     * @title 인기 특허 카테고리
+     * @title ipqwery_popular_patent_category
      */
-    ipqwery_popular_patent_category: string;
+    ipqwery_popular_patent_category?: string;
+
     /**
-     * @title 인기 상표 클래스
+     * @title ipqwery_popular_trademark_class
      */
-    ipqwery_popular_trademark_class: string;
+    ipqwery_popular_trademark_class?: string;
+
     /**
-     * @title 등록된 상표 수
+     * @title ipqwery_num_trademark_registered
      */
-    ipqwery_num_trademark_registered: number;
+    ipqwery_num_trademark_registered?: number;
+
     /**
-     * @title 승인된 특허 수
+     * @title ipqwery_num_patent_granted
      */
-    ipqwery_num_patent_granted: number;
+    ipqwery_num_patent_granted?: number;
   }
 
   /**
-   * @title 개요 하이라이트
-   * @description 개요 하이라이트 정보를 포함합니다.
+   * @title Overview Highlights
    */
   export interface OverviewHighlights {
     /**
-     * @title 유사 조직 수
+     * @title num_org_similarities
      */
-    num_org_similarities: number;
+    num_org_similarities?: number;
+
     /**
-     * @title 현재 직위 수
+     * @title num_current_positions
      */
-    num_current_positions: number;
+    num_current_positions?: number;
+
     /**
-     * @title 투자자 수
+     * @title num_investments
      */
-    num_investors: number;
+    num_investments?: number;
+
     /**
-     * @title 연락처 수
+     * @title listed_stock_symbol
      */
-    num_contacts: number;
+    listed_stock_symbol?: string;
+
     /**
-     * @title 총 자금
+     * @title num_investors
      */
-    funding_total: FundingTotal;
+    num_investors?: number;
+
+    /**
+     * @title num_contacts
+     */
+    num_contacts?: number;
+
+    /**
+     * @title funding_total
+     */
+    funding_total?: FundingTotal;
   }
 
   /**
-   * @title 인물 하이라이트
-   * @description 인물 하이라이트 정보를 포함합니다.
+   * @title People Highlights
    */
   export interface PeopleHighlights {
     /**
-     * @title 연락처 수
+     * @title num_contacts
      */
-    num_contacts: number;
+    num_contacts?: number;
+
     /**
-     * @title 현재 직위 수
+     * @title num_current_advisor_positions
      */
-    num_current_positions: number;
+    num_current_advisor_positions?: number;
+
+    /**
+     * @title num_current_positions
+     */
+    num_current_positions?: number;
   }
 
   /**
-   * @title 기술 하이라이트
-   * @description 기술 하이라이트 정보를 포함합니다.
+   * @title Technology Highlights
    */
   export interface TechnologyHighlights {
     /**
-     * @title 사용된 기술 수
+     * @title apptopia_total_downloads
      */
-    builtwith_num_technologies_used: number;
+    apptopia_total_downloads?: number;
+
     /**
-     * @title SEMrush 최신 월 방문자 수
+     * @title builtwith_num_technologies_used
      */
-    semrush_visits_latest_month: number;
+    builtwith_num_technologies_used?: number;
+
     /**
-     * @title SEMrush MoM 방문자 비율
+     * @title semrush_visits_latest_month
      */
-    semrush_visits_mom_pct: number;
+    semrush_visits_latest_month?: number;
+
+    /**
+     * @title semrush_visits_mom_pct
+     */
+    semrush_visits_mom_pct?: number;
+
+    /**
+     * @title siftery_num_products
+     */
+    siftery_num_products?: number;
   }
 
   /**
-   * @title 창립자
-   * @description 창립자 정보를 포함합니다.
+   * @title Founder
    */
   export interface Founder {
     /**
      * @title ID
      */
     id: string;
+
     /**
-     * @title 유형
+     * @title Type
      */
     type: string;
+
     /**
-     * @title 값
+     * @title Value
      */
     value: string;
   }
