@@ -8,7 +8,7 @@ export class SimilarwebProvider {
   async getDomainInfo(
     input: ISimilarweb.IGetDomainInfoInput,
   ): Promise<ISimilarweb.IGetDomainInfoOutput> {
-    const url = `https://similarweb13.p.rapidapi.com/v2/getdomain?domain=${input.domain}`;
+    const url = `https://similarweb13.p.rapidapi.com/v2/getdomain?exclude-countries=true&domain=${input.domain}`;
     const res = await axios.get(url, {
       headers: {
         "x-rapidapi-host": "crunchbase-api.p.rapidapi.com",

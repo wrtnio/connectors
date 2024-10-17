@@ -145,12 +145,6 @@ export namespace ISimilarweb {
     IsDataFromGa: boolean;
 
     /**
-     * @title Countries
-     * @description List of countries
-     */
-    Countries: Country[];
-
-    /**
      * @title Competitors
      * @description Competitors information
      */
