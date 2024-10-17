@@ -14,7 +14,7 @@ export class CrunchbaseController {
    * A company's information includes a brief introduction to the company and on-mark rankings, industry groups, social media, websites, funding information including funding amounts and rounds, contacts, similar services, and competitors.
    * In addition to that, the company can acquire all the overall information, including the number of articles and employees mentioned, and the list of founders.
    *
-   * @summary Get Organization Data
+   * @summary Get Organization Data from crunchbase
    */
   @TypedRoute.Post("get-organization-data")
   async getOrganizationData(
