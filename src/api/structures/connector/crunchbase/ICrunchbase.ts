@@ -348,6 +348,96 @@ export namespace ICrunchbase {
     legal_name: string;
 
     /**
+     * @title num_event_appearances
+     */
+    num_event_appearances?: number | string | null;
+
+    /**
+     * @title num_acquisitions
+     */
+    num_acquisitions?: number | string | null;
+
+    /**
+     * @title num_investments
+     */
+    num_investments?: number | string | null;
+
+    /**
+     * @title num_advisor_positions
+     */
+    num_advisor_positions?: number | string | null;
+
+    /**
+     * @title num_exits
+     */
+    num_exits?: number | string | null;
+
+    /**
+     * @title num_investments_lead
+     */
+    num_investments_lead?: number | string | null;
+
+    /**
+     * @title num_sub_organizations
+     */
+    num_sub_organizations?: number | string | null;
+
+    /**
+     * @title num_alumni
+     */
+    num_alumni?: number | string | null;
+
+    /**
+     * @title num_founder_alumni
+     */
+    num_founder_alumni?: number | string | null;
+
+    /**
+     * @title num_diversity_spotlight_investments
+     */
+    num_diversity_spotlight_investments?: number | string | null;
+
+    /**
+     * @title num_funds
+     */
+    num_funds?: number | string | null;
+
+    /**
+     * @title stock_symbol
+     */
+    stock_symbol?: number | string | null;
+
+    /**
+     * @title event_appearances
+     */
+    event_appearances: any[];
+
+    /**
+     * @title sub_organizations
+     */
+    sub_organizations: any[];
+
+    /**
+     * @title alumni
+     */
+    alumni: any[];
+
+    /**
+     * @title diversity_investments
+     */
+    diversity_investments: any[];
+
+    /**
+     * @title funds
+     */
+    funds: any[];
+
+    /**
+     * @title layoff
+     */
+    layoff: any[];
+
+    /**
      * @title Contact details of the organization.
      *
      * The primary contacts for the company, such as executives or HR.
@@ -908,13 +998,6 @@ export namespace ICrunchbase {
      * Unique identifier for the funding round.
      */
     id: string;
-
-    /**
-     * @title Image ID
-     *
-     * Image ID associated with the funding round.
-     */
-    image_id: string;
 
     /**
      * @title Number of Investors
