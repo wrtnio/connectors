@@ -5,7 +5,7 @@ import { ConnectorGlobal } from "../../../ConnectorGlobal";
 
 @Injectable()
 export class SimilarwebProvider {
-  async getdDomainInfo(
+  async getDomainInfo(
     input: ISimilarweb.IGetDomainInfoInput,
   ): Promise<ISimilarweb.IGetDomainInfoOutput> {
     const url = `https://similarweb13.p.rapidapi.com/v2/getdomain?domain=${input.domain}`;
