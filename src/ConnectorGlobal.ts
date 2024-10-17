@@ -148,6 +148,9 @@ export namespace ConnectorGlobal {
     IMWEB_TEST_API_KEY: string;
     IMWEB_TEST_API_SECRET: string;
 
+    // RAPIDAPI
+    RAPIDAPI_KEY: string;
+
     // STABILITY AI
     STABILITY_AI_API_KEY: string;
     STABILITY_AI_HOST: string & tags.Format<"iri">;
