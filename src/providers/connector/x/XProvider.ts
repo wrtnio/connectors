@@ -120,6 +120,7 @@ export class XProvider {
         text: tweet.data.data.text,
         userName: user.data.data.name,
         tweet_link: `https://twitter.com/${user.data.data.username}/status/${tweet.data.data.id}`,
+        timeStamp: tweet.data.data.created_at,
       };
     } catch (err) {
       console.error(JSON.stringify(err));
@@ -145,6 +146,7 @@ export class XProvider {
             params: {
               max_results: 100,
               expansions: "referenced_tweets.id",
+              "tweet.fields": "created_at",
               end_time: new Date().toISOString(),
               start_time: new Date(
                 new Date().getTime() - 1000 * 60 * 60 * 24,
@@ -181,6 +183,7 @@ export class XProvider {
                     userName: user.name,
                     text: userTweetTimeLine.text,
                     tweet_link: `https://twitter.com/${user.userName}/status/${userTweetTimeLine.id}`,
+                    timeStamp: userTweetTimeLine.created_at,
                     type:
                       referencedTweet.type === "retweeted"
                         ? "retweeted"
@@ -197,6 +200,7 @@ export class XProvider {
                 userName: user.name,
                 text: userTweetTimeLine.text,
                 tweet_link: `https://twitter.com/${user.userName}/status/${userTweetTimeLine.id}`,
+                timeStamp: userTweetTimeLine.created_at,
                 type: "original",
               });
             }
@@ -221,7 +225,7 @@ export class XProvider {
     input.map((tweet) => {
       fileContent += `<tweet>\n`;
       fileContent += `userName: ${tweet.userName}\n`;
-      fileContent += `timeStamp: ${tweet.userName}\n`;
+      fileContent += `timeStamp: ${tweet.timeStamp}\n`;
       fileContent += `content: ${tweet.text}\n`;
       fileContent += `link: ${tweet.tweet_link}\n`;
       fileContent += `type: ${tweet.type}\n`;
@@ -284,7 +288,6 @@ export class XProvider {
       params.append("grant_type", "refresh_token");
       params.append("refresh_token", refreshToken);
       params.append("client_id", ConnectorGlobal.env.X_CLIENT_ID);
-
       const BasicAuthToken = Buffer.from(
         `${ConnectorGlobal.env.X_CLIENT_ID}:${ConnectorGlobal.env.X_CLIENT_SECRET}`,
         "utf8",
