@@ -130,6 +130,13 @@ export namespace IX {
     tweet_link: string & tags.Format<"iri">;
 
     /**
+     * The timestamp for tweet created
+     *
+     * @title timestamp
+     */
+    timeStamp: string & tags.Format<"date-time">;
+
+    /**
      * The type of the tweet
      *
      * @title tweet type
