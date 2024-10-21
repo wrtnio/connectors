@@ -15,7 +15,7 @@
     }
   ],
   "info": {
-    "version": "0.1.275",
+    "version": "0.1.276",
     "title": "@wrtn/connector",
     "description": "wrtn-ecosystem connectors and sdk",
     "license": {
@@ -52450,11 +52450,11 @@
             "items": {
               "$ref": "#/components/schemas/ICrunchbase.Contact"
             },
-            "title": "Contact details of the organization.\n\nThe primary contacts for the company, such as executives or HR."
+            "title": "Contact details of the organization\n\nThe primary contacts for the company, such as executives or HR."
           },
           "ipo": {
             "$ref": "#/components/schemas/ICrunchbase.IPO",
-            "title": "IPO details of the organization.\n\nInformation about the company's IPO, if it has one."
+            "title": "IPO details of the organization\n\nInformation about the company's IPO, if it has one."
           },
           "funds_total": {
             "oneOf": [
@@ -53761,7 +53761,7 @@
           "status",
           "data"
         ],
-        "title": "Represents the output of an autocomplete response."
+        "title": "Represents the output of an autocomplete response"
       },
       "ICrunchbase.IAutocompleteInput": {
         "type": "object",
