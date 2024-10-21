@@ -28,6 +28,7 @@ export class CrunchbaseController {
    *
    * Search and auto-completion capabilities to get unique identifiers for querying accurate company names and company information.
    * Use your natural language search to explore if you have a similar company name.
+   * A company called 'Wrtn Technologies(뤼튼 테크놀로지스)' can search with a unique identifier called 'wrtn-technologies'.
    *
    * @summary Search for company name and auto-completion
    */
