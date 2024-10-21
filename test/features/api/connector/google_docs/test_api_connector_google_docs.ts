@@ -114,3 +114,53 @@ export const test_api_connector_google_docs = async (
     typia.assert(res);
   }
 };
+
+export const test_api_connector_google_docs_create_page = async (
+  connection: CApi.IConnection,
+) => {
+  /**
+   * create a new Google Docs
+   */
+  const createGoogleDocsOutput: IGoogleDocs.ICreateGoogleDocsOutput =
+    await CApi.functional.connector.google_docs.createDocs(connection, {
+      title: "connector_test",
+      secretKey: ConnectorGlobal.env.GOOGLE_TEST_SECRET,
+    });
+  typia.assert<IGoogleDocs.ICreateGoogleDocsOutput>(createGoogleDocsOutput);
+  console.log(createGoogleDocsOutput);
+
+  /**
+   * Append text to docs
+   */
+  const res1 = await CApi.functional.connector.google_docs.append(connection, {
+    secretKey: ConnectorGlobal.env.GOOGLE_TEST_SECRET,
+    documentId: createGoogleDocsOutput.id,
+    text: "<!DOCTYPE html><body><h1>hi!</h1><p>hahaha</p></body>",
+  });
+
+  typia.assert(res1);
+
+  /**
+   * Append text to docs
+   */
+  const res2 = await CApi.functional.connector.google_docs.append(connection, {
+    secretKey: ConnectorGlobal.env.GOOGLE_TEST_SECRET,
+    documentId: createGoogleDocsOutput.id,
+    text: `# Hello world!
+hi, my name is kakasoo.
+our team name is **ecosystem**.
+
+## company
+company name is wrtn technologies.
+- a
+- b
+- c
+  - d
+- 1
+  - 2
+    - 3
+`,
+  });
+
+  typia.assert(res2);
+};
