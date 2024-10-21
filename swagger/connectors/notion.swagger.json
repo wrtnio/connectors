@@ -18,7 +18,7 @@
     "title": "노션 워크스페이스 관리",
     "summary": "노션 으로 작업 공간을 효율적으로 관리해요.",
     "description": "노션 에서 페이지를 만들고, 내용을 추가하고, 데이터베이스를 관리할 수 있어요. 페이지 검색, 데이터베이스 아이템 관리 등 다양한 기능을 활용할 수 있어요. 프로젝트 관리, 노트 작성, 팀 협업, 지식 베이스 구축 등 다양한 목적으로 사용할 수 있어요. 텍스트, 이미지, 표, 리스트 등 다양한 형식의 콘텐츠를 조합하여 풍부한 문서를 만들 수 있고, 팀원들과 실시간으로 공유하고 협업할 수 있어요.",
-    "version": "0.1.276",
+    "version": "0.1.277",
     "license": {
       "name": "AGPL-3.0-only"
     }
@@ -72,7 +72,11 @@
           "201": {
             "description": "",
             "content": {
-              "application/json": {}
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/INotion.IAppendPageByMarkdownOutput"
+                }
+              }
             }
           }
         },
@@ -494,7 +498,7 @@
     "/connector/notion/get/page/contents": {
       "post": {
         "summary": "Retrieve block children",
-        "description": "Retrieve block children\n\nReturns a paginated array of child block objects contained in the block using the ID specified.\nIt is used to check the contents of the page by inquiring about the children of the page or block.\nIt recursively traverses and looks for all blocks. Here, we are ready to combine online blocks and blocks containing text.",
+        "description": "Retrieve block children\n\nReturns a paginated array of child block objects contained in the block using the ID specified.\nIt is used to check the contents of the page by inquiring about the children of the page or block.\nIt recursively traverses and looks for all blocks. Here, we are ready to combine online blocks and blocks containing text.\n\nFor child pages, it does not even look up the contents.",
         "tags": [
           "Notion"
         ],
@@ -989,6 +993,25 @@
         "required": [
           "block_id",
           "secretKey"
+        ]
+      },
+      "INotion.IAppendPageByMarkdownOutput": {
+        "type": "object",
+        "properties": {
+          "link": {
+            "type": "string",
+            "format": "iri",
+            "title": "page link"
+          },
+          "id": {
+            "type": "string",
+            "title": "page id",
+            "description": "Unique id of the generated page"
+          }
+        },
+        "required": [
+          "link",
+          "id"
         ]
       },
       "INotion.IAppendPageByMarkdownInput": {
@@ -2814,11 +2837,17 @@
           "title": {
             "type": "string",
             "title": "tilte\n\nTitle of the document you just created"
+          },
+          "link": {
+            "type": "string",
+            "format": "iri",
+            "title": "page link"
           }
         },
         "required": [
           "id",
-          "title"
+          "title",
+          "link"
         ],
         "title": "Page creation result"
       },
@@ -2947,11 +2976,17 @@
             "type": "string",
             "title": "Title",
             "description": "Page Title"
+          },
+          "link": {
+            "type": "string",
+            "format": "iri",
+            "title": "page link"
           }
         },
         "required": [
           "pageId",
-          "title"
+          "title",
+          "link"
         ],
         "title": "Page list query results"
       },
@@ -4277,6 +4312,11 @@
           "title": {
             "type": "string",
             "title": "tilte\n\nTitle of the document you just created"
+          },
+          "link": {
+            "type": "string",
+            "format": "iri",
+            "title": "page link"
           }
         },
         "required": [
@@ -4293,7 +4333,8 @@
           "url",
           "public_url",
           "id",
-          "title"
+          "title",
+          "link"
         ],
         "title": "Database item creation result"
       },
@@ -4685,6 +4726,11 @@
           "title": {
             "type": "string",
             "title": "tilte\n\nTitle of the document you just created"
+          },
+          "link": {
+            "type": "string",
+            "format": "iri",
+            "title": "page link"
           }
         },
         "required": [
@@ -4701,7 +4747,8 @@
           "url",
           "public_url",
           "id",
-          "title"
+          "title",
+          "link"
         ]
       },
       "INotion.IFindPageProperty": {
