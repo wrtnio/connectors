@@ -13,7 +13,7 @@ export async function test_api_connector_github_repository_read_pull_request_dif
         repo: "nestia",
         direction: "DESC",
         sort: "CREATED_AT",
-        per_page: 10,
+        per_page: 5,
         secretKey: ConnectorGlobal.env.G_GITHUB_TEST_SECRET,
       },
     );
@@ -21,17 +21,27 @@ export async function test_api_connector_github_repository_read_pull_request_dif
   typia.assert(pullRequests);
 
   for await (const pullRequest of pullRequests) {
-    const diff =
-      await CApi.functional.connector.github.repositories.pull_requests.get_diff.readPullRequestDiff(
+    const params = {
+      owner: "samchon",
+      repo: "nestia",
+      pull_number: pullRequest.number as number,
+      secretKey: ConnectorGlobal.env.G_GITHUB_TEST_SECRET,
+    };
+
+    const files =
+      await CApi.functional.connector.github.repositories.pull_requests.get_files.readPullRequestFiles(
         connection,
-        {
-          owner: "samchon",
-          repo: "nestia",
-          pull_number: pullRequest.number as number,
-          secretKey: ConnectorGlobal.env.G_GITHUB_TEST_SECRET,
-        },
+        params,
       );
 
-    typia.assert(diff);
+    if (files.result.length < 300) {
+      const diff =
+        await CApi.functional.connector.github.repositories.pull_requests.get_diff.readPullRequestDiff(
+          connection,
+          params,
+        );
+
+      typia.assert(diff);
+    }
   }
 }

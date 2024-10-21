@@ -1926,16 +1926,20 @@ export namespace INotion {
 
   export interface IAppendPageByMarkdownInput
     extends PageIdInput,
-      ICommon.ISecret<"notion"> {
-    /**
-     * @title markdown
-     */
-    markdown: string;
-  }
+      MarkdownInput,
+      ICommon.ISecret<"notion"> {}
 
-  export interface ICreatePageByMarkdownInput extends INotion.ICreatePageInput {
+  export interface ICreatePageByMarkdownInput
+    extends INotion.ICreatePageInput,
+      MarkdownInput {}
+
+  export interface MarkdownInput {
     /**
      * @title markdown
+     *
+     * If you add a markdown string, it will be converted appropriately according to the Notion's block.
+     * Therefore, you don't have to use Unicode symbols to implement lists or decorate documents using letters.
+     * Of course, this depends on the user, and there is no problem using the character string you want, such as inserting an emoji as well as Unicode.
      */
     markdown: string;
   }

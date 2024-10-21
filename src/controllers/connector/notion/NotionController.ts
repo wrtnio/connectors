@@ -712,8 +712,9 @@ export class NotionController {
    * Since a parent ID is required, when a user gives you a link to the page,
    * you should take out the ID from it and use it, or first look up the list of pages accessible to the user.
    * Since Notion prioritizes accessible pages during authentication, creating pages must be sub-pages within the page, which means that there must be a parent page.
+   * Because this feature only creates pages and does not create content, we recommend that you call additional content creation connectors if you want to create content.
    *
-   * @summary Create page
+   * @summary Create empty page
    * @param input Information needed to create the page
    * @returns Unique ID of the generated page
    */
