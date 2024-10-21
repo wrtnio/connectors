@@ -91,15 +91,17 @@ export namespace ICrunchbase {
    */
   export interface CrunchbaseResponse {
     /**
-     * @title 설명
+     * @title description
      */
     description: string;
+
     /**
-     * @title 상태 코드
+     * @title status code
      */
     status: number;
+
     /**
-     * @title 데이터
+     * @title data
      */
     data: OrganizationData;
   }
@@ -125,224 +127,224 @@ export namespace ICrunchbase {
    */
   export interface Organization {
     /**
-     * @title Unique identifier of the organization.
+     * @title Unique identifier of the organization
      *
      * A unique string representing the organization in Crunchbase.
      */
     id: string;
 
     /**
-     * @title Name of the organization.
+     * @title Name of the organization
      *
      * The official name of the organization.
      */
     name: string;
 
     /**
-     * @title URL to the organization's Crunchbase page.
+     * @title URL to the organization's Crunchbase page
      *
      * A link to the organization's profile on Crunchbase.
      */
     url: string;
 
     /**
-     * @title Ranking of the company.
+     * @title Ranking of the company
      *
      * The position of the company relative to others in Crunchbase based on certain metrics.
      */
     rank_company: number | null;
 
     /**
-     * @title List of locations where the organization operates.
+     * @title List of locations where the organization operates
      *
      * The physical addresses of the company's offices or facilities.
      */
     locations: Location[] | null;
 
     /**
-     * @title Address of the organization.
+     * @title Address of the organization
      *
      * The primary physical address of the company.
      */
     address: string;
 
     /**
-     * @title Short description of the organization.
+     * @title Short description of the organization
      *
      * A brief summary of what the company does.
      */
     about: string;
 
     /**
-     * @title Full description of the organization.
+     * @title Full description of the organization
      *
      * A detailed explanation of the company's operations, history, and business model.
      */
     full_description: string | null;
 
     /**
-     * @title List of industries the organization is involved in.
+     * @title List of industries the organization is involved in
      *
      * The sectors or markets where the company operates.
      */
     industries: string[];
 
     /**
-     * @title Current operating status of the organization.
+     * @title Current operating status of the organization
      *
      * Indicates whether the company is active, inactive, or has another status.
      */
     operating_status: string;
 
     /**
-     * @title Date the organization was founded.
+     * @title Date the organization was founded
      *
      * The founding year or date of the company.
      */
     founded_date: string | null;
 
     /**
-     * @title Type of company (e.g., Private, Public).
+     * @title Type of company (e.g., Private, Public)
      *
      * The legal or business classification of the company.
      */
     company_type: string;
 
     /**
-     * @title List of the organization's social media profiles.
+     * @title List of the organization's social media profiles
      *
      * Links to the company's social media accounts.
      */
     social_media: SocialMedia[];
 
     /**
-     * @title Number of employees working for the organization.
+     * @title Number of employees working for the organization
      *
      * A count or estimate of the company's workforce.
      */
     num_employees: string | null;
 
     /**
-     * @title The official website of the organization.
+     * @title The official website of the organization
      *
      * The company's main website URL.
      */
     website: string | null;
 
     /**
-     * @title IPO status of the organization.
+     * @title IPO status of the organization
      *
      * Indicates whether the company is publicly traded or privately held.
      */
     ipo_status: string | null;
 
     /**
-     * @title Primary contact email for the organization.
+     * @title Primary contact email for the organization
      *
      * The main email address for contacting the company.
      */
     contact_email: string | null;
 
     /**
-     * @title Primary contact phone number for the organization.
+     * @title Primary contact phone number for the organization
      *
      * The main phone number for contacting the company.
      */
     contact_phone: string | null;
 
     /**
-     * @title Information about the organization's funding history.
+     * @title Information about the organization's funding history
      *
      * Details on the company's fundraising rounds, including investors and amounts raised.
      */
     funding_info: FundingInfo[];
 
     /**
-     * @title List of similar companies.
+     * @title List of similar companies
      *
      * Companies that share similarities in industry, business model, or other factors with the organization.
      */
     similar_companies: SimilarCompany[];
 
     /**
-     * @title Logo of the organization.
+     * @title Logo of the organization
      *
      * URL to the organization's logo image.
      */
     logo: string;
 
     /**
-     * @title Monthly visits according to SEMrush.
+     * @title Monthly visits according to SEMrush
      *
      * The number of visits the company's website receives, as reported by SEMrush.
      */
     semrush_monthly_visits: number | null;
 
     /**
-     * @title Monthly visit growth according to SEMrush.
+     * @title Monthly visit growth according to SEMrush
      *
      * The percentage growth of monthly website visits compared to the previous month.
      */
     semrush_monthly_visits_growth: number | null;
 
     /**
-     * @title Date of the last SEMrush update.
+     * @title Date of the last SEMrush update
      *
      * The date SEMrush last updated the visit data.
      */
     semrush_last_updated: string | null;
 
     /**
-     * @title Number of contacts the organization has.
+     * @title Number of contacts the organization has
      *
      * The total number of contacts within the organization.
      */
     num_contacts: number | null;
 
     /**
-     * @title Number of employee profiles.
+     * @title Number of employee profiles
      *
      * The total number of employee profiles available for the organization.
      */
     num_employee_profiles: number;
 
     /**
-     * @title Number of active products.
+     * @title Number of active products
      *
      * The total count of products currently offered by the organization.
      */
     total_active_products: number;
 
     /**
-     * @title Number of news articles about the organization.
+     * @title Number of news articles about the organization
      *
      * The total number of news mentions or articles about the company.
      */
     num_news: number | null;
 
     /**
-     * @title Funding round details for the organization.
+     * @title Funding round details for the organization
      *
      * Information about the various rounds of funding the company has gone through.
      */
     funding_rounds: FundingRounds;
 
     /**
-     * @title Date of the last Bombora update.
+     * @title Date of the last Bombora update
      *
      * The date Bombora last updated the company's data.
      */
     bombora_last_updated: string | null;
 
     /**
-     * @title Number of investors in the organization.
+     * @title Number of investors in the organization
      *
      * The total number of investors who have invested in the company.
      */
     num_investors: number | null;
 
     /**
-     * @title Legal name of the organization.
+     * @title Legal name of the organization
      *
      * The registered legal name of the company.
      */
@@ -655,14 +657,14 @@ export namespace ICrunchbase {
    */
   export type Location = {
     /**
-     * @title The value or name of the location.
+     * @title The value or name of the location
      *
      * The specific name or address of the company's location.
      */
     value: string;
 
     /**
-     * @title Type of the location.
+     * @title Type of the location
      *
      * The category or function of this location (e.g., headquarters, branch).
      */
@@ -673,14 +675,14 @@ export namespace ICrunchbase {
    */
   export type SocialMedia = {
     /**
-     * @title Name of the social media platform.
+     * @title Name of the social media platform
      *
      * The name of the social platform where the company is active (e.g., Twitter, LinkedIn).
      */
     name: string;
 
     /**
-     * @title Link to the company's social media profile.
+     * @title Link to the company's social media profile
      *
      * The URL to the company's social media account on the respective platform.
      */
@@ -692,28 +694,28 @@ export namespace ICrunchbase {
    */
   export type FundingInfo = {
     /**
-     * @title Title of the funding information.
+     * @title Title of the funding information
      *
      * The name or title of the funding-related data.
      */
     title: string;
 
     /**
-     * @title Number of organizations involved in the funding.
+     * @title Number of organizations involved in the funding
      *
      * The number of companies or investors involved.
      */
     org_num: number;
 
     /**
-     * @title Number of investors involved.
+     * @title Number of investors involved
      *
      * The total count of investors participating in the funding.
      */
     org_num_investors: number;
 
     /**
-     * @title Total funding amount.
+     * @title Total funding amount
      *
      * The total amount of funding raised in USD or another currency.
      */
@@ -725,21 +727,21 @@ export namespace ICrunchbase {
    */
   export type FundingTotal = {
     /**
-     * @title Total value in USD.
+     * @title Total value in USD
      *
      * The total amount of funding, expressed in US dollars.
      */
     value_usd: number | string | null;
 
     /**
-     * @title Currency of the funding.
+     * @title Currency of the funding
      *
      * The currency in which the funding is denominated.
      */
     currency: string | null;
 
     /**
-     * @title The raw value of the funding.
+     * @title The raw value of the funding
      *
      * The total value of the funding before conversion to USD.
      */
@@ -751,14 +753,14 @@ export namespace ICrunchbase {
    */
   export type SimilarCompany = {
     /**
-     * @title Name of the similar company.
+     * @title Name of the similar company
      *
      * The name of a company that is similar to this organization.
      */
     name: string;
 
     /**
-     * @title URL to the similar company's profile.
+     * @title URL to the similar company's profile
      *
      * A link to the similar company's page on Crunchbase or other platform.
      */

@@ -3,17 +3,17 @@ import { Controller } from "@nestjs/common";
 
 import { IGoogleAds } from "@wrtn/connector-api/lib/structures/connector/google_ads/IGoogleAds";
 
+import { ApiTags } from "@nestjs/swagger";
 import { RouteIcon, Standalone } from "@wrtnio/decorators";
 import { GoogleAdsProvider } from "../../../providers/connector/google_ads/GoogleAdsProvider";
 import { retry } from "../../../utils/retry";
-import { ApiTags } from "@nestjs/swagger";
 
 @Controller("connector/google-ads")
 export class GoogleAdsController {
   constructor(private readonly googleAdsProvider: GoogleAdsProvider) {}
 
   /**
-   * Recommend keywords for Google Ads!
+   * Recommend keywords for Google Ads
    *
    * In order to execute ads in Google Ads, you need to register keywords.
    * A keyword must be registered to target the end users of the ad, and it is one of the `adGroupCriteria` mapped to `adGroup` among the resources of Google Ads.
@@ -50,7 +50,7 @@ export class GoogleAdsController {
   }
 
   /**
-   * Get keyword recommendations for Google Ads!
+   * Get keyword recommendations for Google Ads
    *
    * In order to execute ads in Google Ads, you need to register keywords.
    * A keyword must be registered to target the end users of the ad, and it is one of the `adGroupCriteria` mapped to `adGroup` among the resources of Google Ads.
@@ -87,7 +87,7 @@ export class GoogleAdsController {
   }
 
   /**
-   * Get keyword recommendations for Google Ads!
+   * Get keyword recommendations for Google Ads
    *
    * In order to execute ads in Google Ads, you need to register keywords.
    * A keyword must be registered to target the end users of the ad, and it is one of the `adGroupCriteria` mapped to `adGroup` among the resources of Google Ads.

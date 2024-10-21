@@ -3,17 +3,17 @@ import { Controller } from "@nestjs/common";
 
 import { IGoogleSlides } from "@wrtn/connector-api/lib/structures/connector/google_slides/IGoogleSlides";
 
+import { ApiTags } from "@nestjs/swagger";
 import { RouteIcon } from "@wrtnio/decorators";
 import { GoogleSlidesProvider } from "../../../providers/connector/google_slides/GoogleSlidesProvider";
 import { retry } from "../../../utils/retry";
-import { ApiTags } from "@nestjs/swagger";
 
 @Controller("connector/google-slides")
 export class GoogleSlidesController {
   constructor(private readonly googleSlideProvider: GoogleSlidesProvider) {}
 
   /**
-   * Export Google Slides presentations to Hanshow format!
+   * Export Google Slides presentations to Hanshow format
    *
    * @summary Export presentations to Hanshow files
    *
@@ -38,7 +38,7 @@ export class GoogleSlidesController {
   }
 
   /**
-   * Export Google Slides presentations to PowerPoint format!
+   * Export Google Slides presentations to PowerPoint format
    *
    * A connector that can be used when creating stories or picture books.
    *
@@ -65,12 +65,11 @@ export class GoogleSlidesController {
   }
 
   /**
-   * Retrieve a Google Slides presentation.
+   * Retrieve a Google Slides presentation
    *
-   * @summary Retrieve a Google Slides presentation.
-   *
-   * @param input Condition DTO for retrieving a presentation.
-   * @returns Retrieve presentation information DTO.
+   * @summary Retrieve a Google Slides presentation
+   * @param input Condition DTO for retrieving a presentation
+   * @returns Retrieve presentation information DTO
    */
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleSlides_full.svg",
@@ -93,7 +92,7 @@ export class GoogleSlidesController {
    * In this case, rather than inserting any image, you should first secure the image using a search connector or an image creation connector.
    * It is safe to ask the user for consent to this process.
    *
-   * @summary Add "QuarterDivision" type image slides to a Google Slides presentation.
+   * @summary Add "QuarterDivision" type image slides to a Google Slides presentation
    * @param presentationId Presentation id to add slides to
    * @param input Template to add
    * @returns
@@ -125,7 +124,7 @@ export class GoogleSlidesController {
    * In this case, rather than inserting any image, you should first secure the image using a search connector or an image creation connector.
    * It is safe to ask the user for consent to this process.
    *
-   * @summary Add entire type image slides to a Google Slides presentation.
+   * @summary Add entire type image slides to a Google Slides presentation
    * @param presentationId Presentation id to add slides to
    * @param input Template to add
    * @returns
@@ -158,7 +157,7 @@ export class GoogleSlidesController {
    * In this case, rather than inserting any image, you should first secure the image using a search connector or an image creation connector.
    * It is safe to ask the user for consent to this process.
    *
-   * @summary Add "Landscape" type image slides to a Google Slides presentation.
+   * @summary Add "Landscape" type image slides to a Google Slides presentation
    * @param presentationId Presentation id to add slides to
    * @param input Template to add
    * @returns
@@ -190,7 +189,7 @@ export class GoogleSlidesController {
    * In this case, rather than inserting any image, you should first secure the image using a search connector or an image creation connector.
    * It is safe to ask the user for consent to this process.
    *
-   * @summary Add "Square" type image slides to a Google Slides presentation.
+   * @summary Add "Square" type image slides to a Google Slides presentation
    * @param presentationId Presentation id to add slides to
    * @param input Template to add
    * @returns
@@ -223,7 +222,7 @@ export class GoogleSlidesController {
    * In this case, rather than inserting any image, you should first secure the image using a search connector or an image creation connector.
    * It is safe to ask the user for consent to this process.
    *
-   * @summary Add "Vertical" type image slides to a Google Slides presentation.
+   * @summary Add "Vertical" type image slides to a Google Slides presentation
    * @param presentationId Presentation id to add slides to
    * @param input Template to add
    * @returns
@@ -259,7 +258,7 @@ export class GoogleSlidesController {
    * It is safe to ask the user for consent to this process.
    *
    * @deprecated
-   * @summary Add image and text slides to a Google Slides presentation.
+   * @summary Add image and text slides to a Google Slides presentation
    * @param presentationId Presentation id to add slides to
    * @param input Template to add
    * @returns
@@ -279,17 +278,17 @@ export class GoogleSlidesController {
   }
 
   /**
-   * Create a Google Slides presentation.
+   * Create a Google Slides presentation
    *
    * This connector can be used when creating a story or picture book.
    * Please use it with the connector/google-slides/image-slide connector when creating a story or picture book.
    * When creating a story or picture book, create a new presentation with this connector and insert the created story and picture into the slide using other connector.
    * This creates a blank presentation file, which is basically created with the first slide with no text.
    *
-   * @summary Create a Google Slides presentation.
+   * @summary Create a Google Slides presentation
    *
-   * @param input Condition DTO for creating a presentation.
-   * @returns Generated presentation information DTO.
+   * @param input Condition DTO for creating a presentation
+   * @returns Generated presentation information DTO
    */
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleSlides_full.svg",

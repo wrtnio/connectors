@@ -2,10 +2,10 @@ import core from "@nestia/core";
 import { Controller } from "@nestjs/common";
 import { RouteIcon, Standalone } from "@wrtnio/decorators";
 
-import { IGoogleShopping } from "@wrtn/connector-api/lib/structures/connector/google_shopping/IGoogleShopping";
-import { retry } from "../../../../utils/retry";
-import { GoogleShoppingProvider } from "../../../../providers/connector/google_shopping/GoogleShoppingProvider";
 import { ApiTags } from "@nestjs/swagger";
+import { IGoogleShopping } from "@wrtn/connector-api/lib/structures/connector/google_shopping/IGoogleShopping";
+import { GoogleShoppingProvider } from "../../../../providers/connector/google_shopping/GoogleShoppingProvider";
+import { retry } from "../../../../utils/retry";
 
 @Controller("connector/google-shopping")
 export class GoogleShoppingYesTwentyFourController {
@@ -14,12 +14,10 @@ export class GoogleShoppingYesTwentyFourController {
   ) {}
 
   /**
-   * Search for products on yes24.
+   * Search for products on yes24
    *
    * @summary yes24 search
-   *
    * @param input search conditions
-   *
    * @returns search results
    */
   @Standalone()

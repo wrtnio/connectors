@@ -4,21 +4,19 @@ import { RouteIcon } from "@wrtnio/decorators";
 
 import { IHwp } from "@wrtn/connector-api/lib/structures/connector/hwp/IHwp";
 
+import { ApiTags } from "@nestjs/swagger";
 import { HwpProvider } from "../../../providers/connector/hwp/HwpProvider";
 import { retry } from "../../../utils/retry";
-import { ApiTags } from "@nestjs/swagger";
 
 @Controller("connector/hwp")
 export class HwpController {
   constructor(private readonly hwpProvider: HwpProvider) {}
 
   /**
-   * Parse the hwp file.
+   * Parse the hwp file
    *
    * @summary Parse the Hwp file
-   *
    * @param input The hwp file to parse
-   *
    * @returns The parsed hwp file text data.
    */
   @core.TypedRoute.Post("/parse")

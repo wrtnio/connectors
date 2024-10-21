@@ -2,20 +2,19 @@ import core from "@nestia/core";
 import { Controller } from "@nestjs/common";
 import { RouteIcon, Standalone } from "@wrtnio/decorators";
 
-import { IGoogleTrend } from "@wrtn/connector-api/lib/structures/connector/google_trend/IGoogleTrend";
-import { retry } from "../../../utils/retry";
-import { GoogleTrendProvider } from "../../../providers/connector/google_trend/GoogleTrendProvider";
 import { ApiTags } from "@nestjs/swagger";
+import { IGoogleTrend } from "@wrtn/connector-api/lib/structures/connector/google_trend/IGoogleTrend";
+import { GoogleTrendProvider } from "../../../providers/connector/google_trend/GoogleTrendProvider";
+import { retry } from "../../../utils/retry";
 
 @Controller("connector/google-trend")
 export class GoogleTrendController {
   constructor(private readonly googleTrendProvider: GoogleTrendProvider) {}
 
   /**
-   * Get daily search results from Google Trends.
+   * Get daily search results from Google Trends
    *
    * @summary Google Trends Daily Search
-   *
    * @param input Search date
    * @returns Daily Trends Search Results
    */

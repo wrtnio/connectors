@@ -4,21 +4,19 @@ import { RouteIcon, Standalone } from "@wrtnio/decorators";
 
 import { IGoogleSheet } from "@wrtn/connector-api/lib/structures/connector/google_sheet/IGoogleSheet";
 
+import { ApiTags } from "@nestjs/swagger";
 import { GoogleSheetProvider } from "../../../providers/connector/google_sheet/GoogleSheetProvider";
 import { retry } from "../../../utils/retry";
-import { ApiTags } from "@nestjs/swagger";
 
 @Controller("connector/google-sheet")
 export class GoogleSheetController {
   constructor(private readonly googleSheetProvider: GoogleSheetProvider) {}
   /**
-   * Get the header information of a Google Sheet.
+   * Get the header information of a Google Sheet
    *
-   * @summary Get the header information of a Google Sheet.
-   *
-   * @param input Google Sheet URL and the header index to get.
-   *
-   * @returns Google Sheet header information.
+   * @summary Get the header information of a Google Sheet
+   * @param input Google Sheet URL and the header index to get
+   * @returns Google Sheet header information
    */
   @Standalone()
   @RouteIcon(
@@ -33,12 +31,10 @@ export class GoogleSheetController {
   }
 
   /**
-   * Add content to Google Sheets.
+   * Add content to Google Sheets
    *
    * @summary Add content to Google Sheets
-   *
    * @param input Information to add content
-   *
    * @returns
    */
   @RouteIcon(
@@ -53,14 +49,12 @@ export class GoogleSheetController {
   }
 
   /**
-   * Create a Google Sheet.
+   * Create a Google Sheet
    *
    * The created sheet will be created in the Google Drive root path.
    *
    * @summary Create a Google Sheet
-   *
    * @param input The title of the sheet to be created
-   *
    * @returns The created sheet id and Url
    */
   @Standalone()
@@ -76,11 +70,10 @@ export class GoogleSheetController {
   }
 
   /**
-   * Grant permissions to Google Sheets.
+   * Grant permissions to Google Sheets
    *
-   * @summary Grant permissions to Google Sheets.
-   *
-   * @param input Information for granting permissions.
+   * @summary Grant permissions to Google Sheets
+   * @param input Information for granting permissions
    */
   @Standalone()
   @RouteIcon(
@@ -95,11 +88,10 @@ export class GoogleSheetController {
   }
 
   /**
-   * Add a header to a Google Sheet.
+   * Add a header to a Google Sheet
    *
-   * @summary Add a Google Sheet header.
-   *
-   * @param input The Google Sheet url and the header name to add.
+   * @summary Add a Google Sheet header
+   * @param input The Google Sheet url and the header name to add
    */
   @Standalone()
   @RouteIcon(
@@ -114,11 +106,10 @@ export class GoogleSheetController {
   }
 
   /**
-   * Get a list of Google Worksheets.
+   * Get a list of Google Worksheets
    *
-   * @summary Get a list of Google Sheets Worksheets.
-   *
-   * @param input The Google Sheets url to get the list of worksheets.
+   * @summary Get a list of Google Sheets Worksheets
+   * @param input The Google Sheets url to get the list of worksheets
    */
   @Standalone()
   @RouteIcon(
@@ -133,12 +124,10 @@ export class GoogleSheetController {
   }
 
   /**
-   * Get Row information from Google Sheets.
+   * Get Row information from Google Sheets
    *
-   * @summary Get Row information from Google Sheets.
-   *
-   * @returns Row information from Google Sheets.
-   *
+   * @summary Get Row information from Google Sheets
+   * @returns Row information from Google Sheets
    * @Todo determine api endpoint in later because not decided select options
    */
   @Standalone()

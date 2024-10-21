@@ -3,15 +3,15 @@ import { Controller } from "@nestjs/common";
 
 import { IRanker } from "@wrtn/connector-api/lib/structures/connector/sort/IRanker";
 
-import { RankerProvider } from "../../../providers/connector/sort/RankerProvider";
 import { RouteIcon } from "@wrtnio/decorators";
+import { RankerProvider } from "../../../providers/connector/sort/RankerProvider";
 
 @Controller("connector/rank")
 export class RankController {
   constructor(private ranker: RankerProvider) {}
 
   /**
-   * Sorts the given array of items in order of highest score.
+   * Sorts the given array of items in order of highest score
    *
    * @deprecated
    *

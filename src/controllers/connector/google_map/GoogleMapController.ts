@@ -2,20 +2,19 @@ import core from "@nestia/core";
 import { Controller } from "@nestjs/common";
 import { RouteIcon, Standalone } from "@wrtnio/decorators";
 
-import { retry } from "../../../utils/retry";
+import { ApiTags } from "@nestjs/swagger";
 import { IGoogleMap } from "@wrtn/connector-api/lib/structures/connector/google_map/IGoogleMap";
 import { GoogleMapProvider } from "../../../providers/connector/google_map/GoogleMapProvider";
-import { ApiTags } from "@nestjs/swagger";
+import { retry } from "../../../utils/retry";
 
 @Controller("connector/google-map")
 export class GoogleMapController {
   constructor(private readonly googleMapProvider: GoogleMapProvider) {}
 
   /**
-   * Search for restaurants using Google Maps.
+   * Search for restaurants using Google Maps
    *
    * @summary Google Map restaurant search
-   *
    * @param input Search term to search for restaurants
    * @returns Restaurant search results
    */
@@ -32,10 +31,9 @@ export class GoogleMapController {
   }
 
   /**
-   * Search for restaurant reviews selected from Google Maps.
+   * Search for restaurant reviews selected from Google Maps
    *
    * @summary Search Google Map restaurant reviews
-   *
    * @param input Unique id of the restaurant
    * @returns Restaurant review search results
    */

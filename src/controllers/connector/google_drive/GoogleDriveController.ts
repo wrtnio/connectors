@@ -12,13 +12,11 @@ export class GoogleDriveController {
   constructor(private readonly googleDriveProvider: GoogleDriveProvider) {}
 
   /**
-   * Get a list of folders in Google Drive.
+   * Get a list of folders in Google Drive
    *
-   * @summary Get a list of Google Drive folders.
-   *
-   * @param headers Information for accessing Google Drive.
-   *
-   * @returns A list of Google Drive folders.
+   * @summary Get a list of Google Drive folders
+   * @param headers Information for accessing Google Drive
+   * @returns A list of Google Drive folders
    */
   @Standalone()
   @RouteIcon(
@@ -34,13 +32,11 @@ export class GoogleDriveController {
   }
 
   /**
-   * Get a list of files in Google Drive.
+   * Get a list of files in Google Drive
    *
-   * @summary Get a list of Google Drive files.
-   *
-   * @param query Information for getting a list of files.
-   *
-   * @returns A list of Google Drive files.
+   * @summary Get a list of Google Drive files
+   * @param query Information for getting a list of files
+   * @returns A list of Google Drive files
    */
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleDrive_full.svg",
@@ -54,14 +50,13 @@ export class GoogleDriveController {
   }
 
   /**
-   * Create a new folder in Google Drive.
+   * Create a new folder in Google Drive
    *
-   * @summary Create a Google Drive folder.
+   * @summary Create a Google Drive folder
    *
    * @param headers
-   * @param input The name of the folder to be created.
-   *
-   * @returns The unique ID of the created folder.
+   * @param input The name of the folder to be created
+   * @returns The unique ID of the created folder
    */
   @Standalone()
   @RouteIcon(
@@ -76,13 +71,11 @@ export class GoogleDriveController {
   }
 
   /**
-   * Create a new file in Google Drive.
+   * Create a new file in Google Drive
    *
-   * @summary Create a Google Drive file.
-   *
-   * @param input The name of the file to be created and the unique ID of the folder where the file will be created.
-   *
-   * @returns The unique ID of the created file.
+   * @summary Create a Google Drive file
+   * @param input The name of the file to be created and the unique ID of the folder where the file will be created
+   * @returns The unique ID of the created file
    */
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleDrive_full.svg",
@@ -96,11 +89,10 @@ export class GoogleDriveController {
   }
 
   /**
-   * Delete a file in Google Drive.
+   * Delete a file in Google Drive
    *
-   * @summary Delete a Google Drive file.
-   *
-   * @param id The unique ID of the file to be deleted.
+   * @summary Delete a Google Drive file
+   * @param id The unique ID of the file to be deleted
    */
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleDrive_full.svg",
@@ -110,7 +102,7 @@ export class GoogleDriveController {
   async deleteFile(
     /**
      * @title File to delete
-     * @description Please select the file to delete.
+     * @description Please select the file to delete
      */
     @Prerequisite({
       neighbor: () => GoogleDriveController.prototype.fileList,
@@ -125,11 +117,10 @@ export class GoogleDriveController {
   }
 
   /**
-   * Delete a folder in Google Drive.
+   * Delete a folder in Google Drive
    *
-   * @summary Delete a Google Drive folder.
-   *
-   * @param id The unique ID of the folder to be deleted.
+   * @summary Delete a Google Drive folder
+   * @param id The unique ID of the folder to be deleted
    */
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleDrive_full.svg",
@@ -139,7 +130,7 @@ export class GoogleDriveController {
   async deleteFolder(
     /**
      * @title Folder to delete
-     * @description Please select the folder to delete.
+     * @description Please select the folder to delete
      */
     @Prerequisite({
       neighbor: () => GoogleDriveController.prototype.folderList,
@@ -154,11 +145,10 @@ export class GoogleDriveController {
   }
 
   /**
-   * Grants permission to access a file or folder.
+   * Grants permission to access a file or folder
    *
-   * @summary Grant Google Drive permission.
-   *
-   * @param input Information for granting permission.
+   * @summary Grant Google Drive permission
+   * @param input Information for granting permission
    */
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleDrive_full.svg",
@@ -172,13 +162,11 @@ export class GoogleDriveController {
   }
 
   /**
-   * Read text from a file.
+   * Read text from a file
    *
-   * @summary Read text from a Google Drive file.
-   *
-   * @param id Unique ID of the file.
-   *
-   * @returns The text content of the file.
+   * @summary Read text from a Google Drive file
+   * @param id Unique ID of the file
+   * @returns The text content of the file
    */
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleDrive_full.svg",
@@ -188,7 +176,7 @@ export class GoogleDriveController {
   async readFile(
     /**
      * @title File to read
-     * @description Please select the file to read.
+     * @description Please select the file to read
      */
     @Prerequisite({
       neighbor: () => GoogleDriveController.prototype.fileList,

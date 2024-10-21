@@ -29,7 +29,7 @@ export namespace ICsv {
     /**
      * Read csv file data.
      *
-     * @title csv data list.
+     * @title csv data list
      */
     data: {
       [key: string]: string;

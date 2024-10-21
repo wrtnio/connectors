@@ -10,7 +10,7 @@ import { ICommon } from "../common/ISecretValue";
  * commenter: Grants comment permissions. Users with this permission can read and comment on files.
  * reader: Grants read permissions. Users with this permission can read files.
  *
- * @title Type of permission.
+ * @title Type of permission
  */
 type PermissionRoles =
   | "owner"
@@ -26,7 +26,7 @@ type PermissionRoles =
  * domain - A specific domain, in this case you must specify the domain to which you want to grant the permission in the domain field.
  * anyone - All users
  *
- * @title The target to whom you want to grant the permission.
+ * @title The target to whom you want to grant the permission
  */
 type PermissionTypes = "user" | "group" | "domain" | "anyone";
 
@@ -37,7 +37,7 @@ interface IPermission {
   /**
    * The email address of the user to grant permission to.
    *
-   * @title The email address of the user to grant permission to.
+   * @title The email address of the user to grant permission to
    */
   email: string & tags.Format<"email">;
 
@@ -53,7 +53,7 @@ interface IPermission {
    *
    * There are only six possible values: "owner", "writer", "commenter", "reader", "organizer", "fileOrganizer".
    *
-   * @title The permission to grant.
+   * @title The permission to grant
    */
   role: PermissionRoles;
 
@@ -67,7 +67,7 @@ interface IPermission {
    *
    * There are only four possible values: "user", "group", "domain", "anyone".
    *
-   * @title The type of permission to grant.
+   * @title The type of permission to grant
    */
   type: PermissionTypes;
 }
@@ -76,14 +76,14 @@ interface IGoogleDocs {
   /**
    * Here is the text information from Google Docs.
    *
-   * @title text information.
+   * @title text information
    */
   text?: string;
 
   /**
    * Here is the table information from Google Docs.
    *
-   * @title Table Information.
+   * @title Table Information
    */
   table?: string[][][];
 }
@@ -96,7 +96,7 @@ export namespace IGoogleDocs {
     /**
      * The ID of the generated docs.
      *
-     * @title Generated docs id.
+     * @title Generated docs id
      */
     id: string;
   }
@@ -115,7 +115,7 @@ export namespace IGoogleDocs {
     /**
      * The title of the docs to be generated.
      *
-     * @title Google docs title.
+     * @title Google docs title
      */
     title: string;
   }
@@ -134,7 +134,7 @@ export namespace IGoogleDocs {
     /**
      * The id of the Google docs to which you want to grant access.
      *
-     * @title Google docs id.
+     * @title Google docs id
      */
     documentId: string &
       Prerequisite<{
@@ -149,7 +149,7 @@ export namespace IGoogleDocs {
     /**
      * Here is a list of emails to make accessible and the permissions to grant.
      *
-     * @title Here is a list of emails to make accessible and the permissions to grant.
+     * @title Here is a list of emails to make accessible and the permissions to grant
      */
     permissions: IPermission[];
   }
@@ -161,7 +161,7 @@ export namespace IGoogleDocs {
     /**
      * This is data from Google docs that I read.
      *
-     * @title Google docs data.
+     * @title Google docs data
      */
     data: IGoogleDocs;
   }
@@ -178,9 +178,9 @@ export namespace IGoogleDocs {
       ]
     > {
     /**
-     * Google docs to clone.
+     * Google docs to clone
      *
-     * @title Google docs to clone.
+     * @title Google docs to clone
      */
     templateId: string &
       Prerequisite<{
@@ -193,9 +193,9 @@ export namespace IGoogleDocs {
       }>;
 
     /**
-     * The title of the docs to be newly created by duplicating.
+     * The title of the docs to be newly created by duplicating
      *
-     * @title The title of the docs to be created.
+     * @title The title of the docs to be created
      */
     title: string;
   }
@@ -205,9 +205,9 @@ export namespace IGoogleDocs {
    */
   export interface ICreateDocByTemplateOutput {
     /**
-     * The id of the copied docs.
+     * The id of the copied docs
      *
-     * @title Generated docs id.
+     * @title Generated docs id
      */
     id: string;
   }
@@ -219,20 +219,20 @@ export namespace IGoogleDocs {
     /**
      * Here is a list of Google docs that were searched.
      *
-     * @title List of Google docs.
+     * @title List of Google docs
      */
     data: {
       /**
        * The id of the imported Google docs.
        *
-       * @title Google docs id.
+       * @title Google docs id
        */
       id?: string | null;
 
       /**
        * The title of the imported Google docs.
        *
-       * @title Google docs title.
+       * @title Google docs title
        */
       title?: string | null;
     }[];
@@ -252,7 +252,7 @@ export namespace IGoogleDocs {
     /**
      * Select the Google docs you want to add text to.
      *
-     * @title Google docs.
+     * @title Google docs
      */
     documentId: string &
       Prerequisite<{
@@ -267,7 +267,7 @@ export namespace IGoogleDocs {
     /**
      * The text to add.
      *
-     * @title text.
+     * @title text
      */
     text: string;
   }

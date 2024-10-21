@@ -3,23 +3,20 @@ import { Controller } from "@nestjs/common";
 
 import { ITypeform } from "@wrtn/connector-api/lib/structures/connector/typeform/ITypeform";
 
+import { ApiTags } from "@nestjs/swagger";
+import { Prerequisite, RouteIcon } from "@wrtnio/decorators";
 import { TypeformProvider } from "../../../providers/connector/typeform/TypeformProvider";
 import { retry } from "../../../utils/retry";
-import { Prerequisite, RouteIcon } from "@wrtnio/decorators";
-import { ApiTags } from "@nestjs/swagger";
 
 @Controller("connector/typeform")
 export class TypeformController {
   constructor(private readonly typeformProvider: TypeformProvider) {}
   /**
-   * Create a workspace.
+   * Create a workspace
    *
-   * @summary Create a Typeform workspace.
-   *
-   * @param input Title of the workspace to create.
-   *
-   * @returns The created workspace ID, title, and URL.
-
+   * @summary Create a Typeform workspace
+   * @param input Title of the workspace to create
+   * @returns The created workspace ID, title, and URL
    */
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/typeform.svg",
@@ -33,12 +30,10 @@ export class TypeformController {
   }
 
   /**
-   * Delete a workspace.
+   * Delete a workspace
    *
-   * @summary Delete a Typeform workspace.
-   *
-   * @param workspaceId The workspace ID to delete.
-
+   * @summary Delete a Typeform workspace
+   * @param workspaceId The workspace ID to delete
    */
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/typeform.svg",
@@ -49,7 +44,7 @@ export class TypeformController {
     @core.TypedBody() input: ITypeform.ISecret,
     /**
      * @title Workspace to delete
-     * @description Please select the workspace to delete.
+     * @description Please select the workspace to delete
      */
     @Prerequisite({
       neighbor: () => TypeformController.prototype.getWorkspaces,
@@ -64,12 +59,10 @@ export class TypeformController {
   }
 
   /**
-   * Get workspace information.
+   * Get workspace information
    *
-   * @summary Get Typeform workspace information.
-   *
-   * @returns Workspace ID, Title, URL.
-
+   * @summary Get Typeform workspace information
+   * @returns Workspace ID, Title, URL
    */
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/typeform.svg",
@@ -83,13 +76,11 @@ export class TypeformController {
   }
 
   /**
-   * Create an empty form in the workspace.
+   * Create an empty form in the workspace
    *
-   * @summary Typeform Create an empty form.
-   *
-   * @param input The title of the form to be created.
-   *
-   * @returns The ID, title, and type of the generated form.
+   * @summary Typeform Create an empty form
+   * @param input The title of the form to be created
+   * @returns The ID, title, and type of the generated form
 
    */
   @RouteIcon(
@@ -104,12 +95,10 @@ export class TypeformController {
   }
 
   /**
-   * Get a list of forms that exist in the workspace.
+   * Get a list of forms that exist in the workspace
    *
-   * @summary Get a list of Typeform forms.
-   *
-   * @returns form ID, title.
-
+   * @summary Get a list of Typeform forms
+   * @returns form ID, title
    */
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/typeform.svg",
@@ -123,14 +112,11 @@ export class TypeformController {
   }
 
   /**
-   * Copy a form that exists in the workspace.
+   * Copy a form that exists in the workspace
    *
-   * @summary Copy a Typeform form.
-   *
-   * @param input The name of the form to copy and create.
-   *
-   * @returns The generated form ID, title, and type.
-
+   * @summary Copy a Typeform form
+   * @param input The name of the form to copy and create
+   * @returns The generated form ID, title, and type
    */
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/typeform.svg",
@@ -144,12 +130,10 @@ export class TypeformController {
   }
 
   /**
-   * Get the field information of the form to update the options of the ranking, dropdown, and multiple choice questions.
+   * Get the field information of the form to update the options of the ranking, dropdown, and multiple choice questions
    *
-   * @summary Get the field information of the form to update Typeform.
-   *
-   * @returns The field ID and field name of the form.
-
+   * @summary Get the field information of the form to update Typeform
+   * @returns The field ID and field name of the form
    */
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/typeform.svg",
@@ -165,12 +149,10 @@ export class TypeformController {
   }
 
   /**
-   * Updates options for ranking, dropdown, and multiple choice questions.
+   * Updates options for ranking, dropdown, and multiple choice questions
    *
-   * @summary Updates Typeform form field options.
-   *
-   * @param input The name of the form field to update and the value to update.
-
+   * @summary Updates Typeform form field options
+   * @param input The name of the form field to update and the value to update
    */
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/typeform.svg",
@@ -184,12 +166,10 @@ export class TypeformController {
   }
 
   /**
-   * Delete a form.
+   * Delete a form
    *
-   * @summary Delete a typeform form.
-   *
-   * @param formId The ID of the form to delete.
-
+   * @summary Delete a typeform form
+   * @param formId The ID of the form to delete
    */
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/typeform.svg",

@@ -25,7 +25,7 @@ export namespace IImweb {
   }
 
   /**
-   * @title Product Inquiry Request DTO.
+   * @title Product Inquiry Request
    */
   export interface IGetProductInput extends IImweb.Credential {
     /**
@@ -191,7 +191,7 @@ export namespace IImweb {
     point: IImweb.PointConfigData;
 
     /**
-     * @title Set Discount Usage.
+     * @title Set Discount Usage
      */
     product_discount_options: (
       | tags.Constant<"coupon", { title: "Coupon" }>

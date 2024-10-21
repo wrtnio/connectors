@@ -4,9 +4,9 @@ import { Prerequisite, RouteIcon, Standalone } from "@wrtnio/decorators";
 
 import { IGmail } from "@wrtn/connector-api/lib/structures/connector/gmail/IGmail";
 
+import { ApiTags } from "@nestjs/swagger";
 import { GmailProvider } from "../../../providers/connector/gmail/GmailProvider";
 import { retry } from "../../../utils/retry";
-import { ApiTags } from "@nestjs/swagger";
 
 @Controller("connector/gmail")
 export class GmailController {
@@ -118,7 +118,7 @@ export class GmailController {
   async findEmail(
     /**
      * @title Email to retrieve
-     * @description Please select the email to retrieve.
+     * @description Please select the email to retrieve
      */
     @Prerequisite({
       neighbor: () => GmailController.prototype.findEmails,
@@ -138,8 +138,8 @@ export class GmailController {
    * Gmail is a free web-based email service provided by Google.
    *
    * @summary Get GMAIL list
-   * @param input Information for getting mailing list.
-   * @returns Mailing list.
+   * @param input Information for getting mailing list
+   * @returns Mailing list
    */
   @Standalone()
   @RouteIcon(
@@ -164,7 +164,7 @@ export class GmailController {
    *
    * Therefore, if the user wants to delete it, it is better to guide them to move the mail to the trash, but if they still want to delete it, it is right to target the trash.
    *
-   * @summary Delete mail.
+   * @summary Delete mail
    * @param id
    * @param input
    * @returns
@@ -197,7 +197,7 @@ export class GmailController {
    * Gmail is a free web-based email service provided by Google.
    *
    * @summary Delete GMAIL
-   * @param id The unique ID of the email to be deleted.
+   * @param id The unique ID of the email to be deleted
    */
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleMail_full.svg",
@@ -227,8 +227,8 @@ export class GmailController {
    * Gmail is a free web-based email service provided by Google.
    *
    * @summary Create GMAIL label
-   * @param input Information for creating a label.
-   * @returns Unique ID of the created label.
+   * @param input Information for creating a label
+   * @returns Unique ID of the created label
    */
   @Standalone()
   @RouteIcon(
@@ -248,8 +248,8 @@ export class GmailController {
    * Gmail is a free web-based email service provided by Google.
    *
    * @summary GMAIL Label Assignment
-   * @param mailId Unique ID of the mail to assign a label to.
-   * @param input A list of unique IDs of labels to assign.
+   * @param mailId Unique ID of the mail to assign a label to
+   * @param input A list of unique IDs of labels to assign
    */
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleMail_full.svg",

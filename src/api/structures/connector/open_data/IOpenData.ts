@@ -330,7 +330,7 @@ export namespace IOpenData {
  */
 export namespace IKoreaMeteorologicalAdministration {
   /**
-   * @title Code values expressed in short-term forecasts.
+   * @title Code values expressed in short-term forecasts
    */
   export type CategoryType =
     | tags.Constant<
@@ -448,17 +448,21 @@ export namespace IKoreaMeteorologicalAdministration {
         items: {
           item: {
             /**
-             * @title Date value composed of year, month, and day, e.g., `20240619`.
+             * @title Date value composed of year, month, and day
+             *
+             * e.g., `20240619`
              */
             baseDate: `${number}`;
 
             /**
-             * @title Time value indicating the exact hour, e.g., `1200`.
+             * @title Time value indicating the exact hour
+             *
+             * e.g., `1200`
              */
             baseTime: `${number}`;
 
             /**
-             * @title Category.
+             * @title Category
              */
             category: IKoreaMeteorologicalAdministration.CategoryType;
 
@@ -468,12 +472,12 @@ export namespace IKoreaMeteorologicalAdministration {
             nx: number;
 
             /**
-             * @title Y-coordinate of the grid point value.
+             * @title Y-coordinate of the grid point value
              */
             ny: number;
 
             /**
-             * @title Value corresponding to the category.
+             * @title Value corresponding to the category
              */
             obsrValue: `${number}`;
           }[];
@@ -490,12 +494,16 @@ export namespace IKoreaMeteorologicalAdministration {
   export type IWeatherResponse = IGetForecastOutput[] | IOpenWeather.IResponse;
   export interface IGetForecastOutput {
     /**
-     * @title Date value composed of year, month, and day, e.g., `20240619`.
+     * @title Date value composed of year, month, and day
+     *
+     * e.g., `20240619`
      */
     baseDate: `${number}`;
 
     /**
-     * @title Time value indicating the exact hour, e.g., `1200`.
+     * @title Time value indicating the exact hour
+     *
+     * e.g., `1200`
      */
     baseTime: `${number}`;
 

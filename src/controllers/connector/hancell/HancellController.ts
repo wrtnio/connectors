@@ -4,15 +4,15 @@ import { RouteIcon, Standalone } from "@wrtnio/decorators";
 
 import { IHancell } from "@wrtn/connector-api/lib/structures/connector/hancell/IHancell";
 
+import { ApiTags } from "@nestjs/swagger";
 import { HancellProvider } from "../../../providers/connector/hancell/HancellProvider";
 import { retry } from "../../../utils/retry";
-import { ApiTags } from "@nestjs/swagger";
 @Controller("connector/hancell")
 export class HancellController {
   constructor(private readonly hancellProvider: HancellProvider) {}
 
   /**
-   * Modify a Hansel sheet.
+   * Modify a Hansel sheet
    *
    * If the sheet already exists, modify it, or add it if it did not exist before.
    *
@@ -32,7 +32,7 @@ export class HancellController {
   }
 
   /**
-   * Read a Hansel file.
+   * Read a Hansel file
    *
    * @summary Read a Hansel file
    * @param input Hansel file information to read

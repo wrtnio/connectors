@@ -10,14 +10,14 @@ export namespace IGmail {
     /**
      * The email address of the recipient.
      *
-     * @title Recipient's email address.
+     * @title Recipient's email address
      */
     to: string[];
 
     /**
      * Subject of the email to be sent.
      *
-     * @title Email subject.
+     * @title Email subject
      */
     subject: string;
 
@@ -29,14 +29,14 @@ export namespace IGmail {
     /**
      * Email address of the person to be referenced.
      *
-     * @title Email address of the person to be referenced.
+     * @title Email address of the person to be referenced
      */
     cc?: string[];
 
     /**
      * Bcc email address.
      *
-     * @title Bcc email address.
+     * @title Bcc email address
      */
     Bcc?: string[];
 
@@ -63,7 +63,7 @@ export namespace IGmail {
     /**
      * The ID of the sent email.
      *
-     * @title The ID of the sent email.
+     * @title The ID of the sent email
      */
     id: string;
   }
@@ -76,7 +76,7 @@ export namespace IGmail {
     /**
      * Phrase to reply.
      *
-     * @title Phrase to reply.
+     * @title Phrase to reply
      */
     replyText: string;
   }
@@ -88,14 +88,14 @@ export namespace IGmail {
     /**
      * Label text color.
      *
-     * @title Label text color.
+     * @title Label text color
      */
     textColor: string;
 
     /**
      * Label background color.
      *
-     * @title Label background color.
+     * @title Label background color
      */
     backgroundColor: string;
   }
@@ -108,7 +108,7 @@ export namespace IGmail {
     /**
      * The name of the label to create.
      *
-     * @title Label name.
+     * @title Label name
      */
     labelName: string;
 
@@ -123,7 +123,7 @@ export namespace IGmail {
      *
      * Only three possible values are available: labelHide, labelShow, and labelShowIfUnread.
      *
-     * @title Visibility status of the label.
+     * @title Visibility status of the label
      */
     labelListVisibility?: labelListVisibility;
 
@@ -137,14 +137,14 @@ export namespace IGmail {
      *
      * There are only two possible values: hide and show.
      *
-     * @title The visibility status of the labeled mail.
+     * @title The visibility status of the labeled mail
      */
     messageListVisibility?: messageListVisibility;
 
     /**
      * Color of the mail label to be generated
      *
-     * @title Label Color.
+     * @title Label Color
      */
     color?: ILabelColor;
   }
@@ -154,7 +154,7 @@ export namespace IGmail {
    * - labelShow: visible
    * - labelShowIfUnread: visible when unread
    *
-   * @title Label visibility status.
+   * @title Label visibility status
    */
   type labelListVisibility = "labelHide" | "labelShow" | "labelShowIfUnread";
 
@@ -173,7 +173,7 @@ export namespace IGmail {
     /**
      * The id of the generated label.
      *
-     * @title Generated label id.
+     * @title Generated label id
      */
     id: string;
   }
@@ -186,7 +186,7 @@ export namespace IGmail {
     /**
      * A list of labels to assign or remove.
      *
-     * @title A list of labels.
+     * @title A list of labels
      */
     labelIds: string[];
   }
@@ -199,56 +199,56 @@ export namespace IGmail {
     /**
      * The email address of the sender of the email.
      *
-     * @title The email of the sender.
+     * @title The email of the sender
      */
     from?: string;
 
     /**
      * The email address of the recipient.
      *
-     * @title The email address of the recipient.
+     * @title The email address of the recipient
      */
     to?: string;
 
     /**
      * Email Subject.
      *
-     * @title Email Subject.
+     * @title Email Subject
      */
     subject?: string;
 
     /**
      * Returns only emails after a given date.
      *
-     * @title After a specific date.
+     * @title After a specific date
      */
     after?: string;
 
     /**
      * Returns only emails before a given date.
      *
-     * @title Before a specific date.
+     * @title Before a specific date
      */
     before?: string; // 특정 날짜 이전
 
     /**
      * Label assigned to the email.
      *
-     * @title Label assigned to the email.
+     * @title Label assigned to the email
      */
     label?: string;
 
     /**
      * Number of returned mails.
      *
-     * @title Maximum number of returned mails.
+     * @title Maximum number of returned mails
      */
     maxResults?: number & tags.Maximum<500> & tags.Minimum<1>;
 
     /**
      * A list of labels to return only emails with labels that all match the specified label ID.
      *
-     * @title A list of labels to filter by.
+     * @title A list of labels to filter by
      */
     labelIds?: string[];
   }
@@ -260,7 +260,7 @@ export namespace IGmail {
     /**
      * Searched gmail data information.
      *
-     * @title gmail search data information.
+     * @title gmail search data information
      */
     data: IFindGmailOutput[];
   }
@@ -272,42 +272,42 @@ export namespace IGmail {
     /**
      * Unique id of the email.
      *
-     * @title Email id.
+     * @title Email id
      */
     id?: string | null;
 
     /**
      * Label id assigned to the email.
      *
-     * @title Email Label id.
+     * @title Email Label id
      */
     labelIds?: string[] | null;
 
     /**
      * The email address of the person who sent the email.
      *
-     * @title Sender Email.
+     * @title Sender Email
      */
     from?: string | null;
 
     /**
      * The subject of the email.
      *
-     * @title Subject.
+     * @title Subject
      */
     subject?: string | null;
 
     /**
      * Summary of the body of the email.
      *
-     * @title Summary of the body.
+     * @title Summary of the body
      */
     body?: string | null;
 
     /**
      * List of files attached to the email.
      *
-     * @title Attachments.
+     * @title Attachments
      */
     attachments?: IAttachmentOutput[] | null;
   }
@@ -320,35 +320,35 @@ export namespace IGmail {
     /**
      * The immutable ID of the message part.
      *
-     * @title The immutable ID of the message part.
+     * @title The immutable ID of the message part
      */
     partId?: string | null;
 
     /**
      * The MIME type of the message.
      *
-     * @title The MIME type of the message part.
+     * @title The MIME type of the message part
      */
     mimeType?: string | null;
 
     /**
      * This message part will only be displayed if it indicates an attachment.
      *
-     * @title Attachment name.
+     * @title Attachment name
      */
     filename?: string | null;
 
     /**
      * The top-level message portion, which represents the entire message payload, contains standard RFC 2822 email headers such as To, From, and Subject.
      *
-     * @title Attachment header information.
+     * @title Attachment header information
      */
     headers?: IAttachmentHeader[] | null;
 
     /**
      * The body of the message part of this section, which may be empty for container MIME message parts.
      *
-     * @title Attachment header body information.
+     * @title Attachment header body information
      */
     body?: IAttachmentBody | null;
   }
@@ -360,14 +360,14 @@ export namespace IGmail {
     /**
      * Attachment header type.
      *
-     * @title Attachment header type.
+     * @title Attachment header type
      */
     name?: string | null;
 
     /**
      * Attachment header value.
      *
-     * @title Attachment header value.
+     * @title Attachment header value
      */
     value?: string | null;
   }
@@ -379,14 +379,14 @@ export namespace IGmail {
     /**
      * The unique ID of the attached file.
      *
-     * @title Attachment file id.
+     * @title Attachment file id
      */
     attachmentId?: string | null;
 
     /**
      * The number of bytes in the attachment data.
      *
-     * @title The number of bytes in the attachment data.
+     * @title The number of bytes in the attachment data
      */
     size?: (number & tags.Type<"int32">) | null;
   }

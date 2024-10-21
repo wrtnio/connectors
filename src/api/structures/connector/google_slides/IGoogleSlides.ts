@@ -119,7 +119,7 @@ export namespace IGoogleSlides {
   }
 
   /**
-   * @title Request DTO for pasting slides.
+   * @title Request DTO for pasting slides
    */
   export interface AppendSlideInput
     extends ICommon.ISecret<
@@ -129,13 +129,13 @@ export namespace IGoogleSlides {
     /**
      * When creating a story or picture book, please use only squares.
      *
-     * @title A list of templates to create at once.
+     * @title A list of templates to create at once
      */
     templates: IGoogleSlides.Template[];
   }
 
   /**
-   * @title A template for limiting the input form to fit the user's use case.
+   * @title A template for limiting the input form to fit the user's use case
    *
    * The name of the type was determined based on the location of the image.
    */
@@ -156,7 +156,7 @@ export namespace IGoogleSlides {
      */
     export type Vertical = {
       /**
-       * @title The type of the template.
+       * @title The type of the template
        *
        * type must be "Vertical"
        */
@@ -179,7 +179,7 @@ export namespace IGoogleSlides {
         url: string & tags.Format<"iri">;
 
         /**
-         * @title Text corresponding to the image.
+         * @title Text corresponding to the image
          */
         text: InsertText;
       };
@@ -192,7 +192,7 @@ export namespace IGoogleSlides {
      */
     export type Square = {
       /**
-       * @title The type of the template.
+       * @title The type of the template
        *
        * type must be "Square".
        */
@@ -215,7 +215,7 @@ export namespace IGoogleSlides {
         url: string & tags.Format<"iri">;
 
         /**
-         * @title Text corresponding to the image.
+         * @title Text corresponding to the image
          */
         text: InsertText;
       };
@@ -226,7 +226,7 @@ export namespace IGoogleSlides {
      */
     export type Landscape = {
       /**
-       * @title The type of the template.
+       * @title The type of the template
        *
        * type must be "Landscape".
        */
@@ -249,7 +249,7 @@ export namespace IGoogleSlides {
         url: string & tags.Format<"iri">;
 
         /**
-         * @title Text corresponding to the image.
+         * @title Text corresponding to the image
          */
         text: InsertText;
       };
@@ -260,7 +260,7 @@ export namespace IGoogleSlides {
      */
     export type Entire = {
       /**
-       * @title The type of the template.
+       * @title The type of the template
        *
        * type must be "Entire".
        */
@@ -289,7 +289,7 @@ export namespace IGoogleSlides {
      */
     export type QuarterDivision = {
       /**
-       * @title The type of the template.
+       * @title The type of the template
        *
        * type must be "QuarterDivision".
        */
@@ -315,7 +315,7 @@ export namespace IGoogleSlides {
         url: string & tags.Format<"iri">;
 
         /**
-         * @title Text corresponding to the image.
+         * @title Text corresponding to the image
          */
         text: InsertText;
       }[] &
@@ -328,7 +328,7 @@ export namespace IGoogleSlides {
      */
     export type SixthDivision = {
       /**
-       * @title The type of the template.
+       * @title The type of the template
        *
        * type must be "SixthDivision".
        */
@@ -353,7 +353,7 @@ export namespace IGoogleSlides {
           url: string & tags.Format<"iri">;
 
           /**
-           * @title Text corresponding to the image.
+           * @title Text corresponding to the image
            */
           text: InsertText;
         }
@@ -365,7 +365,7 @@ export namespace IGoogleSlides {
      */
     export type Exhibition = {
       /**
-       * @title The type of the template.
+       * @title The type of the template
        *
        * type must be "Exhibition".
        */
@@ -388,12 +388,12 @@ export namespace IGoogleSlides {
         url: string & tags.Format<"iri">;
 
         /**
-         * @title The title part of the text corresponding to the image.
+         * @title The title part of the text corresponding to the image
          */
         header: InsertText;
 
         /**
-         * @title The body part of the text corresponding to the image.
+         * @title The body part of the text corresponding to the image
          */
         body: InsertText;
       };
@@ -408,7 +408,7 @@ export namespace IGoogleSlides {
      */
     export type Corner = {
       /**
-       * @title The type of the template.
+       * @title The type of the template
        *
        * type must be "Corner".
        */
@@ -431,12 +431,12 @@ export namespace IGoogleSlides {
         url: string & tags.Format<"iri">;
 
         /**
-         * @title The title part of the text corresponding to the image.
+         * @title The title part of the text corresponding to the image
          */
         header: InsertText;
 
         /**
-         * @title The body part of the text corresponding to the image.
+         * @title The body part of the text corresponding to the image
          */
         body: InsertText;
       };
@@ -451,7 +451,7 @@ export namespace IGoogleSlides {
      */
     export type CornerHalf = {
       /**
-       * @title The type of the template.
+       * @title The type of the template
        *
        * type must be "CornerHalf".
        */
@@ -474,12 +474,12 @@ export namespace IGoogleSlides {
         url: NTpule<2, string & tags.Format<"iri">>;
 
         /**
-         * @title The title part of the text corresponding to the image.
+         * @title The title part of the text corresponding to the image
          */
         header: InsertText;
 
         /**
-         * @title The body part of the text corresponding to the image.
+         * @title The body part of the text corresponding to the image
          */
         body: InsertText;
       };
@@ -487,7 +487,7 @@ export namespace IGoogleSlides {
   }
 
   /**
-   * @title Condition DTO of the presentation to be modified.
+   * @title Condition DTO of the presentation to be modified
    */
   export interface IUpdatePresentationInput
     extends ICommon.ISecret<
@@ -495,7 +495,7 @@ export namespace IGoogleSlides {
       ["https://www.googleapis.com/auth/presentations"]
     > {
     /**
-     * @title The ID of the presentation to be modified.
+     * @title The ID of the presentation to be modified
      */
     requests: BatchUpdateInput[];
   }
@@ -503,7 +503,7 @@ export namespace IGoogleSlides {
   export type BatchUpdateInput =
     | {
         /**
-         * @title Information about the new slide to be created.
+         * @title Information about the new slide to be created
          */
         createSlide: CreateSlideRequest;
       }
@@ -689,7 +689,7 @@ export namespace IGoogleSlides {
   }
 
   /**
-   * @title Condition DTO for presentation search.
+   * @title Condition DTO for presentation search
    */
   export interface IGetPresentationInput
     extends ICommon.ISecret<
@@ -697,13 +697,13 @@ export namespace IGoogleSlides {
       ["https://www.googleapis.com/auth/presentations"]
     > {
     /**
-     * @title The presentation ID to search for.
+     * @title The presentation ID to search for
      */
     presentationId: string;
   }
 
   /**
-   * @title Request DTO for generating a presentation in Google Slides.
+   * @title Request DTO for generating a presentation in Google Slides
    */
   export type ICreatePresentationInput = ICommon.ISecret<
     "google",
@@ -712,33 +712,33 @@ export namespace IGoogleSlides {
     MyPick<Presentation, "title">;
 
   /**
-   * @title Google Slides의 Presentation resource.
+   * @title Google Slides의 Presentation resource
    */
   export interface Presentation {
     /**
-     * @title Presentation ID.
+     * @title Presentation ID
      */
     presentationId?: string | null;
 
     /**
-     * @title The page size of the presentation.
+     * @title The page size of the presentation
      */
     pageSize?: Size;
 
     /**
-     * @@title A slide in a presentation.
+     * @@title A slide in a presentation
      *
      * Slides inherit properties from the slide layout.
      */
     slides?: Page[];
 
     /**
-     * @title The title of the presentation.
+     * @title The title of the presentation
      */
     title?: string | null;
 
     /**
-     * @title The slide master of a presentation.
+     * @title The slide master of a presentation
      *
      * The slide master contains all the common page elements and common properties for a set of layouts. It serves three purposes:
      *
@@ -749,7 +749,7 @@ export namespace IGoogleSlides {
     masters?: Page[];
 
     /**
-     * @title A template that aligns and styles content.
+     * @title A template that aligns and styles content
      *
      * A layout in a presentation is a template that determines how content is aligned and styled on slides inherited from that layout.
      */
@@ -766,7 +766,7 @@ export namespace IGoogleSlides {
       | null;
 
     /**
-     * @title ID of the presentation version for printing only.
+     * @title ID of the presentation version for printing only
      *
      * Can be used in update requests to assert that the presentation version has not changed since the last read operation.
      *
@@ -787,37 +787,37 @@ export namespace IGoogleSlides {
     revisionId?: string | null;
 
     /**
-     * @title Note Master for Presentation.
+     * @title Note Master for Presentation
      */
     notesMaster?: Page;
   }
 
   export interface Size {
     /**
-     * @title Width of the object.
+     * @title Width of the object
      */
     width?: Dimension;
 
     /**
-     * @title The height of the object.
+     * @title The height of the object
      */
     height?: Dimension;
   }
 
   export interface Dimension {
     /**
-     * @title scale.
+     * @title scale
      */
     magnitude?: number | null;
 
     /**
-     * @title Size units.
+     * @title Size units
      */
     unit?: Unit | null;
   }
 
   /**
-   * @title Unit of measurement.
+   * @title Unit of measurement
    */
   export type Unit =
     | tags.Constant<"UNIT_UNSPECIFIED", { title: "알 수 없는 단위" }>
@@ -841,7 +841,7 @@ export namespace IGoogleSlides {
     pageType?: "SLIDE";
 
     /**
-     * @title Slides a specific property.
+     * @title Slides a specific property
      */
     slideProperties: SlideProperties;
   }
@@ -850,7 +850,7 @@ export namespace IGoogleSlides {
     pageType?: "LAYOUT";
 
     /**
-     * @title layout property.
+     * @title layout property
      */
     layoutProperties: LayoutProperties;
   }
@@ -859,7 +859,7 @@ export namespace IGoogleSlides {
     pageType?: "NOTES";
 
     /**
-     * @title memo attribute.
+     * @title memo attribute
      */
     notesProperties: NotesProperties;
   }
@@ -867,7 +867,7 @@ export namespace IGoogleSlides {
   export interface MasterPage extends PageBase {
     pageType?: "MASTER";
     /**
-     * @title Master specific attributes.
+     * @title Master specific attributes
      */
     masterProperties: MasterProperties;
   }
@@ -877,65 +877,65 @@ export namespace IGoogleSlides {
 
   export type PageBase = {
     /**
-     * @title The object ID of this page.
+     * @title The object ID of this page
      *
      * The object IDs used by `Page` and `PageElement` share the same namespace.
      */
     objectId?: string | null;
 
     /**
-     * @title Page type.
+     * @title Page type
      */
     pageType?: PageType | null;
 
     /**
-     * @title The page element rendered on the page.
+     * @title The page element rendered on the page
      */
     pageElements?: PageElement[];
 
     /**
-     * @title Attributes of the page.
+     * @title Attributes of the page
      */
     pageProperties?: PageProperties;
   };
 
   export interface MasterProperties {
     /**
-     * @title Human-readable master name.
+     * @title Human-readable master name
      */
     displayName?: string | null;
   }
 
   /**
-   * @title pageType A Page property that is relevant only to pages that have NOTES.
+   * @title pageType A Page property that is relevant only to pages that have NOTES
    */
   export interface NotesProperties {
     /**
-     * @title The object ID of the shape on this notes page that contains the presenter notes for that slide.
+     * @title The object ID of the shape on this notes page that contains the presenter notes for that slide
      */
     speakerNotesObjectId?: string | null;
   }
 
   export interface LayoutProperties {
     /**
-     * @title The object ID of the master on which this layout is based.
+     * @title The object ID of the master on which this layout is based
      */
     masterObjectId?: string | null;
 
     /**
-     * @title The name of the layout.
+     * @title The name of the layout
      */
     name?: string | null;
 
     /**
-     * @title The human-readable name of the layout.
+     * @title The human-readable name of the layout
      */
     displayName?: string | null;
   }
 
   export interface SlideProperties {
     /**
-     * @title The object ID of the layout that this slide is based on.
+     * @title The object ID of the layout that this slide is based on
      */
     readonly layoutObjectId?: string | null;
 
@@ -945,7 +945,7 @@ export namespace IGoogleSlides {
     readonly masterObjectId?: string | null;
 
     /**
-     * @title This is the notes page associated with this slide.
+     * @title This is the notes page associated with this slide
      *
      * Defines the visual appearance of the notes page when printing or exporting slides that contain speaker notes.
      *
@@ -960,7 +960,7 @@ export namespace IGoogleSlides {
     // readonly notesPage?: Page;
 
     /**
-     * @title Whether to skip slides in presentation mode.
+     * @title Whether to skip slides in presentation mode
      */
     isSkipped?: (boolean & tags.Default<false>) | null;
   }
@@ -976,29 +976,29 @@ export namespace IGoogleSlides {
     pageBackgroundFill?: PageBackgroundFill;
 
     /**
-     * @title Color scheme of the page.
+     * @title Color scheme of the page
      */
     colorScheme?: ColorScheme;
   }
 
   /**
-   * @title Predefined color palette for the page.
+   * @title Predefined color palette for the page
    */
   export interface ColorScheme {
     /**
-     * @title ThemeColorType and its corresponding concrete color pair.
+     * @title ThemeColorType and its corresponding concrete color pair
      */
     colors?: ThemeColorPair[];
   }
 
   export interface ThemeColorPair {
     /**
-     * @title is the theme color type.
+     * @title is the theme color type
      */
     type?: ThemeColorType | null;
 
     /**
-     * @title A specific color corresponding to the theme color type above.
+     * @title A specific color corresponding to the theme color type above
      */
     color?: RgbColor;
   }
@@ -1041,25 +1041,25 @@ export namespace IGoogleSlides {
 
   export type PageBackgroundFill = {
     /**
-     * @title Background fill property status.
+     * @title Background fill property status
      */
     propertyState?: PropertyState | null;
   } & MyPartial<FillOption>;
 
   type FillOption = OneOf<{
     /**
-     * @title Solid color fill.
+     * @title Solid color fill
      */
     solidFill?: SolidFill;
 
     /**
-     * @title Fill in the enlarged photo.
+     * @title Fill in the enlarged photo
      */
     stretchedPictureFill?: StretchedPictureFill;
   }>;
 
   /**
-   * @title Fill stretched image.
+   * @title Fill stretched image
    *
    * Fills a stretched image.
    *
@@ -1069,7 +1069,7 @@ export namespace IGoogleSlides {
    */
   export interface StretchedPictureFill {
     /**
-     * @title The URL of a photo with a default lifetime of 30 minutes.
+     * @title The URL of a photo with a default lifetime of 30 minutes
      *
      * This URL is tagged with the requester account.
      *
@@ -1086,13 +1086,13 @@ export namespace IGoogleSlides {
     contentUrl?: (string & tags.Format<"iri">) | null;
 
     /**
-     * @title Original size of the photo fill.
+     * @title Original size of the photo fill
      */
     readonly size?: Size;
   }
 
   /**
-   * @title Page type.
+   * @title Page type
    */
   export type PageType =
     | tags.Constant<"SLIDE", { title: "슬라이드 페이지" }>
@@ -1102,11 +1102,11 @@ export namespace IGoogleSlides {
     | tags.Constant<"NOTES_MASTER", { title: "메모 마스터 페이지" }>;
 
   /**
-   * @title The page element rendered on the page.
+   * @title The page element rendered on the page
    */
   export type PageElementBase = {
     /**
-     * @title The object ID of this page element.
+     * @title The object ID of this page element
      *
      * The object IDs used by `Page` and `PageElement` share the same namespace.
      */
@@ -1118,7 +1118,7 @@ export namespace IGoogleSlides {
     size?: Size;
 
     /**
-     * @title The transformation of the page element.
+     * @title The transformation of the page element
      *
      * The visual appearance of the page element is determined by its absolute transformation.
      *
@@ -1131,14 +1131,14 @@ export namespace IGoogleSlides {
     transform?: Transform;
 
     /**
-     * @title The title of the page element.
+     * @title The title of the page element
      *
      * Combined with the description, displays alternative text.
      */
     title?: string;
 
     /**
-     * @title Description of the page element.
+     * @title Description of the page element
      *
      * Combined with the title, displays alternative text.
      */
@@ -1152,43 +1152,43 @@ export namespace IGoogleSlides {
 
   export interface ShapePageElement extends PageElementBase {
     /**
-     * @title General shape.
+     * @title General shape
      */
     shape: Shape;
   }
 
   export interface ImagePageElement extends PageElementBase {
     /**
-     * @title image page element.
+     * @title image page element
      */
     image: Image;
   }
 
   export interface LinePageElement extends PageElementBase {
     /**
-     * @title line page element.
+     * @title line page element
      */
     line: Line;
   }
 
   export interface Shape {
     /**
-     * @title Type of shape.
+     * @title Type of shape
      */
     shapeType?: Shape.Type;
 
     /**
-     * @title Text content of the shape.
+     * @title Text content of the shape
      */
     text?: TextContent;
 
     /**
-     * @title Shape properties.
+     * @title Shape properties
      */
     shapeProperties?: ShapeProperties;
 
     /**
-     * @title Placeholder is a page element that inherits from its placeholder in the layout and master.
+     * @title Placeholder is a page element that inherits from its placeholder in the layout and master
      *
      * If set, the shape is a placeholder shape and the inherited properties can be determined by checking the parent placeholder identified by the Placeholder.parent_object_id field.
      */
@@ -1197,7 +1197,7 @@ export namespace IGoogleSlides {
 
   export interface Placeholder {
     /**
-     * @title Type of placeholder.
+     * @title Type of placeholder
      */
     type:
       | tags.Constant<
@@ -1225,14 +1225,14 @@ export namespace IGoogleSlides {
       | tags.Constant<"SLIDE_IMAGE", { title: "슬라이드 이미지입니다." }>;
 
     /**
-     * @title The index of the placeholder.
+     * @title The index of the placeholder
      *
      * If there are the same placeholder type on the same page, the index values are different.
      */
     index?: number & tags.Type<"int64">;
 
     /**
-     * @title The object ID of the parent placeholder of this shape.
+     * @title The object ID of the parent placeholder of this shape
      *
      * If not set, the shape will not inherit properties from other shapes since there is no parent placeholder shape.
      */
@@ -1240,7 +1240,7 @@ export namespace IGoogleSlides {
   }
 
   /**
-   * @title Shape properties.
+   * @title Shape properties
    *
    * If the shape is a placeholder shape determined by the placeholder field, these properties may be inherited from the parent placeholder shape.
    *
@@ -1250,7 +1250,7 @@ export namespace IGoogleSlides {
    */
   export interface ShapeProperties {
     /**
-     * @title Background fill for the shape.
+     * @title Background fill for the shape
      *
      * If the background fill for the shape is not set, the parent placeholder inherits the background fill.
      *
@@ -1259,7 +1259,7 @@ export namespace IGoogleSlides {
     shapeBackgroundFill?: ShapeBackgroundFill;
 
     /**
-     * @title The outline of the shape.
+     * @title The outline of the shape
      *
      * If not set, the outline is inherited from the parent placeholder.
      *
@@ -1268,7 +1268,7 @@ export namespace IGoogleSlides {
     outline?: Outline;
 
     /**
-     * @title Shadow property of the shape.
+     * @title Shadow property of the shape
      *
      * If not set, the shadow is inherited from the parent placeholder.
      *
@@ -1277,7 +1277,7 @@ export namespace IGoogleSlides {
     readonly shadow?: Shadow;
 
     /**
-     * @title The hyperlink target of the shape.
+     * @title The hyperlink target of the shape
      *
      * If not set, the link will not be displayed.
      *
@@ -1295,7 +1295,7 @@ export namespace IGoogleSlides {
     contentAlignment?: ContentAlignment | null;
 
     /**
-     * @title Autofit property of the shape.
+     * @title Autofit property of the shape
      *
      * This property is only set on shapes that accept text.
      */
@@ -1303,7 +1303,7 @@ export namespace IGoogleSlides {
   }
 
   /**
-   * @title Autofit property of `Shape`.
+   * @title Autofit property of `Shape`
    */
   export interface AutoFit {
     /**
@@ -1320,18 +1320,18 @@ export namespace IGoogleSlides {
     autofitType?: AutofitType | null;
 
     /**
-     * @title Font scale applied to the shape.
+     * @title Font scale applied to the shape
      */
     readonly fontScale?: number | null;
 
     /**
-     * @title Reduce line spacing applied to shapes.
+     * @title Reduce line spacing applied to shapes
      */
     readonly lineSpacingReduction?: number | null;
   }
 
   /**
-   * @title Auto-fit type.
+   * @title Auto-fit type
    */
   export type AutofitType =
     | tags.Constant<
@@ -1349,7 +1349,7 @@ export namespace IGoogleSlides {
       >;
 
   /**
-   * @title Content Anchoring Type.
+   * @title Content Anchoring Type
    *
    * Content Anchoring Type
    *
@@ -1389,7 +1389,7 @@ export namespace IGoogleSlides {
       >;
 
   /**
-   * @title Hypertext link.
+   * @title Hypertext link
    */
   export type Link = OneOf<{
     /**
@@ -1418,7 +1418,7 @@ export namespace IGoogleSlides {
   }>;
 
   /**
-   * @title Type of relative link.
+   * @title Type of relative link
    */
   export type RelativeSlideLink =
     | tags.Constant<
@@ -1437,7 +1437,7 @@ export namespace IGoogleSlides {
       >;
 
   /**
-   * @title Shadow.
+   * @title Shadow
    */
   export interface Shadow {
     readonly type?:
@@ -1459,24 +1459,24 @@ export namespace IGoogleSlides {
     readonly alignment?: RectanglePosition | null;
 
     /**
-     * @title Radius of the shadow blur.
+     * @title Radius of the shadow blur
      *
      * The larger the radius, the more diffuse the shadow.
      */
     blurRadius?: Dimension;
 
     /**
-     * @title Shadow color value.
+     * @title Shadow color value
      */
     color?: OpaqueColor;
 
     /**
-     * @title Alpha of the shadow color.
+     * @title Alpha of the shadow color
      */
     alpha?: (number & tags.Minimum<0> & tags.Maximum<1>) | null;
 
     /**
-     * @title Whether the shape should rotate along with the shape.
+     * @title Whether the shape should rotate along with the shape
      */
     readonly rotateWithShape?: boolean | null;
 
@@ -1511,38 +1511,38 @@ export namespace IGoogleSlides {
 
   export interface Outline {
     /**
-     * @title Outline property status.
+     * @title Outline property status
      */
     propertyState?: PropertyState | null;
 
     /**
-     * @title Fill in the outline.
+     * @title Fill in the outline
      */
     outlineFill?: OutlineFill;
 
     /**
-     * @title Thickness of the outline.
+     * @title Thickness of the outline
      */
     weight?: Dimension;
 
     /**
-     * @title Dash style for outline.
+     * @title Dash style for outline
      */
     dashStyle?: DashStyle | null;
   }
 
   /**
-   * @title Fill in the outline.
+   * @title Fill in the outline
    */
   export interface OutlineFill {
     /**
-     * @title Solid fill.
+     * @title Solid fill
      */
     solidFill?: SolidFill;
   }
 
   /**
-   * @title Solid Fill.
+   * @title Solid Fill
    *
    * Solid Fill The page or page element is completely filled with the specified color value.
    *
@@ -1550,12 +1550,12 @@ export namespace IGoogleSlides {
    */
   export interface SolidFill {
     /**
-     * @title Color value of a single color.
+     * @title Color value of a single color
      */
     color?: OpaqueColor;
 
     /**
-     * @title The percentage value of the color to be applied to the pixel.
+     * @title The percentage value of the color to be applied to the pixel
      *
      * The final pixel color is defined by the equation:
      *
@@ -1567,20 +1567,20 @@ export namespace IGoogleSlides {
   }
 
   /**
-   * @title A solid color value with a theme.
+   * @title A solid color value with a theme
    */
   export type OpaqueColor = RgbColorMap | ThemeColorMap;
 
   export interface ThemeColorMap {
     /**
-     * @title Theme color type.
+     * @title Theme color type
      */
     themeColor?: ThemeColor;
   }
 
   export interface RgbColorMap {
     /**
-     * @title RGB color type.
+     * @title RGB color type
      */
     rgbColor?: RgbColor;
   }
@@ -1618,32 +1618,32 @@ export namespace IGoogleSlides {
 
   export interface RgbColor {
     /**
-     * @title The red component of the color.
+     * @title The red component of the color
      */
     red?: (number & tags.Minimum<0> & tags.Maximum<1>) | null;
 
     /**
-     * @title The green component of the color.
+     * @title The green component of the color
      */
     green?: (number & tags.Minimum<0> & tags.Maximum<1>) | null;
 
     /**
-     * @title The blue component of the color.
+     * @title The blue component of the color
      */
     blue?: (number & tags.Minimum<0> & tags.Maximum<1>) | null;
   }
 
   /**
-   * @title Fill shape background.
+   * @title Fill shape background
    */
   export interface ShapeBackgroundFill {
     /**
-     * Possible states of the @title property.
+     * Possible states of the `@title` property
      */
     propertyState?: PropertyState | null;
 
     /**
-     * @title Solid fill.
+     * @title Solid fill
      */
     solidFill?: SolidFill;
   }
@@ -1675,12 +1675,12 @@ export namespace IGoogleSlides {
 
   export interface TextContent {
     /**
-     * @title Text content categorized as a component, including styling information.
+     * @title Text content categorized as a component, including styling information
      */
     readonly textElements?: TextElement[];
 
     /**
-     * @title A list of bullets contained in the text.
+     * @title A list of bullets contained in the text
      *
      * Keyed by list ID.
      */
@@ -1690,13 +1690,13 @@ export namespace IGoogleSlides {
   }
 
   /**
-   * @title A type that describes the design of a bullet in a paragraph associated with a list.
+   * @title A type that describes the design of a bullet in a paragraph associated with a list
    *
    * A paragraph that is part of a list has an implicit reference to the ID of that list.
    */
   export interface List {
     /**
-     * @title The ID of the list.
+     * @title The ID of the list
      */
     listId?: string | null;
 
@@ -1718,24 +1718,24 @@ export namespace IGoogleSlides {
 
   export type TextElement = {
     /**
-     * @title The zero-based starting index of this text element (in Unicode code units).
+     * @title The zero-based starting index of this text element (in Unicode code units)
      */
     startIndex?: (number & tags.Type<"int64">) | null;
 
     /**
-     * @title The zero-based ending index of this text element (excluding Unicode code units).
+     * @title The zero-based ending index of this text element (excluding Unicode code units)
      */
     endIndex?: (number & tags.Type<"int64">) | null;
   } & OneOf<{
     /**
-     * @title Paragraph Marker.
+     * @title Paragraph Marker
      *
      * A kind of TextElement that indicates the start of a new paragraph.
      */
     paragraphMarker?: ParagraphMarker;
 
     /**
-     * @title A TextElement representing a text run where all characters in the run have the same TextStyle.
+     * @title A TextElement representing a text run where all characters in the run have the same TextStyle
      *
      * The startIndex and endIndex of a TextRun are always entirely within the index range of a single paragraphMarker TextElement.
      *
@@ -1744,14 +1744,14 @@ export namespace IGoogleSlides {
     textRun?: TextRun;
 
     /**
-     * @title A TextElement representing a point of text that can be dynamically replaced with content that can change over time.
+     * @title A TextElement representing a point of text that can be dynamically replaced with content that can change over time
      */
     autoText?: AutoText;
   }>;
 
   export interface AutoText {
     /**
-     * @title The type of this autotext.
+     * @title The type of this autotext
      */
     type:
       | tags.Constant<
@@ -1764,36 +1764,36 @@ export namespace IGoogleSlides {
         >;
 
     /**
-     * @title The rendered content of this autotext (if any).
+     * @title The rendered content of this autotext (if any)
      */
     content: string;
 
     /**
-     * @title Style applied to this autotext.
+     * @title Style applied to this autotext
      */
     style?: TextStyle;
   }
 
   /**
-   * @title Text execution.
+   * @title Text execution
    *
    * A kind of TextElement that represents a RON with all styles identical.
    */
   export interface TextRun {
     /**
-     * @title The text of this execution.
+     * @title The text of this execution
      */
     content?: string | null;
 
     /**
-     * @title Specifies the style applied to this run.
+     * @title Specifies the style applied to this run
      */
     style?: TextStyle;
   }
 
   export interface AutoText {
     /**
-     * @title The type of this autotext.
+     * @title The type of this autotext
      */
     type:
       | tags.Constant<
@@ -1806,24 +1806,24 @@ export namespace IGoogleSlides {
         >;
 
     /**
-     * @title The rendered content of this autotext (if any).
+     * @title The rendered content of this autotext (if any)
      */
     content: string;
 
     /**
-     * @title Style applied to this autotext.
+     * @title Style applied to this autotext
      */
     style?: TextStyle;
   }
 
   export interface ParagraphMarker {
     /**
-     * @title Paragraph style.
+     * @title Paragraph style
      */
     style?: ParagraphStyle;
 
     /**
-     * @title The bullet point for this paragraph.
+     * @title The bullet point for this paragraph
      *
      * If not present, the paragraph does not belong in the list.
      */
@@ -1831,26 +1831,26 @@ export namespace IGoogleSlides {
   }
 
   /**
-   * @title The bullets in the paragraph.
+   * @title The bullets in the paragraph
    */
   export interface Bullet {
     /**
-     * @title The ID of the list this paragraph belongs to.
+     * @title The ID of the list this paragraph belongs to
      */
     listId: string;
 
     /**
-     * @title The nesting level of this paragraph in the list.
+     * @title The nesting level of this paragraph in the list
      */
     nestingLevel?: number & tags.Type<"int64">;
 
     /**
-     * @title The bullet glyph rendered for this paragraph.
+     * @title The bullet glyph rendered for this paragraph
      */
     glyph: string;
 
     /**
-     * @title Paragraph text style applied to this bullet.
+     * @title Paragraph text style applied to this bullet
      */
     bulletStyle: TextStyle;
   }
@@ -1871,31 +1871,31 @@ export namespace IGoogleSlides {
    */
   export interface TextStyle {
     /**
-     * @title The background color of the text.
+     * @title The background color of the text
      *
      * Setting this property will make the color opaque or transparent, depending on whether the opaqueColor field of the color is set.
      */
     backgroundColor?: OptionalColor;
 
     /**
-     * @title The color of the text itself.
+     * @title The color of the text itself
      *
      * Setting this property will make the color opaque or transparent, depending on whether the opaqueColor field of the color is set.
      */
     foregroundColor?: OptionalColor;
 
     /**
-     * @title Whether the text is rendered bold.
+     * @title Whether the text is rendered bold
      */
     bold?: boolean | null;
 
     /**
-     * @title Whether to italicize the text.
+     * @title Whether to italicize the text
      */
     italic?: boolean | null;
 
     /**
-     * The font of the @title text.
+     * The font of the `@title` text.
      *
      * The font family can be from the font menu in Slides or from Google Fonts.
      *
@@ -1908,14 +1908,14 @@ export namespace IGoogleSlides {
     fontFamily?: string | null;
 
     /**
-     * @title Text font size.
+     * @title Text font size
      *
      * When reading, `fontSize` is specified in points.
      */
     fontSize?: Dimension;
 
     /**
-     * @title The hyperlink target for the text.
+     * @title The hyperlink target for the text
      *
      * If not set, the link will not be displayed.
      *
@@ -1940,7 +1940,7 @@ export namespace IGoogleSlides {
     link?: Link;
 
     /**
-     * @title Vertical offset of text from normal position.
+     * @title Vertical offset of text from normal position
      *
      * Text with a SUPERSCRIPT or SUBSCRIPT offset is automatically rendered at a smaller font size, calculated based on the fontSize field.
      *
@@ -1949,28 +1949,28 @@ export namespace IGoogleSlides {
     baselineOffset?: BaselineOffset | null;
 
     /**
-     * @title Whether the text is in small caps.
+     * @title Whether the text is in small caps
      */
     smallCaps?: boolean | null;
 
     /**
-     * @title Whether to display strikethrough.
+     * @title Whether to display strikethrough
      */
     strikethrough?: boolean | null;
 
     /**
-     * @title Whether the text is underlined.
+     * @title Whether the text is underlined
      */
     underline?: boolean | null;
 
     /**
-     * @title Font family and rendered thickness of text.
+     * @title Font family and rendered thickness of text
      */
     weightedFontFamily?: WeightedFontFamily;
   }
 
   /**
-   * @title Baseline Offset.
+   * @title Baseline Offset
    *
    * How the text is offset vertically from its normal position.
    */
@@ -1990,11 +1990,11 @@ export namespace IGoogleSlides {
       >;
 
   /**
-   * @title A collection of weighted fonts.
+   * @title A collection of weighted fonts
    */
   export interface WeightedFontFamily {
     /**
-     * @title The font for the text.
+     * @title The font for the text
      *
      * The font family can be from the font menu in Slides or from Google Fonts.
      *
@@ -2003,7 +2003,7 @@ export namespace IGoogleSlides {
     fontFamily?: string | null;
 
     /**
-     * @title The rendered thickness of the text.
+     * @title The rendered thickness of the text
      */
     weight:
       | (number &
@@ -2015,7 +2015,7 @@ export namespace IGoogleSlides {
   }
 
   /**
-   * @title Select Color.
+   * @title Select Color
    *
    * A color that can be completely opaque or completely transparent.
    */
@@ -2029,7 +2029,7 @@ export namespace IGoogleSlides {
   }
 
   /**
-   * @title Style applied to the entire paragraph.
+   * @title Style applied to the entire paragraph
    *
    * If this text is contained in a shape that contains a parent placeholder, this paragraph style may be inherited from the parent element.
    *
@@ -2049,43 +2049,43 @@ export namespace IGoogleSlides {
     alignment?: Alignment | null;
 
     /**
-     * @title The indentation distance for the paragraph corresponding to the beginning of the text based on the current text direction.
+     * @title The indentation distance for the paragraph corresponding to the beginning of the text based on the current text direction
      */
     indentStart?: Dimension;
 
     /**
-     * @title The indentation distance of the paragraph corresponding to the end of the text based on the current text direction.
+     * @title The indentation distance of the paragraph corresponding to the end of the text based on the current text direction
      */
     indentEnd?: Dimension;
 
     /**
-     * @title Extra space above the paragraph.
+     * @title Extra space above the paragraph
      *
      * If not set, the value is inherited from the parent element.
      */
     spaceAbove?: Dimension;
 
     /**
-     * @title Extra space is displayed below the paragraph.
+     * @title Extra space is displayed below the paragraph
      *
      * If not set, the value is inherited from the parent element.
      */
     spaceBelow?: Dimension;
 
     /**
-     * @title Indents the beginning of the first line of a paragraph.
+     * @title Indents the beginning of the first line of a paragraph
      *
      * If not set, the value is inherited from the parent element.
      */
     indentFirstLine?: Dimension;
 
     /**
-     * @title The text direction of this paragraph.
+     * @title The text direction of this paragraph
      */
     direction?: (TextDirection & tags.Default<"LEFT_TO_RIGHT">) | null;
 
     /**
-     * @title Paragraph spacing mode.
+     * @title Paragraph spacing mode
      */
     spacingMode?: SpacingMode | null;
   }
@@ -2114,7 +2114,7 @@ export namespace IGoogleSlides {
     | tags.Constant<"JUSTIFIED", { title: "단락이 정렬되었습니다." }>;
 
   /**
-   * @title Text direction.
+   * @title Text direction
    *
    * The text path can be displayed.
    */
@@ -2133,7 +2133,7 @@ export namespace IGoogleSlides {
       >;
 
   /**
-   * @title Spacing Mode.
+   * @title Spacing Mode
    *
    * Various modes of paragraph spacing.
    */
@@ -2152,7 +2152,7 @@ export namespace IGoogleSlides {
       >;
 
   /**
-   * @title Type of shape.
+   * @title Type of shape
    */
   export namespace Shape {
     /**
@@ -2934,13 +2934,13 @@ export namespace IGoogleSlides {
   }
 
   /**
-   * @title Image.
+   * @title Image
    *
    * A type of `PageElement` representing an image.
    */
   export interface Image {
     /**
-     * @title URL of an image with a default lifetime of 30 minutes.
+     * @title URL of an image with a default lifetime of 30 minutes
      *
      * This URL is tagged with the requester's account.
      *
@@ -2951,19 +2951,19 @@ export namespace IGoogleSlides {
     contentUrl?: string | null;
 
     /**
-     * @title Image properties.
+     * @title Image properties
      */
     imageProperties: ImageProperties;
 
     /**
-     * @title Source URL is the URL used to embed the image.
+     * @title Source URL is the URL used to embed the image
      *
      * The source URL can be left blank.
      */
     sourceUrl?: string | null;
 
     /**
-     * @title The page element that inherits from the corresponding placeholder in the layout and master.
+     * @title The page element that inherits from the corresponding placeholder in the layout and master
      *
      * If set, the image is the placeholder image.
      *
@@ -2973,56 +2973,56 @@ export namespace IGoogleSlides {
   }
 
   /**
-   * @title Image properties.
+   * @title Image properties
    */
   export interface ImageProperties {
     /**
-     * @title The cropping property of the image.
+     * @title The cropping property of the image
      *
      * If not set, the image will not be cropped.
      */
     readonly cropProperties?: CropProperties;
 
     /**
-     * @title The transparency effect of the image.
+     * @title The transparency effect of the image
      *
      * Here, 0 means no effect, 1 means completely transparent.
      */
     readonly transparency?: (number & tags.Minimum<0> & tags.Maximum<1>) | null;
 
     /**
-     * @title The brightness effect of the image.
+     * @title The brightness effect of the image
      *
      * 0 means no effect.
      */
     readonly brightness?: (number & tags.Minimum<-1> & tags.Maximum<1>) | null;
 
     /**
-     * @title Contrast effect of the image.
+     * @title Contrast effect of the image
      */
     readonly contrast?: (number & tags.Minimum<-1> & tags.Maximum<1>) | null;
 
     /**
-     * @title The outline of the image.
+     * @title The outline of the image
      *
      * If not set, the image will have no outline.
      */
     readonly recolor?: Recolor;
 
     /**
-     * @title The outline of the image.
+     * @title The outline of the image
      *
      * If not set, the image will have no shadow.
      */
     readonly outline?: Outline;
 
     /**
-     * @title This is the shadow of the image.
+     * @title This is the shadow of the image
      */
     readonly shadow?: Shadow;
 
     /**
-     * @title Hyperlink target of the image.
+     * @title Hyperlink target of the image
      *
      * If not set, the link will not be displayed.
      */
@@ -3057,7 +3057,7 @@ export namespace IGoogleSlides {
   }
 
   /**
-   * @title Color Reset.
+   * @title Color Reset
    *
    * Color reset effect applied to the image.
    */
@@ -3070,13 +3070,13 @@ export namespace IGoogleSlides {
     recolorStops?: ColorStop[];
 
     /**
-     * @title The name of the color change effect.
+     * @title The name of the color change effect
      */
     readonly name?: Name | null;
   }
 
   /**
-   * @title Color effect name.
+   * @title Color effect name
    */
   export type Name =
     | tags.Constant<
@@ -3224,12 +3224,12 @@ export namespace IGoogleSlides {
 
   export interface ColorStop {
     /**
-     * @title Color of gradient color.
+     * @title Color of gradient color
      */
     color?: OpaqueColor;
 
     /**
-     * @title The alpha value of this color in the gradient band.
+     * @title The alpha value of this color in the gradient band
      *
      * The default is 1.0, which is fully opaque.
      */
@@ -3250,21 +3250,21 @@ export namespace IGoogleSlides {
   // export interface Video {}
 
   /**
-   * @title A type of PageElement that represents non-connector lines, straight connectors, bent connectors, bent connectors, etc.
+   * @title A type of PageElement that represents non-connector lines, straight connectors, bent connectors, bent connectors, etc
    */
   export interface Line {
     /**
-     * @title is a line property.
+     * @title is a line property
      */
     lineProperties?: LineProperties;
 
     /**
-     * @title Type of line.
+     * @title Type of line
      */
     lineType?: LineType | null;
 
     /**
-     * @title Category of good.
+     * @title Category of good
      */
     lineCategory?: LineCategory | null;
   }
@@ -3377,19 +3377,19 @@ export namespace IGoogleSlides {
     endArrow?: ArrowStyle | null;
 
     /**
-     * @title The hyperlink target of the line.
+     * @title The hyperlink target of the line
      */
     link?: Link;
 
     /**
-     * @title A connection at the beginning of a line.
+     * @title A connection at the beginning of a line
      *
      * Only exists for connector types.
      */
     startConnection?: LineConnection;
 
     /**
-     * @title A connection at the end of a line.
+     * @title A connection at the end of a line
      *
      * Only present in connector type.
      */
@@ -3398,12 +3398,12 @@ export namespace IGoogleSlides {
 
   export interface LineConnection {
     /**
-     * @title The object ID of the linked page element.
+     * @title The object ID of the linked page element
      */
     connectedObjectId?: string | null;
 
     /**
-     * @title The index of the linked site in the linked page element.
+     * @title The index of the linked site in the linked page element
      */
     connectionSiteIndex?: (number & tags.Type<"int64">) | null;
   }
@@ -3484,7 +3484,7 @@ export namespace IGoogleSlides {
 
   export interface LineFill {
     /**
-     * @title Solid Fill.
+     * @title Solid Fill
      *
      * The default line fill matches the default for new lines created in the Slides editor.
      */
@@ -3496,41 +3496,41 @@ export namespace IGoogleSlides {
   // export interface WordArt {}
 
   /**
-   * @title Transformation of the page element.
+   * @title Transformation of the page element
    */
   export interface Transform {
     /**
-     * @title X-coordinate scale factor.
+     * @title X-coordinate scale factor
      */
     scaleX?: number | null;
 
     /**
-     * @title Y coordinate scale factor.
+     * @title Y coordinate scale factor
      */
     scaleY?: number | null;
 
     /**
-     * @title X-coordinate slope component.
+     * @title X-coordinate slope component
      */
     shearX?: number | null;
 
     /**
-     * @title Y coordinate slope component.
+     * @title Y coordinate slope component
      */
     shearY?: number | null;
 
     /**
-     * @title X coordinate transformation element.
+     * @title X coordinate transformation element
      */
     translateX?: number | null;
 
     /**
-     * @title Y coordinate transformation factor.
+     * @title Y coordinate transformation factor
      */
     translateY?: number | null;
 
     /**
-     * @title Units of conversion factor.
+     * @title Units of conversion factor
      */
     unit?: Unit | null;
   }

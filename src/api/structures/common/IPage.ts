@@ -1,45 +1,45 @@
 import { tags } from "typia";
 
 /**
- * A page.
+ * A page
  *
- * Collection of records with pagination indformation.
+ * Collection of records with pagination indformation
  *
  * @author Samchon
  */
 export interface IPage<T extends object> {
   /**
-   * Page information.
+   * Page information
    */
   pagination: IPage.IPagination;
 
   /**
-   * List of records.
+   * List of records
    */
   data: T[];
 }
 export namespace IPage {
   /**
-   * Page information.
+   * Page information
    */
   export interface IPagination {
     /**
-     * Current page number.
+     * Current page number
      */
     current: number & tags.Type<"uint32">;
 
     /**
-     * Limitation of records per a page.
+     * Limitation of records per a page
      */
     limit: number & tags.Type<"uint32"> & tags.Default<100>;
 
     /**
-     * Count of total records in database.
+     * Count of total records in database
      */
     records: number & tags.Type<"uint32">;
 
     /**
-     * Number of total pages.
+     * Number of total pages
      *
      * Equal to {@link records} / {@link limit} with ceiling.
      */

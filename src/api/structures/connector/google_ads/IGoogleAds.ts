@@ -237,7 +237,7 @@ export namespace IGoogleAds {
     extends StrictOmit<ICreateKeywordInput, "customerId">,
       IGoogleAds.ISecret {
     /**
-     * @title Resource name of the ad group to which you want to add the keyword.
+     * @title Resource name of the ad group to which you want to add the keyword
      */
     adGroupResourceName: AdGroup["resourceName"] &
       Prerequisite<{
@@ -1042,7 +1042,7 @@ export namespace IGoogleAds {
     extends ICommonInput,
       IGoogleAds.ISecret {
     /**
-     * @title URL to reference when generating advertising keyword ideas.
+     * @title URL to reference when generating advertising keyword ideas
      */
     url: string;
   }

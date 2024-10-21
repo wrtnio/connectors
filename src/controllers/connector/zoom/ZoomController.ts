@@ -4,18 +4,18 @@ import { RouteIcon, Standalone } from "@wrtnio/decorators";
 
 import { IZoom } from "@wrtn/connector-api/lib/structures/zoom/IZoom";
 
-import { retry } from "../../../utils/retry";
-import { ZoomProvider } from "../../../providers/connector/zoom/ZoomProvider";
 import { ApiTags } from "@nestjs/swagger";
+import { ZoomProvider } from "../../../providers/connector/zoom/ZoomProvider";
+import { retry } from "../../../utils/retry";
 
 @Controller("connector/zoom")
 export class ZoomController {
   /**
-   * Create a zoom meeting.
+   * Create a zoom meeting
    *
-   * @summary Create a zoom meeting.
+   * @summary Create a zoom meeting
    * @returns DTO of the created zoom meeting information.
-   * @param input DTO of the user information and conditions for creating a meeting.
+   * @param input DTO of the user information and conditions for creating a meeting
    * @internal
    */
   @Standalone()

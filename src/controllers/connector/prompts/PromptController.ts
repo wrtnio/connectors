@@ -10,7 +10,7 @@ import { PromptProvider } from "../../../providers/connector/prompt/PromptProvid
 export class PromptController {
   constructor(private readonly promptProvider: PromptProvider) {}
   /**
-   * Enter the request you want to give to LLM.
+   * Enter the request you want to give to LLM
    *
    * @summary prompt node
    * @param input user's prompt

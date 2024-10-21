@@ -2,16 +2,16 @@ import core from "@nestia/core";
 import { Controller } from "@nestjs/common";
 import { RouteIcon } from "@wrtnio/decorators";
 
-import { DiscordProvider } from "../../../providers/connector/discord/DiscordProvider";
-import { IDiscord } from "@wrtn/connector-api/lib/structures/connector/discord/IDiscord";
-import { retry } from "../../../utils/retry";
 import { ApiTags } from "@nestjs/swagger";
+import { IDiscord } from "@wrtn/connector-api/lib/structures/connector/discord/IDiscord";
+import { DiscordProvider } from "../../../providers/connector/discord/DiscordProvider";
+import { retry } from "../../../utils/retry";
 
 @Controller("connector/discord")
 export class DiscordController {
   constructor(private readonly discordProvider: DiscordProvider) {}
   /**
-   * Create a new DM channel.
+   * Create a new DM channel
    *
    * @summary Create a DM channel
    *
@@ -30,7 +30,7 @@ export class DiscordController {
   }
 
   /**
-   * Modify server information.
+   * Modify server information
    *
    * @summary Modify server information
    *
@@ -49,7 +49,7 @@ export class DiscordController {
   }
 
   /**
-   * Get a list of channels on the server.
+   * Get a list of channels on the server
    *
    * @summary Get a list of channels
    *
@@ -68,7 +68,7 @@ export class DiscordController {
   }
 
   /**
-   * Create a new channel on the server.
+   * Create a new channel on the server
    *
    * @summary Create a channel
    *
@@ -87,7 +87,7 @@ export class DiscordController {
   }
 
   /**
-   * Get a list of members on the server.
+   * Get a list of members on the server
    *
    * @summary Get a list of members
    *
@@ -106,7 +106,7 @@ export class DiscordController {
   }
 
   /**
-   * Kicks selected members from the server.
+   * Kicks selected members from the server
    *
    * @summary Kick members
    *
@@ -127,7 +127,7 @@ export class DiscordController {
   }
 
   /**
-   * Modify channel information.
+   * Modify channel information
    *
    * @summary Modify channel information
    *
@@ -146,7 +146,7 @@ export class DiscordController {
   }
 
   /**
-   * Delete the selected channel.
+   * Delete the selected channel
    *
    * @summary Delete channel
    *
@@ -165,7 +165,7 @@ export class DiscordController {
   }
 
   /**
-   * Get a list of pinned messages in a channel.
+   * Get a list of pinned messages in a channel
    *
    * @summary Get a list of pinned messages
    *
@@ -184,7 +184,7 @@ export class DiscordController {
   }
 
   /**
-   * Pin a message to a channel.
+   * Pin a message to a channel
    *
    * @summary Pin a message
    *
@@ -203,7 +203,7 @@ export class DiscordController {
   }
 
   /**
-   * Unpin a pinned message from a channel.
+   * Unpin a pinned message from a channel
    *
    * @summary Unpin message
    *
@@ -222,7 +222,7 @@ export class DiscordController {
   }
 
   /**
-   * Get the messages that exist in the channel.
+   * Get the messages that exist in the channel
    *
    * @summary Get a list of messages
    *
@@ -243,7 +243,7 @@ export class DiscordController {
   }
 
   /**
-   * Send a message.
+   * Send a message
    *
    * @summary Send a message
    *
@@ -262,7 +262,7 @@ export class DiscordController {
   }
 
   /**
-   * Modify the message.
+   * Modify the message
    *
    * @summary Modify message
    *
@@ -281,7 +281,7 @@ export class DiscordController {
   }
 
   /**
-   * Delete message.
+   * Delete message
    *
    * @summary Delete message
    *
@@ -300,7 +300,7 @@ export class DiscordController {
   }
 
   /**
-   * Delete multiple messages.
+   * Delete multiple messages
    *
    * @summary Delete multiple messages
    *

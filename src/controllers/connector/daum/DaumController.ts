@@ -1,17 +1,17 @@
 import core from "@nestia/core";
 import { Controller } from "@nestjs/common";
-import { RouteIcon, Standalone } from "@wrtnio/decorators";
+import { RouteIcon } from "@wrtnio/decorators";
 
 import { IDaum } from "@wrtn/connector-api/lib/structures/connector/daum/IDaum";
 
+import { ApiTags } from "@nestjs/swagger";
 import { DaumProvider } from "../../../providers/connector/daum/DaumProvider";
 import { retry } from "../../../utils/retry";
-import { ApiTags } from "@nestjs/swagger";
 
 @Controller("connector/daum")
 export class DaumController {
   /**
-   * Search the following blog content.
+   * Search the following blog content
    *
    * @summary Search the following blog
    * @param input Conditions for searching the following blog
@@ -28,7 +28,7 @@ export class DaumController {
   }
 
   /**
-   * Search for the following cafe content.
+   * Search for the following cafe content
    *
    * @summary Search for the following cafe
    * @param input Conditions for searching the following cafe
