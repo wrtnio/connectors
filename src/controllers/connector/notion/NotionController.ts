@@ -48,7 +48,7 @@ export class NotionController {
   @core.TypedRoute.Post("page/markdown")
   async appendBlocksByMarkdown(
     @core.TypedBody() input: INotion.IAppendPageByMarkdownInput,
-  ): Promise<void> {
+  ): Promise<INotion.IAppendPageByMarkdownOutput> {
     return retry(() => NotionProvider.appendBlocksByMarkdown(input))();
   }
 
@@ -408,6 +408,8 @@ export class NotionController {
    * Returns a paginated array of child block objects contained in the block using the ID specified.
    * It is used to check the contents of the page by inquiring about the children of the page or block.
    * It recursively traverses and looks for all blocks. Here, we are ready to combine online blocks and blocks containing text.
+   *
+   * For child pages, it does not even look up the contents.
    *
    * @summary Retrieve block children
    * @param input
