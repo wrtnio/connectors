@@ -1102,6 +1102,11 @@ export namespace INotion {
       Placeholder<"부모 페이지를 선택하세요.">;
   }
 
+  export type IAppendPageByMarkdownOutput = MyPick<
+    ICreatePageOutput,
+    "id" | "link"
+  >;
+
   /**
    * @title Page creation result
    */
@@ -1119,6 +1124,11 @@ export namespace INotion {
      * Title of the document you just created
      */
     title: string;
+
+    /**
+     * @title page link
+     */
+    link: string & tags.Format<"iri">;
   }
 
   /**
@@ -1254,6 +1264,11 @@ export namespace INotion {
      * @title Title
      */
     title: string;
+
+    /**
+     * @title page link
+     */
+    link: string & tags.Format<"iri">;
   }
 
   /**

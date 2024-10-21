@@ -495,7 +495,12 @@ export namespace NotionProvider {
         );
       }
 
-      return { id: pageId, title: input.title };
+      const uuid = pageId.replaceAll("-", "");
+      return {
+        id: pageId,
+        title: input.title,
+        link: `https://www.notion.so/${uuid}`,
+      };
     } catch (error) {
       console.error(JSON.stringify(error));
       throw error;
@@ -514,7 +519,9 @@ export namespace NotionProvider {
 
         await Promise.allSettled(
           blocks.map(async (block) => {
-            block.children = (await getPageContent(block.id)).blocks;
+            if (block.type !== "child_page") {
+              block.children = (await getPageContent(block.id)).blocks;
+            }
           }),
         );
         // for await (const block of blocks) {
@@ -575,12 +582,14 @@ export namespace NotionProvider {
       const pageOutput: INotion.IReadPageOutput[] = [];
 
       for (const page of pageList) {
+        const uuid = page.id.replaceAll("-", "");
         const pageInfo: INotion.IReadPageOutput = {
           pageId: page.id,
           title:
             page.properties.title.title.length === 0
               ? "제목없음"
               : page.properties.title.title[0].plain_text,
+          link: `https://notion.so/${uuid}`,
         };
         pageOutput.push(pageInfo);
       }
@@ -1051,7 +1060,7 @@ export namespace NotionProvider {
 
   export async function appendBlocksByMarkdown(
     input: INotion.IAppendPageByMarkdownInput,
-  ): Promise<void> {
+  ): Promise<INotion.IAppendPageByMarkdownOutput> {
     try {
       const blocks = markdownToBlocks(input.markdown);
       const notion = await createClient(input.secretKey);
@@ -1062,6 +1071,9 @@ export namespace NotionProvider {
           children: blocksToInsert,
         });
       }
+
+      const uuid = input.pageId.replaceAll("-", "");
+      return { id: input.pageId, link: `https://notion.so/${uuid}` };
     } catch (error) {
       console.error(JSON.stringify(error));
       throw error;
@@ -1078,7 +1090,12 @@ export namespace NotionProvider {
         pageId: page.id,
       });
 
-      return { id: page.id, title: input.title };
+      const uuid = page.id.replaceAll("-", "");
+      return {
+        id: page.id,
+        title: input.title,
+        link: `https://notion.so/${uuid}`,
+      };
     } catch (error) {
       console.error(JSON.stringify(error));
       throw error;
