@@ -201,6 +201,11 @@ export namespace ConnectorGlobal {
 
     // BROWSING AGENT PLAYGROUND
     BROWSING_AGENT_PLAYGROUND_SERVER_URL: string & tags.Format<"iri">;
+
+    // RAG FLOW
+    RAG_FLOW_SERVER_URL: string & tags.Format<"iri">;
+    RAG_FLOW_DOCUMENT_INDEX: string;
+    RAG_FLOW_TOPK: string;
   }
 }
 

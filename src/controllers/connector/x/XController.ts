@@ -96,7 +96,7 @@ export class XController {
   @core.TypedRoute.Post("/make-txt-file-and-upload")
   async makeTxtFileForTweetAndUploadToS3(
     @core.TypedBody() input: IX.ITweetResponse[],
-  ): Promise<IX.IMakeTxtFileAndUploadResponse> {
+  ): Promise<IX.IMakeTxtFileAndUploadResponse[]> {
     return this.XProvider.makeTxtFileForTweetAndUploadToS3(input);
   }
 
@@ -110,11 +110,11 @@ export class XController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/X_full.svg",
   )
-  @core.TypedRoute.Post("/summarize-tweet")
-  async summarizeTweet(
-    @core.TypedBody() input: IX.ISummarizeTweetRequest,
-  ): Promise<IRag.IGenerateOutput> {
-    return this.XProvider.summarizeTweet(input);
+  @core.TypedRoute.Post("/get-chunk-document")
+  async getChunkDocument(
+    @core.TypedBody() input: IX.IGetChunkDocumentRequest,
+  ): Promise<IX.IGetChunkDocumentResponse> {
+    return this.XProvider.getChunkDocument(input);
   }
 
   @core.TypedRoute.Post("/multion")

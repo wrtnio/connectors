@@ -8,7 +8,16 @@ export const test_api_connector_x_get_users = async (
 ) => {
   await ConnectorGlobal.reload();
   const res = await CApi.functional.connector.x.get_users.getUsers(connection, {
-    userName: ["elonmusk", "ivanhzhao", "sama", "POTUS", "realDonaldTrump"],
+    userName: [
+      "elonmusk",
+      "ivanhzhao",
+      "sama",
+      "POTUS",
+      "realDonaldTrump",
+      "hwchase17",
+      "ilyasut",
+      "miramurati",
+    ],
     secretKey: ConnectorGlobal.env.X_TEST_SECRET,
   });
   typia.assert(res);

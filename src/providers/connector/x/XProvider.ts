@@ -1,10 +1,16 @@
-import { Injectable, Logger } from "@nestjs/common";
+import {
+  BadRequestException,
+  Injectable,
+  InternalServerErrorException,
+  Logger,
+  UnprocessableEntityException,
+} from "@nestjs/common";
 
 import { IX } from "@wrtn/connector-api/lib/structures/connector/x/IX";
 
 import { ConnectorGlobal } from "../../../ConnectorGlobal";
 import { OAuthSecretProvider } from "../../internal/oauth_secret/OAuthSecretProvider";
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 import { AwsProvider } from "../aws/AwsProvider";
 import { RagProvider } from "../rag/RagProvider";
 import { IRag } from "@wrtn/connector-api/lib/structures/connector/rag/IRag";
@@ -218,57 +224,102 @@ export class XProvider {
 
   async makeTxtFileForTweetAndUploadToS3(
     input: IX.ITweetResponse[],
-  ): Promise<IX.IMakeTxtFileAndUploadResponse> {
-    const fileName = `${v4()}_${new Date().toISOString()}_tweet.txt`;
-    let fileContent = "";
-    fileContent += `<tweets>\n`;
-    input.map((tweet) => {
-      fileContent += `<tweet>\n`;
-      fileContent += `userName: ${tweet.userName}\n`;
-      fileContent += `timeStamp: ${tweet.timeStamp}\n`;
-      fileContent += `content: ${tweet.text}\n`;
-      fileContent += `link: ${tweet.tweet_link}\n`;
-      fileContent += `type: ${tweet.type}\n`;
-      if (tweet.referredUserName) {
-        fileContent += `referredUserName: ${tweet.referredUserName}\n`;
-      }
-      if (tweet.referredTweetLink) {
-        fileContent += `referredTweetLink: ${tweet.referredTweetLink}\n`;
-      }
-      if (tweet.referredTweetText) {
-        fileContent += `referredTweetContent: ${tweet.referredTweetText}\n`;
-      }
-      fileContent += `</tweet>\n`;
-    });
-    fileContent += `</tweets>\n`;
-
+  ): Promise<IX.IMakeTxtFileAndUploadResponse[]> {
     try {
-      const fileUrl = await this.awsProvider.uploadObject({
-        key: `tweets/${fileName}`,
-        data: Buffer.from(fileContent, "utf-8"),
-        contentType: "text/plain; charset=utf-8",
+      const uploadPromises = input.map(async (tweet) => {
+        const fileName = `${v4()}_${new Date().toISOString()}_tweet.txt`;
+        let fileContent = "";
+
+        fileContent += `<tweets>\n`;
+        fileContent += `<tweet>\n`;
+        fileContent += `userName: ${tweet.userName}\n`;
+        fileContent += `content: ${tweet.text}\n`;
+        if (tweet.referredUserName) {
+          fileContent += `referredUserName: ${tweet.referredUserName}\n`;
+        }
+        if (tweet.referredTweetText) {
+          fileContent += `referredTweetContent: ${tweet.referredTweetText}\n`;
+        }
+        fileContent += `</tweet>\n`;
+        fileContent += `</tweets>\n`;
+
+        const fileUrl = await this.awsProvider.uploadObject({
+          key: `tweets/${fileName}`,
+          data: Buffer.from(fileContent, "utf-8"),
+          contentType: "text/plain; charset=utf-8",
+        });
+
+        this.logger.log(`Successfully uploaded ${fileName} to S3`);
+        return {
+          fileUrl: fileUrl,
+        };
       });
-      this.logger.log(`Successfully uploaded ${fileName} to S3`);
-      return {
-        fileUrl: fileUrl,
-      };
+      return await Promise.all(uploadPromises);
     } catch (err) {
-      this.logger.error(`Failed to upload ${fileName} to S3`);
+      this.logger.error(`Failed to upload tweets to S3`);
       throw err;
     }
   }
 
-  async summarizeTweet(
-    input: IX.ISummarizeTweetRequest,
-  ): Promise<IRag.IGenerateOutput> {
-    const analyze = await this.ragProvider.analyze({ url: [input.fileUrl] });
-    return await this.ragProvider.generate(
-      {
-        query:
-          "이 파일의 내용을 한국어로 요약해줘. 파일에 있는 userName별로 트윗의 내용을 요약해줘.",
-      },
-      analyze.chatId,
+  async getChunkDocument(
+    input: IX.IGetChunkDocumentRequest,
+  ): Promise<IX.IGetChunkDocumentResponse> {
+    const analyze = await this.ragProvider.analyze(
+      { url: input.fileUrl },
+      true,
     );
+
+    try {
+      const topK = Math.max(
+        10,
+        Math.round(
+          input.fileUrl.length / Number(ConnectorGlobal.env.RAG_FLOW_TOPK),
+        ),
+      );
+      const chunkDocument = await axios.post(
+        `${ConnectorGlobal.env.RAG_FLOW_SERVER_URL}/v1/index/${ConnectorGlobal.env.RAG_FLOW_DOCUMENT_INDEX}/query`,
+        {
+          query: input.query,
+          topk: topK,
+          filters: [
+            {
+              chat_id: analyze.chatId,
+            },
+          ],
+        },
+        {
+          headers: {
+            "x-service-id": "eco_file_chat",
+          },
+        },
+      );
+      this.logger.log(
+        `Successfully get chunk document: chatId: ${analyze.chatId}, body: ${JSON.stringify(chunkDocument.data)}`,
+      );
+      return chunkDocument.data;
+    } catch (err) {
+      if (
+        err instanceof AxiosError &&
+        err.response &&
+        err.response.status === 400
+      ) {
+        this.logger.error(
+          `Get Chunk Document Failed: ${err.response.data.detail}`,
+        );
+        throw new BadRequestException(`Get Chunk Document Failed`);
+      } else if (
+        err instanceof AxiosError &&
+        err.response &&
+        err.response.status === 422
+      ) {
+        this.logger.error(
+          `Get Chunk Document Failed: ${err.response.data.detail}`,
+        );
+        throw new UnprocessableEntityException(`Get Chunk Document Failed`);
+      } else {
+        throw new InternalServerErrorException("Get Chunk Document Failed");
+      }
+    }
   }
 
   /**

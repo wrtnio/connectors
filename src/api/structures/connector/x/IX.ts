@@ -165,7 +165,15 @@ export namespace IX {
     referredTweetText?: string;
   }
 
+  /**
+   * @title Condition For Get Tweet
+   */
   export interface IGetTweetRequest extends ISecret {
+    /**
+     * Please select a tweet to import information
+     *
+     * @title tweet
+     */
     tweetId: string &
       Prerequisite<{
         method: "post";
@@ -174,21 +182,78 @@ export namespace IX {
       }>;
   }
 
+  /**
+   * @title Created File URL
+   */
   export interface IMakeTxtFileAndUploadResponse {
+    /**
+     * @title Created File URL
+     */
     fileUrl: string & tags.Format<"uri"> & tags.ContentMediaType<"text/plain">;
   }
 
-  export interface ISummarizeTweetRequest {
-    fileUrl: string &
-      tags.Format<"uri"> &
-      tags.ContentMediaType<"text/plain"> &
-      Prerequisite<{
-        method: "post";
-        path: "/connector/x/make-txt-file-and-upload/:userName";
-        jmesPath: JMESPath<
-          IMakeTxtFileAndUploadResponse,
-          "data.{value:fileUrl, label:fileUrl}"
-        >;
-      }>;
+  /**
+   * @title Summarize Tweet Request
+   */
+  export interface IGetChunkDocumentRequest {
+    /**
+     * File urls to get the list of chunk documents
+     *
+     * @title file url
+     */
+    fileUrl: Array<
+      string & tags.Format<"uri"> & tags.ContentMediaType<"text/plain">
+    >;
+
+    /**
+     * query required to get the chunk document. You must understand the context requested by the user and enter the query to get as relevant information as possible.
+     *
+     * @title query
+     */
+    query: string;
+  }
+
+  export interface IGetChunkDocumentResponse {
+    /**
+     * Chunk Document List
+     *
+     * @title Chunk Document List
+     */
+    documents: {
+      /**
+       * Chunk document id
+       *
+       * @title id
+       */
+      id: string;
+
+      /**
+       * Chunk document text
+       *
+       * @title text
+       */
+      text: string;
+
+      /**
+       * Chunk document score
+       *
+       * @title score
+       */
+      score: number | null;
+
+      /**
+       * Chunk document image
+       *
+       * @title image
+       */
+      image: string | null;
+
+      /**
+       * Chunk document metadata
+       *
+       * @title metadata
+       */
+      metadata: any;
+    }[];
   }
 }
