@@ -20,7 +20,9 @@ export class CrunchbaseController {
   async getOrganizationData(
     @TypedBody() input: ICrunchbase.IGetOrganizationDataInput,
   ): Promise<ICrunchbase.CrunchbaseResponse> {
-    return retry(() => this.crunchbaseProvider.getOrganizationData(input))();
+    return retry(() => this.crunchbaseProvider.getOrganizationData(input), 10, {
+      timeLimit: 6000,
+    })();
   }
 
   /**
@@ -37,6 +39,8 @@ export class CrunchbaseController {
   async autocomplete(
     @TypedBody() input: ICrunchbase.IAutocompleteInput,
   ): Promise<ICrunchbase.IAutocompleteOutput> {
-    return retry(() => this.crunchbaseProvider.autocomplete(input))();
+    return retry(() => this.crunchbaseProvider.autocomplete(input), 10, {
+      timeLimit: 2000,
+    })();
   }
 }
