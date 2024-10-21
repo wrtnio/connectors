@@ -23,7 +23,6 @@ export const test_api_connector_x_get_user_timeline_tweets = async (
         }),
       },
     );
-  console.log("TIMELINE_TWEETS", res);
   typia.assert(res);
   return res;
 };
