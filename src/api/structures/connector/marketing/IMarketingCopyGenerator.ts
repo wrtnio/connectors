@@ -1,12 +1,12 @@
 import { tags } from "typia";
-import { MyPartial } from "../../types/MyPartial";
 import { IConnector } from "../../common/IConnector";
+import { MyPartial } from "../../types/MyPartial";
 import { IKeywordExtraction } from "../extract/IKeywordExtractor";
 
 /**
  * A list of channels on which to use your marketing copy.
  *
- * @title Channels on which to use your marketing copy.
+ * @title Channels on which to use your marketing copy
  */
 type ContentChannel =
   | "facebook"
@@ -19,7 +19,7 @@ type ContentChannel =
 /**
  * Information to pull from the channels you will use your marketing copy on.
  *
- * @title Information to pull from the channels you will use your marketing copy on.
+ * @title Information to pull from the channels you will use your marketing copy on
  */
 type ContentChannelComponent = "title" | "cta" | "subtitle";
 
@@ -28,7 +28,7 @@ type ContentChannelComponent = "title" | "cta" | "subtitle";
  * - `purchase`: Purchase
  * - `visit`: Visit
  *
- * @title Purpose of marketing.
+ * @title Purpose of marketing
  */
 type MarketingDesiredAction = "sign_up" | "purchase" | "visit";
 
@@ -38,28 +38,28 @@ export interface IMarketingPurpose {
    *
    * Only three possible values are available: sign_up, purchase, and visit.
    *
-   * @title Marketing purpose.
+   * @title Marketing purpose
    */
   purpose: MarketingDesiredAction;
 
   /**
    * This is the product name to be marketed.
    *
-   * @title This is the product name to be marketed.
+   * @title This is the product name to be marketed
    */
   product_name: string;
 
   /**
    * This is the selling point of the product.
    *
-   * @title This is the selling point of the product.
+   * @title This is the selling point of the product
    */
   unique_selling_point: string[];
 
   /**
    * Benefits of the product you are marketing.
    *
-   * @title Benefits of the product you are marketing.
+   * @title Benefits of the product you are marketing
    */
   user_benefit: string[];
 }
@@ -70,7 +70,7 @@ export interface IDistributionChannel {
    *
    * Only 6 possible values are possible: facebook, instagram_feed, instagram_story, youtube, naver, kakao.
    *
-   * @title Channels to use marketing copy.
+   * @title Channels to use marketing copy
    */
   channel: ContentChannel;
 
@@ -79,7 +79,7 @@ export interface IDistributionChannel {
    *
    * Only three possible values are possible: title, cta, subtitle.
    *
-   * @title Information to retrieve from the channel where the marketing copy will be used.
+   * @title Information to retrieve from the channel where the marketing copy will be used
    */
   components: ContentChannelComponent[];
 }
@@ -88,7 +88,7 @@ export interface IMarketingCopyGeneratorRequest {
   /**
    * The number of marketing copy drafts to be generated.
    *
-   * @title The number of marketing copy drafts to be generated.
+   * @title The number of marketing copy drafts to be generated
    */
   number_of_copies: number;
 
@@ -97,28 +97,28 @@ export interface IMarketingCopyGeneratorRequest {
    *
    * Only three possible values are available: view_count, like_count, and rank.
    *
-   * @title Sort criteria.
+   * @title Sort criteria
    */
   sort_by?: IConnector.MetricType;
 
   /**
    * Here are some reference materials for creating marketing copy.
    *
-   * @title Reference Materials.
+   * @title Reference Materials
    */
   reference_contents: IConnector.IReferenceContent[];
 
   /**
    * The purpose is to do marketing.
    *
-   * @title Marketing Purpose.
+   * @title Marketing Purpose
    */
   marketing_purpose: IMarketingPurpose;
 
   /**
    * Channel information for which the marketing plan will be used.
    *
-   * @title Channel for which the marketing plan will be used.
+   * @title Channel for which the marketing plan will be used
    */
   distribution_channels: IDistributionChannel[];
 }
@@ -127,21 +127,21 @@ export interface IMarketingCopyComponents {
   /**
    * The title of your marketing copy.
    *
-   * @title The title of your marketing copy.
+   * @title The title of your marketing copy
    */
   title: string;
 
   /**
    * This is the CTA phrase in your marketing copy.
    *
-   * @title This is the CTA phrase in your marketing copy.
+   * @title This is the CTA phrase in your marketing copy
    */
   cta: string;
 
   /**
    * Here is a description of the marketing copy.
    *
-   * @title A description of the marketing copy.
+   * @title A description of the marketing copy
    */
   subtitle: string;
 }
@@ -150,7 +150,7 @@ export interface IMarketingCopyImage {
   /**
    * Image URL of the generated marketing copy draft.
    *
-   * @title Image URL of the generated marketing copy draft.
+   * @title Image URL of the generated marketing copy draft
    */
   imageUrl: string & tags.Format<"iri"> & tags.ContentMediaType<"image/*">;
 }

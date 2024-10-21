@@ -11,10 +11,10 @@ import {
 } from "@wrtn/connector-api/lib/structures/connector/open_data/IOpenData";
 import { KoreaCopyrightCommission } from "@wrtn/connector-api/lib/structures/connector/open_data/KoreaCopyrightCommission";
 
+import { ApiTags } from "@nestjs/swagger";
 import { IMSIT } from "@wrtn/connector-api/lib/structures/connector/open_data/MSIT";
 import { OpenDataProvider } from "../../../providers/connector/open_data/OpenDataProvider";
 import { retry } from "../../../utils/retry";
-import { ApiTags } from "@nestjs/swagger";
 
 @Controller("connector/open-data")
 export class OpenDataController {
@@ -39,7 +39,7 @@ export class OpenDataController {
   }
 
   /**
-   * [Ministry of Land, Infrastructure and Transport] Retrieves information on single-family homes and multi-family homes for lease or rent.
+   * [Ministry of Land, Infrastructure and Transport] Retrieves information on single-family homes and multi-family homes for lease or rent
    *
    * This Connect is based on data obtained from public data portals in Korea.
    * If you talk about a specific organization here, it is an organization in Korea, and information or deducible facts that data or statistics point to can also be limited to Korea.
@@ -66,7 +66,7 @@ export class OpenDataController {
   }
 
   /**
-   * [Ministry of Land, Infrastructure and Transport] Retrieves officetel lease and rent information.
+   * [Ministry of Land, Infrastructure and Transport] Retrieves officetel lease and rent information
    *
    * This Connect is based on data obtained from public data portals in Korea.
    * If you talk about a specific organization here, it is an organization in Korea, and information or deducible facts that data or statistics point to can also be limited to Korea.
@@ -93,7 +93,7 @@ export class OpenDataController {
   }
 
   /**
-   * [Ministry of Land, Infrastructure and Transport] Retrieves apartment lease and rent information.
+   * [Ministry of Land, Infrastructure and Transport] Retrieves apartment lease and rent information
    *
    * This Connect is based on data obtained from public data portals in Korea.
    * If you talk about a specific organization here, it is an organization in Korea, and information or deducible facts that data or statistics point to can also be limited to Korea.
@@ -121,7 +121,7 @@ export class OpenDataController {
   }
 
   /**
-   * [Korea Land and Housing Corporation] Retrieves information on LH rental housing complexes.
+   * [Korea Land and Housing Corporation] Retrieves information on LH rental housing complexes
    *
    * This Connect is based on data obtained from public data portals in Korea.
    * If you talk about a specific organization here, it is an organization in Korea, and information or deducible facts that data or statistics point to can also be limited to Korea.
@@ -149,7 +149,7 @@ export class OpenDataController {
   }
 
   /**
-   * [National Information Society Agency] Retrieves parking lot information.
+   * [National Information Society Agency] Retrieves parking lot information
    *
    * This Connect is based on data obtained from public data portals in Korea.
    * If you talk about a specific organization here, it is an organization in Korea, and information or deducible facts that data or statistics point to can also be limited to Korea.
@@ -176,7 +176,7 @@ export class OpenDataController {
   }
 
   /**
-   * [Ministry of Land, Infrastructure and Transport] Retrieves building registration information.
+   * [Ministry of Land, Infrastructure and Transport] Retrieves building registration information
    *
    * This Connect is based on data obtained from public data portals in Korea.
    * If you talk about a specific organization here, it is an organization in Korea, and information or deducible facts that data or statistics point to can also be limited to Korea.
@@ -213,7 +213,7 @@ export class OpenDataController {
   }
 
   /**
-   * [Ministry of the Interior and Safety] Retrieves administrative standard codes for domestic regions.
+   * [Ministry of the Interior and Safety] Retrieves administrative standard codes for domestic regions
    *
    * This Connect is based on data obtained from public data portals in Korea.
    * If you talk about a specific organization here, it is an organization in Korea, and information or deducible facts that data or statistics point to can also be limited to Korea.
@@ -244,7 +244,7 @@ export class OpenDataController {
   }
 
   /**
-   * [Financial Services Commission] Retrieves market capitalization and stock information.
+   * [Financial Services Commission] Retrieves market capitalization and stock information
    *
    * This Connect is based on data obtained from public data portals in Korea.
    * If you talk about a specific organization here, it is an organization in Korea, and information or deducible facts that data or statistics point to can also be limited to Korea.
@@ -271,7 +271,7 @@ export class OpenDataController {
   }
 
   /**
-   * [Korea Meteorological Administration] Retrieves today's weather information.
+   * [Korea Meteorological Administration] Retrieves today's weather information
    *
    * Latitude and longitude coordinates are required for querying.
    * When provided, the latitude and longitude will be used to get current weather data based on the 00 minute mark of each hour for that region.
@@ -331,7 +331,7 @@ export class OpenDataController {
   }
 
   /**
-   * [Korea Copyright Commission] Searches for copyright information.
+   * [Korea Copyright Commission] Searches for copyright information
    *
    * This Connect is based on data obtained from public data portals in Korea.
    * If you talk about a specific organization here, it is an organization in Korea, and information or deducible facts that data or statistics point to can also be limited to Korea.

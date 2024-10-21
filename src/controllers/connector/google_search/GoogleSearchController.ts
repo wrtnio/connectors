@@ -4,21 +4,19 @@ import { RouteIcon, Standalone } from "@wrtnio/decorators";
 
 import { IGoogleSearch } from "@wrtn/connector-api/lib/structures/connector/google_search/IGoogleSearch";
 
+import { ApiTags } from "@nestjs/swagger";
 import { GoogleSearchProvider } from "../../../providers/connector/google_search/GoogleSearchProvider";
 import { retry } from "../../../utils/retry";
-import { ApiTags } from "@nestjs/swagger";
 
 @Controller("connector/google-search")
 export class GoogleSearchController {
   constructor(private readonly googleSearchProvider: GoogleSearchProvider) {}
 
   /**
-   * Search Google for the search term you entered.
+   * Search Google for the search term you entered
    *
    * @summary Google search
-   *
    * @param input Google search terms
-   *
    * @returns Google search results
    */
   @Standalone()

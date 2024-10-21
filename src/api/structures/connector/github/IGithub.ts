@@ -500,7 +500,7 @@ export namespace IGithub {
     type: "dir";
 
     /**
-     * @title Indicates the file size in bytes.
+     * @title Indicates the file size in bytes
      */
     size: 0;
 
@@ -527,7 +527,7 @@ export namespace IGithub {
     encoding: string & Placeholder<"base64">;
 
     /**
-     * @title Indicates the file size in bytes.
+     * @title Indicates the file size in bytes
      */
     size: number;
 
@@ -799,7 +799,7 @@ export namespace IGithub {
     branch?: Branch["name"];
 
     /**
-     * @title The person that committed the file.
+     * @title The person that committed the file
      * If you don't put anything in, your own information will be injected, so you can leave the value alone.
      * Since the user's email cannot necessarily be guaranteed to be the same as Github's email, it is advantageous not to get confirmation from the user or put it in.
      *
@@ -819,7 +819,7 @@ export namespace IGithub {
     };
 
     /**
-     * @title The author of the file.
+     * @title The author of the file
      *
      * If you don't put anything in, your own information will be injected, so you can leave the value alone.
      * Since the user's email cannot necessarily be guaranteed to be the same as Github's email, it is advantageous not to get confirmation from the user or put it in.

@@ -10,7 +10,7 @@ import { ICommon } from "../common/ISecretValue";
  * commenter: Grants comment permissions. Users with this permission can read and comment on files.
  * reader: Grants read permissions. Users with this permission can read files.
  *
- * @title Type of permission.
+ * @title Type of permission
  */
 export type PermissionRoles =
   | "owner"
@@ -26,7 +26,7 @@ export type PermissionRoles =
  * domain - A specific domain, in this case you must specify the domain to which you want to grant the permission in the domain field.
  * anyone - All users
  *
- * @title The target to whom you want to grant the permission.
+ * @title The target to whom you want to grant the permission
  */
 type PermissionTypes = "user" | "group" | "domain" | "anyone";
 
@@ -42,7 +42,7 @@ export namespace IGoogleDrive {
     /**
      * Drive folder name to be created.
      *
-     * @title Google drive folder name.
+     * @title Google drive folder name
      */
     name: string;
   }
@@ -54,7 +54,7 @@ export namespace IGoogleDrive {
     /**
      * Generated drive folder id.
      *
-     * @title Generated drive id.
+     * @title Generated drive id
      */
     id: string;
   }
@@ -68,9 +68,9 @@ export namespace IGoogleDrive {
       ["https://www.googleapis.com/auth/drive"]
     > {
     /**
-     * Folder to load files from.
+     * Folder to load files from
      *
-     * @title Google Drive Folder.
+     * @title Google Drive Folder
      */
     folderId?: string &
       Prerequisite<{
@@ -90,20 +90,20 @@ export namespace IGoogleDrive {
     /**
      * List of file data in Google Drive.
      *
-     * @title Google Drive File Data.
+     * @title Google Drive File Data
      */
     data: {
       /**
        * Google drive file id.
        *
-       * @title Google drive file id.
+       * @title Google drive file id
        */
       id?: string | null;
 
       /**
        * The name of the Google drive file.
        *
-       * @title Google drive file name.
+       * @title Google drive file name
        */
       name?: string | null;
 
@@ -121,20 +121,20 @@ export namespace IGoogleDrive {
     /**
      * List of folder data in Google Drive.
      *
-     * @title Google Drive Folder Data.
+     * @title Google Drive Folder Data
      */
     data: {
       /**
        * Google drive folder id.
        *
-       * @title Google drive folder id.
+       * @title Google drive folder id
        */
       id?: string | null;
 
       /**
        * Google drive folder name.
        *
-       * @title Google drive folder name.
+       * @title Google drive folder name
        */
       name?: string | null;
     }[];
@@ -151,14 +151,14 @@ export namespace IGoogleDrive {
     /**
      * File name to be created in drive.
      *
-     * @title Google drive file name.
+     * @title Google drive file name
      */
     name: string;
 
     /**
      * A list of folder ids that will contain the files to be created in the drive.
      *
-     * @title Google drive folder ids.
+     * @title Google drive folder ids
      */
     folderIds: (string &
       Prerequisite<{
@@ -174,7 +174,7 @@ export namespace IGoogleDrive {
     /**
      * Contents of the file to be created in drive.
      *
-     * @title Google drive file content.
+     * @title Google drive file content
      */
     content: string;
   }
@@ -190,14 +190,14 @@ export namespace IGoogleDrive {
     /**
      * File name to be created in drive.
      *
-     * @title Google drive file name.
+     * @title Google drive file name
      */
     name: string;
 
     /**
      * A list of folder ids that will contain the files to be created in the drive.
      *
-     * @title Google drive folder ids.
+     * @title Google drive folder ids
      */
     folderIds: (string &
       Prerequisite<{
@@ -223,7 +223,7 @@ export namespace IGoogleDrive {
     /**
      * Generated drive file id.
      *
-     * @title Generated drive file id.
+     * @title Generated drive file id
      */
     id: string;
   }
@@ -236,7 +236,7 @@ export namespace IGoogleDrive {
      * The email address of the user to whom you wish to grant access to Google Drive.
      * Required only when the type is a user type.
      *
-     * @title The email address of the user to whom you wish to grant access.
+     * @title The email address of the user to whom you wish to grant access
      */
     email?: string & tags.Format<"email">;
 
@@ -252,7 +252,7 @@ export namespace IGoogleDrive {
      *
      * There are only six possible values: "owner", "organizer", "fileOrganizer", "writer", "commenter", "reader".
      *
-     * @title The permission to grant.
+     * @title The permission to grant
      */
     role: PermissionRoles;
 
@@ -266,7 +266,7 @@ export namespace IGoogleDrive {
      *
      * There are only four possible values: "user", "group", "domain", "anyone".
      *
-     * @title The type of permission to grant.
+     * @title The type of permission to grant
      */
     type: PermissionTypes;
   }
@@ -282,7 +282,7 @@ export namespace IGoogleDrive {
     /**
      * The drive file id to grant access to.
      *
-     * @title Google drive file id.
+     * @title Google drive file id
      */
     fileId?: string &
       Prerequisite<{
@@ -297,7 +297,7 @@ export namespace IGoogleDrive {
     /**
      * Drive folder id to grant access to.
      *
-     * @title Google drive folder id.
+     * @title Google drive folder id
      */
     folderId?: string &
       Prerequisite<{
@@ -312,7 +312,7 @@ export namespace IGoogleDrive {
     /**
      * Here is a list of emails to make accessible and permissions to grant.
      *
-     * @title Here is a list of emails to make accessible and permissions to grant.
+     * @title Here is a list of emails to make accessible and permissions to grant
      */
     permissions: IPermission[];
   }
@@ -328,7 +328,7 @@ export namespace IGoogleDrive {
     /**
      * Text to add to the drive file.
      *
-     * @title Text to add.
+     * @title Text to add
      */
     text: string;
   }

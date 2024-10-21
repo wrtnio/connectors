@@ -18,46 +18,46 @@ export namespace IKakaoTalk {
   >;
 
   /**
-   * @title DTO for the code received after Kakao login.
+   * @title DTO for the code received after Kakao login
    */
   export interface IAuthorizationCode {
     /**
-     * @title KakaoTalk OAuth2 authorization code.
+     * @title KakaoTalk OAuth2 authorization code
      */
     code: string;
   }
 
   /**
-   * @title DTO for output of access token.
+   * @title DTO for output of access token
    */
   export interface IGetAccessTokenOutput {
     /**
-     * @title Access token.
+     * @title Access token
      */
     access_token: string;
 
     /**
-     * @title Token type.
+     * @title Token type
      */
     token_type: "bearer";
 
     /**
-     * @title Refresh token.
+     * @title Refresh token
      */
     refresh_token: string;
 
     /**
-     * @title Scope of this access token.
+     * @title Scope of this access token
      */
     scope: string;
 
     /**
-     * @title Expiry time of the access token.
+     * @title Expiry time of the access token
      */
     expires_in: number;
 
     /**
-     * @title Expiry time of the refresh token.
+     * @title Expiry time of the refresh token
      */
     refresh_token_expires_in: number;
   }
@@ -529,7 +529,7 @@ export namespace IKakaoTalk {
    */
   export interface Calendar {
     /**
-     * @title Calendar ID.
+     * @title Calendar ID
      *
      * For calendars that users typically have by default, it is referred to as `primary`.
      */
@@ -1031,7 +1031,7 @@ export namespace IKakaoTalk {
   export type Content = (
     | {
         /**
-         * @title Title.
+         * @title Title
          */
         title: string;
       }

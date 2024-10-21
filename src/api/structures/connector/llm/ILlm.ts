@@ -2,21 +2,21 @@ export interface ISelectorLlmRequest {
   /**
    * Here is a list of candidates for selection.
    *
-   * @title Choices.
+   * @title Choices
    */
   candidates: any[];
 
   /**
    * The number of candidates to select.
    *
-   * @title Number of selections.
+   * @title Number of selections
    */
   num_select: number;
 
   /**
    * Here are some things to consider when choosing a candidate.
    *
-   * @title Considerations.
+   * @title Considerations
    */
   context: any;
 }
@@ -25,7 +25,7 @@ export interface ISelectorLlmResponse {
   /**
    * Here is a list of indexes for the selected candidates.
    *
-   * @title Selected candidate index information.
+   * @title Selected candidate index information
    */
   selection: number[];
 }

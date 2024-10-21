@@ -1,6 +1,7 @@
 import core from "@nestia/core";
 import { Controller } from "@nestjs/common";
 
+import { RouteIcon } from "@wrtnio/decorators";
 import {
   IStudentReportGeneratorRequest,
   IStudentReportGeneratorResponse,
@@ -8,7 +9,6 @@ import {
   IStudentReportRowGeneratorResponse,
 } from "../../../api/structures/connector/student_report_generator/IStudentReportGenerator";
 import { StudentReportGeneratorProvider } from "../../../providers/connector/student_report_generator/StudentReportGeneratorProvider";
-import { RouteIcon } from "@wrtnio/decorators";
 
 /**
  * StudentReportGeneratorNode controller.
@@ -20,13 +20,11 @@ export class StudentReportGeneratorController {
   ) {}
 
   /**
-   * Create a student life record based on the entered information.
+   * Create a student life record based on the entered information
    *
    * @summary Create a student life record
-   *
-   * @param input Information for creating a student life record.
-   *
-   * @returns The created student life record.
+   * @param input Information for creating a student life record
+   * @returns The created student life record
    */
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/StudentRecord_full.svg",
@@ -39,13 +37,11 @@ export class StudentReportGeneratorController {
   }
 
   /**
-   * Create a student life record based on the entered information.
+   * Create a student life record based on the entered information
    *
    * @summary Create a student life record
-   *
-   * @param input Information for creating a student life record.
-   *
-   * @returns The created student life record.
+   * @param input Information for creating a student life record
+   * @returns The created student life record
    */
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/StudentRecord_full.svg",

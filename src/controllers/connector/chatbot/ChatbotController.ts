@@ -3,16 +3,16 @@ import { Controller } from "@nestjs/common";
 
 import { IChatbot } from "@wrtn/connector-api/lib/structures/connector/chatbot/IChatbot";
 
+import { RouteIcon } from "@wrtnio/decorators";
 import { ChatbotProvider } from "../../../providers/connector/chatbot/ChatbotProvider";
 import { retry } from "../../../utils/retry";
-import { RouteIcon } from "@wrtnio/decorators";
 
 @Controller("connector/chatbot")
 export class ChatBotController {
   constructor(private readonly chatbotProvider: ChatbotProvider) {}
 
   /**
-   * Use a chatbot built with Easy difficulty.
+   * Use a chatbot built with Easy difficulty
    *
    * This connector is a special purpose connector and is not used in general situations.
    * This connector is only used when using a chatbot migrated from Studio 1.0.
@@ -33,7 +33,7 @@ export class ChatBotController {
   }
 
   /**
-   * Use a chatbot built with the Hard difficulty level.
+   * Use a chatbot built with the Hard difficulty level
    *
    * This connector is a special purpose connector and is not used in general situations.
    * This connector is only used when using a chatbot migrated from Studio 1.0.

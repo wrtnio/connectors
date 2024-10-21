@@ -7,7 +7,7 @@ export class SwaggerController {
   constructor(private readonly swaggerProvider: SwaggerProvider) {}
 
   /**
-   * Swagger.json update.
+   * Swagger.json update
    *
    * @internal
    */

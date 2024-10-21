@@ -8,7 +8,7 @@ export namespace IConnector {
    */
   export interface ISearchOutput {
     /**
-     * Contains output information for search results.
+     * Contains output information for search results
      *
      * @title Output Information
      */
@@ -17,14 +17,14 @@ export namespace IConnector {
 
   export interface IReferenceContent {
     /**
-     * The title of the output.
+     * The title of the output
      *
      * @title Title
      */
     title: string;
 
     /**
-     * Video, image, news article, research paper.
+     * Video, image, news article, research paper
      *
      * It must be one of: video, image, news_article, research_paper
      *
@@ -42,28 +42,28 @@ export namespace IConnector {
     source: ContentProvider;
 
     /**
-     * The URL address of the output.
+     * The URL address of the output
      *
      * @title URL address
      */
     url: string & tags.Format<"iri">;
 
     /**
-     * Here is the content of the output.
+     * Here is the content of the output
      *
      * @title Output Content
      */
     contents?: string;
 
     /**
-     * The URL address of the image of the output.
+     * The URL address of the image of the output
      *
      * @title Output Image URL
      */
     image?: string & tags.Format<"iri">;
 
     /**
-     * Output statistics information.
+     * Output statistics information
      *
      * Possible values: view_count, like_count, rank
      *
@@ -73,7 +73,7 @@ export namespace IConnector {
   }
 
   /**
-   * Videos, images, news articles, papers.
+   * Videos, images, news articles, papers
    *
    * @title Connector Output Type
    */
@@ -84,7 +84,7 @@ export namespace IConnector {
     | tags.Constant<"research_paper", { title: "research_paper" }>;
 
   /**
-   * The source of the output.
+   * The source of the output
    *
    * @title Connector Output Source
    */
@@ -104,48 +104,48 @@ export namespace IConnector {
   export type MetricType = "view_count" | "like_count" | "rank";
 
   /**
-   * Enter your search criteria.
+   * Enter your search criteria
    *
    * @title Search criteria
    */
   export interface ISearchInput {
     /**
-     * Sets how many search results to retrieve.
+     * Sets how many search results to retrieve
      *
      * @title Number of search results
      */
     num_results?: number & tags.Type<"uint32"> & Placeholder<"10">;
 
     /**
-     * Set the start date for search results.
+     * Set the start date for search results
      *
      * @title Start date for search results
      */
     from_date?: string & tags.Format<"date">;
 
     /**
-     * Set the end date for the search results.
+     * Set the end date for the search results
      *
      * @title End date for the search results
      */
     to_date?: string & tags.Format<"date">;
 
     /**
-     * Keywords that must be included in search results.
+     * Keywords that must be included in search results
      *
      * @title Must be included keywords
      */
     and_keywords: Array<string & tags.MinLength<1> & Placeholder<"biology">>;
 
     /**
-     * Keywords that you would like to see included in your search results.
+     * Keywords that you would like to see included in your search results
      *
      * @title Keywords that you would like to see included
      */
     or_keywords?: Array<string & tags.MinLength<1> & Placeholder<"ecosystem">>;
 
     /**
-     * Keywords that should not be included in search results.
+     * Keywords that should not be included in search results
      *
      * @title Keywords that should not be included
      */

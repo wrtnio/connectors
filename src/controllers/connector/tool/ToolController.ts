@@ -3,24 +3,21 @@ import { Controller } from "@nestjs/common";
 
 import { ITool } from "@wrtn/connector-api/lib/structures/connector/tool/ITool";
 
-import { ToolProvider } from "../../../providers/connector/tool/ToolProvider";
 import { RouteIcon } from "@wrtnio/decorators";
+import { ToolProvider } from "../../../providers/connector/tool/ToolProvider";
 
 @Controller("connector/tool")
 export class ToolController {
   constructor(private readonly toolProvider: ToolProvider) {}
 
   /**
-   * Use tool.
+   * Use tool
    *
    * This connector is a special purpose connector and is not used in general situations.
-   *
    * This connector is only used when using tools migrated from Studio 1.0.
-   *
    * This connector is not used when creating general workflows.
    *
    * @summary Use tool
-   *
    * @param id
    * @param input
    */

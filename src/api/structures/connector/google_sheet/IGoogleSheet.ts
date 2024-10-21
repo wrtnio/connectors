@@ -9,7 +9,7 @@ import { ICommon } from "../common/ISecretValue";
  * commenter: Grants comment permission. Users with this permission can read files and post comments.
  * reader: Grants read permission. Users with this permission can read files.
  *
- * @title Type of permission.
+ * @title Type of permission
  */
 type PermissionRoles = "owner" | "writer" | "commenter" | "reader";
 
@@ -20,7 +20,7 @@ interface IPermission {
   /**
    * The email address of the user to grant permission to.
    *
-   * @title The email address of the user to grant permission to.
+   * @title The email address of the user to grant permission to
    */
   email: string & tags.Format<"email">;
 
@@ -34,7 +34,7 @@ interface IPermission {
    *
    * There are only four possible values: "owner", "writer", "commenter", and "reader".
    *
-   * @title The permission to grant.
+   * @title The permission to grant
    */
   role: PermissionRoles;
 }
@@ -54,14 +54,14 @@ export namespace IGoogleSheet {
     /**
      * The ID of the Google Sheet to read.
      *
-     * @title Google Sheet ID.
+     * @title Google Sheet ID
      */
     sheet_id: string;
 
     /**
      * The range of Google Sheets to read.
      *
-     * @title Range to read.
+     * @title Range to read
      */
     range: string;
   }
@@ -80,14 +80,14 @@ export namespace IGoogleSheet {
     /**
      * The url address of the sheet from which to read the header information.
      *
-     * @title sheet url.
+     * @title sheet url
      */
     url: string;
 
     /**
      * The header index of the sheet to read.
      *
-     * @title Sheet header index.
+     * @title Sheet header index
      */
     index?: number;
   }
@@ -99,7 +99,7 @@ export namespace IGoogleSheet {
     /**
      * This is the data from the read sheet.
      *
-     * @title Sheet data.
+     * @title Sheet data
      */
     data: any;
   }
@@ -118,14 +118,14 @@ export namespace IGoogleSheet {
     /**
      * The url of the sheet to grant permission to.
      *
-     * @title sheet url.
+     * @title sheet url
      */
     url: string & tags.Format<"iri">;
 
     /**
      * Here is a list of emails to make accessible and permissions to grant.
      *
-     * @title Here is a list of emails to make accessible and permissions to grant.
+     * @title Here is a list of emails to make accessible and permissions to grant
      */
     permissions: IPermission[];
   }
@@ -144,21 +144,21 @@ export namespace IGoogleSheet {
     /**
      * The url of the sheet to which you want to add the header.
      *
-     * @title sheet url.
+     * @title sheet url
      */
     url: string;
 
     /**
      * The index of the header to add.
      *
-     * @title sheet index.
+     * @title sheet index
      */
     index?: number;
 
     /**
      * A list of headers to add to the sheet.
      *
-     * @title A list of headers to add to the sheet.
+     * @title A list of headers to add to the sheet
      */
     headerNames: string[];
   }
@@ -170,28 +170,28 @@ export namespace IGoogleSheet {
     /**
      * The url of the sheet to which you want to add rows.
      *
-     * @title sheet url.
+     * @title sheet url
      */
     url: string;
 
     /**
      * The index of the row to add.
      *
-     * @title sheet index.
+     * @title sheet index
      */
     index?: number;
 
     /**
      * Information about what value to add rows based on.
      *
-     * @title Information about what value to add rows based on.
+     * @title Information about what value to add rows based on
      */
     from: string[];
 
     /**
      * Header information for the row to be added.
      *
-     * @title Header information for the row to be added.
+     * @title Header information for the row to be added
      */
     to: string[];
   }
@@ -210,7 +210,7 @@ export namespace IGoogleSheet {
     /**
      * The url of the sheet to read.
      *
-     * @title sheet url.
+     * @title sheet url
      */
     url: string;
   }
@@ -222,7 +222,7 @@ export namespace IGoogleSheet {
     /**
      * Here is a list of titles for the sheets you've read.
      *
-     * @title List of worksheet titles.
+     * @title List of worksheet titles
      */
     data: string[];
   }
@@ -241,14 +241,14 @@ export namespace IGoogleSheet {
     /**
      * The url of the sheet from which to read the rows.
      *
-     * @title sheet url.
+     * @title sheet url
      */
     url: string;
 
     /**
      * The title of the sheet to work on.
      *
-     * @title The title of the sheet to work on.
+     * @title The title of the sheet to work on
      */
     workSheetTitle: string;
   }
@@ -260,7 +260,7 @@ export namespace IGoogleSheet {
     /**
      * An object where the key is the header name and the value is the value of the corresponding row.
      *
-     * @title The read Google Sheet row data.
+     * @title The read Google Sheet row data
      */
     [key: string]: any;
   }
@@ -272,7 +272,7 @@ export namespace IGoogleSheet {
     /**
      * This is the read Google Sheet row data.
      *
-     * @title Read Google Sheet row data.
+     *
      */
     data: IReadGoogleSheetRowData[];
   }

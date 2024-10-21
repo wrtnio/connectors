@@ -410,6 +410,7 @@ export class GithubProvider {
 
       return res.data;
     } catch (err) {
+      console.log(JSON.stringify((err as any).response.data, null, 2));
       throw err;
     }
   }

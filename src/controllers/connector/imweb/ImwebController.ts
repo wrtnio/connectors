@@ -4,9 +4,9 @@ import { RouteIcon, Standalone } from "@wrtnio/decorators";
 
 import { IImweb } from "@wrtn/connector-api/lib/structures/connector/imweb/IImweb";
 
+import { ApiTags } from "@nestjs/swagger";
 import { ImwebProvider } from "../../../providers/connector/imweb/ImwebProvider";
 import { retry } from "../../../utils/retry";
-import { ApiTags } from "@nestjs/swagger";
 
 @Controller("connector/imweb")
 export class ImwebController {
@@ -38,7 +38,7 @@ export class ImwebController {
   }
 
   /**
-   * Issue Aimweb Access Token.
+   * Issue Aimweb Access Token
    *
    * @internal
    *

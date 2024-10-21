@@ -4,9 +4,9 @@ import { Prerequisite, RouteIcon, Standalone } from "@wrtnio/decorators";
 
 import { IGoogleDocs } from "@wrtn/connector-api/lib/structures/connector/google_docs/IGoogleDocs";
 
+import { ApiTags } from "@nestjs/swagger";
 import { GoogleDocsProvider } from "../../../providers/connector/google_docs/GoogleDocsProvider";
 import { retry } from "../../../utils/retry";
-import { ApiTags } from "@nestjs/swagger";
 
 @Controller("connector/google-docs")
 export class GoogleDocsController {
@@ -64,7 +64,7 @@ export class GoogleDocsController {
   async readDocs(
     /**
      * @title Docs file to import
-     * @description Please select the docs file to import.
+     * @description Please select the docs file to import
      */
     @Prerequisite({
       neighbor: () => GoogleDocsController.prototype.list,
@@ -97,7 +97,7 @@ export class GoogleDocsController {
   }
 
   /**
-   * Delete Google Docs.
+   * Delete Google Docs
    *
    * @summary Delete Google Docs
    * @param id Unique ID of the Google Docs to delete
@@ -110,7 +110,7 @@ export class GoogleDocsController {
   async deleteById(
     /**
      * @title Docs file to delete
-     * @description Please select the docs file to delete.
+     * @description Please select the docs file to delete
      */
     @Prerequisite({
       neighbor: () => GoogleDocsController.prototype.list,
