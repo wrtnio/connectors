@@ -18,7 +18,7 @@
     "title": "구글 프레젠테이션 제작",
     "summary": "구글 프레젠테이션을 쉽게 만들고 꾸밀 수 있어요.",
     "description": "구글 슬라이드로 프레젠테이션을 만들고, 페이지를 추가하거나 수정할 수 있어요. 텍스트, 이미지, 도형을 추가하고 다양한 효과를 설정할 수 있어요. 슬라이드 전환 효과를 적용하고, 개체의 순서를 조정할 수 있어요. 슬라이드 노트를 작성하여 발표 준비를 할 수 있고, 프레젠테이션의 메타데이터를 수정할 수 있어요. 팀원들과 실시간으로 협업하며 프레젠테이션을 만들 수 있고, 완성된 프레젠테이션을 PDF로 내보낼 수도 있어요.",
-    "version": "0.1.274",
+    "version": "0.1.275",
     "license": {
       "name": "AGPL-3.0-only"
     }
@@ -27,7 +27,7 @@
     "/connector/google-slides/presentations/{id}/export/hanshow": {
       "post": {
         "summary": "Export presentations to Hanshow files",
-        "description": "Export Google Slides presentations to Hanshow format!",
+        "description": "Export Google Slides presentations to Hanshow format",
         "tags": [
           "Google Slide"
         ],
@@ -71,7 +71,7 @@
     "/connector/google-slides/presentations/{id}/export/power-point": {
       "post": {
         "summary": "Export presentations to PPT files",
-        "description": "Export Google Slides presentations to PowerPoint format!\n\nA connector that can be used when creating stories or picture books.",
+        "description": "Export Google Slides presentations to PowerPoint format\n\nA connector that can be used when creating stories or picture books.",
         "tags": [
           "Google Slide"
         ],
@@ -114,14 +114,14 @@
     },
     "/connector/google-slides/get-presentations": {
       "post": {
-        "summary": "Retrieve a Google Slides presentation.",
-        "description": "Retrieve a Google Slides presentation.",
+        "summary": "Retrieve a Google Slides presentation",
+        "description": "Retrieve a Google Slides presentation",
         "tags": [
           "Google Slide"
         ],
         "parameters": [],
         "requestBody": {
-          "description": "Condition DTO for retrieving a presentation.",
+          "description": "Condition DTO for retrieving a presentation",
           "content": {
             "application/json": {
               "schema": {
@@ -133,7 +133,7 @@
         },
         "responses": {
           "201": {
-            "description": "Retrieve presentation information DTO.",
+            "description": "Retrieve presentation information DTO",
             "content": {
               "application/json": {
                 "schema": {
@@ -148,7 +148,7 @@
     },
     "/connector/google-slides/presentations/{id}/slides/quarter-divisions": {
       "put": {
-        "summary": "Add \"QuarterDivision\" type image slides to a Google Slides presentation.",
+        "summary": "Add \"QuarterDivision\" type image slides to a Google Slides presentation",
         "description": "Add \"QuarterDivision\" type slides to a Google Slides presentation\n\nThe \"QuarterDivision\" type slides are templates that are designed to place images and text in the upper left, upper right, lower left, and lower right, like a four-cut cartoon.\nFour images are required for this template, and the text is located right under each image.\n\nYou may need an image when the user asks you to add a slide.\nIn this case, rather than inserting any image, you should first secure the image using a search connector or an image creation connector.\nIt is safe to ask the user for consent to this process.",
         "tags": [
           "Google Slide"
@@ -192,7 +192,7 @@
     },
     "/connector/google-slides/presentations/{id}/slides/entires": {
       "put": {
-        "summary": "Add entire type image slides to a Google Slides presentation.",
+        "summary": "Add entire type image slides to a Google Slides presentation",
         "description": "Add \"Entire\" type slides to a Google Slides presentation\n\nThe \"Entire\" type of slide is a template that packs an image all over, and you can't put any extra text in it. Maybe it's usually suitable for putting a cover.\nBecause ordinary presentations have longer horizontal lengths, if you put a square image, gaps on the left and right can appear large.\n\nYou may need an image when the user asks you to add a slide.\nIn this case, rather than inserting any image, you should first secure the image using a search connector or an image creation connector.\nIt is safe to ask the user for consent to this process.",
         "tags": [
           "Google Slide"
@@ -236,7 +236,7 @@
     },
     "/connector/google-slides/presentations/{id}/slides/landscapes": {
       "put": {
-        "summary": "Add \"Landscape\" type image slides to a Google Slides presentation.",
+        "summary": "Add \"Landscape\" type image slides to a Google Slides presentation",
         "description": "Add \"Landscape\" type slides to a Google Slides presentation\n\nThe \"Landscape\" type template fits text underneath with a longer horizontal image tightly packed like a background.\nIt is suitable when the image is highlighted and the text is short.\nIt is suitable for marking images and titles as if they were on display.\n\nYou may need an image when the user asks you to add a slide.\nIn this case, rather than inserting any image, you should first secure the image using a search connector or an image creation connector.\nIt is safe to ask the user for consent to this process.",
         "tags": [
           "Google Slide"
@@ -280,7 +280,7 @@
     },
     "/connector/google-slides/presentations/{id}/slides/squares": {
       "put": {
-        "summary": "Add \"Square\" type image slides to a Google Slides presentation.",
+        "summary": "Add \"Square\" type image slides to a Google Slides presentation",
         "description": "Add \"Square\" type slides to a Google Slides presentation\n\nThe \"Square\" type slides put square images and text. In this case, you should put at least four to five lines of text, because there is so much space to put text.\nThe picture is on the left, and the text is on the right.\n\nYou may need an image when the user asks you to add a slide.\nIn this case, rather than inserting any image, you should first secure the image using a search connector or an image creation connector.\nIt is safe to ask the user for consent to this process.",
         "tags": [
           "Google Slide"
@@ -324,7 +324,7 @@
     },
     "/connector/google-slides/presentations/{id}/slides/verticals": {
       "put": {
-        "summary": "Add \"Vertical\" type image slides to a Google Slides presentation.",
+        "summary": "Add \"Vertical\" type image slides to a Google Slides presentation",
         "description": "Add \"Vertical\" type slides to a Google Slides presentation\n\nThe \"Vertical\" type is like a square type slide, with an image on the left and text on the right.\nIn this case, unlike the square type, the image is filled to the height of the presentation while maintaining the proportion.\nThis also allows for enough text.\n\nYou may need an image when the user asks you to add a slide.\nIn this case, rather than inserting any image, you should first secure the image using a search connector or an image creation connector.\nIt is safe to ask the user for consent to this process.",
         "tags": [
           "Google Slide"
@@ -368,7 +368,7 @@
     },
     "/connector/google-slides/presentations/{id}/image-slide": {
       "put": {
-        "summary": "Add image and text slides to a Google Slides presentation.",
+        "summary": "Add image and text slides to a Google Slides presentation",
         "description": "Add slides to a Google Slides presentation\n\nUse this connector with connector/google-slides/presentations when creating a story or picture book.\nWhen creating a story or picture book, insert the story and pictures created using this connector into the presentation created from connector/google-slides/presentations connector.\nBe careful not to use this connector when creating a story or picture book, as it may result in an empty picture book.\nSlide type must be one of: \"Vertical\", \"Square\", \"Landscape\", \"Entire\", \"QuarterDivision\".\nIt is common to choose a \"Square\" type when there is one image.\n\nYou may need an image when the user asks you to add a slide.\nIn this case, rather than inserting any image, you should first secure the image using a search connector or an image creation connector.\nIt is safe to ask the user for consent to this process.",
         "deprecated": true,
         "tags": [
@@ -413,14 +413,14 @@
     },
     "/connector/google-slides/presentations": {
       "post": {
-        "summary": "Create a Google Slides presentation.",
-        "description": "Create a Google Slides presentation.\n\nThis connector can be used when creating a story or picture book.\nPlease use it with the connector/google-slides/image-slide connector when creating a story or picture book.\nWhen creating a story or picture book, create a new presentation with this connector and insert the created story and picture into the slide using other connector.\nThis creates a blank presentation file, which is basically created with the first slide with no text.",
+        "summary": "Create a Google Slides presentation",
+        "description": "Create a Google Slides presentation\n\nThis connector can be used when creating a story or picture book.\nPlease use it with the connector/google-slides/image-slide connector when creating a story or picture book.\nWhen creating a story or picture book, create a new presentation with this connector and insert the created story and picture into the slide using other connector.\nThis creates a blank presentation file, which is basically created with the first slide with no text.",
         "tags": [
           "Google Slide"
         ],
         "parameters": [],
         "requestBody": {
-          "description": "Condition DTO for creating a presentation.",
+          "description": "Condition DTO for creating a presentation",
           "content": {
             "application/json": {
               "schema": {
@@ -432,7 +432,7 @@
         },
         "responses": {
           "201": {
-            "description": "Generated presentation information DTO.",
+            "description": "Generated presentation information DTO",
             "content": {
               "application/json": {
                 "schema": {
@@ -466,8 +466,8 @@
     },
     "/connector/google-drive/get/folders": {
       "post": {
-        "summary": "Get a list of Google Drive folders.",
-        "description": "Get a list of folders in Google Drive.",
+        "summary": "Get a list of Google Drive folders",
+        "description": "Get a list of folders in Google Drive",
         "tags": [
           "Google Drive"
         ],
@@ -484,7 +484,7 @@
         },
         "responses": {
           "201": {
-            "description": "A list of Google Drive folders.",
+            "description": "A list of Google Drive folders",
             "content": {
               "application/json": {
                 "schema": {
@@ -500,8 +500,8 @@
     },
     "/connector/google-drive/get/files": {
       "post": {
-        "summary": "Get a list of Google Drive files.",
-        "description": "Get a list of files in Google Drive.",
+        "summary": "Get a list of Google Drive files",
+        "description": "Get a list of files in Google Drive",
         "tags": [
           "Google Drive"
         ],
@@ -518,7 +518,7 @@
         },
         "responses": {
           "201": {
-            "description": "A list of Google Drive files.",
+            "description": "A list of Google Drive files",
             "content": {
               "application/json": {
                 "schema": {
@@ -533,14 +533,14 @@
     },
     "/connector/google-drive/folder": {
       "post": {
-        "summary": "Create a Google Drive folder.",
-        "description": "Create a new folder in Google Drive.",
+        "summary": "Create a Google Drive folder",
+        "description": "Create a new folder in Google Drive",
         "tags": [
           "Google Drive"
         ],
         "parameters": [],
         "requestBody": {
-          "description": "The name of the folder to be created.",
+          "description": "The name of the folder to be created",
           "content": {
             "application/json": {
               "schema": {
@@ -552,7 +552,7 @@
         },
         "responses": {
           "201": {
-            "description": "The unique ID of the created folder.",
+            "description": "The unique ID of the created folder",
             "content": {
               "application/json": {
                 "schema": {
@@ -568,14 +568,14 @@
     },
     "/connector/google-drive/file": {
       "post": {
-        "summary": "Create a Google Drive file.",
-        "description": "Create a new file in Google Drive.",
+        "summary": "Create a Google Drive file",
+        "description": "Create a new file in Google Drive",
         "tags": [
           "Google Drive"
         ],
         "parameters": [],
         "requestBody": {
-          "description": "The name of the file to be created and the unique ID of the folder where the file will be created.",
+          "description": "The name of the file to be created and the unique ID of the folder where the file will be created",
           "content": {
             "application/json": {
               "schema": {
@@ -587,7 +587,7 @@
         },
         "responses": {
           "201": {
-            "description": "The unique ID of the created file.",
+            "description": "The unique ID of the created file",
             "content": {
               "application/json": {
                 "schema": {
@@ -602,8 +602,8 @@
     },
     "/connector/google-drive/file/{id}": {
       "delete": {
-        "summary": "Delete a Google Drive file.",
-        "description": "Delete a file in Google Drive.",
+        "summary": "Delete a Google Drive file",
+        "description": "Delete a file in Google Drive",
         "tags": [
           "Google Drive"
         ],
@@ -620,8 +620,7 @@
               }
             },
             "required": true,
-            "title": "The unique ID of the file to be deleted",
-            "description": " The unique ID of the file to be deleted."
+            "description": " The unique ID of the file to be deleted"
           }
         ],
         "requestBody": {
@@ -647,8 +646,8 @@
     },
     "/connector/google-drive/folder/{id}": {
       "delete": {
-        "summary": "Delete a Google Drive folder.",
-        "description": "Delete a folder in Google Drive.",
+        "summary": "Delete a Google Drive folder",
+        "description": "Delete a folder in Google Drive",
         "tags": [
           "Google Drive"
         ],
@@ -665,8 +664,7 @@
               }
             },
             "required": true,
-            "title": "The unique ID of the folder to be deleted",
-            "description": " The unique ID of the folder to be deleted."
+            "description": " The unique ID of the folder to be deleted"
           }
         ],
         "requestBody": {
@@ -692,14 +690,14 @@
     },
     "/connector/google-drive/permission": {
       "post": {
-        "summary": "Grant Google Drive permission.",
-        "description": "Grants permission to access a file or folder.",
+        "summary": "Grant Google Drive permission",
+        "description": "Grants permission to access a file or folder",
         "tags": [
           "Google Drive"
         ],
         "parameters": [],
         "requestBody": {
-          "description": "Information for granting permission.",
+          "description": "Information for granting permission",
           "content": {
             "application/json": {
               "schema": {
@@ -722,8 +720,8 @@
     },
     "/connector/google-drive/get/file/{id}": {
       "post": {
-        "summary": "Read text from a Google Drive file.",
-        "description": "Read text from a file.",
+        "summary": "Read text from a Google Drive file",
+        "description": "Read text from a file",
         "tags": [
           "Google Drive"
         ],
@@ -740,8 +738,7 @@
               }
             },
             "required": true,
-            "title": "Unique ID of the file",
-            "description": " Unique ID of the file."
+            "description": " Unique ID of the file"
           }
         ],
         "requestBody": {
@@ -756,7 +753,7 @@
         },
         "responses": {
           "201": {
-            "description": "The text content of the file.",
+            "description": "The text content of the file",
             "content": {
               "application/json": {
                 "schema": {
@@ -772,7 +769,7 @@
     "/connector/aws/file/upload-url": {
       "get": {
         "summary": "Generate File Upload URL",
-        "description": "Generate the URL required to upload a file.",
+        "description": "Generate the URL required to upload a file",
         "tags": [],
         "parameters": [
           {
@@ -859,11 +856,11 @@
                 "type": "string"
               }
             ],
-            "title": "The title of the presentation."
+            "title": "The title of the presentation"
           },
           "pageSize": {
             "$ref": "#/components/schemas/IGoogleSlides.Size",
-            "title": "The page size of the presentation."
+            "title": "The page size of the presentation"
           },
           "presentationId": {
             "oneOf": [
@@ -874,7 +871,7 @@
                 "type": "string"
               }
             ],
-            "title": "Presentation ID."
+            "title": "Presentation ID"
           }
         }
       },
@@ -883,11 +880,11 @@
         "properties": {
           "width": {
             "$ref": "#/components/schemas/IGoogleSlides.Dimension",
-            "title": "Width of the object."
+            "title": "Width of the object"
           },
           "height": {
             "$ref": "#/components/schemas/IGoogleSlides.Dimension",
-            "title": "The height of the object."
+            "title": "The height of the object"
           }
         }
       },
@@ -903,7 +900,7 @@
                 "type": "number"
               }
             ],
-            "title": "scale."
+            "title": "scale"
           },
           "unit": {
             "oneOf": [
@@ -925,7 +922,7 @@
                 "description": "1/72인치입니다."
               }
             ],
-            "title": "Size units."
+            "title": "Size units"
           }
         }
       },
@@ -934,7 +931,7 @@
         "properties": {
           "presentationId": {
             "type": "string",
-            "title": "The presentation ID to search for."
+            "title": "The presentation ID to search for"
           },
           "secretKey": {
             "type": "string",
@@ -950,7 +947,7 @@
           "presentationId",
           "secretKey"
         ],
-        "title": "Condition DTO for presentation search."
+        "title": "Condition DTO for presentation search"
       },
       "IGoogleSlides.AppendQuarterDivisionSlideInput": {
         "type": "object",
@@ -992,7 +989,7 @@
                 },
                 "text": {
                   "$ref": "#/components/schemas/IGoogleSlides.InsertText",
-                  "title": "Text corresponding to the image."
+                  "title": "Text corresponding to the image"
                 }
               },
               "required": [
@@ -1122,7 +1119,7 @@
               },
               "text": {
                 "$ref": "#/components/schemas/IGoogleSlides.InsertText",
-                "title": "Text corresponding to the image."
+                "title": "Text corresponding to the image"
               }
             },
             "required": [
@@ -1174,7 +1171,7 @@
               },
               "text": {
                 "$ref": "#/components/schemas/IGoogleSlides.InsertText",
-                "title": "Text corresponding to the image."
+                "title": "Text corresponding to the image"
               }
             },
             "required": [
@@ -1226,7 +1223,7 @@
               },
               "text": {
                 "$ref": "#/components/schemas/IGoogleSlides.InsertText",
-                "title": "Text corresponding to the image."
+                "title": "Text corresponding to the image"
               }
             },
             "required": [
@@ -1274,7 +1271,7 @@
                 }
               }
             },
-            "title": "A list of templates to create at once.",
+            "title": "A list of templates to create at once",
             "description": "When creating a story or picture book, please use only squares."
           },
           "secretKey": {
@@ -1291,14 +1288,14 @@
           "templates",
           "secretKey"
         ],
-        "title": "Request DTO for pasting slides."
+        "title": "Request DTO for pasting slides"
       },
       "IGoogleSlides.Template.Vertical": {
         "type": "object",
         "properties": {
           "type": {
             "const": "Vertical",
-            "title": "The type of the template.\n\ntype must be \"Vertical\""
+            "title": "The type of the template\n\ntype must be \"Vertical\""
           },
           "contents": {
             "type": "object",
@@ -1310,7 +1307,7 @@
               },
               "text": {
                 "$ref": "#/components/schemas/IGoogleSlides.InsertText",
-                "title": "Text corresponding to the image."
+                "title": "Text corresponding to the image"
               }
             },
             "required": [
@@ -1331,7 +1328,7 @@
         "properties": {
           "type": {
             "const": "Square",
-            "title": "The type of the template.\n\ntype must be \"Square\"."
+            "title": "The type of the template\n\ntype must be \"Square\"."
           },
           "contents": {
             "type": "object",
@@ -1343,7 +1340,7 @@
               },
               "text": {
                 "$ref": "#/components/schemas/IGoogleSlides.InsertText",
-                "title": "Text corresponding to the image."
+                "title": "Text corresponding to the image"
               }
             },
             "required": [
@@ -1365,7 +1362,7 @@
         "properties": {
           "type": {
             "const": "Landscape",
-            "title": "The type of the template.\n\ntype must be \"Landscape\"."
+            "title": "The type of the template\n\ntype must be \"Landscape\"."
           },
           "contents": {
             "type": "object",
@@ -1377,7 +1374,7 @@
               },
               "text": {
                 "$ref": "#/components/schemas/IGoogleSlides.InsertText",
-                "title": "Text corresponding to the image."
+                "title": "Text corresponding to the image"
               }
             },
             "required": [
@@ -1398,7 +1395,7 @@
         "properties": {
           "type": {
             "const": "Entire",
-            "title": "The type of the template.\n\ntype must be \"Entire\"."
+            "title": "The type of the template\n\ntype must be \"Entire\"."
           },
           "contents": {
             "type": "object",
@@ -1426,7 +1423,7 @@
         "properties": {
           "type": {
             "const": "QuarterDivision",
-            "title": "The type of the template.\n\ntype must be \"QuarterDivision\"."
+            "title": "The type of the template\n\ntype must be \"QuarterDivision\"."
           },
           "contents": {
             "type": "array",
@@ -1440,7 +1437,7 @@
                 },
                 "text": {
                   "$ref": "#/components/schemas/IGoogleSlides.InsertText",
-                  "title": "Text corresponding to the image."
+                  "title": "Text corresponding to the image"
                 }
               },
               "required": [
@@ -1480,13 +1477,13 @@
                 "type": "string"
               }
             ],
-            "title": "The title of the presentation."
+            "title": "The title of the presentation"
           }
         },
         "required": [
           "secretKey"
         ],
-        "title": "Request DTO for generating a presentation in Google Slides."
+        "title": "Request DTO for generating a presentation in Google Slides"
       },
       "IGoogleDrive.IFolderListGoogleDriveOutput": {
         "type": "object",
@@ -1505,7 +1502,7 @@
                       "type": "string"
                     }
                   ],
-                  "title": "Google drive folder id.",
+                  "title": "Google drive folder id",
                   "description": "Google drive folder id."
                 },
                 "name": {
@@ -1517,12 +1514,12 @@
                       "type": "string"
                     }
                   ],
-                  "title": "Google drive folder name.",
+                  "title": "Google drive folder name",
                   "description": "Google drive folder name."
                 }
               }
             },
-            "title": "Google Drive Folder Data.",
+            "title": "Google Drive Folder Data",
             "description": "List of folder data in Google Drive."
           }
         },
@@ -1566,7 +1563,7 @@
                       "type": "string"
                     }
                   ],
-                  "title": "Google drive file id.",
+                  "title": "Google drive file id",
                   "description": "Google drive file id."
                 },
                 "name": {
@@ -1578,7 +1575,7 @@
                       "type": "string"
                     }
                   ],
-                  "title": "Google drive file name.",
+                  "title": "Google drive file name",
                   "description": "The name of the Google drive file."
                 },
                 "webContentLink": {
@@ -1595,7 +1592,7 @@
                 }
               }
             },
-            "title": "Google Drive File Data.",
+            "title": "Google Drive File Data",
             "description": "List of file data in Google Drive."
           }
         },
@@ -1614,8 +1611,8 @@
               "path": "/connector/google-drive/get/folders",
               "jmesPath": "data[].{value:id, label:name}"
             },
-            "title": "Google Drive Folder.",
-            "description": "Folder to load files from."
+            "title": "Google Drive Folder",
+            "description": "Folder to load files from"
           },
           "secretKey": {
             "type": "string",
@@ -1637,7 +1634,7 @@
         "properties": {
           "id": {
             "type": "string",
-            "title": "Generated drive id.",
+            "title": "Generated drive id",
             "description": "Generated drive folder id."
           }
         },
@@ -1651,7 +1648,7 @@
         "properties": {
           "name": {
             "type": "string",
-            "title": "Google drive folder name.",
+            "title": "Google drive folder name",
             "description": "Drive folder name to be created."
           },
           "secretKey": {
@@ -1675,7 +1672,7 @@
         "properties": {
           "id": {
             "type": "string",
-            "title": "Generated drive file id.",
+            "title": "Generated drive file id",
             "description": "Generated drive file id."
           }
         },
@@ -1689,7 +1686,7 @@
         "properties": {
           "name": {
             "type": "string",
-            "title": "Google drive file name.",
+            "title": "Google drive file name",
             "description": "File name to be created in drive."
           },
           "folderIds": {
@@ -1703,7 +1700,7 @@
               }
             },
             "minItems": 1,
-            "title": "Google drive folder ids.",
+            "title": "Google drive folder ids",
             "description": "A list of folder ids that will contain the files to be created in the drive."
           },
           "fileUrl": {
@@ -1739,7 +1736,7 @@
               "path": "/connector/google-drive/get/files",
               "jmesPath": "data[].{value:id, label:name}"
             },
-            "title": "Google drive file id.",
+            "title": "Google drive file id",
             "description": "The drive file id to grant access to."
           },
           "folderId": {
@@ -1749,7 +1746,7 @@
               "path": "/connector/google-drive/get/folders",
               "jmesPath": "data[].{value:id, label:name}"
             },
-            "title": "Google drive folder id.",
+            "title": "Google drive folder id",
             "description": "Drive folder id to grant access to."
           },
           "permissions": {
@@ -1757,7 +1754,7 @@
             "items": {
               "$ref": "#/components/schemas/IGoogleDrive.IPermission"
             },
-            "title": "Here is a list of emails to make accessible and permissions to grant.",
+            "title": "Here is a list of emails to make accessible and permissions to grant",
             "description": "Here is a list of emails to make accessible and permissions to grant."
           },
           "secretKey": {
@@ -1782,7 +1779,7 @@
           "email": {
             "type": "string",
             "format": "email",
-            "title": "The email address of the user to whom you wish to grant access.",
+            "title": "The email address of the user to whom you wish to grant access",
             "description": "The email address of the user to whom you wish to grant access to Google Drive.\nRequired only when the type is a user type."
           },
           "role": {
@@ -1806,7 +1803,7 @@
                 "const": "fileOrganizer"
               }
             ],
-            "title": "The permission to grant.",
+            "title": "The permission to grant",
             "description": "The type of permission to grant.\n\nowner: Grants owner permissions. Users with this permission can delete files or folders or grant permissions to other users.\norganizer: Grants operator permissions for the drive. Users with this permission can manage the organization of the drive.\nfileOrganizer: Grants operator permissions for files on the drive. Users with this permission can add or delete files.\nwriter: Grants write permissions. Users with this permission can modify or delete files.\ncommenter: Grants comment permissions. Users with this permission can read and comment on files.\nreader: Grants read permissions. Users with this permission can read files.\n\nThere are only six possible values: \"owner\", \"organizer\", \"fileOrganizer\", \"writer\", \"commenter\", \"reader\"."
           },
           "type": {
@@ -1824,7 +1821,7 @@
                 "const": "anyone"
               }
             ],
-            "title": "The type of permission to grant.",
+            "title": "The type of permission to grant",
             "description": "The type of permission to grant.\n\nuser - a specific user, in this case you must specify the email address of the user to grant the permission to in the emailAddress field.\ngroup - a specific group, in this case you must specify the email address of the group to grant the permission to in the emailAddress field.\ndomain - a specific domain, in this case you must specify the domain to grant the permission to in the domain field.\nanyone - all users\n\nThere are only four possible values: \"user\", \"group\", \"domain\", \"anyone\"."
           }
         },

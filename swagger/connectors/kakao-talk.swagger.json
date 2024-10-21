@@ -18,7 +18,7 @@
     "title": "카카오톡 메시징 및 일정 관리",
     "summary": "카카오톡으로 메시지를 보내고 일정을 관리해요.",
     "description": "카카오톡으로 다양한 유형의 메시지를 보내고, 캘린더를 조회하고 일정을 추가할 수 있어요. 친구 목록도 조회할 수 있어요. 텍스트 메시지는 물론 이미지, 링크, 위치 정보 등을 포함한 다양한 형태의 메시지를 전송할 수 있어요. 개인 캘린더와 채널 캘린더를 관리하여 효율적인 일정 관리가 가능해요. 친구나 그룹채팅방에 일정을 공유하고, 알림을 설정할 수 있어 중요한 약속을 잊지 않을 수 있어요.",
-    "version": "0.1.274",
+    "version": "0.1.275",
     "license": {
       "name": "AGPL-3.0-only"
     }
@@ -392,7 +392,7 @@
               "type": "string"
             },
             "required": true,
-            "title": "KakaoTalk OAuth2 authorization code."
+            "title": "KakaoTalk OAuth2 authorization code"
           }
         ],
         "responses": {
@@ -803,7 +803,7 @@
         "properties": {
           "title": {
             "type": "string",
-            "title": "Title."
+            "title": "Title"
           },
           "image_width": {
             "type": "integer",
@@ -2061,7 +2061,7 @@
             "type": "string",
             "default": "primary",
             "x-wrtn-placeholder": "primary",
-            "title": "Calendar ID.\n\nFor calendars that users typically have by default, it is referred to as `primary`."
+            "title": "Calendar ID\n\nFor calendars that users typically have by default, it is referred to as `primary`."
           },
           "name": {
             "type": "string",
@@ -2186,7 +2186,7 @@
             "type": "string",
             "default": "primary",
             "x-wrtn-placeholder": "primary",
-            "title": "Calendar ID.\n\nFor calendars that users typically have by default, it is referred to as `primary`."
+            "title": "Calendar ID\n\nFor calendars that users typically have by default, it is referred to as `primary`."
           },
           "name": {
             "type": "string",
@@ -2309,27 +2309,27 @@
         "properties": {
           "access_token": {
             "type": "string",
-            "title": "Access token."
+            "title": "Access token"
           },
           "token_type": {
             "const": "bearer",
-            "title": "Token type."
+            "title": "Token type"
           },
           "refresh_token": {
             "type": "string",
-            "title": "Refresh token."
+            "title": "Refresh token"
           },
           "scope": {
             "type": "string",
-            "title": "Scope of this access token."
+            "title": "Scope of this access token"
           },
           "expires_in": {
             "type": "number",
-            "title": "Expiry time of the access token."
+            "title": "Expiry time of the access token"
           },
           "refresh_token_expires_in": {
             "type": "number",
-            "title": "Expiry time of the refresh token."
+            "title": "Expiry time of the refresh token"
           }
         },
         "required": [
@@ -2340,35 +2340,35 @@
           "expires_in",
           "refresh_token_expires_in"
         ],
-        "title": "DTO for output of access token."
+        "title": "DTO for output of access token"
       },
       "IKakaoTalk.IAuthorizationCode": {
         "type": "object",
         "properties": {
           "code": {
             "type": "string",
-            "title": "KakaoTalk OAuth2 authorization code."
+            "title": "KakaoTalk OAuth2 authorization code"
           }
         },
         "required": [
           "code"
         ],
-        "title": "DTO for the code received after Kakao login."
+        "title": "DTO for the code received after Kakao login"
       },
       "IKakaoTalk.IRefreshAccessTokenOutput": {
         "type": "object",
         "properties": {
           "access_token": {
             "type": "string",
-            "title": "Access token."
+            "title": "Access token"
           },
           "expires_in": {
             "type": "number",
-            "title": "Expiry time of the access token."
+            "title": "Expiry time of the access token"
           },
           "token_type": {
             "const": "bearer",
-            "title": "Token type."
+            "title": "Token type"
           }
         },
         "required": [

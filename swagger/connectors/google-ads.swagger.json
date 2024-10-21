@@ -18,7 +18,7 @@
     "title": "구글 광고 캠페인 운영",
     "summary": "구글 광고를 쉽게 만들고 관리해요.",
     "description": "키워드 검색을 통한 SEO 전략을 최적화하고, 노출 광고의 효과를 높여 잠재 고객에게 효과적으로 도달할 수 있어요.구글 광고에서 검색 광고, 디스플레이 광고, 동영상 광고 등 다양한 유형의 광고를 만들고 수정할 수 있어요. 이후 광고 상태를 관리하고, 성과를 조회할 수 있어요.",
-    "version": "0.1.274",
+    "version": "0.1.275",
     "license": {
       "name": "AGPL-3.0-only"
     }
@@ -27,7 +27,7 @@
     "/connector/google-ads/generateKeywordIdeas/keywordsAndUrl": {
       "post": {
         "summary": "Create keywords using keywords and URL",
-        "description": "Recommend keywords for Google Ads!\n\nIn order to execute ads in Google Ads, you need to register keywords.\nA keyword must be registered to target the end users of the ad, and it is one of the `adGroupCriteria` mapped to `adGroup` among the resources of Google Ads.\nThis connector is a function to recommend such keywords, and when the user enters the keywords and URL that he or she wanted to register, it recommends other keywords that can be derived from them.\n\nThe request result is a list of keywords, the competition index, unit price, and the expected index values for each keyword when registering an ad.\n\nThis connector excludes keywords for adult ads, and the language condition is set to Korean and the geographical condition is set to Korea (South Korea).\n\nBefore calling the function, you need to ask the user for `customerId`, so you need to suggest a connector that can check `customerId`.",
+        "description": "Recommend keywords for Google Ads\n\nIn order to execute ads in Google Ads, you need to register keywords.\nA keyword must be registered to target the end users of the ad, and it is one of the `adGroupCriteria` mapped to `adGroup` among the resources of Google Ads.\nThis connector is a function to recommend such keywords, and when the user enters the keywords and URL that he or she wanted to register, it recommends other keywords that can be derived from them.\n\nThe request result is a list of keywords, the competition index, unit price, and the expected index values for each keyword when registering an ad.\n\nThis connector excludes keywords for adult ads, and the language condition is set to Korean and the geographical condition is set to Korea (South Korea).\n\nBefore calling the function, you need to ask the user for `customerId`, so you need to suggest a connector that can check `customerId`.",
         "tags": [
           "Google Ads"
         ],
@@ -62,7 +62,7 @@
     "/connector/google-ads/generateKeywordIdeas/keywords": {
       "post": {
         "summary": "Create keywords using keywords",
-        "description": "Get keyword recommendations for Google Ads!\n\nIn order to execute ads in Google Ads, you need to register keywords.\nA keyword must be registered to target the end users of the ad, and it is one of the `adGroupCriteria` mapped to `adGroup` among the resources of Google Ads.\nThis connector is a function to recommend such keywords, and when the user enters the keywords that he or she wanted to register, it recommends other keywords that can be derived from them.\n\nThe request result is a list of keywords, the competition index, unit price, and the expected index values when registering an ad for each keyword.\n\nThis connector excludes keywords for adult ads, and the language condition is set to Korean and the geographical condition is set to Korea (South Korea).\n\nBefore calling the function, you need to ask the user for `customerId`, so you need to suggest a connector that can check `customerId`.",
+        "description": "Get keyword recommendations for Google Ads\n\nIn order to execute ads in Google Ads, you need to register keywords.\nA keyword must be registered to target the end users of the ad, and it is one of the `adGroupCriteria` mapped to `adGroup` among the resources of Google Ads.\nThis connector is a function to recommend such keywords, and when the user enters the keywords that he or she wanted to register, it recommends other keywords that can be derived from them.\n\nThe request result is a list of keywords, the competition index, unit price, and the expected index values when registering an ad for each keyword.\n\nThis connector excludes keywords for adult ads, and the language condition is set to Korean and the geographical condition is set to Korea (South Korea).\n\nBefore calling the function, you need to ask the user for `customerId`, so you need to suggest a connector that can check `customerId`.",
         "tags": [
           "Google Ads"
         ],
@@ -97,7 +97,7 @@
     "/connector/google-ads/generateKeywordIdeas/url": {
       "post": {
         "summary": "Create keywords through URL",
-        "description": "Get keyword recommendations for Google Ads!\n\nIn order to execute ads in Google Ads, you need to register keywords.\nA keyword must be registered to target the end users of the ad, and it is one of the `adGroupCriteria` mapped to `adGroup` among the resources of Google Ads.\nThis connector is a function to recommend such keywords, and when the user enters the URL that he or she wanted to register, it recommends other keywords that can be derived from it.\n\nThe request result is a list of keywords, competition index, unit price, and expected index values for each keyword when registering an ad.\n\nThis connector excludes keywords for adult ads, and the language condition is set to Korean and the geographical condition is set to Korea (South Korea).\n\nBefore calling the function, you need to ask the user for `customerId`, so you need to suggest a connector that can check `customerId`.",
+        "description": "Get keyword recommendations for Google Ads\n\nIn order to execute ads in Google Ads, you need to register keywords.\nA keyword must be registered to target the end users of the ad, and it is one of the `adGroupCriteria` mapped to `adGroup` among the resources of Google Ads.\nThis connector is a function to recommend such keywords, and when the user enters the URL that he or she wanted to register, it recommends other keywords that can be derived from it.\n\nThe request result is a list of keywords, competition index, unit price, and expected index values for each keyword when registering an ad.\n\nThis connector excludes keywords for adult ads, and the language condition is set to Korean and the geographical condition is set to Korea (South Korea).\n\nBefore calling the function, you need to ask the user for `customerId`, so you need to suggest a connector that can check `customerId`.",
         "tags": [
           "Google Ads"
         ],
@@ -944,7 +944,7 @@
           },
           "url": {
             "type": "string",
-            "title": "URL to reference when generating advertising keyword ideas."
+            "title": "URL to reference when generating advertising keyword ideas"
           }
         },
         "required": [
@@ -1007,7 +1007,7 @@
         "properties": {
           "url": {
             "type": "string",
-            "title": "URL to reference when generating advertising keyword ideas."
+            "title": "URL to reference when generating advertising keyword ideas"
           },
           "pageSize": {
             "type": "integer",
@@ -2145,7 +2145,7 @@
               "path": "connector/google-ads/get-ad-groups",
               "jmesPath": "[].adGroup.{value:resourceName, label:resourceName}"
             },
-            "title": "Resource name of the ad group to which you want to add the keyword."
+            "title": "Resource name of the ad group to which you want to add the keyword"
           },
           "keywords": {
             "type": "array",

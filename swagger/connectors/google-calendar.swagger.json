@@ -18,7 +18,7 @@
     "title": "구글 일정 관리자",
     "summary": "구글 캘린더로 일정을 손쉽게 관리해요.",
     "description": "구글 캘린더를 통해 개인 및 팀의 일정을 효과적으로 관리할 수 있어요. 캘린더 목록을 가져오고, 새로운 캘린더를 만들거나 불필요한 캘린더를 삭제할 수 있어요. 특정 캘린더의 이벤트 목록을 조회하고, 새로운 이벤트를 빠르게 추가할 수 있어요. 기존 이벤트를 수정하거나 삭제할 수도 있고, 이벤트에 참석자를 추가할 수도 있어요. 이를 통해 개인 일정 관리는 물론, 팀 미팅 조율, 프로젝트 일정 관리, 중요 기념일 알림 등 다양한 목적으로 활용할 수 있어요. 여러 기기 간 동기화가 자동으로 이루어져 언제 어디서든 일정을 확인하고 관리할 수 있어요.",
-    "version": "0.1.274",
+    "version": "0.1.275",
     "license": {
       "name": "AGPL-3.0-only"
     }
@@ -26,8 +26,8 @@
   "paths": {
     "/connector/google-calendar/get-list": {
       "post": {
-        "summary": "Get a list of Google Calendars.",
-        "description": "Get a list of Google Calendars.",
+        "summary": "Get a list of Google Calendars",
+        "description": "Get a list of Google Calendars",
         "tags": [
           "Google Calendar"
         ],
@@ -44,7 +44,7 @@
         },
         "responses": {
           "201": {
-            "description": "A list of Google Calendars.",
+            "description": "A list of Google Calendars",
             "content": {
               "application/json": {
                 "schema": {
@@ -63,14 +63,14 @@
     },
     "/connector/google-calendar": {
       "post": {
-        "summary": "Create a Google Calendar.",
-        "description": "Create a Google Calendar.",
+        "summary": "Create a Google Calendar",
+        "description": "Create a Google Calendar",
         "tags": [
           "Google Calendar"
         ],
         "parameters": [],
         "requestBody": {
-          "description": "The title of the calendar to be created.",
+          "description": "The title of the calendar to be created",
           "content": {
             "application/json": {
               "schema": {
@@ -82,7 +82,7 @@
         },
         "responses": {
           "201": {
-            "description": "The unique ID of the calendar and the title of the calendar.",
+            "description": "The unique ID of the calendar and the title of the calendar",
             "content": {
               "application/json": {
                 "schema": {
@@ -98,8 +98,8 @@
     },
     "/connector/google-calendar/{calendarId}": {
       "delete": {
-        "summary": "Delete a Google Calendar.",
-        "description": "Delete a calendar.",
+        "summary": "Delete a Google Calendar",
+        "description": "Delete a calendar",
         "tags": [
           "Google Calendar"
         ],
@@ -116,8 +116,7 @@
               }
             },
             "required": true,
-            "title": "The unique ID of the calendar to delete",
-            "description": " The unique ID of the calendar to delete."
+            "description": " The unique ID of the calendar to delete"
           }
         ],
         "requestBody": {
@@ -143,8 +142,8 @@
     },
     "/connector/google-calendar/{calendarId}/get-events": {
       "post": {
-        "summary": "Get a list of Google Calendar events.",
-        "description": "Get a list of events in Google Calendar.",
+        "summary": "Get a list of Google Calendar events",
+        "description": "Get a list of events in Google Calendar",
         "tags": [
           "Google Calendar"
         ],
@@ -161,12 +160,11 @@
               }
             },
             "required": true,
-            "title": "Unique ID of the calendar to get the list of events",
-            "description": " Unique ID of the calendar to get the list of events."
+            "description": " Unique ID of the calendar to get the list of events"
           }
         ],
         "requestBody": {
-          "description": "Condition to get the list of events.",
+          "description": "Condition to get the list of events",
           "content": {
             "application/json": {
               "schema": {
@@ -178,7 +176,7 @@
         },
         "responses": {
           "201": {
-            "description": "A list of Google Calendar events.",
+            "description": "A list of Google Calendar events",
             "content": {
               "application/json": {
                 "schema": {
@@ -193,8 +191,8 @@
     },
     "/connector/google-calendar/{calendarId}/quick-event": {
       "post": {
-        "summary": "Add a quick event to Google Calendar.",
-        "description": "Add a quick event to Google Calendar.",
+        "summary": "Add a quick event to Google Calendar",
+        "description": "Add a quick event to Google Calendar",
         "tags": [
           "Google Calendar"
         ],
@@ -211,12 +209,11 @@
               }
             },
             "required": true,
-            "title": "Unique ID of the calendar to add the event to",
-            "description": " Unique ID of the calendar to add the event to."
+            "description": " Unique ID of the calendar to add the event to"
           }
         ],
         "requestBody": {
-          "description": "Unique ID of the calendar to add the event to, and the event name.",
+          "description": "Unique ID of the calendar to add the event to, and the event name",
           "content": {
             "application/json": {
               "schema": {
@@ -239,8 +236,8 @@
     },
     "/connector/google-calendar/{calendarId}/event": {
       "post": {
-        "summary": "Add a Google Calendar event.",
-        "description": "Add an event to Google Calendar.",
+        "summary": "Add a Google Calendar event",
+        "description": "Add an event to Google Calendar",
         "tags": [
           "Google Calendar"
         ],
@@ -257,12 +254,11 @@
               }
             },
             "required": true,
-            "title": "Unique ID of the calendar to add the event to",
-            "description": " Unique ID of the calendar to add the event to."
+            "description": " Unique ID of the calendar to add the event to"
           }
         ],
         "requestBody": {
-          "description": "Information for adding the event.",
+          "description": "Information for adding the event",
           "content": {
             "application/json": {
               "schema": {
@@ -274,7 +270,7 @@
         },
         "responses": {
           "201": {
-            "description": "Information about the added event.",
+            "description": "Information about the added event",
             "content": {
               "application/json": {
                 "schema": {
@@ -289,8 +285,8 @@
     },
     "/connector/google-calendar/{calendarId}/event/{eventId}": {
       "put": {
-        "summary": "Modify a Google Calendar event.",
-        "description": "Modify an event.",
+        "summary": "Modify a Google Calendar event",
+        "description": "Modify an event",
         "tags": [
           "Google Calendar"
         ],
@@ -307,8 +303,7 @@
               }
             },
             "required": true,
-            "title": "Unique ID of the calendar that contains the event",
-            "description": " Unique ID of the calendar that contains the event."
+            "description": " Unique ID of the calendar that contains the event"
           },
           {
             "name": "eventId",
@@ -322,12 +317,11 @@
               }
             },
             "required": true,
-            "title": "Unique ID of the event to modify",
-            "description": " Unique ID of the event to modify."
+            "description": " Unique ID of the event to modify"
           }
         ],
         "requestBody": {
-          "description": "The event information to update.",
+          "description": "The event information to update",
           "content": {
             "application/json": {
               "schema": {
@@ -339,7 +333,7 @@
         },
         "responses": {
           "200": {
-            "description": "The updated event information.",
+            "description": "The updated event information",
             "content": {
               "application/json": {
                 "schema": {
@@ -352,8 +346,8 @@
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleCal_full.svg"
       },
       "delete": {
-        "summary": "Delete a Google Calendar event.",
-        "description": "Delete an event.",
+        "summary": "Delete a Google Calendar event",
+        "description": "Delete an event",
         "tags": [
           "Google Calendar"
         ],
@@ -370,8 +364,7 @@
               }
             },
             "required": true,
-            "title": "The unique ID of the calendar that contains the event",
-            "description": " The unique ID of the calendar that contains the event."
+            "description": " The unique ID of the calendar that contains the event"
           },
           {
             "name": "eventId",
@@ -385,8 +378,7 @@
               }
             },
             "required": true,
-            "title": "The unique ID of the event to delete",
-            "description": " The unique ID of the event to delete."
+            "description": " The unique ID of the event to delete"
           }
         ],
         "requestBody": {
@@ -412,8 +404,8 @@
     },
     "/connector/google-calendar/{calendarId}/event/{eventId}/attendees": {
       "put": {
-        "summary": "Add attendees to a Google Calendar event.",
-        "description": "Add attendees to an event.",
+        "summary": "Add attendees to a Google Calendar event",
+        "description": "Add attendees to an event",
         "tags": [
           "Google Calendar"
         ],
@@ -430,8 +422,7 @@
               }
             },
             "required": true,
-            "title": "Unique ID of the calendar where the event is",
-            "description": " Unique ID of the calendar where the event is."
+            "description": " Unique ID of the calendar where the event is"
           },
           {
             "name": "eventId",
@@ -445,12 +436,11 @@
               }
             },
             "required": true,
-            "title": "Unique ID of the event to add attendees to",
-            "description": " Unique ID of the event to add attendees to."
+            "description": " Unique ID of the event to add attendees to"
           }
         ],
         "requestBody": {
-          "description": "List of email addresses of attendees to add.",
+          "description": "List of email addresses of attendees to add",
           "content": {
             "application/json": {
               "schema": {
@@ -462,7 +452,7 @@
         },
         "responses": {
           "200": {
-            "description": "Event information with attendees added.",
+            "description": "Event information with attendees added",
             "content": {
               "application/json": {
                 "schema": {
@@ -509,7 +499,7 @@
                 "type": "string"
               }
             ],
-            "title": "Calendar id.",
+            "title": "Calendar id",
             "description": "The id of the generated calendar."
           },
           "summary": {
@@ -521,7 +511,7 @@
                 "type": "string"
               }
             ],
-            "title": "Calendar name.",
+            "title": "Calendar name",
             "description": "The name of the generated calendar."
           }
         },
@@ -550,7 +540,7 @@
         "properties": {
           "title": {
             "type": "string",
-            "title": "The title of the calendar to be created.",
+            "title": "The title of the calendar to be created",
             "description": "The title of the calendar to be created."
           },
           "secretKey": {
@@ -577,7 +567,7 @@
             "items": {
               "$ref": "#/components/schemas/IGoogleCalendar.IGoogleCalendarEvent"
             },
-            "title": "Event List.",
+            "title": "Event List",
             "description": "Here is a list of calendar events that were found."
           }
         },
@@ -598,7 +588,7 @@
                 "type": "string"
               }
             ],
-            "title": "event id.",
+            "title": "event id",
             "description": "The unique id of the event."
           },
           "htmlLink": {
@@ -611,7 +601,7 @@
                 "format": "iri"
               }
             ],
-            "title": "Event Link.",
+            "title": "Event Link",
             "description": "Here is the event link."
           },
           "color": {
@@ -623,7 +613,7 @@
                 "type": "string"
               }
             ],
-            "title": "Event color.",
+            "title": "Event color",
             "description": "Event color."
           },
           "createdDate": {
@@ -635,7 +625,7 @@
                 "type": "string"
               }
             ],
-            "title": "The event creation date.",
+            "title": "The event creation date",
             "description": "The event creation date."
           },
           "updatedDate": {
@@ -647,7 +637,7 @@
                 "type": "string"
               }
             ],
-            "title": "Event update date.",
+            "title": "Event update date",
             "description": "Event update date."
           },
           "title": {
@@ -659,7 +649,7 @@
                 "type": "string"
               }
             ],
-            "title": "Event title.",
+            "title": "Event title",
             "description": "This is the event title."
           },
           "description": {
@@ -671,7 +661,7 @@
                 "type": "string"
               }
             ],
-            "title": "Event description.",
+            "title": "Event description",
             "description": "Event description."
           },
           "location": {
@@ -683,7 +673,7 @@
                 "type": "string"
               }
             ],
-            "title": "Event Location.",
+            "title": "Event Location",
             "description": "This is the event location."
           },
           "organizer": {
@@ -695,7 +685,7 @@
                 "$ref": "#/components/schemas/IGoogleCalendar.IGoogleCalendarEvent.IOrganizer"
               }
             ],
-            "title": "Event Organizer.",
+            "title": "Event Organizer",
             "description": "Here is the information for the event organizer."
           },
           "creator": {
@@ -707,7 +697,7 @@
                 "$ref": "#/components/schemas/IGoogleCalendar.IGoogleCalendarEvent.ICreator"
               }
             ],
-            "title": "Event Creator.",
+            "title": "Event Creator",
             "description": "Information about the event creator."
           },
           "startDate": {
@@ -727,7 +717,7 @@
                         "type": "string"
                       }
                     ],
-                    "title": "Event start date.",
+                    "title": "Event start date",
                     "description": "Event start date."
                   },
                   "timeZone": {
@@ -739,13 +729,13 @@
                         "type": "string"
                       }
                     ],
-                    "title": "Event start date time zone.",
+                    "title": "Event start date time zone",
                     "description": "Event start date time zone."
                   }
                 }
               }
             ],
-            "title": "Event Start Date.\n\nThe start date information for the event."
+            "title": "Event Start Date\n\nThe start date information for the event."
           },
           "endDate": {
             "oneOf": [
@@ -764,7 +754,7 @@
                         "type": "string"
                       }
                     ],
-                    "title": "The event ends on this date.",
+                    "title": "The event ends on this date",
                     "description": "The event ends on this date."
                   },
                   "timeZone": {
@@ -776,13 +766,13 @@
                         "type": "string"
                       }
                     ],
-                    "title": "Event End Date Timezone.",
+                    "title": "Event End Date Timezone",
                     "description": "Event End Date Timezone."
                   }
                 }
               }
             ],
-            "title": "Event end date.",
+            "title": "Event end date",
             "description": "This is the event end date information."
           },
           "recurrence": {
@@ -797,7 +787,7 @@
                 }
               }
             ],
-            "title": "Event repeat information.",
+            "title": "Event repeat information",
             "description": "Event repeat information."
           },
           "transparency": {
@@ -809,7 +799,7 @@
                 "type": "string"
               }
             ],
-            "title": "Event busy/free status.",
+            "title": "Event busy/free status",
             "description": "Event busy/free status."
           },
           "guestsCanModify": {
@@ -821,7 +811,7 @@
                 "type": "boolean"
               }
             ],
-            "title": "Whether the inviter has permission to edit the event.",
+            "title": "Whether the inviter has permission to edit the event",
             "description": "Whether the inviter has permission to edit the event."
           },
           "reminders": {
@@ -833,7 +823,7 @@
                 "$ref": "#/components/schemas/IGoogleCalendar.IGoogleCalendarEvent.IReminders"
               }
             ],
-            "title": "Event notification information.",
+            "title": "Event notification information",
             "description": "Event notification information."
           },
           "attendees": {
@@ -848,7 +838,7 @@
                 }
               }
             ],
-            "title": "Event Attendee.",
+            "title": "Event Attendee",
             "description": "Here is the event attendee information."
           },
           "attachments": {
@@ -863,7 +853,7 @@
                 }
               }
             ],
-            "title": "Attachment information.",
+            "title": "Attachment information",
             "description": "Event attachment information."
           },
           "hangoutLink": {
@@ -875,7 +865,7 @@
                 "type": "string"
               }
             ],
-            "title": "Google Meet link.",
+            "title": "Google Meet link",
             "description": "Here is the Google Meet link."
           },
           "visibility": {
@@ -887,7 +877,7 @@
                 "type": "string"
               }
             ],
-            "title": "The event is open.",
+            "title": "The event is open",
             "description": "The event is open."
           }
         },
@@ -905,7 +895,7 @@
                 "type": "string"
               }
             ],
-            "title": "Event organizer profile id.",
+            "title": "Event organizer profile id",
             "description": "Event organizer profile id."
           },
           "displayName": {
@@ -917,7 +907,7 @@
                 "type": "string"
               }
             ],
-            "title": "The name of the event organizer.",
+            "title": "The name of the event organizer",
             "description": "The name of the event organizer."
           },
           "email": {
@@ -929,7 +919,7 @@
                 "type": "string"
               }
             ],
-            "title": "This is the event organizer's email.",
+            "title": "This is the event organizer's email",
             "description": "This is the event organizer's email."
           },
           "self": {
@@ -941,7 +931,7 @@
                 "type": "boolean"
               }
             ],
-            "title": "Whether the event copy corresponds to the calendar on which it is displayed.",
+            "title": "Whether the event copy corresponds to the calendar on which it is displayed",
             "description": "Whether the event copy corresponds to the calendar on which it is displayed."
           }
         },
@@ -959,7 +949,7 @@
                 "type": "string"
               }
             ],
-            "title": "Event Creator Profile Id.",
+            "title": "Event Creator Profile Id",
             "description": "The event creator profile id."
           },
           "displayName": {
@@ -971,7 +961,7 @@
                 "type": "string"
               }
             ],
-            "title": "The event creator name.",
+            "title": "The event creator name",
             "description": "The event creator name."
           },
           "email": {
@@ -983,7 +973,7 @@
                 "type": "string"
               }
             ],
-            "title": "The event creator email.",
+            "title": "The event creator email",
             "description": "The event creator email."
           },
           "self": {
@@ -995,11 +985,11 @@
                 "type": "boolean"
               }
             ],
-            "title": "Whether the event copy corresponds to the calendar on which it is displayed.",
+            "title": "Whether the event copy corresponds to the calendar on which it is displayed",
             "description": "Whether the event copy corresponds to the calendar on which it is displayed."
           }
         },
-        "title": "Event creator information.",
+        "title": "Event creator information",
         "description": "Event creator information."
       },
       "IGoogleCalendar.IGoogleCalendarEvent.IReminders": {
@@ -1007,7 +997,7 @@
         "properties": {
           "useDefault": {
             "type": "boolean",
-            "title": "Whether to default notification.",
+            "title": "Whether to default notification",
             "description": "Whether to default notification."
           },
           "overrides": {
@@ -1015,7 +1005,7 @@
             "items": {
               "$ref": "#/components/schemas/IGoogleCalendar.IGoogleCalendarEvent.IRemindersOverrides"
             },
-            "title": "Notification settings information.",
+            "title": "Notification settings information",
             "description": "Here is the notification settings information."
           }
         },
@@ -1033,7 +1023,7 @@
                 "type": "string"
               }
             ],
-            "title": "Notification method.",
+            "title": "Notification method",
             "description": "This is the notification method."
           },
           "minutes": {
@@ -1045,7 +1035,7 @@
                 "type": "number"
               }
             ],
-            "title": "It's time to send notifications.",
+            "title": "It's time to send notifications",
             "description": "It's time to send notifications."
           }
         },
@@ -1063,7 +1053,7 @@
                 "type": "string"
               }
             ],
-            "title": "Event attendee email.",
+            "title": "Event attendee email",
             "description": "This is the event attendee email."
           },
           "organizer": {
@@ -1075,7 +1065,7 @@
                 "type": "boolean"
               }
             ],
-            "title": "Whether the event attendee is the host.",
+            "title": "Whether the event attendee is the host",
             "description": "Whether the event attendee is the host."
           },
           "self": {
@@ -1087,7 +1077,7 @@
                 "type": "boolean"
               }
             ],
-            "title": "Whether the calendar that the schedule copy is displayed on is indicated.",
+            "title": "Whether the calendar that the schedule copy is displayed on is indicated",
             "description": "Whether the calendar that the schedule copy is displayed on is indicated."
           },
           "responseStatus": {
@@ -1099,7 +1089,7 @@
                 "type": "string"
               }
             ],
-            "title": "Attendee's attendance response status.",
+            "title": "Attendee's attendance response status",
             "description": "Attendee's attendance response status."
           }
         },
@@ -1118,7 +1108,7 @@
                 "format": "iri"
               }
             ],
-            "title": "file url.",
+            "title": "file url",
             "description": "This is the event attachment file url."
           },
           "title": {
@@ -1130,7 +1120,7 @@
                 "type": "string"
               }
             ],
-            "title": "File title.",
+            "title": "File title",
             "description": "This is the title of the attached file."
           },
           "mimeType": {
@@ -1142,7 +1132,7 @@
                 "type": "string"
               }
             ],
-            "title": "Internet Media Type.",
+            "title": "Internet Media Type",
             "description": "Internet Media Type."
           },
           "iconLink": {
@@ -1155,7 +1145,7 @@
                 "format": "iri"
               }
             ],
-            "title": "File icon link.",
+            "title": "File icon link",
             "description": "Attachment file icon link."
           },
           "fileId": {
@@ -1167,7 +1157,7 @@
                 "type": "string"
               }
             ],
-            "title": "file id.",
+            "title": "file id",
             "description": "This is the id of the attached file."
           }
         },
@@ -1181,22 +1171,22 @@
             "properties": {
               "year": {
                 "type": "number",
-                "title": "The year.",
+                "title": "The year",
                 "description": "It's the year."
               },
               "month": {
                 "type": "number",
-                "title": "The Month.",
+                "title": "The Month",
                 "description": "It's the month.\n\nYou must enter a two-digit number. For example, if it is March, you should enter 03."
               },
               "date": {
                 "type": "number",
-                "title": "Date.",
+                "title": "Date",
                 "description": "It's the date.\n\nYou must enter a two-digit number. For example, if it is 7th, you should enter 07."
               },
               "hour": {
                 "type": "number",
-                "title": "hour.",
+                "title": "hour",
                 "description": "It's the hour.\n\nYou must enter a two-digit number. For example, if it is 2am, you should enter 02. If it is 2pm, you should enter 14."
               }
             },
@@ -1206,7 +1196,7 @@
               "date",
               "hour"
             ],
-            "title": "Information about the last date from which events will be fetched.",
+            "title": "Information about the last date from which events will be fetched",
             "description": "Events after that date will not be fetched.\n\nNote that all date/times are in UTC, so make sure that you have converted the date/time to UTC before using it."
           },
           "time_min": {
@@ -1214,22 +1204,22 @@
             "properties": {
               "year": {
                 "type": "number",
-                "title": "The year.",
+                "title": "The year",
                 "description": "It's the year."
               },
               "month": {
                 "type": "number",
-                "title": "The Month.",
+                "title": "The Month",
                 "description": "It's the month.\n\nYou must enter a two-digit number. For example, if it is March, you should enter 03."
               },
               "date": {
                 "type": "number",
-                "title": "Date.",
+                "title": "Date",
                 "description": "It's the date.\n\nYou must enter a two-digit number. For example, if it is 7th, you should enter 07."
               },
               "hour": {
                 "type": "number",
-                "title": "hour.",
+                "title": "hour",
                 "description": "It's the hour.\n\nYou must enter a two-digit number. For example, if it is 2am, you should enter 02. If it is 2pm, you should enter 14."
               }
             },
@@ -1239,12 +1229,12 @@
               "date",
               "hour"
             ],
-            "title": "Information on the start date from which events will be retrieved.",
+            "title": "Information on the start date from which events will be retrieved",
             "description": "Events prior to that date will not be retrieved.\n\nNote that all date/times are in UTC, so make sure that you have converted the date/time to UTC before using it."
           },
           "max_results": {
             "type": "integer",
-            "title": "How many results to return.",
+            "title": "How many results to return",
             "description": "Sets the maximum number of events to retrieve."
           },
           "orderBy": {
@@ -1258,12 +1248,12 @@
                 "title": "업데이트 날짜"
               }
             ],
-            "title": "The order in which the events will be received.",
+            "title": "The order in which the events will be received",
             "description": "The order in which the calendar events are sorted.\n\n- startTime: The start time of the event.\n- updated: The date the event was updated.\n\nOnly two possible values are possible: \"startTime\" and \"updated\"."
           },
           "query": {
             "type": "string",
-            "title": "Event search terms.",
+            "title": "Event search terms",
             "description": "You can search for events that contain your search terms.\n\nYou can search for events that contain your search terms in the title, description, location, attendees, etc."
           },
           "secretKey": {
@@ -1288,7 +1278,7 @@
         "properties": {
           "text": {
             "type": "string",
-            "title": "This is the text for creating a quick calendar event.",
+            "title": "This is the text for creating a quick calendar event",
             "description": "This is the text for creating a quick calendar event."
           },
           "secretKey": {
@@ -1312,17 +1302,17 @@
         "properties": {
           "title": {
             "type": "string",
-            "title": "Event title.",
+            "title": "Event title",
             "description": "The title of the event to be generated."
           },
           "description": {
             "type": "string",
-            "title": "Event description.",
+            "title": "Event description",
             "description": "Description of the event to be generated."
           },
           "location": {
             "type": "string",
-            "title": "Event Location.",
+            "title": "Event Location",
             "description": "This is the event location to be created."
           },
           "start": {
@@ -1330,22 +1320,22 @@
             "properties": {
               "year": {
                 "type": "number",
-                "title": "The year.",
+                "title": "The year",
                 "description": "It's the year."
               },
               "month": {
                 "type": "number",
-                "title": "The Month.",
+                "title": "The Month",
                 "description": "It's the month.\n\nYou must enter a two-digit number. For example, if it is March, you should enter 03."
               },
               "date": {
                 "type": "number",
-                "title": "Date.",
+                "title": "Date",
                 "description": "It's the date.\n\nYou must enter a two-digit number. For example, if it is 7th, you should enter 07."
               },
               "hour": {
                 "type": "number",
-                "title": "hour.",
+                "title": "hour",
                 "description": "It's the hour.\n\nYou must enter a two-digit number. For example, if it is 2am, you should enter 02. If it is 2pm, you should enter 14."
               }
             },
@@ -1355,7 +1345,7 @@
               "date",
               "hour"
             ],
-            "title": "Event start date.",
+            "title": "Event start date",
             "description": "The start date of the event to be created.\n\nNote that all date/times are in UTC, so make sure that you have converted the date/time to UTC before using it."
           },
           "end": {
@@ -1363,22 +1353,22 @@
             "properties": {
               "year": {
                 "type": "number",
-                "title": "The year.",
+                "title": "The year",
                 "description": "It's the year."
               },
               "month": {
                 "type": "number",
-                "title": "The Month.",
+                "title": "The Month",
                 "description": "It's the month.\n\nYou must enter a two-digit number. For example, if it is March, you should enter 03."
               },
               "date": {
                 "type": "number",
-                "title": "Date.",
+                "title": "Date",
                 "description": "It's the date.\n\nYou must enter a two-digit number. For example, if it is 7th, you should enter 07."
               },
               "hour": {
                 "type": "number",
-                "title": "hour.",
+                "title": "hour",
                 "description": "It's the hour.\n\nYou must enter a two-digit number. For example, if it is 2am, you should enter 02. If it is 2pm, you should enter 14."
               }
             },
@@ -1388,7 +1378,7 @@
               "date",
               "hour"
             ],
-            "title": "Event end date.",
+            "title": "Event end date",
             "description": "The end date of the event to be created.\n\nNote that all date/times are in UTC, so make sure that you have converted the date/time to UTC before using it."
           },
           "attendeesEmail": {
@@ -1396,7 +1386,7 @@
             "items": {
               "type": "string"
             },
-            "title": "Attendee Email.",
+            "title": "Attendee Email",
             "description": "This is the event attendee email."
           },
           "repeatFrequency": {
@@ -1414,12 +1404,12 @@
                 "const": "YEARLY"
               }
             ],
-            "title": "The event repeat cycle.",
+            "title": "The event repeat cycle",
             "description": "The event repeat cycle.\n\n- DAILY: Daily\n- WEEKLY: Weekly\n- MONTHLY: Monthly\n- YEARLY: Yearly\n\nOnly 4 possible values are possible: \"DAILY\", \"WEEKLY\", \"MONTHLY\", \"YEARLY\"."
           },
           "repeatNum": {
             "type": "number",
-            "title": "The number of times the event is repeated.",
+            "title": "The number of times the event is repeated",
             "description": "The number of times the event is repeated."
           },
           "repeatUntil": {
@@ -1427,22 +1417,22 @@
             "properties": {
               "year": {
                 "type": "number",
-                "title": "The year.",
+                "title": "The year",
                 "description": "It's the year."
               },
               "month": {
                 "type": "number",
-                "title": "The Month.",
+                "title": "The Month",
                 "description": "It's the month.\n\nYou must enter a two-digit number. For example, if it is March, you should enter 03."
               },
               "date": {
                 "type": "number",
-                "title": "Date.",
+                "title": "Date",
                 "description": "It's the date.\n\nYou must enter a two-digit number. For example, if it is 7th, you should enter 07."
               },
               "hour": {
                 "type": "number",
-                "title": "hour.",
+                "title": "hour",
                 "description": "It's the hour.\n\nYou must enter a two-digit number. For example, if it is 2am, you should enter 02. If it is 2pm, you should enter 14."
               }
             },
@@ -1452,17 +1442,17 @@
               "date",
               "hour"
             ],
-            "title": "Event repeat deadline.",
+            "title": "Event repeat deadline",
             "description": "Event repeat deadline.\n\nNote that all date/times are in UTC, so make sure that you have converted the date/time to UTC before using it."
           },
           "isBusy": {
             "type": "boolean",
-            "title": "Whether the event is busy or not.",
+            "title": "Whether the event is busy or not",
             "description": "Whether the event is busy or not."
           },
           "isUseDefaultReminder": {
             "type": "boolean",
-            "title": "Whether to use the default calendar notifications.",
+            "title": "Whether to use the default calendar notifications",
             "description": "Whether to use the default calendar notifications."
           },
           "remindersType": {
@@ -1474,17 +1464,17 @@
                 "const": "popup"
               }
             ],
-            "title": "Event notification type.",
+            "title": "Event notification type",
             "description": "Event notification type.\n\n- popup: Popup notification\n- email: Email notification\n\nOnly two possible values are possible: \"popup\" and \"email\"."
           },
           "minutesBeforeReminders": {
             "type": "number",
-            "title": "It's time to set a notification before the schedule starts.",
+            "title": "It's time to set a notification before the schedule starts",
             "description": "It's time to set a notification before the schedule starts."
           },
           "isConferencing": {
             "type": "boolean",
-            "title": "Whether to create a Google Meet.",
+            "title": "Whether to create a Google Meet",
             "description": "Whether to create a Google Meet."
           },
           "visibility": {
@@ -1499,17 +1489,17 @@
                 "const": "public"
               }
             ],
-            "title": "The event's public status.",
+            "title": "The event's public status",
             "description": "The event's public status.\n\ndefault - The default public status\npublic - The event is public and the event details are visible to all readers of the calendar\nprivate - The event is private and only the event attendees can see the event details\n\nThere are only three possible values: \"default\", \"public\", \"private\"."
           },
           "colorId": {
             "type": "string",
-            "title": "Event Color.",
+            "title": "Event Color",
             "description": "Event Color."
           },
           "isGuestCanModify": {
             "type": "boolean",
-            "title": "Whether guest events can be modified.",
+            "title": "Whether guest events can be modified",
             "description": "Whether guest events can be modified."
           },
           "secretKey": {
@@ -1537,7 +1527,7 @@
             "items": {
               "type": "string"
             },
-            "title": "The email address of the attendee you wish to add.",
+            "title": "The email address of the attendee you wish to add",
             "description": "The email address of the attendee you wish to add."
           },
           "secretKey": {

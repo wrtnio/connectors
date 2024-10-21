@@ -17,7 +17,7 @@
   "info": {
     "title": "스토리 생성",
     "description": "",
-    "version": "0.1.274",
+    "version": "0.1.275",
     "license": {
       "name": "AGPL-3.0-only"
     }
@@ -26,7 +26,7 @@
     "/connector/story-generator": {
       "post": {
         "summary": "Create a story",
-        "description": "Create a story based on user input.\n\nThis connector can be used when creating a chatbot workflow for creating picture books or stories.\n\nPlease use it in conjunction with the Story Image Generation connector.\n\nPlease create an image based on the story created using the connector/story-image-generator connector.\n\nPlease export the created story and image using Google Slides.\n\nPlease export the created story and image using the connector/google-slides/presentations connector to Google Slides.",
+        "description": "Create a story based on user input\n\nThis connector can be used when creating a chatbot workflow for creating picture books or stories.\nPlease use it in conjunction with the Story Image Generation connector.\nPlease create an image based on the story created using the connector/story-image-generator connector.\nPlease export the created story and image using Google Slides.\nPlease export the created story and image using the connector/google-slides/presentations connector to Google Slides.",
         "tags": [],
         "parameters": [],
         "requestBody": {

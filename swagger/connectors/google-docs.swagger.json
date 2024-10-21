@@ -18,7 +18,7 @@
     "title": "구글 문서 작성 및 관리",
     "summary": "구글 독스를 쉽게 만들고 관리할 수 있어요.",
     "description": "구글 독스로 다양한 문서 작업을 할 수 있어요. 새로운 문서를 생성하고, 기존 문서에 접근 권한을 부여하거나 수정할 수 있어요. 문서를 복사하거나 삭제할 수도 있고, 특정 구글 드라이브 내의 모든 문서 목록을 가져올 수도 있어요. 문서에 새로운 텍스트를 추가하는 것도 가능해요. 이를 통해 팀 프로젝트, 개인 노트 작성, 보고서 작성 등 다양한 문서 작업을 클라우드 환경에서 효율적으로 수행할 수 있어요. 실시간 협업이 가능해 여러 사람이 동시에 작업할 수 있는 것도 큰 장점이에요. 주의할 점은 구글 슬라이드를 사용하려면 반드시 구글 드라이브 커넥터도 함께 사용해야 해요.",
-    "version": "0.1.274",
+    "version": "0.1.275",
     "license": {
       "name": "AGPL-3.0-only"
     }
@@ -174,7 +174,7 @@
     "/connector/google-docs/{id}": {
       "delete": {
         "summary": "Delete Google Docs",
-        "description": "Delete Google Docs.",
+        "description": "Delete Google Docs",
         "tags": [
           "Google Docs"
         ],
@@ -305,7 +305,7 @@
         "properties": {
           "id": {
             "type": "string",
-            "title": "Generated docs id.",
+            "title": "Generated docs id",
             "description": "The ID of the generated docs."
           }
         },
@@ -319,7 +319,7 @@
         "properties": {
           "title": {
             "type": "string",
-            "title": "Google docs title.",
+            "title": "Google docs title",
             "description": "The title of the docs to be generated."
           },
           "secretKey": {
@@ -349,7 +349,7 @@
               "path": "/connector/google-docs/get-list",
               "jmesPath": "data[].{value:id, label:title}"
             },
-            "title": "Google docs id.",
+            "title": "Google docs id",
             "description": "The id of the Google docs to which you want to grant access."
           },
           "permissions": {
@@ -357,7 +357,7 @@
             "items": {
               "$ref": "#/components/schemas/IPermission"
             },
-            "title": "Here is a list of emails to make accessible and the permissions to grant.",
+            "title": "Here is a list of emails to make accessible and the permissions to grant",
             "description": "Here is a list of emails to make accessible and the permissions to grant."
           },
           "secretKey": {
@@ -384,7 +384,7 @@
           "email": {
             "type": "string",
             "format": "email",
-            "title": "The email address of the user to grant permission to.",
+            "title": "The email address of the user to grant permission to",
             "description": "The email address of the user to grant permission to."
           },
           "role": {
@@ -408,7 +408,7 @@
                 "const": "fileOrganizer"
               }
             ],
-            "title": "The permission to grant.",
+            "title": "The permission to grant",
             "description": "The type of permission to grant.\n\nowner: Grants owner permissions. Users with this permission can delete files or folders or grant permissions to other users.\norganizer: Grants operator permissions for the drive. Users with this permission can manage the organization of the drive.\nfileOrganizer: Grants operator permissions for files on the drive. Users with this permission can add or delete files.\nwriter: Grants write permissions. Users with this permission can modify or delete files.\ncommenter: Grants comment permissions. Users with this permission can read and comment on files.\nreader: Grants read permissions. Users with this permission can read files.\n\nThere are only six possible values: \"owner\", \"writer\", \"commenter\", \"reader\", \"organizer\", \"fileOrganizer\"."
           },
           "type": {
@@ -426,7 +426,7 @@
                 "const": "anyone"
               }
             ],
-            "title": "The type of permission to grant.",
+            "title": "The type of permission to grant",
             "description": "The type of permission to grant.\n\nuser - a specific user, in this case you must specify the email address of the user to grant the permission to in the emailAddress field.\ngroup - a specific group, in this case you must specify the email address of the group to grant the permission to in the emailAddress field.\ndomain - a specific domain, in this case you must specify the domain to grant the permission to in the domain field.\nanyone - all users\n\nThere are only four possible values: \"user\", \"group\", \"domain\", \"anyone\"."
           }
         },
@@ -442,7 +442,7 @@
         "properties": {
           "data": {
             "$ref": "#/components/schemas/IGoogleDocs",
-            "title": "Google docs data.",
+            "title": "Google docs data",
             "description": "This is data from Google docs that I read."
           }
         },
@@ -456,7 +456,7 @@
         "properties": {
           "text": {
             "type": "string",
-            "title": "text information.",
+            "title": "text information",
             "description": "Here is the text information from Google Docs."
           },
           "table": {
@@ -470,7 +470,7 @@
                 }
               }
             },
-            "title": "Table Information.",
+            "title": "Table Information",
             "description": "Here is the table information from Google Docs."
           }
         }
@@ -499,8 +499,8 @@
         "properties": {
           "id": {
             "type": "string",
-            "title": "Generated docs id.",
-            "description": "The id of the copied docs."
+            "title": "Generated docs id",
+            "description": "The id of the copied docs"
           }
         },
         "required": [
@@ -518,13 +518,13 @@
               "path": "/connector/google-docs/get-list",
               "jmesPath": "data[].{value:id, label:title}"
             },
-            "title": "Google docs to clone.",
-            "description": "Google docs to clone."
+            "title": "Google docs to clone",
+            "description": "Google docs to clone"
           },
           "title": {
             "type": "string",
-            "title": "The title of the docs to be created.",
-            "description": "The title of the docs to be newly created by duplicating."
+            "title": "The title of the docs to be created",
+            "description": "The title of the docs to be newly created by duplicating"
           },
           "secretKey": {
             "type": "string",
@@ -561,7 +561,7 @@
                       "type": "string"
                     }
                   ],
-                  "title": "Google docs id.",
+                  "title": "Google docs id",
                   "description": "The id of the imported Google docs."
                 },
                 "title": {
@@ -573,12 +573,12 @@
                       "type": "string"
                     }
                   ],
-                  "title": "Google docs title.",
+                  "title": "Google docs title",
                   "description": "The title of the imported Google docs."
                 }
               }
             },
-            "title": "List of Google docs.",
+            "title": "List of Google docs",
             "description": "Here is a list of Google docs that were searched."
           }
         },
@@ -597,12 +597,12 @@
               "path": "/connector/google-docs/get-list",
               "jmesPath": "data[].{value:id, label:title}"
             },
-            "title": "Google docs.",
+            "title": "Google docs",
             "description": "Select the Google docs you want to add text to."
           },
           "text": {
             "type": "string",
-            "title": "text.",
+            "title": "text",
             "description": "The text to add."
           },
           "secretKey": {

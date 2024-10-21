@@ -18,7 +18,7 @@
     "title": "네이버 포털 정보 검색",
     "summary": "네이버의 블로그와 카페 정보를 한눈에 볼 수 있어요.",
     "description": "네이버의 블로그와 카페에서 필요한 정보를 빠르게 검색할 수 있어요. 블로그 검색을 통해 다양한 주제의 포스트를 찾아볼 수 있고, 카페 검색으로 특정 관심사를 공유하는 커뮤니티의 게시글을 확인할 수 있어요. 최신 트렌드, 상품 리뷰, 여행 후기, 요리 레시피 등 다양한 정보를 얻을 수 있어요. 검색 필터를 사용해 원하는 기간, 정확도, 최신순 등으로 결과를 정렬할 수 있어 더욱 효율적인 정보 탐색이 가능해요.",
-    "version": "0.1.274",
+    "version": "0.1.275",
     "license": {
       "name": "AGPL-3.0-only"
     }
@@ -27,7 +27,7 @@
     "/connector/naver/cafe": {
       "post": {
         "summary": "Naver Cafe search",
-        "description": "Search Naver Cafe contents.",
+        "description": "Search Naver Cafe contents",
         "tags": [
           "Naver"
         ],
@@ -62,7 +62,7 @@
     "/connector/naver/blog": {
       "post": {
         "summary": "Naver blog search",
-        "description": "Search Naver blog content.",
+        "description": "Search Naver blog content",
         "tags": [
           "Naver"
         ],
@@ -97,7 +97,7 @@
     "/connector/naver/news": {
       "post": {
         "summary": "Search Naver News",
-        "description": "Search Naver News.",
+        "description": "Search Naver News",
         "tags": [
           "Naver"
         ],
@@ -139,22 +139,22 @@
             "properties": {
               "lastBuildDate": {
                 "type": "string",
-                "title": "The time the search results were generated.",
+                "title": "The time the search results were generated",
                 "description": "The time the search results were generated."
               },
               "total": {
                 "type": "number",
-                "title": "Total number of search results.",
+                "title": "Total number of search results",
                 "description": "Total number of search results."
               },
               "start": {
                 "type": "number",
-                "title": "The starting position of the search.",
+                "title": "The starting position of the search",
                 "description": "The starting position of the search results."
               },
               "display": {
                 "type": "number",
-                "title": "The number of search results to display at one time.",
+                "title": "The number of search results to display at one time",
                 "description": "The number of search results to display at one time."
               },
               "items": {
@@ -162,7 +162,7 @@
                 "items": {
                   "$ref": "#/components/schemas/INaver.ICafeNaverItemOutput"
                 },
-                "title": "Individual search results.",
+                "title": "Individual search results",
                 "description": "Individual search results."
               }
             },
@@ -173,7 +173,7 @@
               "display",
               "items"
             ],
-            "title": "Naver Cafe search result data.",
+            "title": "Naver Cafe search result data",
             "description": "Naver Cafe search result data."
           }
         },
@@ -187,27 +187,27 @@
         "properties": {
           "title": {
             "type": "string",
-            "title": "Post title.",
+            "title": "Post title",
             "description": "Title of Naver Cafe post."
           },
           "link": {
             "type": "string",
-            "title": "Post link.",
+            "title": "Post link",
             "description": "Link to Naver Cafe post."
           },
           "description": {
             "type": "string",
-            "title": "Summary of post.",
+            "title": "Summary of post",
             "description": "Summary of Naver Cafe post."
           },
           "cafename": {
             "type": "string",
-            "title": "The name of the cafe where the post is located.",
+            "title": "The name of the cafe where the post is located",
             "description": "The name of the cafe where the Naver Cafe post is located."
           },
           "cafeurl": {
             "type": "string",
-            "title": "Link to the cafe where the post is located.",
+            "title": "Link to the cafe where the post is located",
             "description": "Link to the cafe where the Naver Cafe post is located."
           }
         },
@@ -279,22 +279,22 @@
         "properties": {
           "lastBuildDate": {
             "type": "string",
-            "title": "The time the search results were generated.",
+            "title": "The time the search results were generated",
             "description": "The time the search results were generated."
           },
           "total": {
             "type": "number",
-            "title": "Total number of search results.",
+            "title": "Total number of search results",
             "description": "Total number of search results."
           },
           "start": {
             "type": "number",
-            "title": "The starting position of the search.",
+            "title": "The starting position of the search",
             "description": "The starting position of the search results."
           },
           "display": {
             "type": "number",
-            "title": "The number of search results to display at one time.",
+            "title": "The number of search results to display at one time",
             "description": "The number of search results to display at one time."
           },
           "items": {
@@ -302,7 +302,7 @@
             "items": {
               "$ref": "#/components/schemas/INaver.IBlogNaverItemOutput"
             },
-            "title": "Individual search results.",
+            "title": "Individual search results",
             "description": "Individual search results."
           }
         },
@@ -320,32 +320,32 @@
         "properties": {
           "title": {
             "type": "string",
-            "title": "Post title.",
+            "title": "Post title",
             "description": "Title of Naver blog post."
           },
           "link": {
             "type": "string",
-            "title": "Post link.",
+            "title": "Post link",
             "description": "Link to Naver blog post."
           },
           "description": {
             "type": "string",
-            "title": "Summary of post.",
+            "title": "Summary of post",
             "description": "Summary of Naver blog post."
           },
           "bloggername": {
             "type": "string",
-            "title": "The name of the blog that contains the blog post.",
+            "title": "The name of the blog that contains the blog post",
             "description": "The name of the blog that contains the Naver blog post."
           },
           "bloggerlink": {
             "type": "string",
-            "title": "Address of the blog that contains the blog post.",
+            "title": "Address of the blog that contains the blog post",
             "description": "Address of the blog that contains the Naver blog post."
           },
           "postdate": {
             "type": "string",
-            "title": "The date the blog post was created.",
+            "title": "The date the blog post was created",
             "description": "The date the Naver blog post was created."
           }
         },
@@ -364,22 +364,22 @@
         "properties": {
           "lastBuildDate": {
             "type": "string",
-            "title": "The time the search results were generated.",
+            "title": "The time the search results were generated",
             "description": "The time the search results were generated."
           },
           "total": {
             "type": "number",
-            "title": "Total number of search results.",
+            "title": "Total number of search results",
             "description": "Total number of search results."
           },
           "start": {
             "type": "number",
-            "title": "The starting position of the search.",
+            "title": "The starting position of the search",
             "description": "The starting position of the search results."
           },
           "display": {
             "type": "number",
-            "title": "The number of search results to display at one time.",
+            "title": "The number of search results to display at one time",
             "description": "The number of search results to display at one time."
           },
           "items": {
@@ -387,7 +387,7 @@
             "items": {
               "$ref": "#/components/schemas/INaver.INewsNaverItemOutput"
             },
-            "title": "Individual search results.",
+            "title": "Individual search results",
             "description": "Individual search results."
           }
         },

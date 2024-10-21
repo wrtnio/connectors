@@ -17,7 +17,7 @@
   "info": {
     "title": "내파일 기반 생활기록부 일괄 작성",
     "description": "",
-    "version": "0.1.274",
+    "version": "0.1.275",
     "license": {
       "name": "AGPL-3.0-only"
     }
@@ -26,11 +26,11 @@
     "/connector/student-report-generator": {
       "post": {
         "summary": "Create a student life record",
-        "description": "Create a student life record based on the entered information.",
+        "description": "Create a student life record based on the entered information",
         "tags": [],
         "parameters": [],
         "requestBody": {
-          "description": "Information for creating a student life record.",
+          "description": "Information for creating a student life record",
           "content": {
             "application/json": {
               "schema": {
@@ -42,7 +42,7 @@
         },
         "responses": {
           "201": {
-            "description": "The created student life record.",
+            "description": "The created student life record",
             "content": {
               "application/json": {
                 "schema": {
@@ -58,11 +58,11 @@
     "/connector/student-report-generator/row": {
       "post": {
         "summary": "Create a student life record",
-        "description": "Create a student life record based on the entered information.",
+        "description": "Create a student life record based on the entered information",
         "tags": [],
         "parameters": [],
         "requestBody": {
-          "description": "Information for creating a student life record.",
+          "description": "Information for creating a student life record",
           "content": {
             "application/json": {
               "schema": {
@@ -74,7 +74,7 @@
         },
         "responses": {
           "201": {
-            "description": "The created student life record.",
+            "description": "The created student life record",
             "content": {
               "application/json": {
                 "schema": {
@@ -98,7 +98,7 @@
             "items": {
               "$ref": "#/components/schemas/ITableRowData"
             },
-            "title": "Generated life data.",
+            "title": "Generated life data",
             "description": "Generated life data."
           }
         },
@@ -118,7 +118,7 @@
         "properties": {
           "consideration": {
             "type": "string",
-            "title": "Things to consider.",
+            "title": "Things to consider",
             "description": "Here are some things to consider when generating your biometric data to pass on to your LLM."
           },
           "outputs": {
@@ -126,7 +126,7 @@
             "items": {
               "$ref": "#/components/schemas/IOutputStructure"
             },
-            "title": "This is the data structure of the generated lifeblood.",
+            "title": "This is the data structure of the generated lifeblood",
             "description": "This is the data structure of the generated lifeblood."
           },
           "reference_data": {
@@ -134,7 +134,7 @@
             "items": {
               "$ref": "#/components/schemas/ITableRowData"
             },
-            "title": "Reference data.",
+            "title": "Reference data",
             "description": "This is the data for the table to reference when creating the life data."
           }
         },
@@ -149,17 +149,17 @@
         "properties": {
           "field_name": {
             "type": "string",
-            "title": "The field name to be generated from LLM.",
+            "title": "The field name to be generated from LLM",
             "description": "The field name to be generated from LLM."
           },
           "field_description": {
             "type": "string",
-            "title": "Description of the field.",
+            "title": "Description of the field",
             "description": "Description of the field and guidance on how LLM should fill it out."
           },
           "example": {
             "type": "string",
-            "title": "Example for the field.",
+            "title": "Example for the field",
             "description": "Here is an example for the field."
           }
         },
@@ -174,7 +174,7 @@
         "properties": {
           "data": {
             "$ref": "#/components/schemas/ITableRowData",
-            "title": "Generated life data.",
+            "title": "Generated life data",
             "description": "Generated life data."
           }
         },
@@ -187,17 +187,17 @@
         "properties": {
           "consideration": {
             "type": "string",
-            "title": "Things to consider.",
+            "title": "Things to consider",
             "description": "Here are some things to consider when generating your biometric data to pass on to your LLM."
           },
           "output_structure": {
             "$ref": "#/components/schemas/IOutputStructure",
-            "title": "This is the data structure of the generated lifeblood.",
+            "title": "This is the data structure of the generated lifeblood",
             "description": "This is the data structure of the generated lifeblood."
           },
           "reference_data": {
             "$ref": "#/components/schemas/ITableRowData",
-            "title": "Reference data.",
+            "title": "Reference data",
             "description": "This is the data for the table to reference when creating the life data."
           }
         },

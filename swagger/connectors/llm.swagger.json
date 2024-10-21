@@ -17,7 +17,7 @@
   "info": {
     "title": "LLM",
     "description": "",
-    "version": "0.1.274",
+    "version": "0.1.275",
     "license": {
       "name": "AGPL-3.0-only"
     }
@@ -26,7 +26,7 @@
     "/connector/llm/selector-llm": {
       "post": {
         "summary": "Select condition",
-        "description": "Select a candidate that satisfies the conditions from the given candidates.",
+        "description": "Select a candidate that satisfies the conditions from the given candidates",
         "tags": [
           "Llm"
         ],
@@ -68,7 +68,7 @@
             "items": {
               "type": "number"
             },
-            "title": "Selected candidate index information.",
+            "title": "Selected candidate index information",
             "description": "Here is a list of indexes for the selected candidates."
           }
         },
@@ -82,16 +82,16 @@
           "candidates": {
             "type": "array",
             "items": {},
-            "title": "Choices.",
+            "title": "Choices",
             "description": "Here is a list of candidates for selection."
           },
           "num_select": {
             "type": "number",
-            "title": "Number of selections.",
+            "title": "Number of selections",
             "description": "The number of candidates to select."
           },
           "context": {
-            "title": "Considerations.",
+            "title": "Considerations",
             "description": "Here are some things to consider when choosing a candidate."
           }
         },

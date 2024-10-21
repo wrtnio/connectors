@@ -18,7 +18,7 @@
     "title": "구글 클라우드 스토리지 관리",
     "summary": "구글 드라이브로 파일을 쉽게 저장하고 공유해요.",
     "description": "구글 드라이브를 사용해 파일과 폴더를 효율적으로 관리할 수 있어요. 드라이브 내의 폴더와 파일 목록을 가져오고, 새로운 폴더나 파일을 만들 수 있어요. 불필요한 파일이나 폴더는 삭제할 수 있고, 특정 파일이나 폴더에 대한 접근 권한을 다른 사용자에게 부여할 수도 있어요. 텍스트 파일의 경우 내용을 직접 추가하거나 읽을 수 있어요. 이를 통해 개인 파일 보관, 팀 프로젝트 자료 공유, 대용량 파일 전송 등 다양한 목적으로 활용할 수 있어요. 클라우드 기반이라 어느 기기에서든 접근이 가능하고, 자동 동기화 기능으로 항상 최신 버전의 파일을 유지할 수 있어요.",
-    "version": "0.1.274",
+    "version": "0.1.275",
     "license": {
       "name": "AGPL-3.0-only"
     }
@@ -26,8 +26,8 @@
   "paths": {
     "/connector/google-drive/get/folders": {
       "post": {
-        "summary": "Get a list of Google Drive folders.",
-        "description": "Get a list of folders in Google Drive.",
+        "summary": "Get a list of Google Drive folders",
+        "description": "Get a list of folders in Google Drive",
         "tags": [
           "Google Drive"
         ],
@@ -44,7 +44,7 @@
         },
         "responses": {
           "201": {
-            "description": "A list of Google Drive folders.",
+            "description": "A list of Google Drive folders",
             "content": {
               "application/json": {
                 "schema": {
@@ -60,8 +60,8 @@
     },
     "/connector/google-drive/get/files": {
       "post": {
-        "summary": "Get a list of Google Drive files.",
-        "description": "Get a list of files in Google Drive.",
+        "summary": "Get a list of Google Drive files",
+        "description": "Get a list of files in Google Drive",
         "tags": [
           "Google Drive"
         ],
@@ -78,7 +78,7 @@
         },
         "responses": {
           "201": {
-            "description": "A list of Google Drive files.",
+            "description": "A list of Google Drive files",
             "content": {
               "application/json": {
                 "schema": {
@@ -93,14 +93,14 @@
     },
     "/connector/google-drive/folder": {
       "post": {
-        "summary": "Create a Google Drive folder.",
-        "description": "Create a new folder in Google Drive.",
+        "summary": "Create a Google Drive folder",
+        "description": "Create a new folder in Google Drive",
         "tags": [
           "Google Drive"
         ],
         "parameters": [],
         "requestBody": {
-          "description": "The name of the folder to be created.",
+          "description": "The name of the folder to be created",
           "content": {
             "application/json": {
               "schema": {
@@ -112,7 +112,7 @@
         },
         "responses": {
           "201": {
-            "description": "The unique ID of the created folder.",
+            "description": "The unique ID of the created folder",
             "content": {
               "application/json": {
                 "schema": {
@@ -128,14 +128,14 @@
     },
     "/connector/google-drive/file": {
       "post": {
-        "summary": "Create a Google Drive file.",
-        "description": "Create a new file in Google Drive.",
+        "summary": "Create a Google Drive file",
+        "description": "Create a new file in Google Drive",
         "tags": [
           "Google Drive"
         ],
         "parameters": [],
         "requestBody": {
-          "description": "The name of the file to be created and the unique ID of the folder where the file will be created.",
+          "description": "The name of the file to be created and the unique ID of the folder where the file will be created",
           "content": {
             "application/json": {
               "schema": {
@@ -147,7 +147,7 @@
         },
         "responses": {
           "201": {
-            "description": "The unique ID of the created file.",
+            "description": "The unique ID of the created file",
             "content": {
               "application/json": {
                 "schema": {
@@ -162,8 +162,8 @@
     },
     "/connector/google-drive/file/{id}": {
       "delete": {
-        "summary": "Delete a Google Drive file.",
-        "description": "Delete a file in Google Drive.",
+        "summary": "Delete a Google Drive file",
+        "description": "Delete a file in Google Drive",
         "tags": [
           "Google Drive"
         ],
@@ -180,8 +180,7 @@
               }
             },
             "required": true,
-            "title": "The unique ID of the file to be deleted",
-            "description": " The unique ID of the file to be deleted."
+            "description": " The unique ID of the file to be deleted"
           }
         ],
         "requestBody": {
@@ -207,8 +206,8 @@
     },
     "/connector/google-drive/folder/{id}": {
       "delete": {
-        "summary": "Delete a Google Drive folder.",
-        "description": "Delete a folder in Google Drive.",
+        "summary": "Delete a Google Drive folder",
+        "description": "Delete a folder in Google Drive",
         "tags": [
           "Google Drive"
         ],
@@ -225,8 +224,7 @@
               }
             },
             "required": true,
-            "title": "The unique ID of the folder to be deleted",
-            "description": " The unique ID of the folder to be deleted."
+            "description": " The unique ID of the folder to be deleted"
           }
         ],
         "requestBody": {
@@ -252,14 +250,14 @@
     },
     "/connector/google-drive/permission": {
       "post": {
-        "summary": "Grant Google Drive permission.",
-        "description": "Grants permission to access a file or folder.",
+        "summary": "Grant Google Drive permission",
+        "description": "Grants permission to access a file or folder",
         "tags": [
           "Google Drive"
         ],
         "parameters": [],
         "requestBody": {
-          "description": "Information for granting permission.",
+          "description": "Information for granting permission",
           "content": {
             "application/json": {
               "schema": {
@@ -282,8 +280,8 @@
     },
     "/connector/google-drive/get/file/{id}": {
       "post": {
-        "summary": "Read text from a Google Drive file.",
-        "description": "Read text from a file.",
+        "summary": "Read text from a Google Drive file",
+        "description": "Read text from a file",
         "tags": [
           "Google Drive"
         ],
@@ -300,8 +298,7 @@
               }
             },
             "required": true,
-            "title": "Unique ID of the file",
-            "description": " Unique ID of the file."
+            "description": " Unique ID of the file"
           }
         ],
         "requestBody": {
@@ -316,7 +313,7 @@
         },
         "responses": {
           "201": {
-            "description": "The text content of the file.",
+            "description": "The text content of the file",
             "content": {
               "application/json": {
                 "schema": {
@@ -368,7 +365,7 @@
                       "type": "string"
                     }
                   ],
-                  "title": "Google drive folder id.",
+                  "title": "Google drive folder id",
                   "description": "Google drive folder id."
                 },
                 "name": {
@@ -380,12 +377,12 @@
                       "type": "string"
                     }
                   ],
-                  "title": "Google drive folder name.",
+                  "title": "Google drive folder name",
                   "description": "Google drive folder name."
                 }
               }
             },
-            "title": "Google Drive Folder Data.",
+            "title": "Google Drive Folder Data",
             "description": "List of folder data in Google Drive."
           }
         },
@@ -429,7 +426,7 @@
                       "type": "string"
                     }
                   ],
-                  "title": "Google drive file id.",
+                  "title": "Google drive file id",
                   "description": "Google drive file id."
                 },
                 "name": {
@@ -441,7 +438,7 @@
                       "type": "string"
                     }
                   ],
-                  "title": "Google drive file name.",
+                  "title": "Google drive file name",
                   "description": "The name of the Google drive file."
                 },
                 "webContentLink": {
@@ -458,7 +455,7 @@
                 }
               }
             },
-            "title": "Google Drive File Data.",
+            "title": "Google Drive File Data",
             "description": "List of file data in Google Drive."
           }
         },
@@ -477,8 +474,8 @@
               "path": "/connector/google-drive/get/folders",
               "jmesPath": "data[].{value:id, label:name}"
             },
-            "title": "Google Drive Folder.",
-            "description": "Folder to load files from."
+            "title": "Google Drive Folder",
+            "description": "Folder to load files from"
           },
           "secretKey": {
             "type": "string",
@@ -500,7 +497,7 @@
         "properties": {
           "id": {
             "type": "string",
-            "title": "Generated drive id.",
+            "title": "Generated drive id",
             "description": "Generated drive folder id."
           }
         },
@@ -514,7 +511,7 @@
         "properties": {
           "name": {
             "type": "string",
-            "title": "Google drive folder name.",
+            "title": "Google drive folder name",
             "description": "Drive folder name to be created."
           },
           "secretKey": {
@@ -538,7 +535,7 @@
         "properties": {
           "id": {
             "type": "string",
-            "title": "Generated drive file id.",
+            "title": "Generated drive file id",
             "description": "Generated drive file id."
           }
         },
@@ -552,7 +549,7 @@
         "properties": {
           "name": {
             "type": "string",
-            "title": "Google drive file name.",
+            "title": "Google drive file name",
             "description": "File name to be created in drive."
           },
           "folderIds": {
@@ -566,7 +563,7 @@
               }
             },
             "minItems": 1,
-            "title": "Google drive folder ids.",
+            "title": "Google drive folder ids",
             "description": "A list of folder ids that will contain the files to be created in the drive."
           },
           "fileUrl": {
@@ -602,7 +599,7 @@
               "path": "/connector/google-drive/get/files",
               "jmesPath": "data[].{value:id, label:name}"
             },
-            "title": "Google drive file id.",
+            "title": "Google drive file id",
             "description": "The drive file id to grant access to."
           },
           "folderId": {
@@ -612,7 +609,7 @@
               "path": "/connector/google-drive/get/folders",
               "jmesPath": "data[].{value:id, label:name}"
             },
-            "title": "Google drive folder id.",
+            "title": "Google drive folder id",
             "description": "Drive folder id to grant access to."
           },
           "permissions": {
@@ -620,7 +617,7 @@
             "items": {
               "$ref": "#/components/schemas/IGoogleDrive.IPermission"
             },
-            "title": "Here is a list of emails to make accessible and permissions to grant.",
+            "title": "Here is a list of emails to make accessible and permissions to grant",
             "description": "Here is a list of emails to make accessible and permissions to grant."
           },
           "secretKey": {
@@ -645,7 +642,7 @@
           "email": {
             "type": "string",
             "format": "email",
-            "title": "The email address of the user to whom you wish to grant access.",
+            "title": "The email address of the user to whom you wish to grant access",
             "description": "The email address of the user to whom you wish to grant access to Google Drive.\nRequired only when the type is a user type."
           },
           "role": {
@@ -669,7 +666,7 @@
                 "const": "fileOrganizer"
               }
             ],
-            "title": "The permission to grant.",
+            "title": "The permission to grant",
             "description": "The type of permission to grant.\n\nowner: Grants owner permissions. Users with this permission can delete files or folders or grant permissions to other users.\norganizer: Grants operator permissions for the drive. Users with this permission can manage the organization of the drive.\nfileOrganizer: Grants operator permissions for files on the drive. Users with this permission can add or delete files.\nwriter: Grants write permissions. Users with this permission can modify or delete files.\ncommenter: Grants comment permissions. Users with this permission can read and comment on files.\nreader: Grants read permissions. Users with this permission can read files.\n\nThere are only six possible values: \"owner\", \"organizer\", \"fileOrganizer\", \"writer\", \"commenter\", \"reader\"."
           },
           "type": {
@@ -687,7 +684,7 @@
                 "const": "anyone"
               }
             ],
-            "title": "The type of permission to grant.",
+            "title": "The type of permission to grant",
             "description": "The type of permission to grant.\n\nuser - a specific user, in this case you must specify the email address of the user to grant the permission to in the emailAddress field.\ngroup - a specific group, in this case you must specify the email address of the group to grant the permission to in the emailAddress field.\ndomain - a specific domain, in this case you must specify the domain to grant the permission to in the domain field.\nanyone - all users\n\nThere are only four possible values: \"user\", \"group\", \"domain\", \"anyone\"."
           }
         },

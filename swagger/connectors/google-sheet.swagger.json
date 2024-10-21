@@ -18,7 +18,7 @@
     "title": "구글 스프레드시트 데이터 관리",
     "summary": "구글 스프레드시트로 데이터를 쉽게 관리해요.",
     "description": "구글 스프레드시트를 사용해 다양한 데이터 관리 작업을 할 수 있어요. 스프레드시트의 헤더 정보를 가져오거나, 특정 사용자에게 접근 권한을 부여할 수 있어요. 새로운 헤더를 추가하거나, 워크시트 목록을 확인할 수 있고, 특정 행(Row)의 정보를 가져올 수도 있어요. 원하는 셀에 새로운 내용을 추가하거나 기존 내용을 수정할 수도 있어요. 이를 통해 예산 관리, 프로젝트 추적, 데이터 분석 등 다양한 작업을 효율적으로 수행할 수 있어요. 실시간 협업이 가능해 팀 단위의 데이터 관리에도 매우 유용해요. 주의할 점은 구글 시트를 사용하려면 반드시 구글 드라이브 커넥터도 함께 사용해야 해요.",
-    "version": "0.1.274",
+    "version": "0.1.275",
     "license": {
       "name": "AGPL-3.0-only"
     }
@@ -26,14 +26,14 @@
   "paths": {
     "/connector/google-sheet": {
       "post": {
-        "summary": "Get the header information of a Google Sheet.",
-        "description": "Get the header information of a Google Sheet.",
+        "summary": "Get the header information of a Google Sheet",
+        "description": "Get the header information of a Google Sheet",
         "tags": [
           "Google Sheet"
         ],
         "parameters": [],
         "requestBody": {
-          "description": "Google Sheet URL and the header index to get.",
+          "description": "Google Sheet URL and the header index to get",
           "content": {
             "application/json": {
               "schema": {
@@ -45,7 +45,7 @@
         },
         "responses": {
           "201": {
-            "description": "Google Sheet header information.",
+            "description": "Google Sheet header information",
             "content": {
               "application/json": {
                 "schema": {
@@ -62,7 +62,7 @@
     "/connector/google-sheet/append": {
       "post": {
         "summary": "Add content to Google Sheets",
-        "description": "Add content to Google Sheets.",
+        "description": "Add content to Google Sheets",
         "tags": [
           "Google Sheet"
         ],
@@ -92,7 +92,7 @@
     "/connector/google-sheet/create": {
       "post": {
         "summary": "Create a Google Sheet",
-        "description": "Create a Google Sheet.\n\nThe created sheet will be created in the Google Drive root path.",
+        "description": "Create a Google Sheet\n\nThe created sheet will be created in the Google Drive root path.",
         "tags": [
           "Google Sheet"
         ],
@@ -126,14 +126,14 @@
     },
     "/connector/google-sheet/permission": {
       "post": {
-        "summary": "Grant permissions to Google Sheets.",
-        "description": "Grant permissions to Google Sheets.",
+        "summary": "Grant permissions to Google Sheets",
+        "description": "Grant permissions to Google Sheets",
         "tags": [
           "Google Sheet"
         ],
         "parameters": [],
         "requestBody": {
-          "description": "Information for granting permissions.",
+          "description": "Information for granting permissions",
           "content": {
             "application/json": {
               "schema": {
@@ -157,14 +157,14 @@
     },
     "/connector/google-sheet/header": {
       "post": {
-        "summary": "Add a Google Sheet header.",
-        "description": "Add a header to a Google Sheet.",
+        "summary": "Add a Google Sheet header",
+        "description": "Add a header to a Google Sheet",
         "tags": [
           "Google Sheet"
         ],
         "parameters": [],
         "requestBody": {
-          "description": "The Google Sheet url and the header name to add.",
+          "description": "The Google Sheet url and the header name to add",
           "content": {
             "application/json": {
               "schema": {
@@ -188,14 +188,14 @@
     },
     "/connector/google-sheet/worksheet": {
       "post": {
-        "summary": "Get a list of Google Sheets Worksheets.",
-        "description": "Get a list of Google Worksheets.",
+        "summary": "Get a list of Google Sheets Worksheets",
+        "description": "Get a list of Google Worksheets",
         "tags": [
           "Google Sheet"
         ],
         "parameters": [],
         "requestBody": {
-          "description": "The Google Sheets url to get the list of worksheets.",
+          "description": "The Google Sheets url to get the list of worksheets",
           "content": {
             "application/json": {
               "schema": {
@@ -223,8 +223,8 @@
     },
     "/connector/google-sheet/get-rows": {
       "post": {
-        "summary": "Get Row information from Google Sheets.",
-        "description": "Get Row information from Google Sheets.",
+        "summary": "Get Row information from Google Sheets",
+        "description": "Get Row information from Google Sheets",
         "tags": [
           "Google Sheet"
         ],
@@ -241,7 +241,7 @@
         },
         "responses": {
           "201": {
-            "description": "Row information from Google Sheets.",
+            "description": "Row information from Google Sheets",
             "content": {
               "application/json": {
                 "schema": {
@@ -281,7 +281,7 @@
         "type": "object",
         "properties": {
           "data": {
-            "title": "Sheet data.",
+            "title": "Sheet data",
             "description": "This is the data from the read sheet."
           }
         },
@@ -295,12 +295,12 @@
         "properties": {
           "url": {
             "type": "string",
-            "title": "sheet url.",
+            "title": "sheet url",
             "description": "The url address of the sheet from which to read the header information."
           },
           "index": {
             "type": "number",
-            "title": "Sheet header index.",
+            "title": "Sheet header index",
             "description": "The header index of the sheet to read."
           },
           "secretKey": {
@@ -416,7 +416,7 @@
           "url": {
             "type": "string",
             "format": "iri",
-            "title": "sheet url.",
+            "title": "sheet url",
             "description": "The url of the sheet to grant permission to."
           },
           "permissions": {
@@ -424,7 +424,7 @@
             "items": {
               "$ref": "#/components/schemas/IPermission.o1"
             },
-            "title": "Here is a list of emails to make accessible and permissions to grant.",
+            "title": "Here is a list of emails to make accessible and permissions to grant",
             "description": "Here is a list of emails to make accessible and permissions to grant."
           },
           "secretKey": {
@@ -451,7 +451,7 @@
           "email": {
             "type": "string",
             "format": "email",
-            "title": "The email address of the user to grant permission to.",
+            "title": "The email address of the user to grant permission to",
             "description": "The email address of the user to grant permission to."
           },
           "role": {
@@ -469,7 +469,7 @@
                 "const": "reader"
               }
             ],
-            "title": "The permission to grant.",
+            "title": "The permission to grant",
             "description": "The type of permission to grant.\n\nowner: Grants owner permission. Users with this permission can delete files or folders, or grant permission to other users.\nwriter: Grants write permission. Users with this permission can modify or delete files.\ncommenter: Grants comment permission. Users with this permission can read files and post comments.\nreader: Grants read permission. Users with this permission can read files.\n\nThere are only four possible values: \"owner\", \"writer\", \"commenter\", and \"reader\"."
           }
         },
@@ -484,12 +484,12 @@
         "properties": {
           "url": {
             "type": "string",
-            "title": "sheet url.",
+            "title": "sheet url",
             "description": "The url of the sheet to which you want to add the header."
           },
           "index": {
             "type": "number",
-            "title": "sheet index.",
+            "title": "sheet index",
             "description": "The index of the header to add."
           },
           "headerNames": {
@@ -497,7 +497,7 @@
             "items": {
               "type": "string"
             },
-            "title": "A list of headers to add to the sheet.",
+            "title": "A list of headers to add to the sheet",
             "description": "A list of headers to add to the sheet."
           },
           "secretKey": {
@@ -526,7 +526,7 @@
             "items": {
               "type": "string"
             },
-            "title": "List of worksheet titles.",
+            "title": "List of worksheet titles",
             "description": "Here is a list of titles for the sheets you've read."
           }
         },
@@ -540,7 +540,7 @@
         "properties": {
           "url": {
             "type": "string",
-            "title": "sheet url.",
+            "title": "sheet url",
             "description": "The url of the sheet to read."
           },
           "secretKey": {
@@ -568,7 +568,7 @@
             "items": {
               "$ref": "#/components/schemas/IGoogleSheet.IReadGoogleSheetRowData"
             },
-            "title": "Read Google Sheet row data.",
+            "title": "This is the read Google Sheet row data",
             "description": "This is the read Google Sheet row data."
           }
         },
@@ -588,12 +588,12 @@
         "properties": {
           "url": {
             "type": "string",
-            "title": "sheet url.",
+            "title": "sheet url",
             "description": "The url of the sheet from which to read the rows."
           },
           "workSheetTitle": {
             "type": "string",
-            "title": "The title of the sheet to work on.",
+            "title": "The title of the sheet to work on",
             "description": "The title of the sheet to work on."
           },
           "secretKey": {

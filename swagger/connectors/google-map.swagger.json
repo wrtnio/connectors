@@ -16,7 +16,7 @@
   ],
   "info": {
     "title": "Google Map",
-    "version": "0.1.274",
+    "version": "0.1.275",
     "description": "wrtn-ecosystem connectors and sdk",
     "license": {
       "name": "AGPL-3.0-only"
@@ -26,7 +26,7 @@
     "/connector/google-map": {
       "post": {
         "summary": "Google Map restaurant search",
-        "description": "Search for restaurants using Google Maps.",
+        "description": "Search for restaurants using Google Maps",
         "tags": [
           "Google Map"
         ],
@@ -64,7 +64,7 @@
     "/connector/google-map/review": {
       "post": {
         "summary": "Search Google Map restaurant reviews",
-        "description": "Search for restaurant reviews selected from Google Maps.",
+        "description": "Search for restaurant reviews selected from Google Maps",
         "tags": [
           "Google Map"
         ],

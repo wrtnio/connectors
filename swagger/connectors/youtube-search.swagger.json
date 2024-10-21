@@ -17,7 +17,7 @@
   "info": {
     "title": "유튜브 검색",
     "description": "",
-    "version": "0.1.274",
+    "version": "0.1.275",
     "license": {
       "name": "AGPL-3.0-only"
     }
@@ -26,7 +26,7 @@
     "/connector/youtube-search": {
       "post": {
         "summary": "YouTube video search",
-        "description": "Get YouTube video search results.\n\nThe search results have the video title and link.\nIf most users are going to use this feature, they probably want to watch the video, so it's better to provide a URL.",
+        "description": "Get YouTube video search results\n\nThe search results have the video title and link.\nIf most users are going to use this feature, they probably want to watch the video, so it's better to provide a URL.",
         "tags": [
           "Youtube"
         ],
@@ -44,7 +44,7 @@
         },
         "responses": {
           "201": {
-            "description": "List of YouTube video search results.",
+            "description": "List of YouTube video search results",
             "content": {
               "application/json": {
                 "schema": {
@@ -70,7 +70,7 @@
               "$ref": "#/components/schemas/IConnector.IReferenceContent"
             },
             "title": "Output Information",
-            "description": "Contains output information for search results."
+            "description": "Contains output information for search results"
           }
         },
         "required": [
@@ -84,7 +84,7 @@
           "title": {
             "type": "string",
             "title": "Title",
-            "description": "The title of the output."
+            "description": "The title of the output"
           },
           "type": {
             "oneOf": [
@@ -106,7 +106,7 @@
               }
             ],
             "title": "Output Type",
-            "description": "Video, image, news article, research paper.\n\nIt must be one of: video, image, news_article, research_paper"
+            "description": "Video, image, news article, research paper\n\nIt must be one of: video, image, news_article, research_paper"
           },
           "source": {
             "oneOf": [
@@ -142,23 +142,23 @@
             "type": "string",
             "format": "iri",
             "title": "URL address",
-            "description": "The URL address of the output."
+            "description": "The URL address of the output"
           },
           "contents": {
             "type": "string",
             "title": "Output Content",
-            "description": "Here is the content of the output."
+            "description": "Here is the content of the output"
           },
           "image": {
             "type": "string",
             "format": "iri",
             "title": "Output Image URL",
-            "description": "The URL address of the image of the output."
+            "description": "The URL address of the image of the output"
           },
           "statistics": {
             "$ref": "#/components/schemas/MyPartialRecordIConnector.MetricTypenumberTypeint32",
             "title": "Output statistics information",
-            "description": "Output statistics information.\n\nPossible values: view_count, like_count, rank"
+            "description": "Output statistics information\n\nPossible values: view_count, like_count, rank"
           }
         },
         "required": [

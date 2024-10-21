@@ -17,7 +17,7 @@
   "info": {
     "title": "Discord",
     "description": "디스코드로 메세지를 보내요.",
-    "version": "0.1.274",
+    "version": "0.1.275",
     "license": {
       "name": "AGPL-3.0-only"
     }
@@ -26,7 +26,7 @@
     "/connector/discord/create-dm": {
       "post": {
         "summary": "Create a DM channel",
-        "description": "Create a new DM channel.",
+        "description": "Create a new DM channel",
         "tags": [
           "Discord"
         ],
@@ -59,7 +59,7 @@
     "/connector/discord/modify-guild": {
       "post": {
         "summary": "Modify server information",
-        "description": "Modify server information.",
+        "description": "Modify server information",
         "tags": [
           "Discord"
         ],
@@ -92,7 +92,7 @@
     "/connector/discord/get-guild-channels": {
       "post": {
         "summary": "Get a list of channels",
-        "description": "Get a list of channels on the server.",
+        "description": "Get a list of channels on the server",
         "tags": [
           "Discord"
         ],
@@ -128,7 +128,7 @@
     "/connector/discord/create-guild-channel": {
       "post": {
         "summary": "Create a channel",
-        "description": "Create a new channel on the server.",
+        "description": "Create a new channel on the server",
         "tags": [
           "Discord"
         ],
@@ -161,7 +161,7 @@
     "/connector/discord/get-list-guild-members": {
       "post": {
         "summary": "Get a list of members",
-        "description": "Get a list of members on the server.",
+        "description": "Get a list of members on the server",
         "tags": [
           "Discord"
         ],
@@ -197,7 +197,7 @@
     "/connector/discord/remove-guild-member": {
       "post": {
         "summary": "Kick members",
-        "description": "Kicks selected members from the server.",
+        "description": "Kicks selected members from the server",
         "tags": [
           "Discord"
         ],
@@ -226,7 +226,7 @@
     "/connector/discord/modify-channel": {
       "post": {
         "summary": "Modify channel information",
-        "description": "Modify channel information.",
+        "description": "Modify channel information",
         "tags": [
           "Discord"
         ],
@@ -259,7 +259,7 @@
     "/connector/discord/delete-channel": {
       "post": {
         "summary": "Delete channel",
-        "description": "Delete the selected channel.",
+        "description": "Delete the selected channel",
         "tags": [
           "Discord"
         ],
@@ -288,7 +288,7 @@
     "/connector/discord/get-pinned-messages": {
       "post": {
         "summary": "Get a list of pinned messages",
-        "description": "Get a list of pinned messages in a channel.",
+        "description": "Get a list of pinned messages in a channel",
         "tags": [
           "Discord"
         ],
@@ -324,7 +324,7 @@
     "/connector/discord/pin-message": {
       "post": {
         "summary": "Pin a message",
-        "description": "Pin a message to a channel.",
+        "description": "Pin a message to a channel",
         "tags": [
           "Discord"
         ],
@@ -353,7 +353,7 @@
     "/connector/discord/unpin-message": {
       "post": {
         "summary": "Unpin message",
-        "description": "Unpin a pinned message from a channel.",
+        "description": "Unpin a pinned message from a channel",
         "tags": [
           "Discord"
         ],
@@ -382,7 +382,7 @@
     "/connector/discord/get-channel-message-histories": {
       "post": {
         "summary": "Get a list of messages",
-        "description": "Get the messages that exist in the channel.",
+        "description": "Get the messages that exist in the channel",
         "tags": [
           "Discord"
         ],
@@ -418,7 +418,7 @@
     "/connector/discord/create-message": {
       "post": {
         "summary": "Send a message",
-        "description": "Send a message.",
+        "description": "Send a message",
         "tags": [
           "Discord"
         ],
@@ -451,7 +451,7 @@
     "/connector/discord/edit-message": {
       "post": {
         "summary": "Modify message",
-        "description": "Modify the message.",
+        "description": "Modify the message",
         "tags": [
           "Discord"
         ],
@@ -484,7 +484,7 @@
     "/connector/discord/delete-message": {
       "post": {
         "summary": "Delete message",
-        "description": "Delete message.",
+        "description": "Delete message",
         "tags": [
           "Discord"
         ],
@@ -513,7 +513,7 @@
     "/connector/discord/bulk-delete-message": {
       "post": {
         "summary": "Delete multiple messages",
-        "description": "Delete multiple messages.",
+        "description": "Delete multiple messages",
         "tags": [
           "Discord"
         ],

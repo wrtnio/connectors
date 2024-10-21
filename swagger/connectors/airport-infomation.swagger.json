@@ -17,7 +17,7 @@
   "info": {
     "title": "Airport Infomation",
     "description": "항공 정보를 조회해요.",
-    "version": "0.1.274",
+    "version": "0.1.275",
     "license": {
       "name": "AGPL-3.0-only"
     }
@@ -64,7 +64,7 @@
     "/connector/aws/file/upload-url": {
       "get": {
         "summary": "Generate File Upload URL",
-        "description": "Generate the URL required to upload a file.",
+        "description": "Generate the URL required to upload a file",
         "tags": [],
         "parameters": [
           {

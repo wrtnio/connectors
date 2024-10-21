@@ -17,7 +17,7 @@
   "info": {
     "title": "RAG",
     "description": "",
-    "version": "0.1.274",
+    "version": "0.1.275",
     "license": {
       "name": "AGPL-3.0-only"
     }
@@ -25,14 +25,14 @@
   "paths": {
     "/connector/rag/analyze": {
       "post": {
-        "summary": "Request RAG analysis.",
-        "description": "Request RAG analysis for the input file.\n\nThis connector can be used when creating a chatbot that compares multiple research papers.",
+        "summary": "Request RAG analysis",
+        "description": "Request RAG analysis for the input file\n\nThis connector can be used when creating a chatbot that compares multiple research papers.",
         "tags": [
           "RAG"
         ],
         "parameters": [],
         "requestBody": {
-          "description": "Information about the file to be analyzed.",
+          "description": "Information about the file to be analyzed",
           "content": {
             "application/json": {
               "schema": {
@@ -59,8 +59,8 @@
     },
     "/connector/rag/{jobId}/status": {
       "get": {
-        "summary": "Check RAG analysis status.",
-        "description": "Check the analysis progress status.",
+        "summary": "Check RAG analysis status",
+        "description": "Check the analysis progress status",
         "tags": [
           "RAG"
         ],
@@ -91,7 +91,7 @@
     "/connector/rag/generate/{chatId}": {
       "post": {
         "summary": "Generate RAG-based results",
-        "description": "Generates requested results based on RAG analysis.\n\nA connector that can be used to generate answers to user questions through a chatbot that compares multiple research papers.",
+        "description": "Generates requested results based on RAG analysis\n\nA connector that can be used to generate answers to user questions through a chatbot that compares multiple research papers.",
         "tags": [
           "RAG"
         ],
@@ -138,7 +138,7 @@
         "properties": {
           "chatId": {
             "type": "string",
-            "title": "chat id.",
+            "title": "chat id",
             "description": "Chat id required for RAG generation results.\nReturns the chat id for the analyzed file to generate chat results for the file analyzed by RAG.\nThe same chat id is required to analyze multiple files and generate results for multiple files in the same chat."
           }
         },
@@ -181,7 +181,7 @@
                 "const": "RUNNING"
               }
             ],
-            "title": "Analysis status.",
+            "title": "Analysis status",
             "description": "Analysis status.\n\n- RUNNING: Analysis in progress\n- COMPLETED: Analysis completed\n- FAILED: Analysis failed"
           }
         },
@@ -195,7 +195,7 @@
         "properties": {
           "answer": {
             "type": "string",
-            "title": "Response to utterance.",
+            "title": "Response to utterance",
             "description": "Response to RAG-based creation request."
           }
         },
@@ -209,7 +209,7 @@
         "properties": {
           "query": {
             "type": "string",
-            "title": "User utterance.",
+            "title": "User utterance",
             "description": "This is a user utterance."
           }
         },

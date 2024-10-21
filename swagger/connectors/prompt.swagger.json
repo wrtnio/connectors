@@ -17,7 +17,7 @@
   "info": {
     "title": "프롬프트",
     "description": "",
-    "version": "0.1.274",
+    "version": "0.1.275",
     "license": {
       "name": "AGPL-3.0-only"
     }
@@ -26,7 +26,7 @@
     "/connector/prompt/generate": {
       "post": {
         "summary": "prompt node",
-        "description": "Enter the request you want to give to LLM.",
+        "description": "Enter the request you want to give to LLM",
         "tags": [],
         "parameters": [],
         "requestBody": {

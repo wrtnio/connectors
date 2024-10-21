@@ -17,7 +17,7 @@
   "info": {
     "title": "Github",
     "description": "Github에서 코드를 읽고 분석하고 작성해요",
-    "version": "0.1.274",
+    "version": "0.1.275",
     "license": {
       "name": "AGPL-3.0-only"
     }
@@ -1971,14 +1971,14 @@
     },
     "/connector/rag/analyze": {
       "post": {
-        "summary": "Request RAG analysis.",
-        "description": "Request RAG analysis for the input file.\n\nThis connector can be used when creating a chatbot that compares multiple research papers.",
+        "summary": "Request RAG analysis",
+        "description": "Request RAG analysis for the input file\n\nThis connector can be used when creating a chatbot that compares multiple research papers.",
         "tags": [
           "RAG"
         ],
         "parameters": [],
         "requestBody": {
-          "description": "Information about the file to be analyzed.",
+          "description": "Information about the file to be analyzed",
           "content": {
             "application/json": {
               "schema": {
@@ -2005,8 +2005,8 @@
     },
     "/connector/rag/{jobId}/status": {
       "get": {
-        "summary": "Check RAG analysis status.",
-        "description": "Check the analysis progress status.",
+        "summary": "Check RAG analysis status",
+        "description": "Check the analysis progress status",
         "tags": [
           "RAG"
         ],
@@ -2037,7 +2037,7 @@
     "/connector/rag/generate/{chatId}": {
       "post": {
         "summary": "Generate RAG-based results",
-        "description": "Generates requested results based on RAG analysis.\n\nA connector that can be used to generate answers to user questions through a chatbot that compares multiple research papers.",
+        "description": "Generates requested results based on RAG analysis\n\nA connector that can be used to generate answers to user questions through a chatbot that compares multiple research papers.",
         "tags": [
           "RAG"
         ],
@@ -2079,7 +2079,7 @@
     "/connector/aws/file/upload-url": {
       "get": {
         "summary": "Generate File Upload URL",
-        "description": "Generate the URL required to upload a file.",
+        "description": "Generate the URL required to upload a file",
         "tags": [],
         "parameters": [
           {
@@ -3092,7 +3092,7 @@
           },
           "size": {
             "type": "number",
-            "title": "Indicates the file size in bytes."
+            "title": "Indicates the file size in bytes"
           },
           "name": {
             "type": "string",
@@ -4016,7 +4016,7 @@
               "email",
               "date"
             ],
-            "title": "The author of the file.\n\nIf you don't put anything in, your own information will be injected, so you can leave the value alone.\nSince the user's email cannot necessarily be guaranteed to be the same as Github's email, it is advantageous not to get confirmation from the user or put it in.\n\nDefault: The committer or the authenticated user if you omit committer."
+            "title": "The author of the file\n\nIf you don't put anything in, your own information will be injected, so you can leave the value alone.\nSince the user's email cannot necessarily be guaranteed to be the same as Github's email, it is advantageous not to get confirmation from the user or put it in.\n\nDefault: The committer or the authenticated user if you omit committer."
           },
           "committer": {
             "type": "object",
@@ -4039,7 +4039,7 @@
               "email",
               "date"
             ],
-            "title": "The person that committed the file.\nIf you don't put anything in, your own information will be injected, so you can leave the value alone.\nSince the user's email cannot necessarily be guaranteed to be the same as Github's email, it is advantageous not to get confirmation from the user or put it in.\n\nDefault: the authenticated user."
+            "title": "The person that committed the file\nIf you don't put anything in, your own information will be injected, so you can leave the value alone.\nSince the user's email cannot necessarily be guaranteed to be the same as Github's email, it is advantageous not to get confirmation from the user or put it in.\n\nDefault: the authenticated user."
           },
           "branch": {
             "type": "string",
@@ -4162,7 +4162,7 @@
               "email",
               "date"
             ],
-            "title": "The person that committed the file.\nIf you don't put anything in, your own information will be injected, so you can leave the value alone.\nSince the user's email cannot necessarily be guaranteed to be the same as Github's email, it is advantageous not to get confirmation from the user or put it in.\n\nDefault: the authenticated user."
+            "title": "The person that committed the file\nIf you don't put anything in, your own information will be injected, so you can leave the value alone.\nSince the user's email cannot necessarily be guaranteed to be the same as Github's email, it is advantageous not to get confirmation from the user or put it in.\n\nDefault: the authenticated user."
           },
           "author": {
             "type": "object",
@@ -4185,7 +4185,7 @@
               "email",
               "date"
             ],
-            "title": "The author of the file.\n\nIf you don't put anything in, your own information will be injected, so you can leave the value alone.\nSince the user's email cannot necessarily be guaranteed to be the same as Github's email, it is advantageous not to get confirmation from the user or put it in.\n\nDefault: The committer or the authenticated user if you omit committer."
+            "title": "The author of the file\n\nIf you don't put anything in, your own information will be injected, so you can leave the value alone.\nSince the user's email cannot necessarily be guaranteed to be the same as Github's email, it is advantageous not to get confirmation from the user or put it in.\n\nDefault: The committer or the authenticated user if you omit committer."
           },
           "secretKey": {
             "type": "string",
@@ -4255,7 +4255,7 @@
               "email",
               "date"
             ],
-            "title": "The person that committed the file.\nIf you don't put anything in, your own information will be injected, so you can leave the value alone.\nSince the user's email cannot necessarily be guaranteed to be the same as Github's email, it is advantageous not to get confirmation from the user or put it in.\n\nDefault: the authenticated user."
+            "title": "The person that committed the file\nIf you don't put anything in, your own information will be injected, so you can leave the value alone.\nSince the user's email cannot necessarily be guaranteed to be the same as Github's email, it is advantageous not to get confirmation from the user or put it in.\n\nDefault: the authenticated user."
           },
           "author": {
             "type": "object",
@@ -4278,7 +4278,7 @@
               "email",
               "date"
             ],
-            "title": "The author of the file.\n\nIf you don't put anything in, your own information will be injected, so you can leave the value alone.\nSince the user's email cannot necessarily be guaranteed to be the same as Github's email, it is advantageous not to get confirmation from the user or put it in.\n\nDefault: The committer or the authenticated user if you omit committer."
+            "title": "The author of the file\n\nIf you don't put anything in, your own information will be injected, so you can leave the value alone.\nSince the user's email cannot necessarily be guaranteed to be the same as Github's email, it is advantageous not to get confirmation from the user or put it in.\n\nDefault: The committer or the authenticated user if you omit committer."
           },
           "secretKey": {
             "type": "string",
@@ -4308,7 +4308,7 @@
           },
           "size": {
             "const": 0,
-            "title": "Indicates the file size in bytes."
+            "title": "Indicates the file size in bytes"
           },
           "name": {
             "type": "string",
@@ -4357,7 +4357,7 @@
           },
           "size": {
             "type": "number",
-            "title": "Indicates the file size in bytes."
+            "title": "Indicates the file size in bytes"
           },
           "sha": {
             "type": "string",
@@ -4422,7 +4422,7 @@
           },
           "size": {
             "const": 0,
-            "title": "Indicates the file size in bytes."
+            "title": "Indicates the file size in bytes"
           },
           "name": {
             "type": "string",
@@ -10253,7 +10253,7 @@
         "properties": {
           "chatId": {
             "type": "string",
-            "title": "chat id.",
+            "title": "chat id",
             "description": "Chat id required for RAG generation results.\nReturns the chat id for the analyzed file to generate chat results for the file analyzed by RAG.\nThe same chat id is required to analyze multiple files and generate results for multiple files in the same chat."
           }
         },
@@ -10296,7 +10296,7 @@
                 "const": "RUNNING"
               }
             ],
-            "title": "Analysis status.",
+            "title": "Analysis status",
             "description": "Analysis status.\n\n- RUNNING: Analysis in progress\n- COMPLETED: Analysis completed\n- FAILED: Analysis failed"
           }
         },
@@ -10310,7 +10310,7 @@
         "properties": {
           "answer": {
             "type": "string",
-            "title": "Response to utterance.",
+            "title": "Response to utterance",
             "description": "Response to RAG-based creation request."
           }
         },
@@ -10324,7 +10324,7 @@
         "properties": {
           "query": {
             "type": "string",
-            "title": "User utterance.",
+            "title": "User utterance",
             "description": "This is a user utterance."
           }
         },

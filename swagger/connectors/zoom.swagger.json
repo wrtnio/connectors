@@ -17,7 +17,7 @@
   "info": {
     "title": "Zoom",
     "description": "",
-    "version": "0.1.274",
+    "version": "0.1.275",
     "license": {
       "name": "AGPL-3.0-only"
     }
@@ -25,14 +25,14 @@
   "paths": {
     "/connector/zoom/meetings": {
       "post": {
-        "summary": "Create a zoom meeting.",
-        "description": "Create a zoom meeting.",
+        "summary": "Create a zoom meeting",
+        "description": "Create a zoom meeting",
         "tags": [
           "Zoom"
         ],
         "parameters": [],
         "requestBody": {
-          "description": "DTO of the user information and conditions for creating a meeting.",
+          "description": "DTO of the user information and conditions for creating a meeting",
           "content": {
             "application/json": {
               "schema": {
@@ -67,109 +67,109 @@
           "agenda": {
             "type": "string",
             "maxLength": 2000,
-            "title": "The meeting's agenda.",
+            "title": "The meeting's agenda",
             "description": "The meeting's agenda."
           },
           "default_password": {
             "type": "boolean",
             "default": false,
-            "title": "Whether to create a default password.",
+            "title": "Whether to create a default password",
             "description": "If this value is true and the user has enabled PMI settings with passwords, the user's meetings will use the PMI password."
           },
           "duration": {
             "type": "integer",
-            "title": "The scheduled time (duration) of the meeting.",
+            "title": "The scheduled time (duration) of the meeting",
             "description": "The scheduled time of the meeting, in minutes.\n\nUsed only when a meeting is scheduled."
           },
           "password": {
             "type": "string",
             "maxLength": 10,
-            "title": "Meeting password.",
+            "title": "Meeting password",
             "description": "It means a password consisting of English uppercase and lowercase letters and '@', '-', '_', '*'."
           },
           "pre_schedule": {
             "type": "boolean",
             "default": false,
-            "title": "Whether to create a scheduled meeting via the `GSuite` app."
+            "title": "Whether to create a scheduled meeting via the `GSuite` app"
           },
           "assistant_id": {
             "type": "string",
-            "title": "The ID of the user who hosted this meeting."
+            "title": "The ID of the user who hosted this meeting"
           },
           "host_email": {
             "type": "string",
             "format": "email",
-            "title": "The email address of the meeting organizer."
+            "title": "The email address of the meeting organizer"
           },
           "id": {
             "type": "integer",
-            "title": "Meeting ID."
+            "title": "Meeting ID"
           },
           "registration_url": {
             "type": "string",
             "format": "url",
-            "title": "URL where participants can register."
+            "title": "URL where participants can register"
           },
           "created_at": {
             "type": "string",
             "format": "date-time",
-            "title": "The date and time this meeting was created."
+            "title": "The date and time this meeting was created"
           },
           "encrypted_password": {
             "type": "string",
-            "title": "Encrypted password for 3rd party endpoints (H323/SIP)."
+            "title": "Encrypted password for 3rd party endpoints (H323/SIP)"
           },
           "pstn_password": {
             "type": "string",
-            "title": "Password to join the meeting via PSTN."
+            "title": "Password to join the meeting via PSTN"
           },
           "h323_password": {
             "type": "string",
-            "title": "H.323/SIP room system password."
+            "title": "H.323/SIP room system password"
           },
           "join_url": {
             "type": "string",
             "format": "url",
-            "title": "The URL where participants can join the meeting."
+            "title": "The URL where participants can join the meeting"
           },
           "chat_join_url": {
             "type": "string",
             "format": "url",
-            "title": "URL where you can join the chat."
+            "title": "URL where you can join the chat"
           },
           "occurrences": {
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/IZoom.Occurrence"
             },
-            "title": "Information about recurring webinars."
+            "title": "Information about recurring webinars"
           },
           "pmi": {
             "type": "string",
-            "title": "Personal meeting ID (PMI)."
+            "title": "Personal meeting ID (PMI)"
           },
           "recurrence": {
             "$ref": "#/components/schemas/IZoom.Recurrence",
-            "title": "Information about the meeting's recurrence cycle."
+            "title": "Information about the meeting's recurrence cycle"
           },
           "settings": {
             "$ref": "#/components/schemas/MyPartialIZoom.Settings",
-            "title": "Zoom settings information."
+            "title": "Zoom settings information"
           },
           "start_time": {
             "type": "string",
             "format": "date-time",
-            "title": "Meeting start time."
+            "title": "Meeting start time"
           },
           "start_url": {
             "type": "string",
             "format": "url",
-            "title": "URL that allows you to join as the meeting host.",
+            "title": "URL that allows you to join as the meeting host",
             "description": "This URL should only be used by the meeting host and should not be shared with other participants.\n\nAnyone with this URL can log into the Zoom client with host privileges."
           },
           "timezone": {
             "type": "string",
-            "title": "`start_time`의 timezone."
+            "title": "`start_time`의 timezone"
           },
           "topic": {
             "type": "string",
@@ -204,12 +204,12 @@
                 "default": 2
               }
             ],
-            "title": "Type of meeting.",
+            "title": "Type of meeting",
             "description": "- 1: Instant meeting.\n- 2: Scheduled meeting.\n- 3: Recurring meeting without fixed time.\n- 8: Recurring meeting with fixed time.\n- 10: Meeting with screen sharing only."
           },
           "dynamic_host_key": {
             "type": "string",
-            "title": "미팅의 dynamic_host_key."
+            "title": "미팅의 dynamic_host_key"
           }
         }
       },
@@ -218,16 +218,16 @@
         "properties": {
           "duration": {
             "type": "integer",
-            "title": "An integer representing the duration of the webinar."
+            "title": "An integer representing the duration of the webinar"
           },
           "occurrence_id": {
             "type": "string",
-            "title": "A unique identifier that identifies each webinar occurrence."
+            "title": "A unique identifier that identifies each webinar occurrence"
           },
           "start_time": {
             "type": "string",
             "format": "date-time",
-            "title": "Webinar start time."
+            "title": "Webinar start time"
           },
           "status": {
             "oneOf": [
@@ -248,7 +248,7 @@
           "start_time",
           "status"
         ],
-        "title": "Information about recurring webinars."
+        "title": "Information about recurring webinars"
       },
       "IZoom.Recurrence": {
         "type": "object",
@@ -256,14 +256,14 @@
           "end_date_time": {
             "type": "string",
             "format": "date-time",
-            "title": "This means the last day before the meeting ends.",
+            "title": "This means the last day before the meeting ends",
             "description": "If the meeting is not cancelled, this means the last day of the meeting.\n\nCannot be used with `end_times`."
           },
           "end_times": {
             "type": "integer",
             "maximum": 60,
             "default": 1,
-            "title": "The number of repetitions before the meeting is finally terminated.",
+            "title": "The number of repetitions before the meeting is finally terminated",
             "description": "Indicates how many times the meeting will repeat before it is canceled.\n\nIf end_times is set to 0, it means there is no end time."
           },
           "type": {
@@ -278,14 +278,14 @@
                 "const": 3
               }
             ],
-            "title": "Meeting repetition cycle.",
+            "title": "Meeting repetition cycle",
             "description": "1 is daily, 2 is weekly, 3 is monthly, indicating the repetition type."
           },
           "monthly_day": {
             "type": "integer",
             "minimum": 1,
             "maximum": 31,
-            "title": "The days from 1 to 31 of the month.",
+            "title": "The days from 1 to 31 of the month",
             "description": "It means the days from 1 to 31 of the month, and is the value set when `type` is 3, that is, it repeats every month."
           },
           "monthly_week": {
@@ -306,22 +306,22 @@
                 "const": 4
               }
             ],
-            "title": "Indicates which week of each month.",
+            "title": "Indicates which week of each month",
             "description": "Indicates which week of each month.\n\nThis is the value set when `type` is 3, that is, the meeting is repeated every month.\n\n- -1: Last week of the month.\n- 1: First week of the month.\n- 2: Second week of the month.\n- 3: Third week of the month.\n- 4: Fourth week of the month."
           },
           "monthly_week_day": {
             "type": "string",
-            "title": "Indicates which day of the week it is each month.",
+            "title": "Indicates which day of the week it is each month",
             "description": "This is the value set when `type` is 3, that is, a meeting that repeats every month.\n\nIf multiple days are selected, the numbers are connected using the `,` symbol in the form of '1,3'.\n\n- 1 - Sunday.\n- 2 - Monday.\n- 3 - Tuesday.\n- 4 - Wednesday.\n- 5 - Thursday.\n- 6 - Friday.\n- 7 - Saturday."
           },
           "repeat_interval": {
             "type": "integer",
-            "title": "Interval between meetings.",
+            "title": "Interval between meetings",
             "description": "When `type` is 1, i.e., for meetings set to daily, up to 90 (days) is possible.\n\nWhen `type` is 2, i.e., for meetings set to weekly, up to 12 (weeks) is possible.\n\nWhen `type` is 3, i.e., for meetings set to monthly, up to 3 (months) is possible."
           },
           "weekly_days": {
             "type": "string",
-            "title": "Indicates which day of the week it is.",
+            "title": "Indicates which day of the week it is",
             "description": "This is the value set when `type` is 2, that is, a meeting that repeats every week.\n\nIf multiple days are selected, the numbers are connected using the `,` symbol in the form of '1,3'.\n\n- 1 - Sunday.\n- 2 - Monday.\n- 3 - Tuesday.\n- 4 - Wednesday.\n- 5 - Thursday.\n- 6 - Friday.\n- 7 - Saturday."
           }
         },
@@ -333,24 +333,24 @@
           "repeat_interval",
           "weekly_days"
         ],
-        "title": "Information about the meeting's recurrence cycle."
+        "title": "Information about the meeting's recurrence cycle"
       },
       "MyPartialIZoom.Settings": {
         "type": "object",
         "properties": {
           "allow_multiple_devices": {
             "type": "boolean",
-            "title": "Whether participants can join from multiple devices.",
+            "title": "Whether participants can join from multiple devices",
             "description": "Sets whether participants can join from multiple devices in a meeting where registration is enabled."
           },
           "alternative_hosts": {
             "type": "string",
-            "title": "A semicolon-separated list of email addresses or IDs for alternate hosts."
+            "title": "A semicolon-separated list of email addresses or IDs for alternate hosts"
           },
           "alternative_hosts_email_notification": {
             "type": "boolean",
             "default": true,
-            "title": "Whether to send email notifications to alternate hosts."
+            "title": "Whether to send email notifications to alternate hosts"
           },
           "alternative_host_update_polls": {
             "type": "boolean"
@@ -370,7 +370,7 @@
                 "default": 2
               }
             ],
-            "title": "Meeting registration approval settings.",
+            "title": "Meeting registration approval settings",
             "description": "- 0 : Automatic approval\n- 1 : Manual approval\n- 2 : No registration required (default)"
           },
           "approved_or_denied_countries_or_regions": {
@@ -381,18 +381,18 @@
                 "items": {
                   "type": "string"
                 },
-                "title": "List of approved countries or regions."
+                "title": "List of approved countries or regions"
               },
               "denied_list": {
                 "type": "array",
                 "items": {
                   "type": "string"
                 },
-                "title": "List of blocked countries or regions."
+                "title": "List of blocked countries or regions"
               },
               "enable": {
                 "type": "boolean",
-                "title": "Whether to enable or disable user authorization or blocking settings for specific countries and regions."
+                "title": "Whether to enable or disable user authorization or blocking settings for specific countries and regions"
               },
               "method": {
                 "oneOf": [
@@ -403,13 +403,13 @@
                     "const": "approve"
                   }
                 ],
-                "title": "method."
+                "title": "method"
               }
             },
             "required": [
               "enable"
             ],
-            "title": "Approved/rejected country or region."
+            "title": "Approved/rejected country or region"
           },
           "audio": {
             "oneOf": [
@@ -430,13 +430,13 @@
                 "default": "both"
               }
             ],
-            "title": "How participants join the audio portion of the meeting.",
+            "title": "How participants join the audio portion of the meeting",
             "description": "- `both` - Both telephony and VoIP.\n- `telephony` - Telephony only.\n- `voip` - VoIP only.\n- `thirdParty` - Third party audio conference."
           },
           "audio_conference_info": {
             "type": "string",
             "maxLength": 2048,
-            "title": "Third party audio conference info."
+            "title": "Third party audio conference info"
           },
           "authentication_domains": {
             "type": "string",
@@ -451,16 +451,16 @@
                 "email": {
                   "type": "string",
                   "format": "email",
-                  "title": "The participant's email address."
+                  "title": "The participant's email address"
                 },
                 "name": {
                   "type": "string",
-                  "title": "The participant's name."
+                  "title": "The participant's name"
                 },
                 "join_url": {
                   "type": "string",
                   "format": "url",
-                  "title": "URL for participants to join the meeting."
+                  "title": "URL for participants to join the meeting"
                 }
               },
               "required": [
@@ -474,11 +474,11 @@
           },
           "authentication_name": {
             "type": "string",
-            "title": "Authentication name set in the authentication profile."
+            "title": "Authentication name set in the authentication profile"
           },
           "authentication_option": {
             "type": "string",
-            "title": "Meeting authentication option ID."
+            "title": "Meeting authentication option ID"
           },
           "auto_recording": {
             "oneOf": [
@@ -491,7 +491,7 @@
                 "default": "none"
               }
             ],
-            "title": "Automatic recording. local - Record on local.",
+            "title": "Automatic recording",
             "description": "- `cloud` - Record on cloud.\n- `none` - Disabled."
           },
           "breakout_room": {
@@ -534,7 +534,7 @@
             "required": [
               "enable"
             ],
-            "title": "Setting to pre-assign breakout rooms."
+            "title": "Setting to pre-assign breakout rooms"
           },
           "calendar_type": {
             "oneOf": [
@@ -551,29 +551,29 @@
           "close_registration": {
             "type": "boolean",
             "default": false,
-            "title": "Close registration after event date."
+            "title": "Close registration after event date"
           },
           "cn_meeting": {
             "type": "boolean",
             "default": false,
             "deprecated": true,
-            "title": "Host meeting in China."
+            "title": "Host meeting in China"
           },
           "contact_email": {
             "type": "string",
             "format": "email",
-            "title": "The contact email address for meeting registration."
+            "title": "The contact email address for meeting registration"
           },
           "contact_name": {
             "type": "string",
-            "title": "The contact name for meeting registration."
+            "title": "The contact name for meeting registration"
           },
           "custom_keys": {
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/keystringMaxLength64valuestringMaxLength256MaxItems10"
             },
-            "title": "Custom keys and values assigned to the meeting."
+            "title": "Custom keys and values assigned to the meeting"
           },
           "email_notification": {
             "type": "boolean",
@@ -607,14 +607,14 @@
           },
           "focus_mode": {
             "type": "boolean",
-            "title": "Whether the Focus Mode feature is enabled when the meeting starts."
+            "title": "Whether the Focus Mode feature is enabled when the meeting starts"
           },
           "global_dial_in_countries": {
             "type": "array",
             "items": {
               "type": "string"
             },
-            "title": "List of global dial-in countries."
+            "title": "List of global dial-in countries"
           },
           "global_dial_in_numbers": {
             "type": "array",
@@ -623,22 +623,22 @@
               "properties": {
                 "city": {
                   "type": "string",
-                  "title": "city of the number.",
+                  "title": "city of the number",
                   "description": "City of the number, such as Chicago."
                 },
                 "country": {
                   "type": "string",
-                  "title": "The country code.",
+                  "title": "The country code",
                   "description": "The country code, such as BR."
                 },
                 "country_name": {
                   "type": "string",
-                  "title": "Full name of country.",
+                  "title": "Full name of country",
                   "description": "Full name of country, such as Brazil."
                 },
                 "number": {
                   "type": "string",
-                  "title": "A phone number.",
+                  "title": "A phone number",
                   "description": "A phone number, such as `+1 2332357613`."
                 },
                 "type": {
@@ -650,7 +650,7 @@
                       "const": "tollfree"
                     }
                   ],
-                  "title": "Type of number."
+                  "title": "Type of number"
                 }
               },
               "required": [
@@ -661,17 +661,17 @@
                 "type"
               ]
             },
-            "title": "Global dial-in countries or regions."
+            "title": "Global dial-in countries or regions"
           },
           "host_video": {
             "type": "boolean",
-            "title": "Start video when the host joins the meeting."
+            "title": "Start video when the host joins the meeting"
           },
           "in_meeting": {
             "type": "boolean",
             "default": false,
             "deprecated": true,
-            "title": "Host meeting in India."
+            "title": "Host meeting in India"
           },
           "jbh_time": {
             "oneOf": [
@@ -951,7 +951,7 @@
                 "permission_level"
               ]
             },
-            "title": "The meeting's resources."
+            "title": "The meeting's resources"
           },
           "auto_start_meeting_summary": {
             "type": "boolean",
@@ -973,12 +973,12 @@
           "key": {
             "type": "string",
             "maxLength": 64,
-            "title": "Custom key associated with the user."
+            "title": "Custom key associated with the user"
           },
           "value": {
             "type": "string",
             "maxLength": 256,
-            "title": "Value of the custom key associated with the user."
+            "title": "Value of the custom key associated with the user"
           },
           "typia.tag": {
             "type": "object",
@@ -1032,15 +1032,15 @@
         "properties": {
           "field": {
             "type": "string",
-            "title": "Label of `TrackingField`."
+            "title": "Label of `TrackingField`"
           },
           "value": {
             "type": "string",
-            "title": "The value of `TrackingField`."
+            "title": "The value of `TrackingField`"
           },
           "visible": {
             "type": "boolean",
-            "title": "Whether `TrackingField` is exposed."
+            "title": "Whether `TrackingField` is exposed"
           }
         },
         "required": [

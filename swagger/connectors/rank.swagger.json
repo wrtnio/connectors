@@ -17,7 +17,7 @@
   "info": {
     "title": "조건 정렬",
     "description": "",
-    "version": "0.1.274",
+    "version": "0.1.275",
     "license": {
       "name": "AGPL-3.0-only"
     }
@@ -26,7 +26,7 @@
     "/connector/rank/rank": {
       "post": {
         "summary": "Sort by condition",
-        "description": "Sorts the given array of items in order of highest score.",
+        "description": "Sorts the given array of items in order of highest score",
         "deprecated": true,
         "tags": [],
         "parameters": [],

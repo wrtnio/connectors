@@ -18,7 +18,7 @@
     "title": "학술 논문 탐색기",
     "summary": "최신 학술 논문을 손쉽게 찾아볼 수 있어요.",
     "description": "아카이브를 통해 다양한 과학 분야의 최신 연구 논문을 효율적으로 검색하고 접근할 수 있어요. 물리학, 수학, 컴퓨터 과학 등 여러 분야의 프리프린트 논문을 찾아볼 수 있어요. 키워드 검색, 저자 검색, 카테고리별 검색 등 다양한 방식으로 원하는 논문을 빠르게 찾을 수 있어요. 최신 연구 동향을 파악하거나 관심 분야의 깊이 있는 정보를 얻는 데 매우 유용해요.",
-    "version": "0.1.274",
+    "version": "0.1.275",
     "license": {
       "name": "AGPL-3.0-only"
     }
@@ -27,7 +27,7 @@
     "/connector/arxiv-search": {
       "post": {
         "summary": "Archive Paper Search",
-        "description": "Searches the archive for papers based on the search criteria you entered.",
+        "description": "Searches the archive for papers based on the search criteria you entered",
         "tags": [
           "Arxiv"
         ],
@@ -71,7 +71,7 @@
               "$ref": "#/components/schemas/IConnector.IReferenceContent"
             },
             "title": "Output Information",
-            "description": "Contains output information for search results."
+            "description": "Contains output information for search results"
           }
         },
         "required": [
@@ -85,7 +85,7 @@
           "title": {
             "type": "string",
             "title": "Title",
-            "description": "The title of the output."
+            "description": "The title of the output"
           },
           "type": {
             "oneOf": [
@@ -107,7 +107,7 @@
               }
             ],
             "title": "Output Type",
-            "description": "Video, image, news article, research paper.\n\nIt must be one of: video, image, news_article, research_paper"
+            "description": "Video, image, news article, research paper\n\nIt must be one of: video, image, news_article, research_paper"
           },
           "source": {
             "oneOf": [
@@ -143,23 +143,23 @@
             "type": "string",
             "format": "iri",
             "title": "URL address",
-            "description": "The URL address of the output."
+            "description": "The URL address of the output"
           },
           "contents": {
             "type": "string",
             "title": "Output Content",
-            "description": "Here is the content of the output."
+            "description": "Here is the content of the output"
           },
           "image": {
             "type": "string",
             "format": "iri",
             "title": "Output Image URL",
-            "description": "The URL address of the image of the output."
+            "description": "The URL address of the image of the output"
           },
           "statistics": {
             "$ref": "#/components/schemas/MyPartialRecordIConnector.MetricTypenumberTypeint32",
             "title": "Output statistics information",
-            "description": "Output statistics information.\n\nPossible values: view_count, like_count, rank"
+            "description": "Output statistics information\n\nPossible values: view_count, like_count, rank"
           }
         },
         "required": [
@@ -190,19 +190,19 @@
             "type": "integer",
             "x-wrtn-placeholder": "10",
             "title": "Number of search results",
-            "description": "Sets how many search results to retrieve."
+            "description": "Sets how many search results to retrieve"
           },
           "from_date": {
             "type": "string",
             "format": "date",
             "title": "Start date for search results",
-            "description": "Set the start date for search results."
+            "description": "Set the start date for search results"
           },
           "to_date": {
             "type": "string",
             "format": "date",
             "title": "End date for the search results",
-            "description": "Set the end date for the search results."
+            "description": "Set the end date for the search results"
           },
           "and_keywords": {
             "type": "array",
@@ -212,7 +212,7 @@
               "x-wrtn-placeholder": "biology"
             },
             "title": "Must be included keywords",
-            "description": "Keywords that must be included in search results."
+            "description": "Keywords that must be included in search results"
           },
           "or_keywords": {
             "type": "array",
@@ -222,7 +222,7 @@
               "x-wrtn-placeholder": "ecosystem"
             },
             "title": "Keywords that you would like to see included",
-            "description": "Keywords that you would like to see included in your search results."
+            "description": "Keywords that you would like to see included in your search results"
           },
           "not_keywords": {
             "type": "array",
@@ -232,14 +232,14 @@
               "x-wrtn-placeholder": "pollution"
             },
             "title": "Keywords that should not be included",
-            "description": "Keywords that should not be included in search results."
+            "description": "Keywords that should not be included in search results"
           }
         },
         "required": [
           "and_keywords"
         ],
         "title": "Search criteria",
-        "description": "Enter your search criteria."
+        "description": "Enter your search criteria"
       }
     }
   },

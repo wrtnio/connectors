@@ -17,7 +17,7 @@
   "info": {
     "title": "마케팅 카피",
     "description": "마케팅 카피를 생성할 수 있어요",
-    "version": "0.1.274",
+    "version": "0.1.275",
     "license": {
       "name": "AGPL-3.0-only"
     }
@@ -26,7 +26,7 @@
     "/connector/marketing-copy/generate-copy": {
       "post": {
         "summary": "Generate marketing copy",
-        "description": "Generates marketing copy from given input.",
+        "description": "Generates marketing copy from given input",
         "tags": [],
         "parameters": [],
         "requestBody": {
@@ -58,7 +58,7 @@
     "/connector/marketing-copy/generate-copy-image": {
       "post": {
         "summary": "Generate a marketing copy image",
-        "description": "Generates a marketing copy image from the given input.",
+        "description": "Generates a marketing copy image from the given input",
         "tags": [],
         "parameters": [],
         "requestBody": {
@@ -90,7 +90,7 @@
     "/connector/aws/file/upload-url": {
       "get": {
         "summary": "Generate File Upload URL",
-        "description": "Generate the URL required to upload a file.",
+        "description": "Generate the URL required to upload a file",
         "tags": [],
         "parameters": [
           {
@@ -126,17 +126,17 @@
         "properties": {
           "title": {
             "type": "string",
-            "title": "The title of your marketing copy.",
+            "title": "The title of your marketing copy",
             "description": "The title of your marketing copy."
           },
           "cta": {
             "type": "string",
-            "title": "This is the CTA phrase in your marketing copy.",
+            "title": "This is the CTA phrase in your marketing copy",
             "description": "This is the CTA phrase in your marketing copy."
           },
           "subtitle": {
             "type": "string",
-            "title": "A description of the marketing copy.",
+            "title": "A description of the marketing copy",
             "description": "Here is a description of the marketing copy."
           }
         }
@@ -200,12 +200,12 @@
                 "const": "visit"
               }
             ],
-            "title": "Marketing purpose.",
+            "title": "Marketing purpose",
             "description": "The purpose is to do marketing.\n\nOnly three possible values are available: sign_up, purchase, and visit."
           },
           "product_name": {
             "type": "string",
-            "title": "This is the product name to be marketed.",
+            "title": "This is the product name to be marketed",
             "description": "This is the product name to be marketed."
           },
           "unique_selling_point": {
@@ -213,7 +213,7 @@
             "items": {
               "type": "string"
             },
-            "title": "This is the selling point of the product.",
+            "title": "This is the selling point of the product",
             "description": "This is the selling point of the product."
           },
           "user_benefit": {
@@ -221,7 +221,7 @@
             "items": {
               "type": "string"
             },
-            "title": "Benefits of the product you are marketing.",
+            "title": "Benefits of the product you are marketing",
             "description": "Benefits of the product you are marketing."
           }
         },
@@ -256,7 +256,7 @@
                 "const": "naver"
               }
             ],
-            "title": "Channels to use marketing copy.",
+            "title": "Channels to use marketing copy",
             "description": "Channels to use marketing copy.\n\nOnly 6 possible values are possible: facebook, instagram_feed, instagram_story, youtube, naver, kakao."
           },
           "components": {
@@ -274,7 +274,7 @@
                 }
               ]
             },
-            "title": "Information to retrieve from the channel where the marketing copy will be used.",
+            "title": "Information to retrieve from the channel where the marketing copy will be used",
             "description": "Information to retrieve from the channel where the marketing copy will be used.\n\nOnly three possible values are possible: title, cta, subtitle."
           }
         },
@@ -289,7 +289,7 @@
           "title": {
             "type": "string",
             "title": "Title",
-            "description": "The title of the output."
+            "description": "The title of the output"
           },
           "type": {
             "oneOf": [
@@ -311,7 +311,7 @@
               }
             ],
             "title": "Output Type",
-            "description": "Video, image, news article, research paper.\n\nIt must be one of: video, image, news_article, research_paper"
+            "description": "Video, image, news article, research paper\n\nIt must be one of: video, image, news_article, research_paper"
           },
           "source": {
             "oneOf": [
@@ -347,23 +347,23 @@
             "type": "string",
             "format": "iri",
             "title": "URL address",
-            "description": "The URL address of the output."
+            "description": "The URL address of the output"
           },
           "contents": {
             "type": "string",
             "title": "Output Content",
-            "description": "Here is the content of the output."
+            "description": "Here is the content of the output"
           },
           "image": {
             "type": "string",
             "format": "iri",
             "title": "Output Image URL",
-            "description": "The URL address of the image of the output."
+            "description": "The URL address of the image of the output"
           },
           "statistics": {
             "$ref": "#/components/schemas/MyPartialRecordIConnector.MetricTypenumberTypeint32",
             "title": "Output statistics information",
-            "description": "Output statistics information.\n\nPossible values: view_count, like_count, rank"
+            "description": "Output statistics information\n\nPossible values: view_count, like_count, rank"
           }
         },
         "required": [
@@ -394,7 +394,7 @@
             "type": "string",
             "format": "iri",
             "contentMediaType": "image/*",
-            "title": "Image URL of the generated marketing copy draft.",
+            "title": "Image URL of the generated marketing copy draft",
             "description": "Image URL of the generated marketing copy draft."
           }
         },
