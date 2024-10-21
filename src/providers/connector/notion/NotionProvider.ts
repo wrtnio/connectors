@@ -2,12 +2,13 @@ import { HttpException, HttpStatus } from "@nestjs/common";
 import { Client } from "@notionhq/client";
 import axios from "axios";
 
+import { BlockObjectRequest } from "@notionhq/client/build/src/api-endpoints";
 import { markdownToBlocks } from "@tryfabric/martian";
+import { Block } from "@tryfabric/martian/build/src/notion/blocks";
 import { INotion } from "@wrtn/connector-api/lib/structures/connector/notion/INotion";
+import typia from "typia";
 import { OAuthSecretProvider } from "../../internal/oauth_secret/OAuthSecretProvider";
 import { IOAuthSecret } from "../../internal/oauth_secret/structures/IOAuthSecret";
-import { Block } from "@tryfabric/martian/build/src/notion/blocks";
-import typia from "typia";
 
 export namespace NotionProvider {
   export async function deleteBlock(
@@ -1055,10 +1056,13 @@ export namespace NotionProvider {
       const blocks = markdownToBlocks(input.markdown);
       const notion = await createClient(input.secretKey);
 
-      await notion.blocks.children.append({
-        block_id: input.pageId,
-        children: blocks as any,
-      });
+      while (blocks.length !== 0) {
+        const blocksToInsert = blocks.splice(0, 100) as BlockObjectRequest[];
+        await notion.blocks.children.append({
+          block_id: input.pageId,
+          children: blocksToInsert,
+        });
+      }
     } catch (error) {
       console.error(JSON.stringify(error));
       throw error;
@@ -1069,13 +1073,10 @@ export namespace NotionProvider {
     input: INotion.ICreatePageByMarkdownInput,
   ): Promise<INotion.ICreatePageOutput> {
     try {
-      const blocks = markdownToBlocks(input.markdown);
-      const notion = await createClient(input.secretKey);
       const page = await createPage(input);
-
-      await notion.blocks.children.append({
-        block_id: page.id,
-        children: blocks as any,
+      await NotionProvider.appendBlocksByMarkdown({
+        ...input,
+        pageId: page.id,
       });
 
       return { id: page.id, title: input.title };
