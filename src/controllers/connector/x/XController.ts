@@ -116,9 +116,4 @@ export class XController {
   ): Promise<IX.IGetChunkDocumentResponse> {
     return this.XProvider.getChunkDocument(input);
   }
-
-  @core.TypedRoute.Post("/multion")
-  async multion(): Promise<void> {
-    return this.XProvider.multion();
-  }
 }

@@ -13,9 +13,7 @@ import { OAuthSecretProvider } from "../../internal/oauth_secret/OAuthSecretProv
 import axios, { AxiosError } from "axios";
 import { AwsProvider } from "../aws/AwsProvider";
 import { RagProvider } from "../rag/RagProvider";
-import { IRag } from "@wrtn/connector-api/lib/structures/connector/rag/IRag";
 import typia, { tags } from "typia";
-import { MultiOnClient } from "multion";
 import { v4 } from "uuid";
 @Injectable()
 export class XProvider {
@@ -81,17 +79,6 @@ export class XProvider {
       console.error(JSON.stringify(err));
       throw err;
     }
-  }
-
-  async multion(): Promise<void> {
-    const multion = new MultiOnClient({
-      apiKey: "c57a898d945a4d36bb88f4f7478d55ac",
-    });
-    const browse = await multion.browse({
-      cmd: "Bring me a day tweet from Elon Musk and summarize it. My twitter id is seunghwako17 and password is Dnflwlq1!",
-      url: "https://x.com",
-    });
-    console.log("BROWSE", browse);
   }
 
   async getTweet(
