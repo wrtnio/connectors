@@ -113,7 +113,6 @@ export class XProvider {
         text: tweet.data.data.text,
         userName: user.data.data.name,
         tweet_link: `https://twitter.com/${user.data.data.username}/status/${tweet.data.data.id}`,
-        timeStamp: tweet.data.data.created_at,
       };
     } catch (err) {
       console.error(JSON.stringify(err));
@@ -176,7 +175,6 @@ export class XProvider {
                     userName: user.name,
                     text: userTweetTimeLine.text,
                     tweet_link: `https://twitter.com/${user.userName}/status/${userTweetTimeLine.id}`,
-                    timeStamp: userTweetTimeLine.created_at,
                     type:
                       referencedTweet.type === "retweeted"
                         ? "retweeted"
@@ -193,7 +191,6 @@ export class XProvider {
                 userName: user.name,
                 text: userTweetTimeLine.text,
                 tweet_link: `https://twitter.com/${user.userName}/status/${userTweetTimeLine.id}`,
-                timeStamp: userTweetTimeLine.created_at,
                 type: "original",
               });
             }
