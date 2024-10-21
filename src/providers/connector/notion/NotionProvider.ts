@@ -1055,7 +1055,6 @@ export namespace NotionProvider {
     try {
       const blocks = markdownToBlocks(input.markdown);
       const notion = await createClient(input.secretKey);
-
       while (blocks.length !== 0) {
         const blocksToInsert = blocks.splice(0, 100) as BlockObjectRequest[];
         await notion.blocks.children.append({
