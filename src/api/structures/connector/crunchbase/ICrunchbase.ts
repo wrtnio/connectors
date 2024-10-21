@@ -3,7 +3,7 @@ import { tags } from "typia";
 
 export namespace ICrunchbase {
   /**
-   * @title Represents the output of an autocomplete response.
+   * @title Represents the output of an autocomplete response
    */
   export interface IAutocompleteOutput {
     /**
@@ -441,14 +441,14 @@ export namespace ICrunchbase {
     layoff: any[];
 
     /**
-     * @title Contact details of the organization.
+     * @title Contact details of the organization
      *
      * The primary contacts for the company, such as executives or HR.
      */
     contacts: Contact[];
 
     /**
-     * @title IPO details of the organization.
+     * @title IPO details of the organization
      *
      * Information about the company's IPO, if it has one.
      */
