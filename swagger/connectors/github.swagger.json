@@ -17,7 +17,7 @@
   "info": {
     "title": "Github",
     "description": "Github에서 코드를 읽고 분석하고 작성해요",
-    "version": "0.1.273",
+    "version": "0.1.274",
     "license": {
       "name": "AGPL-3.0-only"
     }
@@ -2915,10 +2915,10 @@
           "visibility": {
             "oneOf": [
               {
-                "const": "public"
+                "const": "private"
               },
               {
-                "const": "private"
+                "const": "public"
               }
             ],
             "title": "visibility"
@@ -3609,10 +3609,10 @@
           "visibility": {
             "oneOf": [
               {
-                "const": "public"
+                "const": "private"
               },
               {
-                "const": "private"
+                "const": "public"
               }
             ],
             "title": "visibility"
@@ -8423,10 +8423,10 @@
           "visibility": {
             "oneOf": [
               {
-                "const": "public"
+                "const": "private"
               },
               {
-                "const": "private"
+                "const": "public"
               }
             ],
             "title": "visibility"

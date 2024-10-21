@@ -15,7 +15,7 @@
     }
   ],
   "info": {
-    "version": "0.1.273",
+    "version": "0.1.274",
     "title": "@wrtn/connector",
     "description": "wrtn-ecosystem connectors and sdk",
     "license": {
@@ -6816,8 +6816,8 @@
     },
     "/connector/notion/page": {
       "post": {
-        "summary": "Create page",
-        "description": "Create a Notion page\n\nSince a parent ID is required, when a user gives you a link to the page,\nyou should take out the ID from it and use it, or first look up the list of pages accessible to the user.\nSince Notion prioritizes accessible pages during authentication, creating pages must be sub-pages within the page, which means that there must be a parent page.",
+        "summary": "Create empty page",
+        "description": "Create a Notion page\n\nSince a parent ID is required, when a user gives you a link to the page,\nyou should take out the ID from it and use it, or first look up the list of pages accessible to the user.\nSince Notion prioritizes accessible pages during authentication, creating pages must be sub-pages within the page, which means that there must be a parent page.\nBecause this feature only creates pages and does not create content, we recommend that you call additional content creation connectors if you want to create content.",
         "tags": [
           "Notion"
         ],
@@ -12146,7 +12146,7 @@
     "/connector/crunchbase/auto-complete": {
       "post": {
         "summary": "Search for company name and auto-completion",
-        "description": "Search for company name and auto-completion\n\nSearch and auto-completion capabilities to get unique identifiers for querying accurate company names and company information.\nUse your natural language search to explore if you have a similar company name.",
+        "description": "Search for company name and auto-completion\n\nSearch and auto-completion capabilities to get unique identifiers for querying accurate company names and company information.\nUse your natural language search to explore if you have a similar company name.\nA company called 'Wrtn Technologies(뤼튼 테크놀로지스)' can search with a unique identifier called 'wrtn-technologies'.\nIf the person attempting to search for the 'Wrtn Technologies(뤼튼 테크놀로지스)' fails to call this connector, the above 'wrtn-technologies' may be used as is.",
         "tags": [],
         "parameters": [],
         "requestBody": {
@@ -14870,10 +14870,10 @@
                 "const": "default"
               },
               {
-                "const": "public"
+                "const": "private"
               },
               {
-                "const": "private"
+                "const": "public"
               }
             ],
             "title": "The event's public status.",
@@ -29516,10 +29516,6 @@
       "INotion.IAppendPageByMarkdownInput": {
         "type": "object",
         "properties": {
-          "markdown": {
-            "type": "string",
-            "title": "markdown"
-          },
           "pageId": {
             "oneOf": [
               {
@@ -29543,6 +29539,10 @@
             ],
             "title": "pageId\n\nIndicates the page on which you want to add a block.\nAt the bottom of this page, a block is added to match the requested object here.\nCalling this connector requires the correct page ID,\nso it should only be called if you have previously created a page to obtain that ID, viewed the page,\nor obtained a link or page ID from the user in advance."
           },
+          "markdown": {
+            "type": "string",
+            "title": "markdown\n\nIf you add a markdown string, it will be converted appropriately according to the Notion's block.\nTherefore, you don't have to use Unicode symbols to implement lists or decorate documents using letters.\nOf course, this depends on the user, and there is no problem using the character string you want, such as inserting an emoji as well as Unicode."
+          },
           "secretKey": {
             "type": "string",
             "x-wrtn-secret-key": "notion",
@@ -29551,8 +29551,8 @@
           }
         },
         "required": [
-          "markdown",
           "pageId",
+          "markdown",
           "secretKey"
         ]
       },
@@ -33455,10 +33455,6 @@
       "INotion.ICreatePageByMarkdownInput": {
         "type": "object",
         "properties": {
-          "markdown": {
-            "type": "string",
-            "title": "markdown"
-          },
           "parentPageId": {
             "oneOf": [
               {
@@ -33492,13 +33488,17 @@
             "x-wrtn-secret-key": "notion",
             "title": "Select authentication information",
             "description": "secret key."
+          },
+          "markdown": {
+            "type": "string",
+            "title": "markdown\n\nIf you add a markdown string, it will be converted appropriately according to the Notion's block.\nTherefore, you don't have to use Unicode symbols to implement lists or decorate documents using letters.\nOf course, this depends on the user, and there is no problem using the character string you want, such as inserting an emoji as well as Unicode."
           }
         },
         "required": [
-          "markdown",
           "parentPageId",
           "title",
-          "secretKey"
+          "secretKey",
+          "markdown"
         ]
       },
       "IGoogleHotel.IResponse": {
@@ -40708,10 +40708,10 @@
           "visibility": {
             "oneOf": [
               {
-                "const": "public"
+                "const": "private"
               },
               {
-                "const": "private"
+                "const": "public"
               }
             ],
             "title": "visibility"
@@ -41402,10 +41402,10 @@
           "visibility": {
             "oneOf": [
               {
-                "const": "public"
+                "const": "private"
               },
               {
-                "const": "private"
+                "const": "public"
               }
             ],
             "title": "visibility"
@@ -46216,10 +46216,10 @@
           "visibility": {
             "oneOf": [
               {
-                "const": "public"
+                "const": "private"
               },
               {
-                "const": "private"
+                "const": "public"
               }
             ],
             "title": "visibility"

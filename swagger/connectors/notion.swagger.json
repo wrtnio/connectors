@@ -18,7 +18,7 @@
     "title": "노션 워크스페이스 관리",
     "summary": "노션 으로 작업 공간을 효율적으로 관리해요.",
     "description": "노션 에서 페이지를 만들고, 내용을 추가하고, 데이터베이스를 관리할 수 있어요. 페이지 검색, 데이터베이스 아이템 관리 등 다양한 기능을 활용할 수 있어요. 프로젝트 관리, 노트 작성, 팀 협업, 지식 베이스 구축 등 다양한 목적으로 사용할 수 있어요. 텍스트, 이미지, 표, 리스트 등 다양한 형식의 콘텐츠를 조합하여 풍부한 문서를 만들 수 있고, 팀원들과 실시간으로 공유하고 협업할 수 있어요.",
-    "version": "0.1.273",
+    "version": "0.1.274",
     "license": {
       "name": "AGPL-3.0-only"
     }
@@ -459,8 +459,8 @@
     },
     "/connector/notion/page": {
       "post": {
-        "summary": "Create page",
-        "description": "Create a Notion page\n\nSince a parent ID is required, when a user gives you a link to the page,\nyou should take out the ID from it and use it, or first look up the list of pages accessible to the user.\nSince Notion prioritizes accessible pages during authentication, creating pages must be sub-pages within the page, which means that there must be a parent page.",
+        "summary": "Create empty page",
+        "description": "Create a Notion page\n\nSince a parent ID is required, when a user gives you a link to the page,\nyou should take out the ID from it and use it, or first look up the list of pages accessible to the user.\nSince Notion prioritizes accessible pages during authentication, creating pages must be sub-pages within the page, which means that there must be a parent page.\nBecause this feature only creates pages and does not create content, we recommend that you call additional content creation connectors if you want to create content.",
         "tags": [
           "Notion"
         ],
@@ -994,10 +994,6 @@
       "INotion.IAppendPageByMarkdownInput": {
         "type": "object",
         "properties": {
-          "markdown": {
-            "type": "string",
-            "title": "markdown"
-          },
           "pageId": {
             "oneOf": [
               {
@@ -1021,6 +1017,10 @@
             ],
             "title": "pageId\n\nIndicates the page on which you want to add a block.\nAt the bottom of this page, a block is added to match the requested object here.\nCalling this connector requires the correct page ID,\nso it should only be called if you have previously created a page to obtain that ID, viewed the page,\nor obtained a link or page ID from the user in advance."
           },
+          "markdown": {
+            "type": "string",
+            "title": "markdown\n\nIf you add a markdown string, it will be converted appropriately according to the Notion's block.\nTherefore, you don't have to use Unicode symbols to implement lists or decorate documents using letters.\nOf course, this depends on the user, and there is no problem using the character string you want, such as inserting an emoji as well as Unicode."
+          },
           "secretKey": {
             "type": "string",
             "x-wrtn-secret-key": "notion",
@@ -1029,8 +1029,8 @@
           }
         },
         "required": [
-          "markdown",
           "pageId",
+          "markdown",
           "secretKey"
         ]
       },
@@ -4933,10 +4933,6 @@
       "INotion.ICreatePageByMarkdownInput": {
         "type": "object",
         "properties": {
-          "markdown": {
-            "type": "string",
-            "title": "markdown"
-          },
           "parentPageId": {
             "oneOf": [
               {
@@ -4970,13 +4966,17 @@
             "x-wrtn-secret-key": "notion",
             "title": "Select authentication information",
             "description": "secret key."
+          },
+          "markdown": {
+            "type": "string",
+            "title": "markdown\n\nIf you add a markdown string, it will be converted appropriately according to the Notion's block.\nTherefore, you don't have to use Unicode symbols to implement lists or decorate documents using letters.\nOf course, this depends on the user, and there is no problem using the character string you want, such as inserting an emoji as well as Unicode."
           }
         },
         "required": [
-          "markdown",
           "parentPageId",
           "title",
-          "secretKey"
+          "secretKey",
+          "markdown"
         ]
       }
     }
