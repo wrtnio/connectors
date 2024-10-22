@@ -11,7 +11,7 @@ export namespace IX {
   /**
    * @title User Search Condition
    */
-  export interface IUserRequest extends ISecret {
+  export interface IUserInput extends ISecret {
     /**
      * User name for search
      *
@@ -23,11 +23,11 @@ export namespace IX {
   /**
    * @title User Information data
    */
-  export interface IUserResponse {
+  export interface IUserOutput {
     /**
      * The unique id of the user
      *
-     * @title Uuser ID
+     * @title User ID
      */
     id: string;
 
@@ -47,9 +47,9 @@ export namespace IX {
   }
 
   /**
-   * @title User Tweet Time Line Request
+   * @title User Tweet Time Line Input
    */
-  export interface IUserTweetTimeLineRequest extends ISecret {
+  export interface IUserTweetTimeLineInput extends ISecret {
     /**
      * User information for search user tweet time line
      *
@@ -64,8 +64,8 @@ export namespace IX {
       userId: string &
         Prerequisite<{
           method: "post";
-          path: "/connector/x/get-user";
-          jmesPath: JMESPath<IUserResponse, "data.{value:id, label:userName}">;
+          path: "/connector/x/get-users";
+          jmesPath: JMESPath<IUserOutput, "[].{value:id, label:userName}">;
         }>;
 
       /**
@@ -76,8 +76,8 @@ export namespace IX {
       name: string &
         Prerequisite<{
           method: "post";
-          path: "/connector/x/get-user";
-          jmesPath: JMESPath<IUserResponse, "data.{value:name, label:name}">;
+          path: "/connector/x/get-users";
+          jmesPath: JMESPath<IUserOutput, "[].{value:name, label:name}">;
         }>;
 
       /**
@@ -88,10 +88,10 @@ export namespace IX {
       userName: string &
         Prerequisite<{
           method: "post";
-          path: "/connector/x/get-user";
+          path: "/connector/x/get-users";
           jmesPath: JMESPath<
-            IUserResponse,
-            "data.{value:userName, label:userName}"
+            IUserOutput,
+            "[].{value:userName, label:userName}"
           >;
         }>;
     }[];
@@ -100,7 +100,7 @@ export namespace IX {
   /**
    * @title User Tweet Time Line data
    */
-  export interface ITweetResponse {
+  export interface ITweetOutput {
     /**
      * The unique id of the tweet
      *
@@ -161,7 +161,7 @@ export namespace IX {
   /**
    * @title Condition For Get Tweet
    */
-  export interface IGetTweetRequest extends ISecret {
+  export interface IGetTweetInput extends ISecret {
     /**
      * Please select a tweet to import information
      *
@@ -171,14 +171,14 @@ export namespace IX {
       Prerequisite<{
         method: "post";
         path: "/connector/x/get-user-timeline-tweets";
-        jmesPath: JMESPath<ITweetResponse, "data[].{value:id, label:text}">;
+        jmesPath: JMESPath<ITweetOutput, "[].{value:id, label:text}">;
       }>;
   }
 
   /**
    * @title Created File URL
    */
-  export interface IMakeTxtFileAndUploadResponse {
+  export interface IMakeTxtFileAndUploadOutput {
     /**
      * @title Created File URL
      */
@@ -186,9 +186,9 @@ export namespace IX {
   }
 
   /**
-   * @title Summarize Tweet Request
+   * @title Summarize Tweet Input
    */
-  export interface IGetChunkDocumentRequest {
+  export interface IGetChunkDocumentInput {
     /**
      * File urls to get the list of chunk documents
      *
@@ -199,14 +199,14 @@ export namespace IX {
     >;
 
     /**
-     * query required to get the chunk document. You must understand the context requested by the user and enter the query to get as relevant information as possible.
+     * query required to get the chunk document. You must understand the context Inputed by the user and enter the query to get as relevant information as possible.
      *
      * @title query
      */
     query: string;
   }
 
-  export interface IGetChunkDocumentResponse {
+  export interface IGetChunkDocumentOutput {
     /**
      * Chunk Document List
      *

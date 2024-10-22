@@ -23,10 +23,10 @@ export class XProvider {
   ) {}
   private readonly logger = new Logger("XProvider");
 
-  async getUsers(input: IX.IUserRequest): Promise<IX.IUserResponse[]> {
+  async getUsers(input: IX.IUserInput): Promise<IX.IUserOutput[]> {
     try {
       const accessToken = await this.refresh(input);
-      const result: IX.IUserResponse[] = [];
+      const result: IX.IUserOutput[] = [];
       for (const userName of input.userName) {
         const user = await axios.get(
           `https://api.x.com/2/users/by/username/${userName}`,
@@ -50,15 +50,13 @@ export class XProvider {
     }
   }
 
-  async getPreDefinedInfluencers(
-    input: IX.ISecret,
-  ): Promise<IX.IUserResponse[]> {
+  async getPreDefinedInfluencers(input: IX.ISecret): Promise<IX.IUserOutput[]> {
     try {
       const accessToken = await this.refresh(input);
-      const result: IX.IUserResponse[] = [];
+      const result: IX.IUserOutput[] = [];
 
       // influencer's twitter username list
-      const influencerList: string[] = [];
+      const influencerList: string[] = ["hwchase17", "ilyasut", "miramurati"];
       for (const userName of influencerList) {
         const user = await axios.get(
           `https://api.x.com/2/users/by/username/${userName}`,
@@ -82,9 +80,9 @@ export class XProvider {
   }
 
   async getTweet(
-    input: IX.IGetTweetRequest,
+    input: IX.IGetTweetInput,
     accessTokenValue?: string,
-  ): Promise<IX.ITweetResponse> {
+  ): Promise<IX.ITweetOutput> {
     try {
       const accessToken = accessTokenValue ?? (await this.refresh(input));
       const tweet = await axios.get(
@@ -121,11 +119,11 @@ export class XProvider {
   }
 
   async getUserTimelineTweets(
-    input: IX.IUserTweetTimeLineRequest,
-  ): Promise<IX.ITweetResponse[]> {
+    input: IX.IUserTweetTimeLineInput,
+  ): Promise<IX.ITweetOutput[]> {
     try {
       const accessToken = await this.refresh(input);
-      const result: IX.ITweetResponse[] = [];
+      const result: IX.ITweetOutput[] = [];
 
       for (const user of input.user) {
         if (!user.userId || !user.name) {
@@ -207,8 +205,8 @@ export class XProvider {
   }
 
   async makeTxtFileForTweetAndUploadToS3(
-    input: IX.ITweetResponse[],
-  ): Promise<IX.IMakeTxtFileAndUploadResponse[]> {
+    input: IX.ITweetOutput[],
+  ): Promise<IX.IMakeTxtFileAndUploadOutput[]> {
     try {
       const uploadPromises = input.map(async (tweet) => {
         const fileName = `${v4()}_${new Date().toISOString()}_tweet.txt`;
@@ -246,8 +244,8 @@ export class XProvider {
   }
 
   async getChunkDocument(
-    input: IX.IGetChunkDocumentRequest,
-  ): Promise<IX.IGetChunkDocumentResponse> {
+    input: IX.IGetChunkDocumentInput,
+  ): Promise<IX.IGetChunkDocumentOutput> {
     const analyze = await this.ragProvider.analyze(
       { url: input.fileUrl },
       true,

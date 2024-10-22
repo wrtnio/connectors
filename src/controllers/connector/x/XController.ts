@@ -5,7 +5,6 @@ import { IX } from "@wrtn/connector-api/lib/structures/connector/x/IX";
 
 import { XProvider } from "../../../providers/connector/x/XProvider";
 import { RouteIcon } from "@wrtnio/decorators";
-import { IRag } from "@wrtn/connector-api/lib/structures/connector/rag/IRag";
 
 @Controller("connector/x")
 export class XController {
@@ -23,8 +22,8 @@ export class XController {
   )
   @core.TypedRoute.Post("/get-users")
   async getUsers(
-    @core.TypedBody() input: IX.IUserRequest,
-  ): Promise<IX.IUserResponse[]> {
+    @core.TypedBody() input: IX.IUserInput,
+  ): Promise<IX.IUserOutput[]> {
     return this.XProvider.getUsers(input);
   }
 
@@ -42,7 +41,7 @@ export class XController {
   @core.TypedRoute.Post("/get-influencers")
   async getPreDefinedInfluencers(
     @core.TypedBody() input: IX.ISecret,
-  ): Promise<IX.IUserResponse[]> {
+  ): Promise<IX.IUserOutput[]> {
     return this.XProvider.getPreDefinedInfluencers(input);
   }
 
@@ -59,8 +58,8 @@ export class XController {
   )
   @core.TypedRoute.Post("/get-tweet")
   async getTweet(
-    @core.TypedBody() input: IX.IGetTweetRequest,
-  ): Promise<IX.ITweetResponse> {
+    @core.TypedBody() input: IX.IGetTweetInput,
+  ): Promise<IX.ITweetOutput> {
     return this.XProvider.getTweet(input);
   }
 
@@ -77,8 +76,8 @@ export class XController {
   )
   @core.TypedRoute.Post("/get-user-timeline-tweets")
   async getUserTimelineTweets(
-    @core.TypedBody() input: IX.IUserTweetTimeLineRequest,
-  ): Promise<IX.ITweetResponse[]> {
+    @core.TypedBody() input: IX.IUserTweetTimeLineInput,
+  ): Promise<IX.ITweetOutput[]> {
     return this.XProvider.getUserTimelineTweets(input);
   }
 
@@ -95,8 +94,8 @@ export class XController {
   )
   @core.TypedRoute.Post("/make-txt-file-and-upload")
   async makeTxtFileForTweetAndUploadToS3(
-    @core.TypedBody() input: IX.ITweetResponse[],
-  ): Promise<IX.IMakeTxtFileAndUploadResponse[]> {
+    @core.TypedBody() input: IX.ITweetOutput[],
+  ): Promise<IX.IMakeTxtFileAndUploadOutput[]> {
     return this.XProvider.makeTxtFileForTweetAndUploadToS3(input);
   }
 
@@ -112,8 +111,8 @@ export class XController {
   )
   @core.TypedRoute.Post("/get-chunk-document")
   async getChunkDocument(
-    @core.TypedBody() input: IX.IGetChunkDocumentRequest,
-  ): Promise<IX.IGetChunkDocumentResponse> {
+    @core.TypedBody() input: IX.IGetChunkDocumentInput,
+  ): Promise<IX.IGetChunkDocumentOutput> {
     return this.XProvider.getChunkDocument(input);
   }
 }
