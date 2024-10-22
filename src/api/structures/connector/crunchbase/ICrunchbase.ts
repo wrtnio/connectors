@@ -7,16 +7,16 @@ export namespace ICrunchbase {
    */
   export interface IAutocompleteOutput {
     /**
-     * @title Description
-     *
      * A description of the autocomplete result, which is always "OK".
+     *
+     * @title Description
      */
     description: string & Placeholder<"OK">;
 
     /**
-     * @title Status
-     *
      * The status code of the response, which is always 200 (success).
+     *
+     * @title Status
      */
     status: number & Placeholder<"200">;
 
@@ -25,37 +25,37 @@ export namespace ICrunchbase {
      */
     data: {
       /**
-       * @title Entities
-       *
        * An array of entities related to the organization.
+       *
+       * @title Entities
        */
       entities: {
         /**
-         * @title organization_identifier for crunchbase api
-         *
          * The unique identifier of the organization
+         *
+         * @title organization_identifier for crunchbase api
          */
         organization_identifier: string & Placeholder<"wrtn-technologies">;
 
         /**
-         * @title short_description
-         *
          * A brief description of the organization
+         *
+         * @title short_description
          */
         short_description: string;
 
         /**
-         * @title organization_name
-         *
          * The name of the organization
+         *
+         * @title organization_name
          */
         organization_name: string & Placeholder<"Wrtn Technologies">;
       }[];
 
       /**
-       * @title hasEntities
-       *
        * A flag indicating if there are any entities in the response.
+       *
+       * @title hasEntities
        */
       hasEntities: boolean;
     };
@@ -63,20 +63,20 @@ export namespace ICrunchbase {
 
   export interface IAutocompleteInput {
     /**
-     * @title query
-     *
      * As a search word, regardless of whether it is Korean or English, you can enter keywords related to the company you want to see.
      * You can use the company name to obtain an identifier that can be used by the company's name or Crunchbase.
+     *
+     * @title query
      */
     query: string;
   }
 
   export interface IGetOrganizationDataInput {
     /**
-     * @title organization_identifier
-     *
      * Use the crashbase's autocomplete connector to find out the exact identifier of the company.
      * Typically, there is no way to find out this identifier without a query, so call the autocomplete connector first.
+     *
+     * @title organization_identifier
      */
     organization_identifier: string &
       Prerequisite<{
@@ -121,78 +121,78 @@ export namespace ICrunchbase {
   }
 
   /**
-   * @title Orgnization
-   *
    * Detailed Organization Info
+   *
+   * @title Orgnization
    */
   export interface Organization {
     /**
-     * @title Unique identifier of the organization
-     *
      * A unique string representing the organization in Crunchbase.
+     *
+     * @title Unique identifier of the organization
      */
     id: string;
 
     /**
-     * @title Name of the organization
-     *
      * The official name of the organization.
+     *
+     * @title Name of the organization
      */
     name: string;
 
     /**
-     * @title URL to the organization's Crunchbase page
-     *
      * A link to the organization's profile on Crunchbase.
+     *
+     * @title URL to the organization's Crunchbase page
      */
     url: string;
 
     /**
-     * @title Ranking of the company
-     *
      * The position of the company relative to others in Crunchbase based on certain metrics.
+     *
+     * @title Ranking of the company
      */
     rank_company: number | null;
 
     /**
-     * @title List of locations where the organization operates
-     *
      * The physical addresses of the company's offices or facilities.
+     *
+     * @title List of locations where the organization operates
      */
     locations: Location[] | null;
 
     /**
-     * @title Address of the organization
-     *
      * The primary physical address of the company.
+     *
+     * @title Address of the organization
      */
     address: string;
 
     /**
-     * @title Short description of the organization
-     *
      * A brief summary of what the company does.
+     *
+     * @title Short description of the organization
      */
     about: string;
 
     /**
-     * @title Full description of the organization
-     *
      * A detailed explanation of the company's operations, history, and business model.
+     *
+     * @title Full description of the organization
      */
     full_description: string | null;
 
     /**
-     * @title List of industries the organization is involved in
-     *
      * The sectors or markets where the company operates.
+     *
+     * @title List of industries the organization is involved in
      */
     industries: string[];
 
     /**
-     * @title Current operating status of the organization
-     *
      * Indicates whether the company is active, inactive, or has another status.
+     *
+     * @title Current operating status of the organization
      */
     operating_status: string;
 
