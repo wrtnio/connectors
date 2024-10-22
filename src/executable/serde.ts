@@ -4,17 +4,17 @@ import {
   OpenApi,
   OpenApiTypeChecker,
 } from "@samchon/openapi";
+import {
+  IHttpOpenAiApplication,
+  ISwaggerMigrateApplication,
+  OpenAiTypeChecker,
+} from "@wrtnio/schema";
 import cp from "child_process";
 import fs from "fs";
 import typia from "typia";
 import { Escaper } from "typia/lib/utils/Escaper";
 
 import { ConnectorConfiguration } from "../ConnectorConfiguration";
-import {
-  IHttpOpenAiApplication,
-  ISwaggerMigrateApplication,
-  OpenAiTypeChecker,
-} from "@wrtnio/schema";
 
 const assertDocumentDescription = (document: OpenApi.IDocument): void => {
   const components: OpenApi.IComponents = document.components;
@@ -40,7 +40,7 @@ const assertDocumentDescription = (document: OpenApi.IDocument): void => {
   if (violates.size)
     throw new Error(
       "Some operation or schema do not have { summary, title, or description }: " +
-        JSON.stringify(Array.from(violates), null, 2),
+        JSON.stringify(Array.from(violates).sort(), null, 2),
     );
 };
 
@@ -54,7 +54,7 @@ const visitOperationDescription = (props: {
 }): void => {
   const accessor: string = `${props.method.toUpperCase()} ${props.path}`;
   if (
-    props.operation.summary === undefined ||
+    props.operation.summary === undefined &&
     props.operation.description === undefined
   )
     props.violates.add(accessor);
@@ -111,7 +111,8 @@ const visitSchemaDescription = (props: {
   props.visited.add(props.schema);
   if (
     props.top === true &&
-    (props.schema.title === undefined || props.schema.description === undefined)
+    props.schema.title === undefined &&
+    props.schema.description === undefined
   )
     props.violates.add(props.accessor);
 

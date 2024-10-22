@@ -248,11 +248,11 @@ export namespace IFigma {
    */
   export interface IGetProjectInput extends IFigma.Secret {
     /**
-     * @title Team ID
-     *
      * When accessing the link `https://www.figma.com/files/team`, it refers to the string attached after the `team` keyword.
      *
      * The team ID is in numeric format, and there can be multiple projects within the team.
+     *
+     * @title Team ID
      */
     teamId: string;
   }

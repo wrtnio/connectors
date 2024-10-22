@@ -81,7 +81,6 @@ export class TypeformController {
    * @summary Typeform Create an empty form
    * @param input The title of the form to be created
    * @returns The ID, title, and type of the generated form
-
    */
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/typeform.svg",

@@ -271,8 +271,6 @@ export namespace IGoogleSheet {
   export interface IReadGoogleSheetRowsOutput {
     /**
      * This is the read Google Sheet row data.
-     *
-     *
      */
     data: IReadGoogleSheetRowData[];
   }

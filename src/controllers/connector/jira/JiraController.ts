@@ -121,7 +121,6 @@ export class JiraController {
    * When designing an edge, for example, you can also design an issue in the 'backoff' state to go through the 'in progress' state once.
    * In this case, you need to move two edges to turn the backoff issue into 'done'.
    *
-   *
    * @summary Inquire the transition of an issue
    * @param input
    * @returns

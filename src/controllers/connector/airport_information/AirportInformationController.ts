@@ -17,7 +17,6 @@ export class AirportInformationController {
    * Search for airport information using the entered search term.
    *
    * @summary Search for airport information
-   *
    * @param input Conditions for searching for airport information
    * @returns Search results for airport information
    */

@@ -291,7 +291,6 @@ export namespace IDiscord {
 
   /**
    * @title 서버 정보
-   *
    */
   export interface IGuild {
     id: string;

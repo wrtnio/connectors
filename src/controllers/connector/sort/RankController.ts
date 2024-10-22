@@ -16,7 +16,6 @@ export class RankController {
    * @deprecated
    *
    * @summary Sort by condition
-   *
    * @param input Candidate information to sort
    *
    * @returns Array of indices of sorted candidates

@@ -220,6 +220,7 @@ export class NotionController {
    * Calling this connector requires the correct page ID, so it should only be called if you have previously created a page to obtain that ID, viewed the page, or obtained a link or page ID from the user in advance.
    *
    * @deprecated It is recommended not to use it anymore because it can be replaced by a markdown.
+   *
    * @summary Append an code type child node
    * @param input
    * @returns
@@ -484,7 +485,6 @@ export class NotionController {
    * Retrieves database information to create items in the database
    *
    * @summary Retrieves database information
-   *
    * @param databaseId Unique id of the database
    * @returns Database information
    */
@@ -513,7 +513,6 @@ export class NotionController {
    * Create an item in the Notion Table database
    *
    * @summary Create a database item
-   *
    * @param input Information needed to create a database item
    *
    * @param databaseId Unique id of the database in which to create the item
@@ -544,7 +543,6 @@ export class NotionController {
    * Modify item information in the database
    *
    * @summary Modify database item
-   *
    * @param input Database item information to modify
    *
    * @param databaseId Unique id of the database to modify
@@ -575,7 +573,6 @@ export class NotionController {
    * Search for pages by title
    *
    * @summary Search for pages by title
-   *
    * @param input Page title
    * @returns Searched page information
    */
@@ -595,7 +592,6 @@ export class NotionController {
    * Retrieve a list of items that exist in a table database
    *
    * @summary Retrieve a list of database items
-   *
    * @param databaseId Unique id of the database
    * @returns List of retrieved database items
    */
@@ -626,7 +622,6 @@ export class NotionController {
    * Retrieves an item that exists in a table database
    *
    * @summary Retrieval of database items
-   *
    * @param input Information required to retrieve database items
    *
    * @param databaseId Unique id of the database

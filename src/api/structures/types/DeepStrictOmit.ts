@@ -34,7 +34,6 @@ type __DeepStrictOmit<T extends object, K extends DeepStrictObjectKeys<T>> = {
 };
 
 /**
- * @title 인터페이스에서 특정 키를 제거하는 타입.
  * {@link DeepStrictObjectKeys} 을 이용해서 제거할 키를 고를 수 있다.
  *
  * ```ts
@@ -42,6 +41,8 @@ type __DeepStrictOmit<T extends object, K extends DeepStrictObjectKeys<T>> = {
  * type Example2 = DeepStrictOmit<{ a: { b: 1; c: { d: number }[] } }, "a.c[*].d">;
  * type Example3 = DeepStrictOmit<{ a: 1 }[], "[*].a">;
  * ```
+ *
+ * @title 인터페이스에서 특정 키를 제거하는 타입.
  */
 export type DeepStrictOmit<
   T extends object,

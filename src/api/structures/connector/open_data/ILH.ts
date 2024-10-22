@@ -10,8 +10,6 @@ export namespace ILH {
   export interface IGetLHLeaseInfoInput
     extends IOpenData.ICommon.IPaginationInput {
     /**
-     * @title Area Code
-     *
      * It can be one of these numbers:
      * - 11: Seoul
      * - 26: Busan
@@ -31,6 +29,7 @@ export namespace ILH {
      * - 48: Gyeongsangnam
      * - 50: Jeju
      *
+     * @title Area Code
      */
     CNP_CD:
       | tags.Constant<11, { title: "서울특별시" }>
@@ -52,8 +51,6 @@ export namespace ILH {
       | tags.Constant<50, { title: "제주특별자치도" }>;
 
     /**
-     * @title Supply Type Code
-     *
      * It can be one of these numbers:
      * - 07: National Rental
      * - 08: Public Rental
@@ -62,6 +59,8 @@ export namespace ILH {
      * - 11: Long-term Lease
      * - 13: Purchase Lease
      * - 17: Lease Lease
+     *
+     * @title Supply Type Code
      */
     SPL_TP_CD?:
       | tags.Constant<"07", { title: "국민임대" }>

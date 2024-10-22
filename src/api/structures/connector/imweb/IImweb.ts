@@ -29,19 +29,19 @@ export namespace IImweb {
    */
   export interface IGetProductInput extends IImweb.Credential {
     /**
-     * @title the sales status of a product
-     *
      * You can deliver the value when you want to inquire based on the sales status of the product.
      * You can select 'sale', 'soldout', 'nosale'.
+     *
+     * @title the sales status of a product
      */
     prod_status?: IImweb.ProductStatus;
 
     /**
-     * @title product category code
-     *
      * You can also search with the product's category code,
      * but this code is randomly determined by `Imweb`, so it's currently unavailable.
      * If you don't know the exact category code, it's better not to use it.
+     *
+     * @title product category code
      */
     category?: string;
   }
@@ -167,11 +167,11 @@ export namespace IImweb {
     price: number;
 
     /**
-     * @title The price before the discount
-     *
      * To provide an experience as if the product was discounted,
      * the seller can also set the original price of the product differently from the actual price it sells.
      * This is a common sales promotion strategy in commerce.
+     *
+     * @title The price before the discount
      */
     price_org?: number;
 
@@ -500,10 +500,10 @@ export namespace IImweb {
   }
 
   /**
-   * @title Imweb Access Token Request DTO
-   *
    * An API Key and Secret Key must be issued first to use the Rest API.
    * These keys are generated on a site-by-site basis.
+   *
+   * @title Imweb Access Token Request DTO
    */
   export interface Credential {
     /**
