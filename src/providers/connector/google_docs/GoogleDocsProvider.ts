@@ -3,8 +3,8 @@ import { docs_v1, google } from "googleapis";
 
 import { IGoogleDocs } from "@wrtn/connector-api/lib/structures/connector/google_docs/IGoogleDocs";
 
-import { lexer, MarkedToken, Token } from "marked";
 import typia from "typia";
+import { markdownConverter } from "../../../utils/markdown-converter";
 import { GoogleProvider } from "../../internal/google/GoogleProvider";
 import { OAuthSecretProvider } from "../../internal/oauth_secret/OAuthSecretProvider";
 import { IOAuthSecret } from "../../internal/oauth_secret/structures/IOAuthSecret";
@@ -251,6 +251,17 @@ export class GoogleDocsProvider {
     }
   }
 
+  async getDocuments(input: IGoogleDocs.IAppendTextGoogleDocsInput) {
+    const { documentId } = input;
+    const token = await this.getToken(input.secretKey);
+    const accessToken = await this.googleProvider.refreshAccessToken(token);
+    const authClient = new google.auth.OAuth2();
+    authClient.setCredentials({ access_token: accessToken });
+    const docs = google.docs({ version: "v1", auth: authClient });
+    const document = await docs.documents.get({ documentId });
+    return document.data;
+  }
+
   async append(input: IGoogleDocs.IAppendTextGoogleDocsInput) {
     try {
       const { documentId } = input;
@@ -260,53 +271,54 @@ export class GoogleDocsProvider {
 
       authClient.setCredentials({ access_token: accessToken });
 
-      const docs = google.docs({
-        version: "v1",
-        auth: authClient,
-      });
-
+      const docs = google.docs({ version: "v1", auth: authClient });
       const textRequests = convertMarkdownToGoogleDocsRequests(input);
-      for await (const requests of textRequests) {
-        if (requests.length > 0) {
-          const document = await docs.documents.get({ documentId });
-          const updateTextStyle = requests[1];
-          if (
-            typia.is<{
-              updateTextStyle: docs_v1.Schema$UpdateTextStyleRequest;
-            }>(updateTextStyle)
-          ) {
-            // 문서의 끝 인덱스 반환
-            const weight =
-              document.data.body?.content?.reduce((acc, element) => {
-                if (typeof element.endIndex === "number") {
-                  return Math.max(acc, element.endIndex);
-                }
-                return acc;
-              }, 0) ?? 0; // 문서의 최소 인덱스는 1부터 시작
+      const document = await docs.documents.get({ documentId });
+      // 문서의 끝 인덱스 반환
+      const weight =
+        (document.data.body?.content?.reduce<number>((acc, element) => {
+          if (typeof element.endIndex === "number") {
+            return Math.max(acc, element.endIndex);
+          }
+          return acc;
+        }, 0) ?? 2) - 2; // 빈 문서는 줄바꿈 문자를 포함하여 최소 index가 2부터 시작한다.
 
-            console.log("weight: ", weight);
-            const range = updateTextStyle.updateTextStyle.range;
-            if (range) {
-              if (typeof range.startIndex === "number") {
-                range.startIndex = range.startIndex + weight;
-              }
+      const weightedRequests = textRequests.map((request, i) => {
+        if (
+          typia.is<{
+            updateTextStyle: docs_v1.Schema$UpdateTextStyleRequest;
+          }>(request)
+        ) {
+          const range = request.updateTextStyle.range;
+          if (range) {
+            console.log(weight, range);
+            if (typeof range.startIndex === "number") {
+              range.startIndex = range.startIndex + (weight + 1);
+            }
 
-              if (typeof range.endIndex === "number") {
-                range.endIndex = range.endIndex + weight;
-              }
+            if (typeof range.endIndex === "number") {
+              range.endIndex = range.endIndex + (weight + 1);
             }
           }
-
-          console.log(JSON.stringify(requests, null, 2));
-
-          await docs.documents.batchUpdate({
-            documentId: documentId,
-            requestBody: {
-              requests: requests,
-            },
-          });
         }
-      }
+        return request;
+      });
+
+      console.log(
+        "weightedRequests: ",
+        JSON.stringify(weightedRequests, null, 2),
+      );
+
+      await docs.documents.batchUpdate({
+        documentId: documentId,
+        requestBody: {
+          requests: weightedRequests,
+        },
+      });
+
+      // console.log(
+      //   JSON.stringify((await this.getDocuments(input)).body, null, 2),
+      // );
     } catch (error) {
       console.error(JSON.stringify(error));
       throw error;
@@ -324,285 +336,588 @@ export class GoogleDocsProvider {
 }
 
 function convertMarkdownToGoogleDocsRequests(input: { text: string }) {
-  const tokenList = lexer(input.text);
-  return arrayTransform({ tokens: tokenList });
-}
-
-export function arrayTransform(options: {
-  tokens: Token[];
-  convertParagraph?: boolean;
-}) {
-  return options.tokens
-    ?.map((token) => transform(token))
-    .filter((el) => el !== null);
-}
-
-const is = typia.createIs<MarkedToken>();
-function transform(
-  token: Token,
-): (
-  | { insertText: docs_v1.Schema$InsertTextRequest }
-  | { updateTextStyle: docs_v1.Schema$UpdateTextStyleRequest }
-)[] {
-  const target = is(token) ? token : null;
-  if (target === null) {
-    return [];
-  }
-
-  const targetMarkedToken = target as MarkedToken;
-  if (targetMarkedToken.type === "space") {
-    return [];
-  }
-  if (targetMarkedToken.type === "code") {
-    return [
-      {
-        insertText: {
-          endOfSegmentLocation: {},
-          text: targetMarkedToken.text + "\n",
-        },
+  return markdownConverter<docs_v1.Schema$Request>({
+    markdownString: input.text,
+    weight: 0,
+    defaultValue: {
+      insertText: {
+        endOfSegmentLocation: {},
+        text: "\n",
       },
-      {
-        updateTextStyle: {
-          range: {
-            startIndex: 0,
-            endIndex: targetMarkedToken.text.length,
-          },
-          textStyle: {
-            bold: true,
-            backgroundColor: {
-              color: {
-                rgbColor: {
-                  red: 0.9,
-                  green: 0.9,
-                  blue: 0.9,
-                },
+    },
+    converter: {
+      br: {
+        convert: () => {
+          return [
+            {
+              insertText: {
+                endOfSegmentLocation: {},
+                text: "\n",
               },
             },
-          },
-          fields: "bold,backgroundColor",
+          ];
         },
       },
-    ];
-  }
-  if (targetMarkedToken.type === "heading") {
-    const headingLevel = (token as any).depth;
-    const fontSize = headingLevel === 1 ? 24 : headingLevel === 2 ? 20 : 16;
-    return [
-      {
-        insertText: {
-          endOfSegmentLocation: {},
-          text: targetMarkedToken.text + "\n",
-        },
-      },
-      {
-        updateTextStyle: {
-          range: {
-            startIndex: 0,
-            endIndex: targetMarkedToken.text.length,
-          },
-          textStyle: {
-            bold: true,
-            fontSize: {
-              magnitude: fontSize,
-              unit: "PT",
-            },
-          },
-          fields: "bold,fontSize",
-        },
-      },
-    ];
-  }
-  if (targetMarkedToken.type === "table") {
-    // 표를 다루는 로직은 더 복잡하며, 각 셀을 개별적으로 처리해야 함
-    return [];
-  }
-  if (targetMarkedToken.type === "hr") {
-    // 수평선을 삽입하는 로직
-    return [
-      {
-        insertText: {
-          endOfSegmentLocation: {},
-          text: "\n---\n",
-        },
-      },
-    ];
-  }
-  if (targetMarkedToken.type === "blockquote") {
-    return [
-      {
-        insertText: {
-          endOfSegmentLocation: {},
-          text: targetMarkedToken.text + "\n",
-        },
-      },
-      {
-        updateTextStyle: {
-          range: {
-            startIndex: 0,
-            endIndex: targetMarkedToken.text.length,
-          },
-          textStyle: {
-            italic: true,
-            foregroundColor: {
-              color: {
-                rgbColor: {
-                  red: 0.6,
-                  green: 0.6,
-                  blue: 0.6,
-                },
+      heading: {
+        convert: (token, localWeight = 0) => {
+          console.log("heading token:", token);
+          const headingLevel = (token as any).depth;
+          const fontSize =
+            headingLevel === 1 ? 24 : headingLevel === 2 ? 20 : 16;
+          return [
+            {
+              insertText: {
+                endOfSegmentLocation: {},
+                text: token.text + "\n",
               },
             },
-          },
-          fields: "italic,foregroundColor",
-        },
-      },
-    ];
-  }
-  if (targetMarkedToken.type === "list") {
-    // 리스트 아이템을 다루는 로직 추가
-    return [];
-  }
-  if (targetMarkedToken.type === "list_item") {
-    // 각 리스트 아이템에 대한 로직 추가
-    return [];
-  }
-  if (targetMarkedToken.type === "paragraph") {
-    return [
-      {
-        insertText: {
-          endOfSegmentLocation: {},
-          text: targetMarkedToken.text + "\n",
-        },
-      },
-    ];
-  }
-  if (targetMarkedToken.type === "html") {
-    // HTML을 무시하거나 특정 동작 추가
-    return [
-      {
-        insertText: {
-          endOfSegmentLocation: {},
-          text: targetMarkedToken.text + "\n",
-        },
-      },
-    ];
-  }
-  if (targetMarkedToken.type === "text") {
-    return [
-      {
-        insertText: {
-          endOfSegmentLocation: {},
-          text: targetMarkedToken.text + "\n",
-        },
-      },
-    ];
-  }
-  if (targetMarkedToken.type === "strong") {
-    return [
-      {
-        insertText: {
-          endOfSegmentLocation: {},
-          text: targetMarkedToken.text,
-        },
-      },
-      {
-        updateTextStyle: {
-          range: {
-            startIndex: 0,
-            endIndex: targetMarkedToken.text.length,
-          },
-          textStyle: {
-            bold: true,
-          },
-          fields: "bold",
-        },
-      },
-    ];
-  }
-  if (targetMarkedToken.type === "em") {
-    return [
-      {
-        insertText: {
-          endOfSegmentLocation: {},
-          text: targetMarkedToken.text,
-        },
-      },
-      {
-        updateTextStyle: {
-          range: {
-            startIndex: 0,
-            endIndex: targetMarkedToken.text.length,
-          },
-          textStyle: {
-            italic: true,
-          },
-          fields: "italic",
-        },
-      },
-    ];
-  }
-  if (targetMarkedToken.type === "codespan") {
-    return [
-      {
-        insertText: {
-          endOfSegmentLocation: {},
-          text: targetMarkedToken.text,
-        },
-      },
-      {
-        updateTextStyle: {
-          range: {
-            startIndex: 0,
-            endIndex: targetMarkedToken.text.length,
-          },
-          textStyle: {
-            bold: true,
-            backgroundColor: {
-              color: {
-                rgbColor: {
-                  red: 0.9,
-                  green: 0.9,
-                  blue: 0.9,
+            {
+              updateTextStyle: {
+                range: {
+                  startIndex: localWeight,
+                  endIndex: token.text.length + localWeight,
                 },
+                textStyle: {
+                  bold: true,
+                  fontSize: {
+                    magnitude: fontSize,
+                    unit: "PT",
+                  },
+                },
+                fields: "bold,fontSize",
               },
             },
-          },
-          fields: "bold,backgroundColor",
+          ];
         },
       },
-    ];
-  }
-  if (targetMarkedToken.type === "br") {
-    return [
-      {
-        insertText: {
-          endOfSegmentLocation: {},
-          text: "\n",
+      paragraph: {
+        convert: () => [], // 어차피 자식 노드에 text로 파싱되어야 하기 때문에 빈 배열로 한다.
+        recursive: true,
+      },
+      code: {
+        convert: (token, localWeight = 0) => {
+          return [
+            {
+              insertText: {
+                endOfSegmentLocation: {},
+                text: token.text + "\n",
+              },
+            },
+            {
+              updateTextStyle: {
+                range: {
+                  startIndex: localWeight,
+                  endIndex: token.text.length + localWeight,
+                },
+                textStyle: {
+                  fontSize: {
+                    magnitude: 11,
+                    unit: "PT",
+                  },
+                  bold: true,
+                  backgroundColor: {
+                    color: {
+                      rgbColor: {
+                        red: 0.9,
+                        green: 0.9,
+                        blue: 0.9,
+                      },
+                    },
+                  },
+                },
+                fields: "bold,backgroundColor",
+              },
+            },
+          ];
         },
       },
-    ];
-  }
-  if (targetMarkedToken.type === "del") {
-    return [
-      {
-        insertText: {
-          endOfSegmentLocation: {},
-          text: targetMarkedToken.text,
+      list: {
+        convert: (token) => {
+          return [
+            {
+              insertText: {
+                endOfSegmentLocation: {},
+                text: token.raw,
+              },
+            },
+          ];
         },
       },
-      {
-        updateTextStyle: {
-          range: {
-            startIndex: 0,
-            endIndex: targetMarkedToken.text.length,
-          },
-          textStyle: {
-            strikethrough: true,
-          },
-          fields: "strikethrough",
+      strong: {
+        convert: (token, localWeight = 0) => {
+          console.log("strong", token);
+          return [
+            {
+              insertText: {
+                endOfSegmentLocation: {},
+                text: token.text,
+              },
+            },
+            {
+              updateTextStyle: {
+                range: {
+                  startIndex: localWeight,
+                  endIndex: token.text.length + localWeight,
+                },
+                textStyle: {
+                  bold: true,
+                },
+                fields: "bold",
+              },
+            },
+          ];
         },
       },
-    ];
-  }
-  return [];
+      em: {
+        convert: (token, localWeight = 0) => {
+          console.log("em", token);
+          return [
+            {
+              insertText: {
+                endOfSegmentLocation: {},
+                text: token.text,
+              },
+            },
+            {
+              updateTextStyle: {
+                range: {
+                  startIndex: localWeight,
+                  endIndex: token.text.length + localWeight,
+                },
+                textStyle: {
+                  italic: true,
+                },
+                fields: "italic",
+              },
+            },
+          ];
+        },
+      },
+
+      // list_item: {
+      //   convert: (token) => {
+      //     console.log("list_item: ", token);
+      //     return [
+      //       {
+      //         insertText: {
+      //           endOfSegmentLocation: {},
+      //           text: token.text + "\n",
+      //         },
+      //       },
+      //     ];
+      //   },
+      //   recursive: false,
+      // },
+      text: {
+        convert: (token) => {
+          return [
+            {
+              insertText: {
+                endOfSegmentLocation: {},
+                text: token.text + "\n",
+              },
+            },
+          ];
+        },
+      },
+    },
+  });
 }
+
+// function convertMarkdownToGoogleDocsRequests(input: { text: string }) {
+//   const tokenList = lexer(input.text);
+//   return arrayTransform({ tokens: tokenList });
+// }
+
+// export function arrayTransform(options: {
+//   tokens: Token[];
+//   parentLocalWeight?: number;
+// }) {
+//   return options.tokens
+//     .map((token) => {
+//       const target = is(token) ? token : null;
+//       if (target === null) {
+//         return null;
+//       }
+//       return target;
+//     })
+//     .filter((el) => el !== null)
+//     ?.flatMap((token, currentTokenIndex, arr) => {
+//       const previous = arr.slice(0, currentTokenIndex);
+//       const localWeight = previous
+//         .map((el) => {
+//           let localWeight = 0;
+//           localWeight += "text" in el ? el.text.length : 1;
+
+//           return localWeight;
+//         })
+//         .reduce((acc, cur) => acc + cur, 0);
+
+//       const transformed = transform(
+//         token,
+//         localWeight + currentTokenIndex + (options.parentLocalWeight ?? 0),
+//       ); // google docs는 무조건 0번째에 break가 있기 때문에 1번부터가 첫 문장 시작점이다.
+
+//       console.log(token, transformed);
+//       return transformed;
+//     })
+//     .filter((el) => el !== null);
+// }
+
+// const is = typia.createIs<MarkedToken>();
+// function transform(
+//   token: Token,
+//   localWeight: number = 0,
+// ): (
+//   | { insertText: docs_v1.Schema$InsertTextRequest }
+//   | { updateTextStyle: docs_v1.Schema$UpdateTextStyleRequest }
+// )[] {
+//   if ("tokens" in token) {
+//     return arrayTransform({
+//       tokens: token.tokens ?? [],
+//       parentLocalWeight: localWeight,
+//     });
+//   }
+
+//   if (token.type === "space") {
+//     return [
+//       {
+//         insertText: {
+//           endOfSegmentLocation: {},
+//           text: "\n",
+//         },
+//       },
+//     ];
+//   }
+//   if (token.type === "code") {
+//     return [
+//       {
+//         insertText: {
+//           endOfSegmentLocation: {},
+//           text: token.text + "\n",
+//         },
+//       },
+//       {
+//         updateTextStyle: {
+//           range: {
+//             startIndex: localWeight,
+//             endIndex: token.text.length + localWeight,
+//           },
+//           textStyle: {
+//             fontSize: {
+//               magnitude: 11,
+//               unit: "PT",
+//             },
+//             bold: true,
+//             backgroundColor: {
+//               color: {
+//                 rgbColor: {
+//                   red: 0.9,
+//                   green: 0.9,
+//                   blue: 0.9,
+//                 },
+//               },
+//             },
+//           },
+//           fields: "bold,backgroundColor",
+//         },
+//       },
+//     ];
+//   }
+//   if (token.type === "heading") {
+//     console.log("token: ", token);
+//     const headingLevel = (token as any).depth;
+//     const fontSize = headingLevel === 1 ? 24 : headingLevel === 2 ? 20 : 16;
+//     return [
+//       {
+//         insertText: {
+//           endOfSegmentLocation: {},
+//           text: token.text + "\n",
+//         },
+//       },
+//       {
+//         updateTextStyle: {
+//           range: {
+//             startIndex: localWeight,
+//             endIndex: token.text.length + localWeight,
+//           },
+//           textStyle: {
+//             bold: true,
+//             fontSize: {
+//               magnitude: fontSize,
+//               unit: "PT",
+//             },
+//           },
+//           fields: "bold,fontSize",
+//         },
+//       },
+//     ];
+//   }
+//   if (token.type === "table") {
+//     // 표를 다루는 로직은 더 복잡하며, 각 셀을 개별적으로 처리해야 함
+//     return [];
+//   }
+//   if (token.type === "hr") {
+//     // 수평선을 삽입하는 로직
+//     // const horizontalLine = "_________________________\n";
+//     const horizontalLine = "-------------------------\n";
+//     return [
+//       {
+//         insertText: {
+//           endOfSegmentLocation: {},
+//           text: horizontalLine,
+//         },
+//       },
+//       {
+//         updateTextStyle: {
+//           range: {
+//             startIndex: localWeight,
+//             endIndex: localWeight + horizontalLine.length,
+//           },
+//           fields: "*",
+//         },
+//       },
+//     ];
+//   }
+//   if (token.type === "blockquote") {
+//     return [
+//       {
+//         insertText: {
+//           endOfSegmentLocation: {},
+//           text: token.text + "\n",
+//         },
+//       },
+//       {
+//         updateTextStyle: {
+//           range: {
+//             startIndex: localWeight,
+//             endIndex: token.text.length + localWeight,
+//           },
+//           textStyle: {
+//             italic: true,
+//             foregroundColor: {
+//               color: {
+//                 rgbColor: {
+//                   red: 0.6,
+//                   green: 0.6,
+//                   blue: 0.6,
+//                 },
+//               },
+//             },
+//           },
+//           fields: "italic,foregroundColor",
+//         },
+//       },
+//     ];
+//   }
+//   if (token.type === "list") {
+//     // 리스트 아이템을 다루는 로직 추가
+//     // return []
+//     // return [
+//     //   {
+//     //     insertText: {
+//     //       endOfSegmentLocation: {},
+//     //       text: token.raw,
+//     //     },
+//     //   },
+//     //   {
+//     //     updateTextStyle: {
+//     //       range: {
+//     //         startIndex: localWeight,
+//     //         endIndex: token.raw.length + localWeight,
+//     //       },
+//     //       fields: "*",
+//     //     },
+//     //   },
+//     // ];
+//   }
+//   if (token.type === "list_item") {
+//     // 각 리스트 아이템에 대한 로직 추가
+
+//     console.log("hagasasdsad", JSON.stringify(token, null, 2));
+//     return [
+//       {
+//         insertText: {
+//           endOfSegmentLocation: {},
+//           text: token.raw,
+//         },
+//       },
+//       {
+//         updateTextStyle: {
+//           range: {
+//             startIndex: localWeight,
+//             endIndex: token.text.length + localWeight,
+//           },
+//           fields: "*",
+//         },
+//       },
+//     ];
+//   }
+//   if (token.type === "paragraph") {
+//     return [
+//       {
+//         insertText: {
+//           endOfSegmentLocation: {},
+//           text: token.text + "\n",
+//         },
+//       },
+//       {
+//         updateTextStyle: {
+//           range: {
+//             startIndex: localWeight,
+//             endIndex: token.text.length + localWeight,
+//           },
+//           fields: "*",
+//         },
+//       },
+//     ];
+//   }
+//   if (token.type === "html") {
+//     // HTML을 무시하거나 특정 동작 추가
+//     return [
+//       {
+//         insertText: {
+//           endOfSegmentLocation: {},
+//           text: token.text + "\n",
+//         },
+//       },
+//     ];
+//   }
+//   if (token.type === "text") {
+//     return [
+//       {
+//         insertText: {
+//           endOfSegmentLocation: {},
+//           text: token.text + "\n",
+//         },
+//       },
+//     ];
+//   }
+//   if (token.type === "strong") {
+//     return [
+//       {
+//         insertText: {
+//           endOfSegmentLocation: {},
+//           text: token.text,
+//         },
+//       },
+//       {
+//         updateTextStyle: {
+//           range: {
+//             startIndex: localWeight,
+//             endIndex: token.text.length + localWeight,
+//           },
+//           textStyle: {
+//             bold: true,
+//           },
+//           fields: "bold",
+//         },
+//       },
+//     ];
+//   }
+//   if (token.type === "em") {
+//     return [
+//       {
+//         insertText: {
+//           endOfSegmentLocation: {},
+//           text: token.text,
+//         },
+//       },
+//       {
+//         updateTextStyle: {
+//           range: {
+//             startIndex: localWeight,
+//             endIndex: token.text.length + localWeight,
+//           },
+//           textStyle: {
+//             italic: true,
+//           },
+//           fields: "italic",
+//         },
+//       },
+//     ];
+//   }
+//   if (token.type === "codespan") {
+//     return [
+//       {
+//         insertText: {
+//           endOfSegmentLocation: {},
+//           text: token.text,
+//         },
+//       },
+//       {
+//         updateTextStyle: {
+//           range: {
+//             startIndex: localWeight,
+//             endIndex: token.text.length + localWeight,
+//           },
+//           textStyle: {
+//             bold: true,
+//             backgroundColor: {
+//               color: {
+//                 rgbColor: {
+//                   red: 0.9,
+//                   green: 0.9,
+//                   blue: 0.9,
+//                 },
+//               },
+//             },
+//           },
+//           fields: "bold,backgroundColor",
+//         },
+//       },
+//     ];
+//   }
+//   if (token.type === "br") {
+//     return [
+//       {
+//         insertText: {
+//           endOfSegmentLocation: {},
+//           text: "\n",
+//         },
+//       },
+//     ];
+//   }
+//   if (token.type === "del") {
+//     return [
+//       {
+//         insertText: {
+//           endOfSegmentLocation: {},
+//           text: token.text,
+//         },
+//       },
+//       {
+//         updateTextStyle: {
+//           range: {
+//             startIndex: localWeight,
+//             endIndex: token.text.length + localWeight,
+//           },
+//           textStyle: {
+//             strikethrough: true,
+//           },
+//           fields: "strikethrough",
+//         },
+//       },
+//     ];
+//   }
+//   return [];
+// }
+
+// new GoogleDocsProvider(new GoogleProvider()).append({
+//   secretKey: ConnectorGlobal.env.GOOGLE_TEST_SECRET,
+//   documentId: "1DcPNAeOE378oi3lRkAOf8IW7FF0qLELrYMkVsMwg-J4",
+//   text: `# 12345
+// 12345
+// ## 12345
+// ### 12345
+// \`\`\`ts
+// console.log(12345);
+// \`\`\`
+// - 12345
+// - 12345
+// 1. 12345
+// 2. 12345
+// *12345*
+// **67890**
+// `,
+// });

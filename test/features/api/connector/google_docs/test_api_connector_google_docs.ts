@@ -119,46 +119,38 @@ export const test_api_connector_google_docs_create_page = async (
   connection: CApi.IConnection,
 ) => {
   /**
-   * create a new Google Docs
-   */
-  const createGoogleDocsOutput: IGoogleDocs.ICreateGoogleDocsOutput =
-    await CApi.functional.connector.google_docs.createDocs(connection, {
-      title: "connector_test",
-      secretKey: ConnectorGlobal.env.GOOGLE_TEST_SECRET,
-    });
-  typia.assert<IGoogleDocs.ICreateGoogleDocsOutput>(createGoogleDocsOutput);
-  console.log(createGoogleDocsOutput);
-
-  /**
-   * Append text to docs
-   */
-  const res1 = await CApi.functional.connector.google_docs.append(connection, {
-    secretKey: ConnectorGlobal.env.GOOGLE_TEST_SECRET,
-    documentId: createGoogleDocsOutput.id,
-    text: "<!DOCTYPE html><body><h1>hi!</h1><p>hahaha</p></body>",
-  });
-
-  typia.assert(res1);
-
-  /**
    * Append text to docs
    */
   const res2 = await CApi.functional.connector.google_docs.append(connection, {
     secretKey: ConnectorGlobal.env.GOOGLE_TEST_SECRET,
-    documentId: createGoogleDocsOutput.id,
-    text: `# Hello world!
-hi, my name is kakasoo.
-our team name is **ecosystem**.
+    documentId: "1M8ONTR4tJKkTqy8NEA5uasLYvwfDJUM9w7vvm7JCiPA",
+    text: `
+# Markdown to google docs
+# Heading1
+this is heading1.
 
-## company
-company name is wrtn technologies.
-- a
-- b
-- c
-  - d
-- 1
-  - 2
-    - 3
+## Heading2
+this is heading2.
+
+### Heading3
+this is heading3.
+
+
+
+\`\`\`ts
+console.log('TypeScript is wonderful.');
+const a = 1;
+const b = '2';
+const c: number = a + b;
+      ^
+      'c' is assigned a value but never used. (eslint@typescript-eslint/no-unused-vars)
+\`\`\`
+this is code.
+
+---
+this is hr.
+
+
 `,
   });
 
