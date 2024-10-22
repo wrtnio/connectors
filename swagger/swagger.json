@@ -15,7 +15,7 @@
     }
   ],
   "info": {
-    "version": "0.1.281",
+    "version": "0.1.282",
     "title": "@wrtn/connector",
     "description": "wrtn-ecosystem connectors and sdk",
     "license": {
@@ -12260,121 +12260,18 @@
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/X_full.svg"
       }
     },
-    "/connector/x/get-tweet": {
+    "/connector/x/summarize": {
       "post": {
-        "summary": "Get Tweet",
-        "description": "Get Tweet",
+        "summary": "Tweet Summary",
+        "description": "Summarizes the tweets of those requested them.",
         "tags": [],
         "parameters": [],
         "requestBody": {
-          "description": "tweetId",
+          "description": "user information, secretKey, query",
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/IX.IGetTweetInput"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "201": {
-            "description": "tweet information",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/IX.ITweetOutput"
-                }
-              }
-            }
-          }
-        },
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/X_full.svg"
-      }
-    },
-    "/connector/x/get-user-timeline-tweets": {
-      "post": {
-        "summary": "Get User Post timeline",
-        "description": "Get user timeline tweets",
-        "tags": [],
-        "parameters": [],
-        "requestBody": {
-          "description": "userId, userName",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/IX.IUserTweetTimeLineInput"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "201": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/IX.ITweetOutput"
-                  }
-                }
-              }
-            }
-          }
-        },
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/X_full.svg"
-      }
-    },
-    "/connector/x/make-txt-file-and-upload": {
-      "post": {
-        "summary": "Make tweet file and upload",
-        "description": "Make txt file for tweet and upload to S3",
-        "tags": [],
-        "parameters": [],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "array",
-                "items": {
-                  "$ref": "#/components/schemas/IX.ITweetOutput"
-                }
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "201": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/IX.IMakeTxtFileAndUploadOutput"
-                  }
-                }
-              }
-            }
-          }
-        },
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/X_full.svg"
-      }
-    },
-    "/connector/x/get-chunk-document": {
-      "post": {
-        "summary": "Summarize tweet",
-        "description": "Tweet Summarize for txt file",
-        "tags": [],
-        "parameters": [],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/IX.IGetChunkDocumentInput"
+                "$ref": "#/components/schemas/IX.ISummarizeTweetInput"
               }
             }
           },
@@ -54536,186 +54433,6 @@
           "secretKey"
         ]
       },
-      "IX.ITweetOutput": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string",
-            "title": "tweet ID",
-            "description": "The unique id of the tweet"
-          },
-          "userName": {
-            "type": "string",
-            "title": "user name",
-            "description": "The user name of the tweet"
-          },
-          "text": {
-            "type": "string",
-            "title": "tweet content",
-            "description": "The content text of the tweet"
-          },
-          "tweet_link": {
-            "type": "string",
-            "format": "iri",
-            "title": "tweet link",
-            "description": "The link of the tweet"
-          },
-          "type": {
-            "oneOf": [
-              {
-                "const": "original"
-              },
-              {
-                "const": "retweeted"
-              },
-              {
-                "const": "quoted"
-              }
-            ],
-            "title": "tweet type",
-            "description": "The type of the tweet"
-          },
-          "referredUserName": {
-            "type": "string",
-            "title": "referred user name",
-            "description": "Username who wrote the original tweet of the referenced tweet"
-          },
-          "referredTweetLink": {
-            "type": "string",
-            "format": "iri",
-            "title": "referred tweet link",
-            "description": "Link to the original tweet of the referenced tweet"
-          },
-          "referredTweetText": {
-            "type": "string",
-            "title": "tweet content",
-            "description": "Content of the referenced tweet"
-          }
-        },
-        "required": [
-          "id",
-          "userName",
-          "text",
-          "tweet_link"
-        ],
-        "title": "User Tweet Time Line data"
-      },
-      "IX.IGetTweetInput": {
-        "type": "object",
-        "properties": {
-          "tweetId": {
-            "type": "string",
-            "x-wrtn-prerequisite": {
-              "method": "post",
-              "path": "/connector/x/get-user-timeline-tweets",
-              "jmesPath": "[].{value:id, label:text}"
-            },
-            "title": "tweet",
-            "description": "Please select a tweet to import information"
-          },
-          "secretKey": {
-            "type": "string",
-            "x-wrtn-secret-key": "x",
-            "x-wrtn-secret-scopes": [
-              "tweet.read",
-              "tweet.write",
-              "users.read",
-              "follows.read",
-              "list.read"
-            ],
-            "title": "Select authentication information",
-            "description": "secret key."
-          }
-        },
-        "required": [
-          "tweetId",
-          "secretKey"
-        ],
-        "title": "Condition For Get Tweet"
-      },
-      "IX.IUserTweetTimeLineInput": {
-        "type": "object",
-        "properties": {
-          "user": {
-            "type": "array",
-            "items": {
-              "type": "object",
-              "properties": {
-                "userId": {
-                  "type": "string",
-                  "x-wrtn-prerequisite": {
-                    "method": "post",
-                    "path": "/connector/x/get-users",
-                    "jmesPath": "[].{value:id, label:userName}"
-                  },
-                  "title": "user id",
-                  "description": "The unique id of the user for search user tweet time line"
-                },
-                "name": {
-                  "type": "string",
-                  "x-wrtn-prerequisite": {
-                    "method": "post",
-                    "path": "/connector/x/get-users",
-                    "jmesPath": "[].{value:name, label:name}"
-                  },
-                  "title": "user name",
-                  "description": "The original user name"
-                },
-                "userName": {
-                  "type": "string",
-                  "x-wrtn-prerequisite": {
-                    "method": "post",
-                    "path": "/connector/x/get-users",
-                    "jmesPath": "[].{value:userName, label:userName}"
-                  },
-                  "title": "twitter user name",
-                  "description": "The user name of twitter"
-                }
-              },
-              "required": [
-                "userId",
-                "name",
-                "userName"
-              ]
-            },
-            "title": "user",
-            "description": "User information for search user tweet time line"
-          },
-          "secretKey": {
-            "type": "string",
-            "x-wrtn-secret-key": "x",
-            "x-wrtn-secret-scopes": [
-              "tweet.read",
-              "tweet.write",
-              "users.read",
-              "follows.read",
-              "list.read"
-            ],
-            "title": "Select authentication information",
-            "description": "secret key."
-          }
-        },
-        "required": [
-          "user",
-          "secretKey"
-        ],
-        "title": "User Tweet Time Line Input"
-      },
-      "IX.IMakeTxtFileAndUploadOutput": {
-        "type": "object",
-        "properties": {
-          "fileUrl": {
-            "type": "string",
-            "format": "uri",
-            "contentMediaType": "text/plain",
-            "title": "Created File URL"
-          }
-        },
-        "required": [
-          "fileUrl"
-        ],
-        "title": "Created File URL"
-      },
       "IX.IGetChunkDocumentOutput": {
         "type": "object",
         "properties": {
@@ -54779,30 +54496,79 @@
           "documents"
         ]
       },
-      "IX.IGetChunkDocumentInput": {
+      "IX.ISummarizeTweetInput": {
         "type": "object",
         "properties": {
-          "fileUrl": {
-            "type": "array",
-            "items": {
-              "type": "string",
-              "format": "uri",
-              "contentMediaType": "text/plain"
-            },
-            "title": "file url",
-            "description": "File urls to get the list of chunk documents"
-          },
           "query": {
             "type": "string",
             "title": "query",
             "description": "query required to get the chunk document. You must understand the context Inputed by the user and enter the query to get as relevant information as possible."
+          },
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "x",
+            "x-wrtn-secret-scopes": [
+              "tweet.read",
+              "tweet.write",
+              "users.read",
+              "follows.read",
+              "list.read"
+            ],
+            "title": "Select authentication information",
+            "description": "secret key."
+          },
+          "user": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "userId": {
+                  "type": "string",
+                  "x-wrtn-prerequisite": {
+                    "method": "post",
+                    "path": "/connector/x/get-users",
+                    "jmesPath": "[].{value:id, label:userName}"
+                  },
+                  "title": "user id",
+                  "description": "The unique id of the user for search user tweet time line"
+                },
+                "name": {
+                  "type": "string",
+                  "x-wrtn-prerequisite": {
+                    "method": "post",
+                    "path": "/connector/x/get-users",
+                    "jmesPath": "[].{value:name, label:name}"
+                  },
+                  "title": "user name",
+                  "description": "The original user name"
+                },
+                "userName": {
+                  "type": "string",
+                  "x-wrtn-prerequisite": {
+                    "method": "post",
+                    "path": "/connector/x/get-users",
+                    "jmesPath": "[].{value:userName, label:userName}"
+                  },
+                  "title": "twitter user name",
+                  "description": "The user name of twitter"
+                }
+              },
+              "required": [
+                "userId",
+                "name",
+                "userName"
+              ]
+            },
+            "title": "user",
+            "description": "User information for search user tweet time line"
           }
         },
         "required": [
-          "fileUrl",
-          "query"
+          "query",
+          "secretKey",
+          "user"
         ],
-        "title": "Summarize Tweet Input"
+        "title": "Information needed for tweet summary"
       }
     }
   },
