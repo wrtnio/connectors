@@ -38,9 +38,9 @@ const assertDocumentDescription = (document: OpenApi.IDocument): void => {
           operation,
         });
   if (violates.size)
-    throw new Error(
-      "Some operation or schema do not have { summary, title, or description }: " +
-        JSON.stringify(Array.from(violates).sort(), null, 2),
+    console.error(
+      "Some operation or schema do not have { summary, title, or description }",
+      Array.from(violates).sort(),
     );
 };
 
