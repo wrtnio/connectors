@@ -46,73 +46,20 @@ export class XController {
   }
 
   /**
-   * Get Tweet
+   * Summarizes the tweets of those requested them.
    *
-   * @summary Get Tweet
+   * @summary Tweet Summary
    *
-   * @param input tweetId
-   * @returns tweet information
-   */
-  @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/X_full.svg",
-  )
-  @core.TypedRoute.Post("/get-tweet")
-  async getTweet(
-    @core.TypedBody() input: IX.IGetTweetInput,
-  ): Promise<IX.ITweetOutput> {
-    return this.XProvider.getTweet(input);
-  }
-
-  /**
-   * Get user timeline tweets
-   *
-   * @summary Get User Post timeline
-   *
-   * @param input userId, userName
+   * @param input user information, secretKey, query
    * @returns
    */
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/X_full.svg",
   )
-  @core.TypedRoute.Post("/get-user-timeline-tweets")
-  async getUserTimelineTweets(
-    @core.TypedBody() input: IX.IUserTweetTimeLineInput,
-  ): Promise<IX.ITweetOutput[]> {
-    return this.XProvider.getUserTimelineTweets(input);
-  }
-
-  /**
-   * Make txt file for tweet and upload to S3
-   *
-   * @summary Make tweet file and upload
-   * @param userName
-   * @param input
-   * @returns
-   */
-  @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/X_full.svg",
-  )
-  @core.TypedRoute.Post("/make-txt-file-and-upload")
-  async makeTxtFileForTweetAndUploadToS3(
-    @core.TypedBody() input: IX.ITweetOutput[],
-  ): Promise<IX.IMakeTxtFileAndUploadOutput[]> {
-    return this.XProvider.makeTxtFileForTweetAndUploadToS3(input);
-  }
-
-  /**
-   * Tweet Summarize for txt file
-   *
-   * @summary Summarize tweet
-   * @param fileUrl
-   * @returns
-   */
-  @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/X_full.svg",
-  )
-  @core.TypedRoute.Post("/get-chunk-document")
-  async getChunkDocument(
-    @core.TypedBody() input: IX.IGetChunkDocumentInput,
+  @core.TypedRoute.Post("/summarize")
+  async summarizeTweet(
+    @core.TypedBody() input: IX.ISummarizeTweetInput,
   ): Promise<IX.IGetChunkDocumentOutput> {
-    return this.XProvider.getChunkDocument(input);
+    return this.XProvider.summarizeTweet(input);
   }
 }
