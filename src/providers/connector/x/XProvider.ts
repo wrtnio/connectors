@@ -215,6 +215,9 @@ export class XProvider {
           this.logger.log(`X ${user.name} tweet timeline is empty`);
         }
       }
+      this.logger.log(
+        `Successfully get Timeline Tweet Data: ${JSON.stringify(result)}, length: ${result.length}`,
+      );
       return result;
     } catch (err) {
       console.error(JSON.stringify(err));
@@ -273,9 +276,11 @@ export class XProvider {
       const topK = Math.max(
         10,
         Math.round(
-          input.fileUrl.length / Number(ConnectorGlobal.env.RAG_FLOW_TOPK),
+          input.fileUrl.length *
+            (Number(ConnectorGlobal.env.RAG_FLOW_TOPK) / 100),
         ),
       );
+      this.logger.log(`TopK: ${topK}`);
       const chunkDocument = await axios.post(
         `${ConnectorGlobal.env.RAG_FLOW_SERVER_URL}/v1/index/${ConnectorGlobal.env.RAG_FLOW_DOCUMENT_INDEX}/query`,
         {
