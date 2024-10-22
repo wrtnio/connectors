@@ -257,7 +257,7 @@ export namespace IX {
     extends ISecret,
       IUserTweetTimeLineInput {
     /**
-     * query required to get the chunk document. You must understand the context Inputed by the user and enter the query to get as relevant information as possible.
+     * You need a query to get a chunk document. You need to understand the context you entered and enter a query to get relevant information. Please include your username as much as possible. For example, please summarize the tweet by username.
      *
      * @title query
      */
