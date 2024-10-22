@@ -15,7 +15,7 @@
     }
   ],
   "info": {
-    "version": "0.1.282",
+    "version": "0.1.283",
     "title": "@wrtn/connector",
     "description": "wrtn-ecosystem connectors and sdk",
     "license": {
@@ -54502,7 +54502,7 @@
           "query": {
             "type": "string",
             "title": "query",
-            "description": "query required to get the chunk document. You must understand the context Inputed by the user and enter the query to get as relevant information as possible."
+            "description": "You need a query to get a chunk document. You need to understand the context you entered and enter a query to get relevant information. Please include your username as much as possible. For example, please summarize the tweet by username."
           },
           "secretKey": {
             "type": "string",
