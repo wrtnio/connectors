@@ -168,6 +168,11 @@ export namespace ConnectorGlobal {
 
     // OPENWEATHER
     OPEN_WEATHER_API_KEY: string;
+    // X
+    X_APP_USER_BEARER_TOKEN: string;
+    X_CLIENT_ID: string;
+    X_CLIENT_SECRET: string;
+    X_TEST_SECRET: string;
 
     //----
     // INHOUSE SERVERS
@@ -196,6 +201,11 @@ export namespace ConnectorGlobal {
 
     // BROWSING AGENT PLAYGROUND
     BROWSING_AGENT_PLAYGROUND_SERVER_URL: string & tags.Format<"iri">;
+
+    // RAG FLOW
+    RAG_FLOW_SERVER_URL: string & tags.Format<"iri">;
+    RAG_FLOW_DOCUMENT_INDEX: string;
+    RAG_FLOW_TOPK: string;
   }
 }
 

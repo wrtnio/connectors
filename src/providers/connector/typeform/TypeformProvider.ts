@@ -404,7 +404,7 @@ export class TypeformProvider {
         await OAuthSecretProvider.updateSecretValue(input.secretKey, {
           value: res.data.refresh_token,
         });
-        this.logger.log("Refresh Token Updated");
+        this.logger.log("Typeform Refresh Token Updated");
       }
 
       /**

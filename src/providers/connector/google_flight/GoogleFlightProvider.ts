@@ -2,10 +2,11 @@ import { BadRequestException, Injectable } from "@nestjs/common";
 import { IGoogleFlight } from "@wrtn/connector-api/lib/structures/connector/google_flight/IGoogleFlight";
 import { getJson } from "serpapi";
 import { ShortLinkProvider } from "../short_link/ShortLinkProvider";
+import { ConnectorGlobal } from "../../../ConnectorGlobal";
 
 const defaultParams = {
   engine: "google_flights",
-  api_key: process.env.SERP_API_KEY,
+  api_key: ConnectorGlobal.env.SERP_API_KEY,
   hl: "ko",
   gl: "kr",
   currency: "KRW",
