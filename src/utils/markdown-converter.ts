@@ -23,35 +23,29 @@ function _convert<T>(input: {
       return null;
     })
     .filter((el) => el !== null)
-    .flatMap((token: MarkedToken, currentTokenIndex, arr) => {
-      const previous = arr.slice(0, currentTokenIndex);
-      const localWeight = previous
-        .map((el) => {
-          const localWeight = "text" in el ? el.text.length : 0;
-          return localWeight;
-        })
-        .reduce((acc, cur) => acc + cur, 0);
-
-      // 기본 값으로 무조건 1글자(줄바꿈)을 넣기 때문에 `currentTokenIndex`를 더해가야 한다.
-      const finalWeight = (input.weight ?? 0) + localWeight + currentTokenIndex;
-
-      console.log("localWeight: ", localWeight, finalWeight);
+    .flatMap((token: MarkedToken) => {
       const converter = input.converter?.[token.type];
-      if ("tokens" in token && (token.tokens?.length ?? 0) > 0) {
-        const children = token.tokens;
+      const hasChildren = "tokens" in token && (token.tokens?.length ?? 0) > 0;
+      const hasItems = "items" in token && (token.items?.length ?? 0) > 0;
+      const subs = hasChildren ? token.tokens : hasItems ? token.items : null;
+
+      if (subs && subs?.length > 0) {
         if (converter?.recursive === true) {
-          if (children?.every<MarkedToken>(excludeGenericToken)) {
-            return _convert({
-              tokenList: children,
-              converter: input.converter,
-              defaultValue: input.defaultValue,
-              weight: finalWeight,
-            });
+          if (subs?.every<MarkedToken>(excludeGenericToken)) {
+            return [
+              ...converter?.convert?.(token, input.weight),
+              ..._convert({
+                tokenList: subs,
+                converter: input.converter,
+                defaultValue: input.defaultValue,
+                weight: input.weight,
+              }),
+            ];
           }
         }
       }
 
-      return converter?.convert?.(token, finalWeight) ?? input.defaultValue;
+      return converter?.convert?.(token, input.weight) ?? input.defaultValue;
     });
 }
 

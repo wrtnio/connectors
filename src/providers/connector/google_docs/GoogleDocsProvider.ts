@@ -8,6 +8,8 @@ import { markdownConverter } from "../../../utils/markdown-converter";
 import { GoogleProvider } from "../../internal/google/GoogleProvider";
 import { OAuthSecretProvider } from "../../internal/oauth_secret/OAuthSecretProvider";
 import { IOAuthSecret } from "../../internal/oauth_secret/structures/IOAuthSecret";
+import { ConnectorGlobal } from "../../../ConnectorGlobal";
+import { Tokens } from "marked";
 
 @Injectable()
 export class GoogleDocsProvider {
@@ -283,31 +285,33 @@ export class GoogleDocsProvider {
           return acc;
         }, 0) ?? 2) - 2; // 빈 문서는 줄바꿈 문자를 포함하여 최소 index가 2부터 시작한다.
 
-      const weightedRequests = textRequests.map((request, i) => {
+      const weightedRequests = textRequests.map((request, i, arr) => {
         if (
           typia.is<{
             updateTextStyle: docs_v1.Schema$UpdateTextStyleRequest;
           }>(request)
         ) {
+          const acc = arr
+            .slice(0, i - 1) // 스타일 바로 직전의 텍스트는 제외해야 하기 때문에 -1을 한다.
+            .filter((el) => el.insertText)
+            .map(({ insertText }) => {
+              return insertText?.text?.length ?? 0;
+            })
+            .reduce<number>((acc, cur) => acc + cur, 0);
+
           const range = request.updateTextStyle.range;
           if (range) {
-            console.log(weight, range);
             if (typeof range.startIndex === "number") {
-              range.startIndex = range.startIndex + (weight + 1);
+              range.startIndex = range.startIndex + (weight + acc + 1);
             }
 
             if (typeof range.endIndex === "number") {
-              range.endIndex = range.endIndex + (weight + 1);
+              range.endIndex = range.endIndex + (weight + acc + 1);
             }
           }
         }
         return request;
       });
-
-      console.log(
-        "weightedRequests: ",
-        JSON.stringify(weightedRequests, null, 2),
-      );
 
       await docs.documents.batchUpdate({
         documentId: documentId,
@@ -359,23 +363,23 @@ function convertMarkdownToGoogleDocsRequests(input: { text: string }) {
         },
       },
       heading: {
-        convert: (token, localWeight = 0) => {
-          console.log("heading token:", token);
+        convert: (token) => {
           const headingLevel = (token as any).depth;
           const fontSize =
             headingLevel === 1 ? 24 : headingLevel === 2 ? 20 : 16;
+          const text = `\n${token.text}` + "\n";
           return [
             {
               insertText: {
                 endOfSegmentLocation: {},
-                text: token.text + "\n",
+                text: text,
               },
             },
             {
               updateTextStyle: {
                 range: {
-                  startIndex: localWeight,
-                  endIndex: token.text.length + localWeight,
+                  startIndex: 0,
+                  endIndex: text.length,
                 },
                 textStyle: {
                   bold: true,
@@ -395,7 +399,7 @@ function convertMarkdownToGoogleDocsRequests(input: { text: string }) {
         recursive: true,
       },
       code: {
-        convert: (token, localWeight = 0) => {
+        convert: (token) => {
           return [
             {
               insertText: {
@@ -406,8 +410,8 @@ function convertMarkdownToGoogleDocsRequests(input: { text: string }) {
             {
               updateTextStyle: {
                 range: {
-                  startIndex: localWeight,
-                  endIndex: token.text.length + localWeight,
+                  startIndex: 0,
+                  endIndex: token.text.length,
                 },
                 textStyle: {
                   fontSize: {
@@ -432,45 +436,102 @@ function convertMarkdownToGoogleDocsRequests(input: { text: string }) {
         },
       },
       list: {
-        convert: (token) => {
+        convert: (token: Tokens.List) => {
+          token.items.forEach((child) => {
+            (child as any).depth = ((token as any).depth ?? -1) + 1;
+          });
+          return [];
+        },
+        recursive: true,
+      },
+      list_item: {
+        convert: (token: Tokens.ListItem & { depth: number }) => {
+          token.tokens.forEach((child) => {
+            (child as any).depth = (token as any).depth ?? 0;
+            // list 안은 무조건 [textNode]가 자식이기 때문에 length가 1이다.
+            (child as any).isLast = true;
+          });
+
+          console.log(JSON.stringify(token, null, 2));
+
+          const regexp = /^\d\.+/g;
+          const number = token.raw.match(regexp)?.[0] ?? null;
+          const prefix = "\t".repeat(token.depth);
+          const text = number ? `${prefix}${number} ` : `${prefix}- `;
+
           return [
             {
               insertText: {
                 endOfSegmentLocation: {},
-                text: token.raw,
+                text: text,
               },
             },
           ];
         },
+        recursive: true,
       },
       strong: {
-        convert: (token, localWeight = 0) => {
-          console.log("strong", token);
-          return [
-            {
-              insertText: {
-                endOfSegmentLocation: {},
-                text: token.text,
-              },
-            },
-            {
-              updateTextStyle: {
-                range: {
-                  startIndex: localWeight,
-                  endIndex: token.text.length + localWeight,
+        convert: (token: Tokens.Strong & { isLast: boolean }) => {
+          const child = token.tokens[0] as Tokens.Link | Tokens.Text;
+          const text =
+            child.type === "link"
+              ? token.isLast
+                ? `${child.title ?? child.text ?? child.href}\n`
+                : `${child.title ?? child.text ?? child.href}`
+              : token.isLast
+                ? `${child.text}\n`
+                : `${child.text}`;
+
+          if (child.type === "link") {
+            return [
+              {
+                insertText: {
+                  endOfSegmentLocation: {},
+                  text: text,
                 },
-                textStyle: {
-                  bold: true,
-                },
-                fields: "bold",
               },
-            },
-          ];
+              {
+                updateTextStyle: {
+                  range: {
+                    startIndex: 0,
+                    endIndex: text.length,
+                  },
+                  textStyle: {
+                    link: {
+                      url: child.href,
+                    },
+                  },
+                  fields: "link",
+                },
+              },
+            ];
+          } else {
+            return [
+              {
+                insertText: {
+                  endOfSegmentLocation: {},
+                  text: text,
+                },
+              },
+              {
+                updateTextStyle: {
+                  range: {
+                    startIndex: 0,
+                    endIndex: text.length,
+                  },
+                  textStyle: {
+                    bold: true,
+                  },
+                  fields: "bold",
+                },
+              },
+            ];
+          }
         },
       },
       em: {
-        convert: (token, localWeight = 0) => {
-          console.log("em", token);
+        convert: (token) => {
+          console.log("em: ", token);
           return [
             {
               insertText: {
@@ -481,8 +542,8 @@ function convertMarkdownToGoogleDocsRequests(input: { text: string }) {
             {
               updateTextStyle: {
                 range: {
-                  startIndex: localWeight,
-                  endIndex: token.text.length + localWeight,
+                  startIndex: 0,
+                  endIndex: token.text.length,
                 },
                 textStyle: {
                   italic: true,
@@ -493,28 +554,79 @@ function convertMarkdownToGoogleDocsRequests(input: { text: string }) {
           ];
         },
       },
-
-      // list_item: {
-      //   convert: (token) => {
-      //     console.log("list_item: ", token);
-      //     return [
-      //       {
-      //         insertText: {
-      //           endOfSegmentLocation: {},
-      //           text: token.text + "\n",
-      //         },
-      //       },
-      //     ];
-      //   },
-      //   recursive: false,
-      // },
       text: {
-        convert: (token) => {
+        convert: (
+          token: Tokens.Text & {
+            /**
+             * 한 list_item을 구성하는 text node 중 마지막인 경우
+             */
+            isLast: boolean;
+          },
+        ) => {
+          token.tokens?.forEach((child, i, arr) => {
+            if (token.isLast && arr.length - 1 === i) {
+              (child as any).isLast = true;
+            }
+          });
+
+          const regexp = /\\n$/g;
+          const text = regexp.test(token.raw)
+            ? token.raw
+            : token.isLast
+              ? `${token.text}\n`
+              : token.text;
+          return token.tokens?.length
+            ? []
+            : [
+                {
+                  insertText: {
+                    endOfSegmentLocation: {},
+                    text: text,
+                  },
+                },
+                {
+                  updateTextStyle: {
+                    range: {
+                      startIndex: 0,
+                      endIndex: text.length,
+                    },
+                    textStyle: {
+                      bold: false,
+                      italic: false,
+                      fontSize: {
+                        magnitude: 11,
+                        unit: "PT",
+                      },
+                    },
+                    fields: "bold,italic,fontSize",
+                  },
+                },
+              ];
+        },
+        recursive: true,
+      },
+      link: {
+        convert: (token: Tokens.Link & { isLast: boolean }) => {
+          const text = `${token.title ?? token.text ?? token.href}${token.isLast ? "\n" : ""}`;
           return [
             {
               insertText: {
                 endOfSegmentLocation: {},
-                text: token.text + "\n",
+                text: text,
+              },
+            },
+            {
+              updateTextStyle: {
+                range: {
+                  startIndex: 0,
+                  endIndex: text.length,
+                },
+                textStyle: {
+                  link: {
+                    url: token.href,
+                  },
+                },
+                fields: "link",
               },
             },
           ];
@@ -523,401 +635,3 @@ function convertMarkdownToGoogleDocsRequests(input: { text: string }) {
     },
   });
 }
-
-// function convertMarkdownToGoogleDocsRequests(input: { text: string }) {
-//   const tokenList = lexer(input.text);
-//   return arrayTransform({ tokens: tokenList });
-// }
-
-// export function arrayTransform(options: {
-//   tokens: Token[];
-//   parentLocalWeight?: number;
-// }) {
-//   return options.tokens
-//     .map((token) => {
-//       const target = is(token) ? token : null;
-//       if (target === null) {
-//         return null;
-//       }
-//       return target;
-//     })
-//     .filter((el) => el !== null)
-//     ?.flatMap((token, currentTokenIndex, arr) => {
-//       const previous = arr.slice(0, currentTokenIndex);
-//       const localWeight = previous
-//         .map((el) => {
-//           let localWeight = 0;
-//           localWeight += "text" in el ? el.text.length : 1;
-
-//           return localWeight;
-//         })
-//         .reduce((acc, cur) => acc + cur, 0);
-
-//       const transformed = transform(
-//         token,
-//         localWeight + currentTokenIndex + (options.parentLocalWeight ?? 0),
-//       ); // google docs는 무조건 0번째에 break가 있기 때문에 1번부터가 첫 문장 시작점이다.
-
-//       console.log(token, transformed);
-//       return transformed;
-//     })
-//     .filter((el) => el !== null);
-// }
-
-// const is = typia.createIs<MarkedToken>();
-// function transform(
-//   token: Token,
-//   localWeight: number = 0,
-// ): (
-//   | { insertText: docs_v1.Schema$InsertTextRequest }
-//   | { updateTextStyle: docs_v1.Schema$UpdateTextStyleRequest }
-// )[] {
-//   if ("tokens" in token) {
-//     return arrayTransform({
-//       tokens: token.tokens ?? [],
-//       parentLocalWeight: localWeight,
-//     });
-//   }
-
-//   if (token.type === "space") {
-//     return [
-//       {
-//         insertText: {
-//           endOfSegmentLocation: {},
-//           text: "\n",
-//         },
-//       },
-//     ];
-//   }
-//   if (token.type === "code") {
-//     return [
-//       {
-//         insertText: {
-//           endOfSegmentLocation: {},
-//           text: token.text + "\n",
-//         },
-//       },
-//       {
-//         updateTextStyle: {
-//           range: {
-//             startIndex: localWeight,
-//             endIndex: token.text.length + localWeight,
-//           },
-//           textStyle: {
-//             fontSize: {
-//               magnitude: 11,
-//               unit: "PT",
-//             },
-//             bold: true,
-//             backgroundColor: {
-//               color: {
-//                 rgbColor: {
-//                   red: 0.9,
-//                   green: 0.9,
-//                   blue: 0.9,
-//                 },
-//               },
-//             },
-//           },
-//           fields: "bold,backgroundColor",
-//         },
-//       },
-//     ];
-//   }
-//   if (token.type === "heading") {
-//     console.log("token: ", token);
-//     const headingLevel = (token as any).depth;
-//     const fontSize = headingLevel === 1 ? 24 : headingLevel === 2 ? 20 : 16;
-//     return [
-//       {
-//         insertText: {
-//           endOfSegmentLocation: {},
-//           text: token.text + "\n",
-//         },
-//       },
-//       {
-//         updateTextStyle: {
-//           range: {
-//             startIndex: localWeight,
-//             endIndex: token.text.length + localWeight,
-//           },
-//           textStyle: {
-//             bold: true,
-//             fontSize: {
-//               magnitude: fontSize,
-//               unit: "PT",
-//             },
-//           },
-//           fields: "bold,fontSize",
-//         },
-//       },
-//     ];
-//   }
-//   if (token.type === "table") {
-//     // 표를 다루는 로직은 더 복잡하며, 각 셀을 개별적으로 처리해야 함
-//     return [];
-//   }
-//   if (token.type === "hr") {
-//     // 수평선을 삽입하는 로직
-//     // const horizontalLine = "_________________________\n";
-//     const horizontalLine = "-------------------------\n";
-//     return [
-//       {
-//         insertText: {
-//           endOfSegmentLocation: {},
-//           text: horizontalLine,
-//         },
-//       },
-//       {
-//         updateTextStyle: {
-//           range: {
-//             startIndex: localWeight,
-//             endIndex: localWeight + horizontalLine.length,
-//           },
-//           fields: "*",
-//         },
-//       },
-//     ];
-//   }
-//   if (token.type === "blockquote") {
-//     return [
-//       {
-//         insertText: {
-//           endOfSegmentLocation: {},
-//           text: token.text + "\n",
-//         },
-//       },
-//       {
-//         updateTextStyle: {
-//           range: {
-//             startIndex: localWeight,
-//             endIndex: token.text.length + localWeight,
-//           },
-//           textStyle: {
-//             italic: true,
-//             foregroundColor: {
-//               color: {
-//                 rgbColor: {
-//                   red: 0.6,
-//                   green: 0.6,
-//                   blue: 0.6,
-//                 },
-//               },
-//             },
-//           },
-//           fields: "italic,foregroundColor",
-//         },
-//       },
-//     ];
-//   }
-//   if (token.type === "list") {
-//     // 리스트 아이템을 다루는 로직 추가
-//     // return []
-//     // return [
-//     //   {
-//     //     insertText: {
-//     //       endOfSegmentLocation: {},
-//     //       text: token.raw,
-//     //     },
-//     //   },
-//     //   {
-//     //     updateTextStyle: {
-//     //       range: {
-//     //         startIndex: localWeight,
-//     //         endIndex: token.raw.length + localWeight,
-//     //       },
-//     //       fields: "*",
-//     //     },
-//     //   },
-//     // ];
-//   }
-//   if (token.type === "list_item") {
-//     // 각 리스트 아이템에 대한 로직 추가
-
-//     console.log("hagasasdsad", JSON.stringify(token, null, 2));
-//     return [
-//       {
-//         insertText: {
-//           endOfSegmentLocation: {},
-//           text: token.raw,
-//         },
-//       },
-//       {
-//         updateTextStyle: {
-//           range: {
-//             startIndex: localWeight,
-//             endIndex: token.text.length + localWeight,
-//           },
-//           fields: "*",
-//         },
-//       },
-//     ];
-//   }
-//   if (token.type === "paragraph") {
-//     return [
-//       {
-//         insertText: {
-//           endOfSegmentLocation: {},
-//           text: token.text + "\n",
-//         },
-//       },
-//       {
-//         updateTextStyle: {
-//           range: {
-//             startIndex: localWeight,
-//             endIndex: token.text.length + localWeight,
-//           },
-//           fields: "*",
-//         },
-//       },
-//     ];
-//   }
-//   if (token.type === "html") {
-//     // HTML을 무시하거나 특정 동작 추가
-//     return [
-//       {
-//         insertText: {
-//           endOfSegmentLocation: {},
-//           text: token.text + "\n",
-//         },
-//       },
-//     ];
-//   }
-//   if (token.type === "text") {
-//     return [
-//       {
-//         insertText: {
-//           endOfSegmentLocation: {},
-//           text: token.text + "\n",
-//         },
-//       },
-//     ];
-//   }
-//   if (token.type === "strong") {
-//     return [
-//       {
-//         insertText: {
-//           endOfSegmentLocation: {},
-//           text: token.text,
-//         },
-//       },
-//       {
-//         updateTextStyle: {
-//           range: {
-//             startIndex: localWeight,
-//             endIndex: token.text.length + localWeight,
-//           },
-//           textStyle: {
-//             bold: true,
-//           },
-//           fields: "bold",
-//         },
-//       },
-//     ];
-//   }
-//   if (token.type === "em") {
-//     return [
-//       {
-//         insertText: {
-//           endOfSegmentLocation: {},
-//           text: token.text,
-//         },
-//       },
-//       {
-//         updateTextStyle: {
-//           range: {
-//             startIndex: localWeight,
-//             endIndex: token.text.length + localWeight,
-//           },
-//           textStyle: {
-//             italic: true,
-//           },
-//           fields: "italic",
-//         },
-//       },
-//     ];
-//   }
-//   if (token.type === "codespan") {
-//     return [
-//       {
-//         insertText: {
-//           endOfSegmentLocation: {},
-//           text: token.text,
-//         },
-//       },
-//       {
-//         updateTextStyle: {
-//           range: {
-//             startIndex: localWeight,
-//             endIndex: token.text.length + localWeight,
-//           },
-//           textStyle: {
-//             bold: true,
-//             backgroundColor: {
-//               color: {
-//                 rgbColor: {
-//                   red: 0.9,
-//                   green: 0.9,
-//                   blue: 0.9,
-//                 },
-//               },
-//             },
-//           },
-//           fields: "bold,backgroundColor",
-//         },
-//       },
-//     ];
-//   }
-//   if (token.type === "br") {
-//     return [
-//       {
-//         insertText: {
-//           endOfSegmentLocation: {},
-//           text: "\n",
-//         },
-//       },
-//     ];
-//   }
-//   if (token.type === "del") {
-//     return [
-//       {
-//         insertText: {
-//           endOfSegmentLocation: {},
-//           text: token.text,
-//         },
-//       },
-//       {
-//         updateTextStyle: {
-//           range: {
-//             startIndex: localWeight,
-//             endIndex: token.text.length + localWeight,
-//           },
-//           textStyle: {
-//             strikethrough: true,
-//           },
-//           fields: "strikethrough",
-//         },
-//       },
-//     ];
-//   }
-//   return [];
-// }
-
-// new GoogleDocsProvider(new GoogleProvider()).append({
-//   secretKey: ConnectorGlobal.env.GOOGLE_TEST_SECRET,
-//   documentId: "1DcPNAeOE378oi3lRkAOf8IW7FF0qLELrYMkVsMwg-J4",
-//   text: `# 12345
-// 12345
-// ## 12345
-// ### 12345
-// \`\`\`ts
-// console.log(12345);
-// \`\`\`
-// - 12345
-// - 12345
-// 1. 12345
-// 2. 12345
-// *12345*
-// **67890**
-// `,
-// });
