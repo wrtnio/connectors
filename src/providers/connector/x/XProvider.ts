@@ -79,7 +79,25 @@ export class XProvider {
     }
   }
 
-  async getTweet(
+  async summarizeTweet(
+    input: IX.ISummarizeTweetInput,
+  ): Promise<IX.IGetChunkDocumentOutput> {
+    try {
+      const { user, secretKey } = input;
+      const tweets = await this.getUserTimelineTweets({ user, secretKey });
+      const txtFiles = await this.makeTxtFileForTweetAndUploadToS3(tweets);
+      const chunkDocument = await this.getChunkDocument({
+        fileUrl: txtFiles.map((file) => file.fileUrl),
+        query: input.query,
+      });
+      return chunkDocument;
+    } catch (err) {
+      console.error(JSON.stringify(err));
+      throw err;
+    }
+  }
+
+  private async getTweet(
     input: IX.IGetTweetInput,
     accessTokenValue?: string,
   ): Promise<IX.ITweetOutput> {
@@ -118,7 +136,7 @@ export class XProvider {
     }
   }
 
-  async getUserTimelineTweets(
+  private async getUserTimelineTweets(
     input: IX.IUserTweetTimeLineInput,
   ): Promise<IX.ITweetOutput[]> {
     try {
@@ -204,7 +222,7 @@ export class XProvider {
     }
   }
 
-  async makeTxtFileForTweetAndUploadToS3(
+  private async makeTxtFileForTweetAndUploadToS3(
     input: IX.ITweetOutput[],
   ): Promise<IX.IMakeTxtFileAndUploadOutput[]> {
     try {
@@ -243,7 +261,7 @@ export class XProvider {
     }
   }
 
-  async getChunkDocument(
+  private async getChunkDocument(
     input: IX.IGetChunkDocumentInput,
   ): Promise<IX.IGetChunkDocumentOutput> {
     const analyze = await this.ragProvider.analyze(

@@ -249,4 +249,18 @@ export namespace IX {
       metadata: any;
     }[];
   }
+
+  /**
+   * @title Information needed for tweet summary
+   */
+  export interface ISummarizeTweetInput
+    extends ISecret,
+      IUserTweetTimeLineInput {
+    /**
+     * query required to get the chunk document. You must understand the context Inputed by the user and enter the query to get as relevant information as possible.
+     *
+     * @title query
+     */
+    query: string;
+  }
 }
