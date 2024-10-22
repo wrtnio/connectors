@@ -79,15 +79,30 @@ export class XProvider {
     }
   }
 
-  async summarizeTweet(
-    input: IX.ISummarizeTweetInput,
-  ): Promise<IX.IGetChunkDocumentOutput> {
+  async prepareSummary(
+    input: IX.IPrePareSummarizeTweetInput,
+  ): Promise<IX.IPrePareSummarizeTweetOutput> {
     try {
       const { user, secretKey } = input;
       const tweets = await this.getUserTimelineTweets({ user, secretKey });
       const txtFiles = await this.makeTxtFileForTweetAndUploadToS3(tweets);
+      const analyze = await this.ragProvider.analyze(
+        { url: txtFiles.map((file) => file.fileUrl) },
+        true,
+      );
+      return { chatId: analyze.chatId };
+    } catch (err) {
+      console.error(JSON.stringify(err));
+      throw err;
+    }
+  }
+
+  async summarizeTweet(
+    input: IX.ISummarizeTweetInput,
+  ): Promise<IX.IGetChunkDocumentOutput> {
+    try {
       const chunkDocument = await this.getChunkDocument({
-        fileUrl: txtFiles.map((file) => file.fileUrl),
+        chatId: input.chatId,
         query: input.query,
       });
       return chunkDocument;
@@ -267,28 +282,15 @@ export class XProvider {
   private async getChunkDocument(
     input: IX.IGetChunkDocumentInput,
   ): Promise<IX.IGetChunkDocumentOutput> {
-    const analyze = await this.ragProvider.analyze(
-      { url: input.fileUrl },
-      true,
-    );
-
     try {
-      const topK = Math.max(
-        10,
-        Math.round(
-          input.fileUrl.length *
-            (Number(ConnectorGlobal.env.RAG_FLOW_TOPK) / 100),
-        ),
-      );
-      this.logger.log(`TopK: ${topK}`);
       const chunkDocument = await axios.post(
         `${ConnectorGlobal.env.RAG_FLOW_SERVER_URL}/v1/index/${ConnectorGlobal.env.RAG_FLOW_DOCUMENT_INDEX}/query`,
         {
           query: input.query,
-          topk: topK,
+          topk: ConnectorGlobal.env.RAG_FLOW_TOPK,
           filters: [
             {
-              chat_id: analyze.chatId,
+              chat_id: input.chatId,
             },
           ],
         },
@@ -299,7 +301,7 @@ export class XProvider {
         },
       );
       this.logger.log(
-        `Successfully get chunk document: chatId: ${analyze.chatId}, body: ${JSON.stringify(chunkDocument.data)}`,
+        `Successfully get chunk document: chatId: ${input.chatId}, body: ${JSON.stringify(chunkDocument.data)}`,
       );
       return chunkDocument.data;
     } catch (err) {

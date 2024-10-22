@@ -46,6 +46,24 @@ export class XController {
   }
 
   /**
+   * Prepare summarizes the tweets of those requested them.
+   *
+   * @summary Prepare Tweet Summary
+   *
+   * @param input user information, secretKey, query
+   * @returns
+   */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/X_full.svg",
+  )
+  @core.TypedRoute.Post("/prepare-summarize")
+  async prepareSummary(
+    @core.TypedBody() input: IX.IPrePareSummarizeTweetInput,
+  ): Promise<IX.IPrePareSummarizeTweetOutput> {
+    return this.XProvider.prepareSummary(input);
+  }
+
+  /**
    * Summarizes the tweets of those requested them.
    *
    * @summary Tweet Summary
