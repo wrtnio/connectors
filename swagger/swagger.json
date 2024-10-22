@@ -15,7 +15,7 @@
     }
   ],
   "info": {
-    "version": "0.1.280",
+    "version": "0.1.281",
     "title": "@wrtn/connector",
     "description": "wrtn-ecosystem connectors and sdk",
     "license": {
@@ -12227,8 +12227,8 @@
     },
     "/connector/x/get-influencers": {
       "post": {
-        "summary": "Get Influencer Information",
-        "description": "Get Influencer Information",
+        "summary": "Get information on celebrities.",
+        "description": "Get X user information of celebrities. Useful for understanding trends in various fields such as world affairs and IT.",
         "tags": [],
         "parameters": [],
         "requestBody": {
