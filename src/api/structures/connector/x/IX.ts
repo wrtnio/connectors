@@ -190,13 +190,13 @@ export namespace IX {
    */
   export interface IGetChunkDocumentInput {
     /**
-     * File urls to get the list of chunk documents
+     * Chat id required for RAG generation results.
+     * Returns the chat id for the analyzed file to generate chat results for the file analyzed by RAG.
+     * The same chat id is required to analyze multiple files and generate results for multiple files in the same chat.
      *
-     * @title file url
+     * @title chat id
      */
-    fileUrl: Array<
-      string & tags.Format<"uri"> & tags.ContentMediaType<"text/plain">
-    >;
+    chatId: string;
 
     /**
      * query required to get the chunk document. You must understand the context Inputed by the user and enter the query to get as relevant information as possible.
@@ -250,14 +250,54 @@ export namespace IX {
     }[];
   }
 
+  export interface IPrePareSummarizeTweetInput
+    extends ISecret,
+      IUserTweetTimeLineInput {}
+
+  /**
+   * @title Prepare Summarize tweet results
+   */
+  export interface IPrePareSummarizeTweetOutput {
+    /**
+     * Chat id required for RAG generation results.
+     * Returns the chat id for the analyzed file to generate chat results for the file analyzed by RAG.
+     * The same chat id is required to analyze multiple files and generate results for multiple files in the same chat.
+     *
+     * @title chat id
+     */
+    chatId: string;
+  }
+
   /**
    * @title Information needed for tweet summary
    */
-  export interface ISummarizeTweetInput
-    extends ISecret,
-      IUserTweetTimeLineInput {
+  export interface ISummarizeTweetInput {
     /**
-     * You need a query to get a chunk document. You need to understand the context you entered and enter a query to get relevant information. Please include your username as much as possible. For example, please summarize the tweet by username.
+     * "chatId" to get tweets. Pass the "chatId" obtained from the "prepare-summarize-tweet" API as-is.
+     *
+     * @title chatId
+     */
+    chatId: string &
+      Prerequisite<{
+        method: "post";
+        path: "/connector/x/prepare-summarize";
+        jmesPath: JMESPath<
+          IPrePareSummarizeTweetOutput,
+          ".{value:chatId, label:chatId}"
+        >;
+      }>;
+
+    /**
+     * A query that describes what tweets you want to get. For example, it can be a keyword or a name of a person.
+     *
+     * Avoid using a query that is too broad, it may lead to irrelevant results.
+     *
+     * Put a single subject at a time. If you need multiple subjects, make multiple requests for each subject.
+     *
+     * @example "Elon Musk"
+     * @example IT
+     * @example AI
+     * @example LLM
      *
      * @title query
      */
