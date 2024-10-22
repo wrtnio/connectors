@@ -250,6 +250,9 @@ export namespace IX {
     }[];
   }
 
+  /**
+   * @title Information needed for tweet summary
+   */
   export interface ISummarizeTweetInput
     extends ISecret,
       IUserTweetTimeLineInput {
