@@ -28,9 +28,9 @@ export class XController {
   }
 
   /**
-   * Get Influencer Information
+   * Get X user information of celebrities. Useful for understanding trends in various fields such as world affairs and IT.
    *
-   * @summary Get Influencer Information
+   * @summary Get information on celebrities.
    *
    * @param input username
    * @returns user information
