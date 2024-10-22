@@ -53,7 +53,6 @@ export class GoogleDriveController {
    * Create a new folder in Google Drive
    *
    * @summary Create a Google Drive folder
-   *
    * @param headers
    * @param input The name of the folder to be created
    * @returns The unique ID of the created folder

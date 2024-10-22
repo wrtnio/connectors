@@ -87,10 +87,10 @@ export namespace IKakaoTalk {
       tags.Default<"asc">;
 
     /**
-     * @title Sort criteria of the friends list
-     *
      * It must be one of: 'favorite', 'nickname'.
      * Default value is 'favorite'.
+     *
+     * @title Sort criteria of the friends list
      */
     friend_order?: (
       | tags.Constant<"favorite", { title: "Sort by favorite" }>
@@ -184,11 +184,11 @@ export namespace IKakaoTalk {
     has_next: boolean;
 
     /**
-     * @title URL of the next page
-     *
      * A URL containing parameters and values to retrieve the next page, used as is when requesting the next page.
      *
      * Provided when `has_next` is true.
+     *
+     * @title URL of the next page
      */
     after_url?: string & tags.Format<"url">;
   }

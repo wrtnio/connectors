@@ -17,7 +17,6 @@ export class KakaoMapController {
    * It can be used with public data or other address-based connectors.
    *
    * @summary Kakao Map Search
-   *
    * @param input Search condition
    * @returns Search result
    */

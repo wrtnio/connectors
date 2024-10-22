@@ -29,5 +29,7 @@ export type Camelize<T> = {
     ? "terminal"
     : T extends string
       ? "string"
-      : /** default */
+      : /**
+         * default
+         */
         "default"];

@@ -2,11 +2,11 @@ import { Placeholder } from "@wrtnio/decorators";
 import { tags } from "typia";
 
 /**
- * @title Sort by
- *
  * accuracy: accuracy (default)
  *
  * recency: latest
+ *
+ * @title Sort by
  */
 type Sort = "accuracy" | "recency";
 

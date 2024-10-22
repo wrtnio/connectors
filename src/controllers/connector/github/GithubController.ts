@@ -10,7 +10,6 @@ export class GithubController {
   constructor(private readonly githubProvider: GithubProvider) {}
 
   /**
-   *
    * RAG analysis for a particular repo
    *
    * This RAG analysis makes the repository's code all five files and analyzes them, allowing the chatbot to learn more about the repository and deliver more detailed information.
@@ -18,6 +17,7 @@ export class GithubController {
    *
    * @internal
    * @deprecated The RAG part will add a function so that chatbots can do it themselves
+   *
    * @summary Analysis for a github repository
    * @param input
    * @returns

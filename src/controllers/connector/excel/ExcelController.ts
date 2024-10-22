@@ -131,6 +131,7 @@ export class ExcelController {
    * When creating a sheet with this feature, the default name 'Sheet1' is created if the sheet name is not provided.
    *
    * @deprecated
+   *
    * @summary Add Excel files and sheet
    */
   @core.TypedRoute.Post()

@@ -253,7 +253,6 @@ export class OpenDataController {
    * Also, since this is based on the closing of the stock market, you can only look up from about two months ago (9 days ago) to yesterday from today's date.
    *
    * @summary Retrieve market capitalization and stock information
-   *
    * @param input Conditions for querying market capitalization
    * @returns Market capitalization and stock information
    */
@@ -313,7 +312,6 @@ export class OpenDataController {
    * Please be aware of this.
    *
    * @summary Retrieve today's weather from the Korea Meteorological Administration
-   *
    * @param input DTO for weather query location
    * @returns Weather information for the specified region
    */

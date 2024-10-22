@@ -44,12 +44,12 @@ export namespace IGoogleSlides {
       ["https://www.googleapis.com/auth/presentations"]
     > {
     /**
-     * @title templates
-     *
      * As a slide to add, this template arrangement consists of the same type of template.
      * Templates have unconditional text except for the Entire type, and the image and text are paired.
      * When the user creates a storyline, the text may be concise, but if it means a fairy tale book, a cartoon, or a speech bubble,
      * it is better to substitute a text of sufficient length to grasp the context of the story even if viewed again later.
+     *
+     * @title templates
      */
     templates: StrictOmit<IGoogleSlides.Template.QuarterDivision, "type">[];
   }
@@ -60,12 +60,12 @@ export namespace IGoogleSlides {
       ["https://www.googleapis.com/auth/presentations"]
     > {
     /**
-     * @title templates
-     *
      * As a slide to add, this template arrangement consists of the same type of template.
      * Templates have unconditional text except for the Entire type, and the image and text are paired.
      * When the user creates a storyline, the text may be concise, but if it means a fairy tale book, a cartoon, or a speech bubble,
      * it is better to substitute a text of sufficient length to grasp the context of the story even if viewed again later.
+     *
+     * @title templates
      */
     templates: StrictOmit<IGoogleSlides.Template.Entire, "type">[];
   }
@@ -76,12 +76,12 @@ export namespace IGoogleSlides {
       ["https://www.googleapis.com/auth/presentations"]
     > {
     /**
-     * @title templates
-     *
      * As a slide to add, this template arrangement consists of the same type of template.
      * Templates have unconditional text except for the Entire type, and the image and text are paired.
      * When the user creates a storyline, the text may be concise, but if it means a fairy tale book, a cartoon, or a speech bubble,
      * it is better to substitute a text of sufficient length to grasp the context of the story even if viewed again later.
+     *
+     * @title templates
      */
     templates: StrictOmit<IGoogleSlides.Template.Landscape, "type">[];
   }
@@ -92,12 +92,12 @@ export namespace IGoogleSlides {
       ["https://www.googleapis.com/auth/presentations"]
     > {
     /**
-     * @title templates
-     *
      * As a slide to add, this template arrangement consists of the same type of template.
      * Templates have unconditional text except for the Entire type, and the image and text are paired.
      * When the user creates a storyline, the text may be concise, but if it means a fairy tale book, a cartoon, or a speech bubble,
      * it is better to substitute a text of sufficient length to grasp the context of the story even if viewed again later.
+     *
+     * @title templates
      */
     templates: StrictOmit<IGoogleSlides.Template.Vertical, "type">[];
   }
@@ -108,12 +108,12 @@ export namespace IGoogleSlides {
       ["https://www.googleapis.com/auth/presentations"]
     > {
     /**
-     * @title templates
-     *
      * As a slide to add, this template arrangement consists of the same type of template.
      * Templates have unconditional text except for the Entire type, and the image and text are paired.
      * When the user creates a storyline, the text may be concise, but if it means a fairy tale book, a cartoon, or a speech bubble,
      * it is better to substitute a text of sufficient length to grasp the context of the story even if viewed again later.
+     *
+     * @title templates
      */
     templates: StrictOmit<IGoogleSlides.Template.Square, "type">[];
   }
@@ -167,14 +167,14 @@ export namespace IGoogleSlides {
        */
       contents: {
         /**
-         * @title URL of the image
-         *
          * If there is a problem with the image, the message below may appear.
          * You must insert only existing images, and if the image is too small, you can spit out errors, so insert an image of the appropriate size or create it yourself to insert the image.
          * The first error below is when the image does not exist, and the second is when the size or format of the image is not valid. The image must be in jpg, jpeg, and png formats.
          *
          * 1. The provided image was not found.
          * 2. There was a problem retrieving the image. The provided image should be publicly accessible, within size limit, and in supported formats.
+         *
+         * @title URL of the image
          */
         url: string & tags.Format<"iri">;
 
@@ -203,14 +203,14 @@ export namespace IGoogleSlides {
        */
       contents: {
         /**
-         * @title URL of the image
-         *
          * If there is a problem with the image, the message below may appear.
          * You must insert only existing images, and if the image is too small, you can spit out errors, so insert an image of the appropriate size or create it yourself to insert the image.
          * The first error below is when the image does not exist, and the second is when the size or format of the image is not valid. The image must be in jpg, jpeg, and png formats.
          *
          * 1. The provided image was not found.
          * 2. There was a problem retrieving the image. The provided image should be publicly accessible, within size limit, and in supported formats.
+         *
+         * @title URL of the image
          */
         url: string & tags.Format<"iri">;
 
@@ -237,14 +237,14 @@ export namespace IGoogleSlides {
        */
       contents: {
         /**
-         * @title URL of the image
-         *
          * If there is a problem with the image, the message below may appear.
          * You must insert only existing images, and if the image is too small, you can spit out errors, so insert an image of the appropriate size or create it yourself to insert the image.
          * The first error below is when the image does not exist, and the second is when the size or format of the image is not valid. The image must be in jpg, jpeg, and png formats.
          *
          * 1. The provided image was not found.
          * 2. There was a problem retrieving the image. The provided image should be publicly accessible, within size limit, and in supported formats.
+         *
+         * @title URL of the image
          */
         url: string & tags.Format<"iri">;
 
@@ -271,14 +271,14 @@ export namespace IGoogleSlides {
        */
       contents: {
         /**
-         * @title URL of the image
-         *
          * If there is a problem with the image, the message below may appear.
          * You must insert only existing images, and if the image is too small, you can spit out errors, so insert an image of the appropriate size or create it yourself to insert the image.
          * The first error below is when the image does not exist, and the second is when the size or format of the image is not valid. The image must be in jpg, jpeg, and png formats.
          *
          * 1. The provided image was not found.
          * 2. There was a problem retrieving the image. The provided image should be publicly accessible, within size limit, and in supported formats.
+         *
+         * @title URL of the image
          */
         url: string & tags.Format<"iri">;
       };
@@ -296,21 +296,21 @@ export namespace IGoogleSlides {
       type: "QuarterDivision";
 
       /**
-       * @title Contents of the slide
-       *
        * Here, like a four-cut cartoon, four images and four texts must be put in, so the length of the arrangement must be 4.
        * Therefore, you must prepare in advance by receiving or generating four images.
+       *
+       * @title Contents of the slide
        */
       contents: {
         /**
-         * @title URL of the image
-         *
          * If there is a problem with the image, the message below may appear.
          * You must insert only existing images, and if the image is too small, you can spit out errors, so insert an image of the appropriate size or create it yourself to insert the image.
          * The first error below is when the image does not exist, and the second is when the size or format of the image is not valid. The image must be in jpg, jpeg, and png formats.
          *
          * 1. The provided image was not found.
          * 2. There was a problem retrieving the image. The provided image should be publicly accessible, within size limit, and in supported formats.
+         *
+         * @title URL of the image
          */
         url: string & tags.Format<"iri">;
 
@@ -341,14 +341,14 @@ export namespace IGoogleSlides {
         6,
         {
           /**
-           * @title URL of the image
-           *
            * If there is a problem with the image, the message below may appear.
            * You must insert only existing images, and if the image is too small, you can spit out errors, so insert an image of the appropriate size or create it yourself to insert the image.
            * The first error below is when the image does not exist, and the second is when the size or format of the image is not valid. The image must be in jpg, jpeg, and png formats.
            *
            * 1. The provided image was not found.
            * 2. There was a problem retrieving the image. The provided image should be publicly accessible, within size limit, and in supported formats.
+           *
+           * @title URL of the image
            */
           url: string & tags.Format<"iri">;
 
@@ -376,14 +376,14 @@ export namespace IGoogleSlides {
        */
       contents: {
         /**
-         * @title URL of the image
-         *
          * If there is a problem with the image, the message below may appear.
          * You must insert only existing images, and if the image is too small, you can spit out errors, so insert an image of the appropriate size or create it yourself to insert the image.
          * The first error below is when the image does not exist, and the second is when the size or format of the image is not valid. The image must be in jpg, jpeg, and png formats.
          *
          * 1. The provided image was not found.
          * 2. There was a problem retrieving the image. The provided image should be publicly accessible, within size limit, and in supported formats.
+         *
+         * @title URL of the image
          */
         url: string & tags.Format<"iri">;
 
@@ -400,11 +400,11 @@ export namespace IGoogleSlides {
     };
 
     /**
-     * @title Horizontal 1-split
-     *
      * Title (width 100%: height 20%)
      * Body (width 60%: height 80%)
      * Image (width 40%: height 80%)
+     *
+     * @title Horizontal 1-split
      */
     export type Corner = {
       /**
@@ -419,14 +419,14 @@ export namespace IGoogleSlides {
        */
       contents: {
         /**
-         * @title URL of the image
-         *
          * If there is a problem with the image, the message below may appear.
          * You must insert only existing images, and if the image is too small, you can spit out errors, so insert an image of the appropriate size or create it yourself to insert the image.
          * The first error below is when the image does not exist, and the second is when the size or format of the image is not valid. The image must be in jpg, jpeg, and png formats.
          *
          * 1. The provided image was not found.
          * 2. There was a problem retrieving the image. The provided image should be publicly accessible, within size limit, and in supported formats.
+         *
+         * @title URL of the image
          */
         url: string & tags.Format<"iri">;
 
@@ -443,11 +443,11 @@ export namespace IGoogleSlides {
     };
 
     /**
-     * @title Horizontal 2-split
-     *
      * Title (width 100%: height 20%)
      * Body (width 70%: height 80%)
      * Image (width 30%: height 40%)
+     *
+     * @title Horizontal 2-split
      */
     export type CornerHalf = {
       /**
@@ -462,14 +462,14 @@ export namespace IGoogleSlides {
        */
       contents: {
         /**
-         * @title URL of the image
-         *
          * If there is a problem with the image, the message below may appear.
          * You must insert only existing images, and if the image is too small, you can spit out errors, so insert an image of the appropriate size or create it yourself to insert the image.
          * The first error below is when the image does not exist, and the second is when the size or format of the image is not valid. The image must be in jpg, jpeg, and png formats.
          *
          * 1. The provided image was not found.
          * 2. There was a problem retrieving the image. The provided image should be publicly accessible, within size limit, and in supported formats.
+         *
+         * @title URL of the image
          */
         url: NTpule<2, string & tags.Format<"iri">>;
 
@@ -738,13 +738,13 @@ export namespace IGoogleSlides {
     title?: string | null;
 
     /**
-     * @title The slide master of a presentation
-     *
      * The slide master contains all the common page elements and common properties for a set of layouts. It serves three purposes:
      *
      * - The placeholder shapes on the master contain the default text styles and shape properties for all placeholder shapes on pages that use that master.
      * - The master page properties define general page properties that are inherited by the layout.
      * - All other shapes on the master slide appear on all slides that use that master, regardless of the layout.
+     *
+     * @title The slide master of a presentation
      */
     masters?: Page[];
 
@@ -766,8 +766,6 @@ export namespace IGoogleSlides {
       | null;
 
     /**
-     * @title ID of the presentation version for printing only
-     *
      * Can be used in update requests to assert that the presentation version has not changed since the last read operation.
      *
      * Only populated if the user has edit access to the presentation.
@@ -783,6 +781,8 @@ export namespace IGoogleSlides {
      * Conversely, a changed ID (same presentation and user) usually means that the presentation has been updated.
      *
      * However, the ID may have changed due to internal factors, such as a change in the ID format.
+     *
+     * @title ID of the presentation version for printing only
      */
     revisionId?: string | null;
 
@@ -945,8 +945,6 @@ export namespace IGoogleSlides {
     readonly masterObjectId?: string | null;
 
     /**
-     * @title This is the notes page associated with this slide
-     *
      * Defines the visual appearance of the notes page when printing or exporting slides that contain speaker notes.
      *
      * The notes page inherits properties from the notes master.
@@ -955,6 +953,7 @@ export namespace IGoogleSlides {
      *
      * The ID of this shape is identified by the speakerNotesObjectId field.
      *
+     * @title This is the notes page associated with this slide
      * @todo Removed for now due to recursion issues
      */
     // readonly notesPage?: Page;
@@ -1059,18 +1058,16 @@ export namespace IGoogleSlides {
   }>;
 
   /**
-   * @title Fill stretched image
-   *
    * Fills a stretched image.
    *
    * The page or page element is completely filled with the specified image.
    *
    * The image is stretched to fit the container.
+   *
+   * @title Fill stretched image
    */
   export interface StretchedPictureFill {
     /**
-     * @title The URL of a photo with a default lifetime of 30 minutes
-     *
      * This URL is tagged with the requester account.
      *
      * Anyone with the URL will have effective access to the photo as the original requester.
@@ -1082,6 +1079,8 @@ export namespace IGoogleSlides {
      * The photo must be less than 50 MB, no larger than 25 megapixels, and in PNG, JPEG, or GIF format.
      *
      * The maximum length of the URL provided is 2 KB.
+     *
+     * @title The URL of a photo with a default lifetime of 30 minutes
      */
     contentUrl?: (string & tags.Format<"iri">) | null;
 
@@ -1118,8 +1117,6 @@ export namespace IGoogleSlides {
     size?: Size;
 
     /**
-     * @title The transformation of the page element
-     *
      * The visual appearance of the page element is determined by its absolute transformation.
      *
      * To calculate the absolute transformation, the transformation of the page element is concatenated with the transformations of all its parent groups.
@@ -1127,6 +1124,8 @@ export namespace IGoogleSlides {
      * If the page element is not in a group, the absolute transformation is equal to the value of this field.
      *
      * The initial transformation of a newly created Group is always the ID transformation.
+     *
+     * @title The transformation of the page element
      */
     transform?: Transform;
 
@@ -1240,57 +1239,57 @@ export namespace IGoogleSlides {
   }
 
   /**
-   * @title Shape properties
-   *
    * If the shape is a placeholder shape determined by the placeholder field, these properties may be inherited from the parent placeholder shape.
    *
    * The rendered value of the property depends on the corresponding propertyState field value.
    *
    * Auto-fitting text on shapes is automatically disabled by request, which may affect how text is applied to the shape.
+   *
+   * @title Shape properties
    */
   export interface ShapeProperties {
     /**
-     * @title Background fill for the shape
-     *
      * If the background fill for the shape is not set, the parent placeholder inherits the background fill.
      *
      * If the shape has no parent, the default background fill depends on the shape type and matches the default for new shapes created in the Slides editor.
+     *
+     * @title Background fill for the shape
      */
     shapeBackgroundFill?: ShapeBackgroundFill;
 
     /**
-     * @title The outline of the shape
-     *
      * If not set, the outline is inherited from the parent placeholder.
      *
      * If the shape has no parent, the default outline depends on the shape type and matches the default for new shapes created in the Slides editor.
+     *
+     * @title The outline of the shape
      */
     outline?: Outline;
 
     /**
-     * @title Shadow property of the shape
-     *
      * If not set, the shadow is inherited from the parent placeholder.
      *
      * If the shape has no parent, the default shadow matches the default for new shapes created in the Slides editor.
+     *
+     * @title Shadow property of the shape
      */
     readonly shadow?: Shadow;
 
     /**
-     * @title The hyperlink target of the shape
-     *
      * If not set, the link will not be displayed.
      *
      * The link is not inherited from the parent placeholder.
+     *
+     * @title The hyperlink target of the shape
      */
     link?: Link;
 
     /**
-     * @title Alignment of content within a shape
-     *
      * If unspecified, alignment is inherited if there is a parent placeholder.
      *
      * If a shape has no parent, the default alignment matches the alignment of new shapes created in the Slides editor.
+     *
+     * @title Alignment of content within a shape
      */
     contentAlignment?: ContentAlignment | null;
 
@@ -1349,11 +1348,11 @@ export namespace IGoogleSlides {
       >;
 
   /**
-   * @title Content Anchoring Type
-   *
    * Content Anchoring Type
    *
    * Derived from a subset of the 'ST_TextAnchoringType' simple type values in ECMA-376 4th Edition Part 1, Section 20.1.10.59 of the 'Office Open XML File Format - Fundamentals and Markup Language Reference'.
+   *
+   * @title Content Anchoring Type
    */
   export type ContentAlignment =
     | tags.Constant<
@@ -1481,13 +1480,13 @@ export namespace IGoogleSlides {
     readonly rotateWithShape?: boolean | null;
 
     /**
-     * @title Shadow property status
-     *
      * Updating a shadow on a page element implicitly updates this field to RENDERED unless a different value is specified in the same request.
      *
      * To prevent a shadow on a page element, set this field to NOT_RENDERED.
      *
      * In this case, any other shadow fields set on the same request will be ignored.
+     *
+     * @title Shadow property status
      */
     propertyState?: PropertyState | null;
   }
@@ -1542,11 +1541,11 @@ export namespace IGoogleSlides {
   }
 
   /**
-   * @title Solid Fill
-   *
    * Solid Fill The page or page element is completely filled with the specified color value.
    *
    * The value of an unset field can inherit its value from a parent placeholder if it exists.
+   *
+   * @title Solid Fill
    */
   export interface SolidFill {
     /**
@@ -1555,13 +1554,13 @@ export namespace IGoogleSlides {
     color?: OpaqueColor;
 
     /**
-     * @title The percentage value of the color to be applied to the pixel
-     *
      * The final pixel color is defined by the equation:
      *
      * `Pixel color = (alpha * color) + (1.0 - alpha) * (background color)`
      *
      * That is, a value of 1.0 corresponds to a solid color, while a value of 0.0 corresponds to a completely transparent color.
+     *
+     * @title The percentage value of the color to be applied to the pixel
      */
     alpha?: (number & tags.Minimum<0> & tags.Maximum<1>) | null;
   }
@@ -1701,11 +1700,11 @@ export namespace IGoogleSlides {
     listId?: string | null;
 
     /**
-     * @title A map of nesting levels for bullet properties at the relevant level
-     *
      * The maximum nesting level of a list is 9, so the available keys are 0 through 8.
      *
      * Contains properties that describe the design of the list bullets at the specified nesting level.
+     *
+     * @title A map of nesting levels for bullet properties at the relevant level
      */
     nestingLevel?:
       | {
@@ -1735,11 +1734,11 @@ export namespace IGoogleSlides {
     paragraphMarker?: ParagraphMarker;
 
     /**
-     * @title A TextElement representing a text run where all characters in the run have the same TextStyle
-     *
      * The startIndex and endIndex of a TextRun are always entirely within the index range of a single paragraphMarker TextElement.
      *
      * That is, a TextRun does not span multiple paragraphs.
+     *
+     * @title A TextElement representing a text run where all characters in the run have the same TextStyle
      */
     textRun?: TextRun;
 
@@ -1915,8 +1914,6 @@ export namespace IGoogleSlides {
     fontSize?: Dimension;
 
     /**
-     * @title The hyperlink target for the text
-     *
      * If not set, the link will not be displayed.
      *
      * The link is not inherited from the parent text.
@@ -1936,15 +1933,17 @@ export namespace IGoogleSlides {
      * The link applies separately to the runs before and after the line break.
      *
      * If you delete a link, the text style of the range will be updated to match the style of the previous text (or the default text style if the previous text is another link), unless a different style is set for the same text.
+     *
+     * @title The hyperlink target for the text
      */
     link?: Link;
 
     /**
-     * @title Vertical offset of text from normal position
-     *
      * Text with a SUPERSCRIPT or SUBSCRIPT offset is automatically rendered at a smaller font size, calculated based on the fontSize field.
      *
      * fontSize itself is not affected by changes to this field.
+     *
+     * @title Vertical offset of text from normal position
      */
     baselineOffset?: BaselineOffset | null;
 
@@ -1994,11 +1993,11 @@ export namespace IGoogleSlides {
    */
   export interface WeightedFontFamily {
     /**
-     * @title The font for the text
-     *
      * The font family can be from the font menu in Slides or from Google Fonts.
      *
      * If the font name is not recognized, the text is rendered in Arial.
+     *
+     * @title The font for the text
      */
     fontFamily?: string | null;
 
@@ -2029,8 +2028,6 @@ export namespace IGoogleSlides {
   }
 
   /**
-   * @title Style applied to the entire paragraph
-   *
    * If this text is contained in a shape that contains a parent placeholder, this paragraph style may be inherited from the parent element.
    *
    * The paragraph style inherited depends on the nesting level of the list.
@@ -2039,6 +2036,8 @@ export namespace IGoogleSlides {
    * - A paragraph in a list inherits the paragraph style from the paragraph at the corresponding nesting level of the list within the parent placeholder.
    *
    * An inherited paragraph style is indicated by the unset field in this message.
+   *
+   * @title Style applied to the entire paragraph
    */
   export interface ParagraphStyle {
     lineSpacing?: number | null;
@@ -2156,11 +2155,11 @@ export namespace IGoogleSlides {
    */
   export namespace Shape {
     /**
-     * @title Shape Types
-     *
      * Most of these shapes correspond to predefined shapes in the ECMA-376 standard.
      *
      * For more information about these shapes, see the description of the 'ST_ShapeType' simple type in section 20.1.10.55 of the Office Open XML File Formats - Fundamentals and Markup Language Reference, Part 1, ECMA-376, Edition 4.
+     *
+     * @title Shape Types
      */
     export type Type =
       | tags.Constant<"TYPE_UNSPECIFIED", { title: `사전 정의된 도형 유형.` }>
@@ -2940,13 +2939,13 @@ export namespace IGoogleSlides {
    */
   export interface Image {
     /**
-     * @title URL of an image with a default lifetime of 30 minutes
-     *
      * This URL is tagged with the requester's account.
      *
      * Anyone with the URL effectively has access to the image as the original requester.
      *
      * If the presentation's sharing settings change, the image will become inaccessible.
+     *
+     * @title URL of an image with a default lifetime of 30 minutes
      */
     contentUrl?: string | null;
 
@@ -2963,11 +2962,11 @@ export namespace IGoogleSlides {
     sourceUrl?: string | null;
 
     /**
-     * @title The page element that inherits from the corresponding placeholder in the layout and master
-     *
      * If set, the image is the placeholder image.
      *
      * All inherited properties can be checked by checking the parent placeholder identified by the Placeholder.parent_object_id field.
+     *
+     * @title The page element that inherits from the corresponding placeholder in the layout and master
      */
     placeholder?: Placeholder;
   }

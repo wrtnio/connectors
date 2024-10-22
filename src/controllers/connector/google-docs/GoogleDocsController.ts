@@ -51,7 +51,6 @@ export class GoogleDocsController {
    * Read the contents of Google Docs
    *
    * @summary Read Google Docs
-   *
    * @TODO read other elements if necessary
    * @param id Google Docs unique ID
    * @returns Google Docs contents

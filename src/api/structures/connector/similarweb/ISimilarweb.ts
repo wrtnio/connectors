@@ -77,10 +77,10 @@ export namespace ISimilarweb {
     Engagments: Engagments;
 
     /**
-     * @title Estimated Monthly Visits
-     *
      * Estimated monthly visits.
      * Key is date(YYYY-MM-DD) format and value is number. (e.g. { "2024-07-01": number } )
+     *
+     * @title Estimated Monthly Visits
      */
     EstimatedMonthlyVisits: Record<string, number>;
 

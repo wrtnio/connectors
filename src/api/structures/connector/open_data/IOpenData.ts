@@ -168,11 +168,11 @@ export namespace IOpenData {
      */
     export type IGetStockPriceInfoInput = ICommon.IPaginationInput & {
       /**
-       * @title Keyword for stock name search
-       *
        * Search is only possible if it matches the exact company name that is listed, which is stored on the Korea Stock Exchange.
        * Since it is a Korean company, most of it will be in Korean.
        * Please give Korean company name.
+       *
+       * @title Keyword for stock name search
        */
       likeItmsNm?: string &
         tags.MaxLength<120> &
@@ -180,24 +180,27 @@ export namespace IOpenData {
     } & (
         | {
             /**
-             * @title Base date
              * Searches for data matching the search value and base date
              * YYYYMMDD format date string.
+             *
+             * @title Base date
              */
             basDt?: string & Placeholder<"20220919">;
           }
         | {
             /**
-             * @title Start date (inclusive)
              * Searches for data where the base date is greater than or equal to the search value
              * YYYYMMDD format date string.
+             *
+             * @title Start date (inclusive)
              */
             beginBasDt?: string & Placeholder<"20220919">;
 
             /**
-             * @title End date (exclusive)
              * Searches for data where the base date is less than the search value
              * YYYYMMDD format date string.
+             *
+             * @title End date (exclusive)
              */
             endBasDt?: string & Placeholder<"20220919">;
           }
@@ -405,10 +408,10 @@ export namespace IKoreaMeteorologicalAdministration {
    */
   export interface IGetVillageForecastInformationInput {
     /**
-     * @title Definition of nx, ny
-     *
      * use 'latitude_and_longitude' or 'grid_coordinates'.
      * This property can never be used except for these two strings.
+     *
+     * @title Definition of nx, ny
      */
     type:
       | tags.Constant<
@@ -421,18 +424,18 @@ export namespace IKoreaMeteorologicalAdministration {
         >;
 
     /**
-     * @title Longitude or x_position
-     *
      * If the type property in this object is 'latitude_and_longitude', this value means longitude.
      * If not, use x position value of grid coordinates in Korea.
+     *
+     * @title Longitude or x_position
      */
     nx: number & tags.Maximum<360>;
 
     /**
-     * @title Latitude or y_position
-     *
      * If the type property in this object is 'latitude_and_longitude', this value means latitude.
      * If not, use y position value of grid coordinates in Korea.
+     *
+     * @title Latitude or y_position
      */
     ny: number & tags.Maximum<180>;
   }

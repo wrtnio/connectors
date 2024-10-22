@@ -11,14 +11,14 @@ type _AfterDot<T extends string> = T extends `${infer _}.${infer After}`
   : never;
 
 /**
- * @title 문자열을 기준으로 객체를 만드는 타입.
- *
  * SQL의 SELECT문을 생각해볼 때, 각각의 selected columns들이 매핑되는 인터페이스를 추론해볼 수 있을 것이다.
  *
  *
  * ```ts
  * type Example = StringToDeepObject<'cat.name,cat.kind,cat.age.minimum,cat.age.maximum'>; // { cat: { name: any; kind: any; age: { minimum:any; maximum: any } } }
  * ```
+ *
+ * @title 문자열을 기준으로 객체를 만드는 타입.
  */
 export type StringToDeepObject<
   TargetString extends string,

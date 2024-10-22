@@ -8,10 +8,10 @@ import { ICommon } from "../common/ISecretValue";
 export namespace IGithub {
   export interface ICommonPaginationOutput {
     /**
-     * @title true if there is a next page
-     *
      * However, since true and false are judged by comparing the number of requested objects with the number of searched objects,
      * even if true, the next page may be empty.
+     *
+     * @title true if there is a next page
      */
     nextPage: boolean;
 
@@ -30,34 +30,34 @@ export namespace IGithub {
     before?: string;
 
     /**
-     * @title prev
-     *
      * If this is a response by offset-based pagenation, provide metadata for the next page.
      * This means the previous page.
+     *
+     * @title prev
      */
     prev?: number | null;
 
     /**
-     * @title next
-     *
      * If this is a response by offset-based pagenation, provide metadata for the next page.
      * This means the next page.
+     *
+     * @title next
      */
     next?: number | null;
 
     /**
-     * @title last
-     *
      * If this is a response by offset-based pagenation, provide metadata for the next page.
      * This means the last page.
+     *
+     * @title last
      */
     last?: number;
 
     /**
-     * @title first
-     *
      * If this is a response by offset-based pagenation, provide metadata for the next page.
      * This means the first page.
+     *
+     * @title first
      */
     first?: number;
   }
@@ -79,10 +79,10 @@ export namespace IGithub {
     page?: number & tags.Type<"uint64"> & tags.Default<1>;
 
     /**
-     * @title order
-     *
      * Determines whether the first search result returned is the highest number of matches (desc) or lowest number of matches (asc).
      * This parameter is ignored unless you provide sort.
+     *
+     * @title order
      */
     order?: ("desc" | "asc") & tags.Default<"desc">;
   }
@@ -90,11 +90,11 @@ export namespace IGithub {
   export type __IAnalyzeInput = (
     | (RepositoryFolder & {
         /**
-         * @title children
-         *
          * For folders, you may have other files or folders inside.
          * This should also be a folder or file type object,
          * but here, we specify it as any type to prevent it because it can be recursively infinitely large.
+         *
+         * @title children
          */
         children: any[];
       })
@@ -123,14 +123,14 @@ export namespace IGithub {
     pull_request_review_id: number & tags.Type<"uint64">;
 
     /**
-     * @title diff_hunk
-     *
      * diff_hunk is a form for representing a change in code in github.
      * It consists of strings, and the first line, based on the new line character,
      * has meta information about the change point between the symbols @@ and @@.
      * This meta information includes how many lines were affected based on the file before the change,
      * and how many lines were affected based on the file after the change.
      * Like `@@ -45,4 +45,23 @@`
+     *
+     * @title diff_hunk
      */
     diff_hunk: string;
 
@@ -140,14 +140,14 @@ export namespace IGithub {
     path: string;
 
     /**
-     * @title position
-     *
      * The position in the diff where you want to add a review comment.
      * Note this value is not the same as the line number in the file.
      * The position value equals the number of lines down from the first "@@" hunk header in the file you want to add a comment.
      * The line just below the "@@" line is position 1, the next line is position 2, and so on. The position in the diff continues to increase through lines of whitespace and additional hunks until the beginning of a new file.
      *
      * Position value, which is the number of rows based on diff_hunk.
+     *
+     * @title position
      */
     position: (number & tags.Type<"uint64">) | null;
 
@@ -225,28 +225,28 @@ export namespace IGithub {
 
   export interface IReviewPullRequestInput extends IReadPullRequestDetailInput {
     /**
-     * @title commit_id
-     *
      * The SHA of the commit that needs a review.
      * Not using the latest commit SHA may render your review comment outdated if a subsequent commit modifies the line you specify as the position.
      * Defaults to the most recent commit in the pull request when you do not specify a value.
+     *
+     * @title commit_id
      */
     commit_id?: string;
 
     /**
-     * @title body
-     *
      * Required when using REQUEST_CHANGES or COMMENT for the event parameter.
      * The body text of the pull request review.
+     *
+     * @title body
      */
     body?: string;
 
     /**
-     * @title event
-     *
      * The review action you want to perform.
      * The review actions include: APPROVE, REQUEST_CHANGES, or COMMENT.
      * By leaving this blank, you set the review action state to PENDING, which means you will need to submit the pull request review when you are ready.
+     *
+     * @title event
      */
     event?:
       | tags.Constant<"APPROVE", { title: "APPROVE" }>
@@ -358,10 +358,10 @@ export namespace IGithub {
     submitted_at?: string & tags.Format<"date-time">;
 
     /**
-     * @title commit_id
-     *
      * A commit SHA for the review.
      * If the commit object was garbage collected or forcibly deleted, then it no longer exists in Git and this value will be `null`.
+     *
+     * @title commit_id
      */
     commit_id: string | null;
 
@@ -399,10 +399,10 @@ export namespace IGithub {
   export interface IReadPullRequestDetailInput
     extends ICommon.ISecret<"github", ["repo"]> {
     /**
-     * @title owner's name
-     *
      * The owner's name and the repository's name can be combined to form '${owner}/${repo}' and can be a unique path name for a single repository.
      * So the owner here is the nickname of the repository owner, not the name of the person committing or the author.
+     *
+     * @title owner's name
      */
     owner: User["login"];
 
@@ -458,11 +458,11 @@ export namespace IGithub {
   export type IGetRepositoryFolderStructureOutput = (
     | (RepositoryFolder & {
         /**
-         * @title children
-         *
          * For folders, you may have other files or folders inside.
          * This should also be a folder or file type object,
          * but here, we specify it as any type to prevent it because it can be recursively infinitely large.
+         *
+         * @title children
          */
         children: any[];
       })
@@ -475,11 +475,11 @@ export namespace IGithub {
       "secretKey" | "owner" | "repo"
     > {
     /**
-     * @title folder name
-     *
      * The path delivered is treated like a Root folder and continues the navigation from this folder.
      * Browse by this folder, and it must be a folder, not a file.
      * If omitted, start the circuit based on the top Root folder.
+     *
+     * @title folder name
      */
     path?: string & tags.Default<"">;
   }
@@ -574,10 +574,10 @@ export namespace IGithub {
 
   export interface IGetBulkFileContentInput extends ICommon.ISecret<"github"> {
     /**
-     * @title owner's name
-     *
      * The owner's name and the repository's name can be combined to form '${owner}/${repo}' and can be a unique path name for a single repository.
      * So the owner here is the nickname of the repository owner, not the name of the person committing or the author.
+     *
+     * @title owner's name
      */
     owner: User["login"];
 
@@ -589,10 +589,10 @@ export namespace IGithub {
     repo: Repository["name"];
 
     /**
-     * @title path parameters
-     *
      * It refers to the path of the file, and is the path of the file including folders and extensions.
      * If you want to make index.ts in src, you need to add 'src/index.ts'.
+     *
+     * @title path parameters
      */
     paths?: string[];
 
@@ -609,12 +609,12 @@ export namespace IGithub {
 
   export interface IGetFileContentInput extends ICommon.ISecret<"github"> {
     /**
-     * @title owner's name
-     *
      * The owner's name and the repository's name can be combined to form '${owner}/${repo}' and can be a unique path name for a single repository.
      * So the owner here is the nickname of the repository owner, not the name of the person committing or the author.
      *
      * If it is an organization's repository, it can also be the name of the organization.
+     *
+     * @title owner's name
      */
     owner: User["login"] | Organization["login"];
 
@@ -626,10 +626,10 @@ export namespace IGithub {
     repo: Repository["name"];
 
     /**
-     * @title path parameters
-     *
      * It refers to the path of the file, and is the path of the file including folders and extensions.
      * If you want to make index.ts in src, you need to add 'src/index.ts'.
+     *
+     * @title path parameters
      */
     path?: string;
 
@@ -657,10 +657,10 @@ export namespace IGithub {
     extends ICommon.ISecret<"github", ["admin:org", "repo"]>,
       MyPick<ICommonPaginationInput, "page" | "per_page"> {
     /**
-     * @title owner's name
-     *
      * The owner's name and the repository's name can be combined to form '${owner}/${repo}' and can be a unique path name for a single repository.
      * So the owner here is the nickname of the repository owner, not the name of the person committing or the author.
+     *
+     * @title owner's name
      */
     owner: User["login"];
 
@@ -672,11 +672,11 @@ export namespace IGithub {
     repo: Repository["name"];
 
     /**
-     * @title affiliation
-     *
      * Filter collaborators returned by their affiliation.
      * outside means all outside collaborators of an organization-owned repository. direct means all collaborators with permissions to an organization-owned repository, regardless of organization membership status. all means all collaborators the authenticated user can see.
      * It must be one of: "outside", "direct", "all".
+     *
+     * @title affiliation
      */
     affiliation?: (
       | tags.Constant<"outside", { title: "outside" }>
@@ -686,10 +686,10 @@ export namespace IGithub {
       tags.Default<"all">;
 
     /**
-     * @title permission
-     *
      * Filter collaborators by the permissions they have on the repository. If not specified, all collaborators will be returned.
      * It must be one of: "pull", "triage", "push", "maintain", "admin".
+     *
+     * @title permission
      */
     permission?:
       | tags.Constant<"pull", { title: "pull" }>
@@ -701,10 +701,10 @@ export namespace IGithub {
 
   export interface IUpdateFileContentInput extends ICreateFileContentInput {
     /**
-     * @title sha of file content
-     *
      * As the sha value of the file to be modified, a conflict may occur if it is not the latest sha value among the sha values of the file.
      * It's safe when you look up a list of files through API to check sha and put in a value, or want to re-modify the sha value of a file you just created.
+     *
+     * @title sha of file content
      */
     sha: IUpsertFileContentOutput["content"]["sha"] &
       Prerequisite<{
@@ -754,10 +754,10 @@ export namespace IGithub {
   export interface ICreateFileContentInput
     extends ICommon.ISecret<"github", ["repo"]> {
     /**
-     * @title owner's name
-     *
      * The owner's name and the repository's name can be combined to form '${owner}/${repo}' and can be a unique path name for a single repository.
      * So the owner here is the nickname of the repository owner, not the name of the person committing or the author.
+     *
+     * @title owner's name
      */
     owner: User["login"];
 
@@ -769,10 +769,10 @@ export namespace IGithub {
     repo: Repository["name"];
 
     /**
-     * @title path parameters
-     *
      * It refers to the path of the file, and is the path of the file including folders and extensions.
      * If you want to make index.ts in src, you need to add 'src/index.ts'.
+     *
+     * @title path parameters
      */
     path: string;
 
@@ -783,11 +783,11 @@ export namespace IGithub {
     message: Commit["message"];
 
     /**
-     * @title the new file content
-     *
      * Meaning of the file is text and text.
      * If you want to create code content, you should write code content.
      * Since it encodes with base64 internally, we need to deliver text here before encoding.
+     *
+     * @title the new file content
      */
     content: string;
 
@@ -799,11 +799,12 @@ export namespace IGithub {
     branch?: Branch["name"];
 
     /**
-     * @title The person that committed the file
      * If you don't put anything in, your own information will be injected, so you can leave the value alone.
      * Since the user's email cannot necessarily be guaranteed to be the same as Github's email, it is advantageous not to get confirmation from the user or put it in.
      *
      * Default: the authenticated user.
+     *
+     * @title The person that committed the file
      */
     committer?: {
       /**
@@ -819,12 +820,12 @@ export namespace IGithub {
     };
 
     /**
-     * @title The author of the file
-     *
      * If you don't put anything in, your own information will be injected, so you can leave the value alone.
      * Since the user's email cannot necessarily be guaranteed to be the same as Github's email, it is advantageous not to get confirmation from the user or put it in.
      *
      * Default: The committer or the authenticated user if you omit committer.
+     *
+     * @title The author of the file
      */
     author?: {
       /**
@@ -1135,25 +1136,26 @@ export namespace IGithub {
     extends StrictOmit<ICommonPaginationInput, "order" | "page">,
       ICommon.ISecret<"github", ["repo"]> {
     /**
-     * @title direction
      * The order to sort by.
      * Default: asc when using full_name, otherwise desc.
+     *
+     * @title direction
      */
     direction?: ICommonPaginationInput["order"];
 
     /**
-     * @title before
-     *
      * A cursor, as given in the Link header.
      * If specified, the query only searches for results before this cursor.
+     *
+     * @title before
      */
     before?: IGetRepositoryActivityOutput["before"];
 
     /**
-     * @title after
-     *
      * A cursor, as given in the Link header.
      * If specified, the query only searches for results after this cursor.
+     *
+     * @title after
      */
     after?: IGetRepositoryActivityOutput["after"];
 
@@ -1247,10 +1249,10 @@ export namespace IGithub {
     title: string;
 
     /**
-     * @title body of this issue
-     *
      * It can be markdown format
      * If you provide text in utf-8 format, which can be recognized by a person, in markdown format, it will be written as it is.
+     *
+     * @title body of this issue
      */
     body?: string;
 
@@ -1588,11 +1590,12 @@ export namespace IGithub {
     extends StrictOmit<ICommonPaginationInput, "order" | "per_page">,
       ICommon.ISecret<"github", ["repo"]> {
     /**
-     * @title per_page
      * The number of results per page (max 10).
      *
      * The response capacity may be very large because it even comes out with the reedy of the repository.
      * Therefore, it is recommended to check by cutting up to 10 pieces.
+     *
+     * @title per_page
      */
     per_page?: number &
       tags.Type<"uint64"> &
@@ -1600,18 +1603,19 @@ export namespace IGithub {
       tags.Maximum<10>;
 
     /**
-     * @title sorting condition
-     *
      * The property to sort the results by.
      * It must be one of: "created" | "updated" | "pushed" | "full_name"
+     *
+     * @title sorting condition
      */
     sort?: ("created" | "updated" | "pushed" | "full_name") &
       tags.Default<"full_name">;
 
     /**
-     * @title direction
      * The order to sort by.
      * Default: asc when using full_name, otherwise desc.
+     *
+     * @title direction
      */
     direction?: ICommonPaginationInput["order"];
 
@@ -1660,10 +1664,10 @@ export namespace IGithub {
       );
 
     /**
-     * @title state
-     *
      * State of this Pull Request. Either open or closed.
      * Can be one of: open, closed
+     *
+     * @title state
      */
     state?:
       | tags.Constant<"open", { title: "open" }>
@@ -1678,10 +1682,10 @@ export namespace IGithub {
   export interface ICreatePullRequestInput
     extends ICommon.ISecret<"github", ["repo"]> {
     /**
-     * @title owner's name
-     *
      * The owner's name and the repository's name can be combined to form '${owner}/${repo}' and can be a unique path name for a single repository.
      * So the owner here is the nickname of the repository owner, not the name of the person committing or the author.
+     *
+     * @title owner's name
      */
     owner: User["login"];
 
@@ -2079,10 +2083,10 @@ export namespace IGithub {
       }>;
 
     /**
-     * @title owner's name
-     *
      * The owner's name and the repository's name can be combined to form '${owner}/${repo}' and can be a unique path name for a single repository.
      * So the owner here is the nickname of the repository owner, not the name of the person committing or the author.
+     *
+     * @title owner's name
      */
     owner: User["login"];
 
@@ -2102,19 +2106,20 @@ export namespace IGithub {
     after?: string;
 
     /**
-     * @title labels
      * If you want to filter the issue by label, pass the string.
      * If it is an empty array, it is ignored.
+     *
+     * @title labels
      */
     labels?: Label["name"][];
 
     per_page: ICommonPaginationInput["per_page"];
 
     /**
-     * @title state
-     *
      * If you don't want to filter, you don't put anything in.
      * It must be one of: "OPEN", "CLOSED", "MERGED".
+     *
+     * @title state
      */
     state?:
       | tags.Constant<"OPEN", { title: "OPEN" }>
@@ -2139,10 +2144,10 @@ export namespace IGithub {
       | tags.Constant<"COMMENTS", { title: "COMMENTS" }>;
 
     /**
-     * @title owner's name
-     *
      * The owner's name and the repository's name can be combined to form '${owner}/${repo}' and can be a unique path name for a single repository.
      * So the owner here is the nickname of the repository owner, not the name of the person committing or the author.
+     *
+     * @title owner's name
      */
     owner: User["login"];
 
@@ -2160,10 +2165,10 @@ export namespace IGithub {
       "filter" | "owned" | "pulls"
     > {
     /**
-     * @title owner's name
-     *
      * The owner's name and the repository's name can be combined to form '${owner}/${repo}' and can be a unique path name for a single repository.
      * So the owner here is the nickname of the repository owner, not the name of the person committing or the author.
+     *
+     * @title owner's name
      */
     owner: User["login"];
 
@@ -2198,15 +2203,14 @@ export namespace IGithub {
     extends ICommon.ISecret<"github", ["user", "repo"]>,
       MyPick<ICommonPaginationInput, "page" | "per_page"> {
     /**
-     * @title direction
      * The order to sort by.
      * Default: asc when using full_name, otherwise desc.
+     *
+     * @title direction
      */
     direction?: ICommonPaginationInput["order"];
 
     /**
-     * @title filter
-     *
      * It must be one of: "assigned", "created", "mentioned", "subscribed", "repos", "all"
      *
      * Indicates which sorts of issues to return.
@@ -2215,6 +2219,8 @@ export namespace IGithub {
      * mentioned means issues mentioning you.
      * subscribed means issues you're subscribed to updates for.
      * all or repos means all issues you can see, regardless of participation or creation.
+     *
+     * @title filter
      */
     filter?: (
       | tags.Constant<
@@ -2263,10 +2269,10 @@ export namespace IGithub {
       tags.Default<"assigned">;
 
     /**
-     * @title state
-     *
      * Indicates the state of the issues to return.
      * It must be one of: 'open', 'closed', 'all'
+     *
+     * @title state
      */
     state?: (
       | tags.Constant<"open", { title: "open" }>
@@ -2313,12 +2319,12 @@ export namespace IGithub {
     name?: string | null;
 
     /**
-     * @title comany name
-     *
      * As the name of the company,
      * it cannot be said to be the exact name listed as the business operator because it was written by the user himself.
      * Also, we cannot guarantee that the user wrote the company name.
      * Sometimes the user jokingly writes down strange names.
+     *
+     * @title comany name
      */
     company?: string | null;
 
@@ -2330,10 +2336,10 @@ export namespace IGithub {
     blog?: string | null;
 
     /**
-     * @title location
-     *
      * It means the location of the user.
      * Usually, I write the country down, but the user can jokingly record the strange location.
+     *
+     * @title location
      */
     location?: string | null;
 
@@ -2416,31 +2422,31 @@ export namespace IGithub {
     extends ICommonPaginationInput,
       ICommon.ISecret<"github"> {
     /**
-     * @title keyword
-     *
      * The query contains one or more search keywords and qualifiers.
      * Qualifiers allow you to limit your search to specific areas of GitHub.
      * The REST API supports the same qualifiers as the web interface for GitHub.
+     *
+     * @title keyword
      */
     q: string;
 
     /**
-     * @title sorting condition
-     *
      * Sorts the results of your query by number of followers or repositories, or when the person joined GitHub. Default: best match
      * It must be one of this: "followers" | "repositories" | "joined"
+     *
+     * @title sorting condition
      */
     sort?: "followers" | "repositories" | "joined";
   }
 
   export type User = {
     /**
-     * @title login
-     *
      * This means the user's nickname.
      * In github, nicknames are unique at least until that user changes their own nickname.
      * This means that only one person can own the nickname at a time.
      * Therefore, it may be important to know the exact nickname because the github API calls the appi using the user's nickname.
+     *
+     * @title login
      */
     login: string;
 
@@ -2706,10 +2712,10 @@ export namespace IGithub {
     name: string;
 
     /**
-     * @title commit
-     *
      * In github, branch is just another name for the last node of a commit,
      * so this property called commit is logically the same as what it means for that branch.
+     *
+     * @title commit
      */
     commit: StrictOmit<IGithub.Commit, "sha">;
   };
@@ -2817,11 +2823,11 @@ export namespace IGithub {
     id: number & tags.Type<"uint64">;
 
     /**
-     * @title html_url
-     *
      * If you want to see the issue or pull_request on the web, you can go to this link.
      * If pull is included on this link path, it is pull_request, and if issue is included, it is issue.
      * In essence, pull_request and issue are numbered together from the beginning, so while this connector does not distinguish the two, it can be distinguished by the url path.
+     *
+     * @title html_url
      */
     html_url: string & tags.Format<"iri">;
 
@@ -2855,11 +2861,11 @@ export namespace IGithub {
     user: MyPick<IGithub.User, "id" | "login" | "type">;
 
     /**
-     * @title body
-     *
      * Contents of the issue
      *
      * You can also render this content because it is in a markdown format.
+     *
+     * @title body
      */
     body?: string | null;
 
@@ -3135,11 +3141,11 @@ export namespace IGithub {
 
   export interface Payload {
     /**
-     * @title action
-     *
      * It means what this event means.
      * Although the type of event usually has a resource or the name of the event,
      * it is necessary to view it with this property because it does not specify what actions occurred in that event are modified, deleted, created, etc.
+     *
+     * @title action
      */
     action?: string;
 
@@ -3255,10 +3261,10 @@ export namespace IGithub {
     raw_url: string & tags.Format<"iri">;
 
     /**
-     * @title patch
-     *
      * It means how much it has changed compared to previous commitments.
      * It gives you a text form to see what code has actually changed.
+     *
+     * @title patch
      */
     patch?: string;
   }

@@ -419,10 +419,10 @@ export namespace INotion {
   export type IReadPageContentOutput = IMarkdownBlock[];
   export interface IReadPageContentInput extends INotion.ISecret {
     /**
-     * @title block_id
-     *
      * Indicates the ID of the page.
      * you can put the block ID back into this factor and use it to look up the child blocks.
+     *
+     * @title block_id
      */
     block_id: PageIdInput["pageId"];
   }
@@ -577,12 +577,12 @@ export namespace INotion {
     video: {
       external: {
         /**
-         * @title url
-         *
          * video file must be one of: 'amv' ,'asf' ,'avi' ,'f4v' ,'flv' ,'gifv' ,'mkv' ,'mov' ,'mpg' ,'mpeg' ,'mpv' ,'mp4' ,'m4v' ,'qt' ,'wmv'
          * OR
          * YouTube video links that include embed or watch.
          * E.g. https://www.youtube.com/watch?v=[id], https://www.youtube.com/embed/[id]
+         *
+         * @title url
          */
         url: string & tags.Format<"iri">;
       };
@@ -806,10 +806,10 @@ export namespace INotion {
      */
     table_of_contents: {
       /**
-       * @title color
-       *
        * It must be one of :
        * "default", "gray", "brown", "orange", "yellow", "green", "blue", "purple", "pink", "red", "gray_background", "brown_background", "orange_background", "yellow_background", "green_background", "blue_background", "purple_background", "pink_background", "red_background"
+       *
+       * @title color
        */
       color: ApiColor;
     };
@@ -827,10 +827,10 @@ export namespace INotion {
      */
     link_to_page: {
       /**
-       * @title page_id
-       *
        * You can look up the page by passing the page ID as a parameter at the end of the notion link.
        * For example, in the format 'https://www.notion.so/ :pageId'.
+       *
+       * @title page_id
        */
       page_id: string & PageIdInput["pageId"];
     };
@@ -1075,13 +1075,13 @@ export namespace INotion {
 
   export interface PageIdInput {
     /**
-     * @title pageId
-     *
      * Indicates the page on which you want to add a block.
      * At the bottom of this page, a block is added to match the requested object here.
      * Calling this connector requires the correct page ID,
      * so it should only be called if you have previously created a page to obtain that ID, viewed the page,
      * or obtained a link or page ID from the user in advance.
+     *
+     * @title pageId
      */
     pageId: string &
       (
@@ -1246,10 +1246,11 @@ export namespace INotion {
     /**
      * 페이지 고유 id
      *
-     * @title id
      *
      * Indicates the page on which you want to add a block.
      * At the bottom of this page, a block is added to match the requested object here.
+     *
+     * @title id
      */
     pageId: string &
       Prerequisite<{
@@ -1413,9 +1414,10 @@ export namespace INotion {
     /**
      * Database property value information
      *
-     * @title value
      *
      * TODO: Type confirmation and inspector structure needs to be changed
+     *
+     * @title value
      */
     [key: string]: any;
   }
@@ -1931,10 +1933,10 @@ export namespace INotion {
 
   export interface IDeleteBlockInput extends INotion.ISecret {
     /**
-     * @title block_id
-     *
      * Indicates the ID of the page or block within the page to be deleted.
      * If you delete the page, it will go to the trash, so recovery is possible.
+     *
+     * @title block_id
      */
     block_id: PageIdInput["pageId"];
   }
@@ -1950,11 +1952,11 @@ export namespace INotion {
 
   export interface MarkdownInput {
     /**
-     * @title markdown
-     *
      * If you add a markdown string, it will be converted appropriately according to the Notion's block.
      * Therefore, you don't have to use Unicode symbols to implement lists or decorate documents using letters.
      * Of course, this depends on the user, and there is no problem using the character string you want, such as inserting an emoji as well as Unicode.
+     *
+     * @title markdown
      */
     markdown: string;
   }

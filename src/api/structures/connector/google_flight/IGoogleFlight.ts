@@ -87,7 +87,6 @@ export namespace IGoogleFlight {
      * Possible values are 1, 2, 3, 4.
      *
      * @title Seat Class
-     *
      * @internal
      */
     travel_class:

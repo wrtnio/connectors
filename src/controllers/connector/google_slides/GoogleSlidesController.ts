@@ -16,7 +16,6 @@ export class GoogleSlidesController {
    * Export Google Slides presentations to Hanshow format
    *
    * @summary Export presentations to Hanshow files
-   *
    * @param presentationId Presentation ID to convert
    * @param input Authentication information
    * @returns Link to download Hanshow files
@@ -43,7 +42,6 @@ export class GoogleSlidesController {
    * A connector that can be used when creating stories or picture books.
    *
    * @summary Export presentations to PPT files
-   *
    * @param presentationId Presentation ID to convert
    * @param input Authentication information
    * @returns Link to download PowerPoint files
@@ -258,6 +256,7 @@ export class GoogleSlidesController {
    * It is safe to ask the user for consent to this process.
    *
    * @deprecated
+   *
    * @summary Add image and text slides to a Google Slides presentation
    * @param presentationId Presentation id to add slides to
    * @param input Template to add
@@ -286,7 +285,6 @@ export class GoogleSlidesController {
    * This creates a blank presentation file, which is basically created with the first slide with no text.
    *
    * @summary Create a Google Slides presentation
-   *
    * @param input Condition DTO for creating a presentation
    * @returns Generated presentation information DTO
    */

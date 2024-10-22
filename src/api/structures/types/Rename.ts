@@ -14,11 +14,11 @@ type __FirstElementsOfTuples<T extends [string, string, any?][]> = T extends [
   : [];
 
 /**
- * @title 인터페이스에서 특정 타입의 이름과 위치를 변경하는 타입.
- *
  * ```ts
  * type Example = Rename<{ a: {}; b: number }, [["b", "a.b"]]>; // { a: { b: number } }
  * ```
+ *
+ * @title 인터페이스에서 특정 타입의 이름과 위치를 변경하는 타입.
  */
 export type Rename<
   T extends object,

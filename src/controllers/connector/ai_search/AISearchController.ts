@@ -13,7 +13,6 @@ export class AISearchController {
    * Returns search results via AI search
    *
    * @summary AI search
-   *
    * @hidden
    * @param input Conditions required for search
    * @returns

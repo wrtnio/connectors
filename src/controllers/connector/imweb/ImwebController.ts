@@ -21,7 +21,6 @@ export class ImwebController {
    * Sellers must provide their API keys and secrets to import `Imweb` products.
    *
    * @summary Get my sales product from `Imweb`
-   *
    * @param input key and secret
    * @returns the seller's own goods
    */
