@@ -69,9 +69,10 @@ export class XController {
    *
    * Note that this endpoint is intended to be used for a single keyword or subject.
    *
-   * If you need to summarize multiple keywords or subjects, make multiple requests for each keyword or subject.
+   * If you need to summarize multiple keywords or subjects, you seriously have to make multiple requests for each keyword or subject.
    *
-   * For example, if you want to summarize tweets about Elon Musk and AI, make two requests, one for Elon Musk and one for AI.
+   * For example, if you want to summarize tweets about "Elon Musk" and "AI", make two requests, one for "Elon Musk" and one for "AI".
+   *
    *
    * @summary Tweet Summary
    *
