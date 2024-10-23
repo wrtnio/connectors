@@ -19,6 +19,7 @@ export namespace ISlack {
       "chat:write",
       "users:read",
       "files:read",
+      "usergroups:read",
     ]
   >;
 
@@ -1366,4 +1367,139 @@ export namespace ISlack {
      */
     oldestDateTime?: string & tags.Format<"date-time">;
   }
+
+  /**
+   * @title UserGroup
+   * @description Represents a user group with various properties like ID, name, and user details.
+   */
+  export interface UserGroup {
+    /**
+     * @title ID
+     * @description The ID of the user group.
+     */
+    id: string;
+
+    /**
+     * @title Team ID
+     * @description The ID of the team.
+     */
+    team_id: string;
+
+    /**
+     * @title Is User Group
+     * @description Indicates if the object is a user group.
+     */
+    is_usergroup: boolean;
+
+    /**
+     * @title Name
+     * @description Friendly name of the group.
+     */
+    name: string;
+
+    /**
+     * @title Description
+     * @description Purpose of the group (optional).
+     */
+    description?: string;
+
+    /**
+     * @title Handle
+     * @description Value used to notify group members via a mention without a leading @ sign.
+     */
+    handle: string;
+
+    /**
+     * @title Is External
+     * @description Indicates if the user group is external.
+     */
+    is_external: boolean;
+
+    /**
+     * @title Date Created
+     * @description Unix timestamp of when the group was created.
+     */
+    date_create: number;
+
+    /**
+     * @title Date Updated
+     * @description Unix timestamp of when the group was last updated.
+     */
+    date_update: number;
+
+    /**
+     * @title Date Deleted
+     * @description Non-zero value for disabled groups.
+     */
+    date_delete: number;
+
+    /**
+     * @title Auto Type
+     * @description Can be 'admins', 'owners', or null for custom groups.
+     */
+    auto_type: "admins" | "owners" | null;
+
+    /**
+     * @title Created By
+     * @description User ID of the member who created the group.
+     */
+    created_by: string;
+
+    /**
+     * @title Updated By
+     * @description User ID of the member who updated the group.
+     */
+    updated_by: string;
+
+    /**
+     * @title Deleted By
+     * @description User ID of the member who deleted the group.
+     */
+    deleted_by: string;
+
+    /**
+     * @title Preferences
+     * @description Contains default channels and groups (private channels) that members of this group will be invited to upon joining.
+     */
+    prefs: {
+      /**
+       * @title Channels
+       * @description Default channels members will be invited to upon joining.
+       */
+      channels: string[];
+
+      /**
+       * @title Groups
+       * @description Default private channels members will be invited to upon joining.
+       */
+      groups: string[];
+    };
+
+    /**
+     * @title Users
+     * @description List of user object IDs belonging to the group (optional).
+     */
+    users?: string[];
+
+    /**
+     * @title User Count
+     * @description Total number of users in the group.
+     */
+    user_count: number;
+  }
+
+  export interface IGetUserGroupOutput {
+    /**
+     * @title ok
+     */
+    ok: boolean;
+
+    /**
+     * @inheritdoc
+     * @title usergroups
+     */
+    usergroups: ISlack.UserGroup[];
+  }
+
+  export type IGetUserGroupInput = ISlack.ISecret;
 }

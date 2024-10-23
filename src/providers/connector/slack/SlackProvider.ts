@@ -1,4 +1,5 @@
 import { Injectable } from "@nestjs/common";
+import { WebClient } from "@slack/web-api";
 import { ISlack } from "@wrtn/connector-api/lib/structures/connector/slack/ISlack";
 import { StrictOmit } from "@wrtn/connector-api/lib/structures/types/strictOmit";
 import axios from "axios";
@@ -9,7 +10,6 @@ import { createQueryParameter } from "../../../utils/CreateQueryParameter";
 import { retry } from "../../../utils/retry";
 import { OAuthSecretProvider } from "../../internal/oauth_secret/OAuthSecretProvider";
 import { IOAuthSecret } from "../../internal/oauth_secret/structures/IOAuthSecret";
-import { WebClient } from "@slack/web-api";
 import { SlackTemplateProvider } from "./SlackTemplateProvider";
 
 @Injectable()
@@ -819,6 +819,21 @@ export class SlackProvider {
     }
 
     throw new Error("슬랙 템플릿 메시지 전송 실패");
+  }
+
+  async getUserGroups(
+    input: ISlack.IGetUserGroupInput,
+  ): Promise<ISlack.IGetUserGroupOutput> {
+    const url = `https://slack.com/api/usergroups.list`;
+    const token = await this.getToken(input.secretKey);
+    const res = await axios.get(url, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json; charset=utf-8;",
+      },
+    });
+
+    return res.data;
   }
 
   private getUserProfileFields(profile: { fields: Record<string, string> }) {

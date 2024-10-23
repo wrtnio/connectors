@@ -433,4 +433,15 @@ export class SlackController {
   ): Promise<ISlack.IGetFileOutput> {
     return retry(() => this.slackProvider.getFiles(input))();
   }
+
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Slack_full.svg",
+  )
+  @ApiTags("Slack")
+  @TypedRoute.Post("get-user-groups")
+  async getUserGroups(
+    @TypedBody() input: ISlack.IGetUserGroupInput,
+  ): Promise<ISlack.IGetUserGroupOutput> {
+    return retry(() => this.slackProvider.getUserGroups(input))();
+  }
 }
