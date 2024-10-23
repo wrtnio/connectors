@@ -433,4 +433,25 @@ export class SlackController {
   ): Promise<ISlack.IGetFileOutput> {
     return retry(() => this.slackProvider.getFiles(input))();
   }
+
+  /**
+   * get user groups in workspace
+   *
+   * Look up user groups. This can be used to call all specific groups by tagging.
+   * However, it is difficult to know if it is an appropriate user group other than 'handle' because all internal users come out with IDs.
+   * If you want to see a list of users, use the User Inquiry connector together.
+   * If you want to see the user's nickname or name that corresponds to the user's ID, refer to the User Inquiry connector.
+   *
+   * @summary Get usergroups in workspace
+   */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Slack_full.svg",
+  )
+  @ApiTags("Slack")
+  @TypedRoute.Post("get-user-groups")
+  async getUserGroups(
+    @TypedBody() input: ISlack.IGetUserGroupInput,
+  ): Promise<ISlack.IGetUserGroupOutput> {
+    return retry(() => this.slackProvider.getUserGroups(input))();
+  }
 }
