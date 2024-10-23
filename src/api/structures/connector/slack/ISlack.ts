@@ -588,10 +588,13 @@ export namespace ISlack {
       }>;
   }
 
-  export type ChannelHistory = StrictOmit<
-    ISlack.LinkMessage,
-    "type" | "attachments"
-  >;
+  export interface ChannelHistory
+    extends StrictOmit<ISlack.LinkMessage, "type" | "attachments"> {
+    /**
+     * @title usergroups
+     */
+    usergroups: ISlack.UserGroup[];
+  }
 
   export interface IGetChannelLinkHistoryOutput
     extends ICommonPaginationOutput {
@@ -1460,7 +1463,7 @@ export namespace ISlack {
      * @title Deleted By
      * @description User ID of the member who deleted the group.
      */
-    deleted_by: string;
+    deleted_by: string | null;
 
     /**
      * @title Preferences

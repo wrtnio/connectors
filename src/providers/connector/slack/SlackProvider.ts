@@ -231,17 +231,20 @@ export class SlackProvider {
     const url = `https://slack.com/api/conversations.replies?pretty=1`;
     const token = await this.getToken(secretKey);
 
-    const res = await axios.get(`${url}&${queryParameter}`, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-        "Content-Type": "application/json; charset=utf-8;",
-      },
-    });
+    const [{ url: workspaceUrl }, allMembers, { usergroups }, res] =
+      await Promise.all([
+        this.authTest(input),
+        this.getAllUsers(input),
+        this.getUserGroups(input),
+        axios.get(`${url}&${queryParameter}`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json; charset=utf-8;",
+          },
+        }),
+      ]);
 
-    const { url: workspaceUrl } = await this.authTest(input);
     const link_count = 0;
-    const allMembers = await this.getAllUsers(input);
-    const { usergroups } = await this.getUserGroups(input);
     const next_cursor = res.data.response_metadata?.next_cursor;
     const replies: ISlack.ChannelHistory[] = res.data.messages
       .slice(1) // 0번째 인덱스는 부모 스레드가 나오기 때문
@@ -449,29 +452,32 @@ export class SlackProvider {
     });
 
     const token = await this.getToken(secretKey);
+    const [{ url: workspaceUrl }, allMembers, { usergroups }, res] =
+      await Promise.all([
+        this.authTest(input),
+        this.getAllUsers(input),
+        this.getUserGroups(input),
+        axios.get(`${url}&${queryParameter}`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json; charset=utf-8;",
+          },
+        }),
+      ]);
 
-    const { url: workspaceUrl } = await this.authTest(input);
-    const res = await axios.get(`${url}&${queryParameter}`, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-        "Content-Type": "application/json; charset=utf-8;",
-      },
-    });
-
-    const allMembers = await this.getAllUsers(input);
-    const { usergroups } = await this.getUserGroups(input);
     const link_count = 0;
     const next_cursor = res.data.response_metadata?.next_cursor;
-    const messages: ISlack.LinkMessage[] = res.data.messages
-      .map((message: ISlack.Message) =>
-        this.convertMessageFormat({
-          message,
-          channel: input.channel,
-          link_count,
-          allMembers,
-          workspaceUrl,
-          allUsergroups: usergroups,
-        }),
+    const messages: ISlack.ChannelHistory[] = res.data.messages
+      .map(
+        (message: ISlack.Message): ISlack.ChannelHistory =>
+          this.convertMessageFormat({
+            message,
+            channel: input.channel,
+            link_count,
+            allMembers,
+            workspaceUrl,
+            allUsergroups: usergroups,
+          }),
       )
       .filter((message: ISlack.LinkMessage) => {
         return message.links.length !== 0;
@@ -513,17 +519,19 @@ export class SlackProvider {
     });
 
     const token = await this.getToken(secretKey);
+    const [{ url: workspaceUrl }, allMembers, { usergroups }, res] =
+      await Promise.all([
+        this.authTest(input),
+        this.getAllUsers(input),
+        this.getUserGroups(input),
+        axios.get(`${url}&${queryParameter}`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json; charset=utf-8;",
+          },
+        }),
+      ]);
 
-    const { url: workspaceUrl } = await this.authTest(input);
-    const res = await axios.get(`${url}&${queryParameter}`, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-        "Content-Type": "application/json; charset=utf-8;",
-      },
-    });
-
-    const allMembers = await this.getAllUsers(input);
-    const { usergroups } = await this.getUserGroups(input);
     const link_count = 0;
     const next_cursor = res.data.response_metadata?.next_cursor;
     const messages: ISlack.ChannelHistory[] = res.data.messages.map(
@@ -815,6 +823,13 @@ export class SlackProvider {
       return links ? Array.from(new Set(links)) : [];
     }
 
+    // <!subteam^S06AS8Y5QAU>
+    const tags = input.message.text.match(/<!subteam\^\w+>/g); // (\w+)가 아님에 주목하라.
+    const refinedTags: string[] = tags ? Array.from(new Set(tags)) : [];
+    const usergroups = input.allUsergroups.filter((usergroup) =>
+      refinedTags.includes(`<!subteam^${usergroup.id}>`),
+    );
+
     const timestamp = this.transformTsToTimestamp(input.message.ts);
     const links = extractLinks(input.message.text);
     return {
@@ -825,7 +840,7 @@ export class SlackProvider {
         .replaceAll(/<https?:\/\/[^\>]+>/g, () => {
           return `<LINK${input.link_count++}/>`;
         })
-        .replace(/@(\w+)/g, (_, id) => {
+        .replace(/<!subteam\^(\w+)>/g, (_, id) => {
           const usergroup = input.allUsergroups.find(
             (usergroup) => usergroup.id === id,
           );
@@ -842,6 +857,7 @@ export class SlackProvider {
       reply_users_count: input.message?.reply_users_count ?? 0,
       ts_date: new Date(timestamp).toISOString(),
       link: `${input.workspaceUrl}archives/${input.channel}/p${input.message.ts.replace(".", "")}`,
+      usergroups,
       // ...(input.message.attachments && { attachments: input.message.attachments }),
     };
   }
