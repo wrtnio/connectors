@@ -15,7 +15,7 @@
     }
   ],
   "info": {
-    "version": "0.1.290",
+    "version": "0.1.291",
     "title": "@wrtn/connector",
     "description": "wrtn-ecosystem connectors and sdk",
     "license": {
@@ -928,7 +928,7 @@
     "/connector/google-docs/append": {
       "post": {
         "summary": "Add text to Google Docs",
-        "description": "Add text to Google Docs",
+        "description": "Add text to Google Docs\n\nWhen you pass the input of the markdown format, change the markdown to the appropriate format.",
         "tags": [
           "Google Docs"
         ],
@@ -13642,7 +13642,7 @@
           "text": {
             "type": "string",
             "title": "text",
-            "description": "The text to add."
+            "description": "The text to add\n\nWhen you pass the input of the markdown format, change the markdown to the appropriate format."
           },
           "secretKey": {
             "type": "string",

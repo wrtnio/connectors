@@ -17,7 +17,7 @@
   "info": {
     "title": "Airport Infomation",
     "description": "항공 정보를 조회해요.",
-    "version": "0.1.290",
+    "version": "0.1.291",
     "license": {
       "name": "AGPL-3.0-only"
     }
