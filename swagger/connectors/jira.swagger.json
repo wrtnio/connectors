@@ -17,7 +17,7 @@
   "info": {
     "title": "Jira",
     "description": "Jira로 프로젝트 이슈를 관리해요.",
-    "version": "0.1.286",
+    "version": "0.1.287",
     "license": {
       "name": "AGPL-3.0-only"
     }
@@ -778,10 +778,12 @@
         "type": "object",
         "properties": {
           "version": {
-            "const": 1
+            "const": 1,
+            "title": "version"
           },
           "type": {
-            "const": "doc"
+            "const": "doc",
+            "title": "type"
           },
           "content": {
             "type": "string",
@@ -853,10 +855,12 @@
         "type": "object",
         "properties": {
           "version": {
-            "const": 1
+            "const": 1,
+            "title": "version"
           },
           "type": {
-            "const": "doc"
+            "const": "doc",
+            "title": "type"
           },
           "content": {
             "type": "string",
@@ -917,10 +921,12 @@
             "type": "object",
             "properties": {
               "type": {
-                "const": "doc"
+                "const": "doc",
+                "title": "type"
               },
               "version": {
-                "const": 1
+                "const": 1,
+                "title": "version"
               },
               "content": {
                 "type": "array",
@@ -1015,6 +1021,7 @@
               ]
             },
             "minItems": 1,
+            "title": "content",
             "description": "content must contain array of one or more of the following nodes:\n- paragraph with no marks.\n- bulletList\n- orderedList"
           }
         },
@@ -1036,13 +1043,15 @@
               {
                 "const": "orderedList"
               }
-            ]
+            ],
+            "title": "type"
           },
           "content": {
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/ListItemNode_1"
-            }
+            },
+            "title": "content"
           }
         },
         "required": [
@@ -1054,7 +1063,8 @@
         "type": "object",
         "properties": {
           "type": {
-            "const": "listItem"
+            "const": "listItem",
+            "title": "type"
           },
           "content": {
             "type": "array",
@@ -1080,7 +1090,8 @@
                         {
                           "const": "orderedList"
                         }
-                      ]
+                      ],
+                      "title": "type"
                     }
                   },
                   "required": [
@@ -1102,7 +1113,8 @@
         "type": "object",
         "properties": {
           "type": {
-            "const": "codeBlock"
+            "const": "codeBlock",
+            "title": "type"
           },
           "attrs": {
             "type": "object",
@@ -1113,7 +1125,8 @@
                 "title": "programming language name"
               }
             },
-            "title": "attrs\n\nIf you do not specify a programming language, this property may not exist."
+            "title": "attrs",
+            "description": "If you do not specify a programming language, this property may not exist."
           },
           "content": {
             "type": "array",
@@ -1122,7 +1135,8 @@
                 "type": "object",
                 "properties": {
                   "type": {
-                    "const": "text"
+                    "const": "text",
+                    "title": "type"
                   },
                   "text": {
                     "type": "string",
@@ -1136,7 +1150,8 @@
               }
             ],
             "additionalItems": false,
-            "title": "code content\n\ncontent takes an array of one or more text nodes without marks."
+            "title": "code content",
+            "description": "content takes an array of one or more text nodes without marks."
           }
         },
         "required": [
@@ -1185,7 +1200,7 @@
                 "type": "number",
                 "minimum": 0,
                 "maximum": 100,
-                "title": "width determines the width of the image as a percentage of the width of the text content area. Has no effect if layout mode is wide or full-width",
+                "title": "width",
                 "description": "width determines the width of the image as a percentage of the width of the text content area. Has no effect if layout mode is wide or full-width."
               },
               "widthType": {
@@ -1199,13 +1214,14 @@
                     "default": "percentage"
                   }
                 ],
-                "title": "widthType [optional] determines what the \"unit\" of the width attribute is presenting. Possible values are pixel and percentage. If the widthType attribute is undefined, it fallbacks to percentage",
+                "title": "widthType",
                 "description": "widthType [optional] determines what the \"unit\" of the width attribute is presenting. Possible values are pixel and percentage. If the widthType attribute is undefined, it fallbacks to percentage."
               }
             },
             "required": [
               "layout"
-            ]
+            ],
+            "title": "attrs"
           },
           "content": {
             "type": "array",
@@ -1216,24 +1232,25 @@
                     "type": "object",
                     "properties": {
                       "type": {
-                        "const": "media"
+                        "const": "media",
+                        "title": "type"
                       },
                       "attrs": {
                         "type": "object",
                         "properties": {
                           "width": {
                             "type": "number",
-                            "title": "width defines the display width of the media item in pixels. Must be provided within mediaSingle or the media isn't displayed",
+                            "title": "width",
                             "description": "width defines the display width of the media item in pixels. Must be provided within mediaSingle or the media isn't displayed."
                           },
                           "height": {
                             "type": "number",
-                            "title": "height defines the display height of the media item in pixels. Must be provided within mediaSingle or the media isn't displayed",
+                            "title": "height",
                             "description": "height defines the display height of the media item in pixels. Must be provided within mediaSingle or the media isn't displayed."
                           },
                           "id": {
                             "type": "string",
-                            "title": "id is the Media Services ID and is used for querying the media services API to retrieve metadata, such as, filename. Consumers of the document should always fetch fresh metadata using the Media API",
+                            "title": "id",
                             "description": "id is the Media Services ID and is used for querying the media services API to retrieve metadata, such as, filename. Consumers of the document should always fetch fresh metadata using the Media API."
                           },
                           "type": {
@@ -1258,7 +1275,8 @@
                         "type": "object",
                         "properties": {
                           "type": {
-                            "const": "link"
+                            "const": "link",
+                            "title": "type"
                           },
                           "attrs": {
                             "type": "object",
@@ -1271,7 +1289,8 @@
                             },
                             "required": [
                               "href"
-                            ]
+                            ],
+                            "title": "attrs"
                           }
                         },
                         "required": [
@@ -1291,24 +1310,25 @@
                     "type": "object",
                     "properties": {
                       "type": {
-                        "const": "media"
+                        "const": "media",
+                        "title": "type"
                       },
                       "attrs": {
                         "type": "object",
                         "properties": {
                           "width": {
                             "type": "number",
-                            "title": "width defines the display width of the media item in pixels. Must be provided within mediaSingle or the media isn't displayed",
+                            "title": "width",
                             "description": "width defines the display width of the media item in pixels. Must be provided within mediaSingle or the media isn't displayed."
                           },
                           "height": {
                             "type": "number",
-                            "title": "height defines the display height of the media item in pixels. Must be provided within mediaSingle or the media isn't displayed",
+                            "title": "height",
                             "description": "height defines the display height of the media item in pixels. Must be provided within mediaSingle or the media isn't displayed."
                           },
                           "id": {
                             "type": "string",
-                            "title": "id is the Media Services ID and is used for querying the media services API to retrieve metadata, such as, filename. Consumers of the document should always fetch fresh metadata using the Media API",
+                            "title": "id",
                             "description": "id is the Media Services ID and is used for querying the media services API to retrieve metadata, such as, filename. Consumers of the document should always fetch fresh metadata using the Media API."
                           },
                           "type": {
@@ -1356,7 +1376,8 @@
             "title": "paragraph type"
           },
           "attrs": {
-            "$ref": "#/components/schemas/Recordstringnever"
+            "$ref": "#/components/schemas/Recordstringnever",
+            "title": "attrs"
           },
           "content": {
             "type": "array",
@@ -1652,7 +1673,8 @@
                   "type": "object",
                   "properties": {
                     "type": {
-                      "const": "backgroundColor"
+                      "const": "backgroundColor",
+                      "title": "type"
                     },
                     "attrs": {
                       "type": "object",
@@ -1665,7 +1687,8 @@
                       },
                       "required": [
                         "color"
-                      ]
+                      ],
+                      "title": "attrs"
                     }
                   },
                   "required": [
@@ -1677,7 +1700,8 @@
                   "type": "object",
                   "properties": {
                     "type": {
-                      "const": "code"
+                      "const": "code",
+                      "title": "type"
                     }
                   },
                   "required": [
@@ -1688,7 +1712,8 @@
                   "type": "object",
                   "properties": {
                     "type": {
-                      "const": "em"
+                      "const": "em",
+                      "title": "type"
                     }
                   },
                   "required": [
@@ -1699,7 +1724,8 @@
                   "type": "object",
                   "properties": {
                     "type": {
-                      "const": "strike"
+                      "const": "strike",
+                      "title": "type"
                     }
                   },
                   "required": [
@@ -1710,7 +1736,8 @@
                   "type": "object",
                   "properties": {
                     "type": {
-                      "const": "strong"
+                      "const": "strong",
+                      "title": "type"
                     }
                   },
                   "required": [
@@ -1721,7 +1748,8 @@
                   "type": "object",
                   "properties": {
                     "type": {
-                      "const": "underline"
+                      "const": "underline",
+                      "title": "type"
                     }
                   },
                   "required": [
@@ -1732,7 +1760,8 @@
                   "type": "object",
                   "properties": {
                     "type": {
-                      "const": "link"
+                      "const": "link",
+                      "title": "type"
                     },
                     "attrs": {
                       "type": "object",
@@ -1745,7 +1774,8 @@
                       },
                       "required": [
                         "href"
-                      ]
+                      ],
+                      "title": "attrs"
                     }
                   },
                   "required": [
@@ -1757,7 +1787,8 @@
                   "type": "object",
                   "properties": {
                     "type": {
-                      "const": "subsup"
+                      "const": "subsup",
+                      "title": "type"
                     },
                     "attrs": {
                       "type": "object",
@@ -1770,12 +1801,14 @@
                             {
                               "const": "sup"
                             }
-                          ]
+                          ],
+                          "title": "type"
                         }
                       },
                       "required": [
                         "type"
-                      ]
+                      ],
+                      "title": "attrs"
                     }
                   },
                   "required": [
@@ -1787,7 +1820,8 @@
                   "type": "object",
                   "properties": {
                     "type": {
-                      "const": "textColor"
+                      "const": "textColor",
+                      "title": "type"
                     },
                     "attrs": {
                       "type": "object",
@@ -1800,7 +1834,8 @@
                       },
                       "required": [
                         "color"
-                      ]
+                      ],
+                      "title": "attrs"
                     }
                   },
                   "required": [
@@ -1810,7 +1845,8 @@
                 }
               ]
             },
-            "title": "marks\n\nIt means the emphasis of the markdown format, and it means that there is a string between the backticks."
+            "title": "marks",
+            "description": "It means the emphasis of the markdown format, and it means that there is a string between the backticks."
           }
         },
         "required": [
@@ -1823,7 +1859,8 @@
         "type": "object",
         "properties": {
           "type": {
-            "const": "panel"
+            "const": "panel",
+            "title": "type"
           },
           "attrs": {
             "type": "object",
@@ -1845,12 +1882,14 @@
                   {
                     "const": "success"
                   }
-                ]
+                ],
+                "title": "panelType"
               }
             },
             "required": [
               "panelType"
-            ]
+            ],
+            "title": "attrs"
           },
           "content": {
             "type": "array",
@@ -1866,7 +1905,8 @@
                   "$ref": "#/components/schemas/IJira.HeadingNodeWithoutMarks"
                 }
               ]
-            }
+            },
+            "title": "content"
           }
         },
         "required": [
@@ -1977,7 +2017,8 @@
             "title": "paragraph type"
           },
           "attrs": {
-            "$ref": "#/components/schemas/Recordstringnever"
+            "$ref": "#/components/schemas/Recordstringnever",
+            "title": "attrs"
           },
           "content": {
             "type": "array",
@@ -2023,13 +2064,15 @@
         "type": "object",
         "properties": {
           "type": {
-            "const": "table"
+            "const": "table",
+            "title": "type"
           },
           "content": {
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/IJira.TableRowNode"
-            }
+            },
+            "title": "content"
           },
           "attrs": {
             "type": "object",
@@ -2037,13 +2080,13 @@
               "isNumberColumnEnabled": {
                 "type": "boolean",
                 "default": true,
-                "title": "When isNumberColumnEnabled is set to 'true' the first table column provides numbering for the table rows",
+                "title": "isNumberColumnEnabled",
                 "description": "When isNumberColumnEnabled is set to 'true' the first table column provides numbering for the table rows."
               },
               "width": {
                 "type": "number",
                 "minimum": 0,
-                "title": "width sets the length (in pixels) of the table on the page",
+                "title": "width",
                 "description": "width sets the length (in pixels) of the table on the page.\nThis value is independent of the table's column width, this allows control of the table's overflow.\nIt supersedes the existing layout attribute and will be used instead of it at runtime.\nIf width is not provided the editor will convert layout to pixels (default=760, wide=960 and full-width=1800).\nAlthough no minimum and maximum width is enforced it is recommended to follow these guidelines:\n\n- Minimum width\n\n- 1 column table = 48px\n- 2 column table = 96px\n- 3 column table = 144px\n- > 3 column table = 144px\n- Maximum width\n- 1800"
               },
               "layout": {
@@ -2055,7 +2098,7 @@
                     "const": "align-start"
                   }
                 ],
-                "title": "layout determines the alignment of a table in the full page editor, relevant to the line length. Currently only center and left alignment options are supported",
+                "title": "layout",
                 "description": "layout determines the alignment of a table in the full page editor, relevant to the line length. Currently only center and left alignment options are supported.\nThe layout values are mapped as follows:\n- 'center' : will align the table to the center of page, its width can be larger than the line length\n- 'align-start' : will align the table left of the line length, its width cannot be larger than the line length"
               },
               "displayMode": {
@@ -2067,9 +2110,11 @@
                     "const": "fixed"
                   }
                 ],
+                "title": "displayMode",
                 "description": "displayMode attribute controls how tables adapt to narrow screens:\nWhen displayMode is set to 'default' or left unset, the table's columns will automatically scale down to accommodate narrow screens, with a maximum reduction of up to 40%.\nWhen displayMode is set to 'fixed', the table's columns will maintain their original width, regardless of screen size."
               }
-            }
+            },
+            "title": "attrs"
           }
         },
         "required": [
@@ -2082,7 +2127,8 @@
         "type": "object",
         "properties": {
           "type": {
-            "const": "tableRow"
+            "const": "tableRow",
+            "title": "type"
           },
           "content": {
             "type": "array",
@@ -2103,7 +2149,7 @@
                 }
               }
             },
-            "title": "content takes an array of one or more tableHeader or tableCell nodes",
+            "title": "content",
             "description": "content takes an array of one or more tableHeader or tableCell nodes."
           }
         },
@@ -2111,13 +2157,15 @@
           "type",
           "content"
         ],
+        "title": "TableRowNode",
         "description": "The tableRow node defines rows within a table and is a container for table heading and table cell nodes.\ntableRow is a child block node of the table node."
       },
       "IJira.TableHeaderNode": {
         "type": "object",
         "properties": {
           "type": {
-            "const": "tableHeader"
+            "const": "tableHeader",
+            "title": "type"
           },
           "content": {
             "type": "array",
@@ -2148,19 +2196,22 @@
                   "$ref": "#/components/schemas/IJira.RuleNode"
                 }
               ]
-            }
+            },
+            "title": "content"
           },
           "attrs": {
             "type": "object",
             "properties": {
               "background": {
                 "type": "string",
+                "title": "background",
                 "description": "Short or long hex color code or HTML color name"
               },
               "colspan": {
                 "type": "integer",
                 "default": 1,
-                "title": "colspan\ncolspan defines the number of columns the cell spans."
+                "title": "colspan",
+                "description": "colspan defines the number of columns the cell spans."
               },
               "colwidth": {
                 "type": "array",
@@ -2176,14 +2227,17 @@
                   }
                 ],
                 "additionalItems": false,
+                "title": "colwidth",
                 "description": "defines the width of the column or,\nwhere the cell spans columns, the width of the columns it spans in pixels.\nThe length of the array should be equal to the number of spanned columns.\n0 is permitted as an array value if the column size is not fixed,\nfor example, a cell merged across 3 columns where one unfixed column is surrounded by two fixed might be represented as `[120, 0, 120]."
               },
               "rowspan": {
                 "type": "integer",
                 "default": 1,
-                "title": "rowspan\nrowspan defines the number of rows a cell spans."
+                "title": "rowspan",
+                "description": "rowspan defines the number of rows a cell spans."
               }
-            }
+            },
+            "title": "attrs"
           }
         },
         "required": [
@@ -2195,7 +2249,8 @@
         "type": "object",
         "properties": {
           "type": {
-            "const": "mediaGroup"
+            "const": "mediaGroup",
+            "title": "type"
           },
           "content": {
             "type": "array",
@@ -2205,24 +2260,25 @@
                   "type": "object",
                   "properties": {
                     "type": {
-                      "const": "media"
+                      "const": "media",
+                      "title": "type"
                     },
                     "attrs": {
                       "type": "object",
                       "properties": {
                         "width": {
                           "type": "number",
-                          "title": "width defines the display width of the media item in pixels. Must be provided within mediaSingle or the media isn't displayed",
+                          "title": "width",
                           "description": "width defines the display width of the media item in pixels. Must be provided within mediaSingle or the media isn't displayed."
                         },
                         "height": {
                           "type": "number",
-                          "title": "height defines the display height of the media item in pixels. Must be provided within mediaSingle or the media isn't displayed",
+                          "title": "height",
                           "description": "height defines the display height of the media item in pixels. Must be provided within mediaSingle or the media isn't displayed."
                         },
                         "id": {
                           "type": "string",
-                          "title": "id is the Media Services ID and is used for querying the media services API to retrieve metadata, such as, filename. Consumers of the document should always fetch fresh metadata using the Media API",
+                          "title": "id",
                           "description": "id is the Media Services ID and is used for querying the media services API to retrieve metadata, such as, filename. Consumers of the document should always fetch fresh metadata using the Media API."
                         },
                         "type": {
@@ -2247,7 +2303,8 @@
                       "type": "object",
                       "properties": {
                         "type": {
-                          "const": "link"
+                          "const": "link",
+                          "title": "type"
                         },
                         "attrs": {
                           "type": "object",
@@ -2260,7 +2317,8 @@
                           },
                           "required": [
                             "href"
-                          ]
+                          ],
+                          "title": "attrs"
                         }
                       },
                       "required": [
@@ -2280,24 +2338,25 @@
                   "type": "object",
                   "properties": {
                     "type": {
-                      "const": "media"
+                      "const": "media",
+                      "title": "type"
                     },
                     "attrs": {
                       "type": "object",
                       "properties": {
                         "width": {
                           "type": "number",
-                          "title": "width defines the display width of the media item in pixels. Must be provided within mediaSingle or the media isn't displayed",
+                          "title": "width",
                           "description": "width defines the display width of the media item in pixels. Must be provided within mediaSingle or the media isn't displayed."
                         },
                         "height": {
                           "type": "number",
-                          "title": "height defines the display height of the media item in pixels. Must be provided within mediaSingle or the media isn't displayed",
+                          "title": "height",
                           "description": "height defines the display height of the media item in pixels. Must be provided within mediaSingle or the media isn't displayed."
                         },
                         "id": {
                           "type": "string",
-                          "title": "id is the Media Services ID and is used for querying the media services API to retrieve metadata, such as, filename. Consumers of the document should always fetch fresh metadata using the Media API",
+                          "title": "id",
                           "description": "id is the Media Services ID and is used for querying the media services API to retrieve metadata, such as, filename. Consumers of the document should always fetch fresh metadata using the Media API."
                         },
                         "type": {
@@ -2325,7 +2384,8 @@
                 }
               ]
             },
-            "title": "content\ncontent must contain one or more media nodes."
+            "title": "content",
+            "description": "content must contain one or more media nodes."
           }
         },
         "required": [
@@ -2337,7 +2397,8 @@
         "type": "object",
         "properties": {
           "type": {
-            "const": "rule"
+            "const": "rule",
+            "title": "type"
           }
         },
         "required": [
@@ -2349,7 +2410,8 @@
         "type": "object",
         "properties": {
           "type": {
-            "const": "tableCell"
+            "const": "tableCell",
+            "title": "type"
           },
           "content": {
             "type": "array",
@@ -2380,19 +2442,22 @@
                   "$ref": "#/components/schemas/IJira.RuleNode"
                 }
               ]
-            }
+            },
+            "title": "content"
           },
           "attrs": {
             "type": "object",
             "properties": {
               "background": {
                 "type": "string",
+                "title": "background",
                 "description": "Short or long hex color code or HTML color name"
               },
               "colspan": {
                 "type": "integer",
                 "default": 1,
-                "title": "colspan\ncolspan defines the number of columns the cell spans."
+                "title": "colspan",
+                "description": "colspan defines the number of columns the cell spans."
               },
               "colwidth": {
                 "type": "array",
@@ -2408,14 +2473,17 @@
                   }
                 ],
                 "additionalItems": false,
+                "title": "colwidth",
                 "description": "defines the width of the column or,\nwhere the cell spans columns, the width of the columns it spans in pixels.\nThe length of the array should be equal to the number of spanned columns.\n0 is permitted as an array value if the column size is not fixed,\nfor example, a cell merged across 3 columns where one unfixed column is surrounded by two fixed might be represented as `[120, 0, 120]."
               },
               "rowspan": {
                 "type": "integer",
                 "default": 1,
-                "title": "rowspan\nrowspan defines the number of rows a cell spans."
+                "title": "rowspan",
+                "description": "rowspan defines the number of rows a cell spans."
               }
-            }
+            },
+            "title": "attrs"
           }
         },
         "required": [
@@ -3347,14 +3415,16 @@
                           "$ref": "#/components/schemas/IJira.RuleNode"
                         }
                       ]
-                    }
+                    },
+                    "title": "content"
                   }
                 },
                 "required": [
                   "content"
                 ]
               }
-            ]
+            ],
+            "title": "description"
           },
           "statuscategorychangedate": {
             "oneOf": [
@@ -3448,10 +3518,12 @@
             "type": "object",
             "properties": {
               "type": {
-                "const": "doc"
+                "const": "doc",
+                "title": "type"
               },
               "version": {
-                "const": 1
+                "const": 1,
+                "title": "version"
               },
               "content": {
                 "type": "array",
@@ -3656,7 +3728,8 @@
                 "type": "string",
                 "title": "summary"
               }
-            }
+            },
+            "title": "fields"
           }
         },
         "required": [
@@ -4234,7 +4307,8 @@
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/MyPickStatusnameiduntranslatedNameprojectIdstringundefined"
-            }
+            },
+            "title": "statuses"
           }
         },
         "required": [
@@ -4258,7 +4332,8 @@
             "title": "untranslated name"
           },
           "projectId": {
-            "type": "string"
+            "type": "string",
+            "title": "projectId"
           }
         },
         "required": [

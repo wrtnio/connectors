@@ -17,7 +17,7 @@
   "info": {
     "title": "스토리 생성",
     "description": "",
-    "version": "0.1.286",
+    "version": "0.1.287",
     "license": {
       "name": "AGPL-3.0-only"
     }
@@ -91,7 +91,8 @@
         "type": "object",
         "properties": {
           "query": {
-            "type": "string"
+            "type": "string",
+            "title": "query"
           },
           "chatHistory": {
             "type": "array",
@@ -99,23 +100,27 @@
               "type": "object",
               "properties": {
                 "role": {
-                  "type": "string"
+                  "type": "string",
+                  "title": "role"
                 },
                 "content": {
-                  "type": "string"
+                  "type": "string",
+                  "title": "content"
                 }
               },
               "required": [
                 "role",
                 "content"
               ]
-            }
+            },
+            "title": "chatHistory"
           },
           "previousStories": {
             "type": "array",
             "items": {
               "type": "string"
-            }
+            },
+            "title": "previousStories"
           }
         },
         "required": [

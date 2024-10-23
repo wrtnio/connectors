@@ -17,7 +17,7 @@
   "info": {
     "title": "Github",
     "description": "Github에서 코드를 읽고 분석하고 작성해요",
-    "version": "0.1.286",
+    "version": "0.1.287",
     "license": {
       "name": "AGPL-3.0-only"
     }
@@ -485,13 +485,16 @@
                         "type": "object",
                         "properties": {
                           "type": {
-                            "const": "null"
+                            "const": "null",
+                            "title": "type"
                           },
                           "size": {
-                            "const": 0
+                            "const": 0,
+                            "title": "size"
                           },
                           "message": {
-                            "const": "No files exist corresponding to the path."
+                            "const": "No files exist corresponding to the path.",
+                            "title": "message"
                           }
                         },
                         "required": [
@@ -562,13 +565,16 @@
                       "type": "object",
                       "properties": {
                         "type": {
-                          "const": "null"
+                          "const": "null",
+                          "title": "type"
                         },
                         "size": {
-                          "const": 0
+                          "const": 0,
+                          "title": "size"
                         },
                         "message": {
-                          "const": "No files exist corresponding to the path."
+                          "const": "No files exist corresponding to the path.",
+                          "title": "message"
                         }
                       },
                       "required": [
@@ -2257,7 +2263,8 @@
                 "public",
                 "created_at"
               ]
-            }
+            },
+            "title": "event"
           },
           "nextPage": {
             "type": "boolean",
@@ -2378,11 +2385,13 @@
           },
           "issue": {
             "$ref": "#/components/schemas/IGithub.Issue",
-            "title": "issue\n\nIf it is an event for an issue, contain the issue information."
+            "title": "issue",
+            "description": "If it is an event for an issue, contain the issue information."
           },
           "comment": {
             "$ref": "#/components/schemas/IGithub.Comment",
-            "title": "comment\n\nIf it is an event for an comment, contain the comment information."
+            "title": "comment",
+            "description": "If it is an event for an comment, contain the comment information."
           }
         }
       },
@@ -2390,7 +2399,8 @@
         "type": "object",
         "properties": {
           "id": {
-            "type": "integer"
+            "type": "integer",
+            "title": "issue id"
           },
           "html_url": {
             "type": "string",
@@ -2421,11 +2431,13 @@
                 "const": "not_planned"
               }
             ],
+            "title": "state_reason",
             "description": "The reason for the current state"
           },
           "title": {
             "type": "string",
-            "description": "Title of the issue"
+            "title": "title",
+            "description": "title of the issue"
           },
           "user": {
             "$ref": "#/components/schemas/MyPickIGithub.Usertypeidlogin",
@@ -2454,14 +2466,17 @@
                   "type": "object",
                   "properties": {
                     "id": {
-                      "type": "integer"
+                      "type": "integer",
+                      "title": "id"
                     },
                     "url": {
                       "type": "string",
-                      "format": "iri"
+                      "format": "iri",
+                      "title": "url"
                     },
                     "name": {
-                      "type": "string"
+                      "type": "string",
+                      "title": "name"
                     },
                     "description": {
                       "oneOf": [
@@ -2471,7 +2486,8 @@
                         {
                           "type": "string"
                         }
-                      ]
+                      ],
+                      "title": "description"
                     },
                     "color": {
                       "oneOf": [
@@ -2481,10 +2497,12 @@
                         {
                           "type": "string"
                         }
-                      ]
+                      ],
+                      "title": "color"
                     },
                     "default": {
-                      "type": "boolean"
+                      "type": "boolean",
+                      "title": "default"
                     }
                   }
                 }
@@ -2664,10 +2682,12 @@
         "type": "object",
         "properties": {
           "page_name": {
-            "type": "string"
+            "type": "string",
+            "title": "page_name"
           },
           "title": {
-            "type": "string"
+            "type": "string",
+            "title": "title"
           },
           "summary": {
             "oneOf": [
@@ -2677,16 +2697,20 @@
               {
                 "type": "string"
               }
-            ]
+            ],
+            "title": "summary"
           },
           "action": {
-            "type": "string"
+            "type": "string",
+            "title": "action"
           },
           "sha": {
-            "type": "string"
+            "type": "string",
+            "title": "sha"
           },
           "html_url": {
-            "type": "string"
+            "type": "string",
+            "title": "html_url"
           }
         }
       },
@@ -2700,13 +2724,15 @@
           "page": {
             "type": "integer",
             "default": 1,
-            "title": "page\nThe page number of the results to fetch."
+            "title": "page",
+            "description": "The page number of the results to fetch."
           },
           "per_page": {
             "type": "integer",
             "default": 30,
             "maximum": 100,
-            "title": "per_page\nThe number of results per page (max 100)."
+            "title": "per_page",
+            "description": "The number of results per page (max 100)."
           },
           "secretKey": {
             "type": "string",
@@ -2975,7 +3001,8 @@
               "admin",
               "push",
               "pull"
-            ]
+            ],
+            "title": "permissions"
           },
           "allow_rebase_merge": {
             "type": "boolean",
@@ -3048,7 +3075,8 @@
                   "spdx_id"
                 ]
               }
-            ]
+            ],
+            "title": "license"
           },
           "forks": {
             "type": "integer",
@@ -3101,11 +3129,13 @@
         "type": "object",
         "properties": {
           "type": {
-            "const": "file"
+            "const": "file",
+            "title": "type"
           },
           "encoding": {
             "type": "string",
-            "x-wrtn-placeholder": "base64"
+            "x-wrtn-placeholder": "base64",
+            "title": "encoding"
           },
           "size": {
             "type": "number",
@@ -3222,7 +3252,8 @@
           "page": {
             "type": "integer",
             "default": 1,
-            "title": "page\nThe page number of the results to fetch."
+            "title": "page",
+            "description": "The page number of the results to fetch."
           },
           "secretKey": {
             "type": "string",
@@ -3249,13 +3280,15 @@
           "page": {
             "type": "integer",
             "default": 1,
-            "title": "page\nThe page number of the results to fetch."
+            "title": "page",
+            "description": "The page number of the results to fetch."
           },
           "per_page": {
             "type": "integer",
             "default": 30,
             "maximum": 100,
-            "title": "per_page\nThe number of results per page (max 100)."
+            "title": "per_page",
+            "description": "The number of results per page (max 100)."
           },
           "secretKey": {
             "type": "string",
@@ -3276,7 +3309,8 @@
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/IGithub.Issue"
-            }
+            },
+            "title": "Issues"
           },
           "nextPage": {
             "type": "boolean",
@@ -3460,13 +3494,15 @@
           "page": {
             "type": "integer",
             "default": 1,
-            "title": "page\nThe page number of the results to fetch."
+            "title": "page",
+            "description": "The page number of the results to fetch."
           },
           "per_page": {
             "type": "integer",
             "default": 30,
             "maximum": 100,
-            "title": "per_page\nThe number of results per page (max 100)."
+            "title": "per_page",
+            "description": "The number of results per page (max 100)."
           }
         },
         "required": [
@@ -3685,7 +3721,8 @@
               "admin",
               "push",
               "pull"
-            ]
+            ],
+            "title": "permissions"
           },
           "allow_rebase_merge": {
             "type": "boolean",
@@ -3758,7 +3795,8 @@
                   "spdx_id"
                 ]
               }
-            ]
+            ],
+            "title": "license"
           },
           "forks": {
             "type": "integer",
@@ -3813,7 +3851,8 @@
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/IGithub.Collaborator"
-            }
+            },
+            "title": "result"
           },
           "nextPage": {
             "type": "boolean",
@@ -3985,13 +4024,15 @@
           "page": {
             "type": "integer",
             "default": 1,
-            "title": "page\nThe page number of the results to fetch."
+            "title": "page",
+            "description": "The page number of the results to fetch."
           },
           "per_page": {
             "type": "integer",
             "default": 30,
             "maximum": 100,
-            "title": "per_page\nThe number of results per page (max 100)."
+            "title": "per_page",
+            "description": "The number of results per page (max 100)."
           }
         },
         "required": [
@@ -4053,7 +4094,8 @@
               },
               "date": {
                 "type": "string",
-                "format": "date-time"
+                "format": "date-time",
+                "title": "date"
               }
             },
             "required": [
@@ -4077,7 +4119,8 @@
               },
               "date": {
                 "type": "string",
-                "format": "date-time"
+                "format": "date-time",
+                "title": "date"
               }
             },
             "required": [
@@ -4205,7 +4248,8 @@
               },
               "date": {
                 "type": "string",
-                "format": "date-time"
+                "format": "date-time",
+                "title": "date"
               }
             },
             "required": [
@@ -4229,7 +4273,8 @@
               },
               "date": {
                 "type": "string",
-                "format": "date-time"
+                "format": "date-time",
+                "title": "date"
               }
             },
             "required": [
@@ -4303,7 +4348,8 @@
               },
               "date": {
                 "type": "string",
-                "format": "date-time"
+                "format": "date-time",
+                "title": "date"
               }
             },
             "required": [
@@ -4327,7 +4373,8 @@
               },
               "date": {
                 "type": "string",
-                "format": "date-time"
+                "format": "date-time",
+                "title": "date"
               }
             },
             "required": [
@@ -4408,7 +4455,8 @@
             "title": "name of this file"
           },
           "type": {
-            "const": "file"
+            "const": "file",
+            "title": "type"
           },
           "path": {
             "type": "string",
@@ -4616,13 +4664,15 @@
           "page": {
             "type": "integer",
             "default": 1,
-            "title": "page\nThe page number of the results to fetch."
+            "title": "page",
+            "description": "The page number of the results to fetch."
           },
           "per_page": {
             "type": "integer",
             "default": 30,
             "maximum": 100,
-            "title": "per_page\nThe number of results per page (max 100)."
+            "title": "per_page",
+            "description": "The number of results per page (max 100)."
           },
           "secretKey": {
             "type": "string",
@@ -4647,13 +4697,15 @@
           "page": {
             "type": "integer",
             "default": 1,
-            "title": "page\nThe page number of the results to fetch."
+            "title": "page",
+            "description": "The page number of the results to fetch."
           },
           "per_page": {
             "type": "integer",
             "default": 30,
             "maximum": 100,
-            "title": "per_page\nThe number of results per page (max 100)."
+            "title": "per_page",
+            "description": "The number of results per page (max 100)."
           },
           "secretKey": {
             "type": "string",
@@ -4674,7 +4726,8 @@
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/IGithub.Organization"
-            }
+            },
+            "title": "result"
           },
           "nextPage": {
             "type": "boolean",
@@ -4773,13 +4826,15 @@
           "page": {
             "type": "integer",
             "default": 1,
-            "title": "page\nThe page number of the results to fetch."
+            "title": "page",
+            "description": "The page number of the results to fetch."
           },
           "per_page": {
             "type": "integer",
             "default": 30,
             "maximum": 100,
-            "title": "per_page\nThe number of results per page (max 100)."
+            "title": "per_page",
+            "description": "The number of results per page (max 100)."
           }
         },
         "required": [
@@ -4793,13 +4848,15 @@
           "page": {
             "type": "integer",
             "default": 1,
-            "title": "page\nThe page number of the results to fetch."
+            "title": "page",
+            "description": "The page number of the results to fetch."
           },
           "per_page": {
             "type": "integer",
             "default": 30,
             "maximum": 100,
-            "title": "per_page\nThe number of results per page (max 100)."
+            "title": "per_page",
+            "description": "The number of results per page (max 100)."
           },
           "secretKey": {
             "type": "string",
@@ -5074,7 +5131,8 @@
             "type": "integer",
             "default": 30,
             "maximum": 100,
-            "title": "per_page\nThe number of results per page (max 100)."
+            "title": "per_page",
+            "description": "The number of results per page (max 100)."
           },
           "secretKey": {
             "type": "string",
@@ -5101,10 +5159,12 @@
           },
           "title": {
             "type": "string",
-            "description": "Title of the issue"
+            "title": "title",
+            "description": "title of the issue"
           },
           "id": {
-            "type": "integer"
+            "type": "integer",
+            "title": "issue id"
           }
         },
         "required": [
@@ -5227,10 +5287,12 @@
           },
           "title": {
             "type": "string",
-            "description": "Title of the issue"
+            "title": "title",
+            "description": "title of the issue"
           },
           "id": {
-            "type": "integer"
+            "type": "integer",
+            "title": "issue id"
           }
         },
         "required": [
@@ -5480,13 +5542,15 @@
           "page": {
             "type": "integer",
             "default": 1,
-            "title": "page\nThe page number of the results to fetch."
+            "title": "page",
+            "description": "The page number of the results to fetch."
           },
           "per_page": {
             "type": "integer",
             "default": 30,
             "maximum": 100,
-            "title": "per_page\nThe number of results per page (max 100)."
+            "title": "per_page",
+            "description": "The number of results per page (max 100)."
           }
         },
         "required": [
@@ -5672,14 +5736,17 @@
                 "path": "/connector/github/repos/get-collaborators",
                 "jmesPath": "result[].{value:login, label:login}"
               }
-            }
+            },
+            "title": "reviewers",
+            "description": "An array of user logins that will be requested."
           },
           "team_reviewers": {
             "type": "array",
             "items": {
               "type": "string"
             },
-            "title": "team_reviewers\nAn array of team slugs that will be requested."
+            "title": "team_reviewers",
+            "description": "An array of team slugs that will be requested."
           },
           "owner": {
             "type": "string",
@@ -5966,13 +6033,15 @@
           "page": {
             "type": "integer",
             "default": 1,
-            "title": "page\nThe page number of the results to fetch."
+            "title": "page",
+            "description": "The page number of the results to fetch."
           },
           "per_page": {
             "type": "integer",
             "default": 30,
             "maximum": 100,
-            "title": "per_page\nThe number of results per page (max 100)."
+            "title": "per_page",
+            "description": "The number of results per page (max 100)."
           }
         },
         "required": [
@@ -6181,13 +6250,15 @@
           "page": {
             "type": "integer",
             "default": 1,
-            "title": "page\nThe page number of the results to fetch."
+            "title": "page",
+            "description": "The page number of the results to fetch."
           },
           "per_page": {
             "type": "integer",
             "default": 30,
             "maximum": 100,
-            "title": "per_page\nThe number of results per page (max 100)."
+            "title": "per_page",
+            "description": "The number of results per page (max 100)."
           }
         },
         "required": [
@@ -6300,16 +6371,20 @@
         "type": "object",
         "properties": {
           "line": {
-            "type": "integer"
+            "type": "integer",
+            "title": "line"
           },
           "side": {
-            "type": "string"
+            "type": "string",
+            "title": "side"
           },
           "start_line": {
-            "type": "integer"
+            "type": "integer",
+            "title": "start_line"
           },
           "start_side": {
-            "type": "string"
+            "type": "string",
+            "title": "start_side"
           },
           "position": {
             "oneOf": [
@@ -6348,7 +6423,8 @@
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/IGithub.File"
-            }
+            },
+            "title": "result"
           },
           "nextPage": {
             "type": "boolean",
@@ -6526,13 +6602,15 @@
           "page": {
             "type": "integer",
             "default": 1,
-            "title": "page\nThe page number of the results to fetch."
+            "title": "page",
+            "description": "The page number of the results to fetch."
           },
           "per_page": {
             "type": "integer",
             "default": 30,
             "maximum": 100,
-            "title": "per_page\nThe number of results per page (max 100)."
+            "title": "per_page",
+            "description": "The number of results per page (max 100)."
           }
         },
         "required": [
@@ -6621,14 +6699,17 @@
             "type": "object",
             "properties": {
               "name": {
-                "type": "string"
+                "type": "string",
+                "title": "name"
               },
               "email": {
-                "type": "string"
+                "type": "string",
+                "title": "email"
               },
               "date": {
                 "type": "string",
-                "format": "date-time"
+                "format": "date-time",
+                "title": "date"
               }
             },
             "required": [
@@ -6642,14 +6723,17 @@
             "type": "object",
             "properties": {
               "name": {
-                "type": "string"
+                "type": "string",
+                "title": "name"
               },
               "email": {
-                "type": "string"
+                "type": "string",
+                "title": "email"
               },
               "date": {
                 "type": "string",
-                "format": "date-time"
+                "format": "date-time",
+                "title": "date"
               }
             },
             "required": [
@@ -6663,20 +6747,24 @@
             "type": "object",
             "properties": {
               "sha": {
-                "type": "string"
+                "type": "string",
+                "title": "sha"
               },
               "url": {
                 "type": "string",
-                "format": "iri"
+                "format": "iri",
+                "title": "url"
               }
             },
             "required": [
               "sha",
               "url"
-            ]
+            ],
+            "title": "tree"
           },
           "comment_count": {
-            "type": "integer"
+            "type": "integer",
+            "title": "comment_count"
           }
         },
         "required": [
@@ -6735,13 +6823,15 @@
           "page": {
             "type": "integer",
             "default": 1,
-            "title": "page\nThe page number of the results to fetch."
+            "title": "page",
+            "description": "The page number of the results to fetch."
           },
           "per_page": {
             "type": "integer",
             "default": 30,
             "maximum": 100,
-            "title": "per_page\nThe number of results per page (max 100)."
+            "title": "per_page",
+            "description": "The number of results per page (max 100)."
           }
         },
         "required": [
@@ -7013,7 +7103,8 @@
             "title": "merged_at"
           },
           "id": {
-            "type": "integer"
+            "type": "integer",
+            "title": "issue id"
           },
           "html_url": {
             "type": "string",
@@ -7040,11 +7131,13 @@
                 "const": "not_planned"
               }
             ],
+            "title": "state_reason",
             "description": "The reason for the current state"
           },
           "title": {
             "type": "string",
-            "description": "Title of the issue"
+            "title": "title",
+            "description": "title of the issue"
           },
           "user": {
             "$ref": "#/components/schemas/MyPickIGithub.Usertypeidlogin",
@@ -7073,14 +7166,17 @@
                   "type": "object",
                   "properties": {
                     "id": {
-                      "type": "integer"
+                      "type": "integer",
+                      "title": "id"
                     },
                     "url": {
                       "type": "string",
-                      "format": "iri"
+                      "format": "iri",
+                      "title": "url"
                     },
                     "name": {
-                      "type": "string"
+                      "type": "string",
+                      "title": "name"
                     },
                     "description": {
                       "oneOf": [
@@ -7090,7 +7186,8 @@
                         {
                           "type": "string"
                         }
-                      ]
+                      ],
+                      "title": "description"
                     },
                     "color": {
                       "oneOf": [
@@ -7100,10 +7197,12 @@
                         {
                           "type": "string"
                         }
-                      ]
+                      ],
+                      "title": "color"
                     },
                     "default": {
-                      "type": "boolean"
+                      "type": "boolean",
+                      "title": "default"
                     }
                   }
                 }
@@ -7175,10 +7274,12 @@
         "type": "object",
         "properties": {
           "id": {
-            "type": "number"
+            "type": "number",
+            "title": "id"
           },
           "number": {
-            "type": "number"
+            "type": "number",
+            "title": "number"
           },
           "state": {
             "oneOf": [
@@ -7188,40 +7289,50 @@
               {
                 "const": "open"
               }
-            ]
+            ],
+            "title": "state"
           },
           "title": {
-            "type": "string"
+            "type": "string",
+            "title": "title"
           },
           "description": {
-            "type": "string"
+            "type": "string",
+            "title": "description"
           },
           "creator": {
-            "$ref": "#/components/schemas/MyPickIGithub.Usertypeidlogin"
+            "$ref": "#/components/schemas/MyPickIGithub.Usertypeidlogin",
+            "title": "creator"
           },
           "open_issues": {
             "type": "integer",
-            "minimum": 0
+            "minimum": 0,
+            "title": "open_issues"
           },
           "closed_issues": {
             "type": "integer",
-            "minimum": 0
+            "minimum": 0,
+            "title": "closed_issues"
           },
           "created_at": {
             "type": "string",
-            "format": "date-time"
+            "format": "date-time",
+            "title": "created_at"
           },
           "updated_at": {
             "type": "string",
-            "format": "date-time"
+            "format": "date-time",
+            "title": "updated_at"
           },
           "closed_at": {
             "type": "string",
-            "format": "date-time"
+            "format": "date-time",
+            "title": "closed_at"
           },
           "due_on": {
             "type": "string",
-            "format": "date-time"
+            "format": "date-time",
+            "title": "due_on"
           }
         },
         "required": [
@@ -7299,7 +7410,8 @@
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/IGithub.FetchedPullRequest"
-            }
+            },
+            "title": "Pull Requests"
           },
           "pageInfo": {
             "type": "object",
@@ -7420,7 +7532,8 @@
                 "type": "array",
                 "items": {
                   "$ref": "#/components/schemas/MyPickIGithub.Userlogin"
-                }
+                },
+                "title": "nodes"
               }
             },
             "required": [
@@ -7511,7 +7624,9 @@
           "per_page": {
             "type": "integer",
             "default": 30,
-            "maximum": 100
+            "maximum": 100,
+            "title": "per_page",
+            "description": "The number of results per page (max 100)."
           },
           "after": {
             "type": "string",
@@ -7648,7 +7763,8 @@
             "title": "closed_by"
           },
           "id": {
-            "type": "integer"
+            "type": "integer",
+            "title": "issue id"
           },
           "html_url": {
             "type": "string",
@@ -7679,11 +7795,13 @@
                 "const": "not_planned"
               }
             ],
+            "title": "state_reason",
             "description": "The reason for the current state"
           },
           "title": {
             "type": "string",
-            "description": "Title of the issue"
+            "title": "title",
+            "description": "title of the issue"
           },
           "user": {
             "$ref": "#/components/schemas/MyPickIGithub.Usertypeidlogin",
@@ -7712,14 +7830,17 @@
                   "type": "object",
                   "properties": {
                     "id": {
-                      "type": "integer"
+                      "type": "integer",
+                      "title": "id"
                     },
                     "url": {
                       "type": "string",
-                      "format": "iri"
+                      "format": "iri",
+                      "title": "url"
                     },
                     "name": {
-                      "type": "string"
+                      "type": "string",
+                      "title": "name"
                     },
                     "description": {
                       "oneOf": [
@@ -7729,7 +7850,8 @@
                         {
                           "type": "string"
                         }
-                      ]
+                      ],
+                      "title": "description"
                     },
                     "color": {
                       "oneOf": [
@@ -7739,10 +7861,12 @@
                         {
                           "type": "string"
                         }
-                      ]
+                      ],
+                      "title": "color"
                     },
                     "default": {
-                      "type": "boolean"
+                      "type": "boolean",
+                      "title": "default"
                     }
                   }
                 }
@@ -7854,13 +7978,15 @@
           "page": {
             "type": "integer",
             "default": 1,
-            "title": "page\nThe page number of the results to fetch."
+            "title": "page",
+            "description": "The page number of the results to fetch."
           },
           "per_page": {
             "type": "integer",
             "default": 30,
             "maximum": 100,
-            "title": "per_page\nThe number of results per page (max 100)."
+            "title": "per_page",
+            "description": "The number of results per page (max 100)."
           }
         },
         "required": [
@@ -7960,7 +8086,8 @@
                 "type": "array",
                 "items": {
                   "$ref": "#/components/schemas/MyPickIGithub.Labeldescriptionname"
-                }
+                },
+                "title": "nodes"
               }
             },
             "required": [
@@ -8000,7 +8127,8 @@
                 "type": "array",
                 "items": {
                   "$ref": "#/components/schemas/MyPickIGithub.Userlogin"
-                }
+                },
+                "title": "nodes"
               }
             },
             "required": [
@@ -8050,7 +8178,9 @@
           "per_page": {
             "type": "integer",
             "default": 30,
-            "maximum": 100
+            "maximum": 100,
+            "title": "per_page",
+            "description": "The number of results per page (max 100)."
           },
           "state": {
             "oneOf": [
@@ -8264,12 +8394,14 @@
             "type": "integer",
             "default": 30,
             "maximum": 100,
-            "title": "per_page\nThe number of results per page (max 100)."
+            "title": "per_page",
+            "description": "The number of results per page (max 100)."
           },
           "page": {
             "type": "integer",
             "default": 1,
-            "title": "page\nThe page number of the results to fetch."
+            "title": "page",
+            "description": "The page number of the results to fetch."
           },
           "order": {
             "oneOf": [
@@ -8615,7 +8747,8 @@
               "admin",
               "push",
               "pull"
-            ]
+            ],
+            "title": "permissions"
           },
           "allow_rebase_merge": {
             "type": "boolean",
@@ -8688,7 +8821,8 @@
                   "spdx_id"
                 ]
               }
-            ]
+            ],
+            "title": "license"
           },
           "forks": {
             "type": "integer",
@@ -8779,7 +8913,8 @@
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/IGithub.Organization"
-            }
+            },
+            "title": "result"
           },
           "nextPage": {
             "type": "boolean",
@@ -8849,13 +8984,15 @@
           "page": {
             "type": "integer",
             "default": 1,
-            "title": "page\nThe page number of the results to fetch."
+            "title": "page",
+            "description": "The page number of the results to fetch."
           },
           "per_page": {
             "type": "integer",
             "default": 30,
             "maximum": 100,
-            "title": "per_page\nThe number of results per page (max 100)."
+            "title": "per_page",
+            "description": "The number of results per page (max 100)."
           }
         },
         "required": [
@@ -8957,13 +9094,15 @@
           "page": {
             "type": "integer",
             "default": 1,
-            "title": "page\nThe page number of the results to fetch."
+            "title": "page",
+            "description": "The page number of the results to fetch."
           },
           "per_page": {
             "type": "integer",
             "default": 30,
             "maximum": 100,
-            "title": "per_page\nThe number of results per page (max 100)."
+            "title": "per_page",
+            "description": "The number of results per page (max 100)."
           },
           "secretKey": {
             "type": "string",
@@ -8993,16 +9132,19 @@
             "type": "object",
             "properties": {
               "type": {
-                "const": "commit"
+                "const": "commit",
+                "title": "type"
               },
               "sha": {
-                "type": "string"
+                "type": "string",
+                "title": "sha"
               }
             },
             "required": [
               "type",
               "sha"
-            ]
+            ],
+            "title": "object"
           }
         },
         "required": [
@@ -9061,7 +9203,8 @@
           },
           "title": {
             "type": "string",
-            "description": "Title of the issue"
+            "title": "title",
+            "description": "title of the issue"
           },
           "base": {
             "type": "object",
@@ -9158,7 +9301,8 @@
             "title": "user"
           },
           "id": {
-            "type": "integer"
+            "type": "integer",
+            "title": "issue id"
           },
           "body": {
             "oneOf": [
@@ -9187,14 +9331,17 @@
                   "type": "object",
                   "properties": {
                     "id": {
-                      "type": "integer"
+                      "type": "integer",
+                      "title": "id"
                     },
                     "url": {
                       "type": "string",
-                      "format": "iri"
+                      "format": "iri",
+                      "title": "url"
                     },
                     "name": {
-                      "type": "string"
+                      "type": "string",
+                      "title": "name"
                     },
                     "description": {
                       "oneOf": [
@@ -9204,7 +9351,8 @@
                         {
                           "type": "string"
                         }
-                      ]
+                      ],
+                      "title": "description"
                     },
                     "color": {
                       "oneOf": [
@@ -9214,10 +9362,12 @@
                         {
                           "type": "string"
                         }
-                      ]
+                      ],
+                      "title": "color"
                     },
                     "default": {
-                      "type": "boolean"
+                      "type": "boolean",
+                      "title": "default"
                     }
                   }
                 }
@@ -9353,6 +9503,7 @@
                 "const": "not_planned"
               }
             ],
+            "title": "state_reason",
             "description": "The reason for the current state"
           },
           "assignee": {
@@ -9423,16 +9574,19 @@
         "type": "object",
         "properties": {
           "sha": {
-            "type": "string"
+            "type": "string",
+            "title": "sha"
           },
           "commit": {
-            "$ref": "#/components/schemas/MyPickIGithub.Commitmessageurlauthorcommittertreecomment_count"
+            "$ref": "#/components/schemas/MyPickIGithub.Commitmessageurlauthorcommittertreecomment_count",
+            "title": "commit"
           },
           "files": {
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/IGithub.File"
-            }
+            },
+            "title": "files"
           }
         },
         "required": [
@@ -9457,14 +9611,17 @@
             "type": "object",
             "properties": {
               "name": {
-                "type": "string"
+                "type": "string",
+                "title": "name"
               },
               "email": {
-                "type": "string"
+                "type": "string",
+                "title": "email"
               },
               "date": {
                 "type": "string",
-                "format": "date-time"
+                "format": "date-time",
+                "title": "date"
               }
             },
             "required": [
@@ -9478,14 +9635,17 @@
             "type": "object",
             "properties": {
               "name": {
-                "type": "string"
+                "type": "string",
+                "title": "name"
               },
               "email": {
-                "type": "string"
+                "type": "string",
+                "title": "email"
               },
               "date": {
                 "type": "string",
-                "format": "date-time"
+                "format": "date-time",
+                "title": "date"
               }
             },
             "required": [
@@ -9499,20 +9659,24 @@
             "type": "object",
             "properties": {
               "sha": {
-                "type": "string"
+                "type": "string",
+                "title": "sha"
               },
               "url": {
                 "type": "string",
-                "format": "iri"
+                "format": "iri",
+                "title": "url"
               }
             },
             "required": [
               "sha",
               "url"
-            ]
+            ],
+            "title": "tree"
           },
           "comment_count": {
-            "type": "integer"
+            "type": "integer",
+            "title": "comment_count"
           }
         },
         "required": [
@@ -9571,7 +9735,8 @@
           },
           "html_url": {
             "type": "string",
-            "format": "iri"
+            "format": "iri",
+            "title": "html_url"
           },
           "parents": {
             "type": "array",
@@ -9600,7 +9765,8 @@
               "total",
               "additions",
               "deletions"
-            ]
+            ],
+            "title": "stats"
           },
           "files": {
             "type": "array",
@@ -9676,10 +9842,12 @@
               "type": "object",
               "properties": {
                 "sha": {
-                  "type": "string"
+                  "type": "string",
+                  "title": "sha"
                 },
                 "commit": {
-                  "$ref": "#/components/schemas/MyPickIGithub.Commitmessageurlauthorcommitter"
+                  "$ref": "#/components/schemas/MyPickIGithub.Commitmessageurlauthorcommitter",
+                  "title": "commit"
                 }
               },
               "required": [
@@ -9758,14 +9926,17 @@
             "type": "object",
             "properties": {
               "name": {
-                "type": "string"
+                "type": "string",
+                "title": "name"
               },
               "email": {
-                "type": "string"
+                "type": "string",
+                "title": "email"
               },
               "date": {
                 "type": "string",
-                "format": "date-time"
+                "format": "date-time",
+                "title": "date"
               }
             },
             "required": [
@@ -9779,14 +9950,17 @@
             "type": "object",
             "properties": {
               "name": {
-                "type": "string"
+                "type": "string",
+                "title": "name"
               },
               "email": {
-                "type": "string"
+                "type": "string",
+                "title": "email"
               },
               "date": {
                 "type": "string",
-                "format": "date-time"
+                "format": "date-time",
+                "title": "date"
               }
             },
             "required": [
@@ -9845,12 +10019,14 @@
             "type": "integer",
             "default": 30,
             "maximum": 100,
-            "title": "per_page\nThe number of results per page (max 100)."
+            "title": "per_page",
+            "description": "The number of results per page (max 100)."
           },
           "page": {
             "type": "integer",
             "default": 1,
-            "title": "page\nThe page number of the results to fetch."
+            "title": "page",
+            "description": "The page number of the results to fetch."
           },
           "order": {
             "oneOf": [
@@ -9986,12 +10162,14 @@
             "type": "integer",
             "default": 30,
             "maximum": 100,
-            "title": "per_page\nThe number of results per page (max 100)."
+            "title": "per_page",
+            "description": "The number of results per page (max 100)."
           },
           "page": {
             "type": "integer",
             "default": 1,
-            "title": "page\nThe page number of the results to fetch."
+            "title": "page",
+            "description": "The page number of the results to fetch."
           },
           "order": {
             "oneOf": [
@@ -10096,12 +10274,14 @@
             "type": "integer",
             "default": 30,
             "maximum": 100,
-            "title": "per_page\nThe number of results per page (max 100)."
+            "title": "per_page",
+            "description": "The number of results per page (max 100)."
           },
           "page": {
             "type": "integer",
             "default": 1,
-            "title": "page\nThe page number of the results to fetch."
+            "title": "page",
+            "description": "The page number of the results to fetch."
           },
           "order": {
             "oneOf": [
@@ -10139,7 +10319,8 @@
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/IGithub.Label"
-            }
+            },
+            "title": "result"
           },
           "nextPage": {
             "type": "boolean",
@@ -10242,13 +10423,15 @@
           "page": {
             "type": "integer",
             "default": 1,
-            "title": "page\nThe page number of the results to fetch."
+            "title": "page",
+            "description": "The page number of the results to fetch."
           },
           "per_page": {
             "type": "integer",
             "default": 30,
             "maximum": 100,
-            "title": "per_page\nThe number of results per page (max 100)."
+            "title": "per_page",
+            "description": "The number of results per page (max 100)."
           },
           "secretKey": {
             "type": "string",
@@ -10408,16 +10591,19 @@
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/MyPickIGithub.RepositoryFilecontentpath"
-            }
+            },
+            "title": "files"
           },
           "key": {
-            "type": "string"
+            "type": "string",
+            "title": "key"
           }
         },
         "required": [
           "files",
           "key"
-        ]
+        ],
+        "title": "file to upload"
       },
       "MyPickIGithub.RepositoryFilecontentpath": {
         "type": "object",

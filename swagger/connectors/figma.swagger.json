@@ -18,7 +18,7 @@
     "title": "피그마 디자인 협업 플랫폼",
     "summary": "피그마 파일을 쉽게 관리하고 협업할 수 있어요.",
     "description": "피그마 파일에 접근하고, 댓글을 가져오거나 추가할 수 있어요. 디자인 작업과 팀 협업을 효율적으로 진행할 수 있어요. 프로젝트의 진행 상황을 확인하고, 팀원들의 피드백을 실시간으로 주고받을 수 있어요. 디자인 에셋을 관리하고, 버전 히스토리를 추적할 수 있어요. UI/UX 디자인, 프로토타이핑, 그래픽 디자인 등 다양한 디자인 작업을 수행하고 관리할 수 있어요.",
-    "version": "0.1.286",
+    "version": "0.1.287",
     "license": {
       "name": "AGPL-3.0-only"
     }
@@ -344,22 +344,22 @@
               "properties": {
                 "key": {
                   "type": "string",
-                  "title": "This is the key of the branch",
+                  "title": "key",
                   "description": "This is the key of the branch."
                 },
                 "name": {
                   "type": "string",
-                  "title": "The name of the branch",
+                  "title": "name",
                   "description": "The name of the branch."
                 },
                 "thumbnail_url": {
                   "type": "string",
-                  "title": "A URL to the thumbnail image of the branch",
+                  "title": "thumbnail_url",
                   "description": "A URL to the thumbnail image of the branch."
                 },
                 "last_modified": {
                   "type": "string",
-                  "title": "The UTC ISO 8601 time when the branch was last modified",
+                  "title": "last_modified",
                   "description": "The UTC ISO 8601 time when the branch was last modified."
                 }
               },
@@ -370,7 +370,7 @@
                 "last_modified"
               ]
             },
-            "title": "This is a list of branches for this file",
+            "title": "branches",
             "description": "This is a list of branches for this file."
           }
         },

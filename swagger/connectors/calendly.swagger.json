@@ -17,7 +17,7 @@
   "info": {
     "title": "Calendly",
     "description": "Calendly에서 고객과의 미팅을 잡을 수 있어요",
-    "version": "0.1.286",
+    "version": "0.1.287",
     "license": {
       "name": "AGPL-3.0-only"
     }
@@ -445,18 +445,21 @@
               "owner": {
                 "type": "string",
                 "format": "iri",
-                "title": "owner\nA link to the resource that owns this Scheduling Link (currently, this is always an Event Type)"
+                "title": "owner",
+                "description": "A link to the resource that owns this Scheduling Link (currently, this is always an Event Type)"
               },
               "owner_type": {
                 "const": "EventType",
-                "title": "owner_type\nResource type (currently, this is always EventType)"
+                "title": "owner_type",
+                "description": "Resource type (currently, this is always EventType)"
               }
             },
             "required": [
               "booking_url",
               "owner",
               "owner_type"
-            ]
+            ],
+            "title": "resource"
           }
         },
         "required": [
@@ -468,7 +471,8 @@
         "properties": {
           "owner": {
             "type": "string",
-            "format": "iri"
+            "format": "iri",
+            "title": "owner"
           },
           "secretKey": {
             "type": "string",
@@ -489,10 +493,12 @@
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/ICalendly.EventType"
-            }
+            },
+            "title": "collection"
           },
           "pagination": {
-            "$ref": "#/components/schemas/ICalendly.Pagination"
+            "$ref": "#/components/schemas/ICalendly.Pagination",
+            "title": "pagination"
           }
         },
         "required": [
@@ -519,11 +525,13 @@
                 "x-wrtn-placeholder": "15 Minute Meeting"
               }
             ],
-            "title": "name\nThe event type name (in human-readable format)"
+            "title": "name",
+            "description": "The event type name (in human-readable format)"
           },
           "active": {
             "type": "boolean",
-            "title": "active\nIndicates if the event is active or not."
+            "title": "active",
+            "description": "Indicates if the event is active or not."
           },
           "slug": {
             "oneOf": [
@@ -535,18 +543,21 @@
                 "x-wrtn-placeholder": "acmesales"
               }
             ],
-            "title": "slug\nThe portion of the event type's URL that identifies a specific web page (in a human-readable format)"
+            "title": "slug",
+            "description": "The portion of the event type's URL that identifies a specific web page (in a human-readable format)"
           },
           "scheduling_url": {
             "type": "string",
             "format": "uri",
             "x-wrtn-placeholder": "https://calendly.com/acmesales",
-            "title": "schduling_url\nThe URL of the user’s scheduling site where invitees book this event type"
+            "title": "schduling_url",
+            "description": "The URL of the user’s scheduling site where invitees book this event type"
           },
           "duration": {
             "type": "integer",
             "x-wrtn-placeholder": "30",
-            "title": "duration\nThe length of sessions booked with this event type"
+            "title": "duration",
+            "description": "The length of sessions booked with this event type"
           },
           "kind": {
             "oneOf": [
@@ -559,7 +570,8 @@
                 "title": "group"
               }
             ],
-            "title": "kind\nIndicates if the event type is \"solo\" (belongs to an individual user) or \"group\""
+            "title": "kind",
+            "description": "Indicates if the event type is \"solo\" (belongs to an individual user) or \"group\""
           },
           "pooling_type": {
             "oneOf": [
@@ -579,7 +591,8 @@
                 "title": "multi_pool"
               }
             ],
-            "title": "pooling_type\nIndicates if the event type is \"round robin\" (alternates between hosts) or \"collective\" (invitees pick a time when all participants are available) or “multi-pool” (considers availability delineated by pools of participants) or \"null\" (the event type doesn’t consider the availability of a group participants)"
+            "title": "pooling_type",
+            "description": "Indicates if the event type is \"round robin\" (alternates between hosts) or \"collective\" (invitees pick a time when all participants are available) or “multi-pool” (considers availability delineated by pools of participants) or \"null\" (the event type doesn’t consider the availability of a group participants)"
           },
           "type": {
             "oneOf": [
@@ -592,13 +605,15 @@
                 "title": "AdhocEventType"
               }
             ],
-            "title": "type\nIndicates if the event type is \"AdhocEventType\" (ad hoc event) or \"StandardEventType\" (standard event type)"
+            "title": "type",
+            "description": "Indicates if the event type is \"AdhocEventType\" (ad hoc event) or \"StandardEventType\" (standard event type)"
           },
           "color": {
             "type": "string",
             "pattern": "^#([0-9A-Fa-f]{6})$",
             "x-wrtn-placeholder": "#fff200",
-            "title": "color\nThe hexadecimal color value of the event type's scheduling page"
+            "title": "color",
+            "description": "The hexadecimal color value of the event type's scheduling page"
           },
           "created_at": {
             "oneOf": [
@@ -609,7 +624,8 @@
                 "$ref": "#/components/schemas/Formatdate-time"
               }
             ],
-            "title": "created_at\nThe moment the event type was created (e.g. \"2020-01-02T03:04:05.678123Z\")"
+            "title": "created_at",
+            "description": "The moment the event type was created (e.g. \"2020-01-02T03:04:05.678123Z\")"
           },
           "updated_at": {
             "oneOf": [
@@ -620,7 +636,8 @@
                 "$ref": "#/components/schemas/Formatdate-time"
               }
             ],
-            "title": "updated_at\nThe moment the event type was last updated (e.g. \"2020-01-02T03:04:05.678123Z\")"
+            "title": "updated_at",
+            "description": "The moment the event type was last updated (e.g. \"2020-01-02T03:04:05.678123Z\")"
           },
           "internal_note": {
             "oneOf": [
@@ -631,7 +648,8 @@
                 "type": "string"
               }
             ],
-            "title": "internal_note\nContents of a note that may be associated with the event type"
+            "title": "internal_note",
+            "description": "Contents of a note that may be associated with the event type"
           },
           "description_plain": {
             "oneOf": [
@@ -643,7 +661,8 @@
                 "x-wrtn-placeholder": "15 Minute Meeting"
               }
             ],
-            "title": "description_plain\nThe event type's description (in non formatted text)"
+            "title": "description_plain",
+            "description": "The event type's description (in non formatted text)"
           },
           "description_html": {
             "oneOf": [
@@ -655,7 +674,8 @@
                 "x-wrtn-placeholder": "<p>15 Minute Meeting</p>"
               }
             ],
-            "title": "description_html\nThe event type's description (formatted with HTML)"
+            "title": "description_html",
+            "description": "The event type's description (formatted with HTML)"
           },
           "profile": {
             "oneOf": [
@@ -666,11 +686,13 @@
                 "$ref": "#/components/schemas/ICalendly.Profile"
               }
             ],
-            "title": "profile\nThe publicly visible profile of a User or a Team that's associated with the Event Type (note: some Event Types don't have profiles)"
+            "title": "profile",
+            "description": "The publicly visible profile of a User or a Team that's associated with the Event Type (note: some Event Types don't have profiles)"
           },
           "secret": {
             "type": "boolean",
-            "title": "secret\nIndicates if the event type is hidden on the owner's main scheduling page"
+            "title": "secret",
+            "description": "Indicates if the event type is hidden on the owner's main scheduling page"
           },
           "booking_method": {
             "oneOf": [
@@ -683,7 +705,8 @@
                 "title": "poll"
               }
             ],
-            "title": "booking_method\nIndicates if the event type is for a poll or an instant booking"
+            "title": "booking_method",
+            "description": "Indicates if the event type is for a poll or an instant booking"
           },
           "custom_questions": {
             "type": "array",
@@ -702,11 +725,13 @@
                 "format": "date-time"
               }
             ],
-            "title": "deleted_at\nThe moment the event type was deleted (e.g. \"2020-01-02T03:04:05.678123Z\"). Since event types can be deleted but their scheduled events remain it's useful to fetch a deleted event type when you still require event type data for a scheduled event."
+            "title": "deleted_at",
+            "description": "The moment the event type was deleted (e.g. \"2020-01-02T03:04:05.678123Z\"). Since event types can be deleted but their scheduled events remain it's useful to fetch a deleted event type when you still require event type data for a scheduled event."
           },
           "admin_managed": {
             "type": "boolean",
-            "title": "admin_managed\nIndicates if this event type is managed by an organization admin"
+            "title": "admin_managed",
+            "description": "Indicates if this event type is managed by an organization admin"
           },
           "locations": {
             "oneOf": [
@@ -720,11 +745,13 @@
                 }
               }
             ],
-            "title": "locations\nConfiguration information for each possible location for this Event Type"
+            "title": "locations",
+            "description": "Configuration information for each possible location for this Event Type"
           },
           "position": {
             "type": "number",
-            "title": "position\nPosition order of Event Type, starting with 0 (for display purposes)"
+            "title": "position",
+            "description": "Position order of Event Type, starting with 0 (for display purposes)"
           }
         },
         "required": [
@@ -822,18 +849,21 @@
                 "title": "Team"
               }
             ],
-            "title": "type\nIndicates if the profile belongs to a \"user\" (individual) or \"team\""
+            "title": "type",
+            "description": "Indicates if the profile belongs to a \"user\" (individual) or \"team\""
           },
           "name": {
             "type": "string",
             "x-wrtn-placeholder": "Tamara Jones",
-            "title": "name\nHuman-readable name for the profile of the user that's associated with the event type"
+            "title": "name",
+            "description": "Human-readable name for the profile of the user that's associated with the event type"
           },
           "owner": {
             "type": "string",
             "format": "uri",
             "x-wrtn-placeholder": "https://api.calendly.com/users/AAAAAAAAAAAAAAAA",
-            "title": "owner\nThe unique reference to the user associated with the profile"
+            "title": "owner",
+            "description": "The unique reference to the user associated with the profile"
           }
         },
         "required": [
@@ -847,7 +877,8 @@
         "properties": {
           "name": {
             "type": "string",
-            "title": "name\nThe custom question that the host created for the event type."
+            "title": "name",
+            "description": "The custom question that the host created for the event type."
           },
           "type": {
             "oneOf": [
@@ -868,30 +899,36 @@
                 "title": "multi_select"
               }
             ],
-            "title": "type\nThe type of response that the invitee provides to the custom question; can be one or multiple lines of text, a phone number, or single- or multiple-select."
+            "title": "type",
+            "description": "The type of response that the invitee provides to the custom question; can be one or multiple lines of text, a phone number, or single- or multiple-select."
           },
           "position": {
             "type": "number",
-            "title": "position\nThe numerical position of the question on the event booking page after the name and email address fields."
+            "title": "position",
+            "description": "The numerical position of the question on the event booking page after the name and email address fields."
           },
           "enabled": {
             "type": "boolean",
-            "title": "enabled\ntrue if the question created by the host is turned ON and visible on the event booking page; false if turned OFF and invisible on the event booking page."
+            "title": "enabled",
+            "description": "true if the question created by the host is turned ON and visible on the event booking page; false if turned OFF and invisible on the event booking page."
           },
           "required": {
             "type": "boolean",
-            "title": "required\ntrue if a response to the question created by the host is required for invitees to book the event type; false if not required."
+            "title": "required",
+            "description": "true if a response to the question created by the host is required for invitees to book the event type; false if not required."
           },
           "answer_choices": {
             "type": "array",
             "items": {
               "type": "string"
             },
-            "title": "answer_choices\nThe invitee’s option(s) for single_select or multi_select type of responses."
+            "title": "answer_choices",
+            "description": "The invitee’s option(s) for single_select or multi_select type of responses."
           },
           "include_other": {
             "type": "boolean",
-            "title": "include_other\ntrue if the custom question lets invitees record a written response in addition to single-select or multiple-select type of responses; false if it doesn’t."
+            "title": "include_other",
+            "description": "true if the custom question lets invitees record a written response in addition to single-select or multiple-select type of responses; false if it doesn’t."
           }
         },
         "required": [
@@ -1003,7 +1040,8 @@
         "properties": {
           "admin_managed": {
             "type": "boolean",
-            "title": "admin_managed\nReturn only admin managed event types if true, exclude admin managed event types if false, or include all event types if this parameter is omitted."
+            "title": "admin_managed",
+            "description": "Return only admin managed event types if true, exclude admin managed event types if false, or include all event types if this parameter is omitted."
           },
           "organization": {
             "type": "string",
@@ -1029,18 +1067,21 @@
           },
           "active": {
             "type": "boolean",
-            "title": "active\nReturn only active event types if true, only inactive if false, or all event types if this parameter is omitted."
+            "title": "active",
+            "description": "Return only active event types if true, only inactive if false, or all event types if this parameter is omitted."
           },
           "count": {
             "type": "integer",
             "minimum": 1,
             "maximum": 100,
             "default": 20,
-            "title": "count\nThe number of rows to return"
+            "title": "count",
+            "description": "The number of rows to return"
           },
           "page_token": {
             "type": "string",
-            "title": "page_token\nThe token to pass to get the next or previous portion of the collection."
+            "title": "page_token",
+            "description": "The token to pass to get the next or previous portion of the collection."
           },
           "sort": {
             "oneOf": [
@@ -1122,7 +1163,8 @@
         "properties": {
           "uuid": {
             "type": "string",
-            "title": "uuid\nuuid from url (ex. \"https://api.calendly.com/scheduled_events/:uuid\" )"
+            "title": "uuid",
+            "description": "uuid from url (ex. \"https://api.calendly.com/scheduled_events/:uuid\" )"
           },
           "uri": {
             "type": "string",
@@ -1237,15 +1279,18 @@
             "properties": {
               "total": {
                 "type": "integer",
-                "title": "total\nTotal invitees for an event, including invitees that have canceled"
+                "title": "total",
+                "description": "Total invitees for an event, including invitees that have canceled"
               },
               "active": {
                 "type": "integer",
-                "title": "active\nTotal invitees for an event that have not canceled"
+                "title": "active",
+                "description": "Total invitees for an event that have not canceled"
               },
               "limit": {
                 "type": "integer",
-                "title": "limit\nMaximum number of active invitees that can book the event"
+                "title": "limit",
+                "description": "Maximum number of active invitees that can book the event"
               }
             },
             "required": [
@@ -1253,7 +1298,8 @@
               "active",
               "limit"
             ],
-            "title": "invitees_counter\nInvitees counter"
+            "title": "invitees_counter",
+            "description": "Invitees counter"
           },
           "created_at": {
             "type": "string",
@@ -1311,7 +1357,8 @@
                 "buffered_end_time"
               ]
             },
-            "title": "event_memberships\nEvent Membership List"
+            "title": "event_memberships",
+            "description": "Event Membership List"
           },
           "event_guests": {
             "type": "array",
@@ -1340,11 +1387,13 @@
                 "updated_at"
               ]
             },
-            "title": "event_guests\nAdditional people added to an event by an invitee"
+            "title": "event_guests",
+            "description": "Additional people added to an event by an invitee"
           },
           "cancellation": {
             "$ref": "#/components/schemas/ICalendly.Cancellation",
-            "title": "cancellation\nInformation about the calendar event from the calendar provider."
+            "title": "cancellation",
+            "description": "Information about the calendar event from the calendar provider."
           }
         },
         "required": [
@@ -1526,7 +1575,8 @@
           },
           "page_token": {
             "type": "string",
-            "title": "page_token\nThe token to pass to get the next or previous portion of the collection."
+            "title": "page_token",
+            "description": "The token to pass to get the next or previous portion of the collection."
           },
           "sort": {
             "oneOf": [
@@ -1604,7 +1654,8 @@
         "type": "object",
         "properties": {
           "resource": {
-            "$ref": "#/components/schemas/ICalendly.Invitee"
+            "$ref": "#/components/schemas/ICalendly.Invitee",
+            "title": "resource"
           }
         },
         "required": [
@@ -1616,7 +1667,8 @@
         "properties": {
           "uuid": {
             "type": "string",
-            "title": "uuid\nuuid from \"https://calendly.com/scheduled_events/AAAAAAAAAAAAAAAA/invitees/:uuid\""
+            "title": "uuid",
+            "description": "uuid from \"https://calendly.com/scheduled_events/AAAAAAAAAAAAAAAA/invitees/:uuid\""
           },
           "uri": {
             "type": "string",
@@ -1680,15 +1732,18 @@
               "properties": {
                 "question": {
                   "type": "string",
-                  "title": "question\nA question on the invitee's booking form"
+                  "title": "question",
+                  "description": "A question on the invitee's booking form"
                 },
                 "answer": {
                   "type": "string",
-                  "title": "answer\nThe invitee's answer to the question"
+                  "title": "answer",
+                  "description": "The invitee's answer to the question"
                 },
                 "position": {
                   "type": "number",
-                  "title": "position\nThe position of the question in relation to others on the booking form"
+                  "title": "position",
+                  "description": "The position of the question in relation to others on the booking form"
                 }
               },
               "required": [
@@ -1697,7 +1752,8 @@
                 "position"
               ]
             },
-            "title": "questions_and_answers\nA collection of the invitee's responses to questions on the event booking confirmation form"
+            "title": "questions_and_answers",
+            "description": "A collection of the invitee's responses to questions on the event booking confirmation form"
           },
           "timezone": {
             "oneOf": [
@@ -1740,7 +1796,8 @@
                     "type": "string"
                   }
                 ],
-                "title": "utm_campaign\nThe UTM parameter used to track a campaign"
+                "title": "utm_campaign",
+                "description": "The UTM parameter used to track a campaign"
               },
               "utm_source": {
                 "oneOf": [
@@ -1751,7 +1808,8 @@
                     "type": "string"
                   }
                 ],
-                "title": "utm_source\nThe UTM parameter that identifies the source (platform where the traffic originates)"
+                "title": "utm_source",
+                "description": "The UTM parameter that identifies the source (platform where the traffic originates)"
               },
               "utm_medium": {
                 "oneOf": [
@@ -1762,7 +1820,8 @@
                     "type": "string"
                   }
                 ],
-                "title": "utm_medium\nThe UTM parameter that identifies the type of input (e.g. CPC, social media, etc.)"
+                "title": "utm_medium",
+                "description": "The UTM parameter that identifies the type of input (e.g. CPC, social media, etc.)"
               },
               "utm_content": {
                 "oneOf": [
@@ -1773,7 +1832,8 @@
                     "type": "string"
                   }
                 ],
-                "title": "utm_content\nUTM content tracking parameter"
+                "title": "utm_content",
+                "description": "UTM content tracking parameter"
               },
               "utm_term": {
                 "oneOf": [
@@ -1784,7 +1844,8 @@
                     "type": "string"
                   }
                 ],
-                "title": "utm_term\nThe UTM parameter used to track keywords"
+                "title": "utm_term",
+                "description": "The UTM parameter used to track keywords"
               },
               "salesforce_uuid": {
                 "oneOf": [
@@ -1806,7 +1867,8 @@
               "utm_term",
               "salesforce_uuid"
             ],
-            "title": "tracking\nThe UTM and Salesforce tracking parameters associated with an invitee"
+            "title": "tracking",
+            "description": "The UTM and Salesforce tracking parameters associated with an invitee"
           },
           "text_reminder_number": {
             "oneOf": [
@@ -1822,7 +1884,8 @@
           },
           "rescheduled": {
             "type": "boolean",
-            "title": "rescheduled\nIndicates if this invitee has rescheduled"
+            "title": "rescheduled",
+            "description": "Indicates if this invitee has rescheduled"
           },
           "old_invitee": {
             "oneOf": [
@@ -1834,7 +1897,8 @@
                 "format": "iri"
               }
             ],
-            "title": "old_invitee\nReference to old Invitee instance that got rescheduled"
+            "title": "old_invitee",
+            "description": "Reference to old Invitee instance that got rescheduled"
           },
           "new_invitee": {
             "oneOf": [
@@ -1846,17 +1910,20 @@
                 "format": "iri"
               }
             ],
-            "title": "new_invitee\nLink to new invitee after reschedule"
+            "title": "new_invitee",
+            "description": "Link to new invitee after reschedule"
           },
           "cancel_url": {
             "type": "string",
             "format": "iri",
-            "title": "cancel_url\nLink to cancelling the event for the invitee"
+            "title": "cancel_url",
+            "description": "Link to cancelling the event for the invitee"
           },
           "reschedule_url": {
             "type": "string",
             "format": "iri",
-            "title": "reschedule_url\nLink to rescheduling the event for the invitee"
+            "title": "reschedule_url",
+            "description": "Link to rescheduling the event for the invitee"
           },
           "routing_form_submission": {
             "oneOf": [
@@ -1873,7 +1940,8 @@
           },
           "cancellation": {
             "$ref": "#/components/schemas/ICalendly.Cancellation",
-            "title": "cancellation\nProvides data pertaining to the cancellation of the Event or the Invitee"
+            "title": "cancellation",
+            "description": "Provides data pertaining to the cancellation of the Event or the Invitee"
           },
           "payment": {
             "oneOf": [
@@ -1895,7 +1963,8 @@
                 "$ref": "#/components/schemas/ICalendly.NoShow"
               }
             ],
-            "title": "no_show\nProvides data pertaining to the associated no show for the Invitee"
+            "title": "no_show",
+            "description": "Provides data pertaining to the associated no show for the Invitee"
           },
           "reconfirmation": {
             "oneOf": [
@@ -1906,7 +1975,8 @@
                 "$ref": "#/components/schemas/ICalendly.Reconfirmation"
               }
             ],
-            "title": "reconfirmation\nAssuming reconfirmation is enabled for the event type, when reconfirmation is requested this object is present with a created_at that reflects when the reconfirmation notification was sent. Once the invitee has reconfirmed"
+            "title": "reconfirmation",
+            "description": "Assuming reconfirmation is enabled for the event type, when reconfirmation is requested this object is present with a created_at that reflects when the reconfirmation notification was sent. Once the invitee has reconfirmed"
           },
           "scheduling_method": {
             "oneOf": [
@@ -1931,7 +2001,8 @@
                 "format": "iri"
               }
             ],
-            "title": "invitee_scheduled_by\nReference to user URI who scheduled the event"
+            "title": "invitee_scheduled_by",
+            "description": "Reference to user URI who scheduled the event"
           }
         },
         "required": [
@@ -2064,10 +2135,12 @@
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/ICalendly.Invitee"
-            }
+            },
+            "title": "collection"
           },
           "pagination": {
-            "$ref": "#/components/schemas/ICalendly.Pagination"
+            "$ref": "#/components/schemas/ICalendly.Pagination",
+            "title": "pagination"
           }
         },
         "required": [
@@ -2302,7 +2375,8 @@
         "type": "object",
         "properties": {
           "resource": {
-            "$ref": "#/components/schemas/ICalendly.User"
+            "$ref": "#/components/schemas/ICalendly.User",
+            "title": "resource"
           }
         },
         "required": [

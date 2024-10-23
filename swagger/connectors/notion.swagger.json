@@ -18,7 +18,7 @@
     "title": "노션 워크스페이스 관리",
     "summary": "노션 으로 작업 공간을 효율적으로 관리해요.",
     "description": "노션 에서 페이지를 만들고, 내용을 추가하고, 데이터베이스를 관리할 수 있어요. 페이지 검색, 데이터베이스 아이템 관리 등 다양한 기능을 활용할 수 있어요. 프로젝트 관리, 노트 작성, 팀 협업, 지식 베이스 구축 등 다양한 목적으로 사용할 수 있어요. 텍스트, 이미지, 표, 리스트 등 다양한 형식의 콘텐츠를 조합하여 풍부한 문서를 만들 수 있고, 팀원들과 실시간으로 공유하고 협업할 수 있어요.",
-    "version": "0.1.286",
+    "version": "0.1.287",
     "license": {
       "name": "AGPL-3.0-only"
     }
@@ -1093,24 +1093,28 @@
                       "type": "object",
                       "properties": {
                         "content": {
-                          "type": "string"
+                          "type": "string",
+                          "title": "content"
                         },
                         "link": {
                           "type": "object",
                           "properties": {
                             "url": {
                               "type": "string",
-                              "format": "iri"
+                              "format": "iri",
+                              "title": "url"
                             }
                           },
                           "required": [
                             "url"
-                          ]
+                          ],
+                          "title": "link"
                         }
                       },
                       "required": [
                         "content"
-                      ]
+                      ],
+                      "title": "text"
                     }
                   },
                   "required": [
@@ -1184,24 +1188,28 @@
                       "type": "object",
                       "properties": {
                         "content": {
-                          "type": "string"
+                          "type": "string",
+                          "title": "content"
                         },
                         "link": {
                           "type": "object",
                           "properties": {
                             "url": {
                               "type": "string",
-                              "format": "iri"
+                              "format": "iri",
+                              "title": "url"
                             }
                           },
                           "required": [
                             "url"
-                          ]
+                          ],
+                          "title": "link"
                         }
                       },
                       "required": [
                         "content"
-                      ]
+                      ],
+                      "title": "text"
                     }
                   },
                   "required": [
@@ -1275,24 +1283,28 @@
                       "type": "object",
                       "properties": {
                         "content": {
-                          "type": "string"
+                          "type": "string",
+                          "title": "content"
                         },
                         "link": {
                           "type": "object",
                           "properties": {
                             "url": {
                               "type": "string",
-                              "format": "iri"
+                              "format": "iri",
+                              "title": "url"
                             }
                           },
                           "required": [
                             "url"
-                          ]
+                          ],
+                          "title": "link"
                         }
                       },
                       "required": [
                         "content"
-                      ]
+                      ],
+                      "title": "text"
                     }
                   },
                   "required": [
@@ -1359,7 +1371,8 @@
                     "type": "string",
                     "format": "uri",
                     "pattern": ".*\\.(bmp|gif|heic|jpe?g|png|svg|tiff?)(\\?.*)?",
-                    "title": "url\n\nimage file's extension is one of: 'bmp', 'gif', 'heic', 'jpg', 'jpeg', 'png', 'svg', 'tif', 'tiff'."
+                    "title": "url",
+                    "description": "image file's extension is one of: 'bmp', 'gif', 'heic', 'jpg', 'jpeg', 'png', 'svg', 'tif', 'tiff'."
                   }
                 },
                 "required": [
@@ -1376,24 +1389,28 @@
                       "type": "object",
                       "properties": {
                         "content": {
-                          "type": "string"
+                          "type": "string",
+                          "title": "content"
                         },
                         "link": {
                           "type": "object",
                           "properties": {
                             "url": {
                               "type": "string",
-                              "format": "iri"
+                              "format": "iri",
+                              "title": "url"
                             }
                           },
                           "required": [
                             "url"
-                          ]
+                          ],
+                          "title": "link"
                         }
                       },
                       "required": [
                         "content"
-                      ]
+                      ],
+                      "title": "text"
                     }
                   },
                   "required": [
@@ -1465,7 +1482,8 @@
                 },
                 "required": [
                   "url"
-                ]
+                ],
+                "title": "external"
               },
               "caption": {
                 "type": "array",
@@ -1476,24 +1494,28 @@
                       "type": "object",
                       "properties": {
                         "content": {
-                          "type": "string"
+                          "type": "string",
+                          "title": "content"
                         },
                         "link": {
                           "type": "object",
                           "properties": {
                             "url": {
                               "type": "string",
-                              "format": "iri"
+                              "format": "iri",
+                              "title": "url"
                             }
                           },
                           "required": [
                             "url"
-                          ]
+                          ],
+                          "title": "link"
                         }
                       },
                       "required": [
                         "content"
-                      ]
+                      ],
+                      "title": "text"
                     }
                   },
                   "required": [
@@ -1507,7 +1529,8 @@
             },
             "required": [
               "external"
-            ]
+            ],
+            "title": "video"
           },
           "secretKey": {
             "type": "string",
@@ -1576,24 +1599,28 @@
                       "type": "object",
                       "properties": {
                         "content": {
-                          "type": "string"
+                          "type": "string",
+                          "title": "content"
                         },
                         "link": {
                           "type": "object",
                           "properties": {
                             "url": {
                               "type": "string",
-                              "format": "iri"
+                              "format": "iri",
+                              "title": "url"
                             }
                           },
                           "required": [
                             "url"
-                          ]
+                          ],
+                          "title": "link"
                         }
                       },
                       "required": [
                         "content"
-                      ]
+                      ],
+                      "title": "text"
                     }
                   },
                   "required": [
@@ -1925,24 +1952,28 @@
                       "type": "object",
                       "properties": {
                         "content": {
-                          "type": "string"
+                          "type": "string",
+                          "title": "content"
                         },
                         "link": {
                           "type": "object",
                           "properties": {
                             "url": {
                               "type": "string",
-                              "format": "iri"
+                              "format": "iri",
+                              "title": "url"
                             }
                           },
                           "required": [
                             "url"
-                          ]
+                          ],
+                          "title": "link"
                         }
                       },
                       "required": [
                         "content"
-                      ]
+                      ],
+                      "title": "text"
                     }
                   },
                   "required": [
@@ -1956,7 +1987,8 @@
             "required": [
               "language",
               "rich_text"
-            ]
+            ],
+            "title": "code"
           },
           "secretKey": {
             "type": "string",
@@ -2382,24 +2414,28 @@
                   "type": "object",
                   "properties": {
                     "content": {
-                      "type": "string"
+                      "type": "string",
+                      "title": "content"
                     },
                     "link": {
                       "type": "object",
                       "properties": {
                         "url": {
                           "type": "string",
-                          "format": "iri"
+                          "format": "iri",
+                          "title": "url"
                         }
                       },
                       "required": [
                         "url"
-                      ]
+                      ],
+                      "title": "link"
                     }
                   },
                   "required": [
                     "content"
-                  ]
+                  ],
+                  "title": "text"
                 }
               },
               "required": [
@@ -2507,24 +2543,28 @@
                   "type": "object",
                   "properties": {
                     "content": {
-                      "type": "string"
+                      "type": "string",
+                      "title": "content"
                     },
                     "link": {
                       "type": "object",
                       "properties": {
                         "url": {
                           "type": "string",
-                          "format": "iri"
+                          "format": "iri",
+                          "title": "url"
                         }
                       },
                       "required": [
                         "url"
-                      ]
+                      ],
+                      "title": "link"
                     }
                   },
                   "required": [
                     "content"
-                  ]
+                  ],
+                  "title": "text"
                 }
               },
               "required": [
@@ -2632,24 +2672,28 @@
                   "type": "object",
                   "properties": {
                     "content": {
-                      "type": "string"
+                      "type": "string",
+                      "title": "content"
                     },
                     "link": {
                       "type": "object",
                       "properties": {
                         "url": {
                           "type": "string",
-                          "format": "iri"
+                          "format": "iri",
+                          "title": "url"
                         }
                       },
                       "required": [
                         "url"
-                      ]
+                      ],
+                      "title": "link"
                     }
                   },
                   "required": [
                     "content"
-                  ]
+                  ],
+                  "title": "text"
                 }
               },
               "required": [
@@ -2738,24 +2782,28 @@
                             "type": "object",
                             "properties": {
                               "content": {
-                                "type": "string"
+                                "type": "string",
+                                "title": "content"
                               },
                               "link": {
                                 "type": "object",
                                 "properties": {
                                   "url": {
                                     "type": "string",
-                                    "format": "iri"
+                                    "format": "iri",
+                                    "title": "url"
                                   }
                                 },
                                 "required": [
                                   "url"
-                                ]
+                                ],
+                                "title": "link"
                               }
                             },
                             "required": [
                               "content"
-                            ]
+                            ],
+                            "title": "text"
                           }
                         },
                         "required": [
@@ -2893,13 +2941,13 @@
                 },
                 "x-wrtn-placeholder": "부모 페이지를 선택하세요."
               }
-            ]
+            ],
+            "title": "parentPageId"
           },
           "title": {
             "type": "string",
             "x-wrtn-placeholder": "테스트 페이지.",
-            "title": "Page title",
-            "description": "New page title to be created"
+            "title": "title"
           },
           "secretKey": {
             "type": "string",
@@ -2919,21 +2967,26 @@
         "type": "object",
         "properties": {
           "type": {
-            "type": "string"
+            "type": "string",
+            "title": "type"
           },
           "text": {
-            "type": "string"
+            "type": "string",
+            "title": "text"
           },
           "id": {
             "type": "string",
-            "format": "uuid"
+            "format": "uuid",
+            "title": "id"
           },
           "hasChild": {
-            "type": "boolean"
+            "type": "boolean",
+            "title": "hasChild"
           },
           "children": {
             "type": "array",
-            "items": {}
+            "items": {},
+            "title": "children"
           }
         },
         "required": [
@@ -2964,8 +3017,7 @@
                 "x-wrtn-placeholder": "부모 페이지를 선택하세요."
               }
             ],
-            "title": "block_id",
-            "description": "Indicates the ID of the page.\nyou can put the block ID back into this factor and use it to look up the child blocks."
+            "title": "block_id"
           },
           "secretKey": {
             "type": "string",
@@ -3168,13 +3220,16 @@
         "type": "object",
         "properties": {
           "id": {
-            "type": "string"
+            "type": "string",
+            "title": "id"
           },
           "name": {
-            "type": "string"
+            "type": "string",
+            "title": "name"
           },
           "type": {
-            "const": "number"
+            "const": "number",
+            "title": "type"
           },
           "number": {
             "type": "object",
@@ -3301,12 +3356,14 @@
                   {
                     "const": "peruvian_sol"
                   }
-                ]
+                ],
+                "title": "format"
               }
             },
             "required": [
               "format"
-            ]
+            ],
+            "title": "number"
           }
         },
         "required": [
@@ -3321,24 +3378,29 @@
         "type": "object",
         "properties": {
           "id": {
-            "type": "string"
+            "type": "string",
+            "title": "id"
           },
           "name": {
-            "type": "string"
+            "type": "string",
+            "title": "name"
           },
           "type": {
-            "const": "formula"
+            "const": "formula",
+            "title": "type"
           },
           "formula": {
             "type": "object",
             "properties": {
               "expression": {
-                "type": "string"
+                "type": "string",
+                "title": "expression"
               }
             },
             "required": [
               "expression"
-            ]
+            ],
+            "title": "formula"
           }
         },
         "required": [
@@ -3353,13 +3415,16 @@
         "type": "object",
         "properties": {
           "id": {
-            "type": "string"
+            "type": "string",
+            "title": "id"
           },
           "name": {
-            "type": "string"
+            "type": "string",
+            "title": "name"
           },
           "type": {
-            "const": "select"
+            "const": "select",
+            "title": "type"
           },
           "select": {
             "type": "object",
@@ -3370,10 +3435,12 @@
                   "type": "object",
                   "properties": {
                     "id": {
-                      "type": "string"
+                      "type": "string",
+                      "title": "id"
                     },
                     "name": {
-                      "type": "string"
+                      "type": "string",
+                      "title": "name"
                     },
                     "color": {
                       "oneOf": [
@@ -3407,7 +3474,8 @@
                         {
                           "const": "pink"
                         }
-                      ]
+                      ],
+                      "title": "color"
                     }
                   },
                   "required": [
@@ -3415,12 +3483,14 @@
                     "name",
                     "color"
                   ]
-                }
+                },
+                "title": "options"
               }
             },
             "required": [
               "options"
-            ]
+            ],
+            "title": "select"
           }
         },
         "required": [
@@ -3435,13 +3505,16 @@
         "type": "object",
         "properties": {
           "id": {
-            "type": "string"
+            "type": "string",
+            "title": "id"
           },
           "name": {
-            "type": "string"
+            "type": "string",
+            "title": "name"
           },
           "type": {
-            "const": "multi_select"
+            "const": "multi_select",
+            "title": "type"
           },
           "multi_select": {
             "type": "object",
@@ -3452,10 +3525,12 @@
                   "type": "object",
                   "properties": {
                     "id": {
-                      "type": "string"
+                      "type": "string",
+                      "title": "id"
                     },
                     "name": {
-                      "type": "string"
+                      "type": "string",
+                      "title": "name"
                     },
                     "color": {
                       "oneOf": [
@@ -3489,7 +3564,8 @@
                         {
                           "const": "pink"
                         }
-                      ]
+                      ],
+                      "title": "color"
                     }
                   },
                   "required": [
@@ -3497,12 +3573,14 @@
                     "name",
                     "color"
                   ]
-                }
+                },
+                "title": "options"
               }
             },
             "required": [
               "options"
-            ]
+            ],
+            "title": "multi_select"
           }
         },
         "required": [
@@ -3517,13 +3595,16 @@
         "type": "object",
         "properties": {
           "id": {
-            "type": "string"
+            "type": "string",
+            "title": "id"
           },
           "name": {
-            "type": "string"
+            "type": "string",
+            "title": "name"
           },
           "type": {
-            "const": "status"
+            "const": "status",
+            "title": "type"
           },
           "status": {
             "type": "object",
@@ -3534,10 +3615,12 @@
                   "type": "object",
                   "properties": {
                     "id": {
-                      "type": "string"
+                      "type": "string",
+                      "title": "id"
                     },
                     "name": {
-                      "type": "string"
+                      "type": "string",
+                      "title": "name"
                     },
                     "color": {
                       "oneOf": [
@@ -3571,7 +3654,8 @@
                         {
                           "const": "pink"
                         }
-                      ]
+                      ],
+                      "title": "color"
                     }
                   },
                   "required": [
@@ -3579,7 +3663,8 @@
                     "name",
                     "color"
                   ]
-                }
+                },
+                "title": "options"
               },
               "groups": {
                 "type": "array",
@@ -3587,10 +3672,12 @@
                   "type": "object",
                   "properties": {
                     "id": {
-                      "type": "string"
+                      "type": "string",
+                      "title": "id"
                     },
                     "name": {
-                      "type": "string"
+                      "type": "string",
+                      "title": "name"
                     },
                     "color": {
                       "oneOf": [
@@ -3624,13 +3711,15 @@
                         {
                           "const": "pink"
                         }
-                      ]
+                      ],
+                      "title": "color"
                     },
                     "option_ids": {
                       "type": "array",
                       "items": {
                         "type": "string"
-                      }
+                      },
+                      "title": "option_ids"
                     }
                   },
                   "required": [
@@ -3639,13 +3728,15 @@
                     "color",
                     "option_ids"
                   ]
-                }
+                },
+                "title": "groups"
               }
             },
             "required": [
               "options",
               "groups"
-            ]
+            ],
+            "title": "status"
           }
         },
         "required": [
@@ -3660,32 +3751,39 @@
         "type": "object",
         "properties": {
           "id": {
-            "type": "string"
+            "type": "string",
+            "title": "id"
           },
           "name": {
-            "type": "string"
+            "type": "string",
+            "title": "name"
           },
           "type": {
-            "const": "relation"
+            "const": "relation",
+            "title": "type"
           },
           "relation": {
             "type": "object",
             "properties": {
               "database_id": {
-                "type": "string"
+                "type": "string",
+                "title": "database_id"
               },
               "synced_property_id": {
-                "type": "string"
+                "type": "string",
+                "title": "synced_property_id"
               },
               "synced_property_name": {
-                "type": "string"
+                "type": "string",
+                "title": "synced_property_name"
               }
             },
             "required": [
               "database_id",
               "synced_property_id",
               "synced_property_name"
-            ]
+            ],
+            "title": "relation"
           }
         },
         "required": [
@@ -3700,22 +3798,27 @@
         "type": "object",
         "properties": {
           "type": {
-            "const": "rollup"
+            "const": "rollup",
+            "title": "type"
           },
           "rollup": {
             "type": "object",
             "properties": {
               "rollup_property_name": {
-                "type": "string"
+                "type": "string",
+                "title": "rollup_property_name"
               },
               "relation_property_name": {
-                "type": "string"
+                "type": "string",
+                "title": "relation_property_name"
               },
               "rollup_property_id": {
-                "type": "string"
+                "type": "string",
+                "title": "rollup_property_id"
               },
               "relation_property_id": {
-                "type": "string"
+                "type": "string",
+                "title": "relation_property_id"
               },
               "function": {
                 "oneOf": [
@@ -3791,7 +3894,8 @@
                   {
                     "const": "show_original"
                   }
-                ]
+                ],
+                "title": "function"
               }
             },
             "required": [
@@ -3800,13 +3904,16 @@
               "rollup_property_id",
               "relation_property_id",
               "function"
-            ]
+            ],
+            "title": "rollup"
           },
           "id": {
-            "type": "string"
+            "type": "string",
+            "title": "id"
           },
           "name": {
-            "type": "string"
+            "type": "string",
+            "title": "name"
           }
         },
         "required": [
@@ -3821,16 +3928,20 @@
         "type": "object",
         "properties": {
           "type": {
-            "const": "title"
+            "const": "title",
+            "title": "type"
           },
           "title": {
-            "$ref": "#/components/schemas/Recordstringnever"
+            "$ref": "#/components/schemas/Recordstringnever",
+            "title": "title"
           },
           "id": {
-            "type": "string"
+            "type": "string",
+            "title": "id"
           },
           "name": {
-            "type": "string"
+            "type": "string",
+            "title": "name"
           }
         },
         "required": [
@@ -3845,16 +3956,20 @@
         "type": "object",
         "properties": {
           "id": {
-            "type": "string"
+            "type": "string",
+            "title": "id"
           },
           "name": {
-            "type": "string"
+            "type": "string",
+            "title": "name"
           },
           "type": {
-            "const": "rich_text"
+            "const": "rich_text",
+            "title": "type"
           },
           "rich_text": {
-            "$ref": "#/components/schemas/Recordstringnever"
+            "$ref": "#/components/schemas/Recordstringnever",
+            "title": "rich_text"
           }
         },
         "required": [
@@ -3869,16 +3984,20 @@
         "type": "object",
         "properties": {
           "type": {
-            "const": "url"
+            "const": "url",
+            "title": "type"
           },
           "url": {
-            "$ref": "#/components/schemas/Recordstringnever"
+            "$ref": "#/components/schemas/Recordstringnever",
+            "title": "url"
           },
           "id": {
-            "type": "string"
+            "type": "string",
+            "title": "id"
           },
           "name": {
-            "type": "string"
+            "type": "string",
+            "title": "name"
           }
         },
         "required": [
@@ -3893,16 +4012,20 @@
         "type": "object",
         "properties": {
           "id": {
-            "type": "string"
+            "type": "string",
+            "title": "id"
           },
           "name": {
-            "type": "string"
+            "type": "string",
+            "title": "name"
           },
           "type": {
-            "const": "people"
+            "const": "people",
+            "title": "type"
           },
           "people": {
-            "$ref": "#/components/schemas/Recordstringnever"
+            "$ref": "#/components/schemas/Recordstringnever",
+            "title": "people"
           }
         },
         "required": [
@@ -3917,16 +4040,20 @@
         "type": "object",
         "properties": {
           "id": {
-            "type": "string"
+            "type": "string",
+            "title": "id"
           },
           "name": {
-            "type": "string"
+            "type": "string",
+            "title": "name"
           },
           "type": {
-            "const": "files"
+            "const": "files",
+            "title": "type"
           },
           "files": {
-            "$ref": "#/components/schemas/Recordstringnever"
+            "$ref": "#/components/schemas/Recordstringnever",
+            "title": "files"
           }
         },
         "required": [
@@ -3941,16 +4068,20 @@
         "type": "object",
         "properties": {
           "id": {
-            "type": "string"
+            "type": "string",
+            "title": "id"
           },
           "name": {
-            "type": "string"
+            "type": "string",
+            "title": "name"
           },
           "type": {
-            "const": "email"
+            "const": "email",
+            "title": "type"
           },
           "email": {
-            "$ref": "#/components/schemas/Recordstringnever"
+            "$ref": "#/components/schemas/Recordstringnever",
+            "title": "email"
           }
         },
         "required": [
@@ -3965,16 +4096,20 @@
         "type": "object",
         "properties": {
           "id": {
-            "type": "string"
+            "type": "string",
+            "title": "id"
           },
           "name": {
-            "type": "string"
+            "type": "string",
+            "title": "name"
           },
           "type": {
-            "const": "phone_number"
+            "const": "phone_number",
+            "title": "type"
           },
           "phone_number": {
-            "$ref": "#/components/schemas/Recordstringnever"
+            "$ref": "#/components/schemas/Recordstringnever",
+            "title": "phone_number"
           }
         },
         "required": [
@@ -3989,16 +4124,20 @@
         "type": "object",
         "properties": {
           "id": {
-            "type": "string"
+            "type": "string",
+            "title": "id"
           },
           "name": {
-            "type": "string"
+            "type": "string",
+            "title": "name"
           },
           "type": {
-            "const": "date"
+            "const": "date",
+            "title": "type"
           },
           "date": {
-            "$ref": "#/components/schemas/Recordstringnever"
+            "$ref": "#/components/schemas/Recordstringnever",
+            "title": "date"
           }
         },
         "required": [
@@ -4013,16 +4152,20 @@
         "type": "object",
         "properties": {
           "id": {
-            "type": "string"
+            "type": "string",
+            "title": "id"
           },
           "name": {
-            "type": "string"
+            "type": "string",
+            "title": "name"
           },
           "type": {
-            "const": "checkbox"
+            "const": "checkbox",
+            "title": "type"
           },
           "checkbox": {
-            "$ref": "#/components/schemas/Recordstringnever"
+            "$ref": "#/components/schemas/Recordstringnever",
+            "title": "checkbox"
           }
         },
         "required": [
@@ -4037,13 +4180,16 @@
         "type": "object",
         "properties": {
           "id": {
-            "type": "string"
+            "type": "string",
+            "title": "id"
           },
           "name": {
-            "type": "string"
+            "type": "string",
+            "title": "name"
           },
           "type": {
-            "const": "created_by"
+            "const": "created_by",
+            "title": "type"
           }
         },
         "required": [
@@ -4057,16 +4203,20 @@
         "type": "object",
         "properties": {
           "id": {
-            "type": "string"
+            "type": "string",
+            "title": "id"
           },
           "name": {
-            "type": "string"
+            "type": "string",
+            "title": "name"
           },
           "type": {
-            "const": "created_time"
+            "const": "created_time",
+            "title": "type"
           },
           "created_time": {
-            "$ref": "#/components/schemas/Recordstringnever"
+            "$ref": "#/components/schemas/Recordstringnever",
+            "title": "created_time"
           }
         },
         "required": [
@@ -4081,16 +4231,20 @@
         "type": "object",
         "properties": {
           "id": {
-            "type": "string"
+            "type": "string",
+            "title": "id"
           },
           "name": {
-            "type": "string"
+            "type": "string",
+            "title": "name"
           },
           "type": {
-            "const": "last_edited_by"
+            "const": "last_edited_by",
+            "title": "type"
           },
           "last_edited_by": {
-            "$ref": "#/components/schemas/Recordstringnever"
+            "$ref": "#/components/schemas/Recordstringnever",
+            "title": "last_edited_by"
           }
         },
         "required": [
@@ -4105,16 +4259,20 @@
         "type": "object",
         "properties": {
           "id": {
-            "type": "string"
+            "type": "string",
+            "title": "id"
           },
           "name": {
-            "type": "string"
+            "type": "string",
+            "title": "name"
           },
           "type": {
-            "const": "last_edited_time"
+            "const": "last_edited_time",
+            "title": "type"
           },
           "last_edited_time": {
-            "$ref": "#/components/schemas/Recordstringnever"
+            "$ref": "#/components/schemas/Recordstringnever",
+            "title": "last_edited_time"
           }
         },
         "required": [
@@ -5020,13 +5178,13 @@
                 },
                 "x-wrtn-placeholder": "부모 페이지를 선택하세요."
               }
-            ]
+            ],
+            "title": "parentPageId"
           },
           "title": {
             "type": "string",
             "x-wrtn-placeholder": "테스트 페이지.",
-            "title": "Page title",
-            "description": "New page title to be created"
+            "title": "title"
           },
           "secretKey": {
             "type": "string",
