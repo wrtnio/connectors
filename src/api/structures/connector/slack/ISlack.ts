@@ -902,6 +902,11 @@ export namespace ISlack {
     user: User["id"] | null;
 
     /**
+     * @title username of the person who made this message
+     */
+    username: User["name"] | null;
+
+    /**
      * @title channel id
      */
     channel: Channel["id"];
