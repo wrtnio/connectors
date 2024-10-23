@@ -147,6 +147,8 @@ export class GoogleDocsController {
   /**
    * Add text to Google Docs
    *
+   * When you pass the input of the markdown format, change the markdown to the appropriate format.
+   *
    * @summary Add text to Google Docs
    */
   @RouteIcon(

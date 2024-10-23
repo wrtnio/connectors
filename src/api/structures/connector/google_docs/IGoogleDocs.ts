@@ -265,7 +265,9 @@ export namespace IGoogleDocs {
       }>;
 
     /**
-     * The text to add.
+     * The text to add
+     *
+     * When you pass the input of the markdown format, change the markdown to the appropriate format.
      *
      * @title text
      */
