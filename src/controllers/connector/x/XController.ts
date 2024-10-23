@@ -67,6 +67,12 @@ export class XController {
   /**
    * Summarizes the tweets of those requested them.
    *
+   * Note that this endpoint is intended to be used for a single keyword or subject.
+   *
+   * If you need to summarize multiple keywords or subjects, make multiple requests for each keyword or subject.
+   *
+   * For example, if you want to summarize tweets about Elon Musk and AI, make two requests, one for Elon Musk and one for AI.
+   *
    * @summary Tweet Summary
    *
    * @param input user information, secretKey, query
