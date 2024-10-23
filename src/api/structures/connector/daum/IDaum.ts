@@ -63,6 +63,9 @@ export namespace IDaum {
    * @title Next blog search results
    */
   export interface IBlogDaumOutput {
+    /**
+     * @title meta
+     */
     meta: {
       /**
        * Total number of documents searched.
@@ -86,6 +89,9 @@ export namespace IDaum {
       isEnd: boolean;
     };
 
+    /**
+     * @title documents
+     */
     documents: {
       /**
        * The title of the document searched.
@@ -135,6 +141,9 @@ export namespace IDaum {
    * @title Next Cafe Search Results
    */
   export interface ICafeDaumOutput {
+    /**
+     * @title metadata
+     */
     meta: {
       /**
        * Total number of searched cafes.
@@ -158,6 +167,9 @@ export namespace IDaum {
       isEnd: boolean;
     };
 
+    /**
+     * @title documents
+     */
     documents: {
       /**
        * The title of the document searched.

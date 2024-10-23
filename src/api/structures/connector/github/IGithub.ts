@@ -64,8 +64,9 @@ export namespace IGithub {
 
   export interface ICommonPaginationInput {
     /**
-     * @title per_page
      * The number of results per page (max 100).
+     *
+     * @title per_page
      */
     per_page?: number &
       tags.Type<"uint64"> &
@@ -73,8 +74,9 @@ export namespace IGithub {
       tags.Maximum<100>;
 
     /**
-     * @title page
      * The page number of the results to fetch.
+     *
+     * @title page
      */
     page?: number & tags.Type<"uint64"> & tags.Default<1>;
 
@@ -102,17 +104,64 @@ export namespace IGithub {
   )[];
 
   export type MileStone = {
+    /**
+     * @title id
+     */
     id: number;
+
+    /**
+     * @title number
+     */
     number: number;
+
+    /**
+     * @title state
+     */
     state: "open" | "closed"; // 더 확인이 필요
+
+    /**
+     * @title title
+     */
     title: string;
+
+    /**
+     * @title description
+     */
     description: string;
+
+    /**
+     * @title creator
+     */
     creator: MyPick<User, "id" | "login" | "type">;
+
+    /**
+     * @title open_issues
+     */
     open_issues: number & tags.Type<"uint64"> & tags.Minimum<0>;
+
+    /**
+     * @title closed_issues
+     */
     closed_issues: number & tags.Type<"uint64"> & tags.Minimum<0>;
+
+    /**
+     * @title created_at
+     */
     created_at: string & tags.Format<"date-time">;
+
+    /**
+     * @title updated_at
+     */
     updated_at: string & tags.Format<"date-time">;
+
+    /**
+     * @title closed_at
+     */
     closed_at: string & tags.Format<"date-time">;
+
+    /**
+     * @title due_on
+     */
     due_on: string & tags.Format<"date-time">;
   };
 
@@ -215,9 +264,24 @@ export namespace IGithub {
 
   export interface IPullRequestComment
     extends MyPick<IGithub.ReviewComment, "path" | "position" | "body"> {
+    /**
+     * @title line
+     */
     line: number & tags.Type<"uint64">;
+
+    /**
+     * @title side
+     */
     side: string;
+
+    /**
+     * @title start_line
+     */
     start_line: number & tags.Type<"uint64">;
+
+    /**
+     * @title start_side
+     */
     start_side: string;
   }
 
@@ -263,6 +327,9 @@ export namespace IGithub {
 
   export interface IReadPullRequestFileOutput
     extends IGithub.ICommonPaginationOutput {
+    /**
+     * @title result
+     */
     result: File[];
   }
 
@@ -377,8 +444,9 @@ export namespace IGithub {
 
   export interface IRequestReviewerInput extends IReadPullRequestDetailInput {
     /**
-     * @Title reviewers
      * An array of user logins that will be requested.
+     *
+     * @title reviewers
      */
     reviewers?: (User["login"] &
       Prerequisite<{
@@ -388,8 +456,9 @@ export namespace IGithub {
       }>)[];
 
     /**
-     * @title team_reviewers
      * An array of team slugs that will be requested.
+     *
+     * @title team_reviewers
      */
     team_reviewers?: Team["slug"][];
   }
@@ -435,6 +504,9 @@ export namespace IGithub {
 
   export interface IGetUserOrganizationOutput
     extends IGithub.ICommonPaginationOutput {
+    /**
+     * @title result
+     */
     result: Organization[];
   }
 
@@ -448,6 +520,9 @@ export namespace IGithub {
 
   export interface IGetAuthenticatedUserOrganizationOutput
     extends IGithub.ICommonPaginationOutput {
+    /**
+     * @title result
+     */
     result: Organization[];
   }
 
@@ -488,8 +563,19 @@ export namespace IGithub {
     | (StrictOmit<RepositoryFile, "encoding" | "content"> | RepositoryFolder)[]
     | RepositoryFile
     | {
+        /**
+         * @title type
+         */
         type: "null";
+
+        /**
+         * @title size
+         */
         size: 0;
+
+        /**
+         * @title message
+         */
         message: "No files exist corresponding to the path.";
       };
 
@@ -523,7 +609,14 @@ export namespace IGithub {
   };
 
   export type RepositoryFile = {
+    /**
+     * @title type
+     */
     type: "file";
+
+    /**
+     * @title encoding
+     */
     encoding: string & Placeholder<"base64">;
 
     /**
@@ -645,6 +738,9 @@ export namespace IGithub {
   >;
 
   export interface IGetCollaboratorOutput extends ICommonPaginationOutput {
+    /**
+     * @title result
+     */
     result: IGithub.Collaborator[];
   }
 
@@ -816,6 +912,10 @@ export namespace IGithub {
        * @title The email of the author or committer of the commit
        */
       email: string;
+
+      /**
+       * @title date
+       */
       date: string & tags.Format<"date-time">;
     };
 
@@ -837,6 +937,10 @@ export namespace IGithub {
        * @title The email of the author or committer of the commit
        */
       email: string;
+
+      /**
+       * @title date
+       */
       date: string & tags.Format<"date-time">;
     };
   }
@@ -889,11 +993,22 @@ export namespace IGithub {
   >;
 
   export type IGetCommitHeadOutput = {
+    /**
+     * @title sha
+     */
     sha: Commit["sha"];
+
+    /**
+     * @title commit
+     */
     commit: MyPick<
       Commit,
       "author" | "committer" | "comment_count" | "message" | "tree" | "url"
     >;
+
+    /**
+     * @title files
+     */
     files: IGithub.File[];
   };
 
@@ -931,6 +1046,9 @@ export namespace IGithub {
   }
 
   export interface IGetEventOutput extends ICommonPaginationOutput {
+    /**
+     * @title event
+     */
     result: {
       /**
        * @title id
@@ -1284,6 +1402,9 @@ export namespace IGithub {
   }
 
   export interface IGetLabelOutput extends ICommonPaginationOutput {
+    /**
+     * @title result
+     */
     result: IGithub.Label[];
   }
 
@@ -1346,7 +1467,14 @@ export namespace IGithub {
      * @title commit list
      */
     result: {
+      /**
+       * @title sha
+       */
       sha: Commit["sha"];
+
+      /**
+       * @title commit
+       */
       commit: MyPick<Commit, "url" | "author" | "committer" | "message">;
     }[];
   }
@@ -1418,6 +1546,9 @@ export namespace IGithub {
      */
     commit: StrictOmit<Commit, "sha">;
 
+    /**
+     * @title html_url
+     */
     html_url: string & tags.Format<"iri">;
 
     /**
@@ -1425,6 +1556,9 @@ export namespace IGithub {
      */
     parents: MyPick<Commit, "sha">[];
 
+    /**
+     * @title stats
+     */
     stats: {
       /**
        * @title sum of additions and deletions
@@ -1498,8 +1632,19 @@ export namespace IGithub {
      * @title ref
      */
     ref: string & Placeholder<"refs/heads/featureA">;
+
+    /**
+     * @title object
+     */
     object: {
+      /**
+       * @title type
+       */
       type: "commit";
+
+      /**
+       * @title sha
+       */
       sha: Commit["sha"];
     };
   }
@@ -1822,6 +1967,9 @@ export namespace IGithub {
      * @title labels
      */
     labels: {
+      /**
+       * @title nodes
+       */
       nodes: MyPick<Label, "name" | "description">[];
     };
 
@@ -1829,6 +1977,9 @@ export namespace IGithub {
      * @title assignees
      */
     assignees: {
+      /**
+       * @title nodes
+       */
       nodes: MyPick<User, "login">[];
     };
 
@@ -1849,6 +2000,9 @@ export namespace IGithub {
   }
 
   export interface IFetchRepositoryPullRequestOutput {
+    /**
+     * @title Pull Requests
+     */
     pullRequests: FetchedPullRequest[];
 
     /**
@@ -1930,6 +2084,9 @@ export namespace IGithub {
      * @title assignees
      */
     assignees: {
+      /**
+       * @title nodes
+       */
       nodes: MyPick<User, "login">[];
     };
 
@@ -2113,7 +2270,12 @@ export namespace IGithub {
      */
     labels?: Label["name"][];
 
-    per_page: ICommonPaginationInput["per_page"];
+    /**
+     * The number of results per page (max 100).
+     *
+     * @title per_page
+     */
+    per_page?: ICommonPaginationInput["per_page"];
 
     /**
      * If you don't want to filter, you don't put anything in.
@@ -2182,6 +2344,9 @@ export namespace IGithub {
 
   export interface IGetOrganizationAuthenticationUserIssueOutput
     extends ICommonPaginationOutput {
+    /**
+     * @title Issues
+     */
     result: IGithub.Issue[];
   }
 
@@ -2615,6 +2780,9 @@ export namespace IGithub {
      */
     updated_at: string & tags.Format<"date-time">;
 
+    /**
+     * @title permissions
+     */
     permissions?: {
       /**
        * @title admin
@@ -2667,6 +2835,9 @@ export namespace IGithub {
      */
     network_count?: number & tags.Type<"uint64">;
 
+    /**
+     * @title license
+     */
     license: null | {
       /**
        * @title key
@@ -2737,8 +2908,19 @@ export namespace IGithub {
      * @title author
      */
     author: {
+      /**
+       * @title name
+       */
       name: string;
+
+      /**
+       * @title email
+       */
       email: string;
+
+      /**
+       * @title date
+       */
       date: string & tags.Format<"date-time">;
     };
 
@@ -2746,8 +2928,19 @@ export namespace IGithub {
      * @title committer
      */
     committer: {
+      /**
+       * @title name
+       */
       name: string;
+
+      /**
+       * @title email
+       */
       email: string;
+
+      /**
+       * @title date
+       */
       date: string & tags.Format<"date-time">;
     };
 
@@ -2756,11 +2949,24 @@ export namespace IGithub {
      */
     message: string;
 
+    /**
+     * @title tree
+     */
     tree: {
+      /**
+       * @title sha
+       */
       sha: string;
+
+      /**
+       * @title url
+       */
       url: string & tags.Format<"iri">;
     };
 
+    /**
+     * @title comment_count
+     */
     comment_count: number & tags.Type<"uint64">;
   };
 
@@ -2820,6 +3026,9 @@ export namespace IGithub {
   };
 
   export type Issue = {
+    /**
+     * @title issue id
+     */
     id: number & tags.Type<"uint64">;
 
     /**
@@ -2847,11 +3056,15 @@ export namespace IGithub {
 
     /**
      * The reason for the current state
+     *
+     * @title state_reason
      */
     state_reason?: "completed" | "reopened" | "not_planned" | null;
 
     /**
-     * Title of the issue
+     * title of the issue
+     *
+     * @title title
      */
     title: string;
 
@@ -2877,11 +3090,34 @@ export namespace IGithub {
     labels: (
       | string
       | {
+          /**
+           * @title id
+           */
           id?: number & tags.Type<"uint64">;
+
+          /**
+           * @title url
+           */
           url?: string & tags.Format<"iri">;
+
+          /**
+           * @title name
+           */
           name?: string;
+
+          /**
+           * @title description
+           */
           description?: string | null;
+
+          /**
+           * @title color
+           */
           color?: string | null;
+
+          /**
+           * @title default
+           */
           default?: boolean;
         }
     )[];
@@ -2900,20 +3136,61 @@ export namespace IGithub {
   };
 
   export type Milestone = {
+    /**
+     * The title of the milestone.
+     *
+     * @title title
+     */
+    title: string;
+
+    /**
+     * @title id
+     */
     id: number & tags.Type<"uint64">;
+
+    /**
+     * @title number
+     */
     number: number & tags.Type<"uint64">;
 
     /**
-     * The title of the milestone.
+     * @title description
      */
-    title: string;
     description: string | null;
+
+    /**
+     * @title creator
+     */
     creator: MyPick<IGithub.User, "id" | "login" | "type">;
+
+    /**
+     * @title open_issues
+     */
     open_issues: number & tags.Type<"uint64">;
+
+    /**
+     * @title closed_issues
+     */
     closed_issues: number & tags.Type<"uint64">;
+
+    /**
+     * @title created_at
+     */
     created_at: string & tags.Format<"date-time">;
+
+    /**
+     * @title updated_at
+     */
     updated_at: string & tags.Format<"date-time">;
+
+    /**
+     * @title closed_at
+     */
     closed_at: (string & tags.Format<"date-time">) | null;
+
+    /**
+     * @title due_on
+     */
     due_on: (string & tags.Format<"date-time">) | null;
   };
 
@@ -3150,16 +3427,16 @@ export namespace IGithub {
     action?: string;
 
     /**
-     * @title issue
-     *
      * If it is an event for an issue, contain the issue information.
+     *
+     * @title issue
      */
     issue?: IGithub.Issue;
 
     /**
-     * @title comment
-     *
      * If it is an event for an comment, contain the comment information.
+     *
+     * @title comment
      */
     comment?: IGithub.Comment;
   }
@@ -3200,11 +3477,34 @@ export namespace IGithub {
   }
 
   export interface Page {
+    /**
+     * @title page_name
+     */
     page_name?: string;
+
+    /**
+     * @title title
+     */
     title?: string;
+
+    /**
+     * @title summary
+     */
     summary?: string | null;
+
+    /**
+     * @title action
+     */
     action?: string;
+
+    /**
+     * @title sha
+     */
     sha?: string;
+
+    /**
+     * @title html_url
+     */
     html_url?: string;
   }
 
@@ -3269,11 +3569,24 @@ export namespace IGithub {
     patch?: string;
   }
 
+  /**
+   * @title file to upload
+   */
   export interface UploadFileInput {
+    /**
+     * @title files
+     */
     files: MyPick<IGithub.RepositoryFile, "path" | "content">[];
+
+    /**
+     * @title key
+     */
     key: string;
   }
 
+  /**
+   * @title user profile repository
+   */
   export type ProfileRepository =
     | (IGithub.Repository & { readme: IGithub.IGetReadmeFileContentOutput })
     | null;

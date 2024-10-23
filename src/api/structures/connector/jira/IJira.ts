@@ -653,9 +653,9 @@ export namespace IJira {
    */
   export interface ICreateIssueInput extends BasicAuthorization {
     /**
-     * @title fields
-     *
      * Indicates the fields that you need to fill in when you want to create an issue.
+     *
+     * @title fields
      */
     fields: {
       /**
@@ -850,7 +850,13 @@ export namespace IJira {
   export type IGetIssuePriorityInput = BasicAuthorization;
 
   export interface IGetIssueStatusOutput {
+    /**
+     * @title statuses
+     */
     statuses: (MyPick<Status, "id" | "name" | "untranslatedName"> & {
+      /**
+       * @title projectId
+       */
       projectId?: string;
     })[];
   }
@@ -979,9 +985,9 @@ export namespace IJira {
     text: string;
 
     /**
-     * @title marks
-     *
      * It means the emphasis of the markdown format, and it means that there is a string between the backticks.
+     *
+     * @title marks
      */
     marks?: Mark[];
   };
@@ -1003,6 +1009,8 @@ export namespace IJira {
      * - paragraph with no marks.
      * - bulletList
      * - orderedList
+     *
+     * @title content
      */
     content: (ParagraphContentWithoutNoMarks | ListNode)[] & tags.MinItems<1>;
   };
@@ -1011,12 +1019,15 @@ export namespace IJira {
    * @title code block
    */
   export type CodeBlockNode = {
+    /**
+     * @title type
+     */
     type: "codeBlock";
 
     /**
-     * @title attrs
-     *
      * If you do not specify a programming language, this property may not exist.
+     *
+     * @title attrs
      */
     attrs?: {
       /**
@@ -1026,12 +1037,15 @@ export namespace IJira {
     };
 
     /**
-     * @title code content
-     *
      * content takes an array of one or more text nodes without marks.
+     *
+     * @title code content
      */
     content?: [
       {
+        /**
+         * @title type
+         */
         type: "text";
 
         /**
@@ -1206,6 +1220,9 @@ export namespace IJira {
    */
   export type MediaNode =
     | {
+        /**
+         * @title type
+         */
         type: "media";
 
         /**
@@ -1214,16 +1231,22 @@ export namespace IJira {
         attrs: {
           /**
            * width defines the display width of the media item in pixels. Must be provided within mediaSingle or the media isn't displayed.
+           *
+           * @title width
            */
           width?: number;
 
           /**
            * height defines the display height of the media item in pixels. Must be provided within mediaSingle or the media isn't displayed.
+           *
+           * @title height
            */
           height?: number;
 
           /**
            * id is the Media Services ID and is used for querying the media services API to retrieve metadata, such as, filename. Consumers of the document should always fetch fresh metadata using the Media API.
+           *
+           * @title id
            */
           id?: string;
 
@@ -1242,6 +1265,9 @@ export namespace IJira {
         marks: LookUp<Mark, "link">;
       }
     | {
+        /**
+         * @title type
+         */
         type: "media";
 
         /**
@@ -1250,16 +1276,22 @@ export namespace IJira {
         attrs: {
           /**
            * width defines the display width of the media item in pixels. Must be provided within mediaSingle or the media isn't displayed.
+           *
+           * @title width
            */
           width?: number;
 
           /**
            * height defines the display height of the media item in pixels. Must be provided within mediaSingle or the media isn't displayed.
+           *
+           * @title height
            */
           height?: number;
 
           /**
            * id is the Media Services ID and is used for querying the media services API to retrieve metadata, such as, filename. Consumers of the document should always fetch fresh metadata using the Media API.
+           *
+           * @title id
            */
           id?: string;
 
@@ -1279,11 +1311,15 @@ export namespace IJira {
       };
 
   export type MediaGroupNode = {
+    /**
+     * @title type
+     */
     type: "mediaGroup";
 
     /**
-     * @title content
      * content must contain one or more media nodes.
+     *
+     * @title content
      */
     content: MediaNode[];
   };
@@ -1302,6 +1338,9 @@ export namespace IJira {
      */
     type: "mediaSingle";
 
+    /**
+     * @title attrs
+     */
     attrs: {
       /**
        * layout determines the placement of the node on the page. wrap-left and wrap-right provide an image floated to the left or right of the page respectively, with text wrapped around it. center center aligns the image as a block, while wide does the same but bleeds into the margins. full-width makes the image stretch from edge to edge of the page.
@@ -1317,11 +1356,15 @@ export namespace IJira {
 
       /**
        * width determines the width of the image as a percentage of the width of the text content area. Has no effect if layout mode is wide or full-width.
+       *
+       * @title width
        */
       width?: number & tags.Minimum<0> & tags.Maximum<100>;
 
       /**
        * widthType [optional] determines what the "unit" of the width attribute is presenting. Possible values are pixel and percentage. If the widthType attribute is undefined, it fallbacks to percentage.
+       *
+       * @title widthType
        */
       widthType?: ("pixel" | "percentage") & tags.Default<"percentage">;
     };
@@ -1374,10 +1417,24 @@ export namespace IJira {
    * The panel node is a container that highlights content.
    */
   export type PanelNode = {
+    /**
+     * @title type
+     */
     type: "panel";
+
+    /**
+     * @title attrs
+     */
     attrs: {
+      /**
+       * @title panelType
+       */
       panelType: "info" | "note" | "warning" | "success" | "error";
     };
+
+    /**
+     * @title content
+     */
     content: (
       | ListNode
       | HeadingNodeWithoutMarks
@@ -1395,6 +1452,9 @@ export namespace IJira {
      */
     type: "paragraph";
 
+    /**
+     * @title attrs
+     */
     attrs?: never | Record<string, never>;
 
     /**
@@ -1414,6 +1474,9 @@ export namespace IJira {
      */
     type: "paragraph";
 
+    /**
+     * @title attrs
+     */
     attrs?: never | Record<string, never>;
 
     /**
@@ -1434,6 +1497,9 @@ export namespace IJira {
    * The rule node represents a divider, it is equivalent to the HTML <hr/> tag.
    */
   export type RuleNode = {
+    /**
+     * @title type
+     */
     type: "rule";
   };
 
@@ -1443,11 +1509,24 @@ export namespace IJira {
    * Note: only supported on web and desktop. Mobile rendering support for tables is not available.
    */
   export type TableNode = {
+    /**
+     * @title type
+     */
     type: "table";
+
+    /**
+     * @title content
+     */
     content: TableRowNode[];
+
+    /**
+     * @title attrs
+     */
     attrs?: {
       /**
        * When isNumberColumnEnabled is set to 'true' the first table column provides numbering for the table rows.
+       *
+       * @title isNumberColumnEnabled
        */
       isNumberColumnEnabled?: (true | false) & tags.Default<true>;
 
@@ -1466,6 +1545,8 @@ export namespace IJira {
        * - > 3 column table = 144px
        * - Maximum width
        * - 1800
+       *
+       * @title width
        */
       width?: number & tags.Minimum<0>;
 
@@ -1474,6 +1555,8 @@ export namespace IJira {
        * The layout values are mapped as follows:
        * - 'center' : will align the table to the center of page, its width can be larger than the line length
        * - 'align-start' : will align the table left of the line length, its width cannot be larger than the line length
+       *
+       * @title layout
        */
       layout?: "center" | "align-start";
 
@@ -1481,13 +1564,22 @@ export namespace IJira {
        * displayMode attribute controls how tables adapt to narrow screens:
        * When displayMode is set to 'default' or left unset, the table's columns will automatically scale down to accommodate narrow screens, with a maximum reduction of up to 40%.
        * When displayMode is set to 'fixed', the table's columns will maintain their original width, regardless of screen size.
+       *
+       * @title displayMode
        */
       displayMode?: "default" | "fixed";
     };
   };
 
   export type TableCellNode = {
+    /**
+     * @title type
+     */
     type: "tableCell";
+
+    /**
+     * @title content
+     */
     content: (
       | BlockquoteNode
       | ListNode
@@ -1499,15 +1591,21 @@ export namespace IJira {
       | RuleNode
     )[];
 
+    /**
+     * @title attrs
+     */
     attrs?: {
       /**
        * Short or long hex color code or HTML color name
+       *
+       * @title background
        */
       background?: string;
 
       /**
-       * @title colspan
        * colspan defines the number of columns the cell spans.
+       *
+       * @title colspan
        */
       colspan?: number & tags.Type<"uint64"> & tags.Default<1>;
 
@@ -1517,6 +1615,8 @@ export namespace IJira {
        * The length of the array should be equal to the number of spanned columns.
        * 0 is permitted as an array value if the column size is not fixed,
        * for example, a cell merged across 3 columns where one unfixed column is surrounded by two fixed might be represented as `[120, 0, 120].
+       *
+       * @title colwidth
        */
       colwidth?: [
         number & tags.Type<"uint64">,
@@ -1525,15 +1625,23 @@ export namespace IJira {
       ];
 
       /**
-       * @title rowspan
        * rowspan defines the number of rows a cell spans.
+       *
+       * @title rowspan
        */
       rowspan?: number & tags.Type<"uint64"> & tags.Default<1>;
     };
   };
 
   export type TableHeaderNode = {
+    /**
+     * @title type
+     */
     type: "tableHeader";
+
+    /**
+     * @title content
+     */
     content: (
       | BlockquoteNode
       | ListNode
@@ -1545,15 +1653,21 @@ export namespace IJira {
       | RuleNode
     )[];
 
+    /**
+     * @title attrs
+     */
     attrs?: {
       /**
        * Short or long hex color code or HTML color name
+       *
+       * @title background
        */
       background?: string;
 
       /**
-       * @title colspan
        * colspan defines the number of columns the cell spans.
+       *
+       * @title colspan
        */
       colspan?: number & tags.Type<"uint64"> & tags.Default<1>;
 
@@ -1563,6 +1677,8 @@ export namespace IJira {
        * The length of the array should be equal to the number of spanned columns.
        * 0 is permitted as an array value if the column size is not fixed,
        * for example, a cell merged across 3 columns where one unfixed column is surrounded by two fixed might be represented as `[120, 0, 120].
+       *
+       * @title colwidth
        */
       colwidth?: [
         number & tags.Type<"uint64">,
@@ -1571,8 +1687,9 @@ export namespace IJira {
       ];
 
       /**
-       * @title rowspan
        * rowspan defines the number of rows a cell spans.
+       *
+       * @title rowspan
        */
       rowspan?: number & tags.Type<"uint64"> & tags.Default<1>;
     };
@@ -1581,12 +1698,19 @@ export namespace IJira {
   /**
    * The tableRow node defines rows within a table and is a container for table heading and table cell nodes.
    * tableRow is a child block node of the table node.
+   *
+   * @title TableRowNode
    */
   export type TableRowNode = {
+    /**
+     * @title type
+     */
     type: "tableRow";
 
     /**
      * content takes an array of one or more tableHeader or tableCell nodes.
+     *
+     * @title content
      */
     content: (TableHeaderNode | TableCellNode)[];
   };
@@ -1912,7 +2036,13 @@ export namespace IJira {
       comments: Comment[];
     };
 
+    /**
+     * @title description
+     */
     description: null | {
+      /**
+       * @title content
+       */
       content: TopLevelBlockNode[];
     };
   }
@@ -1937,7 +2067,14 @@ export namespace IJira {
      * @title body of comment
      */
     body: {
+      /**
+       * @title type
+       */
       type: "doc";
+
+      /**
+       * @title version
+       */
       version: 1;
 
       /**
@@ -2028,6 +2165,9 @@ export namespace IJira {
      */
     key: string;
 
+    /**
+     * @title fields
+     */
     fields: {
       /**
        * @title summary
@@ -2155,7 +2295,14 @@ export namespace IJira {
 
   export type Mark =
     | {
+        /**
+         * @title type
+         */
         type: "backgroundColor";
+
+        /**
+         * @title attrs
+         */
         attrs: {
           /**
            * @title color
@@ -2166,13 +2313,26 @@ export namespace IJira {
         };
       }
     | {
+        /**
+         * @title type
+         */
         type: "code";
       }
     | {
+        /**
+         * @title type
+         */
         type: "em";
       }
     | {
+        /**
+         * @title type
+         */
         type: "link";
+
+        /**
+         * @title attrs
+         */
         attrs: {
           /**
            * @title link
@@ -2181,19 +2341,42 @@ export namespace IJira {
         };
       }
     | {
+        /**
+         * @title type
+         */
         type: "strike";
       }
     | {
+        /**
+         * @title type
+         */
         type: "strong";
       }
     | {
+        /**
+         * @title type
+         */
         type: "subsup";
+
+        /**
+         * @title attrs
+         */
         attrs: {
+          /**
+           * @title type
+           */
           type: "sub" | "sup";
         };
       }
     | {
+        /**
+         * @title type
+         */
         type: "textColor";
+
+        /**
+         * @title attrs
+         */
         attrs: {
           /**
            * @title color
@@ -2204,6 +2387,9 @@ export namespace IJira {
         };
       }
     | {
+        /**
+         * @title type
+         */
         type: "underline";
       };
 

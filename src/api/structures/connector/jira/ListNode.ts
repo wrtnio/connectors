@@ -1,11 +1,21 @@
 import type { IJira } from "./IJira";
 
 export type ListNode = {
+  /**
+   * @title type
+   */
   type: "bulletList" | "orderedList";
+
+  /**
+   * @title content
+   */
   content: ListItemNode_1[];
 };
 
 export type ListItemNode_1 = {
+  /**
+   * @title type
+   */
   type: "listItem";
 
   /**
@@ -19,7 +29,12 @@ export type ListItemNode_1 = {
    * @title content
    */
   content: (
-    | { type: "bulletList" | "orderedList" } // token limit...
+    | {
+        /**
+         * @title type
+         */
+        type: "bulletList" | "orderedList";
+      } // token limit...
     | IJira.CodeBlockNode
     | IJira.MediaSingleNode
     | IJira.ParagraphContentWithoutNoMarks
