@@ -3,13 +3,13 @@ import { docs_v1, google } from "googleapis";
 
 import { IGoogleDocs } from "@wrtn/connector-api/lib/structures/connector/google_docs/IGoogleDocs";
 
+import { decode } from "he";
+import { Tokens } from "marked";
 import typia from "typia";
 import { markdownConverter } from "../../../utils/markdown-converter";
 import { GoogleProvider } from "../../internal/google/GoogleProvider";
 import { OAuthSecretProvider } from "../../internal/oauth_secret/OAuthSecretProvider";
 import { IOAuthSecret } from "../../internal/oauth_secret/structures/IOAuthSecret";
-import { ConnectorGlobal } from "../../../ConnectorGlobal";
-import { Tokens } from "marked";
 
 @Injectable()
 export class GoogleDocsProvider {
@@ -367,7 +367,7 @@ function convertMarkdownToGoogleDocsRequests(input: { text: string }) {
           const headingLevel = (token as any).depth;
           const fontSize =
             headingLevel === 1 ? 24 : headingLevel === 2 ? 20 : 16;
-          const text = `\n${token.text}` + "\n";
+          const text = `\n${decode(token.text)}` + "\n";
           return [
             {
               insertText: {
@@ -452,8 +452,6 @@ function convertMarkdownToGoogleDocsRequests(input: { text: string }) {
             (child as any).isLast = true;
           });
 
-          console.log(JSON.stringify(token, null, 2));
-
           const regexp = /^\d\.+/g;
           const number = token.raw.match(regexp)?.[0] ?? null;
           const prefix = "\t".repeat(token.depth);
@@ -473,14 +471,15 @@ function convertMarkdownToGoogleDocsRequests(input: { text: string }) {
       strong: {
         convert: (token: Tokens.Strong & { isLast: boolean }) => {
           const child = token.tokens[0] as Tokens.Link | Tokens.Text;
-          const text =
+          const text = decode(
             child.type === "link"
               ? token.isLast
                 ? `${child.title ?? child.text ?? child.href}\n`
                 : `${child.title ?? child.text ?? child.href}`
               : token.isLast
                 ? `${child.text}\n`
-                : `${child.text}`;
+                : `${child.text}`,
+          );
 
           if (child.type === "link") {
             return [
@@ -531,7 +530,6 @@ function convertMarkdownToGoogleDocsRequests(input: { text: string }) {
       },
       em: {
         convert: (token) => {
-          console.log("em: ", token);
           return [
             {
               insertText: {
@@ -573,8 +571,8 @@ function convertMarkdownToGoogleDocsRequests(input: { text: string }) {
           const text = regexp.test(token.raw)
             ? token.raw
             : token.isLast
-              ? `${token.text}\n`
-              : token.text;
+              ? `${decode(token.text)}\n`
+              : decode(token.text);
           return token.tokens?.length
             ? []
             : [
@@ -607,7 +605,9 @@ function convertMarkdownToGoogleDocsRequests(input: { text: string }) {
       },
       link: {
         convert: (token: Tokens.Link & { isLast: boolean }) => {
-          const text = `${token.title ?? token.text ?? token.href}${token.isLast ? "\n" : ""}`;
+          const text = decode(
+            `${token.title ?? token.text ?? token.href}${token.isLast ? "\n" : ""}`,
+          );
           return [
             {
               insertText: {
