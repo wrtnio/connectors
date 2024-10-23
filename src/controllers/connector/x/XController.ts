@@ -54,6 +54,8 @@ export class XController {
    *
    * Avoid making multiple requests for this endpoint if you want to fetch tweets from multiple users.
    *
+   * After fetching the tweets, you may want to summarize them using the /summarize endpoint. NEVER summarize tweets without fetching them first, calling this endpoint solely for summarizing is not allowed.
+   *
    * @summary Prepare Tweet Summary
    *
    * @param input user information, secretKey, query
