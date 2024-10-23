@@ -47,7 +47,12 @@ export class XController {
   }
 
   /**
-   * Prepare summarizes the tweets of those requested them.
+   * Fetches and indexes the tweets of given users requested.
+   *
+   * You should put as many users as you want to fetch tweets from.
+   * This endpoint is designed to handle multiple users efficiently.
+   *
+   * Avoid making multiple requests for this endpoint if you want to fetch tweets from multiple users.
    *
    * @summary Prepare Tweet Summary
    *
