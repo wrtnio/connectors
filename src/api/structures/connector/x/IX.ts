@@ -283,7 +283,7 @@ export namespace IX {
         path: "/connector/x/prepare-summarize";
         jmesPath: JMESPath<
           IPrePareSummarizeTweetOutput,
-          ".{value:chatId, label:chatId}"
+          "{value:chatId, label:chatId}"
         >;
       }>;
 
