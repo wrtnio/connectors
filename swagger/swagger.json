@@ -15,7 +15,7 @@
     }
   ],
   "info": {
-    "version": "0.1.292",
+    "version": "0.1.293",
     "title": "@wrtn/connector",
     "description": "wrtn-ecosystem connectors and sdk",
     "license": {
@@ -12269,7 +12269,7 @@
     "/connector/x/prepare-summarize": {
       "post": {
         "summary": "Prepare Tweet Summary",
-        "description": "Prepare summarizes the tweets of those requested them.",
+        "description": "Fetches and indexes the tweets of given users requested.\n\nYou should put as many users as you want to fetch tweets from.\nThis endpoint is designed to handle multiple users efficiently.\n\nAvoid making multiple requests for this endpoint if you want to fetch tweets from multiple users.",
         "tags": [],
         "parameters": [],
         "requestBody": {
