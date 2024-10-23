@@ -17,7 +17,7 @@
   "info": {
     "title": "Slack",
     "description": "슬랙에서 대화 내용을 가져오거나 메시지를 보낼 수 있어요.",
-    "version": "0.1.293",
+    "version": "0.1.294",
     "license": {
       "name": "AGPL-3.0-only"
     }
