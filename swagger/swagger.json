@@ -15,7 +15,7 @@
     }
   ],
   "info": {
-    "version": "0.1.297",
+    "version": "0.1.298",
     "title": "@wrtn/connector",
     "description": "wrtn-ecosystem connectors and sdk",
     "license": {
@@ -8021,6 +8021,39 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/ISlack.IGetFileOutput"
+                }
+              }
+            }
+          }
+        },
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Slack_full.svg"
+      }
+    },
+    "/connector/slack/get-user-groups": {
+      "post": {
+        "summary": "Get usergroups in workspace",
+        "description": "get user groups in workspace\n\nLook up user groups. This can be used to call all specific groups by tagging.\nHowever, it is difficult to know if it is an appropriate user group other than 'handle' because all internal users come out with IDs.\nIf you want to see a list of users, use the User Inquiry connector together.\nIf you want to see the user's nickname or name that corresponds to the user's ID, refer to the User Inquiry connector.",
+        "tags": [
+          "Slack"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ISlack.ISecret"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ISlack.IGetUserGroupOutput"
                 }
               }
             }
@@ -34739,7 +34772,8 @@
               "groups:read",
               "chat:write",
               "users:read",
-              "files:read"
+              "files:read",
+              "usergroups:read"
             ],
             "title": "Select authentication information",
             "description": "secret key."
@@ -34811,7 +34845,8 @@
               "groups:read",
               "chat:write",
               "users:read",
-              "files:read"
+              "files:read",
+              "usergroups:read"
             ],
             "title": "Select authentication information",
             "description": "secret key."
@@ -34901,7 +34936,8 @@
               "groups:read",
               "chat:write",
               "users:read",
-              "files:read"
+              "files:read",
+              "usergroups:read"
             ],
             "title": "Select authentication information",
             "description": "secret key."
@@ -34971,7 +35007,8 @@
               "groups:read",
               "chat:write",
               "users:read",
-              "files:read"
+              "files:read",
+              "usergroups:read"
             ],
             "title": "Select authentication information",
             "description": "secret key."
@@ -35016,7 +35053,8 @@
               "groups:read",
               "chat:write",
               "users:read",
-              "files:read"
+              "files:read",
+              "usergroups:read"
             ],
             "title": "Select authentication information",
             "description": "secret key."
@@ -35091,7 +35129,8 @@
               "groups:read",
               "chat:write",
               "users:read",
-              "files:read"
+              "files:read",
+              "usergroups:read"
             ],
             "title": "Select authentication information",
             "description": "secret key."
@@ -35157,7 +35196,8 @@
               "groups:read",
               "chat:write",
               "users:read",
-              "files:read"
+              "files:read",
+              "usergroups:read"
             ],
             "title": "Select authentication information",
             "description": "secret key."
@@ -35275,7 +35315,8 @@
               "groups:read",
               "chat:write",
               "users:read",
-              "files:read"
+              "files:read",
+              "usergroups:read"
             ],
             "title": "Select authentication information",
             "description": "secret key."
@@ -35389,7 +35430,8 @@
               "groups:read",
               "chat:write",
               "users:read",
-              "files:read"
+              "files:read",
+              "usergroups:read"
             ],
             "title": "Select authentication information",
             "description": "secret key."
@@ -35518,7 +35560,8 @@
               "groups:read",
               "chat:write",
               "users:read",
-              "files:read"
+              "files:read",
+              "usergroups:read"
             ],
             "title": "Select authentication information",
             "description": "secret key."
@@ -35547,7 +35590,7 @@
           "replies": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/ISlack.Reply"
+              "$ref": "#/components/schemas/ISlack.ChannelHistory"
             },
             "title": "replies",
             "description": "This value refers to replies that depend on the currently viewed thread."
@@ -35578,43 +35621,21 @@
           "next_cursor"
         ]
       },
-      "ISlack.Reply": {
+      "ISlack.ChannelHistory": {
         "type": "object",
         "properties": {
-          "thread_ts": {
-            "type": "string",
-            "x-wrtn-placeholder": "1234567890.123456",
-            "title": "thread ts"
-          },
-          "parent_user_id": {
-            "oneOf": [
-              {
-                "type": "null"
-              },
-              {
-                "type": "string"
-              }
-            ],
-            "title": "ID of the person who made parent message of this message",
-            "description": "If this Reply has been published from thread to thread,\noutside of thread, and also as a channel,\nthere is no parent_user_id."
-          },
-          "links": {
+          "usergroups": {
             "type": "array",
             "items": {
-              "type": "string",
-              "format": "iri"
+              "$ref": "#/components/schemas/ISlack.UserGroup"
             },
-            "title": "links\n\nLinks from the chat"
+            "title": "usergroups"
           },
           "link": {
             "type": "string",
             "format": "iri",
             "title": "shortcut link",
             "description": "Link to view the conversation history immediately.\nWe can provide you with a shortcut link if user want, but you don't have to expose it to them in normal times."
-          },
-          "type": {
-            "const": "message",
-            "title": "type"
           },
           "text": {
             "type": "string",
@@ -35632,13 +35653,10 @@
             ],
             "title": "ID of the person who made this message\n\nIf not a user, message does not have an ID."
           },
-          "attachments": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/MyPickISlack.Attachmenttitleid"
-            },
-            "title": "Attachments",
-            "description": "Attachement contains all types of files and can sometimes be an external link.\nIt is not the type that can be confirmed because the internal properties can vary depending on the type of block it is making up."
+          "channel": {
+            "type": "string",
+            "pattern": "^((C(.*))|(D(.*))|(G(.*)))",
+            "title": "channel id"
           },
           "ts": {
             "type": "string",
@@ -35646,22 +35664,192 @@
             "title": "timestamp",
             "description": "for example, `1721804246.083609`.\nThis is the time value expression method used by Slack."
           },
+          "reply_count": {
+            "type": "number",
+            "title": "reply_count",
+            "description": "Indicates the number of replies on this thread.\nIf there are many replies, active discussions are underway."
+          },
+          "reply_users_count": {
+            "type": "number",
+            "title": "reply_users_count",
+            "description": "This means the person who has one or more Replys in this thread.\nThe number of unique people discussing in the thread."
+          },
           "ts_date": {
             "type": "string",
             "title": "date format of `ts`\n\nThis is the value changed to ISO String to make it easier to recognize the current time value by separating 'ts'."
+          },
+          "links": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "iri"
+            },
+            "title": "links\n\nLinks from the chat"
           }
         },
         "required": [
-          "thread_ts",
-          "parent_user_id",
-          "links",
+          "usergroups",
           "link",
-          "type",
           "text",
           "user",
+          "channel",
           "ts",
-          "ts_date"
+          "reply_count",
+          "reply_users_count",
+          "ts_date",
+          "links"
         ]
+      },
+      "ISlack.UserGroup": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "ID",
+            "description": "The ID of the user group."
+          },
+          "team_id": {
+            "type": "string",
+            "title": "Team ID",
+            "description": "The ID of the team."
+          },
+          "is_usergroup": {
+            "type": "boolean",
+            "title": "Is User Group",
+            "description": "Indicates if the object is a user group."
+          },
+          "name": {
+            "type": "string",
+            "title": "Name",
+            "description": "Friendly name of the group."
+          },
+          "description": {
+            "type": "string",
+            "title": "Description",
+            "description": "Purpose of the group (optional)."
+          },
+          "handle": {
+            "type": "string",
+            "title": "Handle",
+            "description": "Value used to notify group members via a mention without a leading @ sign."
+          },
+          "is_external": {
+            "type": "boolean",
+            "title": "Is External",
+            "description": "Indicates if the user group is external."
+          },
+          "date_create": {
+            "type": "number",
+            "title": "Date Created",
+            "description": "Unix timestamp of when the group was created."
+          },
+          "date_update": {
+            "type": "number",
+            "title": "Date Updated",
+            "description": "Unix timestamp of when the group was last updated."
+          },
+          "date_delete": {
+            "type": "number",
+            "title": "Date Deleted",
+            "description": "Non-zero value for disabled groups."
+          },
+          "auto_type": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "const": "admins"
+              },
+              {
+                "const": "owners"
+              }
+            ],
+            "title": "Auto Type",
+            "description": "Can be 'admins', 'owners', or null for custom groups."
+          },
+          "created_by": {
+            "type": "string",
+            "title": "Created By",
+            "description": "User ID of the member who created the group."
+          },
+          "updated_by": {
+            "type": "string",
+            "title": "Updated By",
+            "description": "User ID of the member who updated the group."
+          },
+          "deleted_by": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "title": "Deleted By",
+            "description": "User ID of the member who deleted the group."
+          },
+          "prefs": {
+            "type": "object",
+            "properties": {
+              "channels": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "title": "Channels",
+                "description": "Default channels members will be invited to upon joining."
+              },
+              "groups": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "title": "Groups",
+                "description": "Default private channels members will be invited to upon joining."
+              }
+            },
+            "required": [
+              "channels",
+              "groups"
+            ],
+            "title": "Preferences",
+            "description": "Contains default channels and groups (private channels) that members of this group will be invited to upon joining."
+          },
+          "users": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "title": "Users",
+            "description": "List of user object IDs belonging to the group (optional).\n\nIf you want to look up a particular user, you can find out if this property has that user ID.\nIf you want to see the user's nickname or name that corresponds to the user's ID, refer to the User Inquiry connector."
+          },
+          "user_count": {
+            "type": "number",
+            "title": "User Count",
+            "description": "Total number of users in the group."
+          }
+        },
+        "required": [
+          "id",
+          "team_id",
+          "is_usergroup",
+          "name",
+          "handle",
+          "is_external",
+          "date_create",
+          "date_update",
+          "date_delete",
+          "auto_type",
+          "created_by",
+          "updated_by",
+          "deleted_by",
+          "prefs",
+          "user_count"
+        ],
+        "title": "UserGroup",
+        "description": "Represents a user group with various properties like ID, name, and user details."
       },
       "MyPickISlack.IGetUserOutputiddisplay_name": {
         "type": "object",
@@ -35758,7 +35946,8 @@
               "groups:read",
               "chat:write",
               "users:read",
-              "files:read"
+              "files:read",
+              "usergroups:read"
             ],
             "title": "Select authentication information",
             "description": "secret key."
@@ -35789,7 +35978,7 @@
           "messages": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/StrictOmitISlack.LinkMessagetypeattachments"
+              "$ref": "#/components/schemas/ISlack.ChannelHistory"
             },
             "title": "message",
             "description": "This refers to the history of conversations made on the channel.\nThe closer you are to the 0th in the array, the more recent it is.\nHowever, Slack's message can be modified, so just because it is the 0th, it may not be the last writing/modified."
@@ -35818,77 +36007,6 @@
           "messages",
           "members",
           "next_cursor"
-        ]
-      },
-      "StrictOmitISlack.LinkMessagetypeattachments": {
-        "type": "object",
-        "properties": {
-          "link": {
-            "type": "string",
-            "format": "iri",
-            "title": "shortcut link",
-            "description": "Link to view the conversation history immediately.\nWe can provide you with a shortcut link if user want, but you don't have to expose it to them in normal times."
-          },
-          "text": {
-            "type": "string",
-            "title": "message contents",
-            "description": "When users occasionally call others, they can be called in the form of '@USERNAME', which is called a tag.\nIn the conversation history, the link and code box are abbreviated to <LINK/> and <CODE/>, respectively.\nFor users, it is replaced by a user name, Like <@USERNAME>.\n<@USERNAME> is about calling someone else, and it's not the name of the person who started the conversation, so be careful.\nif you want to find who started this conversation, check 'user' property."
-          },
-          "user": {
-            "oneOf": [
-              {
-                "type": "null"
-              },
-              {
-                "type": "string"
-              }
-            ],
-            "title": "ID of the person who made this message\n\nIf not a user, message does not have an ID."
-          },
-          "channel": {
-            "type": "string",
-            "pattern": "^((C(.*))|(D(.*))|(G(.*)))",
-            "title": "channel id"
-          },
-          "ts": {
-            "type": "string",
-            "x-wrtn-placeholder": "1234567890.123456",
-            "title": "timestamp",
-            "description": "for example, `1721804246.083609`.\nThis is the time value expression method used by Slack."
-          },
-          "reply_count": {
-            "type": "number",
-            "title": "reply_count",
-            "description": "Indicates the number of replies on this thread.\nIf there are many replies, active discussions are underway."
-          },
-          "reply_users_count": {
-            "type": "number",
-            "title": "reply_users_count",
-            "description": "This means the person who has one or more Replys in this thread.\nThe number of unique people discussing in the thread."
-          },
-          "ts_date": {
-            "type": "string",
-            "title": "date format of `ts`\n\nThis is the value changed to ISO String to make it easier to recognize the current time value by separating 'ts'."
-          },
-          "links": {
-            "type": "array",
-            "items": {
-              "type": "string",
-              "format": "iri"
-            },
-            "title": "links\n\nLinks from the chat"
-          }
-        },
-        "required": [
-          "link",
-          "text",
-          "user",
-          "channel",
-          "ts",
-          "reply_count",
-          "reply_users_count",
-          "ts_date",
-          "links"
         ]
       },
       "ISlack.IGetChannelHistoryInput": {
@@ -35951,7 +36069,8 @@
               "groups:read",
               "chat:write",
               "users:read",
-              "files:read"
+              "files:read",
+              "usergroups:read"
             ],
             "title": "Select authentication information",
             "description": "secret key."
@@ -35981,7 +36100,7 @@
           "messages": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/StrictOmitISlack.Messagetypeattachments"
+              "$ref": "#/components/schemas/ISlack.ChannelHistory"
             },
             "title": "message",
             "description": "This refers to the history of conversations made on the channel.\nThe closer you are to the 0th in the array, the more recent it is.\nHowever, Slack's message can be modified, so just because it is the 0th, it may not be the last writing/modified."
@@ -36010,68 +36129,6 @@
           "messages",
           "members",
           "next_cursor"
-        ]
-      },
-      "StrictOmitISlack.Messagetypeattachments": {
-        "type": "object",
-        "properties": {
-          "link": {
-            "type": "string",
-            "format": "iri",
-            "title": "shortcut link",
-            "description": "Link to view the conversation history immediately.\nWe can provide you with a shortcut link if user want, but you don't have to expose it to them in normal times."
-          },
-          "text": {
-            "type": "string",
-            "title": "message contents",
-            "description": "When users occasionally call others, they can be called in the form of '@USERNAME', which is called a tag.\nIn the conversation history, the link and code box are abbreviated to <LINK/> and <CODE/>, respectively.\nFor users, it is replaced by a user name, Like <@USERNAME>.\n<@USERNAME> is about calling someone else, and it's not the name of the person who started the conversation, so be careful.\nif you want to find who started this conversation, check 'user' property."
-          },
-          "user": {
-            "oneOf": [
-              {
-                "type": "null"
-              },
-              {
-                "type": "string"
-              }
-            ],
-            "title": "ID of the person who made this message\n\nIf not a user, message does not have an ID."
-          },
-          "channel": {
-            "type": "string",
-            "pattern": "^((C(.*))|(D(.*))|(G(.*)))",
-            "title": "channel id"
-          },
-          "ts": {
-            "type": "string",
-            "x-wrtn-placeholder": "1234567890.123456",
-            "title": "timestamp",
-            "description": "for example, `1721804246.083609`.\nThis is the time value expression method used by Slack."
-          },
-          "reply_count": {
-            "type": "number",
-            "title": "reply_count",
-            "description": "Indicates the number of replies on this thread.\nIf there are many replies, active discussions are underway."
-          },
-          "reply_users_count": {
-            "type": "number",
-            "title": "reply_users_count",
-            "description": "This means the person who has one or more Replys in this thread.\nThe number of unique people discussing in the thread."
-          },
-          "ts_date": {
-            "type": "string",
-            "title": "date format of `ts`\n\nThis is the value changed to ISO String to make it easier to recognize the current time value by separating 'ts'."
-          }
-        },
-        "required": [
-          "link",
-          "text",
-          "user",
-          "channel",
-          "ts",
-          "reply_count",
-          "reply_users_count",
-          "ts_date"
         ]
       },
       "ISlack.PrivateChannel": {
@@ -36121,7 +36178,8 @@
               "groups:read",
               "chat:write",
               "users:read",
-              "files:read"
+              "files:read",
+              "usergroups:read"
             ],
             "title": "Select authentication information",
             "description": "secret key."
@@ -36414,7 +36472,8 @@
               "groups:read",
               "chat:write",
               "users:read",
-              "files:read"
+              "files:read",
+              "usergroups:read"
             ],
             "title": "Select authentication information",
             "description": "secret key."
@@ -36426,6 +36485,52 @@
             "x-wrtn-placeholder": "200",
             "title": "limit",
             "description": "Indicates the number of data to look up at at once.\nIf not entered, use 100 as the default.\nThis should never be null. If you don't have a value, don't forward properties.\n\nIn reality, the value can be from 1 to 1000, so the recommendation is a number over 200.\nIf there is a user's request and there is a section that is cumbersome to page, you can enter 200.\n\nSince it is burdensome for users to inquire too many conversation details, it is recommended to page 100 to 200 conversation details at a time if more data is needed.\nAlternatively, it is also helpful to get a date to inquire from the user."
+          }
+        },
+        "required": [
+          "secretKey"
+        ]
+      },
+      "ISlack.IGetUserGroupOutput": {
+        "type": "object",
+        "properties": {
+          "ok": {
+            "type": "boolean",
+            "title": "ok"
+          },
+          "usergroups": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ISlack.UserGroup"
+            },
+            "title": "usergroups"
+          }
+        },
+        "required": [
+          "ok",
+          "usergroups"
+        ]
+      },
+      "ISlack.ISecret": {
+        "type": "object",
+        "properties": {
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "slack",
+            "x-wrtn-secret-scopes": [
+              "channels:read",
+              "channels:history",
+              "users.profile:read",
+              "im:read",
+              "groups:history",
+              "groups:read",
+              "chat:write",
+              "users:read",
+              "files:read",
+              "usergroups:read"
+            ],
+            "title": "Select authentication information",
+            "description": "secret key."
           }
         },
         "required": [
