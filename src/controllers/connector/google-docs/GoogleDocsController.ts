@@ -14,6 +14,8 @@ export class GoogleDocsController {
   /**
    * Generate Google Docs
    *
+   * Since this is creating a blank page, we recommend that you use connectors that add the content of google-docs in a row.
+   *
    * @summary Generate Google Docs
    * @param input Title of Google Docs to generate
    * @returns Unique ID of generated Google Docs
