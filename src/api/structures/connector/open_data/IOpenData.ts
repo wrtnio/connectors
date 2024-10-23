@@ -43,8 +43,9 @@ export namespace IOpenData {
     export interface IGetStandardRegionCodeListInput
       extends ICommon.IPaginationInput {
       /**
-       * @title Region address name
        * It must be one of: "Seoul Metropolitan City","Busan Metropolitan City","Daegu Metropolitan City","Incheon Metropolitan City","Gwangju Metropolitan City","Daejeon Metropolitan City","Ulsan Metropolitan City","Sejong Special Self-Governing City","Gyeonggi-do","Chungcheongbuk-do","Chungcheongnam-do","Gyeongsangbuk-do","Gyeongsangnam-do","Jeollanam-do","Jeju Special Self-Governing Province","Gangwon Special Self-Governing Province","Jeollabuk-do Special Self-Governing Province"
+       *
+       * @title Region address name
        */
       locatadd_nm: (
         | tags.Constant<"서울특별시", { title: "서울특별시" }>

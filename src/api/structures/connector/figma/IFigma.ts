@@ -146,7 +146,14 @@ export namespace IFigma {
      *
      * @title Mapping between component ID and component metadata
      */
-    components: { [key: string]: Component };
+    components: {
+      [
+        /**
+         * @title component id
+         */
+        key: string
+      ]: Component;
+    };
 
     /**
      * A mapping between a component set ID and component set metadata.
@@ -178,25 +185,35 @@ export namespace IFigma {
 
     /**
      * This is a list of branches for this file.
+     *
+     * @title branches
      */
     branches?: {
       /**
        * This is the key of the branch.
+       *
+       * @title key
        */
       key: string;
 
       /**
        * The name of the branch.
+       *
+       * @title name
        */
       name: string;
 
       /**
        * A URL to the thumbnail image of the branch.
+       *
+       * @title thumbnail_url
        */
       thumbnail_url: string;
 
       /**
        * The UTC ISO 8601 time when the branch was last modified.
+       *
+       * @title last_modified
        */
       last_modified: string;
     }[];

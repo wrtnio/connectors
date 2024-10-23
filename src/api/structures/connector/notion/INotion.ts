@@ -38,9 +38,24 @@ export namespace INotion {
    * @title Database Date Attribute
    */
   type DateDatabaseProperty = {
+    /**
+     * @title id
+     */
     id: string;
+
+    /**
+     * @title name
+     */
     name: string;
+
+    /**
+     * @title type
+     */
     type: "date";
+
+    /**
+     * @title date
+     */
     date: Record<string, never>;
   };
 
@@ -48,9 +63,24 @@ export namespace INotion {
    * @title Database Checkbox Properties
    */
   type CheckboxDatabaseProperty = {
+    /**
+     * @title id
+     */
     id: string;
+
+    /**
+     * @title name
+     */
     name: string;
+
+    /**
+     * @title type
+     */
     type: "checkbox";
+
+    /**
+     * @title checkbox
+     */
     checkbox: Record<string, never>;
   };
 
@@ -58,8 +88,19 @@ export namespace INotion {
    * @title Database Creator Attributes
    */
   type CreatedByDatabaseProperty = {
+    /**
+     * @title id
+     */
     id: string;
+
+    /**
+     * @title name
+     */
     name: string;
+
+    /**
+     * @title type
+     */
     type: "created_by";
   };
 
@@ -67,9 +108,24 @@ export namespace INotion {
    * @title Database Creation Time Attribute
    */
   type CreatedTimeDatabaseProperty = {
+    /**
+     * @title id
+     */
     id: string;
+
+    /**
+     * @title name
+     */
     name: string;
+
+    /**
+     * @title type
+     */
     type: "created_time";
+
+    /**
+     * @title created_time
+     */
     created_time: Record<string, never>;
   };
 
@@ -77,9 +133,24 @@ export namespace INotion {
    * @title Database Email Attributes
    */
   type EmailDatabaseProperty = {
+    /**
+     * @title id
+     */
     id: string;
+
+    /**
+     * @title name
+     */
     name: string;
+
+    /**
+     * @title type
+     */
     type: "email";
+
+    /**
+     * @title email
+     */
     email: Record<string, never>;
   };
 
@@ -87,9 +158,24 @@ export namespace INotion {
    * @title Database File Properties
    */
   type FilesDatabaseProperty = {
+    /**
+     * @title id
+     */
     id: string;
+
+    /**
+     * @title name
+     */
     name: string;
+
+    /**
+     * @title type
+     */
     type: "files";
+
+    /**
+     * @title files
+     */
     files: Record<string, never>;
   };
 
@@ -97,10 +183,28 @@ export namespace INotion {
    * @title Database official properties
    */
   type FormulaDatabaseProperty = {
+    /**
+     * @title id
+     */
     id: string;
+
+    /**
+     * @title name
+     */
     name: string;
+
+    /**
+     * @title type
+     */
     type: "formula";
+
+    /**
+     * @title formula
+     */
     formula: {
+      /**
+       * @title expression
+       */
       expression: string;
     };
   };
@@ -109,9 +213,24 @@ export namespace INotion {
    * @title Database Last Modified Attribute
    */
   type LastEditedByDatabaseProperty = {
+    /**
+     * @title id
+     */
     id: string;
+
+    /**
+     * @title name
+     */
     name: string;
+
+    /**
+     * @title type
+     */
     type: "last_edited_by";
+
+    /**
+     * @title last_edited_by
+     */
     last_edited_by: Record<string, never>;
   };
 
@@ -119,9 +238,24 @@ export namespace INotion {
    * @title Database Modification Time Attribute
    */
   type LastEditedTimeDatabaseProperty = {
+    /**
+     * @title id
+     */
     id: string;
+
+    /**
+     * @title name
+     */
     name: string;
+
+    /**
+     * @title type
+     */
     type: "last_edited_time";
+
+    /**
+     * @title last_edited_time
+     */
     last_edited_time: Record<string, never>;
   };
 
@@ -129,13 +263,42 @@ export namespace INotion {
    * @title Database Multi-Select Attribute
    */
   type MultiSelectDatabaseProperty = {
+    /**
+     * @title id
+     */
     id: string;
+
+    /**
+     * @title name
+     */
     name: string;
+
+    /**
+     * @title type
+     */
     type: "multi_select";
+
+    /**
+     * @title multi_select
+     */
     multi_select: {
+      /**
+       * @title options
+       */
       options: {
+        /**
+         * @title id
+         */
         id: string;
+
+        /**
+         * @title name
+         */
         name: string;
+
+        /**
+         * @title color
+         */
         color: Color;
       }[];
     };
@@ -190,10 +353,28 @@ export namespace INotion {
    * @title Database numeric properties
    */
   type NumberDatabaseProperty = {
+    /**
+     * @title id
+     */
     id: string;
+
+    /**
+     * @title name
+     */
     name: string;
+
+    /**
+     * @title type
+     */
     type: "number";
+
+    /**
+     * @title number
+     */
     number: {
+      /**
+       * @title format
+       */
       format: NumberFormat;
     };
   };
@@ -202,9 +383,24 @@ export namespace INotion {
    * @title database people properties
    */
   type PeopleDatabaseProperty = {
+    /**
+     * @title id
+     */
     id: string;
+
+    /**
+     * @title name
+     */
     name: string;
+
+    /**
+     * @title type
+     */
     type: "people";
+
+    /**
+     * @title people
+     */
     people: Record<string, never>;
   };
 
@@ -212,9 +408,24 @@ export namespace INotion {
    * @title Database Phone Number Attribute
    */
   type PhoneNumberDatabaseProperty = {
+    /**
+     * @title id
+     */
     id: string;
+
+    /**
+     * @title name
+     */
     name: string;
+
+    /**
+     * @title type
+     */
     type: "phone_number";
+
+    /**
+     * @title phone_number
+     */
     phone_number: Record<string, never>;
   };
 
@@ -222,12 +433,38 @@ export namespace INotion {
    * @title Database Relationship Properties
    */
   type RelationDatabaseProperty = {
+    /**
+     * @title id
+     */
     id: string;
+
+    /**
+     * @title name
+     */
     name: string;
+
+    /**
+     * @title type
+     */
     type: "relation";
+
+    /**
+     * @title relation
+     */
     relation: {
+      /**
+       * @title database_id
+       */
       database_id: string;
+
+      /**
+       * @title synced_property_id
+       */
       synced_property_id: string;
+
+      /**
+       * @title synced_property_name
+       */
       synced_property_name: string;
     };
   };
@@ -236,9 +473,24 @@ export namespace INotion {
    * @title database text property
    */
   type RichTextDatabaseProperty = {
+    /**
+     * @title id
+     */
     id: string;
+
+    /**
+     * @title name
+     */
     name: string;
+
+    /**
+     * @title type
+     */
     type: "rich_text";
+
+    /**
+     * @title rich_text
+     */
     rich_text: Record<string, never>;
   };
 
@@ -275,15 +527,49 @@ export namespace INotion {
    * @title Database Aggregate Properties
    */
   type RollupDatabaseProperty = {
+    /**
+     * @title type
+     */
     type: "rollup";
+
+    /**
+     * @title rollup
+     */
     rollup: {
+      /**
+       * @title rollup_property_name
+       */
       rollup_property_name: string;
+
+      /**
+       * @title relation_property_name
+       */
       relation_property_name: string;
+
+      /**
+       * @title rollup_property_id
+       */
       rollup_property_id: string;
+
+      /**
+       * @title relation_property_id
+       */
       relation_property_id: string;
+
+      /**
+       * @title function
+       */
       function: RollupFunction;
     };
+
+    /**
+     * @title id
+     */
     id: string;
+
+    /**
+     * @title name
+     */
     name: string;
   };
 
@@ -291,13 +577,42 @@ export namespace INotion {
    * @title Database Selection Attributes
    */
   type SelectDatabaseProperty = {
+    /**
+     * @title id
+     */
     id: string;
+
+    /**
+     * @title name
+     */
     name: string;
+
+    /**
+     * @title type
+     */
     type: "select";
+
+    /**
+     * @title select
+     */
     select: {
+      /**
+       * @title options
+       */
       options: {
+        /**
+         * @title id
+         */
         id: string;
+
+        /**
+         * @title name
+         */
         name: string;
+
+        /**
+         * @title color
+         */
         color: Color;
       }[];
     };
@@ -307,19 +622,67 @@ export namespace INotion {
    * @title Database status properties
    */
   type StatusDatabaseProperty = {
+    /**
+     * @title id
+     */
     id: string;
+
+    /**
+     * @title name
+     */
     name: string;
+
+    /**
+     * @title type
+     */
     type: "status";
+
+    /**
+     * @title status
+     */
     status: {
+      /**
+       * @title options
+       */
       options: {
+        /**
+         * @title id
+         */
         id: string;
+
+        /**
+         * @title name
+         */
         name: string;
+
+        /**
+         * @title color
+         */
         color: Color;
       }[];
+
+      /**
+       * @title groups
+       */
       groups: {
+        /**
+         * @title id
+         */
         id: string;
+
+        /**
+         * @title name
+         */
         name: string;
+
+        /**
+         * @title color
+         */
         color: Color;
+
+        /**
+         * @title option_ids
+         */
         option_ids: Array<string>;
       }[];
     };
@@ -329,9 +692,24 @@ export namespace INotion {
    * @title Database title property
    */
   type TitleDatabaseProperty = {
+    /**
+     * @title type
+     */
     type: "title";
+
+    /**
+     * @title title
+     */
     title: Record<string, never>;
+
+    /**
+     * @title id
+     */
     id: string;
+
+    /**
+     * @title name
+     */
     name: string;
   };
 
@@ -339,9 +717,24 @@ export namespace INotion {
    * @title Database Url property
    */
   type UrlDatabaseProperty = {
+    /**
+     * @title type
+     */
     type: "url";
+
+    /**
+     * @title url
+     */
     url: Record<string, never>;
+
+    /**
+     * @title id
+     */
     id: string;
+
+    /**
+     * @title name
+     */
     name: string;
   };
 
@@ -400,19 +793,45 @@ export namespace INotion {
   type IconType = "emoji" | "external" | "file";
 
   export type AccurateMarkdownBlock = {
+    /**
+     * @title type
+     */
     type?: string;
+
+    /**
+     * @title id
+     */
     id: string & tags.Format<"uuid">;
+
+    /**
+     * @title text
+     */
     text?: string;
+
+    /**
+     * @title children
+     */
     children?: MarkdownBlock[];
+
+    /**
+     * @title hasChild
+     */
     hasChild?: boolean;
   };
 
   export type MarkdownBlock = StrictOmit<AccurateMarkdownBlock, "children"> & {
+    /**
+     * @title children
+     */
     children?: MarkdownBlock[];
   };
 
   export type IMarkdownBlock = StrictOmit<AccurateMarkdownBlock, "children"> & {
     // 재귀 타입은 빌드가 불가능하기 때문에 any로 바꾸되, Provider 레벨에서는 `MarkdownBlock` 타입을 쓴다.
+
+    /**
+     * @title children
+     */
     children?: any[];
   };
 
@@ -424,6 +843,10 @@ export namespace INotion {
      *
      * @title block_id
      */
+
+    /**
+     * @title block_id
+     */
     block_id: PageIdInput["pageId"];
   }
 
@@ -431,6 +854,9 @@ export namespace INotion {
    * @title Conditions required to create a page
    */
   export interface ICreatePageInput extends ICommon.ISecret<"notion"> {
+    /**
+     * @title parentPageId
+     */
     parentPageId: PageIdInput["pageId"];
 
     /**
@@ -438,11 +864,18 @@ export namespace INotion {
      *
      * @title Page title
      */
+
+    /**
+     * @title title
+     */
     title: string & Placeholder<"테스트 페이지.">;
   }
 
   export interface ICreatePageContentInput
     extends MyPick<CreatePageParameters, "children"> {
+    /**
+     * @title children
+     */
     children: BlockObjectRequest[];
   }
 
@@ -551,9 +984,9 @@ export namespace INotion {
        */
       external: {
         /**
-         * @title url
-         *
          * image file's extension is one of: 'bmp', 'gif', 'heic', 'jpg', 'jpeg', 'png', 'svg', 'tif', 'tiff'.
+         *
+         * @title url
          */
         url: string &
           tags.Format<"uri"> &
@@ -574,7 +1007,13 @@ export namespace INotion {
         LookUp<BlockObjectRequest, `video`>,
         "type" | "object" | "video"
       > {
+    /**
+     * @title video
+     */
     video: {
+      /**
+       * @title external
+       */
       external: {
         /**
          * video file must be one of: 'amv' ,'asf' ,'avi' ,'f4v' ,'flv' ,'gifv' ,'mkv' ,'mov' ,'mpg' ,'mpeg' ,'mpv' ,'mp4' ,'m4v' ,'qt' ,'wmv'
@@ -626,6 +1065,9 @@ export namespace INotion {
         LookUp<BlockObjectRequest, `audio`>,
         "type" | "object" | "audio"
       > {
+    /**
+     * @title audio
+     */
     audio: {
       /**
        * @title external
@@ -653,6 +1095,9 @@ export namespace INotion {
         | "type"
         | "object"
       > {
+    /**
+     * @title code
+     */
     code: {
       /**
        * @title programming language name
@@ -1296,7 +1741,12 @@ export namespace INotion {
      *
      * TODO: Type confirmation and changes to fit the inspector structure are needed
      */
-    [key: string]: any;
+    [
+      /**
+       * @title key value
+       */
+      key: string
+    ]: any;
   }
 
   /**
@@ -1882,18 +2332,48 @@ export namespace INotion {
    * Tuple that Length is 1
    */
   export type OnlyOneTextLine = {
+    /**
+     * @title text
+     */
     text: {
+      /**
+       * @title content
+       */
       content: string;
-      link?: { url: string & tags.Format<"iri"> };
+
+      /**
+       * @title link
+       */
+      link?: {
+        /**
+         * @title url
+         */
+        url: string & tags.Format<"iri">;
+      };
     };
   }[] &
     tags.MinItems<1> &
     tags.MaxItems<1>;
 
   export type MultipleTextLine = {
+    /**
+     * @title text
+     */
     text: {
+      /**
+       * @title content
+       */
       content: string;
-      link?: { url: string & tags.Format<"iri"> };
+
+      /**
+       * @title link
+       */
+      link?: {
+        /**
+         * @title url
+         */
+        url: string & tags.Format<"iri">;
+      };
     };
   }[] &
     tags.MaxItems<1>;

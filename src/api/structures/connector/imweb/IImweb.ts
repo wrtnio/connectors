@@ -482,6 +482,9 @@ export namespace IImweb {
      */
     optional_limit?: number & tags.Type<"int64">;
 
+    /**
+     * @title use_unipass_number
+     */
     use_unipass_number:
       | tags.Constant<
           "default",
