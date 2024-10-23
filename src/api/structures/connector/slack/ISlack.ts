@@ -564,7 +564,7 @@ export namespace ISlack {
      *
      * @title replies
      */
-    replies: StrictOmit<ISlack.LinkMessage, "type" | "attachments">[];
+    replies: ChannelHistory[];
 
     /**
      * @title members
@@ -588,6 +588,11 @@ export namespace ISlack {
       }>;
   }
 
+  export type ChannelHistory = StrictOmit<
+    ISlack.LinkMessage,
+    "type" | "attachments"
+  >;
+
   export interface IGetChannelLinkHistoryOutput
     extends ICommonPaginationOutput {
     /**
@@ -597,7 +602,7 @@ export namespace ISlack {
      *
      * @title message
      */
-    messages: StrictOmit<ISlack.LinkMessage, "type" | "attachments">[];
+    messages: ChannelHistory[];
 
     /**
      * @title members
@@ -615,7 +620,7 @@ export namespace ISlack {
      *
      * @title message
      */
-    messages: StrictOmit<ISlack.LinkMessage, "type" | "attachments">[];
+    messages: ChannelHistory[];
 
     /**
      * @title members

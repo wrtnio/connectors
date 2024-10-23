@@ -241,17 +241,19 @@ export class SlackProvider {
     const { url: workspaceUrl } = await this.authTest(input);
     const link_count = 0;
     const allMembers = await this.getAllUsers(input);
+    const { usergroups } = await this.getUserGroups(input);
     const next_cursor = res.data.response_metadata?.next_cursor;
-    const replies: ISlack.LinkMessage[] = res.data.messages
+    const replies: ISlack.ChannelHistory[] = res.data.messages
       .slice(1) // 0번째 인덱스는 부모 스레드가 나오기 때문
       .map(
-        (message: ISlack.Reply): ISlack.LinkMessage =>
+        (message: ISlack.Reply): ISlack.ChannelHistory =>
           this.convertMessageFormat({
             message: { ...message, channel: input.channel },
             channel: input.channel,
             link_count,
             allMembers,
             workspaceUrl,
+            allUsergroups: usergroups,
           }),
       );
 
@@ -457,6 +459,7 @@ export class SlackProvider {
     });
 
     const allMembers = await this.getAllUsers(input);
+    const { usergroups } = await this.getUserGroups(input);
     const link_count = 0;
     const next_cursor = res.data.response_metadata?.next_cursor;
     const messages: ISlack.LinkMessage[] = res.data.messages
@@ -467,6 +470,7 @@ export class SlackProvider {
           link_count,
           allMembers,
           workspaceUrl,
+          allUsergroups: usergroups,
         }),
       )
       .filter((message: ISlack.LinkMessage) => {
@@ -519,16 +523,18 @@ export class SlackProvider {
     });
 
     const allMembers = await this.getAllUsers(input);
+    const { usergroups } = await this.getUserGroups(input);
     const link_count = 0;
     const next_cursor = res.data.response_metadata?.next_cursor;
-    const messages: ISlack.LinkMessage[] = res.data.messages.map(
-      (message: ISlack.Message): ISlack.LinkMessage =>
+    const messages: ISlack.ChannelHistory[] = res.data.messages.map(
+      (message: ISlack.Message): ISlack.ChannelHistory =>
         this.convertMessageFormat({
           message,
           channel: input.channel,
           link_count,
           allMembers,
           workspaceUrl,
+          allUsergroups: usergroups,
         }),
     );
 
@@ -792,8 +798,9 @@ export class SlackProvider {
     channel: ISlack.Channel["id"];
     link_count: number;
     allMembers: StrictOmit<ISlack.IGetUserOutput, "fields">[];
+    allUsergroups: ISlack.UserGroup[];
     workspaceUrl: string & tags.Format<"uri">;
-  }): ISlack.LinkMessage {
+  }): ISlack.ChannelHistory {
     function extractLinks(text: string): string[] {
       // URL 패턴을 찾는 정규식
       /**
@@ -811,12 +818,18 @@ export class SlackProvider {
     const timestamp = this.transformTsToTimestamp(input.message.ts);
     const links = extractLinks(input.message.text);
     return {
-      type: input.message.type,
+      // type: input.message.type,
       user: input.message.user ?? null,
       text: input.message.text
         .replaceAll(/```[\s\S]+?```/g, "<CODE/>")
         .replaceAll(/<https?:\/\/[^\>]+>/g, () => {
           return `<LINK${input.link_count++}/>`;
+        })
+        .replace(/@(\w+)/g, (_, id) => {
+          const usergroup = input.allUsergroups.find(
+            (usergroup) => usergroup.id === id,
+          );
+          return usergroup ? `@${usergroup.handle}` : `@${id}`; // 멤버가 없으면 원래 아이디를 유지
         })
         .replace(/@(\w+)/g, (_, id) => {
           const member = input.allMembers.find((member) => member.id === id);
