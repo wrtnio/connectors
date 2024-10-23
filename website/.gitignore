@@ -1,2 +1,3 @@
 out/swagger/*.json
 out/swagger/connectors/*.swagger.json
+out/swagger/connectors/index.json

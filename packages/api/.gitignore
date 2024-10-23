@@ -8,3 +8,4 @@ swagger.json
 version.json
 
 connectors/*.swagger.json
+connectors/index.json
