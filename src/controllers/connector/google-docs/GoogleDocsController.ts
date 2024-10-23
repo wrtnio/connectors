@@ -155,6 +155,6 @@ export class GoogleDocsController {
   async append(
     @TypedBody() input: IGoogleDocs.IAppendTextGoogleDocsInput,
   ): Promise<void> {
-    return retry(() => this.googleDocsProvider.append(input))();
+    return this.googleDocsProvider.append(input);
   }
 }

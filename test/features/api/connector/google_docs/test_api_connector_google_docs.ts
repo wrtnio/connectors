@@ -114,3 +114,45 @@ export const test_api_connector_google_docs = async (
     typia.assert(res);
   }
 };
+
+export const test_api_connector_google_docs_create_page = async (
+  connection: CApi.IConnection,
+) => {
+  /**
+   * Append text to docs
+   */
+  const res2 = await CApi.functional.connector.google_docs.append(connection, {
+    secretKey: ConnectorGlobal.env.GOOGLE_TEST_SECRET,
+    documentId: "1M8ONTR4tJKkTqy8NEA5uasLYvwfDJUM9w7vvm7JCiPA",
+    text: `
+# Markdown to google docs
+# Heading1
+this is heading1.
+
+## Heading2
+this is heading2.
+
+### Heading3
+this is heading3.
+
+
+
+\`\`\`ts
+console.log('TypeScript is wonderful.');
+const a = 1;
+const b = '2';
+const c: number = a + b;
+      ^
+      'c' is assigned a value but never used. (eslint@typescript-eslint/no-unused-vars)
+\`\`\`
+this is code.
+
+---
+this is hr.
+
+
+`,
+  });
+
+  typia.assert(res2);
+};

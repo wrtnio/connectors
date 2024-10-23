@@ -113,7 +113,7 @@
     "fast-csv": "^5.0.0",
     "file-type": "^16.5.3",
     "google-spreadsheet": "^4.1.1",
-    "googleapis": "^129.0.0",
+    "googleapis": "^144.0.0",
     "json-schema-faker": "^0.5.5",
     "marked": "^14.1.2",
     "mdast-util-from-markdown": "^2.0.1",
