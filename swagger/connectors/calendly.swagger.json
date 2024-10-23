@@ -17,7 +17,7 @@
   "info": {
     "title": "Calendly",
     "description": "Calendly에서 고객과의 미팅을 잡을 수 있어요",
-    "version": "0.1.287",
+    "version": "0.1.288",
     "license": {
       "name": "AGPL-3.0-only"
     }
