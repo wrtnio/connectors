@@ -17,7 +17,7 @@
   "info": {
     "title": "Github",
     "description": "Github에서 코드를 읽고 분석하고 작성해요",
-    "version": "0.1.283",
+    "version": "0.1.284",
     "license": {
       "name": "AGPL-3.0-only"
     }
@@ -2261,7 +2261,8 @@
           },
           "nextPage": {
             "type": "boolean",
-            "title": "true if there is a next page\n\nHowever, since true and false are judged by comparing the number of requested objects with the number of searched objects,\neven if true, the next page may be empty."
+            "title": "true if there is a next page",
+            "description": "However, since true and false are judged by comparing the number of requested objects with the number of searched objects,\neven if true, the next page may be empty."
           },
           "after": {
             "type": "string",
@@ -2280,7 +2281,8 @@
                 "type": "number"
               }
             ],
-            "title": "prev\n\nIf this is a response by offset-based pagenation, provide metadata for the next page.\nThis means the previous page."
+            "title": "prev",
+            "description": "If this is a response by offset-based pagenation, provide metadata for the next page.\nThis means the previous page."
           },
           "next": {
             "oneOf": [
@@ -2291,15 +2293,18 @@
                 "type": "number"
               }
             ],
-            "title": "next\n\nIf this is a response by offset-based pagenation, provide metadata for the next page.\nThis means the next page."
+            "title": "next",
+            "description": "If this is a response by offset-based pagenation, provide metadata for the next page.\nThis means the next page."
           },
           "last": {
             "type": "number",
-            "title": "last\n\nIf this is a response by offset-based pagenation, provide metadata for the next page.\nThis means the last page."
+            "title": "last",
+            "description": "If this is a response by offset-based pagenation, provide metadata for the next page.\nThis means the last page."
           },
           "first": {
             "type": "number",
-            "title": "first\n\nIf this is a response by offset-based pagenation, provide metadata for the next page.\nThis means the first page."
+            "title": "first",
+            "description": "If this is a response by offset-based pagenation, provide metadata for the next page.\nThis means the first page."
           }
         },
         "required": [
@@ -2316,7 +2321,8 @@
           },
           "login": {
             "type": "string",
-            "title": "login\n\nThis means the user's nickname.\nIn github, nicknames are unique at least until that user changes their own nickname.\nThis means that only one person can own the nickname at a time.\nTherefore, it may be important to know the exact nickname because the github API calls the appi using the user's nickname."
+            "title": "login",
+            "description": "This means the user's nickname.\nIn github, nicknames are unique at least until that user changes their own nickname.\nThis means that only one person can own the nickname at a time.\nTherefore, it may be important to know the exact nickname because the github API calls the appi using the user's nickname."
           }
         },
         "required": [
@@ -2367,7 +2373,8 @@
         "properties": {
           "action": {
             "type": "string",
-            "title": "action\n\nIt means what this event means.\nAlthough the type of event usually has a resource or the name of the event,\nit is necessary to view it with this property because it does not specify what actions occurred in that event are modified, deleted, created, etc."
+            "title": "action",
+            "description": "It means what this event means.\nAlthough the type of event usually has a resource or the name of the event,\nit is necessary to view it with this property because it does not specify what actions occurred in that event are modified, deleted, created, etc."
           },
           "issue": {
             "$ref": "#/components/schemas/IGithub.Issue",
@@ -2388,7 +2395,8 @@
           "html_url": {
             "type": "string",
             "format": "iri",
-            "title": "html_url\n\nIf you want to see the issue or pull_request on the web, you can go to this link.\nIf pull is included on this link path, it is pull_request, and if issue is included, it is issue.\nIn essence, pull_request and issue are numbered together from the beginning, so while this connector does not distinguish the two, it can be distinguished by the url path."
+            "title": "html_url",
+            "description": "If you want to see the issue or pull_request on the web, you can go to this link.\nIf pull is included on this link path, it is pull_request, and if issue is included, it is issue.\nIn essence, pull_request and issue are numbered together from the beginning, so while this connector does not distinguish the two, it can be distinguished by the url path."
           },
           "number": {
             "type": "integer",
@@ -2432,7 +2440,8 @@
                 "type": "string"
               }
             ],
-            "title": "body\n\nContents of the issue\n\nYou can also render this content because it is in a markdown format."
+            "title": "body",
+            "description": "Contents of the issue\n\nYou can also render this content because it is in a markdown format."
           },
           "labels": {
             "type": "array",
@@ -2543,7 +2552,8 @@
           },
           "login": {
             "type": "string",
-            "title": "login\n\nThis means the user's nickname.\nIn github, nicknames are unique at least until that user changes their own nickname.\nThis means that only one person can own the nickname at a time.\nTherefore, it may be important to know the exact nickname because the github API calls the appi using the user's nickname."
+            "title": "login",
+            "description": "This means the user's nickname.\nIn github, nicknames are unique at least until that user changes their own nickname.\nThis means that only one person can own the nickname at a time.\nTherefore, it may be important to know the exact nickname because the github API calls the appi using the user's nickname."
           }
         },
         "required": [
@@ -2557,7 +2567,8 @@
         "properties": {
           "login": {
             "type": "string",
-            "title": "login\n\nThis means the user's nickname.\nIn github, nicknames are unique at least until that user changes their own nickname.\nThis means that only one person can own the nickname at a time.\nTherefore, it may be important to know the exact nickname because the github API calls the appi using the user's nickname."
+            "title": "login",
+            "description": "This means the user's nickname.\nIn github, nicknames are unique at least until that user changes their own nickname.\nThis means that only one person can own the nickname at a time.\nTherefore, it may be important to know the exact nickname because the github API calls the appi using the user's nickname."
           }
         },
         "required": [
@@ -2632,7 +2643,8 @@
           },
           "login": {
             "type": "string",
-            "title": "login\n\nThis means the user's nickname.\nIn github, nicknames are unique at least until that user changes their own nickname.\nThis means that only one person can own the nickname at a time.\nTherefore, it may be important to know the exact nickname because the github API calls the appi using the user's nickname."
+            "title": "login",
+            "description": "This means the user's nickname.\nIn github, nicknames are unique at least until that user changes their own nickname.\nThis means that only one person can own the nickname at a time.\nTherefore, it may be important to know the exact nickname because the github API calls the appi using the user's nickname."
           },
           "html_url": {
             "type": "string",
@@ -2747,7 +2759,8 @@
           },
           "nextPage": {
             "type": "boolean",
-            "title": "true if there is a next page\n\nHowever, since true and false are judged by comparing the number of requested objects with the number of searched objects,\neven if true, the next page may be empty."
+            "title": "true if there is a next page",
+            "description": "However, since true and false are judged by comparing the number of requested objects with the number of searched objects,\neven if true, the next page may be empty."
           },
           "after": {
             "type": "string",
@@ -2766,7 +2779,8 @@
                 "type": "number"
               }
             ],
-            "title": "prev\n\nIf this is a response by offset-based pagenation, provide metadata for the next page.\nThis means the previous page."
+            "title": "prev",
+            "description": "If this is a response by offset-based pagenation, provide metadata for the next page.\nThis means the previous page."
           },
           "next": {
             "oneOf": [
@@ -2777,15 +2791,18 @@
                 "type": "number"
               }
             ],
-            "title": "next\n\nIf this is a response by offset-based pagenation, provide metadata for the next page.\nThis means the next page."
+            "title": "next",
+            "description": "If this is a response by offset-based pagenation, provide metadata for the next page.\nThis means the next page."
           },
           "last": {
             "type": "number",
-            "title": "last\n\nIf this is a response by offset-based pagenation, provide metadata for the next page.\nThis means the last page."
+            "title": "last",
+            "description": "If this is a response by offset-based pagenation, provide metadata for the next page.\nThis means the last page."
           },
           "first": {
             "type": "number",
-            "title": "first\n\nIf this is a response by offset-based pagenation, provide metadata for the next page.\nThis means the first page."
+            "title": "first",
+            "description": "If this is a response by offset-based pagenation, provide metadata for the next page.\nThis means the first page."
           }
         },
         "required": [
@@ -3153,7 +3170,8 @@
             "type": "integer",
             "default": 10,
             "maximum": 10,
-            "title": "per_page\nThe number of results per page (max 10).\n\nThe response capacity may be very large because it even comes out with the reedy of the repository.\nTherefore, it is recommended to check by cutting up to 10 pieces."
+            "title": "per_page",
+            "description": "The number of results per page (max 10).\n\nThe response capacity may be very large because it even comes out with the reedy of the repository.\nTherefore, it is recommended to check by cutting up to 10 pieces."
           },
           "sort": {
             "oneOf": [
@@ -3174,7 +3192,8 @@
                 "default": "full_name"
               }
             ],
-            "title": "sorting condition\n\nThe property to sort the results by.\nIt must be one of: \"created\" | \"updated\" | \"pushed\" | \"full_name\""
+            "title": "sorting condition",
+            "description": "The property to sort the results by.\nIt must be one of: \"created\" | \"updated\" | \"pushed\" | \"full_name\""
           },
           "direction": {
             "oneOf": [
@@ -3187,7 +3206,8 @@
                 "default": "desc"
               }
             ],
-            "title": "direction\nThe order to sort by.\nDefault: asc when using full_name, otherwise desc."
+            "title": "direction",
+            "description": "The order to sort by.\nDefault: asc when using full_name, otherwise desc."
           },
           "since": {
             "type": "string",
@@ -3260,7 +3280,8 @@
           },
           "nextPage": {
             "type": "boolean",
-            "title": "true if there is a next page\n\nHowever, since true and false are judged by comparing the number of requested objects with the number of searched objects,\neven if true, the next page may be empty."
+            "title": "true if there is a next page",
+            "description": "However, since true and false are judged by comparing the number of requested objects with the number of searched objects,\neven if true, the next page may be empty."
           },
           "after": {
             "type": "string",
@@ -3279,7 +3300,8 @@
                 "type": "number"
               }
             ],
-            "title": "prev\n\nIf this is a response by offset-based pagenation, provide metadata for the next page.\nThis means the previous page."
+            "title": "prev",
+            "description": "If this is a response by offset-based pagenation, provide metadata for the next page.\nThis means the previous page."
           },
           "next": {
             "oneOf": [
@@ -3290,15 +3312,18 @@
                 "type": "number"
               }
             ],
-            "title": "next\n\nIf this is a response by offset-based pagenation, provide metadata for the next page.\nThis means the next page."
+            "title": "next",
+            "description": "If this is a response by offset-based pagenation, provide metadata for the next page.\nThis means the next page."
           },
           "last": {
             "type": "number",
-            "title": "last\n\nIf this is a response by offset-based pagenation, provide metadata for the next page.\nThis means the last page."
+            "title": "last",
+            "description": "If this is a response by offset-based pagenation, provide metadata for the next page.\nThis means the last page."
           },
           "first": {
             "type": "number",
-            "title": "first\n\nIf this is a response by offset-based pagenation, provide metadata for the next page.\nThis means the first page."
+            "title": "first",
+            "description": "If this is a response by offset-based pagenation, provide metadata for the next page.\nThis means the first page."
           }
         },
         "required": [
@@ -3324,7 +3349,8 @@
                 "default": "desc"
               }
             ],
-            "title": "direction\nThe order to sort by.\nDefault: asc when using full_name, otherwise desc."
+            "title": "direction",
+            "description": "The order to sort by.\nDefault: asc when using full_name, otherwise desc."
           },
           "filter": {
             "oneOf": [
@@ -3365,7 +3391,8 @@
                 "default": "assigned"
               }
             ],
-            "title": "filter\n\nIt must be one of: \"assigned\", \"created\", \"mentioned\", \"subscribed\", \"repos\", \"all\"\n\nIndicates which sorts of issues to return.\nassigned means issues assigned to you.\ncreated means issues created by you.\nmentioned means issues mentioning you.\nsubscribed means issues you're subscribed to updates for.\nall or repos means all issues you can see, regardless of participation or creation."
+            "title": "filter",
+            "description": "It must be one of: \"assigned\", \"created\", \"mentioned\", \"subscribed\", \"repos\", \"all\"\n\nIndicates which sorts of issues to return.\nassigned means issues assigned to you.\ncreated means issues created by you.\nmentioned means issues mentioning you.\nsubscribed means issues you're subscribed to updates for.\nall or repos means all issues you can see, regardless of participation or creation."
           },
           "state": {
             "oneOf": [
@@ -3385,7 +3412,8 @@
                 "default": "open"
               }
             ],
-            "title": "state\n\nIndicates the state of the issues to return.\nIt must be one of: 'open', 'closed', 'all'"
+            "title": "state",
+            "description": "Indicates the state of the issues to return.\nIt must be one of: 'open', 'closed', 'all'"
           },
           "labels": {
             "type": "string",
@@ -3458,7 +3486,8 @@
           },
           "nextPage": {
             "type": "boolean",
-            "title": "true if there is a next page\n\nHowever, since true and false are judged by comparing the number of requested objects with the number of searched objects,\neven if true, the next page may be empty."
+            "title": "true if there is a next page",
+            "description": "However, since true and false are judged by comparing the number of requested objects with the number of searched objects,\neven if true, the next page may be empty."
           },
           "after": {
             "type": "string",
@@ -3477,7 +3506,8 @@
                 "type": "number"
               }
             ],
-            "title": "prev\n\nIf this is a response by offset-based pagenation, provide metadata for the next page.\nThis means the previous page."
+            "title": "prev",
+            "description": "If this is a response by offset-based pagenation, provide metadata for the next page.\nThis means the previous page."
           },
           "next": {
             "oneOf": [
@@ -3488,15 +3518,18 @@
                 "type": "number"
               }
             ],
-            "title": "next\n\nIf this is a response by offset-based pagenation, provide metadata for the next page.\nThis means the next page."
+            "title": "next",
+            "description": "If this is a response by offset-based pagenation, provide metadata for the next page.\nThis means the next page."
           },
           "last": {
             "type": "number",
-            "title": "last\n\nIf this is a response by offset-based pagenation, provide metadata for the next page.\nThis means the last page."
+            "title": "last",
+            "description": "If this is a response by offset-based pagenation, provide metadata for the next page.\nThis means the last page."
           },
           "first": {
             "type": "number",
-            "title": "first\n\nIf this is a response by offset-based pagenation, provide metadata for the next page.\nThis means the first page."
+            "title": "first",
+            "description": "If this is a response by offset-based pagenation, provide metadata for the next page.\nThis means the first page."
           }
         },
         "required": [
@@ -3784,7 +3817,8 @@
           },
           "nextPage": {
             "type": "boolean",
-            "title": "true if there is a next page\n\nHowever, since true and false are judged by comparing the number of requested objects with the number of searched objects,\neven if true, the next page may be empty."
+            "title": "true if there is a next page",
+            "description": "However, since true and false are judged by comparing the number of requested objects with the number of searched objects,\neven if true, the next page may be empty."
           },
           "after": {
             "type": "string",
@@ -3803,7 +3837,8 @@
                 "type": "number"
               }
             ],
-            "title": "prev\n\nIf this is a response by offset-based pagenation, provide metadata for the next page.\nThis means the previous page."
+            "title": "prev",
+            "description": "If this is a response by offset-based pagenation, provide metadata for the next page.\nThis means the previous page."
           },
           "next": {
             "oneOf": [
@@ -3814,15 +3849,18 @@
                 "type": "number"
               }
             ],
-            "title": "next\n\nIf this is a response by offset-based pagenation, provide metadata for the next page.\nThis means the next page."
+            "title": "next",
+            "description": "If this is a response by offset-based pagenation, provide metadata for the next page.\nThis means the next page."
           },
           "last": {
             "type": "number",
-            "title": "last\n\nIf this is a response by offset-based pagenation, provide metadata for the next page.\nThis means the last page."
+            "title": "last",
+            "description": "If this is a response by offset-based pagenation, provide metadata for the next page.\nThis means the last page."
           },
           "first": {
             "type": "number",
-            "title": "first\n\nIf this is a response by offset-based pagenation, provide metadata for the next page.\nThis means the first page."
+            "title": "first",
+            "description": "If this is a response by offset-based pagenation, provide metadata for the next page.\nThis means the first page."
           }
         },
         "required": [
@@ -3858,7 +3896,8 @@
           },
           "login": {
             "type": "string",
-            "title": "login\n\nThis means the user's nickname.\nIn github, nicknames are unique at least until that user changes their own nickname.\nThis means that only one person can own the nickname at a time.\nTherefore, it may be important to know the exact nickname because the github API calls the appi using the user's nickname."
+            "title": "login",
+            "description": "This means the user's nickname.\nIn github, nicknames are unique at least until that user changes their own nickname.\nThis means that only one person can own the nickname at a time.\nTherefore, it may be important to know the exact nickname because the github API calls the appi using the user's nickname."
           },
           "html_url": {
             "type": "string",
@@ -3879,7 +3918,8 @@
         "properties": {
           "owner": {
             "type": "string",
-            "title": "owner's name\n\nThe owner's name and the repository's name can be combined to form '${owner}/${repo}' and can be a unique path name for a single repository.\nSo the owner here is the nickname of the repository owner, not the name of the person committing or the author."
+            "title": "owner's name",
+            "description": "The owner's name and the repository's name can be combined to form '${owner}/${repo}' and can be a unique path name for a single repository.\nSo the owner here is the nickname of the repository owner, not the name of the person committing or the author."
           },
           "repo": {
             "type": "string",
@@ -3903,7 +3943,8 @@
                 "default": "all"
               }
             ],
-            "title": "affiliation\n\nFilter collaborators returned by their affiliation.\noutside means all outside collaborators of an organization-owned repository. direct means all collaborators with permissions to an organization-owned repository, regardless of organization membership status. all means all collaborators the authenticated user can see.\nIt must be one of: \"outside\", \"direct\", \"all\"."
+            "title": "affiliation",
+            "description": "Filter collaborators returned by their affiliation.\noutside means all outside collaborators of an organization-owned repository. direct means all collaborators with permissions to an organization-owned repository, regardless of organization membership status. all means all collaborators the authenticated user can see.\nIt must be one of: \"outside\", \"direct\", \"all\"."
           },
           "permission": {
             "oneOf": [
@@ -3928,7 +3969,8 @@
                 "title": "admin"
               }
             ],
-            "title": "permission\n\nFilter collaborators by the permissions they have on the repository. If not specified, all collaborators will be returned.\nIt must be one of: \"pull\", \"triage\", \"push\", \"maintain\", \"admin\"."
+            "title": "permission",
+            "description": "Filter collaborators by the permissions they have on the repository. If not specified, all collaborators will be returned.\nIt must be one of: \"pull\", \"triage\", \"push\", \"maintain\", \"admin\"."
           },
           "secretKey": {
             "type": "string",
@@ -3967,7 +4009,8 @@
           },
           "owner": {
             "type": "string",
-            "title": "owner's name\n\nThe owner's name and the repository's name can be combined to form '${owner}/${repo}' and can be a unique path name for a single repository.\nSo the owner here is the nickname of the repository owner, not the name of the person committing or the author."
+            "title": "owner's name",
+            "description": "The owner's name and the repository's name can be combined to form '${owner}/${repo}' and can be a unique path name for a single repository.\nSo the owner here is the nickname of the repository owner, not the name of the person committing or the author."
           },
           "secretKey": {
             "type": "string",
@@ -3980,7 +4023,8 @@
           },
           "path": {
             "type": "string",
-            "title": "path parameters\n\nIt refers to the path of the file, and is the path of the file including folders and extensions.\nIf you want to make index.ts in src, you need to add 'src/index.ts'."
+            "title": "path parameters",
+            "description": "It refers to the path of the file, and is the path of the file including folders and extensions.\nIf you want to make index.ts in src, you need to add 'src/index.ts'."
           },
           "repo": {
             "type": "string",
@@ -3993,7 +4037,8 @@
               "path": "/connector/github/repos/get-contents",
               "jmesPath": "[].{value:sha, label:path} || {value:sha, label:path}"
             },
-            "title": "sha of file content\n\nAs the sha value of the file to be modified, a conflict may occur if it is not the latest sha value among the sha values of the file.\nIt's safe when you look up a list of files through API to check sha and put in a value, or want to re-modify the sha value of a file you just created."
+            "title": "sha of file content",
+            "description": "As the sha value of the file to be modified, a conflict may occur if it is not the latest sha value among the sha values of the file.\nIt's safe when you look up a list of files through API to check sha and put in a value, or want to re-modify the sha value of a file you just created."
           },
           "author": {
             "type": "object",
@@ -4016,7 +4061,8 @@
               "email",
               "date"
             ],
-            "title": "The author of the file\n\nIf you don't put anything in, your own information will be injected, so you can leave the value alone.\nSince the user's email cannot necessarily be guaranteed to be the same as Github's email, it is advantageous not to get confirmation from the user or put it in.\n\nDefault: The committer or the authenticated user if you omit committer."
+            "title": "The author of the file",
+            "description": "If you don't put anything in, your own information will be injected, so you can leave the value alone.\nSince the user's email cannot necessarily be guaranteed to be the same as Github's email, it is advantageous not to get confirmation from the user or put it in.\n\nDefault: The committer or the authenticated user if you omit committer."
           },
           "committer": {
             "type": "object",
@@ -4039,7 +4085,8 @@
               "email",
               "date"
             ],
-            "title": "The person that committed the file\nIf you don't put anything in, your own information will be injected, so you can leave the value alone.\nSince the user's email cannot necessarily be guaranteed to be the same as Github's email, it is advantageous not to get confirmation from the user or put it in.\n\nDefault: the authenticated user."
+            "title": "The person that committed the file",
+            "description": "If you don't put anything in, your own information will be injected, so you can leave the value alone.\nSince the user's email cannot necessarily be guaranteed to be the same as Github's email, it is advantageous not to get confirmation from the user or put it in.\n\nDefault: the authenticated user."
           },
           "branch": {
             "type": "string",
@@ -4115,11 +4162,13 @@
               "path": "/connector/github/repos/get-contents",
               "jmesPath": "[].{value:sha, label:path} || {value:sha, label:path}"
             },
-            "title": "sha of file content\n\nAs the sha value of the file to be modified, a conflict may occur if it is not the latest sha value among the sha values of the file.\nIt's safe when you look up a list of files through API to check sha and put in a value, or want to re-modify the sha value of a file you just created."
+            "title": "sha of file content",
+            "description": "As the sha value of the file to be modified, a conflict may occur if it is not the latest sha value among the sha values of the file.\nIt's safe when you look up a list of files through API to check sha and put in a value, or want to re-modify the sha value of a file you just created."
           },
           "owner": {
             "type": "string",
-            "title": "owner's name\n\nThe owner's name and the repository's name can be combined to form '${owner}/${repo}' and can be a unique path name for a single repository.\nSo the owner here is the nickname of the repository owner, not the name of the person committing or the author."
+            "title": "owner's name",
+            "description": "The owner's name and the repository's name can be combined to form '${owner}/${repo}' and can be a unique path name for a single repository.\nSo the owner here is the nickname of the repository owner, not the name of the person committing or the author."
           },
           "repo": {
             "type": "string",
@@ -4127,7 +4176,8 @@
           },
           "path": {
             "type": "string",
-            "title": "path parameters\n\nIt refers to the path of the file, and is the path of the file including folders and extensions.\nIf you want to make index.ts in src, you need to add 'src/index.ts'."
+            "title": "path parameters",
+            "description": "It refers to the path of the file, and is the path of the file including folders and extensions.\nIf you want to make index.ts in src, you need to add 'src/index.ts'."
           },
           "message": {
             "type": "string",
@@ -4135,7 +4185,8 @@
           },
           "content": {
             "type": "string",
-            "title": "the new file content\n\nMeaning of the file is text and text.\nIf you want to create code content, you should write code content.\nSince it encodes with base64 internally, we need to deliver text here before encoding."
+            "title": "the new file content",
+            "description": "Meaning of the file is text and text.\nIf you want to create code content, you should write code content.\nSince it encodes with base64 internally, we need to deliver text here before encoding."
           },
           "branch": {
             "type": "string",
@@ -4162,7 +4213,8 @@
               "email",
               "date"
             ],
-            "title": "The person that committed the file\nIf you don't put anything in, your own information will be injected, so you can leave the value alone.\nSince the user's email cannot necessarily be guaranteed to be the same as Github's email, it is advantageous not to get confirmation from the user or put it in.\n\nDefault: the authenticated user."
+            "title": "The person that committed the file",
+            "description": "If you don't put anything in, your own information will be injected, so you can leave the value alone.\nSince the user's email cannot necessarily be guaranteed to be the same as Github's email, it is advantageous not to get confirmation from the user or put it in.\n\nDefault: the authenticated user."
           },
           "author": {
             "type": "object",
@@ -4185,7 +4237,8 @@
               "email",
               "date"
             ],
-            "title": "The author of the file\n\nIf you don't put anything in, your own information will be injected, so you can leave the value alone.\nSince the user's email cannot necessarily be guaranteed to be the same as Github's email, it is advantageous not to get confirmation from the user or put it in.\n\nDefault: The committer or the authenticated user if you omit committer."
+            "title": "The author of the file",
+            "description": "If you don't put anything in, your own information will be injected, so you can leave the value alone.\nSince the user's email cannot necessarily be guaranteed to be the same as Github's email, it is advantageous not to get confirmation from the user or put it in.\n\nDefault: The committer or the authenticated user if you omit committer."
           },
           "secretKey": {
             "type": "string",
@@ -4212,7 +4265,8 @@
         "properties": {
           "owner": {
             "type": "string",
-            "title": "owner's name\n\nThe owner's name and the repository's name can be combined to form '${owner}/${repo}' and can be a unique path name for a single repository.\nSo the owner here is the nickname of the repository owner, not the name of the person committing or the author."
+            "title": "owner's name",
+            "description": "The owner's name and the repository's name can be combined to form '${owner}/${repo}' and can be a unique path name for a single repository.\nSo the owner here is the nickname of the repository owner, not the name of the person committing or the author."
           },
           "repo": {
             "type": "string",
@@ -4220,7 +4274,8 @@
           },
           "path": {
             "type": "string",
-            "title": "path parameters\n\nIt refers to the path of the file, and is the path of the file including folders and extensions.\nIf you want to make index.ts in src, you need to add 'src/index.ts'."
+            "title": "path parameters",
+            "description": "It refers to the path of the file, and is the path of the file including folders and extensions.\nIf you want to make index.ts in src, you need to add 'src/index.ts'."
           },
           "message": {
             "type": "string",
@@ -4228,7 +4283,8 @@
           },
           "content": {
             "type": "string",
-            "title": "the new file content\n\nMeaning of the file is text and text.\nIf you want to create code content, you should write code content.\nSince it encodes with base64 internally, we need to deliver text here before encoding."
+            "title": "the new file content",
+            "description": "Meaning of the file is text and text.\nIf you want to create code content, you should write code content.\nSince it encodes with base64 internally, we need to deliver text here before encoding."
           },
           "branch": {
             "type": "string",
@@ -4255,7 +4311,8 @@
               "email",
               "date"
             ],
-            "title": "The person that committed the file\nIf you don't put anything in, your own information will be injected, so you can leave the value alone.\nSince the user's email cannot necessarily be guaranteed to be the same as Github's email, it is advantageous not to get confirmation from the user or put it in.\n\nDefault: the authenticated user."
+            "title": "The person that committed the file",
+            "description": "If you don't put anything in, your own information will be injected, so you can leave the value alone.\nSince the user's email cannot necessarily be guaranteed to be the same as Github's email, it is advantageous not to get confirmation from the user or put it in.\n\nDefault: the authenticated user."
           },
           "author": {
             "type": "object",
@@ -4278,7 +4335,8 @@
               "email",
               "date"
             ],
-            "title": "The author of the file\n\nIf you don't put anything in, your own information will be injected, so you can leave the value alone.\nSince the user's email cannot necessarily be guaranteed to be the same as Github's email, it is advantageous not to get confirmation from the user or put it in.\n\nDefault: The committer or the authenticated user if you omit committer."
+            "title": "The author of the file",
+            "description": "If you don't put anything in, your own information will be injected, so you can leave the value alone.\nSince the user's email cannot necessarily be guaranteed to be the same as Github's email, it is advantageous not to get confirmation from the user or put it in.\n\nDefault: The committer or the authenticated user if you omit committer."
           },
           "secretKey": {
             "type": "string",
@@ -4325,7 +4383,8 @@
           "children": {
             "type": "array",
             "items": {},
-            "title": "children\n\nFor folders, you may have other files or folders inside.\nThis should also be a folder or file type object,\nbut here, we specify it as any type to prevent it because it can be recursively infinitely large."
+            "title": "children",
+            "description": "For folders, you may have other files or folders inside.\nThis should also be a folder or file type object,\nbut here, we specify it as any type to prevent it because it can be recursively infinitely large."
           }
         },
         "required": [
@@ -4390,11 +4449,13 @@
           "path": {
             "type": "string",
             "default": "",
-            "title": "folder name\n\nThe path delivered is treated like a Root folder and continues the navigation from this folder.\nBrowse by this folder, and it must be a folder, not a file.\nIf omitted, start the circuit based on the top Root folder."
+            "title": "folder name",
+            "description": "The path delivered is treated like a Root folder and continues the navigation from this folder.\nBrowse by this folder, and it must be a folder, not a file.\nIf omitted, start the circuit based on the top Root folder."
           },
           "owner": {
             "type": "string",
-            "title": "owner's name\n\nThe owner's name and the repository's name can be combined to form '${owner}/${repo}' and can be a unique path name for a single repository.\nSo the owner here is the nickname of the repository owner, not the name of the person committing or the author.\n\nIf it is an organization's repository, it can also be the name of the organization."
+            "title": "owner's name",
+            "description": "The owner's name and the repository's name can be combined to form '${owner}/${repo}' and can be a unique path name for a single repository.\nSo the owner here is the nickname of the repository owner, not the name of the person committing or the author.\n\nIf it is an organization's repository, it can also be the name of the organization."
           },
           "secretKey": {
             "type": "string",
@@ -4450,7 +4511,8 @@
         "properties": {
           "owner": {
             "type": "string",
-            "title": "owner's name\n\nThe owner's name and the repository's name can be combined to form '${owner}/${repo}' and can be a unique path name for a single repository.\nSo the owner here is the nickname of the repository owner, not the name of the person committing or the author."
+            "title": "owner's name",
+            "description": "The owner's name and the repository's name can be combined to form '${owner}/${repo}' and can be a unique path name for a single repository.\nSo the owner here is the nickname of the repository owner, not the name of the person committing or the author."
           },
           "repo": {
             "type": "string",
@@ -4461,7 +4523,8 @@
             "items": {
               "type": "string"
             },
-            "title": "path parameters\n\nIt refers to the path of the file, and is the path of the file including folders and extensions.\nIf you want to make index.ts in src, you need to add 'src/index.ts'."
+            "title": "path parameters",
+            "description": "It refers to the path of the file, and is the path of the file including folders and extensions.\nIf you want to make index.ts in src, you need to add 'src/index.ts'."
           },
           "branch": {
             "type": "string",
@@ -4485,7 +4548,8 @@
         "properties": {
           "owner": {
             "type": "string",
-            "title": "owner's name\n\nThe owner's name and the repository's name can be combined to form '${owner}/${repo}' and can be a unique path name for a single repository.\nSo the owner here is the nickname of the repository owner, not the name of the person committing or the author.\n\nIf it is an organization's repository, it can also be the name of the organization."
+            "title": "owner's name",
+            "description": "The owner's name and the repository's name can be combined to form '${owner}/${repo}' and can be a unique path name for a single repository.\nSo the owner here is the nickname of the repository owner, not the name of the person committing or the author.\n\nIf it is an organization's repository, it can also be the name of the organization."
           },
           "repo": {
             "type": "string",
@@ -4493,7 +4557,8 @@
           },
           "path": {
             "type": "string",
-            "title": "path parameters\n\nIt refers to the path of the file, and is the path of the file including folders and extensions.\nIf you want to make index.ts in src, you need to add 'src/index.ts'."
+            "title": "path parameters",
+            "description": "It refers to the path of the file, and is the path of the file including folders and extensions.\nIf you want to make index.ts in src, you need to add 'src/index.ts'."
           },
           "branch": {
             "type": "string",
@@ -4517,7 +4582,8 @@
         "properties": {
           "owner": {
             "type": "string",
-            "title": "owner's name\n\nThe owner's name and the repository's name can be combined to form '${owner}/${repo}' and can be a unique path name for a single repository.\nSo the owner here is the nickname of the repository owner, not the name of the person committing or the author.\n\nIf it is an organization's repository, it can also be the name of the organization."
+            "title": "owner's name",
+            "description": "The owner's name and the repository's name can be combined to form '${owner}/${repo}' and can be a unique path name for a single repository.\nSo the owner here is the nickname of the repository owner, not the name of the person committing or the author.\n\nIf it is an organization's repository, it can also be the name of the organization."
           },
           "secretKey": {
             "type": "string",
@@ -4612,7 +4678,8 @@
           },
           "nextPage": {
             "type": "boolean",
-            "title": "true if there is a next page\n\nHowever, since true and false are judged by comparing the number of requested objects with the number of searched objects,\neven if true, the next page may be empty."
+            "title": "true if there is a next page",
+            "description": "However, since true and false are judged by comparing the number of requested objects with the number of searched objects,\neven if true, the next page may be empty."
           },
           "after": {
             "type": "string",
@@ -4631,7 +4698,8 @@
                 "type": "number"
               }
             ],
-            "title": "prev\n\nIf this is a response by offset-based pagenation, provide metadata for the next page.\nThis means the previous page."
+            "title": "prev",
+            "description": "If this is a response by offset-based pagenation, provide metadata for the next page.\nThis means the previous page."
           },
           "next": {
             "oneOf": [
@@ -4642,15 +4710,18 @@
                 "type": "number"
               }
             ],
-            "title": "next\n\nIf this is a response by offset-based pagenation, provide metadata for the next page.\nThis means the next page."
+            "title": "next",
+            "description": "If this is a response by offset-based pagenation, provide metadata for the next page.\nThis means the next page."
           },
           "last": {
             "type": "number",
-            "title": "last\n\nIf this is a response by offset-based pagenation, provide metadata for the next page.\nThis means the last page."
+            "title": "last",
+            "description": "If this is a response by offset-based pagenation, provide metadata for the next page.\nThis means the last page."
           },
           "first": {
             "type": "number",
-            "title": "first\n\nIf this is a response by offset-based pagenation, provide metadata for the next page.\nThis means the first page."
+            "title": "first",
+            "description": "If this is a response by offset-based pagenation, provide metadata for the next page.\nThis means the first page."
           }
         },
         "required": [
@@ -4753,7 +4824,8 @@
           },
           "nextPage": {
             "type": "boolean",
-            "title": "true if there is a next page\n\nHowever, since true and false are judged by comparing the number of requested objects with the number of searched objects,\neven if true, the next page may be empty."
+            "title": "true if there is a next page",
+            "description": "However, since true and false are judged by comparing the number of requested objects with the number of searched objects,\neven if true, the next page may be empty."
           },
           "after": {
             "type": "string",
@@ -4772,7 +4844,8 @@
                 "type": "number"
               }
             ],
-            "title": "prev\n\nIf this is a response by offset-based pagenation, provide metadata for the next page.\nThis means the previous page."
+            "title": "prev",
+            "description": "If this is a response by offset-based pagenation, provide metadata for the next page.\nThis means the previous page."
           },
           "next": {
             "oneOf": [
@@ -4783,15 +4856,18 @@
                 "type": "number"
               }
             ],
-            "title": "next\n\nIf this is a response by offset-based pagenation, provide metadata for the next page.\nThis means the next page."
+            "title": "next",
+            "description": "If this is a response by offset-based pagenation, provide metadata for the next page.\nThis means the next page."
           },
           "last": {
             "type": "number",
-            "title": "last\n\nIf this is a response by offset-based pagenation, provide metadata for the next page.\nThis means the last page."
+            "title": "last",
+            "description": "If this is a response by offset-based pagenation, provide metadata for the next page.\nThis means the last page."
           },
           "first": {
             "type": "number",
-            "title": "first\n\nIf this is a response by offset-based pagenation, provide metadata for the next page.\nThis means the first page."
+            "title": "first",
+            "description": "If this is a response by offset-based pagenation, provide metadata for the next page.\nThis means the first page."
           }
         },
         "required": [
@@ -4886,7 +4962,8 @@
           },
           "login": {
             "type": "string",
-            "title": "login\n\nThis means the user's nickname.\nIn github, nicknames are unique at least until that user changes their own nickname.\nThis means that only one person can own the nickname at a time.\nTherefore, it may be important to know the exact nickname because the github API calls the appi using the user's nickname."
+            "title": "login",
+            "description": "This means the user's nickname.\nIn github, nicknames are unique at least until that user changes their own nickname.\nThis means that only one person can own the nickname at a time.\nTherefore, it may be important to know the exact nickname because the github API calls the appi using the user's nickname."
           }
         },
         "required": [
@@ -4910,15 +4987,18 @@
                 "default": "desc"
               }
             ],
-            "title": "direction\nThe order to sort by.\nDefault: asc when using full_name, otherwise desc."
+            "title": "direction",
+            "description": "The order to sort by.\nDefault: asc when using full_name, otherwise desc."
           },
           "before": {
             "type": "string",
-            "title": "before\n\nA cursor, as given in the Link header.\nIf specified, the query only searches for results before this cursor."
+            "title": "before",
+            "description": "A cursor, as given in the Link header.\nIf specified, the query only searches for results before this cursor."
           },
           "after": {
             "type": "string",
-            "title": "after\n\nA cursor, as given in the Link header.\nIf specified, the query only searches for results after this cursor."
+            "title": "after",
+            "description": "A cursor, as given in the Link header.\nIf specified, the query only searches for results after this cursor."
           },
           "owner": {
             "type": "string",
@@ -5070,7 +5150,8 @@
                 "title": "closed"
               }
             ],
-            "title": "state\n\nState of this Pull Request. Either open or closed.\nCan be one of: open, closed"
+            "title": "state",
+            "description": "State of this Pull Request. Either open or closed.\nCan be one of: open, closed"
           },
           "base": {
             "type": "string",
@@ -5086,7 +5167,8 @@
           },
           "owner": {
             "type": "string",
-            "title": "owner's name\n\nThe owner's name and the repository's name can be combined to form '${owner}/${repo}' and can be a unique path name for a single repository.\nSo the owner here is the nickname of the repository owner, not the name of the person committing or the author."
+            "title": "owner's name",
+            "description": "The owner's name and the repository's name can be combined to form '${owner}/${repo}' and can be a unique path name for a single repository.\nSo the owner here is the nickname of the repository owner, not the name of the person committing or the author."
           },
           "secretKey": {
             "type": "string",
@@ -5162,7 +5244,8 @@
         "properties": {
           "owner": {
             "type": "string",
-            "title": "owner's name\n\nThe owner's name and the repository's name can be combined to form '${owner}/${repo}' and can be a unique path name for a single repository.\nSo the owner here is the nickname of the repository owner, not the name of the person committing or the author."
+            "title": "owner's name",
+            "description": "The owner's name and the repository's name can be combined to form '${owner}/${repo}' and can be a unique path name for a single repository.\nSo the owner here is the nickname of the repository owner, not the name of the person committing or the author."
           },
           "repo": {
             "type": "string",
@@ -5230,7 +5313,8 @@
           },
           "nextPage": {
             "type": "boolean",
-            "title": "true if there is a next page\n\nHowever, since true and false are judged by comparing the number of requested objects with the number of searched objects,\neven if true, the next page may be empty."
+            "title": "true if there is a next page",
+            "description": "However, since true and false are judged by comparing the number of requested objects with the number of searched objects,\neven if true, the next page may be empty."
           },
           "after": {
             "type": "string",
@@ -5249,7 +5333,8 @@
                 "type": "number"
               }
             ],
-            "title": "prev\n\nIf this is a response by offset-based pagenation, provide metadata for the next page.\nThis means the previous page."
+            "title": "prev",
+            "description": "If this is a response by offset-based pagenation, provide metadata for the next page.\nThis means the previous page."
           },
           "next": {
             "oneOf": [
@@ -5260,15 +5345,18 @@
                 "type": "number"
               }
             ],
-            "title": "next\n\nIf this is a response by offset-based pagenation, provide metadata for the next page.\nThis means the next page."
+            "title": "next",
+            "description": "If this is a response by offset-based pagenation, provide metadata for the next page.\nThis means the next page."
           },
           "last": {
             "type": "number",
-            "title": "last\n\nIf this is a response by offset-based pagenation, provide metadata for the next page.\nThis means the last page."
+            "title": "last",
+            "description": "If this is a response by offset-based pagenation, provide metadata for the next page.\nThis means the last page."
           },
           "first": {
             "type": "number",
-            "title": "first\n\nIf this is a response by offset-based pagenation, provide metadata for the next page.\nThis means the first page."
+            "title": "first",
+            "description": "If this is a response by offset-based pagenation, provide metadata for the next page.\nThis means the first page."
           }
         },
         "required": [
@@ -5350,7 +5438,8 @@
         "properties": {
           "owner": {
             "type": "string",
-            "title": "owner's name\n\nThe owner's name and the repository's name can be combined to form '${owner}/${repo}' and can be a unique path name for a single repository.\nSo the owner here is the nickname of the repository owner, not the name of the person committing or the author."
+            "title": "owner's name",
+            "description": "The owner's name and the repository's name can be combined to form '${owner}/${repo}' and can be a unique path name for a single repository.\nSo the owner here is the nickname of the repository owner, not the name of the person committing or the author."
           },
           "repo": {
             "type": "string",
@@ -5425,7 +5514,8 @@
           },
           "owner": {
             "type": "string",
-            "title": "owner's name\n\nThe owner's name and the repository's name can be combined to form '${owner}/${repo}' and can be a unique path name for a single repository.\nSo the owner here is the nickname of the repository owner, not the name of the person committing or the author."
+            "title": "owner's name",
+            "description": "The owner's name and the repository's name can be combined to form '${owner}/${repo}' and can be a unique path name for a single repository.\nSo the owner here is the nickname of the repository owner, not the name of the person committing or the author."
           },
           "repo": {
             "type": "string",
@@ -5523,7 +5613,8 @@
         "properties": {
           "owner": {
             "type": "string",
-            "title": "owner's name\n\nThe owner's name and the repository's name can be combined to form '${owner}/${repo}' and can be a unique path name for a single repository.\nSo the owner here is the nickname of the repository owner, not the name of the person committing or the author."
+            "title": "owner's name",
+            "description": "The owner's name and the repository's name can be combined to form '${owner}/${repo}' and can be a unique path name for a single repository.\nSo the owner here is the nickname of the repository owner, not the name of the person committing or the author."
           },
           "repo": {
             "type": "string",
@@ -5592,7 +5683,8 @@
           },
           "owner": {
             "type": "string",
-            "title": "owner's name\n\nThe owner's name and the repository's name can be combined to form '${owner}/${repo}' and can be a unique path name for a single repository.\nSo the owner here is the nickname of the repository owner, not the name of the person committing or the author."
+            "title": "owner's name",
+            "description": "The owner's name and the repository's name can be combined to form '${owner}/${repo}' and can be a unique path name for a single repository.\nSo the owner here is the nickname of the repository owner, not the name of the person committing or the author."
           },
           "repo": {
             "type": "string",
@@ -5650,7 +5742,8 @@
           },
           "nextPage": {
             "type": "boolean",
-            "title": "true if there is a next page\n\nHowever, since true and false are judged by comparing the number of requested objects with the number of searched objects,\neven if true, the next page may be empty."
+            "title": "true if there is a next page",
+            "description": "However, since true and false are judged by comparing the number of requested objects with the number of searched objects,\neven if true, the next page may be empty."
           },
           "after": {
             "type": "string",
@@ -5669,7 +5762,8 @@
                 "type": "number"
               }
             ],
-            "title": "prev\n\nIf this is a response by offset-based pagenation, provide metadata for the next page.\nThis means the previous page."
+            "title": "prev",
+            "description": "If this is a response by offset-based pagenation, provide metadata for the next page.\nThis means the previous page."
           },
           "next": {
             "oneOf": [
@@ -5680,15 +5774,18 @@
                 "type": "number"
               }
             ],
-            "title": "next\n\nIf this is a response by offset-based pagenation, provide metadata for the next page.\nThis means the next page."
+            "title": "next",
+            "description": "If this is a response by offset-based pagenation, provide metadata for the next page.\nThis means the next page."
           },
           "last": {
             "type": "number",
-            "title": "last\n\nIf this is a response by offset-based pagenation, provide metadata for the next page.\nThis means the last page."
+            "title": "last",
+            "description": "If this is a response by offset-based pagenation, provide metadata for the next page.\nThis means the last page."
           },
           "first": {
             "type": "number",
-            "title": "first\n\nIf this is a response by offset-based pagenation, provide metadata for the next page.\nThis means the first page."
+            "title": "first",
+            "description": "If this is a response by offset-based pagenation, provide metadata for the next page.\nThis means the first page."
           }
         },
         "required": [
@@ -5705,7 +5802,8 @@
           },
           "diff_hunk": {
             "type": "string",
-            "title": "diff_hunk\n\ndiff_hunk is a form for representing a change in code in github.\nIt consists of strings, and the first line, based on the new line character,\nhas meta information about the change point between the symbols"
+            "title": "diff_hunk",
+            "description": "diff_hunk is a form for representing a change in code in github.\nIt consists of strings, and the first line, based on the new line character,\nhas meta information about the change point between the symbols"
           },
           "path": {
             "type": "string",
@@ -5720,7 +5818,8 @@
                 "type": "integer"
               }
             ],
-            "title": "position\n\nThe position in the diff where you want to add a review comment.\nNote this value is not the same as the line number in the file.\nThe position value equals the number of lines down from the first \"@@\" hunk header in the file you want to add a comment.\nThe line just below the \"@@\" line is position 1, the next line is position 2, and so on. The position in the diff continues to increase through lines of whitespace and additional hunks until the beginning of a new file.\n\nPosition value, which is the number of rows based on diff_hunk."
+            "title": "position",
+            "description": "The position in the diff where you want to add a review comment.\nNote this value is not the same as the line number in the file.\nThe position value equals the number of lines down from the first \"@@\" hunk header in the file you want to add a comment.\nThe line just below the \"@@\" line is position 1, the next line is position 2, and so on. The position in the diff continues to increase through lines of whitespace and additional hunks until the beginning of a new file.\n\nPosition value, which is the number of rows based on diff_hunk."
           },
           "original_position": {
             "type": "integer",
@@ -5825,7 +5924,8 @@
           },
           "owner": {
             "type": "string",
-            "title": "owner's name\n\nThe owner's name and the repository's name can be combined to form '${owner}/${repo}' and can be a unique path name for a single repository.\nSo the owner here is the nickname of the repository owner, not the name of the person committing or the author."
+            "title": "owner's name",
+            "description": "The owner's name and the repository's name can be combined to form '${owner}/${repo}' and can be a unique path name for a single repository.\nSo the owner here is the nickname of the repository owner, not the name of the person committing or the author."
           },
           "repo": {
             "type": "string",
@@ -5895,7 +5995,8 @@
           },
           "nextPage": {
             "type": "boolean",
-            "title": "true if there is a next page\n\nHowever, since true and false are judged by comparing the number of requested objects with the number of searched objects,\neven if true, the next page may be empty."
+            "title": "true if there is a next page",
+            "description": "However, since true and false are judged by comparing the number of requested objects with the number of searched objects,\neven if true, the next page may be empty."
           },
           "after": {
             "type": "string",
@@ -5914,7 +6015,8 @@
                 "type": "number"
               }
             ],
-            "title": "prev\n\nIf this is a response by offset-based pagenation, provide metadata for the next page.\nThis means the previous page."
+            "title": "prev",
+            "description": "If this is a response by offset-based pagenation, provide metadata for the next page.\nThis means the previous page."
           },
           "next": {
             "oneOf": [
@@ -5925,15 +6027,18 @@
                 "type": "number"
               }
             ],
-            "title": "next\n\nIf this is a response by offset-based pagenation, provide metadata for the next page.\nThis means the next page."
+            "title": "next",
+            "description": "If this is a response by offset-based pagenation, provide metadata for the next page.\nThis means the next page."
           },
           "last": {
             "type": "number",
-            "title": "last\n\nIf this is a response by offset-based pagenation, provide metadata for the next page.\nThis means the last page."
+            "title": "last",
+            "description": "If this is a response by offset-based pagenation, provide metadata for the next page.\nThis means the last page."
           },
           "first": {
             "type": "number",
-            "title": "first\n\nIf this is a response by offset-based pagenation, provide metadata for the next page.\nThis means the first page."
+            "title": "first",
+            "description": "If this is a response by offset-based pagenation, provide metadata for the next page.\nThis means the first page."
           }
         },
         "required": [
@@ -5985,7 +6090,8 @@
                 "type": "string"
               }
             ],
-            "title": "commit_id\n\nA commit SHA for the review.\nIf the commit object was garbage collected or forcibly deleted, then it no longer exists in Git and this value will be `null`."
+            "title": "commit_id",
+            "description": "A commit SHA for the review.\nIf the commit object was garbage collected or forcibly deleted, then it no longer exists in Git and this value will be `null`."
           },
           "author_association": {
             "oneOf": [
@@ -6033,7 +6139,8 @@
         "properties": {
           "owner": {
             "type": "string",
-            "title": "owner's name\n\nThe owner's name and the repository's name can be combined to form '${owner}/${repo}' and can be a unique path name for a single repository.\nSo the owner here is the nickname of the repository owner, not the name of the person committing or the author."
+            "title": "owner's name",
+            "description": "The owner's name and the repository's name can be combined to form '${owner}/${repo}' and can be a unique path name for a single repository.\nSo the owner here is the nickname of the repository owner, not the name of the person committing or the author."
           },
           "repo": {
             "type": "string",
@@ -6107,11 +6214,13 @@
         "properties": {
           "commit_id": {
             "type": "string",
-            "title": "commit_id\n\nThe SHA of the commit that needs a review.\nNot using the latest commit SHA may render your review comment outdated if a subsequent commit modifies the line you specify as the position.\nDefaults to the most recent commit in the pull request when you do not specify a value."
+            "title": "commit_id",
+            "description": "The SHA of the commit that needs a review.\nNot using the latest commit SHA may render your review comment outdated if a subsequent commit modifies the line you specify as the position.\nDefaults to the most recent commit in the pull request when you do not specify a value."
           },
           "body": {
             "type": "string",
-            "title": "body\n\nRequired when using REQUEST_CHANGES or COMMENT for the event parameter.\nThe body text of the pull request review."
+            "title": "body",
+            "description": "Required when using REQUEST_CHANGES or COMMENT for the event parameter.\nThe body text of the pull request review."
           },
           "event": {
             "oneOf": [
@@ -6128,7 +6237,8 @@
                 "title": "COMMENT"
               }
             ],
-            "title": "event\n\nThe review action you want to perform.\nThe review actions include: APPROVE, REQUEST_CHANGES, or COMMENT.\nBy leaving this blank, you set the review action state to PENDING, which means you will need to submit the pull request review when you are ready."
+            "title": "event",
+            "description": "The review action you want to perform.\nThe review actions include: APPROVE, REQUEST_CHANGES, or COMMENT.\nBy leaving this blank, you set the review action state to PENDING, which means you will need to submit the pull request review when you are ready."
           },
           "comments": {
             "type": "array",
@@ -6139,7 +6249,8 @@
           },
           "owner": {
             "type": "string",
-            "title": "owner's name\n\nThe owner's name and the repository's name can be combined to form '${owner}/${repo}' and can be a unique path name for a single repository.\nSo the owner here is the nickname of the repository owner, not the name of the person committing or the author."
+            "title": "owner's name",
+            "description": "The owner's name and the repository's name can be combined to form '${owner}/${repo}' and can be a unique path name for a single repository.\nSo the owner here is the nickname of the repository owner, not the name of the person committing or the author."
           },
           "repo": {
             "type": "string",
@@ -6209,7 +6320,8 @@
                 "type": "integer"
               }
             ],
-            "title": "position\n\nThe position in the diff where you want to add a review comment.\nNote this value is not the same as the line number in the file.\nThe position value equals the number of lines down from the first \"@@\" hunk header in the file you want to add a comment.\nThe line just below the \"@@\" line is position 1, the next line is position 2, and so on. The position in the diff continues to increase through lines of whitespace and additional hunks until the beginning of a new file.\n\nPosition value, which is the number of rows based on diff_hunk."
+            "title": "position",
+            "description": "The position in the diff where you want to add a review comment.\nNote this value is not the same as the line number in the file.\nThe position value equals the number of lines down from the first \"@@\" hunk header in the file you want to add a comment.\nThe line just below the \"@@\" line is position 1, the next line is position 2, and so on. The position in the diff continues to increase through lines of whitespace and additional hunks until the beginning of a new file.\n\nPosition value, which is the number of rows based on diff_hunk."
           },
           "path": {
             "type": "string",
@@ -6240,7 +6352,8 @@
           },
           "nextPage": {
             "type": "boolean",
-            "title": "true if there is a next page\n\nHowever, since true and false are judged by comparing the number of requested objects with the number of searched objects,\neven if true, the next page may be empty."
+            "title": "true if there is a next page",
+            "description": "However, since true and false are judged by comparing the number of requested objects with the number of searched objects,\neven if true, the next page may be empty."
           },
           "after": {
             "type": "string",
@@ -6259,7 +6372,8 @@
                 "type": "number"
               }
             ],
-            "title": "prev\n\nIf this is a response by offset-based pagenation, provide metadata for the next page.\nThis means the previous page."
+            "title": "prev",
+            "description": "If this is a response by offset-based pagenation, provide metadata for the next page.\nThis means the previous page."
           },
           "next": {
             "oneOf": [
@@ -6270,15 +6384,18 @@
                 "type": "number"
               }
             ],
-            "title": "next\n\nIf this is a response by offset-based pagenation, provide metadata for the next page.\nThis means the next page."
+            "title": "next",
+            "description": "If this is a response by offset-based pagenation, provide metadata for the next page.\nThis means the next page."
           },
           "last": {
             "type": "number",
-            "title": "last\n\nIf this is a response by offset-based pagenation, provide metadata for the next page.\nThis means the last page."
+            "title": "last",
+            "description": "If this is a response by offset-based pagenation, provide metadata for the next page.\nThis means the last page."
           },
           "first": {
             "type": "number",
-            "title": "first\n\nIf this is a response by offset-based pagenation, provide metadata for the next page.\nThis means the first page."
+            "title": "first",
+            "description": "If this is a response by offset-based pagenation, provide metadata for the next page.\nThis means the first page."
           }
         },
         "required": [
@@ -6347,7 +6464,8 @@
           },
           "patch": {
             "type": "string",
-            "title": "patch\n\nIt means how much it has changed compared to previous commitments.\nIt gives you a text form to see what code has actually changed."
+            "title": "patch",
+            "description": "It means how much it has changed compared to previous commitments.\nIt gives you a text form to see what code has actually changed."
           }
         },
         "required": [
@@ -6366,7 +6484,8 @@
         "properties": {
           "owner": {
             "type": "string",
-            "title": "owner's name\n\nThe owner's name and the repository's name can be combined to form '${owner}/${repo}' and can be a unique path name for a single repository.\nSo the owner here is the nickname of the repository owner, not the name of the person committing or the author."
+            "title": "owner's name",
+            "description": "The owner's name and the repository's name can be combined to form '${owner}/${repo}' and can be a unique path name for a single repository.\nSo the owner here is the nickname of the repository owner, not the name of the person committing or the author."
           },
           "repo": {
             "type": "string",
@@ -6435,7 +6554,8 @@
           },
           "nextPage": {
             "type": "boolean",
-            "title": "true if there is a next page\n\nHowever, since true and false are judged by comparing the number of requested objects with the number of searched objects,\neven if true, the next page may be empty."
+            "title": "true if there is a next page",
+            "description": "However, since true and false are judged by comparing the number of requested objects with the number of searched objects,\neven if true, the next page may be empty."
           },
           "after": {
             "type": "string",
@@ -6454,7 +6574,8 @@
                 "type": "number"
               }
             ],
-            "title": "prev\n\nIf this is a response by offset-based pagenation, provide metadata for the next page.\nThis means the previous page."
+            "title": "prev",
+            "description": "If this is a response by offset-based pagenation, provide metadata for the next page.\nThis means the previous page."
           },
           "next": {
             "oneOf": [
@@ -6465,15 +6586,18 @@
                 "type": "number"
               }
             ],
-            "title": "next\n\nIf this is a response by offset-based pagenation, provide metadata for the next page.\nThis means the next page."
+            "title": "next",
+            "description": "If this is a response by offset-based pagenation, provide metadata for the next page.\nThis means the next page."
           },
           "last": {
             "type": "number",
-            "title": "last\n\nIf this is a response by offset-based pagenation, provide metadata for the next page.\nThis means the last page."
+            "title": "last",
+            "description": "If this is a response by offset-based pagenation, provide metadata for the next page.\nThis means the last page."
           },
           "first": {
             "type": "number",
-            "title": "first\n\nIf this is a response by offset-based pagenation, provide metadata for the next page.\nThis means the first page."
+            "title": "first",
+            "description": "If this is a response by offset-based pagenation, provide metadata for the next page.\nThis means the first page."
           }
         },
         "required": [
@@ -6569,7 +6693,8 @@
         "properties": {
           "owner": {
             "type": "string",
-            "title": "owner's name\n\nThe owner's name and the repository's name can be combined to form '${owner}/${repo}' and can be a unique path name for a single repository.\nSo the owner here is the nickname of the repository owner, not the name of the person committing or the author."
+            "title": "owner's name",
+            "description": "The owner's name and the repository's name can be combined to form '${owner}/${repo}' and can be a unique path name for a single repository.\nSo the owner here is the nickname of the repository owner, not the name of the person committing or the author."
           },
           "repo": {
             "type": "string",
@@ -6893,7 +7018,8 @@
           "html_url": {
             "type": "string",
             "format": "iri",
-            "title": "html_url\n\nIf you want to see the issue or pull_request on the web, you can go to this link.\nIf pull is included on this link path, it is pull_request, and if issue is included, it is issue.\nIn essence, pull_request and issue are numbered together from the beginning, so while this connector does not distinguish the two, it can be distinguished by the url path."
+            "title": "html_url",
+            "description": "If you want to see the issue or pull_request on the web, you can go to this link.\nIf pull is included on this link path, it is pull_request, and if issue is included, it is issue.\nIn essence, pull_request and issue are numbered together from the beginning, so while this connector does not distinguish the two, it can be distinguished by the url path."
           },
           "state": {
             "type": "string",
@@ -6933,7 +7059,8 @@
                 "type": "string"
               }
             ],
-            "title": "body\n\nContents of the issue\n\nYou can also render this content because it is in a markdown format."
+            "title": "body",
+            "description": "Contents of the issue\n\nYou can also render this content because it is in a markdown format."
           },
           "labels": {
             "type": "array",
@@ -7372,7 +7499,8 @@
           },
           "owner": {
             "type": "string",
-            "title": "owner's name\n\nThe owner's name and the repository's name can be combined to form '${owner}/${repo}' and can be a unique path name for a single repository.\nSo the owner here is the nickname of the repository owner, not the name of the person committing or the author."
+            "title": "owner's name",
+            "description": "The owner's name and the repository's name can be combined to form '${owner}/${repo}' and can be a unique path name for a single repository.\nSo the owner here is the nickname of the repository owner, not the name of the person committing or the author."
           },
           "secretKey": {
             "type": "string",
@@ -7408,14 +7536,16 @@
                 "title": "MERGED"
               }
             ],
-            "title": "state\n\nIf you don't want to filter, you don't put anything in.\nIt must be one of: \"OPEN\", \"CLOSED\", \"MERGED\"."
+            "title": "state",
+            "description": "If you don't want to filter, you don't put anything in.\nIt must be one of: \"OPEN\", \"CLOSED\", \"MERGED\"."
           },
           "labels": {
             "type": "array",
             "items": {
               "type": "string"
             },
-            "title": "labels\nIf you want to filter the issue by label, pass the string.\nIf it is an empty array, it is ignored."
+            "title": "labels",
+            "description": "If you want to filter the issue by label, pass the string.\nIf it is an empty array, it is ignored."
           },
           "direction": {
             "oneOf": [
@@ -7523,7 +7653,8 @@
           "html_url": {
             "type": "string",
             "format": "iri",
-            "title": "html_url\n\nIf you want to see the issue or pull_request on the web, you can go to this link.\nIf pull is included on this link path, it is pull_request, and if issue is included, it is issue.\nIn essence, pull_request and issue are numbered together from the beginning, so while this connector does not distinguish the two, it can be distinguished by the url path."
+            "title": "html_url",
+            "description": "If you want to see the issue or pull_request on the web, you can go to this link.\nIf pull is included on this link path, it is pull_request, and if issue is included, it is issue.\nIn essence, pull_request and issue are numbered together from the beginning, so while this connector does not distinguish the two, it can be distinguished by the url path."
           },
           "number": {
             "type": "integer",
@@ -7567,7 +7698,8 @@
                 "type": "string"
               }
             ],
-            "title": "body\n\nContents of the issue\n\nYou can also render this content because it is in a markdown format."
+            "title": "body",
+            "description": "Contents of the issue\n\nYou can also render this content because it is in a markdown format."
           },
           "labels": {
             "type": "array",
@@ -7671,7 +7803,8 @@
           },
           "owner": {
             "type": "string",
-            "title": "owner's name\n\nThe owner's name and the repository's name can be combined to form '${owner}/${repo}' and can be a unique path name for a single repository.\nSo the owner here is the nickname of the repository owner, not the name of the person committing or the author."
+            "title": "owner's name",
+            "description": "The owner's name and the repository's name can be combined to form '${owner}/${repo}' and can be a unique path name for a single repository.\nSo the owner here is the nickname of the repository owner, not the name of the person committing or the author."
           },
           "repo": {
             "type": "string",
@@ -7705,7 +7838,8 @@
           },
           "owner": {
             "type": "string",
-            "title": "owner's name\n\nThe owner's name and the repository's name can be combined to form '${owner}/${repo}' and can be a unique path name for a single repository.\nSo the owner here is the nickname of the repository owner, not the name of the person committing or the author."
+            "title": "owner's name",
+            "description": "The owner's name and the repository's name can be combined to form '${owner}/${repo}' and can be a unique path name for a single repository.\nSo the owner here is the nickname of the repository owner, not the name of the person committing or the author."
           },
           "repo": {
             "type": "string",
@@ -7910,7 +8044,8 @@
             "items": {
               "type": "string"
             },
-            "title": "labels\nIf you want to filter the issue by label, pass the string.\nIf it is an empty array, it is ignored."
+            "title": "labels",
+            "description": "If you want to filter the issue by label, pass the string.\nIf it is an empty array, it is ignored."
           },
           "per_page": {
             "type": "integer",
@@ -7932,7 +8067,8 @@
                 "title": "MERGED"
               }
             ],
-            "title": "state\n\nIf you don't want to filter, you don't put anything in.\nIt must be one of: \"OPEN\", \"CLOSED\", \"MERGED\"."
+            "title": "state",
+            "description": "If you don't want to filter, you don't put anything in.\nIt must be one of: \"OPEN\", \"CLOSED\", \"MERGED\"."
           },
           "direction": {
             "oneOf": [
@@ -7966,7 +8102,8 @@
           },
           "owner": {
             "type": "string",
-            "title": "owner's name\n\nThe owner's name and the repository's name can be combined to form '${owner}/${repo}' and can be a unique path name for a single repository.\nSo the owner here is the nickname of the repository owner, not the name of the person committing or the author."
+            "title": "owner's name",
+            "description": "The owner's name and the repository's name can be combined to form '${owner}/${repo}' and can be a unique path name for a single repository.\nSo the owner here is the nickname of the repository owner, not the name of the person committing or the author."
           },
           "repo": {
             "type": "string",
@@ -7999,7 +8136,8 @@
           },
           "nextPage": {
             "type": "boolean",
-            "title": "true if there is a next page\n\nHowever, since true and false are judged by comparing the number of requested objects with the number of searched objects,\neven if true, the next page may be empty."
+            "title": "true if there is a next page",
+            "description": "However, since true and false are judged by comparing the number of requested objects with the number of searched objects,\neven if true, the next page may be empty."
           },
           "after": {
             "type": "string",
@@ -8018,7 +8156,8 @@
                 "type": "number"
               }
             ],
-            "title": "prev\n\nIf this is a response by offset-based pagenation, provide metadata for the next page.\nThis means the previous page."
+            "title": "prev",
+            "description": "If this is a response by offset-based pagenation, provide metadata for the next page.\nThis means the previous page."
           },
           "next": {
             "oneOf": [
@@ -8029,15 +8168,18 @@
                 "type": "number"
               }
             ],
-            "title": "next\n\nIf this is a response by offset-based pagenation, provide metadata for the next page.\nThis means the next page."
+            "title": "next",
+            "description": "If this is a response by offset-based pagenation, provide metadata for the next page.\nThis means the next page."
           },
           "last": {
             "type": "number",
-            "title": "last\n\nIf this is a response by offset-based pagenation, provide metadata for the next page.\nThis means the last page."
+            "title": "last",
+            "description": "If this is a response by offset-based pagenation, provide metadata for the next page.\nThis means the last page."
           },
           "first": {
             "type": "number",
-            "title": "first\n\nIf this is a response by offset-based pagenation, provide metadata for the next page.\nThis means the first page."
+            "title": "first",
+            "description": "If this is a response by offset-based pagenation, provide metadata for the next page.\nThis means the first page."
           }
         },
         "required": [
@@ -8050,7 +8192,8 @@
         "properties": {
           "login": {
             "type": "string",
-            "title": "login\n\nThis means the user's nickname.\nIn github, nicknames are unique at least until that user changes their own nickname.\nThis means that only one person can own the nickname at a time.\nTherefore, it may be important to know the exact nickname because the github API calls the appi using the user's nickname."
+            "title": "login",
+            "description": "This means the user's nickname.\nIn github, nicknames are unique at least until that user changes their own nickname.\nThis means that only one person can own the nickname at a time.\nTherefore, it may be important to know the exact nickname because the github API calls the appi using the user's nickname."
           },
           "id": {
             "type": "number",
@@ -8099,7 +8242,8 @@
         "properties": {
           "q": {
             "type": "string",
-            "title": "keyword\n\nThe query contains one or more search keywords and qualifiers.\nQualifiers allow you to limit your search to specific areas of GitHub.\nThe REST API supports the same qualifiers as the web interface for GitHub."
+            "title": "keyword",
+            "description": "The query contains one or more search keywords and qualifiers.\nQualifiers allow you to limit your search to specific areas of GitHub.\nThe REST API supports the same qualifiers as the web interface for GitHub."
           },
           "sort": {
             "oneOf": [
@@ -8113,7 +8257,8 @@
                 "const": "joined"
               }
             ],
-            "title": "sorting condition\n\nSorts the results of your query by number of followers or repositories, or when the person joined GitHub. Default: best match\nIt must be one of this: \"followers\" | \"repositories\" | \"joined\""
+            "title": "sorting condition",
+            "description": "Sorts the results of your query by number of followers or repositories, or when the person joined GitHub. Default: best match\nIt must be one of this: \"followers\" | \"repositories\" | \"joined\""
           },
           "per_page": {
             "type": "integer",
@@ -8137,7 +8282,8 @@
                 "default": "desc"
               }
             ],
-            "title": "order\n\nDetermines whether the first search result returned is the highest number of matches (desc) or lowest number of matches (asc).\nThis parameter is ignored unless you provide sort."
+            "title": "order",
+            "description": "Determines whether the first search result returned is the highest number of matches (desc) or lowest number of matches (asc).\nThis parameter is ignored unless you provide sort."
           },
           "secretKey": {
             "type": "string",
@@ -8174,7 +8320,8 @@
                 "type": "string"
               }
             ],
-            "title": "comany name\n\nAs the name of the company,\nit cannot be said to be the exact name listed as the business operator because it was written by the user himself.\nAlso, we cannot guarantee that the user wrote the company name.\nSometimes the user jokingly writes down strange names."
+            "title": "comany name",
+            "description": "As the name of the company,\nit cannot be said to be the exact name listed as the business operator because it was written by the user himself.\nAlso, we cannot guarantee that the user wrote the company name.\nSometimes the user jokingly writes down strange names."
           },
           "blog": {
             "oneOf": [
@@ -8196,7 +8343,8 @@
                 "type": "string"
               }
             ],
-            "title": "location\n\nIt means the location of the user.\nUsually, I write the country down, but the user can jokingly record the strange location."
+            "title": "location",
+            "description": "It means the location of the user.\nUsually, I write the country down, but the user can jokingly record the strange location."
           },
           "email": {
             "oneOf": [
@@ -8300,7 +8448,8 @@
           },
           "login": {
             "type": "string",
-            "title": "login\n\nThis means the user's nickname.\nIn github, nicknames are unique at least until that user changes their own nickname.\nThis means that only one person can own the nickname at a time.\nTherefore, it may be important to know the exact nickname because the github API calls the appi using the user's nickname."
+            "title": "login",
+            "description": "This means the user's nickname.\nIn github, nicknames are unique at least until that user changes their own nickname.\nThis means that only one person can own the nickname at a time.\nTherefore, it may be important to know the exact nickname because the github API calls the appi using the user's nickname."
           }
         },
         "required": [
@@ -8634,7 +8783,8 @@
           },
           "nextPage": {
             "type": "boolean",
-            "title": "true if there is a next page\n\nHowever, since true and false are judged by comparing the number of requested objects with the number of searched objects,\neven if true, the next page may be empty."
+            "title": "true if there is a next page",
+            "description": "However, since true and false are judged by comparing the number of requested objects with the number of searched objects,\neven if true, the next page may be empty."
           },
           "after": {
             "type": "string",
@@ -8653,7 +8803,8 @@
                 "type": "number"
               }
             ],
-            "title": "prev\n\nIf this is a response by offset-based pagenation, provide metadata for the next page.\nThis means the previous page."
+            "title": "prev",
+            "description": "If this is a response by offset-based pagenation, provide metadata for the next page.\nThis means the previous page."
           },
           "next": {
             "oneOf": [
@@ -8664,15 +8815,18 @@
                 "type": "number"
               }
             ],
-            "title": "next\n\nIf this is a response by offset-based pagenation, provide metadata for the next page.\nThis means the next page."
+            "title": "next",
+            "description": "If this is a response by offset-based pagenation, provide metadata for the next page.\nThis means the next page."
           },
           "last": {
             "type": "number",
-            "title": "last\n\nIf this is a response by offset-based pagenation, provide metadata for the next page.\nThis means the last page."
+            "title": "last",
+            "description": "If this is a response by offset-based pagenation, provide metadata for the next page.\nThis means the last page."
           },
           "first": {
             "type": "number",
-            "title": "first\n\nIf this is a response by offset-based pagenation, provide metadata for the next page.\nThis means the first page."
+            "title": "first",
+            "description": "If this is a response by offset-based pagenation, provide metadata for the next page.\nThis means the first page."
           }
         },
         "required": [
@@ -8720,7 +8874,8 @@
           },
           "nextPage": {
             "type": "boolean",
-            "title": "true if there is a next page\n\nHowever, since true and false are judged by comparing the number of requested objects with the number of searched objects,\neven if true, the next page may be empty."
+            "title": "true if there is a next page",
+            "description": "However, since true and false are judged by comparing the number of requested objects with the number of searched objects,\neven if true, the next page may be empty."
           },
           "after": {
             "type": "string",
@@ -8739,7 +8894,8 @@
                 "type": "number"
               }
             ],
-            "title": "prev\n\nIf this is a response by offset-based pagenation, provide metadata for the next page.\nThis means the previous page."
+            "title": "prev",
+            "description": "If this is a response by offset-based pagenation, provide metadata for the next page.\nThis means the previous page."
           },
           "next": {
             "oneOf": [
@@ -8750,15 +8906,18 @@
                 "type": "number"
               }
             ],
-            "title": "next\n\nIf this is a response by offset-based pagenation, provide metadata for the next page.\nThis means the next page."
+            "title": "next",
+            "description": "If this is a response by offset-based pagenation, provide metadata for the next page.\nThis means the next page."
           },
           "last": {
             "type": "number",
-            "title": "last\n\nIf this is a response by offset-based pagenation, provide metadata for the next page.\nThis means the last page."
+            "title": "last",
+            "description": "If this is a response by offset-based pagenation, provide metadata for the next page.\nThis means the last page."
           },
           "first": {
             "type": "number",
-            "title": "first\n\nIf this is a response by offset-based pagenation, provide metadata for the next page.\nThis means the first page."
+            "title": "first",
+            "description": "If this is a response by offset-based pagenation, provide metadata for the next page.\nThis means the first page."
           }
         },
         "required": [
@@ -8775,7 +8934,8 @@
           },
           "commit": {
             "$ref": "#/components/schemas/StrictOmitIGithub.Commitsha",
-            "title": "commit\n\nIn github, branch is just another name for the last node of a commit,\nso this property called commit is logically the same as what it means for that branch."
+            "title": "commit",
+            "description": "In github, branch is just another name for the last node of a commit,\nso this property called commit is logically the same as what it means for that branch."
           }
         },
         "required": [
@@ -9009,7 +9169,8 @@
                 "type": "string"
               }
             ],
-            "title": "body\n\nContents of the issue\n\nYou can also render this content because it is in a markdown format."
+            "title": "body",
+            "description": "Contents of the issue\n\nYou can also render this content because it is in a markdown format."
           },
           "state": {
             "type": "string",
@@ -9081,7 +9242,8 @@
           "html_url": {
             "type": "string",
             "format": "iri",
-            "title": "html_url\n\nIf you want to see the issue or pull_request on the web, you can go to this link.\nIf pull is included on this link path, it is pull_request, and if issue is included, it is issue.\nIn essence, pull_request and issue are numbered together from the beginning, so while this connector does not distinguish the two, it can be distinguished by the url path."
+            "title": "html_url",
+            "description": "If you want to see the issue or pull_request on the web, you can go to this link.\nIf pull is included on this link path, it is pull_request, and if issue is included, it is issue.\nIn essence, pull_request and issue are numbered together from the beginning, so while this connector does not distinguish the two, it can be distinguished by the url path."
           },
           "draft": {
             "type": "boolean",
@@ -9529,7 +9691,8 @@
           },
           "nextPage": {
             "type": "boolean",
-            "title": "true if there is a next page\n\nHowever, since true and false are judged by comparing the number of requested objects with the number of searched objects,\neven if true, the next page may be empty."
+            "title": "true if there is a next page",
+            "description": "However, since true and false are judged by comparing the number of requested objects with the number of searched objects,\neven if true, the next page may be empty."
           },
           "after": {
             "type": "string",
@@ -9548,7 +9711,8 @@
                 "type": "number"
               }
             ],
-            "title": "prev\n\nIf this is a response by offset-based pagenation, provide metadata for the next page.\nThis means the previous page."
+            "title": "prev",
+            "description": "If this is a response by offset-based pagenation, provide metadata for the next page.\nThis means the previous page."
           },
           "next": {
             "oneOf": [
@@ -9559,15 +9723,18 @@
                 "type": "number"
               }
             ],
-            "title": "next\n\nIf this is a response by offset-based pagenation, provide metadata for the next page.\nThis means the next page."
+            "title": "next",
+            "description": "If this is a response by offset-based pagenation, provide metadata for the next page.\nThis means the next page."
           },
           "last": {
             "type": "number",
-            "title": "last\n\nIf this is a response by offset-based pagenation, provide metadata for the next page.\nThis means the last page."
+            "title": "last",
+            "description": "If this is a response by offset-based pagenation, provide metadata for the next page.\nThis means the last page."
           },
           "first": {
             "type": "number",
-            "title": "first\n\nIf this is a response by offset-based pagenation, provide metadata for the next page.\nThis means the first page."
+            "title": "first",
+            "description": "If this is a response by offset-based pagenation, provide metadata for the next page.\nThis means the first page."
           }
         },
         "required": [
@@ -9696,7 +9863,8 @@
                 "default": "desc"
               }
             ],
-            "title": "order\n\nDetermines whether the first search result returned is the highest number of matches (desc) or lowest number of matches (asc).\nThis parameter is ignored unless you provide sort."
+            "title": "order",
+            "description": "Determines whether the first search result returned is the highest number of matches (desc) or lowest number of matches (asc).\nThis parameter is ignored unless you provide sort."
           },
           "secretKey": {
             "type": "string",
@@ -9726,7 +9894,8 @@
           },
           "nextPage": {
             "type": "boolean",
-            "title": "true if there is a next page\n\nHowever, since true and false are judged by comparing the number of requested objects with the number of searched objects,\neven if true, the next page may be empty."
+            "title": "true if there is a next page",
+            "description": "However, since true and false are judged by comparing the number of requested objects with the number of searched objects,\neven if true, the next page may be empty."
           },
           "after": {
             "type": "string",
@@ -9745,7 +9914,8 @@
                 "type": "number"
               }
             ],
-            "title": "prev\n\nIf this is a response by offset-based pagenation, provide metadata for the next page.\nThis means the previous page."
+            "title": "prev",
+            "description": "If this is a response by offset-based pagenation, provide metadata for the next page.\nThis means the previous page."
           },
           "next": {
             "oneOf": [
@@ -9756,15 +9926,18 @@
                 "type": "number"
               }
             ],
-            "title": "next\n\nIf this is a response by offset-based pagenation, provide metadata for the next page.\nThis means the next page."
+            "title": "next",
+            "description": "If this is a response by offset-based pagenation, provide metadata for the next page.\nThis means the next page."
           },
           "last": {
             "type": "number",
-            "title": "last\n\nIf this is a response by offset-based pagenation, provide metadata for the next page.\nThis means the last page."
+            "title": "last",
+            "description": "If this is a response by offset-based pagenation, provide metadata for the next page.\nThis means the last page."
           },
           "first": {
             "type": "number",
-            "title": "first\n\nIf this is a response by offset-based pagenation, provide metadata for the next page.\nThis means the first page."
+            "title": "first",
+            "description": "If this is a response by offset-based pagenation, provide metadata for the next page.\nThis means the first page."
           }
         },
         "required": [
@@ -9786,7 +9959,8 @@
           },
           "login": {
             "type": "string",
-            "title": "login\n\nThis means the user's nickname.\nIn github, nicknames are unique at least until that user changes their own nickname.\nThis means that only one person can own the nickname at a time.\nTherefore, it may be important to know the exact nickname because the github API calls the appi using the user's nickname."
+            "title": "login",
+            "description": "This means the user's nickname.\nIn github, nicknames are unique at least until that user changes their own nickname.\nThis means that only one person can own the nickname at a time.\nTherefore, it may be important to know the exact nickname because the github API calls the appi using the user's nickname."
           },
           "html_url": {
             "type": "string",
@@ -9830,7 +10004,8 @@
                 "default": "desc"
               }
             ],
-            "title": "order\n\nDetermines whether the first search result returned is the highest number of matches (desc) or lowest number of matches (asc).\nThis parameter is ignored unless you provide sort."
+            "title": "order",
+            "description": "Determines whether the first search result returned is the highest number of matches (desc) or lowest number of matches (asc).\nThis parameter is ignored unless you provide sort."
           },
           "secretKey": {
             "type": "string",
@@ -9859,7 +10034,8 @@
           },
           "nextPage": {
             "type": "boolean",
-            "title": "true if there is a next page\n\nHowever, since true and false are judged by comparing the number of requested objects with the number of searched objects,\neven if true, the next page may be empty."
+            "title": "true if there is a next page",
+            "description": "However, since true and false are judged by comparing the number of requested objects with the number of searched objects,\neven if true, the next page may be empty."
           },
           "after": {
             "type": "string",
@@ -9878,7 +10054,8 @@
                 "type": "number"
               }
             ],
-            "title": "prev\n\nIf this is a response by offset-based pagenation, provide metadata for the next page.\nThis means the previous page."
+            "title": "prev",
+            "description": "If this is a response by offset-based pagenation, provide metadata for the next page.\nThis means the previous page."
           },
           "next": {
             "oneOf": [
@@ -9889,15 +10066,18 @@
                 "type": "number"
               }
             ],
-            "title": "next\n\nIf this is a response by offset-based pagenation, provide metadata for the next page.\nThis means the next page."
+            "title": "next",
+            "description": "If this is a response by offset-based pagenation, provide metadata for the next page.\nThis means the next page."
           },
           "last": {
             "type": "number",
-            "title": "last\n\nIf this is a response by offset-based pagenation, provide metadata for the next page.\nThis means the last page."
+            "title": "last",
+            "description": "If this is a response by offset-based pagenation, provide metadata for the next page.\nThis means the last page."
           },
           "first": {
             "type": "number",
-            "title": "first\n\nIf this is a response by offset-based pagenation, provide metadata for the next page.\nThis means the first page."
+            "title": "first",
+            "description": "If this is a response by offset-based pagenation, provide metadata for the next page.\nThis means the first page."
           }
         },
         "required": [
@@ -9934,7 +10114,8 @@
                 "default": "desc"
               }
             ],
-            "title": "order\n\nDetermines whether the first search result returned is the highest number of matches (desc) or lowest number of matches (asc).\nThis parameter is ignored unless you provide sort."
+            "title": "order",
+            "description": "Determines whether the first search result returned is the highest number of matches (desc) or lowest number of matches (asc).\nThis parameter is ignored unless you provide sort."
           },
           "secretKey": {
             "type": "string",
@@ -9962,7 +10143,8 @@
           },
           "nextPage": {
             "type": "boolean",
-            "title": "true if there is a next page\n\nHowever, since true and false are judged by comparing the number of requested objects with the number of searched objects,\neven if true, the next page may be empty."
+            "title": "true if there is a next page",
+            "description": "However, since true and false are judged by comparing the number of requested objects with the number of searched objects,\neven if true, the next page may be empty."
           },
           "after": {
             "type": "string",
@@ -9981,7 +10163,8 @@
                 "type": "number"
               }
             ],
-            "title": "prev\n\nIf this is a response by offset-based pagenation, provide metadata for the next page.\nThis means the previous page."
+            "title": "prev",
+            "description": "If this is a response by offset-based pagenation, provide metadata for the next page.\nThis means the previous page."
           },
           "next": {
             "oneOf": [
@@ -9992,15 +10175,18 @@
                 "type": "number"
               }
             ],
-            "title": "next\n\nIf this is a response by offset-based pagenation, provide metadata for the next page.\nThis means the next page."
+            "title": "next",
+            "description": "If this is a response by offset-based pagenation, provide metadata for the next page.\nThis means the next page."
           },
           "last": {
             "type": "number",
-            "title": "last\n\nIf this is a response by offset-based pagenation, provide metadata for the next page.\nThis means the last page."
+            "title": "last",
+            "description": "If this is a response by offset-based pagenation, provide metadata for the next page.\nThis means the last page."
           },
           "first": {
             "type": "number",
-            "title": "first\n\nIf this is a response by offset-based pagenation, provide metadata for the next page.\nThis means the first page."
+            "title": "first",
+            "description": "If this is a response by offset-based pagenation, provide metadata for the next page.\nThis means the first page."
           }
         },
         "required": [
@@ -10129,7 +10315,8 @@
           },
           "body": {
             "type": "string",
-            "title": "body of this issue\n\nIt can be markdown format\nIf you provide text in utf-8 format, which can be recognized by a person, in markdown format, it will be written as it is."
+            "title": "body of this issue",
+            "description": "It can be markdown format\nIf you provide text in utf-8 format, which can be recognized by a person, in markdown format, it will be written as it is."
           },
           "labels": {
             "type": "array",
@@ -10175,7 +10362,8 @@
           },
           "body": {
             "type": "string",
-            "title": "body of this issue\n\nIt can be markdown format\nIf you provide text in utf-8 format, which can be recognized by a person, in markdown format, it will be written as it is."
+            "title": "body of this issue",
+            "description": "It can be markdown format\nIf you provide text in utf-8 format, which can be recognized by a person, in markdown format, it will be written as it is."
           },
           "assignees": {
             "type": "array",

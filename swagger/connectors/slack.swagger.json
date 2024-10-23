@@ -17,7 +17,7 @@
   "info": {
     "title": "Slack",
     "description": "슬랙에서 대화 내용을 가져오거나 메시지를 보낼 수 있어요.",
-    "version": "0.1.283",
+    "version": "0.1.284",
     "license": {
       "name": "AGPL-3.0-only"
     }
@@ -636,7 +636,8 @@
           "ts": {
             "type": "string",
             "x-wrtn-placeholder": "1234567890.123456",
-            "title": "timestamp\n\nfor example, `1721804246.083609`.\nThis is the time value expression method used by Slack."
+            "title": "timestamp",
+            "description": "for example, `1721804246.083609`.\nThis is the time value expression method used by Slack."
           }
         },
         "required": [
@@ -760,7 +761,8 @@
                 }
               }
             ],
-            "title": "channel id\n\nIt refers to the channel on which you want to mark the conversation history.\nIf you don't know the channel's ID, You need to view the channel first."
+            "title": "channel id",
+            "description": "It refers to the channel on which you want to mark the conversation history.\nIf you don't know the channel's ID, You need to view the channel first."
           },
           "ts": {
             "type": "string",
@@ -803,7 +805,8 @@
           "post_at": {
             "type": "string",
             "x-wrtn-placeholder": "1234567890.123456",
-            "title": "timestamp\n\nfor example, `1721804246.083609`.\nThis is the time value expression method used by Slack."
+            "title": "timestamp",
+            "description": "for example, `1721804246.083609`.\nThis is the time value expression method used by Slack."
           }
         },
         "required": [
@@ -854,11 +857,13 @@
                 }
               }
             ],
-            "title": "channel id\n\nIt refers to the channel on which you want to view the conversation history.\nIf you don't know the channel's ID, You need to view the channel first."
+            "title": "channel id",
+            "description": "It refers to the channel on which you want to view the conversation history.\nIf you don't know the channel's ID, You need to view the channel first."
           },
           "text": {
             "type": "string",
-            "title": "message to send\n\nWhen a user enters a markdown format string, the internal function modifies it to the format of the slack.\nUsers can put text in accordance with the usual markdown grammar.\nFor user readability, it is recommended that the string be sent with appropriate new-line characters."
+            "title": "message to send",
+            "description": "When a user enters a markdown format string, the internal function modifies it to the format of the slack.\nUsers can put text in accordance with the usual markdown grammar.\nFor user readability, it is recommended that the string be sent with appropriate new-line characters."
           },
           "secretKey": {
             "type": "string",
@@ -918,7 +923,8 @@
                 }
               }
             ],
-            "title": "channel id\n\nIt refers to the channel on which you want to delete the scheduled message.\nIf you don't know the channel's ID, You need to view the channel first."
+            "title": "channel id",
+            "description": "It refers to the channel on which you want to delete the scheduled message.\nIf you don't know the channel's ID, You need to view the channel first."
           },
           "scheduled_message_id": {
             "type": "string",
@@ -959,7 +965,8 @@
           "ts": {
             "type": "string",
             "x-wrtn-placeholder": "1234567890.123456",
-            "title": "timestamp\n\nfor example, `1721804246.083609`.\nThis is the time value expression method used by Slack."
+            "title": "timestamp",
+            "description": "for example, `1721804246.083609`.\nThis is the time value expression method used by Slack."
           }
         },
         "required": [
@@ -1040,11 +1047,13 @@
                 }
               }
             ],
-            "title": "channel id\n\nIt refers to the channel on which you want to view the conversation history.\nIf you don't know the channel's ID, You need to view the channel first."
+            "title": "channel id",
+            "description": "It refers to the channel on which you want to view the conversation history.\nIf you don't know the channel's ID, You need to view the channel first."
           },
           "text": {
             "type": "string",
-            "title": "message to send\n\nWhen a user enters a markdown format string, the internal function modifies it to the format of the slack.\nUsers can put text in accordance with the usual markdown grammar.\nFor user readability, it is recommended that the string be sent with appropriate new-line characters."
+            "title": "message to send",
+            "description": "When a user enters a markdown format string, the internal function modifies it to the format of the slack.\nUsers can put text in accordance with the usual markdown grammar.\nFor user readability, it is recommended that the string be sent with appropriate new-line characters."
           },
           "secretKey": {
             "type": "string",
@@ -1104,11 +1113,13 @@
                 }
               }
             ],
-            "title": "channel id\n\nIt refers to the channel on which you want to view the conversation history.\nIf you don't know the channel's ID, You need to view the channel first."
+            "title": "channel id",
+            "description": "It refers to the channel on which you want to view the conversation history.\nIf you don't know the channel's ID, You need to view the channel first."
           },
           "text": {
             "type": "string",
-            "title": "message to send\n\nWhen a user enters a markdown format string, the internal function modifies it to the format of the slack.\nUsers can put text in accordance with the usual markdown grammar.\nFor user readability, it is recommended that the string be sent with appropriate new-line characters."
+            "title": "message to send",
+            "description": "When a user enters a markdown format string, the internal function modifies it to the format of the slack.\nUsers can put text in accordance with the usual markdown grammar.\nFor user readability, it is recommended that the string be sent with appropriate new-line characters."
           },
           "secretKey": {
             "type": "string",
@@ -1153,7 +1164,8 @@
                 "type": "string"
               }
             ],
-            "title": "next_cursor\n\nIf the following data exist, the cursor value exists.\nIf you want to see the next data from these data,\nyou can pass this value to the next request condition, `cursor`."
+            "title": "next_cursor",
+            "description": "If the following data exist, the cursor value exists.\nIf you want to see the next data from these data,\nyou can pass this value to the next request condition, `cursor`."
           }
         },
         "required": [
@@ -1167,7 +1179,8 @@
           "post_at": {
             "type": "string",
             "x-wrtn-placeholder": "1234567890.123456",
-            "title": "timestamp\n\nfor example, `1721804246.083609`.\nThis is the time value expression method used by Slack."
+            "title": "timestamp",
+            "description": "for example, `1721804246.083609`.\nThis is the time value expression method used by Slack."
           },
           "date_created": {
             "type": "string",
@@ -1176,14 +1189,16 @@
           },
           "text": {
             "type": "string",
-            "title": "message contents\n\nWhen users occasionally call others, they can be called in the form of '@USERNAME', which is called a tag.\nIn the conversation history, the link and code box are abbreviated to <LINK/> and <CODE/>, respectively.\nFor users, it is replaced by a user name, Like <@USERNAME>.\n<@USERNAME> is about calling someone else, and it's not the name of the person who started the conversation, so be careful.\nif you want to find who started this conversation, check 'user' property."
+            "title": "message contents",
+            "description": "When users occasionally call others, they can be called in the form of '@USERNAME', which is called a tag.\nIn the conversation history, the link and code box are abbreviated to <LINK/> and <CODE/>, respectively.\nFor users, it is replaced by a user name, Like <@USERNAME>.\n<@USERNAME> is about calling someone else, and it's not the name of the person who started the conversation, so be careful.\nif you want to find who started this conversation, check 'user' property."
           },
           "attachments": {
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/MyPickISlack.Attachmenttitleid"
             },
-            "title": "Attachments\n\nAttachement contains all types of files and can sometimes be an external link.\nIt is not the type that can be confirmed because the internal properties can vary depending on the type of block it is making up."
+            "title": "Attachments",
+            "description": "Attachement contains all types of files and can sometimes be an external link.\nIt is not the type that can be confirmed because the internal properties can vary depending on the type of block it is making up."
           },
           "channel": {
             "type": "string",
@@ -1246,11 +1261,13 @@
             "minimum": 1,
             "maximum": 1000,
             "x-wrtn-placeholder": "200",
-            "title": "limit\n\nIndicates the number of data to look up at at once.\nIf not entered, use 100 as the default.\nThis should never be null. If you don't have a value, don't forward properties.\n\nIn reality, the value can be from 1 to 1000, so the recommendation is a number over 200.\nIf there is a user's request and there is a section that is cumbersome to page, you can enter 200.\n\nSince it is burdensome for users to inquire too many conversation details, it is recommended to page 100 to 200 conversation details at a time if more data is needed.\nAlternatively, it is also helpful to get a date to inquire from the user."
+            "title": "limit",
+            "description": "Indicates the number of data to look up at at once.\nIf not entered, use 100 as the default.\nThis should never be null. If you don't have a value, don't forward properties.\n\nIn reality, the value can be from 1 to 1000, so the recommendation is a number over 200.\nIf there is a user's request and there is a section that is cumbersome to page, you can enter 200.\n\nSince it is burdensome for users to inquire too many conversation details, it is recommended to page 100 to 200 conversation details at a time if more data is needed.\nAlternatively, it is also helpful to get a date to inquire from the user."
           },
           "cursor": {
             "type": "string",
-            "title": "cursor\n\nIf you pass the cursor value received from the previous inquiry, you can inquire from the data after the cursor.\nIf you don't put a value, it will be recognized as the first page.\nThis should never be null. If you don't have a value, don't forward properties."
+            "title": "cursor",
+            "description": "If you pass the cursor value received from the previous inquiry, you can inquire from the data after the cursor.\nIf you don't put a value, it will be recognized as the first page.\nThis should never be null. If you don't have a value, don't forward properties."
           }
         },
         "required": [
@@ -1309,7 +1326,8 @@
           "display_name",
           "real_name"
         ],
-        "title": "profile\n\nUser information will usually include user's directories, start date, email, phone number, and status information.\nThe start date usually records when this member joined Slack or when he joined the team, but all the information here is written by the individual user and not by the HR person."
+        "title": "profile",
+        "description": "User information will usually include user's directories, start date, email, phone number, and status information.\nThe start date usually records when this member joined Slack or when he joined the team, but all the information here is written by the individual user and not by the HR person."
       },
       "Recordstringstring": {
         "type": "object",
@@ -1377,7 +1395,8 @@
                 "type": "string"
               }
             ],
-            "title": "next_cursor\n\nIf the following data exist, the cursor value exists.\nIf you want to see the next data from these data,\nyou can pass this value to the next request condition, `cursor`."
+            "title": "next_cursor",
+            "description": "If the following data exist, the cursor value exists.\nIf you want to see the next data from these data,\nyou can pass this value to the next request condition, `cursor`."
           }
         },
         "required": [
@@ -1485,11 +1504,13 @@
             "minimum": 1,
             "maximum": 1000,
             "x-wrtn-placeholder": "200",
-            "title": "limit\n\nIndicates the number of data to look up at at once.\nIf not entered, use 100 as the default.\nThis should never be null. If you don't have a value, don't forward properties.\n\nIn reality, the value can be from 1 to 1000, so the recommendation is a number over 200.\nIf there is a user's request and there is a section that is cumbersome to page, you can enter 200.\n\nSince it is burdensome for users to inquire too many conversation details, it is recommended to page 100 to 200 conversation details at a time if more data is needed.\nAlternatively, it is also helpful to get a date to inquire from the user."
+            "title": "limit",
+            "description": "Indicates the number of data to look up at at once.\nIf not entered, use 100 as the default.\nThis should never be null. If you don't have a value, don't forward properties.\n\nIn reality, the value can be from 1 to 1000, so the recommendation is a number over 200.\nIf there is a user's request and there is a section that is cumbersome to page, you can enter 200.\n\nSince it is burdensome for users to inquire too many conversation details, it is recommended to page 100 to 200 conversation details at a time if more data is needed.\nAlternatively, it is also helpful to get a date to inquire from the user."
           },
           "cursor": {
             "type": "string",
-            "title": "cursor\n\nIf you pass the cursor value received from the previous inquiry, you can inquire from the data after the cursor.\nIf you don't put a value, it will be recognized as the first page.\nThis should never be null. If you don't have a value, don't forward properties."
+            "title": "cursor",
+            "description": "If you pass the cursor value received from the previous inquiry, you can inquire from the data after the cursor.\nIf you don't put a value, it will be recognized as the first page.\nThis should never be null. If you don't have a value, don't forward properties."
           }
         },
         "required": [
@@ -1523,7 +1544,8 @@
                 "type": "string"
               }
             ],
-            "title": "next_cursor\n\nIf the following data exist, the cursor value exists.\nIf you want to see the next data from these data,\nyou can pass this value to the next request condition, `cursor`."
+            "title": "next_cursor",
+            "description": "If the following data exist, the cursor value exists.\nIf you want to see the next data from these data,\nyou can pass this value to the next request condition, `cursor`."
           }
         },
         "required": [
@@ -1549,7 +1571,8 @@
                 "type": "string"
               }
             ],
-            "title": "ID of the person who made parent message of this message\n\nIf this Reply has been published from thread to thread,\noutside of thread, and also as a channel,\nthere is no parent_user_id."
+            "title": "ID of the person who made parent message of this message",
+            "description": "If this Reply has been published from thread to thread,\noutside of thread, and also as a channel,\nthere is no parent_user_id."
           },
           "links": {
             "type": "array",
@@ -1562,7 +1585,8 @@
           "link": {
             "type": "string",
             "format": "iri",
-            "title": "shortcut link\n\nLink to view the conversation history immediately.\nWe can provide you with a shortcut link if user want, but you don't have to expose it to them in normal times."
+            "title": "shortcut link",
+            "description": "Link to view the conversation history immediately.\nWe can provide you with a shortcut link if user want, but you don't have to expose it to them in normal times."
           },
           "type": {
             "const": "message",
@@ -1570,7 +1594,8 @@
           },
           "text": {
             "type": "string",
-            "title": "message contents\n\nWhen users occasionally call others, they can be called in the form of '@USERNAME', which is called a tag.\nIn the conversation history, the link and code box are abbreviated to <LINK/> and <CODE/>, respectively.\nFor users, it is replaced by a user name, Like <@USERNAME>.\n<@USERNAME> is about calling someone else, and it's not the name of the person who started the conversation, so be careful.\nif you want to find who started this conversation, check 'user' property."
+            "title": "message contents",
+            "description": "When users occasionally call others, they can be called in the form of '@USERNAME', which is called a tag.\nIn the conversation history, the link and code box are abbreviated to <LINK/> and <CODE/>, respectively.\nFor users, it is replaced by a user name, Like <@USERNAME>.\n<@USERNAME> is about calling someone else, and it's not the name of the person who started the conversation, so be careful.\nif you want to find who started this conversation, check 'user' property."
           },
           "user": {
             "oneOf": [
@@ -1588,12 +1613,14 @@
             "items": {
               "$ref": "#/components/schemas/MyPickISlack.Attachmenttitleid"
             },
-            "title": "Attachments\n\nAttachement contains all types of files and can sometimes be an external link.\nIt is not the type that can be confirmed because the internal properties can vary depending on the type of block it is making up."
+            "title": "Attachments",
+            "description": "Attachement contains all types of files and can sometimes be an external link.\nIt is not the type that can be confirmed because the internal properties can vary depending on the type of block it is making up."
           },
           "ts": {
             "type": "string",
             "x-wrtn-placeholder": "1234567890.123456",
-            "title": "timestamp\n\nfor example, `1721804246.083609`.\nThis is the time value expression method used by Slack."
+            "title": "timestamp",
+            "description": "for example, `1721804246.083609`.\nThis is the time value expression method used by Slack."
           },
           "ts_date": {
             "type": "string",
@@ -1680,17 +1707,20 @@
                 }
               }
             ],
-            "title": "channel id\n\nIt refers to the channel on which you want to view the conversation history.\nYou need to view the channel first.\nThis is a string that always begins with a capital letter 'C' or 'D'."
+            "title": "channel id",
+            "description": "It refers to the channel on which you want to view the conversation history.\nYou need to view the channel first.\nThis is a string that always begins with a capital letter 'C' or 'D'."
           },
           "latestDateTime": {
             "type": "string",
             "format": "date-time",
-            "title": "latestDateTime\n\nOnly messages before this date-time will be included in results. Default is the current time.\nIt is a value that takes precedence over 'latest', 'latestTimestamp'."
+            "title": "latestDateTime",
+            "description": "Only messages before this date-time will be included in results. Default is the current time.\nIt is a value that takes precedence over 'latest', 'latestTimestamp'."
           },
           "oldestDateTime": {
             "type": "string",
             "format": "date-time",
-            "title": "oldestDateTime\n\nOnly messages after this date-time will be included in results.\nIt is a value that takes precedence over 'oldest', 'oldestTimestamp'."
+            "title": "oldestDateTime",
+            "description": "Only messages after this date-time will be included in results.\nIt is a value that takes precedence over 'oldest', 'oldestTimestamp'."
           },
           "secretKey": {
             "type": "string",
@@ -1714,11 +1744,13 @@
             "minimum": 1,
             "maximum": 1000,
             "x-wrtn-placeholder": "200",
-            "title": "limit\n\nIndicates the number of data to look up at at once.\nIf not entered, use 100 as the default.\nThis should never be null. If you don't have a value, don't forward properties.\n\nIn reality, the value can be from 1 to 1000, so the recommendation is a number over 200.\nIf there is a user's request and there is a section that is cumbersome to page, you can enter 200.\n\nSince it is burdensome for users to inquire too many conversation details, it is recommended to page 100 to 200 conversation details at a time if more data is needed.\nAlternatively, it is also helpful to get a date to inquire from the user."
+            "title": "limit",
+            "description": "Indicates the number of data to look up at at once.\nIf not entered, use 100 as the default.\nThis should never be null. If you don't have a value, don't forward properties.\n\nIn reality, the value can be from 1 to 1000, so the recommendation is a number over 200.\nIf there is a user's request and there is a section that is cumbersome to page, you can enter 200.\n\nSince it is burdensome for users to inquire too many conversation details, it is recommended to page 100 to 200 conversation details at a time if more data is needed.\nAlternatively, it is also helpful to get a date to inquire from the user."
           },
           "cursor": {
             "type": "string",
-            "title": "cursor\n\nIf you pass the cursor value received from the previous inquiry, you can inquire from the data after the cursor.\nIf you don't put a value, it will be recognized as the first page.\nThis should never be null. If you don't have a value, don't forward properties."
+            "title": "cursor",
+            "description": "If you pass the cursor value received from the previous inquiry, you can inquire from the data after the cursor.\nIf you don't put a value, it will be recognized as the first page.\nThis should never be null. If you don't have a value, don't forward properties."
           }
         },
         "required": [
@@ -1735,7 +1767,8 @@
             "items": {
               "$ref": "#/components/schemas/StrictOmitISlack.LinkMessagetypeattachments"
             },
-            "title": "message\n\nThis refers to the history of conversations made on the channel.\nThe closer you are to the 0th in the array, the more recent it is.\nHowever, Slack's message can be modified, so just because it is the 0th, it may not be the last writing/modified."
+            "title": "message",
+            "description": "This refers to the history of conversations made on the channel.\nThe closer you are to the 0th in the array, the more recent it is.\nHowever, Slack's message can be modified, so just because it is the 0th, it may not be the last writing/modified."
           },
           "members": {
             "type": "array",
@@ -1753,7 +1786,8 @@
                 "type": "string"
               }
             ],
-            "title": "next_cursor\n\nIf the following data exist, the cursor value exists.\nIf you want to see the next data from these data,\nyou can pass this value to the next request condition, `cursor`."
+            "title": "next_cursor",
+            "description": "If the following data exist, the cursor value exists.\nIf you want to see the next data from these data,\nyou can pass this value to the next request condition, `cursor`."
           }
         },
         "required": [
@@ -1768,11 +1802,13 @@
           "link": {
             "type": "string",
             "format": "iri",
-            "title": "shortcut link\n\nLink to view the conversation history immediately.\nWe can provide you with a shortcut link if user want, but you don't have to expose it to them in normal times."
+            "title": "shortcut link",
+            "description": "Link to view the conversation history immediately.\nWe can provide you with a shortcut link if user want, but you don't have to expose it to them in normal times."
           },
           "text": {
             "type": "string",
-            "title": "message contents\n\nWhen users occasionally call others, they can be called in the form of '@USERNAME', which is called a tag.\nIn the conversation history, the link and code box are abbreviated to <LINK/> and <CODE/>, respectively.\nFor users, it is replaced by a user name, Like <@USERNAME>.\n<@USERNAME> is about calling someone else, and it's not the name of the person who started the conversation, so be careful.\nif you want to find who started this conversation, check 'user' property."
+            "title": "message contents",
+            "description": "When users occasionally call others, they can be called in the form of '@USERNAME', which is called a tag.\nIn the conversation history, the link and code box are abbreviated to <LINK/> and <CODE/>, respectively.\nFor users, it is replaced by a user name, Like <@USERNAME>.\n<@USERNAME> is about calling someone else, and it's not the name of the person who started the conversation, so be careful.\nif you want to find who started this conversation, check 'user' property."
           },
           "user": {
             "oneOf": [
@@ -1793,15 +1829,18 @@
           "ts": {
             "type": "string",
             "x-wrtn-placeholder": "1234567890.123456",
-            "title": "timestamp\n\nfor example, `1721804246.083609`.\nThis is the time value expression method used by Slack."
+            "title": "timestamp",
+            "description": "for example, `1721804246.083609`.\nThis is the time value expression method used by Slack."
           },
           "reply_count": {
             "type": "number",
-            "title": "reply_count\n\nIndicates the number of replies on this thread.\nIf there are many replies, active discussions are underway."
+            "title": "reply_count",
+            "description": "Indicates the number of replies on this thread.\nIf there are many replies, active discussions are underway."
           },
           "reply_users_count": {
             "type": "number",
-            "title": "reply_users_count\n\nThis means the person who has one or more Replys in this thread.\nThe number of unique people discussing in the thread."
+            "title": "reply_users_count",
+            "description": "This means the person who has one or more Replys in this thread.\nThe number of unique people discussing in the thread."
           },
           "ts_date": {
             "type": "string",
@@ -1861,17 +1900,20 @@
                 }
               }
             ],
-            "title": "channel id\n\nIt refers to the channel on which you want to view the conversation history.\nYou need to view the channel first.\nThis is a string that always begins with a capital letter 'C' or 'D'."
+            "title": "channel id",
+            "description": "It refers to the channel on which you want to view the conversation history.\nYou need to view the channel first.\nThis is a string that always begins with a capital letter 'C' or 'D'."
           },
           "latestDateTime": {
             "type": "string",
             "format": "date-time",
-            "title": "latestDateTime\n\nOnly messages before this date-time will be included in results. Default is the current time.\nIt is a value that takes precedence over 'latest', 'latestTimestamp'."
+            "title": "latestDateTime",
+            "description": "Only messages before this date-time will be included in results. Default is the current time.\nIt is a value that takes precedence over 'latest', 'latestTimestamp'."
           },
           "oldestDateTime": {
             "type": "string",
             "format": "date-time",
-            "title": "oldestDateTime\n\nOnly messages after this date-time will be included in results.\nIt is a value that takes precedence over 'oldest', 'oldestTimestamp'."
+            "title": "oldestDateTime",
+            "description": "Only messages after this date-time will be included in results.\nIt is a value that takes precedence over 'oldest', 'oldestTimestamp'."
           },
           "secretKey": {
             "type": "string",
@@ -1895,11 +1937,13 @@
             "minimum": 1,
             "maximum": 1000,
             "x-wrtn-placeholder": "200",
-            "title": "limit\n\nIndicates the number of data to look up at at once.\nIf not entered, use 100 as the default.\nThis should never be null. If you don't have a value, don't forward properties.\n\nIn reality, the value can be from 1 to 1000, so the recommendation is a number over 200.\nIf there is a user's request and there is a section that is cumbersome to page, you can enter 200.\n\nSince it is burdensome for users to inquire too many conversation details, it is recommended to page 100 to 200 conversation details at a time if more data is needed.\nAlternatively, it is also helpful to get a date to inquire from the user."
+            "title": "limit",
+            "description": "Indicates the number of data to look up at at once.\nIf not entered, use 100 as the default.\nThis should never be null. If you don't have a value, don't forward properties.\n\nIn reality, the value can be from 1 to 1000, so the recommendation is a number over 200.\nIf there is a user's request and there is a section that is cumbersome to page, you can enter 200.\n\nSince it is burdensome for users to inquire too many conversation details, it is recommended to page 100 to 200 conversation details at a time if more data is needed.\nAlternatively, it is also helpful to get a date to inquire from the user."
           },
           "cursor": {
             "type": "string",
-            "title": "cursor\n\nIf you pass the cursor value received from the previous inquiry, you can inquire from the data after the cursor.\nIf you don't put a value, it will be recognized as the first page.\nThis should never be null. If you don't have a value, don't forward properties."
+            "title": "cursor",
+            "description": "If you pass the cursor value received from the previous inquiry, you can inquire from the data after the cursor.\nIf you don't put a value, it will be recognized as the first page.\nThis should never be null. If you don't have a value, don't forward properties."
           }
         },
         "required": [
@@ -1915,7 +1959,8 @@
             "items": {
               "$ref": "#/components/schemas/StrictOmitISlack.Messagetypeattachments"
             },
-            "title": "message\n\nThis refers to the history of conversations made on the channel.\nThe closer you are to the 0th in the array, the more recent it is.\nHowever, Slack's message can be modified, so just because it is the 0th, it may not be the last writing/modified."
+            "title": "message",
+            "description": "This refers to the history of conversations made on the channel.\nThe closer you are to the 0th in the array, the more recent it is.\nHowever, Slack's message can be modified, so just because it is the 0th, it may not be the last writing/modified."
           },
           "members": {
             "type": "array",
@@ -1933,7 +1978,8 @@
                 "type": "string"
               }
             ],
-            "title": "next_cursor\n\nIf the following data exist, the cursor value exists.\nIf you want to see the next data from these data,\nyou can pass this value to the next request condition, `cursor`."
+            "title": "next_cursor",
+            "description": "If the following data exist, the cursor value exists.\nIf you want to see the next data from these data,\nyou can pass this value to the next request condition, `cursor`."
           }
         },
         "required": [
@@ -1948,11 +1994,13 @@
           "link": {
             "type": "string",
             "format": "iri",
-            "title": "shortcut link\n\nLink to view the conversation history immediately.\nWe can provide you with a shortcut link if user want, but you don't have to expose it to them in normal times."
+            "title": "shortcut link",
+            "description": "Link to view the conversation history immediately.\nWe can provide you with a shortcut link if user want, but you don't have to expose it to them in normal times."
           },
           "text": {
             "type": "string",
-            "title": "message contents\n\nWhen users occasionally call others, they can be called in the form of '@USERNAME', which is called a tag.\nIn the conversation history, the link and code box are abbreviated to <LINK/> and <CODE/>, respectively.\nFor users, it is replaced by a user name, Like <@USERNAME>.\n<@USERNAME> is about calling someone else, and it's not the name of the person who started the conversation, so be careful.\nif you want to find who started this conversation, check 'user' property."
+            "title": "message contents",
+            "description": "When users occasionally call others, they can be called in the form of '@USERNAME', which is called a tag.\nIn the conversation history, the link and code box are abbreviated to <LINK/> and <CODE/>, respectively.\nFor users, it is replaced by a user name, Like <@USERNAME>.\n<@USERNAME> is about calling someone else, and it's not the name of the person who started the conversation, so be careful.\nif you want to find who started this conversation, check 'user' property."
           },
           "user": {
             "oneOf": [
@@ -1973,15 +2021,18 @@
           "ts": {
             "type": "string",
             "x-wrtn-placeholder": "1234567890.123456",
-            "title": "timestamp\n\nfor example, `1721804246.083609`.\nThis is the time value expression method used by Slack."
+            "title": "timestamp",
+            "description": "for example, `1721804246.083609`.\nThis is the time value expression method used by Slack."
           },
           "reply_count": {
             "type": "number",
-            "title": "reply_count\n\nIndicates the number of replies on this thread.\nIf there are many replies, active discussions are underway."
+            "title": "reply_count",
+            "description": "Indicates the number of replies on this thread.\nIf there are many replies, active discussions are underway."
           },
           "reply_users_count": {
             "type": "number",
-            "title": "reply_users_count\n\nThis means the person who has one or more Replys in this thread.\nThe number of unique people discussing in the thread."
+            "title": "reply_users_count",
+            "description": "This means the person who has one or more Replys in this thread.\nThe number of unique people discussing in the thread."
           },
           "ts_date": {
             "type": "string",
@@ -2009,7 +2060,8 @@
           "id": {
             "type": "string",
             "pattern": "^((C(.*))|(D(.*))|(G(.*)))",
-            "title": "channel id\n\nThe channel ID starts with 'C' and 'D', and for a private DM channel, 'D'.\nBut Sometimes there are channel names that start with a G."
+            "title": "channel id",
+            "description": "The channel ID starts with 'C' and 'D', and for a private DM channel, 'D'.\nBut Sometimes there are channel names that start with a G."
           }
         },
         "required": [
@@ -2066,7 +2118,8 @@
           "id": {
             "type": "string",
             "pattern": "^((C(.*))|(D(.*))|(G(.*)))",
-            "title": "channel id\n\nThe channel ID starts with 'C' and 'D', and for a private DM channel, 'D'.\nBut Sometimes there are channel names that start with a G."
+            "title": "channel id",
+            "description": "The channel ID starts with 'C' and 'D', and for a private DM channel, 'D'.\nBut Sometimes there are channel names that start with a G."
           }
         },
         "required": [
@@ -2104,7 +2157,8 @@
           "id": {
             "type": "string",
             "pattern": "^((C(.*))|(D(.*))|(G(.*)))",
-            "title": "channel id\n\nThe channel ID starts with 'C' and 'D', and for a private DM channel, 'D'.\nBut Sometimes there are channel names that start with a G."
+            "title": "channel id",
+            "description": "The channel ID starts with 'C' and 'D', and for a private DM channel, 'D'.\nBut Sometimes there are channel names that start with a G."
           }
         },
         "required": [
@@ -2284,11 +2338,13 @@
             "properties": {
               "spaces": {
                 "type": "boolean",
-                "title": "spaces\n\nSlack's Post is a feature that allows users to write and share long forms of documents or writings.\nIt is more formatting free than regular messages and can contain code blocks or sections, which are useful for creating structured documents.\nSlack often categorizes these documented files into spaces, helping to share knowledge or information easily within the team."
+                "title": "spaces",
+                "description": "Slack's Post is a feature that allows users to write and share long forms of documents or writings.\nIt is more formatting free than regular messages and can contain code blocks or sections, which are useful for creating structured documents.\nSlack often categorizes these documented files into spaces, helping to share knowledge or information easily within the team."
               },
               "snippets": {
                 "type": "boolean",
-                "title": "snippets\n\nSnippets are used to share short code or text snippets.\nThey are usually useful when programmers share short code blocks or snippets of log files with their teams.\nSnippets quickly uploads text or code, and allows others to refer to or copy the content. In Slack, these files are classified into a file type called snippets."
+                "title": "snippets",
+                "description": "Snippets are used to share short code or text snippets.\nThey are usually useful when programmers share short code blocks or snippets of log files with their teams.\nSnippets quickly uploads text or code, and allows others to refer to or copy the content. In Slack, these files are classified into a file type called snippets."
               },
               "images": {
                 "type": "boolean",
@@ -2307,17 +2363,20 @@
                 "title": "pdfs"
               }
             },
-            "title": "file types to include\n\nThe file types you may encounter include (but are not limited to):\nIf you want to look up all of them regardless of the file type, you can ignore the properties.\nIf the file type is important, you can specify the file type property as true inside the object."
+            "title": "file types to include",
+            "description": "The file types you may encounter include (but are not limited to):\nIf you want to look up all of them regardless of the file type, you can ignore the properties.\nIf the file type is important, you can specify the file type property as true inside the object."
           },
           "latestDateTime": {
             "type": "string",
             "format": "date-time",
-            "title": "latestDateTime\n\nOnly files before this date-time will be included in results. Default is the current time.\nIt is a value that takes precedence over 'latest', 'latestTimestamp'."
+            "title": "latestDateTime",
+            "description": "Only files before this date-time will be included in results. Default is the current time.\nIt is a value that takes precedence over 'latest', 'latestTimestamp'."
           },
           "oldestDateTime": {
             "type": "string",
             "format": "date-time",
-            "title": "oldestDateTime\n\nOnly files after this date-time will be included in results.\nIt is a value that takes precedence over 'oldest', 'oldestTimestamp'."
+            "title": "oldestDateTime",
+            "description": "Only files after this date-time will be included in results.\nIt is a value that takes precedence over 'oldest', 'oldestTimestamp'."
           },
           "secretKey": {
             "type": "string",
@@ -2341,7 +2400,8 @@
             "minimum": 1,
             "maximum": 1000,
             "x-wrtn-placeholder": "200",
-            "title": "limit\n\nIndicates the number of data to look up at at once.\nIf not entered, use 100 as the default.\nThis should never be null. If you don't have a value, don't forward properties.\n\nIn reality, the value can be from 1 to 1000, so the recommendation is a number over 200.\nIf there is a user's request and there is a section that is cumbersome to page, you can enter 200.\n\nSince it is burdensome for users to inquire too many conversation details, it is recommended to page 100 to 200 conversation details at a time if more data is needed.\nAlternatively, it is also helpful to get a date to inquire from the user."
+            "title": "limit",
+            "description": "Indicates the number of data to look up at at once.\nIf not entered, use 100 as the default.\nThis should never be null. If you don't have a value, don't forward properties.\n\nIn reality, the value can be from 1 to 1000, so the recommendation is a number over 200.\nIf there is a user's request and there is a section that is cumbersome to page, you can enter 200.\n\nSince it is burdensome for users to inquire too many conversation details, it is recommended to page 100 to 200 conversation details at a time if more data is needed.\nAlternatively, it is also helpful to get a date to inquire from the user."
           }
         },
         "required": [

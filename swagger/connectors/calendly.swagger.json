@@ -17,7 +17,7 @@
   "info": {
     "title": "Calendly",
     "description": "Calendly에서 고객과의 미팅을 잡을 수 있어요",
-    "version": "0.1.283",
+    "version": "0.1.284",
     "license": {
       "name": "AGPL-3.0-only"
     }
@@ -506,7 +506,8 @@
           "uri": {
             "type": "string",
             "format": "iri",
-            "title": "uri\nCanonical reference (unique identifier) for the event type.\nFor example, 'https://api.calendly.com/event_types/AAAAAAAAAAAAAAAA'"
+            "title": "uri",
+            "description": "Canonical reference (unique identifier) for the event type.\nFor example, 'https://api.calendly.com/event_types/AAAAAAAAAAAAAAAA'"
           },
           "name": {
             "oneOf": [
@@ -1007,7 +1008,8 @@
           "organization": {
             "type": "string",
             "format": "iri",
-            "title": "organization\nView available personal, team, and organization event types associated with the organization's URI.\nuser or organization must be filled."
+            "title": "organization",
+            "description": "View available personal, team, and organization event types associated with the organization's URI.\nuser or organization must be filled."
           },
           "user": {
             "type": "string",
@@ -1017,7 +1019,8 @@
               "path": "/connector/calendly/users/get-me",
               "jmesPath": "resource.{value:url, label:name}"
             },
-            "title": "user\nView available personal, team, and organization event types associated with the user's URI.\nuser or organization must be filled."
+            "title": "user",
+            "description": "View available personal, team, and organization event types associated with the user's URI.\nuser or organization must be filled."
           },
           "user_availability_schedule": {
             "type": "string",
@@ -1074,7 +1077,8 @@
                 "title": "수정일자 역순 정렬"
               }
             ],
-            "title": "sort\nOrder results by the specified field and direction. Accepts comma-separated list of {field}:{direction} values.\nSupported fields are: name, position, created_at, updated_at. Sort direction is specified as: asc, desc.\nIt must be one of: 'name:asc', 'name:desc', 'position:asc', 'position:desc', 'created_at:asc', 'created_at:desc', 'updated_at:asc', 'updated_at:desc'."
+            "title": "sort",
+            "description": "Order results by the specified field and direction. Accepts comma-separated list of {field}:{direction} values.\nSupported fields are: name, position, created_at, updated_at. Sort direction is specified as: asc, desc.\nIt must be one of: 'name:asc', 'name:desc', 'position:asc', 'position:desc', 'created_at:asc', 'created_at:desc', 'updated_at:asc', 'updated_at:desc'."
           },
           "secretKey": {
             "type": "string",
@@ -1123,7 +1127,8 @@
           "uri": {
             "type": "string",
             "format": "iri",
-            "title": "uri\nCanonical reference (unique identifier) for the resource"
+            "title": "uri",
+            "description": "Canonical reference (unique identifier) for the resource"
           },
           "name": {
             "oneOf": [
@@ -1135,7 +1140,8 @@
                 "x-wrtn-placeholder": "15 Minute Meeting"
               }
             ],
-            "title": "name\nThe event name"
+            "title": "name",
+            "description": "The event name"
           },
           "meeting_notes_plain": {
             "oneOf": [
@@ -1147,7 +1153,8 @@
                 "x-wrtn-placeholder": "15 Minute Meeting"
               }
             ],
-            "title": "meeting_notes_plain\nThe internal meeting notes (in non formatted text)"
+            "title": "meeting_notes_plain",
+            "description": "The internal meeting notes (in non formatted text)"
           },
           "meeting_notes_html": {
             "oneOf": [
@@ -1158,7 +1165,8 @@
                 "type": "string"
               }
             ],
-            "title": "meeting_notes_html\nThe internal meeting notes (formatted with HTML)"
+            "title": "meeting_notes_html",
+            "description": "The internal meeting notes (formatted with HTML)"
           },
           "status": {
             "oneOf": [
@@ -1171,22 +1179,26 @@
                 "title": "canceled"
               }
             ],
-            "title": "status\nIndicates if the event is \"active\" or \"canceled\""
+            "title": "status",
+            "description": "Indicates if the event is \"active\" or \"canceled\""
           },
           "start_time": {
             "type": "string",
             "format": "date-time",
-            "title": "start_time\nThe moment the event was scheduled to start in UTC time"
+            "title": "start_time",
+            "description": "The moment the event was scheduled to start in UTC time"
           },
           "end_time": {
             "type": "string",
             "format": "date-time",
-            "title": "end_time\nThe moment the event was scheduled to end in UTC time"
+            "title": "end_time",
+            "description": "The moment the event was scheduled to end in UTC time"
           },
           "event_type": {
             "type": "string",
             "format": "iri",
-            "title": "event_type\nEvent Type URI"
+            "title": "event_type",
+            "description": "Event Type URI"
           },
           "location": {
             "type": "object",
@@ -1204,18 +1216,21 @@
               },
               "location": {
                 "type": "string",
-                "title": "location\nThe physical location specified by the event host (publisher)"
+                "title": "location",
+                "description": "The physical location specified by the event host (publisher)"
               },
               "additional_info": {
                 "type": "string",
-                "title": "additional_info\n추가 정보"
+                "title": "additional_info",
+                "description": "추가 정보"
               }
             },
             "required": [
               "type",
               "location"
             ],
-            "title": "location\nThe event type associated with this event"
+            "title": "location",
+            "description": "The event type associated with this event"
           },
           "invitees_counter": {
             "type": "object",
@@ -1243,12 +1258,14 @@
           "created_at": {
             "type": "string",
             "format": "date-time",
-            "title": "created_at\nThe moment when the event was created"
+            "title": "created_at",
+            "description": "The moment when the event was created"
           },
           "updated_at": {
             "type": "string",
             "format": "date-time",
-            "title": "updated_at\nThe moment when the event was last updated"
+            "title": "updated_at",
+            "description": "The moment when the event was last updated"
           },
           "event_memberships": {
             "type": "array",
@@ -1258,27 +1275,32 @@
                 "user": {
                   "type": "string",
                   "format": "iri",
-                  "title": "user\nCanonical reference (unique identifier) for the user"
+                  "title": "user",
+                  "description": "Canonical reference (unique identifier) for the user"
                 },
                 "user_email": {
                   "type": "string",
                   "format": "email",
-                  "title": "user_email\nThe user's email"
+                  "title": "user_email",
+                  "description": "The user's email"
                 },
                 "user_name": {
                   "type": "string",
                   "x-wrtn-placeholder": "John Smith",
-                  "title": "user_name\nThe user's name"
+                  "title": "user_name",
+                  "description": "The user's name"
                 },
                 "buffered_start_time": {
                   "type": "string",
                   "format": "date-time",
-                  "title": "buffered_start_time\nThe moment the membership's time buffer starts for the event in UTC time"
+                  "title": "buffered_start_time",
+                  "description": "The moment the membership's time buffer starts for the event in UTC time"
                 },
                 "buffered_end_time": {
                   "type": "string",
                   "format": "date-time",
-                  "title": "buffered_end_time\nThe moment the membership's time buffer ends for the event in UTC time"
+                  "title": "buffered_end_time",
+                  "description": "The moment the membership's time buffer ends for the event in UTC time"
                 }
               },
               "required": [
@@ -1377,7 +1399,8 @@
           "created_at": {
             "type": "string",
             "format": "date-time",
-            "title": "created_at\nThe moment when the cancellation was created"
+            "title": "created_at",
+            "description": "The moment when the cancellation was created"
           }
         },
         "required": [
@@ -1423,12 +1446,14 @@
                   "user": {
                     "type": "string",
                     "format": "iri",
-                    "title": "user\nReturn events that are scheduled with the user associated with this URI.\nThere must be either a user or a group."
+                    "title": "user",
+                    "description": "Return events that are scheduled with the user associated with this URI.\nThere must be either a user or a group."
                   },
                   "group": {
                     "type": "string",
                     "format": "iri",
-                    "title": "group\nReturn events that are scheduled with the group associated with this URI.\nThere must be either a user or a group."
+                    "title": "group",
+                    "description": "Return events that are scheduled with the group associated with this URI.\nThere must be either a user or a group."
                   }
                 },
                 "required": [
@@ -1442,12 +1467,14 @@
                   "user": {
                     "type": "string",
                     "format": "iri",
-                    "title": "user\nReturn events that are scheduled with the user associated with this URI.\nThere must be either a user or a group."
+                    "title": "user",
+                    "description": "Return events that are scheduled with the user associated with this URI.\nThere must be either a user or a group."
                   },
                   "group": {
                     "type": "string",
                     "format": "iri",
-                    "title": "group\nReturn events that are scheduled with the group associated with this URI.\nThere must be either a user or a group."
+                    "title": "group",
+                    "description": "Return events that are scheduled with the group associated with this URI.\nThere must be either a user or a group."
                   }
                 },
                 "required": [
@@ -1461,7 +1488,8 @@
                   "user": {
                     "type": "string",
                     "format": "iri",
-                    "title": "user\nReturn events that are scheduled with the user associated with this URI.\nThere must be either a user or a group."
+                    "title": "user",
+                    "description": "Return events that are scheduled with the user associated with this URI.\nThere must be either a user or a group."
                   }
                 },
                 "required": [
@@ -1469,27 +1497,32 @@
                 ]
               }
             ],
-            "title": "Whose event is it?\n\n- If you are an administrator/owner of an organization, you can use both and to get a list of events for a specific user within an organization user.\n- If you are the administrator/owner of an organization, you can use both and to get a list of events for a specific group within an organization group.\n- User Only available for requesting private events; events within all organizations that are currently or previously affiliated are returned."
+            "title": "Whose event is it?",
+            "description": "- If you are an administrator/owner of an organization, you can use both and to get a list of events for a specific user within an organization user.\n- If you are the administrator/owner of an organization, you can use both and to get a list of events for a specific group within an organization group.\n- User Only available for requesting private events; events within all organizations that are currently or previously affiliated are returned."
           },
           "organization": {
             "type": "string",
             "format": "iri",
-            "title": "organization\nReturn events that are scheduled with the organization associated with this URI."
+            "title": "organization",
+            "description": "Return events that are scheduled with the organization associated with this URI."
           },
           "invitee_email": {
             "type": "string",
             "format": "email",
-            "title": "invitee_email\nReturn events that are scheduled with the invitee associated with this email address."
+            "title": "invitee_email",
+            "description": "Return events that are scheduled with the invitee associated with this email address."
           },
           "max_start_time": {
             "type": "string",
             "format": "date-time",
-            "title": "max_start_time\nInclude events with start times prior to this time. This time should use the UTC timezone."
+            "title": "max_start_time",
+            "description": "Include events with start times prior to this time. This time should use the UTC timezone."
           },
           "min_start_time": {
             "type": "string",
             "format": "date-time",
-            "title": "min_start_time\nInclude events with start times after this time. This time should use the UTC timezone."
+            "title": "min_start_time",
+            "description": "Include events with start times after this time. This time should use the UTC timezone."
           },
           "page_token": {
             "type": "string",
@@ -1506,7 +1539,8 @@
                 "title": "시작 시간 역순 정렬"
               }
             ],
-            "title": "sort\nOrder results by the specified field and direction. Accepts comma-separated list of {field}:{direction} values.\nSupported fields are: start_time. Sort direction is specified as: asc, desc."
+            "title": "sort",
+            "description": "Order results by the specified field and direction. Accepts comma-separated list of {field}:{direction} values.\nSupported fields are: start_time. Sort direction is specified as: asc, desc."
           },
           "status": {
             "oneOf": [
@@ -1519,7 +1553,8 @@
                 "title": "canceled"
               }
             ],
-            "title": "status\nWhether the scheduled event is active or canceled.\nAllowed values: active, canceled."
+            "title": "status",
+            "description": "Whether the scheduled event is active or canceled.\nAllowed values: active, canceled."
           },
           "secretKey": {
             "type": "string",
@@ -1556,7 +1591,8 @@
           "created_at": {
             "type": "string",
             "format": "date-time",
-            "title": "created_at\nThe moment when the no show was created"
+            "title": "created_at",
+            "description": "The moment when the no show was created"
           }
         },
         "required": [
@@ -1585,12 +1621,14 @@
           "uri": {
             "type": "string",
             "format": "iri",
-            "title": "uri\nCanonical reference (unique identifier) for the invitee"
+            "title": "uri",
+            "description": "Canonical reference (unique identifier) for the invitee"
           },
           "email": {
             "type": "string",
             "format": "email",
-            "title": "email\nThe invitee’s email address"
+            "title": "email",
+            "description": "The invitee’s email address"
           },
           "first_name": {
             "oneOf": [
@@ -1601,7 +1639,8 @@
                 "type": "string"
               }
             ],
-            "title": "first_name\nThe first name of the invitee who booked the event when the event type is configured to use separate fields for first name and last name. Null when event type is configured to use a single field for name."
+            "title": "first_name",
+            "description": "The first name of the invitee who booked the event when the event type is configured to use separate fields for first name and last name. Null when event type is configured to use a single field for name."
           },
           "last_name": {
             "oneOf": [
@@ -1612,11 +1651,13 @@
                 "type": "string"
               }
             ],
-            "title": "last_name\nThe last name of the invitee who booked the event when the event type is configured to use separate fields for first name and last name. Null when event type is configured to use a single field for name."
+            "title": "last_name",
+            "description": "The last name of the invitee who booked the event when the event type is configured to use separate fields for first name and last name. Null when event type is configured to use a single field for name."
           },
           "name": {
             "type": "string",
-            "title": "name\nThe invitee’s name (in human-readable format)"
+            "title": "name",
+            "description": "The invitee’s name (in human-readable format)"
           },
           "status": {
             "oneOf": [
@@ -1629,7 +1670,8 @@
                 "title": "canceled"
               }
             ],
-            "title": "status\nIndicates if the invitee is \"active\" or \"canceled\""
+            "title": "status",
+            "description": "Indicates if the invitee is \"active\" or \"canceled\""
           },
           "questions_and_answers": {
             "type": "array",
@@ -1671,17 +1713,20 @@
           "event": {
             "type": "string",
             "format": "iri",
-            "title": "event\nA reference to the event"
+            "title": "event",
+            "description": "A reference to the event"
           },
           "created_at": {
             "type": "string",
             "format": "date-time",
-            "title": "created_at\nThe moment when the event was created"
+            "title": "created_at",
+            "description": "The moment when the event was created"
           },
           "updated_at": {
             "type": "string",
             "format": "date-time",
-            "title": "updated_at\nThe moment when the event was last updated"
+            "title": "updated_at",
+            "description": "The moment when the event was last updated"
           },
           "tracking": {
             "type": "object",
@@ -1772,7 +1817,8 @@
                 "type": "string"
               }
             ],
-            "title": "text_reminder_number\nThe phone number to use when sending text (SMS) reminders"
+            "title": "text_reminder_number",
+            "description": "The phone number to use when sending text (SMS) reminders"
           },
           "rescheduled": {
             "type": "boolean",
@@ -1822,7 +1868,8 @@
                 "format": "iri"
               }
             ],
-            "title": "routing_form_submission\nReference to a routing form submission that redirected the invitee to a booking page."
+            "title": "routing_form_submission",
+            "description": "Reference to a routing form submission that redirected the invitee to a booking page."
           },
           "cancellation": {
             "$ref": "#/components/schemas/ICalendly.Cancellation",
@@ -1871,7 +1918,8 @@
                 "title": "instant_book"
               }
             ],
-            "title": "scheduling_method\nThe method used to schedule the event"
+            "title": "scheduling_method",
+            "description": "The method used to schedule the event"
           },
           "invitee_scheduled_by": {
             "oneOf": [
@@ -1923,7 +1971,8 @@
           },
           "provider": {
             "type": "string",
-            "title": "provider\nPayment provider"
+            "title": "provider",
+            "description": "Payment provider"
           },
           "amount": {
             "type": "number",
@@ -1963,7 +2012,8 @@
                 "type": "string"
               }
             ],
-            "title": "terms\nTerms of the payment"
+            "title": "terms",
+            "description": "Terms of the payment"
           },
           "successful": {
             "type": "boolean",
@@ -1985,7 +2035,8 @@
           "created_at": {
             "type": "string",
             "format": "date-time",
-            "title": "created_at\nWhen the reconfirmation was created."
+            "title": "created_at",
+            "description": "When the reconfirmation was created."
           },
           "confirmed_at": {
             "oneOf": [
@@ -1997,7 +2048,8 @@
                 "format": "date-time"
               }
             ],
-            "title": "confirmed_at\nWhen the Invitee confirmed their attendance."
+            "title": "confirmed_at",
+            "description": "When the Invitee confirmed their attendance."
           }
         },
         "required": [
@@ -2035,12 +2087,14 @@
             "minimum": 1,
             "maximum": 100,
             "default": 20,
-            "title": "count\nThe number of rows to return (1 to 100)"
+            "title": "count",
+            "description": "The number of rows to return (1 to 100)"
           },
           "email": {
             "type": "string",
             "format": "email",
-            "title": "email\nFilter results by email address (optional)"
+            "title": "email",
+            "description": "Filter results by email address (optional)"
           },
           "page_token": {
             "type": "string",
@@ -2060,7 +2114,8 @@
                 "$ref": "#/components/schemas/Defaultcreated_atasc"
               }
             ],
-            "title": "sort\nOrder results by the `created_at` field and direction.\nAllowed values: \"asc\" for ascending, \"desc\" for descending."
+            "title": "sort",
+            "description": "Order results by the `created_at` field and direction.\nAllowed values: \"asc\" for ascending, \"desc\" for descending."
           },
           "status": {
             "oneOf": [
@@ -2073,7 +2128,8 @@
                 "title": "canceled"
               }
             ],
-            "title": "status\nFilter by invitee status (either \"active\" or \"canceled\")."
+            "title": "status",
+            "description": "Filter by invitee status (either \"active\" or \"canceled\")."
           },
           "secretKey": {
             "type": "string",
@@ -2148,7 +2204,8 @@
             "type": "string",
             "maxLength": 55,
             "x-wrtn-placeholder": "My Meeting",
-            "title": "name\nEvent type name"
+            "title": "name",
+            "description": "Event type name"
           },
           "host": {
             "type": "string",
@@ -2158,7 +2215,8 @@
               "path": "/connector/calendly/users/get-me",
               "jmesPath": "resource.{value:url, label:name}"
             },
-            "title": "host\nHost user uri"
+            "title": "host",
+            "description": "Host user uri"
           },
           "co_host": {
             "type": "array",
@@ -2178,7 +2236,8 @@
           "timezone": {
             "type": "string",
             "x-wrtn-placeholder": "America/New_York",
-            "title": "timezone\nTime zone used for meeting. Defaults to host's time zone."
+            "title": "timezone",
+            "description": "Time zone used for meeting. Defaults to host's time zone."
           },
           "date_setting": {
             "type": "object",
@@ -2256,30 +2315,36 @@
           "uri": {
             "type": "string",
             "format": "iri",
-            "title": "uri\nCanonical reference (unique identifier) for the user"
+            "title": "uri",
+            "description": "Canonical reference (unique identifier) for the user"
           },
           "name": {
             "type": "string",
-            "title": "name\nThe user's name (human-readable format)"
+            "title": "name",
+            "description": "The user's name (human-readable format)"
           },
           "slug": {
             "type": "string",
-            "title": "slug\nThe portion of URL for the user's scheduling page (where invitees book sessions)"
+            "title": "slug",
+            "description": "The portion of URL for the user's scheduling page (where invitees book sessions)"
           },
           "email": {
             "type": "string",
             "format": "email",
-            "title": "email\nThe user's email address"
+            "title": "email",
+            "description": "The user's email address"
           },
           "scheduling_url": {
             "type": "string",
             "format": "iri",
-            "title": "scheduling_url\nThe URL of the user's Calendly landing page (that lists all the user's event types)"
+            "title": "scheduling_url",
+            "description": "The URL of the user's Calendly landing page (that lists all the user's event types)"
           },
           "timezone": {
             "type": "string",
             "x-wrtn-placeholder": "Asia/Tokyo",
-            "title": "timezone\nThe time zone to use when presenting time to the user"
+            "title": "timezone",
+            "description": "The time zone to use when presenting time to the user"
           },
           "avatar_url": {
             "oneOf": [
@@ -2291,26 +2356,31 @@
                 "format": "iri"
               }
             ],
-            "title": "avatar_url\nThe URL of the user's avatar (image). Can be null."
+            "title": "avatar_url",
+            "description": "The URL of the user's avatar (image). Can be null."
           },
           "created_at": {
             "type": "string",
             "format": "date-time",
-            "title": "created_at\nThe moment when the user's record was created"
+            "title": "created_at",
+            "description": "The moment when the user's record was created"
           },
           "updated_at": {
             "type": "string",
             "format": "date-time",
-            "title": "updated_at\nThe moment when the user's record was last updated"
+            "title": "updated_at",
+            "description": "The moment when the user's record was last updated"
           },
           "current_organization": {
             "type": "string",
             "format": "iri",
-            "title": "current_organization\nA unique reference to the user's current organization"
+            "title": "current_organization",
+            "description": "A unique reference to the user's current organization"
           },
           "resource_type": {
             "type": "string",
-            "title": "resource_type\nResource type to support polymorphic associations"
+            "title": "resource_type",
+            "description": "Resource type to support polymorphic associations"
           }
         },
         "required": [

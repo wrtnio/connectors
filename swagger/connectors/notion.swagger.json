@@ -18,7 +18,7 @@
     "title": "노션 워크스페이스 관리",
     "summary": "노션 으로 작업 공간을 효율적으로 관리해요.",
     "description": "노션 에서 페이지를 만들고, 내용을 추가하고, 데이터베이스를 관리할 수 있어요. 페이지 검색, 데이터베이스 아이템 관리 등 다양한 기능을 활용할 수 있어요. 프로젝트 관리, 노트 작성, 팀 협업, 지식 베이스 구축 등 다양한 목적으로 사용할 수 있어요. 텍스트, 이미지, 표, 리스트 등 다양한 형식의 콘텐츠를 조합하여 풍부한 문서를 만들 수 있고, 팀원들과 실시간으로 공유하고 협업할 수 있어요.",
-    "version": "0.1.283",
+    "version": "0.1.284",
     "license": {
       "name": "AGPL-3.0-only"
     }
@@ -981,7 +981,8 @@
                 "x-wrtn-placeholder": "부모 페이지를 선택하세요."
               }
             ],
-            "title": "block_id\n\nIndicates the ID of the page or block within the page to be deleted.\nIf you delete the page, it will go to the trash, so recovery is possible."
+            "title": "block_id",
+            "description": "Indicates the ID of the page or block within the page to be deleted.\nIf you delete the page, it will go to the trash, so recovery is possible."
           },
           "secretKey": {
             "type": "string",
@@ -1038,11 +1039,13 @@
                 "x-wrtn-placeholder": "부모 페이지를 선택하세요."
               }
             ],
-            "title": "pageId\n\nIndicates the page on which you want to add a block.\nAt the bottom of this page, a block is added to match the requested object here.\nCalling this connector requires the correct page ID,\nso it should only be called if you have previously created a page to obtain that ID, viewed the page,\nor obtained a link or page ID from the user in advance."
+            "title": "pageId",
+            "description": "Indicates the page on which you want to add a block.\nAt the bottom of this page, a block is added to match the requested object here.\nCalling this connector requires the correct page ID,\nso it should only be called if you have previously created a page to obtain that ID, viewed the page,\nor obtained a link or page ID from the user in advance."
           },
           "markdown": {
             "type": "string",
-            "title": "markdown\n\nIf you add a markdown string, it will be converted appropriately according to the Notion's block.\nTherefore, you don't have to use Unicode symbols to implement lists or decorate documents using letters.\nOf course, this depends on the user, and there is no problem using the character string you want, such as inserting an emoji as well as Unicode."
+            "title": "markdown",
+            "description": "If you add a markdown string, it will be converted appropriately according to the Notion's block.\nTherefore, you don't have to use Unicode symbols to implement lists or decorate documents using letters.\nOf course, this depends on the user, and there is no problem using the character string you want, such as inserting an emoji as well as Unicode."
           },
           "secretKey": {
             "type": "string",
@@ -1151,7 +1154,8 @@
                 "x-wrtn-placeholder": "부모 페이지를 선택하세요."
               }
             ],
-            "title": "pageId\n\nIndicates the page on which you want to add a block.\nAt the bottom of this page, a block is added to match the requested object here.\nCalling this connector requires the correct page ID,\nso it should only be called if you have previously created a page to obtain that ID, viewed the page,\nor obtained a link or page ID from the user in advance."
+            "title": "pageId",
+            "description": "Indicates the page on which you want to add a block.\nAt the bottom of this page, a block is added to match the requested object here.\nCalling this connector requires the correct page ID,\nso it should only be called if you have previously created a page to obtain that ID, viewed the page,\nor obtained a link or page ID from the user in advance."
           }
         },
         "required": [
@@ -1241,7 +1245,8 @@
                 "x-wrtn-placeholder": "부모 페이지를 선택하세요."
               }
             ],
-            "title": "pageId\n\nIndicates the page on which you want to add a block.\nAt the bottom of this page, a block is added to match the requested object here.\nCalling this connector requires the correct page ID,\nso it should only be called if you have previously created a page to obtain that ID, viewed the page,\nor obtained a link or page ID from the user in advance."
+            "title": "pageId",
+            "description": "Indicates the page on which you want to add a block.\nAt the bottom of this page, a block is added to match the requested object here.\nCalling this connector requires the correct page ID,\nso it should only be called if you have previously created a page to obtain that ID, viewed the page,\nor obtained a link or page ID from the user in advance."
           }
         },
         "required": [
@@ -1331,7 +1336,8 @@
                 "x-wrtn-placeholder": "부모 페이지를 선택하세요."
               }
             ],
-            "title": "pageId\n\nIndicates the page on which you want to add a block.\nAt the bottom of this page, a block is added to match the requested object here.\nCalling this connector requires the correct page ID,\nso it should only be called if you have previously created a page to obtain that ID, viewed the page,\nor obtained a link or page ID from the user in advance."
+            "title": "pageId",
+            "description": "Indicates the page on which you want to add a block.\nAt the bottom of this page, a block is added to match the requested object here.\nCalling this connector requires the correct page ID,\nso it should only be called if you have previously created a page to obtain that ID, viewed the page,\nor obtained a link or page ID from the user in advance."
           }
         },
         "required": [
@@ -1431,7 +1437,8 @@
                 "x-wrtn-placeholder": "부모 페이지를 선택하세요."
               }
             ],
-            "title": "pageId\n\nIndicates the page on which you want to add a block.\nAt the bottom of this page, a block is added to match the requested object here.\nCalling this connector requires the correct page ID,\nso it should only be called if you have previously created a page to obtain that ID, viewed the page,\nor obtained a link or page ID from the user in advance."
+            "title": "pageId",
+            "description": "Indicates the page on which you want to add a block.\nAt the bottom of this page, a block is added to match the requested object here.\nCalling this connector requires the correct page ID,\nso it should only be called if you have previously created a page to obtain that ID, viewed the page,\nor obtained a link or page ID from the user in advance."
           }
         },
         "required": [
@@ -1452,7 +1459,8 @@
                   "url": {
                     "type": "string",
                     "format": "iri",
-                    "title": "url\n\nvideo file must be one of: 'amv' ,'asf' ,'avi' ,'f4v' ,'flv' ,'gifv' ,'mkv' ,'mov' ,'mpg' ,'mpeg' ,'mpv' ,'mp4' ,'m4v' ,'qt' ,'wmv'\nOR\nYouTube video links that include embed or watch.\nE.g. https://www.youtube.com/watch?v=[id], https://www.youtube.com/embed/[id]"
+                    "title": "url",
+                    "description": "video file must be one of: 'amv' ,'asf' ,'avi' ,'f4v' ,'flv' ,'gifv' ,'mkv' ,'mov' ,'mpg' ,'mpeg' ,'mpv' ,'mp4' ,'m4v' ,'qt' ,'wmv'\nOR\nYouTube video links that include embed or watch.\nE.g. https://www.youtube.com/watch?v=[id], https://www.youtube.com/embed/[id]"
                   }
                 },
                 "required": [
@@ -1528,7 +1536,8 @@
                 "x-wrtn-placeholder": "부모 페이지를 선택하세요."
               }
             ],
-            "title": "pageId\n\nIndicates the page on which you want to add a block.\nAt the bottom of this page, a block is added to match the requested object here.\nCalling this connector requires the correct page ID,\nso it should only be called if you have previously created a page to obtain that ID, viewed the page,\nor obtained a link or page ID from the user in advance."
+            "title": "pageId",
+            "description": "Indicates the page on which you want to add a block.\nAt the bottom of this page, a block is added to match the requested object here.\nCalling this connector requires the correct page ID,\nso it should only be called if you have previously created a page to obtain that ID, viewed the page,\nor obtained a link or page ID from the user in advance."
           }
         },
         "required": [
@@ -1628,7 +1637,8 @@
                 "x-wrtn-placeholder": "부모 페이지를 선택하세요."
               }
             ],
-            "title": "pageId\n\nIndicates the page on which you want to add a block.\nAt the bottom of this page, a block is added to match the requested object here.\nCalling this connector requires the correct page ID,\nso it should only be called if you have previously created a page to obtain that ID, viewed the page,\nor obtained a link or page ID from the user in advance."
+            "title": "pageId",
+            "description": "Indicates the page on which you want to add a block.\nAt the bottom of this page, a block is added to match the requested object here.\nCalling this connector requires the correct page ID,\nso it should only be called if you have previously created a page to obtain that ID, viewed the page,\nor obtained a link or page ID from the user in advance."
           }
         },
         "required": [
@@ -1975,7 +1985,8 @@
                 "x-wrtn-placeholder": "부모 페이지를 선택하세요."
               }
             ],
-            "title": "pageId\n\nIndicates the page on which you want to add a block.\nAt the bottom of this page, a block is added to match the requested object here.\nCalling this connector requires the correct page ID,\nso it should only be called if you have previously created a page to obtain that ID, viewed the page,\nor obtained a link or page ID from the user in advance."
+            "title": "pageId",
+            "description": "Indicates the page on which you want to add a block.\nAt the bottom of this page, a block is added to match the requested object here.\nCalling this connector requires the correct page ID,\nso it should only be called if you have previously created a page to obtain that ID, viewed the page,\nor obtained a link or page ID from the user in advance."
           }
         },
         "required": [
@@ -2027,7 +2038,8 @@
                 "x-wrtn-placeholder": "부모 페이지를 선택하세요."
               }
             ],
-            "title": "pageId\n\nIndicates the page on which you want to add a block.\nAt the bottom of this page, a block is added to match the requested object here.\nCalling this connector requires the correct page ID,\nso it should only be called if you have previously created a page to obtain that ID, viewed the page,\nor obtained a link or page ID from the user in advance."
+            "title": "pageId",
+            "description": "Indicates the page on which you want to add a block.\nAt the bottom of this page, a block is added to match the requested object here.\nCalling this connector requires the correct page ID,\nso it should only be called if you have previously created a page to obtain that ID, viewed the page,\nor obtained a link or page ID from the user in advance."
           }
         },
         "required": [
@@ -2070,7 +2082,8 @@
                 "x-wrtn-placeholder": "부모 페이지를 선택하세요."
               }
             ],
-            "title": "pageId\n\nIndicates the page on which you want to add a block.\nAt the bottom of this page, a block is added to match the requested object here.\nCalling this connector requires the correct page ID,\nso it should only be called if you have previously created a page to obtain that ID, viewed the page,\nor obtained a link or page ID from the user in advance."
+            "title": "pageId",
+            "description": "Indicates the page on which you want to add a block.\nAt the bottom of this page, a block is added to match the requested object here.\nCalling this connector requires the correct page ID,\nso it should only be called if you have previously created a page to obtain that ID, viewed the page,\nor obtained a link or page ID from the user in advance."
           }
         },
         "required": [
@@ -2118,7 +2131,8 @@
                 "x-wrtn-placeholder": "부모 페이지를 선택하세요."
               }
             ],
-            "title": "pageId\n\nIndicates the page on which you want to add a block.\nAt the bottom of this page, a block is added to match the requested object here.\nCalling this connector requires the correct page ID,\nso it should only be called if you have previously created a page to obtain that ID, viewed the page,\nor obtained a link or page ID from the user in advance."
+            "title": "pageId",
+            "description": "Indicates the page on which you want to add a block.\nAt the bottom of this page, a block is added to match the requested object here.\nCalling this connector requires the correct page ID,\nso it should only be called if you have previously created a page to obtain that ID, viewed the page,\nor obtained a link or page ID from the user in advance."
           }
         },
         "required": [
@@ -2139,6 +2153,15 @@
                     "const": "default"
                   },
                   {
+                    "const": "red"
+                  },
+                  {
+                    "const": "green"
+                  },
+                  {
+                    "const": "blue"
+                  },
+                  {
                     "const": "gray"
                   },
                   {
@@ -2151,19 +2174,10 @@
                     "const": "yellow"
                   },
                   {
-                    "const": "green"
-                  },
-                  {
-                    "const": "blue"
-                  },
-                  {
                     "const": "purple"
                   },
                   {
                     "const": "pink"
-                  },
-                  {
-                    "const": "red"
                   },
                   {
                     "const": "gray_background"
@@ -2193,7 +2207,8 @@
                     "const": "red_background"
                   }
                 ],
-                "title": "color\n\nIt must be one of :\n\"default\", \"gray\", \"brown\", \"orange\", \"yellow\", \"green\", \"blue\", \"purple\", \"pink\", \"red\", \"gray_background\", \"brown_background\", \"orange_background\", \"yellow_background\", \"green_background\", \"blue_background\", \"purple_background\", \"pink_background\", \"red_background\""
+                "title": "color",
+                "description": "It must be one of :\n\"default\", \"gray\", \"brown\", \"orange\", \"yellow\", \"green\", \"blue\", \"purple\", \"pink\", \"red\", \"gray_background\", \"brown_background\", \"orange_background\", \"yellow_background\", \"green_background\", \"blue_background\", \"purple_background\", \"pink_background\", \"red_background\""
               }
             },
             "required": [
@@ -2228,7 +2243,8 @@
                 "x-wrtn-placeholder": "부모 페이지를 선택하세요."
               }
             ],
-            "title": "pageId\n\nIndicates the page on which you want to add a block.\nAt the bottom of this page, a block is added to match the requested object here.\nCalling this connector requires the correct page ID,\nso it should only be called if you have previously created a page to obtain that ID, viewed the page,\nor obtained a link or page ID from the user in advance."
+            "title": "pageId",
+            "description": "Indicates the page on which you want to add a block.\nAt the bottom of this page, a block is added to match the requested object here.\nCalling this connector requires the correct page ID,\nso it should only be called if you have previously created a page to obtain that ID, viewed the page,\nor obtained a link or page ID from the user in advance."
           }
         },
         "required": [
@@ -2264,7 +2280,8 @@
                     "x-wrtn-placeholder": "부모 페이지를 선택하세요."
                   }
                 ],
-                "title": "page_id\n\nYou can look up the page by passing the page ID as a parameter at the end of the notion link.\nFor example, in the format 'https://www.notion.so/ :pageId'."
+                "title": "page_id",
+                "description": "You can look up the page by passing the page ID as a parameter at the end of the notion link.\nFor example, in the format 'https://www.notion.so/ :pageId'."
               }
             },
             "required": [
@@ -2299,7 +2316,8 @@
                 "x-wrtn-placeholder": "부모 페이지를 선택하세요."
               }
             ],
-            "title": "pageId\n\nIndicates the page on which you want to add a block.\nAt the bottom of this page, a block is added to match the requested object here.\nCalling this connector requires the correct page ID,\nso it should only be called if you have previously created a page to obtain that ID, viewed the page,\nor obtained a link or page ID from the user in advance."
+            "title": "pageId",
+            "description": "Indicates the page on which you want to add a block.\nAt the bottom of this page, a block is added to match the requested object here.\nCalling this connector requires the correct page ID,\nso it should only be called if you have previously created a page to obtain that ID, viewed the page,\nor obtained a link or page ID from the user in advance."
           }
         },
         "required": [
@@ -2338,7 +2356,8 @@
                 "x-wrtn-placeholder": "부모 페이지를 선택하세요."
               }
             ],
-            "title": "pageId\n\nIndicates the page on which you want to add a block.\nAt the bottom of this page, a block is added to match the requested object here.\nCalling this connector requires the correct page ID,\nso it should only be called if you have previously created a page to obtain that ID, viewed the page,\nor obtained a link or page ID from the user in advance."
+            "title": "pageId",
+            "description": "Indicates the page on which you want to add a block.\nAt the bottom of this page, a block is added to match the requested object here.\nCalling this connector requires the correct page ID,\nso it should only be called if you have previously created a page to obtain that ID, viewed the page,\nor obtained a link or page ID from the user in advance."
           },
           "toggle": {
             "$ref": "#/components/schemas/rich_textMultipleTextLinecolorApiColorundefinedRecordchildren(togglerich_textMultipleTextLinecolorApiColorundefinedRecord...)",
@@ -2396,6 +2415,15 @@
                 "const": "default"
               },
               {
+                "const": "red"
+              },
+              {
+                "const": "green"
+              },
+              {
+                "const": "blue"
+              },
+              {
                 "const": "gray"
               },
               {
@@ -2408,19 +2436,10 @@
                 "const": "yellow"
               },
               {
-                "const": "green"
-              },
-              {
-                "const": "blue"
-              },
-              {
                 "const": "purple"
               },
               {
                 "const": "pink"
-              },
-              {
-                "const": "red"
               },
               {
                 "const": "gray_background"
@@ -2521,6 +2540,15 @@
                 "const": "default"
               },
               {
+                "const": "red"
+              },
+              {
+                "const": "green"
+              },
+              {
+                "const": "blue"
+              },
+              {
                 "const": "gray"
               },
               {
@@ -2533,19 +2561,10 @@
                 "const": "yellow"
               },
               {
-                "const": "green"
-              },
-              {
-                "const": "blue"
-              },
-              {
                 "const": "purple"
               },
               {
                 "const": "pink"
-              },
-              {
-                "const": "red"
               },
               {
                 "const": "gray_background"
@@ -2646,6 +2665,15 @@
                 "const": "default"
               },
               {
+                "const": "red"
+              },
+              {
+                "const": "green"
+              },
+              {
+                "const": "blue"
+              },
+              {
                 "const": "gray"
               },
               {
@@ -2658,19 +2686,10 @@
                 "const": "yellow"
               },
               {
-                "const": "green"
-              },
-              {
-                "const": "blue"
-              },
-              {
                 "const": "purple"
               },
               {
                 "const": "pink"
-              },
-              {
-                "const": "red"
               },
               {
                 "const": "gray_background"
@@ -2752,6 +2771,15 @@
                           "const": "default"
                         },
                         {
+                          "const": "red"
+                        },
+                        {
+                          "const": "green"
+                        },
+                        {
+                          "const": "blue"
+                        },
+                        {
                           "const": "gray"
                         },
                         {
@@ -2764,19 +2792,10 @@
                           "const": "yellow"
                         },
                         {
-                          "const": "green"
-                        },
-                        {
-                          "const": "blue"
-                        },
-                        {
                           "const": "purple"
                         },
                         {
                           "const": "pink"
-                        },
-                        {
-                          "const": "red"
                         },
                         {
                           "const": "gray_background"
@@ -2945,7 +2964,8 @@
                 "x-wrtn-placeholder": "부모 페이지를 선택하세요."
               }
             ],
-            "title": "block_id\n\nIndicates the ID of the page.\nyou can put the block ID back into this factor and use it to look up the child blocks."
+            "title": "block_id",
+            "description": "Indicates the ID of the page.\nyou can put the block ID back into this factor and use it to look up the child blocks."
           },
           "secretKey": {
             "type": "string",
@@ -2969,8 +2989,8 @@
               "path": "/connector/notion/get/page",
               "jmesPath": "[].{value:pageId, label:title}"
             },
-            "title": "id\n\nIndicates the page on which you want to add a block.\nAt the bottom of this page, a block is added to match the requested object here.",
-            "description": "페이지 고유 id"
+            "title": "id",
+            "description": "페이지 고유 id\n\n\nIndicates the page on which you want to add a block.\nAt the bottom of this page, a block is added to match the requested object here."
           },
           "title": {
             "type": "string",
@@ -3361,6 +3381,15 @@
                           "const": "default"
                         },
                         {
+                          "const": "red"
+                        },
+                        {
+                          "const": "green"
+                        },
+                        {
+                          "const": "blue"
+                        },
+                        {
                           "const": "gray"
                         },
                         {
@@ -3373,19 +3402,10 @@
                           "const": "yellow"
                         },
                         {
-                          "const": "green"
-                        },
-                        {
-                          "const": "blue"
-                        },
-                        {
                           "const": "purple"
                         },
                         {
                           "const": "pink"
-                        },
-                        {
-                          "const": "red"
                         }
                       ]
                     }
@@ -3443,6 +3463,15 @@
                           "const": "default"
                         },
                         {
+                          "const": "red"
+                        },
+                        {
+                          "const": "green"
+                        },
+                        {
+                          "const": "blue"
+                        },
+                        {
                           "const": "gray"
                         },
                         {
@@ -3455,19 +3484,10 @@
                           "const": "yellow"
                         },
                         {
-                          "const": "green"
-                        },
-                        {
-                          "const": "blue"
-                        },
-                        {
                           "const": "purple"
                         },
                         {
                           "const": "pink"
-                        },
-                        {
-                          "const": "red"
                         }
                       ]
                     }
@@ -3525,6 +3545,15 @@
                           "const": "default"
                         },
                         {
+                          "const": "red"
+                        },
+                        {
+                          "const": "green"
+                        },
+                        {
+                          "const": "blue"
+                        },
+                        {
                           "const": "gray"
                         },
                         {
@@ -3537,19 +3566,10 @@
                           "const": "yellow"
                         },
                         {
-                          "const": "green"
-                        },
-                        {
-                          "const": "blue"
-                        },
-                        {
                           "const": "purple"
                         },
                         {
                           "const": "pink"
-                        },
-                        {
-                          "const": "red"
                         }
                       ]
                     }
@@ -3578,6 +3598,15 @@
                           "const": "default"
                         },
                         {
+                          "const": "red"
+                        },
+                        {
+                          "const": "green"
+                        },
+                        {
+                          "const": "blue"
+                        },
+                        {
                           "const": "gray"
                         },
                         {
@@ -3590,19 +3619,10 @@
                           "const": "yellow"
                         },
                         {
-                          "const": "green"
-                        },
-                        {
-                          "const": "blue"
-                        },
-                        {
                           "const": "purple"
                         },
                         {
                           "const": "pink"
-                        },
-                        {
-                          "const": "red"
                         }
                       ]
                     },
@@ -5016,7 +5036,8 @@
           },
           "markdown": {
             "type": "string",
-            "title": "markdown\n\nIf you add a markdown string, it will be converted appropriately according to the Notion's block.\nTherefore, you don't have to use Unicode symbols to implement lists or decorate documents using letters.\nOf course, this depends on the user, and there is no problem using the character string you want, such as inserting an emoji as well as Unicode."
+            "title": "markdown",
+            "description": "If you add a markdown string, it will be converted appropriately according to the Notion's block.\nTherefore, you don't have to use Unicode symbols to implement lists or decorate documents using letters.\nOf course, this depends on the user, and there is no problem using the character string you want, such as inserting an emoji as well as Unicode."
           }
         },
         "required": [

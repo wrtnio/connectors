@@ -18,7 +18,7 @@
     "title": "통합 공공정보 조회",
     "summary": "다양한 공공 정보를 한 곳에서 확인해요.",
     "description": "기업 주가, 날씨, 건축물 정보, 캠핑장, 약국, 관광지, 주택 가격 등 다양한 공공 데이터를 조회할 수 있어요. 지역별 상세 날씨 정보를 확인하고, 전국의 캠핑장 현황을 파악할 수 있어요. 주변 약국이나 병원 위치를 찾을 수 있고, 관심 있는 지역의 부동산 시세도 확인할 수 있어요. 또한 교통 정보, 환경 정보, 문화 행사 정보 등 일상생활에 유용한 다양한 정보를 얻을 수 있어 편리한 생활을 할 수 있어요.",
-    "version": "0.1.283",
+    "version": "0.1.284",
     "license": {
       "name": "AGPL-3.0-only"
     }
@@ -1229,7 +1229,8 @@
                 "title": "세종특별자치시"
               }
             ],
-            "title": "Area Code\n\nIt can be one of these numbers:\n- 11: Seoul\n- 26: Busan\n- 27: Daegu\n- 28: Incheon\n- 29: Gwangju\n- 30: Daejeon\n- 31: Ulsan\n- 36110: Sejong\n- 41: Gyeonggi\n- 42: Gangwon\n- 43: Chungcheongbuk\n- 44: Chungcheongnam\n- 45: Jeollabuk\n- 46: Jeollanam\n- 47: Gyeongsangbuk\n- 48: Gyeongsangnam\n- 50: Jeju"
+            "title": "Area Code",
+            "description": "It can be one of these numbers:\n- 11: Seoul\n- 26: Busan\n- 27: Daegu\n- 28: Incheon\n- 29: Gwangju\n- 30: Daejeon\n- 31: Ulsan\n- 36110: Sejong\n- 41: Gyeonggi\n- 42: Gangwon\n- 43: Chungcheongbuk\n- 44: Chungcheongnam\n- 45: Jeollabuk\n- 46: Jeollanam\n- 47: Gyeongsangbuk\n- 48: Gyeongsangnam\n- 50: Jeju"
           },
           "SPL_TP_CD": {
             "oneOf": [
@@ -1262,7 +1263,8 @@
                 "title": "전세임대"
               }
             ],
-            "title": "Supply Type Code\n\nIt can be one of these numbers:\n- 07: National Rental\n- 08: Public Rental\n- 09: Permanent Rental\n- 10: Happy Housing\n- 11: Long-term Lease\n- 13: Purchase Lease\n- 17: Lease Lease"
+            "title": "Supply Type Code",
+            "description": "It can be one of these numbers:\n- 07: National Rental\n- 08: Public Rental\n- 09: Permanent Rental\n- 10: Happy Housing\n- 11: Long-term Lease\n- 13: Purchase Lease\n- 17: Lease Lease"
           },
           "numOfRows": {
             "type": "integer",
@@ -2454,12 +2456,14 @@
             "type": "string",
             "maxLength": 120,
             "x-wrtn-placeholder": "Samsung Electronics",
-            "title": "Keyword for stock name search\n\nSearch is only possible if it matches the exact company name that is listed, which is stored on the Korea Stock Exchange.\nSince it is a Korean company, most of it will be in Korean.\nPlease give Korean company name."
+            "title": "Keyword for stock name search",
+            "description": "Search is only possible if it matches the exact company name that is listed, which is stored on the Korea Stock Exchange.\nSince it is a Korean company, most of it will be in Korean.\nPlease give Korean company name."
           },
           "basDt": {
             "type": "string",
             "x-wrtn-placeholder": "20220919",
-            "title": "Base date\nSearches for data matching the search value and base date\nYYYYMMDD format date string."
+            "title": "Base date",
+            "description": "Searches for data matching the search value and base date\nYYYYMMDD format date string."
           }
         }
       },
@@ -2480,17 +2484,20 @@
             "type": "string",
             "maxLength": 120,
             "x-wrtn-placeholder": "Samsung Electronics",
-            "title": "Keyword for stock name search\n\nSearch is only possible if it matches the exact company name that is listed, which is stored on the Korea Stock Exchange.\nSince it is a Korean company, most of it will be in Korean.\nPlease give Korean company name."
+            "title": "Keyword for stock name search",
+            "description": "Search is only possible if it matches the exact company name that is listed, which is stored on the Korea Stock Exchange.\nSince it is a Korean company, most of it will be in Korean.\nPlease give Korean company name."
           },
           "beginBasDt": {
             "type": "string",
             "x-wrtn-placeholder": "20220919",
-            "title": "Start date (inclusive)\nSearches for data where the base date is greater than or equal to the search value\nYYYYMMDD format date string."
+            "title": "Start date (inclusive)",
+            "description": "Searches for data where the base date is greater than or equal to the search value\nYYYYMMDD format date string."
           },
           "endBasDt": {
             "type": "string",
             "x-wrtn-placeholder": "20220919",
-            "title": "End date (exclusive)\nSearches for data where the base date is less than the search value\nYYYYMMDD format date string."
+            "title": "End date (exclusive)",
+            "description": "Searches for data where the base date is less than the search value\nYYYYMMDD format date string."
           }
         }
       },
@@ -2702,17 +2709,20 @@
                 "title": "Grid Coordinates of Korean"
               }
             ],
-            "title": "Definition of nx, ny\n\nuse 'latitude_and_longitude' or 'grid_coordinates'.\nThis property can never be used except for these two strings."
+            "title": "Definition of nx, ny",
+            "description": "use 'latitude_and_longitude' or 'grid_coordinates'.\nThis property can never be used except for these two strings."
           },
           "nx": {
             "type": "number",
             "maximum": 360,
-            "title": "Longitude or x_position\n\nIf the type property in this object is 'latitude_and_longitude', this value means longitude.\nIf not, use x position value of grid coordinates in Korea."
+            "title": "Longitude or x_position",
+            "description": "If the type property in this object is 'latitude_and_longitude', this value means longitude.\nIf not, use x position value of grid coordinates in Korea."
           },
           "ny": {
             "type": "number",
             "maximum": 180,
-            "title": "Latitude or y_position\n\nIf the type property in this object is 'latitude_and_longitude', this value means latitude.\nIf not, use y position value of grid coordinates in Korea."
+            "title": "Latitude or y_position",
+            "description": "If the type property in this object is 'latitude_and_longitude', this value means latitude.\nIf not, use y position value of grid coordinates in Korea."
           }
         },
         "required": [

@@ -18,7 +18,7 @@
     "title": "아임웹 상품 정보 관리",
     "summary": "아임웹으로 상품 정보를 효과적으로 관리해요.",
     "description": "아임웹에서 상품 리스트를 조회회할 수 있어요. 판매자 인증을 통해 API 토큰을 발급받아 더 많은 기능을 활용할 수 있어요.",
-    "version": "0.1.283",
+    "version": "0.1.284",
     "license": {
       "name": "AGPL-3.0-only"
     }
@@ -231,7 +231,8 @@
           },
           "price_org": {
             "type": "number",
-            "title": "The price before the discount\n\nTo provide an experience as if the product was discounted,\nthe seller can also set the original price of the product differently from the actual price it sells.\nThis is a common sales promotion strategy in commerce."
+            "title": "The price before the discount",
+            "description": "To provide an experience as if the product was discounted,\nthe seller can also set the original price of the product differently from the actual price it sells.\nThis is a common sales promotion strategy in commerce."
           },
           "price_tax": {
             "type": "boolean",
@@ -713,11 +714,13 @@
                 "title": "숨김"
               }
             ],
-            "title": "the sales status of a product\n\nYou can deliver the value when you want to inquire based on the sales status of the product.\nYou can select 'sale', 'soldout', 'nosale'."
+            "title": "the sales status of a product",
+            "description": "You can deliver the value when you want to inquire based on the sales status of the product.\nYou can select 'sale', 'soldout', 'nosale'."
           },
           "category": {
             "type": "string",
-            "title": "product category code\n\nYou can also search with the product's category code,\nbut this code is randomly determined by `Imweb`, so it's currently unavailable.\nIf you don't know the exact category code, it's better not to use it."
+            "title": "product category code",
+            "description": "You can also search with the product's category code,\nbut this code is randomly determined by `Imweb`, so it's currently unavailable.\nIf you don't know the exact category code, it's better not to use it."
           },
           "key": {
             "type": "string",
@@ -778,7 +781,8 @@
           "key",
           "secret"
         ],
-        "title": "Imweb Access Token Request DTO\n\nAn API Key and Secret Key must be issued first to use the Rest API.\nThese keys are generated on a site-by-site basis."
+        "title": "Imweb Access Token Request DTO",
+        "description": "An API Key and Secret Key must be issued first to use the Rest API.\nThese keys are generated on a site-by-site basis."
       }
     }
   },
