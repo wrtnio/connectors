@@ -564,7 +564,7 @@ export namespace ISlack {
      *
      * @title replies
      */
-    replies: ISlack.Reply[];
+    replies: StrictOmit<ISlack.LinkMessage, "type" | "attachments">[];
 
     /**
      * @title members
@@ -615,7 +615,7 @@ export namespace ISlack {
      *
      * @title message
      */
-    messages: StrictOmit<ISlack.Message, "type" | "attachments">[];
+    messages: StrictOmit<ISlack.LinkMessage, "type" | "attachments">[];
 
     /**
      * @title members
@@ -1476,8 +1476,12 @@ export namespace ISlack {
     };
 
     /**
+     * List of user object IDs belonging to the group (optional).
+     *
+     * If you want to look up a particular user, you can find out if this property has that user ID.
+     * If you want to see the user's nickname or name that corresponds to the user's ID, refer to the User Inquiry connector.
+     *
      * @title Users
-     * @description List of user object IDs belonging to the group (optional).
      */
     users?: string[];
 
