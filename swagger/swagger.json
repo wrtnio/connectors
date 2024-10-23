@@ -15,7 +15,7 @@
     }
   ],
   "info": {
-    "version": "0.1.288",
+    "version": "0.1.289",
     "title": "@wrtn/connector",
     "description": "wrtn-ecosystem connectors and sdk",
     "license": {
@@ -703,7 +703,7 @@
     "/connector/google-docs": {
       "post": {
         "summary": "Generate Google Docs",
-        "description": "Generate Google Docs",
+        "description": "Generate Google Docs\n\nSince this is creating a blank page, we recommend that you use connectors that add the content of google-docs in a row.",
         "tags": [
           "Google Docs"
         ],
