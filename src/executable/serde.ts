@@ -199,6 +199,7 @@ const visitSchemaDescription = (props: {
 };
 
 const generateOpenAiFunctionCallingSchemas = async (
+  location: string,
   document: OpenApi.IDocument,
 ): Promise<void> => {
   const migrate: ISwaggerMigrateApplication =
@@ -243,7 +244,7 @@ const main = async (): Promise<void> => {
     JSON.parse(await fs.promises.readFile(`${location}/swagger.json`, "utf-8")),
   );
   await assertDocumentDescription(document);
-  await generateOpenAiFunctionCallingSchemas(document);
+  await generateOpenAiFunctionCallingSchemas(location, document);
 };
 main().catch((error) => {
   console.error(error);
