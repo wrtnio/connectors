@@ -15,7 +15,7 @@
     }
   ],
   "info": {
-    "version": "0.1.284",
+    "version": "0.1.285",
     "title": "@wrtn/connector",
     "description": "wrtn-ecosystem connectors and sdk",
     "license": {
@@ -55053,7 +55053,7 @@
             "x-wrtn-prerequisite": {
               "method": "post",
               "path": "/connector/x/prepare-summarize",
-              "jmesPath": ".{value:chatId, label:chatId}"
+              "jmesPath": "{value:chatId, label:chatId}"
             },
             "title": "chatId",
             "description": "\"chatId\" to get tweets. Pass the \"chatId\" obtained from the \"prepare-summarize-tweet\" API as-is."
