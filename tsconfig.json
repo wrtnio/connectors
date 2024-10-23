@@ -116,6 +116,7 @@
     "src"
   ],
   "exclude": [
+    "src/executable/indexing_swagger_files.ts",
     "node_modules",
     "packages",
   ]
