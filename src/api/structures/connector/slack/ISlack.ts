@@ -594,6 +594,11 @@ export namespace ISlack {
      * @title usergroups
      */
     usergroups: ISlack.UserGroup[];
+
+    /**
+     * @title username of the person who made this message
+     */
+    username: User["name"] | null;
   }
 
   export interface IGetChannelLinkHistoryOutput
@@ -860,6 +865,7 @@ export namespace ISlack {
       | "ts"
       | "type"
       | "user"
+      | "username"
       | "reply_count"
       | "reply_users_count"
       | "ts_date"
@@ -900,11 +906,6 @@ export namespace ISlack {
      * If not a user, message does not have an ID.
      */
     user: User["id"] | null;
-
-    /**
-     * @title username of the person who made this message
-     */
-    username: User["name"] | null;
 
     /**
      * @title channel id
