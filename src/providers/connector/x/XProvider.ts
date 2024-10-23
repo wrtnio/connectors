@@ -90,6 +90,9 @@ export class XProvider {
         { url: txtFiles.map((file) => file.fileUrl) },
         true,
       );
+      this.logger.log(
+        `Successfully prepared tweet summary, chatId: ${analyze.chatId}`,
+      );
       return { chatId: analyze.chatId };
     } catch (err) {
       console.error(JSON.stringify(err));
