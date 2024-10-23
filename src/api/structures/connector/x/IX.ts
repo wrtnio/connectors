@@ -292,7 +292,7 @@ export namespace IX {
      *
      * Avoid using a query that is too broad, it may lead to irrelevant results.
      *
-     * Put a single subject at a time. If you need multiple subjects, make multiple requests for each subject.
+     * Put a single subject at a time. If you need multiple subjects, must make multiple requests for each subject no exceptions.
      *
      * @example "Elon Musk"
      * @example IT
