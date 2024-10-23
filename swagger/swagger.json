@@ -15,7 +15,7 @@
     }
   ],
   "info": {
-    "version": "0.1.291",
+    "version": "0.1.292",
     "title": "@wrtn/connector",
     "description": "wrtn-ecosystem connectors and sdk",
     "license": {
@@ -55751,7 +55751,7 @@
           "query": {
             "type": "string",
             "title": "query",
-            "description": "A query that describes what tweets you want to get. For example, it can be a keyword or a name of a person.\n\nAvoid using a query that is too broad, it may lead to irrelevant results.\n\nPut a single subject at a time. If you need multiple subjects, make multiple requests for each subject."
+            "description": "A query that describes what tweets you want to get. For example, it can be a keyword or a name of a person.\n\nAvoid using a query that is too broad, it may lead to irrelevant results.\n\nPut a single subject at a time. If you need multiple subjects, must make multiple requests for each subject no exceptions."
           }
         },
         "required": [
