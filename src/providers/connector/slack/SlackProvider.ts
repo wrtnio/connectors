@@ -760,7 +760,7 @@ export class SlackProvider {
   async getUserGroups(
     input: ISlack.IGetUserGroupInput,
   ): Promise<ISlack.IGetUserGroupOutput> {
-    const url = `https://slack.com/api/usergroups.list`;
+    const url = `https://slack.com/api/usergroups.list?include_users=true`;
     const token = await this.getToken(input.secretKey);
     const res = await axios.get(url, {
       headers: {
