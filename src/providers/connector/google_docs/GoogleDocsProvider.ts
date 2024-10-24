@@ -285,13 +285,26 @@ export class GoogleDocsProvider {
         }, 0) ?? 2) - 2; // 빈 문서는 줄바꿈 문자를 포함하여 최소 index가 2부터 시작한다.
 
       const weightedRequests = textRequests.map((request, i, arr) => {
-        const acc = arr
-          .slice(0, i - 1) // 스타일 바로 직전의 텍스트는 제외해야 하기 때문에 -1을 한다.
-          .filter((el) => el.insertText)
-          .map(({ insertText }) => {
-            return insertText?.text?.length ?? 0;
-          })
-          .reduce<number>((acc, cur) => acc + cur, 0);
+        // 해당 스타일 적용 전 마지막 텍스트 삽입 요청을 찾는다.
+        const lastInsertTextRequestIndex =
+          i -
+          1 - // 마지막 인덱스를 찾는 것이기 때문에 slice 한 다음의 배열 크기를 구하기 위함
+          textRequests
+            .slice(0, i)
+            .reverse()
+            .findIndex((el) => el.insertText);
+
+        // 스타일이 적용될 대상
+        const acc =
+          lastInsertTextRequestIndex === 0
+            ? 0 // 마지막 텍스트가 0번째에 있다면 이 텍스트 이전의 가중치 값을 구할 필요가 없다.
+            : arr
+                .slice(0, lastInsertTextRequestIndex - 1)
+                .filter((el) => el.insertText)
+                .map(({ insertText }) => {
+                  return insertText?.text?.length ?? 0;
+                })
+                .reduce<number>((acc, cur) => acc + cur, 0);
 
         Object.values(request)
           .filter((value) => "range" in value)
@@ -311,6 +324,7 @@ export class GoogleDocsProvider {
         return request;
       });
 
+      console.log(JSON.stringify(weightedRequests));
       await docs.documents.batchUpdate({
         documentId: documentId,
         requestBody: {
@@ -362,10 +376,10 @@ function convertMarkdownToGoogleDocsRequests(input: { text: string }) {
       },
       heading: {
         convert: (token) => {
-          const headingLevel = (token as any).depth;
-          const fontSize =
-            headingLevel === 1 ? 22.5 : headingLevel === 2 ? 18 : 15;
-          const text = `\n${decode(token.text)}` + "\n";
+          const depth = (token as any).depth;
+          const headingLevel = depth >= 3 ? 3 : depth;
+          const fontSize = depth === 1 ? 22.5 : depth === 2 ? 18 : 15;
+          const text = `${decode(token.text)}\n`;
           return [
             {
               insertText: {
@@ -387,6 +401,18 @@ function convertMarkdownToGoogleDocsRequests(input: { text: string }) {
                   },
                 },
                 fields: "bold,fontSize",
+              },
+            },
+            {
+              updateParagraphStyle: {
+                range: {
+                  startIndex: 0,
+                  endIndex: text.length,
+                },
+                paragraphStyle: {
+                  namedStyleType: `HEADING_${headingLevel}`,
+                },
+                fields: "namedStyleType",
               },
             },
           ];
@@ -595,6 +621,18 @@ function convertMarkdownToGoogleDocsRequests(input: { text: string }) {
                       },
                     },
                     fields: "bold,italic,fontSize",
+                  },
+                },
+                {
+                  updateParagraphStyle: {
+                    range: {
+                      startIndex: 0,
+                      endIndex: text.length,
+                    },
+                    paragraphStyle: {
+                      namedStyleType: `NORMAL_TEXT`,
+                    },
+                    fields: "namedStyleType",
                   },
                 },
               ];
