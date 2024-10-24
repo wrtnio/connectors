@@ -15,7 +15,7 @@
     }
   ],
   "info": {
-    "version": "0.1.298",
+    "version": "0.1.299",
     "title": "@wrtn/connector",
     "description": "wrtn-ecosystem connectors and sdk",
     "license": {
@@ -35631,6 +35631,17 @@
             },
             "title": "usergroups"
           },
+          "username": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "title": "username of the person who made this message"
+          },
           "link": {
             "type": "string",
             "format": "iri",
@@ -35689,6 +35700,7 @@
         },
         "required": [
           "usergroups",
+          "username",
           "link",
           "text",
           "user",

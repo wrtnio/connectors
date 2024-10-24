@@ -17,7 +17,7 @@
   "info": {
     "title": "Slack",
     "description": "슬랙에서 대화 내용을 가져오거나 메시지를 보낼 수 있어요.",
-    "version": "0.1.298",
+    "version": "0.1.299",
     "license": {
       "name": "AGPL-3.0-only"
     }
@@ -1607,6 +1607,17 @@
             },
             "title": "usergroups"
           },
+          "username": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "title": "username of the person who made this message"
+          },
           "link": {
             "type": "string",
             "format": "iri",
@@ -1665,6 +1676,7 @@
         },
         "required": [
           "usergroups",
+          "username",
           "link",
           "text",
           "user",
