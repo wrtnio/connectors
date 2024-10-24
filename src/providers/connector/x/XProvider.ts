@@ -133,6 +133,16 @@ export class XProvider {
         },
       );
 
+      const tweetData = tweet?.data?.data;
+      if (!tweetData) {
+        // Return default value if tweet is unavailable
+        return {
+          id: "",
+          text: "This tweet is unavailable",
+          userName: "Unknown",
+          tweet_link: "",
+        };
+      }
       const user = await axios.get(
         `https://api.x.com/2/users/${tweet.data.data.author_id}`,
         {
@@ -306,7 +316,31 @@ export class XProvider {
       this.logger.log(
         `Successfully get chunk document: chatId: ${input.chatId}, body: ${JSON.stringify(chunkDocument.data)}`,
       );
-      return chunkDocument.data;
+
+      const chunkDocumentData = chunkDocument.data;
+      if (chunkDocumentData.data.length === 0) {
+        this.logger.error(`Get Chunk Document Failed: No data found`);
+        throw new InternalServerErrorException("Chunk Document is empty");
+      }
+
+      const filteredDocuments = chunkDocumentData.data.map((document: any) => {
+        const { metadata, ...rest } = document;
+        const {
+          url,
+          file_fingerprint,
+          md5_digest,
+          file_type,
+          ...filteredMetadata
+        } = metadata; // url, file_fingerprint, md5_digest, file_type 필드를 제외하고 나머지 필드만 가져옴
+        return {
+          ...rest,
+          metadata: filteredMetadata,
+        };
+      });
+
+      return {
+        documents: filteredDocuments,
+      };
     } catch (err) {
       if (
         err instanceof AxiosError &&
