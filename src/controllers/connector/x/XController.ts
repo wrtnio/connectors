@@ -25,7 +25,7 @@ export class XController {
   async getUsers(
     @core.TypedBody() input: IX.IUserInput,
   ): Promise<IX.IUserOutput[]> {
-    return retry(() => this.XProvider.getUsers(input))();
+    return await this.XProvider.getUsers(input);
   }
 
   /**
@@ -43,7 +43,7 @@ export class XController {
   async getPreDefinedInfluencers(
     @core.TypedBody() input: IX.ISecret,
   ): Promise<IX.IUserOutput[]> {
-    return retry(() => this.XProvider.getPreDefinedInfluencers(input))();
+    return await this.XProvider.getPreDefinedInfluencers(input);
   }
 
   /**
@@ -68,7 +68,7 @@ export class XController {
   async prepareSummary(
     @core.TypedBody() input: IX.IPrePareSummarizeTweetInput,
   ): Promise<IX.IPrePareSummarizeTweetOutput> {
-    return retry(() => this.XProvider.prepareSummary(input))();
+    return await this.XProvider.prepareSummary(input);
   }
 
   /**
@@ -92,6 +92,6 @@ export class XController {
   async summarizeTweet(
     @core.TypedBody() input: IX.ISummarizeTweetInput,
   ): Promise<IX.IGetChunkDocumentOutput> {
-    return retry(() => this.XProvider.summarizeTweet(input))();
+    return await this.XProvider.summarizeTweet(input);
   }
 }
