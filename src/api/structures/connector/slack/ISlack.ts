@@ -865,7 +865,6 @@ export namespace ISlack {
       | "ts"
       | "type"
       | "user"
-      | "username"
       | "reply_count"
       | "reply_users_count"
       | "ts_date"
