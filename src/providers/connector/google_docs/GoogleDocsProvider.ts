@@ -5,7 +5,6 @@ import { IGoogleDocs } from "@wrtn/connector-api/lib/structures/connector/google
 
 import { decode } from "he";
 import { Tokens } from "marked";
-import typia from "typia";
 import { markdownConverter } from "../../../utils/markdown-converter";
 import { GoogleProvider } from "../../internal/google/GoogleProvider";
 import { OAuthSecretProvider } from "../../internal/oauth_secret/OAuthSecretProvider";
@@ -286,30 +285,29 @@ export class GoogleDocsProvider {
         }, 0) ?? 2) - 2; // 빈 문서는 줄바꿈 문자를 포함하여 최소 index가 2부터 시작한다.
 
       const weightedRequests = textRequests.map((request, i, arr) => {
-        if (
-          typia.is<{
-            updateTextStyle: docs_v1.Schema$UpdateTextStyleRequest;
-          }>(request)
-        ) {
-          const acc = arr
-            .slice(0, i - 1) // 스타일 바로 직전의 텍스트는 제외해야 하기 때문에 -1을 한다.
-            .filter((el) => el.insertText)
-            .map(({ insertText }) => {
-              return insertText?.text?.length ?? 0;
-            })
-            .reduce<number>((acc, cur) => acc + cur, 0);
+        const acc = arr
+          .slice(0, i - 1) // 스타일 바로 직전의 텍스트는 제외해야 하기 때문에 -1을 한다.
+          .filter((el) => el.insertText)
+          .map(({ insertText }) => {
+            return insertText?.text?.length ?? 0;
+          })
+          .reduce<number>((acc, cur) => acc + cur, 0);
 
-          const range = request.updateTextStyle.range;
-          if (range) {
-            if (typeof range.startIndex === "number") {
-              range.startIndex = range.startIndex + (weight + acc + 1);
-            }
+        Object.values(request)
+          .filter((value) => "range" in value)
+          .forEach((value) => {
+            const range: docs_v1.Schema$Range = value.range;
+            if (range) {
+              if (typeof range.startIndex === "number") {
+                range.startIndex = range.startIndex + (weight + acc + 1);
+              }
 
-            if (typeof range.endIndex === "number") {
-              range.endIndex = range.endIndex + (weight + acc + 1);
+              if (typeof range.endIndex === "number") {
+                range.endIndex = range.endIndex + (weight + acc + 1);
+              }
             }
-          }
-        }
+          });
+
         return request;
       });
 
@@ -366,7 +364,7 @@ function convertMarkdownToGoogleDocsRequests(input: { text: string }) {
         convert: (token) => {
           const headingLevel = (token as any).depth;
           const fontSize =
-            headingLevel === 1 ? 24 : headingLevel === 2 ? 20 : 16;
+            headingLevel === 1 ? 22.5 : headingLevel === 2 ? 18 : 15;
           const text = `\n${decode(token.text)}` + "\n";
           return [
             {
