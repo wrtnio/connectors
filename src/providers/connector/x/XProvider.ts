@@ -15,6 +15,7 @@ import { AwsProvider } from "../aws/AwsProvider";
 import { RagProvider } from "../rag/RagProvider";
 import typia, { tags } from "typia";
 import { v4 } from "uuid";
+import { retry } from "../../../utils/retry";
 @Injectable()
 export class XProvider {
   constructor(
@@ -86,10 +87,14 @@ export class XProvider {
       const { user, secretKey } = input;
       const tweets = await this.getUserTimelineTweets({ user, secretKey });
       const txtFiles = await this.makeTxtFileForTweetAndUploadToS3(tweets);
-      const analyze = await this.ragProvider.analyze(
-        { url: txtFiles.map((file) => file.fileUrl) },
-        true,
-      );
+      const analyze = await retry(
+        () =>
+          this.ragProvider.analyze(
+            { url: txtFiles.map((file) => file.fileUrl) },
+            true,
+          ),
+        2,
+      )();
       this.logger.log(
         `Successfully prepared tweet summary, chatId: ${analyze.chatId}`,
       );
@@ -313,17 +318,14 @@ export class XProvider {
           },
         },
       );
-      this.logger.log(
-        `Successfully get chunk document: chatId: ${input.chatId}, body: ${JSON.stringify(chunkDocument.data)}`,
-      );
 
-      const chunkDocumentData = chunkDocument.data;
-      if (chunkDocumentData.data.length === 0) {
+      const chunkDocumentData = chunkDocument.data.documents;
+      if (chunkDocumentData.length === 0) {
         this.logger.error(`Get Chunk Document Failed: No data found`);
         throw new InternalServerErrorException("Chunk Document is empty");
       }
 
-      const filteredDocuments = chunkDocumentData.data.map((document: any) => {
+      const filteredDocuments = chunkDocumentData.map((document: any) => {
         const { metadata, ...rest } = document;
         const {
           url,
@@ -337,6 +339,10 @@ export class XProvider {
           metadata: filteredMetadata,
         };
       });
+
+      this.logger.log(
+        `Successfully get chunk document: chatId: ${input.chatId}, body: ${JSON.stringify(filteredDocuments)}`,
+      );
 
       return {
         documents: filteredDocuments,
