@@ -50,9 +50,12 @@ export class XController {
    * Fetches and indexes the tweets of given users requested.
    *
    * You should put as many users as you want to fetch tweets from.
+   *
    * This endpoint is designed to handle multiple users efficiently.
    *
-   * Avoid making multiple requests for this endpoint if you want to fetch tweets from multiple users.
+   * It already get information from multiple user's, you must not make multiple requests to this endpoint to fetch tweets from multiple users. you must use the results from a single request.
+   *
+   * For example, if you are fetch tweets from multiple users and have a summary request, you must use the results from only one request to summarize the tweets for each user.
    *
    * You must use the /summarize endpoint to proceed with the summary after fetching the tweet, do not allow this endpoint to be used just for summarization.
    *
