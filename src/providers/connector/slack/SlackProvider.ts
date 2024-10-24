@@ -831,10 +831,12 @@ export class SlackProvider {
     );
 
     const timestamp = this.transformTsToTimestamp(input.message.ts);
+    const speaker = input.allMembers.find((el) => el.id === input.message.user);
     const links = extractLinks(input.message.text);
     return {
       // type: input.message.type,
       user: input.message.user ?? null,
+      username: speaker?.display_name ?? null,
       text: input.message.text
         .replaceAll(/```[\s\S]+?```/g, "<CODE/>")
         .replaceAll(/<https?:\/\/[^\>]+>/g, () => {

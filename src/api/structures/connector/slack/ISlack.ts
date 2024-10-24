@@ -594,6 +594,11 @@ export namespace ISlack {
      * @title usergroups
      */
     usergroups: ISlack.UserGroup[];
+
+    /**
+     * @title username of the person who made this message
+     */
+    username: User["name"] | null;
   }
 
   export interface IGetChannelLinkHistoryOutput
