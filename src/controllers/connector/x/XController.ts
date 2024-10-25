@@ -5,7 +5,6 @@ import { IX } from "@wrtn/connector-api/lib/structures/connector/x/IX";
 
 import { XProvider } from "../../../providers/connector/x/XProvider";
 import { RouteIcon } from "@wrtnio/decorators";
-import { retry } from "../../../utils/retry";
 
 @Controller("connector/x")
 export class XController {
@@ -48,6 +47,8 @@ export class XController {
 
   /**
    * Fetches and indexes the tweets of given users requested.
+   *
+   * Before executing fetches and indexes the tweets, you must call the /get-users or /get-influencers endpoint to get user information.
    *
    * You should put as many users as you want to fetch tweets from.
    *
