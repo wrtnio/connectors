@@ -1,0 +1,1 @@
+export namespace ITwilio { export interface ISendSmsInput { to: string; from: string; body: string; } export interface ISendSmsOutput { sid: string; status: string; } }
