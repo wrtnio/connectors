@@ -15,7 +15,7 @@
     }
   ],
   "info": {
-    "version": "0.1.303",
+    "version": "0.1.304",
     "title": "@wrtn/connector",
     "description": "wrtn-ecosystem connectors and sdk",
     "license": {
@@ -12338,7 +12338,7 @@
     "/connector/x/summarize": {
       "post": {
         "summary": "Tweet Summary",
-        "description": "Summarizes the tweets of those requested them.\n\nNote that this endpoint is intended to be used for a single keyword or subject.\n\nIf you need to summarize multiple keywords or subjects, you must make multiple requests for each keyword or subject no exceptions.\n\nFor example, if you want to summarize tweets about \"Elon Musk\" and \"AI\", make two requests, one for \"Elon Musk\" and one for \"AI\".",
+        "description": "Summarizes the tweets of those requested them.\n\nNote that this endpoint is intended to be used for a single keyword or subject.\n\nIf you need to summarize multiple keywords or subjects, you must make multiple requests for each keyword or subject no exceptions.\n\nFor example, if you want to summarize tweets about \"Elon Musk\" and \"AI\", make two requests, one for \"Elon Musk\" and one for \"AI\".\n\nYou must assume that the results may contain irrelevant tweets against the query. You must filter the results based on the query. Do your best to cherry-pick the relevant tweets only.\n\nAny tweet that are not relevant to the query must be ignored, even if that tweet is related to the user request, not the query.",
         "tags": [],
         "parameters": [],
         "requestBody": {
