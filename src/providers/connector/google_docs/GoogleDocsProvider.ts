@@ -36,7 +36,9 @@ export class GoogleDocsProvider {
       if (!id) {
         throw new Error("Failed to create new doc");
       }
-      return { id };
+
+      const url = `https://docs.google.com/document/d/${id}/`;
+      return { id, url };
     } catch (error) {
       console.error(JSON.stringify(error));
       throw error;
@@ -263,7 +265,9 @@ export class GoogleDocsProvider {
     return document.data;
   }
 
-  async append(input: IGoogleDocs.IAppendTextGoogleDocsInput) {
+  async append(
+    input: IGoogleDocs.IAppendTextGoogleDocsInput,
+  ): Promise<IGoogleDocs.ICreateGoogleDocsOutput> {
     try {
       const { documentId } = input;
       const token = await this.getToken(input.secretKey);
@@ -318,9 +322,8 @@ export class GoogleDocsProvider {
         },
       });
 
-      // console.log(
-      //   JSON.stringify((await this.getDocuments(input)).body, null, 2),
-      // );
+      const url = `https://docs.google.com/document/d/${documentId}/`;
+      return { id: documentId, url };
     } catch (error) {
       console.error(JSON.stringify(error));
       throw error;

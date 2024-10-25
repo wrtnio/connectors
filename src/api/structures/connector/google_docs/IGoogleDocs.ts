@@ -99,6 +99,11 @@ export namespace IGoogleDocs {
      * @title Generated docs id
      */
     id: string;
+
+    /**
+     * @title url
+     */
+    url: string & tags.Format<"iri">;
   }
 
   /**

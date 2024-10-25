@@ -158,7 +158,7 @@ export class GoogleDocsController {
   @core.TypedRoute.Post("/append")
   async append(
     @TypedBody() input: IGoogleDocs.IAppendTextGoogleDocsInput,
-  ): Promise<void> {
+  ): Promise<IGoogleDocs.ICreateGoogleDocsOutput> {
     return this.googleDocsProvider.append(input);
   }
 }
