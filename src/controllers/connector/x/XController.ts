@@ -83,6 +83,10 @@ export class XController {
    *
    * For example, if you want to summarize tweets about "Elon Musk" and "AI", make two requests, one for "Elon Musk" and one for "AI".
    *
+   * You must assume that the results may contain irrelevant tweets against the query. You must filter the results based on the query. Do your best to cherry-pick the relevant tweets only.
+   *
+   * Any tweet that are not relevant to the query must be ignored, even if that tweet is related to the user request, not the query.
+   *
    * @summary Tweet Summary
    *
    * @param input user information, secretKey, query
