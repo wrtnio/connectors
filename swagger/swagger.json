@@ -15,7 +15,7 @@
     }
   ],
   "info": {
-    "version": "0.1.302",
+    "version": "0.1.303",
     "title": "@wrtn/connector",
     "description": "wrtn-ecosystem connectors and sdk",
     "license": {
@@ -947,7 +947,11 @@
           "201": {
             "description": "",
             "content": {
-              "application/json": {}
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IGoogleDocs.ICreateGoogleDocsOutput"
+                }
+              }
             }
           }
         },
@@ -13379,10 +13383,16 @@
             "type": "string",
             "title": "Generated docs id",
             "description": "The ID of the generated docs."
+          },
+          "url": {
+            "type": "string",
+            "format": "iri",
+            "title": "url"
           }
         },
         "required": [
-          "id"
+          "id",
+          "url"
         ],
         "title": "Google Docs creation result"
       },
