@@ -1,0 +1,1 @@
+export namespace ISpotify { export interface ICreatePlaylistInput { name: string; description?: string; public?: boolean; } export interface ICreatePlaylistOutput { id: string; name: string; uri: string; } }
