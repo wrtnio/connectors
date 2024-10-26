@@ -1,0 +1,1 @@
+import { Injectable } from '@nestjs/common'; import axios from 'axios'; @Injectable() export class SalesforceProvider { async fetchData(input: any) { const response = await axios.post('https://api.salesforce.com/data', input); return response.data; } }
