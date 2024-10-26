@@ -172,7 +172,6 @@ export const test_api_connector_google_docs_get_page = async (
       },
     );
 
-  console.log(JSON.stringify(readDocsOutput, null, 2));
   typia.assert<IGoogleDocs.IReadGoogleDocsOutput>(readDocsOutput);
 };
 
@@ -184,13 +183,50 @@ export const test_api_connector_google_docs_create_markdown_guide_docs = async (
    */
   const res2 = await CApi.functional.connector.google_docs.append(connection, {
     secretKey: ConnectorGlobal.env.GOOGLE_TEST_SECRET,
-    documentId: "1M8ONTR4tJKkTqy8NEA5uasLYvwfDJUM9w7vvm7JCiPA",
+    documentId: "1Wt7jxTDEP22gRqPoRnAvTCJQ6MpmNrHaTspZ5L_Zesk",
     text: `
 # Heading 1
 This is a paragraph with some **bold text** and *italic text*.
 
 ## Heading 2
 This is a paragraph with some **bold text** and *italic text*.
+
+### Heading 3
+This is a paragraph with some **bold text** and *italic text*.
+
+### Unordered List
+- Item 1
+- Item 2
+  - Subitem 2.1
+  - Subitem 2.2
+
+
+### Ordered List
+1. First item
+2. Second item
+  1. Subitem 2.1
+  2. Subitem 2.2
+
+pos
+
+
+### Code Block
+\`\`\`python
+def hello_world():
+    print("Hello, world!")
+\`\`\`
+
+### Blockquote
+> 폰트 색상 참고용 텍스트입니다.
+
+
+
+### Horizontal Rule
+---
+
+### Link
+[Visit Google](www.google.com)
+
 `,
   });
 

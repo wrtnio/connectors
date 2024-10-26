@@ -1,5 +1,5 @@
 import { Injectable } from "@nestjs/common";
-import { docs_v1, google } from "googleapis";
+import { docs_v1, google, GoogleApis } from "googleapis";
 
 import { IGoogleDocs } from "@wrtn/connector-api/lib/structures/connector/google_docs/IGoogleDocs";
 
@@ -324,7 +324,6 @@ export class GoogleDocsProvider {
         return request;
       });
 
-      console.log(JSON.stringify(weightedRequests));
       await docs.documents.batchUpdate({
         documentId: documentId,
         requestBody: {
@@ -374,12 +373,58 @@ function convertMarkdownToGoogleDocsRequests(input: { text: string }) {
           ];
         },
       },
+      space: {
+        convert: () => {
+          return [
+            {
+              insertText: {
+                endOfSegmentLocation: {},
+                text: "\n",
+              },
+            },
+          ];
+        },
+      },
+      blockquote: {
+        convert: (token: Tokens.Blockquote) => {
+          const text = `\t“${token.text}”`;
+          return [
+            {
+              insertText: {
+                endOfSegmentLocation: {},
+                text: text,
+              },
+            },
+            {
+              updateTextStyle: {
+                range: {
+                  startIndex: 0,
+                  endIndex: text.length,
+                },
+                textStyle: {
+                  foregroundColor: {
+                    color: {
+                      rgbColor: {
+                        red: 0.36078432,
+                        green: 0.36078432,
+                        blue: 0.3647059,
+                      },
+                    },
+                  },
+                  bold: true,
+                  italic: true,
+                },
+                fields: "foregroundColor,bold,italic",
+              },
+            },
+          ];
+        },
+      },
       heading: {
         convert: (token) => {
           const depth = (token as any).depth;
-          const headingLevel = depth >= 3 ? 3 : depth;
           const fontSize = depth === 1 ? 22.5 : depth === 2 ? 18 : 15;
-          const text = `${decode(token.text)}\n`;
+          const text = `\n${decode(token.text)}\n`;
           return [
             {
               insertText: {
@@ -395,24 +440,22 @@ function convertMarkdownToGoogleDocsRequests(input: { text: string }) {
                 },
                 textStyle: {
                   bold: true,
+                  italic: false,
                   fontSize: {
                     magnitude: fontSize,
                     unit: "PT",
                   },
+                  foregroundColor: {
+                    color: {
+                      rgbColor: {
+                        red: 0.15294118,
+                        green: 0.15294118,
+                        blue: 0.15294118,
+                      },
+                    },
+                  },
                 },
-                fields: "bold,fontSize",
-              },
-            },
-            {
-              updateParagraphStyle: {
-                range: {
-                  startIndex: 0,
-                  endIndex: text.length,
-                },
-                paragraphStyle: {
-                  namedStyleType: `HEADING_${headingLevel}`,
-                },
-                fields: "namedStyleType",
+                fields: "bold,italic,fontSize,foregroundColor",
               },
             },
           ];
@@ -452,8 +495,12 @@ function convertMarkdownToGoogleDocsRequests(input: { text: string }) {
                       },
                     },
                   },
+                  weightedFontFamily: {
+                    fontFamily: "Courier New",
+                    weight: 400,
+                  },
                 },
-                fields: "bold,backgroundColor",
+                fields: "bold,backgroundColor,weightedFontFamily",
               },
             },
           ];
@@ -486,6 +533,35 @@ function convertMarkdownToGoogleDocsRequests(input: { text: string }) {
               insertText: {
                 endOfSegmentLocation: {},
                 text: text,
+              },
+            },
+            // {
+            //   createParagraphBullets: {
+            //     bulletPreset: "BULLET_DISC_CIRCLE_SQUARE",
+            //     range: {
+            //       startIndex: 0,
+            //       endIndex: text.length,
+            //     },
+            //   },
+            // },
+            {
+              updateTextStyle: {
+                range: {
+                  startIndex: 0,
+                  endIndex: text.length,
+                },
+                textStyle: {
+                  foregroundColor: {
+                    color: {
+                      rgbColor: {
+                        red: 0.15294118,
+                        green: 0.15294118,
+                        blue: 0.15294118,
+                      },
+                    },
+                  },
+                },
+                fields: "foregroundColor",
               },
             },
           ];
@@ -523,8 +599,10 @@ function convertMarkdownToGoogleDocsRequests(input: { text: string }) {
                     link: {
                       url: child.href,
                     },
+                    bold: false,
+                    italic: false,
                   },
-                  fields: "link",
+                  fields: "link,bold,italic",
                 },
               },
             ];
@@ -569,8 +647,17 @@ function convertMarkdownToGoogleDocsRequests(input: { text: string }) {
                 },
                 textStyle: {
                   italic: true,
+                  foregroundColor: {
+                    color: {
+                      rgbColor: {
+                        red: 0.15294118,
+                        green: 0.15294118,
+                        blue: 0.15294118,
+                      },
+                    },
+                  },
                 },
-                fields: "italic",
+                fields: "italic,foregroundColor",
               },
             },
           ];
@@ -619,20 +706,17 @@ function convertMarkdownToGoogleDocsRequests(input: { text: string }) {
                         magnitude: 11,
                         unit: "PT",
                       },
+                      foregroundColor: {
+                        color: {
+                          rgbColor: {
+                            red: 0.15294118,
+                            green: 0.15294118,
+                            blue: 0.15294118,
+                          },
+                        },
+                      },
                     },
-                    fields: "bold,italic,fontSize",
-                  },
-                },
-                {
-                  updateParagraphStyle: {
-                    range: {
-                      startIndex: 0,
-                      endIndex: text.length,
-                    },
-                    paragraphStyle: {
-                      namedStyleType: `NORMAL_TEXT`,
-                    },
-                    fields: "namedStyleType",
+                    fields: "bold,italic,fontSize,foregroundColor",
                   },
                 },
               ];
@@ -663,6 +747,41 @@ function convertMarkdownToGoogleDocsRequests(input: { text: string }) {
                   },
                 },
                 fields: "link",
+              },
+            },
+          ];
+        },
+      },
+      hr: {
+        convert: () => {
+          const text = "—--------------------------------------------------\n";
+          return [
+            {
+              insertText: {
+                endOfSegmentLocation: {},
+                text,
+              },
+            },
+            {
+              updateTextStyle: {
+                range: {
+                  startIndex: 0,
+                  endIndex: text.length,
+                },
+                textStyle: {
+                  bold: false,
+                  italic: false,
+                  foregroundColor: {
+                    color: {
+                      rgbColor: {
+                        red: 0.7882353,
+                        green: 0.7882353,
+                        blue: 0.7882353,
+                      },
+                    },
+                  },
+                },
+                fields: "bold,italic,foregroundColor",
               },
             },
           ];
