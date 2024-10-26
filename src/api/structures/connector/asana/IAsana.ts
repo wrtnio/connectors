@@ -1,0 +1,1 @@
+import { tags } from "typia"; export namespace IAsana { export interface IGetTasksInput { projectId: string & tags.Format<"uuid">; } export interface IGetTasksOutput { tasks: Array<{ id: string & tags.Format<"uuid">; name: string; completed: boolean; }>; } }
