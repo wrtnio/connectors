@@ -1,0 +1,1 @@
+import { Controller } from '@nestjs/common'; import { SalesforceProvider } from '../../providers/salesforce/SalesforceProvider'; @Controller('salesforce') export class SalesforceController { constructor(private readonly salesforceProvider: SalesforceProvider) {} // Define methods for Salesforce API interactions }
