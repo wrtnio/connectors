@@ -15,7 +15,7 @@
     }
   ],
   "info": {
-    "version": "0.1.306",
+    "version": "0.1.307",
     "title": "@wrtn/connector",
     "description": "wrtn-ecosystem connectors and sdk",
     "license": {
@@ -55753,7 +55753,7 @@
             "items": {
               "type": "object",
               "properties": {
-                "userId": {
+                "id": {
                   "type": "string",
                   "x-wrtn-prerequisite": {
                     "method": "post",
@@ -55785,7 +55785,7 @@
                 }
               },
               "required": [
-                "userId",
+                "id",
                 "name",
                 "userName"
               ]
