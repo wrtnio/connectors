@@ -61,7 +61,7 @@ export namespace IX {
        *
        * @title user id
        */
-      userId: string &
+      id: string &
         Prerequisite<{
           method: "post";
           path: "/connector/x/get-users";

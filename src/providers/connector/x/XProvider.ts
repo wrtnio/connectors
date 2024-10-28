@@ -177,12 +177,12 @@ export class XProvider {
       const result: IX.ITweetOutput[] = [];
 
       for (const user of input.user) {
-        if (!user.userId || !user.name) {
+        if (!user.id || !user.name) {
           this.logger.error("X User id and user name are required");
         }
 
         const userTweetTimeLines = await axios.get(
-          `https://api.x.com/2/users/${user.userId}/tweets`,
+          `https://api.x.com/2/users/${user.id}/tweets`,
           {
             params: {
               max_results: 100,
