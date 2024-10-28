@@ -15,7 +15,7 @@ export const test_api_connector_x_prepare_summarize = async (
       {
         user: users.map((user) => {
           return {
-            userId: user.id,
+            id: user.id,
             name: user.name,
             userName: user.userName,
           };
