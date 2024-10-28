@@ -61,7 +61,7 @@ npm run start:swagger -- --skipBuild
 
 
 ## 3. Development
-커넥터 서버를 어떻게 개발할 지에 대한 지침.
+커넥터 서버를 어떻게 개발할 지에 대한 지침이다. 다만 더 자세한 내용은 [CONTRIBUTING.md](./CONTRIBUTING.md) 을 참고하되, 여기서는 개념적인 설명을 다루자.
 
 1. API 함수 및 DTO 의 메타데이터를 먼저 정의한다
 2. 이를 클라이언트용 SDK 라이브러리로 빌드함
@@ -449,7 +449,6 @@ export class GoogleDriveImageUploadController {
   @RouteIcon("https://somewhere.com/icons/file.png")
   @TypedRoute.Post("single")
   public async single(
-    @SelectorParam(() => GoogleAccountController.prototype.index)
     @TypedParam("accountCode") 
     accountCode: string,
     @TypedBody() input: IGoogleDriveImageSingleUpload
@@ -470,7 +469,6 @@ export class GoogleDriveImageUploadController {
   @RouteIcon("https://somewhere.com/icons/file.png")
   @TypedRoute.Post("multiple")
   public multiple(
-    @SelectorParam(() => GoogleAccountController.prototype.index)
     @TypedParam("accountCode") 
     accountCode: string,
     @TypedBody() input: IGoogleDriveImageMultipleUpload
@@ -482,7 +480,7 @@ export class GoogleDriveImageUploadController {
 
 API 컨트롤러 메서드를 정의할 때, 위와 같이 그 기능에 대하여 상세히 적어주도록 한다.
 
-그리고 본 커넥터 프로젝트를 개발하다보면, 각 커넥터 함수의 아이콘을 지칭하는 `@RouteIcon()` 이나 파라미터를 구성함에 있어 그 리스트를 가져올 수 있는 API 를 지칭하는 `@SelectorParam()` 등, 스튜디오 전용 디코레이터 타입을 써야하는 경우가 왕왕 있다. https://github.com/wrtnio/decorators 를 방문하여, 그 사용법을 파악해 둘 것.
+그리고 본 커넥터 프로젝트를 개발하다보면, 각 커넥터 함수의 아이콘을 지칭하는 `@RouteIcon()` 이나 스튜디오 전용 디코레이터 타입을 써야하는 경우가 왕왕 있다. https://github.com/wrtnio/decorators 를 방문하여, 그 사용법을 파악해 둘 것.
 
 참고로 API operation 의 경우에는 OpenAPI 스펙 정의상 그 서술부가 `summary` 과 `description` 으로 나뉘는데, `summary` 는 주석의 하부에 `@summary Text` 라는 명시적인 형태로 작성할 수 있다. 만약 `@summary` JSDoc 태그가 없다면, 주석 문장의 가장 첫 줄이 온점 (`.`) 으로 끝나는 경우 이 것이 `summary` 이 되고, 그렇지 않다면 `undefined` 가 된다.
 
