@@ -3,6 +3,10 @@ import { IGoogleMap } from "@wrtn/connector-api/lib/structures/connector/google_
 import { google } from "googleapis";
 import { getJson } from "serpapi";
 import { ConnectorGlobal } from "../../../ConnectorGlobal";
+import { ErrorUtil } from "../../../utils/ErrorUtil";
+import axios from "axios";
+import { createQueryParameter } from "../../../utils/CreateQueryParameter";
+import { tags } from "typia";
 
 @Injectable()
 export class GoogleMapProvider {
@@ -57,59 +61,66 @@ export class GoogleMapProvider {
     };
   }
 
+  async getPhoto(
+    photoResourceName: `places/${string}/photos/${string}`,
+  ): Promise<{
+    name: string;
+    photoUri: string & tags.Format<"iri">;
+  }> {
+    const queryParameter = createQueryParameter({
+      key: ConnectorGlobal.env.GOOGLE_API_KEY,
+      maxHeightPx: 1600,
+      skipHttpRedirect: true,
+    });
+
+    const url = `https://places.googleapis.com/v1/${photoResourceName}/media?${queryParameter}`;
+    const res = await axios.get(url);
+    return res.data;
+  }
+
   async searchText(
     input: IGoogleMap.ISearchTextInput,
   ): Promise<IGoogleMap.ISearchTextOutput> {
-    const response = await google.places("v1").places.searchText(
-      {
-        requestBody: {
-          textQuery: input.textQuery,
-          pageToken: input.nextPageToken,
+    try {
+      const response = await google.places("v1").places.searchText(
+        {
+          requestBody: {
+            textQuery: input.textQuery,
+            pageToken: input.nextPageToken,
+          },
+          key: ConnectorGlobal.env.GOOGLE_API_KEY,
         },
-        key: ConnectorGlobal.env.GOOGLE_API_KEY,
-      },
-      {
-        headers: {
-          "X-Goog-FieldMask": "*",
+        {
+          headers: {
+            "X-Goog-FieldMask": "*",
+          },
         },
-      },
-    );
+      );
 
-    const nextPageToken = response.data.nextPageToken ?? null;
+      const nextPageToken = response.data.nextPageToken ?? null;
 
-    return {
-      nextPageToken,
-      places: await Promise.all(
-        (response.data.places ?? []).map(async (place) => {
-          place.photos = await Promise.all(
-            (place.photos ?? [])
-              .filter((photo) => photo.name)
-              .map(async (photo) => {
-                const name: string = photo.name as string;
-                const { data } = await google
-                  .places("v1")
-                  .places.photos.getMedia(
-                    {
-                      skipHttpRedirect: false,
-                      name,
-                    },
-                    {
-                      responseType: "json",
-                      headers: {
-                        "X-Goog-FieldMask": "*",
-                      },
-                    },
-                  );
+      return {
+        nextPageToken,
+        places: await Promise.all(
+          (response.data.places ?? []).map(async (place) => {
+            place.photos = await Promise.all(
+              (place.photos ?? [])
+                .filter((photo) => photo.name)
+                .map(async (photo) => {
+                  const name = `${photo.name}`;
+                  const { photoUri } = await this.getPhoto(name as any);
+                  return { ...photo, link: photoUri };
+                }),
+            );
 
-                const photoUri = data.photoUri;
-                return { ...photo, link: photoUri };
-              }),
-          );
-
-          return place;
-        }),
-      ),
-    };
+            return place;
+          }),
+        ),
+      };
+    } catch (err) {
+      console.error(JSON.stringify(err));
+      throw err;
+    }
   }
 
   async search(input: IGoogleMap.IRequest): Promise<IGoogleMap.IResponse[]> {
