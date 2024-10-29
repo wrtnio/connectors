@@ -90,10 +90,11 @@ export namespace IGoogleMap {
 
       /**
        * This refers to the radial distance for specifying the space of the region to be searched. It is in meters.
+       * default value is 500 meters.
        *
        * @title Radius
        */
-      radius: number;
+      radius: number & tags.Default<500>;
     };
   }
 

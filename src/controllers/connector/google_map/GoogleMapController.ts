@@ -12,7 +12,11 @@ export class GoogleMapController {
   constructor(private readonly googleMapProvider: GoogleMapProvider) {}
 
   /**
-   * A function that receives recommendations for automatic completion or location through a search word or a latitude coordinate value to be used with the search word.
+   * recommendations for automatic completion or location through a search word or a latitude coordinate value to be used with the search word.
+   *
+   * Since it is a text auto-completion, this feature allows you to find better search keywords.
+   * However, since there is a separate connector for searching the surrounding geography, it is recommended to use that connector if you want to find a place that is not a keyword.
+   * It is recommended that you use this connector to narrow down the search keyword before writing the place search connector.
    *
    * @summary Returns predictions for the given input in Google Maps
    */

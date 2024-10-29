@@ -6,6 +6,13 @@ import { ConnectorGlobal } from "../../../ConnectorGlobal";
 
 @Injectable()
 export class GoogleMapProvider {
+  /**
+   * 1,000회 요청 당 2.83 달러를 사용하나, Google Map은 매 달 200달러까지는 무료 사용이 가능하다.
+   * 다른 API 사용량과 합산하여 금액이 결정된다.
+   *
+   * @param input
+   * @returns
+   */
   async autocomplete(
     input: IGoogleMap.IAutocompleteInput,
   ): Promise<IGoogleMap.IAutocompleteOutput> {
@@ -19,7 +26,7 @@ export class GoogleMapProvider {
                 latitude: input.circle?.latitude,
                 longitude: input.circle?.longitude,
               },
-              radius: input.circle?.radius,
+              radius: input.circle?.radius ?? 500,
             },
           },
         },

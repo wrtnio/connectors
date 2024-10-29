@@ -19,7 +19,7 @@ export const test_api_connector_google_map_autocomplete = async (
     {
       input: "맛집",
       circle: {
-        latitude: 37.4979,
+        latitude: 37.4979, // 강남역을 의미한다.
         longitude: 127.0276,
         radius: 500,
       },
