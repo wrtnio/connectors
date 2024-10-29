@@ -9,29 +9,41 @@ export class GoogleMapProvider {
   async autocomplete(
     input: IGoogleMap.IAutocompleteInput,
   ): Promise<IGoogleMap.IAutocompleteOutput> {
-    const places = await google.places("v1").places.autocomplete({
-      requestBody: {
-        input: input.input,
-        locationBias: {
-          circle: {
-            center: {
-              latitude: input.latitude,
-              longitude: input.longitude,
+    const places = await google.places("v1").places.autocomplete(
+      {
+        requestBody: {
+          input: input.input,
+          locationBias: {
+            circle: {
+              center: {
+                latitude: input.latitude,
+                longitude: input.longitude,
+              },
+              radius: input.radius,
             },
-            radius: input.radius,
           },
         },
+        key: ConnectorGlobal.env.GOOGLE_API_KEY,
       },
-      key: ConnectorGlobal.env.GOOGLE_API_KEY,
-    });
+      {
+        headers: {
+          "X-Goog-FieldMask": "*",
+        },
+      },
+    );
 
     const suggestions = places.data.suggestions;
     return {
       suggestions: suggestions?.map((suggestion) => {
         const text = suggestion.placePrediction?.text?.text ?? null;
+        const types = suggestion.placePrediction?.types ?? [];
         return {
           placePrediction: suggestion.placePrediction
-            ? { placeId: suggestion.placePrediction?.placeId, text: { text } }
+            ? {
+                placeId: suggestion.placePrediction?.placeId,
+                text: { text },
+                types,
+              }
             : null,
         };
       }),

@@ -37,6 +37,11 @@ export namespace IGoogleMap {
         | (string &
             Placeholder<"대한민국 서울특별시 강남구 신사동 피자익스프레스">);
     };
+
+    /**
+     * @title Place Types
+     */
+    types: string[];
   }
 
   /**
