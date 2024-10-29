@@ -12,6 +12,5 @@ export const test_api_connector_google_map_search_text = async (
     },
   );
 
-  console.log(JSON.stringify(res, null, 2));
   typia.assertEquals(res);
 };

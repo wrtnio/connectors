@@ -51,7 +51,14 @@ export class GoogleMapController {
   }
 
   /**
+   * General search functionality on Google Maps
    *
+   * If possible, it is recommended to use POST/connector/google-map/search-text connector rather than this.
+   * Here, it is difficult to conduct additional search after providing information to users because only restaurants are searched using the Serp API and the response parameter does not provide a Google Map link.
+   *
+   * @summary Search by text in Google Maps
+   * @param input Keyword
+   * @returns
    */
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleMap_full.svg",
@@ -66,6 +73,8 @@ export class GoogleMapController {
 
   /**
    * Search for restaurants using Google Maps
+   *
+   *
    *
    * @summary Google Map restaurant search
    * @param input Search term to search for restaurants
