@@ -1,4 +1,4 @@
-import core from "@nestia/core";
+import core, { TypedBody } from "@nestia/core";
 import { Controller } from "@nestjs/common";
 import { RouteIcon, Standalone } from "@wrtnio/decorators";
 
@@ -23,6 +23,7 @@ export class GoogleMapController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleMap_full.svg",
   )
+  @ApiTags("Google Map")
   @core.TypedRoute.Post("autocomplete")
   async autocomplete(
     @core.TypedBody() input: IGoogleMap.IAutocompleteInput,
@@ -38,15 +39,29 @@ export class GoogleMapController {
    * @returns Restaurant review search results
    */
   @Standalone()
-  @core.TypedRoute.Post("review")
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleMap_full.svg",
   )
+  @core.TypedRoute.Post("review")
   @ApiTags("Google Map")
   async review(
     @core.TypedBody() input: IGoogleMap.IReviewRequest,
   ): Promise<IGoogleMap.IReviewResponse[]> {
     return retry(() => this.googleMapProvider.review(input))();
+  }
+
+  /**
+   *
+   */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleMap_full.svg",
+  )
+  @core.TypedRoute.Post("search-text")
+  @ApiTags("Google Map")
+  async searchText(
+    @TypedBody() input: IGoogleMap.ISearchTextInput,
+  ): Promise<IGoogleMap.ISearchTextOutput> {
+    return this.googleMapProvider.searchText(input);
   }
 
   /**
@@ -57,10 +72,10 @@ export class GoogleMapController {
    * @returns Restaurant search results
    */
   @Standalone()
-  @core.TypedRoute.Post()
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleMap_full.svg",
   )
+  @core.TypedRoute.Post()
   @ApiTags("Google Map")
   async search(
     @core.TypedBody() input: IGoogleMap.IRequest,

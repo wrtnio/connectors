@@ -57,6 +57,61 @@ export class GoogleMapProvider {
     };
   }
 
+  async searchText(
+    input: IGoogleMap.ISearchTextInput,
+  ): Promise<IGoogleMap.ISearchTextOutput> {
+    const response = await google.places("v1").places.searchText(
+      {
+        requestBody: {
+          textQuery: input.textQuery,
+          pageToken: input.nextPageToken,
+        },
+        key: ConnectorGlobal.env.GOOGLE_API_KEY,
+      },
+      {
+        headers: {
+          "X-Goog-FieldMask": "*",
+        },
+      },
+    );
+
+    const nextPageToken = response.data.nextPageToken ?? null;
+
+    return {
+      nextPageToken,
+      places: await Promise.all(
+        (response.data.places ?? []).map(async (place) => {
+          place.photos = await Promise.all(
+            (place.photos ?? [])
+              .filter((photo) => photo.name)
+              .map(async (photo) => {
+                const name: string = photo.name as string;
+                const { data } = await google
+                  .places("v1")
+                  .places.photos.getMedia(
+                    {
+                      skipHttpRedirect: false,
+                      name,
+                    },
+                    {
+                      responseType: "json",
+                      headers: {
+                        "X-Goog-FieldMask": "*",
+                      },
+                    },
+                  );
+
+                const photoUri = data.photoUri;
+                return { ...photo, link: photoUri };
+              }),
+          );
+
+          return place;
+        }),
+      ),
+    };
+  }
+
   async search(input: IGoogleMap.IRequest): Promise<IGoogleMap.IResponse[]> {
     try {
       const params = {

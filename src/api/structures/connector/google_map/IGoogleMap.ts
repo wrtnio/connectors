@@ -1,7 +1,6 @@
 import { JMESPath, Placeholder, Prerequisite } from "@wrtnio/decorators";
 import { tags } from "typia";
 import { ContentMediaType } from "typia/lib/tags";
-import { DeepNullablePartial } from "../../types/DeepNullablePartial";
 
 export namespace IGoogleMap {
   /**
@@ -20,349 +19,368 @@ export namespace IGoogleMap {
     /**
      * @title name
      */
-    name: string | null;
+    name?: string | null;
 
     /**
      * @title id
      */
-    id: string | null;
+    id?: string | null;
 
     /**
      * @title types
      */
-    types: string[] | null;
+    types?: string[] | null;
 
     /**
      * @title nationalPhoneNumber
      */
-    nationalPhoneNumber: string | null;
+    nationalPhoneNumber?: string | null;
 
     /**
      * @title internationalPhoneNumber
      */
-    internationalPhoneNumber: string | null;
+    internationalPhoneNumber?: string | null;
 
     /**
      * @title formattedAddress
      */
-    formattedAddress: string | null;
+    formattedAddress?: string | null;
 
     /**
      * @title location
      */
-    location: {
+    location?: {
       /**
        * @title latitude
        */
-      latitude: (number & tags.Minimum<-90> & tags.Maximum<90>) | null;
+      latitude?: (number & tags.Minimum<-90> & tags.Maximum<90>) | null;
 
       /**
        * @title longitude
        */
-      longitude: (number & tags.Minimum<0> & tags.Maximum<360>) | null;
-    };
+      longitude?: (number & tags.Minimum<0> & tags.Maximum<360>) | null;
+    } | null;
 
     /**
      * @title rating
      */
-    rating: (number & tags.Maximum<5>) | null;
+    rating?: (number & tags.Maximum<5>) | null;
 
     /**
      * @title googleMapsUri
      */
-    googleMapsUri: (string & tags.Format<"iri">) | null;
+    googleMapsUri?: (string & tags.Format<"iri">) | null;
 
     /**
      * @title websiteUri
      */
-    websiteUri: (string & tags.Format<"iri">) | null;
+    websiteUri?: (string & tags.Format<"iri">) | null;
 
     /**
      * @title regularOpeningHours
      */
-    regularOpeningHours: {
+    regularOpeningHours?: {
       /**
        * @title openNow
        */
-      openNow: boolean;
+      openNow?: boolean | null;
 
       /**
        * @title periods
        */
-      periods: {
+      periods?: {
         /**
          * @title open
          */
-        open: {
+        open?: {
           /**
            * @title day
            */
-          day: number & tags.Type<"uint32"> & tags.Minimum<0> & tags.Maximum<6>;
+          day?:
+            | (number & tags.Type<"uint32"> & tags.Minimum<0> & tags.Maximum<6>)
+            | null;
 
           /**
            * @title hour
            */
-          hour: number &
-            tags.Type<"uint32"> &
-            tags.Minimum<0> &
-            tags.Maximum<24>;
+          hour?:
+            | (number &
+                tags.Type<"uint32"> &
+                tags.Minimum<0> &
+                tags.Maximum<24>)
+            | null;
 
           /**
            * @title minute
            */
-          minute: number &
-            tags.Type<"uint32"> &
-            tags.Minimum<0> &
-            tags.Maximum<60>;
-        };
+          minute?:
+            | (number &
+                tags.Type<"uint32"> &
+                tags.Minimum<0> &
+                tags.Maximum<60>)
+            | null;
+        } | null;
 
         /**
          * @title close
          */
-        close: {
+        close?: {
           /**
            * @title day
            */
-          day: number & tags.Type<"uint32"> & tags.Minimum<0> & tags.Maximum<6>;
+          day?:
+            | (number & tags.Type<"uint32"> & tags.Minimum<0> & tags.Maximum<6>)
+            | null;
 
           /**
            * @title hour
            */
-          hour: number &
-            tags.Type<"uint32"> &
-            tags.Minimum<0> &
-            tags.Maximum<24>;
+          hour?:
+            | (number &
+                tags.Type<"uint32"> &
+                tags.Minimum<0> &
+                tags.Maximum<24>)
+            | null;
 
           /**
            * @title minute
            */
-          minute: number &
-            tags.Type<"uint32"> &
-            tags.Minimum<0> &
-            tags.Maximum<60>;
+          minute?:
+            | (number &
+                tags.Type<"uint32"> &
+                tags.Minimum<0> &
+                tags.Maximum<60>)
+            | null;
         };
       }[];
 
       /**
        * @title weekdayDescriptions
        */
-      weekdayDescriptions: string[];
-    };
+      weekdayDescriptions?: string[] | null;
+    } | null;
 
     /**
      * @title utcOffsetMinutes
      */
-    utcOffsetMinutes: number & tags.Minimum<0> & tags.Maximum<1440>;
+    utcOffsetMinutes?: (number & tags.Minimum<0> & tags.Maximum<1440>) | null;
 
     /**
      * @title businessStatus
      */
-    businessStatus: string | null;
+    businessStatus?: string | null;
 
     /**
      * @title priceLevel
      */
-    priceLevel: string;
+    priceLevel?: string | null;
 
     /**
      * @title userRatingCount
      */
-    userRatingCount: number & tags.Type<"uint64">;
+    userRatingCount?: (number & tags.Type<"uint64">) | null;
 
     /**
      * @title displayName
      */
-    displayName: {
+    displayName?: {
       /**
        * @title text
        */
-      text: string;
+      text?: string | null;
 
       /**
        * @title languageCode
        */
-      languageCode: string;
-    };
+      languageCode?: string | null;
+    } | null;
 
     /**
      * @title primaryTypeDisplayName
      */
-    primaryTypeDisplayName: {
+    primaryTypeDisplayName?: {
       /**
        * @title text
        */
-      text: string;
+      text?: string | null;
 
       /**
        * @title languageCode
        */
-      languageCode: string;
-    };
+      languageCode?: string | null;
+    } | null;
 
     /**
      * @title takeout
      */
-    takeout: boolean;
+    takeout?: boolean | null;
 
     /**
      * @title delivery
      */
-    delivery: boolean;
+    delivery?: boolean | null;
 
     /**
      * @title dineIn
      */
-    dineIn: boolean;
+    dineIn?: boolean | null;
 
     /**
      * @title reservable
      */
-    reservable: boolean;
+    reservable?: boolean | null;
 
     /**
      * @title servesBreakfast
      */
-    servesBreakfast: boolean;
+    servesBreakfast?: boolean | null;
 
     /**
      * @title servesLunch
      */
-    servesLunch: boolean;
+    servesLunch?: boolean | null;
 
     /**
      * @title servesDinner
      */
-    servesDinner: boolean;
+    servesDinner?: boolean | null;
 
     /**
      * @title servesBeer
      */
-    servesBeer: boolean;
+    servesBeer?: boolean | null;
 
     /**
      * @title servesBrunch
      */
-    servesBrunch: boolean;
+    servesBrunch?: boolean | null;
 
     /**
      * @title servesVegetarianFood
      */
-    servesVegetarianFood: boolean;
+    servesVegetarianFood?: boolean | null;
 
     /**
      * @title primaryType
      */
-    primaryType: string;
+    primaryType?: string | null;
 
     /**
      * @title photos
      */
-    photos: {
-      /**
-       * @title name
-       */
-      name: string;
+    photos?:
+      | {
+          /**
+           * @title name
+           */
+          name?: string | null;
 
-      /**
-       * @title widthPx
-       */
-      widthPx: number;
+          /**
+           * @title widthPx
+           */
+          widthPx?: number | null;
 
-      /**
-       * @title heightPx
-       */
-      heightPx: number;
-    }[];
+          /**
+           * @title heightPx
+           */
+          heightPx?: number | null;
+
+          /**
+           * @title URI Link
+           */
+          link?: string | null;
+        }[]
+      | null;
 
     /**
      * @title outdoorSeating
      */
-    outdoorSeating: boolean | null;
+    outdoorSeating?: boolean | null;
 
     /**
      * @title liveMusic
      */
-    liveMusic: boolean | null;
+    liveMusic?: boolean | null;
 
     /**
      * @title menuForChildren
      */
-    menuForChildren: boolean | null;
+    menuForChildren?: boolean | null;
 
     /**
      * @title servesCocktails
      */
-    servesCocktails: boolean | null;
+    servesCocktails?: boolean | null;
 
     /**
      * @title servesDessert
      */
-    servesDessert: boolean | null;
+    servesDessert?: boolean | null;
 
     /**
      * @title servesCoffee
      */
-    servesCoffee: boolean | null;
+    servesCoffee?: boolean | null;
 
     /**
      * @title goodForChildren
      */
-    goodForChildren: boolean | null;
+    goodForChildren?: boolean | null;
 
     /**
      * @title allowsDogs
      */
-    allowsDogs: boolean | null;
+    allowsDogs?: boolean | null;
 
     /**
      * @title restroom
      */
-    restroom: boolean | null;
+    restroom?: boolean | null;
 
     /**
      * @title goodForGroups
      */
-    goodForGroups: boolean | null;
+    goodForGroups?: boolean | null;
 
     /**
      * @title goodForWatchingSports
      */
-    goodForWatchingSports: boolean | null;
+    goodForWatchingSports?: boolean | null;
 
     /**
      * @title paymentOptions
      */
-    paymentOptions: {
+    paymentOptions?: {
       /**
        * @title acceptsCreditCards
        */
-      acceptsCreditCards: boolean;
+      acceptsCreditCards?: boolean | null;
 
       /**
        * @title acceptsDebitCards
        */
-      acceptsDebitCards: boolean;
+      acceptsDebitCards?: boolean | null;
 
       /**
        * @title acceptsCashOnly
        */
-      acceptsCashOnly: boolean;
+      acceptsCashOnly?: boolean | null;
 
       /**
        * @title acceptsNfc
        */
-      acceptsNfc: boolean;
-    };
+      acceptsNfc?: boolean | null;
+    } | null;
 
     /**
      * @title parkingOptions
      */
-    parkingOptions: {
+    parkingOptions?: {
       /**
        * @title freeParkingLot
        */
-      freeParkingLot: boolean;
-    };
+      freeParkingLot?: boolean | null;
+    } | null;
 
     /**
      * @title accessibilityOptions
@@ -382,29 +400,29 @@ export namespace IGoogleMap {
     /**
      * @title googleMapsLinks
      */
-    googleMapsLinks: {
+    googleMapsLinks?: {
       /**
        * @title Place URI
        */
-      placeUri: string & tags.Format<"iri">;
+      placeUri?: (string & tags.Format<"iri">) | null;
 
       /**
        * @title Reviews URI
        */
-      reviewsUri: string & tags.Format<"iri">;
+      reviewsUri?: (string & tags.Format<"iri">) | null;
 
       /**
        * @title Photos URI
        */
-      photosUri: string & tags.Format<"iri">;
-    };
+      photosUri?: (string & tags.Format<"iri">) | null;
+    } | null;
   }
 
   export interface ISearchTextOutput {
     /**
      * @title Places
      */
-    places: DeepNullablePartial<Place>[];
+    places: Place[];
 
     /**
      * @title Page Token For Next Page
