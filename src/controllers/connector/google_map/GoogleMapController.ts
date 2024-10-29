@@ -12,22 +12,18 @@ export class GoogleMapController {
   constructor(private readonly googleMapProvider: GoogleMapProvider) {}
 
   /**
-   * Search for restaurants using Google Maps
+   * A function that receives recommendations for automatic completion or location through a search word or a latitude coordinate value to be used with the search word.
    *
-   * @summary Google Map restaurant search
-   * @param input Search term to search for restaurants
-   * @returns Restaurant search results
+   * @summary Returns predictions for the given input in Google Maps
    */
-  @Standalone()
-  @core.TypedRoute.Post("")
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleMap_full.svg",
   )
-  @ApiTags("Google Map")
-  async search(
-    @core.TypedBody() input: IGoogleMap.IRequest,
-  ): Promise<IGoogleMap.IResponse[]> {
-    return retry(() => this.googleMapProvider.search(input))();
+  @core.TypedRoute.Post("autocomplete")
+  async autocomplete(
+    @core.TypedBody() input: IGoogleMap.IAutocompleteInput,
+  ): Promise<IGoogleMap.IAutocompleteOutput> {
+    return retry(() => this.googleMapProvider.autocomplete(input))();
   }
 
   /**
@@ -47,5 +43,24 @@ export class GoogleMapController {
     @core.TypedBody() input: IGoogleMap.IReviewRequest,
   ): Promise<IGoogleMap.IReviewResponse[]> {
     return retry(() => this.googleMapProvider.review(input))();
+  }
+
+  /**
+   * Search for restaurants using Google Maps
+   *
+   * @summary Google Map restaurant search
+   * @param input Search term to search for restaurants
+   * @returns Restaurant search results
+   */
+  @Standalone()
+  @core.TypedRoute.Post()
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleMap_full.svg",
+  )
+  @ApiTags("Google Map")
+  async search(
+    @core.TypedBody() input: IGoogleMap.IRequest,
+  ): Promise<IGoogleMap.IResponse[]> {
+    return retry(() => this.googleMapProvider.search(input))();
   }
 }
