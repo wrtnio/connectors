@@ -24,16 +24,18 @@ export namespace IGoogleMap {
      *
      * @title Place ID
      */
-    placeId: string;
+    placeId?: string | null;
     /**
      * @title Name
      */
-    text: {
+    text?: {
       /**
        * @title Name
        */
-      text: string &
-        Placeholder<"대한민국 서울특별시 강남구 신사동 피자익스프레스">;
+      text?:
+        | null
+        | (string &
+            Placeholder<"대한민국 서울특별시 강남구 신사동 피자익스프레스">);
     };
   }
 
@@ -44,14 +46,14 @@ export namespace IGoogleMap {
     /**
      * @title Response
      */
-    suggestions: {
+    suggestions?: ({
       /**
        * Meaning of candidate groups viewed as map search results
        *
        * @title Place Prediction
        */
-      placePrediction: PlacePrediction;
-    }[];
+      placePrediction: PlacePrediction | null;
+    } | null)[];
   }
 
   /**

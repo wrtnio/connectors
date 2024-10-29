@@ -1,10 +1,43 @@
 import { Injectable } from "@nestjs/common";
 import { IGoogleMap } from "@wrtn/connector-api/lib/structures/connector/google_map/IGoogleMap";
+import { google } from "googleapis";
 import { getJson } from "serpapi";
 import { ConnectorGlobal } from "../../../ConnectorGlobal";
 
 @Injectable()
 export class GoogleMapProvider {
+  async autocomplete(
+    input: IGoogleMap.IAutocompleteInput,
+  ): Promise<IGoogleMap.IAutocompleteOutput> {
+    const places = await google.places("v1").places.autocomplete({
+      requestBody: {
+        input: input.input,
+        locationBias: {
+          circle: {
+            center: {
+              latitude: input.latitude,
+              longitude: input.longitude,
+            },
+            radius: input.radius,
+          },
+        },
+      },
+      key: ConnectorGlobal.env.GOOGLE_API_KEY,
+    });
+
+    const suggestions = places.data.suggestions;
+    return {
+      suggestions: suggestions?.map((suggestion) => {
+        const text = suggestion.placePrediction?.text?.text ?? null;
+        return {
+          placePrediction: suggestion.placePrediction
+            ? { placeId: suggestion.placePrediction?.placeId, text: { text } }
+            : null,
+        };
+      }),
+    };
+  }
+
   async search(input: IGoogleMap.IRequest): Promise<IGoogleMap.IResponse[]> {
     try {
       const params = {
