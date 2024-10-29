@@ -16,6 +16,55 @@ export namespace IGoogleMap {
   }
 
   /**
+   * @title Place Prediction
+   */
+  export interface PlacePrediction {
+    /**
+     * Place ID of Google map
+     *
+     * @title Place ID
+     */
+    placeId: string;
+    /**
+     * @title Name
+     */
+    text: {
+      /**
+       * @title Name
+       */
+      text: string &
+        Placeholder<"대한민국 서울특별시 강남구 신사동 피자익스프레스">;
+    };
+  }
+
+  /**
+   * @title Response of Autocomplete
+   */
+  export interface IAutocompleteOutput {
+    /**
+     * @title Response
+     */
+    suggestions: {
+      /**
+       * Meaning of candidate groups viewed as map search results
+       *
+       * @title Place Prediction
+       */
+      placePrediction: PlacePrediction;
+    }[];
+  }
+
+  /**
+   * @title Input Parameter of Autocomplete
+   */
+  export interface IAutocompleteInput {
+    /**
+     * @title search keyword
+     */
+    input: string;
+  }
+
+  /**
    * @title Google Maps Restaurant Search Results
    */
   export interface IResponse {
