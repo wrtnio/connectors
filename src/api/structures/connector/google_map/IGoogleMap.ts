@@ -71,25 +71,30 @@ export namespace IGoogleMap {
     input: string;
 
     /**
-     * It refers to a latitude value for specifying a space of an area to be searched.
-     *
-     * @title Latitude
+     * @title Search radius
      */
-    latitude?: number;
+    circle?: {
+      /**
+       * It refers to a latitude value for specifying a space of an area to be searched.
+       *
+       * @title Latitude
+       */
+      latitude: number;
 
-    /**
-     * It refers to a longitude value for specifying a space of an area to be searched.
-     *
-     * @title Longitude
-     */
-    longitude?: number;
+      /**
+       * It refers to a longitude value for specifying a space of an area to be searched.
+       *
+       * @title Longitude
+       */
+      longitude: number;
 
-    /**
-     * This refers to the radial distance for specifying the space of the region to be searched. It is in meters.
-     *
-     * @title Radius
-     */
-    radius?: number;
+      /**
+       * This refers to the radial distance for specifying the space of the region to be searched. It is in meters.
+       *
+       * @title Radius
+       */
+      radius: number;
+    };
   }
 
   /**

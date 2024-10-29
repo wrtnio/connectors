@@ -16,10 +16,10 @@ export class GoogleMapProvider {
           locationBias: {
             circle: {
               center: {
-                latitude: input.latitude,
-                longitude: input.longitude,
+                latitude: input.circle?.latitude,
+                longitude: input.circle?.longitude,
               },
-              radius: input.radius,
+              radius: input.circle?.radius,
             },
           },
         },

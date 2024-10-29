@@ -12,16 +12,19 @@ export const test_api_connector_google_map_autocomplete = async (
     },
   );
 
-  console.log(JSON.stringify(res, null, 2));
   typia.assertEquals(res);
 
-  // const res2 = await CApi.functional.connector.google_map.autocomplete(
-  //   connection,
-  //   {
-  //     input: "맛집",
-  //   },
-  // );
+  const res2 = await CApi.functional.connector.google_map.autocomplete(
+    connection,
+    {
+      input: "맛집",
+      circle: {
+        latitude: 37.4979,
+        longitude: 127.0276,
+        radius: 500,
+      },
+    },
+  );
 
-  // console.log(JSON.stringify(res2, null, 2));
-  // typia.assertEquals(res2);
+  typia.assertEquals(res2);
 };
