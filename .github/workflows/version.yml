@@ -58,7 +58,6 @@ jobs:
           git pull
           npm version patch -m "Bump swagger version to %s [skip ci]"
           git push --set-upstream origin main --follow-tags
-          npm run google-sheets
 
       - name: Bump version for sdk
         working-directory: packages/api
