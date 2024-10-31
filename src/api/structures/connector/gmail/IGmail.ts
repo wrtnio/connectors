@@ -2,6 +2,15 @@ import { tags } from "typia";
 import { ICommon } from "../common/ISecretValue";
 
 export namespace IGmail {
+  export interface IDeleteMailListInput
+    extends ICommon.ISecret<"google", ["https://mail.google.com/"]> {
+    /**
+     * @title Email IDs to delete
+     * @description Please select the emails to delete.
+     */
+    ids: string[];
+  }
+
   /**
    * @title Information required to send email
    */
