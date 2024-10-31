@@ -94,15 +94,26 @@ export const test_api_connector_gmail = async (
   /**
    * Reply To Email
    */
-  await CApi.functional.connector.gmail.reply(connection, emailId, {
-    replyText: "답장입니다.",
-    secretKey,
-  });
+  const reply = await CApi.functional.connector.gmail.reply(
+    connection,
+    emailId,
+    {
+      replyText: "답장입니다.",
+      secretKey,
+    },
+  );
 
   /**
    * remove Email (hard delete)
    */
   await CApi.functional.connector.gmail.hardDelete(connection, emailId, {
+    secretKey,
+  });
+
+  /**
+   * remove Reply Email (hard delete)
+   */
+  await CApi.functional.connector.gmail.hardDelete(connection, reply.id, {
     secretKey,
   });
 };

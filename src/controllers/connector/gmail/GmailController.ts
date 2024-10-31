@@ -97,7 +97,7 @@ export class GmailController {
     id: string,
     @core.TypedBody()
     input: IGmail.IReplyInput,
-  ): Promise<void> {
+  ): Promise<IGmail.ISendMailOutput> {
     return retry(() => this.gmailProvider.reply(id, input))();
   }
 
