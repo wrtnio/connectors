@@ -47,7 +47,7 @@ export class GoogleSlidesProvider {
       });
       return { hanshow };
     } catch (err) {
-      console.error(err);
+      console.error(JSON.stringify(err));
       throw err;
     }
   }
@@ -76,7 +76,7 @@ export class GoogleSlidesProvider {
       });
       return { powerPoint };
     } catch (err) {
-      console.error(err);
+      console.error(JSON.stringify(err));
       throw err;
     }
   }

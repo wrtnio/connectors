@@ -29,7 +29,8 @@
     "start": "node lib/executable/server",
     "start:swagger": "ts-node src/executable/swagger.ts",
     "translate": "ts-node src/executable/translate.ts",
-    "swagger:update": "node lib/UpdateSwaggerJson.js"
+    "swagger:update": "node lib/UpdateSwaggerJson.js",
+    "google-sheets": "ts-node src/executable/swagger-to-google-sheets.ts"
   },
   "repository": {
     "type": "git",

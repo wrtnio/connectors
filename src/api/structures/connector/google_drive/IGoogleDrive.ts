@@ -536,7 +536,7 @@ export namespace IGoogleDrive {
     /**
      * @title markedViewedByMeDate
      */
-    markedViewedByMeDate: string & tags.Format<"date-time">;
+    markedViewedByMeDate?: string & tags.Format<"date-time">;
 
     /**
      * @title quotaBytesUsed

@@ -144,9 +144,9 @@ import { tags } from "typia";
 export namespace IWrtn {
   export interface IGetSomethingInput {
     /**
-     * @title some property for getting something
-     *
      * This property contributes to this functionality.
+     *
+     * @title some property for getting something
      */
     someProperty1: number & tags.type<"int64"> & tags.Minimum<0>;
 

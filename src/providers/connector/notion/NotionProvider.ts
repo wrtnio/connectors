@@ -535,7 +535,7 @@ export namespace NotionProvider {
       const blocks = (await getPageContent(block_id)).blocks;
       return typia.misc.assertClone<INotion.MarkdownBlock[]>(blocks);
     } catch (err) {
-      console.error(err);
+      console.error(JSON.stringify(err));
       throw err;
     }
   }
