@@ -1,5 +1,3 @@
-import axios from "axios";
-
 import { ConnectorGlobal } from "../../../ConnectorGlobal";
 
 export namespace KoreaEximbankProvider {
@@ -22,7 +20,7 @@ export namespace KoreaEximbankProvider {
 
       return data;
     } catch (err) {
-      console.error(err);
+      console.error(JSON.stringify(err));
       throw err;
     }
   }
