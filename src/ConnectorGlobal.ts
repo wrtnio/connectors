@@ -88,6 +88,7 @@ export namespace ConnectorGlobal {
     GOOGLE_CLIENT_ID: string;
     GOOGLE_CLIENT_SECRET: string;
     GOOGLE_TEST_SECRET: string;
+    GOOGLE_API_KEY: string;
 
     // GOOGLE ADS
     GOOGLE_ADS_ACCOUNT_ID: `${number}`;

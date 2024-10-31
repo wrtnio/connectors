@@ -1,10 +1,129 @@
 import { Injectable } from "@nestjs/common";
 import { IGoogleMap } from "@wrtn/connector-api/lib/structures/connector/google_map/IGoogleMap";
+import { google } from "googleapis";
 import { getJson } from "serpapi";
 import { ConnectorGlobal } from "../../../ConnectorGlobal";
+import { ErrorUtil } from "../../../utils/ErrorUtil";
+import axios from "axios";
+import { createQueryParameter } from "../../../utils/CreateQueryParameter";
+import { tags } from "typia";
 
 @Injectable()
 export class GoogleMapProvider {
+  /**
+   * 1,000회 요청 당 2.83 달러를 사용하나, Google Map은 매 달 200달러까지는 무료 사용이 가능하다.
+   * 다른 API 사용량과 합산하여 금액이 결정된다.
+   *
+   * @param input
+   * @returns
+   */
+  async autocomplete(
+    input: IGoogleMap.IAutocompleteInput,
+  ): Promise<IGoogleMap.IAutocompleteOutput> {
+    const places = await google.places("v1").places.autocomplete(
+      {
+        requestBody: {
+          input: input.input,
+          locationBias: {
+            circle: {
+              center: {
+                latitude: input.circle?.latitude,
+                longitude: input.circle?.longitude,
+              },
+              radius: input.circle?.radius ?? 500,
+            },
+          },
+        },
+        key: ConnectorGlobal.env.GOOGLE_API_KEY,
+      },
+      {
+        headers: {
+          "X-Goog-FieldMask": "*",
+        },
+      },
+    );
+
+    const suggestions = places.data.suggestions;
+    return {
+      suggestions: suggestions?.map((suggestion) => {
+        const text = suggestion.placePrediction?.text?.text ?? null;
+        const types = suggestion.placePrediction?.types ?? [];
+        return {
+          placePrediction: suggestion.placePrediction
+            ? {
+                placeId: suggestion.placePrediction?.placeId,
+                text: { text },
+                types,
+              }
+            : null,
+        };
+      }),
+    };
+  }
+
+  async getPhoto(
+    photoResourceName: `places/${string}/photos/${string}`,
+  ): Promise<{
+    name: string;
+    photoUri: string & tags.Format<"iri">;
+  }> {
+    const queryParameter = createQueryParameter({
+      key: ConnectorGlobal.env.GOOGLE_API_KEY,
+      maxHeightPx: 1600,
+      skipHttpRedirect: true,
+    });
+
+    const url = `https://places.googleapis.com/v1/${photoResourceName}/media?${queryParameter}`;
+    const res = await axios.get(url);
+    return res.data;
+  }
+
+  async searchText(
+    input: IGoogleMap.ISearchTextInput,
+  ): Promise<IGoogleMap.ISearchTextOutput> {
+    try {
+      const response = await google.places("v1").places.searchText(
+        {
+          requestBody: {
+            textQuery: input.textQuery,
+            pageToken: input.nextPageToken,
+          },
+          key: ConnectorGlobal.env.GOOGLE_API_KEY,
+        },
+        {
+          headers: {
+            "X-Goog-FieldMask": "*",
+          },
+        },
+      );
+
+      const nextPageToken = response.data.nextPageToken ?? null;
+
+      return {
+        nextPageToken,
+        places: await Promise.all(
+          (response.data.places ?? []).map(async (place) => {
+            place.photos = await Promise.all(
+              (place.photos ?? [])
+                .filter((photo) => photo.name)
+                .slice(0, 1) // 썸네일 용도로 사용할 것이기 때문에 1장만 제공되게 한다.
+                .map(async (photo) => {
+                  const name = `${photo.name}`;
+                  const { photoUri } = await this.getPhoto(name as any);
+                  return { ...photo, link: photoUri };
+                }),
+            );
+
+            return place;
+          }),
+        ),
+      };
+    } catch (err) {
+      console.error(JSON.stringify(err));
+      throw err;
+    }
+  }
+
   async search(input: IGoogleMap.IRequest): Promise<IGoogleMap.IResponse[]> {
     try {
       const params = {
