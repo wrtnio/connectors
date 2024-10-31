@@ -1,28 +1,26 @@
 # Connector API Functions
+
 ## 1. Outline
-> - `@todo` 향후 서비스 공개시, 영어로 다시 작성해야 함
-> - `@todo` 개요에서 다루는 내용들에 대한 상세 기술 문서가 필요
+- `@todo` In the future, when the service is released, it should be rewritten in English.
+- `@todo` Detailed technical documentation is needed for the contents covered in the outline.
 
 Connector Backend Server.
 
-  - Provides functions and metadata for Studio
-  - Studio is a visual compiler based service
-  - Workflow is a document of visual components
+- Provides functions and metadata for Studio.
+- Studio is a visual compiler-based service.
+- Workflow is a document of visual components.
 
-"(주)뤼튼테크놀로지스" 에서는 "스튜디오" 라고 하여, LLM (Large Language Model) 과 결합한 비쥬얼 컴파일러 기반 서비스가 존재한다. 그리고 이 "스튜디오" 에서 만들 수 있는 비쥬얼 컴포넌트 문서를 "워크플로우" 라고 하는데, "스튜디오" 는 이 "워크플로우 문서" 를 컴파일하여 실행 가능한 프로그램을 만들 수 있다.
+"Wrtn Technologies" has a service called "Studio," which is a visual compiler-based service combined with LLM (Large Language Model). The visual component documents that can be created in this "Studio" are called "Workflows," and "Studio" can compile these "Workflow documents" into executable programs.
 
-그리고 "워크플로우" 에 사용할 수 있는 각각의 함수 노드들은, 대체로 본 커넥터 백엔드 서버로부터 유래한다. "이메일 발송하기" 나 "논문 요약하기" 등의 "워크플로우" 에 배치할 수 있는 기능들이, 바로 본 커넥터 서버에서 제공하는 함수들의 가장 대표적인 사례이다.
+The function nodes that can be used in "Workflows" are mostly derived from this connector backend server. Functions like "Send Email" or "Summarize Paper" that can be placed in "Workflows" are the most representative examples of functions provided by this connector server.
 
-또한 "스튜디오" 의 비쥬얼 컴파일러 시스템은 "워크플로우" 를 구성하는 각각의 함수 및 데이터들의 메타데이터를 OpenAPI v3.1 (구 명칭 스웨거) 스펙으로 정의하여 관리하고 있다. 따라서 본 커넥터는 "스튜디오" 에 함수를 제공하는 provider 이면서 동시에, 스웨거 문서를 빌드하여 그것들의 메타데이터 스펙을 전달해주는 역할을 겸하고 있다.
-
-
-
+Additionally, the visual compiler system of "Studio" defines and manages the metadata of each function and data that make up the "Workflow" in OpenAPI v3.1 (formerly Swagger) specifications. Therefore, this connector serves as a provider of functions to "Studio" and also plays a role in building Swagger documents to deliver their metadata specifications.
 
 ## 2. Setup
 ### 2.1. NodeJS
 https://nodejs.org/en/
 
-NodeJS v20 혹은 그 이상 버전을 설치한다.
+Install NodeJS v20 or higher.
 
 ### 2.2. Backend Server
 ```bash
@@ -35,51 +33,48 @@ npm run build
 npm run test
 ```
 
-커넥터 서버는 위 `git clone` 명령어로 설치할 수 있다. 그리고 해당 폴더로 이동하여, `git update-index --assume-unchanged .env` 명령어를 실행해주자. 이는 앞으로 `.env` 파일에 그 어떠한 변경이 생기더라도, 이를 커밋하지 않겠다는 명령어이다.
+The connector server can be installed with the above `git clone` command. Then move to the corresponding folder and execute the `git update-index --assume-unchanged .env` command. This command means that any changes to the `.env` file will not be committed in the future.
 
-이후 [.env](./.env) 파일을 열어, 각각의 항목들을 채워주도록 한다. [.env](./.env) 파일에 설정할 것들로는 OpenAI 나 AWS S3 인증키 등이 있는데, 로컬에의 설정은 개발자들이 각 서비스로부터 API 인증키 등을 발급받아 재량껏 설정하도록 한다. 참고로 Github Actions 나 실제 서비스에 사용되는 환경변수 값들은 따로 있다.
+Next, open the [.env](./.env) file and fill in each item. Items to be set in the [.env](./.env) file include OpenAI or AWS S3 authentication keys, and local settings should be set at the discretion of developers by obtaining API authentication keys from each service. Note that the environment variable values used in Github Actions or actual services are separate.
 
-마지막 `npm run build` 및 `npm run test` 를 실행함으로써, 커넥터 서버의 정상 동작 여부를 판별할 수 있다.
+Finally, by executing `npm run build` and `npm run test`, you can determine whether the connector server is operating normally.
 
 ### 2.3. Swagger Documents
 ```bash
-# Swagger 문서 단독 빌드시
+# Build Swagger documents only
 npm run build:swagger
 
-# Swagger 문서 빌드 후 Swagger-UI 까지 함께 보기
+# View Swagger documents with Swagger-UI after building
 npm run start:swagger
 
-# Swagger 문서 빌드 없이 Swagger-UI 단독 실행
+# Run Swagger-UI without building Swagger documents
 npm run start:swagger -- --skipBuild
 ```
 
-위 명령어를 실행하여, Swagger (OpenAPI v3.1) 문서를 빌드하고, `swagger-ui` 로 열람할 수 있다.
+By executing the above commands, you can build Swagger (OpenAPI v3.1) documents and view them with `swagger-ui`.
 
-본 프로젝트의 목적이 커넥터 함수의 개발에 더불어, 이를 OpenAPI 스펙의 문서로 빌드하여 뤼튼의 비쥬얼 컴파일러에서 사용할 수 있도록 하는 것이기에, 필히 양질의 API 설계 및 (주석) 문서화 수준을 달성해야하며, 이를 Swagger 문서로 상시 활용/검증할 것이다.
-
-
-
+The purpose of this project is to develop connector functions and build them into OpenAPI spec documents for use in Wrtn's visual compiler, so it is essential to achieve a high level of API design and documentation (comments) and to utilize/verify them with Swagger documents at all times.
 
 ## 3. Development
-커넥터 서버를 어떻게 개발할 지에 대한 지침이다. 다만 더 자세한 내용은 [CONTRIBUTING.md](./CONTRIBUTING.md) 을 참고하되, 여기서는 개념적인 설명을 다루자.
+Guidelines on how to develop the connector server. For more detailed information, refer to [CONTRIBUTING.md], but here we will cover conceptual explanations.
 
-1. API 함수 및 DTO 의 메타데이터를 먼저 정의한다
-2. 이를 클라이언트용 SDK 라이브러리로 빌드함
-3. SDK 라이브러리를 활용하여 e2e 테스트 함수를 작성함
-   - 개별 API 수준에서 각각의 정상 동작 여부를 검증
-   - 유즈케이스 시나리오에 입각하여 API 함수들을 조합해가며 작성
-4. 메인 프로그램을 개발하고, 앞서의 테스트 프로그램으로 상시 검증
+1. Define the metadata of API functions and DTOs first.
+2. Build it into a client SDK library.
+3. Write e2e test functions using the SDK library.
+   - Verify the normal operation of each API at the individual API level.
+   - Write by combining API functions based on use case scenarios.
+4. Develop the main program and verify it with the previous test program.
 
 ### 3.1. Definition
 > Define API operation and DTO structures
 
-커넥터 서버를 개발할 때, 가장 먼저 해야 할 일은 API 함수 및 DTO 구조 등의 인터페이스를 정의하는 것이다. 그리고 여기서 말하는 인터페이스 정의란, 메인 프로그램까지 모두 완성하는 것이 아니라, 오직 컨트롤러 메서드 및 DTO 등의 메타데이터 정의까지만을 뜻한다.
+When developing the connector server, the first thing to do is to define interfaces such as API functions and DTO structures. And by interface definition here, it means only defining the metadata of controller methods and DTOs, not completing the main program.
 
-아래 예제 코드의 경우, 게시판에 글을 등록하고 조회하는 API 를 형상화한 컨트롤러이다. 보다시피 오직 DTO 타입과 컨트롤러 메서드의 인터페이스만이 정의되었을 뿐, 각각의 컨트롤러 메서드는 모두 그 속이 비었고, 서비스 프로바이더 같은 것은 일절 존재하지 않는다.
+In the example code below, it is a controller that embodies an API for registering and viewing posts on a bulletin board. As you can see, only the interfaces of DTO types and controller methods are defined, and each controller method is empty, and there is no service provider.
 
-이외에 각각의 API 함수 (컨트롤러 메서드) 및 DTO 타입 및 속성들에는, 필요 충분한 만큼의 설명을 주석으로 적어주어야 한다. API 메타데이터에 적힌 제목 및 서술문들이 그대로 OpenAPI 에 구성된 각 API 함수들의 고유 메타데이터 스펙과 함께 LLM (Large Language Model) 에 Function Call (사용자가 LLM 에 제공하여 호출을 유도하는 커스텀 함수 집합) 의 형태로 제공되어, ChatGPT 등이 유저와 전개해나가는 대화의 품질 및 적합 함수 선정에 수준에 지대한 영향을 미치기 때문이다.
+In addition, for each API function (controller method) and DTO type and attributes, sufficient explanations should be written as comments. The titles and descriptions written in the API metadata are provided as a custom function set in the form of Function Call (a custom function set provided to LLM to induce calls) to LLM (Large Language Model), which has a significant impact on the quality of conversations and the level of appropriate function selection that ChatGPT, etc., develops with users.
 
-```typescript
+```ts
 @Controller("bbs/articles")
 export class BbsArticlesController {
   /**
@@ -127,13 +122,13 @@ export class BbsArticlesController {
 npm run build:sdk
 ```
 
-API 및 DTO 인터페이스 정의가 완료되거든, 위 명령어를 실행하여 SDK 라이브러리를 빌드해준다.
+Once the API and DTO interface definitions are complete, run the above command to build the SDK library.
 
-참고로 여기서 말하는 SDK (Software Development Kit) 라이브러리란, 귀하가 커넥터 서버에 작성한 컨트롤러 메서드와 DTO 타입들을 `nestia` 가 컴파일러 수준에서 분석, 아래와 같이 클라이언트가 사용할 수 있는 연동 라이브러리로 만들어주는 것을 뜻한다.
+The SDK (Software Development Kit) library here refers to the integration library that `nestia` analyzes at the compiler level and creates for the client to use, based on the controller methods and DTO types you wrote on the connector server.
 
-Rest API 서버에 대한 일종의 클라이언트 수준 RPC (Remote Procedure Call) 셋인 것.
+It is a kind of client-level RPC (Remote Procedure Call) set for the Rest API server.
 
-```typescript
+```ts
 /**
  * Get an article with detailed info.
  *
@@ -278,17 +273,17 @@ export namespace create {
 ```
 
 ### 3.3. Test Automation Program
-위 SDK 라이브러릴 활용, e2e 테스트 프로그램을 작성하면 된다.
+Using the above SDK library, write an e2e test program.
 
-각각의 테스트 프로그램은 [`test/features/api`](./test/features/api) 폴더 및 아무 곳에나 생성하면 된다. 테스트 대상 함수는 `export` 지시어를 붙이고 `test_` 의 이름으로 시작하면 되며, 파라미터로는 커넥터 서버로의 접속 정보에 해당하는 `IConnection` 타입의 변수를 가지면 된다. 그리고 테스트 함수 본문의 코드는, 앞 단원에서 빌드한 SDK 라이브러리를 활용하여 E2E (End to End) 형식으로 작성하면 된다.
+Each test program can be created in the [`test/features/api`](./test/features/api) folder or anywhere. The target function for testing should be marked with the `export` directive and start with the name `test_`, and the parameter should be a variable of type `IConnection` corresponding to the connection information to the connector server. And the code of the test function body should be written in E2E (End to End) format using the SDK library built in the previous section.
 
-참고로 귀하가 작성할 테스트 프로그램은 반드시, 커넥터 서버에 존재하는 모든 API 들을 검증할 수 있어야 한다. 반대로 말하면, [3.1. Definition](#31-definition) 단원에서 각각 API 함수들을 정의할 때마다, [3.2. Software Development Kit](#32-software-development-kit) 을 빌드하고, 이를 통하여 e2e 함수를 작성해야 한다.
+Note that the test program you write must be able to verify all APIs existing on the connector server. Conversely, whenever you define each API function in the [3.1. Definition](#31-definition) section, you must build the [3.2. Software Development Kit](#32-software-development-kit) and write e2e functions through it.
 
-이외에 각각의 API 함수들에 대하여 테스트 함수를 각각 작성하는 것도 좋지만, 본래 본 커넥터 서버에 API 함수들을 추가할 때는, 모름지기 소기의 목적이 있는 법이다. 그리고 그 소기의 목적이란 대체로, 단 하나의 API 함수만을 사용하지 않으며, 복수의 API 함수들을 조합하여 활용하기 마련이다. 
+In addition to writing test functions for each API function, when adding API functions to this connector server, there is usually a specific purpose. And that specific purpose is generally not to use only one API function, but to combine multiple API functions. 
 
-따라서 e2e 테스트 함수 중에, 이런 식으로 특수 유즈케이스를 가정하고 복수의 SDK 함수를 호출하는 시나리오 형태의 것을 작성하는 일 또한 필요하다. 유즈케이스 시나리오에 입각한 e2e 테스트 프로그램을 작성하는 중, 잘못된 API 설계들이 두드러지게 눈에 띄기 때문에, 이 또한 반드시 필요한 과정 중 하나.
+Therefore, it is also necessary to write a scenario-type e2e test function that assumes a special use case and calls multiple SDK functions in this way. Writing an e2e test program based on use case scenarios is also a necessary process because incorrect API designs become prominently visible.
 
-```typescript
+```ts
 import { RandomGenerator, TestValidator } from "@nestia/e2e";
 import typia from "typia";
 import { v4 } from "uuid";
@@ -332,11 +327,11 @@ export async function test_api_bbs_article_store(
 ```
 
 ### 3.4. Main Program Development
-메인 프로그램의 개발은 앞서의 모든 과정들을 ([인터페이스 정의](#31-definition) -> [SDK 빌드](#32-software-development-kit) -> [e2e 테스트 프로그램 작성](#33-test-automation-program)) 모두 끝낸 다음에야 비로소 진행하는 것으로 한다. 이를 CDD (Contract Driven Development) 내지 TDD (Test Driven Development) 라고 하는데, 본 커넥터 서버와 같은 프로젝트에 특히 유효한 방법론이다.
+The development of the main program should only proceed after completing all the previous processes ([Interface Definition](#31-definition) -> [SDK Build](#32-software-development-kit) -> [e2e Test Program Writing](#33-test-automation-program)). This is called CDD (Contract Driven Development) or TDD (Test Driven Development), and it is a particularly effective methodology for projects like this connector server.
 
-사전에 인터페이스를 깐깐히 정의하고, 그것에 대한 테스트 프로그램을 미리 준비해둔 끝에 메인 프로그램을 개발함으로써, 각각 개발하는 요소 요소들의 안정성을 상시 보장할 수 있게 되기 때문이다. 두서없이 메인 프로그램부터 개발하다가 설계에 오점을 발견하여 break change 가 생긴다던가, 테스트 프로그램을 생략하여 매번 사람이 손으로 한 땀 한 땀 검증한다던가 하는 일이 없어져 매우 효율적이니, 필히 이 방법론을 따를 것.
+By defining the interface strictly in advance and preparing a test program for it, you can always ensure the stability of each element being developed. It is very efficient because it eliminates the need to discover design flaws and make breaking changes or manually verify each time by omitting the test program, so be sure to follow this methodology.
 
-개발해야 할 요소 요소들의 ([인터페이스 설계](#31-definition) > [테스트 프로그램 준비](#33-test-automation-program) > 메인 프로그램) 개발을 마쳤다면, 아래 명령어를 실행함으로써 각 기능이 정상 동작하는 지 확인해 볼 수 있다.
+If you have completed the development of the elements ([Interface Design](#31-definition) > [Test Program Preparation](#33-test-automation-program) > Main Program), you can check whether each function is working properly by executing the following commands.
 
 ```bash
 npm run build:sdk
@@ -344,7 +339,7 @@ npm run build:test
 npm run test
 ```
 
-그리고 만일 `npm run build:test` 대신 `npm run dev` 명령어를 실행한다면, 테스트 프로그램에 대한 incremental build (프로그램 코드가 수정될 때마다 수정된 내역만 부분 컴파일하여 빌드 결과물의 최신성을 상시 유지하는 방법) 가 실행된다. 그리고 테스트 프로그램을 구동해야 될 때면, 별개의 터미널을 실행하여 `npm run test` 명령어를 바로 실행해주면 된다. 만일 특정 테스트 함수만 실행하거나 또는 배제하거나 하고 싶다면, 아래 명령어와 같이 `--include` 와 `--exclude` 옵션을 사용하면 된다.
+And if you run the `npm run dev` command instead of `npm run build:test`, an incremental build (a method of partially compiling only the modified parts each time the program code is modified to always maintain the latest state of the build result) for the test program will be executed. And when you need to run the test program, you can simply run the `npm run test` command in a separate terminal. If you want to run or exclude only specific test functions, you can use the `--include` and `--exclude` options as shown in the command below.
 
 ```bash
 # Terminal 1
@@ -358,44 +353,40 @@ npm run test -- --exclude rag hwp youtube
 npm run test -- --include google naver --exclude drive
 ```
 
-
-
-
 ## 4. Documentation
 ### 4.1. Concepts
-`title/summary` 와 `description` 주석을 충실히 작성하자.
+Write `title/summary` and `description` comments faithfully.
 
-커넥터 서버에서 각 DTO 타입 및 컨트롤러 메서드에 작성한 주석은 그대로 OpenAPI 스펙의 `title` (또는 `summary`) 및 `description` 의 속성으로써 기록된다. 
+The comments written for each DTO type and controller method on the connector server are recorded as the `title` (or `summary`) and `description` attributes of the OpenAPI spec. 
 
-그리고 이는 다시, OpenAPI 에 구성된 각 API 함수들의 고유 메타데이터 스펙과 함께, LLM (Large Language Model) 에 Function Call (사용자가 LLM 에 제공하여 호출을 유도하는 커스텀 함수 집합) 의 형태로 제공되어, ChatGPT 등이 유저와 전개해나가는 대화의 품질 및 적합 함수 선정에 수준에 지대한 영향을 미친다.
+And this is provided as a custom function set in the form of Function Call (a custom function set provided to LLM to induce calls) to LLM (Large Language Model), which has a significant impact on the quality of conversations and the level of appropriate function selection that ChatGPT, etc., develops with users.
 
-따라서 API 고유 스펙과 더불어 주석은 LLM 세션의 퀄리티에 크게 영향을 주는 바, 각각의 API 함수 (컨트롤러 메서드) 및 DTO 타입 및 속성들에는, 필요 충분한 만큼의 설명을 주석으로 반드시 적어주어야 한다.
+Therefore, in addition to the unique spec of the API, comments have a great impact on the quality of the LLM session, so sufficient explanations must be written as comments for each API function (controller method) and DTO type and attributes.
 
 ### 4.2. DTO Structures
-```typescript
+```ts
 /**
- * 구글 드라이브에의 이미지 업로드 DTO.
+ * DTO for uploading an image to Google Drive.
  * 
- * 구글 드라이브에 단일 이미지를 업로드할 때 사용하는 DTO. 만일 복수의 이미지를 
- * 동시에 업로드하고 싶다면, `IGoogleDriveImageMultipleUpload` DTO 및 관련
- * API 함수를 사용하도록 할 것.
+ * DTO used when uploading a single image to Google Drive. If you want to upload multiple images
+ * at once, use the `IGoogleDriveImageMultipleUpload` DTO and related API functions.
  * 
- * @author Jaxtyn
+ * author Jaxtyn
  */
 export interface IGoogleDriveImageSingleUpload {
   /**
-   * 구글 사용자 인증 키.
+   * Google user authentication key.
    * 
-   * 구글 드라이브에 이미지 파일을 업로드하기 위하여, 구글 사용자 인증이 선행되어야 한다.
-   * 본 필드값에는, 바로 그 사전 인증하여 발급받은 사용자 인증 키를 할당해주어야 함.
-   * 그리고 그 인증 키는, read 및 write scope 에 대하여 대응 가능하여야 한다.
+   * To upload an image file to Google Drive, Google user authentication must be preceded.
+   * This field value must be assigned the user authentication key issued after pre-authentication.
+   * And that authentication key must be able to respond to both read and write scopes.
    */
   token: string & SecretKey<"google-auth-key", ["read", "write"]>;
 
   /**
-   * 이미지 파일 경로.
+   * Image file path.
    * 
-   * Workflow Editor 상 Inspector 내지 Chat Agent 의 File Uploader 의하여 구성됨.
+   * Composed by the File Uploader of the Workflow Editor's Inspector or Chat Agent.
    */
   url: string & tags.Format<"iri"> & (
     | tags.MediaContentType<"image/png">
@@ -403,46 +394,46 @@ export interface IGoogleDriveImageSingleUpload {
   );
 
   /**
-   * 이미지 파일이 위치할 경로, 파일명 및 확장자는 제외.
+   * Path where the image file will be located, excluding the file name and extension.
    * 
-   * @title 파일 경로
+   * title File path
    */
   location: string;
 
   /**
-   * 파일명.
+   * File name.
    * 
-   * 확장자가 제외된, 순수 파일명.
+   * Pure file name excluding the extension.
    * 
-   * {@link url} 의 실제 파일명과 다르게 업로드 가능.
+   * Can be uploaded differently from the actual file name of {@link url}.
    */
-  name: string & Placeholder<"파일명을 입력해주세요.">;
+  name: string & Placeholder<"Please enter the file name.">;
 
   /**
-   * 이미지 확장자.
+   * Image extension.
    */
   extension: "jpg" | "png";
 }
 ```
 
-DTO 타입을 정의할 때, 위와 같이 각 타입 및 속성별로 설명을 자세히 적어주도록 한다.
+When defining DTO types, write detailed explanations for each type and attribute as shown above.
 
-그리고 본 커넥터 프로젝트를 개발하다보면, 외부 서비스의 인증 키를 지칭하는 `SecretKey` 나 UI component 에 힌트로 제공되는 `Placeholder` 등, 스튜디오 전용 디코레이터 타입을 써야하는 경우가 왕왕 있다. https://github.com/wrtnio/decorators 를 방문하여, 그 사용법을 파악해 둘 것.
+And when developing this connector project, there are often cases where you need to use studio-specific decorator types such as `SecretKey` for referring to external service authentication keys or `Placeholder` provided as a hint to UI components. Visit https://github.com/wrtnio/decorators to understand how to use them.
 
-참고로 DTO 의 경우에는 JSON Schema 정의상 그 서술부가 `title` 과 `description` 으로 나뉘는데, `title` 는 주석의 가장 하부에 `@title Text` 라는 명시적인 형태로 작성할 수 있다. 만약 `@title` JSDoc 태그가 없다면, 주석 문장의 가장 첫 줄이 온점 (`.`) 으로 끝나는 경우 이 것이 `title` 이 되고, 그렇지 않다면 `undefined` 가 된다.
+Note that in the case of DTOs, the description part is divided into `title` and `description` in the JSON Schema definition, and `title` can be explicitly written as `@title Text` at the bottom of the comment. If there is no `@title` JSDoc tag, the first line of the comment sentence ending with a period (`.`) becomes the `title`, otherwise it becomes `undefined`.
 
 ### 4.3. Controller Methods
-```typescript
+```ts
 @Controller("google/:accountCode/drives/images/upload")
 export class GoogleDriveImageUploadController {
   /**
-   * 단일 이미지 파일 업로드.
+   * Upload a single image file.
    * 
-   * 단 하나의 이미지 파일을 구글 드라이브에 개별 업로드한다.
+   * Upload a single image file individually to Google Drive.
    * 
-   * @param accountCode 구글 계정명
-   * @param input 단일 이미지 파일 업로드 정보
-   * @returns 업로드 완료된 구글 드라이브 파일 정보
+   * @param accountCode Google account name
+   * @param input Single image file upload information
+   * @returns Information of the uploaded Google Drive file
    * 
    * @tag Google
    */
@@ -457,12 +448,12 @@ export class GoogleDriveImageUploadController {
   }
 
   /**
-   * 복수의 이미지 파일들을 구글 드라이브에 한꺼번에 업로드한다.
+   * Upload multiple image files to Google Drive at once.
    * 
-   * @summary 다중 이미지 파일 업로드 
-   * @param accountCode 구글 계정명
-   * @param input 복수 이미지 파일 업로드 정보
-   * @returns 업로드 완료된 구글 드라이브 파일들의 정보 리스트
+   * @summary Multiple image file upload 
+   * @param accountCode Google account name
+   * @param input Multiple image file upload information
+   * @returns List of information of the uploaded Google Drive files
    * 
    * @tag Google
    */
@@ -478,73 +469,70 @@ export class GoogleDriveImageUploadController {
 }
 ```
 
-API 컨트롤러 메서드를 정의할 때, 위와 같이 그 기능에 대하여 상세히 적어주도록 한다.
+When defining API controller methods, write detailed explanations about their functions as shown above.
 
-그리고 본 커넥터 프로젝트를 개발하다보면, 각 커넥터 함수의 아이콘을 지칭하는 `@RouteIcon()` 이나 스튜디오 전용 디코레이터 타입을 써야하는 경우가 왕왕 있다. https://github.com/wrtnio/decorators 를 방문하여, 그 사용법을 파악해 둘 것.
+And when developing this connector project, there are often cases where you need to use studio-specific decorator types such as `@RouteIcon()` for referring to the icon of each connector function. Visit https://github.com/wrtnio/decorators to understand how to use them.
 
-참고로 API operation 의 경우에는 OpenAPI 스펙 정의상 그 서술부가 `summary` 과 `description` 으로 나뉘는데, `summary` 는 주석의 하부에 `@summary Text` 라는 명시적인 형태로 작성할 수 있다. 만약 `@summary` JSDoc 태그가 없다면, 주석 문장의 가장 첫 줄이 온점 (`.`) 으로 끝나는 경우 이 것이 `summary` 이 되고, 그렇지 않다면 `undefined` 가 된다.
-
-
-
+Note that in the case of API operations, the description part is divided into `summary` and `description` in the OpenAPI spec definition, and `summary` can be explicitly written as `@summary Text` at the bottom of the comment. If there is no `@summary` JSDoc tag, the first line of the comment sentence ending with a period (`.`) becomes the `summary`, otherwise it becomes `undefined`.
 
 ## 5. Appendix
 ### 5.1. NPM Run Commands
-현 커넥터 프로젝트에서 제공하는 NPM 명령어 모음.
+A collection of NPM commands provided by this connector project.
 
-만일 `pakage.json` 에 새 명령어를 추가하거나 수정하였다면, 필히 본 문서를 수정할 것.
+If you add or modify new commands in `pakage.json`, be sure to modify this document.
 
-  - Test
-    - **`test`**: **테스트 프로그램 실행, `build:test` 내지 `dev` 후에 실행 가능**
-    - `test:inhouse`: 뤼튼 인프라 내에서만 실행 가능한 테스트 프로그램
-  - Build
-    - `build`: 아래 SDK/Test/Main 프르그램들을 모두 빌드함
-    - `build:sdk`: SDK 라이브러리 빌드, 로컬 전용
-    - `build:main`: 메인 프로그램 빌드
-    - `build:test`: 테스트 프로그램 빌드
-    - **`dev`**: **테스트 프로그램의 incremental 빌더**
-    - `eslint`: EsLint 검사기
-    - `pretter`: 프리티어 일괄 적용
-  - Deploy
-    - `package:api`: SDK 라이브러리 빌드 후 NPM 패키지 배포하기
-    - `start`: 백엔드 서버 단독 실행기
-    - `start:swagger`: Swagger UI 실행기
+- Test
+  - **`test`**: **Run the test program, can be run after `build:test` or `dev`**
+  - `test:inhouse`: Test program that can only be run within the Wrtn infrastructure
+- Build
+  - `build`: Build all SDK/Test/Main programs below
+  - `build:sdk`: Build SDK library, local only
+  - `build:main`: Build main program
+  - `build:test`: Build test program
+  - **`dev`**: **Incremental builder for test programs**
+  - `eslint`: EsLint inspector
+  - `pretter`: Apply Prettier in bulk
+- Deploy
+  - `package:api`: Build SDK library and deploy NPM package
+  - `start`: Backend server standalone runner
+  - `start:swagger`: Swagger UI runner
 
 ### 5.2. Directories
-본 커넥터 프로젝트는 대략 아래와 같은 폴더 구조를 취함.
+This connector project takes roughly the following folder structure.
 
-  - [.vscode/launch.json](.vscode/launch.json): Configuration for debugging
-  - [packages/](packages/): Packages to publish as private npm modules
-    - [packages/api/](packages/api): Client [SDK](#32-software-development-kit) library for the client developers
-  - [src/](src/): TypeScript Source directory
-    - [src/api/](src/api/): Client SDK that would be published to the `@wrtn/connector-api`
-      - [**src/api/functional/**](src/api/functional/): API functions generated by the [`nestia`](https://github.com/samchon/nestia)
-      - [**src/api/structures/**](src/api/structures/): DTO structures
-    - [src/controllers/](src/controllers/): Controller classes of the Main Program
-    - [src/providers/](src/providers/): Service providers
-    - [src/executable/](src/executable/): Executable programs
-  - [**test/**](test/): Test Automation Program
-    - [test/features/api](test/features/api): List of test functions
+- [.vscode/launch.json](.vscode/launch.json): Configuration for debugging
+- [packages/](packages/): Packages to publish as private npm modules
+  - [packages/api/](packages/api): Client [SDK](#32-software-development-kit) library for the client developers
+- [src/](src/): TypeScript Source directory
+  - [src/api/](src/api/): Client SDK that would be published to the `@wrtn/connector-api`
+    - [**src/api/functional/**](src/api/functional/): API functions generated by the [`nestia`](https://github.com/samchon/nestia)
+    - [**src/api/structures/**](src/api/structures/): DTO structures
+  - [src/controllers/](src/controllers/): Controller classes of the Main Program
+  - [src/providers/](src/providers/): Service providers
+  - [src/executable/](src/executable/): Executable programs
+- [**test/**](test/): Test Automation Program
+  - [test/features/api](test/features/api): List of test functions
 
 ### 5.3. Custom Decorators
 https://github.com/wrtnio/decorators
 
-스튜디오 시스템에서는 OpenAPI v3.1 및 JSON Schema 의 표준 스펙으로 충족할 수 없는 기능들에 대하여, 별도의 메타데이터 플러그인 속성을 정의하여 이를 벌충하고 있다. 그리고 이 메타데이터 플러그인 속성들을 정의할 수 있는 라이브러리가 바로 `@wrtn/decorators` 이다.
+In the studio system, for functions that cannot be satisfied with the standard specs of OpenAPI v3.1 and JSON Schema, separate metadata plugin attributes are defined to supplement them. And the library that allows you to define these metadata plugin attributes is `@wrtn/decorators`.
 
-따라서 위 저장소를 방문, 각각 어느 형태의 메타데이터 플러그인 속성들이 있고 그들의 목적 및 사용법에 대하여 파악토록 하자.
+Therefore, visit the above repository to understand what types of metadata plugin attributes exist and their purposes and usage.
 
 ### 5.4. Pure TypeScript Type
 https://nestia.io/docs/pure/
 
-본래 NestJS 는 DTO 를 정의할 때, 이를 반드시 클래스로 선언해야하며, 각각 TypeScript 타입과 validator 와 transformer 및 OpenAPI Spec (JSON Schema) 을 4 중으로 중복 정의해야 한다. 그 과정에서 무수한 사람의 실수가 발생할 수 있어, 메타데이터의 정합성을 보장할 수 없게 된다.
+Originally, NestJS requires DTOs to be declared as classes, and each TypeScript type, validator, transformer, and OpenAPI Spec (JSON Schema) must be defined redundantly four times. In the process, countless human errors can occur, making it impossible to guarantee the consistency of metadata.
 
-이에 본 커넥터 서버는 NestJS 에 `nestia` 라는 것을 씌워 사용함으로써, DTO 를 정의할 때 순수 TypeScript 타입을 사용할 수 있게 하였다. 그리고 validation 과 OpenAPI (JSON schema) spec 정의 또한 TypeScript 타입으로부터 컴파일러 수준에서 자동 구성되게 함으로써, 메타데이터에 대한 중복 정의의 필요성 자체를 없애서, 그 안전성을 확보해놨다.
+Therefore, this connector server uses something called `nestia` on NestJS, allowing pure TypeScript types to be used when defining DTOs. And by automatically composing validation and OpenAPI (JSON schema) spec definitions from TypeScript types at the compiler level, it eliminates the need for redundant definitions of metadata, ensuring its safety.
 
-이 점이 커넥터 백엔드 서버가 통상적인 NestJS 백엔드 서버의 개발 방법과 가장 크게 다른 점이니, 필히 유념하도록 하자.
+This is the biggest difference between the connector backend server and the conventional NestJS backend server development method, so be sure to keep this in mind.
 
-```typescript
-//----------------------------------------------------------
-// NestJS 의 전통적인 DTO 정의법
-//----------------------------------------------------------
+```ts
+----------------------------------------------------------
+// Traditional DTO definition method of NestJS
+----------------------------------------------------------
 export class BbsArticle {
   @ApiProperty({
     format: "uuid",
@@ -593,9 +581,9 @@ export class BbsArticle {
   created_at!: string;
 }
 
-//----------------------------------------------------------
-// 커넥터 서버는 순수 인터페이스만으로도 DTO 정의 가능
-//----------------------------------------------------------
+----------------------------------------------------------
+// The connector server can define DTOs with pure interfaces
+----------------------------------------------------------
 export interface IBbsArticle {
   /**
    * Primary Key.
