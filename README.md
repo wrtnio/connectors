@@ -10,7 +10,7 @@ Connector Backend Server.
 - Studio is a visual compiler-based service.
 - Workflow is a document of visual components.
 
-"(주)뤼튼테크놀로지스" has a service called "Studio," which is a visual compiler-based service combined with LLM (Large Language Model). The visual component documents that can be created in this "Studio" are called "Workflows," and "Studio" can compile these "Workflow documents" into executable programs.
+"Wrtn Technologies" has a service called "Studio," which is a visual compiler-based service combined with LLM (Large Language Model). The visual component documents that can be created in this "Studio" are called "Workflows," and "Studio" can compile these "Workflow documents" into executable programs.
 
 The function nodes that can be used in "Workflows" are mostly derived from this connector backend server. Functions like "Send Email" or "Summarize Paper" that can be placed in "Workflows" are the most representative examples of functions provided by this connector server.
 
