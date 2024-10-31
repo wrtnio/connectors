@@ -15,7 +15,7 @@
     }
   ],
   "info": {
-    "version": "0.1.308",
+    "version": "0.1.309",
     "title": "@wrtn/connector",
     "description": "wrtn-ecosystem connectors and sdk",
     "license": {
@@ -15747,7 +15747,6 @@
           "explicitlyTrashed",
           "createdDate",
           "modifiedDate",
-          "markedViewedByMeDate",
           "quotaBytesUsed",
           "version",
           "capabilities"
