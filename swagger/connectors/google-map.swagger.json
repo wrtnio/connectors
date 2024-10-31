@@ -16,27 +16,26 @@
   ],
   "info": {
     "title": "Google Map",
-    "version": "0.1.309",
+    "version": "0.1.310",
     "description": "wrtn-ecosystem connectors and sdk",
     "license": {
       "name": "AGPL-3.0-only"
     }
   },
   "paths": {
-    "/connector/google-map": {
+    "/connector/google-map/autocomplete": {
       "post": {
-        "summary": "Google Map restaurant search",
-        "description": "Search for restaurants using Google Maps",
+        "summary": "Returns predictions for the given input in Google Maps",
+        "description": "recommendations for automatic completion or location through a search word or a latitude coordinate value to be used with the search word.\n\nSince it is a text auto-completion, this feature allows you to find better search keywords.\nHowever, since there is a separate connector for searching the surrounding geography, it is recommended to use that connector if you want to find a place that is not a keyword.\nIt is recommended that you use this connector to narrow down the search keyword before writing the place search connector.",
         "tags": [
           "Google Map"
         ],
         "parameters": [],
         "requestBody": {
-          "description": "Search term to search for restaurants",
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/IGoogleMap.IRequest"
+                "$ref": "#/components/schemas/IGoogleMap.IAutocompleteInput"
               }
             }
           },
@@ -44,21 +43,17 @@
         },
         "responses": {
           "201": {
-            "description": "Restaurant search results",
+            "description": "",
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/IGoogleMap.IResponse"
-                  }
+                  "$ref": "#/components/schemas/IGoogleMap.IAutocompleteOutput"
                 }
               }
             }
           }
         },
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleMap_full.svg",
-        "x-wrtn-standalone": true
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleMap_full.svg"
       }
     },
     "/connector/google-map/review": {
@@ -98,10 +93,1192 @@
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleMap_full.svg",
         "x-wrtn-standalone": true
       }
+    },
+    "/connector/google-map/search-text": {
+      "post": {
+        "summary": "Search by text in Google Maps",
+        "description": "General search functionality on Google Maps\n\nIf possible, it is recommended to use POST/connector/google-map/search-text connector rather than this.\nHere, it is difficult to conduct additional search after providing information to users because only restaurants are searched using the Serp API and the response parameter does not provide a Google Map link.",
+        "tags": [
+          "Google Map"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "description": "Keyword",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IGoogleMap.ISearchTextInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IGoogleMap.ISearchTextOutput"
+                }
+              }
+            }
+          }
+        },
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleMap_full.svg"
+      }
+    },
+    "/connector/google-map": {
+      "post": {
+        "summary": "Google Map restaurant search",
+        "description": "Search for restaurants using Google Maps",
+        "tags": [
+          "Google Map"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "description": "Search term to search for restaurants",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IGoogleMap.IRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Restaurant search results",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/IGoogleMap.IResponse"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleMap_full.svg",
+        "x-wrtn-standalone": true
+      }
     }
   },
   "components": {
     "schemas": {
+      "IGoogleMap.IAutocompleteOutput": {
+        "type": "object",
+        "properties": {
+          "suggestions": {
+            "type": "array",
+            "items": {
+              "oneOf": [
+                {
+                  "type": "null"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "placePrediction": {
+                      "oneOf": [
+                        {
+                          "type": "null"
+                        },
+                        {
+                          "$ref": "#/components/schemas/IGoogleMap.PlacePrediction"
+                        }
+                      ],
+                      "title": "Place Prediction",
+                      "description": "Meaning of candidate groups viewed as map search results"
+                    }
+                  },
+                  "required": [
+                    "placePrediction"
+                  ]
+                }
+              ]
+            },
+            "title": "Response"
+          }
+        },
+        "title": "Response of Autocomplete"
+      },
+      "IGoogleMap.PlacePrediction": {
+        "type": "object",
+        "properties": {
+          "placeId": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "title": "Place ID",
+            "description": "Place ID of Google map"
+          },
+          "text": {
+            "type": "object",
+            "properties": {
+              "text": {
+                "oneOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "type": "string",
+                    "x-wrtn-placeholder": "대한민국 서울특별시 강남구 신사동 피자익스프레스"
+                  }
+                ],
+                "title": "Name"
+              }
+            },
+            "title": "Name"
+          },
+          "types": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "title": "Place Types"
+          }
+        },
+        "required": [
+          "types"
+        ],
+        "title": "Place Prediction"
+      },
+      "IGoogleMap.IAutocompleteInput": {
+        "type": "object",
+        "properties": {
+          "input": {
+            "type": "string",
+            "title": "search keyword"
+          },
+          "circle": {
+            "type": "object",
+            "properties": {
+              "latitude": {
+                "type": "number",
+                "title": "Latitude",
+                "description": "It refers to a latitude value for specifying a space of an area to be searched."
+              },
+              "longitude": {
+                "type": "number",
+                "title": "Longitude",
+                "description": "It refers to a longitude value for specifying a space of an area to be searched."
+              },
+              "radius": {
+                "type": "number",
+                "default": 500,
+                "minimum": 0,
+                "maximum": 50000,
+                "title": "Radius",
+                "description": "This refers to the radial distance for specifying the space of the region to be searched. It is in meters.\ndefault value is 500 meters."
+              }
+            },
+            "required": [
+              "latitude",
+              "longitude",
+              "radius"
+            ],
+            "title": "Search radius"
+          }
+        },
+        "required": [
+          "input"
+        ],
+        "title": "Input Parameter of Autocomplete"
+      },
+      "IGoogleMap.IReviewResponse": {
+        "type": "object",
+        "properties": {
+          "username": {
+            "type": "string",
+            "title": "Author's name",
+            "description": "Reviewer's name."
+          },
+          "rating": {
+            "type": "number",
+            "title": "Review ratings",
+            "description": "Here are the review ratings."
+          },
+          "description": {
+            "type": "string",
+            "title": "Review content",
+            "description": "Here is the review content."
+          },
+          "link": {
+            "type": "string",
+            "format": "iri",
+            "title": "Review Link",
+            "description": "Here is the review link."
+          },
+          "images": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "iri",
+              "contentMediaType": "image/*"
+            },
+            "title": "Review Image",
+            "description": "This is the image registered in the review."
+          },
+          "date": {
+            "type": "string",
+            "title": "Review Date",
+            "description": "The date the review was written."
+          }
+        },
+        "required": [
+          "username",
+          "rating",
+          "description",
+          "link",
+          "images",
+          "date"
+        ],
+        "title": "Review search results"
+      },
+      "IGoogleMap.IReviewRequest": {
+        "type": "object",
+        "properties": {
+          "place_id": {
+            "type": "string",
+            "x-wrtn-prerequisite": {
+              "method": "post",
+              "path": "/connector/google-map/search",
+              "jmesPath": "[].{value:place_id, label:place_id}"
+            }
+          }
+        },
+        "required": [
+          "place_id"
+        ]
+      },
+      "IGoogleMap.ISearchTextOutput": {
+        "type": "object",
+        "properties": {
+          "places": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/IGoogleMap.Place"
+            },
+            "title": "Places"
+          },
+          "nextPageToken": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "title": "Page Token For Next Page"
+          }
+        },
+        "required": [
+          "places",
+          "nextPageToken"
+        ]
+      },
+      "IGoogleMap.Place": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "title": "name"
+          },
+          "id": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "title": "id"
+          },
+          "types": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            ],
+            "title": "types"
+          },
+          "nationalPhoneNumber": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "title": "nationalPhoneNumber"
+          },
+          "internationalPhoneNumber": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "title": "internationalPhoneNumber"
+          },
+          "formattedAddress": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "title": "formattedAddress"
+          },
+          "location": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "latitude": {
+                    "oneOf": [
+                      {
+                        "type": "null"
+                      },
+                      {
+                        "type": "number",
+                        "minimum": -90,
+                        "maximum": 90
+                      }
+                    ],
+                    "title": "latitude"
+                  },
+                  "longitude": {
+                    "oneOf": [
+                      {
+                        "type": "null"
+                      },
+                      {
+                        "type": "number",
+                        "minimum": 0,
+                        "maximum": 360
+                      }
+                    ],
+                    "title": "longitude"
+                  }
+                }
+              }
+            ],
+            "title": "location"
+          },
+          "rating": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "number",
+                "maximum": 5
+              }
+            ],
+            "title": "rating"
+          },
+          "googleMapsUri": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string",
+                "format": "iri"
+              }
+            ],
+            "title": "googleMapsUri"
+          },
+          "websiteUri": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string",
+                "format": "iri"
+              }
+            ],
+            "title": "websiteUri"
+          },
+          "regularOpeningHours": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "openNow": {
+                    "oneOf": [
+                      {
+                        "type": "null"
+                      },
+                      {
+                        "type": "boolean"
+                      }
+                    ],
+                    "title": "openNow"
+                  },
+                  "periods": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "open": {
+                          "oneOf": [
+                            {
+                              "type": "null"
+                            },
+                            {
+                              "type": "object",
+                              "properties": {
+                                "day": {
+                                  "oneOf": [
+                                    {
+                                      "type": "null"
+                                    },
+                                    {
+                                      "type": "integer",
+                                      "minimum": 0,
+                                      "maximum": 6
+                                    }
+                                  ],
+                                  "title": "day"
+                                },
+                                "hour": {
+                                  "oneOf": [
+                                    {
+                                      "type": "null"
+                                    },
+                                    {
+                                      "type": "integer",
+                                      "minimum": 0,
+                                      "maximum": 24
+                                    }
+                                  ],
+                                  "title": "hour"
+                                },
+                                "minute": {
+                                  "oneOf": [
+                                    {
+                                      "type": "null"
+                                    },
+                                    {
+                                      "type": "integer",
+                                      "minimum": 0,
+                                      "maximum": 60
+                                    }
+                                  ],
+                                  "title": "minute"
+                                }
+                              }
+                            }
+                          ],
+                          "title": "open"
+                        },
+                        "close": {
+                          "type": "object",
+                          "properties": {
+                            "day": {
+                              "oneOf": [
+                                {
+                                  "type": "null"
+                                },
+                                {
+                                  "type": "integer",
+                                  "minimum": 0,
+                                  "maximum": 6
+                                }
+                              ],
+                              "title": "day"
+                            },
+                            "hour": {
+                              "oneOf": [
+                                {
+                                  "type": "null"
+                                },
+                                {
+                                  "type": "integer",
+                                  "minimum": 0,
+                                  "maximum": 24
+                                }
+                              ],
+                              "title": "hour"
+                            },
+                            "minute": {
+                              "oneOf": [
+                                {
+                                  "type": "null"
+                                },
+                                {
+                                  "type": "integer",
+                                  "minimum": 0,
+                                  "maximum": 60
+                                }
+                              ],
+                              "title": "minute"
+                            }
+                          },
+                          "title": "close"
+                        }
+                      }
+                    },
+                    "title": "periods"
+                  },
+                  "weekdayDescriptions": {
+                    "oneOf": [
+                      {
+                        "type": "null"
+                      },
+                      {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        }
+                      }
+                    ],
+                    "title": "weekdayDescriptions"
+                  }
+                }
+              }
+            ],
+            "title": "regularOpeningHours"
+          },
+          "utcOffsetMinutes": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "number",
+                "minimum": 0,
+                "maximum": 1440
+              }
+            ],
+            "title": "utcOffsetMinutes"
+          },
+          "businessStatus": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "title": "businessStatus"
+          },
+          "priceLevel": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "title": "priceLevel"
+          },
+          "userRatingCount": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "integer"
+              }
+            ],
+            "title": "userRatingCount"
+          },
+          "displayName": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "text": {
+                    "oneOf": [
+                      {
+                        "type": "null"
+                      },
+                      {
+                        "type": "string"
+                      }
+                    ],
+                    "title": "text"
+                  },
+                  "languageCode": {
+                    "oneOf": [
+                      {
+                        "type": "null"
+                      },
+                      {
+                        "type": "string"
+                      }
+                    ],
+                    "title": "languageCode"
+                  }
+                }
+              }
+            ],
+            "title": "displayName"
+          },
+          "primaryTypeDisplayName": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "text": {
+                    "oneOf": [
+                      {
+                        "type": "null"
+                      },
+                      {
+                        "type": "string"
+                      }
+                    ],
+                    "title": "text"
+                  },
+                  "languageCode": {
+                    "oneOf": [
+                      {
+                        "type": "null"
+                      },
+                      {
+                        "type": "string"
+                      }
+                    ],
+                    "title": "languageCode"
+                  }
+                }
+              }
+            ],
+            "title": "primaryTypeDisplayName"
+          },
+          "takeout": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "boolean"
+              }
+            ],
+            "title": "takeout"
+          },
+          "delivery": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "boolean"
+              }
+            ],
+            "title": "delivery"
+          },
+          "dineIn": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "boolean"
+              }
+            ],
+            "title": "dineIn"
+          },
+          "reservable": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "boolean"
+              }
+            ],
+            "title": "reservable"
+          },
+          "servesBreakfast": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "boolean"
+              }
+            ],
+            "title": "servesBreakfast"
+          },
+          "servesLunch": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "boolean"
+              }
+            ],
+            "title": "servesLunch"
+          },
+          "servesDinner": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "boolean"
+              }
+            ],
+            "title": "servesDinner"
+          },
+          "servesBeer": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "boolean"
+              }
+            ],
+            "title": "servesBeer"
+          },
+          "servesBrunch": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "boolean"
+              }
+            ],
+            "title": "servesBrunch"
+          },
+          "servesVegetarianFood": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "boolean"
+              }
+            ],
+            "title": "servesVegetarianFood"
+          },
+          "primaryType": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "title": "primaryType"
+          },
+          "photos": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "oneOf": [
+                        {
+                          "type": "null"
+                        },
+                        {
+                          "type": "string"
+                        }
+                      ],
+                      "title": "name"
+                    },
+                    "widthPx": {
+                      "oneOf": [
+                        {
+                          "type": "null"
+                        },
+                        {
+                          "type": "number"
+                        }
+                      ],
+                      "title": "widthPx"
+                    },
+                    "heightPx": {
+                      "oneOf": [
+                        {
+                          "type": "null"
+                        },
+                        {
+                          "type": "number"
+                        }
+                      ],
+                      "title": "heightPx"
+                    },
+                    "link": {
+                      "oneOf": [
+                        {
+                          "type": "null"
+                        },
+                        {
+                          "type": "string"
+                        }
+                      ],
+                      "title": "URI Link"
+                    }
+                  }
+                }
+              }
+            ],
+            "title": "photos"
+          },
+          "outdoorSeating": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "boolean"
+              }
+            ],
+            "title": "outdoorSeating"
+          },
+          "liveMusic": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "boolean"
+              }
+            ],
+            "title": "liveMusic"
+          },
+          "menuForChildren": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "boolean"
+              }
+            ],
+            "title": "menuForChildren"
+          },
+          "servesCocktails": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "boolean"
+              }
+            ],
+            "title": "servesCocktails"
+          },
+          "servesDessert": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "boolean"
+              }
+            ],
+            "title": "servesDessert"
+          },
+          "servesCoffee": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "boolean"
+              }
+            ],
+            "title": "servesCoffee"
+          },
+          "goodForChildren": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "boolean"
+              }
+            ],
+            "title": "goodForChildren"
+          },
+          "allowsDogs": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "boolean"
+              }
+            ],
+            "title": "allowsDogs"
+          },
+          "restroom": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "boolean"
+              }
+            ],
+            "title": "restroom"
+          },
+          "goodForGroups": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "boolean"
+              }
+            ],
+            "title": "goodForGroups"
+          },
+          "goodForWatchingSports": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "boolean"
+              }
+            ],
+            "title": "goodForWatchingSports"
+          },
+          "paymentOptions": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "acceptsCreditCards": {
+                    "oneOf": [
+                      {
+                        "type": "null"
+                      },
+                      {
+                        "type": "boolean"
+                      }
+                    ],
+                    "title": "acceptsCreditCards"
+                  },
+                  "acceptsDebitCards": {
+                    "oneOf": [
+                      {
+                        "type": "null"
+                      },
+                      {
+                        "type": "boolean"
+                      }
+                    ],
+                    "title": "acceptsDebitCards"
+                  },
+                  "acceptsCashOnly": {
+                    "oneOf": [
+                      {
+                        "type": "null"
+                      },
+                      {
+                        "type": "boolean"
+                      }
+                    ],
+                    "title": "acceptsCashOnly"
+                  },
+                  "acceptsNfc": {
+                    "oneOf": [
+                      {
+                        "type": "null"
+                      },
+                      {
+                        "type": "boolean"
+                      }
+                    ],
+                    "title": "acceptsNfc"
+                  }
+                }
+              }
+            ],
+            "title": "paymentOptions"
+          },
+          "parkingOptions": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "freeParkingLot": {
+                    "oneOf": [
+                      {
+                        "type": "null"
+                      },
+                      {
+                        "type": "boolean"
+                      }
+                    ],
+                    "title": "freeParkingLot"
+                  }
+                }
+              }
+            ],
+            "title": "parkingOptions"
+          },
+          "accessibilityOptions": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "wheelchairAccessibleParking": {
+                    "oneOf": [
+                      {
+                        "type": "null"
+                      },
+                      {
+                        "type": "boolean"
+                      }
+                    ],
+                    "title": "wheelchairAccessibleParking"
+                  },
+                  "wheelchairAccessibleSeating": {
+                    "oneOf": [
+                      {
+                        "type": "null"
+                      },
+                      {
+                        "type": "boolean"
+                      }
+                    ],
+                    "title": "wheelchairAccessibleSeating"
+                  }
+                }
+              }
+            ],
+            "title": "accessibilityOptions"
+          },
+          "googleMapsLinks": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "placeUri": {
+                    "oneOf": [
+                      {
+                        "type": "null"
+                      },
+                      {
+                        "type": "string",
+                        "format": "iri"
+                      }
+                    ],
+                    "title": "Place URI"
+                  },
+                  "reviewsUri": {
+                    "oneOf": [
+                      {
+                        "type": "null"
+                      },
+                      {
+                        "type": "string",
+                        "format": "iri"
+                      }
+                    ],
+                    "title": "Reviews URI"
+                  },
+                  "photosUri": {
+                    "oneOf": [
+                      {
+                        "type": "null"
+                      },
+                      {
+                        "type": "string",
+                        "format": "iri"
+                      }
+                    ],
+                    "title": "Photos URI"
+                  }
+                }
+              }
+            ],
+            "title": "googleMapsLinks"
+          }
+        }
+      },
+      "IGoogleMap.ISearchTextInput": {
+        "type": "object",
+        "properties": {
+          "textQuery": {
+            "type": "string",
+            "title": "search keyword"
+          },
+          "nextPageToken": {
+            "type": "string",
+            "title": "Page Token For Next Page"
+          }
+        },
+        "required": [
+          "textQuery"
+        ]
+      },
       "IGoogleMap.IResponse": {
         "type": "object",
         "properties": {
@@ -222,72 +1399,6 @@
           "keyword"
         ],
         "title": "Information for searching restaurants on Google Maps"
-      },
-      "IGoogleMap.IReviewResponse": {
-        "type": "object",
-        "properties": {
-          "username": {
-            "type": "string",
-            "title": "Author's name",
-            "description": "Reviewer's name."
-          },
-          "rating": {
-            "type": "number",
-            "title": "Review ratings",
-            "description": "Here are the review ratings."
-          },
-          "description": {
-            "type": "string",
-            "title": "Review content",
-            "description": "Here is the review content."
-          },
-          "link": {
-            "type": "string",
-            "format": "iri",
-            "title": "Review Link",
-            "description": "Here is the review link."
-          },
-          "images": {
-            "type": "array",
-            "items": {
-              "type": "string",
-              "format": "iri",
-              "contentMediaType": "image/*"
-            },
-            "title": "Review Image",
-            "description": "This is the image registered in the review."
-          },
-          "date": {
-            "type": "string",
-            "title": "Review Date",
-            "description": "The date the review was written."
-          }
-        },
-        "required": [
-          "username",
-          "rating",
-          "description",
-          "link",
-          "images",
-          "date"
-        ],
-        "title": "Review search results"
-      },
-      "IGoogleMap.IReviewRequest": {
-        "type": "object",
-        "properties": {
-          "place_id": {
-            "type": "string",
-            "x-wrtn-prerequisite": {
-              "method": "post",
-              "path": "/connector/google-map/search",
-              "jmesPath": "[].{value:place_id, label:place_id}"
-            }
-          }
-        },
-        "required": [
-          "place_id"
-        ]
       }
     }
   },
