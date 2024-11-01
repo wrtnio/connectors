@@ -1,6 +1,6 @@
 import { Injectable } from "@nestjs/common";
 import type { IJira } from "@wrtn/connector-api/lib/structures/connector/jira/IJira";
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 import typia from "typia";
 import { ConnectorGlobal } from "../../../ConnectorGlobal";
 import { createQueryParameter } from "../../../utils/CreateQueryParameter";
@@ -30,7 +30,11 @@ export class JiraProvider {
       });
       return res.data;
     } catch (err) {
-      console.error(JSON.stringify(err));
+      if (err instanceof AxiosError) {
+        console.error(JSON.stringify(err.response?.data));
+      } else {
+        console.error(JSON.stringify(err));
+      }
       throw err;
     }
   }
@@ -49,7 +53,11 @@ export class JiraProvider {
 
       return res.data;
     } catch (err) {
-      console.error(JSON.stringify(err));
+      if (err instanceof AxiosError) {
+        console.error(JSON.stringify(err.response?.data));
+      } else {
+        console.error(JSON.stringify(err));
+      }
       throw err;
     }
   }
@@ -72,7 +80,11 @@ export class JiraProvider {
       });
       return res.data;
     } catch (err) {
-      console.error(JSON.stringify(err));
+      if (err instanceof AxiosError) {
+        console.error(JSON.stringify(err.response?.data));
+      } else {
+        console.error(JSON.stringify(err));
+      }
       throw err;
     }
   }
@@ -106,7 +118,11 @@ export class JiraProvider {
           }),
       };
     } catch (err) {
-      console.error(JSON.stringify(err));
+      if (err instanceof AxiosError) {
+        console.error(JSON.stringify(err.response?.data));
+      } else {
+        console.error(JSON.stringify(err));
+      }
       throw err;
     }
   }
@@ -125,7 +141,11 @@ export class JiraProvider {
 
       return res.data;
     } catch (err) {
-      console.error(JSON.stringify(err));
+      if (err instanceof AxiosError) {
+        console.error(JSON.stringify(err.response?.data));
+      } else {
+        console.error(JSON.stringify(err));
+      }
       throw err;
     }
   }
@@ -144,7 +164,11 @@ export class JiraProvider {
 
       return res.data;
     } catch (err) {
-      console.error(JSON.stringify(err));
+      if (err instanceof AxiosError) {
+        console.error(JSON.stringify(err.response?.data));
+      } else {
+        console.error(JSON.stringify(err));
+      }
       throw err;
     }
   }
@@ -163,7 +187,11 @@ export class JiraProvider {
 
       return { issuetypes: res.data };
     } catch (err) {
-      console.error(JSON.stringify(err));
+      if (err instanceof AxiosError) {
+        console.error(JSON.stringify(err.response?.data));
+      } else {
+        console.error(JSON.stringify(err));
+      }
       throw err;
     }
   }
@@ -190,7 +218,11 @@ export class JiraProvider {
 
       return res.data;
     } catch (err) {
-      console.error(JSON.stringify(err));
+      if (err instanceof AxiosError) {
+        console.error(JSON.stringify(err.response?.data));
+      } else {
+        console.error(JSON.stringify(err));
+      }
       throw err;
     }
   }
@@ -212,7 +244,11 @@ export class JiraProvider {
 
       return res.data;
     } catch (err) {
-      console.error(JSON.stringify(err));
+      if (err instanceof AxiosError) {
+        console.error(JSON.stringify(err.response?.data));
+      } else {
+        console.error(JSON.stringify(err));
+      }
       throw err;
     }
   }
@@ -250,7 +286,11 @@ export class JiraProvider {
 
       return res.data;
     } catch (err) {
-      console.error(JSON.stringify(err));
+      if (err instanceof AxiosError) {
+        console.error(JSON.stringify(err.response?.data));
+      } else {
+        console.error(JSON.stringify(err));
+      }
       throw err;
     }
   }
@@ -335,7 +375,11 @@ export class JiraProvider {
 
       return res.data as { access_token: string };
     } catch (err) {
-      console.error(JSON.stringify(err));
+      if (err instanceof AxiosError) {
+        console.error(JSON.stringify(err.response?.data));
+      } else {
+        console.error(JSON.stringify(err));
+      }
       throw err;
     }
   }
@@ -352,7 +396,11 @@ export class JiraProvider {
         },
       );
     } catch (err) {
-      console.error(JSON.stringify(err));
+      if (err instanceof AxiosError) {
+        console.error(JSON.stringify(err.response?.data));
+      } else {
+        console.error(JSON.stringify(err));
+      }
       throw err;
     }
   }
@@ -387,7 +435,11 @@ export class JiraProvider {
 
       return res.data;
     } catch (err) {
-      console.error(JSON.stringify(err));
+      if (err instanceof AxiosError) {
+        console.error(JSON.stringify(err.response?.data));
+      } else {
+        console.error(JSON.stringify(err));
+      }
       throw err;
     }
   }
@@ -409,7 +461,11 @@ export class JiraProvider {
       );
       return res.data;
     } catch (err) {
-      console.error(JSON.stringify(err));
+      if (err instanceof AxiosError) {
+        console.error(JSON.stringify(err.response?.data));
+      } else {
+        console.error(JSON.stringify(err));
+      }
       throw err;
     }
   }
@@ -427,7 +483,11 @@ export class JiraProvider {
         },
       });
     } catch (err) {
-      console.error(JSON.stringify(err));
+      if (err instanceof AxiosError) {
+        console.error(JSON.stringify(err.response?.data));
+      } else {
+        console.error(JSON.stringify(err));
+      }
       throw err;
     }
   }
@@ -445,7 +505,11 @@ export class JiraProvider {
         },
       });
     } catch (err) {
-      console.error(JSON.stringify(err));
+      if (err instanceof AxiosError) {
+        console.error(JSON.stringify(err.response?.data));
+      } else {
+        console.error(JSON.stringify(err));
+      }
       throw err;
     }
   }
@@ -468,7 +532,11 @@ export class JiraProvider {
 
       return res.data;
     } catch (err) {
-      console.error(JSON.stringify(err));
+      if (err instanceof AxiosError) {
+        console.error(JSON.stringify(err.response?.data));
+      } else {
+        console.error(JSON.stringify(err));
+      }
       throw err;
     }
   }
@@ -492,7 +560,11 @@ export class JiraProvider {
         },
       );
     } catch (err) {
-      console.error(JSON.stringify(err));
+      if (err instanceof AxiosError) {
+        console.error(JSON.stringify(err.response?.data));
+      } else {
+        console.error(JSON.stringify(err));
+      }
       throw err;
     }
   }
@@ -523,7 +595,11 @@ export class JiraProvider {
         },
       );
     } catch (err) {
-      console.error(JSON.stringify(err));
+      if (err instanceof AxiosError) {
+        console.error(JSON.stringify(err.response?.data));
+      } else {
+        console.error(JSON.stringify(err));
+      }
       throw err;
     }
   }
@@ -548,7 +624,11 @@ export class JiraProvider {
         },
       );
     } catch (err) {
-      console.error(JSON.stringify(err));
+      if (err instanceof AxiosError) {
+        console.error(JSON.stringify(err.response?.data));
+      } else {
+        console.error(JSON.stringify(err));
+      }
       throw err;
     }
   }
@@ -580,7 +660,11 @@ export class JiraProvider {
 
       return res.data;
     } catch (err) {
-      console.error(JSON.stringify(err));
+      if (err instanceof AxiosError) {
+        console.error(JSON.stringify(err.response?.data));
+      } else {
+        console.error(JSON.stringify(err));
+      }
       throw err;
     }
   }
@@ -606,7 +690,11 @@ export class JiraProvider {
 
       return res.data;
     } catch (err) {
-      console.error(JSON.stringify(err));
+      if (err instanceof AxiosError) {
+        console.error(JSON.stringify(err.response?.data));
+      } else {
+        console.error(JSON.stringify(err));
+      }
       throw err;
     }
   }

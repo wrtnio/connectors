@@ -576,14 +576,6 @@ export namespace IJira {
       };
 
       /**
-       * date format type.
-       * Indicates the schedule you want to be closed.Of course, it will be good to create a date or today.
-       *
-       * @title due date
-       */
-      duedate?: string & tags.Format<"date">;
-
-      /**
        * @title issuetype
        */
       issuetype: {
