@@ -6,7 +6,12 @@ import path from "path";
 import typia from "typia";
 import { ConnectorGlobal } from "../ConnectorGlobal";
 
-const getAccessToken = async () => {
+const googleSheets = google.sheets("v4");
+const googleDrive = google.drive("v3");
+// const folderId = `1FKoWiXIrVSYBZh7zPTLGEU0Oc2uXi2dB`;
+const folderId = "1B68Xh5ziJ67LhYkhAHq5VQ_5jrnGdxHb";
+
+async function getAccessToken() {
   try {
     const client = new google.auth.OAuth2(
       ConnectorGlobal.env.GOOGLE_CLIENT_ID,
@@ -27,29 +32,22 @@ const getAccessToken = async () => {
   } catch (err) {
     throw err;
   }
-};
+}
 
-const getRandomColor = () => {
+function getRandomColor() {
   return randomInt(255);
-};
+}
 
-const getServiceName = (pathname: string) => {
+function getServiceName(pathname: string) {
   return pathname.match(/connector\/([^/]+)/)?.at(1) ?? "NONAMED";
-};
+}
 
-const main = async (): Promise<void> => {
-  const filepath = path.join(__dirname, "../../packages/api/swagger.json");
-  const swaggerJSon = await readFileSync(filepath, { encoding: "utf-8" });
-  const document = typia.json.assertParse<OpenApi.IDocument>(swaggerJSon);
-
-  const accessToken = await getAccessToken();
-  const googleSheets = google.sheets("v4");
-  const googleDrive = google.drive("v3");
-  const version = document.info?.version;
-  const today = new Intl.DateTimeFormat("ko-KR").format(new Date());
-  const filename = `Connector Document v${version} (${today})`;
-  const folderId = `1FKoWiXIrVSYBZh7zPTLGEU0Oc2uXi2dB`;
-
+async function convertSwaggerToGoogleSheet(input: {
+  document: OpenApi.IDocument;
+  filename: string;
+  accessToken: string;
+}) {
+  const { document, filename, accessToken } = input;
   // 시트를 생성
   const sheet = await googleSheets.spreadsheets.create({
     requestBody: { properties: { title: filename } },
@@ -58,7 +56,9 @@ const main = async (): Promise<void> => {
 
   const countByConnector = new Map<string, number>();
   if (sheet.data.spreadsheetId) {
-    const values = Object.entries(document.paths ?? {})
+    const values: (string | number | boolean)[][] = [];
+
+    Object.entries(document.paths ?? {})
       .sort(([keyA], [keyB]) => {
         const serviceA = getServiceName(keyA);
         const serviceB = getServiceName(keyB);
@@ -70,27 +70,44 @@ const main = async (): Promise<void> => {
 
         return Object.entries(schema).map(([method, operation]) => {
           if (typia.is<OpenApi.IOperation<OpenApi.IJsonSchema>>(operation)) {
-            const index = service ? countByConnector.get(service) ?? 1 : 1; // 커넥터 별로 인덱스를 센다.
+            const icon = String(
+              "x-wrtn-icon" in operation ? operation["x-wrtn-icon"] : "",
+            );
+
+            const isFirst = countByConnector.get(service) ? false : true;
+            if (isFirst) {
+              values.push([
+                service ? service : "",
+                0, // 세일에 해당하는 인덱스로, 워크플로우 상 노드를 표현
+                icon,
+              ]);
+              if (service) {
+                countByConnector.set(service, 1);
+              }
+            }
+
+            const index = service ? countByConnector.get(service) ?? 2 : 2;
             if (service) {
               countByConnector.set(service, index + 1);
             }
 
             const tags = JSON.stringify(operation.tags, null, 2);
-            return [
+            values.push([
               service ? service : "",
               index,
+              icon,
               method,
               path,
-              operation.deprecated,
+              operation.deprecated ?? "",
               tags,
-              operation.summary,
-              operation.description,
-            ];
+              operation.summary ?? "",
+              operation.description ?? "",
+            ]);
           }
-          return [];
         });
       });
 
+    console.log(countByConnector);
     // 방금 생성한 파일을 이동
     await googleDrive.files.update({
       fileId: sheet.data.spreadsheetId,
@@ -204,51 +221,48 @@ const main = async (): Promise<void> => {
 
     // 커넥터 별로 색상 지정
 
-    const requests = [...countByConnector].flatMap(
-      ([service, count], index, arr) => {
-        const [r, g, b] = new Array(3).fill(0).map(() => getRandomColor());
-        const sum = arr
-          .slice(0, index)
-          .map((el) => el[1] - 1) // count는 마지막에 +1 상태로 멈춰있기 때문에 Length는 1을 뺀 것만큼에 해당한다.
-          .reduce((acc, cur) => acc + cur, 1); // 헤더를 제외하기 위해 + 1을 추가
+    const requests = [...countByConnector].flatMap(([_, count], index, arr) => {
+      const [r, g, b] = new Array(3).fill(0).map(() => getRandomColor());
+      const sum = arr
+        .slice(0, index)
+        .map((el) => el[1])
+        .reduce((acc, cur) => acc + cur, 1); // 헤더를 포함해서 세기 위해서 1부터 카운트한다.
 
-        // count는 마지막에 +1 상태로 멈춰있기 때문에 Length는 1을 뺀 것만큼에 해당한다.
-        return new Array(count - 1)
-          .fill(0)
-          .map(
-            (
-              _,
-              currentIdx,
-            ): { updateCells: sheets_v4.Schema$UpdateCellsRequest } => ({
-              updateCells: {
-                range: {
-                  startColumnIndex: 1,
-                  endColumnIndex: 2,
-                  startRowIndex: sum + currentIdx,
-                  endRowIndex: sum + currentIdx + 1,
-                },
-                rows: [
-                  {
-                    values: [
-                      {
-                        userEnteredFormat: {
-                          backgroundColor: {
-                            red: r,
-                            green: g,
-                            blue: b,
-                            alpha: 0.8,
-                          },
+      return new Array(count)
+        .fill(0)
+        .map(
+          (
+            _,
+            currentIdx,
+          ): { updateCells: sheets_v4.Schema$UpdateCellsRequest } => ({
+            updateCells: {
+              range: {
+                startColumnIndex: 1,
+                endColumnIndex: 2,
+                startRowIndex: sum + currentIdx,
+                endRowIndex: sum + currentIdx + 1,
+              },
+              rows: [
+                {
+                  values: [
+                    {
+                      userEnteredFormat: {
+                        backgroundColor: {
+                          red: r,
+                          green: g,
+                          blue: b,
+                          alpha: 0.8,
                         },
                       },
-                    ],
-                  },
-                ],
-                fields: "userEnteredFormat.backgroundColor",
-              },
-            }),
-          );
-      },
-    );
+                    },
+                  ],
+                },
+              ],
+              fields: "userEnteredFormat.backgroundColor",
+            },
+          }),
+        );
+    });
 
     await googleSheets.spreadsheets.batchUpdate({
       spreadsheetId: sheet.data.spreadsheetId,
@@ -258,6 +272,19 @@ const main = async (): Promise<void> => {
       access_token: accessToken,
     });
   }
+}
+
+const main = async (): Promise<void> => {
+  const filepath = path.join(__dirname, "../../packages/api/swagger.json");
+  const swaggerJSon = readFileSync(filepath, { encoding: "utf-8" });
+  const document = typia.json.assertParse<OpenApi.IDocument>(swaggerJSon);
+
+  // 구글 시트 생성
+  const accessToken = await getAccessToken();
+  const version = document.info?.version;
+  const today = new Intl.DateTimeFormat("ko-KR").format(new Date());
+  const filename = `Connector Document v${version} (${today})`;
+  await convertSwaggerToGoogleSheet({ document, accessToken, filename });
 };
 
 main().catch((exp) => {
