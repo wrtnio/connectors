@@ -17,7 +17,7 @@
   "info": {
     "title": "Jira",
     "description": "Jira로 프로젝트 이슈를 관리해요.",
-    "version": "0.1.316",
+    "version": "0.1.317",
     "license": {
       "name": "AGPL-3.0-only"
     }
