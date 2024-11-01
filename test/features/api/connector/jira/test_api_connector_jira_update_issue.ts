@@ -54,20 +54,7 @@ export const test_api_connector_jira_update_issue_summary_and_description =
             description: {
               type: "doc",
               version: 1,
-              content: [
-                {
-                  type: "heading",
-                  attrs: {
-                    level: 1,
-                  },
-                  content: [
-                    {
-                      type: "text",
-                      text: "UPDATED",
-                    },
-                  ],
-                },
-              ],
+              content: "# UPDATED",
             },
           },
         },
