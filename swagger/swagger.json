@@ -15,7 +15,7 @@
     }
   ],
   "info": {
-    "version": "0.1.311",
+    "version": "0.1.313",
     "title": "@wrtn/connector",
     "description": "wrtn-ecosystem connectors and sdk",
     "license": {
@@ -8078,7 +8078,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/StrictOmitIDeleteCommentInputemaildomaintokenIBasicSecret"
+                "$ref": "#/components/schemas/IJira.IDeleteCommentInput"
               }
             }
           },
@@ -8169,7 +8169,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/StrictOmitIGetCommentInputemaildomaintokenIBasicSecret"
+                "$ref": "#/components/schemas/IJira.IGetCommentInput"
               }
             }
           },
@@ -8202,7 +8202,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/StrictOmitIGetTransitionInputemaildomaintokenIBasicSecret"
+                "$ref": "#/components/schemas/IJira.IGetTransitionInput"
               }
             }
           },
@@ -8234,7 +8234,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/StrictOmitIUnAssignInputemaildomaintokenIBasicSecret"
+                "$ref": "#/components/schemas/IJira.IUnAssignInput"
               }
             }
           },
@@ -8261,7 +8261,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/StrictOmitIAssignInputemaildomaintokenIBasicSecret"
+                "$ref": "#/components/schemas/IJira.IAssignInput"
               }
             }
           },
@@ -8290,7 +8290,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/StrictOmitIUpdateStatusInputemaildomaintokenIBasicSecret"
+                "$ref": "#/components/schemas/IJira.IUpdateStatusInput"
               }
             }
           },
@@ -8330,7 +8330,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/StrictOmitIUpdateIssueInputemaildomaintokenIBasicSecret"
+                "$ref": "#/components/schemas/IJira.IUpdateIssueInput"
               }
             }
           },
@@ -8393,7 +8393,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/StrictOmitIGetIssueDetailInputemaildomaintokenIBasicSecret"
+                "$ref": "#/components/schemas/IJira.IGetIssueDetailInput"
               }
             }
           },
@@ -8427,7 +8427,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/StrictOmitIGetIssueInputByBasicAuthemaildomaintokenIBasicSecret"
+                "$ref": "#/components/schemas/IJira.IGetIssueInputByBasicAuth"
               }
             }
           },
@@ -8461,7 +8461,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/StrictOmitIGetProjectInputByBasicAuthemaildomaintokenIBasicSecret"
+                "$ref": "#/components/schemas/IJira.IGetProjectInputByBasicAuth"
               }
             }
           },
@@ -8494,7 +8494,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/StrictOmitIGetIssueLabelInputemaildomaintokenIBasicSecret"
+                "$ref": "#/components/schemas/IJira.IGetIssueLabelInput"
               }
             }
           },
@@ -8527,7 +8527,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/StrictOmitIGetIssueTypeInputemaildomaintokenIBasicSecret"
+                "$ref": "#/components/schemas/IJira.IGetIssueTypeInput"
               }
             }
           },
@@ -8560,7 +8560,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/StrictOmitIGetIssueStatusInputemaildomaintokenIBasicSecret"
+                "$ref": "#/components/schemas/IJira.IGetIssueStatusInput"
               }
             }
           },
@@ -8593,7 +8593,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/StrictOmitBasicAuthorizationemaildomaintokenIBasicSecret"
+                "$ref": "#/components/schemas/IJira.IGetIssuePriorityInput"
               }
             }
           },
@@ -8629,7 +8629,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/StrictOmitIGetIssueAssignableInputemaildomaintokenIBasicSecret"
+                "$ref": "#/components/schemas/IJira.IGetIssueAssignableInput"
               }
             }
           },
@@ -8665,7 +8665,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/StrictOmitIGetProjectAssignableInputemaildomaintokenIBasicSecret"
+                "$ref": "#/components/schemas/IJira.IGetProjectAssignableInput"
               }
             }
           },
@@ -8701,7 +8701,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/StrictOmitBasicAuthorizationemaildomaintokenIBasicSecret"
+                "$ref": "#/components/schemas/IJira.IGetStatusCategoryInput"
               }
             }
           },
@@ -36625,7 +36625,7 @@
           "secretKey"
         ]
       },
-      "StrictOmitIDeleteCommentInputemaildomaintokenIBasicSecret": {
+      "IJira.IDeleteCommentInput": {
         "type": "object",
         "properties": {
           "issueIdOrKey": {
@@ -38448,7 +38448,7 @@
           "displayName"
         ]
       },
-      "StrictOmitIGetCommentInputemaildomaintokenIBasicSecret": {
+      "IJira.IGetCommentInput": {
         "type": "object",
         "properties": {
           "maxResults": {
@@ -38570,7 +38570,7 @@
           "statusCategory"
         ]
       },
-      "StrictOmitIGetTransitionInputemaildomaintokenIBasicSecret": {
+      "IJira.IGetTransitionInput": {
         "type": "object",
         "properties": {
           "issueIdOrKey": {
@@ -38607,7 +38607,7 @@
           "secretKey"
         ]
       },
-      "StrictOmitIUnAssignInputemaildomaintokenIBasicSecret": {
+      "IJira.IUnAssignInput": {
         "type": "object",
         "properties": {
           "issueId": {
@@ -38626,7 +38626,7 @@
           "secretKey"
         ]
       },
-      "StrictOmitIAssignInputemaildomaintokenIBasicSecret": {
+      "IJira.IAssignInput": {
         "type": "object",
         "properties": {
           "asigneeId": {
@@ -38668,7 +38668,7 @@
           "secretKey"
         ]
       },
-      "StrictOmitIUpdateStatusInputemaildomaintokenIBasicSecret": {
+      "IJira.IUpdateStatusInput": {
         "type": "object",
         "properties": {
           "issueIdOrKey": {
@@ -38715,7 +38715,7 @@
           "secretKey"
         ]
       },
-      "StrictOmitIUpdateIssueInputemaildomaintokenIBasicSecret": {
+      "IJira.IUpdateIssueInput": {
         "type": "object",
         "properties": {
           "fields": {
@@ -39067,12 +39067,6 @@
                   "content"
                 ],
                 "title": "description\n\nThe content of the Jira issue consists of a combination of various contents."
-              },
-              "duedate": {
-                "type": "string",
-                "format": "date",
-                "title": "due date",
-                "description": "date format type.\nIndicates the schedule you want to be closed.Of course, it will be good to create a date or today."
               },
               "issuetype": {
                 "type": "object",
@@ -39673,7 +39667,7 @@
           "fields"
         ]
       },
-      "StrictOmitIGetIssueDetailInputemaildomaintokenIBasicSecret": {
+      "IJira.IGetIssueDetailInput": {
         "type": "object",
         "properties": {
           "issueIdOrKey": {
@@ -39842,7 +39836,7 @@
           "priority"
         ]
       },
-      "StrictOmitIGetIssueInputByBasicAuthemaildomaintokenIBasicSecret": {
+      "IJira.IGetIssueInputByBasicAuth": {
         "type": "object",
         "properties": {
           "status": {
@@ -40038,7 +40032,7 @@
           "name"
         ]
       },
-      "StrictOmitIGetProjectInputByBasicAuthemaildomaintokenIBasicSecret": {
+      "IJira.IGetProjectInputByBasicAuth": {
         "type": "object",
         "properties": {
           "maxResults": {
@@ -40121,7 +40115,7 @@
           "total"
         ]
       },
-      "StrictOmitIGetIssueLabelInputemaildomaintokenIBasicSecret": {
+      "IJira.IGetIssueLabelInput": {
         "type": "object",
         "properties": {
           "maxResults": {
@@ -40198,7 +40192,7 @@
           "subtask"
         ]
       },
-      "StrictOmitIGetIssueTypeInputemaildomaintokenIBasicSecret": {
+      "IJira.IGetIssueTypeInput": {
         "type": "object",
         "properties": {
           "projectId": {
@@ -40276,7 +40270,7 @@
           "id"
         ]
       },
-      "StrictOmitIGetIssueStatusInputemaildomaintokenIBasicSecret": {
+      "IJira.IGetIssueStatusInput": {
         "type": "object",
         "properties": {
           "projectId": {
@@ -40313,7 +40307,7 @@
           "secretKey"
         ]
       },
-      "StrictOmitBasicAuthorizationemaildomaintokenIBasicSecret": {
+      "IJira.IGetIssuePriorityInput": {
         "type": "object",
         "properties": {
           "secretKey": {
@@ -40327,7 +40321,7 @@
           "secretKey"
         ]
       },
-      "StrictOmitIGetIssueAssignableInputemaildomaintokenIBasicSecret": {
+      "IJira.IGetIssueAssignableInput": {
         "type": "object",
         "properties": {
           "maxResults": {
@@ -40373,7 +40367,7 @@
           "secretKey"
         ]
       },
-      "StrictOmitIGetProjectAssignableInputemaildomaintokenIBasicSecret": {
+      "IJira.IGetProjectAssignableInput": {
         "type": "object",
         "properties": {
           "maxResults": {
@@ -40434,6 +40428,20 @@
           "id",
           "key",
           "name"
+        ]
+      },
+      "IJira.IGetStatusCategoryInput": {
+        "type": "object",
+        "properties": {
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "atlassian",
+            "title": "Select authentication information",
+            "description": "secret key."
+          }
+        },
+        "required": [
+          "secretKey"
         ]
       },
       "IGoogleTrend.IResponse": {
