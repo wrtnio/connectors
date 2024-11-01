@@ -97,7 +97,7 @@ export class GmailController {
     id: string,
     @core.TypedBody()
     input: IGmail.IReplyInput,
-  ): Promise<void> {
+  ): Promise<IGmail.ISendMailOutput> {
     return retry(() => this.gmailProvider.reply(id, input))();
   }
 
@@ -300,5 +300,29 @@ export class GmailController {
     @core.TypedBody() input: IGmail.IMailLabelOperationInput,
   ): Promise<void> {
     return retry(() => this.gmailProvider.removeLabelFromMail(mailId, input))();
+  }
+
+  /**
+   * Delete multiple mails
+   *
+   * Gmail is a free web-based email service provided by Google.
+   * This function requires special attention because it permanently deletes mail instead of moving it to the trash.
+   * Most users will want to delete mail that is already in the trash.
+   * Therefore, if the user wants to delete it, it is better to guide them to move the mail to the trash, but if they still want to delete it, it is right to target the trash.
+   *
+   * @summary Delete multiple mails
+   * @param id
+   * @param input
+   * @returns
+   */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleMail_full.svg",
+  )
+  @ApiTags("Gmail")
+  @core.TypedRoute.Delete()
+  async deleteMailList(
+    @core.TypedBody() input: IGmail.IDeleteMailListInput,
+  ): Promise<void> {
+    return retry(() => this.gmailProvider.deleteMailList(input))();
   }
 }

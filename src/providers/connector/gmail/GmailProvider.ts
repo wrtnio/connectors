@@ -12,6 +12,27 @@ import { IOAuthSecret } from "../../internal/oauth_secret/structures/IOAuthSecre
 export class GmailProvider {
   constructor(private readonly googleProvider: GoogleProvider) {}
 
+  async deleteMailList(input: IGmail.IDeleteMailListInput): Promise<void> {
+    try {
+      const token = await this.getToken(input.secretKey);
+      const accessToken = await this.googleProvider.refreshAccessToken(token);
+      const authClient = new google.auth.OAuth2();
+
+      authClient.setCredentials({ access_token: accessToken });
+      const gmail = google.gmail({ version: "v1", auth: authClient });
+
+      await gmail.users.messages.batchDelete({
+        userId: "me",
+        requestBody: {
+          ids: input.ids,
+        },
+      });
+    } catch (error) {
+      console.error(JSON.stringify(error));
+      throw error;
+    }
+  }
+
   async hardDelete(id: string, input: IGmail.ISecret): Promise<void> {
     try {
       const token = await this.getToken(input.secretKey);
@@ -85,7 +106,10 @@ export class GmailProvider {
     }
   }
 
-  async reply(id: string, input: IGmail.IReplyInput): Promise<void> {
+  async reply(
+    id: string,
+    input: IGmail.IReplyInput,
+  ): Promise<IGmail.ISendMailOutput> {
     try {
       const token = await this.getToken(input.secretKey);
       const accessToken = await this.googleProvider.refreshAccessToken(token);
@@ -129,12 +153,19 @@ export class GmailProvider {
       ];
 
       const raw = this.makeEmailContent(emailLines, input.replyText);
-      await gmail.users.messages.send({
+      const res = await gmail.users.messages.send({
         userId: "me",
         requestBody: {
           raw: raw,
         },
       });
+
+      const replyId = res.data.id;
+      if (!replyId) {
+        throw new Error("Failed to Create Label");
+      }
+
+      return { id: replyId };
     } catch (error) {
       console.error(JSON.stringify(error));
       throw error;
