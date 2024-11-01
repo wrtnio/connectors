@@ -17,7 +17,7 @@
   "info": {
     "title": "Github",
     "description": "Github에서 코드를 읽고 분석하고 작성해요",
-    "version": "0.1.315",
+    "version": "0.1.316",
     "license": {
       "name": "AGPL-3.0-only"
     }
@@ -2605,7 +2605,7 @@
             "title": "body"
           },
           "user": {
-            "$ref": "#/components/schemas/MyPickIGithub.Usertypeavatar_urlidloginhtml_url",
+            "$ref": "#/components/schemas/MyPickIGithub.Usertypeidloginhtml_urlavatar_url",
             "title": "user"
           },
           "created_at": {
@@ -2633,7 +2633,7 @@
           "updated_at"
         ]
       },
-      "MyPickIGithub.Usertypeavatar_urlidloginhtml_url": {
+      "MyPickIGithub.Usertypeidloginhtml_urlavatar_url": {
         "type": "object",
         "properties": {
           "type": {
@@ -2650,11 +2650,6 @@
             ],
             "title": "type"
           },
-          "avatar_url": {
-            "type": "string",
-            "format": "iri",
-            "title": "avatar url\n\nThis means the user's profile image."
-          },
           "id": {
             "type": "number",
             "title": "id\n\nThis means the user's ID."
@@ -2668,14 +2663,19 @@
             "type": "string",
             "format": "iri",
             "title": "html_url\n\nIf you want to look up your profile, you can access this website."
+          },
+          "avatar_url": {
+            "type": "string",
+            "format": "iri",
+            "title": "avatar url\n\nThis means the user's profile image."
           }
         },
         "required": [
           "type",
-          "avatar_url",
           "id",
           "login",
-          "html_url"
+          "html_url",
+          "avatar_url"
         ]
       },
       "IGithub.Page": {
@@ -3924,11 +3924,6 @@
             ],
             "title": "type"
           },
-          "avatar_url": {
-            "type": "string",
-            "format": "iri",
-            "title": "avatar url\n\nThis means the user's profile image."
-          },
           "id": {
             "type": "number",
             "title": "id\n\nThis means the user's ID."
@@ -3942,14 +3937,19 @@
             "type": "string",
             "format": "iri",
             "title": "html_url\n\nIf you want to look up your profile, you can access this website."
+          },
+          "avatar_url": {
+            "type": "string",
+            "format": "iri",
+            "title": "avatar url\n\nThis means the user's profile image."
           }
         },
         "required": [
           "type",
-          "avatar_url",
           "id",
           "login",
-          "html_url"
+          "html_url",
+          "avatar_url"
         ]
       },
       "IGithub.IGetCollaboratorInput": {
@@ -4048,11 +4048,6 @@
             "type": "string",
             "title": "commit message\nMany repositories are working on commit conventions. Before committing, it's a good idea to look up the commit-list to see how you leave the commit message."
           },
-          "owner": {
-            "type": "string",
-            "title": "owner's name",
-            "description": "The owner's name and the repository's name can be combined to form '${owner}/${repo}' and can be a unique path name for a single repository.\nSo the owner here is the nickname of the repository owner, not the name of the person committing or the author."
-          },
           "secretKey": {
             "type": "string",
             "x-wrtn-secret-key": "github",
@@ -4061,6 +4056,11 @@
             ],
             "title": "Select authentication information",
             "description": "secret key."
+          },
+          "owner": {
+            "type": "string",
+            "title": "owner's name",
+            "description": "The owner's name and the repository's name can be combined to form '${owner}/${repo}' and can be a unique path name for a single repository.\nSo the owner here is the nickname of the repository owner, not the name of the person committing or the author."
           },
           "path": {
             "type": "string",
@@ -4138,8 +4138,8 @@
         },
         "required": [
           "message",
-          "owner",
           "secretKey",
+          "owner",
           "path",
           "repo",
           "sha"
@@ -4500,16 +4500,16 @@
             "title": "folder name",
             "description": "The path delivered is treated like a Root folder and continues the navigation from this folder.\nBrowse by this folder, and it must be a folder, not a file.\nIf omitted, start the circuit based on the top Root folder."
           },
-          "owner": {
-            "type": "string",
-            "title": "owner's name",
-            "description": "The owner's name and the repository's name can be combined to form '${owner}/${repo}' and can be a unique path name for a single repository.\nSo the owner here is the nickname of the repository owner, not the name of the person committing or the author.\n\nIf it is an organization's repository, it can also be the name of the organization."
-          },
           "secretKey": {
             "type": "string",
             "x-wrtn-secret-key": "github",
             "title": "Select authentication information",
             "description": "secret key."
+          },
+          "owner": {
+            "type": "string",
+            "title": "owner's name",
+            "description": "The owner's name and the repository's name can be combined to form '${owner}/${repo}' and can be a unique path name for a single repository.\nSo the owner here is the nickname of the repository owner, not the name of the person committing or the author.\n\nIf it is an organization's repository, it can also be the name of the organization."
           },
           "repo": {
             "type": "string",
@@ -4517,8 +4517,8 @@
           }
         },
         "required": [
-          "owner",
           "secretKey",
+          "owner",
           "repo"
         ]
       },
@@ -4628,16 +4628,16 @@
       "IGithub.IGetReadmeFileContentInput": {
         "type": "object",
         "properties": {
-          "owner": {
-            "type": "string",
-            "title": "owner's name",
-            "description": "The owner's name and the repository's name can be combined to form '${owner}/${repo}' and can be a unique path name for a single repository.\nSo the owner here is the nickname of the repository owner, not the name of the person committing or the author.\n\nIf it is an organization's repository, it can also be the name of the organization."
-          },
           "secretKey": {
             "type": "string",
             "x-wrtn-secret-key": "github",
             "title": "Select authentication information",
             "description": "secret key."
+          },
+          "owner": {
+            "type": "string",
+            "title": "owner's name",
+            "description": "The owner's name and the repository's name can be combined to form '${owner}/${repo}' and can be a unique path name for a single repository.\nSo the owner here is the nickname of the repository owner, not the name of the person committing or the author.\n\nIf it is an organization's repository, it can also be the name of the organization."
           },
           "repo": {
             "type": "string",
@@ -4645,8 +4645,8 @@
           }
         },
         "required": [
-          "owner",
           "secretKey",
+          "owner",
           "repo"
         ]
       },
@@ -4979,7 +4979,7 @@
             "title": "activity type"
           },
           "actor": {
-            "$ref": "#/components/schemas/MyPickIGithub.Usertypeavatar_urlidlogin",
+            "$ref": "#/components/schemas/MyPickIGithub.Usertypeidloginavatar_url",
             "title": "actor"
           }
         },
@@ -4991,7 +4991,7 @@
           "actor"
         ]
       },
-      "MyPickIGithub.Usertypeavatar_urlidlogin": {
+      "MyPickIGithub.Usertypeidloginavatar_url": {
         "type": "object",
         "properties": {
           "type": {
@@ -5008,11 +5008,6 @@
             ],
             "title": "type"
           },
-          "avatar_url": {
-            "type": "string",
-            "format": "iri",
-            "title": "avatar url\n\nThis means the user's profile image."
-          },
           "id": {
             "type": "number",
             "title": "id\n\nThis means the user's ID."
@@ -5021,13 +5016,18 @@
             "type": "string",
             "title": "login",
             "description": "This means the user's nickname.\nIn github, nicknames are unique at least until that user changes their own nickname.\nThis means that only one person can own the nickname at a time.\nTherefore, it may be important to know the exact nickname because the github API calls the appi using the user's nickname."
+          },
+          "avatar_url": {
+            "type": "string",
+            "format": "iri",
+            "title": "avatar url\n\nThis means the user's profile image."
           }
         },
         "required": [
           "type",
-          "avatar_url",
           "id",
-          "login"
+          "login",
+          "avatar_url"
         ]
       },
       "IGithub.IGetRepositoryActivityInput": {
@@ -5225,11 +5225,6 @@
             "type": "string",
             "title": "title\n\nThe title of the new pull request. Required unless issue is specified."
           },
-          "owner": {
-            "type": "string",
-            "title": "owner's name",
-            "description": "The owner's name and the repository's name can be combined to form '${owner}/${repo}' and can be a unique path name for a single repository.\nSo the owner here is the nickname of the repository owner, not the name of the person committing or the author."
-          },
           "secretKey": {
             "type": "string",
             "x-wrtn-secret-key": "github",
@@ -5238,6 +5233,11 @@
             ],
             "title": "Select authentication information",
             "description": "secret key."
+          },
+          "owner": {
+            "type": "string",
+            "title": "owner's name",
+            "description": "The owner's name and the repository's name can be combined to form '${owner}/${repo}' and can be a unique path name for a single repository.\nSo the owner here is the nickname of the repository owner, not the name of the person committing or the author."
           },
           "repo": {
             "type": "string",
@@ -5273,8 +5273,8 @@
         },
         "required": [
           "pull_number",
-          "owner",
           "secretKey",
+          "owner",
           "repo"
         ]
       },
@@ -5463,18 +5463,8 @@
             ],
             "title": "author_association"
           },
-          "created_at": {
-            "type": "string",
-            "format": "date-time",
-            "title": "created_at"
-          },
-          "updated_at": {
-            "type": "string",
-            "format": "date-time",
-            "title": "updated_at"
-          },
           "user": {
-            "$ref": "#/components/schemas/MyPickIGithub.Usertypeavatar_urlidloginhtml_url",
+            "$ref": "#/components/schemas/MyPickIGithub.Usertypeidloginhtml_urlavatar_url",
             "title": "user"
           },
           "id": {
@@ -5484,15 +5474,25 @@
           "body": {
             "type": "string",
             "title": "body"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "created_at"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "updated_at"
           }
         },
         "required": [
           "issue_url",
           "author_association",
-          "created_at",
-          "updated_at",
           "user",
-          "id"
+          "id",
+          "created_at",
+          "updated_at"
         ]
       },
       "IGithub.IGetPullRequestCommentsInput": {
@@ -5613,7 +5613,7 @@
           "teams": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/MyPickIGithub.Teamdescriptionnameslugidnotification_settingpermissionprivacy"
+              "$ref": "#/components/schemas/MyPickIGithub.Teamdescriptionnameidslugnotification_settingpermissionprivacy"
             },
             "title": "team"
           }
@@ -5623,7 +5623,7 @@
           "teams"
         ]
       },
-      "MyPickIGithub.Teamdescriptionnameslugidnotification_settingpermissionprivacy": {
+      "MyPickIGithub.Teamdescriptionnameidslugnotification_settingpermissionprivacy": {
         "type": "object",
         "properties": {
           "description": {
@@ -5634,13 +5634,13 @@
             "type": "string",
             "title": "name"
           },
-          "slug": {
-            "type": "string",
-            "title": "slug"
-          },
           "id": {
             "type": "number",
             "title": "id"
+          },
+          "slug": {
+            "type": "string",
+            "title": "slug"
           },
           "notification_setting": {
             "type": "string",
@@ -5665,8 +5665,8 @@
         "required": [
           "description",
           "name",
-          "slug",
           "id",
+          "slug",
           "notification_setting",
           "permission",
           "privacy"
@@ -5942,6 +5942,14 @@
             ],
             "title": "author_association"
           },
+          "id": {
+            "type": "integer",
+            "title": "id"
+          },
+          "body": {
+            "type": "string",
+            "title": "body"
+          },
           "created_at": {
             "type": "string",
             "format": "date-time",
@@ -5951,14 +5959,6 @@
             "type": "string",
             "format": "date-time",
             "title": "updated_at"
-          },
-          "id": {
-            "type": "integer",
-            "title": "id"
-          },
-          "body": {
-            "type": "string",
-            "title": "body"
           }
         },
         "required": [
@@ -5972,9 +5972,9 @@
           "user",
           "html_url",
           "author_association",
+          "id",
           "created_at",
-          "updated_at",
-          "id"
+          "updated_at"
         ]
       },
       "IGithub.IGetReviewCommentInput": {
@@ -6386,6 +6386,14 @@
             "type": "string",
             "title": "start_side"
           },
+          "path": {
+            "type": "string",
+            "title": "path"
+          },
+          "body": {
+            "type": "string",
+            "title": "body"
+          },
           "position": {
             "oneOf": [
               {
@@ -6397,14 +6405,6 @@
             ],
             "title": "position",
             "description": "The position in the diff where you want to add a review comment.\nNote this value is not the same as the line number in the file.\nThe position value equals the number of lines down from the first \"@@\" hunk header in the file you want to add a comment.\nThe line just below the \"@@\" line is position 1, the next line is position 2, and so on. The position in the diff continues to increase through lines of whitespace and additional hunks until the beginning of a new file.\n\nPosition value, which is the number of rows based on diff_hunk."
-          },
-          "path": {
-            "type": "string",
-            "title": "path"
-          },
-          "body": {
-            "type": "string",
-            "title": "body"
           }
         },
         "required": [
@@ -6412,8 +6412,8 @@
           "side",
           "start_line",
           "start_side",
-          "position",
-          "path"
+          "path",
+          "position"
         ]
       },
       "IGithub.IReadPullRequestFileOutput": {
@@ -7610,16 +7610,16 @@
             ],
             "title": "sort\nIt must be one of: \"CREATED_AT\", \"UPDATED_AT\"."
           },
-          "owner": {
-            "type": "string",
-            "title": "owner's name",
-            "description": "The owner's name and the repository's name can be combined to form '${owner}/${repo}' and can be a unique path name for a single repository.\nSo the owner here is the nickname of the repository owner, not the name of the person committing or the author."
-          },
           "secretKey": {
             "type": "string",
             "x-wrtn-secret-key": "github",
             "title": "Select authentication information",
             "description": "secret key."
+          },
+          "owner": {
+            "type": "string",
+            "title": "owner's name",
+            "description": "The owner's name and the repository's name can be combined to form '${owner}/${repo}' and can be a unique path name for a single repository.\nSo the owner here is the nickname of the repository owner, not the name of the person committing or the author."
           },
           "per_page": {
             "type": "integer",
@@ -7678,8 +7678,8 @@
         },
         "required": [
           "sort",
-          "owner",
           "secretKey",
+          "owner",
           "repo",
           "direction"
         ]
@@ -8569,11 +8569,6 @@
             ],
             "title": "type"
           },
-          "avatar_url": {
-            "type": "string",
-            "format": "iri",
-            "title": "avatar url\n\nThis means the user's profile image."
-          },
           "id": {
             "type": "number",
             "title": "id\n\nThis means the user's ID."
@@ -8582,6 +8577,11 @@
             "type": "string",
             "title": "login",
             "description": "This means the user's nickname.\nIn github, nicknames are unique at least until that user changes their own nickname.\nThis means that only one person can own the nickname at a time.\nTherefore, it may be important to know the exact nickname because the github API calls the appi using the user's nickname."
+          },
+          "avatar_url": {
+            "type": "string",
+            "format": "iri",
+            "title": "avatar url\n\nThis means the user's profile image."
           }
         },
         "required": [
@@ -8594,9 +8594,9 @@
           "profile_repository",
           "pinned_repositories",
           "type",
-          "avatar_url",
           "id",
-          "login"
+          "login",
+          "avatar_url"
         ]
       },
       "RepositoryreadmeIGetReadmeFileContentOutput": {
@@ -9286,16 +9286,6 @@
             ],
             "title": "head branch info"
           },
-          "created_at": {
-            "type": "string",
-            "format": "date-time",
-            "title": "created_at"
-          },
-          "updated_at": {
-            "type": "string",
-            "format": "date-time",
-            "title": "updated_at"
-          },
           "user": {
             "$ref": "#/components/schemas/MyPickIGithub.Usertypeidlogin",
             "title": "user"
@@ -9398,6 +9388,16 @@
           "draft": {
             "type": "boolean",
             "title": "draft\n\nIndicates whether or not the pull request is a draft."
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "created_at"
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "updated_at"
           },
           "milestone": {
             "oneOf": [
@@ -9523,13 +9523,13 @@
           "title",
           "base",
           "head",
-          "created_at",
-          "updated_at",
           "user",
           "id",
           "state",
           "labels",
           "html_url",
+          "created_at",
+          "updated_at",
           "milestone",
           "author_association",
           "requested_reviewers",
@@ -10064,7 +10064,7 @@
           "result": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/MyPickIGithub.Useravatar_urlidloginhtml_url"
+              "$ref": "#/components/schemas/MyPickIGithub.Useridloginhtml_urlavatar_url"
             },
             "title": "followers"
           },
@@ -10121,14 +10121,9 @@
           "nextPage"
         ]
       },
-      "MyPickIGithub.Useravatar_urlidloginhtml_url": {
+      "MyPickIGithub.Useridloginhtml_urlavatar_url": {
         "type": "object",
         "properties": {
-          "avatar_url": {
-            "type": "string",
-            "format": "iri",
-            "title": "avatar url\n\nThis means the user's profile image."
-          },
           "id": {
             "type": "number",
             "title": "id\n\nThis means the user's ID."
@@ -10142,13 +10137,18 @@
             "type": "string",
             "format": "iri",
             "title": "html_url\n\nIf you want to look up your profile, you can access this website."
+          },
+          "avatar_url": {
+            "type": "string",
+            "format": "iri",
+            "title": "avatar url\n\nThis means the user's profile image."
           }
         },
         "required": [
-          "avatar_url",
           "id",
           "login",
-          "html_url"
+          "html_url",
+          "avatar_url"
         ]
       },
       "IGithub.IGetFollowerInput": {
@@ -10206,7 +10206,7 @@
           "result": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/MyPickIGithub.Useravatar_urlidloginhtml_url"
+              "$ref": "#/components/schemas/MyPickIGithub.Useridloginhtml_urlavatar_url"
             },
             "title": "followees"
           },
@@ -10479,10 +10479,6 @@
             "type": "string",
             "title": "tite of this issue"
           },
-          "owner": {
-            "type": "string",
-            "title": "user's nickname"
-          },
           "secretKey": {
             "type": "string",
             "x-wrtn-secret-key": "github",
@@ -10491,6 +10487,10 @@
             ],
             "title": "Select authentication information",
             "description": "secret key."
+          },
+          "owner": {
+            "type": "string",
+            "title": "user's nickname"
           },
           "repo": {
             "type": "string",
@@ -10523,8 +10523,8 @@
         },
         "required": [
           "issue_number",
-          "owner",
           "secretKey",
+          "owner",
           "repo"
         ]
       },
