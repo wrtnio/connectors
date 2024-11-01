@@ -609,11 +609,17 @@ export class JiraProvider {
     input: IJira.__IUpdateIssueInput,
   ): Promise<void> {
     try {
-      const config = await this.getAuthorizationAndDomain(input);
+      const copiedInput = JSON.parse(JSON.stringify(input));
+      if (typeof input.fields.description?.content === "string") {
+        const content = markdownToJiraBlock(input.fields.description.content);
+        copiedInput.fields.description.content = content;
+      }
+
+      const config = await this.getAuthorizationAndDomain(copiedInput);
       await axios.put(
         `${config.domain}/issue/${id}`,
         {
-          fields: input.fields,
+          fields: copiedInput.fields,
         },
         {
           headers: {
