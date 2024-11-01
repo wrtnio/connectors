@@ -11,7 +11,7 @@ import { IOAuthSecret } from "../../internal/oauth_secret/structures/IOAuthSecre
 @Injectable()
 export class JiraProvider {
   async getUsersAssignableInIssue(
-    input: IJira.IGetIssueAssignableInput,
+    input: IJira.__IGetIssueAssignableInput,
   ): Promise<IJira.IGetIssueAssignableOutput> {
     try {
       const config = await this.getAuthorizationAndDomain(input);
@@ -36,7 +36,7 @@ export class JiraProvider {
   }
 
   async getStatusCategories(
-    input: IJira.IGetStatusCategoryInput,
+    input: IJira.__IGetStatusCategoryInput,
   ): Promise<IJira.IGetStatusCategoryOutput> {
     try {
       const config = await this.getAuthorizationAndDomain(input);
@@ -55,7 +55,7 @@ export class JiraProvider {
   }
 
   async getUsersAssignableInProject(
-    input: IJira.IGetProjectAssignableInput,
+    input: IJira.__IGetProjectAssignableInput,
   ): Promise<IJira.IGetProjectAssignableOutput> {
     try {
       const config = await this.getAuthorizationAndDomain(input);
@@ -78,7 +78,7 @@ export class JiraProvider {
   }
 
   async getIssueStatuses(
-    input: IJira.IGetIssueStatusInput,
+    input: IJira.__IGetIssueStatusInput,
   ): Promise<IJira.IGetIssueStatusOutput> {
     try {
       const projectId = input.projectId;
@@ -112,7 +112,7 @@ export class JiraProvider {
   }
 
   async getIssueLabels(
-    input: IJira.IGetIssueLabelInput,
+    input: IJira.__IGetIssueLabelInput,
   ): Promise<IJira.IGetIssueLabelOutput> {
     try {
       const config = await this.getAuthorizationAndDomain(input);
@@ -131,7 +131,7 @@ export class JiraProvider {
   }
 
   async getIssuePriorities(
-    input: IJira.IGetIssuePriorityInput,
+    input: IJira.__IGetIssuePriorityInput,
   ): Promise<IJira.IGetIssuePriorityOutput> {
     try {
       const config = await this.getAuthorizationAndDomain(input);
@@ -150,7 +150,7 @@ export class JiraProvider {
   }
 
   async getIssueTypes(
-    input: IJira.IGetIssueTypeInput,
+    input: IJira.__IGetIssueTypeInput,
   ): Promise<IJira.IGetIssueTypeOutput> {
     try {
       const config = await this.getAuthorizationAndDomain(input);
@@ -170,7 +170,7 @@ export class JiraProvider {
 
   async getProjects(
     input:
-      | IJira.IGetProjectInputByBasicAuth
+      | IJira.__IGetProjectInputByBasicAuth
       | IJira.IGetProjectInputBySecretKey,
   ) {
     try {
@@ -196,7 +196,7 @@ export class JiraProvider {
   }
 
   async getIssueDetail(
-    input: IJira.IGetIssueDetailInput,
+    input: IJira.__IGetIssueDetailInput,
   ): Promise<IJira.IGetIssueDetailOutput> {
     try {
       const config = await this.getAuthorizationAndDomain(input);
@@ -218,7 +218,7 @@ export class JiraProvider {
   }
 
   async getIssues(
-    input: IJira.IGetIssueInputByBasicAuth | IJira.IGetIssueInputBySecretKey,
+    input: IJira.__IGetIssueInputByBasicAuth | IJira.IGetIssueInputBySecretKey,
   ): Promise<IJira.IGetIssueOutput> {
     try {
       const config = await this.getAuthorizationAndDomain(input);
@@ -340,7 +340,7 @@ export class JiraProvider {
     }
   }
 
-  async deleteComment(input: IJira.IDeleteCommentInput): Promise<void> {
+  async deleteComment(input: IJira.__IDeleteCommentInput): Promise<void> {
     try {
       const config = await this.getAuthorizationAndDomain(input);
       await axios.delete(
@@ -358,7 +358,7 @@ export class JiraProvider {
   }
 
   async createComment(
-    input: IJira.ICreateCommentByMarkdownInput,
+    input: IJira.__ICreateCommentByMarkdownInput,
   ): Promise<IJira.ICreateCommentOutput> {
     try {
       const config = await this.getAuthorizationAndDomain(input);
@@ -393,7 +393,7 @@ export class JiraProvider {
   }
 
   async getComments(
-    input: IJira.IGetCommentInput,
+    input: IJira.__IGetCommentInput,
   ): Promise<IJira.IGetCommentOutput> {
     try {
       const config = await this.getAuthorizationAndDomain(input);
@@ -414,7 +414,7 @@ export class JiraProvider {
     }
   }
 
-  async unassign(input: IJira.IUnAssignInput): Promise<void> {
+  async unassign(input: IJira.__IUnAssignInput): Promise<void> {
     try {
       await this.updateIssue(input.issueId, {
         email: input.email,
@@ -432,7 +432,7 @@ export class JiraProvider {
     }
   }
 
-  async assign(input: IJira.IAssignInput): Promise<void> {
+  async assign(input: IJira.__IAssignInput): Promise<void> {
     try {
       await this.updateIssue(input.issueId, {
         email: input.email,
@@ -451,7 +451,7 @@ export class JiraProvider {
   }
 
   async getTransitions(
-    input: IJira.IGetTransitionInput,
+    input: IJira.__IGetTransitionInput,
   ): Promise<IJira.IGetTransitionOutput> {
     try {
       const config = await this.getAuthorizationAndDomain(input);
@@ -473,7 +473,7 @@ export class JiraProvider {
     }
   }
 
-  async updateIssueStatus(input: IJira.IUpdateStatusInput): Promise<void> {
+  async updateIssueStatus(input: IJira.__IUpdateStatusInput): Promise<void> {
     try {
       const config = await this.getAuthorizationAndDomain(input);
       await axios.post(
@@ -530,7 +530,7 @@ export class JiraProvider {
 
   async updateIssue(
     id: IJira.Issue["id"],
-    input: IJira.IUpdateIssueInput,
+    input: IJira.__IUpdateIssueInput,
   ): Promise<void> {
     try {
       const config = await this.getAuthorizationAndDomain(input);
