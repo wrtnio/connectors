@@ -15,7 +15,7 @@
     }
   ],
   "info": {
-    "version": "0.1.314",
+    "version": "0.1.315",
     "title": "@wrtn/connector",
     "description": "wrtn-ecosystem connectors and sdk",
     "license": {
@@ -38783,43 +38783,9 @@
                 "title": "version"
               },
               "content": {
-                "type": "array",
-                "items": {
-                  "oneOf": [
-                    {
-                      "$ref": "#/components/schemas/IJira.BlockquoteNode"
-                    },
-                    {
-                      "$ref": "#/components/schemas/ListNode"
-                    },
-                    {
-                      "$ref": "#/components/schemas/IJira.CodeBlockNode"
-                    },
-                    {
-                      "$ref": "#/components/schemas/IJira.HeadingNode"
-                    },
-                    {
-                      "$ref": "#/components/schemas/IJira.MediaSingleNode"
-                    },
-                    {
-                      "$ref": "#/components/schemas/IJira.PanelNode"
-                    },
-                    {
-                      "$ref": "#/components/schemas/IJira.ParagraphNode"
-                    },
-                    {
-                      "$ref": "#/components/schemas/IJira.TableNode"
-                    },
-                    {
-                      "$ref": "#/components/schemas/IJira.MediaGroupNode"
-                    },
-                    {
-                      "$ref": "#/components/schemas/IJira.RuleNode"
-                    }
-                  ]
-                },
+                "type": "string",
                 "title": "contents of description",
-                "description": "You must use node types that are configured with TopLevelBlockNodes.\n\nIt is recommended to contain as much detail as possible on the issue raised by the user,\nso that the next person who reads this issue can see the summary and description of this issue to resolve the issue."
+                "description": "You must use markdown format string.\n\nIt is recommended to contain as much detail as possible on the issue raised by the user,\nso that the next person who reads this issue can see the summary and description of this issue to resolve the issue."
               }
             },
             "required": [
