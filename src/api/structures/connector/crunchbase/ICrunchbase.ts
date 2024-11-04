@@ -208,7 +208,7 @@ export namespace ICrunchbase {
      *
      * The legal or business classification of the company.
      */
-    company_type?: string;
+    company_type?: string | null;
 
     /**
      * @title List of the organization's social media profiles
