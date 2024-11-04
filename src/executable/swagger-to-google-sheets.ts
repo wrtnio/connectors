@@ -41,6 +41,147 @@ function getServiceName(pathname: string) {
   return pathname.match(/connector\/([^/]+)/)?.at(1) ?? "NONAMED";
 }
 
+async function setSize(
+  spreadsheetId: string,
+  totalRowLength: number,
+  totalColumnLength: number,
+  accessToken: string,
+) {
+  await googleSheets.spreadsheets.batchUpdate({
+    spreadsheetId: spreadsheetId,
+    requestBody: {
+      requests: [
+        {
+          updateDimensionProperties: {
+            range: {
+              dimension: "ROWS",
+              startIndex: 1,
+              endIndex: totalRowLength, // 추가된 행 수 만큼
+            },
+            properties: {
+              pixelSize: 80, // 아이콘 크기에 맞게 80으로 정의
+            },
+            fields: "pixelSize",
+          },
+        },
+        {
+          updateDimensionProperties: {
+            range: {
+              sheetId: 0,
+              dimension: "COLUMNS",
+              startIndex: 0,
+              endIndex: totalColumnLength,
+            },
+            properties: {
+              pixelSize: 160,
+            },
+            fields: "pixelSize",
+          },
+        },
+        {
+          updateDimensionProperties: {
+            range: {
+              sheetId: 0,
+              dimension: "COLUMNS",
+              startIndex: 1,
+              endIndex: 2,
+            },
+            properties: {
+              pixelSize: 40,
+            },
+            fields: "pixelSize",
+          },
+        },
+        {
+          updateDimensionProperties: {
+            range: {
+              sheetId: 0,
+              dimension: "COLUMNS",
+              startIndex: 2,
+              endIndex: 3,
+            },
+            properties: {
+              pixelSize: 80,
+            },
+            fields: "pixelSize",
+          },
+        },
+        {
+          updateDimensionProperties: {
+            range: {
+              sheetId: 0,
+              dimension: "COLUMNS",
+              startIndex: 3,
+              endIndex: 4,
+            },
+            properties: {
+              pixelSize: 40,
+            },
+            fields: "pixelSize",
+          },
+        },
+        {
+          updateDimensionProperties: {
+            range: {
+              sheetId: 0,
+              dimension: "COLUMNS",
+              startIndex: 4,
+              endIndex: 5,
+            },
+            properties: {
+              pixelSize: 440,
+            },
+            fields: "pixelSize",
+          },
+        },
+        {
+          updateDimensionProperties: {
+            range: {
+              sheetId: 0,
+              dimension: "COLUMNS",
+              startIndex: 7,
+              endIndex: 8,
+            },
+            properties: {
+              pixelSize: 400,
+            },
+            fields: "pixelSize",
+          },
+        },
+        {
+          updateDimensionProperties: {
+            range: {
+              sheetId: 0,
+              dimension: "COLUMNS",
+              startIndex: 8,
+              endIndex: 9,
+            },
+            properties: {
+              pixelSize: 800,
+            },
+            fields: "pixelSize",
+          },
+        },
+        {
+          updateDimensionProperties: {
+            range: {
+              sheetId: 0,
+              dimension: "COLUMNS",
+              startIndex: 9,
+              endIndex: 10,
+            },
+            properties: {
+              pixelSize: 800,
+            },
+            fields: "pixelSize",
+          },
+        },
+      ],
+    },
+    access_token: accessToken,
+  });
+}
+
 async function convertSwaggerToGoogleSheet(input: {
   document: OpenApi.IDocument;
   filename: string;
@@ -95,6 +236,7 @@ async function convertSwaggerToGoogleSheet(input: {
           }
 
           const tags = JSON.stringify(operation.tags, null, 2);
+          const descriptions = operation.description?.split("\n\n");
           values.push([
             service ? service : "",
             index,
@@ -104,7 +246,8 @@ async function convertSwaggerToGoogleSheet(input: {
             operation.deprecated ?? "",
             tags,
             operation.summary ?? "",
-            operation.description ?? "",
+            descriptions?.at(0) ?? "",
+            descriptions?.at(1) ?? "",
           ]);
         }
       });
@@ -122,12 +265,14 @@ async function convertSwaggerToGoogleSheet(input: {
   values.unshift([
     "Connector",
     "#",
+    "Icon",
     "Method",
     "Path",
     "Deprecated",
     "Tags",
     "Summary",
-    "Description",
+    "Short Description",
+    "Long Description",
   ]);
 
   // 데이터 삽입
@@ -141,85 +286,8 @@ async function convertSwaggerToGoogleSheet(input: {
     access_token: accessToken,
   });
 
-  // 스타일 수정
-  await googleSheets.spreadsheets.batchUpdate({
-    spreadsheetId: spreadsheetId,
-    requestBody: {
-      requests: [
-        {
-          updateDimensionProperties: {
-            range: {
-              sheetId: 0,
-              dimension: "COLUMNS",
-              startIndex: 0,
-              endIndex: values.length - 1,
-            },
-            properties: {
-              pixelSize: 160,
-            },
-            fields: "pixelSize",
-          },
-        },
-        {
-          updateDimensionProperties: {
-            range: {
-              sheetId: 0,
-              dimension: "COLUMNS",
-              startIndex: 1,
-              endIndex: 2,
-            },
-            properties: {
-              pixelSize: 80,
-            },
-            fields: "pixelSize",
-          },
-        },
-        {
-          updateDimensionProperties: {
-            range: {
-              sheetId: 0,
-              dimension: "COLUMNS",
-              startIndex: 3,
-              endIndex: 4,
-            },
-            properties: {
-              pixelSize: 320,
-            },
-            fields: "pixelSize",
-          },
-        },
-        {
-          updateDimensionProperties: {
-            range: {
-              sheetId: 0,
-              dimension: "COLUMNS",
-              startIndex: 6,
-              endIndex: 7,
-            },
-            properties: {
-              pixelSize: 400,
-            },
-            fields: "pixelSize",
-          },
-        },
-        {
-          updateDimensionProperties: {
-            range: {
-              sheetId: 0,
-              dimension: "COLUMNS",
-              startIndex: 7,
-              endIndex: 8,
-            },
-            properties: {
-              pixelSize: 800,
-            },
-            fields: "pixelSize",
-          },
-        },
-      ],
-    },
-    access_token: accessToken,
-  });
+  // 칼럼 사이즈 정의
+  await setSize(spreadsheetId, values.length, values[0].length, accessToken);
 
   // 커넥터 별로 색상 지정
 
@@ -232,37 +300,64 @@ async function convertSwaggerToGoogleSheet(input: {
 
     return new Array(count)
       .fill(0)
-      .map(
+      .flatMap(
         (
           _,
           currentIdx,
-        ): { updateCells: sheets_v4.Schema$UpdateCellsRequest } => ({
-          updateCells: {
-            range: {
-              startColumnIndex: 1,
-              endColumnIndex: 2,
-              startRowIndex: sum + currentIdx,
-              endRowIndex: sum + currentIdx + 1,
-            },
-            rows: [
-              {
-                values: [
+        ): { updateCells: sheets_v4.Schema$UpdateCellsRequest }[] => {
+          const icon = values[sum + currentIdx][2];
+          return [
+            {
+              updateCells: {
+                range: {
+                  startColumnIndex: 1,
+                  endColumnIndex: 2,
+                  startRowIndex: sum + currentIdx,
+                  endRowIndex: sum + currentIdx + 1,
+                },
+                rows: [
                   {
-                    userEnteredFormat: {
-                      backgroundColor: {
-                        red: r,
-                        green: g,
-                        blue: b,
-                        alpha: 0.8,
+                    values: [
+                      {
+                        userEnteredFormat: {
+                          backgroundColor: {
+                            red: r,
+                            green: g,
+                            blue: b,
+                            alpha: 0.8,
+                          },
+                        },
                       },
-                    },
+                    ],
                   },
                 ],
+                fields: "userEnteredFormat.backgroundColor",
               },
-            ],
-            fields: "userEnteredFormat.backgroundColor",
-          },
-        }),
+            },
+            {
+              updateCells: {
+                range: {
+                  startColumnIndex: 2,
+                  endColumnIndex: 3,
+                  startRowIndex: sum + currentIdx,
+                  endRowIndex: sum + currentIdx + 1,
+                },
+                rows: [
+                  {
+                    values: [
+                      {
+                        userEnteredValue: {
+                          formulaValue: `=IMAGE("${icon}", 4, 80, 80)`,
+                        },
+                      },
+                    ],
+                  },
+                ],
+                fields: "userEnteredValue",
+              },
+            },
+          ];
+        },
       );
   });
 
@@ -275,6 +370,21 @@ async function convertSwaggerToGoogleSheet(input: {
   });
 
   return { spreadsheetId };
+}
+
+async function makeFileAccessibleToEveryone(
+  spreadsheetId: string,
+  accessToken: string,
+) {
+  await googleDrive.permissions.create({
+    fileId: spreadsheetId,
+    requestBody: {
+      role: "writer",
+      type: "domain",
+      domain: "wrtn.io",
+    },
+    access_token: accessToken,
+  });
 }
 
 async function syncGoogleSheet(values: string[][], accessToken: string) {
@@ -310,6 +420,7 @@ const main = async (): Promise<void> => {
   if (res?.spreadsheetId) {
     const url = `https://docs.google.com/spreadsheets/d/${res.spreadsheetId}`;
     await syncGoogleSheet([[version ?? "", url]], accessToken);
+    await makeFileAccessibleToEveryone(res.spreadsheetId, accessToken);
   }
 };
 
