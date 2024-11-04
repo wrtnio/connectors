@@ -46,7 +46,7 @@ async function convertSwaggerToGoogleSheet(input: {
   document: OpenApi.IDocument;
   filename: string;
   accessToken: string;
-}) {
+}): Promise<{ spreadsheetId: string }> {
   const { document, filename, accessToken } = input;
   // 시트를 생성
   const sheet = await googleSheets.spreadsheets.create({
@@ -55,223 +55,241 @@ async function convertSwaggerToGoogleSheet(input: {
   });
 
   const countByConnector = new Map<string, number>();
-  if (sheet.data.spreadsheetId) {
-    const values: (string | number | boolean)[][] = [];
+  const spreadsheetId = sheet.data.spreadsheetId;
+  if (!spreadsheetId) {
+    throw new Error("Error on onverting swagger to google sheets.");
+  }
 
-    Object.entries(document.paths ?? {})
-      .sort(([keyA], [keyB]) => {
-        const serviceA = getServiceName(keyA);
-        const serviceB = getServiceName(keyB);
+  const values: (string | number | boolean)[][] = [];
 
-        return serviceA.localeCompare(serviceB);
-      })
-      .flatMap(([path, schema]) => {
-        const service = getServiceName(path);
+  Object.entries(document.paths ?? {})
+    .sort(([keyA], [keyB]) => {
+      const serviceA = getServiceName(keyA);
+      const serviceB = getServiceName(keyB);
 
-        return Object.entries(schema).map(([method, operation]) => {
-          if (typia.is<OpenApi.IOperation<OpenApi.IJsonSchema>>(operation)) {
-            const icon = String(
-              "x-wrtn-icon" in operation ? operation["x-wrtn-icon"] : "",
-            );
+      return serviceA.localeCompare(serviceB);
+    })
+    .flatMap(([path, schema]) => {
+      const service = getServiceName(path);
 
-            const isFirst = countByConnector.get(service) ? false : true;
-            if (isFirst) {
-              values.push([
-                service ? service : "",
-                0, // 세일에 해당하는 인덱스로, 워크플로우 상 노드를 표현
-                icon,
-              ]);
-              if (service) {
-                countByConnector.set(service, 1);
-              }
-            }
+      return Object.entries(schema).map(([method, operation]) => {
+        if (typia.is<OpenApi.IOperation<OpenApi.IJsonSchema>>(operation)) {
+          const icon = String(
+            "x-wrtn-icon" in operation ? operation["x-wrtn-icon"] : "",
+          );
 
-            const index = service ? countByConnector.get(service) ?? 2 : 2;
-            if (service) {
-              countByConnector.set(service, index + 1);
-            }
-
-            const tags = JSON.stringify(operation.tags, null, 2);
+          const isFirst = countByConnector.get(service) ? false : true;
+          if (isFirst) {
             values.push([
               service ? service : "",
-              index,
+              0, // 세일에 해당하는 인덱스로, 워크플로우 상 노드를 표현
               icon,
-              method,
-              path,
-              operation.deprecated ?? "",
-              tags,
-              operation.summary ?? "",
-              operation.description ?? "",
             ]);
+            if (service) {
+              countByConnector.set(service, 1);
+            }
           }
-        });
+
+          const index = service ? countByConnector.get(service) ?? 2 : 2;
+          if (service) {
+            countByConnector.set(service, index + 1);
+          }
+
+          const tags = JSON.stringify(operation.tags, null, 2);
+          values.push([
+            service ? service : "",
+            index,
+            icon,
+            method,
+            path,
+            operation.deprecated ?? "",
+            tags,
+            operation.summary ?? "",
+            operation.description ?? "",
+          ]);
+        }
       });
-
-    console.log(countByConnector);
-    // 방금 생성한 파일을 이동
-    await googleDrive.files.update({
-      fileId: sheet.data.spreadsheetId,
-      addParents: folderId, // 생성할 폴더 ID를 여기에 입력
-      removeParents: "root", // 기본 폴더에서 이동
-      access_token: accessToken,
     });
 
-    // 헤더를 추가
-    values.unshift([
-      "Connector",
-      "#",
-      "Method",
-      "Path",
-      "Deprecated",
-      "Tags",
-      "Summary",
-      "Description",
-    ]);
+  // 방금 생성한 파일을 이동
+  await googleDrive.files.update({
+    fileId: spreadsheetId,
+    addParents: folderId, // 생성할 폴더 ID를 여기에 입력
+    removeParents: "root", // 기본 폴더에서 이동
+    access_token: accessToken,
+  });
 
-    // 데이터 삽입
-    await googleSheets.spreadsheets.values.append({
-      spreadsheetId: sheet.data.spreadsheetId,
-      valueInputOption: "RAW",
-      requestBody: {
-        values: values,
-      },
-      range: "1:1000",
-      access_token: accessToken,
-    });
+  // 헤더를 추가
+  values.unshift([
+    "Connector",
+    "#",
+    "Method",
+    "Path",
+    "Deprecated",
+    "Tags",
+    "Summary",
+    "Description",
+  ]);
 
-    // 스타일 수정
-    await googleSheets.spreadsheets.batchUpdate({
-      spreadsheetId: sheet.data.spreadsheetId,
-      requestBody: {
-        requests: [
-          {
-            updateDimensionProperties: {
-              range: {
-                sheetId: 0,
-                dimension: "COLUMNS",
-                startIndex: 0,
-                endIndex: values.length - 1,
-              },
-              properties: {
-                pixelSize: 160,
-              },
-              fields: "pixelSize",
-            },
-          },
-          {
-            updateDimensionProperties: {
-              range: {
-                sheetId: 0,
-                dimension: "COLUMNS",
-                startIndex: 1,
-                endIndex: 2,
-              },
-              properties: {
-                pixelSize: 80,
-              },
-              fields: "pixelSize",
-            },
-          },
-          {
-            updateDimensionProperties: {
-              range: {
-                sheetId: 0,
-                dimension: "COLUMNS",
-                startIndex: 3,
-                endIndex: 4,
-              },
-              properties: {
-                pixelSize: 320,
-              },
-              fields: "pixelSize",
-            },
-          },
-          {
-            updateDimensionProperties: {
-              range: {
-                sheetId: 0,
-                dimension: "COLUMNS",
-                startIndex: 6,
-                endIndex: 7,
-              },
-              properties: {
-                pixelSize: 400,
-              },
-              fields: "pixelSize",
-            },
-          },
-          {
-            updateDimensionProperties: {
-              range: {
-                sheetId: 0,
-                dimension: "COLUMNS",
-                startIndex: 7,
-                endIndex: 8,
-              },
-              properties: {
-                pixelSize: 800,
-              },
-              fields: "pixelSize",
-            },
-          },
-        ],
-      },
-      access_token: accessToken,
-    });
+  // 데이터 삽입
+  await googleSheets.spreadsheets.values.append({
+    spreadsheetId: spreadsheetId,
+    valueInputOption: "RAW",
+    requestBody: {
+      values: values,
+    },
+    range: "1:1000",
+    access_token: accessToken,
+  });
 
-    // 커넥터 별로 색상 지정
+  // 스타일 수정
+  await googleSheets.spreadsheets.batchUpdate({
+    spreadsheetId: spreadsheetId,
+    requestBody: {
+      requests: [
+        {
+          updateDimensionProperties: {
+            range: {
+              sheetId: 0,
+              dimension: "COLUMNS",
+              startIndex: 0,
+              endIndex: values.length - 1,
+            },
+            properties: {
+              pixelSize: 160,
+            },
+            fields: "pixelSize",
+          },
+        },
+        {
+          updateDimensionProperties: {
+            range: {
+              sheetId: 0,
+              dimension: "COLUMNS",
+              startIndex: 1,
+              endIndex: 2,
+            },
+            properties: {
+              pixelSize: 80,
+            },
+            fields: "pixelSize",
+          },
+        },
+        {
+          updateDimensionProperties: {
+            range: {
+              sheetId: 0,
+              dimension: "COLUMNS",
+              startIndex: 3,
+              endIndex: 4,
+            },
+            properties: {
+              pixelSize: 320,
+            },
+            fields: "pixelSize",
+          },
+        },
+        {
+          updateDimensionProperties: {
+            range: {
+              sheetId: 0,
+              dimension: "COLUMNS",
+              startIndex: 6,
+              endIndex: 7,
+            },
+            properties: {
+              pixelSize: 400,
+            },
+            fields: "pixelSize",
+          },
+        },
+        {
+          updateDimensionProperties: {
+            range: {
+              sheetId: 0,
+              dimension: "COLUMNS",
+              startIndex: 7,
+              endIndex: 8,
+            },
+            properties: {
+              pixelSize: 800,
+            },
+            fields: "pixelSize",
+          },
+        },
+      ],
+    },
+    access_token: accessToken,
+  });
 
-    const requests = [...countByConnector].flatMap(([_, count], index, arr) => {
-      const [r, g, b] = new Array(3).fill(0).map(() => getRandomColor());
-      const sum = arr
-        .slice(0, index)
-        .map((el) => el[1])
-        .reduce((acc, cur) => acc + cur, 1); // 헤더를 포함해서 세기 위해서 1부터 카운트한다.
+  // 커넥터 별로 색상 지정
 
-      return new Array(count)
-        .fill(0)
-        .map(
-          (
-            _,
-            currentIdx,
-          ): { updateCells: sheets_v4.Schema$UpdateCellsRequest } => ({
-            updateCells: {
-              range: {
-                startColumnIndex: 1,
-                endColumnIndex: 2,
-                startRowIndex: sum + currentIdx,
-                endRowIndex: sum + currentIdx + 1,
-              },
-              rows: [
-                {
-                  values: [
-                    {
-                      userEnteredFormat: {
-                        backgroundColor: {
-                          red: r,
-                          green: g,
-                          blue: b,
-                          alpha: 0.8,
-                        },
+  const requests = [...countByConnector].flatMap(([_, count], index, arr) => {
+    const [r, g, b] = new Array(3).fill(0).map(() => getRandomColor());
+    const sum = arr
+      .slice(0, index)
+      .map((el) => el[1])
+      .reduce((acc, cur) => acc + cur, 1); // 헤더를 포함해서 세기 위해서 1부터 카운트한다.
+
+    return new Array(count)
+      .fill(0)
+      .map(
+        (
+          _,
+          currentIdx,
+        ): { updateCells: sheets_v4.Schema$UpdateCellsRequest } => ({
+          updateCells: {
+            range: {
+              startColumnIndex: 1,
+              endColumnIndex: 2,
+              startRowIndex: sum + currentIdx,
+              endRowIndex: sum + currentIdx + 1,
+            },
+            rows: [
+              {
+                values: [
+                  {
+                    userEnteredFormat: {
+                      backgroundColor: {
+                        red: r,
+                        green: g,
+                        blue: b,
+                        alpha: 0.8,
                       },
                     },
-                  ],
-                },
-              ],
-              fields: "userEnteredFormat.backgroundColor",
-            },
-          }),
-        );
-    });
+                  },
+                ],
+              },
+            ],
+            fields: "userEnteredFormat.backgroundColor",
+          },
+        }),
+      );
+  });
 
-    await googleSheets.spreadsheets.batchUpdate({
-      spreadsheetId: sheet.data.spreadsheetId,
-      requestBody: {
-        requests: requests,
-      },
-      access_token: accessToken,
-    });
-  }
+  await googleSheets.spreadsheets.batchUpdate({
+    spreadsheetId: spreadsheetId,
+    requestBody: {
+      requests: requests,
+    },
+    access_token: accessToken,
+  });
+
+  return { spreadsheetId };
+}
+
+async function syncGoogleSheet(values: string[][], accessToken: string) {
+  const originalSheet = `1TUDy4NdlHuv9BCVqBeIULkmVJ9t7ud4YBqCQmqzhegA` as const;
+
+  await googleSheets.spreadsheets.values.append({
+    spreadsheetId: originalSheet,
+    valueInputOption: "RAW",
+    requestBody: {
+      values: values,
+    },
+    range: "수급 커넥터 이벤트 문서 관리!1:1000",
+    access_token: accessToken,
+  });
 }
 
 const main = async (): Promise<void> => {
@@ -284,7 +302,16 @@ const main = async (): Promise<void> => {
   const version = document.info?.version;
   const today = new Intl.DateTimeFormat("ko-KR").format(new Date());
   const filename = `Connector Document v${version} (${today})`;
-  await convertSwaggerToGoogleSheet({ document, accessToken, filename });
+  const res = await convertSwaggerToGoogleSheet({
+    document,
+    accessToken,
+    filename,
+  });
+
+  if (res?.spreadsheetId) {
+    const url = `https://docs.google.com/spreadsheets/d/${res.spreadsheetId}`;
+    await syncGoogleSheet([[version ?? "", url]], accessToken);
+  }
 };
 
 main().catch((exp) => {
