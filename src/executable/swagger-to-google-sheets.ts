@@ -162,6 +162,20 @@ async function setSize(
             fields: "pixelSize",
           },
         },
+        {
+          updateDimensionProperties: {
+            range: {
+              sheetId: 0,
+              dimension: "COLUMNS",
+              startIndex: 9,
+              endIndex: 10,
+            },
+            properties: {
+              pixelSize: 800,
+            },
+            fields: "pixelSize",
+          },
+        },
       ],
     },
     access_token: accessToken,
@@ -222,6 +236,7 @@ async function convertSwaggerToGoogleSheet(input: {
           }
 
           const tags = JSON.stringify(operation.tags, null, 2);
+          const descriptions = operation.description?.split("\n\n");
           values.push([
             service ? service : "",
             index,
@@ -231,7 +246,8 @@ async function convertSwaggerToGoogleSheet(input: {
             operation.deprecated ?? "",
             tags,
             operation.summary ?? "",
-            operation.description ?? "",
+            descriptions?.at(0) ?? "",
+            descriptions?.at(1) ?? "",
           ]);
         }
       });
@@ -255,7 +271,8 @@ async function convertSwaggerToGoogleSheet(input: {
     "Deprecated",
     "Tags",
     "Summary",
-    "Description",
+    "Short Description",
+    "Long Description",
   ]);
 
   // 데이터 삽입
