@@ -122,6 +122,7 @@ async function convertSwaggerToGoogleSheet(input: {
   values.unshift([
     "Connector",
     "#",
+    "Icon",
     "Method",
     "Path",
     "Deprecated",
@@ -232,37 +233,64 @@ async function convertSwaggerToGoogleSheet(input: {
 
     return new Array(count)
       .fill(0)
-      .map(
+      .flatMap(
         (
           _,
           currentIdx,
-        ): { updateCells: sheets_v4.Schema$UpdateCellsRequest } => ({
-          updateCells: {
-            range: {
-              startColumnIndex: 1,
-              endColumnIndex: 2,
-              startRowIndex: sum + currentIdx,
-              endRowIndex: sum + currentIdx + 1,
-            },
-            rows: [
-              {
-                values: [
+        ): { updateCells: sheets_v4.Schema$UpdateCellsRequest }[] => {
+          const icon = values[sum + currentIdx][2];
+          return [
+            {
+              updateCells: {
+                range: {
+                  startColumnIndex: 1,
+                  endColumnIndex: 2,
+                  startRowIndex: sum + currentIdx,
+                  endRowIndex: sum + currentIdx + 1,
+                },
+                rows: [
                   {
-                    userEnteredFormat: {
-                      backgroundColor: {
-                        red: r,
-                        green: g,
-                        blue: b,
-                        alpha: 0.8,
+                    values: [
+                      {
+                        userEnteredFormat: {
+                          backgroundColor: {
+                            red: r,
+                            green: g,
+                            blue: b,
+                            alpha: 0.8,
+                          },
+                        },
                       },
-                    },
+                    ],
                   },
                 ],
+                fields: "userEnteredFormat.backgroundColor",
               },
-            ],
-            fields: "userEnteredFormat.backgroundColor",
-          },
-        }),
+            },
+            {
+              updateCells: {
+                range: {
+                  startColumnIndex: 2,
+                  endColumnIndex: 3,
+                  startRowIndex: sum + currentIdx,
+                  endRowIndex: sum + currentIdx + 1,
+                },
+                rows: [
+                  {
+                    values: [
+                      {
+                        userEnteredValue: {
+                          formulaValue: `=IMAGE("${icon}", 4, 80, 80)`,
+                        },
+                      },
+                    ],
+                  },
+                ],
+                fields: "userEnteredValue",
+              },
+            },
+          ];
+        },
       );
   });
 
