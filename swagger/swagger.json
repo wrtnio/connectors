@@ -15,7 +15,7 @@
     }
   ],
   "info": {
-    "version": "0.1.322",
+    "version": "0.1.323",
     "title": "@wrtn/connector",
     "description": "wrtn-ecosystem connectors and sdk",
     "license": {
@@ -52564,7 +52564,14 @@
             "title": "Date the organization was founded\n\nThe founding year or date of the company."
           },
           "company_type": {
-            "type": "string",
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ],
             "title": "Type of company (e.g., Private, Public)\n\nThe legal or business classification of the company."
           },
           "social_media": {
