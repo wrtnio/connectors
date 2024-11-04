@@ -15,7 +15,7 @@
     }
   ],
   "info": {
-    "version": "0.1.321",
+    "version": "0.1.322",
     "title": "@wrtn/connector",
     "description": "wrtn-ecosystem connectors and sdk",
     "license": {
@@ -53160,7 +53160,6 @@
           "industries",
           "operating_status",
           "founded_date",
-          "company_type",
           "social_media",
           "num_employees",
           "website",
@@ -53498,6 +53497,28 @@
               },
               {
                 "type": "string"
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "currency": {
+                    "type": "string",
+                    "title": "currency"
+                  },
+                  "value": {
+                    "type": "number",
+                    "title": "value"
+                  },
+                  "value_usd": {
+                    "type": "number",
+                    "title": "value_usd"
+                  }
+                },
+                "required": [
+                  "currency",
+                  "value",
+                  "value_usd"
+                ]
               }
             ],
             "title": "Acquisition Price\n\nThe price at which the company was acquired."
@@ -53548,7 +53569,6 @@
           }
         },
         "required": [
-          "image",
           "name",
           "permalink",
           "title"
@@ -53672,7 +53692,6 @@
           "announced_on",
           "id",
           "image_id",
-          "num_investors",
           "lead_investors",
           "money_raised"
         ],
@@ -53707,7 +53726,6 @@
           }
         },
         "required": [
-          "image",
           "name",
           "permalink"
         ],
