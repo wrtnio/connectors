@@ -208,7 +208,7 @@ export namespace ICrunchbase {
      *
      * The legal or business classification of the company.
      */
-    company_type: string;
+    company_type?: string;
 
     /**
      * @title List of the organization's social media profiles
@@ -890,7 +890,25 @@ export namespace ICrunchbase {
      *
      * The price at which the company was acquired.
      */
-    acquisition_price?: string | null;
+    acquisition_price?:
+      | string
+      | null
+      | {
+          /**
+           * @title currency
+           */
+          currency: string;
+
+          /**
+           * @title value
+           */
+          value: number;
+
+          /**
+           * @title value_usd
+           */
+          value_usd: number;
+        };
 
     /**
      * @title Date
@@ -918,7 +936,7 @@ export namespace ICrunchbase {
      *
      * URL of the employee's image.
      */
-    image: string;
+    image?: string;
 
     /**
      * @title Name
@@ -1035,7 +1053,7 @@ export namespace ICrunchbase {
      *
      * The total number of investors in the funding round.
      */
-    num_investors: number;
+    num_investors?: number;
 
     /**
      * @title Lead Investors
@@ -1068,7 +1086,7 @@ export namespace ICrunchbase {
      *
      * URL of the investor's image.
      */
-    image: string | null;
+    image?: string | null;
 
     /**
      * @title Name
