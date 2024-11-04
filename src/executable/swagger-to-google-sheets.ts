@@ -355,6 +355,21 @@ async function convertSwaggerToGoogleSheet(input: {
   return { spreadsheetId };
 }
 
+async function makeFileAccessibleToEveryone(
+  spreadsheetId: string,
+  accessToken: string,
+) {
+  await googleDrive.permissions.create({
+    fileId: spreadsheetId,
+    requestBody: {
+      role: "writer",
+      type: "domain",
+      domain: "wrtn.io",
+    },
+    access_token: accessToken,
+  });
+}
+
 async function syncGoogleSheet(values: string[][], accessToken: string) {
   const originalSheet = `1TUDy4NdlHuv9BCVqBeIULkmVJ9t7ud4YBqCQmqzhegA` as const;
 
@@ -388,6 +403,7 @@ const main = async (): Promise<void> => {
   if (res?.spreadsheetId) {
     const url = `https://docs.google.com/spreadsheets/d/${res.spreadsheetId}`;
     await syncGoogleSheet([[version ?? "", url]], accessToken);
+    await makeFileAccessibleToEveryone(res.spreadsheetId, accessToken);
   }
 };
 
