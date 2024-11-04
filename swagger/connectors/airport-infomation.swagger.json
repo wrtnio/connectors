@@ -17,7 +17,7 @@
   "info": {
     "title": "Airport Infomation",
     "description": "항공 정보를 조회해요.",
-    "version": "0.1.319",
+    "version": "0.1.320",
     "license": {
       "name": "AGPL-3.0-only"
     }
@@ -59,37 +59,6 @@
         },
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/AirportInformation_full.svg",
         "x-wrtn-standalone": true
-      }
-    },
-    "/connector/aws/file/upload-url": {
-      "get": {
-        "summary": "Generate File Upload URL",
-        "description": "Generate the URL required to upload a file",
-        "tags": [],
-        "parameters": [
-          {
-            "name": "extension",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            },
-            "required": true,
-            "title": "File extension",
-            "description": "File extension."
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/IAws.IGetPutObjectUrlOutput"
-                }
-              }
-            }
-          }
-        }
       }
     }
   },
@@ -140,45 +109,6 @@
           "keyword"
         ],
         "title": "Airport information search conditions"
-      },
-      "IAws.IGetPutObjectUrlOutput": {
-        "type": "object",
-        "properties": {
-          "uuid": {
-            "type": "string",
-            "format": "uuid",
-            "title": "file uuid",
-            "description": "This is the file uuid."
-          },
-          "uploadUrl": {
-            "type": "string",
-            "title": "upload url",
-            "description": "This is the url for uploading the file."
-          },
-          "urlExpTsMillis": {
-            "type": "number",
-            "title": "url expiration time",
-            "description": "url expiration time."
-          }
-        },
-        "required": [
-          "uuid",
-          "uploadUrl",
-          "urlExpTsMillis"
-        ]
-      },
-      "IAws.IGetPutObjectUrlInput": {
-        "type": "object",
-        "properties": {
-          "extension": {
-            "type": "string",
-            "title": "File extension",
-            "description": "File extension."
-          }
-        },
-        "required": [
-          "extension"
-        ]
       }
     }
   },

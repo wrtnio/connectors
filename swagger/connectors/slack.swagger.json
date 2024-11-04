@@ -17,41 +17,12 @@
   "info": {
     "title": "Slack",
     "description": "슬랙에서 대화 내용을 가져오거나 메시지를 보낼 수 있어요.",
-    "version": "0.1.319",
+    "version": "0.1.320",
     "license": {
       "name": "AGPL-3.0-only"
     }
   },
   "paths": {
-    "/connector/slack/interactivity": {
-      "post": {
-        "tags": [],
-        "parameters": [],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/ISlack.Payload"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "201": {
-            "description": "array of slack block types",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {}
-                }
-              }
-            }
-          }
-        }
-      }
-    },
     "/connector/slack/vote": {
       "post": {
         "summary": "Send Slack Custom Template Messages for Voting",
@@ -647,17 +618,6 @@
   },
   "components": {
     "schemas": {
-      "ISlack.Payload": {
-        "type": "object",
-        "properties": {
-          "payload": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "payload"
-        ]
-      },
       "ISlack.IHoldVoteOutput": {
         "type": "object",
         "properties": {

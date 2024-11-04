@@ -18,7 +18,7 @@
     "title": "Stable Diffusion 이미지 생성",
     "summary": "프롬프트를 입력하여 AI로 이미지를 생성해요.",
     "description": "텍스트 프롬프트를 입력하면 AI가 그에 맞는 이미지를 생성해줘요. 원하는 스타일, 분위기, 구체적인 요소들을 자세히 설명하면 그에 맞는 이미지를 만들 수 있어요. 생성된 이미지의 크기, 품질, 생성 속도 등을 조절할 수 있고, 여러 장의 이미지를 한 번에 생성할 수도 있어요. 디자인 아이디어 얻기, 콘텐츠 제작, 아트워크 생성 등 다양한 창작 활동에 활용할 수 있어요.",
-    "version": "0.1.319",
+    "version": "0.1.320",
     "license": {
       "name": "AGPL-3.0-only"
     }
@@ -57,37 +57,6 @@
         },
         "x-wrtn-standalone": true,
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/StableDifusion_full.svg"
-      }
-    },
-    "/connector/aws/file/upload-url": {
-      "get": {
-        "summary": "Generate File Upload URL",
-        "description": "Generate the URL required to upload a file",
-        "tags": [],
-        "parameters": [
-          {
-            "name": "extension",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            },
-            "required": true,
-            "title": "File extension",
-            "description": "File extension."
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/IAws.IGetPutObjectUrlOutput"
-                }
-              }
-            }
-          }
-        }
       }
     }
   },
@@ -218,45 +187,6 @@
           "image_ratio"
         ],
         "title": "Image Generator Settings"
-      },
-      "IAws.IGetPutObjectUrlOutput": {
-        "type": "object",
-        "properties": {
-          "uuid": {
-            "type": "string",
-            "format": "uuid",
-            "title": "file uuid",
-            "description": "This is the file uuid."
-          },
-          "uploadUrl": {
-            "type": "string",
-            "title": "upload url",
-            "description": "This is the url for uploading the file."
-          },
-          "urlExpTsMillis": {
-            "type": "number",
-            "title": "url expiration time",
-            "description": "url expiration time."
-          }
-        },
-        "required": [
-          "uuid",
-          "uploadUrl",
-          "urlExpTsMillis"
-        ]
-      },
-      "IAws.IGetPutObjectUrlInput": {
-        "type": "object",
-        "properties": {
-          "extension": {
-            "type": "string",
-            "title": "File extension",
-            "description": "File extension."
-          }
-        },
-        "required": [
-          "extension"
-        ]
       }
     }
   },

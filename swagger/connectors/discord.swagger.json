@@ -17,7 +17,7 @@
   "info": {
     "title": "Discord",
     "description": "디스코드로 메세지를 보내요.",
-    "version": "0.1.319",
+    "version": "0.1.320",
     "license": {
       "name": "AGPL-3.0-only"
     }
@@ -188,35 +188,6 @@
                   }
                 }
               }
-            }
-          }
-        },
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/discord.svg"
-      }
-    },
-    "/connector/discord/remove-guild-member": {
-      "post": {
-        "summary": "Kick members",
-        "description": "Kicks selected members from the server",
-        "tags": [
-          "Discord"
-        ],
-        "parameters": [],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/IDiscord.IRemoveGuildMember"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "201": {
-            "description": "",
-            "content": {
-              "application/json": {}
             }
           }
         },
@@ -1454,35 +1425,6 @@
           "secretKey"
         ],
         "title": "채널을 생성하기 위해 필요한 정보"
-      },
-      "IDiscord.IRemoveGuildMember": {
-        "type": "object",
-        "properties": {
-          "userId": {
-            "type": "string",
-            "x-wrtn-prerequisite": {
-              "method": "post",
-              "path": "connector/discord/get-list-guild-members",
-              "jmesPath": "[].{value:user.id, label:user.username}"
-            },
-            "title": "멤버",
-            "description": "차단할 멤버를 선택해주세요."
-          },
-          "secretKey": {
-            "type": "string",
-            "x-wrtn-secret-key": "discord",
-            "x-wrtn-secret-scopes": [
-              "bot"
-            ],
-            "title": "Select authentication information",
-            "description": "secret key."
-          }
-        },
-        "required": [
-          "userId",
-          "secretKey"
-        ],
-        "title": "멤버를 차단 하기 위해 필요한 정보"
       },
       "IDiscord.IModifyChannelRequest": {
         "type": "object",

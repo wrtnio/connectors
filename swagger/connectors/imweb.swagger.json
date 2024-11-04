@@ -18,7 +18,7 @@
     "title": "아임웹 상품 정보 관리",
     "summary": "아임웹으로 상품 정보를 효과적으로 관리해요.",
     "description": "아임웹에서 상품 리스트를 조회회할 수 있어요. 판매자 인증을 통해 API 토큰을 발급받아 더 많은 기능을 활용할 수 있어요.",
-    "version": "0.1.319",
+    "version": "0.1.320",
     "license": {
       "name": "AGPL-3.0-only"
     }
@@ -59,39 +59,6 @@
           }
         },
         "x-wrtn-standalone": true,
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Imweb_full.svg"
-      }
-    },
-    "/connector/imweb/auth": {
-      "post": {
-        "description": "Issue Aimweb Access Token",
-        "tags": [
-          "Imweb"
-        ],
-        "parameters": [],
-        "requestBody": {
-          "description": "Request DTO for access token issuance.",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/IImweb.Credential"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "201": {
-            "description": "Response DTO containing access token.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/IImweb.IGetAccessTokenOutput"
-                }
-              }
-            }
-          }
-        },
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Imweb_full.svg"
       }
     }
@@ -737,53 +704,6 @@
           "secret"
         ],
         "title": "Product Inquiry Request"
-      },
-      "IImweb.IGetAccessTokenOutput": {
-        "type": "object",
-        "properties": {
-          "msg": {
-            "const": "SUCCESS",
-            "title": "Response Message"
-          },
-          "code": {
-            "const": 200,
-            "title": "IMWEB Custom Code"
-          },
-          "http_code": {
-            "const": 200,
-            "title": "HTTP Status Code"
-          },
-          "access_token": {
-            "type": "string",
-            "title": "Access Token"
-          }
-        },
-        "required": [
-          "msg",
-          "code",
-          "http_code",
-          "access_token"
-        ],
-        "title": "Imweb Token Issuance Request Response DTO"
-      },
-      "IImweb.Credential": {
-        "type": "object",
-        "properties": {
-          "key": {
-            "type": "string",
-            "title": "API Key\n\nThis can be found in the configuration settings on the `Imweb`."
-          },
-          "secret": {
-            "type": "string",
-            "title": "API Secret Key\n\nThis can be found in the configuration settings on the `Imweb`."
-          }
-        },
-        "required": [
-          "key",
-          "secret"
-        ],
-        "title": "Imweb Access Token Request DTO",
-        "description": "An API Key and Secret Key must be issued first to use the Rest API.\nThese keys are generated on a site-by-site basis."
       }
     }
   },

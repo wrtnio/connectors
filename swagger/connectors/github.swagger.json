@@ -17,7 +17,7 @@
   "info": {
     "title": "Github",
     "description": "Github에서 코드를 읽고 분석하고 작성해요",
-    "version": "0.1.319",
+    "version": "0.1.320",
     "license": {
       "name": "AGPL-3.0-only"
     }
@@ -1945,36 +1945,6 @@
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg"
       }
     },
-    "/connector/github/upload": {
-      "post": {
-        "tags": [
-          "Github"
-        ],
-        "parameters": [],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/IGithub.UploadFileInput"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "201": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "string"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
     "/connector/rag/analyze": {
       "post": {
         "summary": "Request RAG analysis",
@@ -2007,37 +1977,6 @@
           }
         },
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/RAG_full.svg"
-      }
-    },
-    "/connector/rag/{jobId}/status": {
-      "get": {
-        "summary": "Check RAG analysis status",
-        "description": "Check the analysis progress status",
-        "tags": [
-          "RAG"
-        ],
-        "parameters": [
-          {
-            "name": "jobId",
-            "in": "path",
-            "schema": {
-              "type": "string"
-            },
-            "required": true
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/IRag.IStatusOutput"
-                }
-              }
-            }
-          }
-        }
       }
     },
     "/connector/rag/generate/{chatId}": {
@@ -2080,37 +2019,6 @@
           }
         },
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/RAG_full.svg"
-      }
-    },
-    "/connector/aws/file/upload-url": {
-      "get": {
-        "summary": "Generate File Upload URL",
-        "description": "Generate the URL required to upload a file",
-        "tags": [],
-        "parameters": [
-          {
-            "name": "extension",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            },
-            "required": true,
-            "title": "File extension",
-            "description": "File extension."
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/IAws.IGetPutObjectUrlOutput"
-                }
-              }
-            }
-          }
-        }
       }
     }
   },
@@ -10584,44 +10492,6 @@
           "secretKey"
         ]
       },
-      "IGithub.UploadFileInput": {
-        "type": "object",
-        "properties": {
-          "files": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/MyPickIGithub.RepositoryFilecontentpath"
-            },
-            "title": "files"
-          },
-          "key": {
-            "type": "string",
-            "title": "key"
-          }
-        },
-        "required": [
-          "files",
-          "key"
-        ],
-        "title": "file to upload"
-      },
-      "MyPickIGithub.RepositoryFilecontentpath": {
-        "type": "object",
-        "properties": {
-          "content": {
-            "type": "string",
-            "title": "content"
-          },
-          "path": {
-            "type": "string",
-            "title": "path\n\nIt must be unique as a path for identifying that file in the root folder."
-          }
-        },
-        "required": [
-          "content",
-          "path"
-        ]
-      },
       "IRag.IAnalysisOutput": {
         "type": "object",
         "properties": {
@@ -10655,30 +10525,6 @@
         ],
         "title": "Knowledge that the chatbot will use to answer"
       },
-      "IRag.IStatusOutput": {
-        "type": "object",
-        "properties": {
-          "status": {
-            "oneOf": [
-              {
-                "const": "COMPLETED"
-              },
-              {
-                "const": "FAILED"
-              },
-              {
-                "const": "RUNNING"
-              }
-            ],
-            "title": "Analysis status",
-            "description": "Analysis status.\n\n- RUNNING: Analysis in progress\n- COMPLETED: Analysis completed\n- FAILED: Analysis failed"
-          }
-        },
-        "required": [
-          "status"
-        ],
-        "title": "RAG Analysis Status"
-      },
       "IRag.IGenerateOutput": {
         "type": "object",
         "properties": {
@@ -10706,45 +10552,6 @@
           "query"
         ],
         "title": "Information required for chatting via RAG"
-      },
-      "IAws.IGetPutObjectUrlOutput": {
-        "type": "object",
-        "properties": {
-          "uuid": {
-            "type": "string",
-            "format": "uuid",
-            "title": "file uuid",
-            "description": "This is the file uuid."
-          },
-          "uploadUrl": {
-            "type": "string",
-            "title": "upload url",
-            "description": "This is the url for uploading the file."
-          },
-          "urlExpTsMillis": {
-            "type": "number",
-            "title": "url expiration time",
-            "description": "url expiration time."
-          }
-        },
-        "required": [
-          "uuid",
-          "uploadUrl",
-          "urlExpTsMillis"
-        ]
-      },
-      "IAws.IGetPutObjectUrlInput": {
-        "type": "object",
-        "properties": {
-          "extension": {
-            "type": "string",
-            "title": "File extension",
-            "description": "File extension."
-          }
-        },
-        "required": [
-          "extension"
-        ]
       }
     }
   },
