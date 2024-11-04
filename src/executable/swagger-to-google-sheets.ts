@@ -8,8 +8,7 @@ import { ConnectorGlobal } from "../ConnectorGlobal";
 
 const googleSheets = google.sheets("v4");
 const googleDrive = google.drive("v3");
-// const folderId = `1FKoWiXIrVSYBZh7zPTLGEU0Oc2uXi2dB`;
-const folderId = "1B68Xh5ziJ67LhYkhAHq5VQ_5jrnGdxHb";
+const folderId = `1FKoWiXIrVSYBZh7zPTLGEU0Oc2uXi2dB`;
 
 async function getAccessToken() {
   try {
