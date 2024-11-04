@@ -41,6 +41,133 @@ function getServiceName(pathname: string) {
   return pathname.match(/connector\/([^/]+)/)?.at(1) ?? "NONAMED";
 }
 
+async function setSize(
+  spreadsheetId: string,
+  totalRowLength: number,
+  totalColumnLength: number,
+  accessToken: string,
+) {
+  await googleSheets.spreadsheets.batchUpdate({
+    spreadsheetId: spreadsheetId,
+    requestBody: {
+      requests: [
+        {
+          updateDimensionProperties: {
+            range: {
+              dimension: "ROWS",
+              startIndex: 1,
+              endIndex: totalRowLength, // 추가된 행 수 만큼
+            },
+            properties: {
+              pixelSize: 80, // 아이콘 크기에 맞게 80으로 정의
+            },
+            fields: "pixelSize",
+          },
+        },
+        {
+          updateDimensionProperties: {
+            range: {
+              sheetId: 0,
+              dimension: "COLUMNS",
+              startIndex: 0,
+              endIndex: totalColumnLength,
+            },
+            properties: {
+              pixelSize: 160,
+            },
+            fields: "pixelSize",
+          },
+        },
+        {
+          updateDimensionProperties: {
+            range: {
+              sheetId: 0,
+              dimension: "COLUMNS",
+              startIndex: 1,
+              endIndex: 2,
+            },
+            properties: {
+              pixelSize: 40,
+            },
+            fields: "pixelSize",
+          },
+        },
+        {
+          updateDimensionProperties: {
+            range: {
+              sheetId: 0,
+              dimension: "COLUMNS",
+              startIndex: 2,
+              endIndex: 3,
+            },
+            properties: {
+              pixelSize: 80,
+            },
+            fields: "pixelSize",
+          },
+        },
+        {
+          updateDimensionProperties: {
+            range: {
+              sheetId: 0,
+              dimension: "COLUMNS",
+              startIndex: 3,
+              endIndex: 4,
+            },
+            properties: {
+              pixelSize: 40,
+            },
+            fields: "pixelSize",
+          },
+        },
+        {
+          updateDimensionProperties: {
+            range: {
+              sheetId: 0,
+              dimension: "COLUMNS",
+              startIndex: 4,
+              endIndex: 5,
+            },
+            properties: {
+              pixelSize: 440,
+            },
+            fields: "pixelSize",
+          },
+        },
+        {
+          updateDimensionProperties: {
+            range: {
+              sheetId: 0,
+              dimension: "COLUMNS",
+              startIndex: 7,
+              endIndex: 8,
+            },
+            properties: {
+              pixelSize: 400,
+            },
+            fields: "pixelSize",
+          },
+        },
+        {
+          updateDimensionProperties: {
+            range: {
+              sheetId: 0,
+              dimension: "COLUMNS",
+              startIndex: 8,
+              endIndex: 9,
+            },
+            properties: {
+              pixelSize: 800,
+            },
+            fields: "pixelSize",
+          },
+        },
+      ],
+    },
+    access_token: accessToken,
+  });
+}
+
 async function convertSwaggerToGoogleSheet(input: {
   document: OpenApi.IDocument;
   filename: string;
@@ -142,85 +269,8 @@ async function convertSwaggerToGoogleSheet(input: {
     access_token: accessToken,
   });
 
-  // 스타일 수정
-  await googleSheets.spreadsheets.batchUpdate({
-    spreadsheetId: spreadsheetId,
-    requestBody: {
-      requests: [
-        {
-          updateDimensionProperties: {
-            range: {
-              sheetId: 0,
-              dimension: "COLUMNS",
-              startIndex: 0,
-              endIndex: values.length - 1,
-            },
-            properties: {
-              pixelSize: 160,
-            },
-            fields: "pixelSize",
-          },
-        },
-        {
-          updateDimensionProperties: {
-            range: {
-              sheetId: 0,
-              dimension: "COLUMNS",
-              startIndex: 1,
-              endIndex: 2,
-            },
-            properties: {
-              pixelSize: 80,
-            },
-            fields: "pixelSize",
-          },
-        },
-        {
-          updateDimensionProperties: {
-            range: {
-              sheetId: 0,
-              dimension: "COLUMNS",
-              startIndex: 3,
-              endIndex: 4,
-            },
-            properties: {
-              pixelSize: 320,
-            },
-            fields: "pixelSize",
-          },
-        },
-        {
-          updateDimensionProperties: {
-            range: {
-              sheetId: 0,
-              dimension: "COLUMNS",
-              startIndex: 6,
-              endIndex: 7,
-            },
-            properties: {
-              pixelSize: 400,
-            },
-            fields: "pixelSize",
-          },
-        },
-        {
-          updateDimensionProperties: {
-            range: {
-              sheetId: 0,
-              dimension: "COLUMNS",
-              startIndex: 7,
-              endIndex: 8,
-            },
-            properties: {
-              pixelSize: 800,
-            },
-            fields: "pixelSize",
-          },
-        },
-      ],
-    },
-    access_token: accessToken,
-  });
+  // 칼럼 사이즈 정의
+  await setSize(spreadsheetId, values.length, values[0].length, accessToken);
 
   // 커넥터 별로 색상 지정
 

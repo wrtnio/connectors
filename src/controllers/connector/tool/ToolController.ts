@@ -22,7 +22,7 @@ export class ToolController {
    * @param input
    */
   @RouteIcon(
-    "htthttps://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/_Studio1.0Tool_full.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/_Studio1.0Tool_full.svg",
   )
   @core.TypedRoute.Post(":id/generate")
   async generateTool(
