@@ -386,6 +386,21 @@ async function checkBlank(
   });
 }
 
+function readSwaggerFile(
+  service: string,
+): OpenApi.IDocument | Record<string, never> {
+  try {
+    const saleSwagger = `../../packages/api/connectors/${service}.swagger.json`;
+    const filepath = path.join(__dirname, saleSwagger);
+    const sale = readFileSync(filepath, { encoding: "utf-8" });
+    const document = typia.json.assertParse<OpenApi.IDocument>(sale);
+
+    return document;
+  } catch (err) {
+    return {};
+  }
+}
+
 async function convertSwaggerToGoogleSheet(input: {
   document: OpenApi.IDocument;
   filename: string;
@@ -413,8 +428,8 @@ async function convertSwaggerToGoogleSheet(input: {
 
       return serviceA.localeCompare(serviceB);
     })
-    .flatMap(([path, schema]) => {
-      const service = getServiceName(path);
+    .flatMap(([pathname, schema]) => {
+      const service = getServiceName(pathname);
 
       return Object.entries(schema).map(([method, operation]) => {
         if (typia.is<OpenApi.IOperation<OpenApi.IJsonSchema>>(operation)) {
@@ -424,6 +439,10 @@ async function convertSwaggerToGoogleSheet(input: {
 
           const isFirst = countByConnector.get(service) ? false : true;
           if (isFirst) {
+            const document = readSwaggerFile(service);
+
+            console.log(document.info);
+
             values.push([
               service ? service : "",
               0, // 세일에 해당하는 인덱스로, 워크플로우 상 노드를 표현
@@ -432,8 +451,8 @@ async function convertSwaggerToGoogleSheet(input: {
               "-",
               "-",
               "-",
-              "-",
-              "-",
+              document.info?.summary ?? "",
+              document.info?.description ?? "",
               "-",
             ]);
             if (service) {
@@ -453,7 +472,7 @@ async function convertSwaggerToGoogleSheet(input: {
             index,
             icon,
             method,
-            path,
+            pathname,
             operation.deprecated ?? "N",
             tags,
             operation.summary ?? "",
@@ -543,8 +562,8 @@ async function syncGoogleSheet(values: string[][], accessToken: string) {
 
 const main = async (): Promise<void> => {
   const filepath = path.join(__dirname, "../../packages/api/swagger.json");
-  const swaggerJSon = readFileSync(filepath, { encoding: "utf-8" });
-  const document = typia.json.assertParse<OpenApi.IDocument>(swaggerJSon);
+  const swaggerJson = readFileSync(filepath, { encoding: "utf-8" });
+  const document = typia.json.assertParse<OpenApi.IDocument>(swaggerJson);
 
   // 구글 시트 생성
   const accessToken = await getAccessToken();
