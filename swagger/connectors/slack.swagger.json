@@ -17,7 +17,7 @@
   "info": {
     "title": "Slack",
     "description": "슬랙에서 대화 내용을 가져오거나 메시지를 보낼 수 있어요.",
-    "version": "0.1.326",
+    "version": "0.1.327",
     "license": {
       "name": "AGPL-3.0-only"
     }
@@ -242,6 +242,39 @@
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Slack_full.svg"
       }
     },
+    "/connector/slack/message": {
+      "put": {
+        "summary": "Update message body in thread",
+        "description": "Update message body\n\nUse to modify messages sent by users.\nIf the message is not sent by the user, user cannot modify it.",
+        "tags": [
+          "Slack"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ISlack.IUpdateMessageInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ISlack.IUpdateMessageOutput"
+                }
+              }
+            }
+          }
+        },
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Slack_full.svg"
+      }
+    },
     "/connector/slack/get-scheduled-messages": {
       "post": {
         "summary": "Get a list of scheduled messages",
@@ -271,7 +304,8 @@
               }
             }
           }
-        }
+        },
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Slack_full.svg"
       }
     },
     "/connector/slack/get-user-details": {
@@ -1140,6 +1174,92 @@
           }
         },
         "required": [
+          "channel",
+          "text",
+          "secretKey"
+        ]
+      },
+      "ISlack.IUpdateMessageOutput": {
+        "type": "object",
+        "properties": {
+          "ts": {
+            "type": "string",
+            "x-wrtn-placeholder": "1234567890.123456",
+            "title": "timestamp",
+            "description": "for example, `1721804246.083609`.\nThis is the time value expression method used by Slack."
+          }
+        },
+        "required": [
+          "ts"
+        ]
+      },
+      "ISlack.IUpdateMessageInput": {
+        "type": "object",
+        "properties": {
+          "thread_ts": {
+            "type": "string",
+            "x-wrtn-placeholder": "1234567890.123456",
+            "title": "thread ts to update"
+          },
+          "channel": {
+            "oneOf": [
+              {
+                "type": "string",
+                "pattern": "^((C(.*))|(D(.*))|(G(.*)))",
+                "x-wrtn-prerequisite": {
+                  "method": "post",
+                  "path": "/connector/slack/get-public-channels",
+                  "jmesPath": "[].{value:id, label:name}"
+                }
+              },
+              {
+                "type": "string",
+                "pattern": "^((C(.*))|(D(.*))|(G(.*)))",
+                "x-wrtn-prerequisite": {
+                  "method": "post",
+                  "path": "/connector/slack/get-private-channels",
+                  "jmesPath": "[].{value:id, label:name}"
+                }
+              },
+              {
+                "type": "string",
+                "pattern": "^((C(.*))|(D(.*))|(G(.*)))",
+                "x-wrtn-prerequisite": {
+                  "method": "post",
+                  "path": "/connector/slack/get-im-channels",
+                  "jmesPath": "[].{value:id, label:name || '개인 채널'}"
+                }
+              }
+            ],
+            "title": "channel id",
+            "description": "It refers to the channel on which you want to view the conversation history.\nIf you don't know the channel's ID, You need to view the channel first."
+          },
+          "text": {
+            "type": "string",
+            "title": "message to send",
+            "description": "When a user enters a markdown format string, the internal function modifies it to the format of the slack.\nUsers can put text in accordance with the usual markdown grammar.\nFor user readability, it is recommended that the string be sent with appropriate new-line characters."
+          },
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "slack",
+            "x-wrtn-secret-scopes": [
+              "channels:read",
+              "channels:history",
+              "users.profile:read",
+              "im:read",
+              "groups:history",
+              "groups:read",
+              "chat:write",
+              "users:read",
+              "files:read",
+              "usergroups:read"
+            ],
+            "title": "Select authentication information",
+            "description": "secret key."
+          }
+        },
+        "required": [
+          "thread_ts",
           "channel",
           "text",
           "secretKey"
