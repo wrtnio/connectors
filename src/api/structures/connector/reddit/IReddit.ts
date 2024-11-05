@@ -69,4 +69,40 @@ export namespace IReddit {
       created_utc: number;
     }>;
   }
+
+  export interface IGetUserAboutInput {
+    username: string & tags.Format<"iri">;
+  }
+
+  export interface IGetUserAboutOutput {
+    name: string;
+    karma: number;
+    created_utc: number;
+  }
+
+  export interface IGetUserSubmittedInput {
+    username: string & tags.Format<"iri">;
+    limit?: number & tags.Type<"int32"> & tags.Minimum<1>;
+  }
+
+  export interface IGetUserSubmittedOutput {
+    posts: Array<{
+      title: string;
+      url: string;
+      score: number;
+    }>;
+  }
+
+  export interface IGetUserCommentsInput {
+    username: string & tags.Format<"iri">;
+    limit?: number & tags.Type<"int32"> & tags.Minimum<1>;
+  }
+
+  export interface IGetUserCommentsOutput {
+    comments: Array<{
+      content: string;
+      post_title: string;
+      created_utc: number;
+    }>;
+  }
 }

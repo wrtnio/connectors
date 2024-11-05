@@ -48,4 +48,34 @@ export class RedditProvider {
     );
     return response.data;
   }
+
+  async getUserAbout(
+    input: IReddit.IGetUserAboutInput,
+  ): Promise<IReddit.IGetUserAboutOutput> {
+    const response = await axios.post(
+      `https://www.reddit.com/user/${input.username}/about`,
+      input,
+    );
+    return response.data;
+  }
+
+  async getUserSubmitted(
+    input: IReddit.IGetUserSubmittedInput,
+  ): Promise<IReddit.IGetUserSubmittedOutput> {
+    const response = await axios.post(
+      `https://www.reddit.com/user/${input.username}/submitted`,
+      input,
+    );
+    return response.data;
+  }
+
+  async getUserComments(
+    input: IReddit.IGetUserCommentsInput,
+  ): Promise<IReddit.IGetUserCommentsOutput> {
+    const response = await axios.post(
+      `https://www.reddit.com/user/${input.username}/comments`,
+      input,
+    );
+    return response.data;
+  }
 }

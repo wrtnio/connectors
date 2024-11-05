@@ -41,4 +41,25 @@ export class RedditController {
   ): Promise<IReddit.IGetCommentsOutput> {
     return this.redditProvider.getComments(input);
   }
+
+  @TypedRoute.Post("get-user-about")
+  async getUserAbout(
+    @TypedBody() input: IReddit.IGetUserAboutInput,
+  ): Promise<IReddit.IGetUserAboutOutput> {
+    return this.redditProvider.getUserAbout(input);
+  }
+
+  @TypedRoute.Post("get-user-submitted")
+  async getUserSubmitted(
+    @TypedBody() input: IReddit.IGetUserSubmittedInput,
+  ): Promise<IReddit.IGetUserSubmittedOutput> {
+    return this.redditProvider.getUserSubmitted(input);
+  }
+
+  @TypedRoute.Post("get-user-comments")
+  async getUserComments(
+    @TypedBody() input: IReddit.IGetUserCommentsInput,
+  ): Promise<IReddit.IGetUserCommentsOutput> {
+    return this.redditProvider.getUserComments(input);
+  }
 }
