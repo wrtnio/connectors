@@ -182,6 +182,149 @@ async function setSize(
   });
 }
 
+async function setColor(
+  spreadsheetId: string,
+  values: (string | boolean | number)[][], // rows
+  countByConnector: Map<string, number>, // 각 커넥터 당 개수를 의미하는 Map 객체
+  accessToken: string,
+) {
+  // 커넥터 별로 색상 지정
+  const requests = [...countByConnector].flatMap(([_, count], index, arr) => {
+    const [r, g, b] = new Array(3).fill(0).map(() => getRandomColor());
+    const sum = arr
+      .slice(0, index)
+      .map((el) => el[1])
+      .reduce((acc, cur) => acc + cur, 1); // 헤더를 포함해서 세기 위해서 1부터 카운트한다.
+
+    return new Array(count)
+      .fill(0)
+      .flatMap(
+        (
+          _,
+          currentIdx,
+        ): { updateCells: sheets_v4.Schema$UpdateCellsRequest }[] => {
+          const icon = values[sum + currentIdx][2];
+          return [
+            {
+              updateCells: {
+                range: {
+                  startColumnIndex: 1,
+                  endColumnIndex: 2,
+                  startRowIndex: sum + currentIdx,
+                  endRowIndex: sum + currentIdx + 1,
+                },
+                rows: [
+                  {
+                    values: [
+                      {
+                        userEnteredFormat: {
+                          backgroundColor: {
+                            red: r,
+                            green: g,
+                            blue: b,
+                            alpha: 0.8,
+                          },
+                        },
+                      },
+                    ],
+                  },
+                ],
+                fields: "userEnteredFormat.backgroundColor",
+              },
+            },
+            {
+              updateCells: {
+                range: {
+                  startColumnIndex: 2,
+                  endColumnIndex: 3,
+                  startRowIndex: sum + currentIdx,
+                  endRowIndex: sum + currentIdx + 1,
+                },
+                rows: [
+                  {
+                    values: [
+                      {
+                        userEnteredValue: {
+                          formulaValue: `=IMAGE("${icon}", 4, 80, 80)`,
+                        },
+                      },
+                    ],
+                  },
+                ],
+                fields: "userEnteredValue",
+              },
+            },
+          ];
+        },
+      );
+  });
+
+  await googleSheets.spreadsheets.batchUpdate({
+    spreadsheetId: spreadsheetId,
+    requestBody: {
+      requests: requests,
+    },
+    access_token: accessToken,
+  });
+}
+
+async function setGroup(
+  spreadsheetId: string,
+  values: (string | boolean | number)[][], // rows
+  countByConnector: Map<string, number>, // 각 커넥터 당 개수를 의미하는 Map 객체
+  accessToken: string,
+) {
+  const requests = [...countByConnector].flatMap(
+    (
+      [_, count],
+      index,
+      arr,
+    ): [
+      { addDimensionGroup: sheets_v4.Schema$AddDimensionGroupRequest },
+      { updateDimensionGroup: sheets_v4.Schema$UpdateDimensionGroupRequest },
+    ] => {
+      const sum = arr
+        .slice(0, index)
+        .map(([_, count]) => count)
+        .reduce((acc, cur) => acc + cur, 1); // 헤더를 포함해서 세기 위해서 1부터 카운트한다.
+
+      return [
+        {
+          addDimensionGroup: {
+            range: {
+              dimension: "ROWS",
+              startIndex: sum + 1,
+              endIndex: sum + count,
+            },
+          },
+        },
+        {
+          updateDimensionGroup: {
+            dimensionGroup: {
+              range: {
+                dimension: "ROWS",
+                startIndex: sum + 1,
+                endIndex: sum + count,
+              },
+              collapsed: true,
+              depth: 1,
+            },
+            fields: "collapsed",
+          },
+        },
+      ];
+    },
+  );
+
+  await googleSheets.spreadsheets.batchUpdate({
+    spreadsheetId: spreadsheetId,
+    requestBody: {
+      requests: [...requests],
+    },
+    access_token: accessToken,
+  });
+}
+
 async function convertSwaggerToGoogleSheet(input: {
   document: OpenApi.IDocument;
   filename: string;
@@ -289,85 +432,11 @@ async function convertSwaggerToGoogleSheet(input: {
   // 칼럼 사이즈 정의
   await setSize(spreadsheetId, values.length, values[0].length, accessToken);
 
-  // 커넥터 별로 색상 지정
+  // 커넥터 별로 색상 지정하기
+  await setColor(spreadsheetId, values, countByConnector, accessToken);
 
-  const requests = [...countByConnector].flatMap(([_, count], index, arr) => {
-    const [r, g, b] = new Array(3).fill(0).map(() => getRandomColor());
-    const sum = arr
-      .slice(0, index)
-      .map((el) => el[1])
-      .reduce((acc, cur) => acc + cur, 1); // 헤더를 포함해서 세기 위해서 1부터 카운트한다.
-
-    return new Array(count)
-      .fill(0)
-      .flatMap(
-        (
-          _,
-          currentIdx,
-        ): { updateCells: sheets_v4.Schema$UpdateCellsRequest }[] => {
-          const icon = values[sum + currentIdx][2];
-          return [
-            {
-              updateCells: {
-                range: {
-                  startColumnIndex: 1,
-                  endColumnIndex: 2,
-                  startRowIndex: sum + currentIdx,
-                  endRowIndex: sum + currentIdx + 1,
-                },
-                rows: [
-                  {
-                    values: [
-                      {
-                        userEnteredFormat: {
-                          backgroundColor: {
-                            red: r,
-                            green: g,
-                            blue: b,
-                            alpha: 0.8,
-                          },
-                        },
-                      },
-                    ],
-                  },
-                ],
-                fields: "userEnteredFormat.backgroundColor",
-              },
-            },
-            {
-              updateCells: {
-                range: {
-                  startColumnIndex: 2,
-                  endColumnIndex: 3,
-                  startRowIndex: sum + currentIdx,
-                  endRowIndex: sum + currentIdx + 1,
-                },
-                rows: [
-                  {
-                    values: [
-                      {
-                        userEnteredValue: {
-                          formulaValue: `=IMAGE("${icon}", 4, 80, 80)`,
-                        },
-                      },
-                    ],
-                  },
-                ],
-                fields: "userEnteredValue",
-              },
-            },
-          ];
-        },
-      );
-  });
-
-  await googleSheets.spreadsheets.batchUpdate({
-    spreadsheetId: spreadsheetId,
-    requestBody: {
-      requests: requests,
-    },
-    access_token: accessToken,
-  });
+  // 커넥터 별로 그룹화하기
+  await setGroup(spreadsheetId, values, countByConnector, accessToken);
 
   return { spreadsheetId };
 }
