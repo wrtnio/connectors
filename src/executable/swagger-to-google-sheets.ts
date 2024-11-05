@@ -232,28 +232,32 @@ async function setColor(
                 fields: "userEnteredFormat.backgroundColor",
               },
             },
-            {
-              updateCells: {
-                range: {
-                  startColumnIndex: 2,
-                  endColumnIndex: 3,
-                  startRowIndex: sum + currentIdx,
-                  endRowIndex: sum + currentIdx + 1,
-                },
-                rows: [
+            ...(icon
+              ? [
                   {
-                    values: [
-                      {
-                        userEnteredValue: {
-                          formulaValue: `=IMAGE("${icon}", 4, 80, 80)`,
-                        },
+                    updateCells: {
+                      range: {
+                        startColumnIndex: 2,
+                        endColumnIndex: 3,
+                        startRowIndex: sum + currentIdx,
+                        endRowIndex: sum + currentIdx + 1,
                       },
-                    ],
+                      rows: [
+                        {
+                          values: [
+                            {
+                              userEnteredValue: {
+                                formulaValue: `=IMAGE("${icon}", 4, 80, 80)`,
+                              },
+                            },
+                          ],
+                        },
+                      ],
+                      fields: "userEnteredValue",
+                    },
                   },
-                ],
-                fields: "userEnteredValue",
-              },
-            },
+                ]
+              : []),
           ];
         },
       );
@@ -339,6 +343,49 @@ async function setGroup(
   });
 }
 
+async function checkBlank(
+  spreadsheetId: string,
+  values: (string | boolean | number)[][], // rows
+  accessToken: string,
+) {
+  await googleSheets.spreadsheets.batchUpdate({
+    spreadsheetId,
+    requestBody: {
+      requests: [
+        {
+          addConditionalFormatRule: {
+            rule: {
+              ranges: [
+                {
+                  startRowIndex: 0, // 시작 행 (0-based)
+                  endRowIndex: values.length, // 끝 행 (exclusive)
+                  startColumnIndex: 0, // 시작 열 (0-based)
+                  endColumnIndex: values[0].length, // 끝 열 (exclusive)
+                },
+              ],
+              booleanRule: {
+                condition: {
+                  type: "BLANK", // 셀이 비어 있을 때 조건 충족
+                },
+                format: {
+                  backgroundColor: {
+                    // 배경 색상 설정 (예: 빨간색)
+                    red: 1.0,
+                    green: 0.8,
+                    blue: 0.8,
+                  },
+                },
+              },
+            },
+            index: 0, // 조건부 서식 규칙의 우선순위 인덱스
+          },
+        },
+      ],
+    },
+    access_token: accessToken,
+  });
+}
+
 async function convertSwaggerToGoogleSheet(input: {
   document: OpenApi.IDocument;
   filename: string;
@@ -381,6 +428,13 @@ async function convertSwaggerToGoogleSheet(input: {
               service ? service : "",
               0, // 세일에 해당하는 인덱스로, 워크플로우 상 노드를 표현
               icon,
+              "-",
+              "-",
+              "-",
+              "-",
+              "-",
+              "-",
+              "-",
             ]);
             if (service) {
               countByConnector.set(service, 1);
@@ -400,7 +454,7 @@ async function convertSwaggerToGoogleSheet(input: {
             icon,
             method,
             path,
-            operation.deprecated ?? "",
+            operation.deprecated ?? "N",
             tags,
             operation.summary ?? "",
             descriptions?.at(0) ?? "",
@@ -451,6 +505,9 @@ async function convertSwaggerToGoogleSheet(input: {
 
   // 커넥터 별로 그룹화하기
   await setGroup(spreadsheetId, values, countByConnector, accessToken);
+
+  // 빈 칸을 빨간색으로 칠하기
+  await checkBlank(spreadsheetId, values, accessToken);
 
   return { spreadsheetId };
 }
