@@ -14,6 +14,20 @@ export class RedditController {
     return this.redditProvider.getHotPosts(input);
   }
 
+  @TypedRoute.Post("get-new-posts")
+  async getNewPosts(
+    @TypedBody() input: IReddit.IGetNewPostsInput,
+  ): Promise<IReddit.IGetNewPostsOutput> {
+    return this.redditProvider.getNewPosts(input);
+  }
+
+  @TypedRoute.Post("get-top-posts")
+  async getTopPosts(
+    @TypedBody() input: IReddit.IGetTopPostsInput,
+  ): Promise<IReddit.IGetTopPostsOutput> {
+    return this.redditProvider.getTopPosts(input);
+  }
+
   @TypedRoute.Post("vote")
   async vote(
     @TypedBody() input: IReddit.IVoteInput,

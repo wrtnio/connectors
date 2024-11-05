@@ -18,4 +18,24 @@ export class RedditProvider {
     const response = await axios.post("https://www.reddit.com/api/vote", input);
     return response.data;
   }
+
+  async getNewPosts(
+    input: IReddit.IGetNewPostsInput,
+  ): Promise<IReddit.IGetNewPostsOutput> {
+    const response = await axios.post(
+      "https://www.reddit.com/r/" + input.subreddit + "/new",
+      input,
+    );
+    return response.data;
+  }
+
+  async getTopPosts(
+    input: IReddit.IGetTopPostsInput,
+  ): Promise<IReddit.IGetTopPostsOutput> {
+    const response = await axios.post(
+      "https://www.reddit.com/r/" + input.subreddit + "/top",
+      input,
+    );
+    return response.data;
+  }
 }
