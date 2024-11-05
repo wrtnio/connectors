@@ -1,0 +1,177 @@
+/// Search results about requested keyword in naver cafe posts.
+/// @namespace Naver
+/// @author Leo
+model naver_cafe {
+    //----
+    // COLUMNS
+    //----
+    /// Primary Key.
+    ///
+    /// @format uuid
+    id String @id @db.Uuid
+
+    /// Essential keywords to get search results. The search results must contain this keyword.
+    and_keyword String
+
+    /// Keyword that are good to include when getting search results
+    or_keyword String?
+
+    /// Keyword that should not be included when getting search results
+    not_keyword String?
+
+    /// The date and time the record was created.
+    created_at DateTime @db.Timestamptz
+
+
+    //relation
+    items naver_items[]
+
+    @@index([and_keyword, created_at])
+}
+
+/// Search results about requested keyword in naver blog posts.
+/// @namespace Naver
+/// @author Leo
+model naver_blog {
+    id String @id @db.Uuid
+
+    /// Essential keywords to get search results. The search results must contain this keyword.
+    and_keyword String
+
+    /// Keyword that are good to include when getting search results
+    or_keyword String?
+
+    /// Keyword that should not be included when getting search results
+    not_keyword String?
+
+    /// The date and time the record was created.
+    created_at DateTime @db.Timestamptz
+
+
+    //relation
+    items naver_items[]
+
+    @@index([and_keyword, created_at])
+}
+
+/// Search results about requested keyword in naver news posts.
+/// @namespace Naver
+/// @author Leo
+model naver_news  {
+    id String @id @db.Uuid
+
+    /// Essential keywords to get search results. The search results must contain this keyword.
+    and_keyword String
+
+    /// Keyword that are good to include when getting search results
+    or_keyword String?
+
+    /// Keyword that should not be included when getting search results
+    not_keyword String?
+
+    /// The date and time the record was created.
+    created_at DateTime @db.Timestamptz
+
+
+    //relation
+    items naver_news_items[]
+
+    @@index([and_keyword, created_at])
+}
+
+/// Information about the search results for naver cafe or blog of the requested keyword.
+/// @namespace Naver
+/// @author Leo
+model naver_items {
+    //----
+    // COLUMNS
+    //----
+    /// Primary Key.
+    ///
+    /// @format uuid
+    id String @id @db.Uuid
+
+    /// Record Id of the Naver Cafe.
+    ///
+    /// @format uuid
+    naver_cafe_id String?
+
+    /// Record Id of the Naver Blog.
+    ///
+    /// @format uuid
+    naver_blog_id String?
+
+    /// Title of the post.
+    post_title String
+
+    /// Link to the post.
+    ///
+    /// @format iri
+    post_link String @db.VarChar(80000)
+
+    /// Description of the post.
+    post_description String
+
+    /// Date and time the post was published.
+    post_date String
+
+    /// Name of the blog or cafe.
+    name String
+
+    /// Address of the blog or cafe that contains the post.
+    ///
+    /// @format iri
+    url String @db.VarChar(80000)
+
+    /// The date and time the record was created.
+    created_at DateTime @db.Timestamptz
+
+    //relation
+    naver_cafe naver_cafe? @relation(fields: [naver_cafe_id], references: [id])
+    naver_blog naver_blog? @relation(fields: [naver_blog_id], references: [id])
+
+    @@index([created_at])
+}
+
+/// Information about the search results for naver news of the requested keyword.  
+/// @namespace Naver
+/// @author Leo
+model naver_news_items {
+    //----
+    // COLUMNS
+    //----
+    /// Primary Key.
+    ///
+    /// @format uuid
+    id String @id @db.Uuid
+
+    /// Record Id of the Naver News.
+    naver_news_id String
+
+    /// Title of the news.
+    title String
+
+    /// Link of the news.
+    ///
+    /// @format iri
+    link String @db.VarChar(80000)
+
+    /// Original link of the news.
+    ///
+    /// @format iri
+    original_link String @db.VarChar(80000)
+
+    /// Description of the news.
+    description String
+
+    /// Date and time the news was published.
+    pub_date String
+
+    /// The date and time the record was created.
+    created_at DateTime @db.Timestamptz
+
+    //relation
+    naver_news naver_news @relation(fields: [naver_news_id], references: [id])
+
+    @@index([pub_date])
+}

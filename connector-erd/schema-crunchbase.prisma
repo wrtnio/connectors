@@ -1,0 +1,11 @@
+model crunchbase {
+    id          String     @id @db.Uuid
+    organization_identifier String
+    // rapid api version
+    version String
+    data        Json
+    created_at  DateTime   @db.Timestamptz
+
+    @@unique([organization_identifier])
+    @@index([organization_identifier, created_at])
+}

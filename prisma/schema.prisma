@@ -1,0 +1,16 @@
+// generator client {
+//   provider        = "prisma-client-js"
+//   previewFeatures = ["prismaSchemaFolder", "postgresqlExtensions", "views"]
+//   binaryTargets   = ["native", "linux-musl-arm64-openssl-3.0.x"]
+// }
+
+// datasource db {
+//   provider   = "postgresql"
+//   url        = env("HUB_POSTGRES_URL")
+//   extensions = [pg_trgm]
+// }
+
+// generator markdown {
+//   provider = "prisma-markdown"
+//   output   = "../../docs/ERD.md"
+// }

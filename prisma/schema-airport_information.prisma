@@ -1,0 +1,35 @@
+/// Airport information from around the world.
+/// @namespace AirportInformations
+/// @author Leo
+model airport_informations {
+    //----
+    // COLUMNS
+    //----
+    /// Primary Key.
+    ///
+    /// @format uuid
+    id String @id @db.Uuid
+
+    /// Airport Name in English.
+    en_airport_name String
+
+    /// City Name in English.
+    en_city_name String
+
+    /// Airport Name in Korean.
+    ko_airport_name String
+
+    /// Country Name in Korean.
+    kr_country_name String
+
+    /// City Name in Korean.
+    kr_city_name String
+
+    /// Airport Code.
+    airport_code String
+
+    /// The date and time the record was created.
+    created_at DateTime @db.Timestamptz
+
+    @@index([airport_code])
+}

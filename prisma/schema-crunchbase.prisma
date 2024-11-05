@@ -1,0 +1,34 @@
+/// Get company information using the Crunchbase Rapid API.
+/// @namespace Crunchbase
+/// @author Leo
+model crunchbase {
+    //----
+    // COLUMNS
+    //----
+    /// Primary Key.
+    ///
+    /// @format uuid
+    id          String     @id @db.Uuid
+
+    /// Organization Identifier.
+    ///
+    /// 
+    organization_identifier String
+
+    /// Api Version.
+    ///
+    /// Rapid API Version.
+    /// We store the API version at the time of record created, as changes to the API version may affect the API.
+    version String
+
+    /// Response Data
+    ///
+    /// The data returned by the API.
+    /// Since the format of the response data depends on an external API and it is difficult to determine the type, it is saved as JSON type.
+    data        Json
+
+    /// The date and time the record was created.
+    created_at  DateTime   @db.Timestamptz
+
+    @@unique([organization_identifier, created_at])
+}

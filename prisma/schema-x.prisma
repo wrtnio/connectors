@@ -1,0 +1,72 @@
+/// The user information of X.
+/// @namespace X
+/// @author Leo
+model x_users {
+  //----
+  // COLUMNS
+  //----
+  /// Primary Key.
+  ///
+  /// @format uuid
+  id          String     @id @db.Uuid
+
+  /// Unique ID of the user in X.
+  tweet_user_id String 
+
+  /// Original name of the user.
+  name        String
+
+  /// Username used like a nickname in X.
+  userName    String     
+
+  /// The date and time the record was created.
+  created_at  DateTime   @db.Timestamptz
+
+  /// relation
+  tweets      x_tweet[]
+
+  @@unique([tweet_user_id])
+  @@index([created_at])
+}
+
+/// The tweet information of X.
+/// @namespace X
+/// @author Leo
+model x_tweet {
+  //----
+  // COLUMNS
+  //----
+  /// Primary Key.
+  ///
+  /// @format uuid
+  id                   String             @id @db.Uuid
+
+  /// Unique Id of the tweet in X.
+  tweet_id             String
+
+  /// Unique user ID of the user who posted the tweet.
+  x_user_id            String
+
+  /// The text of the tweet.
+  text                 String
+
+  /// The URL of the tweet.
+  ///
+  /// @format iri
+  link                 String @db.VarChar(80000)
+
+  /// The type of the tweet.
+  type                 String?
+
+  /// The date and time the record was created.
+  created_at           DateTime           @db.Timestamptz
+
+  /// relation
+  user                 x_users            @relation(fields: [x_user_id], references: [tweet_user_id])
+
+  @@unique([tweet_id])
+  @@index([created_at])
+}
+
+
+
