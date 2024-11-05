@@ -175,6 +175,16 @@ export class SlackController {
     return retry(() => this.slackProvider.sendText(input))();
   }
 
+  /**
+   * Update message body
+   *
+   * Use to modify messages sent by users.
+   * If the message is not sent by the user, user cannot modify it.
+   *
+   * @summary Update message body in thread
+   * @param input
+   * @returns
+   */
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Slack_full.svg",
   )
