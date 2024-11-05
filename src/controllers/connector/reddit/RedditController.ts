@@ -13,4 +13,11 @@ export class RedditController {
   ): Promise<IReddit.IGetHotPostsOutput> {
     return this.redditProvider.getHotPosts(input);
   }
+
+  @TypedRoute.Post("vote")
+  async vote(
+    @TypedBody() input: IReddit.IVoteInput,
+  ): Promise<IReddit.IVoteOutput> {
+    return this.redditProvider.vote(input);
+  }
 }

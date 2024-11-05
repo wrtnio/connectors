@@ -13,4 +13,9 @@ export class RedditProvider {
     );
     return response.data;
   }
+
+  async vote(input: IReddit.IVoteInput): Promise<IReddit.IVoteOutput> {
+    const response = await axios.post("https://www.reddit.com/api/vote", input);
+    return response.data;
+  }
 }
