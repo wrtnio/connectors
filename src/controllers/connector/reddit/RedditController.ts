@@ -62,4 +62,33 @@ export class RedditController {
   ): Promise<IReddit.IGetUserCommentsOutput> {
     return this.redditProvider.getUserComments(input);
   }
+
+  @TypedRoute.Post("search-subreddits")
+  async searchSubreddits(
+    @TypedBody() input: IReddit.ISearchSubredditsInput,
+  ): Promise<IReddit.ISearchSubredditsOutput> {
+    return this.redditProvider.searchSubreddits(input);
+  }
+
+  @TypedRoute.Post("get-subreddit-about")
+  async getSubredditAbout(
+    @TypedBody() input: IReddit.IGetSubredditAboutInput,
+  ): Promise<IReddit.IGetSubredditAboutOutput> {
+    return this.redditProvider.getSubredditAbout(input);
+  }
+
+  @TypedRoute.Post("get-popular-subreddits")
+  async getPopularSubreddits(): Promise<IReddit.IGetPopularSubredditsOutput> {
+    return this.redditProvider.getPopularSubreddits();
+  }
+
+  @TypedRoute.Post("get-best-content")
+  async getBestContent(): Promise<IReddit.IGetBestContentOutput> {
+    return this.redditProvider.getBestContent();
+  }
+
+  @TypedRoute.Post("get-all-top-content")
+  async getAllTopContent(): Promise<IReddit.IGetAllTopContentOutput> {
+    return this.redditProvider.getAllTopContent();
+  }
 }

@@ -105,4 +105,51 @@ export namespace IReddit {
       created_utc: number;
     }>;
   }
+
+  export interface ISearchSubredditsInput {
+    query: string;
+    limit?: number & tags.Type<"int32"> & tags.Minimum<1>;
+  }
+
+  export interface ISearchSubredditsOutput {
+    subreddits: Array<{
+      name: string;
+      description: string;
+      subscribers: number;
+    }>;
+  }
+
+  export interface IGetSubredditAboutInput {
+    subreddit: string & tags.Format<"iri">;
+  }
+
+  export interface IGetSubredditAboutOutput {
+    name: string;
+    description: string;
+    subscribers: number;
+    rules: string[];
+  }
+
+  export interface IGetPopularSubredditsOutput {
+    subreddits: Array<{
+      name: string;
+      subscribers: number;
+    }>;
+  }
+
+  export interface IGetBestContentOutput {
+    posts: Array<{
+      title: string;
+      url: string;
+      score: number;
+    }>;
+  }
+
+  export interface IGetAllTopContentOutput {
+    posts: Array<{
+      title: string;
+      url: string;
+      score: number;
+    }>;
+  }
 }

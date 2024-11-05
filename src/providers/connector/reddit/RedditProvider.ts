@@ -78,4 +78,41 @@ export class RedditProvider {
     );
     return response.data;
   }
+
+  async searchSubreddits(
+    input: IReddit.ISearchSubredditsInput,
+  ): Promise<IReddit.ISearchSubredditsOutput> {
+    const response = await axios.post(
+      "https://www.reddit.com/subreddits/search",
+      input,
+    );
+    return response.data;
+  }
+
+  async getSubredditAbout(
+    input: IReddit.IGetSubredditAboutInput,
+  ): Promise<IReddit.IGetSubredditAboutOutput> {
+    const response = await axios.post(
+      `https://www.reddit.com/r/${input.subreddit}/about`,
+      input,
+    );
+    return response.data;
+  }
+
+  async getPopularSubreddits(): Promise<IReddit.IGetPopularSubredditsOutput> {
+    const response = await axios.post(
+      "https://www.reddit.com/subreddits/popular",
+    );
+    return response.data;
+  }
+
+  async getBestContent(): Promise<IReddit.IGetBestContentOutput> {
+    const response = await axios.post("https://www.reddit.com/best");
+    return response.data;
+  }
+
+  async getAllTopContent(): Promise<IReddit.IGetAllTopContentOutput> {
+    const response = await axios.post("https://www.reddit.com/r/all/top");
+    return response.data;
+  }
 }
