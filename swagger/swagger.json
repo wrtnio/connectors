@@ -15,7 +15,7 @@
     }
   ],
   "info": {
-    "version": "0.1.325",
+    "version": "0.1.326",
     "title": "@wrtn/connector",
     "description": "wrtn-ecosystem connectors and sdk",
     "license": {
@@ -14001,68 +14001,14 @@
         "type": "object",
         "properties": {
           "time_max": {
-            "type": "object",
-            "properties": {
-              "year": {
-                "type": "number",
-                "title": "The year",
-                "description": "It's the year."
-              },
-              "month": {
-                "type": "number",
-                "title": "The Month",
-                "description": "It's the month.\n\nYou must enter a two-digit number. For example, if it is March, you should enter 03."
-              },
-              "date": {
-                "type": "number",
-                "title": "Date",
-                "description": "It's the date.\n\nYou must enter a two-digit number. For example, if it is 7th, you should enter 07."
-              },
-              "hour": {
-                "type": "number",
-                "title": "hour",
-                "description": "It's the hour.\n\nYou must enter a two-digit number. For example, if it is 2am, you should enter 02. If it is 2pm, you should enter 14."
-              }
-            },
-            "required": [
-              "year",
-              "month",
-              "date",
-              "hour"
-            ],
+            "type": "string",
+            "format": "date-time",
             "title": "Information about the last date from which events will be fetched",
             "description": "Events after that date will not be fetched.\n\nNote that all date/times are in UTC, so make sure that you have converted the date/time to UTC before using it."
           },
           "time_min": {
-            "type": "object",
-            "properties": {
-              "year": {
-                "type": "number",
-                "title": "The year",
-                "description": "It's the year."
-              },
-              "month": {
-                "type": "number",
-                "title": "The Month",
-                "description": "It's the month.\n\nYou must enter a two-digit number. For example, if it is March, you should enter 03."
-              },
-              "date": {
-                "type": "number",
-                "title": "Date",
-                "description": "It's the date.\n\nYou must enter a two-digit number. For example, if it is 7th, you should enter 07."
-              },
-              "hour": {
-                "type": "number",
-                "title": "hour",
-                "description": "It's the hour.\n\nYou must enter a two-digit number. For example, if it is 2am, you should enter 02. If it is 2pm, you should enter 14."
-              }
-            },
-            "required": [
-              "year",
-              "month",
-              "date",
-              "hour"
-            ],
+            "type": "string",
+            "format": "date-time",
             "title": "Information on the start date from which events will be retrieved",
             "description": "Events prior to that date will not be retrieved.\n\nNote that all date/times are in UTC, so make sure that you have converted the date/time to UTC before using it."
           },
@@ -14150,68 +14096,14 @@
             "description": "This is the event location to be created."
           },
           "start": {
-            "type": "object",
-            "properties": {
-              "year": {
-                "type": "number",
-                "title": "The year",
-                "description": "It's the year."
-              },
-              "month": {
-                "type": "number",
-                "title": "The Month",
-                "description": "It's the month.\n\nYou must enter a two-digit number. For example, if it is March, you should enter 03."
-              },
-              "date": {
-                "type": "number",
-                "title": "Date",
-                "description": "It's the date.\n\nYou must enter a two-digit number. For example, if it is 7th, you should enter 07."
-              },
-              "hour": {
-                "type": "number",
-                "title": "hour",
-                "description": "It's the hour.\n\nYou must enter a two-digit number. For example, if it is 2am, you should enter 02. If it is 2pm, you should enter 14."
-              }
-            },
-            "required": [
-              "year",
-              "month",
-              "date",
-              "hour"
-            ],
+            "type": "string",
+            "format": "date-time",
             "title": "Event start date",
             "description": "The start date of the event to be created.\n\nNote that all date/times are in UTC, so make sure that you have converted the date/time to UTC before using it."
           },
           "end": {
-            "type": "object",
-            "properties": {
-              "year": {
-                "type": "number",
-                "title": "The year",
-                "description": "It's the year."
-              },
-              "month": {
-                "type": "number",
-                "title": "The Month",
-                "description": "It's the month.\n\nYou must enter a two-digit number. For example, if it is March, you should enter 03."
-              },
-              "date": {
-                "type": "number",
-                "title": "Date",
-                "description": "It's the date.\n\nYou must enter a two-digit number. For example, if it is 7th, you should enter 07."
-              },
-              "hour": {
-                "type": "number",
-                "title": "hour",
-                "description": "It's the hour.\n\nYou must enter a two-digit number. For example, if it is 2am, you should enter 02. If it is 2pm, you should enter 14."
-              }
-            },
-            "required": [
-              "year",
-              "month",
-              "date",
-              "hour"
-            ],
+            "type": "string",
+            "format": "date-time",
             "title": "Event end date",
             "description": "The end date of the event to be created.\n\nNote that all date/times are in UTC, so make sure that you have converted the date/time to UTC before using it."
           },
@@ -14247,35 +14139,8 @@
             "description": "The number of times the event is repeated."
           },
           "repeatUntil": {
-            "type": "object",
-            "properties": {
-              "year": {
-                "type": "number",
-                "title": "The year",
-                "description": "It's the year."
-              },
-              "month": {
-                "type": "number",
-                "title": "The Month",
-                "description": "It's the month.\n\nYou must enter a two-digit number. For example, if it is March, you should enter 03."
-              },
-              "date": {
-                "type": "number",
-                "title": "Date",
-                "description": "It's the date.\n\nYou must enter a two-digit number. For example, if it is 7th, you should enter 07."
-              },
-              "hour": {
-                "type": "number",
-                "title": "hour",
-                "description": "It's the hour.\n\nYou must enter a two-digit number. For example, if it is 2am, you should enter 02. If it is 2pm, you should enter 14."
-              }
-            },
-            "required": [
-              "year",
-              "month",
-              "date",
-              "hour"
-            ],
+            "type": "string",
+            "format": "date-time",
             "title": "Event repeat deadline",
             "description": "Event repeat deadline.\n\nNote that all date/times are in UTC, so make sure that you have converted the date/time to UTC before using it."
           },
