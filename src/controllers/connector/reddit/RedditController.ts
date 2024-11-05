@@ -83,8 +83,10 @@ export class RedditController {
   }
 
   @TypedRoute.Post("get-best-content")
-  async getBestContent(): Promise<IReddit.IGetBestContentOutput> {
-    return this.redditProvider.getBestContent();
+  async getBestContent(
+    @TypedBody() input: IReddit.IGetBestContentInput,
+  ): Promise<IReddit.IGetBestContentOutput> {
+    return this.redditProvider.getBestContent(input);
   }
 
   @TypedRoute.Post("get-all-top-content")

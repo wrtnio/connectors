@@ -1,6 +1,7 @@
 import { Injectable } from "@nestjs/common";
 import { IReddit } from "@wrtn/connector-api/lib/structures/connector/reddit/IReddit";
 import axios from "axios";
+import { createQueryParameter } from "../../../utils/CreateQueryParameter";
 
 @Injectable()
 export class RedditProvider {
@@ -109,7 +110,9 @@ export class RedditProvider {
   async getBestContent(
     input: IReddit.IGetBestContentInput,
   ): Promise<IReddit.IGetBestContentOutput> {
-    const response = await axios.post("https://www.reddit.com/best", input);
+    const queryParameter = createQueryParameter(input);
+    const url = `https://www.reddit.com/best/${queryParameter}`;
+    const response = await axios.get(url);
     return response.data;
   }
 
