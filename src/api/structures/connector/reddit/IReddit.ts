@@ -50,4 +50,23 @@ export namespace IReddit {
     success: boolean;
     message?: string;
   }
+
+  export interface IGetCommentsInput {
+    subreddit: string & tags.Format<"iri">;
+    article: string & tags.Format<"iri">;
+  }
+
+  export interface IGetCommentsOutput {
+    post: {
+      title: string;
+      content: string;
+      author: string;
+      created_utc: number;
+    };
+    comments: Array<{
+      author: string;
+      content: string;
+      created_utc: number;
+    }>;
+  }
 }

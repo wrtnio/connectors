@@ -38,4 +38,14 @@ export class RedditProvider {
     );
     return response.data;
   }
+
+  async getComments(
+    input: IReddit.IGetCommentsInput,
+  ): Promise<IReddit.IGetCommentsOutput> {
+    const response = await axios.post(
+      `https://www.reddit.com/r/${input.subreddit}/comments/${input.article}`,
+      input,
+    );
+    return response.data;
+  }
 }

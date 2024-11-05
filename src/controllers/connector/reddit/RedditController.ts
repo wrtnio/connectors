@@ -34,4 +34,11 @@ export class RedditController {
   ): Promise<IReddit.IVoteOutput> {
     return this.redditProvider.vote(input);
   }
+
+  @TypedRoute.Post("get-comments")
+  async getComments(
+    @TypedBody() input: IReddit.IGetCommentsInput,
+  ): Promise<IReddit.IGetCommentsOutput> {
+    return this.redditProvider.getComments(input);
+  }
 }
