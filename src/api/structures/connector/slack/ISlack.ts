@@ -481,6 +481,15 @@ export namespace ISlack {
     is_enterprise_install: boolean;
   }
 
+  export type IUpdateMessageOutput = Pick<ISlack.Message, "ts">;
+
+  export interface IUpdateMessageInput extends IPostMessageInput {
+    /**
+     * @title thread ts to update
+     */
+    thread_ts: Message["ts"];
+  }
+
   export interface IPostMessageInput extends ISlack.ISecret {
     /**
      * It refers to the channel on which you want to view the conversation history.

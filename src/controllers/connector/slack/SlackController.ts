@@ -175,6 +175,17 @@ export class SlackController {
     return retry(() => this.slackProvider.sendText(input))();
   }
 
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Slack_full.svg",
+  )
+  @ApiTags("Slack")
+  @TypedRoute.Put("message")
+  async updateMessage(
+    @TypedBody() input: ISlack.IUpdateMessageInput,
+  ): Promise<ISlack.IUpdateMessageOutput> {
+    return retry(() => this.slackProvider.updateMessage(input))();
+  }
+
   /**
    * Get a list of scheduled messages
    *
@@ -190,6 +201,9 @@ export class SlackController {
    * @param input
    * @returns
    */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Slack_full.svg",
+  )
   @ApiTags("Slack")
   @TypedRoute.Post("get-scheduled-messages")
   async getScheduledMessages(
