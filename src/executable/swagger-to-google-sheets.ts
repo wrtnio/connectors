@@ -115,7 +115,7 @@ async function setSize(
               endIndex: 4,
             },
             properties: {
-              pixelSize: 40,
+              pixelSize: 80,
             },
             fields: "pixelSize",
           },
@@ -319,7 +319,21 @@ async function setGroup(
   await googleSheets.spreadsheets.batchUpdate({
     spreadsheetId: spreadsheetId,
     requestBody: {
-      requests: [...requests],
+      requests: [
+        {
+          setBasicFilter: {
+            filter: {
+              range: {
+                startRowIndex: 0,
+                endRowIndex: values.length,
+                startColumnIndex: 0,
+                endColumnIndex: values[0].length,
+              },
+            },
+          },
+        },
+        ...requests,
+      ],
     },
     access_token: accessToken,
   });
