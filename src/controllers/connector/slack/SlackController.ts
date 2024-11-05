@@ -176,6 +176,27 @@ export class SlackController {
   }
 
   /**
+   * Update message body
+   *
+   * Use to modify messages sent by users.
+   * If the message is not sent by the user, user cannot modify it.
+   *
+   * @summary Update message body in thread
+   * @param input
+   * @returns
+   */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Slack_full.svg",
+  )
+  @ApiTags("Slack")
+  @TypedRoute.Put("message")
+  async updateMessage(
+    @TypedBody() input: ISlack.IUpdateMessageInput,
+  ): Promise<ISlack.IUpdateMessageOutput> {
+    return retry(() => this.slackProvider.updateMessage(input))();
+  }
+
+  /**
    * Get a list of scheduled messages
    *
    * Look up the messages you booked.
@@ -190,6 +211,9 @@ export class SlackController {
    * @param input
    * @returns
    */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Slack_full.svg",
+  )
   @ApiTags("Slack")
   @TypedRoute.Post("get-scheduled-messages")
   async getScheduledMessages(

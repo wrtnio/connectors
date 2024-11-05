@@ -379,6 +379,28 @@ export class SlackProvider {
     });
   }
 
+  async updateMessage(
+    input: ISlack.IUpdateMessageInput,
+  ): Promise<ISlack.IUpdateMessageOutput> {
+    const token = await this.getToken(input.secretKey);
+    const client = new WebClient(token);
+    const preconfiged = `${input.text}\n\n\n\n> Sent by Action Agent in Wrtn Studio Pro`;
+    const text = slackifyMarkdown(preconfiged);
+    const res = await client.chat.update({
+      channel: input.channel,
+      text: text.replaceAll("\\n", "\n"), // 줄바꿈 문자를 잘못 입력했을 경우에 대비한다.
+      token,
+      ts: input.thread_ts,
+      attachments: [],
+    });
+
+    if (!res.ts) {
+      throw new Error("Failed to update slack message");
+    }
+
+    return { ts: res.ts };
+  }
+
   private async sendMessage(input: {
     channel: string;
     text: string;
