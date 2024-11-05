@@ -106,8 +106,10 @@ export class RedditProvider {
     return response.data;
   }
 
-  async getBestContent(): Promise<IReddit.IGetBestContentOutput> {
-    const response = await axios.post("https://www.reddit.com/best");
+  async getBestContent(
+    input: IReddit.IGetBestContentInput,
+  ): Promise<IReddit.IGetBestContentOutput> {
+    const response = await axios.post("https://www.reddit.com/best", input);
     return response.data;
   }
 

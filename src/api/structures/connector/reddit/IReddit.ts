@@ -137,6 +137,50 @@ export namespace IReddit {
     }>;
   }
 
+  export interface IGetBestContentInput {
+    /**
+     * fullname of a thing
+     *
+     * @title after
+     */
+    after?: string;
+
+    /**
+     * fullname of a thing
+     *
+     * @title before
+     */
+    before?: string;
+
+    /**
+     * a positive integer
+     *
+     * @title count
+     */
+    count?: number & tags.Type<"int32"> & tags.Minimum<0>;
+
+    /**
+     * max number of items
+     *
+     * @title limit
+     */
+    limit?: number & tags.Type<"int32"> & tags.Minimum<1> & tags.Maximum<100>;
+
+    /**
+     * optional
+     *
+     * @title show
+     */
+    show?: "all";
+
+    /**
+     * optional, expand subreddits
+     *
+     * @title sr_detail
+     */
+    sr_detail?: boolean;
+  }
+
   export interface IGetBestContentOutput {
     posts: Array<{
       title: string;
