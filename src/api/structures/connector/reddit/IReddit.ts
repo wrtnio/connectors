@@ -152,4 +152,22 @@ export namespace IReddit {
       score: number;
     }>;
   }
+
+  export interface ISavePostInput {
+    id: string & tags.Format<"iri">; // 저장할 게시물의 ID
+  }
+
+  export interface ISavePostOutput {
+    success: boolean;
+    message?: string;
+  }
+
+  export interface IUnsavePostInput {
+    id: string & tags.Format<"iri">; // 삭제할 저장된 게시물의 ID
+  }
+
+  export interface IUnsavePostOutput {
+    success: boolean;
+    message?: string;
+  }
 }

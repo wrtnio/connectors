@@ -91,4 +91,18 @@ export class RedditController {
   async getAllTopContent(): Promise<IReddit.IGetAllTopContentOutput> {
     return this.redditProvider.getAllTopContent();
   }
+
+  @TypedRoute.Post("save-post")
+  async savePost(
+    @TypedBody() input: IReddit.ISavePostInput,
+  ): Promise<IReddit.ISavePostOutput> {
+    return this.redditProvider.savePost(input);
+  }
+
+  @TypedRoute.Post("unsave-post")
+  async unsavePost(
+    @TypedBody() input: IReddit.IUnsavePostInput,
+  ): Promise<IReddit.IUnsavePostOutput> {
+    return this.redditProvider.unsavePost(input);
+  }
 }

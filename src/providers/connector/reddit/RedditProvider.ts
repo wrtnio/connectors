@@ -115,4 +115,21 @@ export class RedditProvider {
     const response = await axios.post("https://www.reddit.com/r/all/top");
     return response.data;
   }
+
+  async savePost(
+    input: IReddit.ISavePostInput,
+  ): Promise<IReddit.ISavePostOutput> {
+    const response = await axios.post("https://www.reddit.com/api/save", input);
+    return response.data;
+  }
+
+  async unsavePost(
+    input: IReddit.IUnsavePostInput,
+  ): Promise<IReddit.IUnsavePostOutput> {
+    const response = await axios.post(
+      "https://www.reddit.com/api/unsave",
+      input,
+    );
+    return response.data;
+  }
 }
