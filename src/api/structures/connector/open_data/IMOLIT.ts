@@ -56,9 +56,215 @@ export namespace IMOLIT {
     DEAL_YMD: string & Placeholder<"202201">;
   }
 
-  export interface IGetRTMSDataSvcAptRentOutput
-    extends ICommonPaginationOutput {
-    data: BuildingLentInfo[];
+  export interface IGetRTMSDataSvcAptRentOutput {
+    data: {
+      /**
+       * @title Block of Apartment
+       * @description Indicates the block or building number of the apartment.
+       */
+      aptDong?: string;
+
+      /**
+       * @title Name of Apartment
+       * @description Indicates the name of the apartment; for example, "Banseok Blessville."
+       */
+      aptNm?: string & Placeholder<"Banseok Blessville">;
+
+      /**
+       * @title Apartment Sequence
+       * @description Unique identifier for the apartment, e.g., "11710-132."
+       */
+      aptSeq?: string & Placeholder<"11710-132">;
+
+      /**
+       * @title Main Lot Number
+       * @description Indicates the main lot number, e.g., "0055."
+       */
+      bonbun?: string & Placeholder<"0055">;
+
+      /**
+       * @title Sub Lot Number
+       * @description Indicates the sub lot number, e.g., "0008."
+       */
+      bubun?: string & Placeholder<"0008">;
+
+      /**
+       * @title Year Built
+       * @description Indicates the year the building was constructed, e.g., "2002."
+       */
+      buildYear?: string & Placeholder<"2002">;
+
+      /**
+       * @title Buyer Type
+       * @description Indicates the type of buyer; for example, "Individual."
+       */
+      buyerGbn?: string & Placeholder<"Individual">;
+
+      /**
+       * @title Contract Date
+       * @description Indicates the date of the contract.
+       */
+      cdealDay?: string;
+
+      /**
+       * @title Contract Type
+       * @description Indicates the type of contract.
+       */
+      cdealType?: string;
+
+      /**
+       * @title Transaction Amount
+       * @description Indicates the transaction amount in 10,000 KRW units (만원), e.g., "83,900."
+       */
+      dealAmount?: string & Placeholder<"83,900">;
+
+      /**
+       * @title Transaction Day
+       * @description Indicates the day of the transaction, e.g., "30."
+       */
+      dealDay?: string & Placeholder<"30">;
+
+      /**
+       * @title Transaction Month
+       * @description Indicates the month of the transaction, e.g., "6."
+       */
+      dealMonth?: string & Placeholder<"6">;
+
+      /**
+       * @title Transaction Year
+       * @description Indicates the year of the transaction, e.g., "2024."
+       */
+      dealYear?: string & Placeholder<"2024">;
+
+      /**
+       * @title Transaction Type
+       * @description Indicates the type of transaction; for example, "Mediated Transaction."
+       */
+      dealingGbn?: string & Placeholder<"Mediated Transaction">;
+
+      /**
+       * @title Agent Location
+       * @description Indicates the district where the real estate agent is located, e.g., "Seoul Songpa-gu."
+       */
+      estateAgentSggNm?: string & Placeholder<"Seoul Songpa-gu">;
+
+      /**
+       * @title Exclusive Use Area
+       * @description Indicates the exclusive use area in square meters, e.g., "83.15."
+       */
+      excluUseAr?: string & Placeholder<"83.15">;
+
+      /**
+       * @title Floor
+       * @description Indicates the floor on which the transaction took place, e.g., "3."
+       */
+      floor?: string & Placeholder<"3">;
+
+      /**
+       * @title Lot Number (Jibun)
+       * @description Indicates the lot number (Jibun), e.g., "55-8."
+       */
+      jibun?: string & Placeholder<"55-8">;
+
+      /**
+       * @title Land Code
+       * @description Indicates the land code, e.g., "1."
+       */
+      landCd?: string & Placeholder<"1">;
+
+      /**
+       * @title Land Leasehold Indicator
+       * @description Indicates whether the land is leased; "N" for no.
+       */
+      landLeaseholdGbn?: string & Placeholder<"N">;
+
+      /**
+       * @title Registration Date
+       * @description Indicates the registration date, e.g., "24.10.02."
+       */
+      rgstDate?: string & Placeholder<"24.10.02">;
+
+      /**
+       * @title Road Name
+       * @description Indicates the road name, e.g., "Dongnam-ro 23-gil."
+       */
+      roadNm?: string & Placeholder<"Dongnam-ro 23-gil">;
+
+      /**
+       * @title Road Main Number
+       * @description Indicates the main number for the road, e.g., "00020."
+       */
+      roadNmBonbun?: string & Placeholder<"00020">;
+
+      /**
+       * @title Road Sub Number
+       * @description Indicates the sub number for the road, e.g., "00000."
+       */
+      roadNmBubun?: string & Placeholder<"00000">;
+
+      /**
+       * @title Road Code
+       * @description Indicates the road code, e.g., "4169545."
+       */
+      roadNmCd?: string & Placeholder<"4169545">;
+
+      /**
+       * @title Road Sequence
+       * @description Indicates the sequence number for the road, e.g., "01."
+       */
+      roadNmSeq?: string & Placeholder<"01">;
+
+      /**
+       * @title Road District Code
+       * @description Indicates the district code for the road, e.g., "11710."
+       */
+      roadNmSggCd?: string & Placeholder<"11710">;
+
+      /**
+       * @title Road Number Code
+       * @description Indicates the road number code, e.g., "0."
+       */
+      roadNmbCd?: string & Placeholder<"0">;
+
+      /**
+       * @title District Code
+       * @description Indicates the district code, e.g., "11710."
+       */
+      sggCd?: string & Placeholder<"11710">;
+
+      /**
+       * @title Seller Type
+       * @description Indicates the type of seller; for example, "Individual."
+       */
+      slerGbn?: string & Placeholder<"Individual">;
+
+      /**
+       * @title Subdivision Code
+       * @description Indicates the subdivision code, e.g., "11200."
+       */
+      umdCd?: string & Placeholder<"11200">;
+
+      /**
+       * @title Subdivision Name
+       * @description Indicates the name of the subdivision, e.g., "Ogeum-dong."
+       */
+      umdNm?: string & Placeholder<"Ogeum-dong">;
+    }[];
+
+    /**
+     * @title Num Of Rows
+     */
+    numOfRows?: number;
+
+    /**
+     * @title Page Number
+     */
+    pageNo?: number;
+
+    /**
+     * @title Total Count
+     */
+    totalCount?: number;
   }
 
   export type IgetRTMSDataSvcSHRentInput = IGetRTMSDataSvcAptRentInput;
