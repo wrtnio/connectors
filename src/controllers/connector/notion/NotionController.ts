@@ -20,6 +20,9 @@ export class NotionController {
    * @param input
    * @returns
    */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg",
+  )
   @core.TypedRoute.Delete("page/block")
   async deleteBlock(
     @core.TypedBody() input: INotion.IDeleteBlockInput,

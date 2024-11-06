@@ -23,7 +23,7 @@ export class ChatBotController {
    * @returns The chatbot's response
    */
   @RouteIcon(
-    "https://gh-devs-be.s3.ap-northeast-2.amazonaws.com/icon/full/_Studio1.0Chatbot_full.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/_Studio1.0Chatbot_full.svg",
   )
   @core.TypedRoute.Post("generate/easy")
   async generateEasyChatbot(

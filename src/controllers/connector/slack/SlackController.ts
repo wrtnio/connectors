@@ -15,6 +15,10 @@ export class SlackController {
    * @param input
    * @returns array of slack block types
    */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Slack_full.svg",
+  )
+  @ApiTags("Slack")
   @Post("interactivity")
   async interactivity(@Body() input: ISlack.Payload): Promise<any[]> {
     const parsed: ISlack.InteractiveComponent = JSON.parse(input.payload);
@@ -28,6 +32,10 @@ export class SlackController {
    * @param input
    * @returns
    */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Slack_full.svg",
+  )
+  @ApiTags("Slack")
   @TypedRoute.Post("vote")
   async vote(
     @TypedBody() input: ISlack.IHoldVoteInput,
