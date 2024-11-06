@@ -10,8 +10,11 @@ export class CalendlyController {
   constructor(private readonly calendlyProvider: CalendlyProvider) {}
 
   /**
+   * Creates a scheduling link for the authenticated user.
+   *
+   * This link can be shared with others to allow them to schedule meetings with the user based on their availability.
+   *
    * @summary Create a new scheduling link
-   * @description Creates a scheduling link for the authenticated user
    * @param input The necessary details to create the scheduling link.
    * @returns The created scheduling link details.
    */
@@ -28,8 +31,11 @@ export class CalendlyController {
   }
 
   /**
+   * Retrieves the event types available for the user or organization.
+   *
+   * This is useful to show what types of meetings can be scheduled, such as one-on-one meetings, group meetings, etc.
+   *
    * @summary List all event types
-   * @description Retrieves the event types available for the user or organization. Useful to show what types of meetings can be scheduled
    * @param input The input required to retrieve event types.
    * @returns The list of event types.
    */
@@ -46,8 +52,11 @@ export class CalendlyController {
   }
 
   /**
+   * Retrieves the cancel link for a specific invitee in an event.
+   *
+   * This link allows the invitee to cancel their participation in the event if needed.
+   *
    * @summary Get cancel link for invitee
-   * @description Retrieves the cancel link for a specific invitee in an event
    * @param eventId The ID of the event.
    * @param inviteeId The ID of the invitee.
    * @param input Additional input for cancel link retrieval.
@@ -78,13 +87,16 @@ export class CalendlyController {
       inviteeId,
       input,
     );
-    const data = await invitee.resource.cancel_url;
+    const data = invitee.resource.cancel_url;
     return data;
   }
 
   /**
+   * Fetches the detailed information of a specific scheduled event by its UUID.
+   *
+   * This includes information such as the event's date, time, participants, and any notes or agenda items.
+   *
    * @summary Get details of a scheduled event
-   * @description Fetches the detailed information of a specific scheduled event by its UUID
    * @param eventId The UUID of the event.
    * @param input Additional input for event retrieval.
    * @returns The detailed information of the scheduled event.
@@ -106,8 +118,11 @@ export class CalendlyController {
   }
 
   /**
+   * Retrieves all scheduled events within a given time period or based on certain criteria.
+   *
+   * This can help users manage their calendar by viewing all upcoming events.
+   *
    * @summary Get all scheduled events
-   * @description Retrieves all scheduled events within a given time period or based on certain criteria
    * @param input The input to filter scheduled events.
    * @returns The list of scheduled events.
    */
@@ -124,8 +139,11 @@ export class CalendlyController {
   }
 
   /**
+   * Marks an invitee as a no-show for a specific event.
+   *
+   * This is useful for tracking attendance and managing follow-ups with participants who did not attend.
+   *
    * @summary Mark an invitee as no-show
-   * @description Marks an invitee as a no-show for a specific event
    * @param eventId The UUID of the event.
    * @param inviteeId The UUID of the invitee.
    * @param input Additional input for no-show marking.
@@ -150,8 +168,11 @@ export class CalendlyController {
   }
 
   /**
+   * Retrieves the details of a specific invitee for a scheduled event.
+   *
+   * This includes information such as the invitee's name, email, and any notes or preferences they have provided.
+   *
    * @summary Get invitee details
-   * @description Retrieves the details of a specific invitee for a scheduled event
    * @param eventId The UUID of the event.
    * @param inviteeId The UUID of the invitee.
    * @param input Additional input for invitee retrieval.
@@ -176,8 +197,11 @@ export class CalendlyController {
   }
 
   /**
+   * Retrieves the list of invitees for a scheduled event.
+   * 
+   * This can be used to see who is expected to attend and manage communications with them.
+
    * @summary Get all invitees for a scheduled event
-   * @description Retrieves the list of invitees for a scheduled event
    * @param input The input to filter invitees.
    * @returns The list of invitees for the event.
    */
@@ -194,8 +218,11 @@ export class CalendlyController {
   }
 
   /**
+   * Allows users to create a one-off event type for special occasions or single events.
+   * 
+   * This is useful for events that do not fit into regular scheduling patterns.
+
    * @summary Create a one-off event type
-   * @description Allows users to create a one-off event type for special occasions or single events
    * @param input The details needed to create a one-off event type.
    * @returns The created one-off event type details.
    */
@@ -212,8 +239,11 @@ export class CalendlyController {
   }
 
   /**
+   * Retrieves the details of the authenticated user.
+   *
+   * This is useful for confirming user information during event creation and ensuring that the correct user is associated with the events.
+   *
    * @summary Get authenticated user details
-   * @description Retrieves the details of the authenticated user. Useful for confirming user information during event creation
    * @param input The input required to get the user details.
    * @returns The authenticated user's details.
    */
