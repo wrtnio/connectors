@@ -651,7 +651,9 @@ const NESTIA_CONFIG: sdk.INestiaConfig[] = [
     module: CalendlyModule,
     info: {
       title: "Calendly",
-      description: "Calendly에서 고객과의 미팅을 잡을 수 있어요",
+      summary: "Calendly에서 고객과의 미팅을 잡을 수 있어요",
+      description:
+        "Calendly에서 미팅을 잡고 고객들을 초대하세요. 쉽고 빠르게 미팅을 관리할 수 있어요.",
     },
     output: "packages/api/connectors/calendly.swagger.json",
   }),
