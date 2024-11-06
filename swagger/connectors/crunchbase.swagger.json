@@ -15,9 +15,9 @@
     }
   ],
   "info": {
-    "title": "Github",
-    "summary": "Github에서 코드를 읽고 분석하고 작성해요",
-    "description": "Github에서 유저나 코드를 조회하고 분석할 수 있어요. 직접 코드를 작성하고 커밋하고 PR을 날리거나, 또 코멘트를 남겨줄 수도 있습니다.",
+    "title": "Crunchbase",
+    "summary": "Crunchbase에서 기업 정보를 가져올 수 있어요",
+    "description": "전세계 기업의 펀딩 라운드나 투자, 재무 정보 등 자세한 내역을 확인할 수 있어요",
     "version": "0.1.328",
     "license": {
       "name": "AGPL-3.0-only"

@@ -1,0 +1,463 @@
+{
+  "openapi": "3.1.0",
+  "servers": [
+    {
+      "url": "https://studio-connector-api.wrtn.ai",
+      "description": "Production Server"
+    },
+    {
+      "url": "https://studio-connector-poc.dev.wrtn.club",
+      "description": "Develop Server"
+    },
+    {
+      "url": "http://localhost:3003",
+      "description": "Local Server"
+    }
+  ],
+  "info": {
+    "title": "Excel",
+    "summary": "엑셀을 이용해서 알아보기 쉽게 데이터를 관리할 수 있어요",
+    "description": "엑셀에 시트를 넣거나 데이터를 추가하여 보기 쉽게 데이터를 관리할 수 있어요. 또 기존 파일을 업데이트해서 데이터를 누적해나갈 수도 있어요.",
+    "version": "0.1.328",
+    "license": {
+      "name": "AGPL-3.0-only"
+    }
+  },
+  "paths": {
+    "/connector/excel/read/headers": {
+      "post": {
+        "summary": "Get the headers in the Excel file",
+        "description": "Based on the input file information, the headers of the corresponding Excel file are retrieved",
+        "tags": [
+          "Excel"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IExcel.IReadExcelInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/light/excel.svg"
+      }
+    },
+    "/connector/excel/read": {
+      "post": {
+        "summary": "Get the contents of the Excel file",
+        "description": "Get the contents of the corresponding Excel file based on the input file information",
+        "tags": [
+          "Excel"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "description": "Information on the Excel file to get the contents",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IExcel.IReadExcelInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IExcel.IReadExcelOutput"
+                }
+              }
+            }
+          }
+        },
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/light/excel.svg"
+      }
+    },
+    "/connector/excel/worksheet": {
+      "post": {
+        "summary": "Get a list of Excel worksheets",
+        "description": "Get a list of Excel worksheets that exist in the input file url",
+        "tags": [
+          "Excel"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "description": "The url of the Excel file from which to get the list of worksheets",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IExcel.IGetWorksheetListInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "A list of Excel worksheets.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IExcel.IWorksheetListOutput"
+                }
+              }
+            }
+          }
+        },
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/light/excel.svg"
+      }
+    },
+    "/connector/excel/rows/upload": {
+      "post": {
+        "summary": "Create Excel and add data by uploading Excel files",
+        "description": "Upload an Excel file to add data to the file\n\nWhen adding data to Excel, sheet creation precedes if it is a sheet that does not exist yet.\nTherefore, this feature can also be used for sheet creation.\nIf you want to create a sheet only and create an empty file without any data,\nyou just need to specify the name of the sheet without any data.\n\nWhen adding rows to an already existing sheet,\nit is supposed to be added to the lower line, so it is recommended to check the data before adding it.\nIf you provide fileUrl, you can modify it after you work on it. After modification, the file will be issued as a new link.\n\nIt is a connector that allows users to upload files by drag and drop.",
+        "tags": [
+          "Excel"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "description": "Information for adding new data to Excel files",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IExcel.IInsertExcelRowByUploadInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IExcel.IExportExcelFileOutput"
+                }
+              }
+            }
+          }
+        },
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/light/excel.svg"
+      }
+    },
+    "/connector/excel/rows": {
+      "post": {
+        "summary": "엑셀 파일 링크를 가지고 액셀 생성 및 데이터 추가",
+        "description": "Add data to the Excel file with an Excel file link\n\nWhen adding data to Excel, sheet creation precedes if it is a sheet that does not exist yet.\nTherefore, this feature can also be used for sheet creation.\nIf you want to create a sheet only and create an empty file without any data,\nyou just need to specify the name of the sheet without any data.\n\nWhen adding rows to an already existing sheet,\nit is supposed to be added to the lower line, so it is recommended to check the data before adding it.\nIf you provide fileUrl, you can modify it after you work on it. After modification, the file will be issued as a new link.\n\nA connector that allows you to update a file without uploading it if you know the link to the file in the previous utterance, or if you receive a file link in the utterance from the user.\n\nSince a link to the Excel file generated immediately after the Excel file is generated, calling this connector is more advantageous in terms of user experience than adding data through upload.",
+        "tags": [
+          "Excel"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "description": "엑셀 파일에 새로운 데이터를 추가 하기 위한 정보",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IExcel.IInsertExcelRowInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IExcel.IExportExcelFileOutput"
+                }
+              }
+            }
+          }
+        },
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/light/excel.svg"
+      }
+    },
+    "/connector/excel": {
+      "post": {
+        "summary": "Add Excel files and sheet",
+        "description": "Add Excel files and sheet\n\nCreate an Excel file and get the link back.\nYou can also forward this link to the following connector to reflect further modifications.\nWhen creating a sheet with this feature, the default name 'Sheet1' is created if the sheet name is not provided.",
+        "deprecated": true,
+        "tags": [
+          "Excel"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IExcel.ICreateSheetInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IExcel.IExportExcelFileOutput"
+                }
+              }
+            }
+          }
+        },
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/light/excel.svg"
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "IExcel.IReadExcelInput": {
+        "type": "object",
+        "properties": {
+          "fileUrl": {
+            "type": "string",
+            "format": "uri",
+            "contentMediaType": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+            "title": "Excel file",
+            "description": "Excel file to read"
+          },
+          "sheetName": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string",
+                "x-wrtn-placeholder": "Sheet1"
+              }
+            ],
+            "title": "sheet name",
+            "description": "Sheet name to read"
+          }
+        },
+        "required": [
+          "fileUrl"
+        ],
+        "title": "file information"
+      },
+      "IExcel.IReadExcelOutput": {
+        "type": "object",
+        "properties": {
+          "headers": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "title": "headers of this sheet"
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/IExcel.IReadExcelRowData"
+            },
+            "title": "Excel sheet data"
+          }
+        },
+        "required": [
+          "headers",
+          "data"
+        ],
+        "title": "Excel file reading result"
+      },
+      "IExcel.IReadExcelRowData": {
+        "type": "object",
+        "properties": {},
+        "title": "Read Excel row data",
+        "additionalProperties": {}
+      },
+      "IExcel.IWorksheetListOutput": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "sheetName": {
+                  "type": "string",
+                  "title": "sheet name",
+                  "description": "Name of the imported worksheet"
+                },
+                "id": {
+                  "type": "number",
+                  "title": "sheet id",
+                  "description": "The id of the imported worksheet."
+                }
+              },
+              "required": [
+                "sheetName",
+                "id"
+              ]
+            },
+            "title": "sheet list data"
+          }
+        },
+        "required": [
+          "data"
+        ],
+        "title": "List of imported worksheets"
+      },
+      "IExcel.IGetWorksheetListInput": {
+        "type": "object",
+        "properties": {
+          "fileUrl": {
+            "type": "string",
+            "format": "uri",
+            "contentMediaType": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+            "title": "Excel file",
+            "description": "File to import list of Excel worksheets"
+          }
+        },
+        "required": [
+          "fileUrl"
+        ],
+        "title": "file information"
+      },
+      "IExcel.IExportExcelFileOutput": {
+        "type": "object",
+        "properties": {
+          "fileUrl": {
+            "type": "string",
+            "format": "uri",
+            "contentMediaType": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+            "title": "Generated Excel file url"
+          }
+        },
+        "required": [
+          "fileUrl"
+        ],
+        "title": "Excel row addition result"
+      },
+      "IExcel.IInsertExcelRowByUploadInput": {
+        "type": "object",
+        "properties": {
+          "fileUrl": {
+            "type": "string",
+            "format": "uri",
+            "contentMediaType": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+            "title": "엑셀 파일",
+            "description": "엑셀 행을 추가할 파일\n\nIf you have this address, take an Excel file from that path and modify it.\nThe modified file is saved as a new link and does not modify the original file in this path.\nIf this address does not exist, create a new file immediately."
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Recordstringany"
+            },
+            "title": "Excel row data to add",
+            "description": "An array of objects where the key is the header name and the value is the value of the corresponding row"
+          },
+          "sheetName": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string",
+                "x-wrtn-placeholder": "Sheet1"
+              }
+            ],
+            "title": "Excel sheet name",
+            "description": "Sheet name to add Excel rows to\nIf no input is entered, the first sheet is used as the default."
+          }
+        },
+        "required": [
+          "data"
+        ],
+        "title": "Information for adding data"
+      },
+      "Recordstringany": {
+        "type": "object",
+        "properties": {},
+        "description": "Construct a type with a set of properties K of type T",
+        "additionalProperties": {}
+      },
+      "IExcel.IInsertExcelRowInput": {
+        "type": "object",
+        "properties": {
+          "fileUrl": {
+            "type": "string",
+            "format": "iri",
+            "title": "엑셀 파일",
+            "description": "엑셀 행을 추가할 파일\n\nIf you have this address, take an Excel file from that path and modify it.\nThe modified file is saved as a new link and does not modify the original file in this path.\nIf this address does not exist, create a new file immediately."
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Recordstringany"
+            },
+            "title": "Excel row data to add",
+            "description": "An array of objects where the key is the header name and the value is the value of the corresponding row"
+          },
+          "sheetName": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string",
+                "x-wrtn-placeholder": "Sheet1"
+              }
+            ],
+            "title": "Excel sheet name",
+            "description": "Sheet name to add Excel rows to\nIf no input is entered, the first sheet is used as the default."
+          }
+        },
+        "required": [
+          "data"
+        ],
+        "title": "Information for adding data"
+      },
+      "IExcel.ICreateSheetInput": {
+        "type": "object",
+        "properties": {
+          "sheetName": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string",
+                "x-wrtn-placeholder": "Sheet1"
+              }
+            ],
+            "title": "Excel sheet name",
+            "description": "Sheet name to add Excel rows to\nIf no input is entered, the first sheet is used as the default."
+          }
+        }
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "Excel"
+    }
+  ],
+  "x-samchon-emended": true
+}

@@ -15,7 +15,7 @@
     }
   ],
   "info": {
-    "version": "0.1.327",
+    "version": "0.1.328",
     "title": "@wrtn/connector",
     "description": "wrtn-ecosystem connectors and sdk",
     "license": {
@@ -2305,7 +2305,7 @@
             }
           }
         },
-        "x-wrtn-icon": "https://gh-devs-be.s3.ap-northeast-2.amazonaws.com/icon/full/_Studio1.0Chatbot_full.svg"
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/_Studio1.0Chatbot_full.svg"
       }
     },
     "/connector/chatbot/generate/hard": {
@@ -5934,7 +5934,8 @@
               "application/json": {}
             }
           }
-        }
+        },
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg"
       }
     },
     "/connector/notion/page/markdown": {
@@ -6991,7 +6992,9 @@
       "post": {
         "summary": "Send Slack Custom Template Messages for Voting",
         "description": "Send Slack Custom Template Messages for Voting",
-        "tags": [],
+        "tags": [
+          "Slack"
+        ],
         "parameters": [],
         "requestBody": {
           "content": {
@@ -7014,7 +7017,8 @@
               }
             }
           }
-        }
+        },
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Slack_full.svg"
       }
     },
     "/connector/slack/conversation/mark": {
@@ -10041,7 +10045,8 @@
               }
             }
           }
-        }
+        },
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg"
       }
     },
     "/connector/github/get-pull-requests-associated-with-a-commit": {
@@ -10865,6 +10870,7 @@
     "/connector/calendly/scheduling_links": {
       "post": {
         "summary": "Create a new scheduling link",
+        "description": "Creates a scheduling link for the authenticated user.\n\nThis link can be shared with others to allow them to schedule meetings with the user based on their availability.",
         "tags": [
           "Calendly"
         ],
@@ -10898,6 +10904,7 @@
     "/connector/calendly/get-event-types": {
       "post": {
         "summary": "List all event types",
+        "description": "Retrieves the event types available for the user or organization.\n\nThis is useful to show what types of meetings can be scheduled, such as one-on-one meetings, group meetings, etc.",
         "tags": [
           "Calendly"
         ],
@@ -10931,6 +10938,7 @@
     "/connector/calendly/events/{eventId}/invitees/{inviteeId}/get-cancel-link": {
       "post": {
         "summary": "Get cancel link for invitee",
+        "description": "Retrieves the cancel link for a specific invitee in an event.\n\nThis link allows the invitee to cancel their participation in the event if needed.",
         "tags": [
           "Calendly"
         ],
@@ -10996,6 +11004,7 @@
     "/connector/calendly/get-events/{eventId}": {
       "post": {
         "summary": "Get details of a scheduled event",
+        "description": "Fetches the detailed information of a specific scheduled event by its UUID.\n\nThis includes information such as the event's date, time, participants, and any notes or agenda items.",
         "tags": [
           "Calendly"
         ],
@@ -11040,6 +11049,7 @@
     "/connector/calendly/get-scheduled-events": {
       "post": {
         "summary": "Get all scheduled events",
+        "description": "Retrieves all scheduled events within a given time period or based on certain criteria.\n\nThis can help users manage their calendar by viewing all upcoming events.",
         "tags": [
           "Calendly"
         ],
@@ -11073,6 +11083,7 @@
     "/connector/calendly/events/{eventId}/invitees/{inviteeId}/no-show": {
       "post": {
         "summary": "Mark an invitee as no-show",
+        "description": "Marks an invitee as a no-show for a specific event.\n\nThis is useful for tracking attendance and managing follow-ups with participants who did not attend.",
         "tags": [
           "Calendly"
         ],
@@ -11127,6 +11138,7 @@
     "/connector/calendly/events/{eventId}/invitees/{inviteeId}": {
       "post": {
         "summary": "Get invitee details",
+        "description": "Retrieves the details of a specific invitee for a scheduled event.\n\nThis includes information such as the invitee's name, email, and any notes or preferences they have provided.",
         "tags": [
           "Calendly"
         ],
@@ -11181,6 +11193,7 @@
     "/connector/calendly/events/get-invitees": {
       "post": {
         "summary": "Get all invitees for a scheduled event",
+        "description": "Retrieves the list of invitees for a scheduled event.\n\nThis can be used to see who is expected to attend and manage communications with them.",
         "tags": [
           "Calendly"
         ],
@@ -11214,6 +11227,7 @@
     "/connector/calendly/one-off-event-types": {
       "post": {
         "summary": "Create a one-off event type",
+        "description": "Allows users to create a one-off event type for special occasions or single events.\n\nThis is useful for events that do not fit into regular scheduling patterns.",
         "tags": [
           "Calendly"
         ],
@@ -11247,6 +11261,7 @@
     "/connector/calendly/users/get-me": {
       "post": {
         "summary": "Get authenticated user details",
+        "description": "Retrieves the details of the authenticated user.\n\nThis is useful for confirming user information during event creation and ensuring that the correct user is associated with the events.",
         "tags": [
           "Calendly"
         ],

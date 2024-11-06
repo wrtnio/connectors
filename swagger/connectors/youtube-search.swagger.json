@@ -16,8 +16,9 @@
   ],
   "info": {
     "title": "유튜브 검색",
-    "description": "",
-    "version": "0.1.327",
+    "summary": "유튜브에 원하는 영상을 검색해요",
+    "description": "유튜브에 원하는 영상을 검색해요",
+    "version": "0.1.328",
     "license": {
       "name": "AGPL-3.0-only"
     }

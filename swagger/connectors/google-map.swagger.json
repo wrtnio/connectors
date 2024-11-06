@@ -16,8 +16,9 @@
   ],
   "info": {
     "title": "Google Map",
-    "version": "0.1.327",
-    "description": "wrtn-ecosystem connectors and sdk",
+    "summary": "구글맵으로 원하는 장소를 찾아요.",
+    "description": "구글맵으로 식당이나 원하는 장소를 검색하고 리뷰를 미리 확인해볼 수 있어요.",
+    "version": "0.1.328",
     "license": {
       "name": "AGPL-3.0-only"
     }

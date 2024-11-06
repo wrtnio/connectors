@@ -1,0 +1,504 @@
+{
+  "openapi": "3.1.0",
+  "servers": [
+    {
+      "url": "https://studio-connector-api.wrtn.ai",
+      "description": "Production Server"
+    },
+    {
+      "url": "https://studio-connector-poc.dev.wrtn.club",
+      "description": "Develop Server"
+    },
+    {
+      "url": "http://localhost:3003",
+      "description": "Local Server"
+    }
+  ],
+  "info": {
+    "title": "Similarweb",
+    "summary": "Similarweb을 이용해서 특정 사이트의 정보를 가져올 수 있어요",
+    "description": "웹 사이트의 월별 트래픽이나 홈페이지의 관리 주체가 누구인지 등 자세한 정보를 조회할 수 있어요",
+    "version": "0.1.328",
+    "license": {
+      "name": "AGPL-3.0-only"
+    }
+  },
+  "paths": {
+    "/connector/similarweb/get-domain-info": {
+      "post": {
+        "summary": "Get Domain Info from similarweb",
+        "description": "Retrieves domain information using the Similarweb API\n\nYou can get all the traffic and various indicators for that domain.\nInformation available includes site name and description, traffic by country of access, visit/inflow information, inflow information by period, and ranking by global, country, and category.\nIn general, it can be used for investors' company analysis. In addition, it is also useful for marketers because the top keywords and Cpc values for each user can be known in advance.",
+        "tags": [],
+        "parameters": [],
+        "requestBody": {
+          "description": "- The input parameters containing the domain name to retrieve information for.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ISimilarweb.IGetDomainInfoInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "A promise that resolves to the domain information output, including status and detailed data.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ISimilarweb.IGetDomainInfoOutput"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "ISimilarweb.IGetDomainInfoOutput": {
+        "type": "object",
+        "properties": {
+          "description": {
+            "type": "string",
+            "title": "Description",
+            "description": "Description of the domain information"
+          },
+          "status": {
+            "type": "number",
+            "title": "Status",
+            "description": "Status code of the response"
+          },
+          "data": {
+            "$ref": "#/components/schemas/ISimilarweb.DomainInfo",
+            "title": "Data",
+            "description": "Detailed domain information"
+          }
+        },
+        "required": [
+          "description",
+          "status",
+          "data"
+        ],
+        "title": "Output interface for getting domain information",
+        "description": "Contains the response details for domain information retrieval"
+      },
+      "ISimilarweb.DomainInfo": {
+        "type": "object",
+        "properties": {
+          "Version": {
+            "type": "number",
+            "title": "Version",
+            "description": "Version number of the data"
+          },
+          "SiteName": {
+            "type": "string",
+            "title": "Site Name",
+            "description": "Name of the site"
+          },
+          "Description": {
+            "type": "string",
+            "title": "Description",
+            "description": "Description of the site"
+          },
+          "TopCountryShares": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ISimilarweb.TopCountryShare"
+            },
+            "title": "Top Country Shares",
+            "description": "Shares of top countries"
+          },
+          "Title": {
+            "type": "string",
+            "title": "Title",
+            "description": "Title of the site"
+          },
+          "Engagments": {
+            "$ref": "#/components/schemas/ISimilarweb.Engagments",
+            "title": "Engagements",
+            "description": "Engagement metrics"
+          },
+          "EstimatedMonthlyVisits": {
+            "$ref": "#/components/schemas/Recordstringnumber",
+            "title": "Estimated Monthly Visits",
+            "description": "Estimated monthly visits.\nKey is date(YYYY-MM-DD) format and value is number. (e.g. { \"2024-07-01\": number } )"
+          },
+          "GlobalRank": {
+            "$ref": "#/components/schemas/ISimilarweb.GlobalRank",
+            "title": "Global Rank",
+            "description": "Global rank of the site"
+          },
+          "CountryRank": {
+            "$ref": "#/components/schemas/ISimilarweb.CountryRank",
+            "title": "Country Rank",
+            "description": "Country-specific rank"
+          },
+          "CategoryRank": {
+            "$ref": "#/components/schemas/ISimilarweb.CategoryRank",
+            "title": "Category Rank",
+            "description": "Category-specific rank"
+          },
+          "GlobalCategoryRank": {
+            "title": "Global Category Rank",
+            "description": "Global category rank"
+          },
+          "IsSmall": {
+            "type": "boolean",
+            "title": "Is Small",
+            "description": "Indicates if the site is small"
+          },
+          "Policy": {
+            "type": "number",
+            "title": "Policy",
+            "description": "Policy number"
+          },
+          "TrafficSources": {
+            "$ref": "#/components/schemas/ISimilarweb.TrafficSources",
+            "title": "Traffic Sources",
+            "description": "Sources of traffic"
+          },
+          "Category": {
+            "type": "string",
+            "title": "Category",
+            "description": "Category of the site"
+          },
+          "LargeScreenshot": {
+            "type": "string",
+            "title": "Large Screenshot",
+            "description": "URL of the large screenshot"
+          },
+          "IsDataFromGa": {
+            "type": "boolean",
+            "title": "Is Data From GA",
+            "description": "Indicates if data is from Google Analytics"
+          },
+          "Competitors": {
+            "$ref": "#/components/schemas/ISimilarweb.Competitors",
+            "title": "Competitors",
+            "description": "Competitors information"
+          },
+          "Notification": {
+            "$ref": "#/components/schemas/ISimilarweb.Notification",
+            "title": "Notification",
+            "description": "Notification details"
+          },
+          "TopKeywords": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ISimilarweb.TopKeyword"
+            },
+            "title": "Top Keywords",
+            "description": "Top keywords for the site"
+          },
+          "SnapshotDate": {
+            "type": "string",
+            "title": "Snapshot Date",
+            "description": "Date of the snapshot"
+          }
+        },
+        "required": [
+          "Version",
+          "SiteName",
+          "Description",
+          "TopCountryShares",
+          "Title",
+          "Engagments",
+          "EstimatedMonthlyVisits",
+          "GlobalRank",
+          "CountryRank",
+          "CategoryRank",
+          "GlobalCategoryRank",
+          "IsSmall",
+          "Policy",
+          "TrafficSources",
+          "Category",
+          "LargeScreenshot",
+          "IsDataFromGa",
+          "Competitors",
+          "Notification",
+          "TopKeywords",
+          "SnapshotDate"
+        ],
+        "title": "Domain Information",
+        "description": "Detailed information about the domain"
+      },
+      "ISimilarweb.TopCountryShare": {
+        "type": "object",
+        "properties": {
+          "Country": {
+            "type": "number",
+            "title": "Country",
+            "description": "Country code as a number"
+          },
+          "CountryCode": {
+            "type": "string",
+            "title": "Country Code",
+            "description": "Country code as a string"
+          },
+          "Value": {
+            "type": "number",
+            "title": "Value",
+            "description": "Share value"
+          }
+        },
+        "required": [
+          "Country",
+          "CountryCode",
+          "Value"
+        ],
+        "title": "Top Country Share",
+        "description": "Information about top country shares"
+      },
+      "ISimilarweb.Engagments": {
+        "type": "object",
+        "properties": {
+          "BounceRate": {
+            "type": "string",
+            "title": "Bounce Rate",
+            "description": "Bounce rate percentage"
+          },
+          "Month": {
+            "type": "string",
+            "title": "Month",
+            "description": "Month of the data"
+          },
+          "Year": {
+            "type": "string",
+            "title": "Year",
+            "description": "Year of the data"
+          },
+          "PagePerVisit": {
+            "type": "string",
+            "title": "Page Per Visit",
+            "description": "Average pages per visit"
+          },
+          "Visits": {
+            "type": "string",
+            "title": "Visits",
+            "description": "Total visits"
+          },
+          "TimeOnSite": {
+            "type": "string",
+            "title": "Time On Site",
+            "description": "Average time spent on site"
+          }
+        },
+        "required": [
+          "BounceRate",
+          "Month",
+          "Year",
+          "PagePerVisit",
+          "Visits",
+          "TimeOnSite"
+        ],
+        "title": "Engagements",
+        "description": "Engagement metrics"
+      },
+      "Recordstringnumber": {
+        "type": "object",
+        "properties": {},
+        "description": "Construct a type with a set of properties K of type T",
+        "additionalProperties": {
+          "type": "number"
+        }
+      },
+      "ISimilarweb.GlobalRank": {
+        "type": "object",
+        "properties": {
+          "Rank": {
+            "type": "number",
+            "title": "Rank",
+            "description": "Rank number"
+          }
+        },
+        "required": [
+          "Rank"
+        ],
+        "title": "Global Rank",
+        "description": "Global rank information"
+      },
+      "ISimilarweb.CountryRank": {
+        "type": "object",
+        "properties": {
+          "Country": {
+            "type": "number",
+            "title": "Country",
+            "description": "Country code as a number"
+          },
+          "CountryCode": {
+            "type": "string",
+            "title": "Country Code",
+            "description": "Country code as a string"
+          },
+          "Rank": {
+            "type": "number",
+            "title": "Rank",
+            "description": "Rank number"
+          }
+        },
+        "required": [
+          "Country",
+          "CountryCode",
+          "Rank"
+        ],
+        "title": "Country Rank",
+        "description": "Country-specific rank information"
+      },
+      "ISimilarweb.CategoryRank": {
+        "type": "object",
+        "properties": {
+          "Rank": {
+            "type": "string",
+            "title": "Rank",
+            "description": "Rank number"
+          },
+          "Category": {
+            "type": "string",
+            "title": "Category",
+            "description": "Category name"
+          }
+        },
+        "required": [
+          "Rank",
+          "Category"
+        ],
+        "title": "Category Rank",
+        "description": "Category-specific rank information"
+      },
+      "ISimilarweb.TrafficSources": {
+        "type": "object",
+        "properties": {
+          "Social": {
+            "type": "number",
+            "title": "Social",
+            "description": "Percentage of traffic from social media"
+          },
+          "Paid Referrals": {
+            "type": "number",
+            "title": "Paid Referrals",
+            "description": "Percentage of traffic from paid referrals"
+          },
+          "Mail": {
+            "type": "number",
+            "title": "Mail",
+            "description": "Percentage of traffic from email"
+          },
+          "Referrals": {
+            "type": "number",
+            "title": "Referrals",
+            "description": "Percentage of traffic from referrals"
+          },
+          "Search": {
+            "type": "number",
+            "title": "Search",
+            "description": "Percentage of traffic from search engines"
+          },
+          "Direct": {
+            "type": "number",
+            "title": "Direct",
+            "description": "Percentage of direct traffic"
+          }
+        },
+        "required": [
+          "Social",
+          "Paid Referrals",
+          "Mail",
+          "Referrals",
+          "Search",
+          "Direct"
+        ],
+        "title": "Traffic Sources",
+        "description": "Traffic sources information"
+      },
+      "ISimilarweb.Competitors": {
+        "type": "object",
+        "properties": {
+          "TopSimilarityCompetitors": {
+            "type": "array",
+            "items": {},
+            "title": "Top Similarity Competitors",
+            "description": "List of top similarity competitors"
+          }
+        },
+        "required": [
+          "TopSimilarityCompetitors"
+        ],
+        "title": "Competitors",
+        "description": "Competitors information"
+      },
+      "ISimilarweb.Notification": {
+        "type": "object",
+        "properties": {
+          "Content": {
+            "title": "Content",
+            "description": "Content of the notification"
+          }
+        },
+        "required": [
+          "Content"
+        ],
+        "title": "Notification",
+        "description": "Notification details"
+      },
+      "ISimilarweb.TopKeyword": {
+        "type": "object",
+        "properties": {
+          "Name": {
+            "type": "string",
+            "title": "Name",
+            "description": "Keyword name"
+          },
+          "EstimatedValue": {
+            "type": "number",
+            "title": "Estimated Value",
+            "description": "Estimated value of the keyword"
+          },
+          "Volume": {
+            "type": "number",
+            "title": "Volume",
+            "description": "Search volume of the keyword"
+          },
+          "Cpc": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "number"
+              }
+            ],
+            "title": "CPC",
+            "description": "Cost per click for the keyword"
+          }
+        },
+        "required": [
+          "Name",
+          "EstimatedValue",
+          "Volume",
+          "Cpc"
+        ],
+        "title": "Top Keyword",
+        "description": "Top keyword information"
+      },
+      "ISimilarweb.IGetDomainInfoInput": {
+        "type": "object",
+        "properties": {
+          "domain": {
+            "type": "string",
+            "title": "Domain\nDomain name to retrieve information for. (e.g, 'wrtn.ai' or 'https://wrtn.ai')"
+          }
+        },
+        "required": [
+          "domain"
+        ],
+        "title": "Input interface for getting domain information",
+        "description": "Contains the input parameters for domain information retrieval"
+      }
+    }
+  },
+  "tags": [],
+  "x-samchon-emended": true
+}

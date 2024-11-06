@@ -1,0 +1,102 @@
+{
+  "openapi": "3.1.0",
+  "servers": [
+    {
+      "url": "https://studio-connector-api.wrtn.ai",
+      "description": "Production Server"
+    },
+    {
+      "url": "https://studio-connector-poc.dev.wrtn.club",
+      "description": "Develop Server"
+    },
+    {
+      "url": "http://localhost:3003",
+      "description": "Local Server"
+    }
+  ],
+  "info": {
+    "title": "한컴 오피스 HWP 한글 문서 파일 분석기",
+    "summary": "HWP 파일의 내용을 읽어올 수 있습니다.",
+    "description": "한국에서 널리 사용되는 한컴 오피스 HWP 한글 문서 형식을 쉽게 처리할 수 있어요. 문서의 텍스트 내용을 추출하거나, 문서 구조를 분석할 수 있어요. 이를 통해 대량의 한글 문서를 자동으로 처리하거나, 문서 내용을 기반으로 한 정보 검색 등의 작업을 수행할 수 있어요.",
+    "version": "0.1.328",
+    "license": {
+      "name": "AGPL-3.0-only"
+    }
+  },
+  "paths": {
+    "/connector/hwp/parse": {
+      "post": {
+        "summary": "Parse the Hwp file",
+        "description": "Parse the hwp file",
+        "tags": [
+          "Hwp"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "description": "The hwp file to parse",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IHwp.IParseInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "The parsed hwp file text data.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IHwp.IParseOutput"
+                }
+              }
+            }
+          }
+        },
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/HWP_full.svg"
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "IHwp.IParseOutput": {
+        "type": "object",
+        "properties": {
+          "text": {
+            "type": "string",
+            "title": "text",
+            "description": "Text of the parsed hwp file"
+          }
+        },
+        "required": [
+          "text"
+        ],
+        "title": "hwp file parsing result"
+      },
+      "IHwp.IParseInput": {
+        "type": "object",
+        "properties": {
+          "fileUrl": {
+            "type": "string",
+            "format": "uri",
+            "contentMediaType": "application/vnd.hancom.hwp",
+            "title": "hwp file",
+            "description": "hwp file to parse."
+          }
+        },
+        "required": [
+          "fileUrl"
+        ],
+        "title": "Information for parsing hwp files"
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "Hwp"
+    }
+  ],
+  "x-samchon-emended": true
+}
