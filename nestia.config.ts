@@ -11,6 +11,7 @@ import { CsvModule } from "./src/controllers/connector/csv/CsvModule";
 import { DallE3Module } from "./src/controllers/connector/dall_e_3/DallE3Module";
 import { DaumModule } from "./src/controllers/connector/daum/DaumModule";
 import { DiscordModule } from "./src/controllers/connector/discord/DiscordModule";
+import { ExcelModule } from "./src/controllers/connector/excel/ExcelModule";
 import { KeywordExtractModule } from "./src/controllers/connector/extract/KeywordExtractModule";
 import { FigmaModule } from "./src/controllers/connector/figma/FigmaModule";
 import { GithubModule } from "./src/controllers/connector/github/GithubModule";
@@ -40,6 +41,7 @@ import { GoogleShoppingYesTwentyFourModule } from "./src/controllers/connector/g
 import { GoogleSlidesModule } from "./src/controllers/connector/google_slides/GoogleSlidesModule";
 import { GoogleTrendModule } from "./src/controllers/connector/google_trend/GoogleTrendModule";
 import { HancellModule } from "./src/controllers/connector/hancell/HancellModule";
+import { HwpModule } from "./src/controllers/connector/hwp/HwpModule";
 import { ImwebModule } from "./src/controllers/connector/imweb/ImwebModule";
 import { JiraModule } from "./src/controllers/connector/jira/JiraModule";
 import { KakaoMapModule } from "./src/controllers/connector/kakao_map/KakaoMapModule";
@@ -53,12 +55,14 @@ import { NotionModule } from "./src/controllers/connector/notion/NotionModule";
 import { OpenDataModule } from "./src/controllers/connector/open_data/OpenDataModule";
 import { PromptModule } from "./src/controllers/connector/prompts/PromptModule";
 import { RagModule } from "./src/controllers/connector/rag/RagModule";
+import { SimilarwebModule } from "./src/controllers/connector/similarweb/SimilarwebModule";
 import { SlackModule } from "./src/controllers/connector/slack/SlackModule";
 import { RankModule } from "./src/controllers/connector/sort/RankModule";
 import { StableDiffusionBetaModule } from "./src/controllers/connector/stable_diffustion_beta/StableDiffusionBetaModule";
 import { StoryGeneratorModule } from "./src/controllers/connector/story_generator/StoryGeneratorModule";
 import { StudentReportGeneratorModule } from "./src/controllers/connector/student_report_generator/StudentReportGeneratorModule";
 import { SweetTackerModule } from "./src/controllers/connector/sweet_tracker/SweetTrackerModule";
+import { TypeformModule } from "./src/controllers/connector/typeform/TypeformModule";
 import { YoutubeSearchModule } from "./src/controllers/connector/youtube_search/YoutubeSearchModule";
 import { ZoomModule } from "./src/controllers/connector/zoom/ZoomModule";
 
@@ -241,6 +245,9 @@ const NESTIA_CONFIG: sdk.INestiaConfig[] = [
     module: GoogleMapModule,
     info: {
       title: "Google Map",
+      summary: "구글맵으로 원하는 장소를 찾아요.",
+      description:
+        "구글맵으로 식당이나 원하는 장소를 검색하고 리뷰를 미리 확인해볼 수 있어요.",
     },
     output: "packages/api/connectors/google-map.swagger.json",
   }),
@@ -405,13 +412,13 @@ const NESTIA_CONFIG: sdk.INestiaConfig[] = [
       description:
         "구글 슬라이드로 프레젠테이션을 만들고, 페이지를 추가하거나 수정할 수 있어요. 텍스트, 이미지, 도형을 추가하고 다양한 효과를 설정할 수 있어요. 슬라이드 전환 효과를 적용하고, 개체의 순서를 조정할 수 있어요. 슬라이드 노트를 작성하여 발표 준비를 할 수 있고, 프레젠테이션의 메타데이터를 수정할 수 있어요. 팀원들과 실시간으로 협업하며 프레젠테이션을 만들 수 있고, 완성된 프레젠테이션을 PDF로 내보낼 수도 있어요.",
     },
-    output: "packages/api/connectors/google-slide.swagger.json",
+    output: "packages/api/connectors/google-slides.swagger.json",
   }),
   swagger({
     module: GoogleTrendModule,
     info: {
       title: "Google Trend",
-      description: "오늘의 트렌드를 검색해봐요",
+      summary: "오늘의 트렌드를 검색해봐요",
     },
     output: "packages/api/connectors/google-trend.swagger.json",
   }),
@@ -426,14 +433,14 @@ const NESTIA_CONFIG: sdk.INestiaConfig[] = [
     output: "packages/api/connectors/hancell.swagger.json",
   }),
   swagger({
-    module: ImwebModule,
+    module: HwpModule,
     info: {
       title: "한컴 오피스 HWP 한글 문서 파일 분석기",
       summary: "HWP 파일의 내용을 읽어올 수 있습니다.",
       description:
         "한국에서 널리 사용되는 한컴 오피스 HWP 한글 문서 형식을 쉽게 처리할 수 있어요. 문서의 텍스트 내용을 추출하거나, 문서 구조를 분석할 수 있어요. 이를 통해 대량의 한글 문서를 자동으로 처리하거나, 문서 내용을 기반으로 한 정보 검색 등의 작업을 수행할 수 있어요.",
     },
-    output: "packages/api/connectors/imweb.swagger.json",
+    output: "packages/api/connectors/hwp.swagger.json",
   }),
   swagger({
     module: ImwebModule,
@@ -597,13 +604,14 @@ const NESTIA_CONFIG: sdk.INestiaConfig[] = [
       description:
         "택배사를 조회하고, 송장번호에 맞는 택배사를 추천받을 수 있어요. 송장 조회로 택배 배송 상태를 실시간으로 확인할 수 있어요. 여러 택배사의 배송 정보를 한 번에 관리할 수 있고, 배송 알림을 설정할 수도 있어요. 개인 사용자는 물론 온라인 쇼핑몰 운영자나 물류 관리자들이 효율적으로 배송 상황을 추적하고 관리할 수 있어요.",
     },
-    output: "packages/api/connectors/sweet-tracker.swagger.json",
+    output: "packages/api/connectors/sweet-tacker.swagger.json",
   }),
   swagger({
     module: YoutubeSearchModule,
     info: {
       title: "유튜브 검색",
-      description: "",
+      summary: "유튜브에 원하는 영상을 검색해요",
+      description: "유튜브에 원하는 영상을 검색해요",
     },
     output: "packages/api/connectors/youtube-search.swagger.json",
   }),
@@ -619,7 +627,9 @@ const NESTIA_CONFIG: sdk.INestiaConfig[] = [
     module: SlackModule,
     info: {
       title: "Slack",
-      description: "슬랙에서 대화 내용을 가져오거나 메시지를 보낼 수 있어요.",
+      summary: "슬랙에서 대화 내용을 가져오거나 메시지를 보낼 수 있어요.",
+      description:
+        "슬랙에서 우리 멤버들이 어떤 주제를 가지고 논의를 하는지 확인해요. 우리 워크스페이스에 있는 유저 그룹이나 동료의 프로필을 확인할 수도 있고, 동료에게 말을 걸 수도 있고, 채널에 메세지를 보내고, 또 답글을 달 수도 있어요.",
     },
     output: "packages/api/connectors/slack.swagger.json",
   }),
@@ -627,7 +637,9 @@ const NESTIA_CONFIG: sdk.INestiaConfig[] = [
     module: JiraModule,
     info: {
       title: "Jira",
-      description: "Jira로 프로젝트 이슈를 관리해요.",
+      summary: "Jira로 프로젝트 이슈를 관리해요.",
+      description:
+        "프로젝트에 이슈를 생성하고 담당자를 할당해요. 완료된 이슈가 있다면 상태를 변경할 수도 있고 댓글을 남겨 의견 교류도 가능해요.",
     },
     output: "packages/api/connectors/jira.swagger.json",
   }),
@@ -642,10 +654,10 @@ const NESTIA_CONFIG: sdk.INestiaConfig[] = [
   swagger({
     module: AirportInformationModule,
     info: {
-      title: "Airport Infomation",
-      description: "항공 정보를 조회해요.",
+      title: "Airport Information",
+      summary: "항공 정보를 조회해요.",
     },
-    output: "packages/api/connectors/airport-infomation.swagger.json",
+    output: "packages/api/connectors/airport-information.swagger.json",
   }),
   swagger({
     module: CalendlyModule,
@@ -661,9 +673,60 @@ const NESTIA_CONFIG: sdk.INestiaConfig[] = [
     module: GithubModule,
     info: {
       title: "Github",
-      description: "Github에서 코드를 읽고 분석하고 작성해요",
+      summary: "Github에서 코드를 읽고 분석하고 작성해요",
+      description:
+        "Github에서 유저나 코드를 조회하고 분석할 수 있어요. 직접 코드를 작성하고 커밋하고 PR을 날리거나, 또 코멘트를 남겨줄 수도 있습니다.",
     },
     output: "packages/api/connectors/github.swagger.json",
+  }),
+  swagger({
+    module: GithubModule,
+    info: {
+      title: "Crunchbase",
+      summary: "Crunchbase에서 기업 정보를 가져올 수 있어요",
+      description:
+        "전세계 기업의 펀딩 라운드나 투자, 재무 정보 등 자세한 내역을 확인할 수 있어요",
+    },
+    output: "packages/api/connectors/crunchbase.swagger.json",
+  }),
+  swagger({
+    module: ExcelModule,
+    info: {
+      title: "Excel",
+      summary: "엑셀을 이용해서 알아보기 쉽게 데이터를 관리할 수 있어요",
+      description:
+        "엑셀에 시트를 넣거나 데이터를 추가하여 보기 쉽게 데이터를 관리할 수 있어요. 또 기존 파일을 업데이트해서 데이터를 누적해나갈 수도 있어요.",
+    },
+    output: "packages/api/connectors/excel.swagger.json",
+  }),
+  swagger({
+    module: GmailModule,
+    info: {
+      title: "Gmail",
+      summary: "Gmail로 메일을 관리해요",
+      description:
+        "메일을 보내거나 초안을 작성할 수 있어요. 필요하다면 파일도 첨부해 보낼 수 있어요",
+    },
+    output: "packages/api/connectors/gmail.swagger.json",
+  }),
+  swagger({
+    module: SimilarwebModule,
+    info: {
+      title: "Similarweb",
+      summary: "Similarweb을 이용해서 특정 사이트의 정보를 가져올 수 있어요",
+      description:
+        "웹 사이트의 월별 트래픽이나 홈페이지의 관리 주체가 누구인지 등 자세한 정보를 조회할 수 있어요",
+    },
+    output: "packages/api/connectors/similarweb.swagger.json",
+  }),
+  swagger({
+    module: TypeformModule,
+    info: {
+      title: "Typeform",
+      summary: "Typeform을 설문 조사를 만들거나 결과를 조회할 수 있어요",
+      description: "",
+    },
+    output: "packages/api/connectors/typeform.swagger.json",
   }),
 ];
 export default NESTIA_CONFIG;
