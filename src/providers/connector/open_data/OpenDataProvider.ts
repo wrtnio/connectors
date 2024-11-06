@@ -11,7 +11,6 @@ import { KoreaCopyrightCommission } from "@wrtn/connector-api/lib/structures/con
 
 import { IMSIT } from "@wrtn/connector-api/lib/structures/connector/open_data/MSIT";
 import typia, { tags } from "typia";
-import type { Rename } from "../../../api/structures/types/Rename";
 import { ConnectorGlobal } from "../../../ConnectorGlobal";
 import { convertAllPropertyToString } from "../../../utils/convertAllPropertyToString";
 import { convertXmlToJson } from "../../../utils/convertXmlToJson";
@@ -115,37 +114,13 @@ export namespace OpenDataProvider {
 
       const res = await axios.get(`${baseUrl}?${queryString}`);
       const jsonData = await convertXmlToJson(res.data);
-      const data: Rename<
-        IMOLIT.OriginalBuildingLentInfo,
-        [["보증금액", "보증금"], ["월세금액", "월세"]]
-      >[] = jsonData.response.body.items.item;
-
-      const { response, nextPage } = getPagination(data, input);
-      return {
-        data: response.map((el) => {
-          const sh: IMOLIT.BuildingLentInfo = {
-            useOfRenewalRight: el.갱신요구권사용,
-            yearOfConstruction: el.건축년도,
-            typeOfContract: el.계약구분,
-            contractPeriod: el.계약기간,
-            year: el.년,
-            legalDistrict: el.법정동,
-            depositAmount: el.보증금,
-            apartment: el.아파트,
-            month: el.월,
-            monthlyRentAmount: el.월세,
-            day: el.일,
-            exclusiveArea: el.전용면적,
-            previousContractDeposit: el.종전계약보증금,
-            previousContractMonthlyRent: el.종전계약월세,
-            lotNumber: el.지번,
-            areaCode: el.지역코드,
-            floor: el.층,
-          };
-          return sh;
-        }),
-        nextPage,
-      };
+      const data = jsonData.response.body.items.item.map(
+        convertAllPropertyToString,
+      );
+      const numOfRows = jsonData.response.body.numOfRows;
+      const pageNo = jsonData.response.body.pageNo;
+      const totalCount = jsonData.response.body.totalCount;
+      return { data, numOfRows, pageNo, totalCount };
     } catch (error) {
       console.error(JSON.stringify(error));
       throw error;
