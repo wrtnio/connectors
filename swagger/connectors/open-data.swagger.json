@@ -18,7 +18,7 @@
     "title": "통합 공공정보 조회",
     "summary": "다양한 공공 정보를 한 곳에서 확인해요.",
     "description": "기업 주가, 날씨, 건축물 정보, 캠핑장, 약국, 관광지, 주택 가격 등 다양한 공공 데이터를 조회할 수 있어요. 지역별 상세 날씨 정보를 확인하고, 전국의 캠핑장 현황을 파악할 수 있어요. 주변 약국이나 병원 위치를 찾을 수 있고, 관심 있는 지역의 부동산 시세도 확인할 수 있어요. 또한 교통 정보, 환경 정보, 문화 행사 정보 등 일상생활에 유용한 다양한 정보를 얻을 수 있어 편리한 생활을 할 수 있어요.",
-    "version": "0.1.329",
+    "version": "0.1.330",
     "license": {
       "name": "AGPL-3.0-only"
     }
@@ -523,155 +523,98 @@
           "data": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/StrictOmitIMOLIT.BuildingLentInfoapartmentexclusiveArealotNumberfloor"
-            }
+              "type": "object",
+              "properties": {
+                "buildYear": {
+                  "type": "string",
+                  "title": "건축 연도"
+                },
+                "contractTerm": {
+                  "type": "string",
+                  "title": "계약 기간"
+                },
+                "contractType": {
+                  "type": "string",
+                  "title": "계약 유형"
+                },
+                "dealDay": {
+                  "type": "string",
+                  "title": "계약 날짜 (일)"
+                },
+                "dealMonth": {
+                  "type": "string",
+                  "title": "계약 날짜 (월)"
+                },
+                "dealYear": {
+                  "type": "string",
+                  "title": "계약 날짜 (년)"
+                },
+                "deposit": {
+                  "type": "string",
+                  "title": "보증금"
+                },
+                "houseType": {
+                  "type": "string",
+                  "title": "주택 유형"
+                },
+                "monthlyRent": {
+                  "type": "string",
+                  "title": "월세"
+                },
+                "preDeposit": {
+                  "type": "string",
+                  "title": "이전 보증금"
+                },
+                "preMonthlyRent": {
+                  "type": "string",
+                  "title": "이전 월세"
+                },
+                "sggCd": {
+                  "type": "string",
+                  "title": "시군구 코드"
+                },
+                "totalFloorAr": {
+                  "type": "string",
+                  "title": "총 층 면적"
+                },
+                "umdNm": {
+                  "type": "string",
+                  "title": "읍면동 이름"
+                },
+                "useRRRight": {
+                  "type": "string",
+                  "title": "지상권 사용 여부"
+                }
+              },
+              "required": [
+                "dealDay",
+                "dealMonth",
+                "dealYear",
+                "deposit",
+                "houseType",
+                "monthlyRent",
+                "sggCd",
+                "totalFloorAr",
+                "umdNm"
+              ]
+            },
+            "description": "계약 정보 아이템"
           },
-          "nextPage": {
-            "type": "boolean",
-            "title": "nextPage\n\nIndicates whether the next page exists"
+          "numOfRows": {
+            "type": "number",
+            "title": "Num Of Rows"
+          },
+          "pageNo": {
+            "type": "number",
+            "title": "Page Number"
+          },
+          "totalCount": {
+            "type": "number",
+            "title": "Total Count"
           }
         },
         "required": [
-          "data",
-          "nextPage"
-        ]
-      },
-      "StrictOmitIMOLIT.BuildingLentInfoapartmentexclusiveArealotNumberfloor": {
-        "type": "object",
-        "properties": {
-          "day": {
-            "oneOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "integer",
-                "minimum": 1,
-                "maximum": 31
-              }
-            ],
-            "title": "day"
-          },
-          "month": {
-            "oneOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "integer",
-                "minimum": 1,
-                "maximum": 12
-              }
-            ],
-            "title": "month"
-          },
-          "year": {
-            "oneOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "number"
-              }
-            ],
-            "title": "year"
-          },
-          "useOfRenewalRight": {
-            "type": "string",
-            "title": "Use of renewal request right"
-          },
-          "yearOfConstruction": {
-            "oneOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "number"
-              }
-            ],
-            "title": "Year of construction"
-          },
-          "typeOfContract": {
-            "type": "string",
-            "title": "Contract type"
-          },
-          "contractPeriod": {
-            "type": "string",
-            "title": "Contract period"
-          },
-          "legalDistrict": {
-            "type": "string",
-            "title": "Beopjeong-dong"
-          },
-          "depositAmount": {
-            "oneOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "number"
-              }
-            ],
-            "title": "Deposit amount\n\nSince it is based on Korean currency, it will be in ten thousand won in most cases."
-          },
-          "monthlyRentAmount": {
-            "oneOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "integer"
-              }
-            ],
-            "title": "Monthly rent\n\nSince it is based on Korean currency, it will be in ten thousand won in most cases."
-          },
-          "previousContractDeposit": {
-            "oneOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "number"
-              }
-            ],
-            "title": "Previous contract deposit"
-          },
-          "previousContractMonthlyRent": {
-            "oneOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "number"
-              }
-            ],
-            "title": "Previous contract monthly rent"
-          },
-          "areaCode": {
-            "oneOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "number"
-              }
-            ],
-            "title": "area code"
-          }
-        },
-        "required": [
-          "day",
-          "month",
-          "year",
-          "useOfRenewalRight",
-          "typeOfContract",
-          "contractPeriod",
-          "legalDistrict",
-          "depositAmount",
-          "monthlyRentAmount",
-          "previousContractDeposit",
-          "previousContractMonthlyRent",
-          "areaCode"
+          "data"
         ]
       },
       "IMOLIT.IGetRTMSDataSvcAptRentInput": {
@@ -715,156 +658,215 @@
           "data": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/StrictOmitIMOLIT.BuildingLentInfoapartmentyearOfConstructiondepositAmountmonthlyRentAmount"
+              "type": "object",
+              "properties": {
+                "aptDong": {
+                  "type": "string",
+                  "title": "Block of Apartment",
+                  "description": "Indicates the block or building number of the apartment."
+                },
+                "aptNm": {
+                  "type": "string",
+                  "x-wrtn-placeholder": "Banseok Blessville",
+                  "title": "Name of Apartment",
+                  "description": "Indicates the name of the apartment; for example, \"Banseok Blessville.\""
+                },
+                "aptSeq": {
+                  "type": "string",
+                  "x-wrtn-placeholder": "11710-132",
+                  "title": "Apartment Sequence",
+                  "description": "Unique identifier for the apartment, e.g., \"11710-132.\""
+                },
+                "bonbun": {
+                  "type": "string",
+                  "x-wrtn-placeholder": "0055",
+                  "title": "Main Lot Number",
+                  "description": "Indicates the main lot number, e.g., \"0055.\""
+                },
+                "bubun": {
+                  "type": "string",
+                  "x-wrtn-placeholder": "0008",
+                  "title": "Sub Lot Number",
+                  "description": "Indicates the sub lot number, e.g., \"0008.\""
+                },
+                "buildYear": {
+                  "type": "string",
+                  "x-wrtn-placeholder": "2002",
+                  "title": "Year Built",
+                  "description": "Indicates the year the building was constructed, e.g., \"2002.\""
+                },
+                "buyerGbn": {
+                  "type": "string",
+                  "x-wrtn-placeholder": "Individual",
+                  "title": "Buyer Type",
+                  "description": "Indicates the type of buyer; for example, \"Individual.\""
+                },
+                "cdealDay": {
+                  "type": "string",
+                  "title": "Contract Date",
+                  "description": "Indicates the date of the contract."
+                },
+                "cdealType": {
+                  "type": "string",
+                  "title": "Contract Type",
+                  "description": "Indicates the type of contract."
+                },
+                "dealAmount": {
+                  "type": "string",
+                  "x-wrtn-placeholder": "83,900",
+                  "title": "Transaction Amount",
+                  "description": "Indicates the transaction amount in 10,000 KRW units (만원), e.g., \"83,900.\""
+                },
+                "dealDay": {
+                  "type": "string",
+                  "x-wrtn-placeholder": "30",
+                  "title": "Transaction Day",
+                  "description": "Indicates the day of the transaction, e.g., \"30.\""
+                },
+                "dealMonth": {
+                  "type": "string",
+                  "x-wrtn-placeholder": "6",
+                  "title": "Transaction Month",
+                  "description": "Indicates the month of the transaction, e.g., \"6.\""
+                },
+                "dealYear": {
+                  "type": "string",
+                  "x-wrtn-placeholder": "2024",
+                  "title": "Transaction Year",
+                  "description": "Indicates the year of the transaction, e.g., \"2024.\""
+                },
+                "dealingGbn": {
+                  "type": "string",
+                  "x-wrtn-placeholder": "Mediated Transaction",
+                  "title": "Transaction Type",
+                  "description": "Indicates the type of transaction; for example, \"Mediated Transaction.\""
+                },
+                "estateAgentSggNm": {
+                  "type": "string",
+                  "x-wrtn-placeholder": "Seoul Songpa-gu",
+                  "title": "Agent Location",
+                  "description": "Indicates the district where the real estate agent is located, e.g., \"Seoul Songpa-gu.\""
+                },
+                "excluUseAr": {
+                  "type": "string",
+                  "x-wrtn-placeholder": "83.15",
+                  "title": "Exclusive Use Area",
+                  "description": "Indicates the exclusive use area in square meters, e.g., \"83.15.\""
+                },
+                "floor": {
+                  "type": "string",
+                  "x-wrtn-placeholder": "3",
+                  "title": "Floor",
+                  "description": "Indicates the floor on which the transaction took place, e.g., \"3.\""
+                },
+                "jibun": {
+                  "type": "string",
+                  "x-wrtn-placeholder": "55-8",
+                  "title": "Lot Number (Jibun)",
+                  "description": "Indicates the lot number (Jibun), e.g., \"55-8.\""
+                },
+                "landCd": {
+                  "type": "string",
+                  "x-wrtn-placeholder": "1",
+                  "title": "Land Code",
+                  "description": "Indicates the land code, e.g., \"1.\""
+                },
+                "landLeaseholdGbn": {
+                  "type": "string",
+                  "x-wrtn-placeholder": "N",
+                  "title": "Land Leasehold Indicator",
+                  "description": "Indicates whether the land is leased; \"N\" for no."
+                },
+                "rgstDate": {
+                  "type": "string",
+                  "x-wrtn-placeholder": "24.10.02",
+                  "title": "Registration Date",
+                  "description": "Indicates the registration date, e.g., \"24.10.02.\""
+                },
+                "roadNm": {
+                  "type": "string",
+                  "x-wrtn-placeholder": "Dongnam-ro 23-gil",
+                  "title": "Road Name",
+                  "description": "Indicates the road name, e.g., \"Dongnam-ro 23-gil.\""
+                },
+                "roadNmBonbun": {
+                  "type": "string",
+                  "x-wrtn-placeholder": "00020",
+                  "title": "Road Main Number",
+                  "description": "Indicates the main number for the road, e.g., \"00020.\""
+                },
+                "roadNmBubun": {
+                  "type": "string",
+                  "x-wrtn-placeholder": "00000",
+                  "title": "Road Sub Number",
+                  "description": "Indicates the sub number for the road, e.g., \"00000.\""
+                },
+                "roadNmCd": {
+                  "type": "string",
+                  "x-wrtn-placeholder": "4169545",
+                  "title": "Road Code",
+                  "description": "Indicates the road code, e.g., \"4169545.\""
+                },
+                "roadNmSeq": {
+                  "type": "string",
+                  "x-wrtn-placeholder": "01",
+                  "title": "Road Sequence",
+                  "description": "Indicates the sequence number for the road, e.g., \"01.\""
+                },
+                "roadNmSggCd": {
+                  "type": "string",
+                  "x-wrtn-placeholder": "11710",
+                  "title": "Road District Code",
+                  "description": "Indicates the district code for the road, e.g., \"11710.\""
+                },
+                "roadNmbCd": {
+                  "type": "string",
+                  "x-wrtn-placeholder": "0",
+                  "title": "Road Number Code",
+                  "description": "Indicates the road number code, e.g., \"0.\""
+                },
+                "sggCd": {
+                  "type": "string",
+                  "x-wrtn-placeholder": "11710",
+                  "title": "District Code",
+                  "description": "Indicates the district code, e.g., \"11710.\""
+                },
+                "slerGbn": {
+                  "type": "string",
+                  "x-wrtn-placeholder": "Individual",
+                  "title": "Seller Type",
+                  "description": "Indicates the type of seller; for example, \"Individual.\""
+                },
+                "umdCd": {
+                  "type": "string",
+                  "x-wrtn-placeholder": "11200",
+                  "title": "Subdivision Code",
+                  "description": "Indicates the subdivision code, e.g., \"11200.\""
+                },
+                "umdNm": {
+                  "type": "string",
+                  "x-wrtn-placeholder": "Ogeum-dong",
+                  "title": "Subdivision Name",
+                  "description": "Indicates the name of the subdivision, e.g., \"Ogeum-dong.\""
+                }
+              }
             }
           },
-          "nextPage": {
-            "type": "boolean",
-            "title": "nextPage\n\nIndicates whether the next page exists"
+          "numOfRows": {
+            "type": "number",
+            "title": "Num Of Rows"
+          },
+          "pageNo": {
+            "type": "number",
+            "title": "Page Number"
+          },
+          "totalCount": {
+            "type": "number",
+            "title": "Total Count"
           }
         },
         "required": [
-          "data",
-          "nextPage"
-        ]
-      },
-      "StrictOmitIMOLIT.BuildingLentInfoapartmentyearOfConstructiondepositAmountmonthlyRentAmount": {
-        "type": "object",
-        "properties": {
-          "day": {
-            "oneOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "integer",
-                "minimum": 1,
-                "maximum": 31
-              }
-            ],
-            "title": "day"
-          },
-          "month": {
-            "oneOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "integer",
-                "minimum": 1,
-                "maximum": 12
-              }
-            ],
-            "title": "month"
-          },
-          "year": {
-            "oneOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "number"
-              }
-            ],
-            "title": "year"
-          },
-          "exclusiveArea": {
-            "oneOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "number"
-              }
-            ],
-            "title": "Exclusive area"
-          },
-          "lotNumber": {
-            "oneOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "integer"
-              }
-            ],
-            "title": "Address"
-          },
-          "floor": {
-            "oneOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "integer"
-              }
-            ],
-            "title": "floor"
-          },
-          "useOfRenewalRight": {
-            "type": "string",
-            "title": "Use of renewal request right"
-          },
-          "typeOfContract": {
-            "type": "string",
-            "title": "Contract type"
-          },
-          "contractPeriod": {
-            "type": "string",
-            "title": "Contract period"
-          },
-          "legalDistrict": {
-            "type": "string",
-            "title": "Beopjeong-dong"
-          },
-          "previousContractDeposit": {
-            "oneOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "number"
-              }
-            ],
-            "title": "Previous contract deposit"
-          },
-          "previousContractMonthlyRent": {
-            "oneOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "number"
-              }
-            ],
-            "title": "Previous contract monthly rent"
-          },
-          "areaCode": {
-            "oneOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "number"
-              }
-            ],
-            "title": "area code"
-          }
-        },
-        "required": [
-          "day",
-          "month",
-          "year",
-          "exclusiveArea",
-          "lotNumber",
-          "floor",
-          "useOfRenewalRight",
-          "typeOfContract",
-          "contractPeriod",
-          "legalDistrict",
-          "previousContractDeposit",
-          "previousContractMonthlyRent",
-          "areaCode"
+          "data"
         ]
       },
       "IMOLIT.IGetRTMSDataSvcAptRentOutput": {
@@ -873,196 +875,215 @@
           "data": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/IMOLIT.BuildingLentInfo"
+              "type": "object",
+              "properties": {
+                "aptDong": {
+                  "type": "string",
+                  "title": "Block of Apartment",
+                  "description": "Indicates the block or building number of the apartment."
+                },
+                "aptNm": {
+                  "type": "string",
+                  "x-wrtn-placeholder": "Banseok Blessville",
+                  "title": "Name of Apartment",
+                  "description": "Indicates the name of the apartment; for example, \"Banseok Blessville.\""
+                },
+                "aptSeq": {
+                  "type": "string",
+                  "x-wrtn-placeholder": "11710-132",
+                  "title": "Apartment Sequence",
+                  "description": "Unique identifier for the apartment, e.g., \"11710-132.\""
+                },
+                "bonbun": {
+                  "type": "string",
+                  "x-wrtn-placeholder": "0055",
+                  "title": "Main Lot Number",
+                  "description": "Indicates the main lot number, e.g., \"0055.\""
+                },
+                "bubun": {
+                  "type": "string",
+                  "x-wrtn-placeholder": "0008",
+                  "title": "Sub Lot Number",
+                  "description": "Indicates the sub lot number, e.g., \"0008.\""
+                },
+                "buildYear": {
+                  "type": "string",
+                  "x-wrtn-placeholder": "2002",
+                  "title": "Year Built",
+                  "description": "Indicates the year the building was constructed, e.g., \"2002.\""
+                },
+                "buyerGbn": {
+                  "type": "string",
+                  "x-wrtn-placeholder": "Individual",
+                  "title": "Buyer Type",
+                  "description": "Indicates the type of buyer; for example, \"Individual.\""
+                },
+                "cdealDay": {
+                  "type": "string",
+                  "title": "Contract Date",
+                  "description": "Indicates the date of the contract."
+                },
+                "cdealType": {
+                  "type": "string",
+                  "title": "Contract Type",
+                  "description": "Indicates the type of contract."
+                },
+                "dealAmount": {
+                  "type": "string",
+                  "x-wrtn-placeholder": "83,900",
+                  "title": "Transaction Amount",
+                  "description": "Indicates the transaction amount in 10,000 KRW units (만원), e.g., \"83,900.\""
+                },
+                "dealDay": {
+                  "type": "string",
+                  "x-wrtn-placeholder": "30",
+                  "title": "Transaction Day",
+                  "description": "Indicates the day of the transaction, e.g., \"30.\""
+                },
+                "dealMonth": {
+                  "type": "string",
+                  "x-wrtn-placeholder": "6",
+                  "title": "Transaction Month",
+                  "description": "Indicates the month of the transaction, e.g., \"6.\""
+                },
+                "dealYear": {
+                  "type": "string",
+                  "x-wrtn-placeholder": "2024",
+                  "title": "Transaction Year",
+                  "description": "Indicates the year of the transaction, e.g., \"2024.\""
+                },
+                "dealingGbn": {
+                  "type": "string",
+                  "x-wrtn-placeholder": "Mediated Transaction",
+                  "title": "Transaction Type",
+                  "description": "Indicates the type of transaction; for example, \"Mediated Transaction.\""
+                },
+                "estateAgentSggNm": {
+                  "type": "string",
+                  "x-wrtn-placeholder": "Seoul Songpa-gu",
+                  "title": "Agent Location",
+                  "description": "Indicates the district where the real estate agent is located, e.g., \"Seoul Songpa-gu.\""
+                },
+                "excluUseAr": {
+                  "type": "string",
+                  "x-wrtn-placeholder": "83.15",
+                  "title": "Exclusive Use Area",
+                  "description": "Indicates the exclusive use area in square meters, e.g., \"83.15.\""
+                },
+                "floor": {
+                  "type": "string",
+                  "x-wrtn-placeholder": "3",
+                  "title": "Floor",
+                  "description": "Indicates the floor on which the transaction took place, e.g., \"3.\""
+                },
+                "jibun": {
+                  "type": "string",
+                  "x-wrtn-placeholder": "55-8",
+                  "title": "Lot Number (Jibun)",
+                  "description": "Indicates the lot number (Jibun), e.g., \"55-8.\""
+                },
+                "landCd": {
+                  "type": "string",
+                  "x-wrtn-placeholder": "1",
+                  "title": "Land Code",
+                  "description": "Indicates the land code, e.g., \"1.\""
+                },
+                "landLeaseholdGbn": {
+                  "type": "string",
+                  "x-wrtn-placeholder": "N",
+                  "title": "Land Leasehold Indicator",
+                  "description": "Indicates whether the land is leased; \"N\" for no."
+                },
+                "rgstDate": {
+                  "type": "string",
+                  "x-wrtn-placeholder": "24.10.02",
+                  "title": "Registration Date",
+                  "description": "Indicates the registration date, e.g., \"24.10.02.\""
+                },
+                "roadNm": {
+                  "type": "string",
+                  "x-wrtn-placeholder": "Dongnam-ro 23-gil",
+                  "title": "Road Name",
+                  "description": "Indicates the road name, e.g., \"Dongnam-ro 23-gil.\""
+                },
+                "roadNmBonbun": {
+                  "type": "string",
+                  "x-wrtn-placeholder": "00020",
+                  "title": "Road Main Number",
+                  "description": "Indicates the main number for the road, e.g., \"00020.\""
+                },
+                "roadNmBubun": {
+                  "type": "string",
+                  "x-wrtn-placeholder": "00000",
+                  "title": "Road Sub Number",
+                  "description": "Indicates the sub number for the road, e.g., \"00000.\""
+                },
+                "roadNmCd": {
+                  "type": "string",
+                  "x-wrtn-placeholder": "4169545",
+                  "title": "Road Code",
+                  "description": "Indicates the road code, e.g., \"4169545.\""
+                },
+                "roadNmSeq": {
+                  "type": "string",
+                  "x-wrtn-placeholder": "01",
+                  "title": "Road Sequence",
+                  "description": "Indicates the sequence number for the road, e.g., \"01.\""
+                },
+                "roadNmSggCd": {
+                  "type": "string",
+                  "x-wrtn-placeholder": "11710",
+                  "title": "Road District Code",
+                  "description": "Indicates the district code for the road, e.g., \"11710.\""
+                },
+                "roadNmbCd": {
+                  "type": "string",
+                  "x-wrtn-placeholder": "0",
+                  "title": "Road Number Code",
+                  "description": "Indicates the road number code, e.g., \"0.\""
+                },
+                "sggCd": {
+                  "type": "string",
+                  "x-wrtn-placeholder": "11710",
+                  "title": "District Code",
+                  "description": "Indicates the district code, e.g., \"11710.\""
+                },
+                "slerGbn": {
+                  "type": "string",
+                  "x-wrtn-placeholder": "Individual",
+                  "title": "Seller Type",
+                  "description": "Indicates the type of seller; for example, \"Individual.\""
+                },
+                "umdCd": {
+                  "type": "string",
+                  "x-wrtn-placeholder": "11200",
+                  "title": "Subdivision Code",
+                  "description": "Indicates the subdivision code, e.g., \"11200.\""
+                },
+                "umdNm": {
+                  "type": "string",
+                  "x-wrtn-placeholder": "Ogeum-dong",
+                  "title": "Subdivision Name",
+                  "description": "Indicates the name of the subdivision, e.g., \"Ogeum-dong.\""
+                }
+              }
             }
           },
-          "nextPage": {
-            "type": "boolean",
-            "title": "nextPage\n\nIndicates whether the next page exists"
+          "numOfRows": {
+            "type": "number",
+            "title": "Num Of Rows"
+          },
+          "pageNo": {
+            "type": "number",
+            "title": "Page Number"
+          },
+          "totalCount": {
+            "type": "number",
+            "title": "Total Count"
           }
         },
         "required": [
-          "data",
-          "nextPage"
-        ]
-      },
-      "IMOLIT.BuildingLentInfo": {
-        "type": "object",
-        "properties": {
-          "useOfRenewalRight": {
-            "type": "string",
-            "title": "Use of renewal request right"
-          },
-          "yearOfConstruction": {
-            "oneOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "number"
-              }
-            ],
-            "title": "Year of construction"
-          },
-          "typeOfContract": {
-            "type": "string",
-            "title": "Contract type"
-          },
-          "contractPeriod": {
-            "type": "string",
-            "title": "Contract period"
-          },
-          "year": {
-            "oneOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "number"
-              }
-            ],
-            "title": "year"
-          },
-          "legalDistrict": {
-            "type": "string",
-            "title": "Beopjeong-dong"
-          },
-          "depositAmount": {
-            "oneOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "number"
-              }
-            ],
-            "title": "Deposit amount\n\nSince it is based on Korean currency, it will be in ten thousand won in most cases."
-          },
-          "apartment": {
-            "type": "string",
-            "title": "Apartment"
-          },
-          "month": {
-            "oneOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "integer",
-                "minimum": 1,
-                "maximum": 12
-              }
-            ],
-            "title": "month"
-          },
-          "monthlyRentAmount": {
-            "oneOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "integer"
-              }
-            ],
-            "title": "Monthly rent\n\nSince it is based on Korean currency, it will be in ten thousand won in most cases."
-          },
-          "day": {
-            "oneOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "integer",
-                "minimum": 1,
-                "maximum": 31
-              }
-            ],
-            "title": "day"
-          },
-          "exclusiveArea": {
-            "oneOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "number"
-              }
-            ],
-            "title": "Exclusive area"
-          },
-          "previousContractDeposit": {
-            "oneOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "number"
-              }
-            ],
-            "title": "Previous contract deposit"
-          },
-          "previousContractMonthlyRent": {
-            "oneOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "number"
-              }
-            ],
-            "title": "Previous contract monthly rent"
-          },
-          "lotNumber": {
-            "oneOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "integer"
-              }
-            ],
-            "title": "Address"
-          },
-          "areaCode": {
-            "oneOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "number"
-              }
-            ],
-            "title": "area code"
-          },
-          "floor": {
-            "oneOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "integer"
-              }
-            ],
-            "title": "floor"
-          }
-        },
-        "required": [
-          "useOfRenewalRight",
-          "typeOfContract",
-          "contractPeriod",
-          "year",
-          "legalDistrict",
-          "depositAmount",
-          "apartment",
-          "month",
-          "monthlyRentAmount",
-          "day",
-          "exclusiveArea",
-          "previousContractDeposit",
-          "previousContractMonthlyRent",
-          "lotNumber",
-          "areaCode",
-          "floor"
+          "data"
         ]
       },
       "ILH.IGetLHLeaseInfoOutput": {
