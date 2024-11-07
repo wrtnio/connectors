@@ -791,6 +791,11 @@ export class SlackProvider {
       },
     });
 
+    if (res.data.ok === false) {
+      // Missing scope error
+      throw new Error(JSON.stringify(res.data));
+    }
+
     return res.data;
   }
 
