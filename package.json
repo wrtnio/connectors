@@ -94,7 +94,7 @@
     "@nestjs/config": "^3.3.0",
     "@nestjs/core": "^10.4.7",
     "@nestjs/platform-express": "^10.4.7",
-    "@nestjs/swagger": "^8.0.2",
+    "@nestjs/swagger": "^8.0.3",
     "@nestjs/testing": "^10.4.7",
     "@notionhq/client": "^2.2.15",
     "@samchon/openapi": "^1.1.2",
