@@ -112,7 +112,7 @@ export namespace ArxivSearchProvider {
    * @param xmlData xml 형식의 데이터
    * @returns xml 형식의 데이터를 json 형식으로 변환
    */
-  async function convertXmlToJson(xmlData: string): Promise<any> {
+  export async function convertXmlToJson(xmlData: string): Promise<any> {
     try {
       return new Promise((resolve, reject) => {
         parseString(xmlData, (error, result) => {
