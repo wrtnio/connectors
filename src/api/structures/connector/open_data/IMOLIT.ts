@@ -1,7 +1,6 @@
 import { JMESPath, Placeholder, Prerequisite } from "@wrtnio/decorators";
 import { tags } from "typia";
 
-import { StrictOmit } from "../../types/strictOmit";
 import { IOpenData } from "./IOpenData";
 
 /**
@@ -268,11 +267,101 @@ export namespace IMOLIT {
   }
 
   export type IgetRTMSDataSvcSHRentInput = IGetRTMSDataSvcAptRentInput;
-  export interface IgetRTMSDataSvcSHRentOutput extends ICommonPaginationOutput {
-    data: StrictOmit<
-      BuildingLentInfo,
-      "apartment" | "exclusiveArea" | "lotNumber" | "floor"
-    >[];
+  export interface IgetRTMSDataSvcSHRentOutput {
+    /**
+     * 계약 정보 아이템
+     */
+    data: {
+      /**
+       * @title 건축 연도
+       **/
+      buildYear?: string;
+
+      /**
+       * @title 계약 기간
+       **/
+      contractTerm?: string;
+
+      /**
+       * @title 계약 유형
+       **/
+      contractType?: string;
+
+      /**
+       * @title 계약 날짜 (일)
+       **/
+      dealDay: string;
+
+      /**
+       * @title 계약 날짜 (월)
+       **/
+      dealMonth: string;
+
+      /**
+       * @title 계약 날짜 (년)
+       **/
+      dealYear: string;
+
+      /**
+       * @title 보증금
+       **/
+      deposit: string;
+
+      /**
+       * @title 주택 유형
+       **/
+      houseType: string;
+
+      /**
+       * @title 월세
+       **/
+      monthlyRent: string;
+
+      /**
+       * @title 이전 보증금
+       **/
+      preDeposit?: string;
+
+      /**
+       * @title 이전 월세
+       **/
+      preMonthlyRent?: string;
+
+      /**
+       * @title 시군구 코드
+       **/
+      sggCd: string;
+
+      /**
+       * @title 총 층 면적
+       **/
+      totalFloorAr: string;
+
+      /**
+       * @title 읍면동 이름
+       **/
+      umdNm: string;
+
+      /**
+       * @title 지상권 사용 여부
+       **/
+      useRRRight?: string;
+    }[];
+
+    /**
+     * @title Num Of Rows
+     */
+    numOfRows?: number;
+
+    /**
+     * @title Page Number
+     */
+    pageNo?: number;
+
+    /**
+     * @title Total Count
+     */
+    totalCount?: number;
   }
 
   export type IGetRTMSDataSvcOffiRentInput = IGetRTMSDataSvcAptRentInput;

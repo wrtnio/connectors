@@ -52,46 +52,29 @@ export namespace OpenDataProvider {
     input: IMOLIT.IgetRTMSDataSvcSHRentInput,
   ): Promise<IMOLIT.IgetRTMSDataSvcSHRentOutput> {
     try {
-      const baseUrl = `http://openapi.molit.go.kr:8081/OpenAPI_ToolInstallPackage/service/rest/RTMSOBJSvc/getRTMSDataSvcSHRent`;
+      const baseUrl = `https://apis.data.go.kr/1613000/RTMSDataSvcSHRent/getRTMSDataSvcSHRent`;
       const serviceKey = `${ConnectorGlobal.env.OPEN_DATA_API_KEY}`;
-      const queryString = Object.entries({
-        ...input,
+      const queryString = createQueryParameter({
+        numOfRows: input.limit,
+        pageNo: input.page,
+        DEAL_YMD: input.DEAL_YMD,
+        LAWD_CD: input.LAWD_CD,
         serviceKey,
         _type: "json",
-      })
-        .map(([key, value]) => `${key}=${value}`)
-        .join("&");
+      });
 
-      const res = await axios.get(`${baseUrl}?${queryString}`);
-      const data = res.data.response.body.items
-        .item as IMOLIT.OriginalBuildingLentInfo[];
+      const url = `${baseUrl}?${queryString}` as const;
+      const res = await axios.get(url);
+      const jsonData = await convertXmlToJson(res.data);
+      const data =
+        jsonData.response.body.items.item instanceof Array
+          ? jsonData.response.body.items.item.map(convertAllPropertyToString)
+          : convertAllPropertyToString(jsonData.response.body.items.item);
 
-      const { response, nextPage } = getPagination(data, input);
-      return {
-        data: response.map((el) => {
-          const sh: IMOLIT.BuildingLentInfo = {
-            useOfRenewalRight: el.갱신요구권사용,
-            yearOfConstruction: el.건축년도,
-            typeOfContract: el.계약구분,
-            contractPeriod: el.계약기간,
-            year: el.년,
-            legalDistrict: el.법정동,
-            depositAmount: el.보증금액,
-            apartment: el.아파트,
-            month: el.월,
-            monthlyRentAmount: el.월세금액,
-            day: el.일,
-            exclusiveArea: el.전용면적,
-            previousContractDeposit: el.종전계약보증금,
-            previousContractMonthlyRent: el.종전계약월세,
-            lotNumber: el.지번,
-            areaCode: el.지역코드,
-            floor: el.층,
-          };
-          return sh;
-        }),
-        nextPage,
-      };
+      const numOfRows = jsonData.response.body.numOfRows;
+      const pageNo = jsonData.response.body.pageNo;
+      const totalCount = jsonData.response.body.totalCount;
+      return { data, numOfRows, pageNo, totalCount };
     } catch (error) {
       console.error(JSON.stringify(error));
       throw error;
@@ -105,25 +88,32 @@ export namespace OpenDataProvider {
       const baseUrl = `https://apis.data.go.kr/1613000/RTMSDataSvcOffiRent/getRTMSDataSvcOffiRent`;
       const serviceKey = `${ConnectorGlobal.env.OPEN_DATA_API_KEY}`;
       const queryString = Object.entries({
-        ...input,
+        numOfRows: input.limit,
+        pageNo: input.page,
+        DEAL_YMD: input.DEAL_YMD,
+        LAWD_CD: input.LAWD_CD,
         serviceKey,
         _type: "json",
       })
         .map(([key, value]) => `${key}=${value}`)
         .join("&");
 
-      const res = await axios.get(`${baseUrl}?${queryString}`);
+      const url = `${baseUrl}?${queryString}` as const;
+      const res = await axios.get(url);
       const jsonData = await convertXmlToJson(res.data);
-      const data = jsonData.response.body.items.item.map(
-        convertAllPropertyToString,
-      );
+      const data =
+        jsonData.response.body.items.item instanceof Array
+          ? jsonData.response.body.items.item.map(convertAllPropertyToString)
+          : convertAllPropertyToString(jsonData.response.body.items.item);
+
       const numOfRows = jsonData.response.body.numOfRows;
       const pageNo = jsonData.response.body.pageNo;
       const totalCount = jsonData.response.body.totalCount;
       return { data, numOfRows, pageNo, totalCount };
-    } catch (error) {
-      console.error(JSON.stringify(error));
-      throw error;
+    } catch (err) {
+      console.error((err as any).response.data);
+      console.error(JSON.stringify(err));
+      throw err;
     }
   }
 
@@ -135,6 +125,10 @@ export namespace OpenDataProvider {
       const serviceKey = `${ConnectorGlobal.env.OPEN_DATA_API_KEY}`;
       const queryString = createQueryParameter({
         ...input,
+        pageNo: input.page,
+        numOfRows: input.limit,
+        DEAL_YMD: input.DEAL_YMD,
+        LAWD_CD: input.LAWD_CD,
         serviceKey,
         type: "JSON",
       });
@@ -142,9 +136,11 @@ export namespace OpenDataProvider {
       const url = `${baseUrl}?${queryString}`;
       const res = await axios.get(url);
       const jsonData = await convertXmlToJson(res.data);
-      const data = jsonData.response.body.items.item.map(
-        convertAllPropertyToString,
-      );
+      const data =
+        jsonData.response.body.items.item instanceof Array
+          ? jsonData.response.body.items.item.map(convertAllPropertyToString)
+          : convertAllPropertyToString(jsonData.response.body.items.item);
+
       const numOfRows = jsonData.response.body.numOfRows;
       const pageNo = jsonData.response.body.pageNo;
       const totalCount = jsonData.response.body.totalCount;
