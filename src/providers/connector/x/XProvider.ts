@@ -28,23 +28,45 @@ export class XProvider {
     try {
       const accessToken = await this.refresh(input);
       const result: IX.IUserOutput[] = [];
-      for (const userName of input.userName) {
-        const user = await axios.get(
-          `https://api.x.com/2/users/by/username/${userName}`,
-          {
-            headers: {
-              Authorization: `Bearer ${accessToken}`,
-            },
+      const userPromises = input.userName.map(async (userName) => {
+        const res = await axios.get(`${userName}`, {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
           },
-        );
-        result.push({
-          id: user.data.data.id,
-          name: user.data.data.name,
-          userName: user.data.data.username,
         });
-      }
+        const user = await ConnectorGlobal.prisma.x_users.findFirst({
+          where: {
+            tweet_user_id: res.data.data.id,
+          },
+        });
 
-      return result;
+        if (user) {
+          return {
+            id: user.tweet_user_id,
+            name: user.name,
+            userName: user.userName,
+          };
+        } else {
+          const record = await ConnectorGlobal.prisma.x_users.create({
+            data: {
+              id: v4(),
+              tweet_user_id: res.data.data.id,
+              name: res.data.data.name,
+              userName: res.data.data.username,
+              created_at: new Date(),
+            },
+          });
+
+          return {
+            id: record.tweet_user_id,
+            name: record.name,
+            userName: record.userName,
+          };
+        }
+      });
+
+      const users = await Promise.all(userPromises);
+      return result.concat(users);
     } catch (err) {
       console.error(JSON.stringify(err));
       throw err;
@@ -54,26 +76,46 @@ export class XProvider {
   async getPreDefinedInfluencers(input: IX.ISecret): Promise<IX.IUserOutput[]> {
     try {
       const accessToken = await this.refresh(input);
-      const result: IX.IUserOutput[] = [];
-
-      // influencer's twitter username list
       const influencerList: string[] = ["hwchase17", "ilyasut", "miramurati"];
-      for (const userName of influencerList) {
-        const user = await axios.get(
-          `https://api.x.com/2/users/by/username/${userName}`,
-          {
-            headers: {
-              Authorization: `Bearer ${accessToken}`,
-            },
+      const result: IX.IUserOutput[] = [];
+      const userPromises = influencerList.map(async (userName) => {
+        const res = await axios.get(`${userName}`, {
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
           },
-        );
-        result.push({
-          id: user.data.data.id,
-          name: user.data.data.name,
-          userName: user.data.data.username,
         });
-      }
-      return result;
+        const influencer = await ConnectorGlobal.prisma.x_users.findFirst({
+          where: {
+            tweet_user_id: res.data.data.id,
+          },
+        });
+
+        if (influencer) {
+          return {
+            id: influencer.tweet_user_id,
+            name: influencer.name,
+            userName: influencer.userName,
+          };
+        } else {
+          const record = await ConnectorGlobal.prisma.x_users.create({
+            data: {
+              id: v4(),
+              tweet_user_id: res.data.data.id,
+              name: res.data.data.name,
+              userName: res.data.data.username,
+              created_at: new Date(),
+            },
+          });
+          return {
+            id: record.tweet_user_id,
+            name: record.name,
+            userName: record.userName,
+          };
+        }
+      });
+
+      const users = await Promise.all(userPromises);
+      return result.concat(users);
     } catch (err) {
       console.error(JSON.stringify(err));
       throw err;
@@ -372,14 +414,6 @@ export class XProvider {
     }
   }
 
-  /**
-   * 뉴스레터 시나리오
-   *
-   * 정해진 인플루언서들의 트윗을 가져와서 텍스트 파일로 만들어서 S3에 업로드 한 후 RAG로 요약한 뒤 GMAIL로 전송.
-   *
-   * getUser -> getUserTimelineTweets -> makeTxtFileForTweetAndUploadToS3 -> summarizeTweet -> sendEmail
-   */
-
   async refresh(input: IX.ISecret): Promise<string> {
     try {
       const refreshToken = await OAuthSecretProvider.getSecretValue(
@@ -401,7 +435,7 @@ export class XProvider {
       });
 
       /**
-       * Refresh Token이 일회용이므로 값 업데이트
+       * Update Refresh Token because it is disposable
        */
       if (typia.is<string & tags.Format<"uuid">>(input.secretKey)) {
         await OAuthSecretProvider.updateSecretValue(input.secretKey, {
@@ -411,7 +445,7 @@ export class XProvider {
       }
 
       /**
-       * 테스트 환경에서만 사용
+       * Only for test environment
        */
       if (process.env.NODE_ENV === "test") {
         await ConnectorGlobal.write({
