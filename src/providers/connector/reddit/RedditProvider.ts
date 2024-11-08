@@ -7,17 +7,22 @@ import { OAuthSecretProvider } from "../../internal/oauth_secret/OAuthSecretProv
 
 @Injectable()
 export class RedditProvider {
+  private readonly baseurl = "https://oauth.reddit.com";
+
   async getHotPosts(
     input: IReddit.IGetHotPostsInput,
   ): Promise<IReddit.IGetHotPostsOutput> {
     try {
-      const accessToken = await this.getAccessToken(input.secretKey);
-      const response = await axios.get("https://oauth.reddit.com/hot", {
+      const { secretKey, subreddit, ...rest } = input;
+      const accessToken = await this.getAccessToken(secretKey);
+      const queryParams = createQueryParameter(rest);
+      const url = `https://oauth.reddit.com${subreddit ? `/${subreddit}` : ""}/hot?${queryParams}`;
+      const response = await axios.get(url, {
         headers: {
           Authorization: `Bearer ${accessToken}`,
         },
       });
-      return response.data;
+      return response.data.data;
     } catch (err) {
       throw err;
     }
