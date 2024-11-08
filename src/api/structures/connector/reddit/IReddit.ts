@@ -15,10 +15,10 @@ export namespace IReddit {
 
   export interface Children {
     kind: string;
-    data: Child;
+    data: Post;
   }
 
-  export interface Child {
+  export interface Post {
     approved_at_utc: string | null;
     subreddit: string;
     selftext: string;
@@ -408,8 +408,8 @@ export namespace IReddit {
   }
 
   export interface IVoteInput extends IReddit.Secret {
-    id: string & tags.Format<"iri">; // 게시물 또는 댓글의 ID
-    dir: number & tags.Type<"int32"> & tags.Minimum<-1> & tags.Maximum<1>; // 투표 방향: 1(upvote), 0(no vote), -1(downvote)
+    id: string & tags.Format<"iri">;
+    dir: number & tags.Type<"int32"> & tags.Minimum<-1> & tags.Maximum<1>;
   }
 
   export interface IVoteOutput {
@@ -564,7 +564,7 @@ export namespace IReddit {
   }
 
   export interface ISavePostInput extends IReddit.Secret {
-    id: string & tags.Format<"iri">; // 저장할 게시물의 ID
+    id: string & tags.Format<"iri">;
   }
 
   export interface ISavePostOutput {
@@ -573,7 +573,7 @@ export namespace IReddit {
   }
 
   export interface IUnsavePostInput extends IReddit.Secret {
-    id: string & tags.Format<"iri">; // 삭제할 저장된 게시물의 ID
+    id: string & tags.Format<"iri">;
   }
 
   export interface IUnsavePostOutput {
