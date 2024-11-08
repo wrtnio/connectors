@@ -1,7 +1,10 @@
 import { tags } from "typia";
+import { ICommon } from "../common/ISecretValue";
 
 export namespace IReddit {
-  export interface IGetHotPostsInput {
+  export type Secret = ICommon.ISecret<"reddit", []>;
+
+  export interface IGetHotPostsInput extends IReddit.Secret {
     subreddit: string & tags.Format<"iri">;
     limit: number & tags.Type<"int32"> & tags.Minimum<1>;
   }
@@ -14,7 +17,7 @@ export namespace IReddit {
     }>;
   }
 
-  export interface IGetNewPostsInput {
+  export interface IGetNewPostsInput extends IReddit.Secret {
     subreddit: string & tags.Format<"iri">;
     limit?: number & tags.Type<"int32"> & tags.Minimum<1>;
   }
@@ -27,7 +30,7 @@ export namespace IReddit {
     }>;
   }
 
-  export interface IGetTopPostsInput {
+  export interface IGetTopPostsInput extends IReddit.Secret {
     subreddit: string & tags.Format<"iri">;
     limit?: number & tags.Type<"int32"> & tags.Minimum<1>;
     time_filter?: "all" | "day" | "hour" | "month" | "week" | "year";
@@ -41,7 +44,7 @@ export namespace IReddit {
     }>;
   }
 
-  export interface IVoteInput {
+  export interface IVoteInput extends IReddit.Secret {
     id: string & tags.Format<"iri">; // 게시물 또는 댓글의 ID
     dir: number & tags.Type<"int32"> & tags.Minimum<-1> & tags.Maximum<1>; // 투표 방향: 1(upvote), 0(no vote), -1(downvote)
   }
@@ -51,7 +54,7 @@ export namespace IReddit {
     message?: string;
   }
 
-  export interface IGetCommentsInput {
+  export interface IGetCommentsInput extends IReddit.Secret {
     subreddit: string & tags.Format<"iri">;
     article: string & tags.Format<"iri">;
   }
@@ -70,7 +73,7 @@ export namespace IReddit {
     }>;
   }
 
-  export interface IGetUserAboutInput {
+  export interface IGetUserAboutInput extends IReddit.Secret {
     username: string & tags.Format<"iri">;
   }
 
@@ -80,7 +83,7 @@ export namespace IReddit {
     created_utc: number;
   }
 
-  export interface IGetUserSubmittedInput {
+  export interface IGetUserSubmittedInput extends IReddit.Secret {
     username: string & tags.Format<"iri">;
     limit?: number & tags.Type<"int32"> & tags.Minimum<1>;
   }
@@ -93,7 +96,7 @@ export namespace IReddit {
     }>;
   }
 
-  export interface IGetUserCommentsInput {
+  export interface IGetUserCommentsInput extends IReddit.Secret {
     username: string & tags.Format<"iri">;
     limit?: number & tags.Type<"int32"> & tags.Minimum<1>;
   }
@@ -106,7 +109,7 @@ export namespace IReddit {
     }>;
   }
 
-  export interface ISearchSubredditsInput {
+  export interface ISearchSubredditsInput extends IReddit.Secret {
     query: string;
     limit?: number & tags.Type<"int32"> & tags.Minimum<1>;
   }
@@ -119,7 +122,7 @@ export namespace IReddit {
     }>;
   }
 
-  export interface IGetSubredditAboutInput {
+  export interface IGetSubredditAboutInput extends IReddit.Secret {
     subreddit: string & tags.Format<"iri">;
   }
 
@@ -137,7 +140,7 @@ export namespace IReddit {
     }>;
   }
 
-  export interface IGetBestContentInput {
+  export interface IGetBestContentInput extends IReddit.Secret {
     /**
      * fullname of a thing
      *
@@ -197,7 +200,7 @@ export namespace IReddit {
     }>;
   }
 
-  export interface ISavePostInput {
+  export interface ISavePostInput extends IReddit.Secret {
     id: string & tags.Format<"iri">; // 저장할 게시물의 ID
   }
 
@@ -206,7 +209,7 @@ export namespace IReddit {
     message?: string;
   }
 
-  export interface IUnsavePostInput {
+  export interface IUnsavePostInput extends IReddit.Secret {
     id: string & tags.Format<"iri">; // 삭제할 저장된 게시물의 ID
   }
 
