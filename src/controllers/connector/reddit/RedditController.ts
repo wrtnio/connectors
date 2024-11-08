@@ -78,8 +78,10 @@ export class RedditController {
   }
 
   @TypedRoute.Post("get-popular-subreddits")
-  async getPopularSubreddits(): Promise<IReddit.IGetPopularSubredditsOutput> {
-    return this.redditProvider.getPopularSubreddits();
+  async getPopularSubreddits(
+    @TypedBody() input: IReddit.Secret,
+  ): Promise<IReddit.IGetPopularSubredditsOutput> {
+    return this.redditProvider.getPopularSubreddits(input);
   }
 
   @TypedRoute.Post("get-best-content")
@@ -90,8 +92,10 @@ export class RedditController {
   }
 
   @TypedRoute.Post("get-all-top-content")
-  async getAllTopContent(): Promise<IReddit.IGetAllTopContentOutput> {
-    return this.redditProvider.getAllTopContent();
+  async getAllTopContent(
+    @TypedBody() input: IReddit.Secret,
+  ): Promise<IReddit.IGetAllTopContentOutput> {
+    return this.redditProvider.getAllTopContent(input);
   }
 
   @TypedRoute.Post("save-post")
