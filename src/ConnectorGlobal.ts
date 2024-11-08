@@ -4,8 +4,11 @@ import dotenvExpand from "dotenv-expand";
 import { Singleton } from "tstl";
 import typia, { tags } from "typia";
 import { AwsProvider } from "./providers/connector/aws/AwsProvider";
+import { PrismaClient } from "@prisma/client";
 
 export class ConnectorGlobal {
+  public static readonly prisma: PrismaClient = new PrismaClient();
+
   /**
    * 테스트 환경에서 사용하기 위해 만든 것으로, 평소에는 사용하지 않는다.
    *
