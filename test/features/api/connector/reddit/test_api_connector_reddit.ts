@@ -1,18 +1,32 @@
 import CApi from "@wrtn/connector-api/lib/index";
+import assert from "assert";
 import typia from "typia";
 import { ConnectorGlobal } from "../../../../../src/ConnectorGlobal";
 
 export const test_api_connector_reddit_get_hot_posts = async (
   connection: CApi.IConnection,
 ) => {
-  const res = await CApi.functional.connector.reddit.get_hot_posts.getHotPosts(
-    connection,
-    {
-      limit: 10,
-      subreddit: "/r/programming",
-      secretKey: ConnectorGlobal.env.REDDIT_TEST_SECRET,
-    },
-  );
+  const firstPage =
+    await CApi.functional.connector.reddit.get_hot_posts.getHotPosts(
+      connection,
+      {
+        limit: 1,
+        subreddit: "r/programming",
+        secretKey: ConnectorGlobal.env.REDDIT_TEST_SECRET,
+      },
+    );
+  typia.validateEquals(firstPage);
 
-  typia.validateEquals(res);
+  const secondPage =
+    await CApi.functional.connector.reddit.get_hot_posts.getHotPosts(
+      connection,
+      {
+        limit: 1,
+        subreddit: "r/programming",
+        ...(firstPage.after && { after: firstPage.after }), // 다음 페이지가 존재하는지를 확인한다.
+        secretKey: ConnectorGlobal.env.REDDIT_TEST_SECRET,
+      },
+    );
+  typia.validateEquals(secondPage);
+  assert.notDeepStrictEqual(firstPage, secondPage);
 };

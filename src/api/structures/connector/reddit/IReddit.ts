@@ -103,7 +103,7 @@ export namespace IReddit {
     /**
      * @title The subreddit name
      **/
-    subreddit?: `r/${string}`;
+    subreddit?: string;
 
     /**
      * @title The text of the post
