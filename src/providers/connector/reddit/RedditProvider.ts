@@ -1,7 +1,9 @@
 import { Injectable } from "@nestjs/common";
 import { IReddit } from "@wrtn/connector-api/lib/structures/connector/reddit/IReddit";
 import axios from "axios";
+import { ConnectorGlobal } from "../../../ConnectorGlobal";
 import { createQueryParameter } from "../../../utils/CreateQueryParameter";
+import { OAuthSecretProvider } from "../../internal/oauth_secret/OAuthSecretProvider";
 
 @Injectable()
 export class RedditProvider {
@@ -136,5 +138,36 @@ export class RedditProvider {
       input,
     );
     return response.data;
+  }
+
+  private async getAccessToken(secretKey: string): Promise<string> {
+    const refreshToken = await OAuthSecretProvider.getSecretValue(secretKey);
+    const acessToken = await this.refresh(refreshToken);
+    return acessToken;
+  }
+
+  private async refresh(refreshToken: string): Promise<string> {
+    const clientId = ConnectorGlobal.env.REDDIT_CLIENT_ID;
+    const clientSecret = ConnectorGlobal.env.REDDIT_CLIENT_SECRET;
+    const Basic = Buffer.from(`${clientId}:${clientSecret}`, "utf8").toString(
+      "base64",
+    );
+
+    const url = `https://www.reddit.com/api/v1/access_token` as const;
+    const res = await axios.post(
+      url,
+      {
+        grant_type: "refresh_token",
+        refresh_token: refreshToken,
+        redirect_url: "http://localhost:3000",
+      },
+      {
+        headers: {
+          Authorization: `Basic ${Basic}`,
+        },
+      },
+    );
+
+    return res.data.access_token;
   }
 }
