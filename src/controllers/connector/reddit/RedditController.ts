@@ -3,7 +3,7 @@ import { Controller } from "@nestjs/common";
 import { IReddit } from "@wrtn/connector-api/lib/structures/connector/reddit/IReddit";
 import { RedditProvider } from "../../../providers/connector/reddit/RedditProvider";
 
-@Controller("reddit")
+@Controller("connector/reddit")
 export class RedditController {
   constructor(private readonly redditProvider: RedditProvider) {}
 
