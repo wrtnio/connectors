@@ -16,7 +16,7 @@ export namespace IReddit {
     /**
      * @title The subreddit to fetch posts from
      **/
-    subreddit?: string;
+    subreddit?: `r/${string}`;
 
     /**
      * @title The number of posts to fetch
@@ -45,7 +45,7 @@ export namespace IReddit {
     /**
      * @title The subreddit name
      **/
-    subreddit?: string;
+    subreddit?: `r/${string}`;
 
     /**
      * @title The text of the post
@@ -978,7 +978,7 @@ export namespace IReddit {
     /**
      * @title The subreddit name
      **/
-    subreddit?: string;
+    subreddit?: `r/${string}`;
 
     /**
      * @title The text of the post
@@ -1579,7 +1579,7 @@ export namespace IReddit {
     /**
      * @title The subreddit to fetch posts from
      **/
-    subreddit?: string;
+    subreddit?: `r/${string}`;
 
     /**
      * @title The number of posts to fetch
@@ -1613,7 +1613,7 @@ export namespace IReddit {
     /**
      * @title The subreddit to fetch posts from
      **/
-    subreddit?: string;
+    subreddit?: `r/${string}`;
 
     /**
      * @title The number of posts to fetch
@@ -1676,7 +1676,7 @@ export namespace IReddit {
     /**
      * @title The subreddit of the post
      **/
-    subreddit?: string;
+    subreddit?: `r/${string}`;
 
     /**
      * @title The article ID of the post
@@ -1860,7 +1860,7 @@ export namespace IReddit {
     /**
      * @title The subreddit to fetch information for
      **/
-    subreddit?: string;
+    subreddit?: `r/${string}`;
   }
 
   export interface IGetSubredditAboutOutput {
