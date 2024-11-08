@@ -63,6 +63,18 @@ export namespace ConnectorGlobal {
     CONNECTOR_API_PORT: `${number}`;
     CONNECTOR_SWAGGER_PORT: `${number}`;
 
+    /* -----------------------------------------------------------
+      CONNECTOR SYSTEM
+    ----------------------------------------------------------- */
+    // DATABASE
+    CONNECTOR_POSTGRES_HOST: string;
+    CONNECTOR_POSTGRES_PORT: `${number}`;
+    CONNECTOR_POSTGRES_DATABASE: string;
+    CONNECTOR_POSTGRES_SCHEMA: string;
+    CONNECTOR_POSTGRES_USERNAME: string;
+    CONNECTOR_POSTGRES_PASSWORD: string;
+    CONNECTOR_POSTGRES_URL: string;
+
     //----
     // VENDORS
     //----
