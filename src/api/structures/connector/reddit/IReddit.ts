@@ -1,4 +1,5 @@
 import { tags } from "typia";
+import { Limit } from "../../types/Limit";
 import { ICommon } from "../common/ISecretValue";
 
 export namespace IReddit {
@@ -7,8 +8,70 @@ export namespace IReddit {
     ["account", "history", "identity", "mysubreddits", "read", "report", "save"]
   >;
 
-  export interface IGetHotPostsInput extends IReddit.Secret {
+  /**
+   * When the value of the 'after' parameter that came in response to the previous request is substituted,
+   * it is a parameter for page selection that inquires before and after the value.
+   * If omitted, the first page will be viewed unconditionally.
+   *
+   * The prefix t1_, t2_, t3_, t4_, t5_, t6_ attached to the beginning of the value has the following meaning.
+   * - t1_ : Comment
+   * - t2_ : Account
+   * - t3_ : Link
+   * - t4_ : Message
+   * - t5_ : Subreddit
+   * - t6_ : Award
+   *
+   * @title FullNames
+   */
+  export type FullNames = `t${1 | 2 | 3 | 4 | 5 | 6}_${string}`;
+
+  export interface ICommonPaginationInput {
     /**
+     * @title The number of posts to fetch
+     **/
+    limit: Limit<1, 100, 25>;
+
+    /**
+     * When the value of the 'after' parameter that came in response to the previous request is substituted,
+     * it is a parameter for page selection that inquires before and after the value.
+     * If omitted, the first page will be viewed unconditionally.
+     *
+     * The prefix t1_, t2_, t3_, t4_, t5_, t6_ attached to the beginning of the value has the following meaning.
+     * - t1_ : Comment
+     * - t2_ : Account
+     * - t3_ : Link
+     * - t4_ : Message
+     * - t5_ : Subreddit
+     * - t6_ : Award
+     *
+     * @title after
+     */
+    after?: FullNames;
+
+    /**
+     * When the value of the 'after' parameter that came in response to the previous request is substituted,
+     * it is a parameter for page selection that inquires before and after the value.
+     * If omitted, the first page will be viewed unconditionally.
+     *
+     * The prefix t1_, t2_, t3_, t4_, t5_, t6_ attached to the beginning of the value has the following meaning.
+     * - t1_ : Comment
+     * - t2_ : Account
+     * - t3_ : Link
+     * - t4_ : Message
+     * - t5_ : Subreddit
+     * - t6_ : Award
+     *
+     * @title before
+     */
+    before?: FullNames;
+  }
+
+  export interface IGetHotPostsInput
+    extends IReddit.ICommonPaginationInput,
+      IReddit.Secret {
+    /**
+     * one of (GLOBAL, US, AR, AU, BG, CA, CL, CO, HR, CZ, FI, FR, DE, GR, HU, IS, IN, IE, IT, JP, MY, MX, NZ, PH, PL, PT, PR, RO, RS, SG, ES, SE, TW, TH, TR, GB, US_WA, US_DE, US_DC, US_WI, US_WV, US_HI, US_FL, US_WY, US_NH, US_NJ, US_NM, US_TX, US_LA, US_NC, US_ND, US_NE, US_TN, US_NY, US_PA, US_CA, US_NV, US_VA, US_CO, US_AK, US_AL, US_AR, US_VT, US_IL, US_GA, US_IN, US_IA, US_OK, US_AZ, US_ID, US_CT, US_ME, US_MD, US_MA, US_OH, US_UT, US_MO, US_MN, US_MI, US_RI, US_KS, US_MT, US_MS, US_SC, US_KY, US_OR, US_SD)
+     *
      * @title Optional parameter
      **/
     g?: string;
@@ -17,11 +80,6 @@ export namespace IReddit {
      * @title The subreddit to fetch posts from
      **/
     subreddit?: `r/${string}`;
-
-    /**
-     * @title The number of posts to fetch
-     **/
-    limit: number & tags.Type<"int32"> & tags.Minimum<1> & tags.Minimum<33>;
   }
 
   export interface Children {
@@ -1547,7 +1605,7 @@ export namespace IReddit {
     /**
      * @title The after cursor for pagination
      **/
-    after: string | null;
+    after: FullNames | null;
 
     /**
      * @title The number of items returned
