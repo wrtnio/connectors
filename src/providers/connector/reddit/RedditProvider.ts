@@ -45,12 +45,13 @@ export class RedditProvider {
     const accessToken = await this.getAccessToken(secretKey);
     const queryParams = createQueryParameter(rest);
     const url = `https://oauth.reddit.com${subreddit ? `/${subreddit}` : ""}/new?${queryParams}`;
-    const response = await axios.post(url, input, {
+    const response = await axios.get(url, {
       headers: {
         Authorization: `Bearer ${accessToken}`,
       },
     });
-    return response.data;
+
+    return response.data.data;
   }
 
   async getTopPosts(
@@ -60,12 +61,12 @@ export class RedditProvider {
     const accessToken = await this.getAccessToken(secretKey);
     const queryParams = createQueryParameter(rest);
     const url = `https://oauth.reddit.com${subreddit ? `/${subreddit}` : ""}/top?${queryParams}`;
-    const response = await axios.post(url, input, {
+    const response = await axios.get(url, {
       headers: {
         Authorization: `Bearer ${accessToken}`,
       },
     });
-    return response.data;
+    return response.data.data;
   }
 
   async getComments(
@@ -80,7 +81,7 @@ export class RedditProvider {
         Authorization: `Bearer ${accessToken}`,
       },
     });
-    return response.data;
+    return response.data.data;
   }
 
   async getUserAbout(
