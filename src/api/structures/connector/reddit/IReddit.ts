@@ -1630,7 +1630,7 @@ export namespace IReddit {
     /**
      * @title The before cursor for pagination
      **/
-    before: string | null;
+    before: FullNames | null;
   }
 
   export interface IGetNewPostsInput
@@ -1671,19 +1671,16 @@ export namespace IReddit {
     /**
      * @title The before cursor for pagination
      **/
-    before: string | null;
+    before: FullNames | null;
   }
 
-  export interface IGetTopPostsInput extends IReddit.Secret {
+  export interface IGetTopPostsInput
+    extends IReddit.ICommonPaginationInput,
+      IReddit.Secret {
     /**
      * @title The subreddit to fetch posts from
      **/
     subreddit?: `r/${string}`;
-
-    /**
-     * @title The number of posts to fetch
-     **/
-    limit?: number & tags.Type<"int32"> & tags.Minimum<1>;
 
     /**
      * @title The time filter for the posts
@@ -1693,24 +1690,34 @@ export namespace IReddit {
 
   export interface IGetTopPostsOutput {
     /**
-     * @title The list of top posts
+     * @title The after cursor for pagination
      **/
-    posts: Array<{
-      /**
-       * @title The title of the post
-       **/
-      title: string;
+    after: FullNames | null;
 
-      /**
-       * @title The URL of the post
-       **/
-      url: string;
+    /**
+     * @title The number of items returned
+     **/
+    dist: number;
 
-      /**
-       * @title The score of the post
-       **/
-      score: number;
-    }>;
+    /**
+     * @title The modhash for the request
+     **/
+    modhash: string | null;
+
+    /**
+     * @title The geographical filter applied
+     **/
+    geo_filter: string | null;
+
+    /**
+     * @title The list of children posts
+     **/
+    children: Children[];
+
+    /**
+     * @title The before cursor for pagination
+     **/
+    before: FullNames | null;
   }
 
   export interface IVoteInput extends IReddit.Secret {
