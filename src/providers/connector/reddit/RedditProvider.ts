@@ -244,10 +244,11 @@ export class RedditProvider {
       {
         grant_type: "refresh_token",
         refresh_token: refreshToken,
-        redirect_url: "http://localhost:3000",
+        redirect_uri: "http://localhost:3000",
       },
       {
         headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
           Authorization: `Basic ${Basic}`,
         },
       },
