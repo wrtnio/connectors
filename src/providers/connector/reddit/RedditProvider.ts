@@ -10,30 +10,26 @@ export class RedditProvider {
   async getHotPosts(
     input: IReddit.IGetHotPostsInput,
   ): Promise<IReddit.IGetHotPostsOutput> {
-    const accessToken = await this.getAccessToken(input.secretKey);
-    const response = await axios.post(
-      "https://www.reddit.com/api/v1/get-hot-posts",
-      input,
-      {
+    try {
+      const accessToken = await this.getAccessToken(input.secretKey);
+      const response = await axios.get("https://oauth.reddit.com/hot", {
         headers: {
           Authorization: `Bearer ${accessToken}`,
         },
-      },
-    );
-    return response.data;
+      });
+      return response.data;
+    } catch (err) {
+      throw err;
+    }
   }
 
   async vote(input: IReddit.IVoteInput): Promise<IReddit.IVoteOutput> {
     const accessToken = await this.getAccessToken(input.secretKey);
-    const response = await axios.post(
-      "https://www.reddit.com/api/vote",
-      input,
-      {
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-        },
+    const response = await axios.post("https://oauth.reddit.com/vote", input, {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
       },
-    );
+    });
     return response.data;
   }
 
@@ -42,7 +38,7 @@ export class RedditProvider {
   ): Promise<IReddit.IGetNewPostsOutput> {
     const accessToken = await this.getAccessToken(input.secretKey);
     const response = await axios.post(
-      "https://www.reddit.com/r/" + input.subreddit + "/new",
+      "https://oauth.reddit.com/r/" + input.subreddit + "/new",
       input,
       {
         headers: {
@@ -58,7 +54,7 @@ export class RedditProvider {
   ): Promise<IReddit.IGetTopPostsOutput> {
     const accessToken = await this.getAccessToken(input.secretKey);
     const response = await axios.post(
-      "https://www.reddit.com/r/" + input.subreddit + "/top",
+      "https://oauth.reddit.com/r/" + input.subreddit + "/top",
       input,
       {
         headers: {
@@ -74,7 +70,7 @@ export class RedditProvider {
   ): Promise<IReddit.IGetCommentsOutput> {
     const accessToken = await this.getAccessToken(input.secretKey);
     const response = await axios.post(
-      `https://www.reddit.com/r/${input.subreddit}/comments/${input.article}`,
+      `https://oauth.reddit.com/r/${input.subreddit}/comments/${input.article}`,
       input,
       {
         headers: {
@@ -90,7 +86,7 @@ export class RedditProvider {
   ): Promise<IReddit.IGetUserAboutOutput> {
     const accessToken = await this.getAccessToken(input.secretKey);
     const response = await axios.post(
-      `https://www.reddit.com/user/${input.username}/about`,
+      `https://oauth.reddit.com/user/${input.username}/about`,
       input,
       {
         headers: {
@@ -106,7 +102,7 @@ export class RedditProvider {
   ): Promise<IReddit.IGetUserSubmittedOutput> {
     const accessToken = await this.getAccessToken(input.secretKey);
     const response = await axios.post(
-      `https://www.reddit.com/user/${input.username}/submitted`,
+      `https://oauth.reddit.com/user/${input.username}/submitted`,
       input,
       {
         headers: {
@@ -122,7 +118,7 @@ export class RedditProvider {
   ): Promise<IReddit.IGetUserCommentsOutput> {
     const accessToken = await this.getAccessToken(input.secretKey);
     const response = await axios.post(
-      `https://www.reddit.com/user/${input.username}/comments`,
+      `https://oauth.reddit.com/user/${input.username}/comments`,
       input,
       {
         headers: {
@@ -138,7 +134,7 @@ export class RedditProvider {
   ): Promise<IReddit.ISearchSubredditsOutput> {
     const accessToken = await this.getAccessToken(input.secretKey);
     const response = await axios.post(
-      "https://www.reddit.com/subreddits/search",
+      "https://oauth.reddit.com/subreddits/search",
       input,
       {
         headers: {
@@ -154,7 +150,7 @@ export class RedditProvider {
   ): Promise<IReddit.IGetSubredditAboutOutput> {
     const accessToken = await this.getAccessToken(input.secretKey);
     const response = await axios.post(
-      `https://www.reddit.com/r/${input.subreddit}/about`,
+      `https://oauth.reddit.com/r/${input.subreddit}/about`,
       input,
       {
         headers: {
@@ -170,7 +166,7 @@ export class RedditProvider {
   ): Promise<IReddit.IGetPopularSubredditsOutput> {
     const accessToken = await this.getAccessToken(input.secretKey);
     const response = await axios.post(
-      "https://www.reddit.com/subreddits/popular",
+      "https://oauth.reddit.com/subreddits/popular",
       {},
       {
         headers: {
@@ -185,7 +181,7 @@ export class RedditProvider {
     input: IReddit.IGetBestContentInput,
   ): Promise<IReddit.IGetBestContentOutput> {
     const queryParameter = createQueryParameter(input);
-    const url = `https://www.reddit.com/best/${queryParameter}`;
+    const url = `https://oauth.reddit.com/best/${queryParameter}`;
     const accessToken = await this.getAccessToken(input.secretKey);
     const response = await axios.get(url, {
       headers: {
@@ -200,7 +196,7 @@ export class RedditProvider {
   ): Promise<IReddit.IGetAllTopContentOutput> {
     const accessToken = await this.getAccessToken(input.secretKey);
     const response = await axios.post(
-      "https://www.reddit.com/r/all/top",
+      "https://oauth.reddit.com/r/all/top",
       {},
       {
         headers: {
@@ -215,15 +211,11 @@ export class RedditProvider {
     input: IReddit.ISavePostInput,
   ): Promise<IReddit.ISavePostOutput> {
     const accessToken = await this.getAccessToken(input.secretKey);
-    const response = await axios.post(
-      "https://www.reddit.com/api/save",
-      input,
-      {
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-        },
+    const response = await axios.post("https://oauth.reddit.com/save", input, {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
       },
-    );
+    });
     return response.data;
   }
 
@@ -232,7 +224,7 @@ export class RedditProvider {
   ): Promise<IReddit.IUnsavePostOutput> {
     const accessToken = await this.getAccessToken(input.secretKey);
     const response = await axios.post(
-      "https://www.reddit.com/api/unsave",
+      "https://oauth.reddit.com/unsave",
       input,
       {
         headers: {
