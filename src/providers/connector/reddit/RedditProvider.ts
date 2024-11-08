@@ -25,7 +25,15 @@ export class RedditProvider {
 
   async vote(input: IReddit.IVoteInput): Promise<IReddit.IVoteOutput> {
     const accessToken = await this.getAccessToken(input.secretKey);
-    const response = await axios.post("https://www.reddit.com/api/vote", input);
+    const response = await axios.post(
+      "https://www.reddit.com/api/vote",
+      input,
+      {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      },
+    );
     return response.data;
   }
 
@@ -36,6 +44,11 @@ export class RedditProvider {
     const response = await axios.post(
       "https://www.reddit.com/r/" + input.subreddit + "/new",
       input,
+      {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      },
     );
     return response.data;
   }
@@ -95,6 +108,11 @@ export class RedditProvider {
     const response = await axios.post(
       `https://www.reddit.com/user/${input.username}/submitted`,
       input,
+      {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      },
     );
     return response.data;
   }
