@@ -10,7 +10,7 @@ export namespace IReddit {
   export interface IGetHotPostsInput extends IReddit.Secret {
     g?: string;
     subreddit?: string;
-    limit: number & tags.Type<"int32"> & tags.Minimum<1>;
+    limit: number & tags.Type<"int32"> & tags.Minimum<1> & tags.Maximum<33>; // 실제로 33까지인지는 알 수 없으나 전체 수가 33까지만 조회되어 수정.
   }
 
   export interface Children {
@@ -381,7 +381,7 @@ export namespace IReddit {
   }
 
   export interface IGetNewPostsInput extends IReddit.Secret {
-    subreddit: string;
+    subreddit?: string;
     limit?: number & tags.Type<"int32"> & tags.Minimum<1>;
   }
 
@@ -394,7 +394,7 @@ export namespace IReddit {
   }
 
   export interface IGetTopPostsInput extends IReddit.Secret {
-    subreddit: string;
+    subreddit?: string;
     limit?: number & tags.Type<"int32"> & tags.Minimum<1>;
     time_filter?: "all" | "day" | "hour" | "month" | "week" | "year";
   }
@@ -418,7 +418,7 @@ export namespace IReddit {
   }
 
   export interface IGetCommentsInput extends IReddit.Secret {
-    subreddit: string;
+    subreddit?: string;
     article: string & tags.Format<"iri">;
   }
 

@@ -41,48 +41,45 @@ export class RedditProvider {
   async getNewPosts(
     input: IReddit.IGetNewPostsInput,
   ): Promise<IReddit.IGetNewPostsOutput> {
-    const accessToken = await this.getAccessToken(input.secretKey);
-    const response = await axios.post(
-      "https://oauth.reddit.com/r/" + input.subreddit + "/new",
-      input,
-      {
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-        },
+    const { secretKey, subreddit, ...rest } = input;
+    const accessToken = await this.getAccessToken(secretKey);
+    const queryParams = createQueryParameter(rest);
+    const url = `https://oauth.reddit.com${subreddit ? `/${subreddit}` : ""}/new?${queryParams}`;
+    const response = await axios.post(url, input, {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
       },
-    );
+    });
     return response.data;
   }
 
   async getTopPosts(
     input: IReddit.IGetTopPostsInput,
   ): Promise<IReddit.IGetTopPostsOutput> {
-    const accessToken = await this.getAccessToken(input.secretKey);
-    const response = await axios.post(
-      "https://oauth.reddit.com/r/" + input.subreddit + "/top",
-      input,
-      {
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-        },
+    const { secretKey, subreddit, ...rest } = input;
+    const accessToken = await this.getAccessToken(secretKey);
+    const queryParams = createQueryParameter(rest);
+    const url = `https://oauth.reddit.com${subreddit ? `/${subreddit}` : ""}/top?${queryParams}`;
+    const response = await axios.post(url, input, {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
       },
-    );
+    });
     return response.data;
   }
 
   async getComments(
     input: IReddit.IGetCommentsInput,
   ): Promise<IReddit.IGetCommentsOutput> {
-    const accessToken = await this.getAccessToken(input.secretKey);
-    const response = await axios.post(
-      `https://oauth.reddit.com/r/${input.subreddit}/comments/${input.article}`,
-      input,
-      {
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-        },
+    const { secretKey, subreddit, article, ...rest } = input;
+    const accessToken = await this.getAccessToken(secretKey);
+    const queryParams = createQueryParameter(rest);
+    const url = `https://oauth.reddit.com${subreddit ? `/${subreddit}` : ""}/comments/${article}?${queryParams}`;
+    const response = await axios.post(url, input, {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
       },
-    );
+    });
     return response.data;
   }
 
