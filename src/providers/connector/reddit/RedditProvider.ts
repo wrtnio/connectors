@@ -150,16 +150,14 @@ export class RedditProvider {
     input: IReddit.IGetSubredditAboutInput,
   ): Promise<IReddit.IGetSubredditAboutOutput> {
     const accessToken = await this.getAccessToken(input.secretKey);
-    const response = await axios.post(
-      `https://oauth.reddit.com/r/${input.subreddit}/about`,
-      input,
-      {
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-        },
+    const url = `https://oauth.reddit.com/${input.subreddit}/about`;
+    const response = await axios.get(url, {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
       },
-    );
-    return response.data;
+    });
+
+    return response.data.data;
   }
 
   async getPopularSubreddits(
@@ -199,34 +197,6 @@ export class RedditProvider {
     const response = await axios.post(
       "https://oauth.reddit.com/r/all/top",
       {},
-      {
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-        },
-      },
-    );
-    return response.data;
-  }
-
-  async savePost(
-    input: IReddit.ISavePostInput,
-  ): Promise<IReddit.ISavePostOutput> {
-    const accessToken = await this.getAccessToken(input.secretKey);
-    const response = await axios.post("https://oauth.reddit.com/save", input, {
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-      },
-    });
-    return response.data;
-  }
-
-  async unsavePost(
-    input: IReddit.IUnsavePostInput,
-  ): Promise<IReddit.IUnsavePostOutput> {
-    const accessToken = await this.getAccessToken(input.secretKey);
-    const response = await axios.post(
-      "https://oauth.reddit.com/unsave",
-      input,
       {
         headers: {
           Authorization: `Bearer ${accessToken}`,

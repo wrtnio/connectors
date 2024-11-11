@@ -1801,7 +1801,7 @@ export namespace IReddit {
         /**
          * @title header_img
          */
-        header_img?: null;
+        header_img?: (string & tags.Format<"iri">) | null;
 
         /**
          * @title title
@@ -2931,10 +2931,15 @@ export namespace IReddit {
     /**
      * @title The subreddit to fetch information for
      **/
-    subreddit?: `r/${string}`;
+    subreddit: `r/${string}`;
   }
 
-  export interface IGetSubredditAboutOutput {
+  export interface IGetSubredditAboutOutput extends SubReddit {
+    /**
+     * @title header_img
+     */
+    header_img?: (string & tags.Format<"iri">) | null;
+
     /**
      * @title The name of the subreddit
      **/
@@ -2949,11 +2954,6 @@ export namespace IReddit {
      * @title The number of subscribers
      **/
     subscribers: number;
-
-    /**
-     * @title The rules of the subreddit
-     **/
-    rules: string[];
   }
 
   export interface IGetPopularSubredditsInput

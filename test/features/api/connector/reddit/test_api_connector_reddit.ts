@@ -309,3 +309,18 @@ export const test_api_connector_reddit_get_popular_subreddits = async (
 
   typia.assert(res);
 };
+
+export const test_api_connector_reddit_get_subreddit_about = async (
+  connection: CApi.IConnection,
+) => {
+  const res =
+    await CApi.functional.connector.reddit.get_subreddit_about.getSubredditAbout(
+      connection,
+      {
+        secretKey: ConnectorGlobal.env.REDDIT_TEST_SECRET,
+        subreddit: "r/programming",
+      },
+    );
+
+  typia.assert(res);
+};
