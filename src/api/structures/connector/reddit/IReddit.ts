@@ -1681,24 +1681,654 @@ export namespace IReddit {
     /**
      * @title The username to fetch information for
      **/
-    username: string & tags.Format<"iri">;
+    username: string;
   }
 
   export interface IGetUserAboutOutput {
     /**
-     * @title The name of the user
-     **/
-    name: string;
+     * @title kind
+     */
+    kind: "t2";
 
     /**
-     * @title The karma of the user
-     **/
-    karma: number;
+     * @title data
+     */
+    data?: {
+      /**
+       * @title is_employee
+       */
+      is_employee?: boolean;
 
-    /**
-     * @title The account creation time in UTC
-     **/
-    created_utc: number & tags.Type<"uint64">;
+      /**
+       * @title has_visited_new_profile
+       */
+      has_visited_new_profile?: boolean;
+
+      /**
+       * @title is_friend
+       */
+      is_friend?: boolean;
+
+      /**
+       * @title pref_no_profanity
+       */
+      pref_no_profanity?: boolean;
+
+      /**
+       * @title has_external_account
+       */
+      has_external_account?: boolean;
+
+      /**
+       * @title pref_geopopular
+       */
+      pref_geopopular?: string;
+
+      /**
+       * @title pref_show_trending
+       */
+      pref_show_trending?: boolean;
+
+      /**
+       * @title subreddit
+       */
+      subreddit?: {
+        /**
+         * @title default_set
+         */
+        default_set?: boolean;
+
+        /**
+         * @title user_is_contributor
+         */
+        user_is_contributor?: boolean;
+
+        /**
+         * @title banner_img
+         */
+        banner_img?: string;
+
+        /**
+         * @title allowed_media_in_comments
+         */
+        allowed_media_in_comments?: any[];
+
+        /**
+         * @title user_is_banned
+         */
+        user_is_banned?: boolean;
+
+        /**
+         * @title free_form_reports
+         */
+        free_form_reports?: boolean;
+
+        /**
+         * @title community_icon
+         */
+        community_icon?: (string & tags.Format<"iri">) | null;
+
+        /**
+         * @title show_media
+         */
+        show_media?: boolean;
+
+        /**
+         * @title icon_color
+         */
+        icon_color?: string;
+
+        /**
+         * @title user_is_muted
+         */
+        user_is_muted?: null;
+
+        /**
+         * @title display_name
+         */
+        display_name?: string;
+
+        /**
+         * @title header_img
+         */
+        header_img?: null;
+
+        /**
+         * @title title
+         */
+        title?: string;
+
+        /**
+         * @title coins
+         */
+        coins?: number & tags.Type<"int64">;
+
+        /**
+         * @title previous_names
+         */
+        previous_names?: any[];
+
+        /**
+         * @title over_18
+         */
+        over_18?: boolean;
+
+        /**
+         * @title icon_size
+         */
+        icon_size?: [number & tags.Type<"int64">, number & tags.Type<"int64">];
+
+        /**
+         * @title primary_color
+         */
+        primary_color?: string;
+
+        /**
+         * @title icon_img
+         */
+        icon_img?: string & tags.Format<"iri">;
+
+        /**
+         * @title description
+         */
+        description?: string;
+
+        /**
+         * @title submit_link_label
+         */
+        submit_link_label?: string;
+
+        /**
+         * @title header_size
+         */
+        header_size?: null;
+
+        /**
+         * @title restrict_posting
+         */
+        restrict_posting?: boolean;
+
+        /**
+         * @title restrict_commenting
+         */
+        restrict_commenting?: boolean;
+
+        /**
+         * @title subscribers
+         */
+        subscribers?: number & tags.Type<"int64">;
+
+        /**
+         * @title submit_text_label
+         */
+        submit_text_label?: string;
+
+        /**
+         * @title is_default_icon
+         */
+        is_default_icon?: boolean;
+
+        /**
+         * @title link_flair_position
+         */
+        link_flair_position?: string;
+
+        /**
+         * @title display_name_prefixed
+         */
+        display_name_prefixed?: `u/${string}`;
+
+        /**
+         * @title key_color
+         */
+        key_color?: string;
+
+        /**
+         * @title name
+         */
+        name?: `t5_${string}`;
+
+        /**
+         * @title is_default_banner
+         */
+        is_default_banner?: boolean;
+
+        /**
+         * @title url
+         */
+        url?: `/user/${string}/`;
+
+        /**
+         * @title quarantine
+         */
+        quarantine?: boolean;
+
+        /**
+         * @title banner_size
+         */
+        banner_size?:
+          | [number & tags.Type<"int64">, number & tags.Type<"int64">]
+          | null;
+
+        /**
+         * @title user_is_moderator
+         */
+        user_is_moderator?: boolean;
+
+        /**
+         * @title accept_followers
+         */
+        accept_followers?: boolean;
+
+        /**
+         * @title public_description
+         */
+        public_description?: string;
+
+        /**
+         * @title link_flair_enabled
+         */
+        link_flair_enabled?: boolean;
+
+        /**
+         * @title disable_contributor_requests
+         */
+        disable_contributor_requests?: boolean;
+
+        /**
+         * @title subreddit_type
+         */
+        subreddit_type?: "user";
+
+        /**
+         * @title user_is_subscriber
+         */
+        user_is_subscriber?: boolean;
+      };
+
+      /**
+       * @title pref_show_presence
+       */
+      pref_show_presence?: boolean;
+
+      /**
+       * @title snoovatar_img
+       */
+      snoovatar_img?: string;
+
+      /**
+       * @title snoovatar_size
+       */
+
+      snoovatar_size?:
+        | [number & tags.Type<"int64">, number & tags.Type<"int64">]
+        | null;
+
+      /**
+       * @title gold_expiration
+       */
+      gold_expiration?: (number & tags.Type<"int64">) | null;
+
+      /**
+       * @title has_gold_subscription
+       */
+      has_gold_subscription?: boolean;
+
+      /**
+       * @title is_sponsor
+       */
+      is_sponsor?: boolean;
+
+      /**
+       * @title num_friends
+       */
+      num_friends?: number & tags.Type<"int64">;
+
+      /**
+       * @title features
+       */
+      features?: {
+        /**
+         * @title modmail_harassment_filter
+         */
+        modmail_harassment_filter?: boolean;
+
+        /**
+         * @title mod_service_mute_writes
+         */
+        mod_service_mute_writes?: boolean;
+
+        /**
+         * @title promoted_trend_blanks
+         */
+        promoted_trend_blanks?: boolean;
+
+        /**
+         * @title show_amp_link
+         */
+        show_amp_link?: boolean;
+
+        /**
+         * @title is_email_permission_required
+         */
+        is_email_permission_required?: boolean;
+
+        /**
+         * @title mod_awards
+         */
+        mod_awards?: boolean;
+
+        /**
+         * @title awards_on_streams
+         */
+        awards_on_streams?: boolean;
+
+        /**
+         * @title mweb_xpromo_modal_listing_click_daily_dismissible_ios
+         */
+        mweb_xpromo_modal_listing_click_daily_dismissible_ios?: boolean;
+
+        /**
+         * @title chat_subreddit
+         */
+        chat_subreddit?: boolean;
+
+        /**
+         * @title cookie_consent_banner
+         */
+        cookie_consent_banner?: boolean;
+
+        /**
+         * @title modlog_copyright_removal
+         */
+        modlog_copyright_removal?: boolean;
+
+        /**
+         * @title do_not_track
+         */
+        do_not_track?: boolean;
+
+        /**
+         * @title images_in_comments
+         */
+        images_in_comments?: boolean;
+
+        /**
+         * @title mod_service_mute_reads
+         */
+        mod_service_mute_reads?: boolean;
+
+        /**
+         * @title chat_user_settings
+         */
+        chat_user_settings?: boolean;
+
+        /**
+         * @title use_pref_account_deployment
+         */
+        use_pref_account_deployment?: boolean;
+
+        /**
+         * @title mweb_xpromo_interstitial_comments_ios
+         */
+        mweb_xpromo_interstitial_comments_ios?: boolean;
+
+        /**
+         * @title mweb_xpromo_modal_listing_click_daily_dismissible_android
+         */
+        mweb_xpromo_modal_listing_click_daily_dismissible_android?: boolean;
+
+        /**
+         * @title premium_subscriptions_table
+         */
+        premium_subscriptions_table?: boolean;
+
+        /**
+         * @title mweb_xpromo_interstitial_comments_android
+         */
+        mweb_xpromo_interstitial_comments_android?: boolean;
+
+        /**
+         * @title crowd_control_for_post
+         */
+        crowd_control_for_post?: boolean;
+
+        /**
+         * @title chat_group_rollout
+         */
+        chat_group_rollout?: boolean;
+
+        /**
+         * @title resized_styles_images
+         */
+        resized_styles_images?: boolean;
+
+        /**
+         * @title noreferrer_to_noopener
+         */
+        noreferrer_to_noopener?: boolean;
+
+        /**
+         * @title expensive_coins_package
+         */
+        expensive_coins_package?: boolean;
+      };
+
+      /**
+       * @title can_edit_name
+       */
+      can_edit_name?: boolean;
+
+      /**
+       * @title is_blocked
+       */
+      is_blocked?: boolean;
+
+      /**
+       * @title verified
+       */
+      verified?: boolean;
+
+      /**
+       * @title pref_autoplay
+       */
+      pref_autoplay?: boolean;
+
+      /**
+       * @title coins
+       */
+      coins?: number & tags.Type<"int64">;
+
+      /**
+       * @title has_paypal_subscription
+       */
+      has_paypal_subscription?: boolean;
+
+      /**
+       * @title has_subscribed_to_premium
+       */
+      has_subscribed_to_premium?: boolean;
+
+      /**
+       * @title id
+       */
+      id?: string;
+
+      /**
+       * @title can_create_subreddit
+       */
+      can_create_subreddit?: boolean;
+
+      /**
+       * @title over_18
+       */
+      over_18?: boolean;
+
+      /**
+       * @title is_gold
+       */
+      is_gold?: boolean;
+
+      /**
+       * @title is_mod
+       */
+      is_mod?: boolean;
+
+      /**
+       * @title awarder_karma
+       */
+      awarder_karma?: number & tags.Type<"int64">;
+
+      /**
+       * @title suspension_expiration_utc
+       */
+      suspension_expiration_utc?: (number & tags.Type<"int64">) | null;
+
+      /**
+       * @title has_stripe_subscription
+       */
+      has_stripe_subscription?: boolean;
+
+      /**
+       * @title is_suspended
+       */
+      is_suspended?: boolean;
+
+      /**
+       * @title pref_video_autoplay
+       */
+      pref_video_autoplay?: boolean;
+
+      /**
+       * @title has_android_subscription
+       */
+      has_android_subscription?: boolean;
+
+      /**
+       * @title in_redesign_beta
+       */
+      in_redesign_beta?: boolean;
+
+      /**
+       * @title icon_img
+       */
+      icon_img?: string & tags.Format<"iri">;
+
+      /**
+       * @title pref_nightmode
+       */
+      pref_nightmode?: boolean;
+
+      /**
+       * @title awardee_karma
+       */
+      awardee_karma?: number & tags.Type<"int64">;
+
+      /**
+       * @title hide_from_robots
+       */
+      hide_from_robots?: boolean;
+
+      /**
+       * @title password_set
+       */
+      password_set?: boolean;
+
+      /**
+       * @title modhash
+       */
+      modhash?: null;
+
+      /**
+       * @title link_karma
+       */
+      link_karma?: number & tags.Type<"int64">;
+
+      /**
+       * @title force_password_reset
+       */
+      force_password_reset?: boolean;
+
+      /**
+       * @title total_karma
+       */
+      total_karma?: number & tags.Type<"int64">;
+
+      /**
+       * @title inbox_count
+       */
+      inbox_count?: number & tags.Type<"int64">;
+
+      /**
+       * @title pref_top_karma_subreddits
+       */
+      pref_top_karma_subreddits?: boolean;
+
+      /**
+       * @title pref_show_snoovatar
+       */
+      pref_show_snoovatar?: boolean;
+
+      /**
+       * @title name
+       */
+      name?: string;
+
+      /**
+       * @title pref_clickgadget
+       */
+      pref_clickgadget?: number & tags.Type<"int64">;
+
+      /**
+       * @title created
+       */
+      created?: number & tags.Type<"int64">;
+
+      /**
+       * @title has_verified_email
+       */
+      has_verified_email?: boolean;
+
+      /**
+       * @title gold_creddits
+       */
+      gold_creddits?: number & tags.Type<"int64">;
+
+      /**
+       * @title created_utc
+       */
+      created_utc?: number & tags.Type<"int64">;
+
+      /**
+       * @title has_ios_subscription
+       */
+      has_ios_subscription?: boolean;
+
+      /**
+       * @title pref_show_twitter
+       */
+      pref_show_twitter?: boolean;
+
+      /**
+       * @title in_beta
+       */
+      in_beta?: boolean;
+
+      /**
+       * @title comment_karma
+       */
+      comment_karma?: number & tags.Type<"int64">;
+
+      /**
+       * @title accept_followers
+       */
+      accept_followers?: boolean;
+
+      /**
+       * @title has_subscribed
+       */
+      has_subscribed?: boolean;
+    };
   }
 
   export interface IGetUserSubmittedInput extends IReddit.Secret {

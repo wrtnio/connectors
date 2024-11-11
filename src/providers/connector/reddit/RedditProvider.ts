@@ -90,9 +90,8 @@ export class RedditProvider {
     input: IReddit.IGetUserAboutInput,
   ): Promise<IReddit.IGetUserAboutOutput> {
     const accessToken = await this.getAccessToken(input.secretKey);
-    const response = await axios.post(
+    const response = await axios.get(
       `https://oauth.reddit.com/user/${input.username}/about`,
-      input,
       {
         headers: {
           Authorization: `Bearer ${accessToken}`,

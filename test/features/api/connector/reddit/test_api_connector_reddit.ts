@@ -167,3 +167,53 @@ export const test_api_connector_reddit_get_comments_of_top_posts_about_gaming =
       typia.validateEquals(firstPage);
     }
   };
+
+export const test_api_connector_reddit_get_user_about = async (
+  connection: CApi.IConnection,
+) => {
+  await CApi.functional.connector.reddit.get_user_about.getUserAbout(
+    connection,
+    {
+      username: "Any-Statement-9078",
+      secretKey: ConnectorGlobal.env.REDDIT_TEST_SECRET,
+    },
+  );
+};
+
+export const test_api_connector_reddit_get_multiple_user_about = async (
+  connection: CApi.IConnection,
+) => {
+  const topPost =
+    await CApi.functional.connector.reddit.get_top_posts.getTopPosts(
+      connection,
+      {
+        limit: 1,
+        subreddit: "r/gaming",
+        secretKey: ConnectorGlobal.env.REDDIT_TEST_SECRET,
+      },
+    );
+
+  const comments =
+    await CApi.functional.connector.reddit.get_comments.getComments(
+      connection,
+      {
+        limit: 5,
+        article: topPost.children[0].data.id,
+        subreddit: "r/gaming",
+        secretKey: ConnectorGlobal.env.REDDIT_TEST_SECRET,
+      },
+    );
+
+  for (const child of comments.comments.children) {
+    const author = child.kind === "t1" ? child.data.author ?? "" : "";
+    if (author) {
+      await CApi.functional.connector.reddit.get_user_about.getUserAbout(
+        connection,
+        {
+          username: author,
+          secretKey: ConnectorGlobal.env.REDDIT_TEST_SECRET,
+        },
+      );
+    }
+  }
+};
