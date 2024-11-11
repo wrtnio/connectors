@@ -104,16 +104,15 @@ export class RedditProvider {
   async getUserSubmitted(
     input: IReddit.IGetUserSubmittedInput,
   ): Promise<IReddit.IGetUserSubmittedOutput> {
-    const accessToken = await this.getAccessToken(input.secretKey);
-    const response = await axios.post(
-      `https://oauth.reddit.com/user/${input.username}/submitted`,
-      input,
-      {
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-        },
+    const { username, secretKey, ...rest } = input;
+    const accessToken = await this.getAccessToken(secretKey);
+    const queryParams = createQueryParameter(rest);
+    const url = `https://oauth.reddit.com/user/${username}/submitted?${queryParams}`;
+    const response = await axios.get(url, {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
       },
-    );
+    });
     return response.data;
   }
 

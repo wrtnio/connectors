@@ -160,7 +160,7 @@ export namespace IReddit {
     /**
      * @title Post whitelist status
      **/
-    pwls?: number;
+    pwls?: number | null;
 
     /**
      * @title CSS class for link flair
@@ -200,7 +200,7 @@ export namespace IReddit {
     /**
      * @title Text color for link flair
      **/
-    link_flair_text_color?: string;
+    link_flair_text_color?: string | null;
 
     /**
      * @title Ratio of upvotes
@@ -360,7 +360,7 @@ export namespace IReddit {
     /**
      * @title Whitelist status
      **/
-    wls?: number;
+    wls?: number | null;
 
     /**
      * @title Removed by category
@@ -540,7 +540,7 @@ export namespace IReddit {
     /**
      * @title Background color for link flair
      **/
-    link_flair_background_color?: string;
+    link_flair_background_color?: string | null;
 
     /**
      * @title ID of the post
@@ -672,12 +672,22 @@ export namespace IReddit {
     /**
      * @title The type of the element
      **/
-    e: string;
+    a?: string;
+
+    /**
+     * @title The type of the element
+     **/
+    u?: string;
+
+    /**
+     * @title The type of the element
+     **/
+    e?: string;
 
     /**
      * @title The text of the element
      **/
-    t: string;
+    t?: string;
   }
 
   export interface MediaEmbed {
@@ -2331,38 +2341,53 @@ export namespace IReddit {
     };
   }
 
-  export interface IGetUserSubmittedInput extends IReddit.Secret {
+  export interface IGetUserSubmittedInput
+    extends IReddit.ICommonPaginationInput,
+      IReddit.Secret {
     /**
      * @title The username to fetch posts for
      **/
-    username: string & tags.Format<"iri">;
+    username: string;
 
     /**
      * @title The number of posts to fetch
      **/
-    limit?: number & tags.Type<"int32"> & tags.Minimum<1>;
+    limit?: Limit<1, 100, 25>;
   }
 
   export interface IGetUserSubmittedOutput {
-    /**
-     * @title The list of submitted posts
-     **/
-    posts: Array<{
+    kind: "Listing";
+    data: {
       /**
-       * @title The title of the post
+       * @title The after cursor for pagination
        **/
-      title: string;
+      after: FullNames | null;
 
       /**
-       * @title The URL of the post
+       * @title The number of items returned
        **/
-      url: string;
+      dist: number | null;
 
       /**
-       * @title The score of the post
+       * @title The modhash for the request
        **/
-      score: number;
-    }>;
+      modhash: string | null;
+
+      /**
+       * @title The geographical filter applied
+       **/
+      geo_filter: string | null;
+
+      /**
+       * @title The list of children posts
+       **/
+      children: Children[];
+
+      /**
+       * @title The before cursor for pagination
+       **/
+      before: FullNames | null;
+    };
   }
 
   export interface IGetUserCommentsInput extends IReddit.Secret {

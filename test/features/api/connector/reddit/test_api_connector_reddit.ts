@@ -171,13 +171,16 @@ export const test_api_connector_reddit_get_comments_of_top_posts_about_gaming =
 export const test_api_connector_reddit_get_user_about = async (
   connection: CApi.IConnection,
 ) => {
-  await CApi.functional.connector.reddit.get_user_about.getUserAbout(
-    connection,
-    {
-      username: "Any-Statement-9078",
-      secretKey: ConnectorGlobal.env.REDDIT_TEST_SECRET,
-    },
-  );
+  const res =
+    await CApi.functional.connector.reddit.get_user_about.getUserAbout(
+      connection,
+      {
+        username: "Any-Statement-9078",
+        secretKey: ConnectorGlobal.env.REDDIT_TEST_SECRET,
+      },
+    );
+
+  typia.assertEquals(res);
 };
 
 export const test_api_connector_reddit_get_multiple_user_about = async (
@@ -207,13 +210,44 @@ export const test_api_connector_reddit_get_multiple_user_about = async (
   for (const child of comments.comments.children) {
     const author = child.kind === "t1" ? child.data.author ?? "" : "";
     if (author) {
-      await CApi.functional.connector.reddit.get_user_about.getUserAbout(
+      const res =
+        await CApi.functional.connector.reddit.get_user_about.getUserAbout(
+          connection,
+          {
+            username: author,
+            secretKey: ConnectorGlobal.env.REDDIT_TEST_SECRET,
+          },
+        );
+
+      typia.assertEquals(res);
+    }
+  }
+};
+
+export const test_api_connector_reddit_get_user_submmited = async (
+  connection: CApi.IConnection,
+) => {
+  const topPost =
+    await CApi.functional.connector.reddit.get_top_posts.getTopPosts(
+      connection,
+      {
+        limit: 5,
+        subreddit: "r/gaming",
+        secretKey: ConnectorGlobal.env.REDDIT_TEST_SECRET,
+      },
+    );
+
+  for (const child of topPost.children) {
+    const username = child.data.author;
+    const res =
+      await CApi.functional.connector.reddit.get_user_submitted.getUserSubmitted(
         connection,
         {
-          username: author,
+          username: username as string,
           secretKey: ConnectorGlobal.env.REDDIT_TEST_SECRET,
         },
       );
-    }
+
+    typia.assertEquals(res);
   }
 };
