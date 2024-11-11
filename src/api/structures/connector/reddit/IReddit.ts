@@ -1440,7 +1440,7 @@ export namespace IReddit {
     /**
      * @title depth
      */
-    depth: number & tags.Type<"uint64">;
+    depth?: number & tags.Type<"uint64">;
 
     /**
      * @title replies
@@ -2356,45 +2356,44 @@ export namespace IReddit {
   }
 
   export interface IGetUserSubmittedOutput {
-    kind: "Listing";
-    data: {
-      /**
-       * @title The after cursor for pagination
-       **/
-      after: FullNames | null;
+    /**
+     * @title The after cursor for pagination
+     **/
+    after: FullNames | null;
 
-      /**
-       * @title The number of items returned
-       **/
-      dist: number | null;
+    /**
+     * @title The number of items returned
+     **/
+    dist: number | null;
 
-      /**
-       * @title The modhash for the request
-       **/
-      modhash: string | null;
+    /**
+     * @title The modhash for the request
+     **/
+    modhash: string | null;
 
-      /**
-       * @title The geographical filter applied
-       **/
-      geo_filter: string | null;
+    /**
+     * @title The geographical filter applied
+     **/
+    geo_filter: string | null;
 
-      /**
-       * @title The list of children posts
-       **/
-      children: Children[];
+    /**
+     * @title The list of children posts
+     **/
+    children: Children[];
 
-      /**
-       * @title The before cursor for pagination
-       **/
-      before: FullNames | null;
-    };
+    /**
+     * @title The before cursor for pagination
+     **/
+    before: FullNames | null;
   }
 
-  export interface IGetUserCommentsInput extends IReddit.Secret {
+  export interface IGetUserCommentsInput
+    extends IReddit.ICommonPaginationInput,
+      IReddit.Secret {
     /**
      * @title The username to fetch comments for
      **/
-    username: string & tags.Format<"iri">;
+    username: string;
 
     /**
      * @title The number of comments to fetch
@@ -2404,24 +2403,44 @@ export namespace IReddit {
 
   export interface IGetUserCommentsOutput {
     /**
-     * @title The list of user comments
+     * @title The after cursor for pagination
      **/
-    comments: Array<{
+    after: FullNames | null;
+
+    /**
+     * @title The number of items returned
+     **/
+    dist: number | null;
+
+    /**
+     * @title The modhash for the request
+     **/
+    modhash: string | null;
+
+    /**
+     * @title The geographical filter applied
+     **/
+    geo_filter: string | null;
+
+    /**
+     * @title The list of children posts
+     **/
+    children: {
       /**
-       * @title The content of the comment
-       **/
-      content: string;
+       * @title kind
+       */
+      kind: "t1";
 
       /**
-       * @title The title of the post
-       **/
-      post_title: string;
+       * @title data
+       */
+      data: Comment;
+    }[];
 
-      /**
-       * @title The creation time in UTC
-       **/
-      created_utc: number;
-    }>;
+    /**
+     * @title The before cursor for pagination
+     **/
+    before: FullNames | null;
   }
 
   export interface ISearchSubredditsInput extends IReddit.Secret {

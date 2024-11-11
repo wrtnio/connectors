@@ -251,3 +251,31 @@ export const test_api_connector_reddit_get_user_submmited = async (
     typia.assertEquals(res);
   }
 };
+
+export const test_api_connector_reddit_get_user_comments = async (
+  connection: CApi.IConnection,
+) => {
+  const topPost =
+    await CApi.functional.connector.reddit.get_top_posts.getTopPosts(
+      connection,
+      {
+        limit: 5,
+        subreddit: "r/gaming",
+        secretKey: ConnectorGlobal.env.REDDIT_TEST_SECRET,
+      },
+    );
+
+  for (const child of topPost.children) {
+    const username = child.data.author;
+    const res =
+      await CApi.functional.connector.reddit.get_user_comments.getUserComments(
+        connection,
+        {
+          username: username as string,
+          secretKey: ConnectorGlobal.env.REDDIT_TEST_SECRET,
+        },
+      );
+
+    typia.assertEquals(res);
+  }
+};
