@@ -294,3 +294,18 @@ export const test_api_connector_reddit_search_subreddits = async (
 
   typia.assertEquals(res);
 };
+
+export const test_api_connector_reddit_get_popular_subreddits = async (
+  connection: CApi.IConnection,
+) => {
+  const res =
+    await CApi.functional.connector.reddit.get_popular_subreddits.getPopularSubreddits(
+      connection,
+      {
+        limit: 1,
+        secretKey: ConnectorGlobal.env.REDDIT_TEST_SECRET,
+      },
+    );
+
+  typia.assert(res);
+};

@@ -163,19 +163,19 @@ export class RedditProvider {
   }
 
   async getPopularSubreddits(
-    input: IReddit.Secret,
+    input: IReddit.IGetPopularSubredditsInput,
   ): Promise<IReddit.IGetPopularSubredditsOutput> {
-    const accessToken = await this.getAccessToken(input.secretKey);
-    const response = await axios.post(
-      "https://oauth.reddit.com/subreddits/popular",
-      {},
-      {
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-        },
+    const { secretKey, ...rest } = input;
+    const accessToken = await this.getAccessToken(secretKey);
+    const queryParams = createQueryParameter(rest);
+    const url = `https://oauth.reddit.com/subreddits/popular?${queryParams}`;
+    const response = await axios.get(url, {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
       },
-    );
-    return response.data;
+    });
+
+    return response.data.data;
   }
 
   async getBestContent(

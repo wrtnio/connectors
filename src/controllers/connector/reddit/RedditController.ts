@@ -79,7 +79,7 @@ export class RedditController {
 
   @TypedRoute.Post("get-popular-subreddits")
   async getPopularSubreddits(
-    @TypedBody() input: IReddit.Secret,
+    @TypedBody() input: IReddit.IGetPopularSubredditsInput,
   ): Promise<IReddit.IGetPopularSubredditsOutput> {
     return this.redditProvider.getPopularSubreddits(input);
   }
