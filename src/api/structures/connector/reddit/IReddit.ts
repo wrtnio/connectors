@@ -3086,42 +3086,4 @@ export namespace IReddit {
       score: number;
     }>;
   }
-
-  export interface ISavePostInput extends IReddit.Secret {
-    /**
-     * @title The ID of the post to save
-     **/
-    id: string & tags.Format<"iri">;
-  }
-
-  export interface ISavePostOutput {
-    /**
-     * @title Whether the save was successful
-     **/
-    success: boolean;
-
-    /**
-     * @title The message returned from the save
-     **/
-    message?: string;
-  }
-
-  export interface IUnsavePostInput extends IReddit.Secret {
-    /**
-     * @title The ID of the post to unsave
-     **/
-    id: string & tags.Format<"iri">;
-  }
-
-  export interface IUnsavePostOutput {
-    /**
-     * @title Whether the unsave was successful
-     **/
-    success: boolean;
-
-    /**
-     * @title The message returned from the unsave
-     **/
-    message?: string;
-  }
 }
