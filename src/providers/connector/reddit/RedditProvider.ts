@@ -28,16 +28,6 @@ export class RedditProvider {
     }
   }
 
-  async vote(input: IReddit.IVoteInput): Promise<IReddit.IVoteOutput> {
-    const accessToken = await this.getAccessToken(input.secretKey);
-    const response = await axios.post("https://oauth.reddit.com/vote", input, {
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-      },
-    });
-    return response.data;
-  }
-
   async getNewPosts(
     input: IReddit.IGetNewPostsInput,
   ): Promise<IReddit.IGetNewPostsOutput> {
@@ -190,22 +180,6 @@ export class RedditProvider {
     });
 
     return response.data.data;
-  }
-
-  async getAllTopContent(
-    input: IReddit.Secret,
-  ): Promise<IReddit.IGetAllTopContentOutput> {
-    const accessToken = await this.getAccessToken(input.secretKey);
-    const response = await axios.post(
-      "https://oauth.reddit.com/r/all/top",
-      {},
-      {
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-        },
-      },
-    );
-    return response.data;
   }
 
   private async getAccessToken(secretKey: string): Promise<string> {

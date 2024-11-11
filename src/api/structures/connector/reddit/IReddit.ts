@@ -1289,30 +1289,6 @@ export namespace IReddit {
     before: FullNames | null;
   }
 
-  export interface IVoteInput extends IReddit.Secret {
-    /**
-     * @title The ID of the post to vote on
-     **/
-    id: string & tags.Format<"iri">;
-
-    /**
-     * @title The direction of the vote (-1, 0, 1)
-     **/
-    dir: number & tags.Type<"int32"> & tags.Minimum<-1> & tags.Maximum<1>;
-  }
-
-  export interface IVoteOutput {
-    /**
-     * @title Whether the vote was successful
-     **/
-    success: boolean;
-
-    /**
-     * @title The message returned from the vote
-     **/
-    message?: string;
-  }
-
   export interface IGetCommentsInput
     extends MyPick<IReddit.ICommonPaginationInput, "limit">,
       IReddit.Secret {
@@ -3050,27 +3026,5 @@ export namespace IReddit {
      * @title The before cursor for pagination
      **/
     before: FullNames | null;
-  }
-
-  export interface IGetAllTopContentOutput {
-    /**
-     * @title The list of all top content posts
-     **/
-    posts: Array<{
-      /**
-       * @title The title of the post
-       **/
-      title: string;
-
-      /**
-       * @title The URL of the post
-       **/
-      url: string;
-
-      /**
-       * @title The score of the post
-       **/
-      score: number;
-    }>;
   }
 }

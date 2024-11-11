@@ -28,13 +28,6 @@ export class RedditController {
     return this.redditProvider.getTopPosts(input);
   }
 
-  // @TypedRoute.Post("vote")
-  // async vote(
-  //   @TypedBody() input: IReddit.IVoteInput,
-  // ): Promise<IReddit.IVoteOutput> {
-  //   return this.redditProvider.vote(input);
-  // }
-
   @TypedRoute.Post("get-comments")
   async getComments(
     @TypedBody() input: IReddit.IGetCommentsInput,
@@ -89,12 +82,5 @@ export class RedditController {
     @TypedBody() input: IReddit.IGetBestContentInput,
   ): Promise<IReddit.IGetBestContentOutput> {
     return this.redditProvider.getBestContent(input);
-  }
-
-  @TypedRoute.Post("get-all-top-content")
-  async getAllTopContent(
-    @TypedBody() input: IReddit.Secret,
-  ): Promise<IReddit.IGetAllTopContentOutput> {
-    return this.redditProvider.getAllTopContent(input);
   }
 }
