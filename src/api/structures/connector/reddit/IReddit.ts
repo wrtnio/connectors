@@ -1,5 +1,7 @@
+import { Prerequisite } from "@wrtnio/decorators";
 import { tags } from "typia";
 import { Limit } from "../../types/Limit";
+import { MyPick } from "../../types/MyPick";
 import { ICommon } from "../common/ISecretValue";
 
 export namespace IReddit {
@@ -29,7 +31,7 @@ export namespace IReddit {
     /**
      * @title The number of posts to fetch
      **/
-    limit: Limit<1, 100, 25>;
+    limit?: Limit<1, 100, 25>;
 
     /**
      * When the value of the 'after' parameter that came in response to the previous request is substituted,
@@ -1610,7 +1612,7 @@ export namespace IReddit {
     /**
      * @title The number of items returned
      **/
-    dist: number;
+    dist: number | null;
 
     /**
      * @title The modhash for the request
@@ -1651,7 +1653,7 @@ export namespace IReddit {
     /**
      * @title The number of items returned
      **/
-    dist: number;
+    dist: number | null;
 
     /**
      * @title The modhash for the request
@@ -1697,7 +1699,7 @@ export namespace IReddit {
     /**
      * @title The number of items returned
      **/
-    dist: number;
+    dist: number | null;
 
     /**
      * @title The modhash for the request
@@ -1744,62 +1746,565 @@ export namespace IReddit {
     message?: string;
   }
 
-  export interface IGetCommentsInput extends IReddit.Secret {
+  export interface IGetCommentsInput
+    extends MyPick<IReddit.ICommonPaginationInput, "limit">,
+      IReddit.Secret {
+    /**
+     * (optional) ID36 of a comment
+     *
+     * @title Comment ID
+     */
+    comment?: string;
+
+    /**
+     * depth is the maximum depth of subtrees in the thread.
+     *
+     * @title depth
+     */
+    depth?: number;
+
     /**
      * @title The subreddit of the post
      **/
-    subreddit?: `r/${string}`;
+    subreddit: `r/${string}`;
 
     /**
      * @title The article ID of the post
      **/
-    article: string & tags.Format<"iri">;
+    article: string &
+      (
+        | Prerequisite<{
+            method: "post";
+            path: "/connector/reddit/get-hot-posts";
+            jmesPath: "children[].data.{label: title, id: id}";
+          }>
+        | Prerequisite<{
+            method: "post";
+            path: "/connector/reddit/get-new-posts";
+            jmesPath: "children[].data.{label: title, id: id}";
+          }>
+        | Prerequisite<{
+            method: "post";
+            path: "/connector/reddit/get-top-posts";
+            jmesPath: "children[].data.{label: title, id: id}";
+          }>
+      );
+  }
+
+  export interface Comment
+    extends MyPick<
+      Child,
+      | "approved_at_utc"
+      | "author_is_blocked"
+      | "subreddit_id"
+      | "awarders"
+      | "mod_reason_by"
+      | "banned_by"
+      | "awarders"
+      | "mod_reason_by"
+      | "banned_by"
+      | "author_flair_type"
+      | "total_awards_received"
+      | "subreddit"
+      | "author_flair_template_id"
+      | "likes"
+      | "user_reports"
+      | "saved"
+      | "id"
+      | "banned_at_utc"
+      | "mod_reason_title"
+      | "gilded"
+      | "archived"
+      | "no_follow"
+      | "author"
+      | "can_mod_post"
+      | "created_utc"
+      | "send_replies"
+      | "score"
+      | "author_fullname"
+      | "approved_by"
+      | "mod_note"
+      | "all_awardings"
+      | "edited"
+      | "top_awarded_type"
+      | "author_flair_css_class"
+      | "name"
+      | "downs"
+      | "author_flair_richtext"
+      | "author_patreon_flair"
+      | "removal_reason"
+      | "distinguished"
+      | "stickied"
+      | "author_premium"
+      | "can_gild"
+      | "gildings"
+      | "author_flair_text_color"
+      | "permalink"
+      | "subreddit_type"
+      | "locked"
+      | "report_reasons"
+      | "created"
+      | "author_flair_text"
+      | "treatment_tags"
+      | "subreddit_name_prefixed"
+      | "author_flair_background_color"
+      | "mod_reports"
+      | "num_reports"
+      | "ups"
+    > {
+    /**
+     * @title id
+     */
+    id: string;
+
+    /**
+     * @title parent_id
+     */
+    parent_id: IReddit.FullNames;
+
+    /**
+     * @title link_id
+     */
+    link_id: IReddit.FullNames;
+
+    /**
+     * @title author_fullname
+     */
+    author_fullname: Extract<IReddit.FullNames, `t2_${string}`>;
+
+    /**
+     * @title name
+     */
+    name: Extract<IReddit.FullNames, `t1_${string}`>;
+
+    /**
+     * @title comment_type
+     */
+    comment_type: null;
+
+    /**
+     * @title depth
+     */
+    depth: number & tags.Type<"uint64">;
+
+    /**
+     * @title replies
+     */
+    replies: string;
+
+    /**
+     * @title collapsed_reason_code
+     */
+    collapsed_reason_code: null;
+
+    /**
+     * @title collapsed
+     */
+    collapsed: boolean;
+
+    /**
+     * @title body
+     */
+    body: string;
+
+    /**
+     * @title body_html
+     */
+    body_html: string;
+
+    /**
+     * @title is_submitter
+     */
+    is_submitter: boolean;
+
+    /**
+     * @title collapsed_reason
+     */
+    collapsed_reason: null;
+
+    /**
+     * @title associated_award
+     */
+    associated_award: null;
+
+    /**
+     * @title removal_reason
+     */
+    removal_reason: null;
+
+    /**
+     * @title unrepliable_reason
+     */
+    unrepliable_reason: null;
+
+    /**
+     * @title report_reasons
+     */
+    report_reasons: null;
+
+    /**
+     * @title controversiality
+     */
+    controversiality: number & tags.Type<"uint64">;
+
+    /**
+     * @title awarders
+     */
+    awarders: any[];
+
+    /**
+     * @title mod_reason_by
+     */
+    mod_reason_by: null;
+
+    /**
+     * @title banned_by
+     */
+    banned_by: null;
+
+    /**
+     * @title author_flair_type
+     */
+    author_flair_type: "text";
+
+    /**
+     * @title total_awards_received
+     */
+    total_awards_received: number & tags.Type<"uint64">;
+
+    /**
+     * @title subreddit
+     */
+    subreddit: "programming";
+
+    /**
+     * @title author_flair_template_id
+     */
+    author_flair_template_id: null;
+
+    /**
+     * @title likes
+     */
+    likes: null;
+
+    /**
+     * @title user_reports
+     */
+    user_reports: any[];
+
+    /**
+     * @title saved
+     */
+    saved: boolean;
+
+    /**
+     * @title banned_at_utc
+     */
+    banned_at_utc: null;
+
+    /**
+     * @title mod_reason_title
+     */
+    mod_reason_title: null;
+
+    /**
+     * @title gilded
+     */
+    gilded: number & tags.Type<"uint64">;
+
+    /**
+     * @title archived
+     */
+    archived: boolean;
+
+    /**
+     * @title no_follow
+     */
+    no_follow: boolean;
+
+    /**
+     * @title author
+     */
+    author: "Gendalph";
+
+    /**
+     * @title can_mod_post
+     */
+    can_mod_post: boolean;
+
+    /**
+     * @title created_utc
+     */
+    created_utc: 1731285342;
+
+    /**
+     * @title send_replies
+     */
+    send_replies: true;
+
+    /**
+     * @title score
+     */
+    score: number & tags.Type<"uint64">;
+
+    /**
+     * @title approved_by
+     */
+    approved_by: null;
+
+    /**
+     * @title mod_note
+     */
+    mod_note: null;
+
+    /**
+     * @title all_awardings
+     */
+    all_awardings: any[];
+
+    /**
+     * @title edited
+     */
+    edited: boolean;
+
+    /**
+     * @title top_awarded_type
+     */
+    top_awarded_type: null;
+
+    /**
+     * @title author_flair_css_class
+     */
+    author_flair_css_class: null;
+
+    /**
+     * @title downs
+     */
+    downs: number & tags.Type<"uint64">;
+
+    /**
+     * @title author_flair_richtext
+     */
+    author_flair_richtext: any[];
+
+    /**
+     * @title author_patreon_flair
+     */
+    author_patreon_flair: boolean;
+
+    /**
+     * @title distinguished
+     */
+    distinguished: null;
+
+    /**
+     * @title stickied
+     */
+    stickied: boolean;
+
+    /**
+     * @title author_premium
+     */
+    author_premium: boolean;
+
+    /**
+     * @title can_gild
+     */
+    can_gild: boolean;
+
+    /**
+     * @title gildings
+     */
+    gildings: {};
+
+    /**
+     * @title author_flair_text_color
+     */
+    author_flair_text_color: null;
+
+    /**
+     * @title score_hidden
+     */
+    score_hidden: boolean;
+
+    /**
+     * @title permalink
+     */
+    permalink: string;
+
+    /**
+     * @title subreddit_type
+     */
+    subreddit_type: "public";
+
+    /**
+     * @title locked
+     */
+    locked: boolean;
+
+    /**
+     * @title created
+     */
+    created: number & tags.Type<"uint64">;
+
+    /**
+     * @title author_flair_text
+     */
+    author_flair_text: null;
+
+    /**
+     * @title treatment_tags
+     */
+    treatment_tags: any[];
+
+    /**
+     * @title subreddit_name_prefixed
+     */
+    subreddit_name_prefixed: "r/programming";
+
+    /**
+     * @title author_flair_background_color
+     */
+    author_flair_background_color: null;
+
+    /**
+     * @title collapsed_because_crowd_control
+     */
+    collapsed_because_crowd_control: null;
+
+    /**
+     * @title mod_reports
+     */
+    mod_reports: any[];
+
+    /**
+     * @title num_reports
+     */
+    num_reports: null;
+
+    /**
+     * @title ups
+     */
+    ups: number & tags.Type<"uint64">;
   }
 
   export interface IGetCommentsOutput {
-    /**
-     * @title The post details
-     **/
-    post: {
+    articles: {
       /**
-       * @title The title of the post
+       * @title The after cursor for pagination
        **/
-      title: string;
+      after: FullNames | null;
 
       /**
-       * @title The content of the post
+       * @title The number of items returned
        **/
-      content: string;
+      dist: number | null;
 
       /**
-       * @title The author of the post
+       * @title The modhash for the request
        **/
-      author: string;
+      modhash: string | null;
 
       /**
-       * @title The creation time in UTC
+       * @title The geographical filter applied
        **/
-      created_utc: number;
+      geo_filter: string | null;
+
+      /**
+       * @title The list of children posts
+       **/
+      children: Children[];
+
+      /**
+       * @title The before cursor for pagination
+       **/
+      before: FullNames | null;
     };
-    /**
-     * @title The list of comments
-     **/
-    comments: Array<{
+
+    comments: {
       /**
-       * @title The author of the comment
+       * @title The after cursor for pagination
        **/
-      author: string;
+      after: FullNames | null;
 
       /**
-       * @title The content of the comment
+       * @title The number of items returned
        **/
-      content: string;
+      dist: number | null;
 
       /**
-       * @title The creation time in UTC
+       * @title The modhash for the request
        **/
-      created_utc: number;
-    }>;
+      modhash: string | null;
+
+      /**
+       * @title The geographical filter applied
+       **/
+      geo_filter: string | null;
+
+      /**
+       * @title The list of children posts
+       **/
+      children: [
+        {
+          /**
+           * @title kind
+           */
+          kind: "t1";
+
+          /**
+           * @title data
+           */
+          data: Comment;
+        },
+        {
+          /**
+           * @title kind
+           */
+          kind: "more";
+
+          /**
+           * @title data
+           */
+          data: {
+            /**
+             * @title count
+             */
+            count: number & tags.Type<"uint64">;
+
+            /**
+             * @title name
+             */
+            name: Extract<IReddit.FullNames, `t1_${string}`>;
+
+            /**
+             * @title id
+             */
+            id: string;
+
+            /**
+             * @title parent_id
+             */
+            parent_id: IReddit.FullNames;
+
+            /**
+             * @title depth
+             */
+            depth: number & tags.Type<"uint64">;
+
+            /**
+             * @title children
+             */
+            children: string[];
+          };
+        },
+      ];
+
+      /**
+       * @title The before cursor for pagination
+       **/
+      before: FullNames | null;
+    };
   }
 
   export interface IGetUserAboutInput extends IReddit.Secret {

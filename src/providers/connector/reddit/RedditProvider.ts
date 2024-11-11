@@ -75,13 +75,15 @@ export class RedditProvider {
     const { secretKey, subreddit, article, ...rest } = input;
     const accessToken = await this.getAccessToken(secretKey);
     const queryParams = createQueryParameter(rest);
-    const url = `https://oauth.reddit.com${subreddit ? `/${subreddit}` : ""}/comments/${article}?${queryParams}`;
-    const response = await axios.post(url, input, {
+    const url = `https://oauth.reddit.com/${subreddit}/comments/${article}?${queryParams}`;
+    const response = await axios.get(url, {
       headers: {
         Authorization: `Bearer ${accessToken}`,
       },
     });
-    return response.data.data;
+
+    const [articleObject, commentObject] = response.data;
+    return { articles: articleObject.data, comments: commentObject.data };
   }
 
   async getUserAbout(

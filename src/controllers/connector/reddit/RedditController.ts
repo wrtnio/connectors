@@ -28,12 +28,12 @@ export class RedditController {
     return this.redditProvider.getTopPosts(input);
   }
 
-  @TypedRoute.Post("vote")
-  async vote(
-    @TypedBody() input: IReddit.IVoteInput,
-  ): Promise<IReddit.IVoteOutput> {
-    return this.redditProvider.vote(input);
-  }
+  // @TypedRoute.Post("vote")
+  // async vote(
+  //   @TypedBody() input: IReddit.IVoteInput,
+  // ): Promise<IReddit.IVoteOutput> {
+  //   return this.redditProvider.vote(input);
+  // }
 
   @TypedRoute.Post("get-comments")
   async getComments(
