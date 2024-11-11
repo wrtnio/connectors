@@ -324,3 +324,29 @@ export const test_api_connector_reddit_get_subreddit_about = async (
 
   typia.assert(res);
 };
+
+export const test_api_connector_reddit_get_best_content = async (
+  connection: CApi.IConnection,
+) => {
+  const firstPage =
+    await CApi.functional.connector.reddit.get_best_content.getBestContent(
+      connection,
+      {
+        limit: 1,
+        secretKey: ConnectorGlobal.env.REDDIT_TEST_SECRET,
+      },
+    );
+  typia.validateEquals(firstPage);
+
+  const secondPage =
+    await CApi.functional.connector.reddit.get_best_content.getBestContent(
+      connection,
+      {
+        limit: 1,
+        ...(firstPage.after && { after: firstPage.after }), // 다음 페이지가 존재하는지를 확인한다.
+        secretKey: ConnectorGlobal.env.REDDIT_TEST_SECRET,
+      },
+    );
+  typia.validateEquals(secondPage);
+  assert.notDeepStrictEqual(firstPage, secondPage);
+};

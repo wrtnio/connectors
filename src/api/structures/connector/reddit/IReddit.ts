@@ -3011,58 +3011,45 @@ export namespace IReddit {
     before: FullNames | null;
   }
 
-  export interface IGetBestContentInput extends IReddit.Secret {
-    /**
-     * @title The after cursor for pagination
-     **/
-    after?: string;
-
-    /**
-     * @title The before cursor for pagination
-     **/
-    before?: string;
-
-    /**
-     * @title The count of items
-     **/
-    count?: number & tags.Type<"int32"> & tags.Minimum<0>;
-
+  export interface IGetBestContentInput
+    extends IReddit.ICommonPaginationInput,
+      IReddit.Secret {
     /**
      * @title The max number of items
      **/
-    limit?: number & tags.Type<"int32"> & tags.Minimum<1> & tags.Maximum<100>;
-
-    /**
-     * @title Optional show parameter
-     **/
-    show?: "all";
-
-    /**
-     * @title Optional expand subreddits
-     **/
-    sr_detail?: boolean;
+    limit?: Limit<1, 100, 25>;
   }
 
   export interface IGetBestContentOutput {
     /**
-     * @title The list of best content posts
+     * @title The after cursor for pagination
      **/
-    posts: Array<{
-      /**
-       * @title The title of the post
-       **/
-      title: string;
+    after: FullNames | null;
 
-      /**
-       * @title The URL of the post
-       **/
-      url: string;
+    /**
+     * @title The number of items returned
+     **/
+    dist: number | null;
 
-      /**
-       * @title The score of the post
-       **/
-      score: number;
-    }>;
+    /**
+     * @title The modhash for the request
+     **/
+    modhash: string | null;
+
+    /**
+     * @title The geographical filter applied
+     **/
+    geo_filter: string | null;
+
+    /**
+     * @title The list of children posts
+     **/
+    children: Children[];
+
+    /**
+     * @title The before cursor for pagination
+     **/
+    before: FullNames | null;
   }
 
   export interface IGetAllTopContentOutput {

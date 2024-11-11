@@ -179,15 +179,17 @@ export class RedditProvider {
   async getBestContent(
     input: IReddit.IGetBestContentInput,
   ): Promise<IReddit.IGetBestContentOutput> {
-    const queryParameter = createQueryParameter(input);
-    const url = `https://oauth.reddit.com/best/${queryParameter}`;
-    const accessToken = await this.getAccessToken(input.secretKey);
+    const { secretKey, ...rest } = input;
+    const accessToken = await this.getAccessToken(secretKey);
+    const queryParameter = createQueryParameter(rest);
+    const url = `https://oauth.reddit.com/best?${queryParameter}`;
     const response = await axios.get(url, {
       headers: {
         Authorization: `Bearer ${accessToken}`,
       },
     });
-    return response.data;
+
+    return response.data.data;
   }
 
   async getAllTopContent(
