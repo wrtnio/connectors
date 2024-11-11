@@ -134,17 +134,16 @@ export class RedditProvider {
   async searchSubreddits(
     input: IReddit.ISearchSubredditsInput,
   ): Promise<IReddit.ISearchSubredditsOutput> {
-    const accessToken = await this.getAccessToken(input.secretKey);
-    const response = await axios.post(
-      "https://oauth.reddit.com/subreddits/search",
-      input,
-      {
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-        },
+    const { secretKey, ...rest } = input;
+    const accessToken = await this.getAccessToken(secretKey);
+    const queryParams = createQueryParameter(rest);
+    const url = `https://oauth.reddit.com/subreddits/search?${queryParams}`;
+    const response = await axios.get(url, {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
       },
-    );
-    return response.data;
+    });
+    return response.data.data;
   }
 
   async getSubredditAbout(

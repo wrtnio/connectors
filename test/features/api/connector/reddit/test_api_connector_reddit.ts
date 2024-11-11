@@ -279,3 +279,18 @@ export const test_api_connector_reddit_get_user_comments = async (
     typia.assertEquals(res);
   }
 };
+
+export const test_api_connector_reddit_search_subreddits = async (
+  connection: CApi.IConnection,
+) => {
+  const res =
+    await CApi.functional.connector.reddit.search_subreddits.searchSubreddits(
+      connection,
+      {
+        q: "nestia",
+        secretKey: ConnectorGlobal.env.REDDIT_TEST_SECRET,
+      },
+    );
+
+  typia.assertEquals(res);
+};
