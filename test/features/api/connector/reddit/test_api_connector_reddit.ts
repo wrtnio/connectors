@@ -87,42 +87,83 @@ export const test_api_connector_reddit_get_top_posts = async (
   assert.notDeepStrictEqual(firstPage, secondPage);
 };
 
-export const test_api_connector_reddit_get_comments = async (
-  connection: CApi.IConnection,
-) => {
-  const topPost =
-    await CApi.functional.connector.reddit.get_top_posts.getTopPosts(
-      connection,
-      {
-        limit: 1,
-        subreddit: "r/programming",
-        secretKey: ConnectorGlobal.env.REDDIT_TEST_SECRET,
-      },
-    );
+export const test_api_connector_reddit_get_comments_of_top_posts_about_programming =
+  async (connection: CApi.IConnection) => {
+    const topPost =
+      await CApi.functional.connector.reddit.get_top_posts.getTopPosts(
+        connection,
+        {
+          limit: 5,
+          subreddit: "r/programming",
+          secretKey: ConnectorGlobal.env.REDDIT_TEST_SECRET,
+        },
+      );
 
-  const firstPage =
-    await CApi.functional.connector.reddit.get_comments.getComments(
-      connection,
-      {
-        limit: 1,
-        article: topPost.children.at(0)?.data.id as string,
-        subreddit: "r/programming",
-        secretKey: ConnectorGlobal.env.REDDIT_TEST_SECRET,
-      },
-    );
-  typia.validateEquals(firstPage);
+    for await (const post of topPost.children) {
+      const firstPage =
+        await CApi.functional.connector.reddit.get_comments.getComments(
+          connection,
+          {
+            limit: 100,
+            article: post.data.id,
+            subreddit: "r/programming",
+            secretKey: ConnectorGlobal.env.REDDIT_TEST_SECRET,
+          },
+        );
+      typia.validateEquals(firstPage);
+    }
+  };
 
-  // const secondPage =
-  //   await CApi.functional.connector.reddit.get_comments.getComments(
-  //     connection,
-  //     {
-  //       limit: 1,
-  //       article: topPost.children.at(0)?.data.id as string,
-  //       subreddit: "r/programming",
-  //       ...(firstPage.after && { after: firstPage.after }), // 다음 페이지가 존재하는지를 확인한다.
-  //       secretKey: ConnectorGlobal.env.REDDIT_TEST_SECRET,
-  //     },
-  //   );
-  // typia.validateEquals(secondPage);
-  // assert.notDeepStrictEqual(firstPage, secondPage);
-};
+export const test_api_connector_reddit_get_comments_of_top_posts_about_korean =
+  async (connection: CApi.IConnection) => {
+    const topPost =
+      await CApi.functional.connector.reddit.get_top_posts.getTopPosts(
+        connection,
+        {
+          limit: 5,
+          subreddit: "r/korean",
+          secretKey: ConnectorGlobal.env.REDDIT_TEST_SECRET,
+        },
+      );
+
+    for await (const post of topPost.children) {
+      const firstPage =
+        await CApi.functional.connector.reddit.get_comments.getComments(
+          connection,
+          {
+            limit: 100,
+            article: post.data.id,
+            subreddit: "r/korean",
+            secretKey: ConnectorGlobal.env.REDDIT_TEST_SECRET,
+          },
+        );
+      typia.validateEquals(firstPage);
+    }
+  };
+
+export const test_api_connector_reddit_get_comments_of_top_posts_about_gaming =
+  async (connection: CApi.IConnection) => {
+    const topPost =
+      await CApi.functional.connector.reddit.get_top_posts.getTopPosts(
+        connection,
+        {
+          limit: 5,
+          subreddit: "r/gaming",
+          secretKey: ConnectorGlobal.env.REDDIT_TEST_SECRET,
+        },
+      );
+
+    for await (const post of topPost.children) {
+      const firstPage =
+        await CApi.functional.connector.reddit.get_comments.getComments(
+          connection,
+          {
+            limit: 100,
+            article: post.data.id,
+            subreddit: "r/gaming",
+            secretKey: ConnectorGlobal.env.REDDIT_TEST_SECRET,
+          },
+        );
+      typia.validateEquals(firstPage);
+    }
+  };

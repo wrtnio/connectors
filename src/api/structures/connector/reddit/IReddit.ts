@@ -100,7 +100,7 @@ export namespace IReddit {
     /**
      * @title Approval time in UTC
      **/
-    approved_at_utc: string | null;
+    approved_at_utc?: string | null;
 
     /**
      * @title The subreddit name
@@ -110,32 +110,32 @@ export namespace IReddit {
     /**
      * @title The text of the post
      **/
-    selftext: string;
+    selftext?: string;
 
     /**
      * @title The full name of the author
      **/
-    author_fullname: string;
+    author_fullname?: Extract<IReddit.FullNames, `t2_${string}`>;
 
     /**
      * @title Whether the post is saved
      **/
-    saved: boolean;
+    saved?: boolean;
 
     /**
      * @title Moderator reason title
      **/
-    mod_reason_title: string | null;
+    mod_reason_title?: string | null;
 
     /**
      * @title Number of times gilded
      **/
-    gilded: number;
+    gilded?: number & tags.Type<"uint64">;
 
     /**
      * @title Whether the post is clicked
      **/
-    clicked: boolean;
+    clicked?: boolean;
 
     /**
      * @title The title of the post
@@ -145,32 +145,32 @@ export namespace IReddit {
     /**
      * @title Rich text for link flair
      **/
-    link_flair_richtext: LinkFlairRichtext[];
+    link_flair_richtext?: LinkFlairRichtext[];
 
     /**
      * @title Prefixed subreddit name
      **/
-    subreddit_name_prefixed: string;
+    subreddit_name_prefixed?: string;
 
     /**
      * @title Whether the post is hidden
      **/
-    hidden: boolean;
+    hidden?: boolean;
 
     /**
      * @title Post whitelist status
      **/
-    pwls: number;
+    pwls?: number;
 
     /**
      * @title CSS class for link flair
      **/
-    link_flair_css_class: string | null;
+    link_flair_css_class?: string | null;
 
     /**
      * @title Number of downvotes
      **/
-    downs: number;
+    downs?: number & tags.Type<"uint64">;
 
     /**
      * @title Height of the thumbnail
@@ -180,12 +180,12 @@ export namespace IReddit {
     /**
      * @title Type of top award
      **/
-    top_awarded_type: string | null;
+    top_awarded_type?: string | null;
 
     /**
      * @title Whether the score is hidden
      **/
-    hide_score: boolean;
+    hide_score?: boolean;
 
     /**
      * @title The name of the post
@@ -195,37 +195,37 @@ export namespace IReddit {
     /**
      * @title Whether the post is quarantined
      **/
-    quarantine: boolean;
+    quarantine?: boolean;
 
     /**
      * @title Text color for link flair
      **/
-    link_flair_text_color: string;
+    link_flair_text_color?: string;
 
     /**
      * @title Ratio of upvotes
      **/
-    upvote_ratio: number;
+    upvote_ratio?: number;
 
     /**
      * @title Background color for author flair
      **/
-    author_flair_background_color: string | null;
+    author_flair_background_color?: string | null;
 
     /**
      * @title Number of upvotes
      **/
-    ups: number;
+    ups?: (number & tags.Type<"int64">) | null;
 
     /**
      * @title Total awards received
      **/
-    total_awards_received: number;
+    total_awards_received?: number;
 
     /**
      * @title Media embed information
      **/
-    media_embed: MediaEmbed;
+    media_embed?: MediaEmbed;
 
     /**
      * @title Width of the thumbnail
@@ -235,17 +235,17 @@ export namespace IReddit {
     /**
      * @title Template ID for author flair
      **/
-    author_flair_template_id?: string | null;
+    author_flair_template_id?: (string & tags.Format<"uuid">) | null;
 
     /**
      * @title Whether the content is original
      **/
-    is_original_content: boolean;
+    is_original_content?: boolean;
 
     /**
      * @title User reports
      **/
-    user_reports: string[];
+    user_reports?: string[];
 
     /**
      * @title Secure media information
@@ -255,62 +255,62 @@ export namespace IReddit {
     /**
      * @title Whether it's a Reddit media domain
      **/
-    is_reddit_media_domain: boolean;
+    is_reddit_media_domain?: boolean;
 
     /**
      * @title Whether it's meta content
      **/
-    is_meta: boolean;
+    is_meta?: boolean;
 
     /**
      * @title Category of the post
      **/
-    category: string | null;
+    category?: string | null;
 
     /**
      * @title Secure media embed information
      **/
-    secure_media_embed: SecureMediaEmbed;
+    secure_media_embed?: SecureMediaEmbed;
 
     /**
      * @title Text for link flair
      **/
-    link_flair_text: string | null;
+    link_flair_text?: string | null;
 
     /**
      * @title Whether the post can be moderated
      **/
-    can_mod_post: boolean;
+    can_mod_post?: boolean;
 
     /**
      * @title Score of the post
      **/
-    score: number;
+    score?: number;
 
     /**
      * @title Approved by user
      **/
-    approved_by: string | null;
+    approved_by?: string | null;
 
     /**
      * @title Whether created from ads UI
      **/
-    is_created_from_ads_ui: boolean;
+    is_created_from_ads_ui?: boolean;
 
     /**
      * @title Whether the author is premium
      **/
-    author_premium: boolean;
+    author_premium?: boolean;
 
     /**
      * @title Thumbnail URL
      **/
-    thumbnail: string;
+    thumbnail?: string;
 
     /**
      * @title Whether the post is edited
      **/
-    edited: boolean | null;
+    edited?: (number & tags.Type<"uint64">) | boolean | null;
 
     /**
      * @title CSS class for author flair
@@ -320,12 +320,12 @@ export namespace IReddit {
     /**
      * @title Rich text for author flair
      **/
-    author_flair_richtext: AuthorFlairRichtext[];
+    author_flair_richtext?: AuthorFlairRichtext[];
 
     /**
      * @title Gildings information
      **/
-    gildings: Gildings;
+    gildings?: Gildings;
 
     /**
      * @title Hint for the post
@@ -335,57 +335,57 @@ export namespace IReddit {
     /**
      * @title Content categories
      **/
-    content_categories: string | null;
+    content_categories?: string | null;
 
     /**
      * @title Whether it's a self post
      **/
-    is_self: boolean;
+    is_self?: boolean;
 
     /**
      * @title Type of subreddit
      **/
-    subreddit_type: string;
+    subreddit_type?: string;
 
     /**
      * @title Creation time
      **/
-    created: number;
+    created?: number;
 
     /**
      * @title Type of link flair
      **/
-    link_flair_type: string;
+    link_flair_type?: string;
 
     /**
      * @title Whitelist status
      **/
-    wls: number;
+    wls?: number;
 
     /**
      * @title Removed by category
      **/
-    removed_by_category: string | null;
+    removed_by_category?: string | null;
 
     /**
      * @title Banned by user
      **/
-    banned_by: string | null;
+    banned_by?: string | null;
 
     /**
      * @title Type of author flair
      **/
-    author_flair_type: string;
+    author_flair_type?: string;
 
     /**
      * @title Domain of the post
      **/
-    domain: string;
+    domain?: string;
 
     /**
      * @title Whether live comments are allowed
      **/
-    allow_live_comments: boolean;
+    allow_live_comments?: boolean;
 
     /**
      * @title HTML of the selftext
@@ -395,17 +395,17 @@ export namespace IReddit {
     /**
      * @title Likes on the post
      **/
-    likes: string | null;
+    likes?: (number & tags.Type<"uint64">) | null;
 
     /**
      * @title Suggested sort order
      **/
-    suggested_sort: string | null;
+    suggested_sort?: string | null;
 
     /**
      * @title Banned time in UTC
      **/
-    banned_at_utc: string | null;
+    banned_at_utc?: (number & tags.Type<"uint64">) | null;
 
     /**
      * @title URL overridden by destination
@@ -415,32 +415,32 @@ export namespace IReddit {
     /**
      * @title View count
      **/
-    view_count: string | null;
+    view_count?: string | null;
 
     /**
      * @title Whether the post is archived
      **/
-    archived: boolean;
+    archived?: boolean;
 
     /**
      * @title Whether no-follow is enabled
      **/
-    no_follow: boolean;
+    no_follow?: boolean;
 
     /**
      * @title Whether the post is crosspostable
      **/
-    is_crosspostable: boolean;
+    is_crosspostable?: boolean;
 
     /**
      * @title Whether the post is pinned
      **/
-    pinned: boolean;
+    pinned?: boolean;
 
     /**
      * @title Whether the post is NSFW
      **/
-    over_18: boolean;
+    over_18?: boolean;
 
     /**
      * @title Preview information
@@ -450,17 +450,17 @@ export namespace IReddit {
     /**
      * @title All awardings
      **/
-    all_awardings: string[];
+    all_awardings?: string[];
 
     /**
      * @title Awarders of the post
      **/
-    awarders: string[];
+    awarders?: string[];
 
     /**
      * @title Whether it's media only
      **/
-    media_only: boolean;
+    media_only?: boolean;
 
     /**
      * @title Template ID for link flair
@@ -470,17 +470,17 @@ export namespace IReddit {
     /**
      * @title Whether the post can be gilded
      **/
-    can_gild: boolean;
+    can_gild?: boolean;
 
     /**
      * @title Whether the post is a spoiler
      **/
-    spoiler: boolean;
+    spoiler?: boolean;
 
     /**
      * @title Whether the post is locked
      **/
-    locked: boolean;
+    locked?: boolean;
 
     /**
      * @title Text for author flair
@@ -490,57 +490,57 @@ export namespace IReddit {
     /**
      * @title Treatment tags
      **/
-    treatment_tags: string[];
+    treatment_tags?: string[];
 
     /**
      * @title Whether the post is visited
      **/
-    visited: boolean;
+    visited?: boolean;
 
     /**
      * @title Removed by user
      **/
-    removed_by: string | null;
+    removed_by?: string | null;
 
     /**
      * @title Moderator note
      **/
-    mod_note: string | null;
+    mod_note?: string | null;
 
     /**
      * @title Distinguished status
      **/
-    distinguished: string | null;
+    distinguished?: string | null;
 
     /**
      * @title ID of the subreddit
      **/
-    subreddit_id: string;
+    subreddit_id?: string;
 
     /**
      * @title Whether the author is blocked
      **/
-    author_is_blocked: boolean;
+    author_is_blocked?: boolean | null;
 
     /**
      * @title Moderator reason by user
      **/
-    mod_reason_by: string | null;
+    mod_reason_by?: string | null;
 
     /**
      * @title Number of reports
      **/
-    num_reports: string | null;
+    num_reports?: (number & tags.Type<"int64">) | string | null;
 
     /**
      * @title Removal reason
      **/
-    removal_reason: string | null;
+    removal_reason?: string | null;
 
     /**
      * @title Background color for link flair
      **/
-    link_flair_background_color: string;
+    link_flair_background_color?: string;
 
     /**
      * @title ID of the post
@@ -550,47 +550,47 @@ export namespace IReddit {
     /**
      * @title Whether the post is robot indexable
      **/
-    is_robot_indexable: boolean;
+    is_robot_indexable?: boolean;
 
     /**
      * @title Report reasons
      **/
-    report_reasons: string | null;
+    report_reasons?: string | null;
 
     /**
      * @title Author of the post
      **/
-    author: string;
+    author?: string;
 
     /**
      * @title Type of discussion
      **/
-    discussion_type: string | null;
+    discussion_type?: string | null;
 
     /**
      * @title Number of comments
      **/
-    num_comments: number;
+    num_comments?: number;
 
     /**
      * @title Whether to send replies
      **/
-    send_replies: boolean;
+    send_replies?: boolean;
 
     /**
      * @title Whether contest mode is enabled
      **/
-    contest_mode: boolean;
+    contest_mode?: boolean;
 
     /**
      * @title Moderator reports
      **/
-    mod_reports: string[];
+    mod_reports?: string[];
 
     /**
      * @title Whether the author has Patreon flair
      **/
-    author_patreon_flair: boolean;
+    author_patreon_flair?: boolean;
 
     /**
      * @title Text color for author flair
@@ -600,12 +600,12 @@ export namespace IReddit {
     /**
      * @title Permalink to the post
      **/
-    permalink: string;
+    permalink?: string;
 
     /**
      * @title Whether the post is stickied
      **/
-    stickied: boolean;
+    stickied?: boolean;
 
     /**
      * @title URL of the post
@@ -615,17 +615,17 @@ export namespace IReddit {
     /**
      * @title Number of subreddit subscribers
      **/
-    subreddit_subscribers: number;
+    subreddit_subscribers?: number;
 
     /**
      * @title Creation time in UTC
      **/
-    created_utc: number;
+    created_utc?: number & tags.Type<"uint64">;
 
     /**
      * @title Number of crossposts
      **/
-    num_crossposts: number;
+    num_crossposts?: number;
 
     /**
      * @title Media information
@@ -635,7 +635,7 @@ export namespace IReddit {
     /**
      * @title Whether the post is a video
      **/
-    is_video: boolean;
+    is_video?: boolean;
 
     /**
      * @title Whether the post is a gallery
@@ -812,12 +812,12 @@ export namespace IReddit {
     /**
      * @title The type of the element
      **/
-    e: string;
+    e?: string;
 
     /**
      * @title The text of the element
      **/
-    t: string;
+    t?: string;
   }
 
   export type Gildings = any;
@@ -1029,562 +1029,119 @@ export namespace IReddit {
     caption?: string;
   }
 
-  export interface CrosspostParentList {
-    /**
-     * @title Approval time in UTC
-     **/
-    approved_at_utc: string;
-
-    /**
-     * @title The subreddit name
-     **/
-    subreddit?: `r/${string}`;
-
-    /**
-     * @title The text of the post
-     **/
-    selftext: string;
-
-    /**
-     * @title The full name of the author
-     **/
-    author_fullname: string;
-
-    /**
-     * @title Whether the post is saved
-     **/
-    saved: boolean;
-
-    /**
-     * @title Moderator reason title
-     **/
-    mod_reason_title: string;
-
-    /**
-     * @title Number of times gilded
-     **/
-    gilded: number;
-
-    /**
-     * @title Whether the post is clicked
-     **/
-    clicked: boolean;
-
-    /**
-     * @title Whether the post is a gallery
-     **/
-    is_gallery?: boolean;
-
-    /**
-     * @title The title of the post
-     **/
-    title: string;
-
-    /**
-     * @title Rich text for link flair
-     **/
-    link_flair_richtext: LinkFlairRichtext[];
-
-    /**
-     * @title Prefixed subreddit name
-     **/
-    subreddit_name_prefixed: string;
-
-    /**
-     * @title Whether the post is hidden
-     **/
-    hidden: boolean;
-
-    /**
-     * @title Post whitelist status
-     **/
-    pwls: number;
-
-    /**
-     * @title CSS class for link flair
-     **/
-    link_flair_css_class?: string;
-
-    /**
-     * @title Number of downvotes
-     **/
-    downs: number;
-
-    /**
-     * @title Height of the thumbnail
-     **/
-    thumbnail_height: number;
-
-    /**
-     * @title Type of top award
-     **/
-    top_awarded_type: string;
-
-    /**
-     * @title Whether the score is hidden
-     **/
-    hide_score: boolean;
-
-    /**
-     * @title Media metadata
-     **/
-    media_metadata?: MediaMetadata;
-
-    /**
-     * @title The name of the post
-     **/
-    name: string;
-
-    /**
-     * @title Whether the post is quarantined
-     **/
-    quarantine: boolean;
-
-    /**
-     * @title Text color for link flair
-     **/
-    link_flair_text_color: string;
-
-    /**
-     * @title Ratio of upvotes
-     **/
-    upvote_ratio: number;
-
-    /**
-     * @title Background color for author flair
-     **/
-    author_flair_background_color: string;
-
-    /**
-     * @title Number of upvotes
-     **/
-    ups: number;
-
-    /**
-     * @title Total awards received
-     **/
-    total_awards_received: number;
-
-    /**
-     * @title Media embed information
-     **/
-    media_embed: MediaEmbed;
-
-    /**
-     * @title Width of the thumbnail
-     **/
-    thumbnail_width: number;
-
-    /**
-     * @title Template ID for author flair
-     **/
-    author_flair_template_id: string;
-
-    /**
-     * @title Whether the content is original
-     **/
-    is_original_content: boolean;
-
-    /**
-     * @title User reports
-     **/
-    user_reports: string[];
-
-    /**
-     * @title Secure media information
-     **/
-    secure_media: string;
-
-    /**
-     * @title Whether it's a Reddit media domain
-     **/
-    is_reddit_media_domain: boolean;
-
-    /**
-     * @title Whether it's meta content
-     **/
-    is_meta: boolean;
-
-    /**
-     * @title Category of the post
-     **/
-    category: string;
-
-    /**
-     * @title Secure media embed information
-     **/
-    secure_media_embed: SecureMediaEmbed;
-
-    /**
-     * @title Gallery data
-     **/
-    gallery_data?: GalleryData;
-
-    /**
-     * @title Text for link flair
-     **/
-    link_flair_text: string;
-
-    /**
-     * @title Whether the post can be moderated
-     **/
-    can_mod_post: boolean;
-
-    /**
-     * @title Score of the post
-     **/
-    score: number;
-
-    /**
-     * @title Approved by user
-     **/
-    approved_by: string;
-
-    /**
-     * @title Whether created from ads UI
-     **/
-    is_created_from_ads_ui: boolean;
-
-    /**
-     * @title Whether the author is premium
-     **/
-    author_premium: boolean;
-
-    /**
-     * @title Thumbnail URL
-     **/
-    thumbnail: string;
-
-    /**
-     * @title Whether the post is edited
-     **/
-    edited: boolean;
-
-    /**
-     * @title CSS class for author flair
-     **/
-    author_flair_css_class: string;
-
-    /**
-     * @title Rich text for author flair
-     **/
-    author_flair_richtext: string[];
-
-    /**
-     * @title Gildings information
-     **/
-    gildings: Gildings;
-
-    /**
-     * @title Content categories
-     **/
-    content_categories: string;
-
-    /**
-     * @title Whether it's a self post
-     **/
-    is_self: boolean;
-
-    /**
-     * @title Type of subreddit
-     **/
-    subreddit_type: string;
-
-    /**
-     * @title Creation time
-     **/
-    created: number;
-
-    /**
-     * @title Type of link flair
-     **/
-    link_flair_type: string;
-
-    /**
-     * @title Whitelist status
-     **/
-    wls: number;
-
-    /**
-     * @title Removed by category
-     **/
-    removed_by_category: string;
-
-    /**
-     * @title Banned by user
-     **/
-    banned_by: string;
-
-    /**
-     * @title Type of author flair
-     **/
-    author_flair_type: string;
-
-    /**
-     * @title Domain of the post
-     **/
-    domain: string;
-
-    /**
-     * @title Whether live comments are allowed
-     **/
-    allow_live_comments: boolean;
-
-    /**
-     * @title HTML of the selftext
-     **/
-    selftext_html?: string;
-
-    /**
-     * @title Likes on the post
-     **/
-    likes: string;
-
-    /**
-     * @title Suggested sort order
-     **/
-    suggested_sort: string;
-
-    /**
-     * @title Banned time in UTC
-     **/
-    banned_at_utc: string;
-
-    /**
-     * @title URL overridden by destination
-     **/
-    url_overridden_by_dest: string;
-
-    /**
-     * @title View count
-     **/
-    view_count: string;
-
-    /**
-     * @title Whether the post is archived
-     **/
-    archived: boolean;
-
-    /**
-     * @title Whether no-follow is enabled
-     **/
-    no_follow: boolean;
-
-    /**
-     * @title Whether the post is crosspostable
-     **/
-    is_crosspostable: boolean;
-
-    /**
-     * @title Whether the post is pinned
-     **/
-    pinned: boolean;
-
-    /**
-     * @title Whether the post is NSFW
-     **/
-    over_18: boolean;
-
-    /**
-     * @title All awardings
-     **/
-    all_awardings: string[];
-
-    /**
-     * @title Awarders of the post
-     **/
-    awarders: string[];
-
-    /**
-     * @title Whether it's media only
-     **/
-    media_only: boolean;
-
-    /**
-     * @title Whether the post can be gilded
-     **/
-    can_gild: boolean;
-
-    /**
-     * @title Whether the post is a spoiler
-     **/
-    spoiler: boolean;
-
-    /**
-     * @title Whether the post is locked
-     **/
-    locked: boolean;
-
-    /**
-     * @title Text for author flair
-     **/
-    author_flair_text: string | null;
-
-    /**
-     * @title Treatment tags
-     **/
-    treatment_tags: string[];
-
-    /**
-     * @title Whether the post is visited
-     **/
-    visited: boolean;
-
-    /**
-     * @title Removed by user
-     **/
-    removed_by: string;
-
-    /**
-     * @title Moderator note
-     **/
-    mod_note: string;
-
-    /**
-     * @title Distinguished status
-     **/
-    distinguished: string;
-
-    /**
-     * @title ID of the subreddit
-     **/
-    subreddit_id: string;
-
-    /**
-     * @title Whether the author is blocked
-     **/
-    author_is_blocked: boolean;
-
-    /**
-     * @title Moderator reason by user
-     **/
-    mod_reason_by: string;
-
-    /**
-     * @title Number of reports
-     **/
-    num_reports: string;
-
-    /**
-     * @title Removal reason
-     **/
-    removal_reason: string;
-
-    /**
-     * @title Background color for link flair
-     **/
-    link_flair_background_color: string;
-
-    /**
-     * @title ID of the post
-     **/
-    id: string;
-
-    /**
-     * @title Whether the post is robot indexable
-     **/
-    is_robot_indexable: boolean;
-
-    /**
-     * @title Report reasons
-     **/
-    report_reasons: string;
-
-    /**
-     * @title Author of the post
-     **/
-    author: string;
-
-    /**
-     * @title Type of discussion
-     **/
-    discussion_type: string;
-
-    /**
-     * @title Number of comments
-     **/
-    num_comments: number;
-
-    /**
-     * @title Whether to send replies
-     **/
-    send_replies: boolean;
-
-    /**
-     * @title Whether contest mode is enabled
-     **/
-    contest_mode: boolean;
-
-    /**
-     * @title Moderator reports
-     **/
-    mod_reports: string[];
-
-    /**
-     * @title Whether the author has Patreon flair
-     **/
-    author_patreon_flair: boolean;
-
-    /**
-     * @title Text color for author flair
-     **/
-    author_flair_text_color: string;
-
-    /**
-     * @title Permalink to the post
-     **/
-    permalink: string;
-
-    /**
-     * @title Whether the post is stickied
-     **/
-    stickied: boolean;
-
-    /**
-     * @title URL of the post
-     **/
-    url: string;
-
-    /**
-     * @title Number of subreddit subscribers
-     **/
-    subreddit_subscribers: number;
-
-    /**
-     * @title Creation time in UTC
-     **/
-    created_utc: number;
-
-    /**
-     * @title Number of crossposts
-     **/
-    num_crossposts: number;
-
-    /**
-     * @title Media information
-     **/
-    media: string;
-
-    /**
-     * @title Whether the post is a video
-     **/
-    is_video: boolean;
-
-    /**
-     * @title Hint for the post
-     **/
-    post_hint?: string;
-
-    /**
-     * @title Preview information
-     **/
-    preview?: Preview;
-
-    /**
-     * @title Template ID for link flair
-     **/
-    link_flair_template_id?: string | null;
-  }
+  export type CrosspostParentList = MyPick<
+    IReddit.Child,
+    | "approved_at_utc"
+    | "subreddit"
+    | "selftext"
+    | "author_fullname"
+    | "saved"
+    | "mod_reason_title"
+    | "gilded"
+    | "is_gallery"
+    | "title"
+    | "link_flair_richtext"
+    | "subreddit_name_prefixed"
+    | "hidden"
+    | "pwls"
+    | "link_flair_css_class"
+    | "downs"
+    | "thumbnail_height"
+    | "top_awarded_type"
+    | "hide_score"
+    | "media_metadata"
+    | "name"
+    | "quarantine"
+    | "link_flair_text_color"
+    | "upvote_ratio"
+    | "author_flair_background_color"
+    | "ups"
+    | "total_awards_received"
+    | "media_embed"
+    | "thumbnail_width"
+    | "author_flair_template_id"
+    | "is_original_content"
+    | "user_reports"
+    | "secure_media"
+    | "is_reddit_media_domain"
+    | "is_meta"
+    | "category"
+    | "secure_media_embed"
+    | "gallery_data"
+    | "link_flair_text"
+    | "can_mod_post"
+    | "score"
+    | "approved_by"
+    | "is_created_from_ads_ui"
+    | "author_premium"
+    | "thumbnail"
+    | "edited"
+    | "author_flair_css_class"
+    | "author_flair_richtext"
+    | "gildings"
+    | "content_categories"
+    | "is_self"
+    | "subreddit_type"
+    | "created"
+    | "link_flair_type"
+    | "wls"
+    | "removed_by_category"
+    | "banned_by"
+    | "author_flair_type"
+    | "domain"
+    | "allow_live_comments"
+    | "selftext_html"
+    | "likes"
+    | "suggested_sort"
+    | "banned_at_utc"
+    | "url_overridden_by_dest"
+    | "view_count"
+    | "archived"
+    | "no_follow"
+    | "is_crosspostable"
+    | "pinned"
+    | "over_18"
+    | "all_awardings"
+    | "awarders"
+    | "media_only"
+    | "can_gild"
+    | "spoiler"
+    | "locked"
+    | "author_flair_text"
+    | "treatment_tags"
+    | "visited"
+    | "removed_by"
+    | "mod_note"
+    | "distinguished"
+    | "subreddit_id"
+    | "author_is_blocked"
+    | "mod_reason_by"
+    | "num_reports"
+    | "removal_reason"
+    | "link_flair_background_color"
+    | "id"
+    | "is_robot_indexable"
+    | "report_reasons"
+    | "author"
+    | "discussion_type"
+    | "num_comments"
+    | "send_replies"
+    | "contest_mode"
+    | "mod_reports"
+    | "author_patreon_flair"
+    | "author_flair_text_color"
+    | "permalink"
+    | "stickied"
+    | "url"
+    | "subreddit_subscribers"
+    | "created_utc"
+    | "num_crossposts"
+    | "media"
+    | "is_video"
+    | "post_hint"
+    | "preview"
+    | "link_flair_template_id"
+  >;
 
   export interface Position {
     /**
@@ -1766,7 +1323,7 @@ export namespace IReddit {
     /**
      * @title The subreddit of the post
      **/
-    subreddit: `r/${string}`;
+    subreddit?: `r/${string}`;
 
     /**
      * @title The article ID of the post
@@ -1802,7 +1359,6 @@ export namespace IReddit {
       | "banned_by"
       | "awarders"
       | "mod_reason_by"
-      | "banned_by"
       | "author_flair_type"
       | "total_awards_received"
       | "subreddit"
@@ -1825,7 +1381,6 @@ export namespace IReddit {
       | "approved_by"
       | "mod_note"
       | "all_awardings"
-      | "edited"
       | "top_awarded_type"
       | "author_flair_css_class"
       | "name"
@@ -1865,22 +1420,12 @@ export namespace IReddit {
     /**
      * @title link_id
      */
-    link_id: IReddit.FullNames;
-
-    /**
-     * @title author_fullname
-     */
-    author_fullname: Extract<IReddit.FullNames, `t2_${string}`>;
-
-    /**
-     * @title name
-     */
-    name: Extract<IReddit.FullNames, `t1_${string}`>;
+    link_id?: IReddit.FullNames;
 
     /**
      * @title comment_type
      */
-    comment_type: null;
+    comment_type?: null;
 
     /**
      * @title depth
@@ -1890,302 +1435,127 @@ export namespace IReddit {
     /**
      * @title replies
      */
-    replies: string;
+    replies:
+      | tags.Constant<"", { title: "NO_REPLIES" }>
+      | {
+          kind: "Listing";
+          data: {
+            after: null;
+            dist: null;
+            modhash: null;
+            geo_filter: string;
+            children: (
+              | {
+                  /**
+                   * @title kind
+                   */
+                  kind: "t1";
+
+                  /**
+                   * @title data
+                   */
+                  data: Comment;
+                }
+              | {
+                  /**
+                   * @title kind
+                   */
+                  kind: "more";
+
+                  /**
+                   * @title data
+                   */
+                  data: {
+                    /**
+                     * @title count
+                     */
+                    count: number & tags.Type<"uint64">;
+
+                    /**
+                     * @title name
+                     */
+                    name: Extract<IReddit.FullNames, `t1_${string}`>;
+
+                    /**
+                     * @title id
+                     */
+                    id: string;
+
+                    /**
+                     * @title parent_id
+                     */
+                    parent_id: IReddit.FullNames;
+
+                    /**
+                     * @title depth
+                     */
+                    depth: number & tags.Type<"uint64">;
+
+                    /**
+                     * @title children
+                     */
+                    children: string[];
+                  };
+                }
+            )[];
+            before: null;
+          };
+        };
 
     /**
      * @title collapsed_reason_code
      */
-    collapsed_reason_code: null;
+    collapsed_reason_code?: string | null;
 
     /**
      * @title collapsed
      */
-    collapsed: boolean;
+    collapsed?: boolean;
 
     /**
      * @title body
      */
-    body: string;
+    body?: string;
 
     /**
      * @title body_html
      */
-    body_html: string;
+    body_html?: string;
 
     /**
      * @title is_submitter
      */
-    is_submitter: boolean;
+    is_submitter?: boolean;
 
     /**
      * @title collapsed_reason
      */
-    collapsed_reason: null;
+    collapsed_reason?: string | null;
 
     /**
      * @title associated_award
      */
-    associated_award: null;
-
-    /**
-     * @title removal_reason
-     */
-    removal_reason: null;
+    associated_award?: null;
 
     /**
      * @title unrepliable_reason
      */
-    unrepliable_reason: null;
-
-    /**
-     * @title report_reasons
-     */
-    report_reasons: null;
+    unrepliable_reason?: string | null;
 
     /**
      * @title controversiality
      */
-    controversiality: number & tags.Type<"uint64">;
-
-    /**
-     * @title awarders
-     */
-    awarders: any[];
-
-    /**
-     * @title mod_reason_by
-     */
-    mod_reason_by: null;
-
-    /**
-     * @title banned_by
-     */
-    banned_by: null;
-
-    /**
-     * @title author_flair_type
-     */
-    author_flair_type: "text";
-
-    /**
-     * @title total_awards_received
-     */
-    total_awards_received: number & tags.Type<"uint64">;
-
-    /**
-     * @title subreddit
-     */
-    subreddit: "programming";
-
-    /**
-     * @title author_flair_template_id
-     */
-    author_flair_template_id: null;
-
-    /**
-     * @title likes
-     */
-    likes: null;
-
-    /**
-     * @title user_reports
-     */
-    user_reports: any[];
-
-    /**
-     * @title saved
-     */
-    saved: boolean;
-
-    /**
-     * @title banned_at_utc
-     */
-    banned_at_utc: null;
-
-    /**
-     * @title mod_reason_title
-     */
-    mod_reason_title: null;
-
-    /**
-     * @title gilded
-     */
-    gilded: number & tags.Type<"uint64">;
-
-    /**
-     * @title archived
-     */
-    archived: boolean;
-
-    /**
-     * @title no_follow
-     */
-    no_follow: boolean;
-
-    /**
-     * @title author
-     */
-    author: "Gendalph";
-
-    /**
-     * @title can_mod_post
-     */
-    can_mod_post: boolean;
-
-    /**
-     * @title created_utc
-     */
-    created_utc: 1731285342;
-
-    /**
-     * @title send_replies
-     */
-    send_replies: true;
-
-    /**
-     * @title score
-     */
-    score: number & tags.Type<"uint64">;
-
-    /**
-     * @title approved_by
-     */
-    approved_by: null;
-
-    /**
-     * @title mod_note
-     */
-    mod_note: null;
-
-    /**
-     * @title all_awardings
-     */
-    all_awardings: any[];
-
-    /**
-     * @title edited
-     */
-    edited: boolean;
-
-    /**
-     * @title top_awarded_type
-     */
-    top_awarded_type: null;
-
-    /**
-     * @title author_flair_css_class
-     */
-    author_flair_css_class: null;
-
-    /**
-     * @title downs
-     */
-    downs: number & tags.Type<"uint64">;
-
-    /**
-     * @title author_flair_richtext
-     */
-    author_flair_richtext: any[];
-
-    /**
-     * @title author_patreon_flair
-     */
-    author_patreon_flair: boolean;
-
-    /**
-     * @title distinguished
-     */
-    distinguished: null;
-
-    /**
-     * @title stickied
-     */
-    stickied: boolean;
-
-    /**
-     * @title author_premium
-     */
-    author_premium: boolean;
-
-    /**
-     * @title can_gild
-     */
-    can_gild: boolean;
-
-    /**
-     * @title gildings
-     */
-    gildings: {};
-
-    /**
-     * @title author_flair_text_color
-     */
-    author_flair_text_color: null;
+    controversiality?: number & tags.Type<"uint64">;
 
     /**
      * @title score_hidden
      */
-    score_hidden: boolean;
-
-    /**
-     * @title permalink
-     */
-    permalink: string;
-
-    /**
-     * @title subreddit_type
-     */
-    subreddit_type: "public";
-
-    /**
-     * @title locked
-     */
-    locked: boolean;
-
-    /**
-     * @title created
-     */
-    created: number & tags.Type<"uint64">;
-
-    /**
-     * @title author_flair_text
-     */
-    author_flair_text: null;
-
-    /**
-     * @title treatment_tags
-     */
-    treatment_tags: any[];
-
-    /**
-     * @title subreddit_name_prefixed
-     */
-    subreddit_name_prefixed: "r/programming";
-
-    /**
-     * @title author_flair_background_color
-     */
-    author_flair_background_color: null;
+    score_hidden?: boolean;
 
     /**
      * @title collapsed_because_crowd_control
      */
-    collapsed_because_crowd_control: null;
-
-    /**
-     * @title mod_reports
-     */
-    mod_reports: any[];
-
-    /**
-     * @title num_reports
-     */
-    num_reports: null;
-
-    /**
-     * @title ups
-     */
-    ups: number & tags.Type<"uint64">;
+    collapsed_because_crowd_control?: null;
   }
 
   export interface IGetCommentsOutput {
@@ -2245,60 +1615,60 @@ export namespace IReddit {
       /**
        * @title The list of children posts
        **/
-      children: [
-        {
-          /**
-           * @title kind
-           */
-          kind: "t1";
-
-          /**
-           * @title data
-           */
-          data: Comment;
-        },
-        {
-          /**
-           * @title kind
-           */
-          kind: "more";
-
-          /**
-           * @title data
-           */
-          data: {
+      children: (
+        | {
             /**
-             * @title count
+             * @title kind
              */
-            count: number & tags.Type<"uint64">;
+            kind: "t1";
 
             /**
-             * @title name
+             * @title data
              */
-            name: Extract<IReddit.FullNames, `t1_${string}`>;
+            data: Comment;
+          }
+        | {
+            /**
+             * @title kind
+             */
+            kind: "more";
 
             /**
-             * @title id
+             * @title data
              */
-            id: string;
+            data: {
+              /**
+               * @title count
+               */
+              count: number & tags.Type<"uint64">;
 
-            /**
-             * @title parent_id
-             */
-            parent_id: IReddit.FullNames;
+              /**
+               * @title name
+               */
+              name: Extract<IReddit.FullNames, `t1_${string}`>;
 
-            /**
-             * @title depth
-             */
-            depth: number & tags.Type<"uint64">;
+              /**
+               * @title id
+               */
+              id: string;
 
-            /**
-             * @title children
-             */
-            children: string[];
-          };
-        },
-      ];
+              /**
+               * @title parent_id
+               */
+              parent_id: IReddit.FullNames;
+
+              /**
+               * @title depth
+               */
+              depth: number & tags.Type<"uint64">;
+
+              /**
+               * @title children
+               */
+              children: string[];
+            };
+          }
+      )[];
 
       /**
        * @title The before cursor for pagination
@@ -2328,7 +1698,7 @@ export namespace IReddit {
     /**
      * @title The account creation time in UTC
      **/
-    created_utc: number;
+    created_utc: number & tags.Type<"uint64">;
   }
 
   export interface IGetUserSubmittedInput extends IReddit.Secret {

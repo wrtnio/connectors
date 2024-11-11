@@ -82,8 +82,8 @@ export class RedditProvider {
       },
     });
 
-    const [articleObject, commentObject] = response.data;
-    return { articles: articleObject.data, comments: commentObject.data };
+    const [{ data: articles }, { data: comments }] = response.data;
+    return { articles, comments };
   }
 
   async getUserAbout(
