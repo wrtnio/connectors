@@ -11,7 +11,7 @@ import axios, { AxiosError } from "axios";
 import { IRag } from "@wrtn/connector-api/lib/structures/connector/rag/IRag";
 
 import { randomUUID } from "crypto";
-import mime from "mime";
+import mime from "mime-types";
 import { tags } from "typia";
 import { v4 } from "uuid";
 import { ConnectorGlobal } from "../../../ConnectorGlobal";
@@ -328,7 +328,7 @@ export class RagProvider {
     const extension = matched ? `.${matched}` : "";
 
     return await AwsProvider.uploadObject({
-      contentType: mimeType ?? "application/octet-stream",
+      contentType: mimeType ? mimeType : "application/octet-stream",
       data: file.data,
       key: `${key}${extension}`,
     });

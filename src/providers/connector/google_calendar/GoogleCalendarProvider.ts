@@ -6,6 +6,7 @@ import { IGoogleCalendar } from "@wrtn/connector-api/lib/structures/connector/go
 import { GoogleProvider } from "../../internal/google/GoogleProvider";
 import { OAuthSecretProvider } from "../../internal/oauth_secret/OAuthSecretProvider";
 import { IOAuthSecret } from "../../internal/oauth_secret/structures/IOAuthSecret";
+import { tags } from "typia";
 
 @Injectable()
 export class GoogleCalendarProvider {
@@ -372,12 +373,9 @@ export class GoogleCalendarProvider {
   /**
    * 이벤트 시작 / 종료날짜 지정시 KST로 변환해서 지정해줘야 함
    */
-  makeDateForUTC(input: IGoogleCalendar.IGoogleCalendarEvent.IDate) {
-    const date = new Date(
-      Date.UTC(input.year, input.month - 1, input.date, input.hour),
-    );
-    const kstDate = date.toISOString();
-    return kstDate;
+  makeDateForUTC(dateTime: string & tags.Format<"date-time">) {
+    const date = new Date(dateTime); // date-time 문자열을 Date 객체로 변환
+    return date.toISOString(); // UTC 기준 ISO 문자열 반환
   }
 
   /**
@@ -385,7 +383,7 @@ export class GoogleCalendarProvider {
    */
   createRecurrence(
     freq?: string,
-    until?: IGoogleCalendar.IGoogleCalendarEvent.IDate,
+    until?: string & tags.Format<"date-time">,
     count?: number,
   ) {
     const recurrenceFields = [`FREQ=${freq?.toUpperCase()}`];
@@ -395,10 +393,8 @@ export class GoogleCalendarProvider {
        * until은 항상 자정이어야 하며 yyyyMMddT000000Z 형식이어야함
        * month와 date에 한 자리 숫자가 입력된 경우 앞에 0으로 채워줌
        */
-      const untilDate = `${until.year}${String(until.month).padStart(
-        2,
-        "0",
-      )}${String(until.date).padStart(2, "0")}T000000Z`;
+      const date = new Date(until);
+      const untilDate = `${date.getUTCFullYear()}${String(date.getUTCMonth() + 1).padStart(2, "0")}${String(date.getUTCDate()).padStart(2, "0")}T000000Z`;
       recurrenceFields.push(`UNTIL=${untilDate}`);
     } else if (count) {
       recurrenceFields.push(`COUNT=${count}`);

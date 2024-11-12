@@ -162,7 +162,7 @@ export const test_api_connector_open_data_get_RTMS_Data_svc_offi_rent_with_pagin
         connection,
         {
           page: 1,
-          limit: 1,
+          limit: 2,
           LAWD_CD: sigunguCd,
           DEAL_YMD: "202406",
         },
@@ -175,7 +175,7 @@ export const test_api_connector_open_data_get_RTMS_Data_svc_offi_rent_with_pagin
         connection,
         {
           page: 2,
-          limit: 1,
+          limit: 2,
           LAWD_CD: sigunguCd,
           DEAL_YMD: "202406",
         },

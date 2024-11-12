@@ -62,41 +62,7 @@ export namespace IGoogleCalendar {
      *
      * @title Information about the last date from which events will be fetched
      */
-    time_max: {
-      /**
-       * It's the year.
-       *
-       * @title The year
-       */
-      year: number;
-
-      /**
-       * It's the month.
-       *
-       * You must enter a two-digit number. For example, if it is March, you should enter 03.
-       *
-       * @title The Month
-       */
-      month: number;
-
-      /**
-       * It's the date.
-       *
-       * You must enter a two-digit number. For example, if it is 7th, you should enter 07.
-       *
-       * @title Date
-       */
-      date: number;
-
-      /**
-       * It's the hour.
-       *
-       * You must enter a two-digit number. For example, if it is 2am, you should enter 02. If it is 2pm, you should enter 14.
-       *
-       * @title hour
-       */
-      hour: number;
-    };
+    time_max: string & tags.Format<"date-time">;
 
     /**
      * Events prior to that date will not be retrieved.
@@ -105,41 +71,7 @@ export namespace IGoogleCalendar {
      *
      * @title Information on the start date from which events will be retrieved
      */
-    time_min: {
-      /**
-       * It's the year.
-       *
-       * @title The year
-       */
-      year: number;
-
-      /**
-       * It's the month.
-       *
-       * You must enter a two-digit number. For example, if it is March, you should enter 03.
-       *
-       * @title The Month
-       */
-      month: number;
-
-      /**
-       * It's the date.
-       *
-       * You must enter a two-digit number. For example, if it is 7th, you should enter 07.
-       *
-       * @title Date
-       */
-      date: number;
-
-      /**
-       * It's the hour.
-       *
-       * You must enter a two-digit number. For example, if it is 2am, you should enter 02. If it is 2pm, you should enter 14.
-       *
-       * @title hour
-       */
-      hour: number;
-    };
+    time_min: string & tags.Format<"date-time">;
 
     /**
      * Sets the maximum number of events to retrieve.
@@ -630,41 +562,7 @@ export namespace IGoogleCalendar {
      *
      * @title Event start date
      */
-    start: {
-      /**
-       * It's the year.
-       *
-       * @title The year
-       */
-      year: number;
-
-      /**
-       * It's the month.
-       *
-       * You must enter a two-digit number. For example, if it is March, you should enter 03.
-       *
-       * @title The Month
-       */
-      month: number;
-
-      /**
-       * It's the date.
-       *
-       * You must enter a two-digit number. For example, if it is 7th, you should enter 07.
-       *
-       * @title Date
-       */
-      date: number;
-
-      /**
-       * It's the hour.
-       *
-       * You must enter a two-digit number. For example, if it is 2am, you should enter 02. If it is 2pm, you should enter 14.
-       *
-       * @title hour
-       */
-      hour: number;
-    };
+    start: string & tags.Format<"date-time">;
 
     /**
      * The end date of the event to be created.
@@ -673,41 +571,7 @@ export namespace IGoogleCalendar {
      *
      * @title Event end date
      */
-    end: {
-      /**
-       * It's the year.
-       *
-       * @title The year
-       */
-      year: number;
-
-      /**
-       * It's the month.
-       *
-       * You must enter a two-digit number. For example, if it is March, you should enter 03.
-       *
-       * @title The Month
-       */
-      month: number;
-
-      /**
-       * It's the date.
-       *
-       * You must enter a two-digit number. For example, if it is 7th, you should enter 07.
-       *
-       * @title Date
-       */
-      date: number;
-
-      /**
-       * It's the hour.
-       *
-       * You must enter a two-digit number. For example, if it is 2am, you should enter 02. If it is 2pm, you should enter 14.
-       *
-       * @title hour
-       */
-      hour: number;
-    };
+    end: string & tags.Format<"date-time">;
 
     /**
      * This is the event attendee email.
@@ -744,41 +608,7 @@ export namespace IGoogleCalendar {
      *
      * @title Event repeat deadline
      */
-    repeatUntil?: {
-      /**
-       * It's the year.
-       *
-       * @title The year
-       */
-      year: number;
-
-      /**
-       * It's the month.
-       *
-       * You must enter a two-digit number. For example, if it is March, you should enter 03.
-       *
-       * @title The Month
-       */
-      month: number;
-
-      /**
-       * It's the date.
-       *
-       * You must enter a two-digit number. For example, if it is 7th, you should enter 07.
-       *
-       * @title Date
-       */
-      date: number;
-
-      /**
-       * It's the hour.
-       *
-       * You must enter a two-digit number. For example, if it is 2am, you should enter 02. If it is 2pm, you should enter 14.
-       *
-       * @title hour
-       */
-      hour: number;
-    };
+    repeatUntil?: string & tags.Format<"date-time">;
 
     /**
      * Whether the event is busy or not.
