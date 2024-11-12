@@ -1,6 +1,7 @@
 import { TypedBody, TypedRoute } from "@nestia/core";
 import { Controller } from "@nestjs/common";
 import { ICrunchbase } from "@wrtn/connector-api/lib/structures/connector/crunchbase/ICrunchbase";
+import { RouteIcon } from "@wrtnio/decorators";
 import { CrunchbaseProvider } from "../../../providers/connector/crunchbase/CrunchbaseProvider";
 import { retry } from "../../../utils/retry";
 
@@ -16,6 +17,9 @@ export class CrunchbaseController {
    *
    * @summary Get Organization Data from crunchbase
    */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/crunchbase_full.svg",
+  )
   @TypedRoute.Post("get-organization-data")
   async getOrganizationData(
     @TypedBody() input: ICrunchbase.IGetOrganizationDataInput,
@@ -36,6 +40,9 @@ export class CrunchbaseController {
    *
    * @summary Search for company name and auto-completion
    */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/crunchbase_full.svg",
+  )
   @TypedRoute.Post("auto-complete")
   async autocomplete(
     @TypedBody() input: ICrunchbase.IAutocompleteInput,
