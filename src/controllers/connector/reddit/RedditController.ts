@@ -1,6 +1,7 @@
 import { TypedBody, TypedRoute } from "@nestia/core";
 import { Controller } from "@nestjs/common";
 import { IReddit } from "@wrtn/connector-api/lib/structures/connector/reddit/IReddit";
+import { RouteIcon } from "@wrtnio/decorators";
 import { RedditProvider } from "../../../providers/connector/reddit/RedditProvider";
 
 @Controller("connector/reddit")
@@ -16,6 +17,9 @@ export class RedditController {
    *
    * @summary Get hot posts from Reddit
    */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/reddit_full.svg",
+  )
   @TypedRoute.Post("get-hot-posts")
   async getHotPosts(
     @TypedBody() input: IReddit.IGetHotPostsInput,
@@ -32,6 +36,9 @@ export class RedditController {
    *
    * @summary Get new posts from Reddit
    */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/reddit_full.svg",
+  )
   @TypedRoute.Post("get-new-posts")
   async getNewPosts(
     @TypedBody() input: IReddit.IGetNewPostsInput,
@@ -48,6 +55,9 @@ export class RedditController {
    *
    * @summary Get top posts from Reddit
    */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/reddit_full.svg",
+  )
   @TypedRoute.Post("get-top-posts")
   async getTopPosts(
     @TypedBody() input: IReddit.IGetTopPostsInput,
@@ -64,6 +74,9 @@ export class RedditController {
    *
    * @summary Get comments from a Reddit post
    */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/reddit_full.svg",
+  )
   @TypedRoute.Post("get-comments")
   async getComments(
     @TypedBody() input: IReddit.IGetCommentsInput,
@@ -82,6 +95,9 @@ export class RedditController {
    *
    * @summary Get information about a Reddit user
    */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/reddit_full.svg",
+  )
   @TypedRoute.Post("get-user-about")
   async getUserAbout(
     @TypedBody() input: IReddit.IGetUserAboutInput,
@@ -98,6 +114,9 @@ export class RedditController {
    *
    * @summary Get posts submitted by a Reddit user
    */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/reddit_full.svg",
+  )
   @TypedRoute.Post("get-user-submitted")
   async getUserSubmitted(
     @TypedBody() input: IReddit.IGetUserSubmittedInput,
@@ -114,6 +133,9 @@ export class RedditController {
    *
    * @summary Get comments made by a Reddit user
    */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/reddit_full.svg",
+  )
   @TypedRoute.Post("get-user-comments")
   async getUserComments(
     @TypedBody() input: IReddit.IGetUserCommentsInput,
@@ -131,6 +153,9 @@ export class RedditController {
    *
    * @summary Search for subreddits on Reddit
    */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/reddit_full.svg",
+  )
   @TypedRoute.Post("search-subreddits")
   async searchSubreddits(
     @TypedBody() input: IReddit.ISearchSubredditsInput,
@@ -147,6 +172,9 @@ export class RedditController {
    *
    * @summary Get information about a subreddit
    */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/reddit_full.svg",
+  )
   @TypedRoute.Post("get-subreddit-about")
   async getSubredditAbout(
     @TypedBody() input: IReddit.IGetSubredditAboutInput,
@@ -162,6 +190,9 @@ export class RedditController {
    *
    * @summary Get popular subreddits
    */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/reddit_full.svg",
+  )
   @TypedRoute.Post("get-popular-subreddits")
   async getPopularSubreddits(
     @TypedBody() input: IReddit.IGetPopularSubredditsInput,
@@ -177,6 +208,9 @@ export class RedditController {
    *
    * @summary Get the best content from Reddit
    */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/reddit_full.svg",
+  )
   @TypedRoute.Post("get-best-content")
   async getBestContent(
     @TypedBody() input: IReddit.IGetBestContentInput,
