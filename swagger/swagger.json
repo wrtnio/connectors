@@ -15,7 +15,7 @@
     }
   ],
   "info": {
-    "version": "0.1.332",
+    "version": "0.1.334",
     "title": "@wrtn/connector",
     "description": "wrtn-ecosystem connectors and sdk",
     "license": {
@@ -34454,7 +34454,7 @@
           "files": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/MyPickISlack.Filenameusersizeidcreatedchannelscomments_countmimetypeurl_privateurl_private_downloadthumb_1024"
+              "$ref": "#/components/schemas/MyPickISlack.Filenameuseridcreatedsizechannelscomments_countmimetypeurl_privateurl_private_downloadthumb_1024"
             }
           },
           "paging": {
@@ -34492,7 +34492,7 @@
         ],
         "title": "File Lookup Results"
       },
-      "MyPickISlack.Filenameusersizeidcreatedchannelscomments_countmimetypeurl_privateurl_private_downloadthumb_1024": {
+      "MyPickISlack.Filenameuseridcreatedsizechannelscomments_countmimetypeurl_privateurl_private_downloadthumb_1024": {
         "type": "object",
         "properties": {
           "name": {
@@ -34503,10 +34503,6 @@
             "type": "string",
             "title": "user"
           },
-          "size": {
-            "type": "integer",
-            "title": "size"
-          },
           "id": {
             "type": "string",
             "title": "id"
@@ -34514,6 +34510,10 @@
           "created": {
             "type": "number",
             "title": "created"
+          },
+          "size": {
+            "type": "integer",
+            "title": "size"
           },
           "channels": {
             "type": "array",
@@ -34550,9 +34550,9 @@
         "required": [
           "name",
           "user",
-          "size",
           "id",
           "created",
+          "size",
           "channels",
           "comments_count",
           "mimetype"
@@ -34924,7 +34924,7 @@
           "comments": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/MyPickIJira.CommentidbodyauthorcreatedupdatedupdateAuthor"
+              "$ref": "#/components/schemas/MyPickIJira.CommentidcreatedbodyauthorupdatedupdateAuthor"
             },
             "title": "comments"
           },
@@ -34954,12 +34954,16 @@
           "total"
         ]
       },
-      "MyPickIJira.CommentidbodyauthorcreatedupdatedupdateAuthor": {
+      "MyPickIJira.CommentidcreatedbodyauthorupdatedupdateAuthor": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string",
             "title": "id of comment"
+          },
+          "created": {
+            "type": "string",
+            "title": "created time of this comment"
           },
           "body": {
             "type": "object",
@@ -35023,10 +35027,6 @@
             "$ref": "#/components/schemas/MyPickIJira.UseractiveaccountIddisplayName",
             "title": "author of this comment"
           },
-          "created": {
-            "type": "string",
-            "title": "created time of this comment"
-          },
           "updated": {
             "type": "string",
             "title": "updated time of this comment"
@@ -35038,9 +35038,9 @@
         },
         "required": [
           "id",
+          "created",
           "body",
           "author",
-          "created",
           "updated",
           "updateAuthor"
         ]

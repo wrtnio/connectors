@@ -18,7 +18,7 @@
     "title": "Jira",
     "summary": "Jira로 프로젝트 이슈를 관리해요.",
     "description": "프로젝트에 이슈를 생성하고 담당자를 할당해요. 완료된 이슈가 있다면 상태를 변경할 수도 있고 댓글을 남겨 의견 교류도 가능해요.",
-    "version": "0.1.332",
+    "version": "0.1.334",
     "license": {
       "name": "AGPL-3.0-only"
     }
@@ -881,7 +881,7 @@
           "comments": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/MyPickIJira.CommentidbodyauthorcreatedupdatedupdateAuthor"
+              "$ref": "#/components/schemas/MyPickIJira.CommentidcreatedbodyauthorupdatedupdateAuthor"
             },
             "title": "comments"
           },
@@ -911,12 +911,16 @@
           "total"
         ]
       },
-      "MyPickIJira.CommentidbodyauthorcreatedupdatedupdateAuthor": {
+      "MyPickIJira.CommentidcreatedbodyauthorupdatedupdateAuthor": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string",
             "title": "id of comment"
+          },
+          "created": {
+            "type": "string",
+            "title": "created time of this comment"
           },
           "body": {
             "type": "object",
@@ -980,10 +984,6 @@
             "$ref": "#/components/schemas/MyPickIJira.UseractiveaccountIddisplayName",
             "title": "author of this comment"
           },
-          "created": {
-            "type": "string",
-            "title": "created time of this comment"
-          },
           "updated": {
             "type": "string",
             "title": "updated time of this comment"
@@ -995,9 +995,9 @@
         },
         "required": [
           "id",
+          "created",
           "body",
           "author",
-          "created",
           "updated",
           "updateAuthor"
         ]
