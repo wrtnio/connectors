@@ -1,6 +1,7 @@
 import { TypedBody, TypedRoute } from "@nestia/core";
 import { Controller } from "@nestjs/common";
 import { ISimilarweb } from "@wrtn/connector-api/lib/structures/connector/similarweb/ISimilarweb";
+import { RouteIcon } from "@wrtnio/decorators";
 import { SimilarwebProvider } from "../../../providers/connector/similarweb/SimilarwebProvider";
 import { retry } from "../../../utils/retry";
 
@@ -19,6 +20,9 @@ export class SimilarwebController {
    * @param input - The input parameters containing the domain name to retrieve information for.
    * @returns A promise that resolves to the domain information output, including status and detailed data.
    */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/similarweb_full.svg",
+  )
   @TypedRoute.Post("get-domain-info")
   async getDomainInfo(
     @TypedBody() input: ISimilarweb.IGetDomainInfoInput,
