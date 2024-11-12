@@ -716,12 +716,12 @@ export namespace IReddit {
     /**
      * @title The type of the media
      **/
-    type: string;
+    type?: string;
 
     /**
      * @title Oembed information
      **/
-    oembed: Oembed;
+    oembed?: Oembed;
   }
 
   export interface Oembed {
@@ -768,7 +768,7 @@ export namespace IReddit {
     /**
      * @title The name of the author
      **/
-    author_name: string;
+    author_name?: string;
 
     /**
      * @title The name of the provider
@@ -788,7 +788,7 @@ export namespace IReddit {
     /**
      * @title The URL of the author
      **/
-    author_url: string;
+    author_url?: string;
   }
 
   export interface SecureMediaEmbed {
@@ -911,7 +911,7 @@ export namespace IReddit {
     /**
      * @title Oembed information
      **/
-    oembed: Oembed2;
+    oembed?: Oembed2;
   }
 
   export interface Oembed2 {
@@ -958,7 +958,7 @@ export namespace IReddit {
     /**
      * @title The name of the author
      **/
-    author_name: string;
+    author_name?: string;
 
     /**
      * @title The name of the provider
@@ -978,7 +978,7 @@ export namespace IReddit {
     /**
      * @title The URL of the author
      **/
-    author_url: string;
+    author_url?: string;
   }
 
   export type MediaMetadata = Record<string, Metadata>;
