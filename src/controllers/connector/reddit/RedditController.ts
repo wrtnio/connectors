@@ -7,6 +7,15 @@ import { RedditProvider } from "../../../providers/connector/reddit/RedditProvid
 export class RedditController {
   constructor(private readonly redditProvider: RedditProvider) {}
 
+  /**
+   * Retrieves hot posts from Reddit.
+   *
+   * This API fetches the most popular posts currently trending on Reddit.
+   * The input requires a subreddit name and optional parameters for filtering.
+   * The output provides a list of hot posts with details such as title, author, and score.
+   *
+   * @summary Get hot posts from Reddit
+   */
   @TypedRoute.Post("get-hot-posts")
   async getHotPosts(
     @TypedBody() input: IReddit.IGetHotPostsInput,
@@ -14,6 +23,15 @@ export class RedditController {
     return this.redditProvider.getHotPosts(input);
   }
 
+  /**
+   * Retrieves new posts from Reddit.
+   *
+   * This API fetches the latest posts from a specified subreddit.
+   * The input requires a subreddit name and optional parameters for pagination.
+   * The output provides a list of new posts with details such as title, author, and timestamp.
+   *
+   * @summary Get new posts from Reddit
+   */
   @TypedRoute.Post("get-new-posts")
   async getNewPosts(
     @TypedBody() input: IReddit.IGetNewPostsInput,
@@ -21,6 +39,15 @@ export class RedditController {
     return this.redditProvider.getNewPosts(input);
   }
 
+  /**
+   * Retrieves top posts from Reddit.
+   *
+   * This API fetches the highest-rated posts from a specified subreddit over a given time period.
+   * The input requires a subreddit name and a time filter (e.g., day, week, month).
+   * The output provides a list of top posts with details such as title, author, and score.
+   *
+   * @summary Get top posts from Reddit
+   */
   @TypedRoute.Post("get-top-posts")
   async getTopPosts(
     @TypedBody() input: IReddit.IGetTopPostsInput,
@@ -28,6 +55,15 @@ export class RedditController {
     return this.redditProvider.getTopPosts(input);
   }
 
+  /**
+   * Retrieves comments from a Reddit post.
+   *
+   * This API fetches comments for a specific Reddit post.
+   * The input requires the post ID and subreddit name.
+   * The output provides a list of comments with details such as author, content, and score.
+   *
+   * @summary Get comments from a Reddit post
+   */
   @TypedRoute.Post("get-comments")
   async getComments(
     @TypedBody() input: IReddit.IGetCommentsInput,
@@ -35,6 +71,15 @@ export class RedditController {
     return this.redditProvider.getComments(input);
   }
 
+  /**
+   * Retrieves information about a Reddit user.
+   *
+   * This API fetches profile information for a specified Reddit user.
+   * The input requires the username.
+   * The output provides user details such as karma, account age, and recent activity.
+   *
+   * @summary Get information about a Reddit user
+   */
   @TypedRoute.Post("get-user-about")
   async getUserAbout(
     @TypedBody() input: IReddit.IGetUserAboutInput,
@@ -42,6 +87,15 @@ export class RedditController {
     return this.redditProvider.getUserAbout(input);
   }
 
+  /**
+   * Retrieves posts submitted by a Reddit user.
+   *
+   * This API fetches posts submitted by a specified Reddit user.
+   * The input requires the username.
+   * The output provides a list of submitted posts with details such as title, subreddit, and score.
+   *
+   * @summary Get posts submitted by a Reddit user
+   */
   @TypedRoute.Post("get-user-submitted")
   async getUserSubmitted(
     @TypedBody() input: IReddit.IGetUserSubmittedInput,
@@ -49,6 +103,15 @@ export class RedditController {
     return this.redditProvider.getUserSubmitted(input);
   }
 
+  /**
+   * Retrieves comments made by a Reddit user.
+   *
+   * This API fetches comments made by a specified Reddit user.
+   * The input requires the username.
+   * The output provides a list of comments with details such as content, subreddit, and score.
+   *
+   * @summary Get comments made by a Reddit user
+   */
   @TypedRoute.Post("get-user-comments")
   async getUserComments(
     @TypedBody() input: IReddit.IGetUserCommentsInput,
@@ -56,6 +119,15 @@ export class RedditController {
     return this.redditProvider.getUserComments(input);
   }
 
+  /**
+   * Searches for subreddits on Reddit.
+   *
+   * This API allows searching for subreddits based on a query string.
+   * The input requires a search query.
+   * The output provides a list of subreddits matching the query with details such as name and subscriber count.
+   *
+   * @summary Search for subreddits on Reddit
+   */
   @TypedRoute.Post("search-subreddits")
   async searchSubreddits(
     @TypedBody() input: IReddit.ISearchSubredditsInput,
@@ -63,6 +135,15 @@ export class RedditController {
     return this.redditProvider.searchSubreddits(input);
   }
 
+  /**
+   * Retrieves information about a subreddit.
+   *
+   * This API fetches detailed information about a specified subreddit.
+   * The input requires the subreddit name.
+   * The output provides details such as description, subscriber count, and rules.
+   *
+   * @summary Get information about a subreddit
+   */
   @TypedRoute.Post("get-subreddit-about")
   async getSubredditAbout(
     @TypedBody() input: IReddit.IGetSubredditAboutInput,
@@ -70,6 +151,14 @@ export class RedditController {
     return this.redditProvider.getSubredditAbout(input);
   }
 
+  /**
+   * Retrieves popular subreddits.
+   *
+   * This API fetches a list of currently popular subreddits.
+   * The output provides details such as subreddit name and subscriber count.
+   *
+   * @summary Get popular subreddits
+   */
   @TypedRoute.Post("get-popular-subreddits")
   async getPopularSubreddits(
     @TypedBody() input: IReddit.IGetPopularSubredditsInput,
@@ -77,6 +166,14 @@ export class RedditController {
     return this.redditProvider.getPopularSubreddits(input);
   }
 
+  /**
+   * Retrieves the best content from Reddit.
+   *
+   * This API fetches the best-rated content from Reddit.
+   * The output provides a list of top-rated posts with details such as title, author, and score.
+   *
+   * @summary Get the best content from Reddit
+   */
   @TypedRoute.Post("get-best-content")
   async getBestContent(
     @TypedBody() input: IReddit.IGetBestContentInput,
