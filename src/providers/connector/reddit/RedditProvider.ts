@@ -1,6 +1,7 @@
 import { Injectable } from "@nestjs/common";
 import { IReddit } from "@wrtn/connector-api/lib/structures/connector/reddit/IReddit";
 import axios from "axios";
+import typia from "typia";
 import { ConnectorGlobal } from "../../../ConnectorGlobal";
 import { createQueryParameter } from "../../../utils/CreateQueryParameter";
 import { OAuthSecretProvider } from "../../internal/oauth_secret/OAuthSecretProvider";
@@ -57,6 +58,31 @@ export class RedditProvider {
       },
     });
     return response.data.data;
+  }
+
+  flatComments(
+    input: IReddit.IGetCommentsOutput["comments"],
+  ): IReddit.IFlattenCommentsOutput {
+    const idx = input.children.findIndex((el) => el.kind === "more");
+    const more = idx === -1 ? null : input.children.splice(idx, 1)[0];
+    typia.assertGuard<IReddit.ChildMore | null>(more);
+
+    function flat(
+      children: (IReddit.ChildComment | IReddit.ChildMore)[],
+    ): IReddit.ChildComment[] {
+      return children
+        .filter((child) => child.kind === "t1")
+        .flatMap((child) => {
+          if (typeof child.data.replies !== "string") {
+            const descendants = flat(child.data.replies.data.children);
+            return [child, ...descendants];
+          }
+
+          return [child];
+        });
+    }
+
+    return { more, flatComments: flat(input.children) };
   }
 
   async getComments(

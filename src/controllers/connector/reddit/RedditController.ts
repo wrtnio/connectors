@@ -67,8 +67,10 @@ export class RedditController {
   @TypedRoute.Post("get-comments")
   async getComments(
     @TypedBody() input: IReddit.IGetCommentsInput,
-  ): Promise<IReddit.IGetCommentsOutput> {
-    return this.redditProvider.getComments(input);
+  ): Promise<IReddit.IGetArticleAndCommentsOutput> {
+    const response = await this.redditProvider.getComments(input);
+    const flatten = this.redditProvider.flatComments(response.comments);
+    return { articles: response.articles, ...flatten };
   }
 
   /**
@@ -115,8 +117,9 @@ export class RedditController {
   @TypedRoute.Post("get-user-comments")
   async getUserComments(
     @TypedBody() input: IReddit.IGetUserCommentsInput,
-  ): Promise<IReddit.IGetUserCommentsOutput> {
-    return this.redditProvider.getUserComments(input);
+  ): Promise<IReddit.IFlattenCommentsOutput> {
+    const comments = await this.redditProvider.getUserComments(input);
+    return this.redditProvider.flatComments(comments);
   }
 
   /**

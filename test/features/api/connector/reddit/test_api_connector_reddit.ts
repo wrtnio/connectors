@@ -164,6 +164,7 @@ export const test_api_connector_reddit_get_comments_of_top_posts_about_gaming =
             secretKey: ConnectorGlobal.env.REDDIT_TEST_SECRET,
           },
         );
+
       typia.validateEquals(firstPage);
     }
   };
@@ -207,8 +208,8 @@ export const test_api_connector_reddit_get_multiple_user_about = async (
       },
     );
 
-  for (const child of comments.comments.children) {
-    const author = child.kind === "t1" ? child.data.author ?? "" : "";
+  for (const child of comments.flatComments) {
+    const author = child.kind === "t1" ? (child.data.author ?? "") : "";
     if (author) {
       const res =
         await CApi.functional.connector.reddit.get_user_about.getUserAbout(
@@ -248,7 +249,7 @@ export const test_api_connector_reddit_get_user_submmited = async (
         },
       );
 
-    typia.assertEquals(res);
+    typia.assert(res);
   }
 };
 

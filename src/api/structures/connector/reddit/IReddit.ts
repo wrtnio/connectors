@@ -2,6 +2,7 @@ import { Prerequisite } from "@wrtnio/decorators";
 import { tags } from "typia";
 import { Limit } from "../../types/Limit";
 import { MyPick } from "../../types/MyPick";
+import { StrictOmit } from "../../types/strictOmit";
 import { ICommon } from "../common/ISecretValue";
 
 export namespace IReddit {
@@ -335,7 +336,7 @@ export namespace IReddit {
     /**
      * @title Content categories
      **/
-    content_categories?: string | null;
+    content_categories?: string[] | null;
 
     /**
      * @title Whether it's a self post
@@ -741,9 +742,14 @@ export namespace IReddit {
     title: string;
 
     /**
+     * @title The description of the Oembed
+     **/
+    description?: string;
+
+    /**
      * @title The type of the Oembed
      **/
-    type: string;
+    type?: string;
 
     /**
      * @title The width of the thumbnail
@@ -789,6 +795,11 @@ export namespace IReddit {
      * @title The URL of the author
      **/
     author_url?: string;
+
+    /**
+     * @title The URL of the Oembed
+     */
+    url?: string;
   }
 
   export interface SecureMediaEmbed {
@@ -906,79 +917,12 @@ export namespace IReddit {
     /**
      * @title The type of the media
      **/
-    type: string;
+    type?: string;
 
     /**
      * @title Oembed information
      **/
-    oembed?: Oembed2;
-  }
-
-  export interface Oembed2 {
-    /**
-     * @title The provider URL
-     **/
-    provider_url: string;
-
-    /**
-     * @title The version of the Oembed
-     **/
-    version: string;
-
-    /**
-     * @title The title of the Oembed
-     **/
-    title: string;
-
-    /**
-     * @title The type of the Oembed
-     **/
-    type: string;
-
-    /**
-     * @title The width of the thumbnail
-     **/
-    thumbnail_width: number;
-
-    /**
-     * @title The height of the Oembed
-     **/
-    height: number;
-
-    /**
-     * @title The width of the Oembed
-     **/
-    width: number;
-
-    /**
-     * @title The HTML content
-     **/
-    html: string;
-
-    /**
-     * @title The name of the author
-     **/
-    author_name?: string;
-
-    /**
-     * @title The name of the provider
-     **/
-    provider_name: string;
-
-    /**
-     * @title The URL of the thumbnail
-     **/
-    thumbnail_url: string;
-
-    /**
-     * @title The height of the thumbnail
-     **/
-    thumbnail_height: number;
-
-    /**
-     * @title The URL of the author
-     **/
-    author_url?: string;
+    oembed?: Oembed;
   }
 
   export type MediaMetadata = Record<string, Metadata>;
@@ -1544,6 +1488,60 @@ export namespace IReddit {
     collapsed_because_crowd_control?: null;
   }
 
+  export interface IGetFlattenCommentsOutput
+    extends MyPick<IGetCommentsOutput, "articles"> {
+    comments: {
+      /**
+       * @title The after cursor for pagination
+       **/
+      after: FullNames | null;
+
+      /**
+       * @title The number of items returned
+       **/
+      dist: number | null;
+
+      /**
+       * @title The modhash for the request
+       **/
+      modhash: string | null;
+
+      /**
+       * @title The geographical filter applied
+       **/
+      geo_filter: string | null;
+
+      /**
+       * @title The list of children posts
+       **/
+      children: {
+        /**
+         * @title kind
+         */
+        kind: "t1";
+
+        /**
+         * @title data
+         */
+        data: StrictOmit<Comment, "replies">;
+      }[];
+
+      /**
+       * @title The before cursor for pagination
+       **/
+      before: FullNames | null;
+    };
+  }
+
+  export interface IFlattenCommentsOutput {
+    more: IReddit.ChildMore | null;
+    flatComments: IReddit.ChildComment[];
+  }
+
+  export interface IGetArticleAndCommentsOutput
+    extends MyPick<IGetCommentsOutput, "articles">,
+      IFlattenCommentsOutput {}
+
   export interface IGetCommentsOutput {
     articles: {
       /**
@@ -1601,65 +1599,66 @@ export namespace IReddit {
       /**
        * @title The list of children posts
        **/
-      children: (
-        | {
-            /**
-             * @title kind
-             */
-            kind: "t1";
-
-            /**
-             * @title data
-             */
-            data: Comment;
-          }
-        | {
-            /**
-             * @title kind
-             */
-            kind: "more";
-
-            /**
-             * @title data
-             */
-            data: {
-              /**
-               * @title count
-               */
-              count: number & tags.Type<"uint64">;
-
-              /**
-               * @title name
-               */
-              name: Extract<IReddit.FullNames, `t1_${string}`>;
-
-              /**
-               * @title id
-               */
-              id: string;
-
-              /**
-               * @title parent_id
-               */
-              parent_id: IReddit.FullNames;
-
-              /**
-               * @title depth
-               */
-              depth: number & tags.Type<"uint64">;
-
-              /**
-               * @title children
-               */
-              children: string[];
-            };
-          }
-      )[];
+      children: (ChildComment | ChildMore)[];
 
       /**
        * @title The before cursor for pagination
        **/
       before: FullNames | null;
+    };
+  }
+
+  export interface ChildComment {
+    /**
+     * @title kind
+     */
+    kind: "t1";
+
+    /**
+     * @title data
+     */
+    data: Comment;
+  }
+
+  export interface ChildMore {
+    /**
+     * @title kind
+     */
+    kind: "more";
+
+    /**
+     * @title data
+     */
+    data: {
+      /**
+       * @title count
+       */
+      count: number & tags.Type<"uint64">;
+
+      /**
+       * @title name
+       */
+      name: Extract<IReddit.FullNames, `t1_${string}`>;
+
+      /**
+       * @title id
+       */
+      id: string;
+
+      /**
+       * @title parent_id
+       */
+      parent_id: IReddit.FullNames;
+
+      /**
+       * @title depth
+       */
+      depth: number & tags.Type<"uint64">;
+
+      /**
+       * @title children
+       */
+      children: string[];
     };
   }
 
