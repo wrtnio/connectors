@@ -1365,7 +1365,7 @@ export namespace IReddit {
     /**
      * @title replies
      */
-    replies:
+    replies?:
       | tags.Constant<"", { title: "NO_REPLIES" }>
       | {
           kind: "Listing";

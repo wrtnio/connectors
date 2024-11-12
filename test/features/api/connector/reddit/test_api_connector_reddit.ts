@@ -351,3 +351,32 @@ export const test_api_connector_reddit_get_best_content = async (
   typia.validateEquals(secondPage);
   assert.notDeepStrictEqual(firstPage, secondPage);
 };
+
+export const test_api_connector_reddit_get_comments_are_flatten = async (
+  connection: CApi.IConnection,
+) => {
+  const topPost =
+    await CApi.functional.connector.reddit.get_top_posts.getTopPosts(
+      connection,
+      {
+        limit: 1,
+        subreddit: "r/programming",
+        secretKey: ConnectorGlobal.env.REDDIT_TEST_SECRET,
+      },
+    );
+
+  const post = topPost.children[0];
+
+  const comments =
+    await CApi.functional.connector.reddit.get_comments.getComments(
+      connection,
+      {
+        limit: 10,
+        article: post.data.id,
+        subreddit: "r/programming",
+        secretKey: ConnectorGlobal.env.REDDIT_TEST_SECRET,
+      },
+    );
+
+  typia.validateEquals(comments);
+};

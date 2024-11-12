@@ -68,13 +68,18 @@ export class RedditProvider {
     typia.assertGuard<IReddit.ChildMore | null>(more);
 
     function flat(
-      children: (IReddit.ChildComment | IReddit.ChildMore)[],
+      children?: (IReddit.ChildComment | IReddit.ChildMore)[],
     ): IReddit.ChildComment[] {
+      if (!children) {
+        return [];
+      }
+
       return children
         .filter((child) => child.kind === "t1")
         .flatMap((child) => {
           if (typeof child.data.replies !== "string") {
-            const descendants = flat(child.data.replies.data.children);
+            const descendants = flat(child.data.replies?.data.children);
+            delete child.data.replies;
             return [child, ...descendants];
           }
 
