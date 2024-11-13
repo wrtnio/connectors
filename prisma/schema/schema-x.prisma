@@ -26,6 +26,7 @@ model x_users {
   tweets      x_tweet[]
 
   @@unique([tweet_user_id])
+  @@unique([userName])
   @@index([created_at])
 }
 
@@ -56,7 +57,16 @@ model x_tweet {
   link                 String @db.VarChar(80000)
 
   /// The type of the tweet.
-  type                 String?
+  type                 String
+
+  /// Author name of the tweet you quoted or retweeted.
+  referred_user_name String?
+
+  /// Link to the tweet you quoted or retweeted.
+  referred_tweet_link String?
+
+  /// Text of the tweet you quoted or retweeted.
+  referred_tweet_text String?
 
   /// The date and time the record was created.
   created_at           DateTime           @db.Timestamptz

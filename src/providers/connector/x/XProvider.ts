@@ -3,6 +3,7 @@ import {
   Injectable,
   InternalServerErrorException,
   Logger,
+  NotFoundException,
   UnprocessableEntityException,
 } from "@nestjs/common";
 
@@ -25,101 +26,12 @@ export class XProvider {
   private readonly logger = new Logger("XProvider");
 
   async getUsers(input: IX.IUserInput): Promise<IX.IUserOutput[]> {
-    try {
-      const accessToken = await this.refresh(input);
-      const result: IX.IUserOutput[] = [];
-      const userPromises = input.userName.map(async (userName) => {
-        const res = await axios.get(`${userName}`, {
-          headers: {
-            Authorization: `Bearer ${accessToken}`,
-          },
-        });
-        const user = await ConnectorGlobal.prisma.x_users.findFirst({
-          where: {
-            tweet_user_id: res.data.data.id,
-          },
-        });
-
-        if (user) {
-          return {
-            id: user.tweet_user_id,
-            name: user.name,
-            userName: user.userName,
-          };
-        } else {
-          const record = await ConnectorGlobal.prisma.x_users.create({
-            data: {
-              id: v4(),
-              tweet_user_id: res.data.data.id,
-              name: res.data.data.name,
-              userName: res.data.data.username,
-              created_at: new Date(),
-            },
-          });
-
-          return {
-            id: record.tweet_user_id,
-            name: record.name,
-            userName: record.userName,
-          };
-        }
-      });
-
-      const users = await Promise.all(userPromises);
-      return result.concat(users);
-    } catch (err) {
-      console.error(JSON.stringify(err));
-      throw err;
-    }
+    return this.getTweetUserInformations(input.userName, input);
   }
 
   async getPreDefinedInfluencers(input: IX.ISecret): Promise<IX.IUserOutput[]> {
-    try {
-      const accessToken = await this.refresh(input);
-      const influencerList: string[] = ["hwchase17", "ilyasut", "miramurati"];
-      const result: IX.IUserOutput[] = [];
-      const userPromises = influencerList.map(async (userName) => {
-        const res = await axios.get(`${userName}`, {
-          headers: {
-            Authorization: `Bearer ${accessToken}`,
-          },
-        });
-        const influencer = await ConnectorGlobal.prisma.x_users.findFirst({
-          where: {
-            tweet_user_id: res.data.data.id,
-          },
-        });
-
-        if (influencer) {
-          return {
-            id: influencer.tweet_user_id,
-            name: influencer.name,
-            userName: influencer.userName,
-          };
-        } else {
-          const record = await ConnectorGlobal.prisma.x_users.create({
-            data: {
-              id: v4(),
-              tweet_user_id: res.data.data.id,
-              name: res.data.data.name,
-              userName: res.data.data.username,
-              created_at: new Date(),
-            },
-          });
-          return {
-            id: record.tweet_user_id,
-            name: record.name,
-            userName: record.userName,
-          };
-        }
-      });
-
-      const users = await Promise.all(userPromises);
-      return result.concat(users);
-    } catch (err) {
-      console.error(JSON.stringify(err));
-      throw err;
-    }
+    const influencerList: string[] = ["hwchase17", "ilyasut", "miramurati"];
+    return this.getTweetUserInformations(influencerList, input);
   }
 
   async prepareSummary(
@@ -162,6 +74,54 @@ export class XProvider {
     }
   }
 
+  private async getTweetUserInformations(
+    userNames: string[],
+    input: IX.IUserInput | IX.ISecret,
+  ): Promise<IX.IUserOutput[]> {
+    try {
+      const userPromises = userNames.map(async (userName: string) => {
+        const user = await ConnectorGlobal.prisma.x_users.findFirst({
+          where: { userName: userName },
+        });
+        if (user) {
+          return {
+            id: user.tweet_user_id,
+            name: user.name,
+            userName: user.userName,
+          };
+        } else {
+          const accessToken = await this.refresh(input);
+          const res = await axios.get(
+            `https://api.x.com/2/users/by/username/${userName}`,
+            {
+              headers: { Authorization: `Bearer ${accessToken}` },
+            },
+          );
+          const record = await ConnectorGlobal.prisma.x_users.create({
+            data: {
+              id: v4(),
+              tweet_user_id: res.data.data.id,
+              name: res.data.data.name,
+              userName: res.data.data.username,
+              created_at: new Date().toISOString(),
+            },
+          });
+
+          return {
+            id: record.tweet_user_id,
+            name: record.name,
+            userName: record.userName,
+          };
+        }
+      });
+
+      return await Promise.all(userPromises);
+    } catch (err) {
+      console.error(JSON.stringify(err));
+      throw err;
+    }
+  }
+
   private async getTweet(
     input: IX.IGetTweetInput,
     accessTokenValue?: string,
@@ -187,23 +147,33 @@ export class XProvider {
           id: "",
           text: "This tweet is unavailable",
           userName: "Unknown",
-          tweet_link: "",
+          tweet_link: "This tweet is unavailable",
+          type: "This tweet is unavailable",
+          referredUserName: null,
+          referredTweetLink: null,
+          referredTweetText: null,
         };
       }
-      const user = await axios.get(
-        `https://api.x.com/2/users/${tweet.data.data.author_id}`,
-        {
-          headers: {
-            Authorization: `Bearer ${accessToken}`,
-          },
-        },
-      );
+
+      const user = await ConnectorGlobal.prisma.x_users.findFirst({
+        where: { tweet_user_id: tweetData.author_id },
+      });
+
+      if (!user) {
+        throw new NotFoundException(
+          "X User Not Found When Getting Tweet Data for Referenced Tweet",
+        );
+      }
 
       return {
         id: tweet.data.data.id,
         text: tweet.data.data.text,
-        userName: user.data.data.name,
-        tweet_link: `https://twitter.com/${user.data.data.username}/status/${tweet.data.data.id}`,
+        userName: user.name,
+        tweet_link: `https://twitter.com/${user.userName}/status/${tweet.data.data.id}`,
+        type: "Details for referred tweet",
+        referredUserName: null,
+        referredTweetLink: null,
+        referredTweetText: null,
       };
     } catch (err) {
       console.error(JSON.stringify(err));
@@ -215,79 +185,143 @@ export class XProvider {
     input: IX.IUserTweetTimeLineInput,
   ): Promise<IX.ITweetOutput[]> {
     try {
-      const accessToken = await this.refresh(input);
       const result: IX.ITweetOutput[] = [];
-
       for (const user of input.user) {
         if (!user.id || !user.name) {
           this.logger.error("X User id and user name are required");
         }
 
-        const userTweetTimeLines = await axios.get(
-          `https://api.x.com/2/users/${user.id}/tweets`,
-          {
-            params: {
-              max_results: 100,
-              expansions: "referenced_tweets.id",
-              "tweet.fields": "created_at",
-              end_time: new Date().toISOString(),
-              start_time: new Date(
-                new Date().getTime() - 1000 * 60 * 60 * 24,
-              ).toISOString(),
+        const userTimeLineTweets =
+          await ConnectorGlobal.prisma.x_tweet.findMany({
+            where: {
+              x_user_id: user.id,
+              created_at: {
+                lte: new Date().toISOString(),
+                gte: new Date(
+                  new Date().getTime() - 1000 * 60 * 60 * 24,
+                ).toISOString(),
+              },
             },
-            headers: {
-              Authorization: `Bearer ${accessToken}`,
+            orderBy: {
+              created_at: "desc",
             },
-          },
-        );
+          });
 
-        if (
-          userTweetTimeLines &&
-          userTweetTimeLines.data &&
-          userTweetTimeLines.data.data
-        ) {
-          for (const userTweetTimeLine of userTweetTimeLines.data.data) {
-            // If Retweet or Quoted Tweet, get the original tweet. Exclude the replied tweet.
-            if (
-              userTweetTimeLine.referenced_tweets &&
-              userTweetTimeLine.referenced_tweets.length > 0
-            ) {
-              for (const referencedTweet of userTweetTimeLine.referenced_tweets) {
-                if (referencedTweet.type !== "replied") {
-                  const originalTweet = await this.getTweet(
-                    {
-                      secretKey: input.secretKey,
-                      tweetId: referencedTweet.id,
-                    },
-                    accessToken,
-                  );
-                  result.push({
-                    id: userTweetTimeLine.id,
-                    userName: user.name,
-                    text: userTweetTimeLine.text,
-                    tweet_link: `https://twitter.com/${user.userName}/status/${userTweetTimeLine.id}`,
-                    type:
-                      referencedTweet.type === "retweeted"
-                        ? "retweeted"
-                        : "quoted",
-                    referredUserName: originalTweet.userName,
-                    referredTweetLink: originalTweet.tweet_link,
-                    referredTweetText: originalTweet.text,
-                  });
-                }
-              }
-            } else {
-              result.push({
-                id: userTweetTimeLine.id,
-                userName: user.name,
-                text: userTweetTimeLine.text,
-                tweet_link: `https://twitter.com/${user.userName}/status/${userTweetTimeLine.id}`,
-                type: "original",
-              });
-            }
-          }
+        if (userTimeLineTweets.length > 0) {
+          userTimeLineTweets.forEach((tweet) => {
+            result.push({
+              id: tweet.id,
+              userName: user.name,
+              text: tweet.text,
+              tweet_link: `https://twitter.com/${user.userName}/status/${tweet.id}`,
+              type: tweet.type,
+              referredUserName: tweet.referred_user_name,
+              referredTweetLink: tweet.referred_tweet_link,
+              referredTweetText: tweet.referred_tweet_text,
+            });
+          });
         } else {
-          this.logger.log(`X ${user.name} tweet timeline is empty`);
+          const accessToken = await this.refresh(input);
+          const userTweetTimeLines = await axios.get(
+            `https://api.x.com/2/users/${user.id}/tweets`,
+            {
+              params: {
+                max_results: 100,
+                expansions: "referenced_tweets.id",
+                "tweet.fields": "created_at",
+                end_time: new Date().toISOString(),
+                start_time: new Date(
+                  new Date().getTime() - 1000 * 60 * 60 * 24,
+                ).toISOString(),
+              },
+              headers: {
+                Authorization: `Bearer ${accessToken}`,
+              },
+            },
+          );
+
+          if (
+            userTweetTimeLines &&
+            userTweetTimeLines.data &&
+            userTweetTimeLines.data.data
+          ) {
+            for (const userTweetTimeLine of userTweetTimeLines.data.data) {
+              // If Retweet or Quoted Tweet, get the original tweet. Exclude the replied tweet.
+              if (
+                userTweetTimeLine.referenced_tweets &&
+                userTweetTimeLine.referenced_tweets.length > 0
+              ) {
+                for (const referencedTweet of userTweetTimeLine.referenced_tweets) {
+                  if (referencedTweet.type !== "replied") {
+                    const originalTweet = await this.getTweet(
+                      {
+                        secretKey: input.secretKey,
+                        tweetId: referencedTweet.id,
+                      },
+                      accessToken,
+                    );
+                    await ConnectorGlobal.prisma.x_tweet.create({
+                      data: {
+                        id: v4(),
+                        tweet_id: userTweetTimeLine.id,
+                        x_user_id: user.id,
+                        text: userTweetTimeLine.text,
+                        link: `https://twitter.com/${user.userName}/status/${userTweetTimeLine.id}`,
+                        type:
+                          referencedTweet.type === "retweeted"
+                            ? "retweeted"
+                            : "quoted",
+                        referred_user_name: originalTweet.userName,
+                        referred_tweet_link: originalTweet.tweet_link,
+                        referred_tweet_text: originalTweet.text,
+                        created_at: new Date().toISOString(),
+                      },
+                    });
+                    result.push({
+                      id: userTweetTimeLine.id,
+                      userName: user.name,
+                      text: userTweetTimeLine.text,
+                      tweet_link: `https://twitter.com/${user.userName}/status/${userTweetTimeLine.id}`,
+                      type:
+                        referencedTweet.type === "retweeted"
+                          ? "retweeted"
+                          : "quoted",
+                      referredUserName: originalTweet.userName,
+                      referredTweetLink: originalTweet.tweet_link,
+                      referredTweetText: originalTweet.text,
+                    });
+                  }
+                }
+              } else {
+                await ConnectorGlobal.prisma.x_tweet.create({
+                  data: {
+                    id: v4(),
+                    tweet_id: userTweetTimeLine.id,
+                    x_user_id: user.id,
+                    text: userTweetTimeLine.text,
+                    link: userTweetTimeLine.tweet_link,
+                    type: "original",
+                    referred_user_name: null,
+                    referred_tweet_link: null,
+                    referred_tweet_text: null,
+                    created_at: new Date().toISOString(),
+                  },
+                });
+                result.push({
+                  id: userTweetTimeLine.id,
+                  userName: user.name,
+                  text: userTweetTimeLine.text,
+                  tweet_link: `https://twitter.com/${user.userName}/status/${userTweetTimeLine.id}`,
+                  type: "original",
+                  referredUserName: null,
+                  referredTweetLink: null,
+                  referredTweetText: null,
+                });
+              }
+            }
+          } else {
+            this.logger.log(`X ${user.name} tweet timeline is empty`);
+          }
         }
       }
       this.logger.log(
