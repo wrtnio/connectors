@@ -290,15 +290,17 @@ export namespace ISpotify {
       /**
        * @title Track Images
        */
-      images: {
-        height: number | null;
-        width: number | null;
+      images:
+        | null
+        | {
+            height: number | null;
+            width: number | null;
 
-        /**
-         * @title Image Link
-         */
-        url: string & tags.Format<"iri">;
-      }[];
+            /**
+             * @title Image Link
+             */
+            url: string & tags.Format<"iri">;
+          }[];
     }>;
 
     /**
