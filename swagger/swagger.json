@@ -15,7 +15,7 @@
     }
   ],
   "info": {
-    "version": "0.1.338",
+    "version": "0.1.339",
     "title": "@wrtn/connector",
     "description": "wrtn-ecosystem connectors and sdk",
     "license": {
@@ -11889,6 +11889,347 @@
           }
         },
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/X_full.svg"
+      }
+    },
+    "/connector/reddit/get-hot-posts": {
+      "post": {
+        "summary": "Get hot posts from Reddit",
+        "description": "Retrieves hot posts from Reddit.\n\nThis API fetches the most popular posts currently trending on Reddit.\nThe input requires a subreddit name and optional parameters for filtering.\nThe output provides a list of hot posts with details such as title, author, and score.",
+        "tags": [],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IReddit.IGetHotPostsInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IReddit.IGetHotPostsOutput"
+                }
+              }
+            }
+          }
+        },
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/reddit_full.svg"
+      }
+    },
+    "/connector/reddit/get-new-posts": {
+      "post": {
+        "summary": "Get new posts from Reddit",
+        "description": "Retrieves new posts from Reddit.\n\nThis API fetches the latest posts from a specified subreddit.\nThe input requires a subreddit name and optional parameters for pagination.\nThe output provides a list of new posts with details such as title, author, and timestamp.",
+        "tags": [],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IReddit.IGetNewPostsInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IReddit.IGetNewPostsOutput"
+                }
+              }
+            }
+          }
+        },
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/reddit_full.svg"
+      }
+    },
+    "/connector/reddit/get-top-posts": {
+      "post": {
+        "summary": "Get top posts from Reddit",
+        "description": "Retrieves top posts from Reddit.\n\nThis API fetches the highest-rated posts from a specified subreddit over a given time period.\nThe input requires a subreddit name and a time filter (e.g., day, week, month).\nThe output provides a list of top posts with details such as title, author, and score.",
+        "tags": [],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IReddit.IGetTopPostsInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IReddit.IGetTopPostsOutput"
+                }
+              }
+            }
+          }
+        },
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/reddit_full.svg"
+      }
+    },
+    "/connector/reddit/get-comments": {
+      "post": {
+        "summary": "Get comments from a Reddit post",
+        "description": "Retrieves comments from a Reddit post.\n\nThis API fetches comments for a specific Reddit post.\nThe input requires the post ID and subreddit name.\nThe output provides a list of comments with details such as author, content, and score.",
+        "tags": [],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IReddit.IGetCommentsInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IReddit.IGetArticleAndCommentsOutput"
+                }
+              }
+            }
+          }
+        },
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/reddit_full.svg"
+      }
+    },
+    "/connector/reddit/get-user-about": {
+      "post": {
+        "summary": "Get information about a Reddit user",
+        "description": "Retrieves information about a Reddit user.\n\nThis API fetches profile information for a specified Reddit user.\nThe input requires the username.\nThe output provides user details such as karma, account age, and recent activity.",
+        "tags": [],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IReddit.IGetUserAboutInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IReddit.IGetUserAboutOutput"
+                }
+              }
+            }
+          }
+        },
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/reddit_full.svg"
+      }
+    },
+    "/connector/reddit/get-user-submitted": {
+      "post": {
+        "summary": "Get posts submitted by a Reddit user",
+        "description": "Retrieves posts submitted by a Reddit user.\n\nThis API fetches posts submitted by a specified Reddit user.\nThe input requires the username.\nThe output provides a list of submitted posts with details such as title, subreddit, and score.",
+        "tags": [],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IReddit.IGetUserSubmittedInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IReddit.IGetUserSubmittedOutput"
+                }
+              }
+            }
+          }
+        },
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/reddit_full.svg"
+      }
+    },
+    "/connector/reddit/get-user-comments": {
+      "post": {
+        "summary": "Get comments made by a Reddit user",
+        "description": "Retrieves comments made by a Reddit user.\n\nThis API fetches comments made by a specified Reddit user.\nThe input requires the username.\nThe output provides a list of comments with details such as content, subreddit, and score.",
+        "tags": [],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IReddit.IGetUserCommentsInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IReddit.IFlattenCommentsOutput"
+                }
+              }
+            }
+          }
+        },
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/reddit_full.svg"
+      }
+    },
+    "/connector/reddit/search-subreddits": {
+      "post": {
+        "summary": "Search for subreddits on Reddit",
+        "description": "Searches for subreddits on Reddit.\n\nThis API allows searching for subreddits based on a query string.\nThe input requires a search query.\nThe output provides a list of subreddits matching the query with details such as name and subscriber count.",
+        "tags": [],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IReddit.ISearchSubredditsInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IReddit.ISearchSubredditsOutput"
+                }
+              }
+            }
+          }
+        },
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/reddit_full.svg"
+      }
+    },
+    "/connector/reddit/get-subreddit-about": {
+      "post": {
+        "summary": "Get information about a subreddit",
+        "description": "Retrieves information about a subreddit.\n\nThis API fetches detailed information about a specified subreddit.\nThe input requires the subreddit name.\nThe output provides details such as description, subscriber count, and rules.",
+        "tags": [],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IReddit.IGetSubredditAboutInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IReddit.IGetSubredditAboutOutput"
+                }
+              }
+            }
+          }
+        },
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/reddit_full.svg"
+      }
+    },
+    "/connector/reddit/get-popular-subreddits": {
+      "post": {
+        "summary": "Get popular subreddits",
+        "description": "Retrieves popular subreddits.\n\nThis API fetches a list of currently popular subreddits.\nThe output provides details such as subreddit name and subscriber count.",
+        "tags": [],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IReddit.IGetPopularSubredditsInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IReddit.IGetPopularSubredditsOutput"
+                }
+              }
+            }
+          }
+        },
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/reddit_full.svg"
+      }
+    },
+    "/connector/reddit/get-best-content": {
+      "post": {
+        "summary": "Get the best content from Reddit",
+        "description": "Retrieves the best content from Reddit.\n\nThis API fetches the best-rated content from Reddit.\nThe output provides a list of top-rated posts with details such as title, author, and score.",
+        "tags": [],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IReddit.IGetBestContentInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IReddit.IGetBestContentOutput"
+                }
+              }
+            }
+          }
+        },
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/reddit_full.svg"
       }
     }
   },
@@ -55012,6 +55353,5281 @@
           "query"
         ],
         "title": "Information needed for tweet summary"
+      },
+      "IReddit.IGetHotPostsOutput": {
+        "type": "object",
+        "properties": {
+          "after": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string",
+                "pattern": "^((t2_(.*))|(t1_(.*))|(t3_(.*))|(t5_(.*))|(t4_(.*))|(t6_(.*)))"
+              }
+            ],
+            "title": "The after cursor for pagination"
+          },
+          "dist": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "number"
+              }
+            ],
+            "title": "The number of items returned"
+          },
+          "modhash": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "title": "The modhash for the request"
+          },
+          "geo_filter": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "title": "The geographical filter applied"
+          },
+          "children": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/IReddit.Children"
+            },
+            "title": "The list of children posts"
+          },
+          "before": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string",
+                "pattern": "^((t2_(.*))|(t1_(.*))|(t3_(.*))|(t5_(.*))|(t4_(.*))|(t6_(.*)))"
+              }
+            ],
+            "title": "The before cursor for pagination"
+          }
+        },
+        "required": [
+          "after",
+          "dist",
+          "modhash",
+          "geo_filter",
+          "children",
+          "before"
+        ]
+      },
+      "IReddit.Children": {
+        "type": "object",
+        "properties": {
+          "kind": {
+            "type": "string",
+            "title": "The kind of the child"
+          },
+          "data": {
+            "$ref": "#/components/schemas/IReddit.Child",
+            "title": "The data of the child"
+          }
+        },
+        "required": [
+          "kind",
+          "data"
+        ]
+      },
+      "IReddit.Child": {
+        "type": "object",
+        "properties": {
+          "approved_at_utc": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "title": "Approval time in UTC"
+          },
+          "subreddit": {
+            "type": "string",
+            "title": "The subreddit name"
+          },
+          "selftext": {
+            "type": "string",
+            "title": "The text of the post"
+          },
+          "author_fullname": {
+            "type": "string",
+            "pattern": "^(t2_(.*))",
+            "title": "The full name of the author"
+          },
+          "saved": {
+            "type": "boolean",
+            "title": "Whether the post is saved"
+          },
+          "mod_reason_title": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "title": "Moderator reason title"
+          },
+          "gilded": {
+            "type": "integer",
+            "title": "Number of times gilded"
+          },
+          "clicked": {
+            "type": "boolean",
+            "title": "Whether the post is clicked"
+          },
+          "title": {
+            "type": "string",
+            "title": "The title of the post"
+          },
+          "link_flair_richtext": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/IReddit.LinkFlairRichtext"
+            },
+            "title": "Rich text for link flair"
+          },
+          "subreddit_name_prefixed": {
+            "type": "string",
+            "title": "Prefixed subreddit name"
+          },
+          "hidden": {
+            "type": "boolean",
+            "title": "Whether the post is hidden"
+          },
+          "pwls": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "number"
+              }
+            ],
+            "title": "Post whitelist status"
+          },
+          "link_flair_css_class": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "title": "CSS class for link flair"
+          },
+          "downs": {
+            "type": "integer",
+            "title": "Number of downvotes"
+          },
+          "thumbnail_height": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "number"
+              }
+            ],
+            "title": "Height of the thumbnail"
+          },
+          "top_awarded_type": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "title": "Type of top award"
+          },
+          "hide_score": {
+            "type": "boolean",
+            "title": "Whether the score is hidden"
+          },
+          "name": {
+            "type": "string",
+            "title": "The name of the post"
+          },
+          "quarantine": {
+            "type": "boolean",
+            "title": "Whether the post is quarantined"
+          },
+          "link_flair_text_color": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "title": "Text color for link flair"
+          },
+          "upvote_ratio": {
+            "type": "number",
+            "title": "Ratio of upvotes"
+          },
+          "author_flair_background_color": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "title": "Background color for author flair"
+          },
+          "ups": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "integer"
+              }
+            ],
+            "title": "Number of upvotes"
+          },
+          "total_awards_received": {
+            "type": "number",
+            "title": "Total awards received"
+          },
+          "media_embed": {
+            "$ref": "#/components/schemas/IReddit.MediaEmbed",
+            "title": "Media embed information"
+          },
+          "thumbnail_width": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "number"
+              }
+            ],
+            "title": "Width of the thumbnail"
+          },
+          "author_flair_template_id": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string",
+                "format": "uuid"
+              }
+            ],
+            "title": "Template ID for author flair"
+          },
+          "is_original_content": {
+            "type": "boolean",
+            "title": "Whether the content is original"
+          },
+          "user_reports": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "title": "User reports"
+          },
+          "secure_media": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/IReddit.SecureMedia"
+              }
+            ],
+            "title": "Secure media information"
+          },
+          "is_reddit_media_domain": {
+            "type": "boolean",
+            "title": "Whether it's a Reddit media domain"
+          },
+          "is_meta": {
+            "type": "boolean",
+            "title": "Whether it's meta content"
+          },
+          "category": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "title": "Category of the post"
+          },
+          "secure_media_embed": {
+            "$ref": "#/components/schemas/IReddit.SecureMediaEmbed",
+            "title": "Secure media embed information"
+          },
+          "link_flair_text": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "title": "Text for link flair"
+          },
+          "can_mod_post": {
+            "type": "boolean",
+            "title": "Whether the post can be moderated"
+          },
+          "score": {
+            "type": "number",
+            "title": "Score of the post"
+          },
+          "approved_by": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "title": "Approved by user"
+          },
+          "is_created_from_ads_ui": {
+            "type": "boolean",
+            "title": "Whether created from ads UI"
+          },
+          "author_premium": {
+            "type": "boolean",
+            "title": "Whether the author is premium"
+          },
+          "thumbnail": {
+            "type": "string",
+            "title": "Thumbnail URL"
+          },
+          "edited": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "integer"
+              },
+              {
+                "type": "boolean"
+              }
+            ],
+            "title": "Whether the post is edited"
+          },
+          "author_flair_css_class": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "title": "CSS class for author flair"
+          },
+          "author_flair_richtext": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/IReddit.AuthorFlairRichtext"
+            },
+            "title": "Rich text for author flair"
+          },
+          "gildings": {
+            "title": "Gildings information"
+          },
+          "post_hint": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "title": "Hint for the post"
+          },
+          "content_categories": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            ],
+            "title": "Content categories"
+          },
+          "is_self": {
+            "type": "boolean",
+            "title": "Whether it's a self post"
+          },
+          "subreddit_type": {
+            "type": "string",
+            "title": "Type of subreddit"
+          },
+          "created": {
+            "type": "number",
+            "title": "Creation time"
+          },
+          "link_flair_type": {
+            "type": "string",
+            "title": "Type of link flair"
+          },
+          "wls": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "number"
+              }
+            ],
+            "title": "Whitelist status"
+          },
+          "removed_by_category": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "title": "Removed by category"
+          },
+          "banned_by": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "title": "Banned by user"
+          },
+          "author_flair_type": {
+            "type": "string",
+            "title": "Type of author flair"
+          },
+          "domain": {
+            "type": "string",
+            "title": "Domain of the post"
+          },
+          "allow_live_comments": {
+            "type": "boolean",
+            "title": "Whether live comments are allowed"
+          },
+          "selftext_html": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "title": "HTML of the selftext"
+          },
+          "likes": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "integer"
+              }
+            ],
+            "title": "Likes on the post"
+          },
+          "suggested_sort": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "title": "Suggested sort order"
+          },
+          "banned_at_utc": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "integer"
+              }
+            ],
+            "title": "Banned time in UTC"
+          },
+          "url_overridden_by_dest": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "title": "URL overridden by destination"
+          },
+          "view_count": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "title": "View count"
+          },
+          "archived": {
+            "type": "boolean",
+            "title": "Whether the post is archived"
+          },
+          "no_follow": {
+            "type": "boolean",
+            "title": "Whether no-follow is enabled"
+          },
+          "is_crosspostable": {
+            "type": "boolean",
+            "title": "Whether the post is crosspostable"
+          },
+          "pinned": {
+            "type": "boolean",
+            "title": "Whether the post is pinned"
+          },
+          "over_18": {
+            "type": "boolean",
+            "title": "Whether the post is NSFW"
+          },
+          "preview": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/IReddit.Preview"
+              }
+            ],
+            "title": "Preview information"
+          },
+          "all_awardings": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "title": "All awardings"
+          },
+          "awarders": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "title": "Awarders of the post"
+          },
+          "media_only": {
+            "type": "boolean",
+            "title": "Whether it's media only"
+          },
+          "link_flair_template_id": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "title": "Template ID for link flair"
+          },
+          "can_gild": {
+            "type": "boolean",
+            "title": "Whether the post can be gilded"
+          },
+          "spoiler": {
+            "type": "boolean",
+            "title": "Whether the post is a spoiler"
+          },
+          "locked": {
+            "type": "boolean",
+            "title": "Whether the post is locked"
+          },
+          "author_flair_text": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "title": "Text for author flair"
+          },
+          "treatment_tags": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "title": "Treatment tags"
+          },
+          "visited": {
+            "type": "boolean",
+            "title": "Whether the post is visited"
+          },
+          "removed_by": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "title": "Removed by user"
+          },
+          "mod_note": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "title": "Moderator note"
+          },
+          "distinguished": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "title": "Distinguished status"
+          },
+          "subreddit_id": {
+            "type": "string",
+            "title": "ID of the subreddit"
+          },
+          "author_is_blocked": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "boolean"
+              }
+            ],
+            "title": "Whether the author is blocked"
+          },
+          "mod_reason_by": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "title": "Moderator reason by user"
+          },
+          "num_reports": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              },
+              {
+                "type": "integer"
+              }
+            ],
+            "title": "Number of reports"
+          },
+          "removal_reason": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "title": "Removal reason"
+          },
+          "link_flair_background_color": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "title": "Background color for link flair"
+          },
+          "id": {
+            "type": "string",
+            "title": "ID of the post"
+          },
+          "is_robot_indexable": {
+            "type": "boolean",
+            "title": "Whether the post is robot indexable"
+          },
+          "report_reasons": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "title": "Report reasons"
+          },
+          "author": {
+            "type": "string",
+            "title": "Author of the post"
+          },
+          "discussion_type": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "title": "Type of discussion"
+          },
+          "num_comments": {
+            "type": "number",
+            "title": "Number of comments"
+          },
+          "send_replies": {
+            "type": "boolean",
+            "title": "Whether to send replies"
+          },
+          "contest_mode": {
+            "type": "boolean",
+            "title": "Whether contest mode is enabled"
+          },
+          "mod_reports": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "title": "Moderator reports"
+          },
+          "author_patreon_flair": {
+            "type": "boolean",
+            "title": "Whether the author has Patreon flair"
+          },
+          "author_flair_text_color": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "title": "Text color for author flair"
+          },
+          "permalink": {
+            "type": "string",
+            "title": "Permalink to the post"
+          },
+          "stickied": {
+            "type": "boolean",
+            "title": "Whether the post is stickied"
+          },
+          "url": {
+            "type": "string",
+            "title": "URL of the post"
+          },
+          "subreddit_subscribers": {
+            "type": "number",
+            "title": "Number of subreddit subscribers"
+          },
+          "created_utc": {
+            "type": "integer",
+            "title": "Creation time in UTC"
+          },
+          "num_crossposts": {
+            "type": "number",
+            "title": "Number of crossposts"
+          },
+          "media": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/IReddit.Media"
+              }
+            ],
+            "title": "Media information"
+          },
+          "is_video": {
+            "type": "boolean",
+            "title": "Whether the post is a video"
+          },
+          "is_gallery": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "boolean"
+              }
+            ],
+            "title": "Whether the post is a gallery"
+          },
+          "media_metadata": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/IReddit.MediaMetadata"
+              }
+            ],
+            "title": "Media metadata"
+          },
+          "gallery_data": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/IReddit.GalleryData"
+              }
+            ],
+            "title": "Gallery data"
+          },
+          "crosspost_parent_list": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/IReddit.CrosspostParentList"
+                }
+              }
+            ],
+            "title": "List of crosspost parents"
+          },
+          "crosspost_parent": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "title": "Crosspost parent"
+          },
+          "author_cakeday": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "boolean"
+              }
+            ],
+            "title": "Whether it's the author's cakeday"
+          }
+        },
+        "required": [
+          "title",
+          "name",
+          "id",
+          "url"
+        ]
+      },
+      "IReddit.LinkFlairRichtext": {
+        "type": "object",
+        "properties": {
+          "a": {
+            "type": "string",
+            "title": "The type of the element"
+          },
+          "u": {
+            "type": "string",
+            "title": "The type of the element"
+          },
+          "e": {
+            "type": "string",
+            "title": "The type of the element"
+          },
+          "t": {
+            "type": "string",
+            "title": "The text of the element"
+          }
+        }
+      },
+      "IReddit.MediaEmbed": {
+        "type": "object",
+        "properties": {
+          "content": {
+            "type": "string",
+            "title": "The content of the media"
+          },
+          "width": {
+            "type": "number",
+            "title": "The width of the media"
+          },
+          "scrolling": {
+            "type": "boolean",
+            "title": "Whether scrolling is enabled"
+          },
+          "height": {
+            "type": "number",
+            "title": "The height of the media"
+          }
+        }
+      },
+      "IReddit.SecureMedia": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "title": "The type of the media"
+          },
+          "oembed": {
+            "$ref": "#/components/schemas/IReddit.Oembed",
+            "title": "Oembed information"
+          }
+        }
+      },
+      "IReddit.Oembed": {
+        "type": "object",
+        "properties": {
+          "provider_url": {
+            "type": "string",
+            "title": "The provider URL"
+          },
+          "version": {
+            "type": "string",
+            "title": "The version of the Oembed"
+          },
+          "title": {
+            "type": "string",
+            "title": "The title of the Oembed"
+          },
+          "description": {
+            "type": "string",
+            "title": "The description of the Oembed"
+          },
+          "type": {
+            "type": "string",
+            "title": "The type of the Oembed"
+          },
+          "thumbnail_width": {
+            "type": "number",
+            "title": "The width of the thumbnail"
+          },
+          "height": {
+            "type": "number",
+            "title": "The height of the Oembed"
+          },
+          "width": {
+            "type": "number",
+            "title": "The width of the Oembed"
+          },
+          "html": {
+            "type": "string",
+            "title": "The HTML content"
+          },
+          "author_name": {
+            "type": "string",
+            "title": "The name of the author"
+          },
+          "provider_name": {
+            "type": "string",
+            "title": "The name of the provider"
+          },
+          "thumbnail_url": {
+            "type": "string",
+            "title": "The URL of the thumbnail"
+          },
+          "thumbnail_height": {
+            "type": "number",
+            "title": "The height of the thumbnail"
+          },
+          "author_url": {
+            "type": "string",
+            "title": "The URL of the author"
+          },
+          "url": {
+            "type": "string",
+            "title": "The URL of the Oembed"
+          }
+        },
+        "required": [
+          "provider_url",
+          "version",
+          "title",
+          "thumbnail_width",
+          "height",
+          "width",
+          "html",
+          "provider_name",
+          "thumbnail_url",
+          "thumbnail_height"
+        ]
+      },
+      "IReddit.SecureMediaEmbed": {
+        "type": "object",
+        "properties": {
+          "content": {
+            "type": "string",
+            "title": "The content of the media"
+          },
+          "width": {
+            "type": "number",
+            "title": "The width of the media"
+          },
+          "scrolling": {
+            "type": "boolean",
+            "title": "Whether scrolling is enabled"
+          },
+          "media_domain_url": {
+            "type": "string",
+            "title": "The media domain URL"
+          },
+          "height": {
+            "type": "number",
+            "title": "The height of the media"
+          }
+        }
+      },
+      "IReddit.AuthorFlairRichtext": {
+        "type": "object",
+        "properties": {
+          "e": {
+            "type": "string",
+            "title": "The type of the element"
+          },
+          "t": {
+            "type": "string",
+            "title": "The text of the element"
+          }
+        }
+      },
+      "IReddit.Preview": {
+        "type": "object",
+        "properties": {
+          "images": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/IReddit.Image"
+            },
+            "title": "The images in the preview"
+          },
+          "enabled": {
+            "type": "boolean",
+            "title": "Whether the preview is enabled"
+          }
+        },
+        "required": [
+          "images",
+          "enabled"
+        ]
+      },
+      "IReddit.Image": {
+        "type": "object",
+        "properties": {
+          "source": {
+            "$ref": "#/components/schemas/IReddit.Source",
+            "title": "The source of the image"
+          },
+          "resolutions": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/IReddit.Resolution"
+            },
+            "title": "The resolutions of the image"
+          },
+          "variants": {
+            "title": "The variants of the image"
+          },
+          "id": {
+            "type": "string",
+            "title": "The ID of the image"
+          }
+        },
+        "required": [
+          "source",
+          "resolutions",
+          "variants",
+          "id"
+        ]
+      },
+      "IReddit.Source": {
+        "type": "object",
+        "properties": {
+          "url": {
+            "type": "string",
+            "title": "The URL of the source"
+          },
+          "width": {
+            "type": "number",
+            "title": "The width of the source"
+          },
+          "height": {
+            "type": "number",
+            "title": "The height of the source"
+          }
+        },
+        "required": [
+          "url",
+          "width",
+          "height"
+        ]
+      },
+      "IReddit.Resolution": {
+        "type": "object",
+        "properties": {
+          "url": {
+            "type": "string",
+            "title": "The URL of the resolution"
+          },
+          "width": {
+            "type": "number",
+            "title": "The width of the resolution"
+          },
+          "height": {
+            "type": "number",
+            "title": "The height of the resolution"
+          }
+        },
+        "required": [
+          "url",
+          "width",
+          "height"
+        ]
+      },
+      "IReddit.Media": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "title": "The type of the media"
+          },
+          "oembed": {
+            "$ref": "#/components/schemas/IReddit.Oembed",
+            "title": "Oembed information"
+          }
+        }
+      },
+      "IReddit.MediaMetadata": {
+        "type": "object",
+        "properties": {},
+        "additionalProperties": {
+          "$ref": "#/components/schemas/IReddit.Metadata"
+        }
+      },
+      "IReddit.Metadata": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "title": "The status of the metadata"
+          },
+          "e": {
+            "type": "string",
+            "title": "The type of the element"
+          },
+          "m": {
+            "type": "string",
+            "title": "The media type"
+          },
+          "p": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/IReddit.Position"
+            },
+            "title": "The positions"
+          },
+          "s": {
+            "$ref": "#/components/schemas/IReddit.Position",
+            "title": "The position"
+          },
+          "id": {
+            "type": "string",
+            "title": "The ID of the metadata"
+          }
+        },
+        "required": [
+          "status",
+          "e",
+          "m",
+          "p",
+          "s",
+          "id"
+        ]
+      },
+      "IReddit.Position": {
+        "type": "object",
+        "properties": {
+          "y": {
+            "type": "number",
+            "title": "The y-coordinate"
+          },
+          "x": {
+            "type": "number",
+            "title": "The x-coordinate"
+          },
+          "u": {
+            "type": "string",
+            "format": "iri",
+            "title": "The URL"
+          }
+        },
+        "required": [
+          "y",
+          "x",
+          "u"
+        ]
+      },
+      "IReddit.GalleryData": {
+        "type": "object",
+        "properties": {
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/IReddit.Item"
+            },
+            "title": "The items in the gallery"
+          }
+        },
+        "required": [
+          "items"
+        ]
+      },
+      "IReddit.Item": {
+        "type": "object",
+        "properties": {
+          "media_id": {
+            "type": "string",
+            "title": "The media ID"
+          },
+          "id": {
+            "type": "number",
+            "title": "The ID of the item"
+          },
+          "caption": {
+            "type": "string",
+            "title": "The caption of the item"
+          }
+        },
+        "required": [
+          "media_id",
+          "id"
+        ]
+      },
+      "IReddit.CrosspostParentList": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "title": "The title of the post"
+          },
+          "url": {
+            "type": "string",
+            "title": "URL of the post"
+          },
+          "name": {
+            "type": "string",
+            "title": "The name of the post"
+          },
+          "view_count": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "title": "View count"
+          },
+          "hidden": {
+            "type": "boolean",
+            "title": "Whether the post is hidden"
+          },
+          "id": {
+            "type": "string",
+            "title": "ID of the post"
+          },
+          "created": {
+            "type": "number",
+            "title": "Creation time"
+          },
+          "thumbnail": {
+            "type": "string",
+            "title": "Thumbnail URL"
+          },
+          "author": {
+            "type": "string",
+            "title": "Author of the post"
+          },
+          "locked": {
+            "type": "boolean",
+            "title": "Whether the post is locked"
+          },
+          "domain": {
+            "type": "string",
+            "title": "Domain of the post"
+          },
+          "score": {
+            "type": "number",
+            "title": "Score of the post"
+          },
+          "category": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "title": "Category of the post"
+          },
+          "media": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/IReddit.Media"
+              }
+            ],
+            "title": "Media information"
+          },
+          "subreddit": {
+            "type": "string",
+            "title": "The subreddit name"
+          },
+          "approved_at_utc": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "title": "Approval time in UTC"
+          },
+          "author_is_blocked": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "boolean"
+              }
+            ],
+            "title": "Whether the author is blocked"
+          },
+          "subreddit_id": {
+            "type": "string",
+            "title": "ID of the subreddit"
+          },
+          "awarders": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "title": "Awarders of the post"
+          },
+          "mod_reason_by": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "title": "Moderator reason by user"
+          },
+          "banned_by": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "title": "Banned by user"
+          },
+          "author_flair_type": {
+            "type": "string",
+            "title": "Type of author flair"
+          },
+          "total_awards_received": {
+            "type": "number",
+            "title": "Total awards received"
+          },
+          "author_flair_template_id": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string",
+                "format": "uuid"
+              }
+            ],
+            "title": "Template ID for author flair"
+          },
+          "likes": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "integer"
+              }
+            ],
+            "title": "Likes on the post"
+          },
+          "user_reports": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "title": "User reports"
+          },
+          "saved": {
+            "type": "boolean",
+            "title": "Whether the post is saved"
+          },
+          "banned_at_utc": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "integer"
+              }
+            ],
+            "title": "Banned time in UTC"
+          },
+          "mod_reason_title": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "title": "Moderator reason title"
+          },
+          "gilded": {
+            "type": "integer",
+            "title": "Number of times gilded"
+          },
+          "archived": {
+            "type": "boolean",
+            "title": "Whether the post is archived"
+          },
+          "no_follow": {
+            "type": "boolean",
+            "title": "Whether no-follow is enabled"
+          },
+          "can_mod_post": {
+            "type": "boolean",
+            "title": "Whether the post can be moderated"
+          },
+          "created_utc": {
+            "type": "integer",
+            "title": "Creation time in UTC"
+          },
+          "send_replies": {
+            "type": "boolean",
+            "title": "Whether to send replies"
+          },
+          "author_fullname": {
+            "type": "string",
+            "pattern": "^(t2_(.*))",
+            "title": "The full name of the author"
+          },
+          "approved_by": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "title": "Approved by user"
+          },
+          "mod_note": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "title": "Moderator note"
+          },
+          "all_awardings": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "title": "All awardings"
+          },
+          "top_awarded_type": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "title": "Type of top award"
+          },
+          "author_flair_css_class": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "title": "CSS class for author flair"
+          },
+          "downs": {
+            "type": "integer",
+            "title": "Number of downvotes"
+          },
+          "author_flair_richtext": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/IReddit.AuthorFlairRichtext"
+            },
+            "title": "Rich text for author flair"
+          },
+          "author_patreon_flair": {
+            "type": "boolean",
+            "title": "Whether the author has Patreon flair"
+          },
+          "removal_reason": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "title": "Removal reason"
+          },
+          "distinguished": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "title": "Distinguished status"
+          },
+          "stickied": {
+            "type": "boolean",
+            "title": "Whether the post is stickied"
+          },
+          "author_premium": {
+            "type": "boolean",
+            "title": "Whether the author is premium"
+          },
+          "can_gild": {
+            "type": "boolean",
+            "title": "Whether the post can be gilded"
+          },
+          "gildings": {
+            "title": "Gildings information"
+          },
+          "author_flair_text_color": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "title": "Text color for author flair"
+          },
+          "permalink": {
+            "type": "string",
+            "title": "Permalink to the post"
+          },
+          "subreddit_type": {
+            "type": "string",
+            "title": "Type of subreddit"
+          },
+          "report_reasons": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "title": "Report reasons"
+          },
+          "author_flair_text": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "title": "Text for author flair"
+          },
+          "treatment_tags": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "title": "Treatment tags"
+          },
+          "subreddit_name_prefixed": {
+            "type": "string",
+            "title": "Prefixed subreddit name"
+          },
+          "author_flair_background_color": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "title": "Background color for author flair"
+          },
+          "mod_reports": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "title": "Moderator reports"
+          },
+          "num_reports": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              },
+              {
+                "type": "integer"
+              }
+            ],
+            "title": "Number of reports"
+          },
+          "ups": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "integer"
+              }
+            ],
+            "title": "Number of upvotes"
+          },
+          "selftext": {
+            "type": "string",
+            "title": "The text of the post"
+          },
+          "is_gallery": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "boolean"
+              }
+            ],
+            "title": "Whether the post is a gallery"
+          },
+          "link_flair_richtext": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/IReddit.LinkFlairRichtext"
+            },
+            "title": "Rich text for link flair"
+          },
+          "pwls": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "number"
+              }
+            ],
+            "title": "Post whitelist status"
+          },
+          "link_flair_css_class": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "title": "CSS class for link flair"
+          },
+          "thumbnail_height": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "number"
+              }
+            ],
+            "title": "Height of the thumbnail"
+          },
+          "hide_score": {
+            "type": "boolean",
+            "title": "Whether the score is hidden"
+          },
+          "media_metadata": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/IReddit.MediaMetadata"
+              }
+            ],
+            "title": "Media metadata"
+          },
+          "quarantine": {
+            "type": "boolean",
+            "title": "Whether the post is quarantined"
+          },
+          "link_flair_text_color": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "title": "Text color for link flair"
+          },
+          "upvote_ratio": {
+            "type": "number",
+            "title": "Ratio of upvotes"
+          },
+          "media_embed": {
+            "$ref": "#/components/schemas/IReddit.MediaEmbed",
+            "title": "Media embed information"
+          },
+          "thumbnail_width": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "number"
+              }
+            ],
+            "title": "Width of the thumbnail"
+          },
+          "is_original_content": {
+            "type": "boolean",
+            "title": "Whether the content is original"
+          },
+          "secure_media": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/IReddit.SecureMedia"
+              }
+            ],
+            "title": "Secure media information"
+          },
+          "is_reddit_media_domain": {
+            "type": "boolean",
+            "title": "Whether it's a Reddit media domain"
+          },
+          "is_meta": {
+            "type": "boolean",
+            "title": "Whether it's meta content"
+          },
+          "secure_media_embed": {
+            "$ref": "#/components/schemas/IReddit.SecureMediaEmbed",
+            "title": "Secure media embed information"
+          },
+          "gallery_data": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/IReddit.GalleryData"
+              }
+            ],
+            "title": "Gallery data"
+          },
+          "link_flair_text": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "title": "Text for link flair"
+          },
+          "is_created_from_ads_ui": {
+            "type": "boolean",
+            "title": "Whether created from ads UI"
+          },
+          "edited": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "integer"
+              },
+              {
+                "type": "boolean"
+              }
+            ],
+            "title": "Whether the post is edited"
+          },
+          "content_categories": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            ],
+            "title": "Content categories"
+          },
+          "is_self": {
+            "type": "boolean",
+            "title": "Whether it's a self post"
+          },
+          "link_flair_type": {
+            "type": "string",
+            "title": "Type of link flair"
+          },
+          "wls": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "number"
+              }
+            ],
+            "title": "Whitelist status"
+          },
+          "removed_by_category": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "title": "Removed by category"
+          },
+          "allow_live_comments": {
+            "type": "boolean",
+            "title": "Whether live comments are allowed"
+          },
+          "selftext_html": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "title": "HTML of the selftext"
+          },
+          "suggested_sort": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "title": "Suggested sort order"
+          },
+          "url_overridden_by_dest": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "title": "URL overridden by destination"
+          },
+          "is_crosspostable": {
+            "type": "boolean",
+            "title": "Whether the post is crosspostable"
+          },
+          "pinned": {
+            "type": "boolean",
+            "title": "Whether the post is pinned"
+          },
+          "over_18": {
+            "type": "boolean",
+            "title": "Whether the post is NSFW"
+          },
+          "media_only": {
+            "type": "boolean",
+            "title": "Whether it's media only"
+          },
+          "spoiler": {
+            "type": "boolean",
+            "title": "Whether the post is a spoiler"
+          },
+          "visited": {
+            "type": "boolean",
+            "title": "Whether the post is visited"
+          },
+          "removed_by": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "title": "Removed by user"
+          },
+          "link_flair_background_color": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "title": "Background color for link flair"
+          },
+          "is_robot_indexable": {
+            "type": "boolean",
+            "title": "Whether the post is robot indexable"
+          },
+          "discussion_type": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "title": "Type of discussion"
+          },
+          "num_comments": {
+            "type": "number",
+            "title": "Number of comments"
+          },
+          "contest_mode": {
+            "type": "boolean",
+            "title": "Whether contest mode is enabled"
+          },
+          "subreddit_subscribers": {
+            "type": "number",
+            "title": "Number of subreddit subscribers"
+          },
+          "num_crossposts": {
+            "type": "number",
+            "title": "Number of crossposts"
+          },
+          "is_video": {
+            "type": "boolean",
+            "title": "Whether the post is a video"
+          },
+          "post_hint": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "title": "Hint for the post"
+          },
+          "preview": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/IReddit.Preview"
+              }
+            ],
+            "title": "Preview information"
+          },
+          "link_flair_template_id": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "title": "Template ID for link flair"
+          }
+        },
+        "required": [
+          "title",
+          "url",
+          "name",
+          "id"
+        ]
+      },
+      "IReddit.IGetHotPostsInput": {
+        "type": "object",
+        "properties": {
+          "g": {
+            "type": "string",
+            "title": "Optional parameter",
+            "description": "one of (GLOBAL, US, AR, AU, BG, CA, CL, CO, HR, CZ, FI, FR, DE, GR, HU, IS, IN, IE, IT, JP, MY, MX, NZ, PH, PL, PT, PR, RO, RS, SG, ES, SE, TW, TH, TR, GB, US_WA, US_DE, US_DC, US_WI, US_WV, US_HI, US_FL, US_WY, US_NH, US_NJ, US_NM, US_TX, US_LA, US_NC, US_ND, US_NE, US_TN, US_NY, US_PA, US_CA, US_NV, US_VA, US_CO, US_AK, US_AL, US_AR, US_VT, US_IL, US_GA, US_IN, US_IA, US_OK, US_AZ, US_ID, US_CT, US_ME, US_MD, US_MA, US_OH, US_UT, US_MO, US_MN, US_MI, US_RI, US_KS, US_MT, US_MS, US_SC, US_KY, US_OR, US_SD)"
+          },
+          "subreddit": {
+            "type": "string",
+            "pattern": "^(r\\/(.*))",
+            "title": "The subreddit to fetch posts from"
+          },
+          "limit": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 100,
+            "default": 25,
+            "title": "The number of posts to fetch"
+          },
+          "after": {
+            "type": "string",
+            "pattern": "^((t2_(.*))|(t1_(.*))|(t3_(.*))|(t5_(.*))|(t4_(.*))|(t6_(.*)))",
+            "title": "after",
+            "description": "When the value of the 'after' parameter that came in response to the previous request is substituted,\nit is a parameter for page selection that inquires before and after the value.\nIf omitted, the first page will be viewed unconditionally.\n\nThe prefix t1_, t2_, t3_, t4_, t5_, t6_ attached to the beginning of the value has the following meaning.\n- t1_ : Comment\n- t2_ : Account\n- t3_ : Link\n- t4_ : Message\n- t5_ : Subreddit\n- t6_ : Award"
+          },
+          "before": {
+            "type": "string",
+            "pattern": "^((t2_(.*))|(t1_(.*))|(t3_(.*))|(t5_(.*))|(t4_(.*))|(t6_(.*)))",
+            "title": "before",
+            "description": "When the value of the 'after' parameter that came in response to the previous request is substituted,\nit is a parameter for page selection that inquires before and after the value.\nIf omitted, the first page will be viewed unconditionally.\n\nThe prefix t1_, t2_, t3_, t4_, t5_, t6_ attached to the beginning of the value has the following meaning.\n- t1_ : Comment\n- t2_ : Account\n- t3_ : Link\n- t4_ : Message\n- t5_ : Subreddit\n- t6_ : Award"
+          },
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "reddit",
+            "x-wrtn-secret-scopes": [
+              "account",
+              "history",
+              "identity",
+              "mysubreddits",
+              "read",
+              "report",
+              "save"
+            ],
+            "title": "Select authentication information",
+            "description": "secret key."
+          }
+        },
+        "required": [
+          "secretKey"
+        ]
+      },
+      "IReddit.IGetNewPostsOutput": {
+        "type": "object",
+        "properties": {
+          "after": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string",
+                "pattern": "^((t2_(.*))|(t1_(.*))|(t3_(.*))|(t5_(.*))|(t4_(.*))|(t6_(.*)))"
+              }
+            ],
+            "title": "The after cursor for pagination"
+          },
+          "dist": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "number"
+              }
+            ],
+            "title": "The number of items returned"
+          },
+          "modhash": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "title": "The modhash for the request"
+          },
+          "geo_filter": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "title": "The geographical filter applied"
+          },
+          "children": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/IReddit.Children"
+            },
+            "title": "The list of children posts"
+          },
+          "before": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string",
+                "pattern": "^((t2_(.*))|(t1_(.*))|(t3_(.*))|(t5_(.*))|(t4_(.*))|(t6_(.*)))"
+              }
+            ],
+            "title": "The before cursor for pagination"
+          }
+        },
+        "required": [
+          "after",
+          "dist",
+          "modhash",
+          "geo_filter",
+          "children",
+          "before"
+        ]
+      },
+      "IReddit.IGetNewPostsInput": {
+        "type": "object",
+        "properties": {
+          "subreddit": {
+            "type": "string",
+            "pattern": "^(r\\/(.*))",
+            "title": "The subreddit to fetch posts from"
+          },
+          "limit": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 100,
+            "default": 25,
+            "title": "The number of posts to fetch"
+          },
+          "after": {
+            "type": "string",
+            "pattern": "^((t2_(.*))|(t1_(.*))|(t3_(.*))|(t5_(.*))|(t4_(.*))|(t6_(.*)))",
+            "title": "after",
+            "description": "When the value of the 'after' parameter that came in response to the previous request is substituted,\nit is a parameter for page selection that inquires before and after the value.\nIf omitted, the first page will be viewed unconditionally.\n\nThe prefix t1_, t2_, t3_, t4_, t5_, t6_ attached to the beginning of the value has the following meaning.\n- t1_ : Comment\n- t2_ : Account\n- t3_ : Link\n- t4_ : Message\n- t5_ : Subreddit\n- t6_ : Award"
+          },
+          "before": {
+            "type": "string",
+            "pattern": "^((t2_(.*))|(t1_(.*))|(t3_(.*))|(t5_(.*))|(t4_(.*))|(t6_(.*)))",
+            "title": "before",
+            "description": "When the value of the 'after' parameter that came in response to the previous request is substituted,\nit is a parameter for page selection that inquires before and after the value.\nIf omitted, the first page will be viewed unconditionally.\n\nThe prefix t1_, t2_, t3_, t4_, t5_, t6_ attached to the beginning of the value has the following meaning.\n- t1_ : Comment\n- t2_ : Account\n- t3_ : Link\n- t4_ : Message\n- t5_ : Subreddit\n- t6_ : Award"
+          },
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "reddit",
+            "x-wrtn-secret-scopes": [
+              "account",
+              "history",
+              "identity",
+              "mysubreddits",
+              "read",
+              "report",
+              "save"
+            ],
+            "title": "Select authentication information",
+            "description": "secret key."
+          }
+        },
+        "required": [
+          "secretKey"
+        ]
+      },
+      "IReddit.IGetTopPostsOutput": {
+        "type": "object",
+        "properties": {
+          "after": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string",
+                "pattern": "^((t2_(.*))|(t1_(.*))|(t3_(.*))|(t5_(.*))|(t4_(.*))|(t6_(.*)))"
+              }
+            ],
+            "title": "The after cursor for pagination"
+          },
+          "dist": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "number"
+              }
+            ],
+            "title": "The number of items returned"
+          },
+          "modhash": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "title": "The modhash for the request"
+          },
+          "geo_filter": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "title": "The geographical filter applied"
+          },
+          "children": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/IReddit.Children"
+            },
+            "title": "The list of children posts"
+          },
+          "before": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string",
+                "pattern": "^((t2_(.*))|(t1_(.*))|(t3_(.*))|(t5_(.*))|(t4_(.*))|(t6_(.*)))"
+              }
+            ],
+            "title": "The before cursor for pagination"
+          }
+        },
+        "required": [
+          "after",
+          "dist",
+          "modhash",
+          "geo_filter",
+          "children",
+          "before"
+        ]
+      },
+      "IReddit.IGetTopPostsInput": {
+        "type": "object",
+        "properties": {
+          "subreddit": {
+            "type": "string",
+            "pattern": "^(r\\/(.*))",
+            "title": "The subreddit to fetch posts from"
+          },
+          "time_filter": {
+            "oneOf": [
+              {
+                "const": "all"
+              },
+              {
+                "const": "day"
+              },
+              {
+                "const": "week"
+              },
+              {
+                "const": "month"
+              },
+              {
+                "const": "year"
+              },
+              {
+                "const": "hour"
+              }
+            ],
+            "title": "The time filter for the posts"
+          },
+          "limit": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 100,
+            "default": 25,
+            "title": "The number of posts to fetch"
+          },
+          "after": {
+            "type": "string",
+            "pattern": "^((t2_(.*))|(t1_(.*))|(t3_(.*))|(t5_(.*))|(t4_(.*))|(t6_(.*)))",
+            "title": "after",
+            "description": "When the value of the 'after' parameter that came in response to the previous request is substituted,\nit is a parameter for page selection that inquires before and after the value.\nIf omitted, the first page will be viewed unconditionally.\n\nThe prefix t1_, t2_, t3_, t4_, t5_, t6_ attached to the beginning of the value has the following meaning.\n- t1_ : Comment\n- t2_ : Account\n- t3_ : Link\n- t4_ : Message\n- t5_ : Subreddit\n- t6_ : Award"
+          },
+          "before": {
+            "type": "string",
+            "pattern": "^((t2_(.*))|(t1_(.*))|(t3_(.*))|(t5_(.*))|(t4_(.*))|(t6_(.*)))",
+            "title": "before",
+            "description": "When the value of the 'after' parameter that came in response to the previous request is substituted,\nit is a parameter for page selection that inquires before and after the value.\nIf omitted, the first page will be viewed unconditionally.\n\nThe prefix t1_, t2_, t3_, t4_, t5_, t6_ attached to the beginning of the value has the following meaning.\n- t1_ : Comment\n- t2_ : Account\n- t3_ : Link\n- t4_ : Message\n- t5_ : Subreddit\n- t6_ : Award"
+          },
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "reddit",
+            "x-wrtn-secret-scopes": [
+              "account",
+              "history",
+              "identity",
+              "mysubreddits",
+              "read",
+              "report",
+              "save"
+            ],
+            "title": "Select authentication information",
+            "description": "secret key."
+          }
+        },
+        "required": [
+          "secretKey"
+        ]
+      },
+      "IReddit.IGetArticleAndCommentsOutput": {
+        "type": "object",
+        "properties": {
+          "articles": {
+            "type": "object",
+            "properties": {
+              "after": {
+                "oneOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "type": "string",
+                    "pattern": "^((t2_(.*))|(t1_(.*))|(t3_(.*))|(t5_(.*))|(t4_(.*))|(t6_(.*)))"
+                  }
+                ],
+                "title": "The after cursor for pagination"
+              },
+              "dist": {
+                "oneOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "type": "number"
+                  }
+                ],
+                "title": "The number of items returned"
+              },
+              "modhash": {
+                "oneOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "type": "string"
+                  }
+                ],
+                "title": "The modhash for the request"
+              },
+              "geo_filter": {
+                "oneOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "type": "string"
+                  }
+                ],
+                "title": "The geographical filter applied"
+              },
+              "children": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/IReddit.Children"
+                },
+                "title": "The list of children posts"
+              },
+              "before": {
+                "oneOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "type": "string",
+                    "pattern": "^((t2_(.*))|(t1_(.*))|(t3_(.*))|(t5_(.*))|(t4_(.*))|(t6_(.*)))"
+                  }
+                ],
+                "title": "The before cursor for pagination"
+              }
+            },
+            "required": [
+              "after",
+              "dist",
+              "modhash",
+              "geo_filter",
+              "children",
+              "before"
+            ]
+          },
+          "more": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/IReddit.ChildMore"
+              }
+            ],
+            "discriminator": {
+              "propertyName": "kind",
+              "mapping": {
+                "more": "#/components/schemas/IReddit.ChildMore"
+              }
+            }
+          },
+          "flatComments": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/IReddit.ChildComment"
+            }
+          }
+        },
+        "required": [
+          "articles",
+          "more",
+          "flatComments"
+        ]
+      },
+      "IReddit.ChildMore": {
+        "type": "object",
+        "properties": {
+          "kind": {
+            "const": "more",
+            "title": "kind"
+          },
+          "data": {
+            "type": "object",
+            "properties": {
+              "count": {
+                "type": "integer",
+                "title": "count"
+              },
+              "name": {
+                "type": "string",
+                "pattern": "^(t1_(.*))",
+                "title": "name"
+              },
+              "id": {
+                "type": "string",
+                "title": "id"
+              },
+              "parent_id": {
+                "type": "string",
+                "pattern": "^((t2_(.*))|(t1_(.*))|(t3_(.*))|(t5_(.*))|(t4_(.*))|(t6_(.*)))",
+                "title": "parent_id"
+              },
+              "depth": {
+                "type": "integer",
+                "title": "depth"
+              },
+              "children": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "title": "children"
+              }
+            },
+            "required": [
+              "count",
+              "name",
+              "id",
+              "parent_id",
+              "depth",
+              "children"
+            ],
+            "title": "data"
+          }
+        },
+        "required": [
+          "kind",
+          "data"
+        ]
+      },
+      "IReddit.ChildComment": {
+        "type": "object",
+        "properties": {
+          "kind": {
+            "const": "t1",
+            "title": "kind"
+          },
+          "data": {
+            "$ref": "#/components/schemas/IReddit.Comment",
+            "title": "data"
+          }
+        },
+        "required": [
+          "kind",
+          "data"
+        ]
+      },
+      "IReddit.Comment": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "id"
+          },
+          "parent_id": {
+            "type": "string",
+            "pattern": "^((t2_(.*))|(t1_(.*))|(t3_(.*))|(t5_(.*))|(t4_(.*))|(t6_(.*)))",
+            "title": "parent_id"
+          },
+          "link_id": {
+            "type": "string",
+            "pattern": "^((t2_(.*))|(t1_(.*))|(t3_(.*))|(t5_(.*))|(t4_(.*))|(t6_(.*)))",
+            "title": "link_id"
+          },
+          "comment_type": {
+            "type": "null",
+            "title": "comment_type"
+          },
+          "depth": {
+            "type": "integer",
+            "title": "depth"
+          },
+          "replies": {
+            "oneOf": [
+              {
+                "const": "",
+                "title": "NO_REPLIES"
+              },
+              {
+                "$ref": "#/components/schemas/__type.o1989"
+              }
+            ],
+            "title": "replies"
+          },
+          "collapsed_reason_code": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "title": "collapsed_reason_code"
+          },
+          "collapsed": {
+            "type": "boolean",
+            "title": "collapsed"
+          },
+          "body": {
+            "type": "string",
+            "title": "body"
+          },
+          "body_html": {
+            "type": "string",
+            "title": "body_html"
+          },
+          "is_submitter": {
+            "type": "boolean",
+            "title": "is_submitter"
+          },
+          "collapsed_reason": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "title": "collapsed_reason"
+          },
+          "associated_award": {
+            "type": "null",
+            "title": "associated_award"
+          },
+          "unrepliable_reason": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "title": "unrepliable_reason"
+          },
+          "controversiality": {
+            "type": "integer",
+            "title": "controversiality"
+          },
+          "score_hidden": {
+            "type": "boolean",
+            "title": "score_hidden"
+          },
+          "collapsed_because_crowd_control": {
+            "type": "null",
+            "title": "collapsed_because_crowd_control"
+          },
+          "name": {
+            "type": "string",
+            "title": "The name of the post"
+          },
+          "created": {
+            "type": "number",
+            "title": "Creation time"
+          },
+          "author": {
+            "type": "string",
+            "title": "Author of the post"
+          },
+          "locked": {
+            "type": "boolean",
+            "title": "Whether the post is locked"
+          },
+          "score": {
+            "type": "number",
+            "title": "Score of the post"
+          },
+          "subreddit": {
+            "type": "string",
+            "title": "The subreddit name"
+          },
+          "approved_at_utc": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "title": "Approval time in UTC"
+          },
+          "author_is_blocked": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "boolean"
+              }
+            ],
+            "title": "Whether the author is blocked"
+          },
+          "subreddit_id": {
+            "type": "string",
+            "title": "ID of the subreddit"
+          },
+          "awarders": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "title": "Awarders of the post"
+          },
+          "mod_reason_by": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "title": "Moderator reason by user"
+          },
+          "banned_by": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "title": "Banned by user"
+          },
+          "author_flair_type": {
+            "type": "string",
+            "title": "Type of author flair"
+          },
+          "total_awards_received": {
+            "type": "number",
+            "title": "Total awards received"
+          },
+          "author_flair_template_id": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string",
+                "format": "uuid"
+              }
+            ],
+            "title": "Template ID for author flair"
+          },
+          "likes": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "integer"
+              }
+            ],
+            "title": "Likes on the post"
+          },
+          "user_reports": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "title": "User reports"
+          },
+          "saved": {
+            "type": "boolean",
+            "title": "Whether the post is saved"
+          },
+          "banned_at_utc": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "integer"
+              }
+            ],
+            "title": "Banned time in UTC"
+          },
+          "mod_reason_title": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "title": "Moderator reason title"
+          },
+          "gilded": {
+            "type": "integer",
+            "title": "Number of times gilded"
+          },
+          "archived": {
+            "type": "boolean",
+            "title": "Whether the post is archived"
+          },
+          "no_follow": {
+            "type": "boolean",
+            "title": "Whether no-follow is enabled"
+          },
+          "can_mod_post": {
+            "type": "boolean",
+            "title": "Whether the post can be moderated"
+          },
+          "created_utc": {
+            "type": "integer",
+            "title": "Creation time in UTC"
+          },
+          "send_replies": {
+            "type": "boolean",
+            "title": "Whether to send replies"
+          },
+          "author_fullname": {
+            "type": "string",
+            "pattern": "^(t2_(.*))",
+            "title": "The full name of the author"
+          },
+          "approved_by": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "title": "Approved by user"
+          },
+          "mod_note": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "title": "Moderator note"
+          },
+          "all_awardings": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "title": "All awardings"
+          },
+          "top_awarded_type": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "title": "Type of top award"
+          },
+          "author_flair_css_class": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "title": "CSS class for author flair"
+          },
+          "downs": {
+            "type": "integer",
+            "title": "Number of downvotes"
+          },
+          "author_flair_richtext": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/IReddit.AuthorFlairRichtext"
+            },
+            "title": "Rich text for author flair"
+          },
+          "author_patreon_flair": {
+            "type": "boolean",
+            "title": "Whether the author has Patreon flair"
+          },
+          "removal_reason": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "title": "Removal reason"
+          },
+          "distinguished": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "title": "Distinguished status"
+          },
+          "stickied": {
+            "type": "boolean",
+            "title": "Whether the post is stickied"
+          },
+          "author_premium": {
+            "type": "boolean",
+            "title": "Whether the author is premium"
+          },
+          "can_gild": {
+            "type": "boolean",
+            "title": "Whether the post can be gilded"
+          },
+          "gildings": {
+            "title": "Gildings information"
+          },
+          "author_flair_text_color": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "title": "Text color for author flair"
+          },
+          "permalink": {
+            "type": "string",
+            "title": "Permalink to the post"
+          },
+          "subreddit_type": {
+            "type": "string",
+            "title": "Type of subreddit"
+          },
+          "report_reasons": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "title": "Report reasons"
+          },
+          "author_flair_text": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "title": "Text for author flair"
+          },
+          "treatment_tags": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "title": "Treatment tags"
+          },
+          "subreddit_name_prefixed": {
+            "type": "string",
+            "title": "Prefixed subreddit name"
+          },
+          "author_flair_background_color": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "title": "Background color for author flair"
+          },
+          "mod_reports": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "title": "Moderator reports"
+          },
+          "num_reports": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              },
+              {
+                "type": "integer"
+              }
+            ],
+            "title": "Number of reports"
+          },
+          "ups": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "integer"
+              }
+            ],
+            "title": "Number of upvotes"
+          }
+        },
+        "required": [
+          "id",
+          "parent_id",
+          "name"
+        ]
+      },
+      "__type.o1989": {
+        "type": "object",
+        "properties": {
+          "kind": {
+            "const": "Listing"
+          },
+          "data": {
+            "$ref": "#/components/schemas/__type.o1990"
+          }
+        },
+        "required": [
+          "kind",
+          "data"
+        ]
+      },
+      "__type.o1990": {
+        "type": "object",
+        "properties": {
+          "after": {
+            "type": "null"
+          },
+          "dist": {
+            "type": "null"
+          },
+          "modhash": {
+            "type": "null"
+          },
+          "geo_filter": {
+            "type": "string"
+          },
+          "children": {
+            "type": "array",
+            "items": {
+              "oneOf": [
+                {
+                  "$ref": "#/components/schemas/__type.o1991"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "kind": {
+                      "const": "more",
+                      "title": "kind"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "count": {
+                          "type": "integer",
+                          "title": "count"
+                        },
+                        "name": {
+                          "type": "string",
+                          "pattern": "^(t1_(.*))",
+                          "title": "name"
+                        },
+                        "id": {
+                          "type": "string",
+                          "title": "id"
+                        },
+                        "parent_id": {
+                          "type": "string",
+                          "pattern": "^((t2_(.*))|(t1_(.*))|(t3_(.*))|(t5_(.*))|(t4_(.*))|(t6_(.*)))",
+                          "title": "parent_id"
+                        },
+                        "depth": {
+                          "type": "integer",
+                          "title": "depth"
+                        },
+                        "children": {
+                          "type": "array",
+                          "items": {
+                            "type": "string"
+                          },
+                          "title": "children"
+                        }
+                      },
+                      "required": [
+                        "count",
+                        "name",
+                        "id",
+                        "parent_id",
+                        "depth",
+                        "children"
+                      ],
+                      "title": "data"
+                    }
+                  },
+                  "required": [
+                    "kind",
+                    "data"
+                  ]
+                }
+              ]
+            }
+          },
+          "before": {
+            "type": "null"
+          }
+        },
+        "required": [
+          "after",
+          "dist",
+          "modhash",
+          "geo_filter",
+          "children",
+          "before"
+        ]
+      },
+      "__type.o1991": {
+        "type": "object",
+        "properties": {
+          "kind": {
+            "const": "t1",
+            "title": "kind"
+          },
+          "data": {
+            "$ref": "#/components/schemas/IReddit.Comment",
+            "title": "data"
+          }
+        },
+        "required": [
+          "kind",
+          "data"
+        ]
+      },
+      "IReddit.IGetCommentsInput": {
+        "type": "object",
+        "properties": {
+          "comment": {
+            "type": "string",
+            "title": "Comment ID",
+            "description": "(optional) ID36 of a comment"
+          },
+          "depth": {
+            "type": "number",
+            "title": "depth",
+            "description": "depth is the maximum depth of subtrees in the thread."
+          },
+          "subreddit": {
+            "type": "string",
+            "pattern": "^(r\\/(.*))",
+            "title": "The subreddit of the post"
+          },
+          "article": {
+            "oneOf": [
+              {
+                "type": "string",
+                "x-wrtn-prerequisite": {
+                  "method": "post",
+                  "path": "/connector/reddit/get-hot-posts",
+                  "jmesPath": "children[].data.{label: title, id: id}"
+                }
+              },
+              {
+                "type": "string",
+                "x-wrtn-prerequisite": {
+                  "method": "post",
+                  "path": "/connector/reddit/get-new-posts",
+                  "jmesPath": "children[].data.{label: title, id: id}"
+                }
+              },
+              {
+                "type": "string",
+                "x-wrtn-prerequisite": {
+                  "method": "post",
+                  "path": "/connector/reddit/get-top-posts",
+                  "jmesPath": "children[].data.{label: title, id: id}"
+                }
+              }
+            ],
+            "title": "The article ID of the post"
+          },
+          "limit": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 100,
+            "default": 25,
+            "title": "The number of posts to fetch"
+          },
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "reddit",
+            "x-wrtn-secret-scopes": [
+              "account",
+              "history",
+              "identity",
+              "mysubreddits",
+              "read",
+              "report",
+              "save"
+            ],
+            "title": "Select authentication information",
+            "description": "secret key."
+          }
+        },
+        "required": [
+          "article",
+          "secretKey"
+        ]
+      },
+      "IReddit.IGetUserAboutOutput": {
+        "type": "object",
+        "properties": {
+          "kind": {
+            "const": "t2",
+            "title": "kind"
+          },
+          "data": {
+            "type": "object",
+            "properties": {
+              "is_employee": {
+                "type": "boolean",
+                "title": "is_employee"
+              },
+              "has_visited_new_profile": {
+                "type": "boolean",
+                "title": "has_visited_new_profile"
+              },
+              "is_friend": {
+                "type": "boolean",
+                "title": "is_friend"
+              },
+              "pref_no_profanity": {
+                "type": "boolean",
+                "title": "pref_no_profanity"
+              },
+              "has_external_account": {
+                "type": "boolean",
+                "title": "has_external_account"
+              },
+              "pref_geopopular": {
+                "type": "string",
+                "title": "pref_geopopular"
+              },
+              "pref_show_trending": {
+                "type": "boolean",
+                "title": "pref_show_trending"
+              },
+              "subreddit": {
+                "type": "object",
+                "properties": {
+                  "default_set": {
+                    "type": "boolean",
+                    "title": "default_set"
+                  },
+                  "user_is_contributor": {
+                    "type": "boolean",
+                    "title": "user_is_contributor"
+                  },
+                  "banner_img": {
+                    "type": "string",
+                    "title": "banner_img"
+                  },
+                  "allowed_media_in_comments": {
+                    "type": "array",
+                    "items": {},
+                    "title": "allowed_media_in_comments"
+                  },
+                  "user_is_banned": {
+                    "type": "boolean",
+                    "title": "user_is_banned"
+                  },
+                  "free_form_reports": {
+                    "type": "boolean",
+                    "title": "free_form_reports"
+                  },
+                  "community_icon": {
+                    "oneOf": [
+                      {
+                        "type": "null"
+                      },
+                      {
+                        "type": "string",
+                        "format": "iri"
+                      }
+                    ],
+                    "title": "community_icon"
+                  },
+                  "show_media": {
+                    "type": "boolean",
+                    "title": "show_media"
+                  },
+                  "icon_color": {
+                    "type": "string",
+                    "title": "icon_color"
+                  },
+                  "user_is_muted": {
+                    "type": "null",
+                    "title": "user_is_muted"
+                  },
+                  "display_name": {
+                    "type": "string",
+                    "title": "display_name"
+                  },
+                  "header_img": {
+                    "oneOf": [
+                      {
+                        "type": "null"
+                      },
+                      {
+                        "type": "string",
+                        "format": "iri"
+                      }
+                    ],
+                    "title": "header_img"
+                  },
+                  "title": {
+                    "type": "string",
+                    "title": "title"
+                  },
+                  "coins": {
+                    "type": "integer",
+                    "title": "coins"
+                  },
+                  "previous_names": {
+                    "type": "array",
+                    "items": {},
+                    "title": "previous_names"
+                  },
+                  "over_18": {
+                    "type": "boolean",
+                    "title": "over_18"
+                  },
+                  "icon_size": {
+                    "type": "array",
+                    "prefixItems": [
+                      {
+                        "type": "integer"
+                      },
+                      {
+                        "type": "integer"
+                      }
+                    ],
+                    "additionalItems": false,
+                    "title": "icon_size"
+                  },
+                  "primary_color": {
+                    "type": "string",
+                    "title": "primary_color"
+                  },
+                  "icon_img": {
+                    "type": "string",
+                    "format": "iri",
+                    "title": "icon_img"
+                  },
+                  "description": {
+                    "type": "string",
+                    "title": "description"
+                  },
+                  "submit_link_label": {
+                    "type": "string",
+                    "title": "submit_link_label"
+                  },
+                  "header_size": {
+                    "type": "null",
+                    "title": "header_size"
+                  },
+                  "restrict_posting": {
+                    "type": "boolean",
+                    "title": "restrict_posting"
+                  },
+                  "restrict_commenting": {
+                    "type": "boolean",
+                    "title": "restrict_commenting"
+                  },
+                  "subscribers": {
+                    "type": "integer",
+                    "title": "subscribers"
+                  },
+                  "submit_text_label": {
+                    "type": "string",
+                    "title": "submit_text_label"
+                  },
+                  "is_default_icon": {
+                    "type": "boolean",
+                    "title": "is_default_icon"
+                  },
+                  "link_flair_position": {
+                    "type": "string",
+                    "title": "link_flair_position"
+                  },
+                  "display_name_prefixed": {
+                    "type": "string",
+                    "pattern": "^(u\\/(.*))",
+                    "title": "display_name_prefixed"
+                  },
+                  "key_color": {
+                    "type": "string",
+                    "title": "key_color"
+                  },
+                  "name": {
+                    "type": "string",
+                    "pattern": "^(t5_(.*))",
+                    "title": "name"
+                  },
+                  "is_default_banner": {
+                    "type": "boolean",
+                    "title": "is_default_banner"
+                  },
+                  "url": {
+                    "type": "string",
+                    "pattern": "^(\\/user\\/(.*)\\/)$",
+                    "title": "url"
+                  },
+                  "quarantine": {
+                    "type": "boolean",
+                    "title": "quarantine"
+                  },
+                  "banner_size": {
+                    "oneOf": [
+                      {
+                        "type": "null"
+                      },
+                      {
+                        "type": "array",
+                        "prefixItems": [
+                          {
+                            "type": "integer"
+                          },
+                          {
+                            "type": "integer"
+                          }
+                        ],
+                        "additionalItems": false
+                      }
+                    ],
+                    "title": "banner_size"
+                  },
+                  "user_is_moderator": {
+                    "type": "boolean",
+                    "title": "user_is_moderator"
+                  },
+                  "accept_followers": {
+                    "type": "boolean",
+                    "title": "accept_followers"
+                  },
+                  "public_description": {
+                    "type": "string",
+                    "title": "public_description"
+                  },
+                  "link_flair_enabled": {
+                    "type": "boolean",
+                    "title": "link_flair_enabled"
+                  },
+                  "disable_contributor_requests": {
+                    "type": "boolean",
+                    "title": "disable_contributor_requests"
+                  },
+                  "subreddit_type": {
+                    "const": "user",
+                    "title": "subreddit_type"
+                  },
+                  "user_is_subscriber": {
+                    "type": "boolean",
+                    "title": "user_is_subscriber"
+                  }
+                },
+                "title": "subreddit"
+              },
+              "pref_show_presence": {
+                "type": "boolean",
+                "title": "pref_show_presence"
+              },
+              "snoovatar_img": {
+                "type": "string",
+                "title": "snoovatar_img"
+              },
+              "snoovatar_size": {
+                "oneOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "type": "array",
+                    "prefixItems": [
+                      {
+                        "type": "integer"
+                      },
+                      {
+                        "type": "integer"
+                      }
+                    ],
+                    "additionalItems": false
+                  }
+                ],
+                "title": "snoovatar_size"
+              },
+              "gold_expiration": {
+                "oneOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "type": "integer"
+                  }
+                ],
+                "title": "gold_expiration"
+              },
+              "has_gold_subscription": {
+                "type": "boolean",
+                "title": "has_gold_subscription"
+              },
+              "is_sponsor": {
+                "type": "boolean",
+                "title": "is_sponsor"
+              },
+              "num_friends": {
+                "type": "integer",
+                "title": "num_friends"
+              },
+              "features": {
+                "type": "object",
+                "properties": {
+                  "modmail_harassment_filter": {
+                    "type": "boolean",
+                    "title": "modmail_harassment_filter"
+                  },
+                  "mod_service_mute_writes": {
+                    "type": "boolean",
+                    "title": "mod_service_mute_writes"
+                  },
+                  "promoted_trend_blanks": {
+                    "type": "boolean",
+                    "title": "promoted_trend_blanks"
+                  },
+                  "show_amp_link": {
+                    "type": "boolean",
+                    "title": "show_amp_link"
+                  },
+                  "is_email_permission_required": {
+                    "type": "boolean",
+                    "title": "is_email_permission_required"
+                  },
+                  "mod_awards": {
+                    "type": "boolean",
+                    "title": "mod_awards"
+                  },
+                  "awards_on_streams": {
+                    "type": "boolean",
+                    "title": "awards_on_streams"
+                  },
+                  "mweb_xpromo_modal_listing_click_daily_dismissible_ios": {
+                    "type": "boolean",
+                    "title": "mweb_xpromo_modal_listing_click_daily_dismissible_ios"
+                  },
+                  "chat_subreddit": {
+                    "type": "boolean",
+                    "title": "chat_subreddit"
+                  },
+                  "cookie_consent_banner": {
+                    "type": "boolean",
+                    "title": "cookie_consent_banner"
+                  },
+                  "modlog_copyright_removal": {
+                    "type": "boolean",
+                    "title": "modlog_copyright_removal"
+                  },
+                  "do_not_track": {
+                    "type": "boolean",
+                    "title": "do_not_track"
+                  },
+                  "images_in_comments": {
+                    "type": "boolean",
+                    "title": "images_in_comments"
+                  },
+                  "mod_service_mute_reads": {
+                    "type": "boolean",
+                    "title": "mod_service_mute_reads"
+                  },
+                  "chat_user_settings": {
+                    "type": "boolean",
+                    "title": "chat_user_settings"
+                  },
+                  "use_pref_account_deployment": {
+                    "type": "boolean",
+                    "title": "use_pref_account_deployment"
+                  },
+                  "mweb_xpromo_interstitial_comments_ios": {
+                    "type": "boolean",
+                    "title": "mweb_xpromo_interstitial_comments_ios"
+                  },
+                  "mweb_xpromo_modal_listing_click_daily_dismissible_android": {
+                    "type": "boolean",
+                    "title": "mweb_xpromo_modal_listing_click_daily_dismissible_android"
+                  },
+                  "premium_subscriptions_table": {
+                    "type": "boolean",
+                    "title": "premium_subscriptions_table"
+                  },
+                  "mweb_xpromo_interstitial_comments_android": {
+                    "type": "boolean",
+                    "title": "mweb_xpromo_interstitial_comments_android"
+                  },
+                  "crowd_control_for_post": {
+                    "type": "boolean",
+                    "title": "crowd_control_for_post"
+                  },
+                  "chat_group_rollout": {
+                    "type": "boolean",
+                    "title": "chat_group_rollout"
+                  },
+                  "resized_styles_images": {
+                    "type": "boolean",
+                    "title": "resized_styles_images"
+                  },
+                  "noreferrer_to_noopener": {
+                    "type": "boolean",
+                    "title": "noreferrer_to_noopener"
+                  },
+                  "expensive_coins_package": {
+                    "type": "boolean",
+                    "title": "expensive_coins_package"
+                  }
+                },
+                "title": "features"
+              },
+              "can_edit_name": {
+                "type": "boolean",
+                "title": "can_edit_name"
+              },
+              "is_blocked": {
+                "type": "boolean",
+                "title": "is_blocked"
+              },
+              "verified": {
+                "type": "boolean",
+                "title": "verified"
+              },
+              "pref_autoplay": {
+                "type": "boolean",
+                "title": "pref_autoplay"
+              },
+              "coins": {
+                "type": "integer",
+                "title": "coins"
+              },
+              "has_paypal_subscription": {
+                "type": "boolean",
+                "title": "has_paypal_subscription"
+              },
+              "has_subscribed_to_premium": {
+                "type": "boolean",
+                "title": "has_subscribed_to_premium"
+              },
+              "id": {
+                "type": "string",
+                "title": "id"
+              },
+              "can_create_subreddit": {
+                "type": "boolean",
+                "title": "can_create_subreddit"
+              },
+              "over_18": {
+                "type": "boolean",
+                "title": "over_18"
+              },
+              "is_gold": {
+                "type": "boolean",
+                "title": "is_gold"
+              },
+              "is_mod": {
+                "type": "boolean",
+                "title": "is_mod"
+              },
+              "awarder_karma": {
+                "type": "integer",
+                "title": "awarder_karma"
+              },
+              "suspension_expiration_utc": {
+                "oneOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "type": "integer"
+                  }
+                ],
+                "title": "suspension_expiration_utc"
+              },
+              "has_stripe_subscription": {
+                "type": "boolean",
+                "title": "has_stripe_subscription"
+              },
+              "is_suspended": {
+                "type": "boolean",
+                "title": "is_suspended"
+              },
+              "pref_video_autoplay": {
+                "type": "boolean",
+                "title": "pref_video_autoplay"
+              },
+              "has_android_subscription": {
+                "type": "boolean",
+                "title": "has_android_subscription"
+              },
+              "in_redesign_beta": {
+                "type": "boolean",
+                "title": "in_redesign_beta"
+              },
+              "icon_img": {
+                "type": "string",
+                "format": "iri",
+                "title": "icon_img"
+              },
+              "pref_nightmode": {
+                "type": "boolean",
+                "title": "pref_nightmode"
+              },
+              "awardee_karma": {
+                "type": "integer",
+                "title": "awardee_karma"
+              },
+              "hide_from_robots": {
+                "type": "boolean",
+                "title": "hide_from_robots"
+              },
+              "password_set": {
+                "type": "boolean",
+                "title": "password_set"
+              },
+              "modhash": {
+                "type": "null",
+                "title": "modhash"
+              },
+              "link_karma": {
+                "type": "integer",
+                "title": "link_karma"
+              },
+              "force_password_reset": {
+                "type": "boolean",
+                "title": "force_password_reset"
+              },
+              "total_karma": {
+                "type": "integer",
+                "title": "total_karma"
+              },
+              "inbox_count": {
+                "type": "integer",
+                "title": "inbox_count"
+              },
+              "pref_top_karma_subreddits": {
+                "type": "boolean",
+                "title": "pref_top_karma_subreddits"
+              },
+              "pref_show_snoovatar": {
+                "type": "boolean",
+                "title": "pref_show_snoovatar"
+              },
+              "name": {
+                "type": "string",
+                "title": "name"
+              },
+              "pref_clickgadget": {
+                "type": "integer",
+                "title": "pref_clickgadget"
+              },
+              "created": {
+                "type": "integer",
+                "title": "created"
+              },
+              "has_verified_email": {
+                "type": "boolean",
+                "title": "has_verified_email"
+              },
+              "gold_creddits": {
+                "type": "integer",
+                "title": "gold_creddits"
+              },
+              "created_utc": {
+                "type": "integer",
+                "title": "created_utc"
+              },
+              "has_ios_subscription": {
+                "type": "boolean",
+                "title": "has_ios_subscription"
+              },
+              "pref_show_twitter": {
+                "type": "boolean",
+                "title": "pref_show_twitter"
+              },
+              "in_beta": {
+                "type": "boolean",
+                "title": "in_beta"
+              },
+              "comment_karma": {
+                "type": "integer",
+                "title": "comment_karma"
+              },
+              "accept_followers": {
+                "type": "boolean",
+                "title": "accept_followers"
+              },
+              "has_subscribed": {
+                "type": "boolean",
+                "title": "has_subscribed"
+              }
+            },
+            "title": "data"
+          }
+        },
+        "required": [
+          "kind"
+        ]
+      },
+      "IReddit.IGetUserAboutInput": {
+        "type": "object",
+        "properties": {
+          "username": {
+            "type": "string",
+            "title": "The username to fetch information for"
+          },
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "reddit",
+            "x-wrtn-secret-scopes": [
+              "account",
+              "history",
+              "identity",
+              "mysubreddits",
+              "read",
+              "report",
+              "save"
+            ],
+            "title": "Select authentication information",
+            "description": "secret key."
+          }
+        },
+        "required": [
+          "username",
+          "secretKey"
+        ]
+      },
+      "IReddit.IGetUserSubmittedOutput": {
+        "type": "object",
+        "properties": {
+          "after": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string",
+                "pattern": "^((t2_(.*))|(t1_(.*))|(t3_(.*))|(t5_(.*))|(t4_(.*))|(t6_(.*)))"
+              }
+            ],
+            "title": "The after cursor for pagination"
+          },
+          "dist": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "number"
+              }
+            ],
+            "title": "The number of items returned"
+          },
+          "modhash": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "title": "The modhash for the request"
+          },
+          "geo_filter": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "title": "The geographical filter applied"
+          },
+          "children": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/IReddit.Children"
+            },
+            "title": "The list of children posts"
+          },
+          "before": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string",
+                "pattern": "^((t2_(.*))|(t1_(.*))|(t3_(.*))|(t5_(.*))|(t4_(.*))|(t6_(.*)))"
+              }
+            ],
+            "title": "The before cursor for pagination"
+          }
+        },
+        "required": [
+          "after",
+          "dist",
+          "modhash",
+          "geo_filter",
+          "children",
+          "before"
+        ]
+      },
+      "IReddit.IGetUserSubmittedInput": {
+        "type": "object",
+        "properties": {
+          "username": {
+            "type": "string",
+            "title": "The username to fetch posts for"
+          },
+          "limit": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 100,
+            "default": 25,
+            "title": "The number of posts to fetch"
+          },
+          "after": {
+            "type": "string",
+            "pattern": "^((t2_(.*))|(t1_(.*))|(t3_(.*))|(t5_(.*))|(t4_(.*))|(t6_(.*)))",
+            "title": "after",
+            "description": "When the value of the 'after' parameter that came in response to the previous request is substituted,\nit is a parameter for page selection that inquires before and after the value.\nIf omitted, the first page will be viewed unconditionally.\n\nThe prefix t1_, t2_, t3_, t4_, t5_, t6_ attached to the beginning of the value has the following meaning.\n- t1_ : Comment\n- t2_ : Account\n- t3_ : Link\n- t4_ : Message\n- t5_ : Subreddit\n- t6_ : Award"
+          },
+          "before": {
+            "type": "string",
+            "pattern": "^((t2_(.*))|(t1_(.*))|(t3_(.*))|(t5_(.*))|(t4_(.*))|(t6_(.*)))",
+            "title": "before",
+            "description": "When the value of the 'after' parameter that came in response to the previous request is substituted,\nit is a parameter for page selection that inquires before and after the value.\nIf omitted, the first page will be viewed unconditionally.\n\nThe prefix t1_, t2_, t3_, t4_, t5_, t6_ attached to the beginning of the value has the following meaning.\n- t1_ : Comment\n- t2_ : Account\n- t3_ : Link\n- t4_ : Message\n- t5_ : Subreddit\n- t6_ : Award"
+          },
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "reddit",
+            "x-wrtn-secret-scopes": [
+              "account",
+              "history",
+              "identity",
+              "mysubreddits",
+              "read",
+              "report",
+              "save"
+            ],
+            "title": "Select authentication information",
+            "description": "secret key."
+          }
+        },
+        "required": [
+          "username",
+          "secretKey"
+        ]
+      },
+      "IReddit.IFlattenCommentsOutput": {
+        "type": "object",
+        "properties": {
+          "more": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/IReddit.ChildMore"
+              }
+            ],
+            "discriminator": {
+              "propertyName": "kind",
+              "mapping": {
+                "more": "#/components/schemas/IReddit.ChildMore"
+              }
+            }
+          },
+          "flatComments": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/IReddit.ChildComment"
+            }
+          }
+        },
+        "required": [
+          "more",
+          "flatComments"
+        ]
+      },
+      "IReddit.IGetUserCommentsInput": {
+        "type": "object",
+        "properties": {
+          "username": {
+            "type": "string",
+            "title": "The username to fetch comments for"
+          },
+          "limit": {
+            "type": "integer",
+            "minimum": 1,
+            "title": "The number of comments to fetch"
+          },
+          "after": {
+            "type": "string",
+            "pattern": "^((t2_(.*))|(t1_(.*))|(t3_(.*))|(t5_(.*))|(t4_(.*))|(t6_(.*)))",
+            "title": "after",
+            "description": "When the value of the 'after' parameter that came in response to the previous request is substituted,\nit is a parameter for page selection that inquires before and after the value.\nIf omitted, the first page will be viewed unconditionally.\n\nThe prefix t1_, t2_, t3_, t4_, t5_, t6_ attached to the beginning of the value has the following meaning.\n- t1_ : Comment\n- t2_ : Account\n- t3_ : Link\n- t4_ : Message\n- t5_ : Subreddit\n- t6_ : Award"
+          },
+          "before": {
+            "type": "string",
+            "pattern": "^((t2_(.*))|(t1_(.*))|(t3_(.*))|(t5_(.*))|(t4_(.*))|(t6_(.*)))",
+            "title": "before",
+            "description": "When the value of the 'after' parameter that came in response to the previous request is substituted,\nit is a parameter for page selection that inquires before and after the value.\nIf omitted, the first page will be viewed unconditionally.\n\nThe prefix t1_, t2_, t3_, t4_, t5_, t6_ attached to the beginning of the value has the following meaning.\n- t1_ : Comment\n- t2_ : Account\n- t3_ : Link\n- t4_ : Message\n- t5_ : Subreddit\n- t6_ : Award"
+          },
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "reddit",
+            "x-wrtn-secret-scopes": [
+              "account",
+              "history",
+              "identity",
+              "mysubreddits",
+              "read",
+              "report",
+              "save"
+            ],
+            "title": "Select authentication information",
+            "description": "secret key."
+          }
+        },
+        "required": [
+          "username",
+          "secretKey"
+        ]
+      },
+      "IReddit.ISearchSubredditsOutput": {
+        "type": "object",
+        "properties": {
+          "after": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string",
+                "pattern": "^((t2_(.*))|(t1_(.*))|(t3_(.*))|(t5_(.*))|(t4_(.*))|(t6_(.*)))"
+              }
+            ],
+            "title": "The after cursor for pagination"
+          },
+          "dist": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "number"
+              }
+            ],
+            "title": "The number of items returned"
+          },
+          "modhash": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "title": "The modhash for the request"
+          },
+          "geo_filter": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "title": "The geographical filter applied"
+          },
+          "children": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "kind": {
+                  "const": "t5",
+                  "title": "kind"
+                },
+                "data": {
+                  "$ref": "#/components/schemas/IReddit.SubReddit",
+                  "title": "data"
+                }
+              },
+              "required": [
+                "kind",
+                "data"
+              ]
+            },
+            "title": "The list of children sub-reddits"
+          },
+          "before": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string",
+                "pattern": "^((t2_(.*))|(t1_(.*))|(t3_(.*))|(t5_(.*))|(t4_(.*))|(t6_(.*)))"
+              }
+            ],
+            "title": "The before cursor for pagination"
+          }
+        },
+        "required": [
+          "after",
+          "dist",
+          "modhash",
+          "geo_filter",
+          "children",
+          "before"
+        ]
+      },
+      "IReddit.SubReddit": {
+        "type": "object",
+        "properties": {
+          "restrict_posting": {
+            "type": "boolean",
+            "title": "restrict_posting"
+          },
+          "user_is_banned": {
+            "type": "boolean",
+            "title": "user_is_banned"
+          },
+          "free_form_reports": {
+            "type": "boolean",
+            "title": "free_form_reports"
+          },
+          "user_is_muted": {
+            "type": "boolean",
+            "title": "user_is_muted"
+          },
+          "display_name": {
+            "type": "string",
+            "title": "display_name"
+          },
+          "title": {
+            "type": "string",
+            "title": "title"
+          },
+          "allow_galleries": {
+            "type": "boolean",
+            "title": "allow_galleries"
+          },
+          "primary_color": {
+            "type": "string",
+            "title": "primary_color"
+          },
+          "icon_img": {
+            "type": "string",
+            "title": "icon_img"
+          },
+          "display_name_prefixed": {
+            "type": "string",
+            "title": "display_name_prefixed"
+          },
+          "public_traffic": {
+            "type": "boolean",
+            "title": "public_traffic"
+          },
+          "subscribers": {
+            "type": "number",
+            "title": "subscribers"
+          },
+          "user_flair_richtext": {
+            "type": "array",
+            "items": {},
+            "title": "user_flair_richtext"
+          },
+          "videostream_links_count": {
+            "type": "number",
+            "title": "videostream_links_count"
+          },
+          "name": {
+            "type": "string",
+            "title": "name"
+          },
+          "quarantine": {
+            "type": "boolean",
+            "title": "quarantine"
+          },
+          "hide_ads": {
+            "type": "boolean",
+            "title": "hide_ads"
+          },
+          "prediction_leaderboard_entry_type": {
+            "type": "number",
+            "title": "prediction_leaderboard_entry_type"
+          },
+          "emojis_enabled": {
+            "type": "boolean",
+            "title": "emojis_enabled"
+          },
+          "advertiser_category": {
+            "type": "string",
+            "title": "advertiser_category"
+          },
+          "public_description": {
+            "type": "string",
+            "title": "public_description"
+          },
+          "comment_score_hide_mins": {
+            "type": "number",
+            "title": "comment_score_hide_mins"
+          },
+          "allow_predictions": {
+            "type": "boolean",
+            "title": "allow_predictions"
+          },
+          "user_has_favorited": {
+            "type": "boolean",
+            "title": "user_has_favorited"
+          },
+          "community_icon": {
+            "type": "string",
+            "title": "community_icon"
+          },
+          "banner_background_image": {
+            "type": "string",
+            "title": "banner_background_image"
+          },
+          "original_content_tag_enabled": {
+            "type": "boolean",
+            "title": "original_content_tag_enabled"
+          },
+          "community_reviewed": {
+            "type": "boolean",
+            "title": "community_reviewed"
+          },
+          "submit_text": {
+            "type": "string",
+            "title": "submit_text"
+          },
+          "description_html": {
+            "type": "string",
+            "title": "description_html"
+          },
+          "spoilers_enabled": {
+            "type": "boolean",
+            "title": "spoilers_enabled"
+          },
+          "comment_contribution_settings": {
+            "title": "comment_contribution_settings"
+          },
+          "allow_talks": {
+            "type": "boolean",
+            "title": "allow_talks"
+          },
+          "user_flair_position": {
+            "type": "string",
+            "title": "user_flair_position"
+          },
+          "all_original_content": {
+            "type": "boolean",
+            "title": "all_original_content"
+          },
+          "has_menu_widget": {
+            "type": "boolean",
+            "title": "has_menu_widget"
+          },
+          "key_color": {
+            "type": "string",
+            "title": "key_color"
+          },
+          "can_assign_user_flair": {
+            "type": "boolean",
+            "title": "can_assign_user_flair"
+          },
+          "created": {
+            "type": "number",
+            "title": "created"
+          },
+          "wls": {
+            "type": "number",
+            "title": "wls"
+          },
+          "show_media_preview": {
+            "type": "boolean",
+            "title": "show_media_preview"
+          },
+          "submission_type": {
+            "type": "string",
+            "title": "submission_type"
+          },
+          "user_is_subscriber": {
+            "type": "boolean",
+            "title": "user_is_subscriber"
+          },
+          "allowed_media_in_comments": {
+            "type": "array",
+            "items": {},
+            "title": "allowed_media_in_comments"
+          },
+          "allow_videogifs": {
+            "type": "boolean",
+            "title": "allow_videogifs"
+          },
+          "should_archive_posts": {
+            "type": "boolean",
+            "title": "should_archive_posts"
+          },
+          "user_flair_type": {
+            "type": "string",
+            "title": "user_flair_type"
+          },
+          "allow_polls": {
+            "type": "boolean",
+            "title": "allow_polls"
+          },
+          "collapse_deleted_comments": {
+            "type": "boolean",
+            "title": "collapse_deleted_comments"
+          },
+          "public_description_html": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "title": "public_description_html"
+          },
+          "allow_videos": {
+            "type": "boolean",
+            "title": "allow_videos"
+          },
+          "is_crosspostable_subreddit": {
+            "type": "boolean",
+            "title": "is_crosspostable_subreddit"
+          },
+          "should_show_media_in_comments_setting": {
+            "type": "boolean",
+            "title": "should_show_media_in_comments_setting"
+          },
+          "can_assign_link_flair": {
+            "type": "boolean",
+            "title": "can_assign_link_flair"
+          },
+          "accounts_active_is_fuzzed": {
+            "type": "boolean",
+            "title": "accounts_active_is_fuzzed"
+          },
+          "allow_prediction_contributors": {
+            "type": "boolean",
+            "title": "allow_prediction_contributors"
+          },
+          "submit_text_label": {
+            "type": "string",
+            "title": "submit_text_label"
+          },
+          "link_flair_position": {
+            "type": "string",
+            "title": "link_flair_position"
+          },
+          "user_flair_enabled_in_sr": {
+            "type": "boolean",
+            "title": "user_flair_enabled_in_sr"
+          },
+          "allow_discovery": {
+            "type": "boolean",
+            "title": "allow_discovery"
+          },
+          "accept_followers": {
+            "type": "boolean",
+            "title": "accept_followers"
+          },
+          "user_sr_theme_enabled": {
+            "type": "boolean",
+            "title": "user_sr_theme_enabled"
+          },
+          "link_flair_enabled": {
+            "type": "boolean",
+            "title": "link_flair_enabled"
+          },
+          "disable_contributor_requests": {
+            "type": "boolean",
+            "title": "disable_contributor_requests"
+          },
+          "subreddit_type": {
+            "type": "string",
+            "title": "subreddit_type"
+          },
+          "banner_img": {
+            "type": "string",
+            "title": "banner_img"
+          },
+          "banner_background_color": {
+            "type": "string",
+            "title": "banner_background_color"
+          },
+          "show_media": {
+            "type": "boolean",
+            "title": "show_media"
+          },
+          "id": {
+            "type": "string",
+            "title": "id"
+          },
+          "user_is_contributor": {
+            "type": "boolean",
+            "title": "user_is_contributor"
+          },
+          "over18": {
+            "type": "boolean",
+            "title": "over18"
+          },
+          "header_title": {
+            "type": "string",
+            "title": "header_title"
+          },
+          "description": {
+            "type": "string",
+            "title": "description"
+          },
+          "submit_link_label": {
+            "type": "string",
+            "title": "submit_link_label"
+          },
+          "restrict_commenting": {
+            "type": "boolean",
+            "title": "restrict_commenting"
+          },
+          "allow_images": {
+            "type": "boolean",
+            "title": "allow_images"
+          },
+          "lang": {
+            "type": "string",
+            "title": "lang"
+          },
+          "url": {
+            "type": "string",
+            "title": "url"
+          },
+          "created_utc": {
+            "type": "number",
+            "title": "created_utc"
+          },
+          "mobile_banner_image": {
+            "type": "string",
+            "title": "mobile_banner_image"
+          },
+          "user_is_moderator": {
+            "type": "boolean",
+            "title": "user_is_moderator"
+          },
+          "allow_predictions_tournament": {
+            "type": "boolean",
+            "title": "allow_predictions_tournament"
+          }
+        }
+      },
+      "IReddit.ISearchSubredditsInput": {
+        "type": "object",
+        "properties": {
+          "q": {
+            "type": "string",
+            "title": "The search query"
+          },
+          "count": {
+            "type": "integer",
+            "minimum": 0,
+            "title": "The count of items"
+          },
+          "limit": {
+            "type": "integer",
+            "minimum": 1,
+            "title": "The number of subreddits to fetch"
+          },
+          "sort": {
+            "oneOf": [
+              {
+                "const": "relevance",
+                "title": "relevance"
+              },
+              {
+                "const": "activity",
+                "title": "activity"
+              }
+            ],
+            "title": "sort"
+          },
+          "after": {
+            "type": "string",
+            "pattern": "^((t2_(.*))|(t1_(.*))|(t3_(.*))|(t5_(.*))|(t4_(.*))|(t6_(.*)))",
+            "title": "after",
+            "description": "When the value of the 'after' parameter that came in response to the previous request is substituted,\nit is a parameter for page selection that inquires before and after the value.\nIf omitted, the first page will be viewed unconditionally.\n\nThe prefix t1_, t2_, t3_, t4_, t5_, t6_ attached to the beginning of the value has the following meaning.\n- t1_ : Comment\n- t2_ : Account\n- t3_ : Link\n- t4_ : Message\n- t5_ : Subreddit\n- t6_ : Award"
+          },
+          "before": {
+            "type": "string",
+            "pattern": "^((t2_(.*))|(t1_(.*))|(t3_(.*))|(t5_(.*))|(t4_(.*))|(t6_(.*)))",
+            "title": "before",
+            "description": "When the value of the 'after' parameter that came in response to the previous request is substituted,\nit is a parameter for page selection that inquires before and after the value.\nIf omitted, the first page will be viewed unconditionally.\n\nThe prefix t1_, t2_, t3_, t4_, t5_, t6_ attached to the beginning of the value has the following meaning.\n- t1_ : Comment\n- t2_ : Account\n- t3_ : Link\n- t4_ : Message\n- t5_ : Subreddit\n- t6_ : Award"
+          },
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "reddit",
+            "x-wrtn-secret-scopes": [
+              "account",
+              "history",
+              "identity",
+              "mysubreddits",
+              "read",
+              "report",
+              "save"
+            ],
+            "title": "Select authentication information",
+            "description": "secret key."
+          }
+        },
+        "required": [
+          "q",
+          "secretKey"
+        ]
+      },
+      "IReddit.IGetSubredditAboutOutput": {
+        "type": "object",
+        "properties": {
+          "header_img": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string",
+                "format": "iri"
+              }
+            ],
+            "title": "header_img"
+          },
+          "name": {
+            "type": "string",
+            "title": "The name of the subreddit"
+          },
+          "description": {
+            "type": "string",
+            "title": "The description of the subreddit"
+          },
+          "subscribers": {
+            "type": "number",
+            "title": "The number of subscribers"
+          },
+          "restrict_posting": {
+            "type": "boolean",
+            "title": "restrict_posting"
+          },
+          "user_is_banned": {
+            "type": "boolean",
+            "title": "user_is_banned"
+          },
+          "free_form_reports": {
+            "type": "boolean",
+            "title": "free_form_reports"
+          },
+          "user_is_muted": {
+            "type": "boolean",
+            "title": "user_is_muted"
+          },
+          "display_name": {
+            "type": "string",
+            "title": "display_name"
+          },
+          "title": {
+            "type": "string",
+            "title": "title"
+          },
+          "allow_galleries": {
+            "type": "boolean",
+            "title": "allow_galleries"
+          },
+          "primary_color": {
+            "type": "string",
+            "title": "primary_color"
+          },
+          "icon_img": {
+            "type": "string",
+            "title": "icon_img"
+          },
+          "display_name_prefixed": {
+            "type": "string",
+            "title": "display_name_prefixed"
+          },
+          "public_traffic": {
+            "type": "boolean",
+            "title": "public_traffic"
+          },
+          "user_flair_richtext": {
+            "type": "array",
+            "items": {},
+            "title": "user_flair_richtext"
+          },
+          "videostream_links_count": {
+            "type": "number",
+            "title": "videostream_links_count"
+          },
+          "quarantine": {
+            "type": "boolean",
+            "title": "quarantine"
+          },
+          "hide_ads": {
+            "type": "boolean",
+            "title": "hide_ads"
+          },
+          "prediction_leaderboard_entry_type": {
+            "type": "number",
+            "title": "prediction_leaderboard_entry_type"
+          },
+          "emojis_enabled": {
+            "type": "boolean",
+            "title": "emojis_enabled"
+          },
+          "advertiser_category": {
+            "type": "string",
+            "title": "advertiser_category"
+          },
+          "public_description": {
+            "type": "string",
+            "title": "public_description"
+          },
+          "comment_score_hide_mins": {
+            "type": "number",
+            "title": "comment_score_hide_mins"
+          },
+          "allow_predictions": {
+            "type": "boolean",
+            "title": "allow_predictions"
+          },
+          "user_has_favorited": {
+            "type": "boolean",
+            "title": "user_has_favorited"
+          },
+          "community_icon": {
+            "type": "string",
+            "title": "community_icon"
+          },
+          "banner_background_image": {
+            "type": "string",
+            "title": "banner_background_image"
+          },
+          "original_content_tag_enabled": {
+            "type": "boolean",
+            "title": "original_content_tag_enabled"
+          },
+          "community_reviewed": {
+            "type": "boolean",
+            "title": "community_reviewed"
+          },
+          "submit_text": {
+            "type": "string",
+            "title": "submit_text"
+          },
+          "description_html": {
+            "type": "string",
+            "title": "description_html"
+          },
+          "spoilers_enabled": {
+            "type": "boolean",
+            "title": "spoilers_enabled"
+          },
+          "comment_contribution_settings": {
+            "title": "comment_contribution_settings"
+          },
+          "allow_talks": {
+            "type": "boolean",
+            "title": "allow_talks"
+          },
+          "user_flair_position": {
+            "type": "string",
+            "title": "user_flair_position"
+          },
+          "all_original_content": {
+            "type": "boolean",
+            "title": "all_original_content"
+          },
+          "has_menu_widget": {
+            "type": "boolean",
+            "title": "has_menu_widget"
+          },
+          "key_color": {
+            "type": "string",
+            "title": "key_color"
+          },
+          "can_assign_user_flair": {
+            "type": "boolean",
+            "title": "can_assign_user_flair"
+          },
+          "created": {
+            "type": "number",
+            "title": "created"
+          },
+          "wls": {
+            "type": "number",
+            "title": "wls"
+          },
+          "show_media_preview": {
+            "type": "boolean",
+            "title": "show_media_preview"
+          },
+          "submission_type": {
+            "type": "string",
+            "title": "submission_type"
+          },
+          "user_is_subscriber": {
+            "type": "boolean",
+            "title": "user_is_subscriber"
+          },
+          "allowed_media_in_comments": {
+            "type": "array",
+            "items": {},
+            "title": "allowed_media_in_comments"
+          },
+          "allow_videogifs": {
+            "type": "boolean",
+            "title": "allow_videogifs"
+          },
+          "should_archive_posts": {
+            "type": "boolean",
+            "title": "should_archive_posts"
+          },
+          "user_flair_type": {
+            "type": "string",
+            "title": "user_flair_type"
+          },
+          "allow_polls": {
+            "type": "boolean",
+            "title": "allow_polls"
+          },
+          "collapse_deleted_comments": {
+            "type": "boolean",
+            "title": "collapse_deleted_comments"
+          },
+          "public_description_html": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "title": "public_description_html"
+          },
+          "allow_videos": {
+            "type": "boolean",
+            "title": "allow_videos"
+          },
+          "is_crosspostable_subreddit": {
+            "type": "boolean",
+            "title": "is_crosspostable_subreddit"
+          },
+          "should_show_media_in_comments_setting": {
+            "type": "boolean",
+            "title": "should_show_media_in_comments_setting"
+          },
+          "can_assign_link_flair": {
+            "type": "boolean",
+            "title": "can_assign_link_flair"
+          },
+          "accounts_active_is_fuzzed": {
+            "type": "boolean",
+            "title": "accounts_active_is_fuzzed"
+          },
+          "allow_prediction_contributors": {
+            "type": "boolean",
+            "title": "allow_prediction_contributors"
+          },
+          "submit_text_label": {
+            "type": "string",
+            "title": "submit_text_label"
+          },
+          "link_flair_position": {
+            "type": "string",
+            "title": "link_flair_position"
+          },
+          "user_flair_enabled_in_sr": {
+            "type": "boolean",
+            "title": "user_flair_enabled_in_sr"
+          },
+          "allow_discovery": {
+            "type": "boolean",
+            "title": "allow_discovery"
+          },
+          "accept_followers": {
+            "type": "boolean",
+            "title": "accept_followers"
+          },
+          "user_sr_theme_enabled": {
+            "type": "boolean",
+            "title": "user_sr_theme_enabled"
+          },
+          "link_flair_enabled": {
+            "type": "boolean",
+            "title": "link_flair_enabled"
+          },
+          "disable_contributor_requests": {
+            "type": "boolean",
+            "title": "disable_contributor_requests"
+          },
+          "subreddit_type": {
+            "type": "string",
+            "title": "subreddit_type"
+          },
+          "banner_img": {
+            "type": "string",
+            "title": "banner_img"
+          },
+          "banner_background_color": {
+            "type": "string",
+            "title": "banner_background_color"
+          },
+          "show_media": {
+            "type": "boolean",
+            "title": "show_media"
+          },
+          "id": {
+            "type": "string",
+            "title": "id"
+          },
+          "user_is_contributor": {
+            "type": "boolean",
+            "title": "user_is_contributor"
+          },
+          "over18": {
+            "type": "boolean",
+            "title": "over18"
+          },
+          "header_title": {
+            "type": "string",
+            "title": "header_title"
+          },
+          "submit_link_label": {
+            "type": "string",
+            "title": "submit_link_label"
+          },
+          "restrict_commenting": {
+            "type": "boolean",
+            "title": "restrict_commenting"
+          },
+          "allow_images": {
+            "type": "boolean",
+            "title": "allow_images"
+          },
+          "lang": {
+            "type": "string",
+            "title": "lang"
+          },
+          "url": {
+            "type": "string",
+            "title": "url"
+          },
+          "created_utc": {
+            "type": "number",
+            "title": "created_utc"
+          },
+          "mobile_banner_image": {
+            "type": "string",
+            "title": "mobile_banner_image"
+          },
+          "user_is_moderator": {
+            "type": "boolean",
+            "title": "user_is_moderator"
+          },
+          "allow_predictions_tournament": {
+            "type": "boolean",
+            "title": "allow_predictions_tournament"
+          }
+        },
+        "required": [
+          "name",
+          "description",
+          "subscribers"
+        ]
+      },
+      "IReddit.IGetSubredditAboutInput": {
+        "type": "object",
+        "properties": {
+          "subreddit": {
+            "type": "string",
+            "pattern": "^(r\\/(.*))",
+            "title": "The subreddit to fetch information for"
+          },
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "reddit",
+            "x-wrtn-secret-scopes": [
+              "account",
+              "history",
+              "identity",
+              "mysubreddits",
+              "read",
+              "report",
+              "save"
+            ],
+            "title": "Select authentication information",
+            "description": "secret key."
+          }
+        },
+        "required": [
+          "subreddit",
+          "secretKey"
+        ]
+      },
+      "IReddit.IGetPopularSubredditsOutput": {
+        "type": "object",
+        "properties": {
+          "after": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string",
+                "pattern": "^((t2_(.*))|(t1_(.*))|(t3_(.*))|(t5_(.*))|(t4_(.*))|(t6_(.*)))"
+              }
+            ],
+            "title": "The after cursor for pagination"
+          },
+          "dist": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "number"
+              }
+            ],
+            "title": "The number of items returned"
+          },
+          "modhash": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "title": "The modhash for the request"
+          },
+          "geo_filter": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "title": "The geographical filter applied"
+          },
+          "children": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "kind": {
+                  "const": "t5",
+                  "title": "kind"
+                },
+                "data": {
+                  "$ref": "#/components/schemas/IReddit.SubReddit",
+                  "title": "data"
+                }
+              },
+              "required": [
+                "kind",
+                "data"
+              ]
+            },
+            "title": "The list of children sub-reddits"
+          },
+          "before": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string",
+                "pattern": "^((t2_(.*))|(t1_(.*))|(t3_(.*))|(t5_(.*))|(t4_(.*))|(t6_(.*)))"
+              }
+            ],
+            "title": "The before cursor for pagination"
+          }
+        },
+        "required": [
+          "after",
+          "dist",
+          "modhash",
+          "geo_filter",
+          "children",
+          "before"
+        ]
+      },
+      "IReddit.IGetPopularSubredditsInput": {
+        "type": "object",
+        "properties": {
+          "limit": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 100,
+            "default": 25,
+            "title": "The number of posts to fetch"
+          },
+          "after": {
+            "type": "string",
+            "pattern": "^((t2_(.*))|(t1_(.*))|(t3_(.*))|(t5_(.*))|(t4_(.*))|(t6_(.*)))",
+            "title": "after",
+            "description": "When the value of the 'after' parameter that came in response to the previous request is substituted,\nit is a parameter for page selection that inquires before and after the value.\nIf omitted, the first page will be viewed unconditionally.\n\nThe prefix t1_, t2_, t3_, t4_, t5_, t6_ attached to the beginning of the value has the following meaning.\n- t1_ : Comment\n- t2_ : Account\n- t3_ : Link\n- t4_ : Message\n- t5_ : Subreddit\n- t6_ : Award"
+          },
+          "before": {
+            "type": "string",
+            "pattern": "^((t2_(.*))|(t1_(.*))|(t3_(.*))|(t5_(.*))|(t4_(.*))|(t6_(.*)))",
+            "title": "before",
+            "description": "When the value of the 'after' parameter that came in response to the previous request is substituted,\nit is a parameter for page selection that inquires before and after the value.\nIf omitted, the first page will be viewed unconditionally.\n\nThe prefix t1_, t2_, t3_, t4_, t5_, t6_ attached to the beginning of the value has the following meaning.\n- t1_ : Comment\n- t2_ : Account\n- t3_ : Link\n- t4_ : Message\n- t5_ : Subreddit\n- t6_ : Award"
+          },
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "reddit",
+            "x-wrtn-secret-scopes": [
+              "account",
+              "history",
+              "identity",
+              "mysubreddits",
+              "read",
+              "report",
+              "save"
+            ],
+            "title": "Select authentication information",
+            "description": "secret key."
+          }
+        },
+        "required": [
+          "secretKey"
+        ]
+      },
+      "IReddit.IGetBestContentOutput": {
+        "type": "object",
+        "properties": {
+          "after": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string",
+                "pattern": "^((t2_(.*))|(t1_(.*))|(t3_(.*))|(t5_(.*))|(t4_(.*))|(t6_(.*)))"
+              }
+            ],
+            "title": "The after cursor for pagination"
+          },
+          "dist": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "number"
+              }
+            ],
+            "title": "The number of items returned"
+          },
+          "modhash": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "title": "The modhash for the request"
+          },
+          "geo_filter": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "title": "The geographical filter applied"
+          },
+          "children": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/IReddit.Children"
+            },
+            "title": "The list of children posts"
+          },
+          "before": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string",
+                "pattern": "^((t2_(.*))|(t1_(.*))|(t3_(.*))|(t5_(.*))|(t4_(.*))|(t6_(.*)))"
+              }
+            ],
+            "title": "The before cursor for pagination"
+          }
+        },
+        "required": [
+          "after",
+          "dist",
+          "modhash",
+          "geo_filter",
+          "children",
+          "before"
+        ]
+      },
+      "IReddit.IGetBestContentInput": {
+        "type": "object",
+        "properties": {
+          "limit": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 100,
+            "default": 25,
+            "title": "The max number of items"
+          },
+          "after": {
+            "type": "string",
+            "pattern": "^((t2_(.*))|(t1_(.*))|(t3_(.*))|(t5_(.*))|(t4_(.*))|(t6_(.*)))",
+            "title": "after",
+            "description": "When the value of the 'after' parameter that came in response to the previous request is substituted,\nit is a parameter for page selection that inquires before and after the value.\nIf omitted, the first page will be viewed unconditionally.\n\nThe prefix t1_, t2_, t3_, t4_, t5_, t6_ attached to the beginning of the value has the following meaning.\n- t1_ : Comment\n- t2_ : Account\n- t3_ : Link\n- t4_ : Message\n- t5_ : Subreddit\n- t6_ : Award"
+          },
+          "before": {
+            "type": "string",
+            "pattern": "^((t2_(.*))|(t1_(.*))|(t3_(.*))|(t5_(.*))|(t4_(.*))|(t6_(.*)))",
+            "title": "before",
+            "description": "When the value of the 'after' parameter that came in response to the previous request is substituted,\nit is a parameter for page selection that inquires before and after the value.\nIf omitted, the first page will be viewed unconditionally.\n\nThe prefix t1_, t2_, t3_, t4_, t5_, t6_ attached to the beginning of the value has the following meaning.\n- t1_ : Comment\n- t2_ : Account\n- t3_ : Link\n- t4_ : Message\n- t5_ : Subreddit\n- t6_ : Award"
+          },
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "reddit",
+            "x-wrtn-secret-scopes": [
+              "account",
+              "history",
+              "identity",
+              "mysubreddits",
+              "read",
+              "report",
+              "save"
+            ],
+            "title": "Select authentication information",
+            "description": "secret key."
+          }
+        },
+        "required": [
+          "secretKey"
+        ]
       }
     }
   },
