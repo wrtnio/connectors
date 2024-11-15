@@ -219,7 +219,7 @@ export namespace IYoutubeSearch {
      *
      * @title Uploaded At
      */
-    uploadedAt: string & tags.Format<"date">;
+    uploadedAt: string;
 
     /**
      * Youtube video view count
