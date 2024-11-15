@@ -113,7 +113,7 @@ export namespace IGoogleDocs {
     extends ICommon.ISecret<
       "google",
       [
-        "https://www.googleapis.com/auth/drive",
+        "https://www.googleapis.com/auth/drive.file",
         "https://www.googleapis.com/auth/documents",
       ]
     > {
@@ -132,7 +132,7 @@ export namespace IGoogleDocs {
     extends ICommon.ISecret<
       "google",
       [
-        "https://www.googleapis.com/auth/drive",
+        "https://www.googleapis.com/auth/drive.file",
         "https://www.googleapis.com/auth/documents",
       ]
     > {
@@ -178,7 +178,7 @@ export namespace IGoogleDocs {
     extends ICommon.ISecret<
       "google",
       [
-        "https://www.googleapis.com/auth/drive",
+        "https://www.googleapis.com/auth/drive.file",
         "https://www.googleapis.com/auth/documents",
       ]
     > {
@@ -250,7 +250,7 @@ export namespace IGoogleDocs {
     extends ICommon.ISecret<
       "google",
       [
-        "https://www.googleapis.com/auth/drive",
+        "https://www.googleapis.com/auth/drive.file",
         "https://www.googleapis.com/auth/documents",
       ]
     > {
@@ -285,7 +285,7 @@ export namespace IGoogleDocs {
   export type ISecret = ICommon.ISecret<
     "google",
     [
-      "https://www.googleapis.com/auth/drive",
+      "https://www.googleapis.com/auth/drive.file",
       "https://www.googleapis.com/auth/documents",
     ]
   >;

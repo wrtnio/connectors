@@ -37,7 +37,7 @@ export namespace IGoogleDrive {
   export interface ICreateFolderGoogleDriveInput
     extends ICommon.ISecret<
       "google",
-      ["https://www.googleapis.com/auth/drive"]
+      ["https://www.googleapis.com/auth/drive.file"]
     > {
     /**
      * Drive folder name to be created.
@@ -65,7 +65,7 @@ export namespace IGoogleDrive {
   export interface IFileListGoogleDriveInput
     extends ICommon.ISecret<
       "google",
-      ["https://www.googleapis.com/auth/drive"]
+      ["https://www.googleapis.com/auth/drive.file"]
     > {
     /**
      * Folder to load files from
@@ -146,7 +146,7 @@ export namespace IGoogleDrive {
   export interface ICreateFileGoogleDriveInput
     extends ICommon.ISecret<
       "google",
-      ["https://www.googleapis.com/auth/drive"]
+      ["https://www.googleapis.com/auth/drive.file"]
     > {
     /**
      * File name to be created in drive.
@@ -185,7 +185,7 @@ export namespace IGoogleDrive {
   export interface IUploadFileInput
     extends ICommon.ISecret<
       "google",
-      ["https://www.googleapis.com/auth/drive"]
+      ["https://www.googleapis.com/auth/drive.file"]
     > {
     /**
      * File name to be created in drive.
@@ -277,7 +277,7 @@ export namespace IGoogleDrive {
   export interface IPermissionGoogleDriveInput
     extends ICommon.ISecret<
       "google",
-      ["https://www.googleapis.com/auth/drive"]
+      ["https://www.googleapis.com/auth/drive.file"]
     > {
     /**
      * The drive file id to grant access to.
@@ -323,7 +323,7 @@ export namespace IGoogleDrive {
   export interface IAppendTextGoogleDriveInput
     extends ICommon.ISecret<
       "google",
-      ["https://www.googleapis.com/auth/drive"]
+      ["https://www.googleapis.com/auth/drive.file"]
     > {
     /**
      * Text to add to the drive file.
@@ -574,7 +574,7 @@ export namespace IGoogleDrive {
    */
   export type ISecret = ICommon.ISecret<
     "google",
-    ["https://www.googleapis.com/auth/drive"]
+    ["https://www.googleapis.com/auth/drive.file"]
   >;
 
   export type User = {
