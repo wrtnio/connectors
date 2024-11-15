@@ -176,4 +176,123 @@ export namespace IYoutubeSearch {
      */
     rich: string & tags.Format<"iri">;
   }
+
+  /**
+   * @title YouTube URL to retrieve transcripts
+   */
+  export interface ITranscriptYoutubeRequest {
+    /**
+     * YouTube URL to retrieve transcripts
+     *
+     * @title YouTube video URL
+     */
+    url: string & tags.Format<"iri">;
+  }
+
+  /**
+   * @title YouTube video transcript information
+   */
+  export interface ITranscriptYoutubeResponse {
+    /**
+     * Youtube video Id
+     *
+     * @title Video ID
+     */
+    id: string;
+
+    /**
+     * Youtube video title
+     *
+     * @title title
+     */
+    title: string;
+
+    /**
+     * Youtube Channel Name
+     *
+     * @title Channel Name
+     */
+    channelName: string;
+
+    /**
+     * Youtube video uploaded at
+     *
+     * @title Uploaded At
+     */
+    uploadedAt: string;
+
+    /**
+     * Youtube video view count
+     *
+     * @title View Count
+     */
+    viewCount: number;
+
+    /**
+     * Youtube video caption lines
+     *
+     * @title Caption Lines
+     */
+    captionLines: IYoutubeTranscriptItem[];
+  }
+
+  export interface IYoutubeVideoMetaData {
+    video: {
+      id: string;
+      title: string;
+      length_seconds: number;
+      views: number;
+      likes: number;
+      author: string;
+      category: string;
+      published_time: string;
+      description: string;
+      keywords: string[];
+      is_family_safe: boolean;
+      thumbnail: string;
+      formats: IYoutubeVideoFormat[];
+    };
+    channel: {
+      id: string;
+      name: string;
+      link: string;
+      subscribers: number;
+      featured_channel: {
+        id: string;
+        name: string;
+        link: string;
+      };
+      thumbnail: string;
+    };
+  }
+
+  export interface IYoutubeVideoFormat {
+    itag: number;
+    mime_type: string;
+    bitrate: number;
+    width: number;
+    height: number;
+    last_modified_unix: string;
+    last_modified: string;
+    content_length: string;
+    quality: string;
+    fps: number;
+    quality_label: string;
+    projection_type: string;
+  }
+
+  export interface IYoutubeTrasncriptResponse {
+    transcripts?: IYoutubeTranscriptItem[];
+    available_transcripts_languages: IYoutubeTranscriptLanguage[];
+  }
+  export interface IYoutubeTranscriptItem {
+    start: number;
+    duration: number;
+    text: string;
+  }
+
+  export interface IYoutubeTranscriptLanguage {
+    name: string;
+    lang: string;
+  }
 }

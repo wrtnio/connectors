@@ -185,6 +185,10 @@ export namespace ConnectorGlobal {
     X_CLIENT_SECRET: string;
     X_TEST_SECRET: string;
 
+    // SEARCH API
+    SEARCH_API_HOST: string & tags.Format<"iri">;
+    SEARCH_API_KEY: string;
+
     //----
     // INHOUSE SERVERS
     //----
