@@ -18,7 +18,7 @@
     "title": "유튜브 검색",
     "summary": "유튜브에 원하는 영상을 검색해요",
     "description": "유튜브에 원하는 영상을 검색해요",
-    "version": "0.1.340",
+    "version": "0.1.341",
     "license": {
       "name": "AGPL-3.0-only"
     }
@@ -57,6 +57,40 @@
         },
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Youtube_full.svg",
         "x-wrtn-standalone": true
+      }
+    },
+    "/connector/youtube-search/transcript": {
+      "post": {
+        "summary": "Get Youtube video transcripts",
+        "description": "Get Transcripts of Youtube video",
+        "tags": [
+          "Youtube"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "description": "video url",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IYoutubeSearch.ITranscriptYoutubeRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "transcripts of video",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IYoutubeSearch.ITranscriptYoutubeResponse"
+                }
+              }
+            }
+          }
+        },
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Youtube_full.svg"
       }
     }
   },
@@ -222,6 +256,87 @@
           "and_keywords"
         ],
         "title": "YouTube search conditions"
+      },
+      "IYoutubeSearch.ITranscriptYoutubeResponse": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Video ID",
+            "description": "Youtube video Id"
+          },
+          "title": {
+            "type": "string",
+            "title": "title",
+            "description": "Youtube video title"
+          },
+          "channelName": {
+            "type": "string",
+            "title": "Channel Name",
+            "description": "Youtube Channel Name"
+          },
+          "uploadedAt": {
+            "type": "string",
+            "title": "Uploaded At",
+            "description": "Youtube video uploaded at"
+          },
+          "viewCount": {
+            "type": "number",
+            "title": "View Count",
+            "description": "Youtube video view count"
+          },
+          "captionLines": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/IYoutubeSearch.IYoutubeTranscriptItem"
+            },
+            "title": "Caption Lines",
+            "description": "Youtube video caption lines"
+          }
+        },
+        "required": [
+          "id",
+          "title",
+          "channelName",
+          "uploadedAt",
+          "viewCount",
+          "captionLines"
+        ],
+        "title": "YouTube video transcript information"
+      },
+      "IYoutubeSearch.IYoutubeTranscriptItem": {
+        "type": "object",
+        "properties": {
+          "start": {
+            "type": "number"
+          },
+          "duration": {
+            "type": "number"
+          },
+          "text": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "start",
+          "duration",
+          "text"
+        ]
+      },
+      "IYoutubeSearch.ITranscriptYoutubeRequest": {
+        "type": "object",
+        "properties": {
+          "url": {
+            "type": "string",
+            "format": "iri",
+            "title": "YouTube video URL",
+            "description": "YouTube URL to retrieve transcripts"
+          }
+        },
+        "required": [
+          "url"
+        ],
+        "title": "YouTube URL to retrieve transcripts"
       }
     }
   },
