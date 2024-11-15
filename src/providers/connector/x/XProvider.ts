@@ -3,7 +3,6 @@ import {
   Injectable,
   InternalServerErrorException,
   Logger,
-  NotFoundException,
   UnprocessableEntityException,
 } from "@nestjs/common";
 
@@ -78,6 +77,7 @@ export class XProvider {
     userNames: string[],
     input: IX.IUserInput | IX.ISecret,
   ): Promise<IX.IUserOutput[]> {
+    const accessToken = await this.refresh(input);
     try {
       const userPromises = userNames.map(async (userName: string) => {
         const user = await ConnectorGlobal.prisma.x_users.findFirst({
@@ -90,7 +90,6 @@ export class XProvider {
             userName: user.userName,
           };
         } else {
-          const accessToken = await this.refresh(input);
           const res = await axios.get(
             `https://api.x.com/2/users/by/username/${userName}`,
             {
@@ -154,22 +153,33 @@ export class XProvider {
           referredTweetText: null,
         };
       }
-
       const user = await ConnectorGlobal.prisma.x_users.findFirst({
         where: { tweet_user_id: tweetData.author_id },
       });
 
+      let authorName: string = "";
+      let authorTweetName: string = "";
       if (!user) {
-        throw new NotFoundException(
-          "X User Not Found When Getting Tweet Data for Referenced Tweet",
+        const author = await axios.get(
+          `https://api.x.com/2/users/${tweet.data.data.author_id}`,
+          {
+            headers: {
+              Authorization: `Bearer ${accessToken}`,
+            },
+          },
         );
+        authorName = author.data.data.name;
+        authorTweetName = author.data.data.username;
+      } else {
+        authorName = user.name;
+        authorTweetName = user.userName;
       }
 
       return {
         id: tweet.data.data.id,
         text: tweet.data.data.text,
-        userName: user.name,
-        tweet_link: `https://twitter.com/${user.userName}/status/${tweet.data.data.id}`,
+        userName: authorName,
+        tweet_link: `https://twitter.com/${authorTweetName}/status/${tweet.data.data.id}`,
         type: "Details for referred tweet",
         referredUserName: null,
         referredTweetLink: null,
@@ -185,6 +195,7 @@ export class XProvider {
     input: IX.IUserTweetTimeLineInput,
   ): Promise<IX.ITweetOutput[]> {
     try {
+      const accessToken = await this.refresh(input);
       const result: IX.ITweetOutput[] = [];
       for (const user of input.user) {
         if (!user.id || !user.name) {
@@ -221,7 +232,6 @@ export class XProvider {
             });
           });
         } else {
-          const accessToken = await this.refresh(input);
           const userTweetTimeLines = await axios.get(
             `https://api.x.com/2/users/${user.id}/tweets`,
             {
@@ -299,7 +309,7 @@ export class XProvider {
                     tweet_id: userTweetTimeLine.id,
                     x_user_id: user.id,
                     text: userTweetTimeLine.text,
-                    link: userTweetTimeLine.tweet_link,
+                    link: `https://twitter.com/${user.userName}/status/${userTweetTimeLine.id}`,
                     type: "original",
                     referred_user_name: null,
                     referred_tweet_link: null,
