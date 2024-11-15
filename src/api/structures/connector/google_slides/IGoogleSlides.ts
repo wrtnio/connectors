@@ -21,7 +21,7 @@ export namespace IGoogleSlides {
    */
   export type IExportPresentationInput = ICommon.ISecret<
     "google",
-    ["https://www.googleapis.com/auth/drive"]
+    ["https://www.googleapis.com/auth/drive.file"]
   >;
 
   export interface IExportHanshowOutput {
