@@ -59,7 +59,6 @@ import { NotionModule } from "./notion/NotionModule";
 import { OpenDataModule } from "./open_data/OpenDataModule";
 import { PromptModule } from "./prompts/PromptModule";
 import { RagModule } from "./rag/RagModule";
-import { RedditModule } from "./reddit/RedditModule";
 import { ShortLinkModule } from "./short_link/ShortLinkModule";
 import { SimilarwebModule } from "./similarweb/SimilarwebModule";
 import { SlackModule } from "./slack/SlackModule";
@@ -152,7 +151,7 @@ import { ZoomModule } from "./zoom/ZoomModule";
     CrunchbaseModule,
     SimilarwebModule,
     XModule,
-    RedditModule,
+    // RedditModule,
   ],
 })
 export class ConnectorModule {}
