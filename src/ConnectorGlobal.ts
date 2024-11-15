@@ -102,6 +102,7 @@ export namespace ConnectorGlobal {
     JIRA_REFRESH_URI: string;
 
     // INNOFOREST
+    INNOFOREST_API_URL: string;
     INNOFOREST_API_KEY: string;
 
     // NAVER
