@@ -11,6 +11,7 @@ import { retry } from "../../../utils/retry";
 
 @Controller("connector/youtube-search")
 export class YoutubeSearchController {
+  constructor(private readonly youtubeSearchProvider: YoutubeSearchProvider) {}
   /**
    * Get YouTube video search results
    *
@@ -30,6 +31,24 @@ export class YoutubeSearchController {
   async search(
     @core.TypedBody() input: IYoutubeSearch.ISearchInput,
   ): Promise<IConnector.ISearchOutput> {
-    return retry(YoutubeSearchProvider.search)(input);
+    return retry(this.youtubeSearchProvider.search)(input);
+  }
+
+  /**
+   * Get Transcripts of Youtube video
+   *
+   * @summary Get Youtube video transcripts
+   * @param input video url
+   * @returns transcripts of video
+   */
+  @core.TypedRoute.Post("/transcript")
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Youtube_full.svg",
+  )
+  @ApiTags("Youtube")
+  async transcript(
+    @core.TypedBody() input: IYoutubeSearch.ITranscriptYoutubeRequest,
+  ): Promise<IYoutubeSearch.ITranscriptYoutubeResponse> {
+    return this.youtubeSearchProvider.transcript(input);
   }
 }
