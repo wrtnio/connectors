@@ -1,113 +1,350 @@
 import { Injectable } from "@nestjs/common";
 import { IInnoforest } from "@wrtn/connector-api/lib/structures/connector/innoforest/IInnoforest";
+import axios from "axios";
+import { ConnectorGlobal } from "../../../ConnectorGlobal";
+import { createQueryParameter } from "../../../utils/CreateQueryParameter";
 
 @Injectable()
 export class InnoforestProvider {
   async getcorp(
     input: IInnoforest.IGetcorpInput,
   ): Promise<IInnoforest.IGetcorpOutput> {
-    return 1 as any;
+    try {
+      const url = `seed/party/s1/getcorp` as const;
+      const queryParameter = createQueryParameter(input);
+      const res = await axios.get(`${url}?${queryParameter}`, {
+        headers: {
+          "Content-Type": "application/json",
+          "X-API-KEY": ConnectorGlobal.env.INNOFOREST_API_KEY,
+        },
+      });
+      return res.data;
+    } catch (err) {
+      console.error(JSON.stringify(err));
+      throw err;
+    }
   }
 
   async getcorpfinance(
     input: IInnoforest.IGetcorpfinanceInput,
   ): Promise<IInnoforest.IGetcorpfinanceOutput> {
-    return 1 as any;
+    try {
+      const url = `seed/party/s1/getcorpfinance` as const;
+      const queryParameter = createQueryParameter(input);
+      const res = await axios.get(`${url}?${queryParameter}`, {
+        headers: {
+          "Content-Type": "application/json",
+          "X-API-KEY": ConnectorGlobal.env.INNOFOREST_API_KEY,
+        },
+      });
+      return res.data;
+    } catch (err) {
+      console.error(JSON.stringify(err));
+      throw err;
+    }
   }
 
   async getcorpinvest(
     input: IInnoforest.IGetcorpinvestInput,
   ): Promise<IInnoforest.IGetcorpinvestOutput> {
-    return 1 as any;
+    try {
+      const url = `seed/party/s1/getcorpinvest` as const;
+      const queryParameter = createQueryParameter(input);
+      const res = await axios.get(`${url}?${queryParameter}`, {
+        headers: {
+          "Content-Type": "application/json",
+          "X-API-KEY": ConnectorGlobal.env.INNOFOREST_API_KEY,
+        },
+      });
+      return res.data;
+    } catch (err) {
+      console.error(JSON.stringify(err));
+      throw err;
+    }
   }
 
   async getcorpcommon(
     input: IInnoforest.IGetcorpcommonInput,
   ): Promise<IInnoforest.IGetcorpcommonOutput> {
-    return 1 as any;
+    try {
+      const url = `seed/party/s1/getcorpcommon` as const;
+      const queryParameter = createQueryParameter(input);
+      const res = await axios.get(`${url}?${queryParameter}`, {
+        headers: {
+          "Content-Type": "application/json",
+          "X-API-KEY": ConnectorGlobal.env.INNOFOREST_API_KEY,
+        },
+      });
+      return res.data;
+    } catch (err) {
+      console.error(JSON.stringify(err));
+      throw err;
+    }
   }
 
   async findproduct(
     input: IInnoforest.IFindproductInput,
   ): Promise<IInnoforest.IFindproductOutput> {
-    return 1 as any;
+    try {
+      const url = `seed/party/s1/findproduct` as const;
+      const queryParameter = createQueryParameter(input);
+      const res = await axios.get(`${url}?${queryParameter}`, {
+        headers: {
+          "Content-Type": "application/json",
+          "X-API-KEY": ConnectorGlobal.env.INNOFOREST_API_KEY,
+        },
+      });
+      return res.data;
+    } catch (err) {
+      console.error(JSON.stringify(err));
+      throw err;
+    }
   }
 
   async findtraffic(
     input: IInnoforest.IFindtrafficInput,
   ): Promise<IInnoforest.IFindtrafficOutput> {
-    return 1 as any;
+    try {
+      const url = `seed/party/s1/findtraffic` as const;
+      const queryParameter = createQueryParameter(input);
+      const res = await axios.get(`${url}?${queryParameter}`, {
+        headers: {
+          "Content-Type": "application/json",
+          "X-API-KEY": ConnectorGlobal.env.INNOFOREST_API_KEY,
+        },
+      });
+      return res.data;
+    } catch (err) {
+      console.error(JSON.stringify(err));
+      throw err;
+    }
   }
 
   async findsales(
     input: IInnoforest.IFindsalesInput,
   ): Promise<IInnoforest.IFindsalesOutput> {
-    return 1 as any;
+    try {
+      const url = `seed/party/s1/findsales` as const;
+      const queryParameter = createQueryParameter(input);
+      const res = await axios.get(`${url}?${queryParameter}`, {
+        headers: {
+          "Content-Type": "application/json",
+          "X-API-KEY": ConnectorGlobal.env.INNOFOREST_API_KEY,
+        },
+      });
+      return res.data;
+    } catch (err) {
+      console.error(JSON.stringify(err));
+      throw err;
+    }
   }
 
   async findsalesrebuy(
     input: IInnoforest.IFindsalesrebuyInput,
   ): Promise<IInnoforest.IFindsalesrebuyOutput> {
-    return 1 as any;
+    try {
+      const url = `seed/party/s1/findsalesrebuy` as const;
+      const queryParameter = createQueryParameter(input);
+      const res = await axios.get(`${url}?${queryParameter}`, {
+        headers: {
+          "Content-Type": "application/json",
+          "X-API-KEY": ConnectorGlobal.env.INNOFOREST_API_KEY,
+        },
+      });
+      return res.data;
+    } catch (err) {
+      console.error(JSON.stringify(err));
+      throw err;
+    }
   }
 
   async findsalesavgbuy(
     input: IInnoforest.IFindsalesavgbuyInput,
   ): Promise<IInnoforest.IFindsalesavgbuyOutput> {
-    return 1 as any;
+    try {
+      const url = `seed/party/s1/findsalesavgbuy` as const;
+      const queryParameter = createQueryParameter(input);
+      const res = await axios.get(`${url}?${queryParameter}`, {
+        headers: {
+          "Content-Type": "application/json",
+          "X-API-KEY": ConnectorGlobal.env.INNOFOREST_API_KEY,
+        },
+      });
+      return res.data;
+    } catch (err) {
+      console.error(JSON.stringify(err));
+      throw err;
+    }
   }
 
   async findsalesperson(
     input: IInnoforest.IFindsalespersonInput,
   ): Promise<IInnoforest.IFindsalespersonOutput> {
-    return 1 as any;
+    try {
+      const url = `seed/party/s1/findsalesperson` as const;
+      const queryParameter = createQueryParameter(input);
+      const res = await axios.get(`${url}?${queryParameter}`, {
+        headers: {
+          "Content-Type": "application/json",
+          "X-API-KEY": ConnectorGlobal.env.INNOFOREST_API_KEY,
+        },
+      });
+      return res.data;
+    } catch (err) {
+      console.error(JSON.stringify(err));
+      throw err;
+    }
   }
 
   async findsaleshousehold(
     input: IInnoforest.IFindsaleshouseholdInput,
   ): Promise<IInnoforest.IFindsaleshouseholdOutput> {
-    return 1 as any;
+    try {
+      const url = `seed/party/s1/findsaleshousehold` as const;
+      const queryParameter = createQueryParameter(input);
+      const res = await axios.get(`${url}?${queryParameter}`, {
+        headers: {
+          "Content-Type": "application/json",
+          "X-API-KEY": ConnectorGlobal.env.INNOFOREST_API_KEY,
+        },
+      });
+      return res.data;
+    } catch (err) {
+      console.error(JSON.stringify(err));
+      throw err;
+    }
   }
 
   async findsalesincome(
     input: IInnoforest.IFindsalesincomeInput,
   ): Promise<IInnoforest.IFindsalesincomeOutput> {
-    return 1 as any;
+    try {
+      const url = `seed/party/s1/findsalesincome` as const;
+      const queryParameter = createQueryParameter(input);
+      const res = await axios.get(`${url}?${queryParameter}`, {
+        headers: {
+          "Content-Type": "application/json",
+          "X-API-KEY": ConnectorGlobal.env.INNOFOREST_API_KEY,
+        },
+      });
+      return res.data;
+    } catch (err) {
+      console.error(JSON.stringify(err));
+      throw err;
+    }
   }
 
   async findinvest(
     input: IInnoforest.IFindinvestInput,
   ): Promise<IInnoforest.IFindinvestOutput> {
-    return 1 as any;
+    try {
+      const url = `seed/party/s1/findinvest` as const;
+      const queryParameter = createQueryParameter(input);
+      const res = await axios.get(`${url}?${queryParameter}`, {
+        headers: {
+          "Content-Type": "application/json",
+          "X-API-KEY": ConnectorGlobal.env.INNOFOREST_API_KEY,
+        },
+      });
+      return res.data;
+    } catch (err) {
+      console.error(JSON.stringify(err));
+      throw err;
+    }
   }
 
   async findpatent(
     input: IInnoforest.IFindpatentInput,
   ): Promise<IInnoforest.IFindpatentOutput> {
-    return 1 as any;
+    try {
+      const url = `seed/party/s1/findpatent` as const;
+      const queryParameter = createQueryParameter(input);
+      const res = await axios.get(`${url}?${queryParameter}`, {
+        headers: {
+          "Content-Type": "application/json",
+          "X-API-KEY": ConnectorGlobal.env.INNOFOREST_API_KEY,
+        },
+      });
+      return res.data;
+    } catch (err) {
+      console.error(JSON.stringify(err));
+      throw err;
+    }
   }
 
   async findpatentword(
     input: IInnoforest.IFindpatentwordInput,
   ): Promise<IInnoforest.IFindpatentwordOutput> {
-    return 1 as any;
+    try {
+      const url = `seed/party/s1/findpatentword` as const;
+      const queryParameter = createQueryParameter(input);
+      const res = await axios.get(`${url}?${queryParameter}`, {
+        headers: {
+          "Content-Type": "application/json",
+          "X-API-KEY": ConnectorGlobal.env.INNOFOREST_API_KEY,
+        },
+      });
+      return res.data;
+    } catch (err) {
+      console.error(JSON.stringify(err));
+      throw err;
+    }
   }
 
   async findfinance(
     input: IInnoforest.IFindfinanceInput,
   ): Promise<IInnoforest.IFindfinanceOutput> {
-    return 1 as any;
+    try {
+      const url = `seed/party/s1/findfinance` as const;
+      const queryParameter = createQueryParameter(input);
+      const res = await axios.get(`${url}?${queryParameter}`, {
+        headers: {
+          "Content-Type": "application/json",
+          "X-API-KEY": ConnectorGlobal.env.INNOFOREST_API_KEY,
+        },
+      });
+      return res.data;
+    } catch (err) {
+      console.error(JSON.stringify(err));
+      throw err;
+    }
   }
 
   async findemployee(
     input: IInnoforest.IFindemployeeInput,
   ): Promise<IInnoforest.IFindemployeeOutput> {
-    return 1 as any;
+    try {
+      const url = `seed/party/s1/findemployee` as const;
+      const queryParameter = createQueryParameter(input);
+      const res = await axios.get(`${url}?${queryParameter}`, {
+        headers: {
+          "Content-Type": "application/json",
+          "X-API-KEY": ConnectorGlobal.env.INNOFOREST_API_KEY,
+        },
+      });
+      return res.data;
+    } catch (err) {
+      console.error(JSON.stringify(err));
+      throw err;
+    }
   }
 
   async findpress(
     input: IInnoforest.IFindpressInput,
   ): Promise<IInnoforest.IFindpressOutput> {
-    return 1 as any;
+    try {
+      const url = `seed/party/s1/findpress` as const;
+      const queryParameter = createQueryParameter(input);
+      const res = await axios.get(`${url}?${queryParameter}`, {
+        headers: {
+          "Content-Type": "application/json",
+          "X-API-KEY": ConnectorGlobal.env.INNOFOREST_API_KEY,
+        },
+      });
+      return res.data;
+    } catch (err) {
+      console.error(JSON.stringify(err));
+      throw err;
+    }
   }
 }
