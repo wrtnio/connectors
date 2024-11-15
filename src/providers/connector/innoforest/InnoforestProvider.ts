@@ -10,9 +10,10 @@ export class InnoforestProvider {
     input: IInnoforest.IGetcorpInput,
   ): Promise<IInnoforest.IGetcorpOutput> {
     try {
-      const url = `seed/party/s1/getcorp` as const;
+      const url = ConnectorGlobal.env.INNOFOREST_API_URL;
+      const pathname = `seed/party/s1/getcorp` as const;
       const queryParameter = createQueryParameter(input);
-      const res = await axios.get(`${url}?${queryParameter}`, {
+      const res = await axios.get(`${url}/${pathname}?${queryParameter}`, {
         headers: {
           "Content-Type": "application/json",
           "X-API-KEY": ConnectorGlobal.env.INNOFOREST_API_KEY,
@@ -29,9 +30,10 @@ export class InnoforestProvider {
     input: IInnoforest.IGetcorpfinanceInput,
   ): Promise<IInnoforest.IGetcorpfinanceOutput> {
     try {
-      const url = `seed/party/s1/getcorpfinance` as const;
+      const url = ConnectorGlobal.env.INNOFOREST_API_URL;
+      const pathname = `seed/party/s1/getcorpfinance` as const;
       const queryParameter = createQueryParameter(input);
-      const res = await axios.get(`${url}?${queryParameter}`, {
+      const res = await axios.get(`${url}/${pathname}?${queryParameter}`, {
         headers: {
           "Content-Type": "application/json",
           "X-API-KEY": ConnectorGlobal.env.INNOFOREST_API_KEY,
@@ -48,9 +50,10 @@ export class InnoforestProvider {
     input: IInnoforest.IGetcorpinvestInput,
   ): Promise<IInnoforest.IGetcorpinvestOutput> {
     try {
-      const url = `seed/party/s1/getcorpinvest` as const;
+      const url = ConnectorGlobal.env.INNOFOREST_API_URL;
+      const pathname = `seed/party/s1/getcorpinvest` as const;
       const queryParameter = createQueryParameter(input);
-      const res = await axios.get(`${url}?${queryParameter}`, {
+      const res = await axios.get(`${url}/${pathname}?${queryParameter}`, {
         headers: {
           "Content-Type": "application/json",
           "X-API-KEY": ConnectorGlobal.env.INNOFOREST_API_KEY,
@@ -67,9 +70,10 @@ export class InnoforestProvider {
     input: IInnoforest.IGetcorpcommonInput,
   ): Promise<IInnoforest.IGetcorpcommonOutput> {
     try {
-      const url = `seed/party/s1/getcorpcommon` as const;
+      const url = ConnectorGlobal.env.INNOFOREST_API_URL;
+      const pathname = `seed/party/s1/getcorpcommon` as const;
       const queryParameter = createQueryParameter(input);
-      const res = await axios.get(`${url}?${queryParameter}`, {
+      const res = await axios.get(`${url}/${pathname}?${queryParameter}`, {
         headers: {
           "Content-Type": "application/json",
           "X-API-KEY": ConnectorGlobal.env.INNOFOREST_API_KEY,
@@ -86,9 +90,10 @@ export class InnoforestProvider {
     input: IInnoforest.IFindproductInput,
   ): Promise<IInnoforest.IFindproductOutput> {
     try {
-      const url = `seed/party/s1/findproduct` as const;
+      const url = ConnectorGlobal.env.INNOFOREST_API_URL;
+      const pathname = `seed/party/s1/findproduct` as const;
       const queryParameter = createQueryParameter(input);
-      const res = await axios.get(`${url}?${queryParameter}`, {
+      const res = await axios.get(`${url}/${pathname}?${queryParameter}`, {
         headers: {
           "Content-Type": "application/json",
           "X-API-KEY": ConnectorGlobal.env.INNOFOREST_API_KEY,
@@ -105,9 +110,10 @@ export class InnoforestProvider {
     input: IInnoforest.IFindtrafficInput,
   ): Promise<IInnoforest.IFindtrafficOutput> {
     try {
-      const url = `seed/party/s1/findtraffic` as const;
+      const url = ConnectorGlobal.env.INNOFOREST_API_URL;
+      const pathname = `seed/party/s1/findtraffic` as const;
       const queryParameter = createQueryParameter(input);
-      const res = await axios.get(`${url}?${queryParameter}`, {
+      const res = await axios.get(`${url}/${pathname}?${queryParameter}`, {
         headers: {
           "Content-Type": "application/json",
           "X-API-KEY": ConnectorGlobal.env.INNOFOREST_API_KEY,
@@ -124,9 +130,10 @@ export class InnoforestProvider {
     input: IInnoforest.IFindsalesInput,
   ): Promise<IInnoforest.IFindsalesOutput> {
     try {
-      const url = `seed/party/s1/findsales` as const;
+      const url = ConnectorGlobal.env.INNOFOREST_API_URL;
+      const pathname = `seed/party/s1/findsales` as const;
       const queryParameter = createQueryParameter(input);
-      const res = await axios.get(`${url}?${queryParameter}`, {
+      const res = await axios.get(`${url}/${pathname}?${queryParameter}`, {
         headers: {
           "Content-Type": "application/json",
           "X-API-KEY": ConnectorGlobal.env.INNOFOREST_API_KEY,
@@ -143,9 +150,10 @@ export class InnoforestProvider {
     input: IInnoforest.IFindsalesrebuyInput,
   ): Promise<IInnoforest.IFindsalesrebuyOutput> {
     try {
-      const url = `seed/party/s1/findsalesrebuy` as const;
+      const url = ConnectorGlobal.env.INNOFOREST_API_URL;
+      const pathname = `seed/party/s1/findsalesrebuy` as const;
       const queryParameter = createQueryParameter(input);
-      const res = await axios.get(`${url}?${queryParameter}`, {
+      const res = await axios.get(`${url}/${pathname}?${queryParameter}`, {
         headers: {
           "Content-Type": "application/json",
           "X-API-KEY": ConnectorGlobal.env.INNOFOREST_API_KEY,
@@ -162,9 +170,10 @@ export class InnoforestProvider {
     input: IInnoforest.IFindsalesavgbuyInput,
   ): Promise<IInnoforest.IFindsalesavgbuyOutput> {
     try {
-      const url = `seed/party/s1/findsalesavgbuy` as const;
+      const url = ConnectorGlobal.env.INNOFOREST_API_URL;
+      const pathname = `seed/party/s1/findsalesavgbuy` as const;
       const queryParameter = createQueryParameter(input);
-      const res = await axios.get(`${url}?${queryParameter}`, {
+      const res = await axios.get(`${url}/${pathname}?${queryParameter}`, {
         headers: {
           "Content-Type": "application/json",
           "X-API-KEY": ConnectorGlobal.env.INNOFOREST_API_KEY,
@@ -181,9 +190,10 @@ export class InnoforestProvider {
     input: IInnoforest.IFindsalespersonInput,
   ): Promise<IInnoforest.IFindsalespersonOutput> {
     try {
-      const url = `seed/party/s1/findsalesperson` as const;
+      const url = ConnectorGlobal.env.INNOFOREST_API_URL;
+      const pathname = `seed/party/s1/findsalesperson` as const;
       const queryParameter = createQueryParameter(input);
-      const res = await axios.get(`${url}?${queryParameter}`, {
+      const res = await axios.get(`${url}/${pathname}?${queryParameter}`, {
         headers: {
           "Content-Type": "application/json",
           "X-API-KEY": ConnectorGlobal.env.INNOFOREST_API_KEY,
@@ -200,9 +210,10 @@ export class InnoforestProvider {
     input: IInnoforest.IFindsaleshouseholdInput,
   ): Promise<IInnoforest.IFindsaleshouseholdOutput> {
     try {
-      const url = `seed/party/s1/findsaleshousehold` as const;
+      const url = ConnectorGlobal.env.INNOFOREST_API_URL;
+      const pathname = `seed/party/s1/findsaleshousehold` as const;
       const queryParameter = createQueryParameter(input);
-      const res = await axios.get(`${url}?${queryParameter}`, {
+      const res = await axios.get(`${url}/${pathname}?${queryParameter}`, {
         headers: {
           "Content-Type": "application/json",
           "X-API-KEY": ConnectorGlobal.env.INNOFOREST_API_KEY,
@@ -219,9 +230,10 @@ export class InnoforestProvider {
     input: IInnoforest.IFindsalesincomeInput,
   ): Promise<IInnoforest.IFindsalesincomeOutput> {
     try {
-      const url = `seed/party/s1/findsalesincome` as const;
+      const url = ConnectorGlobal.env.INNOFOREST_API_URL;
+      const pathname = `seed/party/s1/findsalesincome` as const;
       const queryParameter = createQueryParameter(input);
-      const res = await axios.get(`${url}?${queryParameter}`, {
+      const res = await axios.get(`${url}/${pathname}?${queryParameter}`, {
         headers: {
           "Content-Type": "application/json",
           "X-API-KEY": ConnectorGlobal.env.INNOFOREST_API_KEY,
@@ -238,9 +250,10 @@ export class InnoforestProvider {
     input: IInnoforest.IFindinvestInput,
   ): Promise<IInnoforest.IFindinvestOutput> {
     try {
-      const url = `seed/party/s1/findinvest` as const;
+      const url = ConnectorGlobal.env.INNOFOREST_API_URL;
+      const pathname = `seed/party/s1/findinvest` as const;
       const queryParameter = createQueryParameter(input);
-      const res = await axios.get(`${url}?${queryParameter}`, {
+      const res = await axios.get(`${url}/${pathname}?${queryParameter}`, {
         headers: {
           "Content-Type": "application/json",
           "X-API-KEY": ConnectorGlobal.env.INNOFOREST_API_KEY,
@@ -257,9 +270,10 @@ export class InnoforestProvider {
     input: IInnoforest.IFindpatentInput,
   ): Promise<IInnoforest.IFindpatentOutput> {
     try {
-      const url = `seed/party/s1/findpatent` as const;
+      const url = ConnectorGlobal.env.INNOFOREST_API_URL;
+      const pathname = `seed/party/s1/findpatent` as const;
       const queryParameter = createQueryParameter(input);
-      const res = await axios.get(`${url}?${queryParameter}`, {
+      const res = await axios.get(`${url}/${pathname}?${queryParameter}`, {
         headers: {
           "Content-Type": "application/json",
           "X-API-KEY": ConnectorGlobal.env.INNOFOREST_API_KEY,
@@ -276,9 +290,10 @@ export class InnoforestProvider {
     input: IInnoforest.IFindpatentwordInput,
   ): Promise<IInnoforest.IFindpatentwordOutput> {
     try {
-      const url = `seed/party/s1/findpatentword` as const;
+      const url = ConnectorGlobal.env.INNOFOREST_API_URL;
+      const pathname = `seed/party/s1/findpatentword` as const;
       const queryParameter = createQueryParameter(input);
-      const res = await axios.get(`${url}?${queryParameter}`, {
+      const res = await axios.get(`${url}/${pathname}?${queryParameter}`, {
         headers: {
           "Content-Type": "application/json",
           "X-API-KEY": ConnectorGlobal.env.INNOFOREST_API_KEY,
@@ -295,9 +310,10 @@ export class InnoforestProvider {
     input: IInnoforest.IFindfinanceInput,
   ): Promise<IInnoforest.IFindfinanceOutput> {
     try {
-      const url = `seed/party/s1/findfinance` as const;
+      const url = ConnectorGlobal.env.INNOFOREST_API_URL;
+      const pathname = `seed/party/s1/findfinance` as const;
       const queryParameter = createQueryParameter(input);
-      const res = await axios.get(`${url}?${queryParameter}`, {
+      const res = await axios.get(`${url}/${pathname}?${queryParameter}`, {
         headers: {
           "Content-Type": "application/json",
           "X-API-KEY": ConnectorGlobal.env.INNOFOREST_API_KEY,
@@ -314,9 +330,10 @@ export class InnoforestProvider {
     input: IInnoforest.IFindemployeeInput,
   ): Promise<IInnoforest.IFindemployeeOutput> {
     try {
-      const url = `seed/party/s1/findemployee` as const;
+      const url = ConnectorGlobal.env.INNOFOREST_API_URL;
+      const pathname = `seed/party/s1/findemployee` as const;
       const queryParameter = createQueryParameter(input);
-      const res = await axios.get(`${url}?${queryParameter}`, {
+      const res = await axios.get(`${url}/${pathname}?${queryParameter}`, {
         headers: {
           "Content-Type": "application/json",
           "X-API-KEY": ConnectorGlobal.env.INNOFOREST_API_KEY,
@@ -333,9 +350,10 @@ export class InnoforestProvider {
     input: IInnoforest.IFindpressInput,
   ): Promise<IInnoforest.IFindpressOutput> {
     try {
-      const url = `seed/party/s1/findpress` as const;
+      const url = ConnectorGlobal.env.INNOFOREST_API_URL;
+      const pathname = `seed/party/s1/findpress` as const;
       const queryParameter = createQueryParameter(input);
-      const res = await axios.get(`${url}?${queryParameter}`, {
+      const res = await axios.get(`${url}/${pathname}?${queryParameter}`, {
         headers: {
           "Content-Type": "application/json",
           "X-API-KEY": ConnectorGlobal.env.INNOFOREST_API_KEY,
