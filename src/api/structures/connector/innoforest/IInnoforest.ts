@@ -23,39 +23,256 @@ export namespace IInnoforest {
     successMsg: string;
   }
 
-  export interface GetcorpInput {}
+  export interface IGetcorpOutput extends IInnoforest.ICommonResponse {
+    /**
+     * @title data
+     */
+    data: any;
+  }
 
-  export interface GetcorpfinanceInput {}
+  export interface IGetcorpInput {
+    /**
+     * @title corpUniqNum
+     */
+    corpUniqNum: string;
+  }
 
-  export interface GetcorpinvestInput {}
+  export interface IGetcorpfinanceOutput extends IInnoforest.ICommonResponse {
+    /**
+     * @title data
+     */
+    data: any;
+  }
 
-  export interface GetcorpcommonInput {}
+  export interface IGetcorpfinanceInput {
+    /**
+     * @title corpUniqNum
+     */
+    corpUniqNum: string;
+  }
 
-  export interface FindproductInput {}
+  export interface IGetcorpinvestOutput extends IInnoforest.ICommonResponse {
+    /**
+     * @title data
+     */
+    data: any;
+  }
 
-  export interface FindtrafficInput {}
+  export interface IGetcorpinvestInput {
+    /**
+     * @title corpUniqNum
+     */
+    corpUniqNum: string;
+  }
 
-  export interface FindsalesInput {}
+  export interface IGetcorpcommonOutput extends IInnoforest.ICommonResponse {
+    /**
+     * @title data
+     */
+    data: any;
+  }
 
-  export interface FindsalesrebuyInput {}
+  export interface IGetcorpcommonInput {
+    /**
+     * @title corpUniqNum
+     */
+    corpUniqNum: string;
+  }
 
-  export interface FindsalesavgbuyInput {}
+  export interface IFindproductOutput extends IInnoforest.ICommonResponse {
+    /**
+     * @title data
+     */
+    data: any;
+  }
 
-  export interface FindsalespersonInput {}
+  export interface IFindproductInput {
+    /**
+     * @title corpUniqNum
+     */
+    corpUniqNum: string;
+  }
 
-  export interface FindsaleshouseholdInput {}
+  export interface IFindtrafficOutput extends IInnoforest.ICommonResponse {
+    /**
+     * @title data
+     */
+    data: any;
+  }
 
-  export interface FindsalesincomeInput {}
+  export interface IFindtrafficInput {
+    /**
+     * @title corpUniqNum
+     */
+    corpUniqNum: string;
+  }
 
-  export interface FindinvestInput {}
+  export interface IFindsalesOutput extends IInnoforest.ICommonResponse {
+    /**
+     * @title data
+     */
+    data: any;
+  }
 
-  export interface FindpatentInput {}
+  export interface IFindsalesInput {
+    /**
+     * @title corpUniqNum
+     */
+    corpUniqNum: string;
+  }
 
-  export interface FindpatentwordInput {}
+  export interface IFindsalesrebuyOutput extends IInnoforest.ICommonResponse {
+    /**
+     * @title data
+     */
+    data: any;
+  }
 
-  export interface FindfinanceInput {}
+  export interface IFindsalesrebuyInput {
+    /**
+     * @title corpUniqNum
+     */
+    corpUniqNum: string;
+  }
 
-  export interface FindemployeeInput {}
+  export interface IFindsalesavgbuyOutput extends IInnoforest.ICommonResponse {
+    /**
+     * @title data
+     */
+    data: any;
+  }
 
-  export interface FindpressInput {}
+  export interface IFindsalesavgbuyInput {
+    /**
+     * @title corpUniqNum
+     */
+    corpUniqNum: string;
+  }
+
+  export interface IFindsalespersonOutput extends IInnoforest.ICommonResponse {
+    /**
+     * @title data
+     */
+    data: any;
+  }
+
+  export interface IFindsalespersonInput {
+    /**
+     * @title corpUniqNum
+     */
+    corpUniqNum: string;
+  }
+
+  export interface IFindsaleshouseholdOutput
+    extends IInnoforest.ICommonResponse {
+    /**
+     * @title data
+     */
+    data: any;
+  }
+
+  export interface IFindsaleshouseholdInput {
+    /**
+     * @title corpUniqNum
+     */
+    corpUniqNum: string;
+  }
+
+  export interface IFindsalesincomeOutput extends IInnoforest.ICommonResponse {
+    /**
+     * @title data
+     */
+    data: any;
+  }
+
+  export interface IFindsalesincomeInput {
+    /**
+     * @title corpUniqNum
+     */
+    corpUniqNum: string;
+  }
+
+  export interface IFindinvestOutput extends IInnoforest.ICommonResponse {
+    /**
+     * @title data
+     */
+    data: any;
+  }
+
+  export interface IFindinvestInput {
+    /**
+     * @title corpUniqNum
+     */
+    corpUniqNum: string;
+  }
+
+  export interface IFindpatentOutput extends IInnoforest.ICommonResponse {
+    /**
+     * @title data
+     */
+    data: any;
+  }
+
+  export interface IFindpatentInput {
+    /**
+     * @title corpUniqNum
+     */
+    corpUniqNum: string;
+  }
+
+  export interface IFindpatentwordOutput extends IInnoforest.ICommonResponse {
+    /**
+     * @title data
+     */
+    data: any;
+  }
+
+  export interface IFindpatentwordInput {
+    /**
+     * @title corpUniqNum
+     */
+    corpUniqNum: string;
+  }
+
+  export interface IFindfinanceOutput extends IInnoforest.ICommonResponse {
+    /**
+     * @title data
+     */
+    data: any;
+  }
+
+  export interface IFindfinanceInput {
+    /**
+     * @title corpUniqNum
+     */
+    corpUniqNum: string;
+  }
+
+  export interface IFindemployeeOutput extends IInnoforest.ICommonResponse {
+    /**
+     * @title data
+     */
+    data: any;
+  }
+
+  export interface IFindemployeeInput {
+    /**
+     * @title corpUniqNum
+     */
+    corpUniqNum: string;
+  }
+
+  export interface IFindpressOutput extends IInnoforest.ICommonResponse {
+    /**
+     * @title data
+     */
+    data: any;
+  }
+
+  export interface IFindpressInput {
+    /**
+     * @title corpUniqNum
+     */
+    corpUniqNum: string;
+  }
 }
