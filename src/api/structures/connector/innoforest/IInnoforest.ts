@@ -15,12 +15,12 @@ export namespace IInnoforest {
     /**
      * @title 에러발생시 에러메시지전달 (에러시에만 전달)
      */
-    error: string;
+    error?: string;
 
     /**
      * @title 요청성공시 성공메시지전달 (성공시에만 전달)
      */
-    successMsg: string;
+    successMsg?: string;
   }
 
   export interface IGetcorpOutput extends IInnoforest.ICommonResponse {
