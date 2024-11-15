@@ -45,6 +45,7 @@ import { GoogleTrendModule } from "./google_trend/GoogleTrendModule";
 import { HancellModule } from "./hancell/HancellModule";
 import { HwpModule } from "./hwp/HwpModule";
 import { ImwebModule } from "./imweb/ImwebModule";
+import { InnoforestModule } from "./innoforest/InnoforestModule";
 import { GoogleModule } from "./internal/google/GoogleModule";
 import { JiraModule } from "./jira/JiraModule";
 import { KakaoMapModule } from "./kakao_map/KakaoMapModule";
@@ -153,6 +154,7 @@ import { ZoomModule } from "./zoom/ZoomModule";
     SimilarwebModule,
     XModule,
     RedditModule,
+    InnoforestModule,
   ],
 })
 export class ConnectorModule {}

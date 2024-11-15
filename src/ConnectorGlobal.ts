@@ -95,10 +95,15 @@ export namespace ConnectorGlobal {
     GOOGLE_ADS_DEVELOPER_TOKEN: string;
     GOOGLE_ADS_PARENT_SECRET: string;
 
+    // JIRA
     JIRA_CLIENT_ID: string;
     JIRA_CLIENT_SECRET: string;
     JIRA_TEST_SECRET: string;
     JIRA_REFRESH_URI: string;
+
+    // INNOFOREST
+    INNOFOREST_API_URL: string;
+    INNOFOREST_API_KEY: string;
 
     // NAVER
     NAVER_CLIENT_ID: string;
