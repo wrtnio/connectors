@@ -59,7 +59,6 @@ import { NotionModule } from "./notion/NotionModule";
 import { OpenDataModule } from "./open_data/OpenDataModule";
 import { PromptModule } from "./prompts/PromptModule";
 import { RagModule } from "./rag/RagModule";
-import { RedditModule } from "./reddit/RedditModule";
 import { ShortLinkModule } from "./short_link/ShortLinkModule";
 import { SimilarwebModule } from "./similarweb/SimilarwebModule";
 import { SlackModule } from "./slack/SlackModule";
@@ -71,9 +70,9 @@ import { StudentReportGeneratorModule } from "./student_report_generator/Student
 import { SweetTackerModule } from "./sweet_tracker/SweetTrackerModule";
 import { ToolModule } from "./tool/ToolModule";
 import { TypeformModule } from "./typeform/TypeformModule";
-import { XModule } from "./x/XModule";
 import { YoutubeSearchModule } from "./youtube_search/YoutubeSearchModule";
 import { ZoomModule } from "./zoom/ZoomModule";
+import { XModule } from "./x/XModule";
 
 @Module({
   // connectors that require DI of some sort shall be declared as modules
@@ -152,7 +151,6 @@ import { ZoomModule } from "./zoom/ZoomModule";
     CrunchbaseModule,
     SimilarwebModule,
     XModule,
-    RedditModule,
   ],
 })
 export class ConnectorModule {}

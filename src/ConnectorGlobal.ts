@@ -112,11 +112,6 @@ export namespace ConnectorGlobal {
     // OPEN_DATA
     OPEN_DATA_API_KEY: string;
 
-    // REDDIT
-    REDDIT_CLIENT_ID: string;
-    REDDIT_CLIENT_SECRET: string;
-    REDDIT_TEST_SECRET: string;
-
     // SERP
     SERP_API_KEY: string;
 
