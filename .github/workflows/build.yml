@@ -69,7 +69,7 @@ jobs:
           npm run test -- \
             --exclude sweet_tracker korea_exim kakao jira slack github figma discord \
             google_ads google_slides google_calendar google_docs google_drive google_flight \
-            open_data calendly notion naver typeform x_summarize x_prepare_summarize x_get_pre_defined_influencers x_get_users reddit
+            open_data calendly notion naver typeform x_summarize x_prepare_summarize x_get_pre_defined_influencers x_get_users
 
   test-kakao:
     runs-on: ubuntu-latest
