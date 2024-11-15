@@ -15,7 +15,7 @@
     }
   ],
   "info": {
-    "version": "0.1.339",
+    "version": "0.1.340",
     "title": "@wrtn/connector",
     "description": "wrtn-ecosystem connectors and sdk",
     "license": {
@@ -12230,6 +12230,546 @@
           }
         },
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/reddit_full.svg"
+      }
+    },
+    "/connector/innoforest/seed/party/s1/getcorp": {
+      "post": {
+        "summary": "혁신의숲 스타트업 개요 조회",
+        "description": "혁신의숲(innoforest)은 다양한 스타트업의 성장 데이터를 제공하는 플랫폼으로,\n스타트업의 투자 정보, 소비자 데이터, 고용 현황 등 여러 지표를 무료로 공개하여 생태계 발전에 기여하고 있습니다.\n현재 선택 가능한 데이터는 아래 5개 기업으로 키 값을 사용하여 데이터를 조회할 수 있습니다.\n\n- 오늘의집(버킷플레이스) : 1198691245\n- 올웨이즈(레브잇) : 1798102225\n- 트웰브랩스 : 8458601667\n- 뤼이드 : 1068706394\n- 클래스101: 4578100277",
+        "tags": [],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IInnoforest.IGetcorpInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IInnoforest.IGetcorpOutput"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/connector/innoforest/seed/party/s1/getcorpfinance": {
+      "post": {
+        "summary": "혁신의숲 스타트업 개요-재무요약 조회",
+        "description": "혁신의숲(innoforest)은 다양한 스타트업의 성장 데이터를 제공하는 플랫폼으로,\n스타트업의 투자 정보, 소비자 데이터, 고용 현황 등 여러 지표를 무료로 공개하여 생태계 발전에 기여하고 있습니다.\n현재 선택 가능한 데이터는 아래 5개 기업으로 키 값을 사용하여 데이터를 조회할 수 있습니다.\n\n- 오늘의집(버킷플레이스) : 1198691245\n- 올웨이즈(레브잇) : 1798102225\n- 트웰브랩스 : 8458601667\n- 뤼이드 : 1068706394\n- 클래스101: 4578100277",
+        "tags": [],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IInnoforest.IGetcorpfinanceInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IInnoforest.IGetcorpfinanceOutput"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/connector/innoforest/seed/party/s1/getcorpinvest": {
+      "post": {
+        "summary": "혁신의숲 스타트업 개요-투자요약 조회",
+        "description": "혁신의숲(innoforest)은 다양한 스타트업의 성장 데이터를 제공하는 플랫폼으로,\n스타트업의 투자 정보, 소비자 데이터, 고용 현황 등 여러 지표를 무료로 공개하여 생태계 발전에 기여하고 있습니다.\n현재 선택 가능한 데이터는 아래 5개 기업으로 키 값을 사용하여 데이터를 조회할 수 있습니다.\n\n- 오늘의집(버킷플레이스) : 1198691245\n- 올웨이즈(레브잇) : 1798102225\n- 트웰브랩스 : 8458601667\n- 뤼이드 : 1068706394\n- 클래스101: 4578100277",
+        "tags": [],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IInnoforest.IGetcorpinvestInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IInnoforest.IGetcorpinvestOutput"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/connector/innoforest/seed/party/s1/getcorpcommon": {
+      "post": {
+        "summary": "혁신의숲 스타트업 개요-일반요약 조회",
+        "description": "혁신의숲(innoforest)은 다양한 스타트업의 성장 데이터를 제공하는 플랫폼으로,\n스타트업의 투자 정보, 소비자 데이터, 고용 현황 등 여러 지표를 무료로 공개하여 생태계 발전에 기여하고 있습니다.\n현재 선택 가능한 데이터는 아래 5개 기업으로 키 값을 사용하여 데이터를 조회할 수 있습니다.\n\n- 오늘의집(버킷플레이스) : 1198691245\n- 올웨이즈(레브잇) : 1798102225\n- 트웰브랩스 : 8458601667\n- 뤼이드 : 1068706394\n- 클래스101: 4578100277",
+        "tags": [],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IInnoforest.IGetcorpcommonInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IInnoforest.IGetcorpcommonOutput"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/connector/innoforest/seed/party/s1/findproduct": {
+      "post": {
+        "summary": "혁신의숲 서비스 조회",
+        "description": "혁신의숲(innoforest)은 다양한 스타트업의 성장 데이터를 제공하는 플랫폼으로,\n스타트업의 투자 정보, 소비자 데이터, 고용 현황 등 여러 지표를 무료로 공개하여 생태계 발전에 기여하고 있습니다.\n현재 선택 가능한 데이터는 아래 5개 기업으로 키 값을 사용하여 데이터를 조회할 수 있습니다.\n\n- 오늘의집(버킷플레이스) : 1198691245\n- 올웨이즈(레브잇) : 1798102225\n- 트웰브랩스 : 8458601667\n- 뤼이드 : 1068706394\n- 클래스101: 4578100277",
+        "tags": [],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IInnoforest.IFindproductInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IInnoforest.IFindproductOutput"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/connector/innoforest/seed/party/s1/findtraffic": {
+      "post": {
+        "summary": "혁신의숲 트래픽 조회",
+        "description": "혁신의숲(innoforest)은 다양한 스타트업의 성장 데이터를 제공하는 플랫폼으로,\n스타트업의 투자 정보, 소비자 데이터, 고용 현황 등 여러 지표를 무료로 공개하여 생태계 발전에 기여하고 있습니다.\n현재 선택 가능한 데이터는 아래 5개 기업으로 키 값을 사용하여 데이터를 조회할 수 있습니다.\n\n- 오늘의집(버킷플레이스) : 1198691245\n- 올웨이즈(레브잇) : 1798102225\n- 트웰브랩스 : 8458601667\n- 뤼이드 : 1068706394\n- 클래스101: 4578100277",
+        "tags": [],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IInnoforest.IFindtrafficInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IInnoforest.IFindtrafficOutput"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/connector/innoforest/seed/party/s1/findsales": {
+      "post": {
+        "summary": "혁신의숲 소비자거래-거래액, 거래건수 조회",
+        "description": "혁신의숲(innoforest)은 다양한 스타트업의 성장 데이터를 제공하는 플랫폼으로,\n스타트업의 투자 정보, 소비자 데이터, 고용 현황 등 여러 지표를 무료로 공개하여 생태계 발전에 기여하고 있습니다.\n현재 선택 가능한 데이터는 아래 5개 기업으로 키 값을 사용하여 데이터를 조회할 수 있습니다.\n\n- 오늘의집(버킷플레이스) : 1198691245\n- 올웨이즈(레브잇) : 1798102225\n- 트웰브랩스 : 8458601667\n- 뤼이드 : 1068706394\n- 클래스101: 4578100277",
+        "tags": [],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IInnoforest.IFindsalesInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IInnoforest.IFindsalesOutput"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/connector/innoforest/seed/party/s1/findsalesrebuy": {
+      "post": {
+        "summary": "혁신의숲 소비자거래-재구매율 조회",
+        "description": "혁신의숲(innoforest)은 다양한 스타트업의 성장 데이터를 제공하는 플랫폼으로,\n스타트업의 투자 정보, 소비자 데이터, 고용 현황 등 여러 지표를 무료로 공개하여 생태계 발전에 기여하고 있습니다.\n현재 선택 가능한 데이터는 아래 5개 기업으로 키 값을 사용하여 데이터를 조회할 수 있습니다.\n\n- 오늘의집(버킷플레이스) : 1198691245\n- 올웨이즈(레브잇) : 1798102225\n- 트웰브랩스 : 8458601667\n- 뤼이드 : 1068706394\n- 클래스101: 4578100277",
+        "tags": [],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IInnoforest.IFindsalesrebuyInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IInnoforest.IFindsalesrebuyOutput"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/connector/innoforest/seed/party/s1/findsalesavgbuy": {
+      "post": {
+        "summary": "혁신의숲 소비자거래-평균구매횟수 조회",
+        "description": "혁신의숲(innoforest)은 다양한 스타트업의 성장 데이터를 제공하는 플랫폼으로,\n스타트업의 투자 정보, 소비자 데이터, 고용 현황 등 여러 지표를 무료로 공개하여 생태계 발전에 기여하고 있습니다.\n현재 선택 가능한 데이터는 아래 5개 기업으로 키 값을 사용하여 데이터를 조회할 수 있습니다.\n\n- 오늘의집(버킷플레이스) : 1198691245\n- 올웨이즈(레브잇) : 1798102225\n- 트웰브랩스 : 8458601667\n- 뤼이드 : 1068706394\n- 클래스101: 4578100277",
+        "tags": [],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IInnoforest.IFindsalesavgbuyInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IInnoforest.IFindsalesavgbuyOutput"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/connector/innoforest/seed/party/s1/findsalesperson": {
+      "post": {
+        "summary": "혁신의숲 소비자유형-성별, 연령 조회",
+        "description": "혁신의숲(innoforest)은 다양한 스타트업의 성장 데이터를 제공하는 플랫폼으로,\n스타트업의 투자 정보, 소비자 데이터, 고용 현황 등 여러 지표를 무료로 공개하여 생태계 발전에 기여하고 있습니다.\n현재 선택 가능한 데이터는 아래 5개 기업으로 키 값을 사용하여 데이터를 조회할 수 있습니다.\n\n- 오늘의집(버킷플레이스) : 1198691245\n- 올웨이즈(레브잇) : 1798102225\n- 트웰브랩스 : 8458601667\n- 뤼이드 : 1068706394\n- 클래스101: 4578100277",
+        "tags": [],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IInnoforest.IFindsalespersonInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IInnoforest.IFindsalespersonOutput"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/connector/innoforest/seed/party/s1/findsaleshousehold": {
+      "post": {
+        "summary": "혁신의숲 소비자유형-가족구성 조회",
+        "description": "혁신의숲(innoforest)은 다양한 스타트업의 성장 데이터를 제공하는 플랫폼으로,\n스타트업의 투자 정보, 소비자 데이터, 고용 현황 등 여러 지표를 무료로 공개하여 생태계 발전에 기여하고 있습니다.\n현재 선택 가능한 데이터는 아래 5개 기업으로 키 값을 사용하여 데이터를 조회할 수 있습니다.\n\n- 오늘의집(버킷플레이스) : 1198691245\n- 올웨이즈(레브잇) : 1798102225\n- 트웰브랩스 : 8458601667\n- 뤼이드 : 1068706394\n- 클래스101: 4578100277",
+        "tags": [],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IInnoforest.IFindsaleshouseholdInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IInnoforest.IFindsaleshouseholdOutput"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/connector/innoforest/seed/party/s1/findsalesincome": {
+      "post": {
+        "summary": "혁신의숲 소비자유형-소득수준 조회",
+        "description": "혁신의숲(innoforest)은 다양한 스타트업의 성장 데이터를 제공하는 플랫폼으로,\n스타트업의 투자 정보, 소비자 데이터, 고용 현황 등 여러 지표를 무료로 공개하여 생태계 발전에 기여하고 있습니다.\n현재 선택 가능한 데이터는 아래 5개 기업으로 키 값을 사용하여 데이터를 조회할 수 있습니다.\n\n- 오늘의집(버킷플레이스) : 1198691245\n- 올웨이즈(레브잇) : 1798102225\n- 트웰브랩스 : 8458601667\n- 뤼이드 : 1068706394\n- 클래스101: 4578100277",
+        "tags": [],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IInnoforest.IFindsalesincomeInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IInnoforest.IFindsalesincomeOutput"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/connector/innoforest/seed/party/s1/findinvest": {
+      "post": {
+        "summary": "혁신의숲 투자유치이력 조회",
+        "description": "혁신의숲(innoforest)은 다양한 스타트업의 성장 데이터를 제공하는 플랫폼으로,\n스타트업의 투자 정보, 소비자 데이터, 고용 현황 등 여러 지표를 무료로 공개하여 생태계 발전에 기여하고 있습니다.\n현재 선택 가능한 데이터는 아래 5개 기업으로 키 값을 사용하여 데이터를 조회할 수 있습니다.\n\n- 오늘의집(버킷플레이스) : 1198691245\n- 올웨이즈(레브잇) : 1798102225\n- 트웰브랩스 : 8458601667\n- 뤼이드 : 1068706394\n- 클래스101: 4578100277",
+        "tags": [],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IInnoforest.IFindinvestInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IInnoforest.IFindinvestOutput"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/connector/innoforest/seed/party/s1/findpatent": {
+      "post": {
+        "summary": "혁신의숲 특허이력 조회",
+        "description": "혁신의숲(innoforest)은 다양한 스타트업의 성장 데이터를 제공하는 플랫폼으로,\n스타트업의 투자 정보, 소비자 데이터, 고용 현황 등 여러 지표를 무료로 공개하여 생태계 발전에 기여하고 있습니다.\n현재 선택 가능한 데이터는 아래 5개 기업으로 키 값을 사용하여 데이터를 조회할 수 있습니다.\n\n- 오늘의집(버킷플레이스) : 1198691245\n- 올웨이즈(레브잇) : 1798102225\n- 트웰브랩스 : 8458601667\n- 뤼이드 : 1068706394\n- 클래스101: 4578100277",
+        "tags": [],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IInnoforest.IFindpatentInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IInnoforest.IFindpatentOutput"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/connector/innoforest/seed/party/s1/findpatentword": {
+      "post": {
+        "summary": "혁신의숲 특허키워드 조회",
+        "description": "혁신의숲(innoforest)은 다양한 스타트업의 성장 데이터를 제공하는 플랫폼으로,\n스타트업의 투자 정보, 소비자 데이터, 고용 현황 등 여러 지표를 무료로 공개하여 생태계 발전에 기여하고 있습니다.\n현재 선택 가능한 데이터는 아래 5개 기업으로 키 값을 사용하여 데이터를 조회할 수 있습니다.\n\n- 오늘의집(버킷플레이스) : 1198691245\n- 올웨이즈(레브잇) : 1798102225\n- 트웰브랩스 : 8458601667\n- 뤼이드 : 1068706394\n- 클래스101: 4578100277",
+        "tags": [],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IInnoforest.IFindpatentwordInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IInnoforest.IFindpatentwordOutput"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/connector/innoforest/seed/party/s1/findfinance": {
+      "post": {
+        "summary": "혁신의숲 손익재무 조회",
+        "description": "혁신의숲(innoforest)은 다양한 스타트업의 성장 데이터를 제공하는 플랫폼으로,\n스타트업의 투자 정보, 소비자 데이터, 고용 현황 등 여러 지표를 무료로 공개하여 생태계 발전에 기여하고 있습니다.\n현재 선택 가능한 데이터는 아래 5개 기업으로 키 값을 사용하여 데이터를 조회할 수 있습니다.\n\n- 오늘의집(버킷플레이스) : 1198691245\n- 올웨이즈(레브잇) : 1798102225\n- 트웰브랩스 : 8458601667\n- 뤼이드 : 1068706394\n- 클래스101: 4578100277",
+        "tags": [],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IInnoforest.IFindfinanceInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IInnoforest.IFindfinanceOutput"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/connector/innoforest/seed/party/s1/findemployee": {
+      "post": {
+        "summary": "혁신의숲 고용 조회",
+        "description": "혁신의숲(innoforest)은 다양한 스타트업의 성장 데이터를 제공하는 플랫폼으로,\n스타트업의 투자 정보, 소비자 데이터, 고용 현황 등 여러 지표를 무료로 공개하여 생태계 발전에 기여하고 있습니다.\n현재 선택 가능한 데이터는 아래 5개 기업으로 키 값을 사용하여 데이터를 조회할 수 있습니다.\n\n- 오늘의집(버킷플레이스) : 1198691245\n- 올웨이즈(레브잇) : 1798102225\n- 트웰브랩스 : 8458601667\n- 뤼이드 : 1068706394\n- 클래스101: 4578100277",
+        "tags": [],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IInnoforest.IFindemployeeInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IInnoforest.IFindemployeeOutput"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/connector/innoforest/seed/party/s1/findpress": {
+      "post": {
+        "summary": "혁신의숲 보도자료 조회",
+        "description": "혁신의숲(innoforest)은 다양한 스타트업의 성장 데이터를 제공하는 플랫폼으로,\n스타트업의 투자 정보, 소비자 데이터, 고용 현황 등 여러 지표를 무료로 공개하여 생태계 발전에 기여하고 있습니다.\n현재 선택 가능한 데이터는 아래 5개 기업으로 키 값을 사용하여 데이터를 조회할 수 있습니다.\n\n- 오늘의집(버킷플레이스) : 1198691245\n- 올웨이즈(레브잇) : 1798102225\n- 트웰브랩스 : 8458601667\n- 뤼이드 : 1068706394\n- 클래스101: 4578100277",
+        "tags": [],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IInnoforest.IFindpressInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IInnoforest.IFindpressOutput"
+                }
+              }
+            }
+          }
+        }
       }
     }
   },
@@ -58015,7 +58555,7 @@
                 "title": "NO_REPLIES"
               },
               {
-                "$ref": "#/components/schemas/__type.o1989"
+                "$ref": "#/components/schemas/__type.o2121"
               }
             ],
             "title": "replies"
@@ -58462,14 +59002,14 @@
           "name"
         ]
       },
-      "__type.o1989": {
+      "__type.o2121": {
         "type": "object",
         "properties": {
           "kind": {
             "const": "Listing"
           },
           "data": {
-            "$ref": "#/components/schemas/__type.o1990"
+            "$ref": "#/components/schemas/__type.o2122"
           }
         },
         "required": [
@@ -58477,7 +59017,7 @@
           "data"
         ]
       },
-      "__type.o1990": {
+      "__type.o2122": {
         "type": "object",
         "properties": {
           "after": {
@@ -58497,7 +59037,7 @@
             "items": {
               "oneOf": [
                 {
-                  "$ref": "#/components/schemas/__type.o1991"
+                  "$ref": "#/components/schemas/__type.o2123"
                 },
                 {
                   "type": "object",
@@ -58571,7 +59111,7 @@
           "before"
         ]
       },
-      "__type.o1991": {
+      "__type.o2123": {
         "type": "object",
         "properties": {
           "kind": {
@@ -60627,6 +61167,2297 @@
         },
         "required": [
           "secretKey"
+        ]
+      },
+      "IInnoforest.IGetcorpOutput": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "object",
+            "properties": {
+              "corpId": {
+                "type": "string",
+                "maxLength": 10,
+                "title": "혁신의숲 기업 Key"
+              },
+              "corpUniqNum": {
+                "type": "string",
+                "maxLength": 10,
+                "title": "사업자등록번호"
+              },
+              "corpNameKr": {
+                "oneOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "type": "string",
+                    "maxLength": 250
+                  }
+                ],
+                "title": "한글기업명"
+              },
+              "corpIntroKr": {
+                "oneOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "type": "string",
+                    "maxLength": 250
+                  }
+                ],
+                "title": "한글기업설명"
+              },
+              "corpAddrKr": {
+                "oneOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "type": "string",
+                    "maxLength": 500
+                  }
+                ],
+                "title": "기업주소한글"
+              },
+              "repName": {
+                "oneOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "type": "string",
+                    "maxLength": 500
+                  }
+                ],
+                "title": "대표자명"
+              },
+              "corpStatCdKr": {
+                "oneOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "type": "string",
+                    "maxLength": 50
+                  }
+                ],
+                "title": "운영여부"
+              },
+              "corpStockCdKr": {
+                "oneOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "type": "string",
+                    "maxLength": 50
+                  }
+                ],
+                "title": "상장여부"
+              },
+              "corpLogoImg": {
+                "oneOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "type": "string",
+                    "maxLength": 500
+                  }
+                ],
+                "title": "기업로고이미지"
+              },
+              "homeUrl": {
+                "oneOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "type": "string",
+                    "maxLength": 200
+                  }
+                ],
+                "title": "홈페이지"
+              },
+              "foundAt": {
+                "oneOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "type": "string",
+                    "format": "date"
+                  }
+                ],
+                "title": "설립일"
+              },
+              "bizNamesKr": {
+                "oneOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "type": "string",
+                    "maxLength": 500
+                  }
+                ],
+                "title": "카테고리"
+              },
+              "tagNamesKr": {
+                "oneOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "type": "string",
+                    "maxLength": 500
+                  }
+                ],
+                "title": "키워드"
+              },
+              "modifiedDate": {
+                "oneOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "type": "string"
+                  }
+                ],
+                "title": "수정시간"
+              }
+            },
+            "required": [
+              "corpId",
+              "corpUniqNum",
+              "corpNameKr",
+              "corpIntroKr",
+              "corpAddrKr",
+              "repName",
+              "corpStatCdKr",
+              "corpStockCdKr",
+              "corpLogoImg",
+              "homeUrl",
+              "foundAt",
+              "bizNamesKr",
+              "tagNamesKr",
+              "modifiedDate"
+            ],
+            "title": "응답 데이터"
+          },
+          "dataCount": {
+            "type": "integer",
+            "title": "조회된 갯수 카운트"
+          },
+          "success": {
+            "type": "boolean",
+            "title": "성공여부"
+          },
+          "error": {
+            "type": "string",
+            "title": "에러발생시 에러메시지전달 (에러시에만 전달)"
+          },
+          "successMsg": {
+            "type": "string",
+            "title": "요청성공시 성공메시지전달 (성공시에만 전달)"
+          }
+        },
+        "required": [
+          "data",
+          "dataCount",
+          "success"
+        ]
+      },
+      "IInnoforest.IGetcorpInput": {
+        "type": "object",
+        "properties": {
+          "corpUniqNum": {
+            "type": "string",
+            "title": "혁신의숲 기업 Key"
+          }
+        },
+        "required": [
+          "corpUniqNum"
+        ]
+      },
+      "IInnoforest.IGetcorpfinanceOutput": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "object",
+            "properties": {
+              "corpId": {
+                "type": "string",
+                "maxLength": 10,
+                "title": "혁신의숲 기업 Key"
+              },
+              "corpUniqNum": {
+                "type": "string",
+                "maxLength": 10,
+                "title": "사업자등록번호"
+              },
+              "capStockVal": {
+                "oneOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "type": "integer"
+                  }
+                ],
+                "title": "자본금"
+              },
+              "revenueVal": {
+                "oneOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "type": "integer"
+                  }
+                ],
+                "title": "매출"
+              },
+              "modifiedDate": {
+                "oneOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "type": "string"
+                  }
+                ],
+                "title": "수정시간"
+              }
+            },
+            "required": [
+              "corpId",
+              "corpUniqNum",
+              "capStockVal",
+              "revenueVal",
+              "modifiedDate"
+            ],
+            "title": "응답 데이터"
+          },
+          "dataCount": {
+            "type": "integer",
+            "title": "조회된 갯수 카운트"
+          },
+          "success": {
+            "type": "boolean",
+            "title": "성공여부"
+          },
+          "error": {
+            "type": "string",
+            "title": "에러발생시 에러메시지전달 (에러시에만 전달)"
+          },
+          "successMsg": {
+            "type": "string",
+            "title": "요청성공시 성공메시지전달 (성공시에만 전달)"
+          }
+        },
+        "required": [
+          "data",
+          "dataCount",
+          "success"
+        ]
+      },
+      "IInnoforest.IGetcorpfinanceInput": {
+        "type": "object",
+        "properties": {
+          "corpUniqNum": {
+            "type": "string",
+            "title": "혁신의숲 기업 Key"
+          }
+        },
+        "required": [
+          "corpUniqNum"
+        ]
+      },
+      "IInnoforest.IGetcorpinvestOutput": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "object",
+            "properties": {
+              "corpId": {
+                "type": "string",
+                "maxLength": 10,
+                "title": "혁신의숲 기업 Key"
+              },
+              "corpUniqNum": {
+                "type": "string",
+                "maxLength": 10,
+                "title": "사업자등록번호"
+              },
+              "invstCnt": {
+                "oneOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "type": "integer"
+                  }
+                ],
+                "title": "투자건수"
+              },
+              "invstSumVal": {
+                "oneOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "type": "integer"
+                  }
+                ],
+                "title": "누적투자금액"
+              },
+              "invstSumValDes": {
+                "oneOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "type": "string",
+                    "maxLength": 100
+                  }
+                ],
+                "title": "부가설명",
+                "description": "투자금액이 '0' 인 투자이력이 확인될 경우"
+              },
+              "modifiedDate": {
+                "oneOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "type": "string"
+                  }
+                ],
+                "title": "수정시간"
+              }
+            },
+            "required": [
+              "corpId",
+              "corpUniqNum",
+              "invstCnt",
+              "invstSumVal",
+              "invstSumValDes",
+              "modifiedDate"
+            ],
+            "title": "응답 데이터"
+          },
+          "dataCount": {
+            "type": "integer",
+            "title": "조회된 갯수 카운트"
+          },
+          "success": {
+            "type": "boolean",
+            "title": "성공여부"
+          },
+          "error": {
+            "type": "string",
+            "title": "에러발생시 에러메시지전달 (에러시에만 전달)"
+          },
+          "successMsg": {
+            "type": "string",
+            "title": "요청성공시 성공메시지전달 (성공시에만 전달)"
+          }
+        },
+        "required": [
+          "data",
+          "dataCount",
+          "success"
+        ]
+      },
+      "IInnoforest.IGetcorpinvestInput": {
+        "type": "object",
+        "properties": {
+          "corpUniqNum": {
+            "type": "string",
+            "title": "혁신의숲 기업 Key"
+          }
+        },
+        "required": [
+          "corpUniqNum"
+        ]
+      },
+      "IInnoforest.IGetcorpcommonOutput": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "object",
+            "properties": {
+              "corpId": {
+                "type": "string",
+                "maxLength": 10,
+                "title": "혁신의숲 기업 Key"
+              },
+              "corpUniqNum": {
+                "type": "string",
+                "maxLength": 10,
+                "title": "사업자등록번호"
+              },
+              "patntLvlVal": {
+                "oneOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "type": "number"
+                  }
+                ],
+                "title": "특허점수 평균"
+              },
+              "empWholeVal": {
+                "oneOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "type": "integer"
+                  }
+                ],
+                "title": "고용인원"
+              },
+              "modifiedDate": {
+                "oneOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "type": "string"
+                  }
+                ],
+                "title": "수정시간"
+              }
+            },
+            "required": [
+              "corpId",
+              "corpUniqNum",
+              "patntLvlVal",
+              "empWholeVal",
+              "modifiedDate"
+            ],
+            "title": "응답 데이터"
+          },
+          "dataCount": {
+            "type": "integer",
+            "title": "조회된 갯수 카운트"
+          },
+          "success": {
+            "type": "boolean",
+            "title": "성공여부"
+          },
+          "error": {
+            "type": "string",
+            "title": "에러발생시 에러메시지전달 (에러시에만 전달)"
+          },
+          "successMsg": {
+            "type": "string",
+            "title": "요청성공시 성공메시지전달 (성공시에만 전달)"
+          }
+        },
+        "required": [
+          "data",
+          "dataCount",
+          "success"
+        ]
+      },
+      "IInnoforest.IGetcorpcommonInput": {
+        "type": "object",
+        "properties": {
+          "corpUniqNum": {
+            "type": "string",
+            "title": "혁신의숲 기업 Key"
+          }
+        },
+        "required": [
+          "corpUniqNum"
+        ]
+      },
+      "IInnoforest.IFindproductOutput": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "corpId": {
+                  "type": "string",
+                  "maxLength": 10,
+                  "title": "혁신의숲 기업 Key"
+                },
+                "prodId": {
+                  "type": "string",
+                  "maxLength": 10,
+                  "title": "혁신의숲 서비스 Key"
+                },
+                "corpUniqNum": {
+                  "type": "string",
+                  "maxLength": 10,
+                  "title": "사업자등록번호"
+                },
+                "prodNameKr": {
+                  "oneOf": [
+                    {
+                      "type": "null"
+                    },
+                    {
+                      "type": "string",
+                      "maxLength": 250
+                    }
+                  ],
+                  "title": "한글서비스명"
+                },
+                "prodIntroKr": {
+                  "oneOf": [
+                    {
+                      "type": "null"
+                    },
+                    {
+                      "type": "string",
+                      "maxLength": 250
+                    }
+                  ],
+                  "title": "한글서비스설명"
+                },
+                "prodLogoImg": {
+                  "oneOf": [
+                    {
+                      "type": "null"
+                    },
+                    {
+                      "type": "string",
+                      "maxLength": 500
+                    }
+                  ],
+                  "title": "서비스로고이미지"
+                },
+                "modifiedDate": {
+                  "oneOf": [
+                    {
+                      "type": "null"
+                    },
+                    {
+                      "type": "string"
+                    }
+                  ],
+                  "title": "수정시간"
+                }
+              },
+              "required": [
+                "corpId",
+                "prodId",
+                "corpUniqNum",
+                "prodNameKr",
+                "prodIntroKr",
+                "prodLogoImg",
+                "modifiedDate"
+              ]
+            },
+            "title": "응답 데이터"
+          },
+          "dataCount": {
+            "type": "integer",
+            "title": "조회된 갯수 카운트"
+          },
+          "success": {
+            "type": "boolean",
+            "title": "성공여부"
+          },
+          "error": {
+            "type": "string",
+            "title": "에러발생시 에러메시지전달 (에러시에만 전달)"
+          },
+          "successMsg": {
+            "type": "string",
+            "title": "요청성공시 성공메시지전달 (성공시에만 전달)"
+          }
+        },
+        "required": [
+          "data",
+          "dataCount",
+          "success"
+        ]
+      },
+      "IInnoforest.IFindproductInput": {
+        "type": "object",
+        "properties": {
+          "corpUniqNum": {
+            "type": "string",
+            "title": "혁신의숲 기업 Key"
+          }
+        },
+        "required": [
+          "corpUniqNum"
+        ]
+      },
+      "IInnoforest.IFindtrafficOutput": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "corpId": {
+                  "type": "string",
+                  "maxLength": 10,
+                  "title": "혁신의숲 기업 Key"
+                },
+                "prodId": {
+                  "type": "string",
+                  "maxLength": 10,
+                  "title": "혁신의숲 서비스 Key"
+                },
+                "corpUniqNum": {
+                  "type": "string",
+                  "maxLength": 10,
+                  "title": "사업자등록번호"
+                },
+                "usageFrom": {
+                  "type": "string",
+                  "format": "date",
+                  "title": "트래픽기준일"
+                },
+                "usageVal": {
+                  "oneOf": [
+                    {
+                      "type": "null"
+                    },
+                    {
+                      "type": "integer"
+                    }
+                  ],
+                  "title": "트래픽",
+                  "description": "0인 경우는 직접제보, 2인 경우에는 외부 제공인 경우를 의미한다."
+                },
+                "type": {
+                  "oneOf": [
+                    {
+                      "type": "null"
+                    },
+                    {
+                      "type": "integer"
+                    }
+                  ],
+                  "title": "트래픽종류"
+                },
+                "modifiedDate": {
+                  "oneOf": [
+                    {
+                      "type": "null"
+                    },
+                    {
+                      "type": "string"
+                    }
+                  ],
+                  "title": "수정시간"
+                }
+              },
+              "required": [
+                "corpId",
+                "prodId",
+                "corpUniqNum",
+                "usageFrom",
+                "usageVal",
+                "type",
+                "modifiedDate"
+              ]
+            },
+            "title": "응답 데이터"
+          },
+          "dataCount": {
+            "type": "integer",
+            "title": "조회된 갯수 카운트"
+          },
+          "success": {
+            "type": "boolean",
+            "title": "성공여부"
+          },
+          "error": {
+            "type": "string",
+            "title": "에러발생시 에러메시지전달 (에러시에만 전달)"
+          },
+          "successMsg": {
+            "type": "string",
+            "title": "요청성공시 성공메시지전달 (성공시에만 전달)"
+          }
+        },
+        "required": [
+          "data",
+          "dataCount",
+          "success"
+        ]
+      },
+      "IInnoforest.IFindtrafficInput": {
+        "type": "object",
+        "properties": {
+          "corpUniqNum": {
+            "type": "string",
+            "title": "혁신의숲 기업 Key"
+          }
+        },
+        "required": [
+          "corpUniqNum"
+        ]
+      },
+      "IInnoforest.IFindsalesOutput": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "corpId": {
+                  "type": "string",
+                  "maxLength": 10,
+                  "title": "혁신의숲 기업 Key"
+                },
+                "corpUniqNum": {
+                  "type": "string",
+                  "maxLength": 10,
+                  "title": "사업자등록번호"
+                },
+                "salesFrom": {
+                  "type": "string",
+                  "maxLength": 10,
+                  "title": "거래기준일"
+                },
+                "salesVal": {
+                  "oneOf": [
+                    {
+                      "type": "null"
+                    },
+                    {
+                      "type": "integer"
+                    }
+                  ],
+                  "title": "거래액"
+                },
+                "salesCnt": {
+                  "oneOf": [
+                    {
+                      "type": "null"
+                    },
+                    {
+                      "type": "integer"
+                    }
+                  ],
+                  "title": "거래건수"
+                },
+                "modifiedDate": {
+                  "oneOf": [
+                    {
+                      "type": "null"
+                    },
+                    {
+                      "type": "string"
+                    }
+                  ],
+                  "title": "수정시간"
+                }
+              },
+              "required": [
+                "corpId",
+                "corpUniqNum",
+                "salesFrom",
+                "salesVal",
+                "salesCnt",
+                "modifiedDate"
+              ]
+            },
+            "title": "응답 데이터"
+          },
+          "dataCount": {
+            "type": "integer",
+            "title": "조회된 갯수 카운트"
+          },
+          "success": {
+            "type": "boolean",
+            "title": "성공여부"
+          },
+          "error": {
+            "type": "string",
+            "title": "에러발생시 에러메시지전달 (에러시에만 전달)"
+          },
+          "successMsg": {
+            "type": "string",
+            "title": "요청성공시 성공메시지전달 (성공시에만 전달)"
+          }
+        },
+        "required": [
+          "data",
+          "dataCount",
+          "success"
+        ]
+      },
+      "IInnoforest.IFindsalesInput": {
+        "type": "object",
+        "properties": {
+          "corpUniqNum": {
+            "type": "string",
+            "title": "혁신의숲 기업 Key"
+          }
+        },
+        "required": [
+          "corpUniqNum"
+        ]
+      },
+      "IInnoforest.IFindsalesrebuyOutput": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "corpId": {
+                  "type": "string",
+                  "maxLength": 10,
+                  "title": "혁신의숲 기업 Key"
+                },
+                "corpUniqNum": {
+                  "type": "string",
+                  "maxLength": 10,
+                  "title": "사업자등록번호"
+                },
+                "salesFrom": {
+                  "type": "string",
+                  "maxLength": 10,
+                  "title": "거래기준일"
+                },
+                "salesRebuyPerdCd": {
+                  "oneOf": [
+                    {
+                      "type": "null"
+                    },
+                    {
+                      "type": "integer"
+                    }
+                  ],
+                  "title": "주기",
+                  "description": "- 1: 1개월 내 재구매가 이루어짐을 의미\n- 3: 3개월 내 재구매가 이루어짐을 의미\n- 6: 6개월 내 재구매가 이루어짐을 의미\n- 12: 12개월 내 재구매가 이루어짐을 의미"
+                },
+                "salesRate": {
+                  "oneOf": [
+                    {
+                      "type": "null"
+                    },
+                    {
+                      "type": "number"
+                    }
+                  ],
+                  "title": "구매율"
+                },
+                "modifiedDate": {
+                  "oneOf": [
+                    {
+                      "type": "null"
+                    },
+                    {
+                      "type": "string"
+                    }
+                  ],
+                  "title": "수정시간"
+                }
+              },
+              "required": [
+                "corpId",
+                "corpUniqNum",
+                "salesFrom",
+                "salesRebuyPerdCd",
+                "salesRate",
+                "modifiedDate"
+              ]
+            },
+            "title": "응답 데이터"
+          },
+          "dataCount": {
+            "type": "integer",
+            "title": "조회된 갯수 카운트"
+          },
+          "success": {
+            "type": "boolean",
+            "title": "성공여부"
+          },
+          "error": {
+            "type": "string",
+            "title": "에러발생시 에러메시지전달 (에러시에만 전달)"
+          },
+          "successMsg": {
+            "type": "string",
+            "title": "요청성공시 성공메시지전달 (성공시에만 전달)"
+          }
+        },
+        "required": [
+          "data",
+          "dataCount",
+          "success"
+        ]
+      },
+      "IInnoforest.IFindsalesrebuyInput": {
+        "type": "object",
+        "properties": {
+          "corpUniqNum": {
+            "type": "string",
+            "title": "혁신의숲 기업 Key"
+          }
+        },
+        "required": [
+          "corpUniqNum"
+        ]
+      },
+      "IInnoforest.IFindsalesavgbuyOutput": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "corpId": {
+                  "type": "string",
+                  "maxLength": 10,
+                  "title": "혁신의숲 기업 Key"
+                },
+                "corpUniqNum": {
+                  "type": "string",
+                  "maxLength": 10,
+                  "title": "사업자등록번호"
+                },
+                "salesFrom": {
+                  "type": "string",
+                  "maxLength": 10,
+                  "title": "거래기준일"
+                },
+                "salesRebuyPerdCd": {
+                  "oneOf": [
+                    {
+                      "type": "null"
+                    },
+                    {
+                      "type": "integer"
+                    }
+                  ],
+                  "title": "주기",
+                  "description": "- 1: 1개월 내 재구매가 이루어짐을 의미\n- 3: 3개월 내 재구매가 이루어짐을 의미\n- 6: 6개월 내 재구매가 이루어짐을 의미\n- 12: 12개월 내 재구매가 이루어짐을 의미"
+                },
+                "salesRate": {
+                  "oneOf": [
+                    {
+                      "type": "null"
+                    },
+                    {
+                      "type": "number"
+                    }
+                  ],
+                  "title": "구매율"
+                },
+                "modifiedDate": {
+                  "oneOf": [
+                    {
+                      "type": "null"
+                    },
+                    {
+                      "type": "string"
+                    }
+                  ],
+                  "title": "수정시간"
+                }
+              },
+              "required": [
+                "corpId",
+                "corpUniqNum",
+                "salesFrom",
+                "salesRebuyPerdCd",
+                "salesRate",
+                "modifiedDate"
+              ]
+            },
+            "title": "응답 데이터"
+          },
+          "dataCount": {
+            "type": "integer",
+            "title": "조회된 갯수 카운트"
+          },
+          "success": {
+            "type": "boolean",
+            "title": "성공여부"
+          },
+          "error": {
+            "type": "string",
+            "title": "에러발생시 에러메시지전달 (에러시에만 전달)"
+          },
+          "successMsg": {
+            "type": "string",
+            "title": "요청성공시 성공메시지전달 (성공시에만 전달)"
+          }
+        },
+        "required": [
+          "data",
+          "dataCount",
+          "success"
+        ]
+      },
+      "IInnoforest.IFindsalesavgbuyInput": {
+        "type": "object",
+        "properties": {
+          "corpUniqNum": {
+            "type": "string",
+            "title": "혁신의숲 기업 Key"
+          }
+        },
+        "required": [
+          "corpUniqNum"
+        ]
+      },
+      "IInnoforest.IFindsalespersonOutput": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "corpId": {
+                  "type": "string",
+                  "maxLength": 10,
+                  "title": "혁신의숲 기업 Key"
+                },
+                "corpUniqNum": {
+                  "type": "string",
+                  "maxLength": 10,
+                  "title": "사업자등록번호"
+                },
+                "salesFrom": {
+                  "type": "string",
+                  "maxLength": 10,
+                  "title": "거래기준일"
+                },
+                "gendCd": {
+                  "oneOf": [
+                    {
+                      "type": "null"
+                    },
+                    {
+                      "const": "F",
+                      "title": "여성"
+                    },
+                    {
+                      "const": "M",
+                      "title": "남성"
+                    }
+                  ],
+                  "title": "성별"
+                },
+                "ageCd": {
+                  "oneOf": [
+                    {
+                      "type": "null"
+                    },
+                    {
+                      "const": "A20",
+                      "title": "0-29",
+                      "description": "연령 구간"
+                    },
+                    {
+                      "const": "A30",
+                      "title": "30-39",
+                      "description": "연령 구간"
+                    },
+                    {
+                      "const": "A40",
+                      "title": "40-49",
+                      "description": "연령 구간"
+                    },
+                    {
+                      "const": "A50",
+                      "title": "50-59",
+                      "description": "연령 구간"
+                    },
+                    {
+                      "const": "A60",
+                      "title": "60이상",
+                      "description": "연령 구간"
+                    }
+                  ],
+                  "title": "나이대"
+                },
+                "salesRate": {
+                  "oneOf": [
+                    {
+                      "type": "null"
+                    },
+                    {
+                      "type": "number"
+                    }
+                  ],
+                  "title": "구매율"
+                },
+                "modifiedDate": {
+                  "oneOf": [
+                    {
+                      "type": "null"
+                    },
+                    {
+                      "type": "string"
+                    }
+                  ],
+                  "title": "수정시간"
+                }
+              },
+              "required": [
+                "corpId",
+                "corpUniqNum",
+                "salesFrom",
+                "gendCd",
+                "ageCd",
+                "salesRate",
+                "modifiedDate"
+              ]
+            },
+            "title": "응답 데이터"
+          },
+          "dataCount": {
+            "type": "integer",
+            "title": "조회된 갯수 카운트"
+          },
+          "success": {
+            "type": "boolean",
+            "title": "성공여부"
+          },
+          "error": {
+            "type": "string",
+            "title": "에러발생시 에러메시지전달 (에러시에만 전달)"
+          },
+          "successMsg": {
+            "type": "string",
+            "title": "요청성공시 성공메시지전달 (성공시에만 전달)"
+          }
+        },
+        "required": [
+          "data",
+          "dataCount",
+          "success"
+        ]
+      },
+      "IInnoforest.IFindsalespersonInput": {
+        "type": "object",
+        "properties": {
+          "corpUniqNum": {
+            "type": "string",
+            "title": "혁신의숲 기업 Key"
+          }
+        },
+        "required": [
+          "corpUniqNum"
+        ]
+      },
+      "IInnoforest.IFindsaleshouseholdOutput": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "corpId": {
+                  "type": "string",
+                  "maxLength": 10,
+                  "title": "혁신의숲 기업 Key"
+                },
+                "corpUniqNum": {
+                  "type": "string",
+                  "maxLength": 10,
+                  "title": "사업자등록번호"
+                },
+                "salesFrom": {
+                  "type": "string",
+                  "maxLength": 10,
+                  "title": "거래기준일"
+                },
+                "householdCd": {
+                  "oneOf": [
+                    {
+                      "type": "null"
+                    },
+                    {
+                      "const": "SIGL",
+                      "title": "싱글가구"
+                    },
+                    {
+                      "const": "NEMR",
+                      "title": "신혼가구"
+                    },
+                    {
+                      "const": "BABY",
+                      "title": "유아자녀가구"
+                    },
+                    {
+                      "const": "CHID",
+                      "title": "청소년자녀가구"
+                    },
+                    {
+                      "const": "ADLT",
+                      "title": "성인자녀가구"
+                    },
+                    {
+                      "const": "SILV",
+                      "title": "실버가구"
+                    }
+                  ],
+                  "title": "가족구성"
+                },
+                "salesRate": {
+                  "oneOf": [
+                    {
+                      "type": "null"
+                    },
+                    {
+                      "type": "number"
+                    }
+                  ],
+                  "title": "구매율"
+                },
+                "modifiedDate": {
+                  "oneOf": [
+                    {
+                      "type": "null"
+                    },
+                    {
+                      "type": "string"
+                    }
+                  ],
+                  "title": "수정시간"
+                }
+              },
+              "required": [
+                "corpId",
+                "corpUniqNum",
+                "salesFrom",
+                "householdCd",
+                "salesRate",
+                "modifiedDate"
+              ]
+            },
+            "title": "응답 데이터"
+          },
+          "dataCount": {
+            "type": "integer",
+            "title": "조회된 갯수 카운트"
+          },
+          "success": {
+            "type": "boolean",
+            "title": "성공여부"
+          },
+          "error": {
+            "type": "string",
+            "title": "에러발생시 에러메시지전달 (에러시에만 전달)"
+          },
+          "successMsg": {
+            "type": "string",
+            "title": "요청성공시 성공메시지전달 (성공시에만 전달)"
+          }
+        },
+        "required": [
+          "data",
+          "dataCount",
+          "success"
+        ]
+      },
+      "IInnoforest.IFindsaleshouseholdInput": {
+        "type": "object",
+        "properties": {
+          "corpUniqNum": {
+            "type": "string",
+            "title": "혁신의숲 기업 Key"
+          }
+        },
+        "required": [
+          "corpUniqNum"
+        ]
+      },
+      "IInnoforest.IFindsalesincomeOutput": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "corpId": {
+                  "type": "string",
+                  "maxLength": 10,
+                  "title": "혁신의숲 기업 Key"
+                },
+                "corpUniqNum": {
+                  "type": "string",
+                  "maxLength": 10,
+                  "title": "사업자등록번호"
+                },
+                "salesFrom": {
+                  "type": "string",
+                  "maxLength": 10,
+                  "title": "거래기준일"
+                },
+                "householdCd": {
+                  "oneOf": [
+                    {
+                      "type": "null"
+                    },
+                    {
+                      "const": "I020",
+                      "title": "2000만원이하"
+                    },
+                    {
+                      "const": "I030",
+                      "title": "3000만원이하"
+                    },
+                    {
+                      "const": "I040",
+                      "title": "4000만원이하"
+                    },
+                    {
+                      "const": "I050",
+                      "title": "5000만원이하"
+                    },
+                    {
+                      "const": "I060",
+                      "title": "6000만원이하"
+                    },
+                    {
+                      "const": "I080",
+                      "title": "8000만원이하"
+                    },
+                    {
+                      "const": "I100",
+                      "title": "1억이하"
+                    },
+                    {
+                      "const": "I101",
+                      "title": "1억초과"
+                    }
+                  ],
+                  "title": "가족구성",
+                  "description": "소비자 유형 중 가족 구성의 소득 수준을 의미한다"
+                },
+                "salesRate": {
+                  "oneOf": [
+                    {
+                      "type": "null"
+                    },
+                    {
+                      "type": "number"
+                    }
+                  ],
+                  "title": "구매율"
+                },
+                "modifiedDate": {
+                  "oneOf": [
+                    {
+                      "type": "null"
+                    },
+                    {
+                      "type": "string"
+                    }
+                  ],
+                  "title": "수정시간"
+                }
+              },
+              "required": [
+                "corpId",
+                "corpUniqNum",
+                "salesFrom",
+                "householdCd",
+                "salesRate",
+                "modifiedDate"
+              ]
+            },
+            "title": "응답 데이터"
+          },
+          "dataCount": {
+            "type": "integer",
+            "title": "조회된 갯수 카운트"
+          },
+          "success": {
+            "type": "boolean",
+            "title": "성공여부"
+          },
+          "error": {
+            "type": "string",
+            "title": "에러발생시 에러메시지전달 (에러시에만 전달)"
+          },
+          "successMsg": {
+            "type": "string",
+            "title": "요청성공시 성공메시지전달 (성공시에만 전달)"
+          }
+        },
+        "required": [
+          "data",
+          "dataCount",
+          "success"
+        ]
+      },
+      "IInnoforest.IFindsalesincomeInput": {
+        "type": "object",
+        "properties": {
+          "corpUniqNum": {
+            "type": "string",
+            "title": "혁신의숲 기업 Key"
+          }
+        },
+        "required": [
+          "corpUniqNum"
+        ]
+      },
+      "IInnoforest.IFindinvestOutput": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "corpId": {
+                  "type": "string",
+                  "maxLength": 10,
+                  "title": "혁신의숲 기업 Key"
+                },
+                "corpUniqNum": {
+                  "type": "string",
+                  "maxLength": 10,
+                  "title": "사업자등록번호"
+                },
+                "id": {
+                  "type": "integer",
+                  "title": "혁신의숲 투자이력 key"
+                },
+                "invstAt": {
+                  "type": "string",
+                  "format": "date",
+                  "title": "투자일"
+                },
+                "invstCd": {
+                  "oneOf": [
+                    {
+                      "const": "10",
+                      "title": "seed"
+                    },
+                    {
+                      "const": "11",
+                      "title": "seed (추정)"
+                    },
+                    {
+                      "const": "15",
+                      "title": "pre-A"
+                    },
+                    {
+                      "const": "16",
+                      "title": "pre-A (추정)"
+                    },
+                    {
+                      "const": "20",
+                      "title": "pre-B"
+                    },
+                    {
+                      "const": "21",
+                      "title": "pre-B (추정)"
+                    },
+                    {
+                      "const": "30",
+                      "title": "series A"
+                    },
+                    {
+                      "const": "31",
+                      "title": "series A (추정)"
+                    },
+                    {
+                      "const": "32",
+                      "title": "series B"
+                    },
+                    {
+                      "const": "33",
+                      "title": "series B (추정)"
+                    },
+                    {
+                      "const": "34",
+                      "title": "series C"
+                    },
+                    {
+                      "const": "35",
+                      "title": "series C (추정)"
+                    },
+                    {
+                      "const": "36",
+                      "title": "series D"
+                    },
+                    {
+                      "const": "37",
+                      "title": "series D (추정)"
+                    },
+                    {
+                      "const": "38",
+                      "title": "series E"
+                    },
+                    {
+                      "const": "39",
+                      "title": "series E (추정)"
+                    },
+                    {
+                      "const": "40",
+                      "title": "series F"
+                    },
+                    {
+                      "const": "41",
+                      "title": "series F (추정)"
+                    },
+                    {
+                      "const": "42",
+                      "title": "series G"
+                    },
+                    {
+                      "const": "43",
+                      "title": "series G (추정)"
+                    },
+                    {
+                      "const": "50",
+                      "title": "pre-IPO"
+                    },
+                    {
+                      "const": "51",
+                      "title": "pre-IPO (추정)"
+                    },
+                    {
+                      "const": "55",
+                      "title": "IPO"
+                    },
+                    {
+                      "const": "56",
+                      "title": "IPO (추정)"
+                    },
+                    {
+                      "const": "60",
+                      "title": "지원금"
+                    },
+                    {
+                      "const": "61",
+                      "title": "지원금 (추정)"
+                    },
+                    {
+                      "const": "65",
+                      "title": "주식양수도"
+                    },
+                    {
+                      "const": "66",
+                      "title": "주식양수도 (추정)"
+                    },
+                    {
+                      "const": "70",
+                      "title": "M&A"
+                    },
+                    {
+                      "const": "71",
+                      "title": "M&A (추정)"
+                    },
+                    {
+                      "const": "99",
+                      "title": "비공개"
+                    }
+                  ],
+                  "title": "투자단계코드"
+                },
+                "invstVal": {
+                  "oneOf": [
+                    {
+                      "type": "null"
+                    },
+                    {
+                      "type": "string",
+                      "pattern": "^([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)$"
+                    },
+                    {
+                      "type": "integer"
+                    }
+                  ],
+                  "title": "투자금액"
+                },
+                "invstCdKr": {
+                  "oneOf": [
+                    {
+                      "type": "null"
+                    },
+                    {
+                      "type": "string",
+                      "maxLength": 50
+                    }
+                  ],
+                  "title": "투자단계한글"
+                },
+                "invstFromKr": {
+                  "oneOf": [
+                    {
+                      "type": "null"
+                    },
+                    {
+                      "type": "string",
+                      "maxLength": 2000
+                    }
+                  ],
+                  "title": "투자자한글"
+                }
+              },
+              "required": [
+                "corpId",
+                "corpUniqNum",
+                "id",
+                "invstAt",
+                "invstCd",
+                "invstVal",
+                "invstCdKr",
+                "invstFromKr"
+              ]
+            },
+            "title": "응답 데이터"
+          },
+          "dataCount": {
+            "type": "integer",
+            "title": "조회된 갯수 카운트"
+          },
+          "success": {
+            "type": "boolean",
+            "title": "성공여부"
+          },
+          "error": {
+            "type": "string",
+            "title": "에러발생시 에러메시지전달 (에러시에만 전달)"
+          },
+          "successMsg": {
+            "type": "string",
+            "title": "요청성공시 성공메시지전달 (성공시에만 전달)"
+          }
+        },
+        "required": [
+          "data",
+          "dataCount",
+          "success"
+        ]
+      },
+      "IInnoforest.IFindinvestInput": {
+        "type": "object",
+        "properties": {
+          "corpUniqNum": {
+            "type": "string",
+            "title": "혁신의숲 기업 Key"
+          }
+        },
+        "required": [
+          "corpUniqNum"
+        ]
+      },
+      "IInnoforest.IFindpatentOutput": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "corpId": {
+                  "type": "string",
+                  "maxLength": 10,
+                  "title": "혁신의숲 기업 Key"
+                },
+                "corpUniqNum": {
+                  "type": "string",
+                  "maxLength": 10,
+                  "title": "사업자등록번호"
+                },
+                "id": {
+                  "type": "integer",
+                  "title": "혁신의숲 특허 이력 Key"
+                },
+                "patntAt": {
+                  "type": "string",
+                  "maxLength": 10,
+                  "title": "특허출원일"
+                },
+                "patntOrgId": {
+                  "type": "string",
+                  "maxLength": 100,
+                  "title": "특허출원번호"
+                },
+                "patntName": {
+                  "oneOf": [
+                    {
+                      "type": "null"
+                    },
+                    {
+                      "type": "string",
+                      "maxLength": 500
+                    }
+                  ],
+                  "title": "출원인"
+                },
+                "patntRepName": {
+                  "oneOf": [
+                    {
+                      "type": "null"
+                    },
+                    {
+                      "type": "string",
+                      "maxLength": 500
+                    }
+                  ],
+                  "title": "출원대표자명"
+                },
+                "patntOwnName": {
+                  "oneOf": [
+                    {
+                      "type": "null"
+                    },
+                    {
+                      "type": "string",
+                      "maxLength": 500
+                    }
+                  ],
+                  "title": "현재소유자명"
+                },
+                "patntTitle": {
+                  "oneOf": [
+                    {
+                      "type": "null"
+                    },
+                    {
+                      "type": "string"
+                    }
+                  ],
+                  "title": "특허제목"
+                },
+                "patntSummr": {
+                  "oneOf": [
+                    {
+                      "type": "null"
+                    },
+                    {
+                      "type": "string"
+                    }
+                  ],
+                  "title": "특허요약"
+                },
+                "modifiedDate": {
+                  "oneOf": [
+                    {
+                      "type": "null"
+                    },
+                    {
+                      "type": "string"
+                    }
+                  ],
+                  "title": "수정시간"
+                }
+              },
+              "required": [
+                "corpId",
+                "corpUniqNum",
+                "id",
+                "patntAt",
+                "patntOrgId",
+                "patntName",
+                "patntRepName",
+                "patntOwnName",
+                "patntTitle",
+                "patntSummr",
+                "modifiedDate"
+              ]
+            },
+            "title": "응답 데이터"
+          },
+          "dataCount": {
+            "type": "integer",
+            "title": "조회된 갯수 카운트"
+          },
+          "success": {
+            "type": "boolean",
+            "title": "성공여부"
+          },
+          "error": {
+            "type": "string",
+            "title": "에러발생시 에러메시지전달 (에러시에만 전달)"
+          },
+          "successMsg": {
+            "type": "string",
+            "title": "요청성공시 성공메시지전달 (성공시에만 전달)"
+          }
+        },
+        "required": [
+          "data",
+          "dataCount",
+          "success"
+        ]
+      },
+      "IInnoforest.IFindpatentInput": {
+        "type": "object",
+        "properties": {
+          "corpUniqNum": {
+            "type": "string",
+            "title": "혁신의숲 기업 Key"
+          }
+        },
+        "required": [
+          "corpUniqNum"
+        ]
+      },
+      "IInnoforest.IFindpatentwordOutput": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "corpId": {
+                  "type": "string",
+                  "maxLength": 10,
+                  "title": "혁신의숲 기업 Key"
+                },
+                "corpUniqNum": {
+                  "type": "string",
+                  "maxLength": 10,
+                  "title": "사업자등록번호"
+                },
+                "patntWord": {
+                  "oneOf": [
+                    {
+                      "type": "null"
+                    },
+                    {
+                      "type": "string",
+                      "maxLength": 500
+                    }
+                  ],
+                  "title": "특허키워드"
+                },
+                "patntWordVal": {
+                  "oneOf": [
+                    {
+                      "type": "null"
+                    },
+                    {
+                      "type": "integer"
+                    }
+                  ],
+                  "title": "언급량"
+                },
+                "modifiedDate": {
+                  "oneOf": [
+                    {
+                      "type": "null"
+                    },
+                    {
+                      "type": "string"
+                    }
+                  ],
+                  "title": "수정시간"
+                }
+              },
+              "required": [
+                "corpId",
+                "corpUniqNum",
+                "patntWord",
+                "patntWordVal",
+                "modifiedDate"
+              ]
+            },
+            "title": "응답 데이터"
+          },
+          "dataCount": {
+            "type": "integer",
+            "title": "조회된 갯수 카운트"
+          },
+          "success": {
+            "type": "boolean",
+            "title": "성공여부"
+          },
+          "error": {
+            "type": "string",
+            "title": "에러발생시 에러메시지전달 (에러시에만 전달)"
+          },
+          "successMsg": {
+            "type": "string",
+            "title": "요청성공시 성공메시지전달 (성공시에만 전달)"
+          }
+        },
+        "required": [
+          "data",
+          "dataCount",
+          "success"
+        ]
+      },
+      "IInnoforest.IFindpatentwordInput": {
+        "type": "object",
+        "properties": {
+          "corpUniqNum": {
+            "type": "string",
+            "title": "혁신의숲 기업 Key"
+          }
+        },
+        "required": [
+          "corpUniqNum"
+        ]
+      },
+      "IInnoforest.IFindfinanceOutput": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "corpId": {
+                  "type": "string",
+                  "maxLength": 10,
+                  "title": "혁신의숲 기업 Key"
+                },
+                "corpUniqNum": {
+                  "type": "string",
+                  "maxLength": 10,
+                  "title": "사업자등록번호"
+                },
+                "finacAt": {
+                  "type": "string",
+                  "format": "date",
+                  "title": "결산기준일"
+                },
+                "finacType": {
+                  "type": "string",
+                  "maxLength": 100,
+                  "title": "결산타입"
+                },
+                "finacTgt": {
+                  "type": "string",
+                  "maxLength": 100,
+                  "title": "결산대상"
+                },
+                "finacVal": {
+                  "oneOf": [
+                    {
+                      "type": "null"
+                    },
+                    {
+                      "type": "string",
+                      "pattern": "^([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)$"
+                    },
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "string",
+                      "maxLength": 500
+                    }
+                  ],
+                  "title": "금액"
+                },
+                "modifiedDate": {
+                  "oneOf": [
+                    {
+                      "type": "null"
+                    },
+                    {
+                      "type": "string"
+                    }
+                  ],
+                  "title": "수정시간"
+                }
+              },
+              "required": [
+                "corpId",
+                "corpUniqNum",
+                "finacAt",
+                "finacType",
+                "finacTgt",
+                "finacVal",
+                "modifiedDate"
+              ]
+            },
+            "title": "응답 데이터"
+          },
+          "dataCount": {
+            "type": "integer",
+            "title": "조회된 갯수 카운트"
+          },
+          "success": {
+            "type": "boolean",
+            "title": "성공여부"
+          },
+          "error": {
+            "type": "string",
+            "title": "에러발생시 에러메시지전달 (에러시에만 전달)"
+          },
+          "successMsg": {
+            "type": "string",
+            "title": "요청성공시 성공메시지전달 (성공시에만 전달)"
+          }
+        },
+        "required": [
+          "data",
+          "dataCount",
+          "success"
+        ]
+      },
+      "IInnoforest.IFindfinanceInput": {
+        "type": "object",
+        "properties": {
+          "corpUniqNum": {
+            "type": "string",
+            "title": "혁신의숲 기업 Key"
+          }
+        },
+        "required": [
+          "corpUniqNum"
+        ]
+      },
+      "IInnoforest.IFindemployeeOutput": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "corpId": {
+                  "type": "string",
+                  "maxLength": 10,
+                  "title": "혁신의숲 기업 Key"
+                },
+                "corpUniqNum": {
+                  "type": "string",
+                  "maxLength": 10,
+                  "title": "사업자등록번호"
+                },
+                "empFrom": {
+                  "type": "string",
+                  "maxLength": 10,
+                  "title": "고용기준일"
+                },
+                "empWholeVal": {
+                  "oneOf": [
+                    {
+                      "type": "null"
+                    },
+                    {
+                      "type": "integer"
+                    }
+                  ],
+                  "title": "고용인원수"
+                },
+                "empInVal": {
+                  "oneOf": [
+                    {
+                      "type": "null"
+                    },
+                    {
+                      "type": "integer"
+                    }
+                  ],
+                  "title": "입사자수"
+                },
+                "empOutVal": {
+                  "oneOf": [
+                    {
+                      "type": "null"
+                    },
+                    {
+                      "type": "integer"
+                    }
+                  ],
+                  "title": "퇴사자수"
+                },
+                "modifiedDate": {
+                  "oneOf": [
+                    {
+                      "type": "null"
+                    },
+                    {
+                      "type": "string"
+                    }
+                  ],
+                  "title": "수정시간"
+                }
+              },
+              "required": [
+                "corpId",
+                "corpUniqNum",
+                "empFrom",
+                "empWholeVal",
+                "empInVal",
+                "empOutVal",
+                "modifiedDate"
+              ]
+            },
+            "title": "응답 데이터"
+          },
+          "dataCount": {
+            "type": "integer",
+            "title": "조회된 갯수 카운트"
+          },
+          "success": {
+            "type": "boolean",
+            "title": "성공여부"
+          },
+          "error": {
+            "type": "string",
+            "title": "에러발생시 에러메시지전달 (에러시에만 전달)"
+          },
+          "successMsg": {
+            "type": "string",
+            "title": "요청성공시 성공메시지전달 (성공시에만 전달)"
+          }
+        },
+        "required": [
+          "data",
+          "dataCount",
+          "success"
+        ]
+      },
+      "IInnoforest.IFindemployeeInput": {
+        "type": "object",
+        "properties": {
+          "corpUniqNum": {
+            "type": "string",
+            "title": "혁신의숲 기업 Key"
+          }
+        },
+        "required": [
+          "corpUniqNum"
+        ]
+      },
+      "IInnoforest.IFindpressOutput": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "corpId": {
+                  "type": "string",
+                  "maxLength": 10,
+                  "title": "혁신의숲 기업 Key"
+                },
+                "corpUniqNum": {
+                  "type": "string",
+                  "maxLength": 10,
+                  "title": "사업자등록번호"
+                },
+                "id": {
+                  "type": "integer",
+                  "title": "보도자료데이터key"
+                },
+                "pressAt": {
+                  "type": "string",
+                  "maxLength": 10,
+                  "title": "보도일"
+                },
+                "pressTypeCd": {
+                  "oneOf": [
+                    {
+                      "type": "null"
+                    },
+                    {
+                      "type": "string",
+                      "maxLength": 1
+                    }
+                  ],
+                  "title": "보도자료유형"
+                },
+                "pressTitle": {
+                  "oneOf": [
+                    {
+                      "type": "null"
+                    },
+                    {
+                      "type": "string",
+                      "maxLength": 500
+                    }
+                  ],
+                  "title": "보도자료제목"
+                },
+                "pressUrl": {
+                  "oneOf": [
+                    {
+                      "type": "null"
+                    },
+                    {
+                      "type": "string",
+                      "maxLength": 500
+                    }
+                  ],
+                  "title": "보도자료링크"
+                },
+                "modifiedDate": {
+                  "oneOf": [
+                    {
+                      "type": "null"
+                    },
+                    {
+                      "type": "string"
+                    }
+                  ],
+                  "title": "수정시간"
+                }
+              },
+              "required": [
+                "corpId",
+                "corpUniqNum",
+                "id",
+                "pressAt",
+                "pressTypeCd",
+                "pressTitle",
+                "pressUrl",
+                "modifiedDate"
+              ]
+            },
+            "title": "응답 데이터"
+          },
+          "dataCount": {
+            "type": "integer",
+            "title": "조회된 갯수 카운트"
+          },
+          "success": {
+            "type": "boolean",
+            "title": "성공여부"
+          },
+          "error": {
+            "type": "string",
+            "title": "에러발생시 에러메시지전달 (에러시에만 전달)"
+          },
+          "successMsg": {
+            "type": "string",
+            "title": "요청성공시 성공메시지전달 (성공시에만 전달)"
+          }
+        },
+        "required": [
+          "data",
+          "dataCount",
+          "success"
+        ]
+      },
+      "IInnoforest.IFindpressInput": {
+        "type": "object",
+        "properties": {
+          "corpUniqNum": {
+            "type": "string",
+            "title": "혁신의숲 기업 Key"
+          }
+        },
+        "required": [
+          "corpUniqNum"
         ]
       }
     }
