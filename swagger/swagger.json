@@ -15,7 +15,7 @@
     }
   ],
   "info": {
-    "version": "0.1.335",
+    "version": "0.1.336",
     "title": "@wrtn/connector",
     "description": "wrtn-ecosystem connectors and sdk",
     "license": {
@@ -12739,7 +12739,7 @@
             "type": "string",
             "x-wrtn-secret-key": "google",
             "x-wrtn-secret-scopes": [
-              "https://www.googleapis.com/auth/drive",
+              "https://www.googleapis.com/auth/drive.file",
               "https://www.googleapis.com/auth/documents"
             ],
             "title": "Select authentication information",
@@ -12777,7 +12777,7 @@
             "type": "string",
             "x-wrtn-secret-key": "google",
             "x-wrtn-secret-scopes": [
-              "https://www.googleapis.com/auth/drive",
+              "https://www.googleapis.com/auth/drive.file",
               "https://www.googleapis.com/auth/documents"
             ],
             "title": "Select authentication information",
@@ -12895,7 +12895,7 @@
             "type": "string",
             "x-wrtn-secret-key": "google",
             "x-wrtn-secret-scopes": [
-              "https://www.googleapis.com/auth/drive",
+              "https://www.googleapis.com/auth/drive.file",
               "https://www.googleapis.com/auth/documents"
             ],
             "title": "Select authentication information",
@@ -12943,7 +12943,7 @@
             "type": "string",
             "x-wrtn-secret-key": "google",
             "x-wrtn-secret-scopes": [
-              "https://www.googleapis.com/auth/drive",
+              "https://www.googleapis.com/auth/drive.file",
               "https://www.googleapis.com/auth/documents"
             ],
             "title": "Select authentication information",
@@ -13022,7 +13022,7 @@
             "type": "string",
             "x-wrtn-secret-key": "google",
             "x-wrtn-secret-scopes": [
-              "https://www.googleapis.com/auth/drive",
+              "https://www.googleapis.com/auth/drive.file",
               "https://www.googleapis.com/auth/documents"
             ],
             "title": "Select authentication information",
@@ -13067,7 +13067,7 @@
             "x-wrtn-secret-key": "google",
             "x-wrtn-secret-scopes": [
               "https://www.googleapis.com/auth/spreadsheets",
-              "https://www.googleapis.com/auth/drive"
+              "https://www.googleapis.com/auth/drive.file"
             ],
             "title": "Select authentication information",
             "description": "secret key."
@@ -13111,7 +13111,7 @@
             "x-wrtn-secret-key": "google",
             "x-wrtn-secret-scopes": [
               "https://www.googleapis.com/auth/spreadsheets",
-              "https://www.googleapis.com/auth/drive"
+              "https://www.googleapis.com/auth/drive.file"
             ],
             "title": "Select authentication information",
             "description": "secret key."
@@ -13157,7 +13157,7 @@
             "x-wrtn-secret-key": "google",
             "x-wrtn-secret-scopes": [
               "https://www.googleapis.com/auth/spreadsheets",
-              "https://www.googleapis.com/auth/drive"
+              "https://www.googleapis.com/auth/drive.file"
             ],
             "title": "Select authentication information",
             "description": "secret key."
@@ -13191,7 +13191,7 @@
             "x-wrtn-secret-key": "google",
             "x-wrtn-secret-scopes": [
               "https://www.googleapis.com/auth/spreadsheets",
-              "https://www.googleapis.com/auth/drive"
+              "https://www.googleapis.com/auth/drive.file"
             ],
             "title": "Select authentication information",
             "description": "secret key."
@@ -13264,7 +13264,7 @@
             "x-wrtn-secret-key": "google",
             "x-wrtn-secret-scopes": [
               "https://www.googleapis.com/auth/spreadsheets",
-              "https://www.googleapis.com/auth/drive"
+              "https://www.googleapis.com/auth/drive.file"
             ],
             "title": "Select authentication information",
             "description": "secret key."
@@ -13307,7 +13307,7 @@
             "x-wrtn-secret-key": "google",
             "x-wrtn-secret-scopes": [
               "https://www.googleapis.com/auth/spreadsheets",
-              "https://www.googleapis.com/auth/drive"
+              "https://www.googleapis.com/auth/drive.file"
             ],
             "title": "Select authentication information",
             "description": "secret key."
@@ -13360,7 +13360,7 @@
             "x-wrtn-secret-key": "google",
             "x-wrtn-secret-scopes": [
               "https://www.googleapis.com/auth/spreadsheets",
-              "https://www.googleapis.com/auth/drive"
+              "https://www.googleapis.com/auth/drive.file"
             ],
             "title": "Select authentication information",
             "description": "secret key."
@@ -14347,7 +14347,7 @@
             "type": "string",
             "x-wrtn-secret-key": "google",
             "x-wrtn-secret-scopes": [
-              "https://www.googleapis.com/auth/drive"
+              "https://www.googleapis.com/auth/drive.file"
             ],
             "title": "Select authentication information",
             "description": "secret key."
@@ -14430,7 +14430,7 @@
             "type": "string",
             "x-wrtn-secret-key": "google",
             "x-wrtn-secret-scopes": [
-              "https://www.googleapis.com/auth/drive"
+              "https://www.googleapis.com/auth/drive.file"
             ],
             "title": "Select authentication information",
             "description": "secret key."
@@ -14467,7 +14467,7 @@
             "type": "string",
             "x-wrtn-secret-key": "google",
             "x-wrtn-secret-scopes": [
-              "https://www.googleapis.com/auth/drive"
+              "https://www.googleapis.com/auth/drive.file"
             ],
             "title": "Select authentication information",
             "description": "secret key."
@@ -14524,7 +14524,7 @@
             "type": "string",
             "x-wrtn-secret-key": "google",
             "x-wrtn-secret-scopes": [
-              "https://www.googleapis.com/auth/drive"
+              "https://www.googleapis.com/auth/drive.file"
             ],
             "title": "Select authentication information",
             "description": "secret key."
@@ -14573,7 +14573,7 @@
             "type": "string",
             "x-wrtn-secret-key": "google",
             "x-wrtn-secret-scopes": [
-              "https://www.googleapis.com/auth/drive"
+              "https://www.googleapis.com/auth/drive.file"
             ],
             "title": "Select authentication information",
             "description": "secret key."
@@ -20314,7 +20314,7 @@
             "type": "string",
             "x-wrtn-secret-key": "google",
             "x-wrtn-secret-scopes": [
-              "https://www.googleapis.com/auth/drive"
+              "https://www.googleapis.com/auth/drive.file"
             ],
             "title": "Select authentication information",
             "description": "secret key."
