@@ -49,6 +49,7 @@ export const test_api_connector_google_slides_create_presentation = async (
     );
 
   typia.assert(res);
+  return res;
 };
 
 /**

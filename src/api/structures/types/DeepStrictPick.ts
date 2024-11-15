@@ -37,7 +37,6 @@ type RemoveAfterDot<
     : never;
 
 /**
- * @title 인터페이스에서 특정 키만을 뽑는 타입.
  * {@link DeepStrictObjectKeys} 을 이용해서 뽑을 키를 고를 수 있다.
  *
  * ```ts
@@ -45,6 +44,8 @@ type RemoveAfterDot<
  * type Example2 = DeepStrictMyPick<{ a: { b: 1; c: { d: number }[] } }, "a.c[*].d">;
  * type Example3 = DeepStrictMyPick<{ a: 1 }[], "[*].a">;
  * ```
+ *
+ * @title 인터페이스에서 특정 키만을 뽑는 타입.
  */
 export type DeepStrictPick<
   T extends object,

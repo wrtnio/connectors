@@ -34,8 +34,6 @@ export namespace IJira {
   >;
 
   /**
-   * @title BasicAuthorization
-   *
    * To call the API in Jira, you must have API Token,
    * the domain address that will be the user's Jira workspace,
    * and the user's email address that the user is currently using in Jira.
@@ -43,35 +41,37 @@ export namespace IJira {
    * If the user did not provide these values at the time of the connector call,
    * you should ask the user to give them.
    * There is no point in substituting any value here.
+   *
+   * @title BasicAuthorization
    */
   export interface BasicAuthorization {
     /**
-     * @title email in Jira
-     *
      * Indicates the email address that the user is using in the Jira workspace.
      * It must be an email address that Jira is using, not any email address of the user.
      * This email is used for Basic Authentication with API Token.
+     *
+     * @title email in Jira
      */
     email: string;
 
     /**
-     * @title jira api token
-     *
      * User can access {@link https://id.atlassian.com/manage-profile/security/api-tokens} and get it issued.
      *
      * This is the user's API Token.
      * It is a token used in place of the user's basic authentication password, and if the user has not been issued, it should be able to guide the address to be issued to the user.
      * If the user does not have this token, Jira's API cannot be called.
+     *
+     * @title jira api token
      */
     token: string;
 
     /**
-     * @title domain of your workspace site in Jira
-     *
      * Address in the form of 'https://*.atlassian.net '.
      * It always starts with https:// and the string in the middle can vary from team to team.
      * Therefore, you must receive this address directly from the user.
      * All authentication is available only when you know both the user's email and API token for each workspace URL address.
+     *
+     * @title domain of your workspace site in Jira
      */
     domain: string & tags.Pattern<"^(https:\\/\\/(.*)\\.atlassian\\.net)$">;
   }
@@ -159,13 +159,17 @@ export namespace IJira {
   }
 
   export interface IGetCommentInput
+    extends StrictOmit<IJira.__IGetCommentInput, "domain" | "email" | "token">,
+      IJira.IBasicSecret {}
+
+  export interface __IGetCommentInput
     extends BasicAuthorization,
       ICommonPaginationInput {
     /**
-     * @title issue id or key
-     *
      * This connector doesn't matter the key or ID of the issue.
      * If you hand over one of them, you can use it to look up.
+     *
+     * @title issue id or key
      */
     issueIdOrKey:
       | (Issue["id"] &
@@ -182,12 +186,19 @@ export namespace IJira {
           }>);
   }
 
-  export interface IDeleteCommentInput extends BasicAuthorization {
+  export interface IDeleteCommentInput
+    extends StrictOmit<
+        IJira.__IDeleteCommentInput,
+        "domain" | "email" | "token"
+      >,
+      IJira.IBasicSecret {}
+
+  export interface __IDeleteCommentInput extends BasicAuthorization {
     /**
-     * @title issue id or key
-     *
      * This connector doesn't matter the key or ID of the issue.
      * If you hand over one of them, you can use it to look up.
+     *
+     * @title issue id or key
      */
     issueIdOrKey:
       | (Issue["id"] &
@@ -227,12 +238,31 @@ export namespace IJira {
      */
     body: StrictOmit<Comment["body"], "content"> & {
       /**
-       * @title contents of description
-       *
        * You must use markdown format string.
        *
        * It is recommended to contain as much detail as possible on the issue raised by the user,
        * so that the next person who reads this issue can see the summary and description of this issue to resolve the issue.
+       *
+       * @title contents of description
+       */
+      content: string;
+    };
+  }
+
+  export interface __ICreateCommentByMarkdownInput
+    extends StrictOmit<ICreateCommentInput, "body">,
+      IJira.IBasicSecret {
+    /**
+     * @title body of comment
+     */
+    body: StrictOmit<Comment["body"], "content"> & {
+      /**
+       * You must use markdown format string.
+       *
+       * It is recommended to contain as much detail as possible on the issue raised by the user,
+       * so that the next person who reads this issue can see the summary and description of this issue to resolve the issue.
+       *
+       * @title contents of description
        */
       content: string;
     };
@@ -240,10 +270,10 @@ export namespace IJira {
 
   export interface ICreateCommentInput extends BasicAuthorization {
     /**
-     * @title issue id or key
-     *
      * This connector doesn't matter the key or ID of the issue.
      * If you hand over one of them, you can use it to look up.
+     *
+     * @title issue id or key
      */
     issueIdOrKey:
       | (Issue["id"] &
@@ -291,21 +321,28 @@ export namespace IJira {
       id: string;
 
       /**
-       * @title to
-       *
        * StatusDetail.
        * Details of the issue status after the transition.
+       *
+       * @title to
        */
       to: MyPick<Status, "id" | "description" | "name" | "statusCategory">;
     }[];
   }
 
-  export interface IUpdateStatusInput extends BasicAuthorization {
+  export interface IUpdateStatusInput
+    extends StrictOmit<
+        IJira.__IUpdateStatusInput,
+        "domain" | "email" | "token"
+      >,
+      IJira.IBasicSecret {}
+
+  export interface __IUpdateStatusInput extends BasicAuthorization {
     /**
-     * @title issue id or key
-     *
      * This connector doesn't matter the key or ID of the issue.
      * If you hand over one of them, you can use it to look up.
+     *
+     * @title issue id or key
      */
     issueIdOrKey:
       | (Issue["id"] &
@@ -332,12 +369,18 @@ export namespace IJira {
       }>;
   }
 
-  export interface IGetTransitionInput extends BasicAuthorization {
+  export interface IGetTransitionInput
+    extends StrictOmit<
+        IJira.__IGetTransitionInput,
+        "domain" | "email" | "token"
+      >,
+      IJira.IBasicSecret {}
+  export interface __IGetTransitionInput extends BasicAuthorization {
     /**
-     * @title issue id or key
-     *
      * This connector doesn't matter the key or ID of the issue.
      * If you hand over one of them, you can use it to look up.
+     *
+     * @title issue id or key
      */
     issueIdOrKey:
       | (Issue["id"] &
@@ -354,19 +397,27 @@ export namespace IJira {
           }>);
   }
 
-  export type IUnAssignInput = StrictOmit<IAssignInput, "asigneeId">;
+  export interface IUnAssignInput
+    extends StrictOmit<IJira.__IUnAssignInput, "domain" | "email" | "token">,
+      IJira.IBasicSecret {}
 
-  export interface IAssignInput extends BasicAuthorization {
+  export type __IUnAssignInput = StrictOmit<__IAssignInput, "asigneeId">;
+
+  export interface IAssignInput
+    extends StrictOmit<IJira.__IAssignInput, "domain" | "email" | "token">,
+      IJira.IBasicSecret {}
+
+  export interface __IAssignInput extends BasicAuthorization {
     /**
      * @title ID of issue
      */
     issueId: Issue["id"];
 
     /**
-     * @title accountId of the user you want to designate as the person in charge
-     *
      * If you want to designate a person in charge, you need that user's ID. Therefore, you need to look up the user first. There are connectors that look up who can be assigned to a project or issue. You can find the ID of the person in charge by choosing what you want.
      * The person in charge is inevitably one of Jira's users.
+     *
+     * @title accountId of the user you want to designate as the person in charge
      */
     asigneeId: User["accountId"] &
       (
@@ -394,12 +445,12 @@ export namespace IJira {
      */
     body: StrictOmit<Comment["body"], "content"> & {
       /**
-       * @title contents of description
-       *
        * You must use markdown format string.
        *
        * It is recommended to contain as much detail as possible on the issue raised by the user,
        * so that the next person who reads this issue can see the summary and description of this issue to resolve the issue.
+       *
+       * @title contents of description
        */
       content: string;
     };
@@ -411,10 +462,10 @@ export namespace IJira {
         StrictOmit<ICreateCommentInput, keyof BasicAuthorization | "body">
       > {
     /**
-     * @title issue id or key
-     *
      * This connector doesn't matter the key or ID of the issue.
      * If you hand over one of them, you can use it to look up.
+     *
+     * @title issue id or key
      */
     issueIdOrKey:
       | (Issue["id"] &
@@ -441,10 +492,14 @@ export namespace IJira {
     body: Comment["body"];
   }
 
+  export interface IUpdateIssueInput
+    extends StrictOmit<IJira.__IUpdateIssueInput, "domain" | "email" | "token">,
+      IJira.IBasicSecret {}
+
   /**
    * @title Issue update Conditions
    */
-  export interface IUpdateIssueInput
+  export interface __IUpdateIssueInput
     extends BasicAuthorization,
       MyPartial<
         StrictOmit<ICreateIssueInput, keyof BasicAuthorization | "fields">
@@ -452,25 +507,16 @@ export namespace IJira {
     /**
      * @title fields to update
      */
-    fields: MyPartial<ICreateIssueInput["fields"]>;
-  }
-
-  export interface ICreateIssueByMarkdownInput extends IJira.IBasicSecret {
-    /**
-     * @title fields
-     *
-     * Indicates the fields that you need to fill in when you want to create an issue.
-     */
-    fields: {
+    fields: MyPartial<{
       /**
        * @title Specify a representative at the same time as you create
        */
       assignee?: {
         /**
-         * @title accountId of the user you want to designate as the person in charge
-         *
          * If you want to designate a person in charge, you need that user's ID. Therefore, you need to look up the user first. There are connectors that look up who can be assigned to a project or issue. You can find the ID of the person in charge by choosing what you want.
          * The person in charge is inevitably one of Jira's users.
+         *
+         * @title accountId of the user you want to designate as the person in charge
          */
         id:
           | null
@@ -508,21 +554,21 @@ export namespace IJira {
         version: 1;
 
         /**
-         * @title contents of description
-         *
          * You must use markdown format string.
          *
          * It is recommended to contain as much detail as possible on the issue raised by the user,
          * so that the next person who reads this issue can see the summary and description of this issue to resolve the issue.
+         *
+         * @title contents of description
          */
         content: string;
       };
 
       /**
-       * @title due date
-       *
        * date format type.
        * Indicates the schedule you want to be closed.Of course, it will be good to create a date or today.
+       *
+       * @title due date
        */
       duedate?: string & tags.Format<"date">;
 
@@ -531,8 +577,6 @@ export namespace IJira {
        */
       issuetype: {
         /**
-         * @title id of issue type
-         *
          * The ID of the issue.
          * Sometimes the user can say the name of the issue type,
          * such as 'bug' or 'story', but you cannot specify the issue type with the name of the issue type.
@@ -541,6 +585,7 @@ export namespace IJira {
          *
          * However, if you handed over the number string type from the beginning, it could be the ID of the issue type.
          *
+         * @title id of issue type
          * @inheritdoc
          */
         id: IssueType["id"] &
@@ -552,9 +597,10 @@ export namespace IJira {
       };
 
       /**
-       * @title labels
        * You can add labels to make it easier to read issues.
        * Labels are simply strings, which can be added immediately without having to look up using other connectors.
+       *
+       * @title labels
        */
       labels?: string[];
 
@@ -563,11 +609,11 @@ export namespace IJira {
        */
       parent?: {
         /**
-         * @title key of parent issue
-         *
          * Sometimes an issue can be a sub-issue of another issue.
          * In this case, you need to specify the key for the parent issue.
          * If you want to know the key, use an issue list query or another connector to look up the details of the issue.
+         *
+         * @title key of parent issue
          */
         key: Issue["key"] &
           Prerequisite<{
@@ -582,12 +628,12 @@ export namespace IJira {
        */
       priority?: {
         /**
-         * @title id of proirity
-         *
          * You can prioritize issues.
          * Users can also prioritize issues in natural languages such as Low, Medium, High, and so on,
          * but when creating issues, ID values for these priorities are required.
          * Therefore, you should first call a connector that looks up what priorities are available for the project and issue.
+         *
+         * @title id of proirity
          */
         id: Priority["id"] &
           Prerequisite<{
@@ -598,11 +644,11 @@ export namespace IJira {
       };
 
       /**
-       * @title project
-       *
        * Issues must inevitably belong to the project.
        * At this point, the project can be specified by receiving an ID or key.
        * If you do not know the key or ID of the project, you should first look up the project.
+       *
+       * @title project
        */
       project:
         | {
@@ -629,10 +675,189 @@ export namespace IJira {
           };
 
       /**
-       * @title summary
-       *
        * Meaning the title of the issue.
        * Make sure you write a sentence that best represents this issue.
+       *
+       * @title summary
+       */
+      summary: string;
+    }>;
+  }
+
+  export interface ICreateIssueByMarkdownInput extends IJira.IBasicSecret {
+    /**
+     * @title fields
+     *
+     * Indicates the fields that you need to fill in when you want to create an issue.
+     */
+    fields: {
+      /**
+       * @title Specify a representative at the same time as you create
+       */
+      assignee?: {
+        /**
+         * If you want to designate a person in charge, you need that user's ID. Therefore, you need to look up the user first. There are connectors that look up who can be assigned to a project or issue. You can find the ID of the person in charge by choosing what you want.
+         * The person in charge is inevitably one of Jira's users.
+         *
+         * @title accountId of the user you want to designate as the person in charge
+         */
+        id:
+          | null
+          | (User["accountId"] &
+              (
+                | Prerequisite<{
+                    method: "post";
+                    path: "/connector/jira/issues/get-users-assignable";
+                    jmesPath: "[].{value:accountId, label:displayName}";
+                  }>
+                | Prerequisite<{
+                    method: "post";
+                    path: "/connector/jira/project/get-users-assignable";
+                    jmesPath: "[].{value:accountId, label:displayName}";
+                  }>
+              ));
+      };
+
+      /**
+       * @title description
+       *
+       * The content of the Jira issue consists of a combination of various contents.
+       */
+      description?: {
+        /**
+         * @title type of description
+         *
+         * Allow doc type only Now
+         */
+        type: "doc";
+
+        /**
+         * @title version
+         *
+         * version only can be number 1
+         */
+        version: 1;
+
+        /**
+         * You must use markdown format string.
+         *
+         * It is recommended to contain as much detail as possible on the issue raised by the user,
+         * so that the next person who reads this issue can see the summary and description of this issue to resolve the issue.
+         *
+         * @title contents of description
+         */
+        content: string;
+      };
+
+      /**
+       * @title issuetype
+       */
+      issuetype: {
+        /**
+         * The ID of the issue.
+         * Sometimes the user can say the name of the issue type,
+         * such as 'bug' or 'story', but you cannot specify the issue type with the name of the issue type.
+         * Because there can be types with the same name.
+         * Therefore, you must check the issue type with a different connector to verify that it is an issue type that can be used in the project.
+         *
+         * However, if you handed over the number string type from the beginning, it could be the ID of the issue type.
+         *
+         * @title id of issue type
+         * @inheritdoc
+         */
+        id: IssueType["id"] &
+          Prerequisite<{
+            method: "post";
+            path: "/connector/jira/get-issue-types";
+            jmesPath: "issuetypes[].{value:id, label:name}";
+          }>;
+      };
+
+      /**
+       * You can add labels to make it easier to read issues.
+       * Labels are simply strings, which can be added immediately without having to look up using other connectors.
+       *
+       * @title labels
+       */
+      labels?: string[];
+
+      /**
+       * @title parent of this issue
+       */
+      parent?: {
+        /**
+         * Sometimes an issue can be a sub-issue of another issue.
+         * In this case, you need to specify the key for the parent issue.
+         * If you want to know the key, use an issue list query or another connector to look up the details of the issue.
+         *
+         * @title key of parent issue
+         */
+        key: Issue["key"] &
+          Prerequisite<{
+            method: "post";
+            path: "/connector/jira/get-issues";
+            jmesPath: "issues[].{value:key, label:key}";
+          }>;
+      };
+
+      /**
+       * @title priority
+       */
+      priority?: {
+        /**
+         * You can prioritize issues.
+         * Users can also prioritize issues in natural languages such as Low, Medium, High, and so on,
+         * but when creating issues, ID values for these priorities are required.
+         * Therefore, you should first call a connector that looks up what priorities are available for the project and issue.
+         *
+         * @title id of proirity
+         */
+        id: Priority["id"] &
+          Prerequisite<{
+            method: "post";
+            path: "/connector/jira/get-issue-priorities";
+            jmesPath: "[].{value:id, label:name}";
+          }>;
+      };
+
+      /**
+       * Issues must inevitably belong to the project.
+       * At this point, the project can be specified by receiving an ID or key.
+       * If you do not know the key or ID of the project, you should first look up the project.
+       *
+       * project's id is number or number string type and project's key type is only string.
+       *
+       * @title project
+       */
+      project:
+        | {
+            /**
+             * @title id of project
+             */
+            id: Project["id"] &
+              Prerequisite<{
+                method: "post";
+                path: "/connector/jira/get-projects";
+                jmesPath: "[].{value:id, label:name}";
+              }>;
+          }
+        | {
+            /**
+             * @title key of project
+             */
+            key: Project["key"] &
+              Prerequisite<{
+                method: "post";
+                path: "/connector/jira/get-project";
+                jmesPath: "[].{value:key, label:name}";
+              }>;
+          };
+
+      /**
+       * Meaning the title of the issue.
+       * Make sure you write a sentence that best represents this issue.
+       *
+       * @title summary
        */
       summary: string;
     };
@@ -649,9 +874,9 @@ export namespace IJira {
    */
   export interface ICreateIssueInput extends BasicAuthorization {
     /**
-     * @title fields
-     *
      * Indicates the fields that you need to fill in when you want to create an issue.
+     *
+     * @title fields
      */
     fields: {
       /**
@@ -659,10 +884,10 @@ export namespace IJira {
        */
       assignee?: {
         /**
-         * @title accountId of the user you want to designate as the person in charge
-         *
          * If you want to designate a person in charge, you need that user's ID. Therefore, you need to look up the user first. There are connectors that look up who can be assigned to a project or issue. You can find the ID of the person in charge by choosing what you want.
          * The person in charge is inevitably one of Jira's users.
+         *
+         * @title accountId of the user you want to designate as the person in charge
          */
         id:
           | null
@@ -700,21 +925,21 @@ export namespace IJira {
         version: 1;
 
         /**
-         * @title contents of description
-         *
          * You must use node types that are configured with TopLevelBlockNodes.
          *
          * It is recommended to contain as much detail as possible on the issue raised by the user,
          * so that the next person who reads this issue can see the summary and description of this issue to resolve the issue.
+         *
+         * @title contents of description
          */
         content: TopLevelBlockNode[];
       };
 
       /**
-       * @title due date
-       *
        * date format type.
        * Indicates the schedule you want to be closed.Of course, it will be good to create a date or today.
+       *
+       * @title due date
        */
       duedate?: string & tags.Format<"date">;
 
@@ -723,8 +948,6 @@ export namespace IJira {
        */
       issuetype: {
         /**
-         * @title id of issue type
-         *
          * The ID of the issue.
          * Sometimes the user can say the name of the issue type,
          * such as 'bug' or 'story', but you cannot specify the issue type with the name of the issue type.
@@ -733,6 +956,7 @@ export namespace IJira {
          *
          * However, if you handed over the number string type from the beginning, it could be the ID of the issue type.
          *
+         * @title id of issue type
          * @inheritdoc
          */
         id: IssueType["id"] &
@@ -744,9 +968,10 @@ export namespace IJira {
       };
 
       /**
-       * @title labels
        * You can add labels to make it easier to read issues.
        * Labels are simply strings, which can be added immediately without having to look up using other connectors.
+       *
+       * @title labels
        */
       labels?: string[];
 
@@ -755,11 +980,11 @@ export namespace IJira {
        */
       parent?: {
         /**
-         * @title key of parent issue
-         *
          * Sometimes an issue can be a sub-issue of another issue.
          * In this case, you need to specify the key for the parent issue.
          * If you want to know the key, use an issue list query or another connector to look up the details of the issue.
+         *
+         * @title key of parent issue
          */
         key: Issue["key"] &
           Prerequisite<{
@@ -774,12 +999,12 @@ export namespace IJira {
        */
       priority?: {
         /**
-         * @title id of proirity
-         *
          * You can prioritize issues.
          * Users can also prioritize issues in natural languages such as Low, Medium, High, and so on,
          * but when creating issues, ID values for these priorities are required.
          * Therefore, you should first call a connector that looks up what priorities are available for the project and issue.
+         *
+         * @title id of proirity
          */
         id: Priority["id"] &
           Prerequisite<{
@@ -790,11 +1015,11 @@ export namespace IJira {
       };
 
       /**
-       * @title project
-       *
        * Issues must inevitably belong to the project.
        * At this point, the project can be specified by receiving an ID or key.
        * If you do not know the key or ID of the project, you should first look up the project.
+       *
+       * @title project
        */
       project:
         | {
@@ -821,10 +1046,10 @@ export namespace IJira {
           };
 
       /**
-       * @title summary
-       *
        * Meaning the title of the issue.
        * Make sure you write a sentence that best represents this issue.
+       *
+       * @title summary
        */
       summary: string;
     };
@@ -838,26 +1063,53 @@ export namespace IJira {
   }
 
   export interface IGetIssueLabelInput
+    extends StrictOmit<
+        IJira.__IGetIssueLabelInput,
+        "domain" | "email" | "token"
+      >,
+      IJira.IBasicSecret {}
+
+  export interface __IGetIssueLabelInput
     extends BasicAuthorization,
       ICommonPaginationInput {}
 
   export type IGetIssuePriorityOutput = MyPick<Priority, "id" | "name">[];
 
-  export type IGetIssuePriorityInput = BasicAuthorization;
+  export interface IGetIssuePriorityInput
+    extends StrictOmit<
+        IJira.__IGetIssuePriorityInput,
+        "domain" | "email" | "token"
+      >,
+      IJira.IBasicSecret {}
+
+  export type __IGetIssuePriorityInput = BasicAuthorization;
 
   export interface IGetIssueStatusOutput {
+    /**
+     * @title statuses
+     */
     statuses: (MyPick<Status, "id" | "name" | "untranslatedName"> & {
+      /**
+       * @title projectId
+       */
       projectId?: string;
     })[];
   }
 
-  export interface IGetIssueStatusInput extends BasicAuthorization {
+  export interface IGetIssueStatusInput
+    extends StrictOmit<
+        IJira.__IGetIssueStatusInput,
+        "domain" | "email" | "token"
+      >,
+      IJira.IBasicSecret {}
+
+  export interface __IGetIssueStatusInput extends BasicAuthorization {
     /**
-     * @title id of project
-     *
      * If the status does not have the project ID,
      * it means this status is beyond the scope of the project and can be selected by the entire team.
      * It can also be the default status created from the beginning by Jira.
+     *
+     * @title id of project
      */
     projectId?: Project["id"] &
       Prerequisite<{
@@ -881,7 +1133,7 @@ export namespace IJira {
     /**
      * @title issue type
      */
-    issuetype?: string &
+    issuetype?: IssueType["id"] &
       Prerequisite<{
         method: "post";
         path: "/connector/jira/get-issue-types";
@@ -926,12 +1178,12 @@ export namespace IJira {
     keyword?: string;
 
     /**
-     * @title priority name
-     *
      * If you want to search based on priority, deliver the name of the priority.
      * There are five priorities: 'Highest', 'High', 'Medium', 'Low', and 'Lowest'.
      * Although it is a Deprecated feature, you can still query the priority level that can be assigned to an issue with the API.
      * It also exists as our connector, so use it if necessary.
+     *
+     * @title priority name
      */
     priority?: string &
       Prerequisite<{
@@ -975,18 +1227,18 @@ export namespace IJira {
     text: string;
 
     /**
-     * @title marks
-     *
      * It means the emphasis of the markdown format, and it means that there is a string between the backticks.
+     *
+     * @title marks
      */
     marks?: Mark[];
   };
 
   /**
-   * @title Blockquote node
-   *
    * The blockquote node is a container for quotes.
    * blockquote is a top-level block node.
+   *
+   * @title Blockquote node
    */
   export type BlockquoteNode = {
     /**
@@ -999,6 +1251,8 @@ export namespace IJira {
      * - paragraph with no marks.
      * - bulletList
      * - orderedList
+     *
+     * @title content
      */
     content: (ParagraphContentWithoutNoMarks | ListNode)[] & tags.MinItems<1>;
   };
@@ -1007,12 +1261,15 @@ export namespace IJira {
    * @title code block
    */
   export type CodeBlockNode = {
+    /**
+     * @title type
+     */
     type: "codeBlock";
 
     /**
-     * @title attrs
-     *
      * If you do not specify a programming language, this property may not exist.
+     *
+     * @title attrs
      */
     attrs?: {
       /**
@@ -1022,12 +1279,15 @@ export namespace IJira {
     };
 
     /**
-     * @title code content
-     *
      * content takes an array of one or more text nodes without marks.
+     *
+     * @title code content
      */
     content?: [
       {
+        /**
+         * @title type
+         */
         type: "text";
 
         /**
@@ -1133,10 +1393,10 @@ export namespace IJira {
     type: "heading";
 
     /**
-     * @title content
-     *
      * Heading node's content can be combined with only inline nodes.
      * A property called marks is not available here.
+     *
+     * @title content
      */
     content: (
       | EmojiNode
@@ -1181,9 +1441,10 @@ export namespace IJira {
      */
     attrs: {
       /**
-       * @title url
        * Indicates the address value that the inline card will represent.
        * To allow you to move when you click on the card, you need to put a link in advance.
+       *
+       * @title url
        */
       url: string & tags.Format<"iri">;
 
@@ -1201,6 +1462,9 @@ export namespace IJira {
    */
   export type MediaNode =
     | {
+        /**
+         * @title type
+         */
         type: "media";
 
         /**
@@ -1209,23 +1473,30 @@ export namespace IJira {
         attrs: {
           /**
            * width defines the display width of the media item in pixels. Must be provided within mediaSingle or the media isn't displayed.
+           *
+           * @title width
            */
           width?: number;
 
           /**
            * height defines the display height of the media item in pixels. Must be provided within mediaSingle or the media isn't displayed.
+           *
+           * @title height
            */
           height?: number;
 
           /**
            * id is the Media Services ID and is used for querying the media services API to retrieve metadata, such as, filename. Consumers of the document should always fetch fresh metadata using the Media API.
+           *
+           * @title id
            */
           id?: string;
 
           /**
-           * @title type
            * There are three types.
            * However, in our service, we have to use "external" type only, because we are only considering universal users who do not save images through Media API, but save images through external links.
+           *
+           * @title type
            */
           type: "link" | "file";
         };
@@ -1236,6 +1507,9 @@ export namespace IJira {
         marks: LookUp<Mark, "link">;
       }
     | {
+        /**
+         * @title type
+         */
         type: "media";
 
         /**
@@ -1244,23 +1518,30 @@ export namespace IJira {
         attrs: {
           /**
            * width defines the display width of the media item in pixels. Must be provided within mediaSingle or the media isn't displayed.
+           *
+           * @title width
            */
           width?: number;
 
           /**
            * height defines the display height of the media item in pixels. Must be provided within mediaSingle or the media isn't displayed.
+           *
+           * @title height
            */
           height?: number;
 
           /**
            * id is the Media Services ID and is used for querying the media services API to retrieve metadata, such as, filename. Consumers of the document should always fetch fresh metadata using the Media API.
+           *
+           * @title id
            */
           id?: string;
 
           /**
-           * @title type
            * There are three types.
            * However, in our service, we have to use "external" type only, because we are only considering universal users who do not save images through Media API, but save images through external links.
+           *
+           * @title type
            */
           type: "external";
 
@@ -1272,11 +1553,15 @@ export namespace IJira {
       };
 
   export type MediaGroupNode = {
+    /**
+     * @title type
+     */
     type: "mediaGroup";
 
     /**
-     * @title content
      * content must contain one or more media nodes.
+     *
+     * @title content
      */
     content: MediaNode[];
   };
@@ -1295,6 +1580,9 @@ export namespace IJira {
      */
     type: "mediaSingle";
 
+    /**
+     * @title attrs
+     */
     attrs: {
       /**
        * layout determines the placement of the node on the page. wrap-left and wrap-right provide an image floated to the left or right of the page respectively, with text wrapped around it. center center aligns the image as a block, while wide does the same but bleeds into the margins. full-width makes the image stretch from edge to edge of the page.
@@ -1310,11 +1598,15 @@ export namespace IJira {
 
       /**
        * width determines the width of the image as a percentage of the width of the text content area. Has no effect if layout mode is wide or full-width.
+       *
+       * @title width
        */
       width?: number & tags.Minimum<0> & tags.Maximum<100>;
 
       /**
        * widthType [optional] determines what the "unit" of the width attribute is presenting. Possible values are pixel and percentage. If the widthType attribute is undefined, it fallbacks to percentage.
+       *
+       * @title widthType
        */
       widthType?: ("pixel" | "percentage") & tags.Default<"percentage">;
     };
@@ -1367,10 +1659,24 @@ export namespace IJira {
    * The panel node is a container that highlights content.
    */
   export type PanelNode = {
+    /**
+     * @title type
+     */
     type: "panel";
+
+    /**
+     * @title attrs
+     */
     attrs: {
+      /**
+       * @title panelType
+       */
       panelType: "info" | "note" | "warning" | "success" | "error";
     };
+
+    /**
+     * @title content
+     */
     content: (
       | ListNode
       | HeadingNodeWithoutMarks
@@ -1388,6 +1694,9 @@ export namespace IJira {
      */
     type: "paragraph";
 
+    /**
+     * @title attrs
+     */
     attrs?: never | Record<string, never>;
 
     /**
@@ -1407,6 +1716,9 @@ export namespace IJira {
      */
     type: "paragraph";
 
+    /**
+     * @title attrs
+     */
     attrs?: never | Record<string, never>;
 
     /**
@@ -1427,6 +1739,9 @@ export namespace IJira {
    * The rule node represents a divider, it is equivalent to the HTML <hr/> tag.
    */
   export type RuleNode = {
+    /**
+     * @title type
+     */
     type: "rule";
   };
 
@@ -1436,11 +1751,24 @@ export namespace IJira {
    * Note: only supported on web and desktop. Mobile rendering support for tables is not available.
    */
   export type TableNode = {
+    /**
+     * @title type
+     */
     type: "table";
+
+    /**
+     * @title content
+     */
     content: TableRowNode[];
+
+    /**
+     * @title attrs
+     */
     attrs?: {
       /**
        * When isNumberColumnEnabled is set to 'true' the first table column provides numbering for the table rows.
+       *
+       * @title isNumberColumnEnabled
        */
       isNumberColumnEnabled?: (true | false) & tags.Default<true>;
 
@@ -1459,6 +1787,8 @@ export namespace IJira {
        * - > 3 column table = 144px
        * - Maximum width
        * - 1800
+       *
+       * @title width
        */
       width?: number & tags.Minimum<0>;
 
@@ -1467,6 +1797,8 @@ export namespace IJira {
        * The layout values are mapped as follows:
        * - 'center' : will align the table to the center of page, its width can be larger than the line length
        * - 'align-start' : will align the table left of the line length, its width cannot be larger than the line length
+       *
+       * @title layout
        */
       layout?: "center" | "align-start";
 
@@ -1474,13 +1806,22 @@ export namespace IJira {
        * displayMode attribute controls how tables adapt to narrow screens:
        * When displayMode is set to 'default' or left unset, the table's columns will automatically scale down to accommodate narrow screens, with a maximum reduction of up to 40%.
        * When displayMode is set to 'fixed', the table's columns will maintain their original width, regardless of screen size.
+       *
+       * @title displayMode
        */
       displayMode?: "default" | "fixed";
     };
   };
 
   export type TableCellNode = {
+    /**
+     * @title type
+     */
     type: "tableCell";
+
+    /**
+     * @title content
+     */
     content: (
       | BlockquoteNode
       | ListNode
@@ -1492,15 +1833,21 @@ export namespace IJira {
       | RuleNode
     )[];
 
+    /**
+     * @title attrs
+     */
     attrs?: {
       /**
        * Short or long hex color code or HTML color name
+       *
+       * @title background
        */
       background?: string;
 
       /**
-       * @title colspan
        * colspan defines the number of columns the cell spans.
+       *
+       * @title colspan
        */
       colspan?: number & tags.Type<"uint64"> & tags.Default<1>;
 
@@ -1510,6 +1857,8 @@ export namespace IJira {
        * The length of the array should be equal to the number of spanned columns.
        * 0 is permitted as an array value if the column size is not fixed,
        * for example, a cell merged across 3 columns where one unfixed column is surrounded by two fixed might be represented as `[120, 0, 120].
+       *
+       * @title colwidth
        */
       colwidth?: [
         number & tags.Type<"uint64">,
@@ -1518,15 +1867,23 @@ export namespace IJira {
       ];
 
       /**
-       * @title rowspan
        * rowspan defines the number of rows a cell spans.
+       *
+       * @title rowspan
        */
       rowspan?: number & tags.Type<"uint64"> & tags.Default<1>;
     };
   };
 
   export type TableHeaderNode = {
+    /**
+     * @title type
+     */
     type: "tableHeader";
+
+    /**
+     * @title content
+     */
     content: (
       | BlockquoteNode
       | ListNode
@@ -1538,15 +1895,21 @@ export namespace IJira {
       | RuleNode
     )[];
 
+    /**
+     * @title attrs
+     */
     attrs?: {
       /**
        * Short or long hex color code or HTML color name
+       *
+       * @title background
        */
       background?: string;
 
       /**
-       * @title colspan
        * colspan defines the number of columns the cell spans.
+       *
+       * @title colspan
        */
       colspan?: number & tags.Type<"uint64"> & tags.Default<1>;
 
@@ -1556,6 +1919,8 @@ export namespace IJira {
        * The length of the array should be equal to the number of spanned columns.
        * 0 is permitted as an array value if the column size is not fixed,
        * for example, a cell merged across 3 columns where one unfixed column is surrounded by two fixed might be represented as `[120, 0, 120].
+       *
+       * @title colwidth
        */
       colwidth?: [
         number & tags.Type<"uint64">,
@@ -1564,8 +1929,9 @@ export namespace IJira {
       ];
 
       /**
-       * @title rowspan
        * rowspan defines the number of rows a cell spans.
+       *
+       * @title rowspan
        */
       rowspan?: number & tags.Type<"uint64"> & tags.Default<1>;
     };
@@ -1574,19 +1940,24 @@ export namespace IJira {
   /**
    * The tableRow node defines rows within a table and is a container for table heading and table cell nodes.
    * tableRow is a child block node of the table node.
+   *
+   * @title TableRowNode
    */
   export type TableRowNode = {
+    /**
+     * @title type
+     */
     type: "tableRow";
 
     /**
      * content takes an array of one or more tableHeader or tableCell nodes.
+     *
+     * @title content
      */
     content: (TableHeaderNode | TableCellNode)[];
   };
 
   /**
-   * @title TopLevelBlockNode
-   *
    * It refers to the types of content that are directly below the 'doc' type and can be used at the outermost level.
    * These are the types separated by the TopLevelBlockNode in the Jira document.
    *
@@ -1602,6 +1973,8 @@ export namespace IJira {
    * - rule
    * - table
    * - multiBodiedExtension
+   *
+   * @title TopLevelBlockNode
    */
   export type TopLevelBlockNode =
     | BlockquoteNode
@@ -1616,10 +1989,10 @@ export namespace IJira {
     | TableNode;
 
   /**
-   * @title inlineNode
-   *
    * An inline node is the nodes that belong to Paragrap and are used to write.
    * Typically used as a child node for a Paragrap node.
+   *
+   * @title inlineNode
    */
   export type InlineNode =
     | EmojiNode
@@ -1628,12 +2001,19 @@ export namespace IJira {
     | MentionNode
     | TextContent;
 
-  export interface IGetIssueDetailInput extends BasicAuthorization {
+  export interface IGetIssueDetailInput
+    extends StrictOmit<
+        IJira.__IGetIssueDetailInput,
+        "domain" | "email" | "token"
+      >,
+      IJira.IBasicSecret {}
+
+  export interface __IGetIssueDetailInput extends BasicAuthorization {
     /**
-     * @title issue id or key
-     *
      * This connector doesn't matter the key or ID of the issue.
      * If you hand over one of them, you can use it to look up.
+     *
+     * @title issue id or key
      */
     issueIdOrKey:
       | (Issue["id"] &
@@ -1651,6 +2031,13 @@ export namespace IJira {
   }
 
   export interface IGetIssueInputByBasicAuth
+    extends StrictOmit<
+        IJira.__IGetIssueInputByBasicAuth,
+        "domain" | "email" | "token"
+      >,
+      IJira.IBasicSecret {}
+
+  export interface __IGetIssueInputByBasicAuth
     extends BasicAuthorization,
       ICommonPaginationInput,
       IGetIssueCommonRequestInput {}
@@ -1666,6 +2053,13 @@ export namespace IJira {
   >[];
 
   export interface IGetIssueAssignableInput
+    extends StrictOmit<
+        IJira.__IGetIssueAssignableInput,
+        "domain" | "email" | "token"
+      >,
+      IJira.IBasicSecret {}
+
+  export interface __IGetIssueAssignableInput
     extends ICommonPaginationInput,
       BasicAuthorization {
     /**
@@ -1707,9 +2101,23 @@ export namespace IJira {
 
   export type IGetStatusCategoryOutput = StatusCategory[];
 
-  export type IGetStatusCategoryInput = BasicAuthorization;
+  export interface IGetStatusCategoryInput
+    extends StrictOmit<
+        IJira.__IGetStatusCategoryInput,
+        "domain" | "email" | "token"
+      >,
+      IJira.IBasicSecret {}
+
+  export type __IGetStatusCategoryInput = BasicAuthorization;
 
   export interface IGetProjectAssignableInput
+    extends StrictOmit<
+        IJira.__IGetProjectAssignableInput,
+        "domain" | "email" | "token"
+      >,
+      IJira.IBasicSecret {}
+
+  export interface __IGetProjectAssignableInput
     extends ICommonPaginationInput,
       BasicAuthorization {
     /**
@@ -1739,7 +2147,14 @@ export namespace IJira {
     issuetypes: IssueType[];
   }
 
-  export interface IGetIssueTypeInput extends BasicAuthorization {
+  export interface IGetIssueTypeInput
+    extends StrictOmit<
+        IJira.__IGetIssueTypeInput,
+        "domain" | "email" | "token"
+      >,
+      IJira.IBasicSecret {}
+
+  export interface __IGetIssueTypeInput extends BasicAuthorization {
     /**
      * @title id of project
      */
@@ -1752,6 +2167,13 @@ export namespace IJira {
   }
 
   export interface IGetProjectInputByBasicAuth
+    extends StrictOmit<
+        IJira.__IGetProjectInputByBasicAuth,
+        "domain" | "email" | "token"
+      >,
+      IJira.IBasicSecret {}
+
+  export interface __IGetProjectInputByBasicAuth
     extends BasicAuthorization,
       ICommonPaginationInput {
     /**
@@ -1837,7 +2259,10 @@ export namespace IJira {
   }
 
   export interface IssueType {
-    id: `${number}`;
+    /**
+     * @title issuetype's id
+     */
+    id: (string & tags.Pattern<"^(0|[1-9]\\d*)$">) | number;
 
     /**
      * @title issue type name
@@ -1902,7 +2327,13 @@ export namespace IJira {
       comments: Comment[];
     };
 
+    /**
+     * @title description
+     */
     description: null | {
+      /**
+       * @title content
+       */
       content: TopLevelBlockNode[];
     };
   }
@@ -1927,7 +2358,14 @@ export namespace IJira {
      * @title body of comment
      */
     body: {
+      /**
+       * @title type
+       */
       type: "doc";
+
+      /**
+       * @title version
+       */
       version: 1;
 
       /**
@@ -1950,8 +2388,6 @@ export namespace IJira {
 
   export interface IssueField {
     /**
-     * @title statuscategorychangedate
-     *
      * The date and time when the status category of the issue was last changed.
      *
      * This property indicates the most recent timestamp when the issue transitioned
@@ -1960,6 +2396,8 @@ export namespace IJira {
      * - "To Do": The issue is pending and not yet started.
      * - "In Progress": The issue is currently being worked on.
      * - "Done": The issue has been completed.
+     *
+     * @title statuscategorychangedate
      */
     statuscategorychangedate?: string | null;
 
@@ -2018,6 +2456,9 @@ export namespace IJira {
      */
     key: string;
 
+    /**
+     * @title fields
+     */
     fields: {
       /**
        * @title summary
@@ -2057,7 +2498,7 @@ export namespace IJira {
     /**
      * @title id
      */
-    id: `${number}`;
+    id: (string & tags.Pattern<"^(0|[1-9]\\d*)$">) | number;
 
     /**
      * @title key of project
@@ -2133,7 +2574,9 @@ export namespace IJira {
     /**
      * @title id
      */
-    id: `${number}`;
+    id:
+      | (string & tags.Pattern<"([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)">)
+      | number;
 
     /**
      * @title meaning of this priority level
@@ -2143,7 +2586,14 @@ export namespace IJira {
 
   export type Mark =
     | {
+        /**
+         * @title type
+         */
         type: "backgroundColor";
+
+        /**
+         * @title attrs
+         */
         attrs: {
           /**
            * @title color
@@ -2154,13 +2604,26 @@ export namespace IJira {
         };
       }
     | {
+        /**
+         * @title type
+         */
         type: "code";
       }
     | {
+        /**
+         * @title type
+         */
         type: "em";
       }
     | {
+        /**
+         * @title type
+         */
         type: "link";
+
+        /**
+         * @title attrs
+         */
         attrs: {
           /**
            * @title link
@@ -2169,19 +2632,42 @@ export namespace IJira {
         };
       }
     | {
+        /**
+         * @title type
+         */
         type: "strike";
       }
     | {
+        /**
+         * @title type
+         */
         type: "strong";
       }
     | {
+        /**
+         * @title type
+         */
         type: "subsup";
+
+        /**
+         * @title attrs
+         */
         attrs: {
+          /**
+           * @title type
+           */
           type: "sub" | "sup";
         };
       }
     | {
+        /**
+         * @title type
+         */
         type: "textColor";
+
+        /**
+         * @title attrs
+         */
         attrs: {
           /**
            * @title color
@@ -2192,6 +2678,9 @@ export namespace IJira {
         };
       }
     | {
+        /**
+         * @title type
+         */
         type: "underline";
       };
 

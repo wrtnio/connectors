@@ -1,63 +1,72 @@
 import core, { TypedBody, TypedParam } from "@nestia/core";
 import { Controller } from "@nestjs/common";
-import { ICalendly } from "@wrtn/connector-api/lib/structures/connector/calendly/ICalendly";
-import { Prerequisite } from "@wrtnio/decorators";
-import typia from "typia";
-import { CalendlyProvider } from "../../../providers/connector/calendly/CalendlyProvider";
 import { ApiTags } from "@nestjs/swagger";
+import { ICalendly } from "@wrtn/connector-api/lib/structures/connector/calendly/ICalendly";
+import { Prerequisite, RouteIcon } from "@wrtnio/decorators";
+import { CalendlyProvider } from "../../../providers/connector/calendly/CalendlyProvider";
 
 @Controller("connector/calendly")
 export class CalendlyController {
   constructor(private readonly calendlyProvider: CalendlyProvider) {}
 
   /**
+   * Creates a scheduling link for the authenticated user.
+   *
+   * This link can be shared with others to allow them to schedule meetings with the user based on their availability.
+   *
    * @summary Create a new scheduling link
-   * @description Creates a scheduling link for the authenticated user.
    * @param input The necessary details to create the scheduling link.
    * @returns The created scheduling link details.
    */
-  @core.TypedRoute.Post("scheduling_links")
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/calendly.svg",
+  )
   @ApiTags("Calendly")
+  @core.TypedRoute.Post("scheduling_links")
   async createSchedulingLink(
     @TypedBody() input: ICalendly.CreateSchedulingLinkInput,
   ): Promise<ICalendly.CreateSchedulingLinkOutput> {
     const data = await this.calendlyProvider.createSchedulingLink(input);
-    const validated = typia.misc.validateClone(data);
-    if (validated.success === false) {
-      console.error(JSON.stringify(validated.errors, null, 2));
-    }
     return data;
   }
 
   /**
+   * Retrieves the event types available for the user or organization.
+   *
+   * This is useful to show what types of meetings can be scheduled, such as one-on-one meetings, group meetings, etc.
+   *
    * @summary List all event types
-   * @description Retrieves the event types available for the user or organization. Useful to show what types of meetings can be scheduled.
    * @param input The input required to retrieve event types.
    * @returns The list of event types.
    */
-  @core.TypedRoute.Post("get-event-types")
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/calendly.svg",
+  )
   @ApiTags("Calendly")
+  @core.TypedRoute.Post("get-event-types")
   async getEventTypes(
     @TypedBody() input: ICalendly.IGetEventTypeInput,
   ): Promise<ICalendly.IGetEventTypeOutput> {
     const data = await this.calendlyProvider.getEventTypes(input);
-    const validated = typia.misc.validateClone(data);
-    if (validated.success === false) {
-      console.error(JSON.stringify(validated.errors, null, 2));
-    }
     return data;
   }
 
   /**
+   * Retrieves the cancel link for a specific invitee in an event.
+   *
+   * This link allows the invitee to cancel their participation in the event if needed.
+   *
    * @summary Get cancel link for invitee
-   * @description Retrieves the cancel link for a specific invitee in an event.
    * @param eventId The ID of the event.
    * @param inviteeId The ID of the invitee.
    * @param input Additional input for cancel link retrieval.
    * @returns The cancel link for the invitee.
    */
-  @core.TypedRoute.Post("events/:eventId/invitees/:inviteeId/get-cancel-link")
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/calendly.svg",
+  )
   @ApiTags("Calendly")
+  @core.TypedRoute.Post("events/:eventId/invitees/:inviteeId/get-cancel-link")
   async cancel(
     @Prerequisite({
       neighbor: () => CalendlyController.prototype.getScheduledEvents,
@@ -78,23 +87,25 @@ export class CalendlyController {
       inviteeId,
       input,
     );
-    const data = await invitee.resource.cancel_url;
-    const validated = typia.misc.validateClone(data);
-    if (validated.success === false) {
-      console.error(JSON.stringify(validated.errors, null, 2));
-    }
+    const data = invitee.resource.cancel_url;
     return data;
   }
 
   /**
+   * Fetches the detailed information of a specific scheduled event by its UUID.
+   *
+   * This includes information such as the event's date, time, participants, and any notes or agenda items.
+   *
    * @summary Get details of a scheduled event
-   * @description Fetches the detailed information of a specific scheduled event by its UUID.
    * @param eventId The UUID of the event.
    * @param input Additional input for event retrieval.
    * @returns The detailed information of the scheduled event.
    */
-  @core.TypedRoute.Post("get-events/:eventId")
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/calendly.svg",
+  )
   @ApiTags("Calendly")
+  @core.TypedRoute.Post("get-events/:eventId")
   async getOneScheduledEvent(
     @TypedParam("eventId") eventId: ICalendly.Event["uuid"],
     @TypedBody() input: ICalendly.IGetOneScheduledEventInput,
@@ -103,42 +114,46 @@ export class CalendlyController {
       eventId,
       input,
     );
-    const validated = typia.misc.validateClone(data);
-    if (validated.success === false) {
-      console.error(JSON.stringify(validated.errors, null, 2));
-    }
     return data;
   }
 
   /**
+   * Retrieves all scheduled events within a given time period or based on certain criteria.
+   *
+   * This can help users manage their calendar by viewing all upcoming events.
+   *
    * @summary Get all scheduled events
-   * @description Retrieves all scheduled events within a given time period or based on certain criteria.
    * @param input The input to filter scheduled events.
    * @returns The list of scheduled events.
    */
-  @core.TypedRoute.Post("get-scheduled-events")
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/calendly.svg",
+  )
   @ApiTags("Calendly")
+  @core.TypedRoute.Post("get-scheduled-events")
   async getScheduledEvents(
     @TypedBody() input: ICalendly.IGetScheduledEventInput,
   ): Promise<ICalendly.IGetScheduledEventOutput> {
     const data = await this.calendlyProvider.getScheduledEvents(input);
-    const validated = typia.misc.validateClone(data);
-    if (validated.success === false) {
-      console.error(JSON.stringify(validated.errors, null, 2));
-    }
     return data;
   }
 
   /**
+   * Marks an invitee as a no-show for a specific event.
+   *
+   * This is useful for tracking attendance and managing follow-ups with participants who did not attend.
+   *
    * @summary Mark an invitee as no-show
-   * @description Marks an invitee as a no-show for a specific event.
    * @param eventId The UUID of the event.
    * @param inviteeId The UUID of the invitee.
    * @param input Additional input for no-show marking.
    * @returns The result of the no-show marking.
    */
-  @core.TypedRoute.Post("events/:eventId/invitees/:inviteeId/no-show")
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/calendly.svg",
+  )
   @ApiTags("Calendly")
+  @core.TypedRoute.Post("events/:eventId/invitees/:inviteeId/no-show")
   async checkNoShow(
     @TypedParam("eventId") eventId: ICalendly.Event["uuid"],
     @TypedParam("inviteeId") inviteeId: ICalendly.Invitee["uuid"],
@@ -149,95 +164,98 @@ export class CalendlyController {
       inviteeId,
       input,
     );
-    const validated = typia.misc.validateClone(data);
-    if (validated.success === false) {
-      console.error(JSON.stringify(validated.errors, null, 2));
-    }
     return data;
   }
 
   /**
+   * Retrieves the details of a specific invitee for a scheduled event.
+   *
+   * This includes information such as the invitee's name, email, and any notes or preferences they have provided.
+   *
    * @summary Get invitee details
-   * @description Retrieves the details of a specific invitee for a scheduled event.
    * @param eventId The UUID of the event.
    * @param inviteeId The UUID of the invitee.
    * @param input Additional input for invitee retrieval.
    * @returns The details of the invitee.
    */
-  @core.TypedRoute.Post("events/:eventId/invitees/:inviteeId")
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/calendly.svg",
+  )
   @ApiTags("Calendly")
+  @core.TypedRoute.Post("events/:eventId/invitees/:inviteeId")
   async getOneInvite(
     @TypedParam("eventId") eventId: ICalendly.Event["uuid"],
     @TypedParam("inviteeId") inviteeId: ICalendly.Invitee["uuid"],
     @TypedBody() input: ICalendly.IGetOneInviteInput,
   ): Promise<ICalendly.IGetOneScheduledEventInviteeOutput> {
-    const invitee = await this.calendlyProvider.getOneInvitee(
+    const data = await this.calendlyProvider.getOneInvitee(
       eventId,
       inviteeId,
       input,
     );
-    const data = await invitee;
-    const validated = typia.misc.validateClone(data);
-    if (validated.success === false) {
-      console.error(JSON.stringify(validated.errors, null, 2));
-    }
     return data;
   }
 
   /**
+   * Retrieves the list of invitees for a scheduled event.
+   * 
+   * This can be used to see who is expected to attend and manage communications with them.
+
    * @summary Get all invitees for a scheduled event
-   * @description Retrieves the list of invitees for a scheduled event.
    * @param input The input to filter invitees.
    * @returns The list of invitees for the event.
    */
-  @core.TypedRoute.Post("events/get-invitees")
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/calendly.svg",
+  )
   @ApiTags("Calendly")
+  @core.TypedRoute.Post("events/get-invitees")
   async getInvitees(
     @TypedBody() input: ICalendly.IGetScheduledEventInviteeInput,
   ): Promise<ICalendly.IGetScheduledEventInviteeOutput> {
     const data = await this.calendlyProvider.getInvitees(input);
-    const validated = typia.misc.validateClone(data);
-    if (validated.success === false) {
-      console.error(JSON.stringify(validated.errors, null, 2));
-    }
     return data;
   }
 
   /**
+   * Allows users to create a one-off event type for special occasions or single events.
+   * 
+   * This is useful for events that do not fit into regular scheduling patterns.
+
    * @summary Create a one-off event type
-   * @description Allows users to create a one-off event type for special occasions or single events.
    * @param input The details needed to create a one-off event type.
    * @returns The created one-off event type details.
    */
-  @core.TypedRoute.Post("one-off-event-types")
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/calendly.svg",
+  )
   @ApiTags("Calendly")
+  @core.TypedRoute.Post("one-off-event-types")
   async createOneOffEventType(
     @TypedBody() input: ICalendly.ICreateOneOffEventTypeInput,
   ): Promise<ICalendly.ICreateOneOffEventTypeOutput> {
     const data = await this.calendlyProvider.createOneOffEventType(input);
-    const validated = typia.misc.validateClone(data);
-    if (validated.success === false) {
-      console.error(JSON.stringify(validated.errors, null, 2));
-    }
     return data;
   }
 
   /**
+   * Retrieves the details of the authenticated user.
+   *
+   * This is useful for confirming user information during event creation and ensuring that the correct user is associated with the events.
+   *
    * @summary Get authenticated user details
-   * @description Retrieves the details of the authenticated user. Useful for confirming user information during event creation.
    * @param input The input required to get the user details.
    * @returns The authenticated user's details.
    */
-  @core.TypedRoute.Post("users/get-me")
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/calendly.svg",
+  )
   @ApiTags("Calendly")
+  @core.TypedRoute.Post("users/get-me")
   async getUserInfo(
     @TypedBody() input: ICalendly.IGetUserInfoInput,
   ): Promise<ICalendly.IGetUserInfoOutput> {
     const data = await this.calendlyProvider.getUserInfo(input);
-    const validated = typia.misc.validateClone(data);
-    if (validated.success === false) {
-      console.error(JSON.stringify(validated.errors, null, 2));
-    }
     return data;
   }
 }

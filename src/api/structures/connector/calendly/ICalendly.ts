@@ -4,6 +4,9 @@ import { ICommon } from "../common/ISecretValue";
 
 export namespace ICalendly {
   export type IGetUserInfoOutput = {
+    /**
+     * @title resource
+     */
     resource: User;
   };
 
@@ -19,15 +22,17 @@ export namespace ICalendly {
 
   export interface ICreateOneOffEventTypeInput extends Secret {
     /**
-     * @title name
      * Event type name
+     *
+     * @title name
      * @example "My Meeting"
      */
     name: string & tags.MaxLength<55> & Placeholder<"My Meeting">;
 
     /**
-     * @title host
      * Host user uri
+     *
+     * @title host
      * @example "https://api.calendly.com/users/AAAAAAAAAAAAAAAA"
      */
     host: string &
@@ -54,8 +59,9 @@ export namespace ICalendly {
       tags.Maximum<720>;
 
     /**
-     * @title timezone
      * Time zone used for meeting. Defaults to host's time zone.
+     *
+     * @title timezone
      * @example "America/New_York"
      */
     timezone?: string & Placeholder<"America/New_York">;
@@ -103,13 +109,23 @@ export namespace ICalendly {
   }
 
   export interface IGetOneScheduledEventInviteeOutput {
+    /**
+     * @title resource
+     */
     resource: Invitee;
   }
 
   export type IGetOneScheduledEventInviteeInput = Secret;
 
   export interface IGetScheduledEventInviteeOutput {
+    /**
+     * @title collection
+     */
     collection: Invitee[];
+
+    /**
+     * @title pagination
+     */
     pagination: Pagination;
   }
 
@@ -120,8 +136,9 @@ export namespace ICalendly {
     scheduled_event_uuid: string;
 
     /**
-     * @title count
      * The number of rows to return (1 to 100)
+     *
+     * @title count
      * @default 20
      * @minimum 1
      * @maximum 100
@@ -129,8 +146,9 @@ export namespace ICalendly {
     count?: number & tags.Minimum<1> & tags.Maximum<100> & tags.Default<20>;
 
     /**
-     * @title email
      * Filter results by email address (optional)
+     *
+     * @title email
      * @example "bob@example.com"
      */
     email?: string & tags.Format<"email">;
@@ -142,9 +160,10 @@ export namespace ICalendly {
     page_token?: string;
 
     /**
-     * @title sort
      * Order results by the `created_at` field and direction.
      * Allowed values: "asc" for ascending, "desc" for descending.
+     *
+     * @title sort
      * @default "created_at:asc"
      */
     sort?:
@@ -155,8 +174,9 @@ export namespace ICalendly {
       | tags.Default<"created_at:asc">;
 
     /**
-     * @title status
      * Filter by invitee status (either "active" or "canceled").
+     *
+     * @title status
      * @enum ["active", "canceled"]
      */
     status?:
@@ -206,96 +226,104 @@ export namespace ICalendly {
       tags.Default<20>;
 
     /**
-     * @title Whose event is it?
-     *
      * - If you are an administrator/owner of an organization, you can use both and to get a list of events for a specific user within an organization user.
      * - If you are the administrator/owner of an organization, you can use both and to get a list of events for a specific group within an organization group.
      * - User Only available for requesting private events; events within all organizations that are currently or previously affiliated are returned.
+     *
+     * @title Whose event is it?
      */
     who:
       | {
           /**
-           * @title user
            * Return events that are scheduled with the user associated with this URI.
            * There must be either a user or a group.
            *
+           * @title user
            * @example "https://api.calendly.com/users/EBHAAFHDCAEQTSEZ"
            */
           user: string & tags.Format<"iri">;
 
           /**
-           * @title group
            * Return events that are scheduled with the group associated with this URI.
            * There must be either a user or a group.
+           *
+           * @title group
            */
           group: string & tags.Format<"iri">;
         }
       | {
           /**
-           * @title user
            * Return events that are scheduled with the user associated with this URI.
            * There must be either a user or a group.
            *
+           * @title user
            * @example "https://api.calendly.com/users/EBHAAFHDCAEQTSEZ"
            */
           user: string & tags.Format<"iri">;
 
           /**
-           * @title group
            * Return events that are scheduled with the group associated with this URI.
            * There must be either a user or a group.
+           *
+           * @title group
            */
           group: string & tags.Format<"iri">;
         }
       | {
           /**
-           * @title user
            * Return events that are scheduled with the user associated with this URI.
            * There must be either a user or a group.
            *
+           * @title user
            * @example "https://api.calendly.com/users/EBHAAFHDCAEQTSEZ"
            */
           user: string & tags.Format<"iri">;
         };
 
     /**
-     * @title organization
      * Return events that are scheduled with the organization associated with this URI.
+     *
+     * @title organization
      * @example "https://api.calendly.com/organizations/EBHAAFHDCAEQTSEZ"
      */
     organization?: string & tags.Format<"iri">;
 
     /**
-     * @title invitee_email
      * Return events that are scheduled with the invitee associated with this email address.
+     *
+     * @title invitee_email
      * @example alice@example.com
      */
     invitee_email?: string & tags.Format<"email">;
 
     /**
-     * @title max_start_time
      * Include events with start times prior to this time. This time should use the UTC timezone.
+     *
+     * @title max_start_time
      * @example "2020-01-02T12:30:00.000000Z"
      */
     max_start_time?: string & tags.Format<"date-time">;
 
     /**
-     * @title min_start_time
      * Include events with start times after this time. This time should use the UTC timezone.
+     *
+     * @title min_start_time
      * @example "2020-01-02T12:30:00.000000Z"
      */
     min_start_time?: string & tags.Format<"date-time">;
 
     /**
-     * @title page_token
      * The token to pass to get the next or previous portion of the collection.
+     *
+     * @title page_token
      */
     page_token?: string;
 
     /**
-     * @title sort
      * Order results by the specified field and direction. Accepts comma-separated list of {field}:{direction} values.
      * Supported fields are: start_time. Sort direction is specified as: asc, desc.
+     *
+     * @title sort
      * @example "start_time:asc"
      */
     sort?:
@@ -303,9 +331,10 @@ export namespace ICalendly {
       | tags.Constant<"start_time:desc", { title: "시작 시간 역순 정렬" }>;
 
     /**
-     * @title status
      * Whether the scheduled event is active or canceled.
      * Allowed values: active, canceled.
+     *
+     * @title status
      */
     status?:
       | tags.Constant<"active", { title: "active" }>
@@ -313,11 +342,21 @@ export namespace ICalendly {
   }
 
   export interface IGetEventTypeOutput {
+    /**
+     * @title collection
+     */
     collection: EventType[];
+
+    /**
+     * @title pagination
+     */
     pagination: Pagination;
   }
 
   export interface CreateSchedulingLinkOutput {
+    /**
+     * @title resource
+     */
     resource: {
       /**
        * @title Scheduling link url
@@ -325,41 +364,49 @@ export namespace ICalendly {
       booking_url: string & tags.Format<"iri">;
 
       /**
-       * @title owner
        * A link to the resource that owns this Scheduling Link (currently, this is always an Event Type)
+       *
+       * @title owner
        */
       owner: EventType["uri"];
 
       /**
-       * @title owner_type
        * Resource type (currently, this is always EventType)
+       *
+       * @title owner_type
        */
       owner_type: "EventType";
     };
   }
 
   export interface CreateSchedulingLinkInput extends Secret {
+    /**
+     * @title owner
+     */
     owner: EventType["uri"];
   }
 
   export interface IGetEventTypeInput extends Secret {
     /**
-     * @title admin_managed
      * Return only admin managed event types if true, exclude admin managed event types if false, or include all event types if this parameter is omitted.
+     *
+     * @title admin_managed
      */
     admin_managed?: boolean;
 
     /**
-     * @title organization
      * View available personal, team, and organization event types associated with the organization's URI.
      * user or organization must be filled.
+     *
+     * @title organization
      */
     organization?: string & tags.Format<"iri">;
 
     /**
-     * @title user
      * View available personal, team, and organization event types associated with the user's URI.
      * user or organization must be filled.
+     *
+     * @title user
      */
     user?: User["uri"] &
       Prerequisite<{
@@ -374,14 +421,16 @@ export namespace ICalendly {
     user_availability_schedule?: string & tags.Format<"iri">;
 
     /**
-     * @title active
      * Return only active event types if true, only inactive if false, or all event types if this parameter is omitted.
+     *
+     * @title active
      */
     active?: boolean;
 
     /**
-     * @title count
      * The number of rows to return
+     *
+     * @title count
      */
     count?: number &
       tags.Type<"uint32"> &
@@ -390,16 +439,18 @@ export namespace ICalendly {
       tags.Default<20>;
 
     /**
-     * @title page_token
      * The token to pass to get the next or previous portion of the collection.
+     *
+     * @title page_token
      */
     page_token?: string;
 
     /**
-     * @title sort
      * Order results by the specified field and direction. Accepts comma-separated list of {field}:{direction} values.
      * Supported fields are: name, position, created_at, updated_at. Sort direction is specified as: asc, desc.
      * It must be one of: 'name:asc', 'name:desc', 'position:asc', 'position:desc', 'created_at:asc', 'created_at:desc', 'updated_at:asc', 'updated_at:desc'.
+     *
+     * @title sort
      */
     sort?:
       | tags.Constant<"name:asc", { title: "이름 정순 정렬" }>
@@ -416,55 +467,63 @@ export namespace ICalendly {
 
   export type EventType = {
     /**
-     * @title uri
      * Canonical reference (unique identifier) for the event type.
      * For example, 'https://api.calendly.com/event_types/AAAAAAAAAAAAAAAA'
+     *
+     * @title uri
      */
     uri: string & tags.Format<"iri">;
 
     /**
-     * @title name
      * The event type name (in human-readable format)
+     *
+     * @title name
      */
     name: (string & Placeholder<"15 Minute Meeting">) | null;
 
     /**
-     * @title active
      * Indicates if the event is active or not.
+     *
+     * @title active
      */
     active: boolean;
 
     /**
-     * @title slug
      * The portion of the event type's URL that identifies a specific web page (in a human-readable format)
+     *
+     * @title slug
      */
     slug: (string & Placeholder<"acmesales">) | null;
 
     /**
-     * @title schduling_url
      * The URL of the user’s scheduling site where invitees book this event type
+     *
+     * @title schduling_url
      */
     scheduling_url: string &
       tags.Format<"uri"> &
       Placeholder<"https://calendly.com/acmesales">;
 
     /**
-     * @title duration
      * The length of sessions booked with this event type
+     *
+     * @title duration
      */
     duration: number & tags.Type<"uint32"> & Placeholder<"30">;
 
     /**
-     * @title kind
      * Indicates if the event type is "solo" (belongs to an individual user) or "group"
+     *
+     * @title kind
      */
     kind:
       | tags.Constant<"solo", { title: "solo" }>
       | tags.Constant<"group", { title: "group" }>;
 
     /**
-     * @title pooling_type
      * Indicates if the event type is "round robin" (alternates between hosts) or "collective" (invitees pick a time when all participants are available) or “multi-pool” (considers availability delineated by pools of participants) or "null" (the event type doesn’t consider the availability of a group participants)
+     *
+     * @title pooling_type
      */
     pooling_type:
       | tags.Constant<"round_robin", { title: "round_robin" }>
@@ -473,66 +532,76 @@ export namespace ICalendly {
       | null;
 
     /**
-     * @title type
      * Indicates if the event type is "AdhocEventType" (ad hoc event) or "StandardEventType" (standard event type)
+     *
+     * @title type
      */
     type:
       | tags.Constant<"StandardEventType", { title: "StandardEventType" }>
       | tags.Constant<"AdhocEventType", { title: "AdhocEventType" }>;
 
     /**
-     * @title color
      * The hexadecimal color value of the event type's scheduling page
+     *
+     * @title color
      */
     color: string &
       tags.Pattern<"^#([0-9A-Fa-f]{6})$"> &
       Placeholder<"#fff200">;
 
     /**
-     * @title created_at
      * The moment the event type was created (e.g. "2020-01-02T03:04:05.678123Z")
+     *
+     * @title created_at
      */
     created_at: string | tags.Format<"date-time">;
 
     /**
-     * @title updated_at
      * The moment the event type was last updated (e.g. "2020-01-02T03:04:05.678123Z")
+     *
+     * @title updated_at
      */
     updated_at: string | tags.Format<"date-time">;
 
     /**
-     * @title internal_note
      * Contents of a note that may be associated with the event type
+     *
+     * @title internal_note
      */
     internal_note: string | null;
 
     /**
-     * @title description_plain
      * The event type's description (in non formatted text)
+     *
+     * @title description_plain
      */
     description_plain: (string & Placeholder<"15 Minute Meeting">) | null;
 
     /**
-     * @title description_html
      * The event type's description (formatted with HTML)
+     *
+     * @title description_html
      */
     description_html: (string & Placeholder<"<p>15 Minute Meeting</p>">) | null;
 
     /**
-     * @title profile
      * The publicly visible profile of a User or a Team that's associated with the Event Type (note: some Event Types don't have profiles)
+     *
+     * @title profile
      */
     profile: Profile | null;
 
     /**
-     * @title secret
      * Indicates if the event type is hidden on the owner's main scheduling page
+     *
+     * @title secret
      */
     secret: boolean;
 
     /**
-     * @title booking_method
      * Indicates if the event type is for a poll or an instant booking
+     *
+     * @title booking_method
      */
     booking_method:
       | tags.Constant<"instant", { title: "instant" }>
@@ -544,48 +613,55 @@ export namespace ICalendly {
     custom_questions: CustomQuestion[];
 
     /**
-     * @title deleted_at
      * The moment the event type was deleted (e.g. "2020-01-02T03:04:05.678123Z"). Since event types can be deleted but their scheduled events remain it's useful to fetch a deleted event type when you still require event type data for a scheduled event.
+     *
+     * @title deleted_at
      */
     deleted_at: (string & tags.Format<"date-time">) | null;
 
     /**
-     * @title admin_managed
      * Indicates if this event type is managed by an organization admin
+     *
+     * @title admin_managed
      */
     admin_managed: boolean;
 
     /**
-     * @title locations
      * Configuration information for each possible location for this Event Type
+     *
+     * @title locations
      */
     locations: Location[] | null;
 
     /**
-     * @title position
      * Position order of Event Type, starting with 0 (for display purposes)
+     *
+     * @title position
      */
     position: number;
   };
 
   export type Profile = {
     /**
-     * @title type
      * Indicates if the profile belongs to a "user" (individual) or "team"
+     *
+     * @title type
      */
     type:
       | tags.Constant<"User", { title: "User" }>
       | tags.Constant<"Team", { title: "Team" }>;
 
     /**
-     * @title name
      * Human-readable name for the profile of the user that's associated with the event type
+     *
+     * @title name
      */
     name: string & Placeholder<"Tamara Jones">;
 
     /**
-     * @title owner
      * The unique reference to the user associated with the profile
+     *
+     * @title owner
      */
     owner: string &
       tags.Format<"uri"> &
@@ -611,14 +687,16 @@ export namespace ICalendly {
 
   export type CustomQuestion = {
     /**
-     * @title name
      * The custom question that the host created for the event type.
+     *
+     * @title name
      */
     name: string;
 
     /**
-     * @title type
      * The type of response that the invitee provides to the custom question; can be one or multiple lines of text, a phone number, or single- or multiple-select.
+     *
+     * @title type
      */
     type:
       | tags.Constant<"text", { title: "text" }>
@@ -627,74 +705,85 @@ export namespace ICalendly {
       | tags.Constant<"multi_select", { title: "multi_select" }>;
 
     /**
-     * @title position
      * The numerical position of the question on the event booking page after the name and email address fields.
+     *
+     * @title position
      */
     position: number;
 
     /**
-     * @title enabled
      * true if the question created by the host is turned ON and visible on the event booking page; false if turned OFF and invisible on the event booking page.
+     *
+     * @title enabled
      */
     enabled: boolean;
 
     /**
-     * @title required
      * true if a response to the question created by the host is required for invitees to book the event type; false if not required.
+     *
+     * @title required
      */
     required: boolean;
 
     /**
-     * @title answer_choices
      * The invitee’s option(s) for single_select or multi_select type of responses.
+     *
+     * @title answer_choices
      */
     answer_choices: string[];
 
     /**
-     * @title include_other
      * true if the custom question lets invitees record a written response in addition to single-select or multiple-select type of responses; false if it doesn’t.
+     *
+     * @title include_other
      */
     include_other: boolean;
   };
 
   export interface Event {
     /**
-     * @title uuid
      * uuid from url (ex. "https://api.calendly.com/scheduled_events/:uuid" )
+     *
+     * @title uuid
      */
     uuid: string;
 
     /**
-     * @title uri
      * Canonical reference (unique identifier) for the resource
+     *
+     * @title uri
      * @example "https://api.calendly.com/scheduled_events/GBGBDCAADAEDCRZ2"
      */
     uri: string & tags.Format<"iri">;
 
     /**
-     * @title name
      * The event name
+     *
+     * @title name
      * @example "15 Minute Meeting"
      */
     name: (string & Placeholder<"15 Minute Meeting">) | null;
 
     /**
-     * @title meeting_notes_plain
      * The internal meeting notes (in non formatted text)
+     *
+     * @title meeting_notes_plain
      * @example "15 Minute Meeting"
      */
     meeting_notes_plain: (string & Placeholder<"15 Minute Meeting">) | null;
 
     /**
-     * @title meeting_notes_html
      * The internal meeting notes (formatted with HTML)
+     *
+     * @title meeting_notes_html
      * @example "<p>15 Minute Meeting</p>"
      */
     meeting_notes_html: string | null;
 
     /**
-     * @title status
      * Indicates if the event is "active" or "canceled"
+     *
+     * @title status
      * @enum ["active", "canceled"]
      */
     status:
@@ -702,29 +791,33 @@ export namespace ICalendly {
       | tags.Constant<"canceled", { title: "canceled" }>;
 
     /**
-     * @title start_time
      * The moment the event was scheduled to start in UTC time
+     *
+     * @title start_time
      * @example "2020-01-02T03:04:05.678123Z"
      */
     start_time: string & tags.Format<"date-time">;
 
     /**
-     * @title end_time
      * The moment the event was scheduled to end in UTC time
+     *
+     * @title end_time
      * @example "2020-01-02T03:04:05.678123Z"
      */
     end_time: string & tags.Format<"date-time">;
 
     /**
-     * @title event_type
      * Event Type URI
+     *
+     * @title event_type
      * @example "https://api.calendly.com/event_types/GBGBDCAADAEDCRZ2"
      */
     event_type: string & tags.Format<"iri">;
 
     /**
-     * @title location
      * The event type associated with this event
+     *
+     * @title location
      * @enum ["In-Person Meeting"]
      */
     location: {
@@ -735,102 +828,117 @@ export namespace ICalendly {
       type: "physical" | "custom";
 
       /**
-       * @title location
        * The physical location specified by the event host (publisher)
+       *
+       * @title location
        * @example Calendly Office
        */
       location: string;
 
       /**
-       * @title additional_info
        * 추가 정보
+       *
+       * @title additional_info
        * @example "Please check in at the main lobby."
        */
       additional_info?: string;
     };
 
     /**
-     * @title invitees_counter
      * Invitees counter
+     *
+     * @title invitees_counter
      */
     invitees_counter: {
       /**
-       * @title total
        * Total invitees for an event, including invitees that have canceled
+       *
+       * @title total
        */
       total: number & tags.Type<"uint32">;
 
       /**
-       * @title active
        * Total invitees for an event that have not canceled
+       *
+       * @title active
        */
       active: number & tags.Type<"uint32">;
 
       /**
-       * @title limit
        * Maximum number of active invitees that can book the event
+       *
+       * @title limit
        */
       limit: number & tags.Type<"uint32">;
     };
 
     /**
-     * @title created_at
      * The moment when the event was created
+     *
+     * @title created_at
      * @example "2019-01-02T03:04:05.678123Z"
      */
     created_at: string & tags.Format<"date-time">;
 
     /**
-     * @title updated_at
      * The moment when the event was last updated
+     *
+     * @title updated_at
      * @example "2019-01-02T03:04:05.678123Z"
      */
     updated_at: string & tags.Format<"date-time">;
 
     /**
-     * @title event_memberships
      * Event Membership List
+     *
+     * @title event_memberships
      */
     event_memberships: {
       /**
-       * @title user
        * Canonical reference (unique identifier) for the user
+       *
+       * @title user
        * @example "https://api.calendly.com/users/GBGBDCAADAEDCRZ2"
        */
       user: string & tags.Format<"iri">;
 
       /**
-       * @title user_email
        * The user's email
+       *
+       * @title user_email
        * @example "user@example.com"
        */
       user_email: string & tags.Format<"email">;
 
       /**
-       * @title user_name
        * The user's name
+       *
+       * @title user_name
        * @example "John Smith"
        */
       user_name: string & Placeholder<"John Smith">;
 
       /**
-       * @title buffered_start_time
        * The moment the membership's time buffer starts for the event in UTC time
+       *
+       * @title buffered_start_time
        * @example "2020-01-02T03:04:05.678123Z"
        */
       buffered_start_time: string & tags.Format<"date-time">;
 
       /**
-       * @title buffered_end_time
        * The moment the membership's time buffer ends for the event in UTC time
+       *
+       * @title buffered_end_time
        * @example "2020-01-02T03:04:05.678123Z"
        */
       buffered_end_time: string & tags.Format<"date-time">;
     }[];
 
     /**
-     * @title event_guests
      * Additional people added to an event by an invitee
+     *
+     * @title event_guests
      */
     event_guests: {
       /**
@@ -850,57 +958,65 @@ export namespace ICalendly {
     }[];
 
     /**
-     * @title cancellation
      * Information about the calendar event from the calendar provider.
+     *
+     * @title cancellation
      */
     cancellation?: Cancellation;
   }
 
   export interface Invitee {
     /**
-     * @title uuid
      * uuid from "https://calendly.com/scheduled_events/AAAAAAAAAAAAAAAA/invitees/:uuid"
+     *
+     * @title uuid
      */
     uuid: string;
 
     /**
-     * @title uri
      * Canonical reference (unique identifier) for the invitee
+     *
+     * @title uri
      * @example "https://calendly.com/scheduled_events/AAAAAAAAAAAAAAAA/invitees/AAAAAAAAAAAAAAAA"
      */
     uri: string & tags.Format<"iri">;
 
     /**
-     * @title email
      * The invitee’s email address
+     *
+     * @title email
      * @example "test@example.com"
      */
     email: string & tags.Format<"email">;
 
     /**
-     * @title first_name
      * The first name of the invitee who booked the event when the event type is configured to use separate fields for first name and last name. Null when event type is configured to use a single field for name.
+     *
+     * @title first_name
      * @example "John"
      */
     first_name: string | null;
 
     /**
-     * @title last_name
      * The last name of the invitee who booked the event when the event type is configured to use separate fields for first name and last name. Null when event type is configured to use a single field for name.
+     *
+     * @title last_name
      * @example "Doe"
      */
     last_name: string | null;
 
     /**
-     * @title name
      * The invitee’s name (in human-readable format)
+     *
+     * @title name
      * @example "John Doe"
      */
     name: string;
 
     /**
-     * @title status
      * Indicates if the invitee is "active" or "canceled"
+     *
+     * @title status
      * @example "active"
      */
     status:
@@ -908,25 +1024,29 @@ export namespace ICalendly {
       | tags.Constant<"canceled", { title: "canceled" }>;
 
     /**
-     * @title questions_and_answers
      * A collection of the invitee's responses to questions on the event booking confirmation form
+     *
+     * @title questions_and_answers
      */
     questions_and_answers: Array<{
       /**
-       * @title question
        * A question on the invitee's booking form
+       *
+       * @title question
        */
       question: string;
 
       /**
-       * @title answer
        * The invitee's answer to the question
+       *
+       * @title answer
        */
       answer: string;
 
       /**
-       * @title position
        * The position of the question in relation to others on the booking form
+       *
+       * @title position
        */
       position: number;
     }>;
@@ -938,58 +1058,67 @@ export namespace ICalendly {
     timezone: string | null;
 
     /**
-     * @title event
      * A reference to the event
+     *
+     * @title event
      * @example "https://api.calendly.com/scheduled_events/AAAAAAAAAAAAAAAA"
      */
     event: string & tags.Format<"iri">;
 
     /**
-     * @title created_at
      * The moment when the event was created
+     *
+     * @title created_at
      * @example "2019-01-02T03:04:05.678123Z"
      */
     created_at: string & tags.Format<"date-time">;
 
     /**
-     * @title updated_at
      * The moment when the event was last updated
+     *
+     * @title updated_at
      * @example "2019-08-07T06:05:04.321123Z"
      */
     updated_at: string & tags.Format<"date-time">;
 
     /**
-     * @title tracking
      * The UTM and Salesforce tracking parameters associated with an invitee
+     *
+     * @title tracking
      */
     tracking: {
       /**
-       * @title utm_campaign
        * The UTM parameter used to track a campaign
+       *
+       * @title utm_campaign
        */
       utm_campaign: string | null;
 
       /**
-       * @title utm_source
        * The UTM parameter that identifies the source (platform where the traffic originates)
+       *
+       * @title utm_source
        */
       utm_source: string | null;
 
       /**
-       * @title utm_medium
        * The UTM parameter that identifies the type of input (e.g. CPC, social media, etc.)
+       *
+       * @title utm_medium
        */
       utm_medium: string | null;
 
       /**
-       * @title utm_content
        * UTM content tracking parameter
+       *
+       * @title utm_content
        */
       utm_content: string | null;
 
       /**
-       * @title utm_term
        * The UTM parameter used to track keywords
+       *
+       * @title utm_term
        */
       utm_term: string | null;
 
@@ -1001,52 +1130,60 @@ export namespace ICalendly {
     };
 
     /**
-     * @title text_reminder_number
      * The phone number to use when sending text (SMS) reminders
+     *
+     * @title text_reminder_number
      * @example "+1 404-555-1234"
      */
     text_reminder_number: string | null;
 
     /**
-     * @title rescheduled
      * Indicates if this invitee has rescheduled
+     *
+     * @title rescheduled
      */
     rescheduled: boolean;
 
     /**
-     * @title old_invitee
      * Reference to old Invitee instance that got rescheduled
+     *
+     * @title old_invitee
      */
     old_invitee: (string & tags.Format<"iri">) | null;
 
     /**
-     * @title new_invitee
      * Link to new invitee after reschedule
+     *
+     * @title new_invitee
      */
     new_invitee: (string & tags.Format<"iri">) | null;
 
     /**
-     * @title cancel_url
      * Link to cancelling the event for the invitee
+     *
+     * @title cancel_url
      */
     cancel_url: string & tags.Format<"iri">;
 
     /**
-     * @title reschedule_url
      * Link to rescheduling the event for the invitee
+     *
+     * @title reschedule_url
      */
     reschedule_url: string & tags.Format<"iri">;
 
     /**
-     * @title routing_form_submission
      * Reference to a routing form submission that redirected the invitee to a booking page.
+     *
+     * @title routing_form_submission
      * @example https://api.calendly.com/routing_form_submissions/AAAAAAAAAAAAAAAA
      */
     routing_form_submission: (string & tags.Format<"iri">) | null;
 
     /**
-     * @title cancellation
      * Provides data pertaining to the cancellation of the Event or the Invitee
+     *
+     * @title cancellation
      */
     cancellation?: Cancellation;
 
@@ -1056,21 +1193,25 @@ export namespace ICalendly {
     payment: Payment | null;
 
     /**
-     * @title no_show
      * Provides data pertaining to the associated no show for the Invitee
+     *
+     * @title no_show
      */
     no_show: NoShow | null;
 
     /**
-     * @title reconfirmation
      * Assuming reconfirmation is enabled for the event type, when reconfirmation is requested this object is present with a created_at that reflects when the reconfirmation notification was sent. Once the invitee has reconfirmed
+     *
+     * @title reconfirmation
      */
     reconfirmation: Reconfirmation | null;
 
     /**
-     * @title scheduling_method
      * The method used to schedule the event
+     *
      * @enum ["instant_book"]
+     *
+     * @title scheduling_method
      */
     scheduling_method: tags.Constant<
       "instant_book",
@@ -1078,23 +1219,26 @@ export namespace ICalendly {
     > | null;
 
     /**
-     * @title invitee_scheduled_by
      * Reference to user URI who scheduled the event
+     *
+     * @title invitee_scheduled_by
      */
     invitee_scheduled_by: (string & tags.Format<"iri">) | null;
   }
 
   export type Reconfirmation = {
     /**
-     * @title created_at
      * When the reconfirmation was created.
+     *
+     * @title created_at
      * @example 2020-11-23T17:51:18.341657Z
      */
     created_at: string & tags.Format<"date-time">;
 
     /**
-     * @title confirmed_at
      * When the Invitee confirmed their attendance.
+     *
+     * @title confirmed_at
      * @example 2020-11-23T17:51:18.341657Z
      */
     confirmed_at: (string & tags.Format<"date-time">) | null;
@@ -1108,8 +1252,9 @@ export namespace ICalendly {
     url: string & tags.Format<"iri">;
 
     /**
-     * @title created_at
      * The moment when the no show was created
+     *
+     * @title created_at
      * @example 2019-01-02T03:04:05.678123Z
      */
     created_at: string & tags.Format<"date-time">;
@@ -1123,8 +1268,9 @@ export namespace ICalendly {
     external_id: string;
 
     /**
-     * @title provider
      * Payment provider
+     *
+     * @title provider
      * @enum ["stripe", "paypal"]
      * @example "stripe"
      */
@@ -1148,8 +1294,9 @@ export namespace ICalendly {
       | tags.Constant<"USD", { title: "USD" }>;
 
     /**
-     * @title terms
      * Terms of the payment
+     *
+     * @title terms
      * @example sample terms of payment (up to 1,024 characters)
      */
     terms: string | null;
@@ -1183,8 +1330,9 @@ export namespace ICalendly {
       | tags.Constant<"invitee", { title: "invitee" }>;
 
     /**
-     * @title created_at
      * The moment when the cancellation was created
+     *
+     * @title created_at
      * @example "2019-01-02T03:04:05.678123Z"
      */
     created_at: string & tags.Format<"date-time">;
@@ -1232,78 +1380,89 @@ export namespace ICalendly {
    */
   export type User = {
     /**
-     * @title uri
      * Canonical reference (unique identifier) for the user
+     *
+     * @title uri
      * @example "https://api.calendly.com/users/AAAAAAAAAAAAAAAA"
      */
     uri: string & tags.Format<"iri">;
 
     /**
-     * @title name
      * The user's name (human-readable format)
+     *
+     * @title name
      * @example "John Doe"
      */
     name: string;
 
     /**
-     * @title slug
      * The portion of URL for the user's scheduling page (where invitees book sessions)
+     *
+     * @title slug
      * @example "acmesales"
      */
     slug: string;
 
     /**
-     * @title email
      * The user's email address
+     *
+     * @title email
      * @example "test@example.com"
      */
     email: string & tags.Format<"email">;
 
     /**
-     * @title scheduling_url
      * The URL of the user's Calendly landing page (that lists all the user's event types)
+     *
+     * @title scheduling_url
      * @example "https://calendly.com/acmesales"
      */
     scheduling_url: string & tags.Format<"iri">;
 
     /**
-     * @title timezone
      * The time zone to use when presenting time to the user
+     *
+     * @title timezone
      * @example "America/New_York"
      */
     timezone: string & Placeholder<"Asia/Tokyo">;
 
     /**
-     * @title avatar_url
      * The URL of the user's avatar (image). Can be null.
+     *
+     * @title avatar_url
      * @example "https://01234567890.cloudfront.net/uploads/user/avatar/0123456/a1b2c3d4.png"
      */
     avatar_url: (string & tags.Format<"iri">) | null;
 
     /**
-     * @title created_at
      * The moment when the user's record was created
+     *
+     * @title created_at
      * @example "2019-01-02T03:04:05.678123Z"
      */
     created_at: string & tags.Format<"date-time">;
 
     /**
-     * @title updated_at
      * The moment when the user's record was last updated
+     *
+     * @title updated_at
      * @example "2019-08-07T06:05:04.321123Z"
      */
     updated_at: string & tags.Format<"date-time">;
 
     /**
-     * @title current_organization
      * A unique reference to the user's current organization
+     *
+     * @title current_organization
      * @example "https://api.calendly.com/organizations/AAAAAAAAAAAAAAAA"
      */
     current_organization: string & tags.Format<"iri">;
 
     /**
-     * @title resource_type
      * Resource type to support polymorphic associations
+     *
+     * @title resource_type
      * @example "User"
      */
     resource_type: string;

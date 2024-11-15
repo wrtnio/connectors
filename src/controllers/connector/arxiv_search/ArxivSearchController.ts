@@ -4,14 +4,14 @@ import { RouteIcon, Standalone } from "@wrtnio/decorators";
 
 import { IConnector } from "@wrtn/connector-api/lib/structures/common/IConnector";
 
+import { ApiTags } from "@nestjs/swagger";
 import { ArxivSearchProvider } from "../../../providers/connector/arxiv_search/ArxivSearchProvider";
 import { retry } from "../../../utils/retry";
-import { ApiTags } from "@nestjs/swagger";
 
 @Controller("connector/arxiv-search")
 export class ArxivSearchController {
   /**
-   * Searches the archive for papers based on the search criteria you entered.
+   * Searches the archive for papers based on the search criteria you entered
    *
    * @summary Archive Paper Search
    * @param input Archive Paper Search Criteria

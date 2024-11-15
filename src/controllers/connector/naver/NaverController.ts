@@ -4,18 +4,16 @@ import { RouteIcon, Standalone } from "@wrtnio/decorators";
 
 import { INaver } from "@wrtn/connector-api/lib/structures/connector/naver/INaver";
 
+import { ApiTags } from "@nestjs/swagger";
 import { NaverProvider } from "../../../providers/connector/naver/NaverProvider";
 import { retry } from "../../../utils/retry";
-import typia from "typia";
-import { ApiTags } from "@nestjs/swagger";
 
 @Controller("connector/naver")
 export class NaverController {
   /**
-   * Search Naver Cafe contents.
+   * Search Naver Cafe contents
    *
    * @summary Naver Cafe search
-   *
    * @param input Conditions for Naver Cafe search
    */
   @Standalone()
@@ -31,10 +29,9 @@ export class NaverController {
   }
 
   /**
-   * Search Naver blog content.
+   * Search Naver blog content
    *
    * @summary Naver blog search
-   *
    * @param input Conditions for Naver blog search
    */
   @Standalone()
@@ -50,10 +47,9 @@ export class NaverController {
   }
 
   /**
-   * Search Naver News.
+   * Search Naver News
    *
    * @summary Search Naver News
-   *
    * @param input Conditions for searching Naver News
    * @returns
    */

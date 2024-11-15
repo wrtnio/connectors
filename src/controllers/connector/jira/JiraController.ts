@@ -1,10 +1,9 @@
 import core, { TypedBody, TypedParam } from "@nestia/core";
 import { Controller } from "@nestjs/common";
+import { ApiTags } from "@nestjs/swagger";
 import type { IJira } from "@wrtn/connector-api/lib/structures/connector/jira/IJira";
 import { RouteIcon } from "@wrtnio/decorators";
 import { JiraProvider } from "../../../providers/connector/jira/JiraProvider";
-import { StrictOmit } from "../../../api/structures/types/strictOmit";
-import { ApiTags } from "@nestjs/swagger";
 
 @Controller("connector/jira")
 export class JiraController {
@@ -26,9 +25,7 @@ export class JiraController {
   @ApiTags("Jira")
   @core.TypedRoute.Delete("issues/comments")
   async deleteComment(
-    @TypedBody()
-    input: StrictOmit<IJira.IDeleteCommentInput, "domain" | "email" | "token"> &
-      IJira.IBasicSecret,
+    @TypedBody() input: IJira.IDeleteCommentInput,
   ): Promise<void> {
     const secretValue = await this.jiraProvider.getToken(input.secretKey);
     const authorization = this.jiraProvider.parseSecretKey({
@@ -75,8 +72,7 @@ export class JiraController {
   @ApiTags("Jira")
   @core.TypedRoute.Post("issues/comments/markdown")
   async createComment(
-    @TypedBody()
-    input: IJira.ICreateCommentByMarkdownInput,
+    @TypedBody() input: IJira.ICreateCommentByMarkdownInput,
   ): Promise<IJira.ICreateCommentOutput> {
     const secretValue = await this.jiraProvider.getToken(input.secretKey);
     const authorization = this.jiraProvider.parseSecretKey({
@@ -103,9 +99,7 @@ export class JiraController {
   @ApiTags("Jira")
   @core.TypedRoute.Post("issues/get-comments")
   async getComments(
-    @TypedBody()
-    input: StrictOmit<IJira.IGetCommentInput, "domain" | "email" | "token"> &
-      IJira.IBasicSecret,
+    @TypedBody() input: IJira.IGetCommentInput,
   ): Promise<IJira.IGetCommentOutput> {
     const secretValue = await this.jiraProvider.getToken(input.secretKey);
     const authorization = this.jiraProvider.parseSecretKey({
@@ -121,7 +115,6 @@ export class JiraController {
    * When designing an edge, for example, you can also design an issue in the 'backoff' state to go through the 'in progress' state once.
    * In this case, you need to move two edges to turn the backoff issue into 'done'.
    *
-   *
    * @summary Inquire the transition of an issue
    * @param input
    * @returns
@@ -132,9 +125,7 @@ export class JiraController {
   @ApiTags("Jira")
   @core.TypedRoute.Post("issues/get-transitions")
   async getTransitions(
-    @TypedBody()
-    input: StrictOmit<IJira.IGetTransitionInput, "domain" | "email" | "token"> &
-      IJira.IBasicSecret,
+    @TypedBody() input: IJira.IGetTransitionInput,
   ): Promise<IJira.IGetTransitionOutput> {
     const secretValue = await this.jiraProvider.getToken(input.secretKey);
     const authorization = this.jiraProvider.parseSecretKey({
@@ -155,11 +146,7 @@ export class JiraController {
   )
   @ApiTags("Jira")
   @core.TypedRoute.Delete("issues/asignee")
-  async unassign(
-    @TypedBody()
-    input: StrictOmit<IJira.IUnAssignInput, "domain" | "email" | "token"> &
-      IJira.IBasicSecret,
-  ): Promise<void> {
+  async unassign(@TypedBody() input: IJira.IUnAssignInput): Promise<void> {
     const secretValue = await this.jiraProvider.getToken(input.secretKey);
     const authorization = this.jiraProvider.parseSecretKey({
       secretKey: secretValue,
@@ -179,11 +166,7 @@ export class JiraController {
   )
   @ApiTags("Jira")
   @core.TypedRoute.Put("issues/asignee")
-  async assign(
-    @TypedBody()
-    input: StrictOmit<IJira.IAssignInput, "domain" | "email" | "token"> &
-      IJira.IBasicSecret,
-  ): Promise<void> {
+  async assign(@TypedBody() input: IJira.IAssignInput): Promise<void> {
     const secretValue = await this.jiraProvider.getToken(input.secretKey);
     const authorization = this.jiraProvider.parseSecretKey({
       secretKey: secretValue,
@@ -207,9 +190,7 @@ export class JiraController {
   @ApiTags("Jira")
   @core.TypedRoute.Put("issues/status")
   async updateIssueStatus(
-    @TypedBody()
-    input: StrictOmit<IJira.IUpdateStatusInput, "domain" | "email" | "token"> &
-      IJira.IBasicSecret,
+    @TypedBody() input: IJira.IUpdateStatusInput,
   ): Promise<void> {
     const secretValue = await this.jiraProvider.getToken(input.secretKey);
     const authorization = this.jiraProvider.parseSecretKey({
@@ -238,9 +219,7 @@ export class JiraController {
   @core.TypedRoute.Put("issues/:id")
   async updateIssue(
     @TypedParam("id") id: IJira.Issue["id"],
-    @TypedBody()
-    input: StrictOmit<IJira.IUpdateIssueInput, "domain" | "email" | "token"> &
-      IJira.IBasicSecret,
+    @TypedBody() input: IJira.IUpdateIssueInput,
   ): Promise<void> {
     const secretValue = await this.jiraProvider.getToken(input.secretKey);
     const authorization = this.jiraProvider.parseSecretKey({
@@ -280,33 +259,6 @@ export class JiraController {
     });
   }
 
-  //
-  //  * Create an issue
-  //  *
-  //  * Issue type, project, and summary are essential properties.
-  //  * If you don't know the issue type or priority type's id for generating the issue, you can look it up through other connectors.
-  //  *
-  //  * In order to write the body of an issue, you must create the body as if you were assembling several blocks.
-  //  * There are pre-designated content types, so please check this type information carefully.
-  //  *
-  //  * @summary create issue in jira
-  //  * @param input issue information to create
-  //  * @returns id and key of created issue
-  //  */
-  // @RouteIcon(
-  //   `https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/JIraCloud_full.svg`,
-  // )
-  // @core.TypedRoute.Post("issues")
-  // async createIssue(
-  //   @TypedBody() input: IJira.ICreateIssueInputWithBasicAuth,
-  // ): Promise<IJira.ICreateIssueOutput> {
-  //   const secretValue = await this.jiraProvider.getToken(input.secretKey);
-  //   const authorization = this.jiraProvider.parseSecretKey({
-  //     secretKey: secretValue,
-  //   });
-  //   return this.jiraProvider.createIssue({ ...input, ...authorization });
-  // }
-
   /**
    * Get detailed issue information
    *
@@ -325,12 +277,7 @@ export class JiraController {
   @ApiTags("Jira")
   @core.TypedRoute.Post("get-issue-detail")
   async getIssueDetail(
-    @TypedBody()
-    input: StrictOmit<
-      IJira.IGetIssueDetailInput,
-      "domain" | "email" | "token"
-    > &
-      IJira.IBasicSecret,
+    @TypedBody() input: IJira.IGetIssueDetailInput,
   ): Promise<IJira.IGetIssueDetailOutput> {
     const secretValue = await this.jiraProvider.getToken(input.secretKey);
     const authorization = this.jiraProvider.parseSecretKey({
@@ -355,11 +302,7 @@ export class JiraController {
   @core.TypedRoute.Post("get-issues")
   async getIssues(
     @TypedBody()
-    input: StrictOmit<
-      IJira.IGetIssueInputByBasicAuth,
-      "domain" | "email" | "token"
-    > &
-      IJira.IBasicSecret,
+    input: IJira.IGetIssueInputByBasicAuth,
   ): Promise<IJira.IGetIssueOutput> {
     const secretValue = await this.jiraProvider.getToken(input.secretKey);
     const authorization = this.jiraProvider.parseSecretKey({
@@ -387,11 +330,7 @@ export class JiraController {
   @core.TypedRoute.Post("get-projects")
   async getProjects(
     @TypedBody()
-    input: StrictOmit<
-      IJira.IGetProjectInputByBasicAuth,
-      "domain" | "email" | "token"
-    > &
-      IJira.IBasicSecret,
+    input: IJira.IGetProjectInputByBasicAuth,
   ): Promise<IJira.IGetProjectOutput> {
     const secretValue = await this.jiraProvider.getToken(input.secretKey);
     const authorization = this.jiraProvider.parseSecretKey({
@@ -413,9 +352,7 @@ export class JiraController {
   @ApiTags("Jira")
   @core.TypedRoute.Post("get-issue-labels")
   async getIssueLabels(
-    @TypedBody()
-    input: StrictOmit<IJira.IGetIssueLabelInput, "domain" | "email" | "token"> &
-      IJira.IBasicSecret,
+    @TypedBody() input: IJira.IGetIssueLabelInput,
   ): Promise<IJira.IGetIssueLabelOutput> {
     const secretValue = await this.jiraProvider.getToken(input.secretKey);
     const authorization = this.jiraProvider.parseSecretKey({
@@ -442,9 +379,7 @@ export class JiraController {
   @ApiTags("Jira")
   @core.TypedRoute.Post("get-issue-types")
   async getIssueTypes(
-    @TypedBody()
-    input: StrictOmit<IJira.IGetIssueTypeInput, "domain" | "email" | "token"> &
-      IJira.IBasicSecret,
+    @TypedBody() input: IJira.IGetIssueTypeInput,
   ): Promise<IJira.IGetIssueTypeOutput> {
     const secretValue = await this.jiraProvider.getToken(input.secretKey);
     const authorization = this.jiraProvider.parseSecretKey({
@@ -466,12 +401,7 @@ export class JiraController {
   @ApiTags("Jira")
   @core.TypedRoute.Post("get-issue-statuses")
   async getIssueStatus(
-    @TypedBody()
-    input: StrictOmit<
-      IJira.IGetIssueStatusInput,
-      "domain" | "email" | "token"
-    > &
-      IJira.IBasicSecret,
+    @TypedBody() input: IJira.IGetIssueStatusInput,
   ): Promise<IJira.IGetIssueStatusOutput> {
     const secretValue = await this.jiraProvider.getToken(input.secretKey);
     const authorization = this.jiraProvider.parseSecretKey({
@@ -496,12 +426,7 @@ export class JiraController {
   @ApiTags("Jira")
   @core.TypedRoute.Post("get-issue-priorities")
   async getIssuePriorities(
-    @TypedBody()
-    input: StrictOmit<
-      IJira.IGetIssuePriorityInput,
-      "domain" | "email" | "token"
-    > &
-      IJira.IBasicSecret,
+    @TypedBody() input: IJira.IGetIssuePriorityInput,
   ): Promise<IJira.IGetIssuePriorityOutput> {
     const secretValue = await this.jiraProvider.getToken(input.secretKey);
     const authorization = this.jiraProvider.parseSecretKey({
@@ -523,12 +448,7 @@ export class JiraController {
   @ApiTags("Jira")
   @core.TypedRoute.Post("issues/get-users-assignable")
   async getUsersAssignableInIssue(
-    @TypedBody()
-    input: StrictOmit<
-      IJira.IGetIssueAssignableInput,
-      "domain" | "email" | "token"
-    > &
-      IJira.IBasicSecret,
+    @TypedBody() input: IJira.IGetIssueAssignableInput,
   ): Promise<IJira.IGetIssueAssignableOutput> {
     const secretValue = await this.jiraProvider.getToken(input.secretKey);
     const authorization = this.jiraProvider.parseSecretKey({
@@ -553,12 +473,7 @@ export class JiraController {
   @ApiTags("Jira")
   @core.TypedRoute.Post("projects/get-users-assignable")
   async getUsersAssignableInProject(
-    @TypedBody()
-    input: StrictOmit<
-      IJira.IGetProjectAssignableInput,
-      "domain" | "email" | "token"
-    > &
-      IJira.IBasicSecret,
+    @TypedBody() input: IJira.IGetProjectAssignableInput,
   ): Promise<IJira.IGetProjectAssignableOutput> {
     const secretValue = await this.jiraProvider.getToken(input.secretKey);
     const authorization = this.jiraProvider.parseSecretKey({
@@ -583,12 +498,7 @@ export class JiraController {
   @ApiTags("Jira")
   @core.TypedRoute.Post("get-status-categories")
   async getStatusCategories(
-    @TypedBody()
-    input: StrictOmit<
-      IJira.IGetStatusCategoryInput,
-      "domain" | "email" | "token"
-    > &
-      IJira.IBasicSecret,
+    @TypedBody() input: IJira.IGetStatusCategoryInput,
   ): Promise<IJira.IGetStatusCategoryOutput> {
     const secretValue = await this.jiraProvider.getToken(input.secretKey);
     const authorization = this.jiraProvider.parseSecretKey({

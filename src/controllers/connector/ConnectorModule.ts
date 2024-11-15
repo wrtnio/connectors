@@ -7,6 +7,7 @@ import { ArxivSearchModule } from "./arxiv_search/ArxivSearchModule";
 import { AwsModule } from "./aws/AwsModule";
 import { CalendlyModule } from "./calendly/CalendlyModule";
 import { ChatbotModule } from "./chatbot/ChatbotModule";
+import { CrunchbaseModule } from "./crunchbase/CrunchbaseModule";
 import { CsvModule } from "./csv/CsvModule";
 import { DallE3Module } from "./dall_e_3/DallE3Module";
 import { DaumModule } from "./daum/DaumModule";
@@ -59,6 +60,7 @@ import { OpenDataModule } from "./open_data/OpenDataModule";
 import { PromptModule } from "./prompts/PromptModule";
 import { RagModule } from "./rag/RagModule";
 import { ShortLinkModule } from "./short_link/ShortLinkModule";
+import { SimilarwebModule } from "./similarweb/SimilarwebModule";
 import { SlackModule } from "./slack/SlackModule";
 import { RankModule } from "./sort/RankModule";
 import { SpotifyModule } from "./spotify/SpotifyModule";
@@ -69,6 +71,7 @@ import { StudentReportGeneratorModule } from "./student_report_generator/Student
 import { SweetTackerModule } from "./sweet_tracker/SweetTrackerModule";
 import { ToolModule } from "./tool/ToolModule";
 import { TypeformModule } from "./typeform/TypeformModule";
+import { XModule } from "./x/XModule";
 import { YoutubeSearchModule } from "./youtube_search/YoutubeSearchModule";
 import { ZoomModule } from "./zoom/ZoomModule";
 
@@ -147,6 +150,9 @@ import { ZoomModule } from "./zoom/ZoomModule";
     TypeformModule,
     MarpModule,
     SpotifyModule,
+    CrunchbaseModule,
+    SimilarwebModule,
+    XModule,
   ],
 })
 export class ConnectorModule {}

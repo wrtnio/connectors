@@ -31,4 +31,9 @@ export const test_api_connector_gmail_send_mail_with_files = async (
   );
 
   typia.assert(res);
+
+  // 방금 보낸 메일 삭제
+  await CApi.functional.connector.gmail.hardDelete(connection, res.id, {
+    secretKey,
+  });
 };

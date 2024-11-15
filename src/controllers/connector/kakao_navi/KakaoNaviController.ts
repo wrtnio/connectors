@@ -14,7 +14,6 @@ export class KakaoNaviController {
    * Finding directions with Kakao Navi
    *
    * @summary Kakao Navi Directions
-   *
    * @param input Request conditions
    * @returns Directions results
    */

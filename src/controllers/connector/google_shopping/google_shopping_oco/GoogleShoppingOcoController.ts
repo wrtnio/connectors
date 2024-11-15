@@ -2,10 +2,10 @@ import core from "@nestia/core";
 import { Controller } from "@nestjs/common";
 import { RouteIcon, Standalone } from "@wrtnio/decorators";
 
+import { ApiTags } from "@nestjs/swagger";
 import { IGoogleShopping } from "@wrtn/connector-api/lib/structures/connector/google_shopping/IGoogleShopping";
 import { GoogleShoppingProvider } from "../../../../providers/connector/google_shopping/GoogleShoppingProvider";
 import { retry } from "../../../../utils/retry";
-import { ApiTags } from "@nestjs/swagger";
 
 @Controller("connector/google-shopping")
 export class GoogleShoppingOcoController {
@@ -14,12 +14,12 @@ export class GoogleShoppingOcoController {
   ) {}
 
   /**
-   * Search for products in OCO.
+   * Search for products in OCO
+   *
+   * Oco is one of the Korean companies and is a brand that advocates a brand editing shop.
    *
    * @summary OCO search
-   *
    * @param input Search conditions
-   *
    * @returns Search results
    */
   @Standalone()

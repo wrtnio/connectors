@@ -39,14 +39,14 @@ export namespace IFigma {
      *
      * Here, the file key means the Figma frame.
      *
-     * @title A unique key value for each Figma file or component.
+     * @title A unique key value for each Figma file or component
      */
     fileKey: string;
 
     /**
      * The specific version ID to retrieve. If omitted, the current version of the file is retrieved.
      *
-     * @title The specific version ID to retrieve.
+     * @title The specific version ID to retrieve
      */
     version?: string;
 
@@ -57,35 +57,35 @@ export namespace IFigma {
      *
      * For historical reasons, the top-level canvas node is always returned, regardless of whether it is listed in the `ids` parameter. This quirk may be removed in a future API version.
      *
-     * @title A comma-separated list of nodes of interest in the document.
+     * @title A comma-separated list of nodes of interest in the document
      */
     ids?: string;
 
     /**
      * A positive integer indicating how deep to traverse the document tree. For example, setting this to 1 will return only pages, while setting it to 2 will return the pages and all top-level objects for each page. If this parameter is not set, all nodes will be returned.
      *
-     * @title A positive integer indicating how deep to traverse the document tree.
+     * @title A positive integer indicating how deep to traverse the document tree
      */
     depth?: number & tags.Type<"int64">;
 
     /**
      * Set to "paths" when exporting vector data.
      *
-     * @title Vector data to export.
+     * @title Vector data to export
      */
     geometry?: string;
 
     /**
      * A comma-separated list of plugin IDs and/or the string "shared". All data in the document created by that plugin will be included in the `pluginData` and `sharedPluginData` properties of the result.
      *
-     * @title A comma-separated list of plugin IDs and/or the string "shared".
+     * @title A comma-separated list of plugin IDs and/or the string "shared"
      */
     plugin_data?: string;
 
     /**
      * Returns branch metadata for the requested file. If the file is a branch, the returned response also includes the main file key. If the file has a branch, its metadata is also returned. Default: false.
      *
-     * @title Indicates whether to return branch metadata for the requested file.
+     * @title Indicates whether to return branch metadata for the requested file
      */
     branch_data?: boolean & tags.Default<false>;
   }
@@ -97,42 +97,42 @@ export namespace IFigma {
     /**
      * The name of the file in the editor.
      *
-     * @title The name of the file in the editor.
+     * @title The name of the file in the editor
      */
     name: string;
 
     /**
      * The role of the user performing the API request related to the file.
      *
-     * @title The role of the user performing the request.
+     * @title The role of the user performing the request
      */
     role: "owner" | "editor" | "viewer";
 
     /**
      * The UTC ISO 8601 time the file was last modified.
      *
-     * @title The time the file was last modified.
+     * @title The time the file was last modified
      */
     lastModified: string & tags.Format<"date-time">;
 
     /**
      * The type of editor associated with this file.
      *
-     * @title The type of editor associated with the file.
+     * @title The type of editor associated with the file
      */
     editorType: "figma" | "figjam";
 
     /**
      * A URL to the thumbnail image for the file.
      *
-     * @title Thumbnail Image.
+     * @title Thumbnail Image
      */
     thumbnailUrl?: string;
 
     /**
      * The version number of the file. This number is incremented each time the file is modified and can be used to determine if the file has changed between requests.
      *
-     * @title The version number of the file.
+     * @title The version number of the file
      */
     version: string;
 
@@ -144,59 +144,76 @@ export namespace IFigma {
     /**
      * Mapping between component ID and component metadata.
      *
-     * @title Mapping between component ID and component metadata.
+     * @title Mapping between component ID and component metadata
      */
-    components: { [key: string]: Component };
+    components: {
+      [
+        /**
+         * @title component id
+         */
+        key: string
+      ]: Component;
+    };
 
     /**
      * A mapping between a component set ID and component set metadata.
      *
-     * @title A mapping between a component set ID and component set metadata.
+     * @title A mapping between a component set ID and component set metadata
      */
     componentSets: { [key: string]: ComponentSet };
 
     /**
      * The version of the file schema used by this file.
      *
-     * @title The version of the file schema used by this file.
+     * @title The version of the file schema used by this file
      */
     schemaVersion: number;
 
     /**
      * Mapping between style ID and style metadata.
      *
-     * @title Mapping between style ID and style metadata.
+     * @title Mapping between style ID and style metadata
      */
     styles: { [key: string]: Style };
 
     /**
      * The primary file key of this file. If present, this file is a component or a set of components.
      *
-     * @title The primary file key of this file.
+     * @title The primary file key of this file
      */
     mainFileKey?: string;
 
     /**
      * This is a list of branches for this file.
+     *
+     * @title branches
      */
     branches?: {
       /**
        * This is the key of the branch.
+       *
+       * @title key
        */
       key: string;
 
       /**
        * The name of the branch.
+       *
+       * @title name
        */
       name: string;
 
       /**
        * A URL to the thumbnail image of the branch.
+       *
+       * @title thumbnail_url
        */
       thumbnail_url: string;
 
       /**
        * The UTC ISO 8601 time when the branch was last modified.
+       *
+       * @title last_modified
        */
       last_modified: string;
     }[];
@@ -213,7 +230,7 @@ export namespace IFigma {
     /**
      * It means the key of the file.
      *
-     * @title A unique key value for each Figma file or component.
+     * @title A unique key value for each Figma file or component
      */
     fileKey: string;
   }
@@ -228,7 +245,7 @@ export namespace IFigma {
     /**
      * It means the key of the file.
      *
-     * @title A unique key value for each Figma file or component.
+     * @title A unique key value for each Figma file or component
      */
     fileKey: string;
   }
@@ -248,11 +265,11 @@ export namespace IFigma {
    */
   export interface IGetProjectInput extends IFigma.Secret {
     /**
-     * @title Team ID
-     *
      * When accessing the link `https://www.figma.com/files/team`, it refers to the string attached after the `team` keyword.
      *
      * The team ID is in numeric format, and there can be multiple projects within the team.
+     *
+     * @title Team ID
      */
     teamId: string;
   }

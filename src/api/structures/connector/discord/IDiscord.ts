@@ -43,45 +43,166 @@ export namespace IDiscord {
      * @title 서버 소유자 고유 id
      */
     owner_id?: string;
+
+    /**
+     * @title permissions
+     */
     permissions?: string;
+
+    /**
+     * @title roles
+     */
     roles: IRole[];
+
+    /**
+     * @title emojis
+     */
     emojis: IEmoji[];
+
+    /**
+     * @title features
+     */
     features: Array<IGuildFeature>;
+
+    /**
+     * @title description
+     */
     description: string | null;
   }
 
   export interface IRole {
+    /**
+     * @title id
+     */
     id: string;
+
+    /**
+     * @title name
+     */
     name: string;
+
+    /**
+     * @title color
+     */
     color: number;
+
+    /**
+     * @title hoist
+     */
     hoist: boolean;
+
+    /**
+     * @title icon
+     */
     icon?: string | null;
+
+    /**
+     * @title unicode_emoji
+     */
     unicode_emoji?: string | null;
+
+    /**
+     * @title position
+     */
     position: number;
+
+    /**
+     * @title permissions
+     */
     permissions: string;
+
+    /**
+     * @title managed
+     */
     managed: boolean;
+
+    /**
+     * @title mentionable
+     */
     mentionable: boolean;
+
+    /**
+     * @title tags
+     */
     tags?: ITags;
+
+    /**
+     * @title flags
+     */
     flags: number;
   }
 
   export interface ITags {
+    /**
+     * @title bot_id
+     */
     bot_id?: string;
+
+    /**
+     * @title integration_id
+     */
     integration_id?: string;
+
+    /**
+     * @title premium_subscriber
+     */
     premium_subscriber?: null;
+
+    /**
+     * @title subscription_listing_id
+     */
     subscription_listing_id?: number;
+
+    /**
+     * @title available_for_purchase
+     */
     available_for_purchase?: null;
+
+    /**
+     * @title guild_connections
+     */
     guild_connections?: null;
   }
 
   export interface IEmoji {
+    /**
+     * @title id
+     */
     id: string | null;
+
+    /**
+     * @title name
+     */
     name: string | null;
+
+    /**
+     * @title roles
+     */
     roles?: string[];
+
+    /**
+     * @title user
+     */
     user?: IUser;
+
+    /**
+     * @title require_colons
+     */
     require_colons?: boolean;
+
+    /**
+     * @title managed
+     */
     managed?: boolean;
+
+    /**
+     * @title animated
+     */
     animated?: boolean;
+
+    /**
+     * @title available
+     */
     available?: boolean;
   }
 
@@ -186,70 +307,264 @@ export namespace IDiscord {
    * @title 채널 정보
    */
   export interface IChannel {
+    /**
+     * @title id
+     */
     id: string;
+
+    /**
+     * @title type
+     */
     type: number;
+
+    /**
+     * @title guild_id
+     */
     guild_id?: string;
+
+    /**
+     * @title position
+     */
     position?: number;
+
+    /**
+     * @title permission_overwrites
+     */
     permission_overwrites?: IOverwrite[];
+
+    /**
+     * @title name
+     */
     name?: string | null;
+
+    /**
+     * @title topic
+     */
     topic?: string | null;
+
+    /**
+     * @title recipients
+     */
     recipients?: IUser[];
+
+    /**
+     * @title icon
+     */
     icon?: string | null;
+
+    /**
+     * @title owner_id
+     */
     owner_id?: string;
+
+    /**
+     * @title application_id
+     */
     application_id?: string;
+
+    /**
+     * @title managed
+     */
     managed?: boolean;
+
+    /**
+     * @title parent_id
+     */
     parent_id?: string | null;
+
+    /**
+     * @title last_pin_timestamp
+     */
     last_pin_timestamp?: (string & tags.Format<"date-time">) | null;
+
+    /**
+     * @title rtc_region
+     */
     rtc_region?: string | null;
+
+    /**
+     * @title video_quality_mode
+     */
     video_quality_mode?: number;
+
+    /**
+     * @title message_count
+     */
     message_count?: number;
+
+    /**
+     * @title member_count
+     */
     member_count?: number;
+
+    /**
+     * @title thread_metadata
+     */
     thread_metadata?: IThreadMetadata;
+
+    /**
+     * @title member
+     */
     member?: IThreadMember;
+
+    /**
+     * @title default_auto_archive_duration
+     */
     default_auto_archive_duration?: number;
+
+    /**
+     * @title permissions
+     */
     permissions?: string;
+
+    /**
+     * @title flags
+     */
     flags?: number;
+
+    /**
+     * @title total_message_sent
+     */
     total_message_sent?: number;
+
+    /**
+     * @title available_tags
+     */
     available_tags?: ITag[];
+
+    /**
+     * @title applied_tags
+     */
     applied_tags?: string[];
+
+    /**
+     * @title default_reaction_emoji
+     */
     default_reaction_emoji?: IDefaultReaction | null;
+
+    /**
+     * @title default_thread_rate_limit_per_user
+     */
     default_thread_rate_limit_per_user?: number;
+
+    /**
+     * @title default_sort_order
+     */
     default_sort_order?: number | null;
+
+    /**
+     * @title default_forum_layout
+     */
     default_forum_layout?: number;
   }
 
   export interface IOverwrite {
+    /**
+     * @title id
+     */
     id: string;
+
+    /**
+     * @title type
+     */
     type: number;
+
+    /**
+     * @title allow
+     */
     allow: string;
+
+    /**
+     * @title deny
+     */
     deny: string;
   }
 
   export interface IThreadMetadata {
+    /**
+     * @title archived
+     */
     archived: boolean;
+
+    /**
+     * @title auto_archive_duration
+     */
     auto_archive_duration: number;
+
+    /**
+     * @title archive_timestamp
+     */
     archive_timestamp: string & tags.Format<"date-time">;
+
+    /**
+     * @title locked
+     */
     locked: boolean;
+
+    /**
+     * @title invitable
+     */
     invitable?: boolean;
+
+    /**
+     * @title create_timestamp
+     */
     create_timestamp?: (string & tags.Format<"date-time">) | null;
   }
 
   export interface IThreadMember {
+    /**
+     * @title id
+     */
     id?: string;
+
+    /**
+     * @title user_id
+     */
     user_id?: string;
+
+    /**
+     * @title join_timestamp
+     */
     join_timestamp: string & tags.Format<"date-time">;
+
+    /**
+     * @title flags
+     */
     flags: number;
+
+    /**
+     * @title member
+     */
     member?: IGuildMember;
   }
 
   export interface ITag extends IDefaultReaction {
+    /**
+     * @title id
+     */
     id: string;
+
+    /**
+     * @title name
+     */
     name: string;
+
+    /**
+     * @title moderated
+     */
     moderated: boolean;
   }
 
   export interface IDefaultReaction {
+    /**
+     * @title emoji_id
+     */
     emoji_id: string | null;
+
+    /**
+     * @title emoji_name
+     */
     emoji_name: string | null;
   }
 
@@ -257,23 +572,81 @@ export namespace IDiscord {
    * @title 서버에 있는 멤버 정보
    */
   export interface IGuildMember {
+    /**
+     * @title user
+     */
     user?: IUser;
+
+    /**
+     * @title nick
+     */
     nick?: string | null;
+
+    /**
+     * @title avatar
+     */
     avatar?: string | null;
+
+    /**
+     * @title roles
+     */
     roles: string[];
+
+    /**
+     * @title joined_at
+     */
     joined_at: string & tags.Format<"date-time">;
+
+    /**
+     * @title premium_since
+     */
     premium_since?: (string & tags.Format<"date-time">) | null;
+
+    /**
+     * @title deaf
+     */
     deaf: boolean;
+
+    /**
+     * @title mute
+     */
     mute: boolean;
+
+    /**
+     * @title flags
+     */
     flags: number;
+
+    /**
+     * @title pending
+     */
     pending?: boolean;
+
+    /**
+     * @title permissions
+     */
     permissions?: string;
+
+    /**
+     * @title communication_disabled_until
+     */
     communication_disabled_until?: (string & tags.Format<"date-time">) | null;
+
+    /**
+     * @title avatar_decoration_data
+     */
     avatar_decoration_data?: IAvatarDecorationData | null;
   }
 
   export interface IAvatarDecorationData {
+    /**
+     * @title asset
+     */
     asset: string;
+
+    /**
+     * @title sku_id
+     */
     sku_id: string;
   }
 
@@ -291,15 +664,41 @@ export namespace IDiscord {
 
   /**
    * @title 서버 정보
-   *
    */
   export interface IGuild {
+    /**
+     * @title id
+     */
     id: string;
+
+    /**
+     * @title name
+     */
     name: string;
+
+    /**
+     * @title owner
+     */
     owner?: boolean;
+
+    /**
+     * @title owner_id
+     */
     owner_id?: string;
+
+    /**
+     * @title roles
+     */
     roles?: IRole[];
+
+    /**
+     * @title features
+     */
     features: Array<IGuildFeature>;
+
+    /**
+     * @title description
+     */
     description?: string | null;
   }
 
@@ -410,128 +809,438 @@ export namespace IDiscord {
    * @title 메세지 정보
    */
   export interface IMessage {
+    /**
+     * @title id
+     */
     id: string;
+
+    /**
+     * @title channel_id
+     */
     channel_id: string;
+
+    /**
+     * @title author
+     */
     author: IUser;
+
+    /**
+     * @title content
+     */
     content: string;
+
+    /**
+     * @title timestamp
+     */
     timestamp: string & tags.Format<"date-time">;
+
+    /**
+     * @title edited_timestamp
+     */
     edited_timestamp?: (string & tags.Format<"date-time">) | null;
+
+    /**
+     * @title tts
+     */
     tts: boolean;
+
+    /**
+     * @title mention_everyone
+     */
     mention_everyone: boolean;
+
+    /**
+     * @title mentions
+     */
     mentions: IUser[];
+
+    /**
+     * @title mention_channels
+     */
     mention_channels?: IChannelMention[];
+
+    /**
+     * @title attachments
+     */
     attachments: IAttachment[];
+
+    /**
+     * @title embeds
+     */
     embeds: IEmbed[];
+
+    /**
+     * @title reactions
+     */
     reactions?: IReaction[];
+
+    /**
+     * @title pinned
+     */
     pinned: boolean;
+
+    /**
+     * @title type
+     */
     type: number & tags.Minimum<0> & tags.Maximum<45> & tags.Type<"int32">;
+
+    /**
+     * @title thread
+     */
     thread?: IChannel;
   }
 
   export interface IChannelMention {
+    /**
+     * @title id
+     */
     id: string;
+
+    /**
+     * @title guild_id
+     */
     guild_id: string;
+
+    /**
+     * @title type
+     */
     type: Channel;
+
+    /**
+     * @title name
+     */
     name: string;
   }
 
   export interface IAttachment {
+    /**
+     * @title id
+     */
     id: string;
+
+    /**
+     * @title filename
+     */
     filename: string;
+
+    /**
+     * @title title
+     */
     title?: string;
+
+    /**
+     * @title description
+     */
     description?: string;
+
+    /**
+     * @title conetnt_type
+     */
     conetnt_type?: string;
+
+    /**
+     * @title size
+     */
     size: number;
+
+    /**
+     * @title url
+     */
     url: string;
+
+    /**
+     * @title proxy_url
+     */
     proxy_url: string;
+
+    /**
+     * @title height
+     */
     height?: number | null;
+
+    /**
+     * @title width
+     */
     width?: number | null;
+
+    /**
+     * @title ephemeral
+     */
     ephemeral?: boolean;
+
+    /**
+     * @title duration_secs
+     */
     duration_secs?: number & tags.Type<"float">;
+
+    /**
+     * @title waveform
+     */
     waveform?: string;
+
+    /**
+     * @title flags
+     */
     flags?: number;
   }
 
   export interface IEmbed {
+    /**
+     * @title title
+     */
     title?: string;
+
+    /**
+     * @title type
+     */
     type?: string;
+
+    /**
+     * @title description
+     */
     description?: string;
+
+    /**
+     * @title url
+     */
     url?: string;
+
+    /**
+     * @title timestamp
+     */
     timestamp?: string & tags.Format<"date-time">;
+
+    /**
+     * @title color
+     */
     color?: number;
+
+    /**
+     * @title footer
+     */
     footer?: IEmbedFooter;
+
+    /**
+     * @title image
+     */
     image?: IEmbedImage;
+
+    /**
+     * @title thumbnail
+     */
     thumbnail?: IEmbedThumbnail;
+
+    /**
+     * @title video
+     */
     video?: IEmbedVideo;
+
+    /**
+     * @title provider
+     */
     provider?: IEmbedProvider;
+
+    /**
+     * @title author
+     */
     author?: IEmbedAuthor;
+
+    /**
+     * @title fields
+     */
     fields?: IEmbedField[];
   }
 
   export interface IEmbedFooter {
+    /**
+     * @title text
+     */
     text: string;
+
+    /**
+     * @title icon_url
+     */
     icon_url?: string;
+
+    /**
+     * @title proxy_icon_url
+     */
     proxy_icon_url?: string;
   }
 
   export interface IEmbedImage {
+    /**
+     * @title url
+     */
     url: string;
+
+    /**
+     * @title proxy_url
+     */
     proxy_url?: string;
+
+    /**
+     * @title height
+     */
     height?: number;
+
+    /**
+     * @title width
+     */
     width?: number;
   }
 
   export interface IEmbedThumbnail {
+    /**
+     * @title url
+     */
     url: string;
+
+    /**
+     * @title proxy_url
+     */
     proxy_url?: string;
+
+    /**
+     * @title height
+     */
     height?: number;
+
+    /**
+     * @title width
+     */
     width?: number;
   }
 
   export interface IEmbedVideo {
+    /**
+     * @title url
+     */
     url?: string;
+
+    /**
+     * @title proxy_url
+     */
     proxy_url?: string;
+
+    /**
+     * @title height
+     */
     height?: number;
+
+    /**
+     * @title width
+     */
     width?: number;
   }
 
   export interface IEmbedProvider {
+    /**
+     * @title name
+     */
     name?: string;
+
+    /**
+     * @title url
+     */
     url?: string;
   }
 
   export interface IEmbedAuthor {
+    /**
+     * @title name
+     */
     name: string;
+
+    /**
+     * @title url
+     */
     url?: string;
+
+    /**
+     * @title icon_url
+     */
     icon_url?: string;
+
+    /**
+     * @title proxy_icon_url
+     */
     proxy_icon_url?: string;
   }
 
   export interface IEmbedField {
+    /**
+     * @title name
+     */
     name: string;
+
+    /**
+     * @title value
+     */
     value: string;
+
+    /**
+     * @title inline
+     */
     inline?: boolean;
   }
 
   export interface IReaction {
+    /**
+     * @title count
+     */
     count: number;
+
+    /**
+     * @title count_details
+     */
     count_details: IReactionCountDetails;
+
+    /**
+     * @title me
+     */
     me: boolean;
+
+    /**
+     * @title me_burst
+     */
     me_burst: boolean;
+
+    /**
+     * @title emoji
+     */
     emoji: Partial<IEmoji>;
+
+    /**
+     * @title burst_colors
+     */
     burst_colors: []; //TODO: https://discord.com/developers/docs/resources/message#reaction-count-details-object
   }
   export interface IReactionCountDetails {
+    /**
+     * @title burst
+     */
     burst: number;
+
+    /**
+     * @title normal
+     */
     normal: number;
   }
 
   export interface IMessageActivity {
+    /**
+     * @title type
+     */
     type:
       | tags.Constant<1, { title: "JOIN" }>
       | tags.Constant<2, { title: "SPECTATE" }>
       | tags.Constant<3, { title: "LISTEN" }>
       | tags.Constant<5, { title: "JOIN_REQUEST" }>;
+
+    /**
+     * @title party_id
+     */
     party_id?: string;
   }
 

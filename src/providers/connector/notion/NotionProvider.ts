@@ -2,12 +2,13 @@ import { HttpException, HttpStatus } from "@nestjs/common";
 import { Client } from "@notionhq/client";
 import axios from "axios";
 
+import { BlockObjectRequest } from "@notionhq/client/build/src/api-endpoints";
 import { markdownToBlocks } from "@tryfabric/martian";
+import { Block } from "@tryfabric/martian/build/src/notion/blocks";
 import { INotion } from "@wrtn/connector-api/lib/structures/connector/notion/INotion";
+import typia from "typia";
 import { OAuthSecretProvider } from "../../internal/oauth_secret/OAuthSecretProvider";
 import { IOAuthSecret } from "../../internal/oauth_secret/structures/IOAuthSecret";
-import { Block } from "@tryfabric/martian/build/src/notion/blocks";
-import typia from "typia";
 
 export namespace NotionProvider {
   export async function deleteBlock(
@@ -494,7 +495,12 @@ export namespace NotionProvider {
         );
       }
 
-      return { id: pageId, title: input.title };
+      const uuid = pageId.replaceAll("-", "");
+      return {
+        id: pageId,
+        title: input.title,
+        link: `https://www.notion.so/${uuid}`,
+      };
     } catch (error) {
       console.error(JSON.stringify(error));
       throw error;
@@ -513,7 +519,9 @@ export namespace NotionProvider {
 
         await Promise.allSettled(
           blocks.map(async (block) => {
-            block.children = (await getPageContent(block.id)).blocks;
+            if (block.type !== "child_page") {
+              block.children = (await getPageContent(block.id)).blocks;
+            }
           }),
         );
         // for await (const block of blocks) {
@@ -527,7 +535,7 @@ export namespace NotionProvider {
       const blocks = (await getPageContent(block_id)).blocks;
       return typia.misc.assertClone<INotion.MarkdownBlock[]>(blocks);
     } catch (err) {
-      console.error(err);
+      console.error(JSON.stringify(err));
       throw err;
     }
   }
@@ -574,12 +582,14 @@ export namespace NotionProvider {
       const pageOutput: INotion.IReadPageOutput[] = [];
 
       for (const page of pageList) {
+        const uuid = page.id.replaceAll("-", "");
         const pageInfo: INotion.IReadPageOutput = {
           pageId: page.id,
           title:
             page.properties.title.title.length === 0
               ? "제목없음"
               : page.properties.title.title[0].plain_text,
+          link: `https://notion.so/${uuid}`,
         };
         pageOutput.push(pageInfo);
       }
@@ -1050,15 +1060,20 @@ export namespace NotionProvider {
 
   export async function appendBlocksByMarkdown(
     input: INotion.IAppendPageByMarkdownInput,
-  ): Promise<void> {
+  ): Promise<INotion.IAppendPageByMarkdownOutput> {
     try {
       const blocks = markdownToBlocks(input.markdown);
       const notion = await createClient(input.secretKey);
+      while (blocks.length !== 0) {
+        const blocksToInsert = blocks.splice(0, 100) as BlockObjectRequest[];
+        await notion.blocks.children.append({
+          block_id: input.pageId,
+          children: blocksToInsert,
+        });
+      }
 
-      await notion.blocks.children.append({
-        block_id: input.pageId,
-        children: blocks as any,
-      });
+      const uuid = input.pageId.replaceAll("-", "");
+      return { id: input.pageId, link: `https://notion.so/${uuid}` };
     } catch (error) {
       console.error(JSON.stringify(error));
       throw error;
@@ -1069,16 +1084,18 @@ export namespace NotionProvider {
     input: INotion.ICreatePageByMarkdownInput,
   ): Promise<INotion.ICreatePageOutput> {
     try {
-      const blocks = markdownToBlocks(input.markdown);
-      const notion = await createClient(input.secretKey);
       const page = await createPage(input);
-
-      await notion.blocks.children.append({
-        block_id: page.id,
-        children: blocks as any,
+      await NotionProvider.appendBlocksByMarkdown({
+        ...input,
+        pageId: page.id,
       });
 
-      return { id: page.id, title: input.title };
+      const uuid = page.id.replaceAll("-", "");
+      return {
+        id: page.id,
+        title: input.title,
+        link: `https://notion.so/${uuid}`,
+      };
     } catch (error) {
       console.error(JSON.stringify(error));
       throw error;

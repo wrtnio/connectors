@@ -5,7 +5,7 @@ import * as stream from "stream";
 import { IGoogleDrive } from "@wrtn/connector-api/lib/structures/connector/google_drive/IGoogleDrive";
 
 import axios from "axios";
-import mime from "mime";
+import mime from "mime-types";
 import { GoogleProvider } from "../../internal/google/GoogleProvider";
 import { OAuthSecretProvider } from "../../internal/oauth_secret/OAuthSecretProvider";
 import { IOAuthSecret } from "../../internal/oauth_secret/structures/IOAuthSecret";
@@ -186,8 +186,9 @@ export class GoogleDriveProvider {
     const res = await drive.files.create({
       media: { body: body },
       requestBody: {
-        mimeType:
-          mimeType ?? fileTypeResponse?.mime ?? "application/octet-stream",
+        mimeType: mimeType
+          ? mimeType
+          : (fileTypeResponse?.mime ?? "application/octet-stream"),
         name,
         parents: folderIds,
       },

@@ -4,8 +4,8 @@ import { RouteIcon, Standalone } from "@wrtnio/decorators";
 
 import { IStableDiffusionBeta } from "@wrtn/connector-api/lib/structures/connector/stable_diffustion_beta/IStableDiffusionBeta";
 
-import { StableDiffusionBetaProvider } from "../../../providers/connector/stable_diffusion_beta/StableDiffusionBetaProvider";
 import { ApiTags } from "@nestjs/swagger";
+import { StableDiffusionBetaProvider } from "../../../providers/connector/stable_diffusion_beta/StableDiffusionBetaProvider";
 
 @Controller("connector/stable-diffusion-beta")
 export class StableDiffusionBetaController {
@@ -14,12 +14,10 @@ export class StableDiffusionBetaController {
   ) {}
 
   /**
-   * Generate an image using the stable diffusion model.
+   * Generate an image using the stable diffusion model
    *
    * @summary Stable diffusion image generator node
-   *
    * @param input Information for image generation
-   *
    * @returns URL of the generated image
    */
   @RouteIcon(

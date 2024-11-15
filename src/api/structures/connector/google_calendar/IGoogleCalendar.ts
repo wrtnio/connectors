@@ -13,7 +13,7 @@ export namespace IGoogleCalendar {
     /**
      * The title of the calendar to be created.
      *
-     * @title The title of the calendar to be created.
+     * @title The title of the calendar to be created
      */
     title: string;
   }
@@ -25,14 +25,14 @@ export namespace IGoogleCalendar {
     /**
      * The id of the generated calendar.
      *
-     * @title Calendar id.
+     * @title Calendar id
      */
     id?: string | null;
 
     /**
      * The name of the generated calendar.
      *
-     * @title Calendar name.
+     * @title Calendar name
      */
     summary?: string | null;
   }
@@ -41,7 +41,7 @@ export namespace IGoogleCalendar {
    * - startTime: Event start time.
    * - updated: Event update date.
    *
-   * @title Event sort order.
+   * @title Event sort order
    */
   type OrderBy =
     | tags.Constant<"startTime", { title: "시작 시간" }>
@@ -60,91 +60,23 @@ export namespace IGoogleCalendar {
      *
      * Note that all date/times are in UTC, so make sure that you have converted the date/time to UTC before using it.
      *
-     * @title Information about the last date from which events will be fetched.
+     * @title Information about the last date from which events will be fetched
      */
-    time_max: {
-      /**
-       * It's the year.
-       *
-       * @title The year.
-       */
-      year: number;
-
-      /**
-       * It's the month.
-       *
-       * You must enter a two-digit number. For example, if it is March, you should enter 03.
-       *
-       * @title The Month.
-       */
-      month: number;
-
-      /**
-       * It's the date.
-       *
-       * You must enter a two-digit number. For example, if it is 7th, you should enter 07.
-       *
-       * @title Date.
-       */
-      date: number;
-
-      /**
-       * It's the hour.
-       *
-       * You must enter a two-digit number. For example, if it is 2am, you should enter 02. If it is 2pm, you should enter 14.
-       *
-       * @title hour.
-       */
-      hour: number;
-    };
+    time_max: string & tags.Format<"date-time">;
 
     /**
      * Events prior to that date will not be retrieved.
      *
      * Note that all date/times are in UTC, so make sure that you have converted the date/time to UTC before using it.
      *
-     * @title Information on the start date from which events will be retrieved.
+     * @title Information on the start date from which events will be retrieved
      */
-    time_min: {
-      /**
-       * It's the year.
-       *
-       * @title The year.
-       */
-      year: number;
-
-      /**
-       * It's the month.
-       *
-       * You must enter a two-digit number. For example, if it is March, you should enter 03.
-       *
-       * @title The Month.
-       */
-      month: number;
-
-      /**
-       * It's the date.
-       *
-       * You must enter a two-digit number. For example, if it is 7th, you should enter 07.
-       *
-       * @title Date.
-       */
-      date: number;
-
-      /**
-       * It's the hour.
-       *
-       * You must enter a two-digit number. For example, if it is 2am, you should enter 02. If it is 2pm, you should enter 14.
-       *
-       * @title hour.
-       */
-      hour: number;
-    };
+    time_min: string & tags.Format<"date-time">;
 
     /**
      * Sets the maximum number of events to retrieve.
      *
-     * @title How many results to return.
+     * @title How many results to return
      */
     max_results?: number & tags.Type<"uint32">;
 
@@ -156,7 +88,7 @@ export namespace IGoogleCalendar {
      *
      * Only two possible values are possible: "startTime" and "updated".
      *
-     * @title The order in which the events will be received.
+     * @title The order in which the events will be received
      */
     orderBy?: OrderBy;
 
@@ -165,7 +97,7 @@ export namespace IGoogleCalendar {
      *
      * You can search for events that contain your search terms in the title, description, location, attendees, etc.
      *
-     * @title Event search terms.
+     * @title Event search terms
      */
     query?: string;
   }
@@ -177,7 +109,7 @@ export namespace IGoogleCalendar {
     /**
      * Here is a list of calendar events that were found.
      *
-     * @title Event List.
+     * @title Event List
      */
     events: IGoogleCalendarEvent[];
   }
@@ -189,75 +121,75 @@ export namespace IGoogleCalendar {
     /**
      * The unique id of the event.
      *
-     * @title event id.
+     * @title event id
      */
     id?: string | null;
 
     /**
      * Here is the event link.
      *
-     * @title Event Link.
+     * @title Event Link
      */
     htmlLink?: (string & tags.Format<"iri">) | null;
 
     /**
      * Event color.
      *
-     * @title Event color.
+     * @title Event color
      */
     color?: string | null;
 
     /**
      * The event creation date.
      *
-     * @title The event creation date.
+     * @title The event creation date
      */
     createdDate?: string | null;
 
     /**
      * Event update date.
      *
-     * @title Event update date.
+     * @title Event update date
      */
     updatedDate?: string | null;
 
     /**
      * This is the event title.
      *
-     * @title Event title.
+     * @title Event title
      */
     title?: string | null;
 
     /**
      * Event description.
      *
-     * @title Event description.
+     * @title Event description
      */
     description?: string | null;
 
     /**
      * This is the event location.
      *
-     * @title Event Location.
+     * @title Event Location
      */
     location?: string | null;
 
     /**
      * Here is the information for the event organizer.
      *
-     * @title Event Organizer.
+     * @title Event Organizer
      */
     organizer?: IGoogleCalendarEvent.IOrganizer | null;
 
     /**
      * Information about the event creator.
      *
-     * @title Event Creator.
+     * @title Event Creator
      */
     creator?: IGoogleCalendarEvent.ICreator | null;
 
     /**
-     * @title Event Start Date.
+     * @title Event Start Date
      *
      * The start date information for the event.
      */
@@ -265,14 +197,14 @@ export namespace IGoogleCalendar {
       /**
        * Event start date.
        *
-       * @title Event start date.
+       * @title Event start date
        */
       dateTime?: string | null;
 
       /**
        * Event start date time zone.
        *
-       * @title Event start date time zone.
+       * @title Event start date time zone
        */
       timeZone?: string | null;
     } | null;
@@ -280,20 +212,20 @@ export namespace IGoogleCalendar {
     /**
      * This is the event end date information.
      *
-     * @title Event end date.
+     * @title Event end date
      */
     endDate?: {
       /**
        * The event ends on this date.
        *
-       * @title The event ends on this date.
+       * @title The event ends on this date
        */
       dateTime?: string | null;
 
       /**
        * Event End Date Timezone.
        *
-       * @title Event End Date Timezone.
+       * @title Event End Date Timezone
        */
       timeZone?: string | null;
     } | null;
@@ -301,56 +233,56 @@ export namespace IGoogleCalendar {
     /**
      * Event repeat information.
      *
-     * @title Event repeat information.
+     * @title Event repeat information
      */
     recurrence?: string[] | null;
 
     /**
      * Event busy/free status.
      *
-     * @title Event busy/free status.
+     * @title Event busy/free status
      */
     transparency?: string | null;
 
     /**
      * Whether the inviter has permission to edit the event.
      *
-     * @title Whether the inviter has permission to edit the event.
+     * @title Whether the inviter has permission to edit the event
      */
     guestsCanModify?: boolean | null;
 
     /**
      * Event notification information.
      *
-     * @title Event notification information.
+     * @title Event notification information
      */
     reminders?: IGoogleCalendarEvent.IReminders | null;
 
     /**
      * Here is the event attendee information.
      *
-     * @title Event Attendee.
+     * @title Event Attendee
      */
     attendees?: IGoogleCalendarEvent.IAttendees[] | null;
 
     /**
      * Event attachment information.
      *
-     * @title Attachment information.
+     * @title Attachment information
      */
     attachments?: IGoogleCalendarEvent.IAttachments[] | null;
 
     /**
      * Here is the Google Meet link.
      *
-     * @title Google Meet link.
+     * @title Google Meet link
      */
     hangoutLink?: string | null;
 
     /**
      * The event is open.
      *
-     * @title The event is open.
+     * @title The event is open
      */
     visibility?: string | null;
   }
@@ -359,34 +291,34 @@ export namespace IGoogleCalendar {
     /**
      * Event creator information.
      *
-     * @title Event creator information.
+     * @title Event creator information
      */
     export interface ICreator {
       /**
        * The event creator profile id.
        *
-       * @title Event Creator Profile Id.
+       * @title Event Creator Profile Id
        */
       id?: string | null;
 
       /**
        * The event creator name.
        *
-       * @title The event creator name.
+       * @title The event creator name
        */
       displayName?: string | null;
 
       /**
        * The event creator email.
        *
-       * @title The event creator email.
+       * @title The event creator email
        */
       email?: string | null;
 
       /**
        * Whether the event copy corresponds to the calendar on which it is displayed.
        *
-       * @title Whether the event copy corresponds to the calendar on which it is displayed.
+       * @title Whether the event copy corresponds to the calendar on which it is displayed
        */
       self?: boolean | null;
     }
@@ -398,28 +330,28 @@ export namespace IGoogleCalendar {
       /**
        * Event organizer profile id.
        *
-       * @title Event organizer profile id.
+       * @title Event organizer profile id
        */
       id?: string | null;
 
       /**
        * The name of the event organizer.
        *
-       * @title The name of the event organizer.
+       * @title The name of the event organizer
        */
       displayName?: string | null;
 
       /**
        * This is the event organizer's email.
        *
-       * @title This is the event organizer's email.
+       * @title This is the event organizer's email
        */
       email?: string | null;
 
       /**
        * Whether the event copy corresponds to the calendar on which it is displayed.
        *
-       * @title Whether the event copy corresponds to the calendar on which it is displayed.
+       * @title Whether the event copy corresponds to the calendar on which it is displayed
        */
       self?: boolean | null;
     }
@@ -431,28 +363,28 @@ export namespace IGoogleCalendar {
       /**
        * This is the event attendee email.
        *
-       * @title Event attendee email.
+       * @title Event attendee email
        */
       email?: string | null;
 
       /**
        * Whether the event attendee is the host.
        *
-       * @title Whether the event attendee is the host.
+       * @title Whether the event attendee is the host
        */
       organizer?: boolean | null;
 
       /**
        * Whether the calendar that the schedule copy is displayed on is indicated.
        *
-       * @title Whether the calendar that the schedule copy is displayed on is indicated.
+       * @title Whether the calendar that the schedule copy is displayed on is indicated
        */
       self?: boolean | null;
 
       /**
        * Attendee's attendance response status.
        *
-       * @title Attendee's attendance response status.
+       * @title Attendee's attendance response status
        */
       responseStatus?: string | null;
     }
@@ -464,14 +396,14 @@ export namespace IGoogleCalendar {
       /**
        * Whether to default notification.
        *
-       * @title Whether to default notification.
+       * @title Whether to default notification
        */
       useDefault?: boolean;
 
       /**
        * Here is the notification settings information.
        *
-       * @title Notification settings information.
+       * @title Notification settings information
        */
       overrides?: IRemindersOverrides[];
     }
@@ -483,14 +415,14 @@ export namespace IGoogleCalendar {
       /**
        * This is the notification method.
        *
-       * @title Notification method.
+       * @title Notification method
        */
       method?: string | null;
 
       /**
        * It's time to send notifications.
        *
-       * @title It's time to send notifications.
+       * @title It's time to send notifications
        */
       minutes?: number | null;
     }
@@ -502,35 +434,35 @@ export namespace IGoogleCalendar {
       /**
        * This is the event attachment file url.
        *
-       * @title file url.
+       * @title file url
        */
       fileUrl?: (string & tags.Format<"iri">) | null;
 
       /**
        * This is the title of the attached file.
        *
-       * @title File title.
+       * @title File title
        */
       title?: string | null;
 
       /**
        * Internet Media Type.
        *
-       * @title Internet Media Type.
+       * @title Internet Media Type
        */
       mimeType?: string | null;
 
       /**
        * Attachment file icon link.
        *
-       * @title File icon link.
+       * @title File icon link
        */
       iconLink?: (string & tags.Format<"iri">) | null;
 
       /**
        * This is the id of the attached file.
        *
-       * @title file id.
+       * @title file id
        */
       fileId?: string | null;
     }
@@ -545,7 +477,7 @@ export namespace IGoogleCalendar {
        *
        * Note that all date/times are in UTC, so make sure that you have converted the date/time to UTC before using it.
        *
-       * @title The year.
+       * @title The year
        */
       year: number;
 
@@ -554,7 +486,7 @@ export namespace IGoogleCalendar {
        *
        * You must enter a two-digit number. For example, if it is March, you should enter 03.
        *
-       * @title The Month.
+       * @title The Month
        */
       month: number;
 
@@ -563,7 +495,7 @@ export namespace IGoogleCalendar {
        *
        * You must enter a two-digit number. For example, if it is 7th, you should enter 07.
        *
-       * @title Date.
+       * @title Date
        */
       date: number;
 
@@ -572,7 +504,7 @@ export namespace IGoogleCalendar {
        *
        * You must enter a two-digit number. For example, if it is 2am, you should enter 02. If it is 2pm, you should enter 14.
        *
-       * @title hour.
+       * @title hour
        */
       hour: number;
     }
@@ -589,7 +521,7 @@ export namespace IGoogleCalendar {
     /**
      * This is the text for creating a quick calendar event.
      *
-     * @title This is the text for creating a quick calendar event.
+     * @title This is the text for creating a quick calendar event
      */
     text: string;
   }
@@ -605,21 +537,21 @@ export namespace IGoogleCalendar {
     /**
      * The title of the event to be generated.
      *
-     * @title Event title.
+     * @title Event title
      */
     title?: string;
 
     /**
      * Description of the event to be generated.
      *
-     * @title Event description.
+     * @title Event description
      */
     description?: string;
 
     /**
      * This is the event location to be created.
      *
-     * @title Event Location.
+     * @title Event Location
      */
     location?: string;
 
@@ -628,91 +560,23 @@ export namespace IGoogleCalendar {
      *
      * Note that all date/times are in UTC, so make sure that you have converted the date/time to UTC before using it.
      *
-     * @title Event start date.
+     * @title Event start date
      */
-    start: {
-      /**
-       * It's the year.
-       *
-       * @title The year.
-       */
-      year: number;
-
-      /**
-       * It's the month.
-       *
-       * You must enter a two-digit number. For example, if it is March, you should enter 03.
-       *
-       * @title The Month.
-       */
-      month: number;
-
-      /**
-       * It's the date.
-       *
-       * You must enter a two-digit number. For example, if it is 7th, you should enter 07.
-       *
-       * @title Date.
-       */
-      date: number;
-
-      /**
-       * It's the hour.
-       *
-       * You must enter a two-digit number. For example, if it is 2am, you should enter 02. If it is 2pm, you should enter 14.
-       *
-       * @title hour.
-       */
-      hour: number;
-    };
+    start: string & tags.Format<"date-time">;
 
     /**
      * The end date of the event to be created.
      *
      * Note that all date/times are in UTC, so make sure that you have converted the date/time to UTC before using it.
      *
-     * @title Event end date.
+     * @title Event end date
      */
-    end: {
-      /**
-       * It's the year.
-       *
-       * @title The year.
-       */
-      year: number;
-
-      /**
-       * It's the month.
-       *
-       * You must enter a two-digit number. For example, if it is March, you should enter 03.
-       *
-       * @title The Month.
-       */
-      month: number;
-
-      /**
-       * It's the date.
-       *
-       * You must enter a two-digit number. For example, if it is 7th, you should enter 07.
-       *
-       * @title Date.
-       */
-      date: number;
-
-      /**
-       * It's the hour.
-       *
-       * You must enter a two-digit number. For example, if it is 2am, you should enter 02. If it is 2pm, you should enter 14.
-       *
-       * @title hour.
-       */
-      hour: number;
-    };
+    end: string & tags.Format<"date-time">;
 
     /**
      * This is the event attendee email.
      *
-     * @title Attendee Email.
+     * @title Attendee Email
      */
     attendeesEmail?: string[];
 
@@ -726,14 +590,14 @@ export namespace IGoogleCalendar {
      *
      * Only 4 possible values are possible: "DAILY", "WEEKLY", "MONTHLY", "YEARLY".
      *
-     * @title The event repeat cycle.
+     * @title The event repeat cycle
      */
     repeatFrequency?: RepeatFrequency;
 
     /**
      * The number of times the event is repeated.
      *
-     * @title The number of times the event is repeated.
+     * @title The number of times the event is repeated
      */
     repeatNum?: number;
 
@@ -742,55 +606,21 @@ export namespace IGoogleCalendar {
      *
      * Note that all date/times are in UTC, so make sure that you have converted the date/time to UTC before using it.
      *
-     * @title Event repeat deadline.
+     * @title Event repeat deadline
      */
-    repeatUntil?: {
-      /**
-       * It's the year.
-       *
-       * @title The year.
-       */
-      year: number;
-
-      /**
-       * It's the month.
-       *
-       * You must enter a two-digit number. For example, if it is March, you should enter 03.
-       *
-       * @title The Month.
-       */
-      month: number;
-
-      /**
-       * It's the date.
-       *
-       * You must enter a two-digit number. For example, if it is 7th, you should enter 07.
-       *
-       * @title Date.
-       */
-      date: number;
-
-      /**
-       * It's the hour.
-       *
-       * You must enter a two-digit number. For example, if it is 2am, you should enter 02. If it is 2pm, you should enter 14.
-       *
-       * @title hour.
-       */
-      hour: number;
-    };
+    repeatUntil?: string & tags.Format<"date-time">;
 
     /**
      * Whether the event is busy or not.
      *
-     * @title Whether the event is busy or not.
+     * @title Whether the event is busy or not
      */
     isBusy?: boolean;
 
     /**
      * Whether to use the default calendar notifications.
      *
-     * @title Whether to use the default calendar notifications.
+     * @title Whether to use the default calendar notifications
      */
     isUseDefaultReminder?: boolean;
 
@@ -802,21 +632,21 @@ export namespace IGoogleCalendar {
      *
      * Only two possible values are possible: "popup" and "email".
      *
-     * @title Event notification type.
+     * @title Event notification type
      */
     remindersType?: EventRemindersType;
 
     /**
      * It's time to set a notification before the schedule starts.
      *
-     * @title It's time to set a notification before the schedule starts.
+     * @title It's time to set a notification before the schedule starts
      */
     minutesBeforeReminders?: number;
 
     /**
      * Whether to create a Google Meet.
      *
-     * @title Whether to create a Google Meet.
+     * @title Whether to create a Google Meet
      */
     isConferencing?: boolean;
 
@@ -829,21 +659,21 @@ export namespace IGoogleCalendar {
      *
      * There are only three possible values: "default", "public", "private".
      *
-     * @title The event's public status.
+     * @title The event's public status
      */
     visibility?: EventVisibility;
 
     /**
      * Event Color.
      *
-     * @title Event Color.
+     * @title Event Color
      */
     colorId?: string;
 
     /**
      * Whether guest events can be modified.
      *
-     * @title Whether guest events can be modified.
+     * @title Whether guest events can be modified
      */
     isGuestCanModify?: boolean;
   }
@@ -854,7 +684,7 @@ export namespace IGoogleCalendar {
    * - MONTHLY: Monthly
    * - YEARLY: Yearly
    *
-   * @title Event repeat cycle.
+   * @title Event repeat cycle
    */
   export type RepeatFrequency = "DAILY" | "WEEKLY" | "MONTHLY" | "YEARLY";
 
@@ -862,7 +692,7 @@ export namespace IGoogleCalendar {
    * - popup: Popup notification
    * - email: Email notification
    *
-   * @title Event notification type.
+   * @title Event notification type
    */
   export type EventRemindersType = "popup" | "email";
 
@@ -871,7 +701,7 @@ export namespace IGoogleCalendar {
    * public - The event is public and the event details are visible to all readers of the calendar
    * private - The event is private and only event attendees can see the event details
    *
-   * @title The public status of the event.
+   * @title The public status of the event
    */
   export type EventVisibility = "default" | "public" | "private";
 
@@ -882,7 +712,7 @@ export namespace IGoogleCalendar {
     /**
      * The id of the generated event.
      *
-     * @title Generated event id.
+     * @title Generated event id
      */
     id?: string | null;
   }
@@ -898,7 +728,7 @@ export namespace IGoogleCalendar {
     /**
      * The email address of the attendee you wish to add.
      *
-     * @title The email address of the attendee you wish to add.
+     * @title The email address of the attendee you wish to add
      */
     attendeesEmail: string[];
   }

@@ -1,5 +1,5 @@
 import { TypedBody, TypedRoute } from "@nestia/core";
-import { Controller } from "@nestjs/common";
+import { Body, Controller, Post } from "@nestjs/common";
 import { ApiTags } from "@nestjs/swagger";
 import { ISlack } from "@wrtn/connector-api/lib/structures/connector/slack/ISlack";
 import { MyPick } from "@wrtn/connector-api/lib/structures/types/MyPick";
@@ -15,11 +15,14 @@ export class SlackController {
    * @param input
    * @returns array of slack block types
    */
-  @TypedRoute.Post("interactivity")
-  async interactivity(
-    @TypedBody() input: ISlack.InteractiveComponentInput,
-  ): Promise<any[]> {
-    return await this.slackProvider.interactivity(input);
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Slack_full.svg",
+  )
+  @ApiTags("Slack")
+  @Post("interactivity")
+  async interactivity(@Body() input: ISlack.Payload): Promise<any[]> {
+    const parsed: ISlack.InteractiveComponent = JSON.parse(input.payload);
+    return await this.slackProvider.interactivity({ payload: parsed });
   }
 
   /**
@@ -29,6 +32,10 @@ export class SlackController {
    * @param input
    * @returns
    */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Slack_full.svg",
+  )
+  @ApiTags("Slack")
   @TypedRoute.Post("vote")
   async vote(
     @TypedBody() input: ISlack.IHoldVoteInput,
@@ -177,6 +184,27 @@ export class SlackController {
   }
 
   /**
+   * Update message body
+   *
+   * Use to modify messages sent by users.
+   * If the message is not sent by the user, user cannot modify it.
+   *
+   * @summary Update message body in thread
+   * @param input
+   * @returns
+   */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Slack_full.svg",
+  )
+  @ApiTags("Slack")
+  @TypedRoute.Put("message")
+  async updateMessage(
+    @TypedBody() input: ISlack.IUpdateMessageInput,
+  ): Promise<ISlack.IUpdateMessageOutput> {
+    return retry(() => this.slackProvider.updateMessage(input))();
+  }
+
+  /**
    * Get a list of scheduled messages
    *
    * Look up the messages you booked.
@@ -191,6 +219,9 @@ export class SlackController {
    * @param input
    * @returns
    */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Slack_full.svg",
+  )
   @ApiTags("Slack")
   @TypedRoute.Post("get-scheduled-messages")
   async getScheduledMessages(
@@ -433,5 +464,26 @@ export class SlackController {
     @TypedBody() input: ISlack.IGetFileInput,
   ): Promise<ISlack.IGetFileOutput> {
     return retry(() => this.slackProvider.getFiles(input))();
+  }
+
+  /**
+   * get user groups in workspace
+   *
+   * Look up user groups. This can be used to call all specific groups by tagging.
+   * However, it is difficult to know if it is an appropriate user group other than 'handle' because all internal users come out with IDs.
+   * If you want to see a list of users, use the User Inquiry connector together.
+   * If you want to see the user's nickname or name that corresponds to the user's ID, refer to the User Inquiry connector.
+   *
+   * @summary Get usergroups in workspace
+   */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Slack_full.svg",
+  )
+  @ApiTags("Slack")
+  @TypedRoute.Post("get-user-groups")
+  async getUserGroups(
+    @TypedBody() input: ISlack.IGetUserGroupInput,
+  ): Promise<ISlack.IGetUserGroupOutput> {
+    return retry(() => this.slackProvider.getUserGroups(input))();
   }
 }

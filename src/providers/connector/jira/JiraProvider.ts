@@ -1,6 +1,6 @@
 import { Injectable } from "@nestjs/common";
 import type { IJira } from "@wrtn/connector-api/lib/structures/connector/jira/IJira";
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 import typia from "typia";
 import { ConnectorGlobal } from "../../../ConnectorGlobal";
 import { createQueryParameter } from "../../../utils/CreateQueryParameter";
@@ -11,7 +11,7 @@ import { IOAuthSecret } from "../../internal/oauth_secret/structures/IOAuthSecre
 @Injectable()
 export class JiraProvider {
   async getUsersAssignableInIssue(
-    input: IJira.IGetIssueAssignableInput,
+    input: IJira.__IGetIssueAssignableInput,
   ): Promise<IJira.IGetIssueAssignableOutput> {
     try {
       const config = await this.getAuthorizationAndDomain(input);
@@ -30,13 +30,17 @@ export class JiraProvider {
       });
       return res.data;
     } catch (err) {
-      console.error(JSON.stringify(err));
+      if (err instanceof AxiosError) {
+        console.error(JSON.stringify(err.response?.data));
+      } else {
+        console.error(JSON.stringify(err));
+      }
       throw err;
     }
   }
 
   async getStatusCategories(
-    input: IJira.IGetStatusCategoryInput,
+    input: IJira.__IGetStatusCategoryInput,
   ): Promise<IJira.IGetStatusCategoryOutput> {
     try {
       const config = await this.getAuthorizationAndDomain(input);
@@ -49,13 +53,17 @@ export class JiraProvider {
 
       return res.data;
     } catch (err) {
-      console.error(JSON.stringify(err));
+      if (err instanceof AxiosError) {
+        console.error(JSON.stringify(err.response?.data));
+      } else {
+        console.error(JSON.stringify(err));
+      }
       throw err;
     }
   }
 
   async getUsersAssignableInProject(
-    input: IJira.IGetProjectAssignableInput,
+    input: IJira.__IGetProjectAssignableInput,
   ): Promise<IJira.IGetProjectAssignableOutput> {
     try {
       const config = await this.getAuthorizationAndDomain(input);
@@ -72,13 +80,17 @@ export class JiraProvider {
       });
       return res.data;
     } catch (err) {
-      console.error(JSON.stringify(err));
+      if (err instanceof AxiosError) {
+        console.error(JSON.stringify(err.response?.data));
+      } else {
+        console.error(JSON.stringify(err));
+      }
       throw err;
     }
   }
 
   async getIssueStatuses(
-    input: IJira.IGetIssueStatusInput,
+    input: IJira.__IGetIssueStatusInput,
   ): Promise<IJira.IGetIssueStatusOutput> {
     try {
       const projectId = input.projectId;
@@ -106,13 +118,17 @@ export class JiraProvider {
           }),
       };
     } catch (err) {
-      console.error(JSON.stringify(err));
+      if (err instanceof AxiosError) {
+        console.error(JSON.stringify(err.response?.data));
+      } else {
+        console.error(JSON.stringify(err));
+      }
       throw err;
     }
   }
 
   async getIssueLabels(
-    input: IJira.IGetIssueLabelInput,
+    input: IJira.__IGetIssueLabelInput,
   ): Promise<IJira.IGetIssueLabelOutput> {
     try {
       const config = await this.getAuthorizationAndDomain(input);
@@ -125,13 +141,17 @@ export class JiraProvider {
 
       return res.data;
     } catch (err) {
-      console.error(JSON.stringify(err));
+      if (err instanceof AxiosError) {
+        console.error(JSON.stringify(err.response?.data));
+      } else {
+        console.error(JSON.stringify(err));
+      }
       throw err;
     }
   }
 
   async getIssuePriorities(
-    input: IJira.IGetIssuePriorityInput,
+    input: IJira.__IGetIssuePriorityInput,
   ): Promise<IJira.IGetIssuePriorityOutput> {
     try {
       const config = await this.getAuthorizationAndDomain(input);
@@ -144,13 +164,17 @@ export class JiraProvider {
 
       return res.data;
     } catch (err) {
-      console.error(JSON.stringify(err));
+      if (err instanceof AxiosError) {
+        console.error(JSON.stringify(err.response?.data));
+      } else {
+        console.error(JSON.stringify(err));
+      }
       throw err;
     }
   }
 
   async getIssueTypes(
-    input: IJira.IGetIssueTypeInput,
+    input: IJira.__IGetIssueTypeInput,
   ): Promise<IJira.IGetIssueTypeOutput> {
     try {
       const config = await this.getAuthorizationAndDomain(input);
@@ -163,14 +187,18 @@ export class JiraProvider {
 
       return { issuetypes: res.data };
     } catch (err) {
-      console.error(JSON.stringify(err));
+      if (err instanceof AxiosError) {
+        console.error(JSON.stringify(err.response?.data));
+      } else {
+        console.error(JSON.stringify(err));
+      }
       throw err;
     }
   }
 
   async getProjects(
     input:
-      | IJira.IGetProjectInputByBasicAuth
+      | IJira.__IGetProjectInputByBasicAuth
       | IJira.IGetProjectInputBySecretKey,
   ) {
     try {
@@ -190,13 +218,17 @@ export class JiraProvider {
 
       return res.data;
     } catch (err) {
-      console.error(JSON.stringify(err));
+      if (err instanceof AxiosError) {
+        console.error(JSON.stringify(err.response?.data));
+      } else {
+        console.error(JSON.stringify(err));
+      }
       throw err;
     }
   }
 
   async getIssueDetail(
-    input: IJira.IGetIssueDetailInput,
+    input: IJira.__IGetIssueDetailInput,
   ): Promise<IJira.IGetIssueDetailOutput> {
     try {
       const config = await this.getAuthorizationAndDomain(input);
@@ -212,13 +244,17 @@ export class JiraProvider {
 
       return res.data;
     } catch (err) {
-      console.error(JSON.stringify(err));
+      if (err instanceof AxiosError) {
+        console.error(JSON.stringify(err.response?.data));
+      } else {
+        console.error(JSON.stringify(err));
+      }
       throw err;
     }
   }
 
   async getIssues(
-    input: IJira.IGetIssueInputByBasicAuth | IJira.IGetIssueInputBySecretKey,
+    input: IJira.__IGetIssueInputByBasicAuth | IJira.IGetIssueInputBySecretKey,
   ): Promise<IJira.IGetIssueOutput> {
     try {
       const config = await this.getAuthorizationAndDomain(input);
@@ -250,7 +286,11 @@ export class JiraProvider {
 
       return res.data;
     } catch (err) {
-      console.error(JSON.stringify(err));
+      if (err instanceof AxiosError) {
+        console.error(JSON.stringify(err.response?.data));
+      } else {
+        console.error(JSON.stringify(err));
+      }
       throw err;
     }
   }
@@ -335,12 +375,16 @@ export class JiraProvider {
 
       return res.data as { access_token: string };
     } catch (err) {
-      console.error(JSON.stringify(err));
+      if (err instanceof AxiosError) {
+        console.error(JSON.stringify(err.response?.data));
+      } else {
+        console.error(JSON.stringify(err));
+      }
       throw err;
     }
   }
 
-  async deleteComment(input: IJira.IDeleteCommentInput): Promise<void> {
+  async deleteComment(input: IJira.__IDeleteCommentInput): Promise<void> {
     try {
       const config = await this.getAuthorizationAndDomain(input);
       await axios.delete(
@@ -352,13 +396,17 @@ export class JiraProvider {
         },
       );
     } catch (err) {
-      console.error(JSON.stringify(err));
+      if (err instanceof AxiosError) {
+        console.error(JSON.stringify(err.response?.data));
+      } else {
+        console.error(JSON.stringify(err));
+      }
       throw err;
     }
   }
 
   async createComment(
-    input: IJira.ICreateCommentByMarkdownInput,
+    input: IJira.__ICreateCommentByMarkdownInput,
   ): Promise<IJira.ICreateCommentOutput> {
     try {
       const config = await this.getAuthorizationAndDomain(input);
@@ -387,13 +435,17 @@ export class JiraProvider {
 
       return res.data;
     } catch (err) {
-      console.error(JSON.stringify(err));
+      if (err instanceof AxiosError) {
+        console.error(JSON.stringify(err.response?.data));
+      } else {
+        console.error(JSON.stringify(err));
+      }
       throw err;
     }
   }
 
   async getComments(
-    input: IJira.IGetCommentInput,
+    input: IJira.__IGetCommentInput,
   ): Promise<IJira.IGetCommentOutput> {
     try {
       const config = await this.getAuthorizationAndDomain(input);
@@ -409,12 +461,16 @@ export class JiraProvider {
       );
       return res.data;
     } catch (err) {
-      console.error(JSON.stringify(err));
+      if (err instanceof AxiosError) {
+        console.error(JSON.stringify(err.response?.data));
+      } else {
+        console.error(JSON.stringify(err));
+      }
       throw err;
     }
   }
 
-  async unassign(input: IJira.IUnAssignInput): Promise<void> {
+  async unassign(input: IJira.__IUnAssignInput): Promise<void> {
     try {
       await this.updateIssue(input.issueId, {
         email: input.email,
@@ -427,12 +483,16 @@ export class JiraProvider {
         },
       });
     } catch (err) {
-      console.error(JSON.stringify(err));
+      if (err instanceof AxiosError) {
+        console.error(JSON.stringify(err.response?.data));
+      } else {
+        console.error(JSON.stringify(err));
+      }
       throw err;
     }
   }
 
-  async assign(input: IJira.IAssignInput): Promise<void> {
+  async assign(input: IJira.__IAssignInput): Promise<void> {
     try {
       await this.updateIssue(input.issueId, {
         email: input.email,
@@ -445,13 +505,17 @@ export class JiraProvider {
         },
       });
     } catch (err) {
-      console.error(JSON.stringify(err));
+      if (err instanceof AxiosError) {
+        console.error(JSON.stringify(err.response?.data));
+      } else {
+        console.error(JSON.stringify(err));
+      }
       throw err;
     }
   }
 
   async getTransitions(
-    input: IJira.IGetTransitionInput,
+    input: IJira.__IGetTransitionInput,
   ): Promise<IJira.IGetTransitionOutput> {
     try {
       const config = await this.getAuthorizationAndDomain(input);
@@ -468,12 +532,16 @@ export class JiraProvider {
 
       return res.data;
     } catch (err) {
-      console.error(JSON.stringify(err));
+      if (err instanceof AxiosError) {
+        console.error(JSON.stringify(err.response?.data));
+      } else {
+        console.error(JSON.stringify(err));
+      }
       throw err;
     }
   }
 
-  async updateIssueStatus(input: IJira.IUpdateStatusInput): Promise<void> {
+  async updateIssueStatus(input: IJira.__IUpdateStatusInput): Promise<void> {
     try {
       const config = await this.getAuthorizationAndDomain(input);
       await axios.post(
@@ -492,7 +560,11 @@ export class JiraProvider {
         },
       );
     } catch (err) {
-      console.error(JSON.stringify(err));
+      if (err instanceof AxiosError) {
+        console.error(JSON.stringify(err.response?.data));
+      } else {
+        console.error(JSON.stringify(err));
+      }
       throw err;
     }
   }
@@ -523,21 +595,31 @@ export class JiraProvider {
         },
       );
     } catch (err) {
-      console.error(JSON.stringify(err));
+      if (err instanceof AxiosError) {
+        console.error(JSON.stringify(err.response?.data));
+      } else {
+        console.error(JSON.stringify(err));
+      }
       throw err;
     }
   }
 
   async updateIssue(
     id: IJira.Issue["id"],
-    input: IJira.IUpdateIssueInput,
+    input: IJira.__IUpdateIssueInput,
   ): Promise<void> {
     try {
-      const config = await this.getAuthorizationAndDomain(input);
+      const copiedInput = JSON.parse(JSON.stringify(input));
+      if (typeof input.fields.description?.content === "string") {
+        const content = markdownToJiraBlock(input.fields.description.content);
+        copiedInput.fields.description.content = content;
+      }
+
+      const config = await this.getAuthorizationAndDomain(copiedInput);
       await axios.put(
         `${config.domain}/issue/${id}`,
         {
-          fields: input.fields,
+          fields: copiedInput.fields,
         },
         {
           headers: {
@@ -548,7 +630,11 @@ export class JiraProvider {
         },
       );
     } catch (err) {
-      console.error(JSON.stringify(err));
+      if (err instanceof AxiosError) {
+        console.error(JSON.stringify(err.response?.data));
+      } else {
+        console.error(JSON.stringify(err));
+      }
       throw err;
     }
   }
@@ -580,7 +666,11 @@ export class JiraProvider {
 
       return res.data;
     } catch (err) {
-      console.error(JSON.stringify(err));
+      if (err instanceof AxiosError) {
+        console.error(JSON.stringify(err.response?.data));
+      } else {
+        console.error(JSON.stringify(err));
+      }
       throw err;
     }
   }
@@ -606,7 +696,11 @@ export class JiraProvider {
 
       return res.data;
     } catch (err) {
-      console.error(JSON.stringify(err));
+      if (err instanceof AxiosError) {
+        console.error(JSON.stringify(err.response?.data));
+      } else {
+        console.error(JSON.stringify(err));
+      }
       throw err;
     }
   }

@@ -6,12 +6,12 @@ import type { ToObject } from "./ToObject";
 import type { ValueOf } from "./ValueOf";
 
 /**
- * @title 어떤 인터페이스의 특정 키의 타입을 꺼내는 타입.
- *
  * ```ts
  * type Example1 = GetType<{ a: { b: { c: number } } }, "a.b">; // { c: number }
  * type Example = GetType<{ a: { b: { c: number } } }, "a.b.c">; // number
  * ```
+ *
+ * @title 어떤 인터페이스의 특정 키의 타입을 꺼내는 타입.
  */
 export type GetType<T extends object, K extends DeepStrictObjectKeys<T>> =
   StringType.Split<K, "."> extends [infer First extends keyof T]

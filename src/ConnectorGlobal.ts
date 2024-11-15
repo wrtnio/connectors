@@ -88,6 +88,7 @@ export namespace ConnectorGlobal {
     GOOGLE_CLIENT_ID: string;
     GOOGLE_CLIENT_SECRET: string;
     GOOGLE_TEST_SECRET: string;
+    GOOGLE_API_KEY: string;
 
     // GOOGLE ADS
     GOOGLE_ADS_ACCOUNT_ID: `${number}`;
@@ -148,6 +149,9 @@ export namespace ConnectorGlobal {
     IMWEB_TEST_API_KEY: string;
     IMWEB_TEST_API_SECRET: string;
 
+    // RAPIDAPI
+    RAPIDAPI_KEY: string;
+
     // STABILITY AI
     STABILITY_AI_API_KEY: string;
     STABILITY_AI_HOST: string & tags.Format<"iri">;
@@ -170,6 +174,11 @@ export namespace ConnectorGlobal {
 
     // OPENWEATHER
     OPEN_WEATHER_API_KEY: string;
+    // X
+    X_APP_USER_BEARER_TOKEN: string;
+    X_CLIENT_ID: string;
+    X_CLIENT_SECRET: string;
+    X_TEST_SECRET: string;
 
     //----
     // INHOUSE SERVERS
@@ -198,6 +207,11 @@ export namespace ConnectorGlobal {
 
     // BROWSING AGENT PLAYGROUND
     BROWSING_AGENT_PLAYGROUND_SERVER_URL: string & tags.Format<"iri">;
+
+    // RAG FLOW
+    RAG_FLOW_SERVER_URL: string & tags.Format<"iri">;
+    RAG_FLOW_DOCUMENT_INDEX: string;
+    RAG_FLOW_TOPK: string;
   }
 }
 

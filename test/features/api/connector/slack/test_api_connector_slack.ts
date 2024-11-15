@@ -92,9 +92,20 @@ export const test_api_connector_slack_send_text_message_to_public = async (
 ) => {
   const [PublicChannel] =
     await test_api_connector_slack_get_public_channels(connection);
-  await CApi.functional.connector.slack.postMessage.text.sendText(connection, {
+  const message =
+    await CApi.functional.connector.slack.postMessage.text.sendText(
+      connection,
+      {
+        channel: PublicChannel.id as any,
+        text: "hello, world",
+        secretKey: ConnectorGlobal.env.SLACK_TEST_SECRET,
+      },
+    );
+
+  await CApi.functional.connector.slack.message.updateMessage(connection, {
+    thread_ts: message.ts,
     channel: PublicChannel.id as any,
-    text: "hello, world",
+    text: "hello, world[updated]",
     secretKey: ConnectorGlobal.env.SLACK_TEST_SECRET,
   });
 };
@@ -271,6 +282,13 @@ export const test_api_connector_slack_send_text_message_to_private = async (
         secretKey: ConnectorGlobal.env.SLACK_TEST_SECRET,
       },
     );
+
+  await CApi.functional.connector.slack.message.updateMessage(connection, {
+    thread_ts: message.ts,
+    channel: PrivateChannel.id as any,
+    text: "hello, world[updated]",
+    secretKey: ConnectorGlobal.env.SLACK_TEST_SECRET,
+  });
 
   return message;
 };

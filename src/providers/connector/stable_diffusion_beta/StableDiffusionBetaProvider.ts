@@ -81,9 +81,9 @@ export class StableDiffusionBetaProvider {
     const imageDimensions: {
       [key: string]: { width: number; height: number };
     } = {
-      square: { width: 512, height: 512 },
-      landscape: { width: 896, height: 512 },
-      portrait: { width: 512, height: 896 },
+      square: { width: 1024, height: 1024 },
+      landscape: { width: 1344, height: 768 },
+      portrait: { width: 768, height: 1344 },
     };
 
     const { width, height } = imageDimensions[image_ratio];

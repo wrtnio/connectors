@@ -26,7 +26,7 @@ export namespace IRag {
      * Returns the chat id for the analyzed file to generate chat results for the file analyzed by RAG.
      * The same chat id is required to analyze multiple files and generate results for multiple files in the same chat.
      *
-     * @title chat id.
+     * @title chat id
      */
     chatId: string;
   }
@@ -42,7 +42,7 @@ export namespace IRag {
      * - COMPLETED: Analysis completed
      * - FAILED: Analysis failed
      *
-     * @title Analysis status.
+     * @title Analysis status
      */
     status: "RUNNING" | "COMPLETED" | "FAILED";
   }
@@ -54,7 +54,7 @@ export namespace IRag {
     /**
      * This is a user utterance.
      *
-     * @title User utterance.
+     * @title User utterance
      */
     query: string;
   }
@@ -66,7 +66,7 @@ export namespace IRag {
     /**
      * Response to RAG-based creation request.
      *
-     * @title Response to utterance.
+     * @title Response to utterance
      */
     answer: string;
   }

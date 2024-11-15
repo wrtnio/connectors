@@ -10,7 +10,7 @@ import { retry } from "../../../utils/retry";
 export class AwsController {
   constructor(private readonly awsProvider: AwsProvider) {}
   /**
-   * Generate the URL required to upload a file.
+   * Generate the URL required to upload a file
    *
    * @summary Generate File Upload URL
    * @internal

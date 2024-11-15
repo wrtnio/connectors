@@ -237,7 +237,7 @@ export namespace IGoogleAds {
     extends StrictOmit<ICreateKeywordInput, "customerId">,
       IGoogleAds.ISecret {
     /**
-     * @title Resource name of the ad group to which you want to add the keyword.
+     * @title Resource name of the ad group to which you want to add the keyword
      */
     adGroupResourceName: AdGroup["resourceName"] &
       Prerequisite<{
@@ -257,6 +257,8 @@ export namespace IGoogleAds {
     text: string;
 
     /**
+     * Keyword Match Type
+     *
      * @title Keyword Match Type
      */
     matchType:
@@ -269,9 +271,9 @@ export namespace IGoogleAds {
 
   export type AdGroupCriterion = {
     /**
-     * @title Ad Group Standard Resource Name
-     *
      * Format: `customers/${number}/adGroupCriteria/number~${number}`
+     *
+     * @title Ad Group Standard Resource Name
      */
     resourceName: string &
       tags.Pattern<"(customers\\/(.*)\\/adGroupCriteria\\/[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?~[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)"> &
@@ -283,6 +285,8 @@ export namespace IGoogleAds {
     type: "KEYWORD";
 
     /**
+     * Ad Group Standard ID
+     *
      * @title Ad Group Standard ID
      */
     criterionId: `${number}`;
@@ -321,6 +325,8 @@ export namespace IGoogleAds {
    */
   export interface IGetKeywordsInput extends IGoogleAds.ISecret {
     /**
+     * Ad Group Resource Name
+     *
      * @title Ad Group Resource Name
      */
     adGroupResourceName: AdGroup["resourceName"] &
@@ -547,6 +553,8 @@ export namespace IGoogleAds {
    */
   export interface AdWrapper {
     /**
+     * This refers to an advertisement within the generated ad group.
+     *
      * @title Advertisement Information
      */
     ad: IGoogleAds.IGetAdGroupsOutputResult;
@@ -845,11 +853,15 @@ export namespace IGoogleAds {
    */
   export interface IGetCampaignsOutputResult {
     /**
+     * This refers to a google campaign information.
+     *
      * @title Campaign Information
      */
     campaign: Campaign;
 
     /**
+     * This refers to a campaign budget infomation.
+     *
      * @title Campaign Budget Information
      */
     campaignBudget: CampaignBudget;
@@ -1042,7 +1054,7 @@ export namespace IGoogleAds {
     extends ICommonInput,
       IGoogleAds.ISecret {
     /**
-     * @title URL to reference when generating advertising keyword ideas.
+     * @title URL to reference when generating advertising keyword ideas
      */
     url: string;
   }

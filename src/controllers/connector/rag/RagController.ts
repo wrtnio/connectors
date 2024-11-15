@@ -12,13 +12,12 @@ export class RagController {
   constructor(private readonly ragService: RagProvider) {}
 
   /**
-   * Request RAG analysis for the input file.
+   * Request RAG analysis for the input file
    *
    * This connector can be used when creating a chatbot that compares multiple research papers.
    *
-   * @summary Request RAG analysis.
-   *
-   * @param input Information about the file to be analyzed.
+   * @summary Request RAG analysis
+   * @param input Information about the file to be analyzed
    */
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/RAG_full.svg",
@@ -32,12 +31,10 @@ export class RagController {
   }
 
   /**
-   * Check the analysis progress status.
+   * Check the analysis progress status
    *
-   * @summary Check RAG analysis status.
-   *
-   * @param docId Document ID for which to check the analysis progress status.
-   *
+   * @summary Check RAG analysis status
+   * @param docId Document ID for which to check the analysis progress status
    * @internal
    */
   @ApiTags("RAG")
@@ -49,12 +46,11 @@ export class RagController {
   }
 
   /**
-   * Generates requested results based on RAG analysis.
+   * Generates requested results based on RAG analysis
    *
    * A connector that can be used to generate answers to user questions through a chatbot that compares multiple research papers.
    *
    * @summary Generate RAG-based results
-   *
    * @param input
    */
   @RouteIcon(

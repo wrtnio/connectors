@@ -4,15 +4,17 @@ import { Prerequisite, RouteIcon, Standalone } from "@wrtnio/decorators";
 
 import { IGoogleDocs } from "@wrtn/connector-api/lib/structures/connector/google_docs/IGoogleDocs";
 
+import { ApiTags } from "@nestjs/swagger";
 import { GoogleDocsProvider } from "../../../providers/connector/google_docs/GoogleDocsProvider";
 import { retry } from "../../../utils/retry";
-import { ApiTags } from "@nestjs/swagger";
 
 @Controller("connector/google-docs")
 export class GoogleDocsController {
   constructor(private readonly googleDocsProvider: GoogleDocsProvider) {}
   /**
    * Generate Google Docs
+   *
+   * Since this is creating a blank page, we recommend that you use connectors that add the content of google-docs in a row.
    *
    * @summary Generate Google Docs
    * @param input Title of Google Docs to generate
@@ -51,7 +53,6 @@ export class GoogleDocsController {
    * Read the contents of Google Docs
    *
    * @summary Read Google Docs
-   *
    * @TODO read other elements if necessary
    * @param id Google Docs unique ID
    * @returns Google Docs contents
@@ -64,7 +65,7 @@ export class GoogleDocsController {
   async readDocs(
     /**
      * @title Docs file to import
-     * @description Please select the docs file to import.
+     * @description Please select the docs file to import
      */
     @Prerequisite({
       neighbor: () => GoogleDocsController.prototype.list,
@@ -97,7 +98,7 @@ export class GoogleDocsController {
   }
 
   /**
-   * Delete Google Docs.
+   * Delete Google Docs
    *
    * @summary Delete Google Docs
    * @param id Unique ID of the Google Docs to delete
@@ -110,7 +111,7 @@ export class GoogleDocsController {
   async deleteById(
     /**
      * @title Docs file to delete
-     * @description Please select the docs file to delete.
+     * @description Please select the docs file to delete
      */
     @Prerequisite({
       neighbor: () => GoogleDocsController.prototype.list,
@@ -146,6 +147,8 @@ export class GoogleDocsController {
   /**
    * Add text to Google Docs
    *
+   * When you pass the input of the markdown format, change the markdown to the appropriate format.
+   *
    * @summary Add text to Google Docs
    */
   @RouteIcon(
@@ -155,7 +158,7 @@ export class GoogleDocsController {
   @core.TypedRoute.Post("/append")
   async append(
     @TypedBody() input: IGoogleDocs.IAppendTextGoogleDocsInput,
-  ): Promise<void> {
-    return retry(() => this.googleDocsProvider.append(input))();
+  ): Promise<IGoogleDocs.ICreateGoogleDocsOutput> {
+    return this.googleDocsProvider.append(input);
   }
 }

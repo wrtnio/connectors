@@ -4,15 +4,15 @@ import { RouteIcon } from "@wrtnio/decorators";
 
 import { IExcel } from "@wrtn/connector-api/lib/structures/connector/excel/IExcel";
 
+import { ApiTags } from "@nestjs/swagger";
 import { ExcelProvider } from "../../../providers/connector/excel/ExcelProvider";
 import { retry } from "../../../utils/retry";
-import { ApiTags } from "@nestjs/swagger";
 
 @Controller("connector/excel")
 export class ExcelController {
   constructor(private readonly excelProvider: ExcelProvider) {}
   /**
-   * Based on the input file information, the headers of the corresponding Excel file are retrieved.
+   * Based on the input file information, the headers of the corresponding Excel file are retrieved
    *
    * @summary Get the headers in the Excel file
    * @param {string[]} input
@@ -29,7 +29,7 @@ export class ExcelController {
   }
 
   /**
-   * Get the contents of the corresponding Excel file based on the input file information.
+   * Get the contents of the corresponding Excel file based on the input file information
    *
    * @summary Get the contents of the Excel file
    * @param input Information on the Excel file to get the contents
@@ -48,7 +48,7 @@ export class ExcelController {
   }
 
   /**
-   * Get a list of Excel worksheets that exist in the input file url.
+   * Get a list of Excel worksheets that exist in the input file url
    *
    * @summary Get a list of Excel worksheets
    * @param input The url of the Excel file from which to get the list of worksheets
@@ -66,7 +66,7 @@ export class ExcelController {
   }
 
   /**
-   * 엑셀 파일을 업로드하여 파일에 데이터를 추가합니다
+   * Upload an Excel file to add data to the file
    *
    * When adding data to Excel, sheet creation precedes if it is a sheet that does not exist yet.
    * Therefore, this feature can also be used for sheet creation.
@@ -79,8 +79,8 @@ export class ExcelController {
    *
    * It is a connector that allows users to upload files by drag and drop.
    *
-   * @summary 엑셀 파일 업로드를 통한 엑셀 생성 및 데이터 추가
-   * @param input 엑셀 파일에 새로운 데이터를 추가 하기 위한 정보
+   * @summary Create Excel and add data by uploading Excel files
+   * @param input Information for adding new data to Excel files
    */
   @core.TypedRoute.Post("rows/upload")
   @RouteIcon(
@@ -94,7 +94,7 @@ export class ExcelController {
   }
 
   /**
-   * 엑셀 파일 링크를 가지고 엑셀 파일에 데이터를 추가합니다
+   * Add data to the Excel file with an Excel file link
    *
    * When adding data to Excel, sheet creation precedes if it is a sheet that does not exist yet.
    * Therefore, this feature can also be used for sheet creation.
@@ -131,6 +131,7 @@ export class ExcelController {
    * When creating a sheet with this feature, the default name 'Sheet1' is created if the sheet name is not provided.
    *
    * @deprecated
+   *
    * @summary Add Excel files and sheet
    */
   @core.TypedRoute.Post()

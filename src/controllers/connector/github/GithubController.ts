@@ -10,7 +10,6 @@ export class GithubController {
   constructor(private readonly githubProvider: GithubProvider) {}
 
   /**
-   *
    * RAG analysis for a particular repo
    *
    * This RAG analysis makes the repository's code all five files and analyzes them, allowing the chatbot to learn more about the repository and deliver more detailed information.
@@ -18,6 +17,7 @@ export class GithubController {
    *
    * @internal
    * @deprecated The RAG part will add a function so that chatbots can do it themselves
+   *
    * @summary Analysis for a github repository
    * @param input
    * @returns
@@ -271,6 +271,7 @@ export class GithubController {
    * Many repositories are working on commit conventions. Before committing, it's a good idea to look up the commit-list to see how you leave the commit message.
    *
    * If you want to update the file you just updated again, you need to check the sha value of that file again.
+   * The input property, which means the content of a file, changes to base64 inside that connector when written in human-recognizable natural language. So, do not encode any writing into base64.
    *
    * @summary Update File content and commit
    * @param input
@@ -301,6 +302,8 @@ export class GithubController {
    * In addition, it is recommended to receive confirmation from the user every time about the content and then modify or add it.
    *
    * If the user directly asks you to add, modify, or delete a file for a specific PR or specific branch, this connector should be considered.
+   *
+   * The input property, which means the content of a file, changes to base64 inside that connector when written in human-recognizable natural language. So, do not encode any writing into base64.
    *
    * @summary Create File content and commit
    * @param input
@@ -1104,6 +1107,9 @@ export class GithubController {
    * @param input
    * @returns
    */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
+  )
   @ApiTags("Github")
   @core.TypedRoute.Post("branches")
   async createBranches(

@@ -43,8 +43,9 @@ export namespace IOpenData {
     export interface IGetStandardRegionCodeListInput
       extends ICommon.IPaginationInput {
       /**
-       * @title Region address name
        * It must be one of: "Seoul Metropolitan City","Busan Metropolitan City","Daegu Metropolitan City","Incheon Metropolitan City","Gwangju Metropolitan City","Daejeon Metropolitan City","Ulsan Metropolitan City","Sejong Special Self-Governing City","Gyeonggi-do","Chungcheongbuk-do","Chungcheongnam-do","Gyeongsangbuk-do","Gyeongsangnam-do","Jeollanam-do","Jeju Special Self-Governing Province","Gangwon Special Self-Governing Province","Jeollabuk-do Special Self-Governing Province"
+       *
+       * @title Region address name
        */
       locatadd_nm: (
         | tags.Constant<"서울특별시", { title: "서울특별시" }>
@@ -168,11 +169,11 @@ export namespace IOpenData {
      */
     export type IGetStockPriceInfoInput = ICommon.IPaginationInput & {
       /**
-       * @title Keyword for stock name search
-       *
        * Search is only possible if it matches the exact company name that is listed, which is stored on the Korea Stock Exchange.
        * Since it is a Korean company, most of it will be in Korean.
        * Please give Korean company name.
+       *
+       * @title Keyword for stock name search
        */
       likeItmsNm?: string &
         tags.MaxLength<120> &
@@ -180,24 +181,27 @@ export namespace IOpenData {
     } & (
         | {
             /**
-             * @title Base date
              * Searches for data matching the search value and base date
              * YYYYMMDD format date string.
+             *
+             * @title Base date
              */
             basDt?: string & Placeholder<"20220919">;
           }
         | {
             /**
-             * @title Start date (inclusive)
              * Searches for data where the base date is greater than or equal to the search value
              * YYYYMMDD format date string.
+             *
+             * @title Start date (inclusive)
              */
             beginBasDt?: string & Placeholder<"20220919">;
 
             /**
-             * @title End date (exclusive)
              * Searches for data where the base date is less than the search value
              * YYYYMMDD format date string.
+             *
+             * @title End date (exclusive)
              */
             endBasDt?: string & Placeholder<"20220919">;
           }
@@ -330,7 +334,7 @@ export namespace IOpenData {
  */
 export namespace IKoreaMeteorologicalAdministration {
   /**
-   * @title Code values expressed in short-term forecasts.
+   * @title Code values expressed in short-term forecasts
    */
   export type CategoryType =
     | tags.Constant<
@@ -405,10 +409,10 @@ export namespace IKoreaMeteorologicalAdministration {
    */
   export interface IGetVillageForecastInformationInput {
     /**
-     * @title Definition of nx, ny
-     *
      * use 'latitude_and_longitude' or 'grid_coordinates'.
      * This property can never be used except for these two strings.
+     *
+     * @title Definition of nx, ny
      */
     type:
       | tags.Constant<
@@ -421,18 +425,18 @@ export namespace IKoreaMeteorologicalAdministration {
         >;
 
     /**
-     * @title Longitude or x_position
-     *
      * If the type property in this object is 'latitude_and_longitude', this value means longitude.
      * If not, use x position value of grid coordinates in Korea.
+     *
+     * @title Longitude or x_position
      */
     nx: number & tags.Maximum<360>;
 
     /**
-     * @title Latitude or y_position
-     *
      * If the type property in this object is 'latitude_and_longitude', this value means latitude.
      * If not, use y position value of grid coordinates in Korea.
+     *
+     * @title Latitude or y_position
      */
     ny: number & tags.Maximum<180>;
   }
@@ -448,17 +452,21 @@ export namespace IKoreaMeteorologicalAdministration {
         items: {
           item: {
             /**
-             * @title Date value composed of year, month, and day, e.g., `20240619`.
+             * @title Date value composed of year, month, and day
+             *
+             * e.g., `20240619`
              */
             baseDate: `${number}`;
 
             /**
-             * @title Time value indicating the exact hour, e.g., `1200`.
+             * @title Time value indicating the exact hour
+             *
+             * e.g., `1200`
              */
             baseTime: `${number}`;
 
             /**
-             * @title Category.
+             * @title Category
              */
             category: IKoreaMeteorologicalAdministration.CategoryType;
 
@@ -468,12 +476,12 @@ export namespace IKoreaMeteorologicalAdministration {
             nx: number;
 
             /**
-             * @title Y-coordinate of the grid point value.
+             * @title Y-coordinate of the grid point value
              */
             ny: number;
 
             /**
-             * @title Value corresponding to the category.
+             * @title Value corresponding to the category
              */
             obsrValue: `${number}`;
           }[];
@@ -490,12 +498,16 @@ export namespace IKoreaMeteorologicalAdministration {
   export type IWeatherResponse = IGetForecastOutput[] | IOpenWeather.IResponse;
   export interface IGetForecastOutput {
     /**
-     * @title Date value composed of year, month, and day, e.g., `20240619`.
+     * @title Date value composed of year, month, and day
+     *
+     * e.g., `20240619`
      */
     baseDate: `${number}`;
 
     /**
-     * @title Time value indicating the exact hour, e.g., `1200`.
+     * @title Time value indicating the exact hour
+     *
+     * e.g., `1200`
      */
     baseTime: `${number}`;
 

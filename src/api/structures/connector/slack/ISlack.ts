@@ -1,10 +1,10 @@
+import { Block, KnownBlock } from "@slack/web-api";
 import { Placeholder, Prerequisite } from "@wrtnio/decorators";
 import { tags } from "typia";
 import { ContentMediaType } from "typia/lib/tags";
 import { MyPick } from "../../types/MyPick";
 import { StrictOmit } from "../../types/strictOmit";
 import { ICommon } from "../common/ISecretValue";
-import { Block, KnownBlock } from "@slack/web-api";
 
 export namespace ISlack {
   export type ISecret = ICommon.ISecret<
@@ -19,6 +19,7 @@ export namespace ISlack {
       "chat:write",
       "users:read",
       "files:read",
+      "usergroups:read",
     ]
   >;
 
@@ -79,6 +80,10 @@ export namespace ISlack {
 
   export interface InteractiveComponentInput {
     payload: InteractiveComponent;
+  }
+
+  export interface Payload {
+    payload: string;
   }
 
   export interface InteractiveComponent {
@@ -227,10 +232,10 @@ export namespace ISlack {
 
   export interface IDeleteSCheduleMessageInput extends ISecret {
     /**
-     * @title channel id
-     *
      * It refers to the channel on which you want to delete the scheduled message.
      * If you don't know the channel's ID, You need to view the channel first.
+     *
+     * @title channel id
      */
     channel: Channel["id"] &
       (
@@ -281,10 +286,10 @@ export namespace ISlack {
 
   export interface IMarkInput extends ISecret {
     /**
-     * @title channel id
-     *
      * It refers to the channel on which you want to mark the conversation history.
      * If you don't know the channel's ID, You need to view the channel first.
+     *
+     * @title channel id
      */
     channel: Channel["id"] &
       (
@@ -326,10 +331,10 @@ export namespace ISlack {
   }
 
   /**
-   * @title profile
-   *
    * User information will usually include user's directories, start date, email, phone number, and status information.
    * The start date usually records when this member joined Slack or when he joined the team, but all the information here is written by the individual user and not by the HR person.
+   *
+   * @title profile
    */
   export type IGetUserDetailOutput = StrictOmit<
     IGetUserOutput,
@@ -476,12 +481,21 @@ export namespace ISlack {
     is_enterprise_install: boolean;
   }
 
+  export type IUpdateMessageOutput = Pick<ISlack.Message, "ts">;
+
+  export interface IUpdateMessageInput extends IPostMessageInput {
+    /**
+     * @title thread ts to update
+     */
+    thread_ts: Message["ts"];
+  }
+
   export interface IPostMessageInput extends ISlack.ISecret {
     /**
-     * @title channel id
-     *
      * It refers to the channel on which you want to view the conversation history.
      * If you don't know the channel's ID, You need to view the channel first.
+     *
+     * @title channel id
      */
     channel: Channel["id"] &
       (
@@ -503,19 +517,17 @@ export namespace ISlack {
       );
 
     /**
-     * @title message to send
-     *
      * When a user enters a markdown format string, the internal function modifies it to the format of the slack.
      * Users can put text in accordance with the usual markdown grammar.
      * For user readability, it is recommended that the string be sent with appropriate new-line characters.
+     *
+     * @title message to send
      */
     text: string;
   }
 
   export interface ICommonPaginationInput {
     /**
-     * @title limit
-     *
      * Indicates the number of data to look up at at once.
      * If not entered, use 100 as the default.
      * This should never be null. If you don't have a value, don't forward properties.
@@ -525,6 +537,8 @@ export namespace ISlack {
      *
      * Since it is burdensome for users to inquire too many conversation details, it is recommended to page 100 to 200 conversation details at a time if more data is needed.
      * Alternatively, it is also helpful to get a date to inquire from the user.
+     *
+     * @title limit
      */
     limit?: number &
       tags.Type<"int32"> &
@@ -533,22 +547,22 @@ export namespace ISlack {
       Placeholder<"200">;
 
     /**
-     * @title cursor
-     *
      * If you pass the cursor value received from the previous inquiry, you can inquire from the data after the cursor.
      * If you don't put a value, it will be recognized as the first page.
      * This should never be null. If you don't have a value, don't forward properties.
+     *
+     * @title cursor
      */
     cursor?: string;
   }
 
   export interface ICommonPaginationOutput {
     /**
-     * @title next_cursor
-     *
      * If the following data exist, the cursor value exists.
      * If you want to see the next data from these data,
      * you can pass this value to the next request condition, `cursor`.
+     *
+     * @title next_cursor
      */
     next_cursor: string | null;
   }
@@ -559,7 +573,14 @@ export namespace ISlack {
      *
      * @title replies
      */
-    replies: ISlack.Reply[];
+    replies: ChannelHistory[];
+
+    /**
+     * @title members
+     *
+     * This is a list of people who participated in the conversation in this conversation list.
+     */
+    members: MyPick<IGetUserOutput, "id" | "display_name">[];
   }
 
   export interface IGetReplyInput extends IGetChannelHistoryInput {
@@ -576,16 +597,29 @@ export namespace ISlack {
       }>;
   }
 
+  export interface ChannelHistory
+    extends StrictOmit<ISlack.LinkMessage, "type" | "attachments"> {
+    /**
+     * @title usergroups
+     */
+    usergroups: ISlack.UserGroup[];
+
+    /**
+     * @title username of the person who made this message
+     */
+    username: User["name"] | null;
+  }
+
   export interface IGetChannelLinkHistoryOutput
     extends ICommonPaginationOutput {
     /**
-     * @title message
-     *
      * This refers to the history of conversations made on the channel.
      * The closer you are to the 0th in the array, the more recent it is.
      * However, Slack's message can be modified, so just because it is the 0th, it may not be the last writing/modified.
+     *
+     * @title message
      */
-    messages: StrictOmit<ISlack.LinkMessage, "type" | "attachments">[];
+    messages: ChannelHistory[];
 
     /**
      * @title members
@@ -597,13 +631,13 @@ export namespace ISlack {
 
   export interface IGetChannelHistoryOutput extends ICommonPaginationOutput {
     /**
-     * @title message
-     *
      * This refers to the history of conversations made on the channel.
      * The closer you are to the 0th in the array, the more recent it is.
      * However, Slack's message can be modified, so just because it is the 0th, it may not be the last writing/modified.
+     *
+     * @title message
      */
-    messages: StrictOmit<ISlack.Message, "type" | "attachments">[];
+    messages: ChannelHistory[];
 
     /**
      * @title members
@@ -617,11 +651,11 @@ export namespace ISlack {
     extends ISlack.ISecret,
       ISlack.ICommonPaginationInput {
     /**
-     * @title channel id
-     *
      * It refers to the channel on which you want to view the conversation history.
      * You need to view the channel first.
      * This is a string that always begins with a capital letter 'C' or 'D'.
+     *
+     * @title channel id
      */
     channel: Channel["id"] &
       (
@@ -643,18 +677,18 @@ export namespace ISlack {
       );
 
     /**
-     * @title latestDateTime
-     *
      * Only messages before this date-time will be included in results. Default is the current time.
      * It is a value that takes precedence over 'latest', 'latestTimestamp'.
+     *
+     * @title latestDateTime
      */
     latestDateTime?: string & tags.Format<"date-time">;
 
     /**
-     * @title oldestDateTime
-     *
      * Only messages after this date-time will be included in results.
      * It is a value that takes precedence over 'oldest', 'oldestTimestamp'.
+     *
+     * @title oldestDateTime
      */
     oldestDateTime?: string & tags.Format<"date-time">;
   }
@@ -758,10 +792,10 @@ export namespace ISlack {
 
   export interface Channel {
     /**
-     * @title channel id
-     *
      * The channel ID starts with 'C' and 'D', and for a private DM channel, 'D'.
      * But Sometimes there are channel names that start with a G.
+     *
+     * @title channel id
      */
     id: string & tags.Pattern<"^((C(.*))|(D(.*))|(G(.*)))">;
   }
@@ -784,7 +818,6 @@ export namespace ISlack {
 
     profile: {
       /**
-       *
        * @title display name
        */
       display_name: string | null;
@@ -811,7 +844,7 @@ export namespace ISlack {
   export interface Reply
     extends MyPick<
       Message,
-      "type" | "user" | "text" | "ts" | "ts_date" | "attachments"
+      "type" | "user" | "text" | "ts" | "ts_date" | "attachments" | "link"
     > {
     /**
      * @title thread ts
@@ -819,13 +852,20 @@ export namespace ISlack {
     thread_ts: Message["ts"];
 
     /**
-     * @title ID of the person who made parent message of this message
-     *
      * If this Reply has been published from thread to thread,
      * outside of thread, and also as a channel,
      * there is no parent_user_id.
+     *
+     * @title ID of the person who made parent message of this message
      */
     parent_user_id: User["id"] | null;
+
+    /**
+     * @title links
+     *
+     * Links from the chat
+     */
+    links: (string & tags.Format<"iri">)[];
   }
 
   export interface ScheduledMessage
@@ -840,10 +880,10 @@ export namespace ISlack {
       | "link"
     > {
     /**
-     * @title timestamp
-     *
      * for example, `1721804246.083609`.
      * This is the time value expression method used by Slack.
+     *
+     * @title timestamp
      */
     post_at: string & Placeholder<"1234567890.123456">;
 
@@ -881,17 +921,21 @@ export namespace ISlack {
     channel: Channel["id"];
 
     /**
-     * @title message contents
-     *
      * When users occasionally call others, they can be called in the form of '@USERNAME', which is called a tag.
+     * In the conversation history, the link and code box are abbreviated to <LINK/> and <CODE/>, respectively.
+     * For users, it is replaced by a user name, Like <@USERNAME>.
+     * <@USERNAME> is about calling someone else, and it's not the name of the person who started the conversation, so be careful.
+     * if you want to find who started this conversation, check 'user' property.
+     *
+     * @title message contents
      */
     text: string;
 
     /**
-     * @title timestamp
-     *
      * for example, `1721804246.083609`.
      * This is the time value expression method used by Slack.
+     *
+     * @title timestamp
      */
     ts: string & Placeholder<"1234567890.123456">;
 
@@ -903,45 +947,45 @@ export namespace ISlack {
     ts_date: string;
 
     /**
-     * @title reply_count
-     *
      * Indicates the number of replies on this thread.
      * If there are many replies, active discussions are underway.
+     *
+     * @title reply_count
      */
     reply_count: number;
 
     /**
-     * @title reply_users_count
-     *
      * This means the person who has one or more Replys in this thread.
      * The number of unique people discussing in the thread.
+     *
+     * @title reply_users_count
      */
     reply_users_count: number;
 
     /**
-     * @title Attachments
-     *
      * Attachement contains all types of files and can sometimes be an external link.
      * It is not the type that can be confirmed because the internal properties can vary depending on the type of block it is making up.
+     *
+     * @title Attachments
      */
     attachments?: MyPick<ISlack.Attachment, "id" | "title">[];
 
     /**
-     * @title shortcut link
-     *
      * Link to view the conversation history immediately.
      * We can provide you with a shortcut link if user want, but you don't have to expose it to them in normal times.
+     *
+     * @title shortcut link
      */
     link: string & tags.Format<"iri">;
   }
 
   export interface Attachment {
     /**
-     * @title text
-     *
      * The main body text of the attachment.
      * It can be formatted as plain text, or with mrkdwn by including it in the mrkdwn_in field.
      * The content will automatically collapse if it contains 700+ characters or 5+ line breaks, and will display a "Show more..." link to expand the content.
+     *
+     * @title text
      */
     text?: string;
 
@@ -953,11 +997,11 @@ export namespace ISlack {
     fallback?: string;
 
     /**
-     * @title thumb_url
-     *
      * A valid URL to an image file that will be displayed as a thumbnail on the right side of a message attachment. We currently support the following formats: GIF, JPEG, PNG, and BMP.
      * The thumbnail's longest dimension will be scaled down to 75px while maintaining the aspect ratio of the image. The file size of the image must also be less than 500 KB.
      * For best results, please use images that are already 75px by 75px.
+     *
+     * @title thumb_url
      */
     thumb_url?: string & tags.Format<"iri">;
 
@@ -1281,28 +1325,28 @@ export namespace ISlack {
       }>;
 
     /**
-     * @title file types to include
-     *
      * The file types you may encounter include (but are not limited to):
      * If you want to look up all of them regardless of the file type, you can ignore the properties.
      * If the file type is important, you can specify the file type property as true inside the object.
+     *
+     * @title file types to include
      */
     types?: {
       /**
-       * @title spaces
-       *
        * Slack's Post is a feature that allows users to write and share long forms of documents or writings.
        * It is more formatting free than regular messages and can contain code blocks or sections, which are useful for creating structured documents.
        * Slack often categorizes these documented files into spaces, helping to share knowledge or information easily within the team.
+       *
+       * @title spaces
        */
       spaces?: boolean;
 
       /**
-       * @title snippets
-       *
        * Snippets are used to share short code or text snippets.
        * They are usually useful when programmers share short code blocks or snippets of log files with their teams.
        * Snippets quickly uploads text or code, and allows others to refer to or copy the content. In Slack, these files are classified into a file type called snippets.
+       *
+       * @title snippets
        */
       snippets?: boolean;
 
@@ -1330,19 +1374,158 @@ export namespace ISlack {
     };
 
     /**
-     * @title latestDateTime
-     *
      * Only files before this date-time will be included in results. Default is the current time.
      * It is a value that takes precedence over 'latest', 'latestTimestamp'.
+     *
+     * @title latestDateTime
      */
     latestDateTime?: string & tags.Format<"date-time">;
 
     /**
-     * @title oldestDateTime
-     *
      * Only files after this date-time will be included in results.
      * It is a value that takes precedence over 'oldest', 'oldestTimestamp'.
+     *
+     * @title oldestDateTime
      */
     oldestDateTime?: string & tags.Format<"date-time">;
   }
+
+  /**
+   * @title UserGroup
+   * @description Represents a user group with various properties like ID, name, and user details.
+   */
+  export interface UserGroup {
+    /**
+     * @title ID
+     * @description The ID of the user group.
+     */
+    id: string;
+
+    /**
+     * @title Team ID
+     * @description The ID of the team.
+     */
+    team_id: string;
+
+    /**
+     * @title Is User Group
+     * @description Indicates if the object is a user group.
+     */
+    is_usergroup: boolean;
+
+    /**
+     * @title Name
+     * @description Friendly name of the group.
+     */
+    name: string;
+
+    /**
+     * @title Description
+     * @description Purpose of the group (optional).
+     */
+    description?: string;
+
+    /**
+     * @title Handle
+     * @description Value used to notify group members via a mention without a leading @ sign.
+     */
+    handle: string;
+
+    /**
+     * @title Is External
+     * @description Indicates if the user group is external.
+     */
+    is_external: boolean;
+
+    /**
+     * @title Date Created
+     * @description Unix timestamp of when the group was created.
+     */
+    date_create: number;
+
+    /**
+     * @title Date Updated
+     * @description Unix timestamp of when the group was last updated.
+     */
+    date_update: number;
+
+    /**
+     * @title Date Deleted
+     * @description Non-zero value for disabled groups.
+     */
+    date_delete: number;
+
+    /**
+     * @title Auto Type
+     * @description Can be 'admins', 'owners', or null for custom groups.
+     */
+    auto_type: "admins" | "owners" | null;
+
+    /**
+     * @title Created By
+     * @description User ID of the member who created the group.
+     */
+    created_by: string;
+
+    /**
+     * @title Updated By
+     * @description User ID of the member who updated the group.
+     */
+    updated_by: string;
+
+    /**
+     * @title Deleted By
+     * @description User ID of the member who deleted the group.
+     */
+    deleted_by: string | null;
+
+    /**
+     * @title Preferences
+     * @description Contains default channels and groups (private channels) that members of this group will be invited to upon joining.
+     */
+    prefs: {
+      /**
+       * @title Channels
+       * @description Default channels members will be invited to upon joining.
+       */
+      channels: string[];
+
+      /**
+       * @title Groups
+       * @description Default private channels members will be invited to upon joining.
+       */
+      groups: string[];
+    };
+
+    /**
+     * List of user object IDs belonging to the group (optional).
+     *
+     * If you want to look up a particular user, you can find out if this property has that user ID.
+     * If you want to see the user's nickname or name that corresponds to the user's ID, refer to the User Inquiry connector.
+     *
+     * @title Users
+     */
+    users?: string[];
+
+    /**
+     * @title User Count
+     * @description Total number of users in the group.
+     */
+    user_count: number;
+  }
+
+  export interface IGetUserGroupOutput {
+    /**
+     * @title ok
+     */
+    ok: boolean;
+
+    /**
+     * @inheritdoc
+     * @title usergroups
+     */
+    usergroups: ISlack.UserGroup[];
+  }
+
+  export type IGetUserGroupInput = ISlack.ISecret;
 }

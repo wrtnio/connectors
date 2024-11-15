@@ -33,8 +33,6 @@ type __DeepStrictObjectKeys<
   : never;
 
 /**
- * @title 중첩된 객체 혹은 배열의 모든 키를 표기하는 타입.
- *
  * 중첩된 객체의 모든 키를 뽑는 타입으로, 만약 중첩된 객체가 있을 경우 점 기호를 기준으로 객체를 표현한다.
  * 배열인 경우에는 `[*]` 기호를 이용하여 표기한다.
  *
@@ -42,6 +40,8 @@ type __DeepStrictObjectKeys<
  * type Example1 = DeepStrictObjectKeys<{ a: { b: 1; c: 2 } }>; // "a" | "a.b" | "a.c"
  * type Example2 = DeepStrictObjectKeys<{ a: { b: 1; c: { d: number }[] } }>; // "a" | "a.b" | "a.c" | "a.c[*].d"
  * ```
+ *
+ * @title 중첩된 객체 혹은 배열의 모든 키를 표기하는 타입.
  */
 export type DeepStrictObjectKeys<
   T extends object,

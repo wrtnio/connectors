@@ -20,6 +20,9 @@ export class NotionController {
    * @param input
    * @returns
    */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg",
+  )
   @core.TypedRoute.Delete("page/block")
   async deleteBlock(
     @core.TypedBody() input: INotion.IDeleteBlockInput,
@@ -48,144 +51,9 @@ export class NotionController {
   @core.TypedRoute.Post("page/markdown")
   async appendBlocksByMarkdown(
     @core.TypedBody() input: INotion.IAppendPageByMarkdownInput,
-  ): Promise<void> {
+  ): Promise<INotion.IAppendPageByMarkdownOutput> {
     return retry(() => NotionProvider.appendBlocksByMarkdown(input))();
   }
-
-  /**
-   * Append an audio type child node
-   *
-   * Notion is a very complex type, so you have to create a page in a block coding manner.
-   * Therefore, this connector is designed to create a page by taking only the page ID and one block of the corresponding block and continuously adding it to the bottom.
-   * The type of block you can put in here is `audio`.
-   *
-   * Calling this connector requires the correct page ID, so it should only be called if you have previously created a page to obtain that ID, viewed the page, or obtained a link or page ID from the user in advance.
-   *
-   * @summary Append an audio type child node
-   * @param input
-   * @returns
-   */
-  // @RouteIcon(
-  //   "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg",
-  // )
-  // @core.TypedRoute.Post("page/audio")
-  // async createAudio(
-  //   @TypedBody() input: INotion.ICreateChildContentTypeAudioInput,
-  // ): Promise<void> {
-  //   return retry(() => NotionProvider.createAudio(input))();
-  // }
-
-  /**
-   * Append an table_row type child node
-   *
-   * Notion is a very complex type, so you have to create a page in a block coding manner.
-   * Therefore, this connector is designed to create a page by taking only the page ID and one block of the corresponding block and continuously adding it to the bottom.
-   * The type of block you can put in here is `table_row`.
-   *
-   * Calling this connector requires the correct page ID, so it should only be called if you have previously created a page to obtain that ID, viewed the page, or obtained a link or page ID from the user in advance.
-   *
-   * @summary Append an table_row type child node
-   * @param input
-   * @returns
-   */
-  // @RouteIcon(
-  //   "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg",
-  // )
-  // @core.TypedRoute.Post("page/table_row")
-  // async createTableRow(
-  //   @TypedBody() input: INotion.ICreateChildContentTypeTableRowInput,
-  // ): Promise<void> {
-  //   return retry(() => NotionProvider.createTableRow(input))();
-  // }
-
-  /**
-   * Append an table type child node
-   *
-   * Notion is a very complex type, so you have to create a page in a block coding manner.
-   * Therefore, this connector is designed to create a page by taking only the page ID and one block of the corresponding block and continuously adding it to the bottom.
-   * The type of block you can put in here is `table`.
-   *
-   * Calling this connector requires the correct page ID, so it should only be called if you have previously created a page to obtain that ID, viewed the page, or obtained a link or page ID from the user in advance.
-   *
-   * @summary Append an table type child node
-   * @param input
-   * @returns
-   */
-  // @RouteIcon(
-  //   "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg",
-  // )
-  // @core.TypedRoute.Post("page/table")
-  // async createTable(
-  //   @TypedBody() input: INotion.ICreateChildContentTypeTableInput,
-  // ): Promise<void> {
-  //   return retry(() => NotionProvider.createTable(input))();
-  // }
-
-  /**
-   * Append an column_list type child node
-   *
-   * Notion is a very complex type, so you have to create a page in a block coding manner.
-   * Therefore, this connector is designed to create a page by taking only the page ID and one block of the corresponding block and continuously adding it to the bottom.
-   * The type of block you can put in here is `column_list`.
-   *
-   * Calling this connector requires the correct page ID, so it should only be called if you have previously created a page to obtain that ID, viewed the page, or obtained a link or page ID from the user in advance.
-   *
-   * @summary Append an column_list type child node
-   * @param input
-   * @returns
-   */
-  // @RouteIcon(
-  //   "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg",
-  // )
-  // @core.TypedRoute.Post("page/column_list")
-  // async createColumnList(
-  //   @TypedBody() input: INotion.ICreateChildContentTypeColumnListInput,
-  // ): Promise<void> {
-  //   return retry(() => NotionProvider.createColumnList(input))();
-  // }
-
-  /**
-   * Append an column type child node
-   *
-   * Notion is a very complex type, so you have to create a page in a block coding manner.
-   * Therefore, this connector is designed to create a page by taking only the page ID and one block of the corresponding block and continuously adding it to the bottom.
-   * The type of block you can put in here is `column`.
-   *
-   * Calling this connector requires the correct page ID, so it should only be called if you have previously created a page to obtain that ID, viewed the page, or obtained a link or page ID from the user in advance.
-   *
-   * @summary Append an column type child node
-   * @param input
-   * @returns
-   */
-  // @RouteIcon(
-  //   "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg",
-  // )
-  // @core.TypedRoute.Post("page/column")
-  // async createColumn(
-  //   @TypedBody() input: INotion.ICreateChildContentTypeColumnInput,
-  // ): Promise<void> {
-  //   return retry(() => NotionProvider.createColumn(input))();
-  // }
-
-  // @RouteIcon(
-  //   "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg",
-  // )
-  // @core.TypedRoute.Post("page/callout")
-  // async createCallout(
-  //   @TypedBody() input: INotion.ICreateChildContentTypeCalloutInput,
-  // ): Promise<void> {
-  //   return retry(() => NotionProvider.createCallout(input))();
-  // }
-
-  // @RouteIcon(
-  //   "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg",
-  // )
-  // @core.TypedRoute.Post("page/synced_block")
-  // async createSyncedBlock(
-  //   @TypedBody() input: INotion.ICreateChildContentTypeSyncedBlockInput,
-  // ): Promise<void> {
-  //   return retry(() => NotionProvider.createSyncedBlock(input))();
-  // }
 
   /**
    * Append an file type child node
@@ -355,6 +223,7 @@ export class NotionController {
    * Calling this connector requires the correct page ID, so it should only be called if you have previously created a page to obtain that ID, viewed the page, or obtained a link or page ID from the user in advance.
    *
    * @deprecated It is recommended not to use it anymore because it can be replaced by a markdown.
+   *
    * @summary Append an code type child node
    * @param input
    * @returns
@@ -491,198 +360,6 @@ export class NotionController {
   }
 
   /**
-   * Append an heading_1 type child node
-   *
-   * Notion is a very complex type, so you have to create a page in a block coding manner.
-   * Therefore, this connector is designed to create a page by taking only the page ID and one block of the corresponding block and continuously adding it to the bottom.
-   * The type of block you can put in here is `heading_1`.
-   *
-   * Calling this connector requires the correct page ID, so it should only be called if you have previously created a page to obtain that ID, viewed the page, or obtained a link or page ID from the user in advance.
-   *
-   * @deprecated It is recommended not to use it anymore because it can be replaced by a markdown.
-   * @summary Append an heading_1 type child node
-   * @param input
-   * @returns
-   */
-  // @RouteIcon(
-  //   "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg",
-  // )
-  // @core.TypedRoute.Post("page/heading_1")
-  // async createHeading_1(
-  //   @TypedBody() input: INotion.ICreateChildContentTypeHeading_1Input,
-  // ): Promise<void> {
-  //   return retry(() => NotionProvider.createHeading_1(input))();
-  // }
-
-  /**
-   * Append an heading_2 type child node
-   *
-   * Notion is a very complex type, so you have to create a page in a block coding manner.
-   * Therefore, this connector is designed to create a page by taking only the page ID and one block of the corresponding block and continuously adding it to the bottom.
-   * The type of block you can put in here is `heading_2`.
-   *
-   * Calling this connector requires the correct page ID, so it should only be called if you have previously created a page to obtain that ID, viewed the page, or obtained a link or page ID from the user in advance.
-   *
-   * @deprecated It is recommended not to use it anymore because it can be replaced by a markdown.
-   * @summary Append an heading_2 type child node
-   * @param input
-   * @returns
-   */
-  // @RouteIcon(
-  //   "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg",
-  // )
-  // @core.TypedRoute.Post("page/heading_2")
-  // async createHeading_2(
-  //   @TypedBody() input: INotion.ICreateChildContentTypeHeading_2Input,
-  // ): Promise<void> {
-  //   return retry(() => NotionProvider.createHeading_2(input))();
-  // }
-
-  /**
-   * Append an heading_3 type child node
-   *
-   * Notion is a very complex type, so you have to create a page in a block coding manner.
-   * Therefore, this connector is designed to create a page by taking only the page ID and one block of the corresponding block and continuously adding it to the bottom.
-   * The type of block you can put in here is `heading_3`.
-   *
-   * Calling this connector requires the correct page ID, so it should only be called if you have previously created a page to obtain that ID, viewed the page, or obtained a link or page ID from the user in advance.
-   *
-   * @deprecated It is recommended not to use it anymore because it can be replaced by a markdown.
-   * @summary Append an heading_3 type child node
-   * @param input
-   * @returns
-   */
-  // @RouteIcon(
-  //   "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg",
-  // )
-  // @core.TypedRoute.Post("page/heading_3")
-  // async createHeading_3(
-  //   @TypedBody() input: INotion.ICreateChildContentTypeHeading_3Input,
-  // ): Promise<void> {
-  //   return retry(() => NotionProvider.createHeading_3(input))();
-  // }
-
-  /**
-   * Append an paragraph type child node
-   *
-   * Notion is a very complex type, so you have to create a page in a block coding manner.
-   * Therefore, this connector is designed to create a page by taking only the page ID and one block of the corresponding block and continuously adding it to the bottom.
-   * The type of block you can put in here is `paragraph`.
-   *
-   * Calling this connector requires the correct page ID, so it should only be called if you have previously created a page to obtain that ID, viewed the page, or obtained a link or page ID from the user in advance.
-   *
-   * @deprecated It is recommended not to use it anymore because it can be replaced by a markdown.
-   * @summary Append an paragraph type child node
-   * @param input
-   * @returns
-   */
-  // @RouteIcon(
-  //   "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg",
-  // )
-  // @core.TypedRoute.Post("page/paragraph")
-  // async createParagraph(
-  //   @TypedBody() input: INotion.ICreateChildContentTypeParagraphInput,
-  // ): Promise<void> {
-  //   return retry(() => NotionProvider.createParagraph(input))();
-  // }
-
-  /**
-   * Append an bulleted_list_item type child node
-   *
-   * Notion is a very complex type, so you have to create a page in a block coding manner.
-   * Therefore, this connector is designed to create a page by taking only the page ID and one block of the corresponding block and continuously adding it to the bottom.
-   * The type of block you can put in here is `bulleted_list_item`.
-   *
-   * Calling this connector requires the correct page ID, so it should only be called if you have previously created a page to obtain that ID, viewed the page, or obtained a link or page ID from the user in advance
-   *
-   * @deprecated It is recommended not to use it anymore because it can be replaced by a markdown.
-   * @summary Append an bulleted_list_item type child node
-   * @param input
-   * @returns
-   */
-  // @RouteIcon(
-  //   "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg",
-  // )
-  // @core.TypedRoute.Post("page/bulleted_list_item")
-  // async createBulletedListItem(
-  //   @TypedBody() input: INotion.ICreateChildContentTypeBulletedListItemInput,
-  // ): Promise<void> {
-  //   return retry(() => NotionProvider.createBulletedListItem(input))();
-  // }
-
-  /**
-   * Append an numbered_list_item type child node
-   *
-   * Notion is a very complex type, so you have to create a page in a block coding manner.
-   * Therefore, this connector is designed to create a page by taking only the page ID and one block of the corresponding block and continuously adding it to the bottom.
-   * The type of block you can put in here is `numbered_list_item`.
-   *
-   * Calling this connector requires the correct page ID, so it should only be called if you have previously created a page to obtain that ID, viewed the page, or obtained a link or page ID from the user in advance.
-   *
-   * @deprecated It is recommended not to use it anymore because it can be replaced by a markdown.
-   * @summary Append an numbered_list_item type child node
-   * @param input
-   * @returns
-   */
-  // @RouteIcon(
-  //   "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg",
-  // )
-  // @core.TypedRoute.Post("page/numbered_list_item")
-  // async createNumberedListItem(
-  //   @TypedBody() input: INotion.ICreateChildContentTypeNumberedListItemInput,
-  // ): Promise<void> {
-  //   return retry(() => NotionProvider.createNumberedListItem(input))();
-  // }
-
-  /**
-   * Append an quote type child node
-   *
-   * Notion is a very complex type, so you have to create a page in a block coding manner.
-   * Therefore, this connector is designed to create a page by taking only the page ID and one block of the corresponding block and continuously adding it to the bottom.
-   * The type of block you can put in here is `quote`.
-   *
-   * Calling this connector requires the correct page ID, so it should only be called if you have previously created a page to obtain that ID, viewed the page, or obtained a link or page ID from the user in advance.
-   *
-   * @deprecated It is recommended not to use it anymore because it can be replaced by a markdown.
-   * @summary Append an quote type child node
-   * @param input
-   * @returns
-   */
-  // @RouteIcon(
-  //   "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg",
-  // )
-  // @core.TypedRoute.Post("page/quote")
-  // async createQuote(
-  //   @TypedBody() input: INotion.ICreateChildContentTypeQuoteInput,
-  // ): Promise<void> {
-  //   return retry(() => NotionProvider.createQuote(input))();
-  // }
-
-  /**
-   * Append an to_do type child node
-   *
-   * Notion is a very complex type, so you have to create a page in a block coding manner.
-   * Therefore, this connector is designed to create a page by taking only the page ID and one block of the corresponding block and continuously adding it to the bottom.
-   * The type of block you can put in here is `to_do`.
-   *
-   * Calling this connector requires the correct page ID, so it should only be called if you have previously created a page to obtain that ID, viewed the page, or obtained a link or page ID from the user in advance.
-   *
-   * @deprecated It is recommended not to use it anymore because it can be replaced by a markdown.
-   * @summary Append an to_do type child node
-   * @param input
-   * @returns
-   */
-  // @RouteIcon(
-  //   "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg",
-  // )
-  // @core.TypedRoute.Post("page/to_do")
-  // async createToDo(
-  //   @TypedBody() input: INotion.ICreateChildContentTypeToDoInput,
-  // ): Promise<void> {
-  //   return retry(() => NotionProvider.createToDo(input))();
-  // }
-
-  /**
    * Append an toggle type child node
    *
    * Notion is a very complex type, so you have to create a page in a block coding manner.
@@ -712,8 +389,9 @@ export class NotionController {
    * Since a parent ID is required, when a user gives you a link to the page,
    * you should take out the ID from it and use it, or first look up the list of pages accessible to the user.
    * Since Notion prioritizes accessible pages during authentication, creating pages must be sub-pages within the page, which means that there must be a parent page.
+   * Because this feature only creates pages and does not create content, we recommend that you call additional content creation connectors if you want to create content.
    *
-   * @summary Create page
+   * @summary Create empty page
    * @param input Information needed to create the page
    * @returns Unique ID of the generated page
    */
@@ -735,6 +413,8 @@ export class NotionController {
    * It is used to check the contents of the page by inquiring about the children of the page or block.
    * It recursively traverses and looks for all blocks. Here, we are ready to combine online blocks and blocks containing text.
    *
+   * For child pages, it does not even look up the contents.
+   *
    * @summary Retrieve block children
    * @param input
    * @returns
@@ -751,7 +431,7 @@ export class NotionController {
   }
 
   /**
-   * Retrieve a list of all pages in your Notion workspace.
+   * Retrieve a list of all pages in your Notion workspace
    *
    * @summary Retrieve a list of pages
    * @returns Page information
@@ -769,7 +449,7 @@ export class NotionController {
   }
 
   /**
-   * Retrieve the list of users in the workspace.
+   * Retrieve the list of users in the workspace
    *
    * @summary Retrieve the list of users
    * @returns User information
@@ -787,7 +467,7 @@ export class NotionController {
   }
 
   /**
-   * Query the database list to create items in the database.
+   * Query the database list to create items in the database
    *
    * @summary Query the database list
    * @returns A list of database information
@@ -805,10 +485,9 @@ export class NotionController {
   }
 
   /**
-   * Retrieves database information to create items in the database.
+   * Retrieves database information to create items in the database
    *
    * @summary Retrieves database information
-   *
    * @param databaseId Unique id of the database
    * @returns Database information
    */
@@ -821,7 +500,7 @@ export class NotionController {
     @core.TypedBody() input: INotion.ISecret,
     /**
      * @title Database to receive information from
-     * @description Please select the database to receive information from.
+     * @description Please select the database to receive information from
      */
     @Prerequisite({
       neighbor: () => NotionController.prototype.getDatabaseListInfo,
@@ -834,10 +513,9 @@ export class NotionController {
   }
 
   /**
-   * Create an item in the Notion Table database.
+   * Create an item in the Notion Table database
    *
    * @summary Create a database item
-   *
    * @param input Information needed to create a database item
    *
    * @param databaseId Unique id of the database in which to create the item
@@ -865,10 +543,9 @@ export class NotionController {
   }
 
   /**
-   * Modify item information in the database.
+   * Modify item information in the database
    *
    * @summary Modify database item
-   *
    * @param input Database item information to modify
    *
    * @param databaseId Unique id of the database to modify
@@ -883,7 +560,7 @@ export class NotionController {
     @core.TypedBody() input: INotion.IUpdateDatabaseItemInput,
     /**
      * @title Database to modify item
-     * @description Please select the database to modify item.
+     * @description Please select the database to modify item
      */
     @Prerequisite({
       neighbor: () => NotionController.prototype.getDatabaseListInfo,
@@ -896,10 +573,9 @@ export class NotionController {
   }
 
   /**
-   * Search for pages by title.
+   * Search for pages by title
    *
    * @summary Search for pages by title
-   *
    * @param input Page title
    * @returns Searched page information
    */
@@ -916,10 +592,9 @@ export class NotionController {
   }
 
   /**
-   * Retrieve a list of items that exist in a table database.
+   * Retrieve a list of items that exist in a table database
    *
    * @summary Retrieve a list of database items
-   *
    * @param databaseId Unique id of the database
    * @returns List of retrieved database items
    */
@@ -947,10 +622,9 @@ export class NotionController {
   }
 
   /**
-   * Retrieves an item that exists in a table database.
+   * Retrieves an item that exists in a table database
    *
    * @summary Retrieval of database items
-   *
    * @param input Information required to retrieve database items
    *
    * @param databaseId Unique id of the database
@@ -965,7 +639,7 @@ export class NotionController {
     @core.TypedBody() input: INotion.IFindDatabaseItemInput,
     /**
      * @title Database to retrieve item information
-     * @description Please select the database to retrieve item information.
+     * @description Please select the database to retrieve item information
      */
     @Prerequisite({
       neighbor: () => NotionController.prototype.getDatabaseListInfo,

@@ -1,5 +1,7 @@
 import { Injectable } from "@nestjs/common";
+import { WebClient } from "@slack/web-api";
 import { ISlack } from "@wrtn/connector-api/lib/structures/connector/slack/ISlack";
+import { PickPartial } from "@wrtn/connector-api/lib/structures/types/PickPartial";
 import { StrictOmit } from "@wrtn/connector-api/lib/structures/types/strictOmit";
 import axios from "axios";
 import slackifyMarkdown from "slackify-markdown";
@@ -9,7 +11,6 @@ import { createQueryParameter } from "../../../utils/CreateQueryParameter";
 import { retry } from "../../../utils/retry";
 import { OAuthSecretProvider } from "../../internal/oauth_secret/OAuthSecretProvider";
 import { IOAuthSecret } from "../../internal/oauth_secret/structures/IOAuthSecret";
-import { WebClient } from "@slack/web-api";
 import { SlackTemplateProvider } from "./SlackTemplateProvider";
 
 @Injectable()
@@ -230,32 +231,51 @@ export class SlackProvider {
     const url = `https://slack.com/api/conversations.replies?pretty=1`;
     const token = await this.getToken(secretKey);
 
-    const res = await axios.get(`${url}&${queryParameter}`, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-        "Content-Type": "application/json; charset=utf-8;",
-      },
-    });
+    const [{ url: workspaceUrl }, allMembers, { usergroups }, res] =
+      await Promise.all([
+        this.authTest(input),
+        this.getAllUsers(input),
+        this.getUserGroups(input),
+        axios.get(`${url}&${queryParameter}`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json; charset=utf-8;",
+          },
+        }),
+      ]);
 
+    const link_count = 0;
     const next_cursor = res.data.response_metadata?.next_cursor;
-    const replies = res.data.messages
-      .slice(1)
-      .map((message: ISlack.Reply): ISlack.Reply => {
-        const timestamp = this.transformTsToTimestamp(message.ts);
+    const replies: ISlack.ChannelHistory[] = res.data.messages
+      .slice(1) // 0번째 인덱스는 부모 스레드가 나오기 때문
+      .map(
+        (message: ISlack.Reply): ISlack.ChannelHistory =>
+          this.convertMessageFormat({
+            message: { ...message, channel: input.channel },
+            channel: input.channel,
+            link_count,
+            allMembers,
+            workspaceUrl,
+            allUsergroups: usergroups,
+          }),
+      );
 
-        return {
-          type: message.type,
-          user: message.user ?? null,
-          text: message.text,
-          ts: String(message.ts),
-          thread_ts: message.thread_ts,
-          parent_user_id: message.parent_user_id ?? null,
-          ts_date: new Date(timestamp).toISOString(),
-          ...(message.attachments && { attachments: message.attachments }),
-        };
-      });
+    const userIds = Array.from(
+      new Set(replies.map((message) => message.user).filter(Boolean)),
+    );
 
-    return { replies, next_cursor: next_cursor ? next_cursor : null };
+    const members = userIds
+      .map((userId) => {
+        const member = allMembers.find((el) => el.id === userId);
+        return member;
+      })
+      .filter(Boolean) as Pick<ISlack.IGetUserOutput, "id" | "display_name">[];
+
+    return {
+      replies,
+      next_cursor: next_cursor ? next_cursor : null,
+      members,
+    };
   }
 
   async getAllUsers(input: {
@@ -359,6 +379,28 @@ export class SlackProvider {
     });
   }
 
+  async updateMessage(
+    input: ISlack.IUpdateMessageInput,
+  ): Promise<ISlack.IUpdateMessageOutput> {
+    const token = await this.getToken(input.secretKey);
+    const client = new WebClient(token);
+    const preconfiged = `${input.text}\n\n\n\n> Sent by Action Agent in Wrtn Studio Pro`;
+    const text = slackifyMarkdown(preconfiged);
+    const res = await client.chat.update({
+      channel: input.channel,
+      text: text.replaceAll("\\n", "\n"), // 줄바꿈 문자를 잘못 입력했을 경우에 대비한다.
+      token,
+      ts: input.thread_ts,
+      attachments: [],
+    });
+
+    if (!res.ts) {
+      throw new Error("Failed to update slack message");
+    }
+
+    return { ts: res.ts };
+  }
+
   private async sendMessage(input: {
     channel: string;
     text: string;
@@ -432,59 +474,33 @@ export class SlackProvider {
     });
 
     const token = await this.getToken(secretKey);
+    const [{ url: workspaceUrl }, allMembers, { usergroups }, res] =
+      await Promise.all([
+        this.authTest(input),
+        this.getAllUsers(input),
+        this.getUserGroups(input),
+        axios.get(`${url}&${queryParameter}`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json; charset=utf-8;",
+          },
+        }),
+      ]);
 
-    const { url: workspaceUrl } = await this.authTest(input);
-    const res = await axios.get(`${url}&${queryParameter}`, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-        "Content-Type": "application/json; charset=utf-8;",
-      },
-    });
-
-    const allMembers = await this.getAllUsers(input);
-
-    function extractLinks(text: string): string[] {
-      // URL 패턴을 찾는 정규식
-      /**
-       * <LINK|ALT>에서 LINK만 뽑도록 정의한 RegExp
-       */
-      const linkRegex = /(?<=<)https?:\/\/[^>|]+(?=>|)/g;
-
-      // 입력 문자열에서 URL을 추출
-      const links = text.match(linkRegex);
-
-      // 링크가 없다면 빈 문자열 반환
-      return links ? Array.from(new Set(links)) : [];
-    }
-
-    let link_count = 0;
+    const link_count = 0;
     const next_cursor = res.data.response_metadata?.next_cursor;
-    const messages: ISlack.LinkMessage[] = res.data.messages
-      .map((message: ISlack.Message): ISlack.LinkMessage => {
-        const timestamp = this.transformTsToTimestamp(message.ts);
-        const text = extractLinks(message.text);
-        return {
-          type: message.type,
-          user: message.user ?? null,
-          text: message.text
-            .replaceAll(/```[\s\S]+?```/g, "<CODE/>")
-            .replaceAll(/<https?:\/\/[^\>]+>/g, () => {
-              return `<LINK${link_count++}/>`;
-            })
-            .replace(/@(\w+)/g, (_, id) => {
-              const member = allMembers.find((member) => member.id === id);
-              return member ? `@${member.name}` : `@${id}`; // 멤버가 없으면 원래 아이디를 유지
-            }),
-          links: text,
-          ts: String(message.ts),
-          channel: input.channel,
-          reply_count: message?.reply_count ?? 0,
-          reply_users_count: message?.reply_users_count ?? 0,
-          ts_date: new Date(timestamp).toISOString(),
-          link: `${workspaceUrl}archives/${input.channel}/p${message.ts.replace(".", "")}`,
-          // ...(message.attachments && { attachments: message.attachments }),
-        };
-      })
+    const messages: ISlack.ChannelHistory[] = res.data.messages
+      .map(
+        (message: ISlack.Message): ISlack.ChannelHistory =>
+          this.convertMessageFormat({
+            message,
+            channel: input.channel,
+            link_count,
+            allMembers,
+            workspaceUrl,
+            allUsergroups: usergroups,
+          }),
+      )
       .filter((message: ISlack.LinkMessage) => {
         return message.links.length !== 0;
       });
@@ -525,45 +541,31 @@ export class SlackProvider {
     });
 
     const token = await this.getToken(secretKey);
+    const [{ url: workspaceUrl }, allMembers, { usergroups }, res] =
+      await Promise.all([
+        this.authTest(input),
+        this.getAllUsers(input),
+        this.getUserGroups(input),
+        axios.get(`${url}&${queryParameter}`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json; charset=utf-8;",
+          },
+        }),
+      ]);
 
-    const { url: workspaceUrl } = await this.authTest(input);
-    const res = await axios.get(`${url}&${queryParameter}`, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-        "Content-Type": "application/json; charset=utf-8;",
-      },
-    });
-
-    const allMembers = await this.getAllUsers(input);
-
-    let link_count = 0;
+    const link_count = 0;
     const next_cursor = res.data.response_metadata?.next_cursor;
-    const messages: ISlack.Message[] = res.data.messages.map(
-      (message: ISlack.Message): ISlack.Message => {
-        const timestamp = this.transformTsToTimestamp(message.ts);
-        const text = message.text
-          .replaceAll(/```[\s\S]+?```/g, "<CODE/>")
-          .replaceAll(/<https?:\/\/[^\>]+>/g, () => {
-            return `<LINK${link_count++}/>`;
-          })
-          .replace(/@(\w+)/g, (_, id) => {
-            const member = allMembers.find((member) => member.id === id);
-            return member ? `@${member.name}` : `@${id}`; // 멤버가 없으면 원래 아이디를 유지
-          });
-
-        return {
-          type: message.type,
-          user: message.user ?? null,
-          text: text,
-          ts: String(message.ts),
+    const messages: ISlack.ChannelHistory[] = res.data.messages.map(
+      (message: ISlack.Message): ISlack.ChannelHistory =>
+        this.convertMessageFormat({
+          message,
           channel: input.channel,
-          reply_count: message?.reply_count ?? 0,
-          reply_users_count: message?.reply_users_count ?? 0,
-          ts_date: new Date(timestamp).toISOString(),
-          link: `${workspaceUrl}archives/${input.channel}/p${message.ts.replace(".", "")}`,
-          // ...(message.attachments && { attachments: message.attachments }),
-        };
-      },
+          link_count,
+          allMembers,
+          workspaceUrl,
+          allUsergroups: usergroups,
+        }),
     );
 
     const userIds = Array.from(
@@ -777,6 +779,26 @@ export class SlackProvider {
     throw new Error("슬랙 템플릿 메시지 전송 실패");
   }
 
+  async getUserGroups(
+    input: ISlack.IGetUserGroupInput,
+  ): Promise<ISlack.IGetUserGroupOutput> {
+    const url = `https://slack.com/api/usergroups.list?include_users=true`;
+    const token = await this.getToken(input.secretKey);
+    const res = await axios.get(url, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json; charset=utf-8;",
+      },
+    });
+
+    if (res.data.ok === false) {
+      // Missing scope error
+      throw new Error(JSON.stringify(res.data));
+    }
+
+    return res.data;
+  }
+
   private getUserProfileFields(profile: { fields: Record<string, string> }) {
     if (profile?.fields) {
       const fields = Object.values(profile.fields)
@@ -804,6 +826,69 @@ export class SlackProvider {
 
   private transformTimestampToTs(timestamp: number) {
     return String(timestamp).split("").slice(0, -3).join("");
+  }
+
+  private convertMessageFormat(input: {
+    message: PickPartial<ISlack.Message, "reply_count" | "reply_users_count">;
+    channel: ISlack.Channel["id"];
+    link_count: number;
+    allMembers: StrictOmit<ISlack.IGetUserOutput, "fields">[];
+    allUsergroups: ISlack.UserGroup[];
+    workspaceUrl: string & tags.Format<"uri">;
+  }): ISlack.ChannelHistory {
+    function extractLinks(text: string): string[] {
+      // URL 패턴을 찾는 정규식
+      /**
+       * <LINK|ALT>에서 LINK만 뽑도록 정의한 RegExp
+       */
+      const linkRegex = /(?<=<)https?:\/\/[^>|]+(?=>|)/g;
+
+      // 입력 문자열에서 URL을 추출
+      const links = text.match(linkRegex);
+
+      // 링크가 없다면 빈 문자열 반환
+      return links ? Array.from(new Set(links)) : [];
+    }
+
+    // <!subteam^S06AS8Y5QAU>
+    const tags = input.message.text.match(/<!subteam\^\w+>/g); // (\w+)가 아님에 주목하라.
+    const refinedTags: string[] = tags ? Array.from(new Set(tags)) : [];
+    const usergroups = input.allUsergroups.filter((usergroup) =>
+      refinedTags.includes(`<!subteam^${usergroup.id}>`),
+    );
+
+    const timestamp = this.transformTsToTimestamp(input.message.ts);
+    const speaker = input.allMembers.find((el) => el.id === input.message.user);
+    const links = extractLinks(input.message.text);
+    return {
+      // type: input.message.type,
+      user: input.message.user ?? null,
+      username: speaker?.display_name ?? null,
+      text: input.message.text
+        .replaceAll(/```[\s\S]+?```/g, "<CODE/>")
+        .replaceAll(/<https?:\/\/[^\>]+>/g, () => {
+          return `<LINK${input.link_count++}/>`;
+        })
+        .replace(/<!subteam\^(\w+)>/g, (_, id) => {
+          const usergroup = input.allUsergroups.find(
+            (usergroup) => usergroup.id === id,
+          );
+          return usergroup ? `@${usergroup.handle}` : `@${id}`; // 멤버가 없으면 원래 아이디를 유지
+        })
+        .replace(/@(\w+)/g, (_, id) => {
+          const member = input.allMembers.find((member) => member.id === id);
+          return member ? `@${member.name}` : `@${id}`; // 멤버가 없으면 원래 아이디를 유지
+        }),
+      links,
+      ts: String(input.message.ts),
+      channel: input.channel,
+      reply_count: input.message?.reply_count ?? 0,
+      reply_users_count: input.message?.reply_users_count ?? 0,
+      ts_date: new Date(timestamp).toISOString(),
+      link: `${input.workspaceUrl}archives/${input.channel}/p${input.message.ts.replace(".", "")}`,
+      usergroups,
+      // ...(input.message.attachments && { attachments: input.message.attachments }),
+    };
   }
 
   private async getToken(secretValue: string): Promise<string> {

@@ -1,19 +1,18 @@
 import core from "@nestia/core";
 import { Controller } from "@nestjs/common";
 
+import { ApiTags } from "@nestjs/swagger";
 import { IAISearch } from "@wrtn/connector-api/lib/structures/connector/ai_search/IAISearch";
 import { AISearchProvider } from "../../../providers/connector/ai_search/AISearchProvider";
 import { retry } from "../../../utils/retry";
-import { ApiTags } from "@nestjs/swagger";
 
 @Controller("connector/ai-search")
 export class AISearchController {
   constructor(private readonly aiSearchProvider: AISearchProvider) {}
   /**
-   * Returns search results via AI search.
+   * Returns search results via AI search
    *
    * @summary AI search
-   *
    * @hidden
    * @param input Conditions required for search
    * @returns

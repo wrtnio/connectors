@@ -67,35 +67,35 @@ export namespace INaver {
     /**
      * Title of Naver Cafe post.
      *
-     * @title Post title.
+     * @title Post title
      */
     title: string;
 
     /**
      * Link to Naver Cafe post.
      *
-     * @title Post link.
+     * @title Post link
      */
     link: string;
 
     /**
      * Summary of Naver Cafe post.
      *
-     * @title Summary of post.
+     * @title Summary of post
      */
     description: string;
 
     /**
      * The name of the cafe where the Naver Cafe post is located.
      *
-     * @title The name of the cafe where the post is located.
+     * @title The name of the cafe where the post is located
      */
     cafename: string;
 
     /**
      * Link to the cafe where the Naver Cafe post is located.
      *
-     * @title Link to the cafe where the post is located.
+     * @title Link to the cafe where the post is located
      */
     cafeurl: string;
   }
@@ -107,42 +107,42 @@ export namespace INaver {
     /**
      * Title of Naver blog post.
      *
-     * @title Post title.
+     * @title Post title
      */
     title: string;
 
     /**
      * Link to Naver blog post.
      *
-     * @title Post link.
+     * @title Post link
      */
     link: string;
 
     /**
      * Summary of Naver blog post.
      *
-     * @title Summary of post.
+     * @title Summary of post
      */
     description: string;
 
     /**
      * The name of the blog that contains the Naver blog post.
      *
-     * @title The name of the blog that contains the blog post.
+     * @title The name of the blog that contains the blog post
      */
     bloggername: string;
 
     /**
      * Address of the blog that contains the Naver blog post.
      *
-     * @title Address of the blog that contains the blog post.
+     * @title Address of the blog that contains the blog post
      */
     bloggerlink: string;
 
     /**
      * The date the Naver blog post was created.
      *
-     * @title The date the blog post was created.
+     * @title The date the blog post was created
      */
     postdate: string;
   }
@@ -154,41 +154,41 @@ export namespace INaver {
     /**
      * Naver Cafe search result data.
      *
-     * @title Naver Cafe search result data.
+     * @title Naver Cafe search result data
      */
     data: {
       /**
        * The time the search results were generated.
        *
-       * @title The time the search results were generated.
+       * @title The time the search results were generated
        */
       lastBuildDate: string;
 
       /**
        * Total number of search results.
        *
-       * @title Total number of search results.
+       * @title Total number of search results
        */
       total: number;
 
       /**
        * The starting position of the search results.
        *
-       * @title The starting position of the search.
+       * @title The starting position of the search
        */
       start: number;
 
       /**
        * The number of search results to display at one time.
        *
-       * @title The number of search results to display at one time.
+       * @title The number of search results to display at one time
        */
       display: number;
 
       /**
        * Individual search results.
        *
-       * @title Individual search results.
+       * @title Individual search results
        */
       items: ICafeNaverItemOutput[];
     };
@@ -201,35 +201,35 @@ export namespace INaver {
     /**
      * The time the search results were generated.
      *
-     * @title The time the search results were generated.
+     * @title The time the search results were generated
      */
     lastBuildDate: string;
 
     /**
      * Total number of search results.
      *
-     * @title Total number of search results.
+     * @title Total number of search results
      */
     total: number;
 
     /**
      * The starting position of the search results.
      *
-     * @title The starting position of the search.
+     * @title The starting position of the search
      */
     start: number;
 
     /**
      * The number of search results to display at one time.
      *
-     * @title The number of search results to display at one time.
+     * @title The number of search results to display at one time
      */
     display: number;
 
     /**
      * Individual search results.
      *
-     * @title Individual search results.
+     * @title Individual search results
      */
     items: IBlogNaverItemOutput[];
   }
@@ -238,35 +238,35 @@ export namespace INaver {
     /**
      * The time the search results were generated.
      *
-     * @title The time the search results were generated.
+     * @title The time the search results were generated
      */
     lastBuildDate: string;
 
     /**
      * Total number of search results.
      *
-     * @title Total number of search results.
+     * @title Total number of search results
      */
     total: number;
 
     /**
      * The starting position of the search results.
      *
-     * @title The starting position of the search.
+     * @title The starting position of the search
      */
     start: number;
 
     /**
      * The number of search results to display at one time.
      *
-     * @title The number of search results to display at one time.
+     * @title The number of search results to display at one time
      */
     display: number;
 
     /**
      * Individual search results.
      *
-     * @title Individual search results.
+     * @title Individual search results
      */
     items: INewsNaverItemOutput[];
   }

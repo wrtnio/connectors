@@ -1,10 +1,10 @@
-import { Controller } from "@nestjs/common";
-import { RouteIcon, Standalone } from "@wrtnio/decorators";
 import core from "@nestia/core";
+import { Controller } from "@nestjs/common";
+import { ApiTags } from "@nestjs/swagger";
 import { IGoogleShopping } from "@wrtn/connector-api/lib/structures/connector/google_shopping/IGoogleShopping";
+import { RouteIcon, Standalone } from "@wrtnio/decorators";
 import { GoogleShoppingProvider } from "../../../../providers/connector/google_shopping/GoogleShoppingProvider";
 import { retry } from "../../../../utils/retry";
-import { ApiTags } from "@nestjs/swagger";
 
 @Controller("connector/google-shopping")
 export class GoogleShoppingMusinsaController {
@@ -13,12 +13,10 @@ export class GoogleShoppingMusinsaController {
   ) {}
 
   /**
-   * Search for products in Musinsa.
+   * Search for products in Musinsa
    *
    * @summary Musinsa Search
-   *
    * @param input Search conditions
-   *
    * @returns Search results
    */
   @Standalone()

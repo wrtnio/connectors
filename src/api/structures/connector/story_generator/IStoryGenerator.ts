@@ -1,6 +1,26 @@
 export interface IStoryGeneratorRequest {
+  /**
+   * @title query
+   */
   query: string;
-  chatHistory: { role: string; content: string }[];
+
+  /**
+   * @title chatHistory
+   */
+  chatHistory: {
+    /**
+     * @title role
+     */
+    role: string;
+    /**
+     * @title content
+     */
+    content: string;
+  }[];
+
+  /**
+   * @title previousStories
+   */
   previousStories: string[];
 }
 

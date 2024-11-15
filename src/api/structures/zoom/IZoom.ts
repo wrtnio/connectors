@@ -1,7 +1,7 @@
 import { tags } from "typia";
 
-import { MyPartial } from "../types/MyPartial";
 import { ICommon } from "../connector/common/ISecretValue";
+import { MyPartial } from "../types/MyPartial";
 
 export namespace IZoom {
   export interface ICreateMeetingInput
@@ -15,14 +15,14 @@ export namespace IZoom {
     /**
      * The meeting's agenda.
      *
-     * @title The meeting's agenda.
+     * @title The meeting's agenda
      */
     agenda: string & tags.MaxLength<2000>;
 
     /**
      * If this value is true and the user has enabled PMI settings with passwords, the user's meetings will use the PMI password.
      *
-     * @title Whether to create a default password.
+     * @title Whether to create a default password
      */
     default_password: boolean & tags.Default<false>;
 
@@ -31,94 +31,94 @@ export namespace IZoom {
      *
      * Used only when a meeting is scheduled.
      *
-     * @title The scheduled time (duration) of the meeting.
+     * @title The scheduled time (duration) of the meeting
      */
     duration: number & tags.Type<"int64">;
 
     /**
      * It means a password consisting of English uppercase and lowercase letters and '@', '-', '_', '*'.
      *
-     * @title Meeting password.
+     * @title Meeting password
      */
     password: string & tags.MaxLength<10>;
 
     /**
-     * @title Whether to create a scheduled meeting via the `GSuite` app.
+     * @title Whether to create a scheduled meeting via the `GSuite` app
      */
     pre_schedule: boolean & tags.Default<false>;
 
     /**
-     * @title The ID of the user who hosted this meeting.
+     * @title The ID of the user who hosted this meeting
      */
     assistant_id: string;
 
     /**
-     * @title The email address of the meeting organizer.
+     * @title The email address of the meeting organizer
      */
     host_email: string & tags.Format<"email">;
 
     /**
-     * @title Meeting ID.
+     * @title Meeting ID
      */
     id: number & tags.Type<"int64">;
 
     /**
-     * @title URL where participants can register.
+     * @title URL where participants can register
      */
     registration_url: string & tags.Format<"url">;
 
     /**
-     * @title The date and time this meeting was created.
+     * @title The date and time this meeting was created
      */
     created_at: string & tags.Format<"date-time">;
 
     /**
-     * @title Encrypted password for 3rd party endpoints (H323/SIP).
+     * @title Encrypted password for 3rd party endpoints (H323/SIP)
      */
     encrypted_password: string;
 
     /**
-     * @title Password to join the meeting via PSTN.
+     * @title Password to join the meeting via PSTN
      */
     pstn_password: string;
 
     /**
-     * @title H.323/SIP room system password.
+     * @title H.323/SIP room system password
      */
     h323_password: string;
 
     /**
-     * @title The URL where participants can join the meeting.
+     * @title The URL where participants can join the meeting
      */
     join_url: string & tags.Format<"url">;
 
     /**
-     * @title URL where you can join the chat.
+     * @title URL where you can join the chat
      */
     chat_join_url: string & tags.Format<"url">;
 
     /**
-     * @title Information about recurring webinars.
+     * @title Information about recurring webinars
      */
     occurrences: IZoom.Occurrence[];
 
     /**
-     * @title Personal meeting ID (PMI).
+     * @title Personal meeting ID (PMI)
      */
     pmi: string;
 
     /**
-     * @title Information about the meeting's recurrence cycle.
+     * @title Information about the meeting's recurrence cycle
      */
     recurrence: IZoom.Recurrence;
 
     /**
-     * @title Zoom settings information.
+     * @title Zoom settings information
      */
     settings: MyPartial<IZoom.Settings>;
 
     /**
-     * @title Meeting start time.
+     * @title Meeting start time
      */
     start_time: string & tags.Format<"date-time">;
 
@@ -127,12 +127,12 @@ export namespace IZoom {
      *
      * Anyone with this URL can log into the Zoom client with host privileges.
      *
-     * @title URL that allows you to join as the meeting host.
+     * @title URL that allows you to join as the meeting host
      */
     start_url: string & tags.Format<"url">;
 
     /**
-     * @title `start_time`의 timezone.
+     * @title `start_time`의 timezone
      */
     timezone: string;
 
@@ -153,18 +153,18 @@ export namespace IZoom {
      * - 8: Recurring meeting with fixed time.
      * - 10: Meeting with screen sharing only.
      *
-     * @title Type of meeting.
+     * @title Type of meeting
      */
     type: (1 | 2 | 3 | 8 | 10) & tags.Default<2>;
 
     /**
-     * @title 미팅의 dynamic_host_key.
+     * @title 미팅의 dynamic_host_key
      */
     dynamic_host_key: string;
   }
 
   /**
-   * @title Information about the meeting's recurrence cycle.
+   * @title Information about the meeting's recurrence cycle
    */
   export interface Recurrence {
     /**
@@ -172,7 +172,7 @@ export namespace IZoom {
      *
      * Cannot be used with `end_times`.
      *
-     * @title This means the last day before the meeting ends.
+     * @title This means the last day before the meeting ends
      */
     end_date_time?: string & tags.Format<"date-time">;
 
@@ -181,7 +181,7 @@ export namespace IZoom {
      *
      * If end_times is set to 0, it means there is no end time.
      *
-     * @title The number of repetitions before the meeting is finally terminated.
+     * @title The number of repetitions before the meeting is finally terminated
      */
     end_times?: number &
       tags.Type<"int64"> &
@@ -191,14 +191,14 @@ export namespace IZoom {
     /**
      * 1 is daily, 2 is weekly, 3 is monthly, indicating the repetition type.
      *
-     * @title Meeting repetition cycle.
+     * @title Meeting repetition cycle
      */
     type: 1 | 2 | 3;
 
     /**
      * It means the days from 1 to 31 of the month, and is the value set when `type` is 3, that is, it repeats every month.
      *
-     * @title The days from 1 to 31 of the month.
+     * @title The days from 1 to 31 of the month
      */
     monthly_day: number &
       tags.Type<"int32"> &
@@ -216,7 +216,7 @@ export namespace IZoom {
      * - 3: Third week of the month.
      * - 4: Fourth week of the month.
      *
-     * @title Indicates which week of each month.
+     * @title Indicates which week of each month
      */
     monthly_week: -1 | 1 | 2 | 3 | 4;
 
@@ -233,7 +233,7 @@ export namespace IZoom {
      * - 6 - Friday.
      * - 7 - Saturday.
      *
-     * @title Indicates which day of the week it is each month.
+     * @title Indicates which day of the week it is each month
      */
     monthly_week_day:
       | (("1" | "2" | "3" | "4" | "5" | "6" | "7") & tags.Default<"1">)
@@ -246,7 +246,7 @@ export namespace IZoom {
      *
      * When `type` is 3, i.e., for meetings set to monthly, up to 3 (months) is possible.
      *
-     * @title Interval between meetings.
+     * @title Interval between meetings
      */
     repeat_interval: number & tags.Type<"int64">;
 
@@ -263,7 +263,7 @@ export namespace IZoom {
      * - 6 - Friday.
      * - 7 - Saturday.
      *
-     * @title Indicates which day of the week it is.
+     * @title Indicates which day of the week it is
      */
     weekly_days:
       | (("1" | "2" | "3" | "4" | "5" | "6" | "7") & tags.Default<"1">)
@@ -271,21 +271,21 @@ export namespace IZoom {
   }
 
   /**
-   * @title Information about recurring webinars.
+   * @title Information about recurring webinars
    */
   export interface Occurrence {
     /**
-     * @title An integer representing the duration of the webinar.
+     * @title An integer representing the duration of the webinar
      */
     duration: number & tags.Type<"int64">;
 
     /**
-     * @title A unique identifier that identifies each webinar occurrence.
+     * @title A unique identifier that identifies each webinar occurrence
      */
     occurrence_id: string;
 
     /**
-     * @title Webinar start time.
+     * @title Webinar start time
      */
     start_time: string & tags.Format<"date-time">;
 
@@ -296,23 +296,23 @@ export namespace IZoom {
   }
 
   /**
-   * @title Zoom settings information.
+   * @title Zoom settings information
    */
   export interface Settings {
     /**
      * Sets whether participants can join from multiple devices in a meeting where registration is enabled.
      *
-     * @title Whether participants can join from multiple devices.
+     * @title Whether participants can join from multiple devices
      */
     allow_multiple_devices: boolean;
 
     /**
-     * @title A semicolon-separated list of email addresses or IDs for alternate hosts.
+     * @title A semicolon-separated list of email addresses or IDs for alternate hosts
      */
     alternative_hosts: string;
 
     /**
-     * @title Whether to send email notifications to alternate hosts.
+     * @title Whether to send email notifications to alternate hosts
      */
     alternative_hosts_email_notification: boolean & tags.Default<true>;
 
@@ -323,31 +323,31 @@ export namespace IZoom {
      * - 1 : Manual approval
      * - 2 : No registration required (default)
      *
-     * @title Meeting registration approval settings.
+     * @title Meeting registration approval settings
      */
     approval_type: (0 | 1 | 2) & tags.Default<2>;
 
     /**
-     * @title Approved/rejected country or region.
+     * @title Approved/rejected country or region
      */
     approved_or_denied_countries_or_regions: {
       /**
-       * @title List of approved countries or regions.
+       * @title List of approved countries or regions
        */
       approved_list?: string[];
 
       /**
-       * @title List of blocked countries or regions.
+       * @title List of blocked countries or regions
        */
       denied_list?: string[];
 
       /**
-       * @title Whether to enable or disable user authorization or blocking settings for specific countries and regions.
+       * @title Whether to enable or disable user authorization or blocking settings for specific countries and regions
        */
       enable: boolean;
 
       /**
-       * @title method.
+       * @title method
        */
       method?: "deny" | "approve";
     };
@@ -358,13 +358,13 @@ export namespace IZoom {
      * - `voip` - VoIP only.
      * - `thirdParty` - Third party audio conference.
      *
-     * @title How participants join the audio portion of the meeting.
+     * @title How participants join the audio portion of the meeting
      */
     audio: ("both" | "telephony" | "voip" | "thirdParty") &
       tags.Default<"both">;
 
     /**
-     * @title Third party audio conference info.
+     * @title Third party audio conference info
      */
     audio_conference_info?: string & tags.MaxLength<2048>;
 
@@ -384,28 +384,28 @@ export namespace IZoom {
      */
     authentication_exception: {
       /**
-       * @title The participant's email address.
+       * @title The participant's email address
        */
       email: string & tags.Format<"email">;
 
       /**
-       * @title The participant's name.
+       * @title The participant's name
        */
       name: string;
 
       /**
-       * @title URL for participants to join the meeting.
+       * @title URL for participants to join the meeting
        */
       join_url: string & tags.Format<"url">;
     }[];
 
     /**
-     * @title Authentication name set in the authentication profile.
+     * @title Authentication name set in the authentication profile
      */
     authentication_name: string;
 
     /**
-     * @title Meeting authentication option ID.
+     * @title Meeting authentication option ID
      */
     authentication_option: string;
 
@@ -413,12 +413,12 @@ export namespace IZoom {
      * - `cloud` - Record on cloud.
      * - `none` - Disabled.
      *
-     * @title Automatic recording. local - Record on local.
+     * @title Automatic recording
      */
     auto_recording: ("none" | "cloud") & tags.Default<"none">;
 
     /**
-     * @title Setting to pre-assign breakout rooms.
+     * @title Setting to pre-assign breakout rooms
      */
     breakout_room: {
       /**
@@ -453,38 +453,38 @@ export namespace IZoom {
     calendar_type: 1 | 2;
 
     /**
-     * @title Close registration after event date.
+     * @title Close registration after event date
      */
     close_registration: boolean & tags.Default<false>;
 
     /**
-     * @title Host meeting in China.
+     * @title Host meeting in China
      *
      * @deprecated
      */
     cn_meeting: boolean & tags.Default<false>;
 
     /**
-     * @title The contact email address for meeting registration.
+     * @title The contact email address for meeting registration
      */
     contact_email: string & tags.Format<"email">;
 
     /**
-     * @title The contact name for meeting registration.
+     * @title The contact name for meeting registration
      */
     contact_name: string;
 
     /**
-     * @title Custom keys and values assigned to the meeting.
+     * @title Custom keys and values assigned to the meeting
      */
     custom_keys: ({
       /**
-       * @title Custom key associated with the user.
+       * @title Custom key associated with the user
        */
       key: string & tags.MaxLength<64>;
 
       /**
-       * @title Value of the custom key associated with the user.
+       * @title Value of the custom key associated with the user
        */
       value: string & tags.MaxLength<256>;
     } & tags.MaxItems<10>)[];
@@ -521,62 +521,62 @@ export namespace IZoom {
     enforce_login_domains: string;
 
     /**
-     * @title Whether the Focus Mode feature is enabled when the meeting starts.
+     * @title Whether the Focus Mode feature is enabled when the meeting starts
      */
     focus_mode: boolean;
 
     /**
-     * @title List of global dial-in countries.
+     * @title List of global dial-in countries
      */
     global_dial_in_countries: string[];
 
     /**
-     * @title Global dial-in countries or regions.
+     * @title Global dial-in countries or regions
      */
     global_dial_in_numbers: {
       /**
        * City of the number, such as Chicago.
        *
-       * @title city of the number.
+       * @title city of the number
        */
       city: string;
 
       /**
        * The country code, such as BR.
        *
-       * @title The country code.
+       * @title The country code
        */
       country: string;
 
       /**
        * Full name of country, such as Brazil.
        *
-       * @title Full name of country.
+       * @title Full name of country
        */
       country_name: string;
 
       /**
        * A phone number, such as `+1 2332357613`.
        *
-       * @title A phone number.
+       * @title A phone number
        */
       number: string;
 
       /**
-       * @title Type of number.
+       * @title Type of number
        */
       type: "toll" | "tollfree";
     }[];
 
     /**
-     * @title Start video when the host joins the meeting.
+     * @title Start video when the host joins the meeting
      */
     host_video: boolean;
 
     /**
      * @deprecated
      *
-     * @title Host meeting in India.
+     * @title Host meeting in India
      */
     in_meeting: boolean & tags.Default<false>;
 
@@ -782,7 +782,7 @@ export namespace IZoom {
     push_change_to_calendar: boolean & tags.Default<false>;
 
     /**
-     * @title The meeting's resources.
+     * @title The meeting's resources
      */
     resources: {
       /**
@@ -822,17 +822,17 @@ export namespace IZoom {
    */
   export interface TrackingField {
     /**
-     * @title Label of `TrackingField`.
+     * @title Label of `TrackingField`
      */
     field: string;
 
     /**
-     * @title The value of `TrackingField`.
+     * @title The value of `TrackingField`
      */
     value: string;
 
     /**
-     * @title Whether `TrackingField` is exposed.
+     * @title Whether `TrackingField` is exposed
      */
     visible: boolean;
   }

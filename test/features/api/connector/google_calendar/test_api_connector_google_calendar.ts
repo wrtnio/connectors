@@ -5,20 +5,16 @@ import { IGoogleCalendar } from "@wrtn/connector-api/lib/structures/connector/go
 
 import { ConnectorGlobal } from "../../../../../src/ConnectorGlobal";
 
+const today = new Date();
+const oneWeekLater = new Date(today);
+oneWeekLater.setDate(today.getDate() + 7);
+const oneMonthLater = new Date(today);
+oneMonthLater.setMonth(today.getMonth() + 1);
+
 const requestBody = {
   title: "이벤트 생성",
-  start: {
-    year: 2024,
-    month: 1,
-    date: 25,
-    hour: 9,
-  },
-  end: {
-    year: 2024,
-    month: 1,
-    date: 26,
-    hour: 9,
-  },
+  start: today.toISOString().replace(/T.*/, "T09:00:00Z"),
+  end: today.toISOString().replace(/T.*/, "T10:00:00Z"),
   /** 여기부터 Optional 값 */
   description: "이벤트 생성 테스트",
   location: "강남역",
@@ -28,12 +24,7 @@ const requestBody = {
    */
   // attendees: ["seunghwa2475@gmail.com"],
   repeatFrequency: "DAILY" as IGoogleCalendar.RepeatFrequency,
-  repeatUntil: {
-    year: 2024,
-    month: 1,
-    date: 31,
-    hour: 9,
-  },
+  repeatUntil: oneWeekLater.toISOString().replace(/T.*/, "T09:00:00Z"),
   repeatNum: 1,
   isBusy: false,
   visibility: "default" as IGoogleCalendar.EventVisibility,
@@ -90,18 +81,8 @@ export const test_api_connector_google_calendar = async (
       "primary",
       {
         secretKey,
-        time_min: {
-          year: 2024,
-          month: 8,
-          date: 1,
-          hour: 9,
-        },
-        time_max: {
-          year: 2024,
-          month: 8,
-          date: 31,
-          hour: 9,
-        },
+        time_min: today.toISOString().replace(/T.*/, "T06:00:00Z"),
+        time_max: oneMonthLater.toISOString().replace(/T.*/, "T06:00:00Z"),
       },
     );
   typia.assert(eventList);

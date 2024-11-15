@@ -4,19 +4,17 @@ import { RouteIcon, Standalone } from "@wrtnio/decorators";
 
 import { IGoogleScholar } from "@wrtn/connector-api/lib/structures/connector/google_scholar/IGoogleScholar";
 
+import { ApiTags } from "@nestjs/swagger";
 import { GoogleScholarProvider } from "../../../providers/connector/google_scholar/GoogleScholarProvider";
 import { retry } from "../../../utils/retry";
-import { ApiTags } from "@nestjs/swagger";
 
 @Controller("connector/google-scholar")
 export class GoogleScholarController {
   /**
-   * Get a list of papers in Google Scholar.
+   * Get a list of papers in Google Scholar
    *
    * @summary Search Google Scholar paper list
-   *
    * @param input Google Scholar paper search criteria
-   *
    * @returns Google Scholar paper list
    */
   @Standalone()
