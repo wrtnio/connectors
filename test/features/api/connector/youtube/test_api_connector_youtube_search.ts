@@ -1,11 +1,11 @@
 import typia from "typia";
 
 import CApi from "@wrtn/connector-api/lib/index";
-import { IConnector } from "@wrtn/connector-api/lib/structures/common/IConnector";
+import { IYoutubeSearch } from "@wrtn/connector-api/lib/structures/connector/youtube_search/IYoutubeSearch";
 
 export const test_api_connector_youtube_search = async (
   connection: CApi.IConnection,
-): Promise<IConnector.ISearchOutput> => {
+): Promise<IYoutubeSearch.ISearchOutput[]> => {
   const result = await CApi.functional.connector.youtube_search.search(
     connection,
     {
