@@ -30,7 +30,7 @@ export class YoutubeSearchController {
   @ApiTags("Youtube")
   async search(
     @core.TypedBody() input: IYoutubeSearch.ISearchInput,
-  ): Promise<IConnector.ISearchOutput> {
+  ): Promise<IYoutubeSearch.ISearchOutput[]> {
     return retry(this.youtubeSearchProvider.search)(input);
   }
 

@@ -16,7 +16,7 @@ import axios from "axios";
 export class YoutubeSearchProvider {
   async search(
     input: IYoutubeSearch.ISearchInput,
-  ): Promise<IConnector.ISearchOutput> {
+  ): Promise<IYoutubeSearch.ISearchOutput[]> {
     const defaultParams = {
       engine: "youtube",
       api_key: ConnectorGlobal.env.SERP_API_KEY,
@@ -36,25 +36,27 @@ export class YoutubeSearchProvider {
       const res = await getJson(params);
       const results: IYoutubeSearch.ISerpApiVideoResult[] =
         res["video_results"];
-      const output: IConnector.IReferenceContent[] = [];
+      const output: IYoutubeSearch.ISearchOutput[] = [];
 
       for (const result of results) {
-        const youtubeSearch: IConnector.IReferenceContent = {
+        const youtubeSearch: IYoutubeSearch.ISearchOutput = {
           title: result.title,
-          type: "video",
-          source: "youtube",
-          url: result.link,
-          contents: result.description,
-          image: result.thumbnail.static,
-          statistics: {
-            view_count: Number(result.views ?? 0), // 조회 수 데이터 undefined로 결과가 나오는 경우가 있어서 0으로 처리
-          },
+          link: result.link,
+          description: result.description,
+          thumbnail: result.thumbnail.static,
+          view_count: Number(result.views ?? 0),
+          channel_name: result.channel.name,
+          channel_link: result.channel.link,
+          published_date: result.published_date,
         };
         output.push(youtubeSearch);
       }
-      return {
-        references: output,
-      };
+      output.sort((a, b) => {
+        const viewCountA = a.view_count;
+        const viewCountB = b.view_count;
+        return viewCountB - viewCountA;
+      });
+      return output;
     } catch (err) {
       console.error(JSON.stringify(err));
       throw err;
@@ -154,38 +156,49 @@ export class YoutubeSearchProvider {
   private async getVideoMetaData(
     videoId: string,
   ): Promise<IYoutubeSearch.IYoutubeVideoMetaData> {
-    const res = await axios.get(
-      `${ConnectorGlobal.env.SEARCH_API_HOST}/api/v1/search`,
-      {
-        params: {
-          video_id: videoId,
-          engine: "youtube_video",
-          api_key: ConnectorGlobal.env.SEARCH_API_KEY,
-          gl: "kr",
-          hl: "ko",
+    try {
+      const res = await axios.get(
+        `${ConnectorGlobal.env.SEARCH_API_HOST}/api/v1/search`,
+        {
+          params: {
+            video_id: videoId,
+            engine: "youtube_video",
+            api_key: ConnectorGlobal.env.SEARCH_API_KEY,
+            gl: "kr",
+            hl: "ko",
+          },
         },
-      },
-    );
-    return res.data;
+      );
+      return res.data;
+    } catch (err) {
+      console.error(JSON.stringify(err));
+      throw err;
+    }
   }
 
   private async getVideoTranscripts(
     videoId: string,
     language: string,
   ): Promise<IYoutubeSearch.IYoutubeTrasncriptResponse> {
-    const res = await axios.get(
-      `${ConnectorGlobal.env.SEARCH_API_HOST}/api/v1/search?engine=youtube_transcripts`,
-      {
-        params: {
-          video_id: videoId,
-          lang: language,
-          engine: "youtube_transcripts",
-          api_key: ConnectorGlobal.env.SEARCH_API_KEY,
-          gl: "kr",
-          hl: "ko",
+    try {
+      const res = await axios.get(
+        `${ConnectorGlobal.env.SEARCH_API_HOST}/api/v1/search?engine=youtube_transcripts`,
+        {
+          params: {
+            video_id: videoId,
+            lang: language,
+            transcript_type: "manual",
+            engine: "youtube_transcripts",
+            api_key: ConnectorGlobal.env.SEARCH_API_KEY,
+            gl: "kr",
+            hl: "ko",
+          },
         },
-      },
-    );
-    return res.data;
+      );
+      return res.data;
+    } catch (err) {
+      console.error(JSON.stringify(err));
+      throw err;
+    }
   }
 }

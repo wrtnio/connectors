@@ -28,6 +28,69 @@ export namespace IYoutubeSearch {
      */
     not_keywords?: Array<string & tags.MinLength<1> & Placeholder<"폭력">>;
   }
+
+  /**
+   * @title YouTube search results
+   */
+  export interface ISearchOutput {
+    /**
+     * Title of the YouTube video that appears in the search results.
+     *
+     * @title YouTube video title
+     */
+    title: string;
+
+    /**
+     * Links to YouTube videos that appear in search results.
+     *
+     * @title YouTube video link
+     */
+    link: string & tags.Format<"iri">;
+
+    /**
+     * Description of YouTube video.
+     *
+     * @title YouTube video description
+     */
+    description?: string;
+
+    /**
+     * Thumbnail image for YouTube videos.
+     *
+     * @title Thumbnail image for YouTube videos
+     */
+    thumbnail: string & tags.Format<"iri">;
+
+    /**
+     * YouTube video views.
+     *
+     * @title YouTube video views
+     */
+    view_count: number & tags.Type<"uint32">;
+
+    /**
+     * Channel name of YouTube videos that appear in search results.
+     *
+     * @title Channel name
+     */
+    channel_name: string;
+
+    /**
+     * Link to the YouTube channel that appears in the search results.
+     *
+     * @title Channel link
+     */
+    channel_link: string & tags.Format<"iri">;
+
+    /**
+     * Date the YouTube video was published.
+     * ex) 1 year ago
+     *
+     * @title YouTube video published date
+     */
+    published_date: string;
+  }
+
   /**
    * @title SerpAPI Params Information
    */
