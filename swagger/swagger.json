@@ -15,7 +15,7 @@
     }
   ],
   "info": {
-    "version": "0.1.341",
+    "version": "0.1.342",
     "title": "@wrtn/connector",
     "description": "wrtn-ecosystem connectors and sdk",
     "license": {
@@ -5761,7 +5761,10 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/IConnector.ISearchOutput"
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/IYoutubeSearch.ISearchOutput"
+                  }
                 }
               }
             }
@@ -28349,6 +28352,64 @@
           "pubDate"
         ],
         "title": "Naver News Search Data"
+      },
+      "IYoutubeSearch.ISearchOutput": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "title": "YouTube video title",
+            "description": "Title of the YouTube video that appears in the search results."
+          },
+          "link": {
+            "type": "string",
+            "format": "iri",
+            "title": "YouTube video link",
+            "description": "Links to YouTube videos that appear in search results."
+          },
+          "description": {
+            "type": "string",
+            "title": "YouTube video description",
+            "description": "Description of YouTube video."
+          },
+          "thumbnail": {
+            "type": "string",
+            "format": "iri",
+            "title": "Thumbnail image for YouTube videos",
+            "description": "Thumbnail image for YouTube videos."
+          },
+          "view_count": {
+            "type": "integer",
+            "title": "YouTube video views",
+            "description": "YouTube video views."
+          },
+          "channel_name": {
+            "type": "string",
+            "title": "Channel name",
+            "description": "Channel name of YouTube videos that appear in search results."
+          },
+          "channel_link": {
+            "type": "string",
+            "format": "iri",
+            "title": "Channel link",
+            "description": "Link to the YouTube channel that appears in the search results."
+          },
+          "published_date": {
+            "type": "string",
+            "title": "YouTube video published date",
+            "description": "Date the YouTube video was published.\nex) 1 year ago"
+          }
+        },
+        "required": [
+          "title",
+          "link",
+          "thumbnail",
+          "view_count",
+          "channel_name",
+          "channel_link",
+          "published_date"
+        ],
+        "title": "YouTube search results"
       },
       "IYoutubeSearch.ISearchInput": {
         "type": "object",

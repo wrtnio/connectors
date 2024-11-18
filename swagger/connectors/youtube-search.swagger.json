@@ -18,7 +18,7 @@
     "title": "유튜브 검색",
     "summary": "유튜브에 원하는 영상을 검색해요",
     "description": "유튜브에 원하는 영상을 검색해요",
-    "version": "0.1.341",
+    "version": "0.1.342",
     "license": {
       "name": "AGPL-3.0-only"
     }
@@ -49,7 +49,10 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/IConnector.ISearchOutput"
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/IYoutubeSearch.ISearchOutput"
+                  }
                 }
               }
             }
@@ -96,126 +99,63 @@
   },
   "components": {
     "schemas": {
-      "IConnector.ISearchOutput": {
-        "type": "object",
-        "properties": {
-          "references": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/IConnector.IReferenceContent"
-            },
-            "title": "Output Information",
-            "description": "Contains output information for search results"
-          }
-        },
-        "required": [
-          "references"
-        ],
-        "title": "Search Results"
-      },
-      "IConnector.IReferenceContent": {
+      "IYoutubeSearch.ISearchOutput": {
         "type": "object",
         "properties": {
           "title": {
             "type": "string",
-            "title": "Title",
-            "description": "The title of the output"
+            "title": "YouTube video title",
+            "description": "Title of the YouTube video that appears in the search results."
           },
-          "type": {
-            "oneOf": [
-              {
-                "const": "video",
-                "title": "video"
-              },
-              {
-                "const": "image",
-                "title": "image"
-              },
-              {
-                "const": "news_article",
-                "title": "news_article"
-              },
-              {
-                "const": "research_paper",
-                "title": "research_paper"
-              }
-            ],
-            "title": "Output Type",
-            "description": "Video, image, news article, research paper\n\nIt must be one of: video, image, news_article, research_paper"
-          },
-          "source": {
-            "oneOf": [
-              {
-                "const": "youtube",
-                "title": "youtube"
-              },
-              {
-                "const": "facebook",
-                "title": "facebook"
-              },
-              {
-                "const": "instagram",
-                "title": "instagram"
-              },
-              {
-                "const": "google_search",
-                "title": "google_search"
-              },
-              {
-                "const": "arxiv",
-                "title": "arxiv"
-              },
-              {
-                "const": "google_news",
-                "title": "google_news"
-              }
-            ],
-            "title": "Source of output",
-            "description": "youtube, facebook, instagram, google_search, arxiv, google_news\n\nIt must be one of: youtube, facebook, instagram, google_search, arxiv, google_news"
-          },
-          "url": {
+          "link": {
             "type": "string",
             "format": "iri",
-            "title": "URL address",
-            "description": "The URL address of the output"
+            "title": "YouTube video link",
+            "description": "Links to YouTube videos that appear in search results."
           },
-          "contents": {
+          "description": {
             "type": "string",
-            "title": "Output Content",
-            "description": "Here is the content of the output"
+            "title": "YouTube video description",
+            "description": "Description of YouTube video."
           },
-          "image": {
+          "thumbnail": {
             "type": "string",
             "format": "iri",
-            "title": "Output Image URL",
-            "description": "The URL address of the image of the output"
+            "title": "Thumbnail image for YouTube videos",
+            "description": "Thumbnail image for YouTube videos."
           },
-          "statistics": {
-            "$ref": "#/components/schemas/MyPartialRecordIConnector.MetricTypenumberTypeint32",
-            "title": "Output statistics information",
-            "description": "Output statistics information\n\nPossible values: view_count, like_count, rank"
+          "view_count": {
+            "type": "integer",
+            "title": "YouTube video views",
+            "description": "YouTube video views."
+          },
+          "channel_name": {
+            "type": "string",
+            "title": "Channel name",
+            "description": "Channel name of YouTube videos that appear in search results."
+          },
+          "channel_link": {
+            "type": "string",
+            "format": "iri",
+            "title": "Channel link",
+            "description": "Link to the YouTube channel that appears in the search results."
+          },
+          "published_date": {
+            "type": "string",
+            "title": "YouTube video published date",
+            "description": "Date the YouTube video was published.\nex) 1 year ago"
           }
         },
         "required": [
           "title",
-          "type",
-          "source",
-          "url"
-        ]
-      },
-      "MyPartialRecordIConnector.MetricTypenumberTypeint32": {
-        "type": "object",
-        "properties": {
-          "view_count": {
-            "type": "integer"
-          },
-          "like_count": {
-            "type": "integer"
-          },
-          "rank": {
-            "type": "integer"
-          }
-        }
+          "link",
+          "thumbnail",
+          "view_count",
+          "channel_name",
+          "channel_link",
+          "published_date"
+        ],
+        "title": "YouTube search results"
       },
       "IYoutubeSearch.ISearchInput": {
         "type": "object",
