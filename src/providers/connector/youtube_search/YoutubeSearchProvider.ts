@@ -96,15 +96,14 @@ export class YoutubeSearchProvider {
         };
       }
 
-      if (transcript.available_transcripts_languages.length < 1) {
+      if (transcript.available_languages.length < 1) {
         throw new UnprocessableEntityException(
           "Unsupported Youtube Video. videoId: " + videoId,
         );
       }
-
       const secondTranscript = await this.getVideoTranscripts(
         videoId,
-        transcript.available_transcripts_languages[0].lang,
+        transcript.available_languages[0].lang,
       );
 
       // If the first language is not supported, try the available second language
