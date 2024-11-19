@@ -15,7 +15,7 @@
     }
   ],
   "info": {
-    "version": "0.1.347",
+    "version": "0.1.348",
     "title": "@wrtn/connector",
     "description": "wrtn-ecosystem connectors and sdk",
     "license": {
@@ -62285,7 +62285,6 @@
                 "corpId",
                 "corpUniqNum",
                 "salesFrom",
-                "salesRebuyPerdCd",
                 "salesRate",
                 "modifiedDate"
               ]
@@ -62333,7 +62332,7 @@
                   "maxLength": 10,
                   "title": "거래기준일"
                 },
-                "salesRebuyPerdCd": {
+                "salesAvgBuyPerdCd": {
                   "oneOf": [
                     {
                       "type": "null"
@@ -62345,7 +62344,7 @@
                   "title": "주기",
                   "description": "- 1: 1개월 내 재구매가 이루어짐을 의미\n- 3: 3개월 내 재구매가 이루어짐을 의미\n- 6: 6개월 내 재구매가 이루어짐을 의미\n- 12: 12개월 내 재구매가 이루어짐을 의미"
                 },
-                "salesRate": {
+                "salesCnt": {
                   "oneOf": [
                     {
                       "type": "null"
@@ -62354,7 +62353,7 @@
                       "type": "number"
                     }
                   ],
-                  "title": "구매율"
+                  "title": "구매 횟수"
                 },
                 "modifiedDate": {
                   "oneOf": [
@@ -62372,8 +62371,8 @@
                 "corpId",
                 "corpUniqNum",
                 "salesFrom",
-                "salesRebuyPerdCd",
-                "salesRate",
+                "salesAvgBuyPerdCd",
+                "salesCnt",
                 "modifiedDate"
               ]
             },
@@ -62652,7 +62651,7 @@
                   "maxLength": 10,
                   "title": "거래기준일"
                 },
-                "householdCd": {
+                "incomeCd": {
                   "oneOf": [
                     {
                       "type": "null"
@@ -62690,7 +62689,7 @@
                       "title": "1억초과"
                     }
                   ],
-                  "title": "가족구성",
+                  "title": "소득 수준",
                   "description": "소비자 유형 중 가족 구성의 소득 수준을 의미한다"
                 },
                 "salesRate": {
@@ -62720,7 +62719,7 @@
                 "corpId",
                 "corpUniqNum",
                 "salesFrom",
-                "householdCd",
+                "incomeCd",
                 "salesRate",
                 "modifiedDate"
               ]
