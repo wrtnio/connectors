@@ -215,3 +215,19 @@ export const test_api_connector_innoforest_findpress = async (
 
   typia.assert(res);
 };
+
+export const test_api_connector_innoforest_search_and_get_unified_info = async (
+  connection: CApi.IConnection,
+) => {
+  const companies = await CApi.functional.connector.innoforest.search(
+    connection,
+    {},
+  );
+  typia.assert(companies);
+
+  const res = await CApi.functional.connector.innoforest.unify(connection, {
+    corpUniqNum: "1198691245",
+  });
+
+  typia.assert(res);
+};
