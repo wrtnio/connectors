@@ -101,6 +101,28 @@ export class YoutubeSearchProvider {
           "Unsupported Youtube Video. videoId: " + videoId,
         );
       }
+
+      // If the first language is auto-generated, caption return null
+      if (
+        transcript.available_languages.length === 1 &&
+        transcript.available_languages[0].name.includes("auto-generated")
+      ) {
+        return {
+          id: videoId,
+          title,
+          channelName,
+          uploadedAt,
+          viewCount,
+          captionLines: [
+            {
+              start: 0,
+              duration: 0,
+              text: "This video does not have any cations.",
+            },
+          ],
+        };
+      }
+
       const secondTranscript = await this.getVideoTranscripts(
         videoId,
         transcript.available_languages[0].lang,
@@ -178,7 +200,7 @@ export class YoutubeSearchProvider {
   private async getVideoTranscripts(
     videoId: string,
     language: string,
-  ): Promise<IYoutubeSearch.IYoutubeTrasncriptResponse> {
+  ): Promise<IYoutubeSearch.IYoutubeTranscriptResponse> {
     try {
       const res = await axios.get(
         `${ConnectorGlobal.env.SEARCH_API_HOST}/api/v1/search?engine=youtube_transcripts`,
