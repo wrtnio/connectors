@@ -8,16 +8,16 @@ export class InnoforestController {
   constructor(private readonly innoforestProvider: InnoforestProvider) {}
 
   /**
-   * 혁신의숲 회사 데이터 전체 조회
+   * Retrieve all company data from Innoforest
    *
-   * 혁신의숲(innoforest)은 다양한 스타트업의 성장 데이터를 제공하는 플랫폼입니다.
-   * 혁신의숲의 다른 커넥터에서 제공하는 데이터들을 모두 통합하여 한 번에 제공합니다.
-   * 유저가 요청하는 정보가 많을 경우 이 커넥터를 활용하는 것이 유리합니다.
-   * 여기에는 아래의 프로퍼티들을 포함됩니다.
+   * Innoforest is a platform providing growth data of various startups.
+   * This endpoint consolidates data provided by other connectors from Innoforest into a single response.
+   * If the user requests a large amount of information, using this connector is advantageous.
+   * This includes the following properties:
    *
    * - corp, corpfinance, corpinvest, corpcommon, product, traffic, sales, salesrebuy, salesavgbuy, salesperson, saleshousehold, salesincome, invest, patent, patentword, finance, employee, press
    *
-   * @summary 혁신의숲 회사 데이터 전체 조회
+   * @summary Retrieve all company data from Innoforest
    */
   @TypedRoute.Post("unify")
   async unify(
@@ -86,19 +86,20 @@ export class InnoforestController {
   }
 
   /**
-   * 혁신의숲 회사 식별자 검색
+   * Search for company identifiers from Innoforest
    *
-   * 혁신의숲(innoforest)은 다양한 스타트업의 성장 데이터를 제공하는 플랫폼입니다.
+   * Innoforest is a platform providing growth data of various startups.
+   * It's recommended to use `POST /connector/innoforest/unify` to provide all information to users at once.
    *
-   * 혁신의숲에서 현재 조회 가능한 회사의 식별자를 조회하여, 다음 검색에 활용할 수 있습니다.
+   * Retrieve the identifiers of companies currently available for query in Innoforest, which can be used for further searches.
    *
-   * - 오늘의집(버킷플레이스) : 1198691245
-   * - 올웨이즈(레브잇) : 1798102225
-   * - 트웰브랩스 : 8458601667
-   * - 뤼이드 : 1068706394
-   * - 클래스101: 4578100277
+   * - Bucketplace (Today's House): 1198691245
+   * - Always (Revbit): 1798102225
+   * - Twelve Labs: 8458601667
+   * - Riiid: 1068706394
+   * - CLASS101: 4578100277
    *
-   * @summary 혁신의숲 회사 식별자 검색
+   * @summary Search for company identifiers from Innoforest
    */
   @TypedRoute.Post("search")
   async search(
@@ -131,11 +132,12 @@ export class InnoforestController {
   }
 
   /**
-   * 혁신의숲 스타트업 개요 조회
+   * Retrieve startup overview from Innoforest
    *
-   * 혁신의숲(innoforest)은 다양한 스타트업의 성장 데이터를 제공하는 플랫폼입니다.
+   * Innoforest is a platform providing growth data of various startups.
+   * It's recommended to use `POST /connector/innoforest/unify` to provide all information to users at once.
    *
-   * @summary 혁신의숲 스타트업 개요 조회
+   * @summary Retrieve startup overview from Innoforest
    */
   @TypedRoute.Post("seed/party/s1/getcorp")
   async getcorp(
@@ -145,11 +147,12 @@ export class InnoforestController {
   }
 
   /**
-   * 혁신의숲 스타트업 개요-재무요약 조회
+   * Retrieve startup overview - financial summary from Innoforest
    *
-   * 혁신의숲(innoforest)은 다양한 스타트업의 성장 데이터를 제공하는 플랫폼입니다.
+   * Innoforest is a platform providing growth data of various startups.
+   * It's recommended to use `POST /connector/innoforest/unify` to provide all information to users at once.
    *
-   * @summary 혁신의숲 스타트업 개요-재무요약 조회
+   * @summary Retrieve startup overview - financial summary from Innoforest
    */
   @TypedRoute.Post("seed/party/s1/getcorpfinance")
   async getcorpfinance(
@@ -159,11 +162,12 @@ export class InnoforestController {
   }
 
   /**
-   * 혁신의숲 스타트업 개요-투자요약 조회
+   * Retrieve startup overview - investment summary from Innoforest
    *
-   * 혁신의숲(innoforest)은 다양한 스타트업의 성장 데이터를 제공하는 플랫폼입니다.
+   * Innoforest is a platform providing growth data of various startups.
+   * It's recommended to use `POST /connector/innoforest/unify` to provide all information to users at once.
    *
-   * @summary 혁신의숲 스타트업 개요-투자요약 조회
+   * @summary Retrieve startup overview - investment summary from Innoforest
    */
   @TypedRoute.Post("seed/party/s1/getcorpinvest")
   async getcorpinvest(
@@ -173,11 +177,12 @@ export class InnoforestController {
   }
 
   /**
-   * 혁신의숲 스타트업 개요-일반요약 조회
+   * Retrieve startup overview - general summary from Innoforest
    *
-   * 혁신의숲(innoforest)은 다양한 스타트업의 성장 데이터를 제공하는 플랫폼입니다.
+   * Innoforest is a platform providing growth data of various startups.
+   * It's recommended to use `POST /connector/innoforest/unify` to provide all information to users at once.
    *
-   * @summary 혁신의숲 스타트업 개요-일반요약 조회
+   * @summary Retrieve startup overview - general summary from Innoforest
    */
   @TypedRoute.Post("seed/party/s1/getcorpcommon")
   async getcorpcommon(
@@ -187,11 +192,12 @@ export class InnoforestController {
   }
 
   /**
-   * 혁신의숲 서비스 조회
+   * Retrieve product information from Innoforest
    *
-   * 혁신의숲(innoforest)은 다양한 스타트업의 성장 데이터를 제공하는 플랫폼입니다.
+   * Innoforest is a platform providing growth data of various startups.
+   * It's recommended to use `POST /connector/innoforest/unify` to provide all information to users at once.
    *
-   * @summary 혁신의숲 서비스 조회
+   * @summary Retrieve product information from Innoforest
    */
   @TypedRoute.Post("seed/party/s1/findproduct")
   async findproduct(
@@ -201,11 +207,12 @@ export class InnoforestController {
   }
 
   /**
-   * 혁신의숲 트래픽 조회
+   * Retrieve traffic data from Innoforest
    *
-   * 혁신의숲(innoforest)은 다양한 스타트업의 성장 데이터를 제공하는 플랫폼입니다.
+   * Innoforest is a platform providing growth data of various startups.
+   * It's recommended to use `POST /connector/innoforest/unify` to provide all information to users at once.
    *
-   * @summary 혁신의숲 트래픽 조회
+   * @summary Retrieve traffic data from Innoforest
    */
   @TypedRoute.Post("seed/party/s1/findtraffic")
   async findtraffic(
@@ -215,11 +222,12 @@ export class InnoforestController {
   }
 
   /**
-   * 혁신의숲 소비자거래-거래액, 거래건수 조회
+   * Retrieve sales data from Innoforest
    *
-   * 혁신의숲(innoforest)은 다양한 스타트업의 성장 데이터를 제공하는 플랫폼입니다.
+   * Innoforest is a platform providing growth data of various startups.
+   * It's recommended to use `POST /connector/innoforest/unify` to provide all information to users at once.
    *
-   * @summary 혁신의숲 소비자거래-거래액, 거래건수 조회
+   * @summary Retrieve sales data from Innoforest
    */
   @TypedRoute.Post("seed/party/s1/findsales")
   async findsales(
@@ -229,11 +237,12 @@ export class InnoforestController {
   }
 
   /**
-   * 혁신의숲 소비자거래-재구매율 조회
+   * Retrieve repeat purchase rate data from Innoforest
    *
-   * 혁신의숲(innoforest)은 다양한 스타트업의 성장 데이터를 제공하는 플랫폼입니다.
+   * Innoforest is a platform providing growth data of various startups.
+   * It's recommended to use `POST /connector/innoforest/unify` to provide all information to users at once.
    *
-   * @summary 혁신의숲 소비자거래-재구매율 조회
+   * @summary Retrieve repeat purchase rate data from Innoforest
    */
   @TypedRoute.Post("seed/party/s1/findsalesrebuy")
   async findsalesrebuy(
@@ -243,11 +252,12 @@ export class InnoforestController {
   }
 
   /**
-   * 혁신의숲 소비자거래-평균구매횟수 조회
+   * Retrieve average purchase amount data from Innoforest
    *
-   * 혁신의숲(innoforest)은 다양한 스타트업의 성장 데이터를 제공하는 플랫폼입니다.
+   * Innoforest is a platform providing growth data of various startups.
+   * It's recommended to use `POST /connector/innoforest/unify` to provide all information to users at once.
    *
-   * @summary 혁신의숲 소비자거래-평균구매횟수 조회
+   * @summary Retrieve average purchase amount data from Innoforest
    */
   @TypedRoute.Post("seed/party/s1/findsalesavgbuy")
   async findsalesavgbuy(
@@ -257,11 +267,12 @@ export class InnoforestController {
   }
 
   /**
-   * 혁신의숲 소비자유형-성별, 연령 조회
+   * Retrieve sales-related personnel data from Innoforest
    *
-   * 혁신의숲(innoforest)은 다양한 스타트업의 성장 데이터를 제공하는 플랫폼입니다.
+   * Innoforest is a platform providing growth data of various startups.
+   * It's recommended to use `POST /connector/innoforest/unify` to provide all information to users at once.
    *
-   * @summary 혁신의숲 소비자유형-성별, 연령 조회
+   * @summary Retrieve sales-related personnel data from Innoforest
    */
   @TypedRoute.Post("seed/party/s1/findsalesperson")
   async findsalesperson(
@@ -271,11 +282,12 @@ export class InnoforestController {
   }
 
   /**
-   * 혁신의숲 소비자유형-가족구성 조회
+   * Retrieve household-related sales data from Innoforest
    *
-   * 혁신의숲(innoforest)은 다양한 스타트업의 성장 데이터를 제공하는 플랫폼입니다.
+   * Innoforest is a platform providing growth data of various startups.
+   * It's recommended to use `POST /connector/innoforest/unify` to provide all information to users at once.
    *
-   * @summary 혁신의숲 소비자유형-가족구성 조회
+   * @summary Retrieve household-related sales data from Innoforest
    */
   @TypedRoute.Post("seed/party/s1/findsaleshousehold")
   async findsaleshousehold(
@@ -285,11 +297,12 @@ export class InnoforestController {
   }
 
   /**
-   * 혁신의숲 소비자유형-소득수준 조회
+   * Retrieve income-related sales data from Innoforest
    *
-   * 혁신의숲(innoforest)은 다양한 스타트업의 성장 데이터를 제공하는 플랫폼입니다.
+   * Innoforest is a platform providing growth data of various startups.
+   * It's recommended to use `POST /connector/innoforest/unify` to provide all information to users at once.
    *
-   * @summary 혁신의숲 소비자유형-소득수준 조회
+   * @summary Retrieve income-related sales data from Innoforest
    */
   @TypedRoute.Post("seed/party/s1/findsalesincome")
   async findsalesincome(
@@ -299,11 +312,12 @@ export class InnoforestController {
   }
 
   /**
-   * 혁신의숲 투자유치이력 조회
+   * Retrieve investment data from Innoforest
    *
-   * 혁신의숲(innoforest)은 다양한 스타트업의 성장 데이터를 제공하는 플랫폼입니다.
+   * Innoforest is a platform providing growth data of various startups.
+   * It's recommended to use `POST /connector/innoforest/unify` to provide all information to users at once.
    *
-   * @summary 혁신의숲 투자유치이력 조회
+   * @summary Retrieve investment data from Innoforest
    */
   @TypedRoute.Post("seed/party/s1/findinvest")
   async findinvest(
@@ -313,11 +327,12 @@ export class InnoforestController {
   }
 
   /**
-   * 혁신의숲 특허이력 조회
+   * Retrieve patent data from Innoforest
    *
-   * 혁신의숲(innoforest)은 다양한 스타트업의 성장 데이터를 제공하는 플랫폼입니다.
+   * Innoforest is a platform providing growth data of various startups.
+   * It's recommended to use `POST /connector/innoforest/unify` to provide all information to users at once.
    *
-   * @summary 혁신의숲 특허이력 조회
+   * @summary Retrieve patent data from Innoforest
    */
   @TypedRoute.Post("seed/party/s1/findpatent")
   async findpatent(
@@ -327,11 +342,12 @@ export class InnoforestController {
   }
 
   /**
-   * 혁신의숲 특허키워드 조회
+   * Retrieve patent keyword data from Innoforest
    *
-   * 혁신의숲(innoforest)은 다양한 스타트업의 성장 데이터를 제공하는 플랫폼입니다.
+   * Innoforest is a platform providing growth data of various startups.
+   * It's recommended to use `POST /connector/innoforest/unify` to provide all information to users at once.
    *
-   * @summary 혁신의숲 특허키워드 조회
+   * @summary Retrieve patent keyword data from Innoforest
    */
   @TypedRoute.Post("seed/party/s1/findpatentword")
   async findpatentword(
@@ -341,11 +357,12 @@ export class InnoforestController {
   }
 
   /**
-   * 혁신의숲 손익재무 조회
+   * Retrieve financial data from Innoforest
    *
-   * 혁신의숲(innoforest)은 다양한 스타트업의 성장 데이터를 제공하는 플랫폼입니다.
+   * Innoforest is a platform providing growth data of various startups.
+   * It's recommended to use `POST /connector/innoforest/unify` to provide all information to users at once.
    *
-   * @summary 혁신의숲 손익재무 조회
+   * @summary Retrieve financial data from Innoforest
    */
   @TypedRoute.Post("seed/party/s1/findfinance")
   async findfinance(
@@ -355,11 +372,12 @@ export class InnoforestController {
   }
 
   /**
-   * 혁신의숲 고용 조회
+   * Retrieve employee data from Innoforest
    *
-   * 혁신의숲(innoforest)은 다양한 스타트업의 성장 데이터를 제공하는 플랫폼입니다.
+   * Innoforest is a platform providing growth data of various startups.
+   * It's recommended to use `POST /connector/innoforest/unify` to provide all information to users at once.
    *
-   * @summary 혁신의숲 고용 조회
+   * @summary Retrieve employee data from Innoforest
    */
   @TypedRoute.Post("seed/party/s1/findemployee")
   async findemployee(
@@ -369,11 +387,12 @@ export class InnoforestController {
   }
 
   /**
-   * 혁신의숲 보도자료 조회
+   * Retrieve press-related data from Innoforest
    *
-   * 혁신의숲(innoforest)은 다양한 스타트업의 성장 데이터를 제공하는 플랫폼입니다.
+   * Innoforest is a platform providing growth data of various startups.
+   * It's recommended to use `POST /connector/innoforest/unify` to provide all information to users at once.
    *
-   * @summary 혁신의숲 보도자료 조회
+   * @summary Retrieve press-related data from Innoforest
    */
   @TypedRoute.Post("seed/party/s1/findpress")
   async findpress(
