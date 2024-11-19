@@ -24,6 +24,98 @@ export namespace IInnoforest {
     successMsg?: string;
   }
 
+  export interface IUnifyOutput {
+    /**
+     * @title corp
+     */
+    corp: IGetcorpOutput;
+
+    /**
+     * @title corpfinance
+     */
+    corpfinance: IGetcorpfinanceOutput;
+
+    /**
+     * @title corpinvest
+     */
+    corpinvest: IGetcorpinvestOutput;
+
+    /**
+     * @title corpcommon
+     */
+    corpcommon: IGetcorpcommonOutput;
+
+    /**
+     * @title product
+     */
+    product: IFindproductOutput;
+
+    /**
+     * @title traffic
+     */
+    traffic: IFindtrafficOutput;
+
+    /**
+     * @title sales
+     */
+    sales: IFindsalesOutput;
+
+    /**
+     * @title salesrebuy
+     */
+    salesrebuy: IFindsalesrebuyOutput;
+
+    /**
+     * @title salesavgbuy
+     */
+    salesavgbuy: IFindsalesavgbuyOutput;
+
+    /**
+     * @title salesperson
+     */
+    salesperson: IFindsalespersonOutput;
+
+    /**
+     * @title saleshousehold
+     */
+    saleshousehold: IFindsaleshouseholdOutput;
+
+    /**
+     * @title salesincome
+     */
+    salesincome: IFindsalesincomeOutput;
+
+    /**
+     * @title invest
+     */
+    invest: IFindinvestOutput;
+
+    /**
+     * @title patent
+     */
+    patent: IFindpatentOutput;
+
+    /**
+     * @title patentword
+     */
+    patentword: IFindpatentwordOutput;
+
+    /**
+     * @title finance
+     */
+    finance: IFindfinanceOutput;
+
+    /**
+     * @title employee
+     */
+    employee: IFindemployeeOutput;
+
+    /**
+     * @title press
+     */
+    press: IFindpressOutput;
+  }
+
   export interface IUnifyInput {
     /**
      * @title 혁신의숲 기업 Key

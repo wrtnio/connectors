@@ -20,7 +20,9 @@ export class InnoforestController {
    * @summary 혁신의숲 회사 데이터 전체 조회
    */
   @TypedRoute.Post("unify")
-  async unify(@TypedBody() input: IInnoforest.IUnifyInput) {
+  async unify(
+    @TypedBody() input: IInnoforest.IUnifyInput,
+  ): Promise<IInnoforest.IUnifyOutput> {
     const [
       corp,
       corpfinance,
