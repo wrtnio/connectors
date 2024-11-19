@@ -15,7 +15,7 @@
     }
   ],
   "info": {
-    "version": "0.1.344",
+    "version": "0.1.345",
     "title": "@wrtn/connector",
     "description": "wrtn-ecosystem connectors and sdk",
     "license": {
@@ -61696,12 +61696,7 @@
             "type": "string",
             "title": "요청성공시 성공메시지전달 (성공시에만 전달)"
           }
-        },
-        "required": [
-          "data",
-          "dataCount",
-          "success"
-        ]
+        }
       },
       "IInnoforest.IGetcorpfinanceOutput": {
         "type": "object",
@@ -61778,12 +61773,7 @@
             "type": "string",
             "title": "요청성공시 성공메시지전달 (성공시에만 전달)"
           }
-        },
-        "required": [
-          "data",
-          "dataCount",
-          "success"
-        ]
+        }
       },
       "IInnoforest.IGetcorpinvestOutput": {
         "type": "object",
@@ -61874,12 +61864,7 @@
             "type": "string",
             "title": "요청성공시 성공메시지전달 (성공시에만 전달)"
           }
-        },
-        "required": [
-          "data",
-          "dataCount",
-          "success"
-        ]
+        }
       },
       "IInnoforest.IGetcorpcommonOutput": {
         "type": "object",
@@ -61956,12 +61941,7 @@
             "type": "string",
             "title": "요청성공시 성공메시지전달 (성공시에만 전달)"
           }
-        },
-        "required": [
-          "data",
-          "dataCount",
-          "success"
-        ]
+        }
       },
       "IInnoforest.IFindproductOutput": {
         "type": "object",
@@ -62062,12 +62042,7 @@
             "type": "string",
             "title": "요청성공시 성공메시지전달 (성공시에만 전달)"
           }
-        },
-        "required": [
-          "data",
-          "dataCount",
-          "success"
-        ]
+        }
       },
       "IInnoforest.IFindtrafficOutput": {
         "type": "object",
@@ -62160,12 +62135,7 @@
             "type": "string",
             "title": "요청성공시 성공메시지전달 (성공시에만 전달)"
           }
-        },
-        "required": [
-          "data",
-          "dataCount",
-          "success"
-        ]
+        }
       },
       "IInnoforest.IFindsalesOutput": {
         "type": "object",
@@ -62251,12 +62221,7 @@
             "type": "string",
             "title": "요청성공시 성공메시지전달 (성공시에만 전달)"
           }
-        },
-        "required": [
-          "data",
-          "dataCount",
-          "success"
-        ]
+        }
       },
       "IInnoforest.IFindsalesrebuyOutput": {
         "type": "object",
@@ -62343,12 +62308,7 @@
             "type": "string",
             "title": "요청성공시 성공메시지전달 (성공시에만 전달)"
           }
-        },
-        "required": [
-          "data",
-          "dataCount",
-          "success"
-        ]
+        }
       },
       "IInnoforest.IFindsalesavgbuyOutput": {
         "type": "object",
@@ -62435,12 +62395,7 @@
             "type": "string",
             "title": "요청성공시 성공메시지전달 (성공시에만 전달)"
           }
-        },
-        "required": [
-          "data",
-          "dataCount",
-          "success"
-        ]
+        }
       },
       "IInnoforest.IFindsalespersonOutput": {
         "type": "object",
@@ -62565,12 +62520,7 @@
             "type": "string",
             "title": "요청성공시 성공메시지전달 (성공시에만 전달)"
           }
-        },
-        "required": [
-          "data",
-          "dataCount",
-          "success"
-        ]
+        }
       },
       "IInnoforest.IFindsaleshouseholdOutput": {
         "type": "object",
@@ -62677,12 +62627,7 @@
             "type": "string",
             "title": "요청성공시 성공메시지전달 (성공시에만 전달)"
           }
-        },
-        "required": [
-          "data",
-          "dataCount",
-          "success"
-        ]
+        }
       },
       "IInnoforest.IFindsalesincomeOutput": {
         "type": "object",
@@ -62798,12 +62743,7 @@
             "type": "string",
             "title": "요청성공시 성공메시지전달 (성공시에만 전달)"
           }
-        },
-        "required": [
-          "data",
-          "dataCount",
-          "success"
-        ]
+        }
       },
       "IInnoforest.IFindinvestOutput": {
         "type": "object",
@@ -63030,12 +62970,7 @@
             "type": "string",
             "title": "요청성공시 성공메시지전달 (성공시에만 전달)"
           }
-        },
-        "required": [
-          "data",
-          "dataCount",
-          "success"
-        ]
+        }
       },
       "IInnoforest.IFindpatentOutput": {
         "type": "object",
@@ -63171,12 +63106,7 @@
             "type": "string",
             "title": "요청성공시 성공메시지전달 (성공시에만 전달)"
           }
-        },
-        "required": [
-          "data",
-          "dataCount",
-          "success"
-        ]
+        }
       },
       "IInnoforest.IFindpatentwordOutput": {
         "type": "object",
@@ -63257,12 +63187,7 @@
             "type": "string",
             "title": "요청성공시 성공메시지전달 (성공시에만 전달)"
           }
-        },
-        "required": [
-          "data",
-          "dataCount",
-          "success"
-        ]
+        }
       },
       "IInnoforest.IFindfinanceOutput": {
         "type": "object",
@@ -63356,12 +63281,7 @@
             "type": "string",
             "title": "요청성공시 성공메시지전달 (성공시에만 전달)"
           }
-        },
-        "required": [
-          "data",
-          "dataCount",
-          "success"
-        ]
+        }
       },
       "IInnoforest.IFindemployeeOutput": {
         "type": "object",
@@ -63459,12 +63379,7 @@
             "type": "string",
             "title": "요청성공시 성공메시지전달 (성공시에만 전달)"
           }
-        },
-        "required": [
-          "data",
-          "dataCount",
-          "success"
-        ]
+        }
       },
       "IInnoforest.IFindpressOutput": {
         "type": "object",
@@ -63570,12 +63485,7 @@
             "type": "string",
             "title": "요청성공시 성공메시지전달 (성공시에만 전달)"
           }
-        },
-        "required": [
-          "data",
-          "dataCount",
-          "success"
-        ]
+        }
       },
       "IInnoforest.IUnifyInput": {
         "type": "object",
