@@ -15,7 +15,7 @@
     }
   ],
   "info": {
-    "version": "0.1.342",
+    "version": "0.1.343",
     "title": "@wrtn/connector",
     "description": "wrtn-ecosystem connectors and sdk",
     "license": {
@@ -12269,10 +12269,70 @@
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/reddit_full.svg"
       }
     },
+    "/connector/innoforest/unify": {
+      "post": {
+        "summary": "혁신의숲 회사 데이터 전체 조회",
+        "description": "혁신의숲 회사 데이터 전체 조회\n\n혁신의숲(innoforest)은 다양한 스타트업의 성장 데이터를 제공하는 플랫폼입니다.\n혁신의숲의 다른 커넥터에서 제공하는 데이터들을 모두 통합하여 한 번에 제공합니다.\n유저가 요청하는 정보가 많을 경우 이 커넥터를 활용하는 것이 유리합니다.\n여기에는 아래의 프로퍼티들을 포함됩니다.\n\n- corp, corpfinance, corpinvest, corpcommon, product, traffic, sales, salesrebuy, salesavgbuy, salesperson, saleshousehold, salesincome, invest, patent, patentword, finance, employee, press",
+        "tags": [],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IInnoforest.IUnifyInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IInnoforest.IUnifyOutput"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/connector/innoforest/search": {
+      "post": {
+        "summary": "혁신의숲 회사 식별자 검색",
+        "description": "혁신의숲 회사 식별자 검색\n\n혁신의숲(innoforest)은 다양한 스타트업의 성장 데이터를 제공하는 플랫폼입니다.\n\n혁신의숲에서 현재 조회 가능한 회사의 식별자를 조회하여, 다음 검색에 활용할 수 있습니다.\n\n- 오늘의집(버킷플레이스) : 1198691245\n- 올웨이즈(레브잇) : 1798102225\n- 트웰브랩스 : 8458601667\n- 뤼이드 : 1068706394\n- 클래스101: 4578100277",
+        "tags": [],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IInnoforest.ISearchInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IInnoforest.ISearchOutput"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/connector/innoforest/seed/party/s1/getcorp": {
       "post": {
         "summary": "혁신의숲 스타트업 개요 조회",
-        "description": "혁신의숲(innoforest)은 다양한 스타트업의 성장 데이터를 제공하는 플랫폼으로,\n스타트업의 투자 정보, 소비자 데이터, 고용 현황 등 여러 지표를 무료로 공개하여 생태계 발전에 기여하고 있습니다.\n현재 선택 가능한 데이터는 아래 5개 기업으로 키 값을 사용하여 데이터를 조회할 수 있습니다.\n\n- 오늘의집(버킷플레이스) : 1198691245\n- 올웨이즈(레브잇) : 1798102225\n- 트웰브랩스 : 8458601667\n- 뤼이드 : 1068706394\n- 클래스101: 4578100277",
+        "description": "혁신의숲 스타트업 개요 조회\n\n혁신의숲(innoforest)은 다양한 스타트업의 성장 데이터를 제공하는 플랫폼입니다.",
         "tags": [],
         "parameters": [],
         "requestBody": {
@@ -12302,7 +12362,7 @@
     "/connector/innoforest/seed/party/s1/getcorpfinance": {
       "post": {
         "summary": "혁신의숲 스타트업 개요-재무요약 조회",
-        "description": "혁신의숲(innoforest)은 다양한 스타트업의 성장 데이터를 제공하는 플랫폼으로,\n스타트업의 투자 정보, 소비자 데이터, 고용 현황 등 여러 지표를 무료로 공개하여 생태계 발전에 기여하고 있습니다.\n현재 선택 가능한 데이터는 아래 5개 기업으로 키 값을 사용하여 데이터를 조회할 수 있습니다.\n\n- 오늘의집(버킷플레이스) : 1198691245\n- 올웨이즈(레브잇) : 1798102225\n- 트웰브랩스 : 8458601667\n- 뤼이드 : 1068706394\n- 클래스101: 4578100277",
+        "description": "혁신의숲 스타트업 개요-재무요약 조회\n\n혁신의숲(innoforest)은 다양한 스타트업의 성장 데이터를 제공하는 플랫폼입니다.",
         "tags": [],
         "parameters": [],
         "requestBody": {
@@ -12332,7 +12392,7 @@
     "/connector/innoforest/seed/party/s1/getcorpinvest": {
       "post": {
         "summary": "혁신의숲 스타트업 개요-투자요약 조회",
-        "description": "혁신의숲(innoforest)은 다양한 스타트업의 성장 데이터를 제공하는 플랫폼으로,\n스타트업의 투자 정보, 소비자 데이터, 고용 현황 등 여러 지표를 무료로 공개하여 생태계 발전에 기여하고 있습니다.\n현재 선택 가능한 데이터는 아래 5개 기업으로 키 값을 사용하여 데이터를 조회할 수 있습니다.\n\n- 오늘의집(버킷플레이스) : 1198691245\n- 올웨이즈(레브잇) : 1798102225\n- 트웰브랩스 : 8458601667\n- 뤼이드 : 1068706394\n- 클래스101: 4578100277",
+        "description": "혁신의숲 스타트업 개요-투자요약 조회\n\n혁신의숲(innoforest)은 다양한 스타트업의 성장 데이터를 제공하는 플랫폼입니다.",
         "tags": [],
         "parameters": [],
         "requestBody": {
@@ -12362,7 +12422,7 @@
     "/connector/innoforest/seed/party/s1/getcorpcommon": {
       "post": {
         "summary": "혁신의숲 스타트업 개요-일반요약 조회",
-        "description": "혁신의숲(innoforest)은 다양한 스타트업의 성장 데이터를 제공하는 플랫폼으로,\n스타트업의 투자 정보, 소비자 데이터, 고용 현황 등 여러 지표를 무료로 공개하여 생태계 발전에 기여하고 있습니다.\n현재 선택 가능한 데이터는 아래 5개 기업으로 키 값을 사용하여 데이터를 조회할 수 있습니다.\n\n- 오늘의집(버킷플레이스) : 1198691245\n- 올웨이즈(레브잇) : 1798102225\n- 트웰브랩스 : 8458601667\n- 뤼이드 : 1068706394\n- 클래스101: 4578100277",
+        "description": "혁신의숲 스타트업 개요-일반요약 조회\n\n혁신의숲(innoforest)은 다양한 스타트업의 성장 데이터를 제공하는 플랫폼입니다.",
         "tags": [],
         "parameters": [],
         "requestBody": {
@@ -12392,7 +12452,7 @@
     "/connector/innoforest/seed/party/s1/findproduct": {
       "post": {
         "summary": "혁신의숲 서비스 조회",
-        "description": "혁신의숲(innoforest)은 다양한 스타트업의 성장 데이터를 제공하는 플랫폼으로,\n스타트업의 투자 정보, 소비자 데이터, 고용 현황 등 여러 지표를 무료로 공개하여 생태계 발전에 기여하고 있습니다.\n현재 선택 가능한 데이터는 아래 5개 기업으로 키 값을 사용하여 데이터를 조회할 수 있습니다.\n\n- 오늘의집(버킷플레이스) : 1198691245\n- 올웨이즈(레브잇) : 1798102225\n- 트웰브랩스 : 8458601667\n- 뤼이드 : 1068706394\n- 클래스101: 4578100277",
+        "description": "혁신의숲 서비스 조회\n\n혁신의숲(innoforest)은 다양한 스타트업의 성장 데이터를 제공하는 플랫폼입니다.",
         "tags": [],
         "parameters": [],
         "requestBody": {
@@ -12422,7 +12482,7 @@
     "/connector/innoforest/seed/party/s1/findtraffic": {
       "post": {
         "summary": "혁신의숲 트래픽 조회",
-        "description": "혁신의숲(innoforest)은 다양한 스타트업의 성장 데이터를 제공하는 플랫폼으로,\n스타트업의 투자 정보, 소비자 데이터, 고용 현황 등 여러 지표를 무료로 공개하여 생태계 발전에 기여하고 있습니다.\n현재 선택 가능한 데이터는 아래 5개 기업으로 키 값을 사용하여 데이터를 조회할 수 있습니다.\n\n- 오늘의집(버킷플레이스) : 1198691245\n- 올웨이즈(레브잇) : 1798102225\n- 트웰브랩스 : 8458601667\n- 뤼이드 : 1068706394\n- 클래스101: 4578100277",
+        "description": "혁신의숲 트래픽 조회\n\n혁신의숲(innoforest)은 다양한 스타트업의 성장 데이터를 제공하는 플랫폼입니다.",
         "tags": [],
         "parameters": [],
         "requestBody": {
@@ -12452,7 +12512,7 @@
     "/connector/innoforest/seed/party/s1/findsales": {
       "post": {
         "summary": "혁신의숲 소비자거래-거래액, 거래건수 조회",
-        "description": "혁신의숲(innoforest)은 다양한 스타트업의 성장 데이터를 제공하는 플랫폼으로,\n스타트업의 투자 정보, 소비자 데이터, 고용 현황 등 여러 지표를 무료로 공개하여 생태계 발전에 기여하고 있습니다.\n현재 선택 가능한 데이터는 아래 5개 기업으로 키 값을 사용하여 데이터를 조회할 수 있습니다.\n\n- 오늘의집(버킷플레이스) : 1198691245\n- 올웨이즈(레브잇) : 1798102225\n- 트웰브랩스 : 8458601667\n- 뤼이드 : 1068706394\n- 클래스101: 4578100277",
+        "description": "혁신의숲 소비자거래-거래액, 거래건수 조회\n\n혁신의숲(innoforest)은 다양한 스타트업의 성장 데이터를 제공하는 플랫폼입니다.",
         "tags": [],
         "parameters": [],
         "requestBody": {
@@ -12482,7 +12542,7 @@
     "/connector/innoforest/seed/party/s1/findsalesrebuy": {
       "post": {
         "summary": "혁신의숲 소비자거래-재구매율 조회",
-        "description": "혁신의숲(innoforest)은 다양한 스타트업의 성장 데이터를 제공하는 플랫폼으로,\n스타트업의 투자 정보, 소비자 데이터, 고용 현황 등 여러 지표를 무료로 공개하여 생태계 발전에 기여하고 있습니다.\n현재 선택 가능한 데이터는 아래 5개 기업으로 키 값을 사용하여 데이터를 조회할 수 있습니다.\n\n- 오늘의집(버킷플레이스) : 1198691245\n- 올웨이즈(레브잇) : 1798102225\n- 트웰브랩스 : 8458601667\n- 뤼이드 : 1068706394\n- 클래스101: 4578100277",
+        "description": "혁신의숲 소비자거래-재구매율 조회\n\n혁신의숲(innoforest)은 다양한 스타트업의 성장 데이터를 제공하는 플랫폼입니다.",
         "tags": [],
         "parameters": [],
         "requestBody": {
@@ -12512,7 +12572,7 @@
     "/connector/innoforest/seed/party/s1/findsalesavgbuy": {
       "post": {
         "summary": "혁신의숲 소비자거래-평균구매횟수 조회",
-        "description": "혁신의숲(innoforest)은 다양한 스타트업의 성장 데이터를 제공하는 플랫폼으로,\n스타트업의 투자 정보, 소비자 데이터, 고용 현황 등 여러 지표를 무료로 공개하여 생태계 발전에 기여하고 있습니다.\n현재 선택 가능한 데이터는 아래 5개 기업으로 키 값을 사용하여 데이터를 조회할 수 있습니다.\n\n- 오늘의집(버킷플레이스) : 1198691245\n- 올웨이즈(레브잇) : 1798102225\n- 트웰브랩스 : 8458601667\n- 뤼이드 : 1068706394\n- 클래스101: 4578100277",
+        "description": "혁신의숲 소비자거래-평균구매횟수 조회\n\n혁신의숲(innoforest)은 다양한 스타트업의 성장 데이터를 제공하는 플랫폼입니다.",
         "tags": [],
         "parameters": [],
         "requestBody": {
@@ -12542,7 +12602,7 @@
     "/connector/innoforest/seed/party/s1/findsalesperson": {
       "post": {
         "summary": "혁신의숲 소비자유형-성별, 연령 조회",
-        "description": "혁신의숲(innoforest)은 다양한 스타트업의 성장 데이터를 제공하는 플랫폼으로,\n스타트업의 투자 정보, 소비자 데이터, 고용 현황 등 여러 지표를 무료로 공개하여 생태계 발전에 기여하고 있습니다.\n현재 선택 가능한 데이터는 아래 5개 기업으로 키 값을 사용하여 데이터를 조회할 수 있습니다.\n\n- 오늘의집(버킷플레이스) : 1198691245\n- 올웨이즈(레브잇) : 1798102225\n- 트웰브랩스 : 8458601667\n- 뤼이드 : 1068706394\n- 클래스101: 4578100277",
+        "description": "혁신의숲 소비자유형-성별, 연령 조회\n\n혁신의숲(innoforest)은 다양한 스타트업의 성장 데이터를 제공하는 플랫폼입니다.",
         "tags": [],
         "parameters": [],
         "requestBody": {
@@ -12572,7 +12632,7 @@
     "/connector/innoforest/seed/party/s1/findsaleshousehold": {
       "post": {
         "summary": "혁신의숲 소비자유형-가족구성 조회",
-        "description": "혁신의숲(innoforest)은 다양한 스타트업의 성장 데이터를 제공하는 플랫폼으로,\n스타트업의 투자 정보, 소비자 데이터, 고용 현황 등 여러 지표를 무료로 공개하여 생태계 발전에 기여하고 있습니다.\n현재 선택 가능한 데이터는 아래 5개 기업으로 키 값을 사용하여 데이터를 조회할 수 있습니다.\n\n- 오늘의집(버킷플레이스) : 1198691245\n- 올웨이즈(레브잇) : 1798102225\n- 트웰브랩스 : 8458601667\n- 뤼이드 : 1068706394\n- 클래스101: 4578100277",
+        "description": "혁신의숲 소비자유형-가족구성 조회\n\n혁신의숲(innoforest)은 다양한 스타트업의 성장 데이터를 제공하는 플랫폼입니다.",
         "tags": [],
         "parameters": [],
         "requestBody": {
@@ -12602,7 +12662,7 @@
     "/connector/innoforest/seed/party/s1/findsalesincome": {
       "post": {
         "summary": "혁신의숲 소비자유형-소득수준 조회",
-        "description": "혁신의숲(innoforest)은 다양한 스타트업의 성장 데이터를 제공하는 플랫폼으로,\n스타트업의 투자 정보, 소비자 데이터, 고용 현황 등 여러 지표를 무료로 공개하여 생태계 발전에 기여하고 있습니다.\n현재 선택 가능한 데이터는 아래 5개 기업으로 키 값을 사용하여 데이터를 조회할 수 있습니다.\n\n- 오늘의집(버킷플레이스) : 1198691245\n- 올웨이즈(레브잇) : 1798102225\n- 트웰브랩스 : 8458601667\n- 뤼이드 : 1068706394\n- 클래스101: 4578100277",
+        "description": "혁신의숲 소비자유형-소득수준 조회\n\n혁신의숲(innoforest)은 다양한 스타트업의 성장 데이터를 제공하는 플랫폼입니다.",
         "tags": [],
         "parameters": [],
         "requestBody": {
@@ -12632,7 +12692,7 @@
     "/connector/innoforest/seed/party/s1/findinvest": {
       "post": {
         "summary": "혁신의숲 투자유치이력 조회",
-        "description": "혁신의숲(innoforest)은 다양한 스타트업의 성장 데이터를 제공하는 플랫폼으로,\n스타트업의 투자 정보, 소비자 데이터, 고용 현황 등 여러 지표를 무료로 공개하여 생태계 발전에 기여하고 있습니다.\n현재 선택 가능한 데이터는 아래 5개 기업으로 키 값을 사용하여 데이터를 조회할 수 있습니다.\n\n- 오늘의집(버킷플레이스) : 1198691245\n- 올웨이즈(레브잇) : 1798102225\n- 트웰브랩스 : 8458601667\n- 뤼이드 : 1068706394\n- 클래스101: 4578100277",
+        "description": "혁신의숲 투자유치이력 조회\n\n혁신의숲(innoforest)은 다양한 스타트업의 성장 데이터를 제공하는 플랫폼입니다.",
         "tags": [],
         "parameters": [],
         "requestBody": {
@@ -12662,7 +12722,7 @@
     "/connector/innoforest/seed/party/s1/findpatent": {
       "post": {
         "summary": "혁신의숲 특허이력 조회",
-        "description": "혁신의숲(innoforest)은 다양한 스타트업의 성장 데이터를 제공하는 플랫폼으로,\n스타트업의 투자 정보, 소비자 데이터, 고용 현황 등 여러 지표를 무료로 공개하여 생태계 발전에 기여하고 있습니다.\n현재 선택 가능한 데이터는 아래 5개 기업으로 키 값을 사용하여 데이터를 조회할 수 있습니다.\n\n- 오늘의집(버킷플레이스) : 1198691245\n- 올웨이즈(레브잇) : 1798102225\n- 트웰브랩스 : 8458601667\n- 뤼이드 : 1068706394\n- 클래스101: 4578100277",
+        "description": "혁신의숲 특허이력 조회\n\n혁신의숲(innoforest)은 다양한 스타트업의 성장 데이터를 제공하는 플랫폼입니다.",
         "tags": [],
         "parameters": [],
         "requestBody": {
@@ -12692,7 +12752,7 @@
     "/connector/innoforest/seed/party/s1/findpatentword": {
       "post": {
         "summary": "혁신의숲 특허키워드 조회",
-        "description": "혁신의숲(innoforest)은 다양한 스타트업의 성장 데이터를 제공하는 플랫폼으로,\n스타트업의 투자 정보, 소비자 데이터, 고용 현황 등 여러 지표를 무료로 공개하여 생태계 발전에 기여하고 있습니다.\n현재 선택 가능한 데이터는 아래 5개 기업으로 키 값을 사용하여 데이터를 조회할 수 있습니다.\n\n- 오늘의집(버킷플레이스) : 1198691245\n- 올웨이즈(레브잇) : 1798102225\n- 트웰브랩스 : 8458601667\n- 뤼이드 : 1068706394\n- 클래스101: 4578100277",
+        "description": "혁신의숲 특허키워드 조회\n\n혁신의숲(innoforest)은 다양한 스타트업의 성장 데이터를 제공하는 플랫폼입니다.",
         "tags": [],
         "parameters": [],
         "requestBody": {
@@ -12722,7 +12782,7 @@
     "/connector/innoforest/seed/party/s1/findfinance": {
       "post": {
         "summary": "혁신의숲 손익재무 조회",
-        "description": "혁신의숲(innoforest)은 다양한 스타트업의 성장 데이터를 제공하는 플랫폼으로,\n스타트업의 투자 정보, 소비자 데이터, 고용 현황 등 여러 지표를 무료로 공개하여 생태계 발전에 기여하고 있습니다.\n현재 선택 가능한 데이터는 아래 5개 기업으로 키 값을 사용하여 데이터를 조회할 수 있습니다.\n\n- 오늘의집(버킷플레이스) : 1198691245\n- 올웨이즈(레브잇) : 1798102225\n- 트웰브랩스 : 8458601667\n- 뤼이드 : 1068706394\n- 클래스101: 4578100277",
+        "description": "혁신의숲 손익재무 조회\n\n혁신의숲(innoforest)은 다양한 스타트업의 성장 데이터를 제공하는 플랫폼입니다.",
         "tags": [],
         "parameters": [],
         "requestBody": {
@@ -12752,7 +12812,7 @@
     "/connector/innoforest/seed/party/s1/findemployee": {
       "post": {
         "summary": "혁신의숲 고용 조회",
-        "description": "혁신의숲(innoforest)은 다양한 스타트업의 성장 데이터를 제공하는 플랫폼으로,\n스타트업의 투자 정보, 소비자 데이터, 고용 현황 등 여러 지표를 무료로 공개하여 생태계 발전에 기여하고 있습니다.\n현재 선택 가능한 데이터는 아래 5개 기업으로 키 값을 사용하여 데이터를 조회할 수 있습니다.\n\n- 오늘의집(버킷플레이스) : 1198691245\n- 올웨이즈(레브잇) : 1798102225\n- 트웰브랩스 : 8458601667\n- 뤼이드 : 1068706394\n- 클래스101: 4578100277",
+        "description": "혁신의숲 고용 조회\n\n혁신의숲(innoforest)은 다양한 스타트업의 성장 데이터를 제공하는 플랫폼입니다.",
         "tags": [],
         "parameters": [],
         "requestBody": {
@@ -12782,7 +12842,7 @@
     "/connector/innoforest/seed/party/s1/findpress": {
       "post": {
         "summary": "혁신의숲 보도자료 조회",
-        "description": "혁신의숲(innoforest)은 다양한 스타트업의 성장 데이터를 제공하는 플랫폼으로,\n스타트업의 투자 정보, 소비자 데이터, 고용 현황 등 여러 지표를 무료로 공개하여 생태계 발전에 기여하고 있습니다.\n현재 선택 가능한 데이터는 아래 5개 기업으로 키 값을 사용하여 데이터를 조회할 수 있습니다.\n\n- 오늘의집(버킷플레이스) : 1198691245\n- 올웨이즈(레브잇) : 1798102225\n- 트웰브랩스 : 8458601667\n- 뤼이드 : 1068706394\n- 클래스101: 4578100277",
+        "description": "혁신의숲 보도자료 조회\n\n혁신의숲(innoforest)은 다양한 스타트업의 성장 데이터를 제공하는 플랫폼입니다.",
         "tags": [],
         "parameters": [],
         "requestBody": {
@@ -58731,7 +58791,7 @@
                 "title": "NO_REPLIES"
               },
               {
-                "$ref": "#/components/schemas/__type.o2121"
+                "$ref": "#/components/schemas/__type.o2179"
               }
             ],
             "title": "replies"
@@ -59178,14 +59238,14 @@
           "name"
         ]
       },
-      "__type.o2121": {
+      "__type.o2179": {
         "type": "object",
         "properties": {
           "kind": {
             "const": "Listing"
           },
           "data": {
-            "$ref": "#/components/schemas/__type.o2122"
+            "$ref": "#/components/schemas/__type.o2180"
           }
         },
         "required": [
@@ -59193,7 +59253,7 @@
           "data"
         ]
       },
-      "__type.o2122": {
+      "__type.o2180": {
         "type": "object",
         "properties": {
           "after": {
@@ -59213,7 +59273,7 @@
             "items": {
               "oneOf": [
                 {
-                  "$ref": "#/components/schemas/__type.o2123"
+                  "$ref": "#/components/schemas/__type.o2181"
                 },
                 {
                   "type": "object",
@@ -59287,7 +59347,7 @@
           "before"
         ]
       },
-      "__type.o2123": {
+      "__type.o2181": {
         "type": "object",
         "properties": {
           "kind": {
@@ -61345,6 +61405,103 @@
           "secretKey"
         ]
       },
+      "IInnoforest.IUnifyOutput": {
+        "type": "object",
+        "properties": {
+          "corp": {
+            "$ref": "#/components/schemas/IInnoforest.IGetcorpOutput",
+            "title": "corp"
+          },
+          "corpfinance": {
+            "$ref": "#/components/schemas/IInnoforest.IGetcorpfinanceOutput",
+            "title": "corpfinance"
+          },
+          "corpinvest": {
+            "$ref": "#/components/schemas/IInnoforest.IGetcorpinvestOutput",
+            "title": "corpinvest"
+          },
+          "corpcommon": {
+            "$ref": "#/components/schemas/IInnoforest.IGetcorpcommonOutput",
+            "title": "corpcommon"
+          },
+          "product": {
+            "$ref": "#/components/schemas/IInnoforest.IFindproductOutput",
+            "title": "product"
+          },
+          "traffic": {
+            "$ref": "#/components/schemas/IInnoforest.IFindtrafficOutput",
+            "title": "traffic"
+          },
+          "sales": {
+            "$ref": "#/components/schemas/IInnoforest.IFindsalesOutput",
+            "title": "sales"
+          },
+          "salesrebuy": {
+            "$ref": "#/components/schemas/IInnoforest.IFindsalesrebuyOutput",
+            "title": "salesrebuy"
+          },
+          "salesavgbuy": {
+            "$ref": "#/components/schemas/IInnoforest.IFindsalesavgbuyOutput",
+            "title": "salesavgbuy"
+          },
+          "salesperson": {
+            "$ref": "#/components/schemas/IInnoforest.IFindsalespersonOutput",
+            "title": "salesperson"
+          },
+          "saleshousehold": {
+            "$ref": "#/components/schemas/IInnoforest.IFindsaleshouseholdOutput",
+            "title": "saleshousehold"
+          },
+          "salesincome": {
+            "$ref": "#/components/schemas/IInnoforest.IFindsalesincomeOutput",
+            "title": "salesincome"
+          },
+          "invest": {
+            "$ref": "#/components/schemas/IInnoforest.IFindinvestOutput",
+            "title": "invest"
+          },
+          "patent": {
+            "$ref": "#/components/schemas/IInnoforest.IFindpatentOutput",
+            "title": "patent"
+          },
+          "patentword": {
+            "$ref": "#/components/schemas/IInnoforest.IFindpatentwordOutput",
+            "title": "patentword"
+          },
+          "finance": {
+            "$ref": "#/components/schemas/IInnoforest.IFindfinanceOutput",
+            "title": "finance"
+          },
+          "employee": {
+            "$ref": "#/components/schemas/IInnoforest.IFindemployeeOutput",
+            "title": "employee"
+          },
+          "press": {
+            "$ref": "#/components/schemas/IInnoforest.IFindpressOutput",
+            "title": "press"
+          }
+        },
+        "required": [
+          "corp",
+          "corpfinance",
+          "corpinvest",
+          "corpcommon",
+          "product",
+          "traffic",
+          "sales",
+          "salesrebuy",
+          "salesavgbuy",
+          "salesperson",
+          "saleshousehold",
+          "salesincome",
+          "invest",
+          "patent",
+          "patentword",
+          "finance",
+          "employee",
+          "press"
+        ]
+      },
       "IInnoforest.IGetcorpOutput": {
         "type": "object",
         "properties": {
@@ -61546,18 +61703,6 @@
           "success"
         ]
       },
-      "IInnoforest.IGetcorpInput": {
-        "type": "object",
-        "properties": {
-          "corpUniqNum": {
-            "type": "string",
-            "title": "혁신의숲 기업 Key"
-          }
-        },
-        "required": [
-          "corpUniqNum"
-        ]
-      },
       "IInnoforest.IGetcorpfinanceOutput": {
         "type": "object",
         "properties": {
@@ -61638,18 +61783,6 @@
           "data",
           "dataCount",
           "success"
-        ]
-      },
-      "IInnoforest.IGetcorpfinanceInput": {
-        "type": "object",
-        "properties": {
-          "corpUniqNum": {
-            "type": "string",
-            "title": "혁신의숲 기업 Key"
-          }
-        },
-        "required": [
-          "corpUniqNum"
         ]
       },
       "IInnoforest.IGetcorpinvestOutput": {
@@ -61748,18 +61881,6 @@
           "success"
         ]
       },
-      "IInnoforest.IGetcorpinvestInput": {
-        "type": "object",
-        "properties": {
-          "corpUniqNum": {
-            "type": "string",
-            "title": "혁신의숲 기업 Key"
-          }
-        },
-        "required": [
-          "corpUniqNum"
-        ]
-      },
       "IInnoforest.IGetcorpcommonOutput": {
         "type": "object",
         "properties": {
@@ -61840,18 +61961,6 @@
           "data",
           "dataCount",
           "success"
-        ]
-      },
-      "IInnoforest.IGetcorpcommonInput": {
-        "type": "object",
-        "properties": {
-          "corpUniqNum": {
-            "type": "string",
-            "title": "혁신의숲 기업 Key"
-          }
-        },
-        "required": [
-          "corpUniqNum"
         ]
       },
       "IInnoforest.IFindproductOutput": {
@@ -61960,18 +62069,6 @@
           "success"
         ]
       },
-      "IInnoforest.IFindproductInput": {
-        "type": "object",
-        "properties": {
-          "corpUniqNum": {
-            "type": "string",
-            "title": "혁신의숲 기업 Key"
-          }
-        },
-        "required": [
-          "corpUniqNum"
-        ]
-      },
       "IInnoforest.IFindtrafficOutput": {
         "type": "object",
         "properties": {
@@ -62070,18 +62167,6 @@
           "success"
         ]
       },
-      "IInnoforest.IFindtrafficInput": {
-        "type": "object",
-        "properties": {
-          "corpUniqNum": {
-            "type": "string",
-            "title": "혁신의숲 기업 Key"
-          }
-        },
-        "required": [
-          "corpUniqNum"
-        ]
-      },
       "IInnoforest.IFindsalesOutput": {
         "type": "object",
         "properties": {
@@ -62171,18 +62256,6 @@
           "data",
           "dataCount",
           "success"
-        ]
-      },
-      "IInnoforest.IFindsalesInput": {
-        "type": "object",
-        "properties": {
-          "corpUniqNum": {
-            "type": "string",
-            "title": "혁신의숲 기업 Key"
-          }
-        },
-        "required": [
-          "corpUniqNum"
         ]
       },
       "IInnoforest.IFindsalesrebuyOutput": {
@@ -62277,18 +62350,6 @@
           "success"
         ]
       },
-      "IInnoforest.IFindsalesrebuyInput": {
-        "type": "object",
-        "properties": {
-          "corpUniqNum": {
-            "type": "string",
-            "title": "혁신의숲 기업 Key"
-          }
-        },
-        "required": [
-          "corpUniqNum"
-        ]
-      },
       "IInnoforest.IFindsalesavgbuyOutput": {
         "type": "object",
         "properties": {
@@ -62379,18 +62440,6 @@
           "data",
           "dataCount",
           "success"
-        ]
-      },
-      "IInnoforest.IFindsalesavgbuyInput": {
-        "type": "object",
-        "properties": {
-          "corpUniqNum": {
-            "type": "string",
-            "title": "혁신의숲 기업 Key"
-          }
-        },
-        "required": [
-          "corpUniqNum"
         ]
       },
       "IInnoforest.IFindsalespersonOutput": {
@@ -62523,18 +62572,6 @@
           "success"
         ]
       },
-      "IInnoforest.IFindsalespersonInput": {
-        "type": "object",
-        "properties": {
-          "corpUniqNum": {
-            "type": "string",
-            "title": "혁신의숲 기업 Key"
-          }
-        },
-        "required": [
-          "corpUniqNum"
-        ]
-      },
       "IInnoforest.IFindsaleshouseholdOutput": {
         "type": "object",
         "properties": {
@@ -62645,18 +62682,6 @@
           "data",
           "dataCount",
           "success"
-        ]
-      },
-      "IInnoforest.IFindsaleshouseholdInput": {
-        "type": "object",
-        "properties": {
-          "corpUniqNum": {
-            "type": "string",
-            "title": "혁신의숲 기업 Key"
-          }
-        },
-        "required": [
-          "corpUniqNum"
         ]
       },
       "IInnoforest.IFindsalesincomeOutput": {
@@ -62778,18 +62803,6 @@
           "data",
           "dataCount",
           "success"
-        ]
-      },
-      "IInnoforest.IFindsalesincomeInput": {
-        "type": "object",
-        "properties": {
-          "corpUniqNum": {
-            "type": "string",
-            "title": "혁신의숲 기업 Key"
-          }
-        },
-        "required": [
-          "corpUniqNum"
         ]
       },
       "IInnoforest.IFindinvestOutput": {
@@ -63024,18 +63037,6 @@
           "success"
         ]
       },
-      "IInnoforest.IFindinvestInput": {
-        "type": "object",
-        "properties": {
-          "corpUniqNum": {
-            "type": "string",
-            "title": "혁신의숲 기업 Key"
-          }
-        },
-        "required": [
-          "corpUniqNum"
-        ]
-      },
       "IInnoforest.IFindpatentOutput": {
         "type": "object",
         "properties": {
@@ -63177,18 +63178,6 @@
           "success"
         ]
       },
-      "IInnoforest.IFindpatentInput": {
-        "type": "object",
-        "properties": {
-          "corpUniqNum": {
-            "type": "string",
-            "title": "혁신의숲 기업 Key"
-          }
-        },
-        "required": [
-          "corpUniqNum"
-        ]
-      },
       "IInnoforest.IFindpatentwordOutput": {
         "type": "object",
         "properties": {
@@ -63273,18 +63262,6 @@
           "data",
           "dataCount",
           "success"
-        ]
-      },
-      "IInnoforest.IFindpatentwordInput": {
-        "type": "object",
-        "properties": {
-          "corpUniqNum": {
-            "type": "string",
-            "title": "혁신의숲 기업 Key"
-          }
-        },
-        "required": [
-          "corpUniqNum"
         ]
       },
       "IInnoforest.IFindfinanceOutput": {
@@ -63384,18 +63361,6 @@
           "data",
           "dataCount",
           "success"
-        ]
-      },
-      "IInnoforest.IFindfinanceInput": {
-        "type": "object",
-        "properties": {
-          "corpUniqNum": {
-            "type": "string",
-            "title": "혁신의숲 기업 Key"
-          }
-        },
-        "required": [
-          "corpUniqNum"
         ]
       },
       "IInnoforest.IFindemployeeOutput": {
@@ -63499,18 +63464,6 @@
           "data",
           "dataCount",
           "success"
-        ]
-      },
-      "IInnoforest.IFindemployeeInput": {
-        "type": "object",
-        "properties": {
-          "corpUniqNum": {
-            "type": "string",
-            "title": "혁신의숲 기업 Key"
-          }
-        },
-        "required": [
-          "corpUniqNum"
         ]
       },
       "IInnoforest.IFindpressOutput": {
@@ -63624,11 +63577,354 @@
           "success"
         ]
       },
+      "IInnoforest.IUnifyInput": {
+        "type": "object",
+        "properties": {
+          "corpUniqNum": {
+            "type": "string",
+            "x-wrtn-prerequisite": {
+              "method": "post",
+              "path": "/connector/innoforest/search",
+              "jmesPath": "companies[].{label: companyName, value: corpUniqNum}"
+            },
+            "title": "혁신의숲 기업 Key"
+          }
+        },
+        "required": [
+          "corpUniqNum"
+        ]
+      },
+      "IInnoforest.ISearchOutput": {
+        "type": "object",
+        "properties": {
+          "companies": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "corpUniqNum": {
+                  "type": "string",
+                  "title": "혁신의숲 기업 Key"
+                },
+                "companyName": {
+                  "type": "string",
+                  "title": "회사 이름"
+                }
+              },
+              "required": [
+                "corpUniqNum",
+                "companyName"
+              ]
+            }
+          }
+        },
+        "required": [
+          "companies"
+        ]
+      },
+      "IInnoforest.ISearchInput": {
+        "type": "object",
+        "properties": {}
+      },
+      "IInnoforest.IGetcorpInput": {
+        "type": "object",
+        "properties": {
+          "corpUniqNum": {
+            "type": "string",
+            "x-wrtn-prerequisite": {
+              "method": "post",
+              "path": "/connector/innoforest/search",
+              "jmesPath": "companies[].{label: companyName, value: corpUniqNum}"
+            },
+            "title": "혁신의숲 기업 Key"
+          }
+        },
+        "required": [
+          "corpUniqNum"
+        ]
+      },
+      "IInnoforest.IGetcorpfinanceInput": {
+        "type": "object",
+        "properties": {
+          "corpUniqNum": {
+            "type": "string",
+            "x-wrtn-prerequisite": {
+              "method": "post",
+              "path": "/connector/innoforest/search",
+              "jmesPath": "companies[].{label: companyName, value: corpUniqNum}"
+            },
+            "title": "혁신의숲 기업 Key"
+          }
+        },
+        "required": [
+          "corpUniqNum"
+        ]
+      },
+      "IInnoforest.IGetcorpinvestInput": {
+        "type": "object",
+        "properties": {
+          "corpUniqNum": {
+            "type": "string",
+            "x-wrtn-prerequisite": {
+              "method": "post",
+              "path": "/connector/innoforest/search",
+              "jmesPath": "companies[].{label: companyName, value: corpUniqNum}"
+            },
+            "title": "혁신의숲 기업 Key"
+          }
+        },
+        "required": [
+          "corpUniqNum"
+        ]
+      },
+      "IInnoforest.IGetcorpcommonInput": {
+        "type": "object",
+        "properties": {
+          "corpUniqNum": {
+            "type": "string",
+            "x-wrtn-prerequisite": {
+              "method": "post",
+              "path": "/connector/innoforest/search",
+              "jmesPath": "companies[].{label: companyName, value: corpUniqNum}"
+            },
+            "title": "혁신의숲 기업 Key"
+          }
+        },
+        "required": [
+          "corpUniqNum"
+        ]
+      },
+      "IInnoforest.IFindproductInput": {
+        "type": "object",
+        "properties": {
+          "corpUniqNum": {
+            "type": "string",
+            "x-wrtn-prerequisite": {
+              "method": "post",
+              "path": "/connector/innoforest/search",
+              "jmesPath": "companies[].{label: companyName, value: corpUniqNum}"
+            },
+            "title": "혁신의숲 기업 Key"
+          }
+        },
+        "required": [
+          "corpUniqNum"
+        ]
+      },
+      "IInnoforest.IFindtrafficInput": {
+        "type": "object",
+        "properties": {
+          "corpUniqNum": {
+            "type": "string",
+            "x-wrtn-prerequisite": {
+              "method": "post",
+              "path": "/connector/innoforest/search",
+              "jmesPath": "companies[].{label: companyName, value: corpUniqNum}"
+            },
+            "title": "혁신의숲 기업 Key"
+          }
+        },
+        "required": [
+          "corpUniqNum"
+        ]
+      },
+      "IInnoforest.IFindsalesInput": {
+        "type": "object",
+        "properties": {
+          "corpUniqNum": {
+            "type": "string",
+            "x-wrtn-prerequisite": {
+              "method": "post",
+              "path": "/connector/innoforest/search",
+              "jmesPath": "companies[].{label: companyName, value: corpUniqNum}"
+            },
+            "title": "혁신의숲 기업 Key"
+          }
+        },
+        "required": [
+          "corpUniqNum"
+        ]
+      },
+      "IInnoforest.IFindsalesrebuyInput": {
+        "type": "object",
+        "properties": {
+          "corpUniqNum": {
+            "type": "string",
+            "x-wrtn-prerequisite": {
+              "method": "post",
+              "path": "/connector/innoforest/search",
+              "jmesPath": "companies[].{label: companyName, value: corpUniqNum}"
+            },
+            "title": "혁신의숲 기업 Key"
+          }
+        },
+        "required": [
+          "corpUniqNum"
+        ]
+      },
+      "IInnoforest.IFindsalesavgbuyInput": {
+        "type": "object",
+        "properties": {
+          "corpUniqNum": {
+            "type": "string",
+            "x-wrtn-prerequisite": {
+              "method": "post",
+              "path": "/connector/innoforest/search",
+              "jmesPath": "companies[].{label: companyName, value: corpUniqNum}"
+            },
+            "title": "혁신의숲 기업 Key"
+          }
+        },
+        "required": [
+          "corpUniqNum"
+        ]
+      },
+      "IInnoforest.IFindsalespersonInput": {
+        "type": "object",
+        "properties": {
+          "corpUniqNum": {
+            "type": "string",
+            "x-wrtn-prerequisite": {
+              "method": "post",
+              "path": "/connector/innoforest/search",
+              "jmesPath": "companies[].{label: companyName, value: corpUniqNum}"
+            },
+            "title": "혁신의숲 기업 Key"
+          }
+        },
+        "required": [
+          "corpUniqNum"
+        ]
+      },
+      "IInnoforest.IFindsaleshouseholdInput": {
+        "type": "object",
+        "properties": {
+          "corpUniqNum": {
+            "type": "string",
+            "x-wrtn-prerequisite": {
+              "method": "post",
+              "path": "/connector/innoforest/search",
+              "jmesPath": "companies[].{label: companyName, value: corpUniqNum}"
+            },
+            "title": "혁신의숲 기업 Key"
+          }
+        },
+        "required": [
+          "corpUniqNum"
+        ]
+      },
+      "IInnoforest.IFindsalesincomeInput": {
+        "type": "object",
+        "properties": {
+          "corpUniqNum": {
+            "type": "string",
+            "x-wrtn-prerequisite": {
+              "method": "post",
+              "path": "/connector/innoforest/search",
+              "jmesPath": "companies[].{label: companyName, value: corpUniqNum}"
+            },
+            "title": "혁신의숲 기업 Key"
+          }
+        },
+        "required": [
+          "corpUniqNum"
+        ]
+      },
+      "IInnoforest.IFindinvestInput": {
+        "type": "object",
+        "properties": {
+          "corpUniqNum": {
+            "type": "string",
+            "x-wrtn-prerequisite": {
+              "method": "post",
+              "path": "/connector/innoforest/search",
+              "jmesPath": "companies[].{label: companyName, value: corpUniqNum}"
+            },
+            "title": "혁신의숲 기업 Key"
+          }
+        },
+        "required": [
+          "corpUniqNum"
+        ]
+      },
+      "IInnoforest.IFindpatentInput": {
+        "type": "object",
+        "properties": {
+          "corpUniqNum": {
+            "type": "string",
+            "x-wrtn-prerequisite": {
+              "method": "post",
+              "path": "/connector/innoforest/search",
+              "jmesPath": "companies[].{label: companyName, value: corpUniqNum}"
+            },
+            "title": "혁신의숲 기업 Key"
+          }
+        },
+        "required": [
+          "corpUniqNum"
+        ]
+      },
+      "IInnoforest.IFindpatentwordInput": {
+        "type": "object",
+        "properties": {
+          "corpUniqNum": {
+            "type": "string",
+            "x-wrtn-prerequisite": {
+              "method": "post",
+              "path": "/connector/innoforest/search",
+              "jmesPath": "companies[].{label: companyName, value: corpUniqNum}"
+            },
+            "title": "혁신의숲 기업 Key"
+          }
+        },
+        "required": [
+          "corpUniqNum"
+        ]
+      },
+      "IInnoforest.IFindfinanceInput": {
+        "type": "object",
+        "properties": {
+          "corpUniqNum": {
+            "type": "string",
+            "x-wrtn-prerequisite": {
+              "method": "post",
+              "path": "/connector/innoforest/search",
+              "jmesPath": "companies[].{label: companyName, value: corpUniqNum}"
+            },
+            "title": "혁신의숲 기업 Key"
+          }
+        },
+        "required": [
+          "corpUniqNum"
+        ]
+      },
+      "IInnoforest.IFindemployeeInput": {
+        "type": "object",
+        "properties": {
+          "corpUniqNum": {
+            "type": "string",
+            "x-wrtn-prerequisite": {
+              "method": "post",
+              "path": "/connector/innoforest/search",
+              "jmesPath": "companies[].{label: companyName, value: corpUniqNum}"
+            },
+            "title": "혁신의숲 기업 Key"
+          }
+        },
+        "required": [
+          "corpUniqNum"
+        ]
+      },
       "IInnoforest.IFindpressInput": {
         "type": "object",
         "properties": {
           "corpUniqNum": {
             "type": "string",
+            "x-wrtn-prerequisite": {
+              "method": "post",
+              "path": "/connector/innoforest/search",
+              "jmesPath": "companies[].{label: companyName, value: corpUniqNum}"
+            },
             "title": "혁신의숲 기업 Key"
           }
         },
