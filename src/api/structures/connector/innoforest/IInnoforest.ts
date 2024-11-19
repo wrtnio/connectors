@@ -1,3 +1,4 @@
+import { Prerequisite } from "@wrtnio/decorators";
 import { tags } from "typia";
 
 export namespace IInnoforest {
@@ -120,7 +121,12 @@ export namespace IInnoforest {
     /**
      * @title 혁신의숲 기업 Key
      */
-    corpUniqNum: string;
+    corpUniqNum: string &
+      Prerequisite<{
+        method: "post";
+        path: "/connector/innoforest/search";
+        jmesPath: "companies[].{label: companyName, value: corpUniqNum}";
+      }>;
   }
 
   export interface IGetcorpfinanceOutput extends IInnoforest.ICommonResponse {
@@ -159,7 +165,12 @@ export namespace IInnoforest {
     /**
      * @title 혁신의숲 기업 Key
      */
-    corpUniqNum: string;
+    corpUniqNum: string &
+      Prerequisite<{
+        method: "post";
+        path: "/connector/innoforest/search";
+        jmesPath: "companies[].{label: companyName, value: corpUniqNum}";
+      }>;
   }
 
   export interface IGetcorpinvestOutput extends IInnoforest.ICommonResponse {
@@ -205,7 +216,12 @@ export namespace IInnoforest {
     /**
      * @title 혁신의숲 기업 Key
      */
-    corpUniqNum: string;
+    corpUniqNum: string &
+      Prerequisite<{
+        method: "post";
+        path: "/connector/innoforest/search";
+        jmesPath: "companies[].{label: companyName, value: corpUniqNum}";
+      }>;
   }
 
   export interface IGetcorpcommonOutput extends IInnoforest.ICommonResponse {
@@ -244,7 +260,12 @@ export namespace IInnoforest {
     /**
      * @title 혁신의숲 기업 Key
      */
-    corpUniqNum: string;
+    corpUniqNum: string &
+      Prerequisite<{
+        method: "post";
+        path: "/connector/innoforest/search";
+        jmesPath: "companies[].{label: companyName, value: corpUniqNum}";
+      }>;
   }
 
   export interface IFindproductOutput extends IInnoforest.ICommonResponse {
@@ -293,7 +314,12 @@ export namespace IInnoforest {
     /**
      * @title 혁신의숲 기업 Key
      */
-    corpUniqNum: string;
+    corpUniqNum: string &
+      Prerequisite<{
+        method: "post";
+        path: "/connector/innoforest/search";
+        jmesPath: "companies[].{label: companyName, value: corpUniqNum}";
+      }>;
   }
 
   export interface IFindtrafficOutput extends IInnoforest.ICommonResponse {
@@ -344,7 +370,12 @@ export namespace IInnoforest {
     /**
      * @title 혁신의숲 기업 Key
      */
-    corpUniqNum: string;
+    corpUniqNum: string &
+      Prerequisite<{
+        method: "post";
+        path: "/connector/innoforest/search";
+        jmesPath: "companies[].{label: companyName, value: corpUniqNum}";
+      }>;
   }
 
   export interface IFindsalesOutput extends IInnoforest.ICommonResponse {
@@ -388,7 +419,12 @@ export namespace IInnoforest {
     /**
      * @title 혁신의숲 기업 Key
      */
-    corpUniqNum: string;
+    corpUniqNum: string &
+      Prerequisite<{
+        method: "post";
+        path: "/connector/innoforest/search";
+        jmesPath: "companies[].{label: companyName, value: corpUniqNum}";
+      }>;
   }
 
   export interface IFindsalesrebuyOutput extends IInnoforest.ICommonResponse {
@@ -437,7 +473,12 @@ export namespace IInnoforest {
     /**
      * @title 혁신의숲 기업 Key
      */
-    corpUniqNum: string;
+    corpUniqNum: string &
+      Prerequisite<{
+        method: "post";
+        path: "/connector/innoforest/search";
+        jmesPath: "companies[].{label: companyName, value: corpUniqNum}";
+      }>;
   }
 
   export interface IFindsalesavgbuyOutput extends IInnoforest.ICommonResponse {
@@ -486,7 +527,12 @@ export namespace IInnoforest {
     /**
      * @title 혁신의숲 기업 Key
      */
-    corpUniqNum: string;
+    corpUniqNum: string &
+      Prerequisite<{
+        method: "post";
+        path: "/connector/innoforest/search";
+        jmesPath: "companies[].{label: companyName, value: corpUniqNum}";
+      }>;
   }
 
   export interface IFindsalespersonOutput extends IInnoforest.ICommonResponse {
@@ -544,7 +590,12 @@ export namespace IInnoforest {
     /**
      * @title 혁신의숲 기업 Key
      */
-    corpUniqNum: string;
+    corpUniqNum: string &
+      Prerequisite<{
+        method: "post";
+        path: "/connector/innoforest/search";
+        jmesPath: "companies[].{label: companyName, value: corpUniqNum}";
+      }>;
   }
 
   export interface IFindsaleshouseholdOutput
@@ -596,7 +647,12 @@ export namespace IInnoforest {
     /**
      * @title 혁신의숲 기업 Key
      */
-    corpUniqNum: string;
+    corpUniqNum: string &
+      Prerequisite<{
+        method: "post";
+        path: "/connector/innoforest/search";
+        jmesPath: "companies[].{label: companyName, value: corpUniqNum}";
+      }>;
   }
 
   export interface IFindsalesincomeOutput extends IInnoforest.ICommonResponse {
@@ -651,7 +707,12 @@ export namespace IInnoforest {
     /**
      * @title 혁신의숲 기업 Key
      */
-    corpUniqNum: string;
+    corpUniqNum: string &
+      Prerequisite<{
+        method: "post";
+        path: "/connector/innoforest/search";
+        jmesPath: "companies[].{label: companyName, value: corpUniqNum}";
+      }>;
   }
 
   export interface IFindinvestOutput extends IInnoforest.ICommonResponse {
@@ -736,7 +797,12 @@ export namespace IInnoforest {
     /**
      * @title 혁신의숲 기업 Key
      */
-    corpUniqNum: string;
+    corpUniqNum: string &
+      Prerequisite<{
+        method: "post";
+        path: "/connector/innoforest/search";
+        jmesPath: "companies[].{label: companyName, value: corpUniqNum}";
+      }>;
   }
 
   export interface IFindpatentOutput extends IInnoforest.ICommonResponse {
@@ -805,7 +871,12 @@ export namespace IInnoforest {
     /**
      * @title 혁신의숲 기업 Key
      */
-    corpUniqNum: string;
+    corpUniqNum: string &
+      Prerequisite<{
+        method: "post";
+        path: "/connector/innoforest/search";
+        jmesPath: "companies[].{label: companyName, value: corpUniqNum}";
+      }>;
   }
 
   export interface IFindpatentwordOutput extends IInnoforest.ICommonResponse {
@@ -844,7 +915,12 @@ export namespace IInnoforest {
     /**
      * @title 혁신의숲 기업 Key
      */
-    corpUniqNum: string;
+    corpUniqNum: string &
+      Prerequisite<{
+        method: "post";
+        path: "/connector/innoforest/search";
+        jmesPath: "companies[].{label: companyName, value: corpUniqNum}";
+      }>;
   }
 
   export interface IFindfinanceOutput extends IInnoforest.ICommonResponse {
@@ -893,7 +969,12 @@ export namespace IInnoforest {
     /**
      * @title 혁신의숲 기업 Key
      */
-    corpUniqNum: string;
+    corpUniqNum: string &
+      Prerequisite<{
+        method: "post";
+        path: "/connector/innoforest/search";
+        jmesPath: "companies[].{label: companyName, value: corpUniqNum}";
+      }>;
   }
 
   export interface IFindemployeeOutput extends IInnoforest.ICommonResponse {
@@ -942,7 +1023,12 @@ export namespace IInnoforest {
     /**
      * @title 혁신의숲 기업 Key
      */
-    corpUniqNum: string;
+    corpUniqNum: string &
+      Prerequisite<{
+        method: "post";
+        path: "/connector/innoforest/search";
+        jmesPath: "companies[].{label: companyName, value: corpUniqNum}";
+      }>;
   }
 
   export interface IFindpressOutput extends IInnoforest.ICommonResponse {
@@ -996,6 +1082,11 @@ export namespace IInnoforest {
     /**
      * @title 혁신의숲 기업 Key
      */
-    corpUniqNum: string;
+    corpUniqNum: string &
+      Prerequisite<{
+        method: "post";
+        path: "/connector/innoforest/search";
+        jmesPath: "companies[].{label: companyName, value: corpUniqNum}";
+      }>;
   }
 }
