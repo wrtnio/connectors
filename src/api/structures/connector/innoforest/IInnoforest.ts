@@ -24,6 +24,18 @@ export namespace IInnoforest {
     successMsg?: string;
   }
 
+  export interface IUnifyInput {
+    /**
+     * @title 혁신의숲 기업 Key
+     */
+    corpUniqNum: string &
+      Prerequisite<{
+        method: "post";
+        path: "/connector/innoforest/search";
+        jmesPath: "companies[].{label: companyName, value: corpUniqNum}";
+      }>;
+  }
+
   export interface ISearchOutput {
     companies: {
       /**

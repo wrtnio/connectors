@@ -6,6 +6,83 @@ import { InnoforestProvider } from "../../../providers/connector/innoforest/Inno
 @Controller("connector/innoforest")
 export class InnoforestController {
   constructor(private readonly innoforestProvider: InnoforestProvider) {}
+
+  /**
+   * 혁신의숲 회사 데이터 전체 조회
+   *
+   * 혁신의숲(innoforest)은 다양한 스타트업의 성장 데이터를 제공하는 플랫폼입니다.
+   * 혁신의숲의 다른 커넥터에서 제공하는 데이터들을 모두 통합하여 한 번에 제공합니다.
+   * 유저가 요청하는 정보가 많을 경우 이 커넥터를 활용하는 것이 유리합니다.
+   * 여기에는 아래의 프로퍼티들을 포함됩니다.
+   *
+   * - corp, corpfinance, corpinvest, corpcommon, product, traffic, sales, salesrebuy, salesavgbuy, salesperson, saleshousehold, salesincome, invest, patent, patentword, finance, employee, press
+   *
+   * @summary 혁신의숲 회사 데이터 전체 조회
+   */
+  @TypedRoute.Post("unify")
+  async unify(@TypedBody() input: IInnoforest.IUnifyInput) {
+    const [
+      corp,
+      corpfinance,
+      corpinvest,
+      corpcommon,
+      product,
+      traffic,
+      sales,
+      salesrebuy,
+      salesavgbuy,
+      salesperson,
+      saleshousehold,
+      salesincome,
+      invest,
+      patent,
+      patentword,
+      finance,
+      employee,
+      press,
+    ] = await Promise.all([
+      await this.innoforestProvider.getcorp(input),
+      await this.innoforestProvider.getcorpfinance(input),
+      await this.innoforestProvider.getcorpinvest(input),
+      await this.innoforestProvider.getcorpcommon(input),
+      await this.innoforestProvider.findproduct(input),
+      await this.innoforestProvider.findtraffic(input),
+      await this.innoforestProvider.findsales(input),
+      await this.innoforestProvider.findsalesrebuy(input),
+      await this.innoforestProvider.findsalesavgbuy(input),
+      await this.innoforestProvider.findsalesperson(input),
+      await this.innoforestProvider.findsaleshousehold(input),
+      await this.innoforestProvider.findsalesincome(input),
+      await this.innoforestProvider.findinvest(input),
+      await this.innoforestProvider.findpatent(input),
+      await this.innoforestProvider.findpatentword(input),
+      await this.innoforestProvider.findfinance(input),
+      await this.innoforestProvider.findemployee(input),
+      await this.innoforestProvider.findpress(input),
+    ]);
+
+    return {
+      corp,
+      corpfinance,
+      corpinvest,
+      corpcommon,
+      product,
+      traffic,
+      sales,
+      salesrebuy,
+      salesavgbuy,
+      salesperson,
+      saleshousehold,
+      salesincome,
+      invest,
+      patent,
+      patentword,
+      finance,
+      employee,
+      press,
+    };
+  }
+
   /**
    * 혁신의숲 회사 식별자 검색
    *
