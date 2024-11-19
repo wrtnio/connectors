@@ -6,12 +6,12 @@ export namespace IInnoforest {
     /**
      * @title 조회된 갯수 카운트
      */
-    dataCount: number & tags.Type<"uint64">;
+    dataCount?: number & tags.Type<"uint64">;
 
     /**
      * @title 성공여부
      */
-    success: boolean;
+    success?: boolean;
 
     /**
      * @title 에러발생시 에러메시지전달 (에러시에만 전달)
@@ -148,7 +148,7 @@ export namespace IInnoforest {
     /**
      * @title 응답 데이터
      */
-    data: {
+    data?: {
       /**
        * @title 혁신의숲 기업 Key
        */
@@ -237,7 +237,7 @@ export namespace IInnoforest {
     /**
      * @title 응답 데이터
      */
-    data: {
+    data?: {
       /**
        * @title 혁신의숲 기업 Key
        */
@@ -281,7 +281,7 @@ export namespace IInnoforest {
     /**
      * @title 응답 데이터
      */
-    data: {
+    data?: {
       /**
        * @title 혁신의숲 기업 Key
        */
@@ -332,7 +332,7 @@ export namespace IInnoforest {
     /**
      * @title 응답 데이터
      */
-    data: {
+    data?: {
       /**
        * @title 혁신의숲 기업 Key
        */
@@ -376,7 +376,7 @@ export namespace IInnoforest {
     /**
      * @title 응답 데이터
      */
-    data: {
+    data?: {
       /**
        * @title 혁신의숲 기업 Key
        */
@@ -430,7 +430,7 @@ export namespace IInnoforest {
     /**
      * @title 응답 데이터
      */
-    data: {
+    data?: {
       /**
        * @title 혁신의숲 기업 Key
        */
@@ -486,7 +486,7 @@ export namespace IInnoforest {
     /**
      * @title 응답 데이터
      */
-    data: {
+    data?: {
       /**
        * @title 혁신의숲 기업 Key
        */
@@ -535,7 +535,7 @@ export namespace IInnoforest {
     /**
      * @title 응답 데이터
      */
-    data: {
+    data?: {
       /**
        * @title 혁신의숲 기업 Key
        */
@@ -589,7 +589,7 @@ export namespace IInnoforest {
     /**
      * @title 응답 데이터
      */
-    data: {
+    data?: {
       /**
        * @title 혁신의숲 기업 Key
        */
@@ -643,7 +643,7 @@ export namespace IInnoforest {
     /**
      * @title 응답 데이터
      */
-    data: {
+    data?: {
       /**
        * @title 혁신의숲 기업 Key
        */
@@ -707,7 +707,7 @@ export namespace IInnoforest {
     /**
      * @title 응답 데이터
      */
-    data: {
+    data?: {
       /**
        * @title 혁신의숲 기업 Key
        */
@@ -763,7 +763,7 @@ export namespace IInnoforest {
     /**
      * @title 응답 데이터
      */
-    data: {
+    data?: {
       /**
        * @title 혁신의숲 기업 Key
        */
@@ -823,7 +823,7 @@ export namespace IInnoforest {
     /**
      * @title 응답 데이터
      */
-    data: {
+    data?: {
       /**
        * @title 혁신의숲 기업 Key
        */
@@ -913,7 +913,7 @@ export namespace IInnoforest {
     /**
      * @title 응답 데이터
      */
-    data: {
+    data?: {
       /**
        * @title 혁신의숲 기업 Key
        */
@@ -987,7 +987,7 @@ export namespace IInnoforest {
     /**
      * @title 응답 데이터
      */
-    data: {
+    data?: {
       /**
        * @title 혁신의숲 기업 Key
        */
@@ -1031,7 +1031,7 @@ export namespace IInnoforest {
     /**
      * @title 응답 데이터
      */
-    data: {
+    data?: {
       /**
        * @title 혁신의숲 기업 Key
        */
@@ -1085,7 +1085,7 @@ export namespace IInnoforest {
     /**
      * @title 응답 데이터
      */
-    data: {
+    data?: {
       /**
        * @title 혁신의숲 기업 Key
        */
@@ -1139,7 +1139,7 @@ export namespace IInnoforest {
     /**
      * @title 응답 데이터
      */
-    data: {
+    data?: {
       /**
        * @title 혁신의숲 기업 Key
        */
