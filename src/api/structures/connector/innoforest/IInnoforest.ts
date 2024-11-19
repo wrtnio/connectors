@@ -559,7 +559,7 @@ export namespace IInnoforest {
        *
        * @title 주기
        */
-      salesRebuyPerdCd: (number & tags.Type<"int64">) | null;
+      salesRebuyPerdCd?: (number & tags.Type<"int64">) | null;
 
       /**
        * @title 구매율
@@ -613,12 +613,12 @@ export namespace IInnoforest {
        *
        * @title 주기
        */
-      salesRebuyPerdCd: (number & tags.Type<"int64">) | null;
+      salesAvgBuyPerdCd: (number & tags.Type<"int64">) | null;
 
       /**
-       * @title 구매율
+       * @title 구매 횟수
        */
-      salesRate: number | null;
+      salesCnt: number | null;
 
       /**
        * @title 수정시간
@@ -782,9 +782,9 @@ export namespace IInnoforest {
       /**
        * 소비자 유형 중 가족 구성의 소득 수준을 의미한다
        *
-       * @title 가족구성
+       * @title 소득 수준
        */
-      householdCd:
+      incomeCd:
         | tags.Constant<"I020", { title: "2000만원이하" }>
         | tags.Constant<"I030", { title: "3000만원이하" }>
         | tags.Constant<"I040", { title: "4000만원이하" }>

@@ -34,7 +34,7 @@ export const test_api_connector_innoforest_getcorp = async (
         { corpUniqNum: corpUniqNum },
       );
 
-    typia.assert(res);
+    typia.assertEquals(res);
   }
 };
 
@@ -42,13 +42,14 @@ export const test_api_connector_innoforest_getcorpfinance = async (
   connection: CApi.IConnection,
 ) => {
   for await (const { corpUniqNum } of companies) {
+    console.log(corpUniqNum);
     const res =
       await CApi.functional.connector.innoforest.seed.party.s1.getcorpfinance(
         connection,
         { corpUniqNum: corpUniqNum },
       );
 
-    typia.assert(res);
+    typia.assertEquals(res);
   }
 };
 
@@ -62,7 +63,7 @@ export const test_api_connector_innoforest_getcorpinvest = async (
         { corpUniqNum: corpUniqNum },
       );
 
-    typia.assert(res);
+    typia.assertEquals(res);
   }
 };
 
@@ -76,7 +77,7 @@ export const test_api_connector_innoforest_getcorpcommon = async (
         { corpUniqNum: corpUniqNum },
       );
 
-    typia.assert(res);
+    typia.assertEquals(res);
   }
 };
 
@@ -90,7 +91,7 @@ export const test_api_connector_innoforest_findproduct = async (
         { corpUniqNum: corpUniqNum },
       );
 
-    typia.assert(res);
+    typia.assertEquals(res);
   }
 };
 
@@ -104,7 +105,7 @@ export const test_api_connector_innoforest_findtraffic = async (
         { corpUniqNum: corpUniqNum },
       );
 
-    typia.assert(res);
+    typia.assertEquals(res);
   }
 };
 
@@ -118,7 +119,7 @@ export const test_api_connector_innoforest_findsales = async (
         { corpUniqNum: corpUniqNum },
       );
 
-    typia.assert(res);
+    typia.assertEquals(res);
   }
 };
 
@@ -132,7 +133,7 @@ export const test_api_connector_innoforest_findsalesrebuy = async (
         { corpUniqNum: corpUniqNum },
       );
 
-    typia.assert(res);
+    typia.assertEquals(res);
   }
 };
 
@@ -146,7 +147,7 @@ export const test_api_connector_innoforest_findsalesavgbuy = async (
         { corpUniqNum: corpUniqNum },
       );
 
-    typia.assert(res);
+    typia.assertEquals(res);
   }
 };
 
@@ -160,7 +161,7 @@ export const test_api_connector_innoforest_findsalesperson = async (
         { corpUniqNum: corpUniqNum },
       );
 
-    typia.assert(res);
+    typia.assertEquals(res);
   }
 };
 
@@ -174,7 +175,7 @@ export const test_api_connector_innoforest_findsaleshousehold = async (
         { corpUniqNum: corpUniqNum },
       );
 
-    typia.assert(res);
+    typia.assertEquals(res);
   }
 };
 
@@ -188,7 +189,7 @@ export const test_api_connector_innoforest_findsalesincome = async (
         { corpUniqNum: corpUniqNum },
       );
 
-    typia.assert(res);
+    typia.assertEquals(res);
   }
 };
 
@@ -202,7 +203,7 @@ export const test_api_connector_innoforest_findinvest = async (
         { corpUniqNum: corpUniqNum },
       );
 
-    typia.assert(res);
+    typia.assertEquals(res);
   }
 };
 
@@ -216,7 +217,7 @@ export const test_api_connector_innoforest_findpatent = async (
         { corpUniqNum: corpUniqNum },
       );
 
-    typia.assert(res);
+    typia.assertEquals(res);
   }
 };
 
@@ -230,7 +231,7 @@ export const test_api_connector_innoforest_findpatentword = async (
         { corpUniqNum: corpUniqNum },
       );
 
-    typia.assert(res);
+    typia.assertEquals(res);
   }
 };
 
@@ -244,7 +245,7 @@ export const test_api_connector_innoforest_findfinance = async (
         { corpUniqNum: corpUniqNum },
       );
 
-    typia.assert(res);
+    typia.assertEquals(res);
   }
 };
 
@@ -258,7 +259,7 @@ export const test_api_connector_innoforest_findemployee = async (
         { corpUniqNum: corpUniqNum },
       );
 
-    typia.assert(res);
+    typia.assertEquals(res);
   }
 };
 
@@ -272,7 +273,7 @@ export const test_api_connector_innoforest_findpress = async (
         { corpUniqNum: corpUniqNum },
       );
 
-    typia.assert(res);
+    typia.assertEquals(res);
   }
 };
 
@@ -289,5 +290,5 @@ export const test_api_connector_innoforest_search_and_get_unified_info = async (
     corpUniqNum: "1068706394",
   });
 
-  typia.assert(res);
+  typia.assertEquals(res);
 };
