@@ -23,6 +23,22 @@ export namespace IInnoforest {
     successMsg?: string;
   }
 
+  export interface ISearchOutput {
+    companies: {
+      /**
+       * @title 혁신의숲 기업 Key
+       */
+      corpUniqNum: string;
+
+      /**
+       * @title 회사 이름
+       */
+      companyName: string;
+    }[];
+  }
+
+  export interface ISearchInput {}
+
   export interface IGetcorpOutput extends IInnoforest.ICommonResponse {
     /**
      * @title 응답 데이터
