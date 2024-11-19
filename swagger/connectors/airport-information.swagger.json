@@ -17,7 +17,7 @@
   "info": {
     "title": "Airport Information",
     "summary": "항공 정보를 조회해요.",
-    "version": "0.1.346",
+    "version": "0.1.347",
     "description": "wrtn-ecosystem connectors and sdk",
     "license": {
       "name": "AGPL-3.0-only"
