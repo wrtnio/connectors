@@ -346,7 +346,7 @@ export namespace IYoutubeSearch {
 
   export interface IYoutubeTrasncriptResponse {
     transcripts?: IYoutubeTranscriptItem[];
-    available_transcripts_languages: IYoutubeTranscriptLanguage[];
+    available_languages: IYoutubeTranscriptLanguage[];
   }
   export interface IYoutubeTranscriptItem {
     start: number;
