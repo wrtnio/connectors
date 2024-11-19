@@ -344,7 +344,7 @@ export namespace IYoutubeSearch {
     projection_type: string;
   }
 
-  export interface IYoutubeTrasncriptResponse {
+  export interface IYoutubeTranscriptResponse {
     transcripts?: IYoutubeTranscriptItem[];
     available_languages: IYoutubeTranscriptLanguage[];
   }
