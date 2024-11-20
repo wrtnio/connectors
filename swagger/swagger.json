@@ -15,7 +15,7 @@
     }
   ],
   "info": {
-    "version": "0.1.349",
+    "version": "0.1.350",
     "title": "@wrtn/connector",
     "description": "wrtn-ecosystem connectors and sdk",
     "license": {
@@ -5777,7 +5777,7 @@
     "/connector/youtube-search/transcript": {
       "post": {
         "summary": "Get Youtube video transcripts",
-        "description": "Get Transcripts of Youtube video",
+        "description": "Get Transcripts of Youtube video\n\nYou must use this function when summarizing YouTube videos.\n\nYou must get the transcript content from the result of this function and summarize the content of the video based on the transcript content.\n\nYou should derive the user's request from the result of this function.\n\nFor example, if the user wants the product name and the reason for recommendation, you should find this content in the result of this function and satisfy the user's request.",
         "tags": [
           "Youtube"
         ],
