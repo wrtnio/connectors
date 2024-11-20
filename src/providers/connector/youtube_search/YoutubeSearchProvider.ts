@@ -42,7 +42,6 @@ export class YoutubeSearchProvider {
         const youtubeSearch: IYoutubeSearch.ISearchOutput = {
           title: result.title,
           link: result.link,
-          description: result.description,
           thumbnail: result.thumbnail.static,
           view_count: Number(result.views ?? 0),
           channel_name: result.channel.name,

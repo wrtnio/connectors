@@ -48,13 +48,6 @@ export namespace IYoutubeSearch {
     link: string & tags.Format<"iri">;
 
     /**
-     * Description of YouTube video.
-     *
-     * @title YouTube video description
-     */
-    description?: string;
-
-    /**
      * Thumbnail image for YouTube videos.
      *
      * @title Thumbnail image for YouTube videos
