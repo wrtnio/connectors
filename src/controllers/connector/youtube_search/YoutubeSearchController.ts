@@ -37,6 +37,14 @@ export class YoutubeSearchController {
   /**
    * Get Transcripts of Youtube video
    *
+   * You must use this function when summarizing YouTube videos.
+   *
+   * You must get the transcript content from the result of this function and summarize the content of the video based on the transcript content.
+   *
+   * You should derive the user's request from the result of this function.
+   *
+   * For example, if the user wants the product name and the reason for recommendation, you should find this content in the result of this function and satisfy the user's request.
+   *
    * @summary Get Youtube video transcripts
    * @param input video url
    * @returns transcripts of video
