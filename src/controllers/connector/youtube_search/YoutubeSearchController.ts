@@ -16,7 +16,12 @@ export class YoutubeSearchController {
    * Get YouTube video search results
    *
    * The search results have the video title and link.
+   *
    * If most users are going to use this feature, they probably want to watch the video, so it's better to provide a URL.
+   *
+   * In order to filter the period that the user wants, you should use the response field "published_date".
+   *
+   * For example, if the user wants to retrieve only this year's videos, you should exclude videos that were uploaded in a period that the user does not want, such as "1 year ago" or "2 years ago" with a published_date.
    *
    * @summary YouTube video search
    * @param input Conditions for YouTube video search
