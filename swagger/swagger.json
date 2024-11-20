@@ -15,7 +15,7 @@
     }
   ],
   "info": {
-    "version": "0.1.350",
+    "version": "0.1.351",
     "title": "@wrtn/connector",
     "description": "wrtn-ecosystem connectors and sdk",
     "license": {
@@ -28426,11 +28426,6 @@
             "format": "iri",
             "title": "YouTube video link",
             "description": "Links to YouTube videos that appear in search results."
-          },
-          "description": {
-            "type": "string",
-            "title": "YouTube video description",
-            "description": "Description of YouTube video."
           },
           "thumbnail": {
             "type": "string",
