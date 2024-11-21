@@ -270,6 +270,7 @@ export class GithubController {
    * If the user directly asks you to add, modify, or delete a file for a specific PR or specific branch, this connector should be considered.
    * Many repositories are working on commit conventions. Before committing, it's a good idea to look up the commit-list to see how you leave the commit message.
    *
+   * If you want to update the file you just updated again, you need to check the sha value of that file again.
    * The input property, which means the content of a file, changes to base64 inside that connector when written in human-recognizable natural language. So, do not encode any writing into base64.
    *
    * @summary Update File content and commit

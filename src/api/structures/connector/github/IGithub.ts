@@ -883,6 +883,12 @@ export namespace IGithub {
      * If you want to create code content, you should write code content.
      * Since it encodes with base64 internally, we need to deliver text here before encoding.
      *
+     * Here, the text will be each programming language.
+     * It also overwrites the file, so if you want to modify an existing code,
+     * you need to add all the text in the file, including the part you want to modify, but also the part you don't want to change, to the properties.
+     *
+     * It is also recommended that the code be properly line-up for the user's readability.
+     *
      * @title the new file content
      */
     content: string;

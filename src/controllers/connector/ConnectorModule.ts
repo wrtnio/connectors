@@ -65,6 +65,7 @@ import { ShortLinkModule } from "./short_link/ShortLinkModule";
 import { SimilarwebModule } from "./similarweb/SimilarwebModule";
 import { SlackModule } from "./slack/SlackModule";
 import { RankModule } from "./sort/RankModule";
+import { SpotifyModule } from "./spotify/SpotifyModule";
 import { StableDiffusionBetaModule } from "./stable_diffustion_beta/StableDiffusionBetaModule";
 import { StoryGeneratorModule } from "./story_generator/StoryGeneratorModule";
 import { StoryImageGeneratorModule } from "./story_image_generator/StoryImageGeneratorModule";
@@ -150,6 +151,7 @@ import { ZoomModule } from "./zoom/ZoomModule";
     AISearchModule,
     TypeformModule,
     MarpModule,
+    SpotifyModule,
     CrunchbaseModule,
     SimilarwebModule,
     XModule,

@@ -60,7 +60,7 @@ Let's take a closer look one by one.
 
 ```ts
 // in your controller
-@Controller()
+@Controller("connector/service-name") // routing path is also our convention.
 class WrtnController {
   constructor(private readonly wrtnProvider: WrtnProvider) {}
 
@@ -201,6 +201,8 @@ export namespace ICommon {
 There is an interface called 'ICommon.ISsecret' in our code. The service sometimes needs to inherit this interface to implement the body type of the request. The reason for the existence of 'ICommon.ISsecret' is to receive the SecretKey from the user and call the user's API instead. For example, it can be implemented as follows.
 
 ```ts
+import { ICommon } from "../common/ISecretValue"; // src/api/structures/connector/common/ISecretValue.ts
+
 export namespace IWrtn {
   export interface ISecret
     extends ICommon.ISecret<
@@ -226,6 +228,8 @@ import CApi from "@wrtn/connector-api/lib/index";
 export const test_api_connector_wrtn_get_something = async (
   connection: CApi.IConnection,
 ) => {
+  // `connector.wrtn.get_something` means that the endpoint is connected with a dot character and a snake case character.
+  // `getSomething` is the method name of the controller.
   const res = await CApi.functional.connector.wrtn.get_something.getSomething(
     connection,
     {} as IWrtn.IGetSomethingInput, // Fill in the parameters of the function
