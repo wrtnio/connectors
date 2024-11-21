@@ -17,7 +17,7 @@
   "info": {
     "title": "프롬프트",
     "description": "",
-    "version": "0.1.358",
+    "version": "0.1.359",
     "license": {
       "name": "AGPL-3.0-only"
     }
@@ -69,21 +69,27 @@
         "required": [
           "result"
         ],
-        "title": "prompt",
-        "description": "Results received via"
+        "title": "prompt output",
+        "description": "Results received via prompt"
       },
       "IPrompt.IRequest": {
         "type": "object",
         "properties": {
           "user_request": {
             "type": "string",
-            "x-wrtn-placeholder": "제품 이름과 제품 특징을 참고해서 광고 문구를 기발하고 유머러스하게 만들어주세요.",
-            "title": "User Request"
+            "example": "Create a catchy and humorous advertising slogan based on the product name and features.",
+            "title": "User Request",
+            "description": "The primary task or request for the AI model. This field is mandatory."
           },
           "system_prompt": {
             "type": "string",
-            "x-wrtn-placeholder": "친절한 어투로 말해주세요.",
-            "title": "System Prompt"
+            "example": "The advertising slogan should be friendly in tone and concise.",
+            "title": "System Prompt",
+            "description": "Optional instructions or guidelines for the AI model. The system prompt provides more granular control over the model's behavior than the user request.\nAI model should follow the instructions or additional information provided."
+          },
+          "data": {
+            "title": "Additional Data",
+            "description": "Additional context or data to be used by the AI model. This can include product information, user data, or any other relevant details.\nYou can provide data in various formats such as objects, arrays, etc."
           }
         },
         "required": [
