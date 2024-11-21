@@ -134,28 +134,28 @@ export namespace IX {
      *
      * @title tweet type
      */
-    type?: "original" | "retweeted" | "quoted";
+    type: string;
 
     /**
      * Username who wrote the original tweet of the referenced tweet
      *
      * @title referred user name
      */
-    referredUserName?: string;
+    referredUserName: string | null;
 
     /**
      * Link to the original tweet of the referenced tweet
      *
      * @title referred tweet link
      */
-    referredTweetLink?: string & tags.Format<"iri">;
+    referredTweetLink: (string & tags.Format<"iri">) | null;
 
     /**
      * Content of the referenced tweet
      *
      * @title tweet content
      */
-    referredTweetText?: string;
+    referredTweetText: string | null;
   }
 
   /**

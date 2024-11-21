@@ -31,4 +31,14 @@ export class AirportInformationController {
   ): Promise<IAirportInformation.IResponse[]> {
     return retry(() => this.airportInformationProvider.search(input))();
   }
+
+  /**
+   *
+   * @hidden
+   * @internal
+   */
+  @core.TypedRoute.Post("save-database")
+  async saveDatabase(): Promise<void> {
+    return await this.airportInformationProvider.saveToDatabase();
+  }
 }

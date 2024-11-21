@@ -9,7 +9,7 @@ export const test_api_connector_airport_information = async (
   const result = await CApi.functional.connector.airport_information.search(
     connection,
     {
-      keyword: "로스앤젤레스",
+      keyword: "대한민국",
     },
   );
   typia.assert(result);
