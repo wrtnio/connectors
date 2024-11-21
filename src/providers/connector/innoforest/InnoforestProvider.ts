@@ -1,6 +1,7 @@
 import { Injectable } from "@nestjs/common";
 import { IInnoforest } from "@wrtn/connector-api/lib/structures/connector/innoforest/IInnoforest";
-import axios from "axios";
+import axios, { AxiosError } from "axios";
+import typia from "typia";
 import { ConnectorGlobal } from "../../../ConnectorGlobal";
 import { createQueryParameter } from "../../../utils/CreateQueryParameter";
 
@@ -21,6 +22,12 @@ export class InnoforestProvider {
       });
       return res.data;
     } catch (err) {
+      if (err instanceof AxiosError) {
+        if (typia.is<IInnoforest.ICommonResponse>(err.response?.data)) {
+          console.log(JSON.stringify(err.response.data));
+          return err.response.data;
+        }
+      }
       console.error(JSON.stringify(err));
       throw err;
     }
@@ -41,6 +48,12 @@ export class InnoforestProvider {
       });
       return res.data;
     } catch (err) {
+      if (err instanceof AxiosError) {
+        if (typia.is<IInnoforest.ICommonResponse>(err.response?.data)) {
+          console.log(JSON.stringify(err.response.data));
+          return err.response.data;
+        }
+      }
       console.error(JSON.stringify(err));
       throw err;
     }
@@ -61,6 +74,12 @@ export class InnoforestProvider {
       });
       return res.data;
     } catch (err) {
+      if (err instanceof AxiosError) {
+        if (typia.is<IInnoforest.ICommonResponse>(err.response?.data)) {
+          console.log(JSON.stringify(err.response.data));
+          return err.response.data;
+        }
+      }
       console.error(JSON.stringify(err));
       throw err;
     }
@@ -81,6 +100,12 @@ export class InnoforestProvider {
       });
       return res.data;
     } catch (err) {
+      if (err instanceof AxiosError) {
+        if (typia.is<IInnoforest.ICommonResponse>(err.response?.data)) {
+          console.log(JSON.stringify(err.response.data));
+          return err.response.data;
+        }
+      }
       console.error(JSON.stringify(err));
       throw err;
     }
@@ -101,6 +126,12 @@ export class InnoforestProvider {
       });
       return res.data;
     } catch (err) {
+      if (err instanceof AxiosError) {
+        if (typia.is<IInnoforest.ICommonResponse>(err.response?.data)) {
+          console.log(JSON.stringify(err.response.data));
+          return err.response.data;
+        }
+      }
       console.error(JSON.stringify(err));
       throw err;
     }
@@ -121,6 +152,12 @@ export class InnoforestProvider {
       });
       return res.data;
     } catch (err) {
+      if (err instanceof AxiosError) {
+        if (typia.is<IInnoforest.ICommonResponse>(err.response?.data)) {
+          console.log(JSON.stringify(err.response.data));
+          return err.response.data;
+        }
+      }
       console.error(JSON.stringify(err));
       throw err;
     }
@@ -141,6 +178,12 @@ export class InnoforestProvider {
       });
       return res.data;
     } catch (err) {
+      if (err instanceof AxiosError) {
+        if (typia.is<IInnoforest.ICommonResponse>(err.response?.data)) {
+          console.log(JSON.stringify(err.response.data));
+          return err.response.data;
+        }
+      }
       console.error(JSON.stringify(err));
       throw err;
     }
@@ -161,6 +204,12 @@ export class InnoforestProvider {
       });
       return res.data;
     } catch (err) {
+      if (err instanceof AxiosError) {
+        if (typia.is<IInnoforest.ICommonResponse>(err.response?.data)) {
+          console.log(JSON.stringify(err.response.data));
+          return err.response.data;
+        }
+      }
       console.error(JSON.stringify(err));
       throw err;
     }
@@ -181,6 +230,12 @@ export class InnoforestProvider {
       });
       return res.data;
     } catch (err) {
+      if (err instanceof AxiosError) {
+        if (typia.is<IInnoforest.ICommonResponse>(err.response?.data)) {
+          console.log(JSON.stringify(err.response.data));
+          return err.response.data;
+        }
+      }
       console.error(JSON.stringify(err));
       throw err;
     }
@@ -201,6 +256,12 @@ export class InnoforestProvider {
       });
       return res.data;
     } catch (err) {
+      if (err instanceof AxiosError) {
+        if (typia.is<IInnoforest.ICommonResponse>(err.response?.data)) {
+          console.log(JSON.stringify(err.response.data));
+          return err.response.data;
+        }
+      }
       console.error(JSON.stringify(err));
       throw err;
     }
@@ -221,6 +282,12 @@ export class InnoforestProvider {
       });
       return res.data;
     } catch (err) {
+      if (err instanceof AxiosError) {
+        if (typia.is<IInnoforest.ICommonResponse>(err.response?.data)) {
+          console.log(JSON.stringify(err.response.data));
+          return err.response.data;
+        }
+      }
       console.error(JSON.stringify(err));
       throw err;
     }
@@ -241,6 +308,12 @@ export class InnoforestProvider {
       });
       return res.data;
     } catch (err) {
+      if (err instanceof AxiosError) {
+        if (typia.is<IInnoforest.ICommonResponse>(err.response?.data)) {
+          console.log(JSON.stringify(err.response.data));
+          return err.response.data;
+        }
+      }
       console.error(JSON.stringify(err));
       throw err;
     }
@@ -261,6 +334,12 @@ export class InnoforestProvider {
       });
       return res.data;
     } catch (err) {
+      if (err instanceof AxiosError) {
+        if (typia.is<IInnoforest.ICommonResponse>(err.response?.data)) {
+          console.log(JSON.stringify(err.response.data));
+          return err.response.data;
+        }
+      }
       console.error(JSON.stringify(err));
       throw err;
     }
@@ -281,6 +360,12 @@ export class InnoforestProvider {
       });
       return res.data;
     } catch (err) {
+      if (err instanceof AxiosError) {
+        if (typia.is<IInnoforest.ICommonResponse>(err.response?.data)) {
+          console.log(JSON.stringify(err.response.data));
+          return err.response.data;
+        }
+      }
       console.error(JSON.stringify(err));
       throw err;
     }
@@ -301,6 +386,12 @@ export class InnoforestProvider {
       });
       return res.data;
     } catch (err) {
+      if (err instanceof AxiosError) {
+        if (typia.is<IInnoforest.ICommonResponse>(err.response?.data)) {
+          console.log(JSON.stringify(err.response.data));
+          return err.response.data;
+        }
+      }
       console.error(JSON.stringify(err));
       throw err;
     }
@@ -321,6 +412,12 @@ export class InnoforestProvider {
       });
       return res.data;
     } catch (err) {
+      if (err instanceof AxiosError) {
+        if (typia.is<IInnoforest.ICommonResponse>(err.response?.data)) {
+          console.log(JSON.stringify(err.response.data));
+          return err.response.data;
+        }
+      }
       console.error(JSON.stringify(err));
       throw err;
     }
@@ -341,6 +438,12 @@ export class InnoforestProvider {
       });
       return res.data;
     } catch (err) {
+      if (err instanceof AxiosError) {
+        if (typia.is<IInnoforest.ICommonResponse>(err.response?.data)) {
+          console.log(JSON.stringify(err.response.data));
+          return err.response.data;
+        }
+      }
       console.error(JSON.stringify(err));
       throw err;
     }
@@ -361,6 +464,12 @@ export class InnoforestProvider {
       });
       return res.data;
     } catch (err) {
+      if (err instanceof AxiosError) {
+        if (typia.is<IInnoforest.ICommonResponse>(err.response?.data)) {
+          console.log(JSON.stringify(err.response.data));
+          return err.response.data;
+        }
+      }
       console.error(JSON.stringify(err));
       throw err;
     }

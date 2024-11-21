@@ -40,6 +40,8 @@ export class NotionController {
    * Since users may not know the markdown grammar, it is more desirable to use the markdown grammar instead of guiding them.
    * Markdown supports text and heading 1, 2, 3, and various grammar such as table or bull list, number list, image attachment, boldface, italics, etc.
    *
+   *
+   *
    * @summary Append block by markdown format
    * @param input
    * @returns
@@ -390,6 +392,9 @@ export class NotionController {
    * you should take out the ID from it and use it, or first look up the list of pages accessible to the user.
    * Since Notion prioritizes accessible pages during authentication, creating pages must be sub-pages within the page, which means that there must be a parent page.
    * Because this feature only creates pages and does not create content, we recommend that you call additional content creation connectors if you want to create content.
+   *
+   * user might want a really long, detailed report,
+   * in which case it is better to write the details for each table of contents and call 'POST /connector/notion/page/markdown' multiple times rather than just one call of this connector.
    *
    * @summary Create empty page
    * @param input Information needed to create the page

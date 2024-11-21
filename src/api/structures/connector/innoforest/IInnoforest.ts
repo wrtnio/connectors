@@ -1,3 +1,4 @@
+import { Prerequisite } from "@wrtnio/decorators";
 import { tags } from "typia";
 
 export namespace IInnoforest {
@@ -5,12 +6,12 @@ export namespace IInnoforest {
     /**
      * @title 조회된 갯수 카운트
      */
-    dataCount: number & tags.Type<"uint64">;
+    dataCount?: number & tags.Type<"uint64">;
 
     /**
      * @title 성공여부
      */
-    success: boolean;
+    success?: boolean;
 
     /**
      * @title 에러발생시 에러메시지전달 (에러시에만 전달)
@@ -23,11 +24,131 @@ export namespace IInnoforest {
     successMsg?: string;
   }
 
+  export interface IUnifyOutput {
+    /**
+     * @title corp
+     */
+    corp: IGetcorpOutput;
+
+    /**
+     * @title corpfinance
+     */
+    corpfinance: IGetcorpfinanceOutput;
+
+    /**
+     * @title corpinvest
+     */
+    corpinvest: IGetcorpinvestOutput;
+
+    /**
+     * @title corpcommon
+     */
+    corpcommon: IGetcorpcommonOutput;
+
+    /**
+     * @title product
+     */
+    product: IFindproductOutput;
+
+    /**
+     * @title traffic
+     */
+    traffic: IFindtrafficOutput;
+
+    /**
+     * @title sales
+     */
+    sales: IFindsalesOutput;
+
+    /**
+     * @title salesrebuy
+     */
+    salesrebuy: IFindsalesrebuyOutput;
+
+    /**
+     * @title salesavgbuy
+     */
+    salesavgbuy: IFindsalesavgbuyOutput;
+
+    /**
+     * @title salesperson
+     */
+    salesperson: IFindsalespersonOutput;
+
+    /**
+     * @title saleshousehold
+     */
+    saleshousehold: IFindsaleshouseholdOutput;
+
+    /**
+     * @title salesincome
+     */
+    salesincome: IFindsalesincomeOutput;
+
+    /**
+     * @title invest
+     */
+    invest: IFindinvestOutput;
+
+    /**
+     * @title patent
+     */
+    patent: IFindpatentOutput;
+
+    /**
+     * @title patentword
+     */
+    patentword: IFindpatentwordOutput;
+
+    /**
+     * @title finance
+     */
+    finance: IFindfinanceOutput;
+
+    /**
+     * @title employee
+     */
+    employee: IFindemployeeOutput;
+
+    /**
+     * @title press
+     */
+    press: IFindpressOutput;
+  }
+
+  export interface IUnifyInput {
+    /**
+     * @title 혁신의숲 기업 Key
+     */
+    corpUniqNum: string &
+      Prerequisite<{
+        method: "post";
+        path: "/connector/innoforest/search";
+        jmesPath: "companies[].{label: companyName, value: corpUniqNum}";
+      }>;
+  }
+
+  export interface ISearchOutput {
+    companies: {
+      /**
+       * @title 혁신의숲 기업 Key
+       */
+      corpUniqNum: string;
+
+      /**
+       * @title 회사 이름
+       */
+      companyName: string;
+    }[];
+  }
+
+  export interface ISearchInput {}
+
   export interface IGetcorpOutput extends IInnoforest.ICommonResponse {
     /**
      * @title 응답 데이터
      */
-    data: {
+    data?: {
       /**
        * @title 혁신의숲 기업 Key
        */
@@ -104,14 +225,19 @@ export namespace IInnoforest {
     /**
      * @title 혁신의숲 기업 Key
      */
-    corpUniqNum: string;
+    corpUniqNum: string &
+      Prerequisite<{
+        method: "post";
+        path: "/connector/innoforest/search";
+        jmesPath: "companies[].{label: companyName, value: corpUniqNum}";
+      }>;
   }
 
   export interface IGetcorpfinanceOutput extends IInnoforest.ICommonResponse {
     /**
      * @title 응답 데이터
      */
-    data: {
+    data?: {
       /**
        * @title 혁신의숲 기업 Key
        */
@@ -125,12 +251,12 @@ export namespace IInnoforest {
       /**
        * @title 자본금
        */
-      capStockVal: (number & tags.Type<"int64">) | null;
+      capStockVal: (number & tags.MultipleOf<1>) | null;
 
       /**
        * @title 매출
        */
-      revenueVal: (number & tags.Type<"int64">) | null;
+      revenueVal: (number & tags.MultipleOf<1>) | null;
 
       /**
        * @title 수정시간
@@ -143,14 +269,19 @@ export namespace IInnoforest {
     /**
      * @title 혁신의숲 기업 Key
      */
-    corpUniqNum: string;
+    corpUniqNum: string &
+      Prerequisite<{
+        method: "post";
+        path: "/connector/innoforest/search";
+        jmesPath: "companies[].{label: companyName, value: corpUniqNum}";
+      }>;
   }
 
   export interface IGetcorpinvestOutput extends IInnoforest.ICommonResponse {
     /**
      * @title 응답 데이터
      */
-    data: {
+    data?: {
       /**
        * @title 혁신의숲 기업 Key
        */
@@ -164,12 +295,12 @@ export namespace IInnoforest {
       /**
        * @title 투자건수
        */
-      invstCnt: (number & tags.Type<"int64">) | null;
+      invstCnt: (number & tags.MultipleOf<1>) | null;
 
       /**
        * @title 누적투자금액
        */
-      invstSumVal: (number & tags.Type<"int64">) | null;
+      invstSumVal: (number & tags.MultipleOf<1>) | null;
 
       /**
        * 투자금액이 '0' 인 투자이력이 확인될 경우
@@ -189,14 +320,19 @@ export namespace IInnoforest {
     /**
      * @title 혁신의숲 기업 Key
      */
-    corpUniqNum: string;
+    corpUniqNum: string &
+      Prerequisite<{
+        method: "post";
+        path: "/connector/innoforest/search";
+        jmesPath: "companies[].{label: companyName, value: corpUniqNum}";
+      }>;
   }
 
   export interface IGetcorpcommonOutput extends IInnoforest.ICommonResponse {
     /**
      * @title 응답 데이터
      */
-    data: {
+    data?: {
       /**
        * @title 혁신의숲 기업 Key
        */
@@ -215,7 +351,7 @@ export namespace IInnoforest {
       /**
        * @title 고용인원
        */
-      empWholeVal: (number & tags.Type<"int64">) | null;
+      empWholeVal: (number & tags.MultipleOf<1>) | null;
 
       /**
        * @title 수정시간
@@ -228,14 +364,19 @@ export namespace IInnoforest {
     /**
      * @title 혁신의숲 기업 Key
      */
-    corpUniqNum: string;
+    corpUniqNum: string &
+      Prerequisite<{
+        method: "post";
+        path: "/connector/innoforest/search";
+        jmesPath: "companies[].{label: companyName, value: corpUniqNum}";
+      }>;
   }
 
   export interface IFindproductOutput extends IInnoforest.ICommonResponse {
     /**
      * @title 응답 데이터
      */
-    data: {
+    data?: {
       /**
        * @title 혁신의숲 기업 Key
        */
@@ -277,14 +418,19 @@ export namespace IInnoforest {
     /**
      * @title 혁신의숲 기업 Key
      */
-    corpUniqNum: string;
+    corpUniqNum: string &
+      Prerequisite<{
+        method: "post";
+        path: "/connector/innoforest/search";
+        jmesPath: "companies[].{label: companyName, value: corpUniqNum}";
+      }>;
   }
 
   export interface IFindtrafficOutput extends IInnoforest.ICommonResponse {
     /**
      * @title 응답 데이터
      */
-    data: {
+    data?: {
       /**
        * @title 혁신의숲 기업 Key
        */
@@ -310,12 +456,12 @@ export namespace IInnoforest {
        *
        * @title 트래픽
        */
-      usageVal: (number & tags.Type<"int64">) | null;
+      usageVal: (number & tags.MultipleOf<1>) | null;
 
       /**
        * @title 트래픽종류
        */
-      type: (number & tags.Type<"int64">) | null;
+      type: (number & tags.MultipleOf<1>) | null;
 
       /**
        * @title 수정시간
@@ -328,14 +474,19 @@ export namespace IInnoforest {
     /**
      * @title 혁신의숲 기업 Key
      */
-    corpUniqNum: string;
+    corpUniqNum: string &
+      Prerequisite<{
+        method: "post";
+        path: "/connector/innoforest/search";
+        jmesPath: "companies[].{label: companyName, value: corpUniqNum}";
+      }>;
   }
 
   export interface IFindsalesOutput extends IInnoforest.ICommonResponse {
     /**
      * @title 응답 데이터
      */
-    data: {
+    data?: {
       /**
        * @title 혁신의숲 기업 Key
        */
@@ -354,12 +505,12 @@ export namespace IInnoforest {
       /**
        * @title 거래액
        */
-      salesVal: (number & tags.Type<"int64">) | null;
+      salesVal: (number & tags.MultipleOf<1>) | null;
 
       /**
        * @title 거래건수
        */
-      salesCnt: (number & tags.Type<"int64">) | null;
+      salesCnt: (number & tags.MultipleOf<1>) | null;
 
       /**
        * @title 수정시간
@@ -372,14 +523,19 @@ export namespace IInnoforest {
     /**
      * @title 혁신의숲 기업 Key
      */
-    corpUniqNum: string;
+    corpUniqNum: string &
+      Prerequisite<{
+        method: "post";
+        path: "/connector/innoforest/search";
+        jmesPath: "companies[].{label: companyName, value: corpUniqNum}";
+      }>;
   }
 
   export interface IFindsalesrebuyOutput extends IInnoforest.ICommonResponse {
     /**
      * @title 응답 데이터
      */
-    data: {
+    data?: {
       /**
        * @title 혁신의숲 기업 Key
        */
@@ -403,7 +559,7 @@ export namespace IInnoforest {
        *
        * @title 주기
        */
-      salesRebuyPerdCd: (number & tags.Type<"int64">) | null;
+      salesRebuyPerdCd?: (number & tags.MultipleOf<1>) | null;
 
       /**
        * @title 구매율
@@ -421,14 +577,19 @@ export namespace IInnoforest {
     /**
      * @title 혁신의숲 기업 Key
      */
-    corpUniqNum: string;
+    corpUniqNum: string &
+      Prerequisite<{
+        method: "post";
+        path: "/connector/innoforest/search";
+        jmesPath: "companies[].{label: companyName, value: corpUniqNum}";
+      }>;
   }
 
   export interface IFindsalesavgbuyOutput extends IInnoforest.ICommonResponse {
     /**
      * @title 응답 데이터
      */
-    data: {
+    data?: {
       /**
        * @title 혁신의숲 기업 Key
        */
@@ -452,12 +613,12 @@ export namespace IInnoforest {
        *
        * @title 주기
        */
-      salesRebuyPerdCd: (number & tags.Type<"int64">) | null;
+      salesAvgBuyPerdCd: (number & tags.MultipleOf<1>) | null;
 
       /**
-       * @title 구매율
+       * @title 구매 횟수
        */
-      salesRate: number | null;
+      salesCnt: number | null;
 
       /**
        * @title 수정시간
@@ -470,14 +631,19 @@ export namespace IInnoforest {
     /**
      * @title 혁신의숲 기업 Key
      */
-    corpUniqNum: string;
+    corpUniqNum: string &
+      Prerequisite<{
+        method: "post";
+        path: "/connector/innoforest/search";
+        jmesPath: "companies[].{label: companyName, value: corpUniqNum}";
+      }>;
   }
 
   export interface IFindsalespersonOutput extends IInnoforest.ICommonResponse {
     /**
      * @title 응답 데이터
      */
-    data: {
+    data?: {
       /**
        * @title 혁신의숲 기업 Key
        */
@@ -528,7 +694,12 @@ export namespace IInnoforest {
     /**
      * @title 혁신의숲 기업 Key
      */
-    corpUniqNum: string;
+    corpUniqNum: string &
+      Prerequisite<{
+        method: "post";
+        path: "/connector/innoforest/search";
+        jmesPath: "companies[].{label: companyName, value: corpUniqNum}";
+      }>;
   }
 
   export interface IFindsaleshouseholdOutput
@@ -536,7 +707,7 @@ export namespace IInnoforest {
     /**
      * @title 응답 데이터
      */
-    data: {
+    data?: {
       /**
        * @title 혁신의숲 기업 Key
        */
@@ -580,14 +751,19 @@ export namespace IInnoforest {
     /**
      * @title 혁신의숲 기업 Key
      */
-    corpUniqNum: string;
+    corpUniqNum: string &
+      Prerequisite<{
+        method: "post";
+        path: "/connector/innoforest/search";
+        jmesPath: "companies[].{label: companyName, value: corpUniqNum}";
+      }>;
   }
 
   export interface IFindsalesincomeOutput extends IInnoforest.ICommonResponse {
     /**
      * @title 응답 데이터
      */
-    data: {
+    data?: {
       /**
        * @title 혁신의숲 기업 Key
        */
@@ -606,9 +782,9 @@ export namespace IInnoforest {
       /**
        * 소비자 유형 중 가족 구성의 소득 수준을 의미한다
        *
-       * @title 가족구성
+       * @title 소득 수준
        */
-      householdCd:
+      incomeCd:
         | tags.Constant<"I020", { title: "2000만원이하" }>
         | tags.Constant<"I030", { title: "3000만원이하" }>
         | tags.Constant<"I040", { title: "4000만원이하" }>
@@ -635,14 +811,19 @@ export namespace IInnoforest {
     /**
      * @title 혁신의숲 기업 Key
      */
-    corpUniqNum: string;
+    corpUniqNum: string &
+      Prerequisite<{
+        method: "post";
+        path: "/connector/innoforest/search";
+        jmesPath: "companies[].{label: companyName, value: corpUniqNum}";
+      }>;
   }
 
   export interface IFindinvestOutput extends IInnoforest.ICommonResponse {
     /**
      * @title 응답 데이터
      */
-    data: {
+    data?: {
       /**
        * @title 혁신의숲 기업 Key
        */
@@ -656,7 +837,7 @@ export namespace IInnoforest {
       /**
        * @title 혁신의숲 투자이력 key
        */
-      id: number & tags.Type<"int64">;
+      id: number & tags.MultipleOf<1>;
 
       /**
        * @title 투자일
@@ -702,7 +883,7 @@ export namespace IInnoforest {
       /**
        * @title 투자금액
        */
-      invstVal: (number & tags.Type<"int64">) | `${number}` | null;
+      invstVal: (number & tags.MultipleOf<1>) | `${number}` | null;
 
       /**
        * @title 투자단계한글
@@ -720,14 +901,19 @@ export namespace IInnoforest {
     /**
      * @title 혁신의숲 기업 Key
      */
-    corpUniqNum: string;
+    corpUniqNum: string &
+      Prerequisite<{
+        method: "post";
+        path: "/connector/innoforest/search";
+        jmesPath: "companies[].{label: companyName, value: corpUniqNum}";
+      }>;
   }
 
   export interface IFindpatentOutput extends IInnoforest.ICommonResponse {
     /**
      * @title 응답 데이터
      */
-    data: {
+    data?: {
       /**
        * @title 혁신의숲 기업 Key
        */
@@ -741,7 +927,7 @@ export namespace IInnoforest {
       /**
        * @title 혁신의숲 특허 이력 Key
        */
-      id: number & tags.Type<"int64">;
+      id: number & tags.MultipleOf<1>;
 
       /**
        * @title 특허출원일
@@ -789,14 +975,19 @@ export namespace IInnoforest {
     /**
      * @title 혁신의숲 기업 Key
      */
-    corpUniqNum: string;
+    corpUniqNum: string &
+      Prerequisite<{
+        method: "post";
+        path: "/connector/innoforest/search";
+        jmesPath: "companies[].{label: companyName, value: corpUniqNum}";
+      }>;
   }
 
   export interface IFindpatentwordOutput extends IInnoforest.ICommonResponse {
     /**
      * @title 응답 데이터
      */
-    data: {
+    data?: {
       /**
        * @title 혁신의숲 기업 Key
        */
@@ -815,7 +1006,7 @@ export namespace IInnoforest {
       /**
        * @title 언급량
        */
-      patntWordVal: (number & tags.Type<"int64">) | null;
+      patntWordVal: (number & tags.MultipleOf<1>) | null;
 
       /**
        * @title 수정시간
@@ -828,14 +1019,19 @@ export namespace IInnoforest {
     /**
      * @title 혁신의숲 기업 Key
      */
-    corpUniqNum: string;
+    corpUniqNum: string &
+      Prerequisite<{
+        method: "post";
+        path: "/connector/innoforest/search";
+        jmesPath: "companies[].{label: companyName, value: corpUniqNum}";
+      }>;
   }
 
   export interface IFindfinanceOutput extends IInnoforest.ICommonResponse {
     /**
      * @title 응답 데이터
      */
-    data: {
+    data?: {
       /**
        * @title 혁신의숲 기업 Key
        */
@@ -877,14 +1073,19 @@ export namespace IInnoforest {
     /**
      * @title 혁신의숲 기업 Key
      */
-    corpUniqNum: string;
+    corpUniqNum: string &
+      Prerequisite<{
+        method: "post";
+        path: "/connector/innoforest/search";
+        jmesPath: "companies[].{label: companyName, value: corpUniqNum}";
+      }>;
   }
 
   export interface IFindemployeeOutput extends IInnoforest.ICommonResponse {
     /**
      * @title 응답 데이터
      */
-    data: {
+    data?: {
       /**
        * @title 혁신의숲 기업 Key
        */
@@ -903,17 +1104,17 @@ export namespace IInnoforest {
       /**
        * @title 고용인원수
        */
-      empWholeVal: (number & tags.Type<"int64">) | null;
+      empWholeVal: (number & tags.MultipleOf<1>) | null;
 
       /**
        * @title 입사자수
        */
-      empInVal: (number & tags.Type<"int64">) | null;
+      empInVal: (number & tags.MultipleOf<1>) | null;
 
       /**
        * @title 퇴사자수
        */
-      empOutVal: (number & tags.Type<"int64">) | null;
+      empOutVal: (number & tags.MultipleOf<1>) | null;
 
       /**
        * @title 수정시간
@@ -926,14 +1127,19 @@ export namespace IInnoforest {
     /**
      * @title 혁신의숲 기업 Key
      */
-    corpUniqNum: string;
+    corpUniqNum: string &
+      Prerequisite<{
+        method: "post";
+        path: "/connector/innoforest/search";
+        jmesPath: "companies[].{label: companyName, value: corpUniqNum}";
+      }>;
   }
 
   export interface IFindpressOutput extends IInnoforest.ICommonResponse {
     /**
      * @title 응답 데이터
      */
-    data: {
+    data?: {
       /**
        * @title 혁신의숲 기업 Key
        */
@@ -947,7 +1153,7 @@ export namespace IInnoforest {
       /**
        * @title 보도자료데이터key
        */
-      id: number & tags.Type<"int64">;
+      id: number & tags.MultipleOf<1>;
 
       /**
        * @title 보도일
@@ -980,6 +1186,11 @@ export namespace IInnoforest {
     /**
      * @title 혁신의숲 기업 Key
      */
-    corpUniqNum: string;
+    corpUniqNum: string &
+      Prerequisite<{
+        method: "post";
+        path: "/connector/innoforest/search";
+        jmesPath: "companies[].{label: companyName, value: corpUniqNum}";
+      }>;
   }
 }

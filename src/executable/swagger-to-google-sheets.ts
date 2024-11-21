@@ -1,4 +1,5 @@
 import { OpenApi } from "@samchon/openapi";
+import { IOpenAiFunction } from "@wrtnio/schema";
 import { randomInt } from "crypto";
 import { readFileSync } from "fs";
 import { google, sheets_v4 } from "googleapis";
@@ -401,6 +402,19 @@ function readSwaggerFile(
   }
 }
 
+function readOpenaiPositionalFile() {
+  try {
+    const saleSwagger = `../../packages/api/openai-positional.json`;
+    const filepath = path.join(__dirname, saleSwagger);
+    const functionSchema = readFileSync(filepath, { encoding: "utf-8" });
+    const functions: IOpenAiFunction[] = JSON.parse(functionSchema).functions;
+
+    return functions;
+  } catch (err) {
+    return [];
+  }
+}
+
 async function convertSwaggerToGoogleSheet(input: {
   document: OpenApi.IDocument;
   filename: string;
@@ -418,6 +432,8 @@ async function convertSwaggerToGoogleSheet(input: {
   if (!spreadsheetId) {
     throw new Error("Error on onverting swagger to google sheets.");
   }
+
+  const functions = readOpenaiPositionalFile();
 
   const values: (string | number | boolean)[][] = [];
 
@@ -441,8 +457,6 @@ async function convertSwaggerToGoogleSheet(input: {
           if (isFirst) {
             const document = readSwaggerFile(service);
 
-            console.log(document.info);
-
             values.push([
               service ? service : "",
               0, // 세일에 해당하는 인덱스로, 워크플로우 상 노드를 표현
@@ -454,19 +468,26 @@ async function convertSwaggerToGoogleSheet(input: {
               document.info?.summary ?? "",
               document.info?.description ?? "",
               "-",
+              "-",
+              "-",
             ]);
             if (service) {
               countByConnector.set(service, 1);
             }
           }
 
-          const index = service ? countByConnector.get(service) ?? 2 : 2;
+          const index = service ? (countByConnector.get(service) ?? 2) : 2;
           if (service) {
             countByConnector.set(service, index + 1);
           }
 
           const tags = JSON.stringify(operation.tags, null, 2);
           const descriptions = operation.description?.split("\n\n");
+
+          const functionSchema = functions.find(
+            (el: any) => el.method === method && el.path === pathname,
+          );
+
           values.push([
             service ? service : "",
             index,
@@ -478,6 +499,8 @@ async function convertSwaggerToGoogleSheet(input: {
             operation.summary ?? "",
             descriptions?.at(0) ?? "",
             descriptions?.at(1) ?? "",
+            JSON.stringify(functionSchema?.parameters ?? {}).length,
+            JSON.stringify(functionSchema?.output ?? {}).length,
           ]);
         }
       });
@@ -503,6 +526,8 @@ async function convertSwaggerToGoogleSheet(input: {
     "Summary",
     "Short Description",
     "Long Description",
+    "Input Size",
+    "Output Size",
   ]);
 
   // 데이터 삽입

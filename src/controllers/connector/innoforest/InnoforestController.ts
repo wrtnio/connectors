@@ -8,17 +8,136 @@ export class InnoforestController {
   constructor(private readonly innoforestProvider: InnoforestProvider) {}
 
   /**
-   * 혁신의숲(innoforest)은 다양한 스타트업의 성장 데이터를 제공하는 플랫폼으로,
-   * 스타트업의 투자 정보, 소비자 데이터, 고용 현황 등 여러 지표를 무료로 공개하여 생태계 발전에 기여하고 있습니다.
-   * 현재 선택 가능한 데이터는 아래 5개 기업으로 키 값을 사용하여 데이터를 조회할 수 있습니다.
+   * Retrieve all company data from Innoforest
    *
-   * - 오늘의집(버킷플레이스) : 1198691245
-   * - 올웨이즈(레브잇) : 1798102225
-   * - 트웰브랩스 : 8458601667
-   * - 뤼이드 : 1068706394
-   * - 클래스101: 4578100277
+   * Innoforest is a platform providing growth data of various startups.
+   * This endpoint consolidates data provided by other connectors from Innoforest into a single response.
+   * If the user requests a large amount of information, using this connector is advantageous.
+   * This includes the following properties:
    *
-   * @summary 혁신의숲 스타트업 개요 조회
+   * - corp, corpfinance, corpinvest, corpcommon, product, traffic, sales, salesrebuy, salesavgbuy, salesperson, saleshousehold, salesincome, invest, patent, patentword, finance, employee, press
+   *
+   * @summary Retrieve all company data from Innoforest
+   */
+  @TypedRoute.Post("unify")
+  async unify(
+    @TypedBody() input: IInnoforest.IUnifyInput,
+  ): Promise<IInnoforest.IUnifyOutput> {
+    const [
+      corp,
+      corpfinance,
+      corpinvest,
+      corpcommon,
+      product,
+      traffic,
+      sales,
+      salesrebuy,
+      salesavgbuy,
+      salesperson,
+      saleshousehold,
+      salesincome,
+      invest,
+      patent,
+      patentword,
+      finance,
+      employee,
+      press,
+    ] = await Promise.all([
+      await this.innoforestProvider.getcorp(input),
+      await this.innoforestProvider.getcorpfinance(input),
+      await this.innoforestProvider.getcorpinvest(input),
+      await this.innoforestProvider.getcorpcommon(input),
+      await this.innoforestProvider.findproduct(input),
+      await this.innoforestProvider.findtraffic(input),
+      await this.innoforestProvider.findsales(input),
+      await this.innoforestProvider.findsalesrebuy(input),
+      await this.innoforestProvider.findsalesavgbuy(input),
+      await this.innoforestProvider.findsalesperson(input),
+      await this.innoforestProvider.findsaleshousehold(input),
+      await this.innoforestProvider.findsalesincome(input),
+      await this.innoforestProvider.findinvest(input),
+      await this.innoforestProvider.findpatent(input),
+      await this.innoforestProvider.findpatentword(input),
+      await this.innoforestProvider.findfinance(input),
+      await this.innoforestProvider.findemployee(input),
+      await this.innoforestProvider.findpress(input),
+    ]);
+
+    return {
+      corp,
+      corpfinance,
+      corpinvest,
+      corpcommon,
+      product,
+      traffic,
+      sales,
+      salesrebuy,
+      salesavgbuy,
+      salesperson,
+      saleshousehold,
+      salesincome,
+      invest,
+      patent,
+      patentword,
+      finance,
+      employee,
+      press,
+    };
+  }
+
+  /**
+   * Search for company identifiers from Innoforest
+   *
+   * Innoforest is a platform providing growth data of various startups.
+   * It's recommended to use `POST /connector/innoforest/unify` to provide all information to users at once.
+   *
+   * Retrieve the identifiers of companies currently available for query in Innoforest, which can be used for further searches.
+   *
+   * - Bucketplace (Today's House): 1198691245
+   * - Always (Revbit): 1798102225
+   * - Twelve Labs: 8458601667
+   * - Riiid: 1068706394
+   * - CLASS101: 4578100277
+   *
+   * @summary Search for company identifiers from Innoforest
+   */
+  @TypedRoute.Post("search")
+  async search(
+    @TypedBody() input: IInnoforest.ISearchInput,
+  ): Promise<IInnoforest.ISearchOutput> {
+    return {
+      companies: [
+        {
+          corpUniqNum: "1198691245",
+          companyName: "오늘의집(버킷플레이스)",
+        },
+        {
+          corpUniqNum: "1798102225",
+          companyName: "올웨이즈(레브잇)",
+        },
+        {
+          corpUniqNum: "8458601667",
+          companyName: "트웰브랩스",
+        },
+        {
+          corpUniqNum: "1068706394",
+          companyName: "뤼이드",
+        },
+        {
+          corpUniqNum: "4578100277",
+          companyName: "클래스101",
+        },
+      ],
+    };
+  }
+
+  /**
+   * Retrieve startup overview from Innoforest
+   *
+   * Innoforest is a platform providing growth data of various startups.
+   * It's recommended to use `POST /connector/innoforest/unify` to provide all information to users at once.
+   *
+   * @summary Retrieve startup overview from Innoforest
    */
   @TypedRoute.Post("seed/party/s1/getcorp")
   async getcorp(
@@ -28,17 +147,12 @@ export class InnoforestController {
   }
 
   /**
-   * 혁신의숲(innoforest)은 다양한 스타트업의 성장 데이터를 제공하는 플랫폼으로,
-   * 스타트업의 투자 정보, 소비자 데이터, 고용 현황 등 여러 지표를 무료로 공개하여 생태계 발전에 기여하고 있습니다.
-   * 현재 선택 가능한 데이터는 아래 5개 기업으로 키 값을 사용하여 데이터를 조회할 수 있습니다.
+   * Retrieve startup overview - financial summary from Innoforest
    *
-   * - 오늘의집(버킷플레이스) : 1198691245
-   * - 올웨이즈(레브잇) : 1798102225
-   * - 트웰브랩스 : 8458601667
-   * - 뤼이드 : 1068706394
-   * - 클래스101: 4578100277
+   * Innoforest is a platform providing growth data of various startups.
+   * It's recommended to use `POST /connector/innoforest/unify` to provide all information to users at once.
    *
-   * @summary 혁신의숲 스타트업 개요-재무요약 조회
+   * @summary Retrieve startup overview - financial summary from Innoforest
    */
   @TypedRoute.Post("seed/party/s1/getcorpfinance")
   async getcorpfinance(
@@ -48,17 +162,12 @@ export class InnoforestController {
   }
 
   /**
-   * 혁신의숲(innoforest)은 다양한 스타트업의 성장 데이터를 제공하는 플랫폼으로,
-   * 스타트업의 투자 정보, 소비자 데이터, 고용 현황 등 여러 지표를 무료로 공개하여 생태계 발전에 기여하고 있습니다.
-   * 현재 선택 가능한 데이터는 아래 5개 기업으로 키 값을 사용하여 데이터를 조회할 수 있습니다.
+   * Retrieve startup overview - investment summary from Innoforest
    *
-   * - 오늘의집(버킷플레이스) : 1198691245
-   * - 올웨이즈(레브잇) : 1798102225
-   * - 트웰브랩스 : 8458601667
-   * - 뤼이드 : 1068706394
-   * - 클래스101: 4578100277
+   * Innoforest is a platform providing growth data of various startups.
+   * It's recommended to use `POST /connector/innoforest/unify` to provide all information to users at once.
    *
-   * @summary 혁신의숲 스타트업 개요-투자요약 조회
+   * @summary Retrieve startup overview - investment summary from Innoforest
    */
   @TypedRoute.Post("seed/party/s1/getcorpinvest")
   async getcorpinvest(
@@ -68,17 +177,12 @@ export class InnoforestController {
   }
 
   /**
-   * 혁신의숲(innoforest)은 다양한 스타트업의 성장 데이터를 제공하는 플랫폼으로,
-   * 스타트업의 투자 정보, 소비자 데이터, 고용 현황 등 여러 지표를 무료로 공개하여 생태계 발전에 기여하고 있습니다.
-   * 현재 선택 가능한 데이터는 아래 5개 기업으로 키 값을 사용하여 데이터를 조회할 수 있습니다.
+   * Retrieve startup overview - general summary from Innoforest
    *
-   * - 오늘의집(버킷플레이스) : 1198691245
-   * - 올웨이즈(레브잇) : 1798102225
-   * - 트웰브랩스 : 8458601667
-   * - 뤼이드 : 1068706394
-   * - 클래스101: 4578100277
+   * Innoforest is a platform providing growth data of various startups.
+   * It's recommended to use `POST /connector/innoforest/unify` to provide all information to users at once.
    *
-   * @summary 혁신의숲 스타트업 개요-일반요약 조회
+   * @summary Retrieve startup overview - general summary from Innoforest
    */
   @TypedRoute.Post("seed/party/s1/getcorpcommon")
   async getcorpcommon(
@@ -88,17 +192,12 @@ export class InnoforestController {
   }
 
   /**
-   * 혁신의숲(innoforest)은 다양한 스타트업의 성장 데이터를 제공하는 플랫폼으로,
-   * 스타트업의 투자 정보, 소비자 데이터, 고용 현황 등 여러 지표를 무료로 공개하여 생태계 발전에 기여하고 있습니다.
-   * 현재 선택 가능한 데이터는 아래 5개 기업으로 키 값을 사용하여 데이터를 조회할 수 있습니다.
+   * Retrieve product information from Innoforest
    *
-   * - 오늘의집(버킷플레이스) : 1198691245
-   * - 올웨이즈(레브잇) : 1798102225
-   * - 트웰브랩스 : 8458601667
-   * - 뤼이드 : 1068706394
-   * - 클래스101: 4578100277
+   * Innoforest is a platform providing growth data of various startups.
+   * It's recommended to use `POST /connector/innoforest/unify` to provide all information to users at once.
    *
-   * @summary 혁신의숲 서비스 조회
+   * @summary Retrieve product information from Innoforest
    */
   @TypedRoute.Post("seed/party/s1/findproduct")
   async findproduct(
@@ -108,17 +207,12 @@ export class InnoforestController {
   }
 
   /**
-   * 혁신의숲(innoforest)은 다양한 스타트업의 성장 데이터를 제공하는 플랫폼으로,
-   * 스타트업의 투자 정보, 소비자 데이터, 고용 현황 등 여러 지표를 무료로 공개하여 생태계 발전에 기여하고 있습니다.
-   * 현재 선택 가능한 데이터는 아래 5개 기업으로 키 값을 사용하여 데이터를 조회할 수 있습니다.
+   * Retrieve traffic data from Innoforest
    *
-   * - 오늘의집(버킷플레이스) : 1198691245
-   * - 올웨이즈(레브잇) : 1798102225
-   * - 트웰브랩스 : 8458601667
-   * - 뤼이드 : 1068706394
-   * - 클래스101: 4578100277
+   * Innoforest is a platform providing growth data of various startups.
+   * It's recommended to use `POST /connector/innoforest/unify` to provide all information to users at once.
    *
-   * @summary 혁신의숲 트래픽 조회
+   * @summary Retrieve traffic data from Innoforest
    */
   @TypedRoute.Post("seed/party/s1/findtraffic")
   async findtraffic(
@@ -128,17 +222,12 @@ export class InnoforestController {
   }
 
   /**
-   * 혁신의숲(innoforest)은 다양한 스타트업의 성장 데이터를 제공하는 플랫폼으로,
-   * 스타트업의 투자 정보, 소비자 데이터, 고용 현황 등 여러 지표를 무료로 공개하여 생태계 발전에 기여하고 있습니다.
-   * 현재 선택 가능한 데이터는 아래 5개 기업으로 키 값을 사용하여 데이터를 조회할 수 있습니다.
+   * Retrieve sales data from Innoforest
    *
-   * - 오늘의집(버킷플레이스) : 1198691245
-   * - 올웨이즈(레브잇) : 1798102225
-   * - 트웰브랩스 : 8458601667
-   * - 뤼이드 : 1068706394
-   * - 클래스101: 4578100277
+   * Innoforest is a platform providing growth data of various startups.
+   * It's recommended to use `POST /connector/innoforest/unify` to provide all information to users at once.
    *
-   * @summary 혁신의숲 소비자거래-거래액, 거래건수 조회
+   * @summary Retrieve sales data from Innoforest
    */
   @TypedRoute.Post("seed/party/s1/findsales")
   async findsales(
@@ -148,17 +237,12 @@ export class InnoforestController {
   }
 
   /**
-   * 혁신의숲(innoforest)은 다양한 스타트업의 성장 데이터를 제공하는 플랫폼으로,
-   * 스타트업의 투자 정보, 소비자 데이터, 고용 현황 등 여러 지표를 무료로 공개하여 생태계 발전에 기여하고 있습니다.
-   * 현재 선택 가능한 데이터는 아래 5개 기업으로 키 값을 사용하여 데이터를 조회할 수 있습니다.
+   * Retrieve repeat purchase rate data from Innoforest
    *
-   * - 오늘의집(버킷플레이스) : 1198691245
-   * - 올웨이즈(레브잇) : 1798102225
-   * - 트웰브랩스 : 8458601667
-   * - 뤼이드 : 1068706394
-   * - 클래스101: 4578100277
+   * Innoforest is a platform providing growth data of various startups.
+   * It's recommended to use `POST /connector/innoforest/unify` to provide all information to users at once.
    *
-   * @summary 혁신의숲 소비자거래-재구매율 조회
+   * @summary Retrieve repeat purchase rate data from Innoforest
    */
   @TypedRoute.Post("seed/party/s1/findsalesrebuy")
   async findsalesrebuy(
@@ -168,17 +252,12 @@ export class InnoforestController {
   }
 
   /**
-   * 혁신의숲(innoforest)은 다양한 스타트업의 성장 데이터를 제공하는 플랫폼으로,
-   * 스타트업의 투자 정보, 소비자 데이터, 고용 현황 등 여러 지표를 무료로 공개하여 생태계 발전에 기여하고 있습니다.
-   * 현재 선택 가능한 데이터는 아래 5개 기업으로 키 값을 사용하여 데이터를 조회할 수 있습니다.
+   * Retrieve average purchase amount data from Innoforest
    *
-   * - 오늘의집(버킷플레이스) : 1198691245
-   * - 올웨이즈(레브잇) : 1798102225
-   * - 트웰브랩스 : 8458601667
-   * - 뤼이드 : 1068706394
-   * - 클래스101: 4578100277
+   * Innoforest is a platform providing growth data of various startups.
+   * It's recommended to use `POST /connector/innoforest/unify` to provide all information to users at once.
    *
-   * @summary 혁신의숲 소비자거래-평균구매횟수 조회
+   * @summary Retrieve average purchase amount data from Innoforest
    */
   @TypedRoute.Post("seed/party/s1/findsalesavgbuy")
   async findsalesavgbuy(
@@ -188,17 +267,12 @@ export class InnoforestController {
   }
 
   /**
-   * 혁신의숲(innoforest)은 다양한 스타트업의 성장 데이터를 제공하는 플랫폼으로,
-   * 스타트업의 투자 정보, 소비자 데이터, 고용 현황 등 여러 지표를 무료로 공개하여 생태계 발전에 기여하고 있습니다.
-   * 현재 선택 가능한 데이터는 아래 5개 기업으로 키 값을 사용하여 데이터를 조회할 수 있습니다.
+   * Retrieve sales-related personnel data from Innoforest
    *
-   * - 오늘의집(버킷플레이스) : 1198691245
-   * - 올웨이즈(레브잇) : 1798102225
-   * - 트웰브랩스 : 8458601667
-   * - 뤼이드 : 1068706394
-   * - 클래스101: 4578100277
+   * Innoforest is a platform providing growth data of various startups.
+   * It's recommended to use `POST /connector/innoforest/unify` to provide all information to users at once.
    *
-   * @summary 혁신의숲 소비자유형-성별, 연령 조회
+   * @summary Retrieve sales-related personnel data from Innoforest
    */
   @TypedRoute.Post("seed/party/s1/findsalesperson")
   async findsalesperson(
@@ -208,17 +282,12 @@ export class InnoforestController {
   }
 
   /**
-   * 혁신의숲(innoforest)은 다양한 스타트업의 성장 데이터를 제공하는 플랫폼으로,
-   * 스타트업의 투자 정보, 소비자 데이터, 고용 현황 등 여러 지표를 무료로 공개하여 생태계 발전에 기여하고 있습니다.
-   * 현재 선택 가능한 데이터는 아래 5개 기업으로 키 값을 사용하여 데이터를 조회할 수 있습니다.
+   * Retrieve household-related sales data from Innoforest
    *
-   * - 오늘의집(버킷플레이스) : 1198691245
-   * - 올웨이즈(레브잇) : 1798102225
-   * - 트웰브랩스 : 8458601667
-   * - 뤼이드 : 1068706394
-   * - 클래스101: 4578100277
+   * Innoforest is a platform providing growth data of various startups.
+   * It's recommended to use `POST /connector/innoforest/unify` to provide all information to users at once.
    *
-   * @summary 혁신의숲 소비자유형-가족구성 조회
+   * @summary Retrieve household-related sales data from Innoforest
    */
   @TypedRoute.Post("seed/party/s1/findsaleshousehold")
   async findsaleshousehold(
@@ -228,17 +297,12 @@ export class InnoforestController {
   }
 
   /**
-   * 혁신의숲(innoforest)은 다양한 스타트업의 성장 데이터를 제공하는 플랫폼으로,
-   * 스타트업의 투자 정보, 소비자 데이터, 고용 현황 등 여러 지표를 무료로 공개하여 생태계 발전에 기여하고 있습니다.
-   * 현재 선택 가능한 데이터는 아래 5개 기업으로 키 값을 사용하여 데이터를 조회할 수 있습니다.
+   * Retrieve income-related sales data from Innoforest
    *
-   * - 오늘의집(버킷플레이스) : 1198691245
-   * - 올웨이즈(레브잇) : 1798102225
-   * - 트웰브랩스 : 8458601667
-   * - 뤼이드 : 1068706394
-   * - 클래스101: 4578100277
+   * Innoforest is a platform providing growth data of various startups.
+   * It's recommended to use `POST /connector/innoforest/unify` to provide all information to users at once.
    *
-   * @summary 혁신의숲 소비자유형-소득수준 조회
+   * @summary Retrieve income-related sales data from Innoforest
    */
   @TypedRoute.Post("seed/party/s1/findsalesincome")
   async findsalesincome(
@@ -248,17 +312,12 @@ export class InnoforestController {
   }
 
   /**
-   * 혁신의숲(innoforest)은 다양한 스타트업의 성장 데이터를 제공하는 플랫폼으로,
-   * 스타트업의 투자 정보, 소비자 데이터, 고용 현황 등 여러 지표를 무료로 공개하여 생태계 발전에 기여하고 있습니다.
-   * 현재 선택 가능한 데이터는 아래 5개 기업으로 키 값을 사용하여 데이터를 조회할 수 있습니다.
+   * Retrieve investment data from Innoforest
    *
-   * - 오늘의집(버킷플레이스) : 1198691245
-   * - 올웨이즈(레브잇) : 1798102225
-   * - 트웰브랩스 : 8458601667
-   * - 뤼이드 : 1068706394
-   * - 클래스101: 4578100277
+   * Innoforest is a platform providing growth data of various startups.
+   * It's recommended to use `POST /connector/innoforest/unify` to provide all information to users at once.
    *
-   * @summary 혁신의숲 투자유치이력 조회
+   * @summary Retrieve investment data from Innoforest
    */
   @TypedRoute.Post("seed/party/s1/findinvest")
   async findinvest(
@@ -268,17 +327,12 @@ export class InnoforestController {
   }
 
   /**
-   * 혁신의숲(innoforest)은 다양한 스타트업의 성장 데이터를 제공하는 플랫폼으로,
-   * 스타트업의 투자 정보, 소비자 데이터, 고용 현황 등 여러 지표를 무료로 공개하여 생태계 발전에 기여하고 있습니다.
-   * 현재 선택 가능한 데이터는 아래 5개 기업으로 키 값을 사용하여 데이터를 조회할 수 있습니다.
+   * Retrieve patent data from Innoforest
    *
-   * - 오늘의집(버킷플레이스) : 1198691245
-   * - 올웨이즈(레브잇) : 1798102225
-   * - 트웰브랩스 : 8458601667
-   * - 뤼이드 : 1068706394
-   * - 클래스101: 4578100277
+   * Innoforest is a platform providing growth data of various startups.
+   * It's recommended to use `POST /connector/innoforest/unify` to provide all information to users at once.
    *
-   * @summary 혁신의숲 특허이력 조회
+   * @summary Retrieve patent data from Innoforest
    */
   @TypedRoute.Post("seed/party/s1/findpatent")
   async findpatent(
@@ -288,17 +342,12 @@ export class InnoforestController {
   }
 
   /**
-   * 혁신의숲(innoforest)은 다양한 스타트업의 성장 데이터를 제공하는 플랫폼으로,
-   * 스타트업의 투자 정보, 소비자 데이터, 고용 현황 등 여러 지표를 무료로 공개하여 생태계 발전에 기여하고 있습니다.
-   * 현재 선택 가능한 데이터는 아래 5개 기업으로 키 값을 사용하여 데이터를 조회할 수 있습니다.
+   * Retrieve patent keyword data from Innoforest
    *
-   * - 오늘의집(버킷플레이스) : 1198691245
-   * - 올웨이즈(레브잇) : 1798102225
-   * - 트웰브랩스 : 8458601667
-   * - 뤼이드 : 1068706394
-   * - 클래스101: 4578100277
+   * Innoforest is a platform providing growth data of various startups.
+   * It's recommended to use `POST /connector/innoforest/unify` to provide all information to users at once.
    *
-   * @summary 혁신의숲 특허키워드 조회
+   * @summary Retrieve patent keyword data from Innoforest
    */
   @TypedRoute.Post("seed/party/s1/findpatentword")
   async findpatentword(
@@ -308,17 +357,12 @@ export class InnoforestController {
   }
 
   /**
-   * 혁신의숲(innoforest)은 다양한 스타트업의 성장 데이터를 제공하는 플랫폼으로,
-   * 스타트업의 투자 정보, 소비자 데이터, 고용 현황 등 여러 지표를 무료로 공개하여 생태계 발전에 기여하고 있습니다.
-   * 현재 선택 가능한 데이터는 아래 5개 기업으로 키 값을 사용하여 데이터를 조회할 수 있습니다.
+   * Retrieve financial data from Innoforest
    *
-   * - 오늘의집(버킷플레이스) : 1198691245
-   * - 올웨이즈(레브잇) : 1798102225
-   * - 트웰브랩스 : 8458601667
-   * - 뤼이드 : 1068706394
-   * - 클래스101: 4578100277
+   * Innoforest is a platform providing growth data of various startups.
+   * It's recommended to use `POST /connector/innoforest/unify` to provide all information to users at once.
    *
-   * @summary 혁신의숲 손익재무 조회
+   * @summary Retrieve financial data from Innoforest
    */
   @TypedRoute.Post("seed/party/s1/findfinance")
   async findfinance(
@@ -328,17 +372,12 @@ export class InnoforestController {
   }
 
   /**
-   * 혁신의숲(innoforest)은 다양한 스타트업의 성장 데이터를 제공하는 플랫폼으로,
-   * 스타트업의 투자 정보, 소비자 데이터, 고용 현황 등 여러 지표를 무료로 공개하여 생태계 발전에 기여하고 있습니다.
-   * 현재 선택 가능한 데이터는 아래 5개 기업으로 키 값을 사용하여 데이터를 조회할 수 있습니다.
+   * Retrieve employee data from Innoforest
    *
-   * - 오늘의집(버킷플레이스) : 1198691245
-   * - 올웨이즈(레브잇) : 1798102225
-   * - 트웰브랩스 : 8458601667
-   * - 뤼이드 : 1068706394
-   * - 클래스101: 4578100277
+   * Innoforest is a platform providing growth data of various startups.
+   * It's recommended to use `POST /connector/innoforest/unify` to provide all information to users at once.
    *
-   * @summary 혁신의숲 고용 조회
+   * @summary Retrieve employee data from Innoforest
    */
   @TypedRoute.Post("seed/party/s1/findemployee")
   async findemployee(
@@ -348,17 +387,12 @@ export class InnoforestController {
   }
 
   /**
-   * 혁신의숲(innoforest)은 다양한 스타트업의 성장 데이터를 제공하는 플랫폼으로,
-   * 스타트업의 투자 정보, 소비자 데이터, 고용 현황 등 여러 지표를 무료로 공개하여 생태계 발전에 기여하고 있습니다.
-   * 현재 선택 가능한 데이터는 아래 5개 기업으로 키 값을 사용하여 데이터를 조회할 수 있습니다.
+   * Retrieve press-related data from Innoforest
    *
-   * - 오늘의집(버킷플레이스) : 1198691245
-   * - 올웨이즈(레브잇) : 1798102225
-   * - 트웰브랩스 : 8458601667
-   * - 뤼이드 : 1068706394
-   * - 클래스101: 4578100277
+   * Innoforest is a platform providing growth data of various startups.
+   * It's recommended to use `POST /connector/innoforest/unify` to provide all information to users at once.
    *
-   * @summary 혁신의숲 보도자료 조회
+   * @summary Retrieve press-related data from Innoforest
    */
   @TypedRoute.Post("seed/party/s1/findpress")
   async findpress(

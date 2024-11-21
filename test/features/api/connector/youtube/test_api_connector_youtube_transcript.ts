@@ -9,7 +9,7 @@ export const test_api_connector_youtube_search_transcript = async (
   const result = await CApi.functional.connector.youtube_search.transcript(
     connection,
     {
-      url: "https://www.youtube.com/watch?v=Xj0Jtjg3lHQ",
+      url: "https://www.youtube.com/watch?v=fCNSUsjvczs",
     },
   );
   typia.assert(result);
