@@ -18,9 +18,11 @@ export class AirportInformationProvider {
         await ConnectorGlobal.prisma.airport_informations.findMany({
           where: {
             OR: [
-              { kr_country_name: input.keyword },
-              { kr_city_name: input.keyword },
-              { en_city_name: input.keyword },
+              { kr_country_name: { contains: input.keyword } },
+              { kr_city_name: { contains: input.keyword } },
+              { en_city_name: { contains: input.keyword } },
+              { ko_airport_name: { contains: input.keyword } },
+              { en_airport_name: { contains: input.keyword } },
             ],
           },
           select: {
