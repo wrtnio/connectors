@@ -18,7 +18,7 @@
     "title": "Jira",
     "summary": "Jira로 프로젝트 이슈를 관리해요.",
     "description": "프로젝트에 이슈를 생성하고 담당자를 할당해요. 완료된 이슈가 있다면 상태를 변경할 수도 있고 댓글을 남겨 의견 교류도 가능해요.",
-    "version": "0.1.356",
+    "version": "0.1.358",
     "license": {
       "name": "AGPL-3.0-only"
     }
@@ -2105,10 +2105,10 @@
               "displayMode": {
                 "oneOf": [
                   {
-                    "const": "default"
+                    "const": "fixed"
                   },
                   {
-                    "const": "fixed"
+                    "const": "default"
                   }
                 ],
                 "title": "displayMode",
@@ -3742,7 +3742,7 @@
           "issues": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/MyPickIJira.Issuekeyidfields"
+              "$ref": "#/components/schemas/MyPickIJira.Issuefieldskeyid"
             },
             "title": "Jira issue list"
           },
@@ -3772,9 +3772,13 @@
           "total"
         ]
       },
-      "MyPickIJira.Issuekeyidfields": {
+      "MyPickIJira.Issuefieldskeyid": {
         "type": "object",
         "properties": {
+          "fields": {
+            "$ref": "#/components/schemas/IJira.IssueField",
+            "title": "fields"
+          },
           "key": {
             "type": "string",
             "title": "The key of the issue"
@@ -3782,16 +3786,12 @@
           "id": {
             "type": "string",
             "title": "The ID of the issue"
-          },
-          "fields": {
-            "$ref": "#/components/schemas/IJira.IssueField",
-            "title": "fields"
           }
         },
         "required": [
+          "fields",
           "key",
-          "id",
-          "fields"
+          "id"
         ]
       },
       "IJira.IssueField": {
@@ -4067,12 +4067,6 @@
       "IJira.IGetProjectInputByBasicAuth": {
         "type": "object",
         "properties": {
-          "maxResults": {
-            "type": "integer",
-            "default": 50,
-            "title": "max results",
-            "description": "The maximum number of items to return per page.\nIn the issue, it seems that up to 100 can be viewed at a time."
-          },
           "orderBy": {
             "oneOf": [
               {
@@ -4093,6 +4087,12 @@
             ],
             "title": "order by",
             "description": "Order the results by a field.\n\n- issueCount : Sorts by the total number of issues in each project.\n- lastIssueUpdatedTime : Sorts by the last issue update time.\n- name : Sorts by project name."
+          },
+          "maxResults": {
+            "type": "integer",
+            "default": 50,
+            "title": "max results",
+            "description": "The maximum number of items to return per page.\nIn the issue, it seems that up to 100 can be viewed at a time."
           },
           "startAt": {
             "type": "integer",

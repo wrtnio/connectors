@@ -18,7 +18,7 @@
     "title": "Slack",
     "summary": "슬랙에서 대화 내용을 가져오거나 메시지를 보낼 수 있어요.",
     "description": "슬랙에서 우리 멤버들이 어떤 주제를 가지고 논의를 하는지 확인해요. 우리 워크스페이스에 있는 유저 그룹이나 동료의 프로필을 확인할 수도 있고, 동료에게 말을 걸 수도 있고, 채널에 메세지를 보내고, 또 답글을 달 수도 있어요.",
-    "version": "0.1.356",
+    "version": "0.1.358",
     "license": {
       "name": "AGPL-3.0-only"
     }
@@ -1402,12 +1402,12 @@
       "ISlack.IGetUserDetailOutput": {
         "type": "object",
         "properties": {
-          "id": {
-            "type": "string"
-          },
           "fields": {
             "$ref": "#/components/schemas/Recordstringstring",
             "title": "custom fields"
+          },
+          "id": {
+            "type": "string"
           },
           "display_name": {
             "oneOf": [
@@ -1446,8 +1446,8 @@
           }
         },
         "required": [
-          "id",
           "fields",
+          "id",
           "display_name",
           "real_name"
         ],
@@ -2334,7 +2334,7 @@
           "files": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/MyPickISlack.Filenameuseridcreatedsizechannelscomments_countmimetypeurl_privateurl_private_downloadthumb_1024"
+              "$ref": "#/components/schemas/MyPickISlack.Filenameidusercreatedsizechannelscomments_countmimetypeurl_privateurl_private_downloadthumb_1024"
             }
           },
           "paging": {
@@ -2372,20 +2372,20 @@
         ],
         "title": "File Lookup Results"
       },
-      "MyPickISlack.Filenameuseridcreatedsizechannelscomments_countmimetypeurl_privateurl_private_downloadthumb_1024": {
+      "MyPickISlack.Filenameidusercreatedsizechannelscomments_countmimetypeurl_privateurl_private_downloadthumb_1024": {
         "type": "object",
         "properties": {
           "name": {
             "type": "string",
             "title": "name"
           },
-          "user": {
-            "type": "string",
-            "title": "user"
-          },
           "id": {
             "type": "string",
             "title": "id"
+          },
+          "user": {
+            "type": "string",
+            "title": "user"
           },
           "created": {
             "type": "number",
@@ -2429,8 +2429,8 @@
         },
         "required": [
           "name",
-          "user",
           "id",
+          "user",
           "created",
           "size",
           "channels",

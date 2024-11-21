@@ -18,7 +18,7 @@
     "title": "구글 광고 캠페인 운영",
     "summary": "구글 광고를 쉽게 만들고 관리해요.",
     "description": "키워드 검색을 통한 SEO 전략을 최적화하고, 노출 광고의 효과를 높여 잠재 고객에게 효과적으로 도달할 수 있어요.구글 광고에서 검색 광고, 디스플레이 광고, 동영상 광고 등 다양한 유형의 광고를 만들고 수정할 수 있어요. 이후 광고 상태를 관리하고, 성과를 조회할 수 있어요.",
-    "version": "0.1.356",
+    "version": "0.1.358",
     "license": {
       "name": "AGPL-3.0-only"
     }
@@ -1275,11 +1275,11 @@
         "type": "object",
         "properties": {
           "campaign": {
-            "$ref": "#/components/schemas/MyPickIGoogleAds.CampaignstatusidresourceName",
+            "$ref": "#/components/schemas/MyPickIGoogleAds.CampaignidstatusresourceName",
             "title": "campaign"
           },
           "adGroup": {
-            "$ref": "#/components/schemas/MyPickIGoogleAds.AdGrouptypeidresourceName",
+            "$ref": "#/components/schemas/MyPickIGoogleAds.AdGroupidtyperesourceName",
             "title": "Ad Group"
           },
           "adGroupAds": {
@@ -1304,9 +1304,15 @@
           "keywords"
         ]
       },
-      "MyPickIGoogleAds.CampaignstatusidresourceName": {
+      "MyPickIGoogleAds.CampaignidstatusresourceName": {
         "type": "object",
         "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)",
+            "x-wrtn-placeholder": "1",
+            "title": "Campaign ID"
+          },
           "status": {
             "oneOf": [
               {
@@ -1332,12 +1338,6 @@
             ],
             "title": "Campaign Status"
           },
-          "id": {
-            "type": "string",
-            "pattern": "([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)",
-            "x-wrtn-placeholder": "1",
-            "title": "Campaign ID"
-          },
           "resourceName": {
             "type": "string",
             "pattern": "(customers\\/[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?\\/campaigns\\/[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)",
@@ -1346,14 +1346,19 @@
           }
         },
         "required": [
-          "status",
           "id",
+          "status",
           "resourceName"
         ]
       },
-      "MyPickIGoogleAds.AdGrouptypeidresourceName": {
+      "MyPickIGoogleAds.AdGroupidtyperesourceName": {
         "type": "object",
         "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)$",
+            "title": "ID of the advertising group"
+          },
           "type": {
             "oneOf": [
               {
@@ -1367,11 +1372,6 @@
             ],
             "title": "Type of ad group"
           },
-          "id": {
-            "type": "string",
-            "pattern": "^([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)$",
-            "title": "ID of the advertising group"
-          },
           "resourceName": {
             "type": "string",
             "pattern": "(customers\\/[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?\\/adGroups\\/[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)",
@@ -1381,8 +1381,8 @@
           }
         },
         "required": [
-          "type",
           "id",
+          "type",
           "resourceName"
         ]
       },

@@ -18,7 +18,7 @@
     "title": "Crunchbase",
     "summary": "Crunchbase에서 기업 정보를 가져올 수 있어요",
     "description": "전세계 기업의 펀딩 라운드나 투자, 재무 정보 등 자세한 내역을 확인할 수 있어요",
-    "version": "0.1.356",
+    "version": "0.1.358",
     "license": {
       "name": "AGPL-3.0-only"
     }
@@ -2350,7 +2350,7 @@
             "description": "title of the issue"
           },
           "user": {
-            "$ref": "#/components/schemas/MyPickIGithub.Usertypeidlogin",
+            "$ref": "#/components/schemas/MyPickIGithub.Useridtypelogin",
             "title": "user"
           },
           "body": {
@@ -2457,9 +2457,13 @@
           "assignee"
         ]
       },
-      "MyPickIGithub.Usertypeidlogin": {
+      "MyPickIGithub.Useridtypelogin": {
         "type": "object",
         "properties": {
+          "id": {
+            "type": "number",
+            "title": "id\n\nThis means the user's ID."
+          },
           "type": {
             "oneOf": [
               {
@@ -2474,10 +2478,6 @@
             ],
             "title": "type"
           },
-          "id": {
-            "type": "number",
-            "title": "id\n\nThis means the user's ID."
-          },
           "login": {
             "type": "string",
             "title": "login",
@@ -2485,8 +2485,8 @@
           }
         },
         "required": [
-          "type",
           "id",
+          "type",
           "login"
         ]
       },
@@ -2515,7 +2515,7 @@
             "title": "body"
           },
           "user": {
-            "$ref": "#/components/schemas/MyPickIGithub.Usertypeidloginhtml_urlavatar_url",
+            "$ref": "#/components/schemas/MyPickIGithub.Useridtypeloginhtml_urlavatar_url",
             "title": "user"
           },
           "created_at": {
@@ -2543,9 +2543,13 @@
           "updated_at"
         ]
       },
-      "MyPickIGithub.Usertypeidloginhtml_urlavatar_url": {
+      "MyPickIGithub.Useridtypeloginhtml_urlavatar_url": {
         "type": "object",
         "properties": {
+          "id": {
+            "type": "number",
+            "title": "id\n\nThis means the user's ID."
+          },
           "type": {
             "oneOf": [
               {
@@ -2559,10 +2563,6 @@
               }
             ],
             "title": "type"
-          },
-          "id": {
-            "type": "number",
-            "title": "id\n\nThis means the user's ID."
           },
           "login": {
             "type": "string",
@@ -2581,8 +2581,8 @@
           }
         },
         "required": [
-          "type",
           "id",
+          "type",
           "login",
           "html_url",
           "avatar_url"
@@ -3820,6 +3820,10 @@
       "IGithub.Collaborator": {
         "type": "object",
         "properties": {
+          "id": {
+            "type": "number",
+            "title": "id\n\nThis means the user's ID."
+          },
           "type": {
             "oneOf": [
               {
@@ -3833,10 +3837,6 @@
               }
             ],
             "title": "type"
-          },
-          "id": {
-            "type": "number",
-            "title": "id\n\nThis means the user's ID."
           },
           "login": {
             "type": "string",
@@ -3855,8 +3855,8 @@
           }
         },
         "required": [
-          "type",
           "id",
+          "type",
           "login",
           "html_url",
           "avatar_url"
@@ -4889,7 +4889,7 @@
             "title": "activity type"
           },
           "actor": {
-            "$ref": "#/components/schemas/MyPickIGithub.Usertypeidloginavatar_url",
+            "$ref": "#/components/schemas/MyPickIGithub.Useridtypeloginavatar_url",
             "title": "actor"
           }
         },
@@ -4901,9 +4901,13 @@
           "actor"
         ]
       },
-      "MyPickIGithub.Usertypeidloginavatar_url": {
+      "MyPickIGithub.Useridtypeloginavatar_url": {
         "type": "object",
         "properties": {
+          "id": {
+            "type": "number",
+            "title": "id\n\nThis means the user's ID."
+          },
           "type": {
             "oneOf": [
               {
@@ -4918,10 +4922,6 @@
             ],
             "title": "type"
           },
-          "id": {
-            "type": "number",
-            "title": "id\n\nThis means the user's ID."
-          },
           "login": {
             "type": "string",
             "title": "login",
@@ -4934,8 +4934,8 @@
           }
         },
         "required": [
-          "type",
           "id",
+          "type",
           "login",
           "avatar_url"
         ]
@@ -5373,22 +5373,22 @@
             ],
             "title": "author_association"
           },
-          "user": {
-            "$ref": "#/components/schemas/MyPickIGithub.Usertypeidloginhtml_urlavatar_url",
-            "title": "user"
-          },
           "id": {
             "type": "integer",
             "title": "id"
-          },
-          "body": {
-            "type": "string",
-            "title": "body"
           },
           "created_at": {
             "type": "string",
             "format": "date-time",
             "title": "created_at"
+          },
+          "user": {
+            "$ref": "#/components/schemas/MyPickIGithub.Useridtypeloginhtml_urlavatar_url",
+            "title": "user"
+          },
+          "body": {
+            "type": "string",
+            "title": "body"
           },
           "updated_at": {
             "type": "string",
@@ -5399,9 +5399,9 @@
         "required": [
           "issue_url",
           "author_association",
-          "user",
           "id",
           "created_at",
+          "user",
           "updated_at"
         ]
       },
@@ -5856,14 +5856,14 @@
             "type": "integer",
             "title": "id"
           },
-          "body": {
-            "type": "string",
-            "title": "body"
-          },
           "created_at": {
             "type": "string",
             "format": "date-time",
             "title": "created_at"
+          },
+          "body": {
+            "type": "string",
+            "title": "body"
           },
           "updated_at": {
             "type": "string",
@@ -6785,7 +6785,7 @@
                 "title": "sha"
               },
               "user": {
-                "$ref": "#/components/schemas/MyPickIGithub.Usertypeidlogin",
+                "$ref": "#/components/schemas/MyPickIGithub.Useridtypelogin",
                 "title": "user"
               },
               "repo": {
@@ -6825,7 +6825,7 @@
                 "title": "sha"
               },
               "user": {
-                "$ref": "#/components/schemas/MyPickIGithub.Usertypeidlogin",
+                "$ref": "#/components/schemas/MyPickIGithub.Useridtypelogin",
                 "title": "user"
               },
               "repo": {
@@ -6885,7 +6885,7 @@
           "requested_reviewers": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/MyPickIGithub.Usertypeidlogin"
+              "$ref": "#/components/schemas/MyPickIGithub.Useridtypelogin"
             },
             "title": "requested_reviewers"
           },
@@ -6935,7 +6935,7 @@
                 "type": "null"
               },
               {
-                "$ref": "#/components/schemas/MyPickIGithub.Usertypeidlogin"
+                "$ref": "#/components/schemas/MyPickIGithub.Useridtypelogin"
               }
             ],
             "title": "merged_by"
@@ -7050,7 +7050,7 @@
             "description": "title of the issue"
           },
           "user": {
-            "$ref": "#/components/schemas/MyPickIGithub.Usertypeidlogin",
+            "$ref": "#/components/schemas/MyPickIGithub.Useridtypelogin",
             "title": "user"
           },
           "body": {
@@ -7211,7 +7211,7 @@
             "title": "description"
           },
           "creator": {
-            "$ref": "#/components/schemas/MyPickIGithub.Usertypeidlogin",
+            "$ref": "#/components/schemas/MyPickIGithub.Useridtypelogin",
             "title": "creator"
           },
           "open_issues": {
@@ -7667,7 +7667,7 @@
                 "type": "null"
               },
               {
-                "$ref": "#/components/schemas/MyPickIGithub.Usertypeidlogin"
+                "$ref": "#/components/schemas/MyPickIGithub.Useridtypelogin"
               }
             ],
             "title": "closed_by"
@@ -7714,7 +7714,7 @@
             "description": "title of the issue"
           },
           "user": {
-            "$ref": "#/components/schemas/MyPickIGithub.Usertypeidlogin",
+            "$ref": "#/components/schemas/MyPickIGithub.Useridtypelogin",
             "title": "user"
           },
           "body": {
@@ -8465,6 +8465,10 @@
             },
             "title": "pinned_repositories\nIt is a repository where the user puts a pin on his profile, which is usually used to display his or her proud history."
           },
+          "id": {
+            "type": "number",
+            "title": "id\n\nThis means the user's ID."
+          },
           "type": {
             "oneOf": [
               {
@@ -8478,10 +8482,6 @@
               }
             ],
             "title": "type"
-          },
-          "id": {
-            "type": "number",
-            "title": "id\n\nThis means the user's ID."
           },
           "login": {
             "type": "string",
@@ -8503,8 +8503,8 @@
           "updated_at",
           "profile_repository",
           "pinned_repositories",
-          "type",
           "id",
+          "type",
           "login",
           "avatar_url"
         ]
@@ -9132,7 +9132,7 @@
                 "title": "sha"
               },
               "user": {
-                "$ref": "#/components/schemas/MyPickIGithub.Usertypeidlogin",
+                "$ref": "#/components/schemas/MyPickIGithub.Useridtypelogin",
                 "title": "user"
               },
               "repo": {
@@ -9172,7 +9172,7 @@
                 "title": "sha"
               },
               "user": {
-                "$ref": "#/components/schemas/MyPickIGithub.Usertypeidlogin",
+                "$ref": "#/components/schemas/MyPickIGithub.Useridtypelogin",
                 "title": "user"
               },
               "repo": {
@@ -9196,13 +9196,18 @@
             ],
             "title": "head branch info"
           },
-          "user": {
-            "$ref": "#/components/schemas/MyPickIGithub.Usertypeidlogin",
-            "title": "user"
-          },
           "id": {
             "type": "integer",
             "title": "issue id"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "created_at"
+          },
+          "user": {
+            "$ref": "#/components/schemas/MyPickIGithub.Useridtypelogin",
+            "title": "user"
           },
           "body": {
             "oneOf": [
@@ -9299,11 +9304,6 @@
             "type": "boolean",
             "title": "draft\n\nIndicates whether or not the pull request is a draft."
           },
-          "created_at": {
-            "type": "string",
-            "format": "date-time",
-            "title": "created_at"
-          },
           "updated_at": {
             "type": "string",
             "format": "date-time",
@@ -9352,7 +9352,7 @@
           "requested_reviewers": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/MyPickIGithub.Usertypeidlogin"
+              "$ref": "#/components/schemas/MyPickIGithub.Useridtypelogin"
             },
             "title": "requested_reviewers"
           },
@@ -9433,12 +9433,12 @@
           "title",
           "base",
           "head",
-          "user",
           "id",
+          "created_at",
+          "user",
           "state",
           "labels",
           "html_url",
-          "created_at",
           "updated_at",
           "milestone",
           "author_association",
