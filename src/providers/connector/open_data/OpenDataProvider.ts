@@ -362,11 +362,10 @@ export namespace OpenDataProvider {
         dataType: "JSON",
       };
 
-      const queryString = Object.entries(queryObject)
-        .map(([key, value]) => `${key}=${value}`)
-        .join("&");
+      const queryString = createQueryParameter(queryObject);
 
       const res = await axios.get(`${baseUrl}?${queryString}`);
+      console.log(JSON.stringify(res.data, null, 2));
       const data =
         res.data as IKoreaMeteorologicalAdministration.IGetVillageForecastInformationOutput;
       return data.response.body.items?.item.map((el) => {
@@ -374,40 +373,56 @@ export namespace OpenDataProvider {
         return { ...el, nx: lat, ny: lng };
       });
     } catch (error) {
-      const type = "latitude_and_longitude" as const;
-      return await getShortTermForecastByOpenWhatherMap({ type, nx, ny });
+      if (input.type === "latitude_and_longitude") {
+        return await getShortTermForecastByOpenWhatherMap({
+          type: input.type,
+          nx: input.nx,
+          ny: input.ny,
+        });
+      } else {
+        const { x, y } = dfs_xy_conv("toLL", input.ny, input.nx);
+        return await getShortTermForecastByOpenWhatherMap({
+          type: input.type,
+          nx: x,
+          ny: y,
+        });
+      }
     }
   }
 
   export async function getShortTermForecastByOpenWhatherMap(
     input: IKoreaMeteorologicalAdministration.IGetVillageForecastInformationInput,
   ) {
-    const res = await axios.get(
-      "https://api.openweathermap.org/data/2.5/weather",
-      {
-        params: {
-          appid: ConnectorGlobal.env.OPEN_WEATHER_API_KEY,
-          lat: input.ny,
-          lon: input.nx,
+    try {
+      const res = await axios.get(
+        "https://api.openweathermap.org/data/2.5/weather",
+        {
+          params: {
+            appid: ConnectorGlobal.env.OPEN_WEATHER_API_KEY,
+            lat: input.ny,
+            lon: input.nx,
+          },
         },
-      },
-    );
+      );
 
-    console.log(JSON.stringify(res.data, null, 2));
-    const kelvinToCelsius = (kelvin: number) =>
-      Number((kelvin - 273.15).toFixed(1));
-    const { name, main, weather, wind } = res.data;
-    return {
-      city_name: name,
-      weather_main: weather[0].main,
-      weather_description: weather[0].description,
-      temperature: kelvinToCelsius(main.temp),
-      feel_like_temperature: kelvinToCelsius(main.feels_like),
-      temperature_min: kelvinToCelsius(main.temp_min),
-      temperature_max: kelvinToCelsius(main.temp_max),
-      wind_speed: wind.speed,
-      humidity: main.humidity,
-    };
+      console.log(JSON.stringify(res.data, null, 2));
+      const kelvinToCelsius = (kelvin: number) =>
+        Number((kelvin - 273.15).toFixed(1));
+      const { name, main, weather, wind } = res.data;
+      return {
+        city_name: name,
+        weather_main: weather[0].main,
+        weather_description: weather[0].description,
+        temperature: kelvinToCelsius(main.temp),
+        feel_like_temperature: kelvinToCelsius(main.feels_like),
+        temperature_min: kelvinToCelsius(main.temp_min),
+        temperature_max: kelvinToCelsius(main.temp_max),
+        wind_speed: wind.speed,
+        humidity: main.humidity,
+      };
+    } catch (error) {
+      throw error;
+    }
   }
 
   export async function getCopyRight(
