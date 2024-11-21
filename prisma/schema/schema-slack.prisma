@@ -1,0 +1,33 @@
+model slack_users {
+  id            String  @id @db.Uuid
+  slack_user_id String /// Unique ID of the user in Slack
+  status_text   String? /// 유저의 상태 값
+
+  slack_user_snapshots slack_user_snapshots[]
+  last_snapshot        last_snapshots?
+}
+
+model slack_user_snapshots {
+  id            String  @id @db.Uuid
+  slack_user_id String  @db.Uuid
+  fields        Json /// 슬랙 내에서 `Record<string, string>` 형태로 관리되는 여러 정보들
+  name          String
+  display_name  String?
+  real_name     String?
+  deleted       Boolean
+  profile_image String?
+
+  slack_user    slack_users     @relation(fields: [slack_user_id], references: [id])
+  last_snapshot last_snapshots?
+}
+
+model last_snapshots {
+  slack_user_id          String @db.Uuid
+  slack_user_snapshot_id String @db.Uuid
+
+  slack_user          slack_users          @relation(fields: [slack_user_id], references: [id], onDelete: Cascade)
+  slack_user_snapshot slack_user_snapshots @relation(fields: [slack_user_snapshot_id], references: [id], onDelete: Cascade)
+
+  @@unique([slack_user_id])
+  @@unique([slack_user_snapshot_id])
+}
