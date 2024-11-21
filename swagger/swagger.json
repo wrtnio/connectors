@@ -15,7 +15,7 @@
     }
   ],
   "info": {
-    "version": "0.1.352",
+    "version": "0.1.353",
     "title": "@wrtn/connector",
     "description": "wrtn-ecosystem connectors and sdk",
     "license": {
@@ -6389,7 +6389,7 @@
     "/connector/notion/page": {
       "post": {
         "summary": "Create empty page",
-        "description": "Create a Notion page\n\nSince a parent ID is required, when a user gives you a link to the page,\nyou should take out the ID from it and use it, or first look up the list of pages accessible to the user.\nSince Notion prioritizes accessible pages during authentication, creating pages must be sub-pages within the page, which means that there must be a parent page.\nBecause this feature only creates pages and does not create content, we recommend that you call additional content creation connectors if you want to create content.",
+        "description": "Create a Notion page\n\nSince a parent ID is required, when a user gives you a link to the page,\nyou should take out the ID from it and use it, or first look up the list of pages accessible to the user.\nSince Notion prioritizes accessible pages during authentication, creating pages must be sub-pages within the page, which means that there must be a parent page.\nBecause this feature only creates pages and does not create content, we recommend that you call additional content creation connectors if you want to create content.\n\nuser might want a really long, detailed report,\nin which case it is better to write the details for each table of contents and call 'POST /connector/notion/page/markdown' multiple times rather than just one call of this connector.",
         "tags": [
           "Notion"
         ],
@@ -58798,7 +58798,7 @@
                 "title": "NO_REPLIES"
               },
               {
-                "$ref": "#/components/schemas/__type.o2179"
+                "$ref": "#/components/schemas/__type.o2181"
               }
             ],
             "title": "replies"
@@ -59245,14 +59245,14 @@
           "name"
         ]
       },
-      "__type.o2179": {
+      "__type.o2181": {
         "type": "object",
         "properties": {
           "kind": {
             "const": "Listing"
           },
           "data": {
-            "$ref": "#/components/schemas/__type.o2180"
+            "$ref": "#/components/schemas/__type.o2182"
           }
         },
         "required": [
@@ -59260,7 +59260,7 @@
           "data"
         ]
       },
-      "__type.o2180": {
+      "__type.o2182": {
         "type": "object",
         "properties": {
           "after": {
@@ -59280,7 +59280,7 @@
             "items": {
               "oneOf": [
                 {
-                  "$ref": "#/components/schemas/__type.o2181"
+                  "$ref": "#/components/schemas/__type.o2183"
                 },
                 {
                   "type": "object",
@@ -59354,7 +59354,7 @@
           "before"
         ]
       },
-      "__type.o2181": {
+      "__type.o2183": {
         "type": "object",
         "properties": {
           "kind": {
@@ -61727,7 +61727,8 @@
                     "type": "null"
                   },
                   {
-                    "type": "integer"
+                    "type": "number",
+                    "multipleOf": 1
                   }
                 ],
                 "title": "자본금"
@@ -61738,7 +61739,8 @@
                     "type": "null"
                   },
                   {
-                    "type": "integer"
+                    "type": "number",
+                    "multipleOf": 1
                   }
                 ],
                 "title": "매출"
@@ -61804,7 +61806,8 @@
                     "type": "null"
                   },
                   {
-                    "type": "integer"
+                    "type": "number",
+                    "multipleOf": 1
                   }
                 ],
                 "title": "투자건수"
@@ -61815,7 +61818,8 @@
                     "type": "null"
                   },
                   {
-                    "type": "integer"
+                    "type": "number",
+                    "multipleOf": 1
                   }
                 ],
                 "title": "누적투자금액"
@@ -61906,7 +61910,8 @@
                     "type": "null"
                   },
                   {
-                    "type": "integer"
+                    "type": "number",
+                    "multipleOf": 1
                   }
                 ],
                 "title": "고용인원"
@@ -62085,7 +62090,8 @@
                       "type": "null"
                     },
                     {
-                      "type": "integer"
+                      "type": "number",
+                      "multipleOf": 1
                     }
                   ],
                   "title": "트래픽",
@@ -62097,7 +62103,8 @@
                       "type": "null"
                     },
                     {
-                      "type": "integer"
+                      "type": "number",
+                      "multipleOf": 1
                     }
                   ],
                   "title": "트래픽종류"
@@ -62173,7 +62180,8 @@
                       "type": "null"
                     },
                     {
-                      "type": "integer"
+                      "type": "number",
+                      "multipleOf": 1
                     }
                   ],
                   "title": "거래액"
@@ -62184,7 +62192,8 @@
                       "type": "null"
                     },
                     {
-                      "type": "integer"
+                      "type": "number",
+                      "multipleOf": 1
                     }
                   ],
                   "title": "거래건수"
@@ -62259,7 +62268,8 @@
                       "type": "null"
                     },
                     {
-                      "type": "integer"
+                      "type": "number",
+                      "multipleOf": 1
                     }
                   ],
                   "title": "주기",
@@ -62345,7 +62355,8 @@
                       "type": "null"
                     },
                     {
-                      "type": "integer"
+                      "type": "number",
+                      "multipleOf": 1
                     }
                   ],
                   "title": "주기",
@@ -62770,7 +62781,8 @@
                   "title": "사업자등록번호"
                 },
                 "id": {
-                  "type": "integer",
+                  "type": "number",
+                  "multipleOf": 1,
                   "title": "혁신의숲 투자이력 key"
                 },
                 "invstAt": {
@@ -62917,7 +62929,8 @@
                       "pattern": "^([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)$"
                     },
                     {
-                      "type": "integer"
+                      "type": "number",
+                      "multipleOf": 1
                     }
                   ],
                   "title": "투자금액"
@@ -62997,7 +63010,8 @@
                   "title": "사업자등록번호"
                 },
                 "id": {
-                  "type": "integer",
+                  "type": "number",
+                  "multipleOf": 1,
                   "title": "혁신의숲 특허 이력 Key"
                 },
                 "patntAt": {
@@ -63150,7 +63164,8 @@
                       "type": "null"
                     },
                     {
-                      "type": "integer"
+                      "type": "number",
+                      "multipleOf": 1
                     }
                   ],
                   "title": "언급량"
@@ -63318,7 +63333,8 @@
                       "type": "null"
                     },
                     {
-                      "type": "integer"
+                      "type": "number",
+                      "multipleOf": 1
                     }
                   ],
                   "title": "고용인원수"
@@ -63329,7 +63345,8 @@
                       "type": "null"
                     },
                     {
-                      "type": "integer"
+                      "type": "number",
+                      "multipleOf": 1
                     }
                   ],
                   "title": "입사자수"
@@ -63340,7 +63357,8 @@
                       "type": "null"
                     },
                     {
-                      "type": "integer"
+                      "type": "number",
+                      "multipleOf": 1
                     }
                   ],
                   "title": "퇴사자수"
@@ -63406,7 +63424,8 @@
                   "title": "사업자등록번호"
                 },
                 "id": {
-                  "type": "integer",
+                  "type": "number",
+                  "multipleOf": 1,
                   "title": "보도자료데이터key"
                 },
                 "pressAt": {
