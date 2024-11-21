@@ -365,7 +365,6 @@ export namespace OpenDataProvider {
       const queryString = createQueryParameter(queryObject);
 
       const res = await axios.get(`${baseUrl}?${queryString}`);
-      console.log(JSON.stringify(res.data, null, 2));
       const data =
         res.data as IKoreaMeteorologicalAdministration.IGetVillageForecastInformationOutput;
       return data.response.body.items?.item.map((el) => {
@@ -405,7 +404,6 @@ export namespace OpenDataProvider {
         },
       );
 
-      console.log(JSON.stringify(res.data, null, 2));
       const kelvinToCelsius = (kelvin: number) =>
         Number((kelvin - 273.15).toFixed(1));
       const { name, main, weather, wind } = res.data;
