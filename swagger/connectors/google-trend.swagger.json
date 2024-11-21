@@ -17,7 +17,7 @@
   "info": {
     "title": "Google Trend",
     "summary": "오늘의 트렌드를 검색해봐요",
-    "version": "0.1.354",
+    "version": "0.1.356",
     "description": "wrtn-ecosystem connectors and sdk",
     "license": {
       "name": "AGPL-3.0-only"
