@@ -19,20 +19,16 @@ export class WebCrawlerProvider {
   private readonly naverBlogBaseUrl = "https://blog.naver.com";
   private readonly arxivBaseUrl = "https://arxiv.org";
 
-  async getWebContent(url: string): Promise<IWebCrawler.IResponse> {
-    let parsed: URL;
-
+  async getWebContent(
+    input: IWebCrawler.IRequest,
+  ): Promise<IWebCrawler.IResponse> {
     try {
-      parsed = new URL(url);
-    } catch {
-      throw new BadRequestException(`malformed url: ${url}`);
-    }
-
-    try {
-      const html = await this.scrapWeb(parsed.toString());
+      const html = await this.scrapWeb(input);
 
       if (!html) {
-        throw new InternalServerErrorException(`failed to scrape web: ${url}`);
+        throw new InternalServerErrorException(
+          `failed to scrape web: ${input.url}`,
+        );
       }
 
       const $ = load(html);
@@ -47,20 +43,26 @@ export class WebCrawlerProvider {
       const textWithoutNewLines = text.replace(/\s+/g, " ");
       return {
         content: textWithoutNewLines,
-        url: parsed.toString(),
+        url: input.url,
       };
     } catch {
-      throw new UnprocessableEntityException(`unsupported website: ${url}`);
+      throw new UnprocessableEntityException(
+        `unsupported website: ${input.url}`,
+      );
     }
   }
 
-  private async scrapWeb(url: string): Promise<string | null> {
+  private async scrapWeb(input: IWebCrawler.IRequest): Promise<string | null> {
     try {
-      const request = await this.zenRowsClient.get(this.transformUrl(url), {
-        js_render: true,
-        wait: 4500,
-        ...this.getProxyOptions(url),
-      });
+      const request = await this.zenRowsClient.get(
+        this.transformUrl(input.url),
+        {
+          js_render: true,
+          wait: 4500,
+          wait_for: input.wait_for,
+          ...this.getProxyOptions(input.url),
+        },
+      );
       const data = await request.text();
 
       try {
@@ -77,12 +79,12 @@ export class WebCrawlerProvider {
 
           if (json.code === "AUTH004") {
             throw new HttpException(
-              `too many requests: ${url}`,
+              `too many requests: ${input.url}`,
               HttpStatus.TOO_MANY_REQUESTS,
             );
           } else {
             throw new InternalServerErrorException(
-              `failed to scrape web: ${url}`,
+              `failed to scrape web: ${input.url}`,
             );
           }
         }
