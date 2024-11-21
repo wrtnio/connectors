@@ -236,6 +236,9 @@ export namespace ConnectorGlobal {
     RAG_FLOW_SERVER_URL: string & tags.Format<"iri">;
     RAG_FLOW_DOCUMENT_INDEX: string;
     RAG_FLOW_TOPK: string;
+
+    // ZENROWS
+    ZENROWS_API_KEY: string;
   }
 }
 
