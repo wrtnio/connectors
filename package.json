@@ -98,7 +98,7 @@
     "@nestjs/swagger": "^8.0.5",
     "@nestjs/testing": "^10.4.7",
     "@notionhq/client": "^2.2.15",
-    "@samchon/openapi": "^1.2.2",
+    "@samchon/openapi": "^1.2.3",
     "@slack/web-api": "^7.6.0",
     "@tryfabric/mack": "^1.2.1",
     "@tryfabric/martian": "^1.2.4",
