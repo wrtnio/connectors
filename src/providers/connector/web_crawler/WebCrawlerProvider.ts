@@ -10,6 +10,7 @@ import {
 import { load } from "cheerio";
 import { ZenRows } from "zenrows";
 import { ConnectorGlobal } from "../../../ConnectorGlobal";
+import { IWebCrawler } from "@wrtn/connector-api/lib/structures/connector/web_crawler/IWebCrawler";
 
 @Injectable()
 export class WebCrawlerProvider {
@@ -18,7 +19,7 @@ export class WebCrawlerProvider {
   private readonly naverBlogBaseUrl = "https://blog.naver.com";
   private readonly arxivBaseUrl = "https://arxiv.org";
 
-  async qwd(url: string) {
+  async getWebContent(url: string): Promise<IWebCrawler.IResponse> {
     let parsed: URL;
 
     try {
@@ -44,7 +45,10 @@ export class WebCrawlerProvider {
 
       const text = $("body").text().trim();
       const textWithoutNewLines = text.replace(/\s+/g, " ");
-      return textWithoutNewLines;
+      return {
+        content: textWithoutNewLines,
+        url: parsed.toString(),
+      };
     } catch {
       throw new UnprocessableEntityException(`unsupported website: ${url}`);
     }

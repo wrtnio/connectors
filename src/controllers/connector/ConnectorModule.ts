@@ -75,6 +75,7 @@ import { TypeformModule } from "./typeform/TypeformModule";
 import { XModule } from "./x/XModule";
 import { YoutubeSearchModule } from "./youtube_search/YoutubeSearchModule";
 import { ZoomModule } from "./zoom/ZoomModule";
+import { WebCrawlerModule } from "./web_crawler/WebCrawlerModule";
 
 @Module({
   // connectors that require DI of some sort shall be declared as modules
@@ -155,6 +156,7 @@ import { ZoomModule } from "./zoom/ZoomModule";
     XModule,
     RedditModule,
     InnoforestModule,
+    WebCrawlerModule,
   ],
 })
 export class ConnectorModule {}

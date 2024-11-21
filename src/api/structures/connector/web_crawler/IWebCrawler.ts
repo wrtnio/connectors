@@ -10,4 +10,20 @@ export namespace IWebCrawler {
      */
     url: string;
   }
+
+  export interface IResponse {
+    /**
+     * URL to crawl.
+     *
+     * @title Web page URL
+     */
+    url: string;
+
+    /**
+     * Web page content.
+     *
+     * @title Web page content
+     */
+    content: string;
+  }
 }
