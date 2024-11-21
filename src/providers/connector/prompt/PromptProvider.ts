@@ -11,16 +11,31 @@ export class PromptProvider {
 
   async generate(input: IPrompt.IRequest): Promise<IPrompt.IResponse> {
     try {
+      const messages = [];
+
+      if (input.system_prompt) {
+        messages.push({
+          role: "system",
+          content: input.system_prompt,
+        });
+      }
+
+      const createMessage = (userRequest: string, data: any) => {
+        let prompt = `<user_request>\n${userRequest}\n</user_request>`;
+
+        if (data !== null && data !== undefined)
+          prompt += `\n\nRefer below data to accomplish the task:\n<data>${JSON.stringify(data, null, 2)}</data>`;
+
+        return prompt;
+      };
+
+      messages.push({
+        role: "user",
+        content: createMessage(input.user_request, input.data),
+      });
+
       const requestBody = {
-        messages: [
-          {
-            role: "user",
-            content: input.user_request,
-          },
-        ],
-        ...(input.system_prompt && { system: input.system_prompt }),
-        temperature: 0.5,
-        model: ConnectorGlobal.env.HAMLET_PROMPT_NODE_MODEL_NAME,
+        messages: messages,
       };
 
       const res = await axios.post(
@@ -33,7 +48,7 @@ export class PromptProvider {
           },
         },
       );
-      return { result: res.data.content[0].text };
+      return { result: res.data.choices?.[0].message?.content };
     } catch (error) {
       console.error(JSON.stringify(error));
       throw error;
