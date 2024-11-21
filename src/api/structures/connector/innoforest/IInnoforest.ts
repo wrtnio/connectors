@@ -251,12 +251,12 @@ export namespace IInnoforest {
       /**
        * @title 자본금
        */
-      capStockVal: (number & tags.Type<"int64">) | null;
+      capStockVal: (number & tags.MultipleOf<1>) | null;
 
       /**
        * @title 매출
        */
-      revenueVal: (number & tags.Type<"int64">) | null;
+      revenueVal: (number & tags.MultipleOf<1>) | null;
 
       /**
        * @title 수정시간
@@ -295,12 +295,12 @@ export namespace IInnoforest {
       /**
        * @title 투자건수
        */
-      invstCnt: (number & tags.Type<"int64">) | null;
+      invstCnt: (number & tags.MultipleOf<1>) | null;
 
       /**
        * @title 누적투자금액
        */
-      invstSumVal: (number & tags.Type<"int64">) | null;
+      invstSumVal: (number & tags.MultipleOf<1>) | null;
 
       /**
        * 투자금액이 '0' 인 투자이력이 확인될 경우
@@ -351,7 +351,7 @@ export namespace IInnoforest {
       /**
        * @title 고용인원
        */
-      empWholeVal: (number & tags.Type<"int64">) | null;
+      empWholeVal: (number & tags.MultipleOf<1>) | null;
 
       /**
        * @title 수정시간
@@ -456,12 +456,12 @@ export namespace IInnoforest {
        *
        * @title 트래픽
        */
-      usageVal: (number & tags.Type<"int64">) | null;
+      usageVal: (number & tags.MultipleOf<1>) | null;
 
       /**
        * @title 트래픽종류
        */
-      type: (number & tags.Type<"int64">) | null;
+      type: (number & tags.MultipleOf<1>) | null;
 
       /**
        * @title 수정시간
@@ -505,12 +505,12 @@ export namespace IInnoforest {
       /**
        * @title 거래액
        */
-      salesVal: (number & tags.Type<"int64">) | null;
+      salesVal: (number & tags.MultipleOf<1>) | null;
 
       /**
        * @title 거래건수
        */
-      salesCnt: (number & tags.Type<"int64">) | null;
+      salesCnt: (number & tags.MultipleOf<1>) | null;
 
       /**
        * @title 수정시간
@@ -559,7 +559,7 @@ export namespace IInnoforest {
        *
        * @title 주기
        */
-      salesRebuyPerdCd?: (number & tags.Type<"int64">) | null;
+      salesRebuyPerdCd?: (number & tags.MultipleOf<1>) | null;
 
       /**
        * @title 구매율
@@ -613,7 +613,7 @@ export namespace IInnoforest {
        *
        * @title 주기
        */
-      salesAvgBuyPerdCd: (number & tags.Type<"int64">) | null;
+      salesAvgBuyPerdCd: (number & tags.MultipleOf<1>) | null;
 
       /**
        * @title 구매 횟수
@@ -837,7 +837,7 @@ export namespace IInnoforest {
       /**
        * @title 혁신의숲 투자이력 key
        */
-      id: number & tags.Type<"int64">;
+      id: number & tags.MultipleOf<1>;
 
       /**
        * @title 투자일
@@ -883,7 +883,7 @@ export namespace IInnoforest {
       /**
        * @title 투자금액
        */
-      invstVal: (number & tags.Type<"int64">) | `${number}` | null;
+      invstVal: (number & tags.MultipleOf<1>) | `${number}` | null;
 
       /**
        * @title 투자단계한글
@@ -927,7 +927,7 @@ export namespace IInnoforest {
       /**
        * @title 혁신의숲 특허 이력 Key
        */
-      id: number & tags.Type<"int64">;
+      id: number & tags.MultipleOf<1>;
 
       /**
        * @title 특허출원일
@@ -1006,7 +1006,7 @@ export namespace IInnoforest {
       /**
        * @title 언급량
        */
-      patntWordVal: (number & tags.Type<"int64">) | null;
+      patntWordVal: (number & tags.MultipleOf<1>) | null;
 
       /**
        * @title 수정시간
@@ -1104,17 +1104,17 @@ export namespace IInnoforest {
       /**
        * @title 고용인원수
        */
-      empWholeVal: (number & tags.Type<"int64">) | null;
+      empWholeVal: (number & tags.MultipleOf<1>) | null;
 
       /**
        * @title 입사자수
        */
-      empInVal: (number & tags.Type<"int64">) | null;
+      empInVal: (number & tags.MultipleOf<1>) | null;
 
       /**
        * @title 퇴사자수
        */
-      empOutVal: (number & tags.Type<"int64">) | null;
+      empOutVal: (number & tags.MultipleOf<1>) | null;
 
       /**
        * @title 수정시간
@@ -1153,7 +1153,7 @@ export namespace IInnoforest {
       /**
        * @title 보도자료데이터key
        */
-      id: number & tags.Type<"int64">;
+      id: number & tags.MultipleOf<1>;
 
       /**
        * @title 보도일
