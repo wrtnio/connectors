@@ -464,14 +464,14 @@ export namespace IKakaoTalk {
    */
   export type IRefreshAccessTokenOutput = MyPick<
     IGetAccessTokenOutput,
-    "access_token" | "expires_in" | "token_type"
+    "access_token" | "expires_in" | "token_type" | "refresh_token"
   >;
 
   /**
    * @title Conditions to Refresh Kakao Access Token
    */
   export interface IRefreshAccessTokenInput {
-    refresh_token: string;
+    secretKey: string;
   }
 
   /**
