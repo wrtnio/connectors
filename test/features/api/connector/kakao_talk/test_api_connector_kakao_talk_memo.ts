@@ -4,19 +4,6 @@ import CApi from "@wrtn/connector-api/lib/index";
 
 import { ConnectorGlobal } from "../../../../../src/ConnectorGlobal";
 
-export const test_api_kakao_talk_refresh = async (
-  connection: CApi.IConnection,
-) => {
-  /**
-   * 액세스 토큰 갱신.
-   */
-  const res = await CApi.functional.connector.kakao_talk.refresh(connection, {
-    refresh_token: ConnectorGlobal.env.KAKAO_TALK_TEST_REFRESH_TOKEN,
-  });
-
-  typia.assert(res);
-};
-
 export const test_api_kakao_talk_text_memo = async (
   connection: CApi.IConnection,
 ) => {
@@ -42,15 +29,6 @@ export const test_api_kakao_talk_text_memo = async (
 export const test_api_kakao_talk_feed_memo = async (
   connection: CApi.IConnection,
 ) => {
-  /**
-   * 액세스 토큰 갱신.
-   */
-  const res = await CApi.functional.connector.kakao_talk.refresh(connection, {
-    refresh_token: ConnectorGlobal.env.KAKAO_TALK_TEST_REFRESH_TOKEN,
-  });
-
-  typia.assert(res);
-
   /**
    * 피드 메시지 발송.
    */
@@ -138,15 +116,6 @@ export const test_api_kakao_talk_feed_memo = async (
 export const test_api_kakao_talk_get_calendars = async (
   connection: CApi.IConnection,
 ) => {
-  /**
-   * 액세스 토큰 갱신.
-   */
-  const res = await CApi.functional.connector.kakao_talk.refresh(connection, {
-    refresh_token: ConnectorGlobal.env.KAKAO_TALK_TEST_REFRESH_TOKEN,
-  });
-
-  typia.assert(res);
-
   const calendarInfo =
     await CApi.functional.connector.kakao_talk.get_calendars.getCalendars(
       connection,
@@ -161,15 +130,6 @@ export const test_api_kakao_talk_get_calendars = async (
 export const test_api_kakao_talk_get_calendar_events = async (
   connection: CApi.IConnection,
 ) => {
-  /**
-   * 액세스 토큰 갱신.
-   */
-  const res = await CApi.functional.connector.kakao_talk.refresh(connection, {
-    refresh_token: ConnectorGlobal.env.KAKAO_TALK_TEST_REFRESH_TOKEN,
-  });
-
-  typia.assert(res);
-
   /**
    * 일정 조회.
    */
@@ -191,15 +151,6 @@ export const test_api_kakao_talk_get_calendar_events = async (
 export const test_api_kakao_talk_create_event = async (
   connection: CApi.IConnection,
 ) => {
-  /**
-   * 액세스 토큰 갱신.
-   */
-  const res = await CApi.functional.connector.kakao_talk.refresh(connection, {
-    refresh_token: ConnectorGlobal.env.KAKAO_TALK_TEST_REFRESH_TOKEN,
-  });
-
-  typia.assert(res);
-
   /**
    * 일정 생성.
    */
@@ -281,15 +232,6 @@ export const test_api_kakao_talk_create_event = async (
 export const test_api_kakao_talk_list_memo = async (
   connection: CApi.IConnection,
 ) => {
-  /**
-   * 액세스 토큰 갱신.
-   */
-  const res = await CApi.functional.connector.kakao_talk.refresh(connection, {
-    refresh_token: ConnectorGlobal.env.KAKAO_TALK_TEST_REFRESH_TOKEN,
-  });
-
-  typia.assert(res);
-
   /**
    * 리스트 메시지 발송.
    */
@@ -375,15 +317,6 @@ export const test_api_kakao_talk_location_memo = async (
   connection: CApi.IConnection,
 ) => {
   /**
-   * 액세스 토큰 갱신.
-   */
-  const res = await CApi.functional.connector.kakao_talk.refresh(connection, {
-    refresh_token: ConnectorGlobal.env.KAKAO_TALK_TEST_REFRESH_TOKEN,
-  });
-
-  typia.assert(res);
-
-  /**
    * 위치 메시지 발송.
    */
   const sendTextForm =
@@ -428,15 +361,6 @@ export const test_api_kakao_talk_location_memo = async (
 export const test_api_kakao_talk_commerce_memo = async (
   connection: CApi.IConnection,
 ) => {
-  /**
-   * 액세스 토큰 갱신.
-   */
-  const res = await CApi.functional.connector.kakao_talk.refresh(connection, {
-    refresh_token: ConnectorGlobal.env.KAKAO_TALK_TEST_REFRESH_TOKEN,
-  });
-
-  typia.assert(res);
-
   /**
    * 커머스 메시지 발송.
    */
@@ -495,15 +419,6 @@ export const test_api_kakao_talk_commerce_memo = async (
 export const test_api_kakao_talk_commerce_memo_with_redirect_url = async (
   connection: CApi.IConnection,
 ) => {
-  /**
-   * 액세스 토큰 갱신.
-   */
-  const res = await CApi.functional.connector.kakao_talk.refresh(connection, {
-    refresh_token: ConnectorGlobal.env.KAKAO_TALK_TEST_REFRESH_TOKEN,
-  });
-
-  typia.assert(res);
-
   /**
    * 커머스 메시지 발송.
    */

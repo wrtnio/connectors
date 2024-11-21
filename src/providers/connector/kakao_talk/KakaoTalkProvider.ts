@@ -5,7 +5,6 @@ import { IKakaoTalk } from "@wrtn/connector-api/lib/structures/connector/kakao_t
 
 import { ConnectorGlobal } from "../../../ConnectorGlobal";
 import { OAuthSecretProvider } from "../../internal/oauth_secret/OAuthSecretProvider";
-import { IOAuthSecret } from "../../internal/oauth_secret/structures/IOAuthSecret";
 
 export namespace KakaoTalkProvider {
   export async function getFriends(
@@ -17,9 +16,7 @@ export namespace KakaoTalkProvider {
         .map(([key, value]) => `${key}=${value}`)
         .join("&");
 
-      const accessToken = await KakaoTalkProvider.refresh({
-        refresh_token: secretKey,
-      });
+      const accessToken = await KakaoTalkProvider.refresh({ secretKey });
 
       const url = `https://kapi.kakao.com/v1/api/talk/friends?${queryParams}`;
       const res = await axios.get(url, {
@@ -41,9 +38,7 @@ export namespace KakaoTalkProvider {
     try {
       const { secretKey, ...createEventDto } = input;
 
-      const accessToken = await KakaoTalkProvider.refresh({
-        refresh_token: secretKey,
-      });
+      const accessToken = await KakaoTalkProvider.refresh({ secretKey });
 
       const res = await axios.post(
         "https://kapi.kakao.com/v2/api/calendar/create/event",
@@ -75,9 +70,7 @@ export namespace KakaoTalkProvider {
         .map(([key, value]) => `${key}=${value}`)
         .join("&");
 
-      const accessToken = await KakaoTalkProvider.refresh({
-        refresh_token: secretKey,
-      });
+      const accessToken = await KakaoTalkProvider.refresh({ secretKey });
 
       const res = await axios.get(
         `https://kapi.kakao.com/v2/api/calendar/events?${queryParams}`,
@@ -100,9 +93,8 @@ export namespace KakaoTalkProvider {
     input: ICommon.ISecret<"kakao", ["talk_calendar"]>,
   ): Promise<IKakaoTalk.IGetCalendarOutput> {
     try {
-      const accessToken = await KakaoTalkProvider.refresh({
-        refresh_token: input.secretKey,
-      });
+      const secretKey = input.secretKey;
+      const accessToken = await KakaoTalkProvider.refresh({ secretKey });
 
       const res = await axios.get(
         "https://kapi.kakao.com/v2/api/calendar/calendars",
@@ -125,19 +117,17 @@ export namespace KakaoTalkProvider {
     input: IKakaoTalk.IRefreshAccessTokenInput,
   ): Promise<IKakaoTalk.IRefreshAccessTokenOutput> {
     try {
-      const secret = await OAuthSecretProvider.getSecretValue(
-        input.refresh_token,
+      const secret: string = await OAuthSecretProvider.getSecretValue(
+        input.secretKey,
       );
-      const token =
-        typeof secret === "string"
-          ? secret
-          : (secret as IOAuthSecret.ISecretValue).value;
+
+      const url = `https://kauth.kakao.com/oauth/token` as const;
       const res = await axios.post(
-        "https://kauth.kakao.com/oauth/token",
+        url,
         {
           grant_type: "refresh_token",
           client_id: ConnectorGlobal.env.KAKAO_TALK_CLIENT_ID,
-          refresh_token: token,
+          refresh_token: secret,
           client_secret: ConnectorGlobal.env.KAKAO_TALK_CLIENT_SECRET,
         },
         {
@@ -147,7 +137,15 @@ export namespace KakaoTalkProvider {
         },
       );
 
-      return res.data;
+      const data: IKakaoTalk.IRefreshAccessTokenOutput = res.data;
+
+      if (data.refresh_token) {
+        await OAuthSecretProvider.updateSecretValue(input.secretKey, {
+          value: data.refresh_token,
+        });
+      }
+
+      return data;
     } catch (error) {
       console.error(JSON.stringify(error));
       throw error;
@@ -158,9 +156,8 @@ export namespace KakaoTalkProvider {
     input: IKakaoTalk.ISendKakaoTalkToFriendsInput,
   ): Promise<IKakaoTalk.ISendKakaoTalkToFriendsOutput> {
     try {
-      const accessToken = await KakaoTalkProvider.refresh({
-        refresh_token: input.secretKey,
-      });
+      const secretKey = input.secretKey;
+      const accessToken = await KakaoTalkProvider.refresh({ secretKey });
 
       const template: IKakaoTalk.ITextMemoInput = {
         object_type: "text",
@@ -202,9 +199,8 @@ export namespace KakaoTalkProvider {
       | IKakaoTalk.ISendKakaoTalkTextInput,
   ): Promise<IKakaoTalk.IMemoOutput> {
     try {
-      const accessToken = await KakaoTalkProvider.refresh({
-        refresh_token: input.secretKey,
-      });
+      const secretKey = input.secretKey;
+      const accessToken = await KakaoTalkProvider.refresh({ secretKey });
 
       const defaultUrl = "https://studio-pro.wrtn.ai" as const;
       input.template_object.buttons?.forEach((button) => {
