@@ -15,7 +15,7 @@
     }
   ],
   "info": {
-    "version": "0.1.359",
+    "version": "0.1.360",
     "title": "@wrtn/connector",
     "description": "wrtn-ecosystem connectors and sdk",
     "license": {
@@ -12862,6 +12862,38 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/IInnoforest.IFindpressOutput"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/connector/crawler/get-web-content": {
+      "post": {
+        "summary": "Get HTML content from the URL",
+        "description": "Get HTML content from the URL\n\nThis API accepts a URL as input and returns the HTML content of the body of the corresponding web page.\nIt fetches only the <body> element, excluding the head and other parts of the HTML structure, providing developers\nwith a streamlined way to access the main content of a web page for further processing or analysis.\n\nThe API includes a \"Wait For Selector\" option, allowing it to wait for a specific CSS selector\nto be present in the DOM before returning the content.\nThis is useful for ensuring that dynamic elements or data are fully loaded.",
+        "tags": [
+          "Web Crawler"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IWebCrawler.IRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IWebCrawler.IResponse"
                 }
               }
             }
@@ -63872,6 +63904,42 @@
         "required": [
           "corpUniqNum"
         ]
+      },
+      "IWebCrawler.IResponse": {
+        "type": "object",
+        "properties": {
+          "url": {
+            "type": "string",
+            "format": "iri",
+            "title": "Crawled url"
+          },
+          "content": {
+            "type": "string",
+            "title": "Crawled content"
+          }
+        },
+        "required": [
+          "url",
+          "content"
+        ],
+        "title": "Response from crawled web page"
+      },
+      "IWebCrawler.IRequest": {
+        "type": "object",
+        "properties": {
+          "url": {
+            "type": "string",
+            "title": "Target URL to crawl"
+          },
+          "wait_for": {
+            "type": "string",
+            "title": "Wait for a CSS selector to appear before returning content. (not required)"
+          }
+        },
+        "required": [
+          "url"
+        ],
+        "title": "Request to crawl a web page"
       }
     }
   },
@@ -64068,6 +64136,9 @@
     },
     {
       "name": "marp"
+    },
+    {
+      "name": "Web Crawler"
     }
   ],
   "x-samchon-emended": true
