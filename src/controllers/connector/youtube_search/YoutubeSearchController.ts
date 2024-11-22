@@ -23,6 +23,16 @@ export class YoutubeSearchController {
    *
    * For example, if the user wants to retrieve only this year's videos, you should exclude videos that were uploaded in a period that the user does not want, such as "1 year ago" or "2 years ago" with a published_date.
    *
+   * It's great to use with the /transcript endpoint when summarizing videos, analyzing content, extracting keywords, etc.
+   *
+   * Extract the URL from the YouTube video information obtained from the execution result of the corresponding function and use it as the input of the /transcript endpoint.
+   *
+   * Based on the transcripts obtained from the execution result of the /transcript endpoint, perform tasks such as summarizing videos, analyzing content, and extracting keywords.
+   *
+   * Example Use Cases:
+   * Product Reviews: Extract product names, pros, cons, and recommendations from air purifier review videos.
+   * Tutorials: Create text-based tutorials or step-by-step guides from instructional videos.
+   *
    * @summary YouTube video search
    * @param input Conditions for YouTube video search
    * @returns List of YouTube video search results
