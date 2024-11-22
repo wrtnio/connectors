@@ -18,7 +18,7 @@
     "title": "유튜브 검색",
     "summary": "유튜브에 원하는 영상을 검색해요",
     "description": "유튜브에 원하는 영상을 검색해요",
-    "version": "0.1.360",
+    "version": "0.1.361",
     "license": {
       "name": "AGPL-3.0-only"
     }
@@ -65,7 +65,7 @@
     "/connector/youtube-search/transcript": {
       "post": {
         "summary": "Get Youtube video transcripts",
-        "description": "Get Transcripts of Youtube video\n\nYou must use this function when summarizing YouTube videos.\n\nYou must get the transcript content from the result of this function and summarize the content of the video based on the transcript content.\n\nYou should derive the user's request from the result of this function.\n\nFor example, if the user wants the product name and the reason for recommendation, you should find this content in the result of this function and satisfy the user's request.",
+        "description": "Extracts YouTube Video Transcripts\n\nThis function retrieves the text transcript of a YouTube video.\n\nIt's essential for tasks like video summarization, content analysis, and keyword extraction.\n\nBy analyzing the transcript, you can identify key points, main topics, and sentiment expressed in the video.\n\nExample Use Cases:\nProduct Reviews: Extract product names, pros, cons, and recommendations from air purifier review videos.\nTutorials: Create text-based tutorials or step-by-step guides from instructional videos.",
         "tags": [
           "Youtube"
         ],
