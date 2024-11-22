@@ -15,7 +15,7 @@
     }
   ],
   "info": {
-    "version": "0.1.361",
+    "version": "0.1.362",
     "title": "@wrtn/connector",
     "description": "wrtn-ecosystem connectors and sdk",
     "license": {
@@ -5739,7 +5739,7 @@
     "/connector/youtube-search": {
       "post": {
         "summary": "YouTube video search",
-        "description": "Get YouTube video search results\n\nThe search results have the video title and link.\n\nIf most users are going to use this feature, they probably want to watch the video, so it's better to provide a URL.\n\nIn order to filter the period that the user wants, you should use the response field \"published_date\".\n\nFor example, if the user wants to retrieve only this year's videos, you should exclude videos that were uploaded in a period that the user does not want, such as \"1 year ago\" or \"2 years ago\" with a published_date.",
+        "description": "Get YouTube video search results\n\nThe search results have the video title and link.\n\nIf most users are going to use this feature, they probably want to watch the video, so it's better to provide a URL.\n\nIn order to filter the period that the user wants, you should use the response field \"published_date\".\n\nFor example, if the user wants to retrieve only this year's videos, you should exclude videos that were uploaded in a period that the user does not want, such as \"1 year ago\" or \"2 years ago\" with a published_date.\n\nIt's great to use with the /transcript endpoint when summarizing videos, analyzing content, extracting keywords, etc.\n\nExtract the URL from the YouTube video information obtained from the execution result of the corresponding function and use it as the input of the /transcript endpoint.\n\nBased on the transcripts obtained from the execution result of the /transcript endpoint, perform tasks such as summarizing videos, analyzing content, and extracting keywords.\n\nExample Use Cases:\nProduct Reviews: Extract product names, pros, cons, and recommendations from air purifier review videos.\nTutorials: Create text-based tutorials or step-by-step guides from instructional videos.",
         "tags": [
           "Youtube"
         ],
