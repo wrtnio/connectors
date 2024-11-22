@@ -40,15 +40,17 @@ export class YoutubeSearchController {
   }
 
   /**
-   * Get Transcripts of Youtube video
+   * Extracts YouTube Video Transcripts
    *
-   * You must use this function when summarizing YouTube videos.
+   * This function retrieves the text transcript of a YouTube video.
    *
-   * You must get the transcript content from the result of this function and summarize the content of the video based on the transcript content.
+   * It's essential for tasks like video summarization, content analysis, and keyword extraction.
    *
-   * You should derive the user's request from the result of this function.
+   * By analyzing the transcript, you can identify key points, main topics, and sentiment expressed in the video.
    *
-   * For example, if the user wants the product name and the reason for recommendation, you should find this content in the result of this function and satisfy the user's request.
+   * Example Use Cases:
+   * Product Reviews: Extract product names, pros, cons, and recommendations from air purifier review videos.
+   * Tutorials: Create text-based tutorials or step-by-step guides from instructional videos.
    *
    * @summary Get Youtube video transcripts
    * @param input video url
