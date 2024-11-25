@@ -15,7 +15,7 @@
     }
   ],
   "info": {
-    "version": "0.1.362",
+    "version": "0.1.363",
     "title": "@wrtn/connector",
     "description": "wrtn-ecosystem connectors and sdk",
     "license": {
@@ -6866,6 +6866,39 @@
         },
         "responses": {
           "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/INotion.ICreatePageOutput"
+                }
+              }
+            }
+          }
+        },
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg"
+      }
+    },
+    "/connector/notion/page/title": {
+      "put": {
+        "summary": "Update Notion Page Title",
+        "description": "Update Notion Page Title",
+        "tags": [
+          "Notion"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/INotion.IUpdateNotionTitleInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
             "description": "",
             "content": {
               "application/json": {
@@ -28981,7 +29014,7 @@
               }
             ],
             "title": "block_id",
-            "description": "Indicates the ID of the page or block within the page to be deleted.\nIf you delete the page, it will go to the trash, so recovery is possible."
+            "description": "\nIndicates the ID of the page or block within the page to be deleted.\nIf you delete the page, it will go to the trash, so recovery is possible."
           },
           "secretKey": {
             "type": "string",
@@ -32713,8 +32746,7 @@
               }
             },
             "required": [
-              "type",
-              "workspace"
+              "type"
             ],
             "title": "Parent Page",
             "description": "Parent Page Information"
@@ -32750,6 +32782,17 @@
             ],
             "title": "Object Type",
             "description": "Type of page object"
+          },
+          "url": {
+            "type": "string",
+            "format": "iri",
+            "title": "url",
+            "description": "Page url"
+          },
+          "id": {
+            "type": "string",
+            "title": "page id",
+            "description": "Unique id of the generated page"
           },
           "created_time": {
             "type": "string",
@@ -32876,12 +32919,6 @@
             "title": "Whether to archive the page",
             "description": "Whether to archive the page"
           },
-          "url": {
-            "type": "string",
-            "format": "iri",
-            "title": "url",
-            "description": "Page url"
-          },
           "public_url": {
             "oneOf": [
               {
@@ -32894,26 +32931,14 @@
             ],
             "title": "public url",
             "description": "Page public url"
-          },
-          "id": {
-            "type": "string",
-            "title": "page id",
-            "description": "Unique id of the generated page"
-          },
-          "title": {
-            "type": "string",
-            "title": "tilte\n\nTitle of the document you just created"
-          },
-          "link": {
-            "type": "string",
-            "format": "iri",
-            "title": "page link"
           }
         },
         "required": [
           "parent",
           "properties",
           "object",
+          "url",
+          "id",
           "created_time",
           "last_edited_time",
           "created_by",
@@ -32921,11 +32946,7 @@
           "cover",
           "icon",
           "archived",
-          "url",
-          "public_url",
-          "id",
-          "title",
-          "link"
+          "public_url"
         ]
       },
       "INotion.IFindPageProperty": {
@@ -33202,6 +33223,50 @@
           "title",
           "secretKey",
           "markdown"
+        ]
+      },
+      "INotion.IUpdateNotionTitleInput": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "title": "Title of Page",
+            "description": "It means title to update this page"
+          },
+          "pageId": {
+            "oneOf": [
+              {
+                "type": "string",
+                "x-wrtn-prerequisite": {
+                  "method": "post",
+                  "path": "/connector/notion/get/page",
+                  "jmesPath": "[].{value:pageId, label:title}"
+                },
+                "x-wrtn-placeholder": "부모 페이지를 선택하세요."
+              },
+              {
+                "type": "string",
+                "x-wrtn-prerequisite": {
+                  "method": "post",
+                  "path": "/connector/notion/page",
+                  "jmesPath": "[].{value:id, label:id}"
+                },
+                "x-wrtn-placeholder": "부모 페이지를 선택하세요."
+              }
+            ],
+            "title": "Page ID to update"
+          },
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "notion",
+            "title": "Select authentication information",
+            "description": "secret key."
+          }
+        },
+        "required": [
+          "title",
+          "pageId",
+          "secretKey"
         ]
       },
       "IGoogleHotel.IResponse": {
@@ -57575,6 +57640,10 @@
             ],
             "title": "Media information"
           },
+          "archived": {
+            "type": "boolean",
+            "title": "Whether the post is archived"
+          },
           "subreddit": {
             "type": "string",
             "title": "The subreddit name"
@@ -57701,10 +57770,6 @@
           "gilded": {
             "type": "integer",
             "title": "Number of times gilded"
-          },
-          "archived": {
-            "type": "boolean",
-            "title": "Whether the post is archived"
           },
           "no_follow": {
             "type": "boolean",
@@ -58926,6 +58991,10 @@
             "type": "number",
             "title": "Score of the post"
           },
+          "archived": {
+            "type": "boolean",
+            "title": "Whether the post is archived"
+          },
           "subreddit": {
             "type": "string",
             "title": "The subreddit name"
@@ -59052,10 +59121,6 @@
           "gilded": {
             "type": "integer",
             "title": "Number of times gilded"
-          },
-          "archived": {
-            "type": "boolean",
-            "title": "Whether the post is archived"
           },
           "no_follow": {
             "type": "boolean",

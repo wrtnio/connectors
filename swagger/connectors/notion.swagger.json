@@ -18,7 +18,7 @@
     "title": "노션 워크스페이스 관리",
     "summary": "노션 으로 작업 공간을 효율적으로 관리해요.",
     "description": "노션 에서 페이지를 만들고, 내용을 추가하고, 데이터베이스를 관리할 수 있어요. 페이지 검색, 데이터베이스 아이템 관리 등 다양한 기능을 활용할 수 있어요. 프로젝트 관리, 노트 작성, 팀 협업, 지식 베이스 구축 등 다양한 목적으로 사용할 수 있어요. 텍스트, 이미지, 표, 리스트 등 다양한 형식의 콘텐츠를 조합하여 풍부한 문서를 만들 수 있고, 팀원들과 실시간으로 공유하고 협업할 수 있어요.",
-    "version": "0.1.362",
+    "version": "0.1.363",
     "license": {
       "name": "AGPL-3.0-only"
     }
@@ -954,6 +954,39 @@
         },
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg"
       }
+    },
+    "/connector/notion/page/title": {
+      "put": {
+        "summary": "Update Notion Page Title",
+        "description": "Update Notion Page Title",
+        "tags": [
+          "Notion"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/INotion.IUpdateNotionTitleInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/INotion.ICreatePageOutput"
+                }
+              }
+            }
+          }
+        },
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg"
+      }
     }
   },
   "components": {
@@ -983,7 +1016,7 @@
               }
             ],
             "title": "block_id",
-            "description": "Indicates the ID of the page or block within the page to be deleted.\nIf you delete the page, it will go to the trash, so recovery is possible."
+            "description": "\nIndicates the ID of the page or block within the page to be deleted.\nIf you delete the page, it will go to the trash, so recovery is possible."
           },
           "secretKey": {
             "type": "string",
@@ -4715,8 +4748,7 @@
               }
             },
             "required": [
-              "type",
-              "workspace"
+              "type"
             ],
             "title": "Parent Page",
             "description": "Parent Page Information"
@@ -4752,6 +4784,17 @@
             ],
             "title": "Object Type",
             "description": "Type of page object"
+          },
+          "url": {
+            "type": "string",
+            "format": "iri",
+            "title": "url",
+            "description": "Page url"
+          },
+          "id": {
+            "type": "string",
+            "title": "page id",
+            "description": "Unique id of the generated page"
           },
           "created_time": {
             "type": "string",
@@ -4878,12 +4921,6 @@
             "title": "Whether to archive the page",
             "description": "Whether to archive the page"
           },
-          "url": {
-            "type": "string",
-            "format": "iri",
-            "title": "url",
-            "description": "Page url"
-          },
           "public_url": {
             "oneOf": [
               {
@@ -4896,26 +4933,14 @@
             ],
             "title": "public url",
             "description": "Page public url"
-          },
-          "id": {
-            "type": "string",
-            "title": "page id",
-            "description": "Unique id of the generated page"
-          },
-          "title": {
-            "type": "string",
-            "title": "tilte\n\nTitle of the document you just created"
-          },
-          "link": {
-            "type": "string",
-            "format": "iri",
-            "title": "page link"
           }
         },
         "required": [
           "parent",
           "properties",
           "object",
+          "url",
+          "id",
           "created_time",
           "last_edited_time",
           "created_by",
@@ -4923,11 +4948,7 @@
           "cover",
           "icon",
           "archived",
-          "url",
-          "public_url",
-          "id",
-          "title",
-          "link"
+          "public_url"
         ]
       },
       "INotion.IFindPageProperty": {
@@ -5204,6 +5225,50 @@
           "title",
           "secretKey",
           "markdown"
+        ]
+      },
+      "INotion.IUpdateNotionTitleInput": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "title": "Title of Page",
+            "description": "It means title to update this page"
+          },
+          "pageId": {
+            "oneOf": [
+              {
+                "type": "string",
+                "x-wrtn-prerequisite": {
+                  "method": "post",
+                  "path": "/connector/notion/get/page",
+                  "jmesPath": "[].{value:pageId, label:title}"
+                },
+                "x-wrtn-placeholder": "부모 페이지를 선택하세요."
+              },
+              {
+                "type": "string",
+                "x-wrtn-prerequisite": {
+                  "method": "post",
+                  "path": "/connector/notion/page",
+                  "jmesPath": "[].{value:id, label:id}"
+                },
+                "x-wrtn-placeholder": "부모 페이지를 선택하세요."
+              }
+            ],
+            "title": "Page ID to update"
+          },
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "notion",
+            "title": "Select authentication information",
+            "description": "secret key."
+          }
+        },
+        "required": [
+          "title",
+          "pageId",
+          "secretKey"
         ]
       }
     }
