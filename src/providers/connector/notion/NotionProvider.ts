@@ -1237,4 +1237,14 @@ export namespace NotionProvider {
       return block;
     });
   }
+
+  export function updatePageTitle(
+    input: INotion.IUpdateNotionTitleInput,
+  ): Promise<INotion.ICreatePageOutput> {
+    try {
+      return 1 as any;
+    } catch (err) {
+      throw err;
+    }
+  }
 }
