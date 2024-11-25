@@ -363,6 +363,13 @@ export class SlackProvider {
             in: userIds,
           },
         },
+        orderBy: {
+          last_snapshot: {
+            slack_user_snapshot: {
+              snapshot_at: "asc", // 오래 전에 스냅샷된 것부터 조회한다.
+            },
+          },
+        },
       });
 
       return users.length
@@ -413,6 +420,15 @@ export class SlackProvider {
       }
     };
 
+    const update = async (
+      external_user_id: string,
+      input: StrictOmit<ISlack.IGetUserDetailOutput, "id">,
+    ) => {
+      // ConnectorGlobal.prisma.slack_user_snapshots.create({
+      //   data: {},
+      // });
+    };
+
     const savedUsers = await findMany(input.userIds);
     const nonSavedUsers = input.userIds.filter((userId) => {
       return savedUsers.every((el) => el.id !== userId);
@@ -429,7 +445,20 @@ export class SlackProvider {
       response.push({ ...fetched, id: userId });
     }
 
-    return response;
+    // 이미 저장되어 있던 것들 중 오래된 데이터를 최신 상태로 유지하게끔 한다.
+    for await (const user of savedUsers) {
+      try {
+        const fetchedUser = await fetch(user.id);
+        if (fetchedUser) {
+          await update(user.id, fetchedUser);
+        }
+      } catch (err) {
+        // 에러가 날 경우에는 동기화를 멈춘다. (추후 이벤트 방식이나 배치 함수를 작성하여 동기화를 이어갈 것)
+        break;
+      }
+    }
+
+    return [...savedUsers, ...response];
   }
 
   async getUsers(
