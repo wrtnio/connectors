@@ -4,11 +4,13 @@ import { ISlack } from "@wrtn/connector-api/lib/structures/connector/slack/ISlac
 import { PickPartial } from "@wrtn/connector-api/lib/structures/types/PickPartial";
 import { StrictOmit } from "@wrtn/connector-api/lib/structures/types/strictOmit";
 import axios from "axios";
+import { randomUUID } from "node:crypto";
 import slackifyMarkdown from "slackify-markdown";
 import typia, { tags } from "typia";
 import { ElementOf } from "../../../api/structures/types/ElementOf";
 import { ConnectorGlobal } from "../../../ConnectorGlobal";
 import { createQueryParameter } from "../../../utils/CreateQueryParameter";
+import { ErrorUtil } from "../../../utils/ErrorUtil";
 import { retry } from "../../../utils/retry";
 import { OAuthSecretProvider } from "../../internal/oauth_secret/OAuthSecretProvider";
 import { IOAuthSecret } from "../../internal/oauth_secret/structures/IOAuthSecret";
@@ -37,7 +39,7 @@ export class SlackProvider {
         },
       );
     } catch (err) {
-      console.error(JSON.stringify(err));
+      console.log(ErrorUtil.toJSON(err));
       throw err;
     }
   }
@@ -86,7 +88,7 @@ export class SlackProvider {
 
       return { scheduled_messages, next_cursor };
     } catch (err) {
-      console.error(JSON.stringify(err));
+      console.log(ErrorUtil.toJSON(err));
       throw err;
     }
   }
@@ -115,7 +117,7 @@ export class SlackProvider {
 
       return { post_at: String(res.data.post_at) };
     } catch (err) {
-      console.error(JSON.stringify(err));
+      console.log(ErrorUtil.toJSON(err));
       throw err;
     }
   }
@@ -207,7 +209,7 @@ export class SlackProvider {
         },
       );
     } catch (err) {
-      console.error(JSON.stringify(err));
+      console.log(ErrorUtil.toJSON(err));
       throw err;
     }
   }
@@ -305,7 +307,7 @@ export class SlackProvider {
 
     const fetch = async (
       userId: string,
-    ): Promise<ISlack.IGetUserDetailOutput> => {
+    ): Promise<StrictOmit<ISlack.IGetUserDetailOutput, "id">> => {
       const url = `https://slack.com/api/users.profile.get?include_labels=true&user=${userId}`;
       const token = await this.getToken(input.secretKey);
       try {
@@ -323,7 +325,7 @@ export class SlackProvider {
         const fields = this.getUserProfileFields(res.data.profile);
         return { ...res.data.profile, fields };
       } catch (err) {
-        console.error(JSON.stringify(err));
+        console.log(ErrorUtil.toJSON(err));
         throw err;
       }
     };
@@ -346,7 +348,6 @@ export class SlackProvider {
                 select: {
                   id: true,
                   fields: true,
-                  name: true,
                   display_name: true,
                   real_name: true,
                   deleted: true,
@@ -371,7 +372,6 @@ export class SlackProvider {
               id: user.id,
               status_text: user.status_text,
               fields: JSON.parse(typeof fields === "string" ? fields : "{}"),
-              name: last_snapshot?.name ?? null,
               display_name: last_snapshot?.display_name ?? null,
               real_name: last_snapshot?.real_name ?? null,
               deleted: last_snapshot?.deleted ?? null,
@@ -381,14 +381,50 @@ export class SlackProvider {
         : [];
     };
 
+    const create = async (
+      external_user_id: string,
+      input: StrictOmit<ISlack.IGetUserDetailOutput, "id">,
+    ): Promise<void> => {
+      try {
+        console.log(external_user_id, input);
+        const id = randomUUID();
+        await ConnectorGlobal.prisma.slack_users.create({
+          data: {
+            id: id,
+            external_user_id: external_user_id,
+            last_snapshot: {
+              create: {
+                slack_user_snapshot: {
+                  create: {
+                    id: randomUUID(),
+                    slack_user_id: id,
+                    fields: JSON.stringify(input.fields),
+                    display_name: input.display_name,
+                    real_name: input.real_name,
+                    deleted: false,
+                  },
+                },
+              },
+            },
+          },
+        });
+      } catch (err) {
+        console.log(err);
+        console.log(ErrorUtil.toJSON(err));
+      }
+    };
+
     const savedUsers = await findMany(input.userIds);
     const nonSavedUsers = input.userIds.filter((userId) => {
       return savedUsers.every((el) => el.id !== userId);
     });
 
     for await (const userId of nonSavedUsers) {
-      const fetched = await retry(() => {
-        return fetch(userId);
+      const fetched = await retry(async () => {
+        const fetchedUser = await fetch(userId);
+        await create(userId, fetchedUser);
+
+        return fetchedUser;
       })();
 
       console.log(fetched);
@@ -494,7 +530,7 @@ export class SlackProvider {
 
       return { ts: res.data.ts };
     } catch (err) {
-      console.error(JSON.stringify(err));
+      console.log(ErrorUtil.toJSON(err));
       throw err;
     }
   }
