@@ -77,7 +77,9 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y docker-compose
       - name: Start Docker Compose
-        run: docker compose -f docker-compose-test.yml up -d
+        run: |
+          docker compose -f docker-compose-test.yml up -d
+          npx prisma db push
       - name: test
         run: | # sweet_tracker, google_ads는 현재 테스트 대상이 아님
           npm run test -- \
@@ -156,7 +158,9 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y docker-compose
       - name: Start Docker Compose
-        run: docker compose -f docker-compose-test.yml up -d
+        run: |
+          docker compose -f docker-compose-test.yml up -d
+          npx prisma db push
       - name: test
         run: npm run test -- --include slack
 
