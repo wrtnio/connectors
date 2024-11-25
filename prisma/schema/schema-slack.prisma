@@ -8,14 +8,15 @@ model slack_users {
 }
 
 model slack_user_snapshots {
-  id            String  @id @db.Uuid
-  slack_user_id String  @db.Uuid
+  id            String   @id @db.Uuid
+  slack_user_id String   @db.Uuid
   fields        Json /// 슬랙 내에서 `Record<string, string>` 형태로 관리되는 여러 정보들
   name          String
   display_name  String?
   real_name     String?
   deleted       Boolean
   profile_image String?
+  snapshot_at   DateTime @default(now()) @db.Timestamptz /// 마지막으로 조회한 시간을 의미하며, 데이터가 유효하다고 믿을 수 있는 마지막 시간을 의미
 
   slack_user    slack_users     @relation(fields: [slack_user_id], references: [id])
   last_snapshot last_snapshots?
