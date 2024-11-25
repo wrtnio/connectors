@@ -1,15 +1,17 @@
 model slack_users {
-  id            String  @id @db.Uuid
-  slack_user_id String /// Unique ID of the user in Slack
-  status_text   String? /// 유저의 상태 값
+  id               String  @id @db.Uuid
+  external_user_id String  @db.Text /// Unique ID of the user in Slack
+  status_text      String? /// 유저의 상태 값
 
   slack_user_snapshots slack_user_snapshots[]
   last_snapshot        last_snapshots?
+
+  @@unique([external_user_id])
 }
 
 model slack_user_snapshots {
   id            String   @id @db.Uuid
-  slack_user_id String   @db.Uuid
+  slack_user_id String   @db.Uuid /// slack_users.id를 의미한다.
   fields        Json /// 슬랙 내에서 `Record<string, string>` 형태로 관리되는 여러 정보들
   name          String
   display_name  String?
