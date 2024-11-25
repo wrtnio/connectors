@@ -116,8 +116,6 @@ export class YoutubeSearchProvider {
         };
       }
 
-      console.log("FILTERED LANGUAGES", transcript.available_languages);
-
       const secondTranscript = await this.getVideoTranscripts(
         videoId,
         transcript.available_languages[0].lang,
