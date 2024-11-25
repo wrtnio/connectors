@@ -682,4 +682,20 @@ export class NotionController {
   ): Promise<INotion.ICreatePageOutput> {
     return retry(() => NotionProvider.createPageByMarkdown(input))();
   }
+
+  /**
+   * Update Notion Page Title
+   *
+   * @summary Update Notion Page Title
+   */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg",
+  )
+  @ApiTags("Notion")
+  @core.TypedRoute.Put("page/title")
+  async updatePageTitle(
+    @core.TypedBody() input: INotion.IUpdateNotionTitleInput,
+  ): Promise<INotion.ICreatePageOutput> {
+    return retry(() => NotionProvider.updatePageTitle(input))();
+  }
 }

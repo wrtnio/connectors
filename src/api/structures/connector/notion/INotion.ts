@@ -2261,7 +2261,8 @@ export namespace INotion {
     color: string;
   }
 
-  export interface IFindPageByTitleOutput extends ICommonPageOutputInterface {
+  export interface IFindPageByTitleOutput
+    extends StrictOmit<ICommonPageOutputInterface, "title" | "link"> {
     /**
      * Parent Page Information
      *
@@ -2280,7 +2281,7 @@ export namespace INotion {
        *
        * @title Whether the workspace is
        */
-      workspace: boolean;
+      workspace?: boolean;
     };
 
     /**
@@ -2413,6 +2414,7 @@ export namespace INotion {
 
   export interface IDeleteBlockInput extends INotion.ISecret {
     /**
+
      * Indicates the ID of the page or block within the page to be deleted.
      * If you delete the page, it will go to the trash, so recovery is possible.
      *
@@ -2439,5 +2441,19 @@ export namespace INotion {
      * @title markdown
      */
     markdown: string;
+  }
+
+  export interface IUpdateNotionTitleInput extends INotion.ISecret {
+    /**
+     * It means title to update this page
+     *
+     * @title Title of Page
+     */
+    title: string;
+
+    /**
+     * @title Page ID to update
+     */
+    pageId: PageIdInput["pageId"];
   }
 }

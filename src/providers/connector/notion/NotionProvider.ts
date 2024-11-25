@@ -1237,4 +1237,26 @@ export namespace NotionProvider {
       return block;
     });
   }
+
+  export async function updatePageTitle(
+    input: INotion.IUpdateNotionTitleInput,
+  ): Promise<INotion.ICreatePageOutput> {
+    try {
+      const notion = await createClient(input.secretKey);
+      const page = await notion.pages.update({
+        page_id: input.pageId,
+        properties: { title: { title: [{ text: { content: input.title } }] } },
+      });
+
+      const uuid = page.id.replaceAll("-", "");
+
+      return {
+        id: page.id,
+        title: input.title,
+        link: `https://www.notion.so/${uuid}`,
+      };
+    } catch (err) {
+      throw err;
+    }
+  }
 }
