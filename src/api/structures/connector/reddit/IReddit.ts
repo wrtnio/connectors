@@ -2749,7 +2749,7 @@ export namespace IReddit {
     /**
      * @title is_crosspostable_subreddit
      */
-    is_crosspostable_subreddit?: boolean;
+    is_crosspostable_subreddit?: boolean | null;
 
     /**
      * @title should_show_media_in_comments_setting

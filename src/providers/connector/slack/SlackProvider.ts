@@ -39,7 +39,7 @@ export class SlackProvider {
         },
       );
     } catch (err) {
-      console.log(ErrorUtil.toJSON(err));
+      console.error(ErrorUtil.toJSON(err));
       throw err;
     }
   }
@@ -88,7 +88,7 @@ export class SlackProvider {
 
       return { scheduled_messages, next_cursor };
     } catch (err) {
-      console.log(ErrorUtil.toJSON(err));
+      console.error(ErrorUtil.toJSON(err));
       throw err;
     }
   }
@@ -117,7 +117,7 @@ export class SlackProvider {
 
       return { post_at: String(res.data.post_at) };
     } catch (err) {
-      console.log(ErrorUtil.toJSON(err));
+      console.error(ErrorUtil.toJSON(err));
       throw err;
     }
   }
@@ -209,7 +209,7 @@ export class SlackProvider {
         },
       );
     } catch (err) {
-      console.log(ErrorUtil.toJSON(err));
+      console.error(ErrorUtil.toJSON(err));
       throw err;
     }
   }
@@ -325,7 +325,7 @@ export class SlackProvider {
         const fields = this.getUserProfileFields(res.data.profile);
         return { ...res.data.profile, fields };
       } catch (err) {
-        console.log(ErrorUtil.toJSON(err));
+        console.error(ErrorUtil.toJSON(err));
         throw err;
       }
     };
@@ -341,6 +341,7 @@ export class SlackProvider {
       const users = await ConnectorGlobal.prisma.slack_users.findMany({
         select: {
           id: true,
+          external_user_id: true,
           status_text: true,
           last_snapshot: {
             select: {
@@ -369,7 +370,7 @@ export class SlackProvider {
             const last_snapshot = user.last_snapshot?.slack_user_snapshot;
             const fields = last_snapshot?.fields;
             return {
-              id: user.id,
+              id: user.external_user_id,
               status_text: user.status_text,
               fields: JSON.parse(typeof fields === "string" ? fields : "{}"),
               display_name: last_snapshot?.display_name ?? null,
@@ -386,7 +387,6 @@ export class SlackProvider {
       input: StrictOmit<ISlack.IGetUserDetailOutput, "id">,
     ): Promise<void> => {
       try {
-        console.log(external_user_id, input);
         const id = randomUUID();
         await ConnectorGlobal.prisma.slack_users.create({
           data: {
@@ -409,8 +409,7 @@ export class SlackProvider {
           },
         });
       } catch (err) {
-        console.log(err);
-        console.log(ErrorUtil.toJSON(err));
+        console.error(ErrorUtil.toJSON(err));
       }
     };
 
@@ -426,8 +425,6 @@ export class SlackProvider {
 
         return fetchedUser;
       })();
-
-      console.log(fetched);
 
       response.push({ ...fetched, id: userId });
     }
@@ -530,7 +527,7 @@ export class SlackProvider {
 
       return { ts: res.data.ts };
     } catch (err) {
-      console.log(ErrorUtil.toJSON(err));
+      console.error(ErrorUtil.toJSON(err));
       throw err;
     }
   }
