@@ -2261,7 +2261,8 @@ export namespace INotion {
     color: string;
   }
 
-  export interface IFindPageByTitleOutput extends ICommonPageOutputInterface {
+  export interface IFindPageByTitleOutput
+    extends StrictOmit<ICommonPageOutputInterface, "title" | "link"> {
     /**
      * Parent Page Information
      *
@@ -2276,11 +2277,11 @@ export namespace INotion {
       type: string;
 
       /**
-       * Whether the parent page is a workspace
+       * Whether the parent page is a space
        *
        * @title Whether the workspace is
        */
-      workspace: boolean;
+      workspace?: boolean;
     };
 
     /**
