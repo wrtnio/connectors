@@ -7,6 +7,7 @@ import axios from "axios";
 import slackifyMarkdown from "slackify-markdown";
 import typia, { tags } from "typia";
 import { ElementOf } from "../../../api/structures/types/ElementOf";
+import { ConnectorGlobal } from "../../../ConnectorGlobal";
 import { createQueryParameter } from "../../../utils/CreateQueryParameter";
 import { retry } from "../../../utils/retry";
 import { OAuthSecretProvider } from "../../internal/oauth_secret/OAuthSecretProvider";
@@ -300,9 +301,11 @@ export class SlackProvider {
   async getUserDetails(
     input: ISlack.IGetUserDetailInput,
   ): Promise<ISlack.IGetUserDetailOutput[]> {
-    const response = [];
+    const response: ISlack.IGetUserDetailOutput[] = [];
 
-    const fetch = async (userId: string) => {
+    const fetch = async (
+      userId: string,
+    ): Promise<ISlack.IGetUserDetailOutput> => {
       const url = `https://slack.com/api/users.profile.get?include_labels=true&user=${userId}`;
       const token = await this.getToken(input.secretKey);
       try {
@@ -325,8 +328,71 @@ export class SlackProvider {
       }
     };
 
-    for await (const userId of input.userIds) {
-      const fetched = await retry(() => fetch(userId))();
+    /**
+     * DB에 이미 저장된 경우 DB를 통해 유저를 가져온다.
+     * @param userId 슬랙에서 유저를 지칭하는 유니크한 아이디를 의미한다.
+     * @returns
+     */
+    const findMany = async (
+      userIds: string[],
+    ): Promise<ISlack.IGetUserDetailOutput[]> => {
+      const users = await ConnectorGlobal.prisma.slack_users.findMany({
+        select: {
+          id: true,
+          status_text: true,
+          last_snapshot: {
+            select: {
+              slack_user_snapshot: {
+                select: {
+                  id: true,
+                  fields: true,
+                  name: true,
+                  display_name: true,
+                  real_name: true,
+                  deleted: true,
+                  profile_image: true,
+                },
+              },
+            },
+          },
+        },
+        where: {
+          external_user_id: {
+            in: userIds,
+          },
+        },
+      });
+
+      return users.length
+        ? users.map((user) => {
+            const last_snapshot = user.last_snapshot?.slack_user_snapshot;
+            const fields = last_snapshot?.fields;
+            return {
+              id: user.id,
+              status_text: user.status_text,
+              fields: JSON.parse(typeof fields === "string" ? fields : "{}"),
+              name: last_snapshot?.name ?? null,
+              display_name: last_snapshot?.display_name ?? null,
+              real_name: last_snapshot?.real_name ?? null,
+              deleted: last_snapshot?.deleted ?? null,
+              profile_image: last_snapshot?.profile_image ?? null,
+            };
+          })
+        : [];
+    };
+
+    const savedUsers = await findMany(input.userIds);
+    const nonSavedUsers = input.userIds.filter((userId) => {
+      return savedUsers.every((el) => el.id !== userId);
+    });
+
+    for await (const userId of nonSavedUsers) {
+      const fetched = await retry(() => {
+        return fetch(userId);
+      })();
+
+      console.log(fetched);
+
       response.push({ ...fetched, id: userId });
     }
 
@@ -759,7 +825,7 @@ export class SlackProvider {
 
     const requester = user.profile?.display_name
       ? user.profile?.display_name
-      : user.profile?.real_name ?? "";
+      : (user.profile?.real_name ?? "");
 
     const res = await client.chat.postMessage({
       channel: input.channel,
