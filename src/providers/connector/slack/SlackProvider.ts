@@ -343,7 +343,7 @@ export class SlackProvider {
           id: true,
           external_user_id: true,
           status_text: true,
-          last_snapshot: {
+          slack_last_snapshot: {
             select: {
               slack_user_snapshot: {
                 select: {
@@ -364,7 +364,7 @@ export class SlackProvider {
           },
         },
         orderBy: {
-          last_snapshot: {
+          slack_last_snapshot: {
             slack_user_snapshot: {
               snapshot_at: "asc", // 오래 전에 스냅샷된 것부터 조회한다.
             },
@@ -374,16 +374,17 @@ export class SlackProvider {
 
       return users.length
         ? users.map((user) => {
-            const last_snapshot = user.last_snapshot?.slack_user_snapshot;
-            const fields = last_snapshot?.fields;
+            const slack_last_snapshot =
+              user.slack_last_snapshot?.slack_user_snapshot;
+            const fields = slack_last_snapshot?.fields;
             return {
               id: user.external_user_id,
               status_text: user.status_text,
               fields: JSON.parse(typeof fields === "string" ? fields : "{}"),
-              display_name: last_snapshot?.display_name ?? null,
-              real_name: last_snapshot?.real_name ?? null,
-              deleted: last_snapshot?.deleted ?? null,
-              profile_image: last_snapshot?.profile_image ?? null,
+              display_name: slack_last_snapshot?.display_name ?? null,
+              real_name: slack_last_snapshot?.real_name ?? null,
+              deleted: slack_last_snapshot?.deleted ?? null,
+              profile_image: slack_last_snapshot?.profile_image ?? null,
             };
           })
         : [];
@@ -399,7 +400,7 @@ export class SlackProvider {
           data: {
             id: id,
             external_user_id: external_user_id,
-            last_snapshot: {
+            slack_last_snapshot: {
               create: {
                 slack_user_snapshot: {
                   create: {
