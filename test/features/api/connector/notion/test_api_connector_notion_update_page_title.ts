@@ -15,8 +15,6 @@ export const test_api_connector_notion_update_page_title = async (
     },
   );
 
-  console.log("pageToUpdate", pageToUpdate);
-
   const title_to_update = randomUUID();
   const res = await CApi.functional.connector.notion.page.title.updatePageTitle(
     connection,
@@ -38,6 +36,5 @@ export const test_api_connector_notion_update_page_title = async (
       },
     );
 
-  console.log(retrieved);
   typia.assertEquals(retrieved);
 };

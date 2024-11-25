@@ -2277,7 +2277,7 @@ export namespace INotion {
       type: string;
 
       /**
-       * Whether the parent page is a space
+       * Whether the parent page is a workspace
        *
        * @title Whether the workspace is
        */
