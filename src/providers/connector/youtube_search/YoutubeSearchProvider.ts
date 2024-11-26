@@ -286,7 +286,6 @@ export class YoutubeSearchProvider {
       query += ` -${notKeywords.join(" -")}`;
     }
 
-    console.log("QUERY", query);
     return query;
   }
 }
