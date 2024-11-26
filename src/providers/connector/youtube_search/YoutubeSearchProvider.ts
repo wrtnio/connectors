@@ -87,9 +87,7 @@ export class YoutubeSearchProvider {
             ...(input.publishedBefore && {
               publishedBefore: input.publishedBefore,
             }),
-            maxResults: Number(
-              ConnectorGlobal.env.YOUTUBE_OFFICIAL_SEARCH_MAX_RESULTS,
-            ),
+            maxResults: 50,
           },
         },
       );
