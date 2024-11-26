@@ -15,7 +15,7 @@
     }
   ],
   "info": {
-    "version": "0.1.363",
+    "version": "0.1.364",
     "title": "@wrtn/connector",
     "description": "wrtn-ecosystem connectors and sdk",
     "license": {
@@ -5772,6 +5772,42 @@
         },
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Youtube_full.svg",
         "x-wrtn-standalone": true
+      }
+    },
+    "/connector/youtube-search/official": {
+      "post": {
+        "summary": "YouTube video search (official)",
+        "description": "Get YouTube video search results (official)\n\nThis function use the official YouTube API to search for videos.\n\nIf you want users to use the official YouTube API, use this function.\n\nThe search results have the video title and link.\n\nIf most users are going to use this feature, they probably want to watch the video, so it's better to provide a URL.\n\nIn order to filter the period that the user wants, you should use the response field \"published_date\".\n\nFor example, if the user wants to retrieve only this year's videos, you should exclude videos that were uploaded in a period that the user does not want, such as \"1 year ago\" or \"2 years ago\" with a published_date.\n\nIt's great to use with the /transcript endpoint when summarizing videos, analyzing content, extracting keywords, etc.\n\nExtract the URL from the YouTube video information obtained from the execution result of the corresponding function and use it as the input of the /transcript endpoint.\n\nBased on the transcripts obtained from the execution result of the /transcript endpoint, perform tasks such as summarizing videos, analyzing content, and extracting keywords.\n\nExample Use Cases:\nProduct Reviews: Extract product names, pros, cons, and recommendations from air purifier review videos.\nTutorials: Create text-based tutorials or step-by-step guides from instructional videos.",
+        "tags": [
+          "Youtube"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IYoutubeSearch.IYoutubeSearchVideoRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/IYoutubeSearch.IYoutubeSearchVideoResponse"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Youtube_full.svg"
       }
     },
     "/connector/youtube-search/transcript": {
@@ -28576,6 +28612,114 @@
           "and_keywords"
         ],
         "title": "YouTube search conditions"
+      },
+      "IYoutubeSearch.IYoutubeSearchVideoResponse": {
+        "type": "object",
+        "properties": {
+          "videoId": {
+            "type": "string",
+            "title": "videoId",
+            "description": "The Unique ID of the YouTube video."
+          },
+          "title": {
+            "type": "string",
+            "title": "YouTube video title",
+            "description": "Title of the YouTube video that appears in the search results."
+          },
+          "link": {
+            "type": "string",
+            "format": "iri",
+            "title": "YouTube video link",
+            "description": "Links to YouTube videos that appear in search results."
+          },
+          "channel_name": {
+            "type": "string",
+            "title": "YouTube video channel information",
+            "description": "Channel information of YouTube videos that appear in search results."
+          },
+          "channel_link": {
+            "type": "string",
+            "format": "iri",
+            "title": "YouTube Channel Link",
+            "description": "Links to YouTube channels that appear in search results."
+          },
+          "published_date": {
+            "type": "string",
+            "title": "YouTube video published date",
+            "description": "Date the YouTube video was published.\nex) 1 year ago"
+          },
+          "description": {
+            "type": "string",
+            "title": "YouTube video description",
+            "description": "Description of YouTube video."
+          },
+          "thumbnail": {
+            "type": "string",
+            "format": "iri",
+            "title": "Thumbnail image information for YouTube videos",
+            "description": "Thumbnail image information for YouTube videos."
+          }
+        },
+        "required": [
+          "videoId",
+          "title",
+          "link",
+          "channel_name",
+          "channel_link",
+          "published_date",
+          "thumbnail"
+        ]
+      },
+      "IYoutubeSearch.IYoutubeSearchVideoRequest": {
+        "type": "object",
+        "properties": {
+          "and_keywords": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1,
+              "x-wrtn-placeholder": "뤼튼"
+            },
+            "minItems": 1,
+            "title": "Must be included keywords",
+            "description": "Keywords that must be included in search results."
+          },
+          "or_keywords": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1,
+              "x-wrtn-placeholder": "스튜디오"
+            },
+            "title": "Keywords that you would like to see included",
+            "description": "Keywords that you would like to see included in your search results."
+          },
+          "not_keywords": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1,
+              "x-wrtn-placeholder": "폭력"
+            },
+            "title": "Keywords that should not be included",
+            "description": "Keywords that should not be included in search results."
+          },
+          "publishedAfter": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Published after",
+            "description": "Indicates that video search results should only include resources created on or after the specified time."
+          },
+          "publishedBefore": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Published before",
+            "description": "Indicates that video search results should only include resources created before the specified time."
+          }
+        },
+        "required": [
+          "and_keywords"
+        ]
       },
       "IYoutubeSearch.ITranscriptYoutubeResponse": {
         "type": "object",
