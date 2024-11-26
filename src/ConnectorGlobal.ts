@@ -204,6 +204,9 @@ export namespace ConnectorGlobal {
     SEARCH_API_HOST: string & tags.Format<"iri">;
     SEARCH_API_KEY: string;
 
+    // YOUTUBE
+    YOUTUBE_OFFICIAL_SEARCH_MAX_RESULTS: `${number}`;
+
     //----
     // INHOUSE SERVERS
     //----

@@ -1,6 +1,5 @@
 import { getJson } from "serpapi";
 
-import { IConnector } from "@wrtn/connector-api/lib/structures/common/IConnector";
 import { IYoutubeSearch } from "@wrtn/connector-api/lib/structures/connector/youtube_search/IYoutubeSearch";
 
 import { ConnectorGlobal } from "../../../ConnectorGlobal";
@@ -56,6 +55,60 @@ export class YoutubeSearchProvider {
         return viewCountB - viewCountA;
       });
       return output;
+    } catch (err) {
+      console.error(JSON.stringify(err));
+      throw err;
+    }
+  }
+
+  async searchVideo(
+    input: IYoutubeSearch.IYoutubeSearchVideoRequest,
+  ): Promise<IYoutubeSearch.IYoutubeSearchVideoResponse[]> {
+    try {
+      const query = this.createYoutubeSearchQuery(
+        input.and_keywords,
+        input.or_keywords ?? [],
+        input.not_keywords ?? [],
+      );
+      const res = await axios.get(
+        "https://www.googleapis.com/youtube/v3/search",
+        {
+          params: {
+            key: ConnectorGlobal.env.GOOGLE_API_KEY,
+            part: "snippet",
+            q: query,
+            order: "viewCount",
+            type: "video",
+            videoCaption: "closedCaption",
+            videoEmbeddable: "true",
+            ...(input.publishedAfter && {
+              publishedAfter: input.publishedAfter,
+            }),
+            ...(input.publishedBefore && {
+              publishedBefore: input.publishedBefore,
+            }),
+            maxResults: Number(
+              ConnectorGlobal.env.YOUTUBE_OFFICIAL_SEARCH_MAX_RESULTS,
+            ),
+          },
+        },
+      );
+
+      const results: IYoutubeSearch.IYoutubeSearchVideoResponse[] = [];
+      for (const item of res.data.items) {
+        const video: IYoutubeSearch.IYoutubeSearchVideoResponse = {
+          videoId: item.id.videoId,
+          title: item.snippet.title,
+          link: `https://www.youtube.com/watch?v=${item.id.videoId}`,
+          channel_name: item.snippet.channelTitle,
+          channel_link: `https://www.youtube.com/channel/${item.snippet.channelId}`,
+          published_date: item.snippet.publishTime,
+          thumbnail: item.snippet.thumbnails.default.url,
+        };
+        results.push(video);
+      }
+
+      return results;
     } catch (err) {
       console.error(JSON.stringify(err));
       throw err;
@@ -216,5 +269,24 @@ export class YoutubeSearchProvider {
       console.error(JSON.stringify(err));
       throw err;
     }
+  }
+
+  private createYoutubeSearchQuery(
+    andKeywords: string[],
+    orKeywords: string[],
+    notKeywords: string[],
+  ): string {
+    let query = andKeywords.join(" "); // andKeywords는 공백으로 연결
+
+    if (orKeywords.length > 0) {
+      query += ` (${orKeywords.join("|")})`;
+    }
+
+    if (notKeywords.length > 0) {
+      query += ` -${notKeywords.join(" -")}`;
+    }
+
+    console.log("QUERY", query);
+    return query;
   }
 }
