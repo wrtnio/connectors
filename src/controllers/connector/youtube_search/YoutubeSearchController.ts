@@ -53,6 +53,8 @@ export class YoutubeSearchController {
    *
    * This function use the official YouTube API to search for videos.
    *
+   * If you want users to use the official YouTube API, use this function.
+   *
    * The search results have the video title and link.
    *
    * If most users are going to use this feature, they probably want to watch the video, so it's better to provide a URL.
