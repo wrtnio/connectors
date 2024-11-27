@@ -371,8 +371,8 @@ export class SlackProvider {
               )
             ) {
               await this.update(user.id, fetchedUser);
-              response.push({ ...fetchedUser, id: user.external_user_id });
             }
+            response.push({ ...fetchedUser, id: user.external_user_id });
           }
         } catch (err) {
           // 에러가 날 경우에는 동기화를 멈춘다. (추후 이벤트 방식이나 배치 함수를 작성하여 동기화를 이어갈 것)
@@ -1096,16 +1096,30 @@ export class SlackProvider {
     },
   ) {
     try {
-      await ConnectorGlobal.prisma.slack_user_snapshots.create({
+      const snapshot = await ConnectorGlobal.prisma.slack_user_snapshots.create(
+        {
+          select: {
+            id: true,
+          },
+          data: {
+            id: randomUUID(),
+            display_name: input.display_name,
+            profile_image: input.profile_image,
+            real_name: input.real_name,
+            fields: JSON.stringify(input.fields),
+            slack_user_id,
+            deleted: false,
+            snapshot_at: new Date(),
+          },
+        },
+      );
+
+      await ConnectorGlobal.prisma.slack_last_snapshots.update({
         data: {
-          id: randomUUID(),
-          display_name: input.display_name,
-          profile_image: input.profile_image,
-          real_name: input.real_name,
-          fields: JSON.stringify(input.fields),
+          slack_user_snapshot_id: snapshot.id,
+        },
+        where: {
           slack_user_id,
-          deleted: false,
-          snapshot_at: new Date(),
         },
       });
     } catch (err) {
