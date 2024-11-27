@@ -158,7 +158,7 @@ export class AuthService {
 };
 
 // 실패 케이스 검증
-export const test_api_connector_jira_create_issue_fail_case = async (
+export const test_api_connector_jira_create_issue_fail_case_1 = async (
   connection: CApi.IConnection,
 ) => {
   const content =
@@ -172,6 +172,29 @@ export const test_api_connector_jira_create_issue_fail_case = async (
           description: { content, type: "doc", version: 1 },
           issuetype: { id: "10005" },
           priority: { id: "3" },
+          project: { id: "10001" },
+          summary: "New Issue Summary",
+        },
+      },
+    );
+
+  typia.assert(res);
+};
+
+export const test_api_connector_jira_create_issue_fail_case_2 = async (
+  connection: CApi.IConnection,
+) => {
+  const content =
+    "This is a detailed description of the issue in markdown format.";
+  const res =
+    await CApi.functional.connector.jira.issues.markdown.createIssueByMarkdown(
+      connection,
+      {
+        secretKey: JSON.stringify(Configuration),
+        fields: {
+          description: { content, type: "doc", version: 1 },
+          issuetype: { id: "10005" },
+          priority: { id: "2" },
           project: { id: "10001" },
           summary: "New Issue Summary",
         },
