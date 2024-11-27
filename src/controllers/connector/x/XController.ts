@@ -102,4 +102,18 @@ export class XController {
   ): Promise<IX.IGetChunkDocumentOutput> {
     return await this.XProvider.summarizeTweet(input);
   }
+
+  /**
+   * @param input user information, secretKey, query
+   * @returns
+   */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/X_full.svg",
+  )
+  @core.TypedRoute.Post("/general-search")
+  async generalSearch(
+    @core.TypedBody() input: IX.IGeneralSearchRequest,
+  ): Promise<IX.IGeneralSearchResponse[]> {
+    return await this.XProvider.generalSearch(input);
+  }
 }

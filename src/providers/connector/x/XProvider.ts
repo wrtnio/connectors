@@ -507,7 +507,8 @@ export class XProvider {
     input: IX.IGeneralSearchRequest,
   ): Promise<IX.IGeneralSearchResponse[]> {
     try {
-      const accessToken = await this.refresh(input);
+      // const accessToken = await this.refresh(input);
+      // console.log("ACCESS", accessToken);
       const query = this.makeQuery(input);
       console.log("query", query);
       const searchResult = await axios.get(
@@ -515,25 +516,21 @@ export class XProvider {
         {
           params: {
             query: query,
-            // expansions: [
-            //   "author_id",
-            //   "referenced_tweets.id",
-            //   "referenced_tweets.id.author_id",
-            //   "attachments.media_keys",
-            // ],
-            // "media.fields": ["preview_image_url", "url"],
-            // "tweet.fields": "created_at",
-            "user.fields": ["id", "name", "username"],
+            expansions: "author_id",
+            "tweet.fields": "id,text",
+            "user.fields": "id,name,username",
             max_results: input.maxResults,
             sort_order: input.sort_order,
             ...(input.start_time && { start_time: input.start_time }),
             ...(input.end_time && { end_time: input.end_time }),
           },
           headers: {
-            Authorization: `Bearer ${accessToken}`,
+            Authorization: `Bearer ${ConnectorGlobal.env.X_APP_USER_BEARER_TOKEN}`,
           },
         },
       );
+
+      console.log("SE", searchResult.data.includes.users);
 
       const tweetData = searchResult?.data?.data;
       if (!tweetData) {
@@ -552,6 +549,7 @@ export class XProvider {
       }
       return results;
     } catch (err) {
+      console.log("ERR", err);
       console.error(JSON.stringify(err));
       throw err;
     }
@@ -575,15 +573,15 @@ export class XProvider {
       query += ` ${input.not_keywords.map((keyword) => (keyword.includes(" ") ? `-"${keyword}"` : `-${keyword}`)).join(" ")}`;
     }
 
-    if (input.isExcludeQuote === false) {
+    if (input.isExcludeQuote) {
       query += " -is:quote";
     }
 
-    if (input.isExcludeRetweet === false) {
+    if (input.isExcludeRetweet) {
       query += " -is:retweet";
     }
 
-    if (input.isExcludeReply === false) {
+    if (input.isExcludeReply) {
       query += " -is:reply";
     }
 
