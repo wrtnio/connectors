@@ -11,7 +11,6 @@ import typia, { tags } from "typia";
 import { ElementOf } from "../../../api/structures/types/ElementOf";
 import { ConnectorGlobal } from "../../../ConnectorGlobal";
 import { createQueryParameter } from "../../../utils/CreateQueryParameter";
-import { ErrorUtil } from "../../../utils/ErrorUtil";
 import { retry } from "../../../utils/retry";
 import { OAuthSecretProvider } from "../../internal/oauth_secret/OAuthSecretProvider";
 import { IOAuthSecret } from "../../internal/oauth_secret/structures/IOAuthSecret";
@@ -40,7 +39,7 @@ export class SlackProvider {
         },
       );
     } catch (err) {
-      console.error(ErrorUtil.toJSON(err));
+      console.error(JSON.stringify(err));
       throw err;
     }
   }
@@ -89,7 +88,7 @@ export class SlackProvider {
 
       return { scheduled_messages, next_cursor };
     } catch (err) {
-      console.error(ErrorUtil.toJSON(err));
+      console.error(JSON.stringify(err));
       throw err;
     }
   }
@@ -118,7 +117,7 @@ export class SlackProvider {
 
       return { post_at: String(res.data.post_at) };
     } catch (err) {
-      console.error(ErrorUtil.toJSON(err));
+      console.error(JSON.stringify(err));
       throw err;
     }
   }
@@ -210,7 +209,7 @@ export class SlackProvider {
         },
       );
     } catch (err) {
-      console.error(ErrorUtil.toJSON(err));
+      console.error(JSON.stringify(err));
       throw err;
     }
   }
@@ -506,7 +505,7 @@ export class SlackProvider {
 
       return { ts: res.data.ts };
     } catch (err) {
-      console.error(ErrorUtil.toJSON(err));
+      console.error(JSON.stringify(err));
       throw err;
     }
   }
@@ -1009,7 +1008,7 @@ export class SlackProvider {
         fields,
       };
     } catch (err) {
-      console.error(ErrorUtil.toJSON(err));
+      console.error(JSON.stringify(err));
       throw err;
     }
   }
@@ -1126,7 +1125,7 @@ export class SlackProvider {
         },
       });
     } catch (err) {
-      console.error(err);
+      console.error(JSON.stringify(err));
     }
   }
 
@@ -1160,7 +1159,7 @@ export class SlackProvider {
         },
       });
     } catch (err) {
-      console.error(ErrorUtil.toJSON(err));
+      console.error(JSON.stringify(err));
     }
   }
 }
