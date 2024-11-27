@@ -334,44 +334,53 @@ export class SlackProvider {
         return fetchedUser;
       })();
 
-      response.push({ ...fetched, id: external_user_id });
+      if (input.userIds.includes(external_user_id)) {
+        response.push({ ...fetched, id: external_user_id });
+      }
     }
 
-    const targetUsers = savedUsers.filter(
-      (el) => el.external_user_id === el.external_user_id,
+    const targetUsers = savedUsers.filter((el) =>
+      input.userIds.includes(el.external_user_id),
     );
     // 이미 저장되어 있던 것들 중 오래된 데이터를 최신 상태로 유지하게끔 한다.
-    for await (const user of targetUsers) {
-      try {
-        const fetchedUser = await this.getOneSlackUserDetail(
-          user.external_user_id,
-          input.secretKey,
-        );
 
-        if (fetchedUser) {
-          if (
-            !util.isDeepStrictEqual(
-              {
-                display_name: fetchedUser.display_name,
-                fields: fetchedUser.fields,
-                real_name: fetchedUser.real_name,
-                profile_image: fetchedUser.profile_image,
-              },
-              {
-                display_name: user.display_name,
-                fields: user.fields,
-                real_name: user.real_name,
-                profile_image: user.profile_image,
-              },
-            )
-          ) {
-            await this.update(user.id, fetchedUser);
-            response.push({ ...fetchedUser, id: user.external_user_id });
+    let isError: boolean = false;
+    for await (const user of targetUsers) {
+      if (isError === false) {
+        try {
+          const fetchedUser = await this.getOneSlackUserDetail(
+            user.external_user_id,
+            input.secretKey,
+          );
+
+          if (fetchedUser) {
+            if (
+              !util.isDeepStrictEqual(
+                {
+                  display_name: fetchedUser.display_name,
+                  fields: fetchedUser.fields,
+                  real_name: fetchedUser.real_name,
+                  profile_image: fetchedUser.profile_image,
+                },
+                {
+                  display_name: user.display_name,
+                  fields: user.fields,
+                  real_name: user.real_name,
+                  profile_image: user.profile_image,
+                },
+              )
+            ) {
+              await this.update(user.id, fetchedUser);
+              response.push({ ...fetchedUser, id: user.external_user_id });
+            }
           }
+        } catch (err) {
+          // 에러가 날 경우에는 동기화를 멈춘다. (추후 이벤트 방식이나 배치 함수를 작성하여 동기화를 이어갈 것)
+          isError = true;
+          break;
         }
-      } catch (err) {
-        // 에러가 날 경우에는 동기화를 멈춘다. (추후 이벤트 방식이나 배치 함수를 작성하여 동기화를 이어갈 것)
-        break;
+      } else {
+        response.push({ ...user, id: user.external_user_id });
       }
     }
 

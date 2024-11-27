@@ -454,6 +454,7 @@ export const test_api_connector_slack_get_one_user_detail = async (
     );
 
   typia.assert(detail);
+  assert(detail.length === 1);
 };
 
 export const test_api_connector_slack_get_files = async (
