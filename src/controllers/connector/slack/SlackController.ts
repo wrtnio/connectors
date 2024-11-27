@@ -249,7 +249,7 @@ export class SlackController {
   async getUserDetails(
     @TypedBody() input: ISlack.IGetUserDetailInput,
   ): Promise<ISlack.IGetUserDetailOutput[]> {
-    return retry(() => this.slackProvider.getUserDetails(input))();
+    return retry(() => this.slackProvider.getUserDetails(input), 1)();
   }
 
   /**

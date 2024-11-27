@@ -1,10 +1,18 @@
+model slack_team {
+  id               String        @id @db.Uuid /// Unique ID of the team in Studio-Pro
+  external_team_id String /// Unique ID of the team in Slack
+  slack_users      slack_users[]
+}
+
 model slack_users {
-  id               String  @id @db.Uuid
+  id               String  @id @db.Uuid /// Unique ID of the user in Studio-Pro
+  slack_team_id    String  @db.Uuid
   external_user_id String  @db.Text /// Unique ID of the user in Slack
   status_text      String? /// 유저의 상태 값
 
   slack_user_snapshots slack_user_snapshots[]
   slack_last_snapshot  slack_last_snapshots?
+  slack_team           slack_team             @relation(fields: [slack_team_id], references: [id])
 
   @@unique([external_user_id])
 }

@@ -20,6 +20,7 @@ export namespace ISlack {
       "users:read",
       "files:read",
       "usergroups:read",
+      "team:read",
     ]
   >;
 
@@ -805,6 +806,11 @@ export namespace ISlack {
      * @title user id
      */
     id: string;
+
+    /**
+     * @title Team ID
+     */
+    team_id: string;
 
     /**
      * @title name

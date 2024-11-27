@@ -5,6 +5,7 @@ import { PickPartial } from "@wrtn/connector-api/lib/structures/types/PickPartia
 import { StrictOmit } from "@wrtn/connector-api/lib/structures/types/strictOmit";
 import axios from "axios";
 import { randomUUID } from "node:crypto";
+import util from "node:util";
 import slackifyMarkdown from "slackify-markdown";
 import typia, { tags } from "typia";
 import { ElementOf } from "../../../api/structures/types/ElementOf";
@@ -303,155 +304,70 @@ export class SlackProvider {
   async getUserDetails(
     input: ISlack.IGetUserDetailInput,
   ): Promise<ISlack.IGetUserDetailOutput[]> {
+    const { id: external_team_id } = await this.getTeamInfo(input);
+    const createdTeam = await this.getOneOrCreateTeam(external_team_id);
     const response: ISlack.IGetUserDetailOutput[] = [];
-
-    const fetch = async (
-      userId: string,
-    ): Promise<StrictOmit<ISlack.IGetUserDetailOutput, "id">> => {
-      const url = `https://slack.com/api/users.profile.get?include_labels=true&user=${userId}`;
-      const token = await this.getToken(input.secretKey);
-      try {
-        const res = await axios.get(url, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-            "Content-Type": "application/x-www-form-urlencoded; charset=utf-8;",
-          },
-        });
-
-        if (typia.is<{ ok: false; error: "ratelimited" }>(res.data)) {
-          throw new Error(res.data.error);
-        }
-
-        const fields = this.getUserProfileFields(res.data.profile);
-        return { ...res.data.profile, fields };
-      } catch (err) {
-        console.error(ErrorUtil.toJSON(err));
-        throw err;
-      }
-    };
 
     /**
      * DB에 이미 저장된 경우 DB를 통해 유저를 가져온다.
      * @param userId 슬랙에서 유저를 지칭하는 유니크한 아이디를 의미한다.
      * @returns
      */
-    const findMany = async (
-      userIds: string[],
-    ): Promise<ISlack.IGetUserDetailOutput[]> => {
-      const users = await ConnectorGlobal.prisma.slack_users.findMany({
-        select: {
-          id: true,
-          external_user_id: true,
-          status_text: true,
-          slack_last_snapshot: {
-            select: {
-              slack_user_snapshot: {
-                select: {
-                  id: true,
-                  fields: true,
-                  display_name: true,
-                  real_name: true,
-                  deleted: true,
-                  profile_image: true,
-                },
-              },
-            },
-          },
-        },
-        where: {
-          external_user_id: {
-            in: userIds,
-          },
-        },
-        orderBy: {
-          slack_last_snapshot: {
-            slack_user_snapshot: {
-              snapshot_at: "asc", // 오래 전에 스냅샷된 것부터 조회한다.
-            },
-          },
-        },
-      });
-
-      return users.length
-        ? users.map((user) => {
-            const slack_last_snapshot =
-              user.slack_last_snapshot?.slack_user_snapshot;
-            const fields = slack_last_snapshot?.fields;
-            return {
-              id: user.external_user_id,
-              status_text: user.status_text,
-              fields: JSON.parse(typeof fields === "string" ? fields : "{}"),
-              display_name: slack_last_snapshot?.display_name ?? null,
-              real_name: slack_last_snapshot?.real_name ?? null,
-              deleted: slack_last_snapshot?.deleted ?? null,
-              profile_image: slack_last_snapshot?.profile_image ?? null,
-            };
-          })
-        : [];
-    };
-
-    const create = async (
-      external_user_id: string,
-      input: StrictOmit<ISlack.IGetUserDetailOutput, "id">,
-    ): Promise<void> => {
-      try {
-        const id = randomUUID();
-        await ConnectorGlobal.prisma.slack_users.create({
-          data: {
-            id: id,
-            external_user_id: external_user_id,
-            slack_last_snapshot: {
-              create: {
-                slack_user_snapshot: {
-                  create: {
-                    id: randomUUID(),
-                    slack_user_id: id,
-                    fields: JSON.stringify(input.fields),
-                    display_name: input.display_name,
-                    real_name: input.real_name,
-                    deleted: false,
-                  },
-                },
-              },
-            },
-          },
-        });
-      } catch (err) {
-        console.error(ErrorUtil.toJSON(err));
+    const savedUsers = await this.findMany(external_team_id);
+    const nonSavedUsers = input.userIds.filter((external_user_id) => {
+      if (external_user_id === "USLACKBOT") {
+        return false;
       }
-    };
 
-    const update = async (
-      external_user_id: string,
-      input: StrictOmit<ISlack.IGetUserDetailOutput, "id">,
-    ) => {
-      // ConnectorGlobal.prisma.slack_user_snapshots.create({
-      //   data: {},
-      // });
-    };
-
-    const savedUsers = await findMany(input.userIds);
-    const nonSavedUsers = input.userIds.filter((userId) => {
-      return savedUsers.every((el) => el.id !== userId);
+      return savedUsers.every((el) => el.external_user_id !== external_user_id);
     });
 
-    for await (const userId of nonSavedUsers) {
+    for await (const external_user_id of nonSavedUsers) {
       const fetched = await retry(async () => {
-        const fetchedUser = await fetch(userId);
-        await create(userId, fetchedUser);
+        const fetchedUser = await this.getOneSlackUserDetail(
+          external_user_id,
+          input.secretKey,
+        );
+
+        await this.create(createdTeam.id, external_user_id, fetchedUser);
 
         return fetchedUser;
       })();
 
-      response.push({ ...fetched, id: userId });
+      response.push({ ...fetched, id: external_user_id });
     }
 
+    const targetUsers = savedUsers.filter(
+      (el) => el.external_user_id === el.external_user_id,
+    );
     // 이미 저장되어 있던 것들 중 오래된 데이터를 최신 상태로 유지하게끔 한다.
-    for await (const user of savedUsers) {
+    for await (const user of targetUsers) {
       try {
-        const fetchedUser = await fetch(user.id);
+        const fetchedUser = await this.getOneSlackUserDetail(
+          user.external_user_id,
+          input.secretKey,
+        );
+
         if (fetchedUser) {
-          await update(user.id, fetchedUser);
+          if (
+            !util.isDeepStrictEqual(
+              {
+                display_name: fetchedUser.display_name,
+                fields: fetchedUser.fields,
+                real_name: fetchedUser.real_name,
+                profile_image: fetchedUser.profile_image,
+              },
+              {
+                display_name: user.display_name,
+                fields: user.fields,
+                real_name: user.real_name,
+                profile_image: user.profile_image,
+              },
+            )
+          ) {
+            await this.update(user.id, fetchedUser);
+            response.push({ ...fetchedUser, id: user.external_user_id });
+          }
         }
       } catch (err) {
         // 에러가 날 경우에는 동기화를 멈춘다. (추후 이벤트 방식이나 배치 함수를 작성하여 동기화를 이어갈 것)
@@ -459,7 +375,8 @@ export class SlackProvider {
       }
     }
 
-    return [...savedUsers, ...response];
+    return response;
+    // return [...savedUsers, ...response];
   }
 
   async getUsers(
@@ -482,6 +399,7 @@ export class SlackProvider {
       res.data.members.map((el: ISlack.User) => {
         return {
           id: el.id,
+          slack_team_id: el.team_id,
           name: el.name,
           real_name: el.profile.real_name ?? null,
           display_name: el.profile.display_name,
@@ -528,6 +446,25 @@ export class SlackProvider {
     }
 
     return { ts: res.ts };
+  }
+
+  async getTeamInfo(input: ISlack.ISecret): Promise<{
+    id: string;
+    name: String;
+    domain: string;
+    email_domain: string;
+    enterprise_id: string;
+    enterprise_name: string;
+  }> {
+    const url = `https://slack.com/api/team.info`;
+    const token = await this.getToken(input.secretKey);
+    const res = await axios.get(url, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    return res.data.team;
   }
 
   private async sendMessage(input: {
@@ -1028,5 +965,176 @@ export class SlackProvider {
         : (secret as IOAuthSecret.ISecretValue).value;
 
     return token;
+  }
+
+  async getOneSlackUserDetail(
+    external_user_id: string,
+    secretKey: string,
+  ): Promise<
+    StrictOmit<ISlack.IGetUserDetailOutput, "id"> & {
+      profile_image: string | null;
+    }
+  > {
+    const url = `https://slack.com/api/users.profile.get?include_labels=true&user=${external_user_id}`;
+    const token = await this.getToken(secretKey);
+    try {
+      const res = await axios.get(url, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/x-www-form-urlencoded; charset=utf-8;",
+        },
+      });
+
+      if (typia.is<{ ok: false; error: "ratelimited" }>(res.data)) {
+        throw new Error(res.data.error);
+      }
+
+      const fields = this.getUserProfileFields(res.data.profile);
+      return {
+        ...res.data.profile,
+        slack_team_id: res.data.team_id,
+        profile_image: res.data.profile.image_original ?? null,
+        fields,
+      };
+    } catch (err) {
+      console.error(ErrorUtil.toJSON(err));
+      throw err;
+    }
+  }
+
+  async getOneOrCreateTeam(external_team_id: string) {
+    const team = await ConnectorGlobal.prisma.slack_team.findFirst({
+      where: { external_team_id },
+    });
+
+    if (!team) {
+      return await ConnectorGlobal.prisma.slack_team.create({
+        select: {
+          id: true,
+          external_team_id: true,
+        },
+        data: {
+          id: randomUUID(),
+          external_team_id,
+        },
+      });
+    }
+
+    return team;
+  }
+
+  async findMany(external_team_id: string) {
+    const users = await ConnectorGlobal.prisma.slack_users.findMany({
+      select: {
+        id: true,
+        slack_team_id: true,
+        external_user_id: true,
+        status_text: true,
+        slack_last_snapshot: {
+          select: {
+            slack_user_snapshot: {
+              select: {
+                id: true,
+                fields: true,
+                display_name: true,
+                real_name: true,
+                deleted: true,
+                profile_image: true,
+                snapshot_at: true,
+              },
+            },
+          },
+        },
+      },
+      where: {
+        slack_team: {
+          external_team_id: external_team_id,
+        },
+      },
+      orderBy: {
+        slack_last_snapshot: {
+          slack_user_snapshot: {
+            snapshot_at: "asc", // 오래 전에 스냅샷된 것부터 조회한다.
+          },
+        },
+      },
+    });
+
+    return users.length
+      ? users.map((user) => {
+          const slack_last_snapshot =
+            user.slack_last_snapshot?.slack_user_snapshot;
+          const fields = slack_last_snapshot?.fields;
+          return {
+            id: user.id,
+            slack_team_id: user.slack_team_id,
+            external_user_id: user.external_user_id,
+            status_text: user.status_text,
+            fields: JSON.parse(typeof fields === "string" ? fields : "{}"),
+            display_name: slack_last_snapshot?.display_name ?? null,
+            real_name: slack_last_snapshot?.real_name ?? null,
+            deleted: slack_last_snapshot?.deleted ?? null,
+            profile_image: slack_last_snapshot?.profile_image ?? null,
+          };
+        })
+      : [];
+  }
+
+  async update(
+    slack_user_id: string,
+    input: StrictOmit<ISlack.IGetUserDetailOutput, "id"> & {
+      profile_image: string | null;
+    },
+  ) {
+    try {
+      await ConnectorGlobal.prisma.slack_user_snapshots.create({
+        data: {
+          id: randomUUID(),
+          display_name: input.display_name,
+          profile_image: input.profile_image,
+          real_name: input.real_name,
+          fields: JSON.stringify(input.fields),
+          slack_user_id,
+          deleted: false,
+          snapshot_at: new Date(),
+        },
+      });
+    } catch (err) {
+      console.error(err);
+    }
+  }
+
+  async create(
+    team_id: string,
+    external_user_id: string,
+    input: StrictOmit<ISlack.IGetUserDetailOutput, "id">,
+  ): Promise<void> {
+    try {
+      const id = randomUUID();
+      await ConnectorGlobal.prisma.slack_users.create({
+        data: {
+          id: id,
+          slack_team_id: team_id,
+          external_user_id: external_user_id,
+          slack_last_snapshot: {
+            create: {
+              slack_user_snapshot: {
+                create: {
+                  id: randomUUID(),
+                  slack_user_id: id,
+                  fields: JSON.stringify(input.fields),
+                  display_name: input.display_name,
+                  real_name: input.real_name,
+
+                  deleted: false,
+                },
+              },
+            },
+          },
+        },
+      });
+    } catch (err) {
+      console.error(ErrorUtil.toJSON(err));
+    }
   }
 }
