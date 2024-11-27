@@ -373,10 +373,13 @@ export class SlackProvider {
               await this.update(user.id, fetchedUser);
             }
             response.push({ ...fetchedUser, id: user.external_user_id });
+          } else {
+            response.push({ ...user, id: user.external_user_id });
           }
         } catch (err) {
           // 에러가 날 경우에는 동기화를 멈춘다. (추후 이벤트 방식이나 배치 함수를 작성하여 동기화를 이어갈 것)
           isError = true;
+          response.push({ ...user, id: user.external_user_id });
           break;
         }
       } else {
