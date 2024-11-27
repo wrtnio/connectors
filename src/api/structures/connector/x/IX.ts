@@ -1,4 +1,4 @@
-import { JMESPath, Prerequisite } from "@wrtnio/decorators";
+import { JMESPath, Placeholder, Prerequisite } from "@wrtnio/decorators";
 import { ICommon } from "../common/ISecretValue";
 import { tags } from "typia";
 
@@ -302,5 +302,81 @@ export namespace IX {
      * @title query
      */
     query: string;
+  }
+
+  /**
+   * @title Tweet Search Condition
+   */
+  export interface IGeneralSearchRequest extends ISecret {
+    /**
+     * Keywords that must be included in search results.
+     *
+     * @title Must be included keywords
+     */
+    and_keywords: Array<string & tags.MinLength<1> & Placeholder<"cat">> &
+      tags.MinItems<1>;
+
+    /**
+     * Keywords that you would like to see included in your search results.
+     *
+     * @title Keywords that you would like to see included
+     */
+    or_keywords?: Array<string & tags.MinLength<1> & Placeholder<"dog">>;
+
+    /**
+     * Keywords that should not be included in search results.
+     *
+     * @title Keywords that should not be included
+     */
+    not_keywords?: Array<string & tags.MinLength<1> & Placeholder<"horse">>;
+
+    lang: string;
+
+    maxResults: number & tags.Type<"int32"> & tags.Default<10>;
+
+    sort_order: "recency" | "relevancy";
+
+    start_time?: string & tags.Format<"date-time">;
+
+    end_time?: string & tags.Format<"date-time">;
+
+    isExcludeRetweet?: boolean;
+
+    isExcludeReply?: boolean;
+
+    isExcludeQuote?: boolean;
+  }
+
+  /**
+   * @title Tweet Search Result
+   */
+  export interface IGeneralSearchResponse {
+    /**
+     * The unique id of the tweet
+     *
+     * @title tweet ID
+     */
+    id: string;
+
+    /**
+     * The user name of the tweet
+     *
+     * @title user name
+     */
+    userName: string;
+
+    /**
+     * The content text of the tweet
+     *
+     * @title tweet content
+     */
+    text: string;
+
+    /**
+     * The link of the tweet
+     *
+     * @title tweet link
+     */
+    tweet_link: string & tags.Format<"iri">;
   }
 }

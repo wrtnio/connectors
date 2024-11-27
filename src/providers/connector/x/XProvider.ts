@@ -237,8 +237,7 @@ export class XProvider {
             {
               params: {
                 max_results: 100,
-                expansions: "referenced_tweets.id",
-                "tweet.fields": "created_at",
+                expansions: "referenced_tweets.id,tweet.fields,created_at",
                 end_time: new Date().toISOString(),
                 start_time: new Date(
                   new Date().getTime() - 1000 * 60 * 60 * 24,
@@ -502,5 +501,92 @@ export class XProvider {
       console.error(JSON.stringify(err));
       throw err;
     }
+  }
+
+  async generalSearch(
+    input: IX.IGeneralSearchRequest,
+  ): Promise<IX.IGeneralSearchResponse[]> {
+    try {
+      const accessToken = await this.refresh(input);
+      const query = this.makeQuery(input);
+      console.log("query", query);
+      const searchResult = await axios.get(
+        `https://api.x.com/2/tweets/search/all`,
+        {
+          params: {
+            query: query,
+            // expansions: [
+            //   "author_id",
+            //   "referenced_tweets.id",
+            //   "referenced_tweets.id.author_id",
+            //   "attachments.media_keys",
+            // ],
+            // "media.fields": ["preview_image_url", "url"],
+            // "tweet.fields": "created_at",
+            "user.fields": ["id", "name", "username"],
+            max_results: input.maxResults,
+            sort_order: input.sort_order,
+            ...(input.start_time && { start_time: input.start_time }),
+            ...(input.end_time && { end_time: input.end_time }),
+          },
+          headers: {
+            Authorization: `Bearer ${accessToken}`,
+          },
+        },
+      );
+
+      const tweetData = searchResult?.data?.data;
+      if (!tweetData) {
+        return [];
+      }
+
+      const results: IX.IGeneralSearchResponse[] = [];
+
+      for (const tweet of tweetData) {
+        results.push({
+          id: tweet.id,
+          text: tweet.text,
+          userName: tweet.author_id,
+          tweet_link: `https://twitter.com/${tweet.author_id}/status/${tweet.id}`,
+        });
+      }
+      return results;
+    } catch (err) {
+      console.error(JSON.stringify(err));
+      throw err;
+    }
+  }
+
+  private makeQuery(input: IX.IGeneralSearchRequest): string {
+    let query = "";
+
+    if (input.and_keywords && input.and_keywords.length > 0) {
+      query += input.and_keywords
+        .map((keyword) => (keyword.includes(" ") ? `"${keyword}"` : keyword))
+        .join(" ");
+    }
+
+    if (input.or_keywords && input.or_keywords.length > 0) {
+      if (query) query += " ";
+      query += `(${input.or_keywords.map((keyword) => (keyword.includes(" ") ? `"${keyword}"` : keyword)).join(" OR ")})`;
+    }
+
+    if (input.not_keywords && input.not_keywords.length > 0) {
+      query += ` ${input.not_keywords.map((keyword) => (keyword.includes(" ") ? `-"${keyword}"` : `-${keyword}`)).join(" ")}`;
+    }
+
+    if (input.isExcludeQuote === false) {
+      query += " -is:quote";
+    }
+
+    if (input.isExcludeRetweet === false) {
+      query += " -is:retweet";
+    }
+
+    if (input.isExcludeReply === false) {
+      query += " -is:reply";
+    }
+
+    return `${query} lang:${input.lang}`;
   }
 }
