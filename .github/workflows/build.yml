@@ -72,6 +72,14 @@ jobs:
           jq -r 'to_entries|map("\(.key)=\(.value|tostring)")|.[]' <<< "$SECRETS_CONTEXT" > .env
         env:
           SECRETS_CONTEXT: ${{ toJson(secrets) }}
+      - name: Set up Docker Compose
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y docker-compose
+      - name: Start Docker Compose
+        run: |
+          docker compose -f docker-compose-test.yml up -d
+          npx prisma db push
       - name: test
         run: | # sweet_tracker, google_ads는 현재 테스트 대상이 아님
           npm run test -- \
@@ -145,6 +153,14 @@ jobs:
           jq -r 'to_entries|map("\(.key)=\(.value|tostring)")|.[]' <<< "$SECRETS_CONTEXT" > .env
         env:
           SECRETS_CONTEXT: ${{ toJson(secrets) }}
+      - name: Set up Docker Compose
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y docker-compose
+      - name: Start Docker Compose
+        run: |
+          docker compose -f docker-compose-test.yml up -d
+          npx prisma db push
       - name: test
         run: npm run test -- --include slack
 

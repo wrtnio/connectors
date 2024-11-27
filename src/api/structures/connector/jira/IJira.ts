@@ -2262,7 +2262,7 @@ export namespace IJira {
     /**
      * @title issuetype's id
      */
-    id: (string & tags.Pattern<"^(0|[1-9]\\d*)$">) | number;
+    id: string & tags.Pattern<"^(0|[1-9]\\d*)$">;
 
     /**
      * @title issue type name
@@ -2574,9 +2574,7 @@ export namespace IJira {
     /**
      * @title id
      */
-    id:
-      | (string & tags.Pattern<"([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)">)
-      | number;
+    id: string & tags.Pattern<"([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)">;
 
     /**
      * @title meaning of this priority level
