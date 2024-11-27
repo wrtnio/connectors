@@ -15,7 +15,7 @@
     }
   ],
   "info": {
-    "version": "0.1.364",
+    "version": "0.1.365",
     "title": "@wrtn/connector",
     "description": "wrtn-ecosystem connectors and sdk",
     "license": {
@@ -34241,7 +34241,8 @@
               "chat:write",
               "users:read",
               "files:read",
-              "usergroups:read"
+              "usergroups:read",
+              "team:read"
             ],
             "title": "Select authentication information",
             "description": "secret key."
@@ -34314,7 +34315,8 @@
               "chat:write",
               "users:read",
               "files:read",
-              "usergroups:read"
+              "usergroups:read",
+              "team:read"
             ],
             "title": "Select authentication information",
             "description": "secret key."
@@ -34405,7 +34407,8 @@
               "chat:write",
               "users:read",
               "files:read",
-              "usergroups:read"
+              "usergroups:read",
+              "team:read"
             ],
             "title": "Select authentication information",
             "description": "secret key."
@@ -34476,7 +34479,8 @@
               "chat:write",
               "users:read",
               "files:read",
-              "usergroups:read"
+              "usergroups:read",
+              "team:read"
             ],
             "title": "Select authentication information",
             "description": "secret key."
@@ -34522,7 +34526,8 @@
               "chat:write",
               "users:read",
               "files:read",
-              "usergroups:read"
+              "usergroups:read",
+              "team:read"
             ],
             "title": "Select authentication information",
             "description": "secret key."
@@ -34598,7 +34603,8 @@
               "chat:write",
               "users:read",
               "files:read",
-              "usergroups:read"
+              "usergroups:read",
+              "team:read"
             ],
             "title": "Select authentication information",
             "description": "secret key."
@@ -34665,7 +34671,8 @@
               "chat:write",
               "users:read",
               "files:read",
-              "usergroups:read"
+              "usergroups:read",
+              "team:read"
             ],
             "title": "Select authentication information",
             "description": "secret key."
@@ -34750,7 +34757,8 @@
               "chat:write",
               "users:read",
               "files:read",
-              "usergroups:read"
+              "usergroups:read",
+              "team:read"
             ],
             "title": "Select authentication information",
             "description": "secret key."
@@ -34870,7 +34878,8 @@
               "chat:write",
               "users:read",
               "files:read",
-              "usergroups:read"
+              "usergroups:read",
+              "team:read"
             ],
             "title": "Select authentication information",
             "description": "secret key."
@@ -34985,7 +34994,8 @@
               "chat:write",
               "users:read",
               "files:read",
-              "usergroups:read"
+              "usergroups:read",
+              "team:read"
             ],
             "title": "Select authentication information",
             "description": "secret key."
@@ -35115,7 +35125,8 @@
               "chat:write",
               "users:read",
               "files:read",
-              "usergroups:read"
+              "usergroups:read",
+              "team:read"
             ],
             "title": "Select authentication information",
             "description": "secret key."
@@ -35513,7 +35524,8 @@
               "chat:write",
               "users:read",
               "files:read",
-              "usergroups:read"
+              "usergroups:read",
+              "team:read"
             ],
             "title": "Select authentication information",
             "description": "secret key."
@@ -35636,7 +35648,8 @@
               "chat:write",
               "users:read",
               "files:read",
-              "usergroups:read"
+              "usergroups:read",
+              "team:read"
             ],
             "title": "Select authentication information",
             "description": "secret key."
@@ -35745,7 +35758,8 @@
               "chat:write",
               "users:read",
               "files:read",
-              "usergroups:read"
+              "usergroups:read",
+              "team:read"
             ],
             "title": "Select authentication information",
             "description": "secret key."
@@ -36039,7 +36053,8 @@
               "chat:write",
               "users:read",
               "files:read",
-              "usergroups:read"
+              "usergroups:read",
+              "team:read"
             ],
             "title": "Select authentication information",
             "description": "secret key."
@@ -36093,7 +36108,8 @@
               "chat:write",
               "users:read",
               "files:read",
-              "usergroups:read"
+              "usergroups:read",
+              "team:read"
             ],
             "title": "Select authentication information",
             "description": "secret key."
@@ -38283,25 +38299,13 @@
             "type": "object",
             "properties": {
               "id": {
-                "oneOf": [
-                  {
-                    "type": "number",
-                    "x-wrtn-prerequisite": {
-                      "method": "post",
-                      "path": "/connector/jira/get-issue-types",
-                      "jmesPath": "issuetypes[].{value:id, label:name}"
-                    }
-                  },
-                  {
-                    "type": "string",
-                    "pattern": "^(0|[1-9]\\d*)$",
-                    "x-wrtn-prerequisite": {
-                      "method": "post",
-                      "path": "/connector/jira/get-issue-types",
-                      "jmesPath": "issuetypes[].{value:id, label:name}"
-                    }
-                  }
-                ],
+                "type": "string",
+                "pattern": "^(0|[1-9]\\d*)$",
+                "x-wrtn-prerequisite": {
+                  "method": "post",
+                  "path": "/connector/jira/get-issue-types",
+                  "jmesPath": "issuetypes[].{value:id, label:name}"
+                },
                 "title": "id of issue type",
                 "description": "The ID of the issue.\nSometimes the user can say the name of the issue type,\nsuch as 'bug' or 'story', but you cannot specify the issue type with the name of the issue type.\nBecause there can be types with the same name.\nTherefore, you must check the issue type with a different connector to verify that it is an issue type that can be used in the project.\n\nHowever, if you handed over the number string type from the beginning, it could be the ID of the issue type."
               }
@@ -38342,25 +38346,13 @@
             "type": "object",
             "properties": {
               "id": {
-                "oneOf": [
-                  {
-                    "type": "number",
-                    "x-wrtn-prerequisite": {
-                      "method": "post",
-                      "path": "/connector/jira/get-issue-priorities",
-                      "jmesPath": "[].{value:id, label:name}"
-                    }
-                  },
-                  {
-                    "type": "string",
-                    "pattern": "([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)",
-                    "x-wrtn-prerequisite": {
-                      "method": "post",
-                      "path": "/connector/jira/get-issue-priorities",
-                      "jmesPath": "[].{value:id, label:name}"
-                    }
-                  }
-                ],
+                "type": "string",
+                "pattern": "([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)",
+                "x-wrtn-prerequisite": {
+                  "method": "post",
+                  "path": "/connector/jira/get-issue-priorities",
+                  "jmesPath": "[].{value:id, label:name}"
+                },
                 "title": "id of proirity",
                 "description": "You can prioritize issues.\nUsers can also prioritize issues in natural languages such as Low, Medium, High, and so on,\nbut when creating issues, ID values for these priorities are required.\nTherefore, you should first call a connector that looks up what priorities are available for the project and issue."
               }
@@ -38516,25 +38508,13 @@
                 "type": "object",
                 "properties": {
                   "id": {
-                    "oneOf": [
-                      {
-                        "type": "number",
-                        "x-wrtn-prerequisite": {
-                          "method": "post",
-                          "path": "/connector/jira/get-issue-types",
-                          "jmesPath": "issuetypes[].{value:id, label:name}"
-                        }
-                      },
-                      {
-                        "type": "string",
-                        "pattern": "^(0|[1-9]\\d*)$",
-                        "x-wrtn-prerequisite": {
-                          "method": "post",
-                          "path": "/connector/jira/get-issue-types",
-                          "jmesPath": "issuetypes[].{value:id, label:name}"
-                        }
-                      }
-                    ],
+                    "type": "string",
+                    "pattern": "^(0|[1-9]\\d*)$",
+                    "x-wrtn-prerequisite": {
+                      "method": "post",
+                      "path": "/connector/jira/get-issue-types",
+                      "jmesPath": "issuetypes[].{value:id, label:name}"
+                    },
                     "title": "id of issue type",
                     "description": "The ID of the issue.\nSometimes the user can say the name of the issue type,\nsuch as 'bug' or 'story', but you cannot specify the issue type with the name of the issue type.\nBecause there can be types with the same name.\nTherefore, you must check the issue type with a different connector to verify that it is an issue type that can be used in the project.\n\nHowever, if you handed over the number string type from the beginning, it could be the ID of the issue type."
                   }
@@ -38575,25 +38555,13 @@
                 "type": "object",
                 "properties": {
                   "id": {
-                    "oneOf": [
-                      {
-                        "type": "number",
-                        "x-wrtn-prerequisite": {
-                          "method": "post",
-                          "path": "/connector/jira/get-issue-priorities",
-                          "jmesPath": "[].{value:id, label:name}"
-                        }
-                      },
-                      {
-                        "type": "string",
-                        "pattern": "([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)",
-                        "x-wrtn-prerequisite": {
-                          "method": "post",
-                          "path": "/connector/jira/get-issue-priorities",
-                          "jmesPath": "[].{value:id, label:name}"
-                        }
-                      }
-                    ],
+                    "type": "string",
+                    "pattern": "([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)",
+                    "x-wrtn-prerequisite": {
+                      "method": "post",
+                      "path": "/connector/jira/get-issue-priorities",
+                      "jmesPath": "[].{value:id, label:name}"
+                    },
                     "title": "id of proirity",
                     "description": "You can prioritize issues.\nUsers can also prioritize issues in natural languages such as Low, Medium, High, and so on,\nbut when creating issues, ID values for these priorities are required.\nTherefore, you should first call a connector that looks up what priorities are available for the project and issue."
                   }
@@ -38994,15 +38962,8 @@
             "title": "issue type name\n\nIt may be name, bug, story or etc."
           },
           "id": {
-            "oneOf": [
-              {
-                "type": "number"
-              },
-              {
-                "type": "string",
-                "pattern": "^(0|[1-9]\\d*)$"
-              }
-            ],
+            "type": "string",
+            "pattern": "^(0|[1-9]\\d*)$",
             "title": "issuetype's id"
           }
         },
@@ -39066,15 +39027,8 @@
             "title": "priority name\n\nIt may be Low, Medium, High."
           },
           "id": {
-            "oneOf": [
-              {
-                "type": "number"
-              },
-              {
-                "type": "string",
-                "pattern": "([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)"
-              }
-            ],
+            "type": "string",
+            "pattern": "([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)",
             "title": "id"
           }
         },
@@ -39329,25 +39283,13 @@
             "title": "key of project"
           },
           "issuetype": {
-            "oneOf": [
-              {
-                "type": "number",
-                "x-wrtn-prerequisite": {
-                  "method": "post",
-                  "path": "/connector/jira/get-issue-types",
-                  "jmesPath": "[].{label:untranslatedName, value:untranslatedName}"
-                }
-              },
-              {
-                "type": "string",
-                "pattern": "^(0|[1-9]\\d*)$",
-                "x-wrtn-prerequisite": {
-                  "method": "post",
-                  "path": "/connector/jira/get-issue-types",
-                  "jmesPath": "[].{label:untranslatedName, value:untranslatedName}"
-                }
-              }
-            ],
+            "type": "string",
+            "pattern": "^(0|[1-9]\\d*)$",
+            "x-wrtn-prerequisite": {
+              "method": "post",
+              "path": "/connector/jira/get-issue-types",
+              "jmesPath": "[].{label:untranslatedName, value:untranslatedName}"
+            },
             "title": "issue type"
           },
           "reporter": {
@@ -39604,15 +39546,8 @@
         "type": "object",
         "properties": {
           "id": {
-            "oneOf": [
-              {
-                "type": "number"
-              },
-              {
-                "type": "string",
-                "pattern": "^(0|[1-9]\\d*)$"
-              }
-            ],
+            "type": "string",
+            "pattern": "^(0|[1-9]\\d*)$",
             "title": "issuetype's id"
           },
           "name": {
@@ -60832,7 +60767,14 @@
             "title": "allow_videos"
           },
           "is_crosspostable_subreddit": {
-            "type": "boolean",
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "boolean"
+              }
+            ],
             "title": "is_crosspostable_subreddit"
           },
           "should_show_media_in_comments_setting": {
@@ -61252,7 +61194,14 @@
             "title": "allow_videos"
           },
           "is_crosspostable_subreddit": {
-            "type": "boolean",
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "boolean"
+              }
+            ],
             "title": "is_crosspostable_subreddit"
           },
           "should_show_media_in_comments_setting": {
