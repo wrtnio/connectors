@@ -27,6 +27,6 @@ export class WebCrawlerController {
   async getWebContent(
     @core.TypedBody() input: IWebCrawler.IRequest,
   ): Promise<IWebCrawler.IResponse> {
-    return retry(() => this.webCrawlerProvider.getWebContent(input))();
+    return retry(() => this.webCrawlerProvider.crawl(input))();
   }
 }
