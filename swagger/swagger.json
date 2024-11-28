@@ -15,7 +15,7 @@
     }
   ],
   "info": {
-    "version": "0.1.365",
+    "version": "0.1.366",
     "title": "@wrtn/connector",
     "description": "wrtn-ecosystem connectors and sdk",
     "license": {
@@ -11989,6 +11989,40 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/IX.IGetChunkDocumentOutput"
+                }
+              }
+            }
+          }
+        },
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/X_full.svg"
+      }
+    },
+    "/connector/x/general-search": {
+      "post": {
+        "summary": "General Search Tweets",
+        "description": "Search for tweets based on search query requested by the user.",
+        "tags": [],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IX.IGeneralSearchRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/IX.IGeneralSearchResponse"
+                  }
                 }
               }
             }
@@ -56318,6 +56352,148 @@
           "query"
         ],
         "title": "Information needed for tweet summary"
+      },
+      "IX.IGeneralSearchResponse": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "tweet ID",
+            "description": "The unique id of the tweet"
+          },
+          "userName": {
+            "type": "string",
+            "title": "user name",
+            "description": "The user name of the tweet"
+          },
+          "text": {
+            "type": "string",
+            "title": "tweet content",
+            "description": "The content text of the tweet"
+          },
+          "tweet_link": {
+            "type": "string",
+            "format": "iri",
+            "title": "tweet link",
+            "description": "The link of the tweet"
+          }
+        },
+        "required": [
+          "id",
+          "userName",
+          "text",
+          "tweet_link"
+        ],
+        "title": "Tweet Search Result"
+      },
+      "IX.IGeneralSearchRequest": {
+        "type": "object",
+        "properties": {
+          "and_keywords": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1,
+              "x-wrtn-placeholder": "cat"
+            },
+            "minItems": 1,
+            "title": "Must be included keywords",
+            "description": "Keywords that must be included in search results."
+          },
+          "or_keywords": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1,
+              "x-wrtn-placeholder": "dog"
+            },
+            "title": "Keywords that you would like to see included",
+            "description": "Keywords that you would like to see included in your search results."
+          },
+          "not_keywords": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1,
+              "x-wrtn-placeholder": "horse"
+            },
+            "title": "Keywords that should not be included",
+            "description": "Keywords that should not be included in search results."
+          },
+          "lang": {
+            "type": "string",
+            "title": "Tweet Settings Language",
+            "description": "Matches posts categorized by X in a specific language.\n\nYou can only pass a single BCP 47 language identifier.\n\nex) You want to setting korean language, you can pass \"ko\"."
+          },
+          "maxResults": {
+            "type": "integer",
+            "default": 10,
+            "title": "Maximum number of search results.",
+            "description": "Sets the maximum number of results to be searched."
+          },
+          "sort_order": {
+            "oneOf": [
+              {
+                "const": "recency",
+                "title": "recency"
+              },
+              {
+                "const": "relevancy",
+                "title": "relevancy"
+              }
+            ],
+            "title": "Sort order",
+            "description": "Determines the sort order.\n- recency: newest\n- relevancy: relevance"
+          },
+          "start_time": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Start time for search tweet",
+            "description": "The oldest UTC timestamp from which the Tweets will be provided.\n\nBy default, a request will return Tweets from up to 30 days ago if you do not include this parameter."
+          },
+          "end_time": {
+            "type": "string",
+            "format": "date-time",
+            "title": "End time for search tweet",
+            "description": "Used with start_time. The newest, most recent UTC timestamp to which the Tweets will be provided.\n\nIf used without start_time, Tweets from 30 days before end_time will be returned by default. If not specified, end_time will default to [now - 30 seconds]."
+          },
+          "isExcludeRetweet": {
+            "type": "boolean",
+            "title": "Whether to remove retweets",
+            "description": "Sets whether to remove retweeted tweets from search results."
+          },
+          "isExcludeReply": {
+            "type": "boolean",
+            "title": "Whether to remove replies",
+            "description": "Sets whether to remove replied tweets from search results."
+          },
+          "isExcludeQuote": {
+            "type": "boolean",
+            "title": "Whether to remove quotes",
+            "description": "Sets whether to remove quoted tweets from search results."
+          },
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "x",
+            "x-wrtn-secret-scopes": [
+              "tweet.read",
+              "tweet.write",
+              "users.read",
+              "follows.read",
+              "list.read"
+            ],
+            "title": "Select authentication information",
+            "description": "secret key."
+          }
+        },
+        "required": [
+          "and_keywords",
+          "lang",
+          "maxResults",
+          "sort_order",
+          "secretKey"
+        ],
+        "title": "Tweet Search Condition"
       },
       "IReddit.IGetHotPostsOutput": {
         "type": "object",
