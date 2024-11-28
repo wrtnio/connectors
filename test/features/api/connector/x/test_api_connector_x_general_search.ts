@@ -11,17 +11,16 @@ export const test_api_connector_x_general_search = async (
     connection,
     {
       secretKey: ConnectorGlobal.env.X_TEST_SECRET,
-      and_keywords: ["고양이"],
-      or_keywords: ["개"],
-      not_keywords: ["토끼"],
+      query: "유행하는 책",
       lang: "ko",
       maxResults: 10,
-      sort_order: "recency",
-      isExcludeQuote: true,
-      isExcludeReply: true,
-      isExcludeRetweet: true,
+      sort_order: "relevancy",
+      // isExcludeQuote: true,
+      // isExcludeReply: true,
+      // isExcludeRetweet: true,
     },
   );
+  console.log("RES", res);
   typia.assert(res);
   return res;
 };
