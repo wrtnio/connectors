@@ -309,26 +309,15 @@ export namespace IX {
    */
   export interface IGeneralSearchRequest extends ISecret {
     /**
-     * Keywords that must be included in search results.
+     * Get tweets by query.
      *
-     * @title Must be included keywords
-     */
-    and_keywords: Array<string & tags.MinLength<1> & Placeholder<"cat">> &
-      tags.MinItems<1>;
-
-    /**
-     * Keywords that you would like to see included in your search results.
+     * The query should be entered in natural language.
      *
-     * @title Keywords that you would like to see included
-     */
-    or_keywords?: Array<string & tags.MinLength<1> & Placeholder<"dog">>;
-
-    /**
-     * Keywords that should not be included in search results.
+     * For example, if the user asks "Search for what books are trending on Twitter these days," the query should be "trending books."
      *
-     * @title Keywords that should not be included
+     * @title search query
      */
-    not_keywords?: Array<string & tags.MinLength<1> & Placeholder<"horse">>;
+    query: string;
 
     /**
      * Matches posts categorized by X in a specific language.
@@ -430,5 +419,59 @@ export namespace IX {
      * @title tweet link
      */
     tweet_link: string & tags.Format<"iri">;
+
+    /**
+     * Metric data for the tweet
+     *
+     * @title metric
+     */
+    metric: IMetric;
+  }
+
+  /**
+   * @title Metric for tweet
+   */
+  interface IMetric {
+    /**
+     *
+     *
+     * @title Retweet Count
+     */
+    retweet_count: number & tags.Type<"int32">;
+
+    /**
+     * Indicates how many replies a tweet has.
+     *
+     * @title Reply Count
+     */
+    reply_count: number & tags.Type<"int32">;
+
+    /**
+     * Indicates how many likes a tweet has received.
+     *
+     * @title Like Count
+     */
+    like_count: number & tags.Type<"int32">;
+
+    /**
+     * Indicates how many times a tweet has been quoted.
+     *
+     * @title Quote Count
+     */
+    quote_count: number & tags.Type<"int32">;
+
+    /**
+     * Indicates how many times a tweet has been bookmarked.
+     *
+     * @title Bookmark Count
+     */
+    bookmark_count: number & tags.Type<"int32">;
+
+    /**
+     * Indicates how many times a tweet has been viewed.
+     *
+     * @title Impression Count
+     */
+    impression_count: number & tags.Type<"int32">;
   }
 }

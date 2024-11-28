@@ -106,6 +106,10 @@ export class XController {
   /**
    * Search for tweets based on search query requested by the user.
    *
+   * You need to analyze the user's request and retrieve tweets through natural language queries (search terms).
+   *
+   * For example, when a user requests "Search for books that are trending on Twitter these days," the query (search term) should be natural language, not a keyword, such as "trending books."
+   *
    * @summary General Search Tweets
    *
    * @param input

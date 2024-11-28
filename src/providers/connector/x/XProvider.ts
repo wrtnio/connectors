@@ -513,9 +513,10 @@ export class XProvider {
         {
           params: {
             query: query,
-            expansions: "author_id",
-            "tweet.fields": "id,text",
+            expansions: "author_id,attachments.media_keys",
+            "tweet.fields": "created_at,public_metrics",
             "user.fields": "id,name,username",
+            "media.fields": "preview_image_url,url",
             max_results: input.maxResults,
             sort_order: input.sort_order,
             ...(input.start_time && { start_time: input.start_time }),
@@ -549,6 +550,14 @@ export class XProvider {
           author_id: string;
           text: string;
           edit_history_tweet_ids: string[];
+          public_metrics: {
+            retweet_count: number;
+            reply_count: number;
+            like_count: number;
+            quote_count: number;
+            bookmark_count: number;
+            impression_count: number;
+          };
         }) => {
           const user = userMap.get(tweet.author_id);
           return {
@@ -556,6 +565,7 @@ export class XProvider {
             text: tweet.text,
             userName: user?.username,
             tweet_link: `https://twitter.com/${user?.username}/status/${tweet.id}`,
+            metric: tweet.public_metrics,
           };
         },
       );
@@ -569,20 +579,7 @@ export class XProvider {
   private makeQuery(input: IX.IGeneralSearchRequest): string {
     let query = "";
 
-    if (input.and_keywords && input.and_keywords.length > 0) {
-      query += input.and_keywords
-        .map((keyword) => (keyword.includes(" ") ? `"${keyword}"` : keyword))
-        .join(" ");
-    }
-
-    if (input.or_keywords && input.or_keywords.length > 0) {
-      if (query) query += " ";
-      query += `(${input.or_keywords.map((keyword) => (keyword.includes(" ") ? `"${keyword}"` : keyword)).join(" OR ")})`;
-    }
-
-    if (input.not_keywords && input.not_keywords.length > 0) {
-      query += ` ${input.not_keywords.map((keyword) => (keyword.includes(" ") ? `-"${keyword}"` : `-${keyword}`)).join(" ")}`;
-    }
+    query += input.query;
 
     if (input.isExcludeQuote) {
       query += " -is:quote";
