@@ -16,7 +16,6 @@ import { RagProvider } from "../rag/RagProvider";
 import typia, { tags } from "typia";
 import { v4 } from "uuid";
 import { retry } from "../../../utils/retry";
-import { use } from "dd-trace";
 @Injectable()
 export class XProvider {
   constructor(
@@ -545,7 +544,12 @@ export class XProvider {
       );
 
       const results: IX.IGeneralSearchResponse[] = tweetData.map(
-        (tweet: IX.IGenerelTweetOutput) => {
+        (tweet: {
+          id: string;
+          author_id: string;
+          text: string;
+          edit_history_tweet_ids: string[];
+        }) => {
           const user = userMap.get(tweet.author_id);
           return {
             id: tweet.id,

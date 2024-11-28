@@ -355,7 +355,9 @@ export namespace IX {
      *
      * @title Sort order
      */
-    sort_order: "recency" | "relevancy";
+    sort_order:
+      | tags.Constant<"recency", { title: "recency" }>
+      | tags.Constant<"relevancy", { title: "relevancy" }>;
 
     /**
      * The oldest UTC timestamp from which the Tweets will be provided.
@@ -428,12 +430,5 @@ export namespace IX {
      * @title tweet link
      */
     tweet_link: string & tags.Format<"iri">;
-  }
-
-  export interface IGenerelTweetOutput {
-    id: string;
-    author_id: string;
-    text: string;
-    edit_history_tweet_ids: string[];
   }
 }
