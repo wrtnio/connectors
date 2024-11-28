@@ -531,7 +531,9 @@ export class XProvider {
       const tweetData = searchResult?.data.data;
       const tweetUserData: { id: string; name: string; username: string }[] =
         searchResult?.data.includes.users;
-      if (!tweetData && !tweetUserData) {
+      const mediaData = searchResult?.data?.includes?.media || [];
+
+      if (!tweetData || !tweetUserData) {
         return [];
       }
 
@@ -558,17 +560,37 @@ export class XProvider {
             bookmark_count: number;
             impression_count: number;
           };
+          attachments: { media_keys: string[] };
         }) => {
           const user = userMap.get(tweet.author_id);
+          const mediaKeys = tweet.attachments?.media_keys || [];
+          const media = mediaKeys.map((key) =>
+            mediaData.find(
+              (m: {
+                media_key: string;
+                type: string;
+                url: string;
+                preview_image_url?: string;
+              }) => m.media_key === key,
+            ),
+          );
+
+          const thumbnail =
+            media.find((m) => m?.preview_image_url)?.preview_image_url ||
+            media.find((m) => m?.url)?.url ||
+            null;
+
           return {
             id: tweet.id,
             text: tweet.text,
             userName: user?.username,
             tweet_link: `https://twitter.com/${user?.username}/status/${tweet.id}`,
             metric: tweet.public_metrics,
+            thumbnail: thumbnail,
           };
         },
       );
+
       return results;
     } catch (err) {
       console.error(JSON.stringify(err));
@@ -593,6 +615,6 @@ export class XProvider {
       query += " -is:reply";
     }
 
-    return `${query} lang:${input.lang}`;
+    return `${query} has:media lang:${input.lang}`;
   }
 }
