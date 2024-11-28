@@ -15,7 +15,7 @@
     }
   ],
   "info": {
-    "version": "0.1.366",
+    "version": "0.1.367",
     "title": "@wrtn/connector",
     "description": "wrtn-ecosystem connectors and sdk",
     "license": {
@@ -12000,7 +12000,7 @@
     "/connector/x/general-search": {
       "post": {
         "summary": "General Search Tweets",
-        "description": "Search for tweets based on search query requested by the user.",
+        "description": "Search for tweets based on search query requested by the user.\n\nYou need to analyze the user's request and retrieve tweets through natural language queries (search terms).\n\nFor example, when a user requests \"Search for books that are trending on Twitter these days,\" the query (search term) should be natural language, not a keyword, such as \"trending books.\"",
         "tags": [],
         "parameters": [],
         "requestBody": {
@@ -56376,49 +56376,72 @@
             "format": "iri",
             "title": "tweet link",
             "description": "The link of the tweet"
+          },
+          "metric": {
+            "$ref": "#/components/schemas/IX.IMetric",
+            "title": "metric",
+            "description": "Metric data for the tweet"
           }
         },
         "required": [
           "id",
           "userName",
           "text",
-          "tweet_link"
+          "tweet_link",
+          "metric"
         ],
         "title": "Tweet Search Result"
+      },
+      "IX.IMetric": {
+        "type": "object",
+        "properties": {
+          "retweet_count": {
+            "type": "integer",
+            "title": "Retweet Count"
+          },
+          "reply_count": {
+            "type": "integer",
+            "title": "Reply Count",
+            "description": "Indicates how many replies a tweet has."
+          },
+          "like_count": {
+            "type": "integer",
+            "title": "Like Count",
+            "description": "Indicates how many likes a tweet has received."
+          },
+          "quote_count": {
+            "type": "integer",
+            "title": "Quote Count",
+            "description": "Indicates how many times a tweet has been quoted."
+          },
+          "bookmark_count": {
+            "type": "integer",
+            "title": "Bookmark Count",
+            "description": "Indicates how many times a tweet has been bookmarked."
+          },
+          "impression_count": {
+            "type": "integer",
+            "title": "Impression Count",
+            "description": "Indicates how many times a tweet has been viewed."
+          }
+        },
+        "required": [
+          "retweet_count",
+          "reply_count",
+          "like_count",
+          "quote_count",
+          "bookmark_count",
+          "impression_count"
+        ],
+        "title": "Metric for tweet"
       },
       "IX.IGeneralSearchRequest": {
         "type": "object",
         "properties": {
-          "and_keywords": {
-            "type": "array",
-            "items": {
-              "type": "string",
-              "minLength": 1,
-              "x-wrtn-placeholder": "cat"
-            },
-            "minItems": 1,
-            "title": "Must be included keywords",
-            "description": "Keywords that must be included in search results."
-          },
-          "or_keywords": {
-            "type": "array",
-            "items": {
-              "type": "string",
-              "minLength": 1,
-              "x-wrtn-placeholder": "dog"
-            },
-            "title": "Keywords that you would like to see included",
-            "description": "Keywords that you would like to see included in your search results."
-          },
-          "not_keywords": {
-            "type": "array",
-            "items": {
-              "type": "string",
-              "minLength": 1,
-              "x-wrtn-placeholder": "horse"
-            },
-            "title": "Keywords that should not be included",
-            "description": "Keywords that should not be included in search results."
+          "query": {
+            "type": "string",
+            "title": "search query",
+            "description": "Get tweets by query.\n\nThe query should be entered in natural language.\n\nFor example, if the user asks \"Search for what books are trending on Twitter these days,\" the query should be \"trending books.\""
           },
           "lang": {
             "type": "string",
@@ -56487,7 +56510,7 @@
           }
         },
         "required": [
-          "and_keywords",
+          "query",
           "lang",
           "maxResults",
           "sort_order",
