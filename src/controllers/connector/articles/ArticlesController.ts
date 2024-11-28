@@ -1,11 +1,11 @@
 import { TypedBody } from "@nestia/core";
 import { Controller } from "@nestjs/common";
-import { IArticles } from "@wrtn/connector-api/lib/structures/connector/articles/IArticles";
-import { ArticlesProvider } from "../../../providers/connector/articles/ArticlesProvider";
+import { IArticle } from "@wrtn/connector-api/lib/structures/connector/articles/IArticles";
+import { DocumentProvider } from "../../../providers/connector/article/DocumentProvider";
 
 @Controller("connector/articles")
 export class ArticlesController {
-  constructor(private readonly articlesProvider: ArticlesProvider) {}
+  constructor() {}
 
   /**
    * Exports some article to other service, for example notion, google docs or others.
@@ -15,9 +15,13 @@ export class ArticlesController {
   // @core.TypedRoute.Post("exports")
   async exports(
     @TypedBody()
-    input: IArticles.IExportSecretInput,
+    input: IArticle.IExportSecretInput,
   ): Promise<1> {
     input;
     return 1 as const;
+  }
+
+  async write(@TypedBody() input: IArticle.ICreate): Promise<any> {
+    return DocumentProvider.create(input);
   }
 }

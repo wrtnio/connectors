@@ -1,5 +1,4 @@
 import { SecretKey } from "@wrtnio/decorators";
-import { tags } from "typia";
 
 type Schema = {
   "x-wrtn-secret-key": string;
@@ -25,28 +24,6 @@ export namespace ICommon {
      * @title Select authentication information
      */
     secretKey: string & SecretKey<T, S>;
-  }
-
-  export interface ISecretArray<
-    Schemas extends Readonly<{
-      "x-wrtn-secret-key": string;
-      "x-wrtn-secret-scopes": string[];
-    }>[],
-  > {
-    /**
-     * secret keys
-     *
-     * @title Select Authentication information
-     */
-    secretKeys: Array<
-      string &
-        tags.JsonSchemaPlugin<{
-          target: "array";
-          kind: "SecretKeys";
-          value: undefined;
-          schema: Schemas;
-        }>
-    >;
   }
 
   type Merge<T extends object, P extends object> = T & P;
