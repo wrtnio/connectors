@@ -379,4 +379,11 @@ export namespace IX {
      */
     tweet_link: string & tags.Format<"iri">;
   }
+
+  export interface IGenerelTweetOutput {
+    id: string;
+    author_id: string;
+    text: string;
+    edit_history_tweet_ids: string[];
+  }
 }

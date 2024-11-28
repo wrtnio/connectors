@@ -16,6 +16,7 @@ import { RagProvider } from "../rag/RagProvider";
 import typia, { tags } from "typia";
 import { v4 } from "uuid";
 import { retry } from "../../../utils/retry";
+import { use } from "dd-trace";
 @Injectable()
 export class XProvider {
   constructor(
@@ -507,10 +508,7 @@ export class XProvider {
     input: IX.IGeneralSearchRequest,
   ): Promise<IX.IGeneralSearchResponse[]> {
     try {
-      // const accessToken = await this.refresh(input);
-      // console.log("ACCESS", accessToken);
       const query = this.makeQuery(input);
-      console.log("query", query);
       const searchResult = await axios.get(
         `https://api.x.com/2/tweets/search/all`,
         {
@@ -530,26 +528,35 @@ export class XProvider {
         },
       );
 
-      console.log("SE", searchResult.data.includes.users);
-
-      const tweetData = searchResult?.data?.data;
-      if (!tweetData) {
+      const tweetData = searchResult?.data.data;
+      const tweetUserData: { id: string; name: string; username: string }[] =
+        searchResult?.data.includes.users;
+      if (!tweetData && !tweetUserData) {
         return [];
       }
 
-      const results: IX.IGeneralSearchResponse[] = [];
+      const userMap = new Map(
+        tweetUserData.map(
+          (user: { id: string; name: string; username: string }) => [
+            user.id,
+            user,
+          ],
+        ),
+      );
 
-      for (const tweet of tweetData) {
-        results.push({
-          id: tweet.id,
-          text: tweet.text,
-          userName: tweet.author_id,
-          tweet_link: `https://twitter.com/${tweet.author_id}/status/${tweet.id}`,
-        });
-      }
+      const results: IX.IGeneralSearchResponse[] = tweetData.map(
+        (tweet: IX.IGenerelTweetOutput) => {
+          const user = userMap.get(tweet.author_id);
+          return {
+            id: tweet.id,
+            text: tweet.text,
+            userName: user?.username,
+            tweet_link: `https://twitter.com/${user?.username}/status/${tweet.id}`,
+          };
+        },
+      );
       return results;
     } catch (err) {
-      console.log("ERR", err);
       console.error(JSON.stringify(err));
       throw err;
     }
