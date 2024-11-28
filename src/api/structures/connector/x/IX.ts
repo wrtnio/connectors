@@ -307,7 +307,7 @@ export namespace IX {
   /**
    * @title Tweet Search Condition
    */
-  export interface IGeneralSearchRequest extends ISecret {
+  export interface IGeneralSearchRequest {
     /**
      * Get tweets by query.
      *
@@ -426,6 +426,13 @@ export namespace IX {
      * @title metric
      */
     metric: IMetric;
+
+    /**
+     * Thumbnail Image URL of the tweet
+     *
+     * @title thumbnail
+     */
+    thumbnail: (string & tags.Format<"iri">) | null;
   }
 
   /**
