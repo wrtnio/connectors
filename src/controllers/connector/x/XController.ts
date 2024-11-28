@@ -104,7 +104,11 @@ export class XController {
   }
 
   /**
-   * @param input user information, secretKey, query
+   * Search for tweets based on search query requested by the user.
+   *
+   * @summary General Search Tweets
+   *
+   * @param input
    * @returns
    */
   @RouteIcon(

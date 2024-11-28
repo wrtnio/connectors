@@ -330,20 +330,70 @@ export namespace IX {
      */
     not_keywords?: Array<string & tags.MinLength<1> & Placeholder<"horse">>;
 
+    /**
+     * Matches posts categorized by X in a specific language.
+     *
+     * You can only pass a single BCP 47 language identifier.
+     *
+     * ex) You want to setting korean language, you can pass "ko".
+     *
+     * @title Tweet Settings Language
+     */
     lang: string;
 
+    /**
+     * Sets the maximum number of results to be searched.
+     *
+     * @title Maximum number of search results.
+     */
     maxResults: number & tags.Type<"int32"> & tags.Default<10>;
 
+    /**
+     * Determines the sort order.
+     * - recency: newest
+     * - relevancy: relevance
+     *
+     * @title Sort order
+     */
     sort_order: "recency" | "relevancy";
 
+    /**
+     * The oldest UTC timestamp from which the Tweets will be provided.
+     *
+     * By default, a request will return Tweets from up to 30 days ago if you do not include this parameter.
+     *
+     * @title Start time for search tweet
+     */
     start_time?: string & tags.Format<"date-time">;
 
+    /**
+     * Used with start_time. The newest, most recent UTC timestamp to which the Tweets will be provided.
+     *
+     * If used without start_time, Tweets from 30 days before end_time will be returned by default. If not specified, end_time will default to [now - 30 seconds].
+     *
+     * @title End time for search tweet
+     */
     end_time?: string & tags.Format<"date-time">;
 
+    /**
+     * Sets whether to remove retweeted tweets from search results.
+     *
+     * @title Whether to remove retweets
+     */
     isExcludeRetweet?: boolean;
 
+    /**
+     * Sets whether to remove replied tweets from search results.
+     *
+     * @title Whether to remove replies
+     */
     isExcludeReply?: boolean;
 
+    /**
+     * Sets whether to remove quoted tweets from search results.
+     *
+     * @title Whether to remove quotes
+     */
     isExcludeQuote?: boolean;
   }
 
