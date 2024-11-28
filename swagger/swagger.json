@@ -15,7 +15,7 @@
     }
   ],
   "info": {
-    "version": "0.1.367",
+    "version": "0.1.368",
     "title": "@wrtn/connector",
     "description": "wrtn-ecosystem connectors and sdk",
     "license": {
@@ -56381,6 +56381,19 @@
             "$ref": "#/components/schemas/IX.IMetric",
             "title": "metric",
             "description": "Metric data for the tweet"
+          },
+          "thumbnail": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string",
+                "format": "iri"
+              }
+            ],
+            "title": "thumbnail",
+            "description": "Thumbnail Image URL of the tweet"
           }
         },
         "required": [
@@ -56388,7 +56401,8 @@
           "userName",
           "text",
           "tweet_link",
-          "metric"
+          "metric",
+          "thumbnail"
         ],
         "title": "Tweet Search Result"
       },
@@ -56494,27 +56508,13 @@
             "type": "boolean",
             "title": "Whether to remove quotes",
             "description": "Sets whether to remove quoted tweets from search results."
-          },
-          "secretKey": {
-            "type": "string",
-            "x-wrtn-secret-key": "x",
-            "x-wrtn-secret-scopes": [
-              "tweet.read",
-              "tweet.write",
-              "users.read",
-              "follows.read",
-              "list.read"
-            ],
-            "title": "Select authentication information",
-            "description": "secret key."
           }
         },
         "required": [
           "query",
           "lang",
           "maxResults",
-          "sort_order",
-          "secretKey"
+          "sort_order"
         ],
         "title": "Tweet Search Condition"
       },
