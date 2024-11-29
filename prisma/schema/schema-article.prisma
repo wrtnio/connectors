@@ -72,6 +72,15 @@ model bbs_articles {
   /// @format uuid
   id String @id @db.Uuid
 
+  /// External User ID
+  external_user_id String @db.Uuid
+
+  /// System Password
+  /// 
+  /// This is a randomly issued password for encryption by
+  /// this system, and has absolutely nothing to do with the user.
+  password String @db.VarChar
+
   /// The type of subtype.
   type String
 
