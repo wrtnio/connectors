@@ -14,6 +14,7 @@ export namespace BbsArticleProvider {
           .sort((a, b) => a.created_at.getTime() - b.created_at.getTime())
           .map(BbsArticleSnapshotProvider.json.transform),
         created_at: input.created_at.toISOString(),
+        deleted_at: input.deleted_at?.toISOString(),
       };
     };
 

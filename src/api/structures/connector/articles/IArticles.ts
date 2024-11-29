@@ -83,20 +83,25 @@ export interface IArticle<
   Snapshot extends IArticle.ISnapshot = IArticle.ISnapshot,
 > {
   /**
-   *  Primary Key.
+   * @title Primary Key
    */
   id: string & tags.Format<"uuid">;
 
   /**
-   *  List of snapshot contents.
-   *
    *  It is created for the first time when an article is created, and is
    *  accumulated every time the article is modified.
+   *
+   *  @title List of snapshot contents
    */
   snapshots: Snapshot[] & tags.MinItems<1>;
 
   /**
-   *  Creation time of article.
+   * @title Creation time of article
    */
   created_at: string & tags.Format<"date-time">;
+
+  /**
+   * @title Deletion time of article
+   */
+  deleted_at: string & tags.Format<"date-time">;
 }

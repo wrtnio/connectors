@@ -19,6 +19,24 @@ export class ArticlesController {
     return 1 as const;
   }
 
+  // /**
+  //  * Erase an article.
+  //  *
+  //  * Performs soft deletion to the article.
+  //  *
+  //  * @param id Target article's {@link IBbsArticle.id}
+  //  * @param input Password of the article.
+  //  * @tag BBS
+  //  *
+  //  * @author Samchon
+  //  */
+  // @core.TypedRoute.Delete(":id")
+  // public erase(
+  //   @TypedParam("id") id: string & tags.Format<"uuid">,
+  // ): void {
+  //   id;
+  // }
+
   /**
    * Update an existing article in the User Database
    *
@@ -31,6 +49,7 @@ export class ArticlesController {
    * @param input - The new data to update the article. It must match the `IArticle.IUpdate` type.
    * @returns The result of the update operation from the DocumentProvider.
    */
+  @core.TypedRoute.Put(":id")
   async update(
     @TypedBody() input: IArticle.IUpdate,
   ): Promise<IArticle.ISnapshot> {
