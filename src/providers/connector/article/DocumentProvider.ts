@@ -3,7 +3,17 @@ import { ConnectorGlobal } from "../../../ConnectorGlobal";
 import { BbsArticleProvider } from "./BbsArticleProvider";
 import { BbsArticleSnapshotProvider } from "./BbsArticleSnapshotProvider";
 
+/**
+ * 현재는 분리되어 있는 DocumentProvider를 생성하되 실제로는 BbsArticleProvider를 그대로 사용하는 것으로 작성한다.
+ * 이렇게 분리한 까닭은 {@link IArticle} 타입이 본디 목적이 하위 타입, 즉 base로서 정의된 것이기에 추후 기능 확장이 될 여지가 남아있기 때문이다.
+ */
 export namespace DocumentProvider {
+  export const update = async (
+    input: IArticle.IUpdate,
+  ): Promise<IArticle.ISnapshot> => {
+    return BbsArticleSnapshotProvider.create({ id: input.id })(input.props);
+  };
+
   export const create = async (input: IArticle.ICreate) => {
     const article = await ConnectorGlobal.prisma.bbs_articles.create({
       ...BbsArticleProvider.json.select(),

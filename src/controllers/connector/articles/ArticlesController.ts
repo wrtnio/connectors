@@ -5,8 +5,6 @@ import { DocumentProvider } from "../../../providers/connector/article/DocumentP
 
 @Controller("connector/articles")
 export class ArticlesController {
-  constructor() {}
-
   /**
    * Exports some article to other service, for example notion, google docs or others.
    *
@@ -19,6 +17,24 @@ export class ArticlesController {
   ): Promise<1> {
     input;
     return 1 as const;
+  }
+
+  /**
+   * Update an existing article in the User Database
+   *
+   * This function takes the updated article data as input and updates the corresponding
+   * article record in the User Database. It uses the DocumentProvider to apply the changes.
+   * The input must adhere to the structure defined by `IArticle.IUpdate`.
+   * Returns the updated document or the result of the update operation.
+   *
+   * @summary Updates the specified article with new data
+   * @param input - The new data to update the article. It must match the `IArticle.IUpdate` type.
+   * @returns The result of the update operation from the DocumentProvider.
+   */
+  async update(
+    @TypedBody() input: IArticle.IUpdate,
+  ): Promise<IArticle.ISnapshot> {
+    return DocumentProvider.update(input);
   }
 
   /**

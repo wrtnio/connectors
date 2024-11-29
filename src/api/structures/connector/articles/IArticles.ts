@@ -1,4 +1,5 @@
 import { tags } from "typia";
+import { IEntity } from "../../common/IEntity";
 import { StrictOmit } from "../../types/strictOmit";
 import { ICommon } from "../common/ISecretValue";
 import { IAttachmentFile } from "./IAttachmentFile";
@@ -26,7 +27,12 @@ export namespace IArticle {
   /**
    * @title Article to update
    */
-  export type IUpdate = ICreate;
+  export interface IUpdate extends IEntity {
+    /**
+     * @title props
+     */
+    props: IArticle.ICreate;
+  }
 
   /**
    * @title Article to write

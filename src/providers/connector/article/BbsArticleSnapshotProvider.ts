@@ -1,7 +1,9 @@
 import { Prisma } from "@prisma/client";
+import { IEntity } from "@wrtn/connector-api/lib/structures/common/IEntity";
 import { IArticle } from "@wrtn/connector-api/lib/structures/connector/articles/IArticles";
 import { randomUUID } from "crypto";
 import typia from "typia";
+import { ConnectorGlobal } from "../../../ConnectorGlobal";
 import { AttachmentFileProvider } from "./AttachmentFileProvider";
 
 export namespace BbsArticleSnapshotProvider {
@@ -44,4 +46,28 @@ export namespace BbsArticleSnapshotProvider {
       created_at: new Date().toISOString(),
     } satisfies Prisma.bbs_article_snapshotsCreateWithoutArticleInput;
   };
+
+  export const create =
+    (article: IEntity) =>
+    async (input: IArticle.ICreate): Promise<IArticle.ISnapshot> => {
+      const snapshot =
+        await ConnectorGlobal.prisma.bbs_article_snapshots.create({
+          data: {
+            ...collect(input),
+            article: { connect: { id: article.id } },
+          },
+          ...json.select(),
+        });
+
+      await ConnectorGlobal.prisma.mv_bbs_article_last_snapshots.update({
+        where: {
+          bbs_article_id: article.id,
+        },
+        data: {
+          bbs_article_snapshot_id: snapshot.id,
+        },
+      });
+
+      return json.transform(snapshot);
+    };
 }
