@@ -1,4 +1,4 @@
-import core, { TypedBody } from "@nestia/core";
+import core, { TypedBody, TypedParam } from "@nestia/core";
 import { Controller } from "@nestjs/common";
 import { IExternalUser } from "@wrtn/connector-api/lib/structures/common/IExternalUser";
 import { IArticle } from "@wrtn/connector-api/lib/structures/connector/articles/IArticles";
@@ -54,9 +54,13 @@ export class ArticlesController {
   @core.TypedRoute.Put(":id")
   async update(
     @ExternalUser() external_user: IExternalUser,
+    /**
+     * @title Article ID to update
+     */
+    @TypedParam("id") articleId: IArticle["id"],
     @TypedBody() input: IArticle.IUpdate,
   ): Promise<IArticle.ISnapshot> {
-    return DocumentProvider.update(external_user, input);
+    return DocumentProvider.update(external_user, articleId, input);
   }
 
   /**

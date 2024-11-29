@@ -1,5 +1,4 @@
 import { tags } from "typia";
-import { IEntity } from "../../common/IEntity";
 import { ICommon } from "../common/ISecretValue";
 import { IAttachmentFile } from "./IAttachmentFile";
 
@@ -26,7 +25,7 @@ export namespace IArticle {
   /**
    * @title Article to update
    */
-  export interface IUpdate extends IEntity {
+  export interface IUpdate {
     /**
      * @title props
      */

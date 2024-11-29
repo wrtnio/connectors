@@ -12,14 +12,15 @@ import { BbsArticleSnapshotProvider } from "./BbsArticleSnapshotProvider";
 export namespace DocumentProvider {
   export const update = async (
     external_user: IExternalUser,
+    articleId: IArticle["id"],
     input: IArticle.IUpdate,
   ): Promise<IArticle.ISnapshot> => {
-    const article = await BbsArticleProvider.at(input);
+    const article = await BbsArticleProvider.at({ id: articleId });
     if (article.external_user_id !== external_user.id) {
       throw new ForbiddenException("This article is not yours.");
     }
 
-    return BbsArticleSnapshotProvider.create({ id: input.id })(input.props);
+    return BbsArticleSnapshotProvider.create({ id: articleId })(input.props);
   };
 
   export const create = async (
