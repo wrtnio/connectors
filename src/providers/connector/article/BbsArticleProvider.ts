@@ -1,8 +1,31 @@
 import { Prisma } from "@prisma/client";
 import { IArticle } from "@wrtn/connector-api/lib/structures/connector/articles/IArticles";
 import { randomUUID } from "crypto";
+import { BbsArticleSnapshotProvider } from "./BbsArticleSnapshotProvider";
 
-export namespace ArticleProvider {
+export namespace BbsArticleProvider {
+  export namespace json {
+    export const transform = (
+      input: Prisma.bbs_articlesGetPayload<ReturnType<typeof select>>,
+    ): IArticle => {
+      return {
+        id: input.id,
+        snapshots: input.snapshots
+          .sort((a, b) => a.created_at.getTime() - b.created_at.getTime())
+          .map(BbsArticleSnapshotProvider.json.transform),
+        created_at: input.created_at.toISOString(),
+      };
+    };
+
+    export const select = () => {
+      return {
+        include: {
+          snapshots: BbsArticleSnapshotProvider.json.select(),
+        },
+      } satisfies Prisma.bbs_articlesFindManyArgs;
+    };
+  }
+
   export const collect =
     <
       Input extends IArticle.ICreate,

@@ -37,7 +37,7 @@ export class ArticlesController {
    * @sumamry Write Article
    */
   @core.TypedRoute.Post()
-  async write(@TypedBody() input: IArticle.ICreate): Promise<any> {
+  async write(@TypedBody() input: IArticle.ICreate): Promise<IArticle> {
     return DocumentProvider.create(input);
   }
 }

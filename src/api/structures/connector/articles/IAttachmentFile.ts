@@ -22,3 +22,18 @@ export namespace IAttachmentFile {
     url: string & tags.Format<"uri">;
   }
 }
+
+/**
+ * @title Attachment File
+ */
+export interface IAttachmentFile extends IAttachmentFile.ICreate {
+  /**
+   *  Primary Key.
+   */
+  id: string & tags.Format<"uuid">;
+
+  /**
+   * @title date time for creation of this file
+   */
+  created_at: string & tags.Format<"date-time">;
+}
