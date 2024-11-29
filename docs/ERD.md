@@ -33,15 +33,6 @@ External user information.
 An entity for when this system is linked to an external service and 
 their users are accepted as customers of this service.
 
-For reference, customers who access from an external service must have 
-this record, and the external service user is identified through the 
-two attributes `application` and `uid`. If a customer who accessed from 
-an external service completes [real-name authentication](#citizens) 
-from this service, the external service user starts with the real-name 
-authentication completed whenever he or she re-accesses this service and 
-issues a new [customer](#customers) authentication token. 
-This is also the case for [membership](#members) registration.
-
 And `password` is a password issued to the user by the external service system
 (so-called user permanent authentication token), and is never an actual user 
 password. However, it is used to determine whether a customer who entered the 
@@ -134,7 +125,7 @@ erDiagram
 }
 "bbs_articles" {
   String id PK
-  String external_user_id
+  String external_user_id FK
   String password
   String type
   DateTime created_at
@@ -209,7 +200,7 @@ Attachment entities used everywhere in this DB.
 ### `bbs_articles`
 Article entity.
 
-`bbs_articles` is a supertype entity for all types of articles existing 
+`bbs_articles` is a entity for all types of articles existing 
 in the current exchange system, and literally embodies individual articles 
 on the bulletin board.
 
@@ -217,10 +208,6 @@ And elements such as titles and texts that must exist in articles do not exist
 in this `bbs_articles`, but exist in a 1:N relationship in the lower entity, 
 [bbs_article_snapshots](#bbs_article_snapshots), because a new snapshot record is issued every time 
 an article is modified.
-
-The reason for issuing a new snapshot record every time an article is modified 
-is to preserve evidence. Due to the nature of e-commerce, there is always 
-a threat of conflict between participants.
 
 And disputes can arise through articles or comments on them, and in this case, 
 articles are designed in this structure to prevent manipulation of the situation 

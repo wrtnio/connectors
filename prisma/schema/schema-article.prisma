@@ -3,7 +3,7 @@
 /// Attachment entities used everywhere in this DB.
 ///
 /// @namespace Articles
-/// @author Samchon
+/// @author kakasoo
 model attachment_files {
   //----
   // COLUMNS
@@ -41,7 +41,7 @@ model attachment_files {
 
 /// Article entity.
 ///
-/// `bbs_articles` is a supertype entity for all types of articles existing 
+/// `bbs_articles` is a entity for all types of articles existing 
 /// in the current exchange system, and literally embodies individual articles 
 /// on the bulletin board.
 ///
@@ -49,10 +49,6 @@ model attachment_files {
 /// in this `bbs_articles`, but exist in a 1:N relationship in the lower entity, 
 /// {@link bbs_article_snapshots}, because a new snapshot record is issued every time 
 /// an article is modified.
-///
-/// The reason for issuing a new snapshot record every time an article is modified 
-/// is to preserve evidence. Due to the nature of e-commerce, there is always 
-/// a threat of conflict between participants.
 ///
 /// And disputes can arise through articles or comments on them, and in this case, 
 /// articles are designed in this structure to prevent manipulation of the situation 
@@ -64,7 +60,7 @@ model attachment_files {
 /// @erd Audits 
 /// @erd Inquiries 
 /// @erd Issues 
-/// @author Samchon
+/// @author kakasoo
 model bbs_articles {
   //----
   // COLUMNS
@@ -109,6 +105,8 @@ model bbs_articles {
   /// Comment list.
   comments bbs_article_comments[]
 
+  external_user external_users @relation(fields: [external_user_id], references: [id], onDelete: Cascade)
+
   @@index([created_at])
 }
 
@@ -120,7 +118,7 @@ model bbs_articles {
 ///
 /// @namespace Articles
 /// @erd Inquiries
-/// @author Samchon
+/// @author kakasoo
 model bbs_article_snapshots {
   //----
   // COLUMNS
@@ -187,7 +185,7 @@ model bbs_article_snapshots {
 /// used to it in advance.
 ///
 /// @namespace Articles
-/// @author Samchon
+/// @author kakasoo
 model bbs_article_snapshot_files {
   //----
   // COLUMNS
@@ -236,7 +234,7 @@ model bbs_article_snapshot_files {
 /// @erd Audits
 /// @erd Inquiries
 /// @erd Issues
-/// @author Samchon
+/// @author kakasoo
 model bbs_article_comments {
   //----
   // COLUMNS
@@ -299,7 +297,7 @@ model bbs_article_comments {
 /// As explained in {@link bbs_article_comments} above, to prevent undercutting.
 ///
 /// @namespace Articles
-/// @author Samchon
+/// @author kakasoo
 model bbs_article_comment_snapshots {
   //----
   // COLUMNS
@@ -343,7 +341,7 @@ model bbs_article_comment_snapshots {
 /// M: N relationship resolution.
 ///
 /// @namespace Articles
-/// @author Samchon
+/// @author kakasoo
 model bbs_article_comment_snapshot_files {
   //----
   // COLUMNS
@@ -383,7 +381,7 @@ model bbs_article_comment_snapshot_files {
 
 /// The very last snapshot information of the article.
 ///
-/// @author Samchon
+/// @author kakasoo
 /// @hidden
 model mv_bbs_article_last_snapshots {
   //----

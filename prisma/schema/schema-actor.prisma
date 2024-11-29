@@ -3,15 +3,6 @@
 /// An entity for when this system is linked to an external service and 
 /// their users are accepted as customers of this service.
 ///
-/// For reference, customers who access from an external service must have 
-/// this record, and the external service user is identified through the 
-/// two attributes `application` and `uid`. If a customer who accessed from 
-/// an external service completes {@link citizens real-name authentication} 
-/// from this service, the external service user starts with the real-name 
-/// authentication completed whenever he or she re-accesses this service and 
-/// issues a new {@link customers customer} authentication token. 
-/// This is also the case for {@link members membership} registration.
-///
 /// And `password` is a password issued to the user by the external service system
 /// (so-called user permanent authentication token), and is never an actual user 
 /// password. However, it is used to determine whether a customer who entered the 
@@ -22,7 +13,7 @@
 /// recorded in the `data` field in JSON format.
 ///
 /// @namespace Actors
-/// @author Samchon
+/// @author kakasoo
 model external_users {
   //----
   // COLUMNS
@@ -55,6 +46,8 @@ model external_users {
 
   channel channels @relation(fields: [channel_id], references: [id], onDelete: Cascade)
 
+  bbs_article bbs_articles[]
+
   @@unique([channel_id, application, uid])
   @@index([application, created_at])
   @@index([created_at])
@@ -65,7 +58,7 @@ model external_users {
 /// 
 /// @namespace Systematic
 /// @erd SaleContents
-/// @author Samchon
+/// @author kakasoo
 model channels {
   //----
   // COLUMNS
