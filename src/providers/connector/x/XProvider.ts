@@ -528,9 +528,13 @@ export class XProvider {
         },
       );
 
-      const tweetData = searchResult?.data.data;
+      if (!searchResult?.data) {
+        return [];
+      }
+
+      const tweetData = searchResult?.data?.data;
       const tweetUserData: { id: string; name: string; username: string }[] =
-        searchResult?.data.includes.users;
+        searchResult?.data?.includes?.users;
       const mediaData = searchResult?.data?.includes?.media || [];
 
       if (!tweetData || !tweetUserData) {
