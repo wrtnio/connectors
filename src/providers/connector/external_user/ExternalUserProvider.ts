@@ -50,54 +50,53 @@ export namespace ExternalUserProvider {
       },
     );
 
-    if (!external_user) {
-      const channel = await ConnectorGlobal.prisma.channels.findFirst({
-        where: {
+    if (external_user) {
+      return ExternalUserProvider.json.transform(external_user);
+    }
+
+    const channel = await ConnectorGlobal.prisma.channels.findFirst({
+      where: {
+        code: input["x-wrtn-application"],
+      },
+    });
+
+    if (!channel) {
+      const createdChannel = await ConnectorGlobal.prisma.channels.create({
+        select: {
+          external_users: {},
+        },
+        data: {
+          id: randomUUID(),
           code: input["x-wrtn-application"],
+          created_at,
+          updated_at: created_at,
+          external_users: {
+            create: {
+              ...collect(input),
+            },
+          },
         },
       });
 
-      if (!channel) {
-        const channel = await ConnectorGlobal.prisma.channels.create({
-          select: {
-            external_users: {},
-          },
-          data: {
-            id: randomUUID(),
-            code: input["x-wrtn-application"],
-            created_at,
-            updated_at: created_at,
-            external_users: {
-              create: {
-                ...collect(input),
-              },
-            },
-          },
-        });
-
-        const external_user = channel.external_users[0];
-        return ExternalUserProvider.json.transform(external_user);
-      }
-
-      const { channel: _, ...external_user } =
-        await ConnectorGlobal.prisma.external_users.create({
-          select: {
-            channel: true,
-            channel_id: true,
-            created_at: true,
-            id: true,
-            password: true,
-            uid: true,
-            application: true,
-          },
-          data: {
-            channel_id: channel.id,
-            ...collect(input),
-          },
-        });
-      return ExternalUserProvider.json.transform(external_user);
-    } else {
+      const external_user = createdChannel.external_users[0];
       return ExternalUserProvider.json.transform(external_user);
     }
+
+    const createdUser = await ConnectorGlobal.prisma.external_users.create({
+      select: {
+        channel: true,
+        channel_id: true,
+        created_at: true,
+        id: true,
+        password: true,
+        uid: true,
+        application: true,
+      },
+      data: {
+        channel_id: channel.id,
+        ...collect(input),
+      },
+    });
+    return ExternalUserProvider.json.transform(createdUser);
   };
 }

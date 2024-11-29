@@ -59,7 +59,7 @@ export namespace BbsArticleProvider {
             },
           },
         },
-      } satisfies Prisma.bbs_articlesCreateInput;
+      } satisfies Prisma.bbs_articlesUncheckedCreateInput;
     };
 
   export const at = async (input: IEntity) => {
