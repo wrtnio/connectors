@@ -1,6 +1,5 @@
 import { tags } from "typia";
 import { IEntity } from "../../common/IEntity";
-import { StrictOmit } from "../../types/strictOmit";
 import { ICommon } from "../common/ISecretValue";
 import { IAttachmentFile } from "./IAttachmentFile";
 
@@ -37,7 +36,7 @@ export namespace IArticle {
   /**
    * @title Article to write
    */
-  export interface ICreate extends ICommon.ISecret<"ecosystem"> {
+  export interface ICreate {
     /**
      * Format of body.
      *
@@ -64,7 +63,7 @@ export namespace IArticle {
     files: IAttachmentFile.ICreate[];
   }
 
-  export interface ISnapshot extends StrictOmit<ICreate, "secretKey"> {
+  export interface ISnapshot extends ICreate {
     /**
      *  Primary Key.
      */
@@ -88,6 +87,11 @@ export interface IArticle<
   id: string & tags.Format<"uuid">;
 
   /**
+   * @title External User ID
+   */
+  external_user_id: string & tags.Format<"uuid">;
+
+  /**
    *  It is created for the first time when an article is created, and is
    *  accumulated every time the article is modified.
    *
@@ -103,5 +107,5 @@ export interface IArticle<
   /**
    * @title Deletion time of article
    */
-  deleted_at: string & tags.Format<"date-time">;
+  deleted_at: (string & tags.Format<"date-time">) | null;
 }

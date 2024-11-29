@@ -432,6 +432,8 @@ model bbs_article_exports {
   /// @format uri
   url String @db.VarChar(80000)
 
+  // language String
+
   /// The date and time the record was created.
   created_at DateTime @db.Timestamptz
 

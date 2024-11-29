@@ -37,7 +37,7 @@ export namespace BbsArticleSnapshotProvider {
     };
   }
 
-  export const collect = (input: IArticle.ICreate) => {
+  export const collect = (input: IArticle.IUpdate["props"]) => {
     return {
       id: randomUUID(),
       title: input.title,

@@ -76,9 +76,6 @@ model channels {
   /// Identifier code.
   code String @db.VarChar
 
-  /// Channel name.
-  name String @db.VarChar
-
   /// The date and time the record was created.
   created_at DateTime @db.Timestamptz
 
@@ -94,6 +91,5 @@ model channels {
   external_users external_users[]
 
   @@unique([code])
-  @@unique([name])
   @@index([created_at])
 }

@@ -76,7 +76,6 @@ erDiagram
 "channels" {
   String id PK
   String code UK
-  String name UK
   DateTime created_at
   DateTime updated_at
   DateTime deleted_at "nullable"
@@ -89,7 +88,6 @@ channel information.
 **Properties**
   - `id`: 
   - `code`: Identifier code.
-  - `name`: Channel name.
   - `created_at`: The date and time the record was created.
   - `updated_at`: Date and time of record edit.
   - `deleted_at`: Date and time of record deletion.

@@ -1,3 +1,5 @@
+import { ForbiddenException } from "@nestjs/common";
+import { IExternalUser } from "@wrtn/connector-api/lib/structures/common/IExternalUser";
 import { IArticle } from "@wrtn/connector-api/lib/structures/connector/articles/IArticles";
 import { ConnectorGlobal } from "../../../ConnectorGlobal";
 import { BbsArticleProvider } from "./BbsArticleProvider";
@@ -9,15 +11,25 @@ import { BbsArticleSnapshotProvider } from "./BbsArticleSnapshotProvider";
  */
 export namespace DocumentProvider {
   export const update = async (
+    external_user: IExternalUser,
     input: IArticle.IUpdate,
   ): Promise<IArticle.ISnapshot> => {
+    const article = await BbsArticleProvider.at(input);
+    if (article.external_user_id !== external_user.id) {
+      throw new ForbiddenException("This article is not yours.");
+    }
+
     return BbsArticleSnapshotProvider.create({ id: input.id })(input.props);
   };
 
-  export const create = async (input: IArticle.ICreate) => {
+  export const create = async (
+    external_user: IExternalUser,
+    input: IArticle.ICreate,
+  ) => {
     const article = await ConnectorGlobal.prisma.bbs_articles.create({
       ...BbsArticleProvider.json.select(),
       data: BbsArticleProvider.collect(
+        external_user,
         "document" as const,
         BbsArticleSnapshotProvider.collect,
       )(input),
