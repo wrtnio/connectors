@@ -1,10 +1,9 @@
-import core, { TypedBody, TypedHeaders } from "@nestia/core";
+import core, { TypedBody } from "@nestia/core";
 import { Controller } from "@nestjs/common";
 import { IExternalUser } from "@wrtn/connector-api/lib/structures/common/IExternalUser";
 import { IArticle } from "@wrtn/connector-api/lib/structures/connector/articles/IArticles";
-import typia from "typia";
+import { ExternalUser } from "../../../decorators/ExternalUser";
 import { DocumentProvider } from "../../../providers/connector/article/DocumentProvider";
-import { ExternalUserProvider } from "../../../providers/connector/external_user/ExternalUserProvider";
 
 @Controller("connector/articles")
 export class ArticlesController {
@@ -54,11 +53,9 @@ export class ArticlesController {
    */
   @core.TypedRoute.Put(":id")
   async update(
-    @TypedHeaders() headers: IExternalUser.ExternalUserIdentifier,
+    @ExternalUser() external_user: IExternalUser,
     @TypedBody() input: IArticle.IUpdate,
   ): Promise<IArticle.ISnapshot> {
-    typia.assertGuard<Required<IExternalUser.ExternalUserIdentifier>>(headers);
-    const external_user = await ExternalUserProvider.emplace(headers);
     return DocumentProvider.update(external_user, input);
   }
 
@@ -79,11 +76,9 @@ export class ArticlesController {
    */
   @core.TypedRoute.Post()
   async write(
-    @TypedHeaders() headers: IExternalUser.ExternalUserIdentifier,
+    @ExternalUser() external_user: IExternalUser,
     @TypedBody() input: IArticle.ICreate,
   ): Promise<IArticle> {
-    typia.assertGuard<Required<IExternalUser.ExternalUserIdentifier>>(headers);
-    const external_user = await ExternalUserProvider.emplace(headers);
     return DocumentProvider.create(external_user, input);
   }
 }
