@@ -1,3 +1,4 @@
+import { ForbiddenException } from "@nestjs/common";
 import { Prisma } from "@prisma/client";
 import { IExternalUser } from "@wrtn/connector-api/lib/structures/common/IExternalUser";
 import { randomUUID } from "crypto";
@@ -44,13 +45,16 @@ export namespace ExternalUserProvider {
         ...ExternalUserProvider.json.select(),
         where: {
           application: input["x-wrtn-application"],
-          password: input["x-wrtn-password"],
           uid: input["x-wrtn-uid"],
         },
       },
     );
 
     if (external_user) {
+      if (external_user.password !== input["x-wrtn-password"]) {
+        throw new ForbiddenException("Invalid password.");
+      }
+
       return ExternalUserProvider.json.transform(external_user);
     }
 
