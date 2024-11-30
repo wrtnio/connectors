@@ -78,8 +78,6 @@ export const test_api_connector_article_update_with_invalid_password = async (
 ) => {
   try {
     const article = await test_api_connector_article_write(connection);
-    // invalid_application이라는 용어가 성립할 수 없으며, application이 다른 경우는 고유한 유저일 뿐이다.
-    // 따라서 해당 유저는 생성이 됨이 옳지만 수정 단계에서는 작성자가 다르므로 수정할 수 없다.
     await CApi.functional.connector.articles.update(
       {
         ...connection,
@@ -133,4 +131,16 @@ export const test_api_connector_article_update_with_invalid_uid = async (
 
     typia.assert<Error>((ErrorUtil.toJSON(err) as any).message);
   }
+};
+
+export const test_api_connector_article_remove = async (
+  connection: CApi.IConnection,
+) => {
+  const article = await test_api_connector_article_write(connection);
+  const res = await CApi.functional.connector.articles.remove(
+    connectionWithHeaders(connection),
+    article.id,
+  );
+
+  typia.assertEquals(res);
 };

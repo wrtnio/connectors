@@ -1,6 +1,7 @@
 import core, { TypedBody, TypedParam } from "@nestia/core";
 import { Controller } from "@nestjs/common";
 import { IExternalUser } from "@wrtn/connector-api/lib/structures/common/IExternalUser";
+import { IPage } from "@wrtn/connector-api/lib/structures/common/IPage";
 import { IArticle } from "@wrtn/connector-api/lib/structures/connector/articles/IArticles";
 import { ExternalUser } from "../../../decorators/ExternalUser";
 import { DocumentProvider } from "../../../providers/connector/article/DocumentProvider";
@@ -22,10 +23,26 @@ export class ArticlesController {
   }
 
   /**
-   * Erase an article.
+   * List up all summarized articles with pagination and searching options
+   *
+   * @summary List up all summarized articles
+   * @param input Request info of pagination and searching options.
+   * @returns Paginated summarized articles.
+   */
+  @core.TypedRoute.Patch()
+  async index(
+    @ExternalUser() external_user: IExternalUser,
+    @TypedBody() input: IArticle.IRequest,
+  ): Promise<IPage<IArticle.ISummary>> {
+    return DocumentProvider.index(external_user, input);
+  }
+
+  /**
+   * Erase an article
    *
    * Performs soft deletion to the article.
    *
+   * @summary Remove an specified article
    * @param id Target article's {@link IArticle.id}
    * @param input Password of the article.
    */

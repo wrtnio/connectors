@@ -1,4 +1,6 @@
 import { tags } from "typia";
+import { IPage } from "../../common/IPage";
+import { StrictOmit } from "../../types/strictOmit";
 import { ICommon } from "../common/ISecretValue";
 import { IAttachmentFile } from "./IAttachmentFile";
 
@@ -21,6 +23,71 @@ export namespace IArticle {
     | tags.Constant<"txt", { title: "txt" }>
     | tags.Constant<"md", { title: "md" }>
     | tags.Constant<"html", { title: "html" }>;
+
+  export interface ISummary
+    extends StrictOmit<
+      IArticle,
+      "external_user_id" | "password" | "snapshots" | "deleted_at"
+    > {
+    /**
+     * @title Last Snapshot
+     */
+    snapshot: StrictOmit<IArticle.ISnapshot, "body"> & {
+      /**
+       * @title Summarized Body
+       */
+      body: string & tags.MaxLength<100>;
+    };
+  }
+
+  export namespace IRequest {
+    export interface ISearch {
+      /**
+       * @title Article ID
+       */
+      id?: IArticle["id"];
+
+      /**
+       * @title Article IDs
+       */
+      ids?: Array<IArticle["id"]>;
+
+      /**
+       * @title Last Snapshot
+       */
+      snapshot?: {
+        /**
+         * @title Format of article
+         */
+        format: IArticle.ISnapshot["format"];
+
+        /**
+         * @title Title of article
+         */
+        title: IArticle.ISnapshot["title"];
+      };
+    }
+
+    export type SortableColumns =
+      | "created_at"
+      | "snapshot.created_at"
+      | "snapshot.title";
+  }
+
+  /**
+   * @title Query Condition
+   */
+  export interface IRequest extends IPage.IRequest {
+    /**
+     * @title search
+     */
+    search?: IRequest.ISearch;
+
+    /**
+     * @title sort
+     */
+    sort?: IPage.Sort<IRequest.SortableColumns>;
+  }
 
   /**
    * @title Article to update
@@ -62,18 +129,23 @@ export namespace IArticle {
     files: IAttachmentFile.ICreate[];
   }
 
-  export interface ISnapshot extends ICreate {
+  export interface ISnapshot extends StrictOmit<ICreate, "files"> {
     /**
-     *  Primary Key.
+     * @title Primary Key
      */
     id: string;
 
     /**
-     *  Creation time of snapshot record.
+     *  In other words, creation time or update time or article
      *
-     *  In other words, creation time or update time or article.
+     *  @title Creation time of snapshot record
      */
     created_at: string & tags.Format<"date-time">;
+
+    /**
+     * @title List of attachment files
+     */
+    files: IAttachmentFile[];
   }
 }
 

@@ -31,7 +31,7 @@ export namespace IPage {
     /**
      * Limitation of records per a page
      */
-    limit: number & tags.Type<"uint32"> & tags.Default<100>;
+    limit: number & tags.Type<"uint32">;
 
     /**
      * Count of total records in database

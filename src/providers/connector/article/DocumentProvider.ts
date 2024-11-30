@@ -1,7 +1,10 @@
 import { ForbiddenException } from "@nestjs/common";
+import { Prisma } from "@prisma/client";
 import { IExternalUser } from "@wrtn/connector-api/lib/structures/common/IExternalUser";
+import { IPage } from "@wrtn/connector-api/lib/structures/common/IPage";
 import { IArticle } from "@wrtn/connector-api/lib/structures/connector/articles/IArticles";
 import { ConnectorGlobal } from "../../../ConnectorGlobal";
+import { PaginationUtil } from "../../../utils/PaginationUtil";
 import { BbsArticleProvider } from "./BbsArticleProvider";
 import { BbsArticleSnapshotProvider } from "./BbsArticleSnapshotProvider";
 
@@ -10,6 +13,78 @@ import { BbsArticleSnapshotProvider } from "./BbsArticleSnapshotProvider";
  * 이렇게 분리한 까닭은 {@link IArticle} 타입이 본디 목적이 하위 타입, 즉 base로서 정의된 것이기에 추후 기능 확장이 될 여지가 남아있기 때문이다.
  */
 export namespace DocumentProvider {
+  export const index = async (
+    external_user: IExternalUser,
+    input: IArticle.IRequest,
+  ): Promise<IPage<IArticle.ISummary>> => {
+    return await PaginationUtil.paginate({
+      schema: ConnectorGlobal.prisma.bbs_articles,
+      payload: BbsArticleProvider.summary.select,
+      transform: BbsArticleProvider.summary.transform,
+    })({
+      where: {
+        AND: [...search(input.search)],
+      },
+      orderBy: input.sort?.length
+        ? PaginationUtil.orderBy(orderBy)(input.sort)
+        : [{ created_at: "desc" }],
+    })(input);
+  };
+
+  export const search = (input?: IArticle.IRequest.ISearch) => {
+    const condition: Prisma.bbs_articlesWhereInput["AND"] = [];
+    if (input?.id !== undefined) {
+      condition.push({
+        id: input.id,
+      });
+    }
+
+    if (input?.ids !== undefined) {
+      condition.push({
+        id: {
+          in: input.ids,
+        },
+      });
+    }
+
+    if (input?.snapshot?.format) {
+      condition.push({
+        mv_last: {
+          snapshot: {
+            format: input?.snapshot?.format,
+          },
+        },
+      });
+    }
+
+    if (input?.snapshot?.title) {
+      condition.push({
+        mv_last: {
+          snapshot: {
+            title: input?.snapshot?.title,
+          },
+        },
+      });
+    }
+
+    return condition;
+  };
+
+  export const orderBy = (
+    key: IArticle.IRequest.SortableColumns,
+    direction: "asc" | "desc",
+  ) => {
+    return (
+      key === "created_at"
+        ? { created_at: direction }
+        : key === "snapshot.created_at"
+          ? { mv_last: { snapshot: { created_at: direction } } }
+          : key === "snapshot.title"
+            ? { mv_last: { snapshot: { title: direction } } }
+            : {}
+    ) satisfies Prisma.bbs_articlesOrderByWithRelationInput;
+  };
+
   export const remove = async (
     external_user: IExternalUser,
     articleId: IArticle["id"],
