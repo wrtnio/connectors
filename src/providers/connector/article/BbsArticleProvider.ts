@@ -14,6 +14,7 @@ export namespace BbsArticleProvider {
       return {
         id: input.id,
         external_user_id: input.external_user_id,
+        password: input.password,
         snapshots: input.snapshots
           .sort((a, b) => a.created_at.getTime() - b.created_at.getTime())
           .map(BbsArticleSnapshotProvider.json.transform),
@@ -30,6 +31,17 @@ export namespace BbsArticleProvider {
       } satisfies Prisma.bbs_articlesFindManyArgs;
     };
   }
+
+  export const remove = (article: IEntity) => async () => {
+    await ConnectorGlobal.prisma.bbs_articles.update({
+      data: {
+        deleted_at: new Date().toISOString(),
+      },
+      where: {
+        id: article.id,
+      },
+    });
+  };
 
   export const collect =
     <

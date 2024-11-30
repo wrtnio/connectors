@@ -10,6 +10,22 @@ import { BbsArticleSnapshotProvider } from "./BbsArticleSnapshotProvider";
  * 이렇게 분리한 까닭은 {@link IArticle} 타입이 본디 목적이 하위 타입, 즉 base로서 정의된 것이기에 추후 기능 확장이 될 여지가 남아있기 때문이다.
  */
 export namespace DocumentProvider {
+  export const remove = async (
+    external_user: IExternalUser,
+    articleId: IArticle["id"],
+  ) => {
+    const article = await BbsArticleProvider.at({ id: articleId });
+    if (article.external_user_id !== external_user.id) {
+      throw new ForbiddenException("This article is not yours.");
+    }
+
+    if (article.password !== external_user.password) {
+      throw new ForbiddenException("This article is not yours.");
+    }
+
+    return BbsArticleProvider.remove({ id: articleId })();
+  };
+
   export const update = async (
     external_user: IExternalUser,
     articleId: IArticle["id"],
@@ -17,6 +33,10 @@ export namespace DocumentProvider {
   ): Promise<IArticle.ISnapshot> => {
     const article = await BbsArticleProvider.at({ id: articleId });
     if (article.external_user_id !== external_user.id) {
+      throw new ForbiddenException("This article is not yours.");
+    }
+
+    if (article.password !== external_user.password) {
       throw new ForbiddenException("This article is not yours.");
     }
 

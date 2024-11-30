@@ -21,23 +21,24 @@ export class ArticlesController {
     return 1 as const;
   }
 
-  // /**
-  //  * Erase an article.
-  //  *
-  //  * Performs soft deletion to the article.
-  //  *
-  //  * @param id Target article's {@link IBbsArticle.id}
-  //  * @param input Password of the article.
-  //  * @tag BBS
-  //  *
-  //  * @author Samchon
-  //  */
-  // @core.TypedRoute.Delete(":id")
-  // public erase(
-  //   @TypedParam("id") id: string & tags.Format<"uuid">,
-  // ): void {
-  //   id;
-  // }
+  /**
+   * Erase an article.
+   *
+   * Performs soft deletion to the article.
+   *
+   * @param id Target article's {@link IArticle.id}
+   * @param input Password of the article.
+   */
+  @core.TypedRoute.Delete(":id")
+  async remove(
+    @ExternalUser() external_user: IExternalUser,
+    /**
+     * @title Article ID to remove
+     */
+    @TypedParam("id") articleId: IArticle["id"],
+  ): Promise<void> {
+    return DocumentProvider.remove(external_user, articleId);
+  }
 
   /**
    * Update an existing article in the User Database

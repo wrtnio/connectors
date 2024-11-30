@@ -91,6 +91,11 @@ export interface IArticle<
   external_user_id: string & tags.Format<"uuid">;
 
   /**
+   * @title password
+   */
+  password: string;
+
+  /**
    *  It is created for the first time when an article is created, and is
    *  accumulated every time the article is modified.
    *
