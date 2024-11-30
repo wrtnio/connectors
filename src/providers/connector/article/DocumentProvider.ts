@@ -23,7 +23,7 @@ export namespace DocumentProvider {
       transform: BbsArticleProvider.summary.transform,
     })({
       where: {
-        AND: [...search(input.search)],
+        AND: [...search(external_user, input.search)],
       },
       orderBy: input.sort?.length
         ? PaginationUtil.orderBy(orderBy)(input.sort)
@@ -31,8 +31,18 @@ export namespace DocumentProvider {
     })(input);
   };
 
-  export const search = (input?: IArticle.IRequest.ISearch) => {
-    const condition: Prisma.bbs_articlesWhereInput["AND"] = [];
+  export const search = (
+    external_user: IExternalUser,
+    input?: IArticle.IRequest.ISearch,
+  ) => {
+    const condition: Prisma.bbs_articlesWhereInput["AND"] = [
+      {
+        external_user_id: external_user.id,
+        password: external_user.password,
+        deleted_at: null,
+      },
+    ];
+
     if (input?.id !== undefined) {
       condition.push({
         id: input.id,
@@ -61,7 +71,9 @@ export namespace DocumentProvider {
       condition.push({
         mv_last: {
           snapshot: {
-            title: input?.snapshot?.title,
+            title: {
+              contains: input?.snapshot?.title,
+            },
           },
         },
       });
