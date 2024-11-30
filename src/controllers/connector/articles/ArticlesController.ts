@@ -3,6 +3,7 @@ import { Controller } from "@nestjs/common";
 import { IExternalUser } from "@wrtn/connector-api/lib/structures/common/IExternalUser";
 import { IPage } from "@wrtn/connector-api/lib/structures/common/IPage";
 import { IArticle } from "@wrtn/connector-api/lib/structures/connector/articles/IArticles";
+import { StrictOmit } from "@wrtn/connector-api/lib/structures/types/strictOmit";
 import { ExternalUser } from "../../../decorators/ExternalUser";
 import { DocumentProvider } from "../../../providers/connector/article/DocumentProvider";
 
@@ -23,18 +24,18 @@ export class ArticlesController {
   }
 
   /**
-   * List up all summarized articles with pagination and searching options
+   * Reads an article with its every {@link IArticle.ISnapshot snapshots}
    *
-   * @summary List up all summarized articles
-   * @param input Request info of pagination and searching options.
-   * @returns Paginated summarized articles.
+   * @sumamry Read individual article
+   * @param id Target article's {@link IArticle.id}
+   * @returns Article Infomation
    */
-  @core.TypedRoute.Patch()
-  async index(
+  @core.TypedRoute.Patch(":id")
+  async at(
     @ExternalUser() external_user: IExternalUser,
-    @TypedBody() input: IArticle.IRequest,
-  ): Promise<IPage<IArticle.ISummary>> {
-    return DocumentProvider.index(external_user, input);
+    @TypedParam("id") articleId: IArticle["id"],
+  ): Promise<StrictOmit<IArticle, "password">> {
+    return DocumentProvider.at(external_user, articleId);
   }
 
   /**
@@ -82,6 +83,21 @@ export class ArticlesController {
   }
 
   /**
+   * List up all summarized articles with pagination and searching options
+   *
+   * @summary List up all summarized articles
+   * @param input Request info of pagination and searching options.
+   * @returns Paginated summarized articles.
+   */
+  @core.TypedRoute.Patch()
+  async index(
+    @ExternalUser() external_user: IExternalUser,
+    @TypedBody() input: IArticle.IRequest,
+  ): Promise<IPage<IArticle.ISummary>> {
+    return DocumentProvider.index(external_user, input);
+  }
+
+  /**
    * Write Article to User Database
    *
    * Posts are managed in a snapshot-based structure, enabling rollback at any time.
@@ -100,7 +116,7 @@ export class ArticlesController {
   async write(
     @ExternalUser() external_user: IExternalUser,
     @TypedBody() input: IArticle.ICreate,
-  ): Promise<IArticle> {
+  ): Promise<StrictOmit<IArticle, "password">> {
     return DocumentProvider.create(external_user, input);
   }
 }

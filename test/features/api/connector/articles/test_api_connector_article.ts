@@ -290,3 +290,57 @@ export const test_api_connector_article_write_and_index_query_condition =
     typia.assertEquals(articles);
     typia.assert(articles.data.length === 1);
   };
+
+export const test_api_connector_article_at = async (
+  connection: CApi.IConnection,
+) => {
+  const articles = await CApi.functional.connector.articles.index(
+    connectionWithSameUser(connection),
+    {
+      limit: 100,
+      page: 1,
+      search: {},
+      sort: [],
+    },
+  );
+
+  if (articles.data.length === 0) {
+    throw new Error("Cannot test because data length is zero.");
+  }
+
+  for await (const article of articles.data) {
+    const res = await CApi.functional.connector.articles.at(
+      connectionWithSameUser(connection),
+      article.id,
+    );
+
+    typia.assertEquals(res);
+  }
+
+  const otherUserConnection = {
+    ...connection,
+    headers: {
+      "x-wrtn-application": "kakasoo",
+      "x-wrtn-password": password,
+      "x-wrtn-uid": randomUUID(),
+    },
+  } as const;
+
+  // 다른 사람의 게시글을 조회하고자 하는 경우에는 불가능해야 한다.
+  try {
+    await CApi.functional.connector.articles.at(
+      otherUserConnection,
+      articles.data[0].id,
+    );
+
+    throw new Error("This test have to be failed.");
+  } catch (err) {
+    interface Error {
+      message: "This article is not yours.";
+      error: "Forbidden";
+      statusCode: 403;
+    }
+
+    typia.assert<Error>((ErrorUtil.toJSON(err) as any).message);
+  }
+};

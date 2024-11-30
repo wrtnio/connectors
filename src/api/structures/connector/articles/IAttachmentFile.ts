@@ -3,21 +3,31 @@ import { tags } from "typia";
 export namespace IAttachmentFile {
   export interface ICreate {
     /**
-     *  File name, except extension.
+     * File name, except extension.
      *
-     *  Possible to make empy string like `.gitignore` case.
+     * Possible to make empty string like `.gitignore` case.
+     *
+     * @title File name
      */
     name: string & tags.MaxLength<255>;
 
     /**
-     *  Extension.
+     * Extension.
      *
-     *  Possible to omit like `README` case.
+     * Possible to omit like `README` case.
+     * Extensions must exclude dot characters.
+     *
+     * @title File extension
      */
     extension: null | (string & tags.MinLength<1> & tags.MaxLength<8>);
 
     /**
-     *  URL path of the real file.
+     * URL path of the real file.
+     *
+     * In addition to the case of attaching a file,
+     * it is recommended to attach the URL address of the file when linking within the markdown document.
+     *
+     * @title File url
      */
     url: string & tags.Format<"uri">;
   }

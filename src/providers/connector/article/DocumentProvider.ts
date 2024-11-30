@@ -1,4 +1,4 @@
-import { ForbiddenException } from "@nestjs/common";
+import { ForbiddenException, NotFoundException } from "@nestjs/common";
 import { Prisma } from "@prisma/client";
 import { IExternalUser } from "@wrtn/connector-api/lib/structures/common/IExternalUser";
 import { IPage } from "@wrtn/connector-api/lib/structures/common/IPage";
@@ -95,6 +95,32 @@ export namespace DocumentProvider {
             ? { mv_last: { snapshot: { title: direction } } }
             : {}
     ) satisfies Prisma.bbs_articlesOrderByWithRelationInput;
+  };
+
+  export const at = async (
+    external_user: IExternalUser,
+    articleId: IArticle["id"],
+  ): Promise<IArticle> => {
+    const article = await ConnectorGlobal.prisma.bbs_articles.findFirst({
+      ...BbsArticleProvider.json.select(),
+      where: {
+        id: articleId,
+      },
+    });
+
+    if (article === null) {
+      throw new NotFoundException("Not Found article");
+    }
+
+    if (article.external_user_id !== external_user.id) {
+      throw new ForbiddenException("This article is not yours.");
+    }
+
+    if (article.password !== external_user.password) {
+      throw new ForbiddenException("This article is not yours.");
+    }
+
+    return BbsArticleProvider.json.transform(article);
   };
 
   export const remove = async (
