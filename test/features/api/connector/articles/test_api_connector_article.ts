@@ -104,3 +104,33 @@ export const test_api_connector_article_update_with_invalid_password = async (
     typia.assert<Error>((ErrorUtil.toJSON(err) as any).message);
   }
 };
+
+export const test_api_connector_article_update_with_invalid_uid = async (
+  connection: CApi.IConnection,
+) => {
+  try {
+    const article = await test_api_connector_article_write(connection);
+    await CApi.functional.connector.articles.update(
+      {
+        ...connection,
+        headers: {
+          "x-wrtn-application": "kakasoo",
+          "x-wrtn-password": password,
+          "x-wrtn-uid": randomUUID(), // uid이 다른 경우
+        },
+      },
+      article.id,
+      typia.random<IArticle.IUpdate>(),
+    );
+
+    throw new Error("This test have to be failed.");
+  } catch (err) {
+    interface Error {
+      message: "This article is not yours.";
+      error: "Forbidden";
+      statusCode: 403;
+    }
+
+    typia.assert<Error>((ErrorUtil.toJSON(err) as any).message);
+  }
+};
