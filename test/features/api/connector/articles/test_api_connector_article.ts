@@ -1,6 +1,7 @@
 import CApi from "@wrtn/connector-api/lib/index";
 import { IExternalUser } from "@wrtn/connector-api/lib/structures/common/IExternalUser";
 import { IArticle } from "@wrtn/connector-api/lib/structures/connector/articles/IArticles";
+import { deepStrictEqual } from "assert";
 import { randomUUID } from "crypto";
 import typia from "typia";
 import { ErrorUtil } from "../../../../../src/utils/ErrorUtil";
@@ -8,7 +9,7 @@ import { ErrorUtil } from "../../../../../src/utils/ErrorUtil";
 const password = randomUUID();
 const uid = randomUUID();
 
-const connectionWithHeaders = (connection: CApi.IConnection) => ({
+const connectionWithSameUser = (connection: CApi.IConnection) => ({
   ...connection,
   headers: {
     "x-wrtn-application": "kakasoo",
@@ -21,7 +22,7 @@ export const test_api_connector_article_write = async (
   connection: CApi.IConnection,
 ) => {
   const article = await CApi.functional.connector.articles.write(
-    connectionWithHeaders(connection),
+    connectionWithSameUser(connection),
     typia.random<IArticle.ICreate>(),
   );
 
@@ -34,7 +35,7 @@ export const test_api_connector_article_update = async (
 ) => {
   const article = await test_api_connector_article_write(connection);
   const snapshot = await CApi.functional.connector.articles.update(
-    connectionWithHeaders(connection),
+    connectionWithSameUser(connection),
     article.id,
     typia.random<IArticle.IUpdate>(),
   );
@@ -138,9 +139,94 @@ export const test_api_connector_article_remove = async (
 ) => {
   const article = await test_api_connector_article_write(connection);
   const res = await CApi.functional.connector.articles.remove(
-    connectionWithHeaders(connection),
+    connectionWithSameUser(connection),
     article.id,
   );
 
   typia.assertEquals(res);
 };
+
+export const test_api_connector_article_index = async (
+  connection: CApi.IConnection,
+) => {
+  const articles = await CApi.functional.connector.articles.index(
+    {
+      ...connection,
+      headers: {
+        "x-wrtn-application": "kakasoo",
+        "x-wrtn-password": password,
+        "x-wrtn-uid": randomUUID(),
+      },
+    },
+    {
+      limit: 100,
+      page: 1,
+      search: {},
+      sort: [],
+    },
+  );
+
+  typia.assertEquals(articles);
+  typia.assert(articles.data.length === 0);
+  typia.assert(articles.pagination.current === 1);
+  typia.assert(articles.pagination.limit === 100);
+  typia.assert(articles.pagination.records === 0);
+  typia.assert(articles.pagination.pages === 0);
+};
+
+export const test_api_connector_article_write_and_index = async (
+  connection: CApi.IConnection,
+) => {
+  await test_api_connector_article_write(connection);
+  const articles = await CApi.functional.connector.articles.index(
+    connectionWithSameUser(connection),
+    {
+      limit: 100,
+      page: 1,
+      search: {},
+      sort: [],
+    },
+  );
+
+  typia.assertEquals(articles);
+  typia.assert(articles.data.length >= 1);
+  typia.assert(articles.pagination.current >= 1);
+  typia.assert(articles.pagination.limit === 100);
+  typia.assert(articles.pagination.records === 1);
+  typia.assert(articles.pagination.pages >= 1);
+};
+
+export const test_api_connector_article_index_only_can_view_user_owen_articles =
+  async (connection: CApi.IConnection) => {
+    const otherUserConnection = {
+      ...connection,
+      headers: {
+        "x-wrtn-application": "kakasoo",
+        "x-wrtn-password": password,
+        "x-wrtn-uid": randomUUID(),
+      },
+    } as const;
+
+    const before = await CApi.functional.connector.articles.index(
+      otherUserConnection,
+      {
+        limit: 100,
+        page: 1,
+        search: {},
+        sort: [],
+      },
+    );
+
+    await test_api_connector_article_write(connection);
+    const after = await CApi.functional.connector.articles.index(
+      otherUserConnection,
+      {
+        limit: 100,
+        page: 1,
+        search: {},
+        sort: [],
+      },
+    );
+
+    deepStrictEqual(before, after);
+  };

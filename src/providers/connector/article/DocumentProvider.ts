@@ -19,7 +19,7 @@ export namespace DocumentProvider {
   ): Promise<IPage<IArticle.ISummary>> => {
     return await PaginationUtil.paginate({
       schema: ConnectorGlobal.prisma.bbs_articles,
-      payload: BbsArticleProvider.summary.select,
+      payload: BbsArticleProvider.summary.select(),
       transform: BbsArticleProvider.summary.transform,
     })({
       where: {
