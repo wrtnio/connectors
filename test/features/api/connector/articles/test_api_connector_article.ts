@@ -230,3 +230,63 @@ export const test_api_connector_article_index_only_can_view_user_owen_articles =
 
     deepStrictEqual(before, after);
   };
+
+export const test_api_connector_article_write_and_index_order_by = async (
+  connection: CApi.IConnection,
+) => {
+  await test_api_connector_article_write(connection);
+  const articles = await CApi.functional.connector.articles.index(
+    connectionWithSameUser(connection),
+    {
+      limit: 100,
+      page: 1,
+      search: {},
+      sort: [
+        "+created_at",
+        "+snapshot.created_at",
+        "+snapshot.title",
+        "-created_at",
+        "-snapshot.created_at",
+        "-snapshot.title",
+      ],
+    },
+  );
+
+  typia.assertEquals(articles);
+  typia.assert(articles.data.length >= 1);
+  typia.assert(articles.pagination.current >= 1);
+  typia.assert(articles.pagination.limit === 100);
+  typia.assert(articles.pagination.records === 1);
+  typia.assert(articles.pagination.pages >= 1);
+};
+
+export const test_api_connector_article_write_and_index_query_condition =
+  async (connection: CApi.IConnection) => {
+    const article = await test_api_connector_article_write(connection);
+    const articles = await CApi.functional.connector.articles.index(
+      connectionWithSameUser(connection),
+      {
+        limit: 100,
+        page: 1,
+        search: {
+          id: article.id,
+          ids: [article.id],
+          snapshot: {
+            format: "md",
+            title: article.snapshots[0].title,
+          },
+        },
+        sort: [
+          "+created_at",
+          "+snapshot.created_at",
+          "+snapshot.title",
+          "-created_at",
+          "-snapshot.created_at",
+          "-snapshot.title",
+        ],
+      },
+    );
+
+    typia.assertEquals(articles);
+    typia.assert(articles.data.length === 1);
+  };
