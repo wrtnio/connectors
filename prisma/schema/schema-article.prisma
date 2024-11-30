@@ -425,10 +425,15 @@ model bbs_article_exports {
   /// For example, google_docs, notion
   provider String
 
+  /// Unique ID of this exported document
+  ///
+  /// 
+  uid String?
+
   /// URL path to the reference
   ///
   /// @format uri
-  url String @db.VarChar(80000)
+  url String? @db.VarChar(80000)
 
   // language String
 

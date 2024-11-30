@@ -864,10 +864,6 @@ export namespace INotion {
      *
      * @title Page title
      */
-
-    /**
-     * @title title
-     */
     title: string & Placeholder<"테스트 페이지.">;
   }
 

@@ -2,9 +2,11 @@ import { ForbiddenException, NotFoundException } from "@nestjs/common";
 import { Prisma } from "@prisma/client";
 import { IExternalUser } from "@wrtn/connector-api/lib/structures/common/IExternalUser";
 import { IPage } from "@wrtn/connector-api/lib/structures/common/IPage";
-import { IArticle } from "@wrtn/connector-api/lib/structures/connector/articles/IArticles";
+import { IArticle } from "@wrtn/connector-api/lib/structures/connector/articles/IArticle";
 import { ConnectorGlobal } from "../../../ConnectorGlobal";
 import { PaginationUtil } from "../../../utils/PaginationUtil";
+import { NotionProvider } from "../notion/NotionProvider";
+import { BbsArticleExportProvider } from "./BbsArticleExportProvider";
 import { BbsArticleProvider } from "./BbsArticleProvider";
 import { BbsArticleSnapshotProvider } from "./BbsArticleSnapshotProvider";
 
@@ -13,6 +15,52 @@ import { BbsArticleSnapshotProvider } from "./BbsArticleSnapshotProvider";
  * 이렇게 분리한 까닭은 {@link IArticle} 타입이 본디 목적이 하위 타입, 즉 base로서 정의된 것이기에 추후 기능 확장이 될 여지가 남아있기 때문이다.
  */
 export namespace DocumentProvider {
+  export function exports(provider: "google_docs"): ReturnType<any>; // NOT IMPLEMENT
+  export function exports(provider: "notion"): typeof exportsToNotion;
+  export function exports(provider: "notion" | "google_docs") {
+    if (provider === "notion") {
+      return exportsToNotion;
+    } else if (provider === "google_docs") {
+      return function something(
+        external_user: IExternalUser,
+        articleId: IArticle["id"],
+        input: {
+          google_docs: {
+            secretKey: string;
+            folder_id?: string;
+          };
+        },
+      ) {};
+    }
+
+    throw new Error("Cannot export to this service.");
+  }
+
+  export const exportsToNotion = async (
+    external_user: IExternalUser,
+    articleId: IArticle["id"],
+    input: IArticle.IExportToNotionInput,
+  ): Promise<IArticle.IExportToNotionOutput> => {
+    const { snapshots } = await DocumentProvider.at(external_user, articleId);
+    const snapshot = snapshots.find(({ id }) => id === input.snapshot.id)!;
+    const notion = await NotionProvider.createPageByMarkdown({
+      secretKey: input.notion.secretKey,
+      parentPageId: input.notion.parentPageId,
+      title: snapshot.title,
+      markdown: snapshot.body,
+    });
+
+    const article_snapshot_exports = await BbsArticleExportProvider.exports(
+      snapshot,
+    )({
+      provider: "notion",
+      uid: notion.id,
+      url: notion.link,
+    });
+
+    return { notion, article_snapshot_exports };
+  };
+
   export const index = async (
     external_user: IExternalUser,
     input: IArticle.IRequest,

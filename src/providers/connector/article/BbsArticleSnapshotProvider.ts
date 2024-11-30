@@ -1,6 +1,6 @@
 import { Prisma } from "@prisma/client";
 import { IEntity } from "@wrtn/connector-api/lib/structures/common/IEntity";
-import { IArticle } from "@wrtn/connector-api/lib/structures/connector/articles/IArticles";
+import { IArticle } from "@wrtn/connector-api/lib/structures/connector/articles/IArticle";
 import { randomUUID } from "crypto";
 import typia from "typia";
 import { ConnectorGlobal } from "../../../ConnectorGlobal";

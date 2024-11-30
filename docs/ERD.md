@@ -170,7 +170,8 @@ erDiagram
   String id PK
   String bbs_article_snapshot_id FK
   String provider
-  String url
+  String uid "nullable"
+  String url "nullable"
   DateTime created_at
   DateTime deleted_at "nullable"
 }
@@ -335,6 +336,7 @@ M: N relationship resolution.
     > Meaning of the name of the external service
     > 
     > For example, google_docs, notion
+  - `uid`: Unique ID of this exported document
   - `url`: URL path to the reference
   - `created_at`: The date and time the record was created.
   - `deleted_at`: Date and time of article deletion.

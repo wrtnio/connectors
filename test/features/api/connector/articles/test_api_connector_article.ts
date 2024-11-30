@@ -1,6 +1,6 @@
 import CApi from "@wrtn/connector-api/lib/index";
 import { IExternalUser } from "@wrtn/connector-api/lib/structures/common/IExternalUser";
-import { IArticle } from "@wrtn/connector-api/lib/structures/connector/articles/IArticles";
+import { IArticle } from "@wrtn/connector-api/lib/structures/connector/articles/IArticle";
 import { deepStrictEqual } from "assert";
 import { randomUUID } from "crypto";
 import typia from "typia";

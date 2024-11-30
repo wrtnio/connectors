@@ -1,23 +1,55 @@
+import { Prerequisite, SecretKey } from "@wrtnio/decorators";
 import { tags } from "typia";
 import { IPage } from "../../common/IPage";
 import { StrictOmit } from "../../types/strictOmit";
-import { ICommon } from "../common/ISecretValue";
+import { INotion } from "../notion/INotion";
+import { IArticleExport } from "./IArticleExport";
 import { IAttachmentFile } from "./IAttachmentFile";
 
 export namespace IArticle {
-  // 예제로 작성한 코드
-  export type IExportSecretInput = ICommon.ISecretTuple<
-    [
-      {
-        "x-wrtn-secret-key": "google";
-        "x-wrtn-secret-scopes": ["a", "b"];
-      },
-      {
-        "x-wrtn-secret-key": "notion";
-        "x-wrtn-secret-scopes": ["c", "d"];
-      },
-    ]
-  >;
+  export interface IExportToNotionOutput {
+    /**
+     * @title About the note page that was successfully exported
+     */
+    notion: INotion.ICreatePageOutput;
+
+    /**
+     * @title Exporting infomation
+     */
+    article_snapshot_exports: StrictOmit<IArticleExport, "deleted_at">;
+  }
+
+  export interface IExportToNotionInput {
+    /**
+     * @title Notion SecretKey and Parent Page ID to export
+     */
+    notion: {
+      /**
+       * @title Notion Secret Key for exporting
+       */
+      secretKey: string & SecretKey<"notion">;
+
+      /**
+       * @title Parent Page ID for exporting
+       */
+      parentPageId: INotion.PageIdInput["pageId"];
+    };
+
+    /**
+     * @title snapshot information to export
+     */
+    snapshot: {
+      /**
+       * @title Snapshot ID of the post you want to export to another service
+       */
+      id: string &
+        Prerequisite<{
+          method: "patch";
+          path: "/connector/articles/:id";
+          jmesPath: "snapshot[].{ value: id, label: ['created_at ', created_at].join(':', @) }";
+        }>;
+    };
+  }
 
   export type Format =
     | tags.Constant<"txt", { title: "txt" }>
@@ -176,6 +208,9 @@ export interface IArticle<
   snapshots: Snapshot[] & tags.MinItems<1>;
 
   /**
+   * The most recent snapshot made is the higher version,
+   * and in fact, this time value can serve as the version.
+   *
    * @title Creation time of article
    */
   created_at: string & tags.Format<"date-time">;

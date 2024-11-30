@@ -2,25 +2,28 @@ import core, { TypedBody, TypedParam } from "@nestia/core";
 import { Controller } from "@nestjs/common";
 import { IExternalUser } from "@wrtn/connector-api/lib/structures/common/IExternalUser";
 import { IPage } from "@wrtn/connector-api/lib/structures/common/IPage";
-import { IArticle } from "@wrtn/connector-api/lib/structures/connector/articles/IArticles";
+import { IArticle } from "@wrtn/connector-api/lib/structures/connector/articles/IArticle";
 import { StrictOmit } from "@wrtn/connector-api/lib/structures/types/strictOmit";
 import { ExternalUser } from "../../../decorators/ExternalUser";
 import { DocumentProvider } from "../../../providers/connector/article/DocumentProvider";
 
 @Controller("connector/articles")
 export class ArticlesController {
+  // @core.TypedRoute.Post(":id/exports/sync")
+  // async syncToNotion() {}
+
   /**
-   * Exports some article to other service, for example notion, google docs or others.
-   *
-   * @summary Exports Article to other service
+   * @summary Exports specified article to notion
+   * @param id Target article's {@link IArticle.id}
+   * @returns Article Infomation and notion secretKey
    */
-  // @core.TypedRoute.Post("exports")
-  async exports(
-    @TypedBody()
-    input: IArticle.IExportSecretInput,
-  ): Promise<1> {
-    input;
-    return 1 as const;
+  @core.TypedRoute.Post(":id/exports/notion")
+  async exportsToNotion(
+    @ExternalUser() external_user: IExternalUser,
+    @TypedParam("id") articleId: IArticle["id"],
+    @TypedBody() input: IArticle.IExportToNotionInput,
+  ): Promise<IArticle.IExportToNotionOutput> {
+    return DocumentProvider.exports("notion")(external_user, articleId, input);
   }
 
   /**
