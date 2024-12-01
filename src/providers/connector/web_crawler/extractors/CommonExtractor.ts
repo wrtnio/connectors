@@ -40,30 +40,223 @@ export namespace CommonExtractor {
     $: CheerioAPI,
   ): Promise<IWebCrawler.PaginationType> => {
     // 1. Infinite Scroll 감지
-    if (
-      $('[class*="infinite"]').length > 0 ||
-      $('[class*="load-more"]').length > 0
-    ) {
+    if (isInfiniteScroll($)) {
       return "infinite-scroll";
     }
 
-    // 2. 일반적인 페이지네이션 버튼
-    if (
-      $('a[href*="page="]').length > 0 ||
-      $('a[href*="offset="]').length > 0 ||
-      $(".pagination").length > 0
-    ) {
+    // 2. 일반적인 페이지네이션 검사
+    if (isNumberedPagination($)) {
       return "numbered";
     }
 
-    // 3. "더보기" 버튼
-    if (
-      $('button:contains("더보기"), button:contains("load more")').length > 0
-    ) {
+    // 3. "더보기" 버튼 검사
+    if (isLoadMore($)) {
       return "load-more";
     }
 
     return null;
+  };
+
+  const isInfiniteScroll = ($: CheerioAPI): boolean => {
+    // HTML 클래스/속성 기반 감지
+    const infiniteScrollSelectors = [
+      // 클래스 기반 셀렉터
+      '[class*="infinite"]',
+      '[class*="endless"]',
+      '[class*="load-more"]',
+      '[class*="continuous"]',
+      '[class*="scroll-load"]',
+      "[data-infinite]",
+
+      // WAI-ARIA 속성
+      '[role="feed"]',
+      '[aria-live="polite"]',
+
+      // 데이터 속성
+      "[data-infinite-scroll]",
+      "[data-endless-scroll]",
+      "[data-continuous-scroll]",
+      "[data-scroll-loading]",
+
+      // 일반적인 컨테이너
+      ".infinite-container",
+      ".infinite-wrapper",
+      ".scroll-container",
+      ".stream-container",
+    ];
+
+    // 스크립트 기반 감지
+    const scriptSelectors = [
+      // IntersectionObserver 사용 감지
+      'script:contains("IntersectionObserver")',
+
+      // 일반적인 무한 스크롤 라이브러리 감지
+      'script:contains("infinite-scroll")',
+      'script:contains("infiniteScroll")',
+      'script[src*="infinite-scroll"]',
+      'script[src*="ias.min.js"]',
+
+      // 스크롤 이벤트 리스너 감지
+      'script:contains("scroll")',
+      'script:contains("scrollTop")',
+      'script:contains("scrollHeight")',
+
+      // 커스텀 스크롤 관련 함수 감지
+      'script:contains("loadMore")',
+      'script:contains("fetchMore")',
+      'script:contains("getNextPage")',
+    ];
+
+    // HTML 구조 검사
+    return (
+      infiniteScrollSelectors.some((selector) => $(selector).length > 0) ||
+      scriptSelectors.some((selector) => $(selector).length > 0) ||
+      // Sentinel 요소 검사 (스크롤 감지용 요소)
+      $('[class*="sentinel"], [class*="observer"], [class*="waypoint"]')
+        .length > 0 ||
+      // 로딩 인디케이터 검사
+      $('[class*="loading"], [class*="spinner"], .loader:not(.hidden)').length >
+        0
+    );
+  };
+
+  const isNumberedPagination = ($: CheerioAPI): boolean => {
+    const paginationSelectors = [
+      // 기본 페이지네이션 구조
+      ".pagination",
+      ".paging",
+      ".pager",
+      '[role="navigation"]',
+      'nav[aria-label*="pagination" i]',
+
+      // URL 패턴 기반
+      'a[href*="page="]',
+      'a[href*="p="]',
+      'a[href*="offset="]',
+      'a[href*="start="]',
+      'a[href*="/page/"]',
+
+      // 일반적인 페이지 번호 컨테이너
+      ".page-numbers",
+      ".page-links",
+      ".page-nav",
+
+      // 특정 페이지네이션 컴포넌트
+      '[class*="pagination"]',
+      '[class*="paging"]',
+      "[data-pagination]",
+
+      // 페이지 번호 표시 요소
+      ".current-page",
+      ".page-current",
+      '[aria-current="page"]',
+    ];
+
+    // 숫자 기반 페이지네이션 확인
+    const hasNumberedLinks = Boolean(
+      $("a").filter(function (_, el) {
+        const href = $(el).attr("href");
+        const text = $(el).text().trim();
+        // 숫자만 포함된 텍스트를 가진 링크이고
+        // URL에 페이지 관련 파라미터가 있는 경우만 true 반환
+        return (
+          /^\d+$/.test(text) &&
+          Boolean(href?.match(/(?:page|p|offset|start)=\d+|\/page\/\d+/i))
+        );
+      }).length,
+    );
+
+    // 이전/다음 네비게이션 확인
+    const hasNavigation = Boolean(
+      $("a, button").filter(function (_, el) {
+        const text = $(el).text().toLowerCase();
+        const hasNavigationText = Boolean(
+          text.match(/prev|next|이전|다음|◀|▶|←|→/i),
+        );
+        const hasNavigationImage =
+          $(el).find('img[alt*="prev" i], img[alt*="next" i]').length > 0;
+        return hasNavigationText || hasNavigationImage;
+      }).length,
+    );
+
+    return (
+      paginationSelectors.some((selector) => $(selector).length > 0) ||
+      hasNumberedLinks ||
+      hasNavigation
+    );
+  };
+
+  const isLoadMore = ($: CheerioAPI): boolean => {
+    const loadMoreSelectors = [
+      // 버튼 텍스트 기반
+      'button:contains("더보기")',
+      'button:contains("load more")',
+      'button:contains("show more")',
+      'button:contains("view more")',
+      'button:contains("see more")',
+      'a:contains("더보기")',
+      'a:contains("load more")',
+      'a:contains("show more")',
+      'a:contains("view more")',
+      'a:contains("see more")',
+
+      // 클래스/ID 기반
+      '[class*="load-more"]',
+      '[class*="show-more"]',
+      '[class*="view-more"]',
+      '[id*="load-more"]',
+      '[id*="show-more"]',
+      "#loadMore",
+      "#showMore",
+
+      // 데이터 속성
+      "[data-load-more]",
+      "[data-more]",
+      '[data-action="load-more"]',
+
+      // WAI-ARIA 속성
+      '[aria-label*="load more" i]',
+      '[aria-label*="show more" i]',
+      '[role="button"]:contains("more")',
+
+      // 다국어 지원
+      'button:contains("더보기")',
+      'button:contains("もっと見る")',
+      'button:contains("查看更多")',
+      'button:contains("显示更多")',
+      'button:contains("Показать еще")',
+      'button:contains("Mehr anzeigen")',
+      'button:contains("Voir plus")',
+      'button:contains("Ver más")',
+      'button:contains("Mostrar mais")',
+    ];
+
+    // 버튼 요소 검사
+    const hasLoadMoreButton = loadMoreSelectors.some(
+      (selector) => $(selector).length > 0,
+    );
+
+    // API 엔드포인트 검사
+    const hasLoadMoreAPI = Boolean(
+      $("script").filter(function (_, el) {
+        const scriptContent = ($(el).html() || "").toLowerCase();
+        return (
+          scriptContent.includes("loadmore") ||
+          scriptContent.includes("load_more") ||
+          scriptContent.includes("load-more") ||
+          scriptContent.includes("showmore") ||
+          scriptContent.includes("fetchmore")
+        );
+      }).length,
+    );
+
+    // 로딩 상태 요소 검사
+    const hasLoadingState = Boolean(
+      $('[class*="loading"]:not(.hidden), [class*="spinner"]:not(.hidden)')
+        .length,
+    );
+
+    return hasLoadMoreButton || (hasLoadMoreAPI && hasLoadingState);
   };
 
   const handleNumberedPagination = async (
@@ -278,6 +471,8 @@ export namespace CommonExtractor {
   ): Promise<IWebCrawler.IPagination> => {
     const detectType: IWebCrawler.PaginationType =
       type ?? (await detectPaginationType($));
+
+    console.log(await detectPaginationType($));
 
     switch (type) {
       case "numbered":

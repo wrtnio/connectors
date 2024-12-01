@@ -10,8 +10,12 @@ export const test_api_connector_web_crawler_get_content = async (
     await CApi.functional.connector.crawler.get_web_content.getWebContent(
       pool,
       {
-        type: "good",
         url: URL,
+        rawContent: false,
+        pagination: {
+          followNextPage: true,
+          followNextPageCount: 10,
+        },
       },
     );
 
