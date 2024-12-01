@@ -79,6 +79,7 @@ jobs:
       - name: Start Docker Compose
         run: |
           docker compose -f docker-compose-test.yml up -d
+          sleep 5;
           npx prisma db push
       - name: test
         run: | # sweet_tracker, google_ads는 현재 테스트 대상이 아님
@@ -160,6 +161,7 @@ jobs:
       - name: Start Docker Compose
         run: |
           docker compose -f docker-compose-test.yml up -d
+          sleep 5;
           npx prisma db push
       - name: test
         run: npm run test -- --include slack
