@@ -40,8 +40,8 @@ export namespace DocumentProvider {
     export const notion = async (
       external_user: IExternalUser,
       articleId: IArticle["id"],
-      input: IArticle.IExportToNotionInput,
-    ): Promise<IArticle.IExportToNotionOutput> => {
+      input: IArticle.IExport.ToNotionInput,
+    ): Promise<IArticle.IExport.ToNotionOutput> => {
       const { snapshots } = await DocumentProvider.at(external_user, articleId);
       const snapshot = snapshots.find(({ id }) => id === input.snapshot.id)!;
       const notion = await NotionProvider.createPageByMarkdown({

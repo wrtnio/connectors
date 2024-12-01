@@ -7,48 +7,55 @@ import { IArticleExport } from "./IArticleExport";
 import { IAttachmentFile } from "./IAttachmentFile";
 
 export namespace IArticle {
-  export interface IExportToNotionOutput {
-    /**
-     * @title About the note page that was successfully exported
-     */
-    notion: INotion.ICreatePageOutput;
-
-    /**
-     * @title Exporting infomation
-     */
-    article_snapshot_exports: StrictOmit<IArticleExport, "deleted_at">;
+  export namespace ISync {
+    export interface ToNotionOutput {}
+    export interface ToNotionInput {}
   }
 
-  export interface IExportToNotionInput {
-    /**
-     * @title Notion SecretKey and Parent Page ID to export
-     */
-    notion: {
+  export namespace IExport {
+    export interface ToNotionOutput {
       /**
-       * @title Notion Secret Key for exporting
+       * @title About the note page that was successfully exported
        */
-      secretKey: string & SecretKey<"notion">;
+      notion: INotion.ICreatePageOutput;
 
       /**
-       * @title Parent Page ID for exporting
+       * @title Exporting infomation
        */
-      parentPageId: INotion.PageIdInput["pageId"];
-    };
+      article_snapshot_exports: StrictOmit<IArticleExport, "deleted_at">;
+    }
 
-    /**
-     * @title snapshot information to export
-     */
-    snapshot: {
+    export interface ToNotionInput {
       /**
-       * @title Snapshot ID of the post you want to export to another service
+       * @title Notion SecretKey and Parent Page ID to export
        */
-      id: string &
-        Prerequisite<{
-          method: "patch";
-          path: "/connector/articles/:id";
-          jmesPath: "snapshot[].{ value: id, label: ['created_at ', created_at].join(':', @) }";
-        }>;
-    };
+      notion: {
+        /**
+         * @title Notion Secret Key for exporting
+         */
+        secretKey: string & SecretKey<"notion">;
+
+        /**
+         * @title Parent Page ID for exporting
+         */
+        parentPageId: INotion.PageIdInput["pageId"];
+      };
+
+      /**
+       * @title snapshot information to export
+       */
+      snapshot: {
+        /**
+         * @title Snapshot ID of the post you want to export to another service
+         */
+        id: string &
+          Prerequisite<{
+            method: "patch";
+            path: "/connector/articles/:id";
+            jmesPath: "snapshot[].{ value: id, label: ['created_at ', created_at].join(':', @) }";
+          }>;
+      };
+    }
   }
 
   export type Format =

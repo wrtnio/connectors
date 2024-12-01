@@ -9,11 +9,12 @@ import { DocumentProvider } from "../../../providers/connector/article/DocumentP
 
 @Controller("connector/articles")
 export class ArticlesController {
-  @core.TypedRoute.Post(":id/exports/sync/notion")
-  async syncToNotion(
-    @ExternalUser() external_user: IExternalUser,
-    @TypedParam("id") articleId: IArticle["id"],
-  ) {}
+  // @core.TypedRoute.Post(":id/exports/sync/notion")
+  // async syncToNotion(
+  //   @ExternalUser() external_user: IExternalUser,
+  //   @TypedParam("id") articleId: IArticle["id"],
+  //   @TypedBody() input: IArticle.ISync.ToNotionInput,
+  // ) {}
 
   /**
    * @summary Exports specified article to notion
@@ -24,8 +25,8 @@ export class ArticlesController {
   async exportsToNotion(
     @ExternalUser() external_user: IExternalUser,
     @TypedParam("id") articleId: IArticle["id"],
-    @TypedBody() input: IArticle.IExportToNotionInput,
-  ): Promise<IArticle.IExportToNotionOutput> {
+    @TypedBody() input: IArticle.IExport.ToNotionInput,
+  ): Promise<IArticle.IExport.ToNotionOutput> {
     return DocumentProvider.exports("notion")(external_user, articleId, input);
   }
 
