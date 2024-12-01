@@ -448,7 +448,6 @@ export const test_api_connector_article_sync_by_snapshot_id = async (
 ) => {
   // 생성 후 내보내기
   const target = await test_api_connector_article_exports(connection);
-  console.log(JSON.stringify(target, null, 2));
 
   // 업데이트하여 새 스냅샷을 추가
   const updated = await test_api_connector_article_update(connection, target);
@@ -478,6 +477,4 @@ export const test_api_connector_article_sync_by_snapshot_id = async (
   // 최종적으로 어떤 스냅샷이 exports를 가지고 있는지 본다.
   const snapshot = res.snapshots.find((el) => el.bbs_article_exports.length);
   assert(snapshot?.id === to);
-
-  console.log(JSON.stringify(res, null, 2));
 };

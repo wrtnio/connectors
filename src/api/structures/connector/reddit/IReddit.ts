@@ -739,7 +739,7 @@ export namespace IReddit {
     /**
      * @title The title of the Oembed
      **/
-    title: string;
+    title?: string;
 
     /**
      * @title The description of the Oembed
@@ -754,17 +754,17 @@ export namespace IReddit {
     /**
      * @title The width of the thumbnail
      **/
-    thumbnail_width: number;
+    thumbnail_width?: number;
 
     /**
      * @title The height of the Oembed
      **/
-    height: number;
+    height?: number;
 
     /**
      * @title The width of the Oembed
      **/
-    width: number;
+    width?: number;
 
     /**
      * @title The HTML content
@@ -784,12 +784,12 @@ export namespace IReddit {
     /**
      * @title The URL of the thumbnail
      **/
-    thumbnail_url: string;
+    thumbnail_url?: string;
 
     /**
      * @title The height of the thumbnail
      **/
-    thumbnail_height: number;
+    thumbnail_height?: number;
 
     /**
      * @title The URL of the author
