@@ -394,7 +394,7 @@ export const test_api_connector_article_at = async (
   }
 };
 
-export const test_api_connector_article_exports_to_notion = async (
+export const test_api_connector_article_exports = async (
   connection: CApi.IConnection,
   article?: IArticle,
 ) => {
@@ -447,7 +447,7 @@ export const test_api_connector_article_sync_by_snapshot_id = async (
   connection: CApi.IConnection,
 ) => {
   // 생성 후 내보내기
-  const target = await test_api_connector_article_exports_to_notion(connection);
+  const target = await test_api_connector_article_exports(connection);
   console.log(JSON.stringify(target, null, 2));
 
   // 업데이트하여 새 스냅샷을 추가
