@@ -15,6 +15,60 @@ import { BbsArticleSnapshotProvider } from "./BbsArticleSnapshotProvider";
  * 이렇게 분리한 까닭은 {@link IArticle} 타입이 본디 목적이 하위 타입, 즉 base로서 정의된 것이기에 추후 기능 확장이 될 여지가 남아있기 때문이다.
  */
 export namespace DocumentProvider {
+  export function sync(provider: "google_docs"): ReturnType<any>; // NOT IMPLEMENT
+  export function sync(provider: "notion"): typeof sync.notion;
+  export function sync(provider: "notion" | "google_docs") {
+    if (provider === "notion") {
+      return sync.notion;
+    } else if (provider === "google_docs") {
+      return function something(
+        external_user: IExternalUser,
+        articleId: IArticle["id"],
+        input: {
+          google_docs: {
+            secretKey: string;
+            folder_id?: string;
+          };
+        },
+      ) {};
+    }
+
+    throw new Error("Cannot sync to this service.");
+  }
+
+  export namespace sync {
+    export const notion = async (
+      external_user: IExternalUser,
+      articleId: IArticle["id"],
+      input: IArticle.ISync.ToNotionInput,
+    ): Promise<IArticle.ISync.ToNotionOutput> => {
+      const article = await BbsArticleProvider.at({ id: articleId });
+      const article_snapshot_exports = article.snapshots
+        .find((el) => el.id === input.snapshot.id)
+        ?.bbs_article_exports.filter((bbs_article_export) =>
+          input.snapshot.article_snapshot_exports?.ids?.length
+            ? input.snapshot.article_snapshot_exports?.ids?.includes(
+                bbs_article_export.id,
+              )
+            : true,
+        );
+
+      if (article_snapshot_exports?.length) {
+        const created_at = new Date().toISOString();
+        await Promise.all(
+          article_snapshot_exports.map(async (bbs_article_export) => {
+            await BbsArticleExportProvider.update(bbs_article_export)({
+              bbs_article_snapshot_id: input.snapshot.id,
+              created_at,
+            });
+          }),
+        );
+      }
+
+      return DocumentProvider.at(external_user, articleId);
+    };
+  }
+
   export function exports(provider: "google_docs"): ReturnType<any>; // NOT IMPLEMENT
   export function exports(provider: "notion"): typeof exports.notion;
   export function exports(provider: "notion" | "google_docs") {

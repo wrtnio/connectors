@@ -64,4 +64,16 @@ export namespace BbsArticleExportProvider {
 
       return BbsArticleExportProvider.json.transform(exports);
     };
+
+  export const update =
+    (bbs_article_export: IEntity) => async (input: IArticleExport.IUpdate) => {
+      await ConnectorGlobal.prisma.bbs_article_exports.update({
+        data: {
+          bbs_article_snapshot_id: input.bbs_article_snapshot_id,
+        },
+        where: {
+          id: bbs_article_export.id,
+        },
+      });
+    };
 }

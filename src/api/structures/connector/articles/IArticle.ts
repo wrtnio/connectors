@@ -8,8 +8,63 @@ import { IAttachmentFile } from "./IAttachmentFile";
 
 export namespace IArticle {
   export namespace ISync {
-    export interface ToNotionOutput {}
-    export interface ToNotionInput {}
+    export type ToNotionOutput = StrictOmit<IArticle, "password">;
+
+    export interface ToNotionInput {
+      /**
+       * @title Notion SecretKey and Parent Page ID to sync
+       */
+      notion: {
+        /**=
+         * @title Notion Secret Key for synchronization
+         */
+        secretKey: string & SecretKey<"notion">;
+      };
+
+      /**
+       * @title snapshot information for synchronization
+       */
+      snapshot: {
+        /**
+         * The user synchronizes the text associated with that snapshot ID to the most recent snapshot.
+         *
+         * For example, when you have v1 and v2,
+         * if you pass v1 by ID,
+         * you replace the exported document in snapshot v1 with the exported document
+         * in v2 and update the properties,
+         * including the title and content of the exported document.
+         *
+         * If you want to synchronize the notion documents linked to the snapshot at once, please only forward the snapshot's ID.
+         * If you want to synchronize only some of the documents exported from that snapshot, pass only the ID of bbs_article_exports.
+         * bbs_article_exports is the point of connection between snapshots and documents exported from those snapshots.
+         *
+         * @title Snapshot ID of the article you want to sync to another service
+         */
+        id: string &
+          tags.Format<"uuid"> &
+          Prerequisite<{
+            method: "patch";
+            path: "/connector/articles/:id";
+            jmesPath: "snapshot[].{ value: id, label: ['created_at ', created_at].join(':', @) }";
+          }>;
+
+        /**
+         * @@title Exported Document's information
+         */
+        article_snapshot_exports?: {
+          /**
+           * IDs of {@link IArticleExport bbs_article_exports}
+           *
+           * If you want to synchronize the notion documents linked to the snapshot at once, please only forward the snapshot's ID.
+           * If you want to synchronize only some of the documents exported from that snapshot, pass only the ID of bbs_article_exports.
+           * bbs_article_exports is the point of connection between snapshots and documents exported from those snapshots.
+           *
+           * @title IDs of IArticleExport
+           */
+          ids?: Array<IArticleExport["id"]>;
+        };
+      };
+    }
   }
 
   export namespace IExport {
@@ -46,7 +101,7 @@ export namespace IArticle {
        */
       snapshot: {
         /**
-         * @title Snapshot ID of the post you want to export to another service
+         * @title Snapshot ID of the article you want to export to another service
          */
         id: string &
           Prerequisite<{

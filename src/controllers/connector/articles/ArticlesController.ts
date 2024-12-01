@@ -3,20 +3,31 @@ import { Controller } from "@nestjs/common";
 import { IExternalUser } from "@wrtn/connector-api/lib/structures/common/IExternalUser";
 import { IPage } from "@wrtn/connector-api/lib/structures/common/IPage";
 import { IArticle } from "@wrtn/connector-api/lib/structures/connector/articles/IArticle";
+import { IArticleExport } from "@wrtn/connector-api/lib/structures/connector/articles/IArticleExport";
 import { StrictOmit } from "@wrtn/connector-api/lib/structures/types/strictOmit";
 import { ExternalUser } from "../../../decorators/ExternalUser";
 import { DocumentProvider } from "../../../providers/connector/article/DocumentProvider";
 
 @Controller("connector/articles")
 export class ArticlesController {
-  // @core.TypedRoute.Post(":id/exports/sync/notion")
-  // async syncToNotion(
-  //   @ExternalUser() external_user: IExternalUser,
-  //   @TypedParam("id") articleId: IArticle["id"],
-  //   @TypedBody() input: IArticle.ISync.ToNotionInput,
-  // ) {}
+  @core.TypedRoute.Post(":id/exports/sync/notion")
+  async syncToNotion(
+    @ExternalUser() external_user: IExternalUser,
+    @TypedParam("id") articleId: IArticle["id"],
+    @TypedBody() input: IArticle.ISync.ToNotionInput,
+  ): Promise<IArticle.ISync.ToNotionOutput> {
+    return DocumentProvider.sync("notion")(external_user, articleId, input);
+  }
 
   /**
+   * Export the text to Notion
+   *
+   * The exported text is recorded by creating a
+   * {@link IArticleExport bbs_article_exports} object based on the snapshot.
+   * You can upgrade and downgrade the version using
+   * the 'POST /connector/articles/:id/exports/sync/notion' connector in the future.
+   * Also, it doesn't matter if you export the same version of the text multiple times.
+   *
    * @summary Exports specified article to notion
    * @param id Target article's {@link IArticle.id}
    * @returns Article Infomation and notion secretKey

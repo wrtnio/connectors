@@ -2,6 +2,18 @@ import { tags } from "typia";
 import { StrictOmit } from "../../types/strictOmit";
 
 export namespace IArticleExport {
+  export interface IUpdate {
+    /**
+     * @title ID of the snapshot that will be a later version of the update
+     */
+    bbs_article_snapshot_id: string & tags.Format<"uuid">;
+
+    /**
+     * @title Creation time ot {@link IArticleExport}
+     */
+    created_at: string & tags.Format<"date-time">;
+  }
+
   export type ICreate = StrictOmit<IArticleExport, "id">;
 }
 
