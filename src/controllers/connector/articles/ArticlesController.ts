@@ -10,7 +10,7 @@ import { DocumentProvider } from "../../../providers/connector/article/DocumentP
 
 @Controller("connector/articles")
 export class ArticlesController {
-  @core.TypedRoute.Post(":id/exports/sync/notion")
+  @core.TypedRoute.Post(":id/sync/notion")
   async syncToNotion(
     @ExternalUser() external_user: IExternalUser,
     @TypedParam("id") articleId: IArticle["id"],

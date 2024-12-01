@@ -34,14 +34,24 @@ export namespace IArticle {
          * in v2 and update the properties,
          * including the title and content of the exported document.
          *
-         * If you want to synchronize the notion documents linked to the snapshot at once, please only forward the snapshot's ID.
+         * If you want to synchronize the notion documents linked to the snapshot at once,
+         * please only forward the snapshot's ID (=`from` property).
          * If you want to synchronize only some of the documents exported from that snapshot, pass only the ID of bbs_article_exports.
          * bbs_article_exports is the point of connection between snapshots and documents exported from those snapshots.
          *
-         * @title Snapshot ID of the article you want to sync to another service
+         * @title ID of the snapshot to be previously synchronized
          */
-        id: string &
-          tags.Format<"uuid"> &
+        from: IArticle.ISnapshot["id"] &
+          Prerequisite<{
+            method: "patch";
+            path: "/connector/articles/:id";
+            jmesPath: "snapshot[].{ value: id, label: ['created_at ', created_at].join(':', @) }";
+          }>;
+
+        /**
+         * @title The ID of the snapshot that will be after synchronization
+         */
+        to: IArticle.ISnapshot["id"] &
           Prerequisite<{
             method: "patch";
             path: "/connector/articles/:id";
@@ -55,13 +65,16 @@ export namespace IArticle {
           /**
            * IDs of {@link IArticleExport bbs_article_exports}
            *
-           * If you want to synchronize the notion documents linked to the snapshot at once, please only forward the snapshot's ID.
+           * If you want to synchronize the notion documents linked to the snapshot at once,
+           * please only forward the snapshot's ID (=`from` property).
            * If you want to synchronize only some of the documents exported from that snapshot, pass only the ID of bbs_article_exports.
            * bbs_article_exports is the point of connection between snapshots and documents exported from those snapshots.
            *
+           * If it is to be specified, it must be an array of at least one size.
+           *
            * @title IDs of IArticleExport
            */
-          ids?: Array<IArticleExport["id"]>;
+          ids?: Array<IArticleExport["id"]> & tags.MinItems<1>;
         };
       };
     }
@@ -227,7 +240,7 @@ export namespace IArticle {
     /**
      * @title Primary Key
      */
-    id: string;
+    id: string & tags.Format<"uuid">;
 
     /**
      *  In other words, creation time or update time or article

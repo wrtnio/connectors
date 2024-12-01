@@ -1,4 +1,5 @@
 import CApi from "@wrtn/connector-api/lib/index";
+import { IEntity } from "@wrtn/connector-api/lib/structures/common/IEntity";
 import { IExternalUser } from "@wrtn/connector-api/lib/structures/common/IExternalUser";
 import { IArticle } from "@wrtn/connector-api/lib/structures/connector/articles/IArticle";
 import { IArticleExport } from "@wrtn/connector-api/lib/structures/connector/articles/IArticleExport";
@@ -60,15 +61,19 @@ export const test_api_connector_article_write_with_files = async (
 
 export const test_api_connector_article_update = async (
   connection: CApi.IConnection,
+  article?: IEntity,
 ) => {
-  const article = await test_api_connector_article_write(connection);
+  const target =
+    article ?? (await test_api_connector_article_write(connection));
+
   const snapshot = await CApi.functional.connector.articles.update(
     connectionWithSameUser(connection),
-    article.id,
+    target.id,
     typia.random<IArticle.IUpdate>(),
   );
 
   typia.assertEquals(snapshot);
+  return snapshot;
 };
 
 export const test_api_connector_article_update_with_same_properties = async (
@@ -426,4 +431,53 @@ export const test_api_connector_article_exports_to_notion = async (
   });
 
   typia.assertEquals<IArticleExport>(information);
+
+  const response = await CApi.functional.connector.articles.at(
+    connectionWithSameUser(connection),
+    target.id,
+  );
+
+  assert(response.snapshots.length === 1);
+  assert(response.snapshots[0].bbs_article_exports.length === 1);
+
+  return response;
+};
+
+export const test_api_connector_article_sync_by_snapshot_id = async (
+  connection: CApi.IConnection,
+) => {
+  // 생성 후 내보내기
+  const target = await test_api_connector_article_exports_to_notion(connection);
+  console.log(JSON.stringify(target, null, 2));
+
+  // 업데이트하여 새 스냅샷을 추가
+  const updated = await test_api_connector_article_update(connection, target);
+
+  // 전체 exports에 대한 내보내기 시도
+  const from = target.snapshots[0].id as string;
+  const to = updated.id as string;
+
+  // from에서 to로 이동시키는 것이기 때문에 두 snapshot 아이디는 달라야 한다.
+  assert.notEqual(from, to);
+
+  const res = await CApi.functional.connector.articles.sync.notion.syncToNotion(
+    connectionWithSameUser(connection),
+    target.id,
+    {
+      notion: {
+        secretKey: ConnectorGlobal.env.NOTION_TEST_SECRET,
+      },
+      snapshot: {
+        from,
+        to,
+      },
+    },
+  );
+  typia.assertEquals(res);
+
+  // 최종적으로 어떤 스냅샷이 exports를 가지고 있는지 본다.
+  const snapshot = res.snapshots.find((el) => el.bbs_article_exports.length);
+  assert(snapshot?.id === to);
+
+  console.log(JSON.stringify(res, null, 2));
 };

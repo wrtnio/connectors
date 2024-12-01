@@ -43,10 +43,11 @@ export namespace DocumentProvider {
       input: IArticle.ISync.ToNotionInput,
     ): Promise<IArticle.ISync.ToNotionOutput> => {
       const article = await BbsArticleProvider.at({ id: articleId });
-      const snapshot = article.snapshots.find(
-        (el) => el.id === input.snapshot.id,
+      const before = article.snapshots.find(
+        (el) => el.id === input.snapshot.from,
       );
-      const article_snapshot_exports = snapshot?.bbs_article_exports.filter(
+
+      const article_snapshot_exports = before?.bbs_article_exports.filter(
         (bbs_article_export) =>
           input.snapshot.article_snapshot_exports?.ids?.length
             ? input.snapshot.article_snapshot_exports?.ids?.includes(
@@ -55,24 +56,33 @@ export namespace DocumentProvider {
             : true,
       );
 
-      if (snapshot && article_snapshot_exports?.length) {
+      if (before && article_snapshot_exports?.length) {
         const created_at = new Date().toISOString();
         for await (const bbs_article_export of article_snapshot_exports) {
           const pageId = bbs_article_export.uid!;
           const secretKey = input.notion.secretKey;
+
           if ((await NotionProvider.clear({ pageId, secretKey })) === true) {
-            if (
-              await NotionProvider.appendBlocksByMarkdown({
-                markdown: snapshot.body,
-                pageId,
-                secretKey,
-              })
-            ) {
-              await BbsArticleExportProvider.update(bbs_article_export)({
-                bbs_article_snapshot_id: input.snapshot.id,
-                created_at,
-              });
-            }
+            const snapshot = article.snapshots.find(
+              (el) => el.id === input.snapshot.to,
+            )!;
+
+            await NotionProvider.updatePageTitle({
+              title: snapshot.title,
+              pageId,
+              secretKey,
+            });
+
+            await NotionProvider.appendBlocksByMarkdown({
+              markdown: snapshot?.body,
+              pageId,
+              secretKey,
+            });
+
+            await BbsArticleExportProvider.update(bbs_article_export)({
+              bbs_article_snapshot_id: input.snapshot.to,
+              created_at,
+            });
           }
         }
       }
