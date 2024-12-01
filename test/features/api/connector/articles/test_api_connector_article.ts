@@ -4,6 +4,7 @@ import { IArticle } from "@wrtn/connector-api/lib/structures/connector/articles/
 import { deepStrictEqual } from "assert";
 import { randomUUID } from "crypto";
 import typia from "typia";
+import { ConnectorGlobal } from "../../../../../src/ConnectorGlobal";
 import { ErrorUtil } from "../../../../../src/utils/ErrorUtil";
 
 const password = randomUUID();
@@ -343,4 +344,30 @@ export const test_api_connector_article_at = async (
 
     typia.assert<Error>((ErrorUtil.toJSON(err) as any).message);
   }
+};
+
+export const test_api_connector_article_exports_to_notion = async (
+  connection: CApi.IConnection,
+  article?: IArticle,
+) => {
+  const parentPageId = "14fab4840d3380e99785e2d7866be6ca" as const; // 테스트 용 페이지
+  const target =
+    article ?? (await test_api_connector_article_write(connection));
+
+  const exported =
+    await CApi.functional.connector.articles.exports.notion.exportsToNotion(
+      connectionWithSameUser(connection),
+      target.id,
+      {
+        notion: {
+          secretKey: ConnectorGlobal.env.NOTION_TEST_SECRET,
+          parentPageId,
+        },
+        snapshot: {
+          id: target.snapshots[target.snapshots.length - 1]?.id as string,
+        },
+      },
+    );
+
+  typia.assertEquals(exported);
 };
