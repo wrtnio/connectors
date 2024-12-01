@@ -1,6 +1,7 @@
 import CApi from "@wrtn/connector-api/lib/index";
 import { IExternalUser } from "@wrtn/connector-api/lib/structures/common/IExternalUser";
 import { IArticle } from "@wrtn/connector-api/lib/structures/connector/articles/IArticle";
+import { IArticleExport } from "@wrtn/connector-api/lib/structures/connector/articles/IArticleExport";
 import { deepStrictEqual } from "assert";
 import { randomUUID } from "crypto";
 import typia from "typia";
@@ -370,4 +371,17 @@ export const test_api_connector_article_exports_to_notion = async (
     );
 
   typia.assertEquals(exported);
+
+  const exportedArticle = await CApi.functional.connector.articles.at(
+    connectionWithSameUser(connection),
+    target.id,
+  );
+
+  const information = exportedArticle.snapshots[
+    target.snapshots.length - 1
+  ].bbs_article_exports.find((el) => {
+    return el.uid === exported.notion.id && el.url === exported.notion.link;
+  });
+
+  typia.assertEquals<IArticleExport>(information);
 };
