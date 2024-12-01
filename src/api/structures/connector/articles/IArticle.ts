@@ -158,7 +158,7 @@ export namespace IArticle {
     /**
      * List of attachment files.
      */
-    files: IAttachmentFile.ICreate[];
+    files?: IAttachmentFile.ICreate[];
   }
 
   export interface ISnapshot extends StrictOmit<ICreate, "files"> {

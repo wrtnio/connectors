@@ -2,7 +2,8 @@ import CApi from "@wrtn/connector-api/lib/index";
 import { IExternalUser } from "@wrtn/connector-api/lib/structures/common/IExternalUser";
 import { IArticle } from "@wrtn/connector-api/lib/structures/connector/articles/IArticle";
 import { IArticleExport } from "@wrtn/connector-api/lib/structures/connector/articles/IArticleExport";
-import { deepStrictEqual } from "assert";
+import { StrictOmit } from "@wrtn/connector-api/lib/structures/types/strictOmit";
+import assert, { deepStrictEqual } from "assert";
 import { randomUUID } from "crypto";
 import typia from "typia";
 import { ConnectorGlobal } from "../../../../../src/ConnectorGlobal";
@@ -25,11 +26,36 @@ export const test_api_connector_article_write = async (
 ) => {
   const article = await CApi.functional.connector.articles.write(
     connectionWithSameUser(connection),
-    typia.random<IArticle.ICreate>(),
+    typia.random<StrictOmit<IArticle.ICreate, "files">>(),
   );
 
   typia.assertEquals(article);
   return article;
+};
+
+export const test_api_connector_article_write_with_files = async (
+  connection: CApi.IConnection,
+) => {
+  const ICreateFile = {
+    extension: "png",
+    name: "image",
+    url: "http://test.png",
+  } as const;
+
+  const article = await CApi.functional.connector.articles.write(
+    connectionWithSameUser(connection),
+    {
+      ...typia.random<IArticle.ICreate>(),
+      files: [ICreateFile],
+    },
+  );
+
+  typia.assertEquals(article);
+  const createdFile = article.snapshots[article.snapshots.length - 1].files[0];
+
+  Object.entries(ICreateFile).forEach(([key, value]) => {
+    assert({ ...createdFile }[key] === value);
+  });
 };
 
 export const test_api_connector_article_update = async (
@@ -43,6 +69,22 @@ export const test_api_connector_article_update = async (
   );
 
   typia.assertEquals(snapshot);
+};
+
+export const test_api_connector_article_update_with_same_properties = async (
+  connection: CApi.IConnection,
+) => {
+  const article = await test_api_connector_article_write(connection);
+  const lastSnapshot = article.snapshots[0];
+  const snapshot = await CApi.functional.connector.articles.update(
+    connectionWithSameUser(connection),
+    article.id,
+    { props: lastSnapshot },
+  );
+
+  typia.assertEquals(snapshot);
+  assert(lastSnapshot.id, snapshot.id);
+  deepStrictEqual(lastSnapshot, snapshot);
 };
 
 export const test_api_connector_article_update_with_invalid_application =

@@ -203,6 +203,11 @@ export namespace DocumentProvider {
       throw new ForbiddenException("This article is not yours.");
     }
 
+    const lastSnapshot = article.snapshots[article.snapshots.length - 1];
+    if (BbsArticleSnapshotProvider.equals(lastSnapshot)(input.props)) {
+      return BbsArticleSnapshotProvider.at({ id: lastSnapshot.id });
+    }
+
     return BbsArticleSnapshotProvider.create({ id: articleId })(input.props);
   };
 

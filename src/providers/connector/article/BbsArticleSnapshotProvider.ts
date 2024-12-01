@@ -2,6 +2,7 @@ import { Prisma } from "@prisma/client";
 import { IEntity } from "@wrtn/connector-api/lib/structures/common/IEntity";
 import { IArticle } from "@wrtn/connector-api/lib/structures/connector/articles/IArticle";
 import { randomUUID } from "crypto";
+import std from "tstl";
 import typia from "typia";
 import { ConnectorGlobal } from "../../../ConnectorGlobal";
 import { AttachmentFileProvider } from "./AttachmentFileProvider";
@@ -42,13 +43,43 @@ export namespace BbsArticleSnapshotProvider {
     };
   }
 
+  export const at = async (input: IEntity) => {
+    const snapshot =
+      await ConnectorGlobal.prisma.bbs_article_snapshots.findFirstOrThrow({
+        ...BbsArticleSnapshotProvider.json.select(),
+        where: {
+          id: input.id,
+        },
+      });
+
+    return BbsArticleSnapshotProvider.json.transform(snapshot);
+  };
+
   export const collect = (input: IArticle.IUpdate["props"]) => {
+    const created_at = new Date().toISOString();
     return {
       id: randomUUID(),
       title: input.title,
       body: input.body,
       format: "md",
-      created_at: new Date().toISOString(),
+      ...(input.files?.length && {
+        to_files: {
+          create: input.files.map((file, i) => ({
+            id: randomUUID(),
+            sequence: i,
+            file: {
+              create: {
+                id: randomUUID(),
+                name: file.name,
+                url: file.url,
+                extension: file.extension,
+                created_at,
+              },
+            },
+          })),
+        },
+      }),
+      created_at,
     } satisfies Prisma.bbs_article_snapshotsCreateWithoutArticleInput;
   };
 
@@ -74,5 +105,16 @@ export namespace BbsArticleSnapshotProvider {
       });
 
       return json.transform(snapshot);
+    };
+
+  export const equals =
+    (x: IArticle.ICreate) =>
+    (y: IArticle.ICreate): boolean => {
+      return (
+        x.format === y.format &&
+        x.title === y.title &&
+        x.body === y.body &&
+        std.ranges.equal(x.files ?? [], y.files ?? [])
+      );
     };
 }
