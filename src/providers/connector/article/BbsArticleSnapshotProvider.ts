@@ -5,6 +5,7 @@ import { randomUUID } from "crypto";
 import typia from "typia";
 import { ConnectorGlobal } from "../../../ConnectorGlobal";
 import { AttachmentFileProvider } from "./AttachmentFileProvider";
+import { BbsArticleExportProvider } from "./BbsArticleExportProvider";
 
 export namespace BbsArticleSnapshotProvider {
   export namespace json {
@@ -17,6 +18,9 @@ export namespace BbsArticleSnapshotProvider {
         title: input.title,
         body: input.body,
         format: format,
+        bbs_article_exports: input.bbs_article_exports
+          .sort((a, b) => a.created_at.getTime() - b.created_at.getTime())
+          .map((p) => BbsArticleExportProvider.json.transform(p)),
         files: input.to_files
           .sort((a, b) => a.sequence - b.sequence)
           .map((p) => AttachmentFileProvider.json.transform(p.file)),
@@ -32,6 +36,7 @@ export namespace BbsArticleSnapshotProvider {
               file: AttachmentFileProvider.json.select(),
             },
           },
+          bbs_article_exports: BbsArticleExportProvider.json.select(),
         },
       } satisfies Prisma.bbs_article_snapshotsFindManyArgs;
     };

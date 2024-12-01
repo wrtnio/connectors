@@ -178,6 +178,14 @@ export namespace IArticle {
      * @title List of attachment files
      */
     files: IAttachmentFile[];
+
+    /**
+     * If it has been exported,
+     * the location of the export will be recorded in the properties.
+     *
+     * @title History of this snapshot being exported
+     */
+    bbs_article_exports: IArticleExport[];
   }
 }
 

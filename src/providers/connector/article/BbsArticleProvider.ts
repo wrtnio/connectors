@@ -4,7 +4,6 @@ import { IExternalUser } from "@wrtn/connector-api/lib/structures/common/IExtern
 import { IArticle } from "@wrtn/connector-api/lib/structures/connector/articles/IArticle";
 import { randomUUID } from "crypto";
 import { ConnectorGlobal } from "../../../ConnectorGlobal";
-import { AttachmentFileProvider } from "./AttachmentFileProvider";
 import { BbsArticleSnapshotProvider } from "./BbsArticleSnapshotProvider";
 
 export namespace BbsArticleProvider {
@@ -12,17 +11,12 @@ export namespace BbsArticleProvider {
     export const transform = (
       input: Prisma.bbs_articlesGetPayload<ReturnType<typeof summary.select>>,
     ): IArticle.ISummary => {
+      const snapshot = input.mv_last?.snapshot!;
       return {
         id: input.id,
         snapshot: {
-          id: input.mv_last!.snapshot.id,
-          title: input.mv_last!.snapshot.title,
-          format: input.mv_last!.snapshot.format as IArticle.Format as "md",
+          ...BbsArticleSnapshotProvider.json.transform(snapshot),
           body: input.mv_last!.snapshot.body.slice(0, 100),
-          files: input
-            .mv_last!.snapshot.to_files.sort((a, b) => a.sequence - b.sequence)
-            .map((p) => AttachmentFileProvider.json.transform(p.file)),
-          created_at: input.mv_last!.snapshot.created_at.toISOString(),
         },
         created_at: input.created_at.toISOString(),
       };
@@ -34,20 +28,7 @@ export namespace BbsArticleProvider {
           id: true,
           mv_last: {
             select: {
-              snapshot: {
-                select: {
-                  id: true,
-                  title: true,
-                  body: true,
-                  format: true,
-                  created_at: true,
-                  to_files: {
-                    include: {
-                      file: AttachmentFileProvider.json.select(),
-                    },
-                  },
-                },
-              },
+              snapshot: BbsArticleSnapshotProvider.json.select(),
             },
           },
           created_at: true,

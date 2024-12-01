@@ -16,10 +16,10 @@ import { BbsArticleSnapshotProvider } from "./BbsArticleSnapshotProvider";
  */
 export namespace DocumentProvider {
   export function exports(provider: "google_docs"): ReturnType<any>; // NOT IMPLEMENT
-  export function exports(provider: "notion"): typeof exportsToNotion;
+  export function exports(provider: "notion"): typeof exports.notion;
   export function exports(provider: "notion" | "google_docs") {
     if (provider === "notion") {
-      return exportsToNotion;
+      return exports.notion;
     } else if (provider === "google_docs") {
       return function something(
         external_user: IExternalUser,
@@ -36,30 +36,32 @@ export namespace DocumentProvider {
     throw new Error("Cannot export to this service.");
   }
 
-  export const exportsToNotion = async (
-    external_user: IExternalUser,
-    articleId: IArticle["id"],
-    input: IArticle.IExportToNotionInput,
-  ): Promise<IArticle.IExportToNotionOutput> => {
-    const { snapshots } = await DocumentProvider.at(external_user, articleId);
-    const snapshot = snapshots.find(({ id }) => id === input.snapshot.id)!;
-    const notion = await NotionProvider.createPageByMarkdown({
-      secretKey: input.notion.secretKey,
-      parentPageId: input.notion.parentPageId,
-      title: snapshot.title,
-      markdown: snapshot.body,
-    });
+  export namespace exports {
+    export const notion = async (
+      external_user: IExternalUser,
+      articleId: IArticle["id"],
+      input: IArticle.IExportToNotionInput,
+    ): Promise<IArticle.IExportToNotionOutput> => {
+      const { snapshots } = await DocumentProvider.at(external_user, articleId);
+      const snapshot = snapshots.find(({ id }) => id === input.snapshot.id)!;
+      const notion = await NotionProvider.createPageByMarkdown({
+        secretKey: input.notion.secretKey,
+        parentPageId: input.notion.parentPageId,
+        title: snapshot.title,
+        markdown: snapshot.body,
+      });
 
-    const article_snapshot_exports = await BbsArticleExportProvider.exports(
-      snapshot,
-    )({
-      provider: "notion",
-      uid: notion.id,
-      url: notion.link,
-    });
+      const article_snapshot_exports = await BbsArticleExportProvider.exports(
+        snapshot,
+      )({
+        provider: "notion",
+        uid: notion.id,
+        url: notion.link,
+      });
 
-    return { notion, article_snapshot_exports };
-  };
+      return { notion, article_snapshot_exports };
+    };
+  }
 
   export const index = async (
     external_user: IExternalUser,
