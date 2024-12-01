@@ -3,6 +3,7 @@ import { Cheerio, CheerioAPI, load } from "cheerio";
 import { ZenRows, ZenRowsConfig } from "zenrows";
 import { IWebCrawler } from "@wrtn/connector-api/lib/structures/connector/web_crawler/IWebCrawler";
 import { ConnectorGlobal } from "../../../ConnectorGlobal";
+import { CommonExtractor } from "./extractors/CommonExtractor";
 
 interface CrawlerConfig {
   readonly baseUrls: {
@@ -85,37 +86,6 @@ export class WebCrawlerProvider {
     // 빈 요소 제거
     $("*:empty").not("img").remove();
 
-    // // 1. 본문 컨텐츠 찾기
-    // const mainContent = $(
-    //   '#content, .content, article, .article, .post, .entry, main, [role="main"]',
-    // );
-    //
-    // // 2. 본문이 있으면 본문만 남기고 모두 제거
-    // if (mainContent.length) {
-    //   $("body").empty().append(mainContent);
-    // }
-    //
-    // // 3. 본문 내에서 필요한 태그만 남기기
-    // $("body *").each((_, el) => {
-    //   const $el = $(el);
-    //   if (
-    //     ![
-    //       "p",
-    //       "h1",
-    //       "h2",
-    //       "h3",
-    //       "h4",
-    //       "h5",
-    //       "div",
-    //       "span",
-    //       "img",
-    //       "a",
-    //     ].includes(el.tagName)
-    //   ) {
-    //     $el.replaceWith($el.contents());
-    //   }
-    // });
-
     // 공백, \n 정리
     $("*")
       .contents()
@@ -127,42 +97,34 @@ export class WebCrawlerProvider {
   }
 
   private async scrapWeb(input: IWebCrawler.IRequest): Promise<string | null> {
+    const response = await this.zenRowsClient.get(
+      this.transformUrl(input.url),
+      {
+        js_render: true,
+        wait: 4500,
+        wait_for: input.wait_for,
+        ...this.getProxyOptions(input.url),
+      },
+    );
+
+    const data = await response.text();
+
     try {
-      const response = await this.zenRowsClient.get(
-        this.transformUrl(input.url),
-        {
-          js_render: true,
-          wait: 4500,
-          wait_for: input.wait_for,
-          ...this.getProxyOptions(input.url),
-        },
-      );
-
-      const data = await response.text();
-
-      try {
-        const json = JSON.parse(data);
-        if (json.status % 100 !== 2) {
-          if (json.code === "AUTH004") {
-            throw new HttpException(
-              "Rate limit exceeded",
-              HttpStatus.TOO_MANY_REQUESTS,
-            );
-          }
-          throw new Error();
+      const json = JSON.parse(data);
+      if (json.status % 100 !== 2) {
+        if (json.code === "AUTH004") {
+          throw new HttpException(
+            "Rate limit exceeded",
+            HttpStatus.TOO_MANY_REQUESTS,
+          );
         }
-      } catch (e) {
-        if (e instanceof HttpException) throw e;
+        throw new Error();
       }
-
-      return data;
-    } catch (error) {
-      if (error instanceof HttpException) throw error;
-      throw new HttpException(
-        "Failed to scrap web",
-        HttpStatus.INTERNAL_SERVER_ERROR,
-      );
+    } catch (e) {
+      if (e instanceof HttpException) throw e;
     }
+
+    return data;
   }
 
   private transformNaverBlogURL(url: string): string {
@@ -192,18 +154,86 @@ export class WebCrawlerProvider {
     $: CheerioAPI,
   ): Promise<IWebCrawler.IResponse> {
     try {
-      const content = await this.getContentByType(input.type, $);
-      const metadata = await this.extractMetadata($);
+      // Extract initial pagination info
+      const pagination = await CommonExtractor.extractPaginationInfo(
+        $,
+        input.url,
+      );
+
+      // Initialize pages array with first page
+      const pages: IWebCrawler.IPage[] = [
+        {
+          url: input.url,
+          index: 0,
+          content: {
+            text: this.extractMainContent($),
+            images: await CommonExtractor.extractImages($),
+            metadata: await this.extractMetadata($),
+          },
+          rawContent: input.rawContent ? $.html() : null,
+          pagination,
+        },
+      ];
+
+      // Handle pagination if requested
+      if (input.pagination?.followNextPage && pagination.hasNextPage) {
+        const maxPages = input.pagination.followNextPageCount || 10;
+        let currentUrl = pagination.nextPageUrl;
+        let pageIndex = 1;
+
+        while (currentUrl && pageIndex < maxPages) {
+          // Fetch and parse next page
+          const nextPageHtml = await this.scrapWeb({
+            ...input,
+            url: currentUrl,
+          });
+          if (!nextPageHtml) break;
+
+          const next$ = load(nextPageHtml);
+          this.cleanupHTML(next$);
+
+          // Get pagination info for next page
+          const nextPagination = await CommonExtractor.extractPaginationInfo(
+            next$,
+            currentUrl,
+          );
+
+          // Add page to results
+          pages.push({
+            url: currentUrl,
+            index: pageIndex,
+            content: {
+              text: this.extractMainContent(next$),
+              images: await CommonExtractor.extractImages(next$),
+              metadata: await this.extractMetadata(next$),
+            },
+            rawContent: input.rawContent ? next$.html() : null,
+            pagination: nextPagination,
+          });
+
+          // Update for next iteration
+          currentUrl = nextPagination.nextPageUrl;
+          pageIndex++;
+
+          // Break if no more pages
+          if (!nextPagination.hasNextPage) break;
+        }
+      }
+
+      // Create summary
+      const summary: IWebCrawler.ISummary = {
+        totalPages: pages.length,
+        timestamp: new Date().toISOString(),
+        hasMore: pages[pages.length - 1].pagination.hasNextPage,
+        pagination: pages[pages.length - 1].pagination,
+      };
 
       return {
-        type: input.type,
-        content: content,
-        metadata: {
-          ...metadata,
-          url: input.url,
-        },
+        pages,
+        summary,
       };
-    } catch {
+    } catch (error) {
+      this.logger.error("Failed to create response:", error);
       throw new HttpException(
         "Failed to create response",
         HttpStatus.INTERNAL_SERVER_ERROR,
@@ -211,290 +241,79 @@ export class WebCrawlerProvider {
     }
   }
 
-  async analyzeAndSetType(
-    input: IWebCrawler.IRequest,
-    $: CheerioAPI,
-  ): Promise<IWebCrawler.IRequest["type"]> {
-    if (input.type) return input.type;
+  private extractMainContent($: CheerioAPI): string {
+    // Target main content containers
+    const contentSelectors = [
+      "article",
+      '[role="main"]',
+      ".post-content",
+      ".article-content",
+      ".entry-content",
+      "main",
+      "#content",
+      ".content",
+    ];
 
-    // 타입이 지정되지 않은 경우 자동 분석
-    const analyzedType = ContentTypeAnalyzer.analyzeContentType($);
-    return analyzedType;
-  }
+    let mainContent = "";
 
-  async getContentByType(
-    type: IWebCrawler.IRequest["type"],
-    $: CheerioAPI,
-  ): Promise<IWebCrawler.IResponse["content"]> {
-    try {
-      // 메인 컨텐츠 영역 찾기
-      const mainContentHtml = ContentTypeAnalyzer.findMainContent($, type);
-      const $mainContent = load(mainContentHtml);
-
-      // 기존 타입별 처리 로직 활용
-      switch (type) {
-        case "good":
-          return await this.getGood($mainContent);
-        case "review":
-          return await this.getReview($mainContent);
-        case "article":
-          return await this.getArticle($mainContent);
-        case "social":
-          return await this.getSocial($mainContent);
-        case "blog":
-          return await this.getBlog($mainContent);
-        case "community":
-          return await this.getCommunity($mainContent);
-        case null:
-          return $mainContent.html()?.trim() || "";
-        default:
-          return $mainContent.html()?.trim() || "";
+    // Try each selector until we find content
+    for (const selector of contentSelectors) {
+      const content = $(selector).first();
+      if (content.length) {
+        mainContent = content.text().trim();
+        if (mainContent) break;
       }
-    } catch (error) {
-      this.logger.error("Failed to get content by type", error);
-      throw new HttpException(
-        "Failed to get content",
-        HttpStatus.INTERNAL_SERVER_ERROR,
-      );
     }
+
+    // If no content found with selectors, try to get body content
+    if (!mainContent) {
+      mainContent = $("body").text().trim();
+    }
+
+    return mainContent;
   }
 
-  /**
-   * 할인율 추출 (20% -> 20)
-   */
-  private extractDiscountRate(text: string | undefined): number {
-    if (!text) return 0;
-    const matches = text.match(/\d+/);
-    return matches ? Number(matches[0]) : 0;
-  }
+  private async extractMetadata($: CheerioAPI): Promise<Record<string, any>> {
+    const metadata: Record<string, any> = {};
 
-  /**
-   * 가격에서 통화 정보 추출
-   */
-  private detectCurrency($: CheerioAPI): string {
-    // Schema.org 통화 정보 확인
-    const schemaCurrency = $('[itemprop="currency"]').attr("content");
-    if (schemaCurrency) return schemaCurrency;
+    // Extract title
+    metadata.title =
+      $("title").text().trim() ||
+      $('meta[property="og:title"]').attr("content") ||
+      $("h1").first().text().trim();
 
-    // 페이지 전체 텍스트에서 통화 기호 찾기
-    const text = $("body").text();
-    if (text.includes("원") || text.includes("₩") || text.includes("KRW"))
-      return "KRW";
-    if (text.includes("$") || text.includes("USD")) return "USD";
-    if (text.includes("€") || text.includes("EUR")) return "EUR";
-    if (text.includes("¥") || text.includes("JPY")) return "JPY";
+    // Extract description
+    metadata.description =
+      $('meta[name="description"]').attr("content") ||
+      $('meta[property="og:description"]').attr("content");
 
-    return "KRW"; // 기본값
-  }
+    // Extract author
+    metadata.author =
+      $('meta[name="author"]').attr("content") ||
+      $(".author").first().text().trim() ||
+      $('[rel="author"]').first().text().trim();
 
-  private async getGood($: CheerioAPI): Promise<IWebCrawler.GoodData> {
-    const images = await this.extractImages($);
+    // Extract publish date
+    const publishDate =
+      $('meta[property="article:published_time"]').attr("content") ||
+      $("time").attr("datetime") ||
+      $(".date").first().text().trim();
 
-    // const current = currentPriceSelectors
-    //   .map((selector) => $(selector))
-    //   .find((el) => el.length > 0);
-    //
-    // const original = originalPriceSelectors
-    //   .map((selector) => $(selector))
-    //   .find((el) => el.length > 0);
-    //
-    // const discount = discountSelectors
-    //   .map((selector) => $(selector))
-    //   .find((el) => el.length > 0);
-
-    return {
-      name: $('meta[property="og:title"]').attr("content") || "",
-      price: {
-        current: 0 || 0,
-        original: 0,
-        currency: "",
-        discountRate: 0,
-      },
-      manufacturer: $('[itemprop="manufacturer"]').text() || undefined,
-      category: $('[itemtype="breadcrumb"] span')
-        .map((_, el) => $(el).text())
-        .get(),
-      description: $('[itemprop="description"]').text() || "",
-      images,
-      availability: "in_stock",
-    };
-  }
-
-  private async getReview($: CheerioAPI): Promise<IWebCrawler.ReviewData> {
-    const items: IWebCrawler.ReviewData["items"] = [];
-
-    $(".review-item").each((_, element) => {
-      const $review = $(element);
-      items.push({
-        id: $review.attr("id") || String(Date.now()),
-        author: {
-          name: $review.find(".author").text(),
-          verified: $review.find(".verified-buyer").length > 0,
-        },
-        rating: Number($review.find(".rating").attr("data-rating")) || 0,
-        date: $review.find(".date").text(),
-        content: $review.find(".content").text(),
-        images: [],
-      });
-    });
-
-    return {
-      items,
-      summary: {
-        totalCount: items.length,
-        averageRating:
-          items.reduce((acc, item) => acc + item.rating, 0) / items.length,
-        keywordFrequency: {},
-      },
-    };
-  }
-
-  private async getArticle($: CheerioAPI): Promise<IWebCrawler.ArticleData> {
-    const images = await this.extractImages($);
-    return {
-      title: $("h1").first().text(),
-      author: $(".author").text() || undefined,
-      publishDate:
-        $('meta[property="article:published_time"]').attr("content") ||
-        new Date().toISOString(),
-      modifiedDate: $('meta[property="article:modified_time"]').attr("content"),
-      content: $(".article-content").text(),
-      summary: $('meta[name="description"]').attr("content"),
-      category: $(".category").text() || undefined,
-      tags: $(".tags a")
-        .map((_, el) => $(el).text())
-        .get(),
-      images,
-      source: $(".source").text(),
-      related: $(".related-articles a")
-        .map((_, el) => ({
-          title: $(el).text(),
-          url: $(el).attr("href") || "",
-        }))
-        .get(),
-    };
-  }
-
-  private async getSocial($: CheerioAPI): Promise<IWebCrawler.SocialData> {
-    const images = await this.extractImages($);
-    return {
-      author: {
-        name: $(".author-name").text(),
-        handle: $(".author-handle").text(),
-        verified: $(".verified-badge").length > 0,
-      },
-      content: $(".post-content").text(),
-      date: $(".post-date").attr("datetime") || new Date().toISOString(),
-      engagement: {
-        likes: Number($(".likes-count").text()) || 0,
-        shares: Number($(".shares-count").text()) || 0,
-        comments: Number($(".comments-count").text()) || 0,
-        views: Number($(".views-count").text()) || 0,
-      },
-      media: images,
-      hashtags:
-        $(".hashtags")
-          .text()
-          .match(/#[\w]+/g) || [],
-      location: $(".location").text() || undefined,
-    };
-  }
-
-  private async getBlog($: CheerioAPI): Promise<IWebCrawler.BlogData> {
-    const images = await this.extractImages($);
-    return {
-      title: $(".blog-title").text(),
-      author: {
-        name: $(".blog-author").text(),
-        profileUrl: $(".author-profile").attr("href"),
-        description: $(".author-description").text(),
-      },
-      content: $(".blog-content").text(),
-      publishDate:
-        $(".publish-date").attr("datetime") || new Date().toISOString(),
-      modifiedDate: $(".modified-date").attr("datetime"),
-      category: $(".blog-category")
-        .map((_, el) => $(el).text())
-        .get(),
-      tags: $(".blog-tags")
-        .map((_, el) => $(el).text())
-        .get(),
-      images,
-      stats: {
-        views: Number($(".view-count").text()) || 0,
-        likes: Number($(".like-count").text()) || 0,
-      },
-    };
-  }
-
-  private async getCommunity(
-    $: CheerioAPI,
-  ): Promise<IWebCrawler.CommunityData> {
-    const images = await this.extractImages($);
-    return {
-      title: $(".post-title").text(),
-      author: {
-        name: $(".author-name").text(),
-        rank: $(".author-rank").text(),
-        joinDate: $(".join-date").text(),
-        postCount: Number($(".post-count").text()) || 0,
-      },
-      content: $(".post-content").text(),
-      board: {
-        name: $(".board-name").text(),
-        category: $(".board-category").text(),
-      },
-      publishDate:
-        $(".publish-date").attr("datetime") || new Date().toISOString(),
-      modifiedDate: $(".modified-date").attr("datetime"),
-      images,
-      stats: {
-        views: Number($(".view-count").text()) || 0,
-        likes: Number($(".like-count").text()) || 0,
-        comments: Number($(".comment-count").text()) || 0,
-      },
-    };
-  }
-
-  private extractMetadata = async (
-    $: CheerioAPI,
-  ): Promise<IWebCrawler.IMetadata> => ({
-    url: $('link[rel="canonical"]').attr("href") || "",
-    timestamp: new Date().toISOString(),
-    language: $("html").attr("lang") || null,
-    lastUpdated: $('meta[property="article:modified_time"]').attr("content"),
-    paginate: null,
-  });
-
-  private async extractImages($: CheerioAPI): Promise<IWebCrawler.IImage[]> {
-    const images: IWebCrawler.IImage[] = [];
-
-    $("img").each((_, element) => {
-      const $img = $(element);
-      const $parent = $img.parent();
-      const url = $img.attr("src");
-
-      if (url) {
-        images.push({
-          id: $img.attr("id"),
-          url,
-          alt: $img.attr("alt"),
-          classNames: ($img.attr("class") || "").split(/\s+/).filter(Boolean),
-          parentClassNames: ($parent.attr("class") || "")
-            .split(/\s+/)
-            .filter(Boolean),
-        });
+    if (publishDate) {
+      try {
+        metadata.publishDate = new Date(publishDate).toISOString();
+      } catch {
+        metadata.publishDate = publishDate;
       }
+    }
 
-      // 작은 이미지나 장식용 이미지 제거
-      if (
-        Number($img.attr("width")) < 100 ||
-        Number($img.attr("height")) < 100 ||
-        $img.attr("role") === "presentation"
-      ) {
-        $img.remove();
+    // Clean up metadata by removing undefined values
+    Object.keys(metadata).forEach((key) => {
+      if (metadata[key] === undefined) {
+        delete metadata[key];
       }
     });
-    return images;
+
+    return metadata;
   }
 }
