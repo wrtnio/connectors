@@ -1132,7 +1132,9 @@ export class SlackProvider {
   async create(
     team_id: string,
     external_user_id: string,
-    input: StrictOmit<ISlack.IGetUserDetailOutput, "id">,
+    input: StrictOmit<ISlack.IGetUserDetailOutput, "id"> & {
+      profile_image: string | null;
+    },
   ): Promise<void> {
     try {
       const id = randomUUID();
@@ -1150,7 +1152,7 @@ export class SlackProvider {
                   fields: JSON.stringify(input.fields),
                   display_name: input.display_name,
                   real_name: input.real_name,
-
+                  profile_image: input.profile_image,
                   deleted: false,
                 },
               },
