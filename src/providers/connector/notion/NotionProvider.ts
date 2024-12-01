@@ -1238,6 +1238,23 @@ export namespace NotionProvider {
     });
   }
 
+  export async function clear(input: INotion.ICrear): Promise<boolean> {
+    try {
+      const notion = await createClient(input.secretKey);
+      const blocks = await notion.blocks.children.list({
+        block_id: input.pageId,
+      });
+
+      for await (const block of blocks.results) {
+        await notion.blocks.delete({ block_id: block.id });
+      }
+
+      return true;
+    } catch (err) {
+      return false;
+    }
+  }
+
   export async function updatePageTitle(
     input: INotion.IUpdateNotionTitleInput,
   ): Promise<INotion.ICreatePageOutput> {

@@ -2452,4 +2452,11 @@ export namespace INotion {
      */
     pageId: PageIdInput["pageId"];
   }
+
+  export interface ICrear extends INotion.ISecret {
+    /**
+     * @title Page ID to clear
+     */
+    pageId: PageIdInput["pageId"];
+  }
 }

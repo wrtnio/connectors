@@ -43,26 +43,38 @@ export namespace DocumentProvider {
       input: IArticle.ISync.ToNotionInput,
     ): Promise<IArticle.ISync.ToNotionOutput> => {
       const article = await BbsArticleProvider.at({ id: articleId });
-      const article_snapshot_exports = article.snapshots
-        .find((el) => el.id === input.snapshot.id)
-        ?.bbs_article_exports.filter((bbs_article_export) =>
+      const snapshot = article.snapshots.find(
+        (el) => el.id === input.snapshot.id,
+      );
+      const article_snapshot_exports = snapshot?.bbs_article_exports.filter(
+        (bbs_article_export) =>
           input.snapshot.article_snapshot_exports?.ids?.length
             ? input.snapshot.article_snapshot_exports?.ids?.includes(
                 bbs_article_export.id,
               )
             : true,
-        );
+      );
 
-      if (article_snapshot_exports?.length) {
+      if (snapshot && article_snapshot_exports?.length) {
         const created_at = new Date().toISOString();
-        await Promise.all(
-          article_snapshot_exports.map(async (bbs_article_export) => {
-            await BbsArticleExportProvider.update(bbs_article_export)({
-              bbs_article_snapshot_id: input.snapshot.id,
-              created_at,
-            });
-          }),
-        );
+        for await (const bbs_article_export of article_snapshot_exports) {
+          const pageId = bbs_article_export.uid!;
+          const secretKey = input.notion.secretKey;
+          if ((await NotionProvider.clear({ pageId, secretKey })) === true) {
+            if (
+              await NotionProvider.appendBlocksByMarkdown({
+                markdown: snapshot.body,
+                pageId,
+                secretKey,
+              })
+            ) {
+              await BbsArticleExportProvider.update(bbs_article_export)({
+                bbs_article_snapshot_id: input.snapshot.id,
+                created_at,
+              });
+            }
+          }
+        }
       }
 
       return DocumentProvider.at(external_user, articleId);
