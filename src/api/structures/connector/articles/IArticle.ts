@@ -15,7 +15,7 @@ export namespace IArticle {
        * @title Notion SecretKey and Parent Page ID to sync
        */
       notion: {
-        /**=
+        /**
          * @title Notion Secret Key for synchronization
          */
         secretKey: string & SecretKey<"notion">;
@@ -26,7 +26,7 @@ export namespace IArticle {
        */
       snapshot: {
         /**
-         * The user synchronizes the text associated with that snapshot ID to the most recent snapshot.
+         * The user synchronizes the text associated with that snapshot.
          *
          * For example, when you have v1 and v2,
          * if you pass v1 by ID,

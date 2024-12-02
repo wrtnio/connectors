@@ -10,6 +10,17 @@ import { DocumentProvider } from "../../../providers/connector/article/DocumentP
 
 @Controller("connector/articles")
 export class ArticlesController {
+  /**
+   * Synchronize version
+   *
+   * Synchronize on a snapshot basis,
+   * such as upgrading or downgrading the version of a document exported to Notion.
+   *
+   * @summary Syncronize article version
+   * @param articleId Target article's {@link IArticle.id}
+   * @param input Notion Secret and snapshot information to sync
+   * @returns Response of Synchronization
+   */
   @core.TypedRoute.Post(":id/sync/notion")
   async syncToNotion(
     @ExternalUser() external_user: IExternalUser,
@@ -29,7 +40,8 @@ export class ArticlesController {
    * Also, it doesn't matter if you export the same version of the text multiple times.
    *
    * @summary Exports specified article to notion
-   * @param id Target article's {@link IArticle.id}
+   * @param articleId Target article's {@link IArticle.id}
+   * @param input Notion Secret and snapshot information to export
    * @returns Article Infomation and notion secretKey
    */
   @core.TypedRoute.Post(":id/exports/notion")
@@ -42,10 +54,14 @@ export class ArticlesController {
   }
 
   /**
-   * Reads an article with its every {@link IArticle.ISnapshot snapshots}
+   * Reads an article with its every snapshots
+   *
+   * Reads an article with its every snapshots {@link IArticle.ISnapshot snapshots}
+   * This detail contains the entire content created for each version of the document,
+   * as well as the connection information to the external services from which it was exported.
    *
    * @sumamry Read individual article
-   * @param id Target article's {@link IArticle.id}
+   * @param articleId Target article's {@link IArticle.id}
    * @returns Article Infomation
    */
   @core.TypedRoute.Patch(":id")
@@ -60,9 +76,10 @@ export class ArticlesController {
    * Erase an article
    *
    * Performs soft deletion to the article.
+   * This makes the article no longer available, regardless of the number of snapshots.
    *
    * @summary Remove an specified article
-   * @param id Target article's {@link IArticle.id}
+   * @param articleId Target article's {@link IArticle.id}
    * @param input Password of the article.
    */
   @core.TypedRoute.Delete(":id")
