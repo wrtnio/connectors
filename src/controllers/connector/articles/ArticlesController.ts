@@ -19,7 +19,7 @@ export class ArticlesController {
    * find the exported text from `from` and start synchronizing to the version of `to`.
    *
    * @summary Syncronize article version
-   * @param articleId Target article's {@link IArticle.id}
+   * @param articleId Target article's {@link IArticle.id}, Not snapshot ID
    * @param input Notion Secret and snapshot information to sync
    * @returns Response of Synchronization
    */
@@ -41,8 +41,11 @@ export class ArticlesController {
    * the 'POST /connector/articles/:id/exports/sync/notion' connector in the future.
    * Also, it doesn't matter if you export the same version of the text multiple times.
    *
+   * Because each export generates a new text,
+   * you must use the `sync` connector if you want to change the version of an already exported text.
+   *
    * @summary Exports specified article to notion
-   * @param articleId Target article's {@link IArticle.id}
+   * @param articleId Target article's {@link IArticle.id}, Not snapshot ID
    * @param input Notion Secret and snapshot information to export
    * @returns Article Infomation and notion secretKey
    */
@@ -63,7 +66,7 @@ export class ArticlesController {
    * as well as the connection information to the external services from which it was exported.
    *
    * @sumamry Read individual article
-   * @param articleId Target article's {@link IArticle.id}
+   * @param articleId Target article's {@link IArticle.id}, Not snapshot ID
    * @returns Article Infomation
    */
   @core.TypedRoute.Patch(":id")
@@ -81,7 +84,7 @@ export class ArticlesController {
    * This makes the article no longer available, regardless of the number of snapshots.
    *
    * @summary Remove an specified article
-   * @param articleId Target article's {@link IArticle.id}
+   * @param articleId Target article's {@link IArticle.id}, Not snapshot ID
    * @param input Password of the article.
    */
   @core.TypedRoute.Delete(":id")
