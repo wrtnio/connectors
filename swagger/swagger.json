@@ -15,7 +15,7 @@
     }
   ],
   "info": {
-    "version": "0.1.368",
+    "version": "0.1.369",
     "title": "@wrtn/connector",
     "description": "wrtn-ecosystem connectors and sdk",
     "license": {
@@ -23,6 +23,277 @@
     }
   },
   "paths": {
+    "/connector/articles/{id}/sync/notion": {
+      "post": {
+        "summary": "Syncronize article version",
+        "description": "Synchronize version\n\nSynchronize on a snapshot basis,\nsuch as upgrading or downgrading the version of a document exported to Notion.",
+        "tags": [],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "required": true,
+            "description": " Target article's {@link IArticle.id }"
+          }
+        ],
+        "requestBody": {
+          "description": "Notion Secret and snapshot information to sync",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IArticle.ISync.ToNotionInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Response of Synchronization",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IArticle.ISync.ToNotionOutput"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
+    },
+    "/connector/articles/{id}/exports/notion": {
+      "post": {
+        "summary": "Exports specified article to notion",
+        "description": "Export the text to Notion\n\nThe exported text is recorded by creating a\n{@link IArticleExport bbs_article_exports} object based on the snapshot.\nYou can upgrade and downgrade the version using\nthe 'POST /connector/articles/:id/exports/sync/notion' connector in the future.\nAlso, it doesn't matter if you export the same version of the text multiple times.",
+        "tags": [],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "required": true,
+            "description": " Target article's {@link IArticle.id }"
+          }
+        ],
+        "requestBody": {
+          "description": "Notion Secret and snapshot information to export",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IArticle.IExport.ToNotionInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Article Infomation and notion secretKey",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IArticle.IExport.ToNotionOutput"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
+    },
+    "/connector/articles/{id}": {
+      "patch": {
+        "description": "Reads an article with its every snapshots\n\nReads an article with its every snapshots {@link IArticle.ISnapshot snapshots}\nThis detail contains the entire content created for each version of the document,\nas well as the connection information to the external services from which it was exported.",
+        "tags": [],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "required": true,
+            "description": " Target article's {@link IArticle.id }"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Article Infomation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StrictOmitIArticleIArticle.ISnapshotpassword"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      },
+      "delete": {
+        "summary": "Remove an specified article",
+        "description": "Erase an article\n\nPerforms soft deletion to the article.\nThis makes the article no longer available, regardless of the number of snapshots.",
+        "tags": [],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "required": true,
+            "description": " Target article's {@link IArticle.id }"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {}
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      },
+      "put": {
+        "summary": "Updates the specified article with new data",
+        "description": "Update an existing article in the User Database\n\nThis function takes the updated article data as input and updates the corresponding\narticle record in the User Database. It uses the DocumentProvider to apply the changes.\nThe input must adhere to the structure defined by `IArticle.IUpdate`.\nReturns the updated document or the result of the update operation.",
+        "tags": [],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "required": true
+          }
+        ],
+        "requestBody": {
+          "description": "- The new data to update the article. It must match the `IArticle.IUpdate` type.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IArticle.IUpdate"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "The result of the update operation from the DocumentProvider.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IArticle.ISnapshot"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
+    },
+    "/connector/articles": {
+      "patch": {
+        "summary": "List up all summarized articles",
+        "description": "List up all summarized articles with pagination and searching options",
+        "tags": [],
+        "parameters": [],
+        "requestBody": {
+          "description": "Request info of pagination and searching options.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IArticle.IRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Paginated summarized articles.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IPageIArticle.ISummary"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      },
+      "post": {
+        "description": "Write Article to User Database\n\nPosts are managed in a snapshot-based structure, enabling rollback at any time.\nWhen a post is created, the system automatically generates the first snapshot.\nThe most recent snapshot reflects the current state of the post.\nBy editing the post or exporting it to external services, you can track which version—i.e., which snapshot—was exported and synchronize it using foreign keys.\nThis system is designed to efficiently handle any post-like documents, such as those from Google Docs, Notion, or Reddit.\nUsing Markdown as the standard format for writing and versioning, it identifies changes through a diff algorithm whenever edits are made.\nThis allows you to compare previous and current versions, track changes, and synchronize updates across services.\nAs these APIs store data exclusively in the Wrtn Technologies Ecosystem Team's database without relying on external APIs,\nthis setup serves as an ideal starting point for creating and managing documents efficiently with robust version control.",
+        "tags": [],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IArticle.ICreate"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StrictOmitIArticleIArticle.ISnapshotpassword"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
+    },
     "/connector/extract/keyword": {
       "post": {
         "summary": "Keyword extraction",
@@ -13007,6 +13278,807 @@
   },
   "components": {
     "schemas": {
+      "IArticle.ISync.ToNotionOutput": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Primary Key"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Creation time of article",
+            "description": "The most recent snapshot made is the higher version,\nand in fact, this time value can serve as the version."
+          },
+          "external_user_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "External User ID"
+          },
+          "snapshots": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/IArticle.ISnapshot"
+            },
+            "minItems": 1,
+            "title": "List of snapshot contents",
+            "description": "It is created for the first time when an article is created, and is\naccumulated every time the article is modified."
+          },
+          "deleted_at": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string",
+                "format": "date-time"
+              }
+            ],
+            "title": "Deletion time of article"
+          }
+        },
+        "required": [
+          "id",
+          "created_at",
+          "external_user_id",
+          "snapshots",
+          "deleted_at"
+        ]
+      },
+      "IArticle.ISnapshot": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Primary Key"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Creation time of snapshot record",
+            "description": "In other words, creation time or update time or article"
+          },
+          "files": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/IAttachmentFile"
+            },
+            "title": "List of attachment files"
+          },
+          "bbs_article_exports": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/IArticleExport"
+            },
+            "title": "History of this snapshot being exported",
+            "description": "If it has been exported,\nthe location of the export will be recorded in the properties."
+          },
+          "title": {
+            "type": "string",
+            "title": "Title of article",
+            "description": "Title of article."
+          },
+          "format": {
+            "const": "md",
+            "title": "format",
+            "description": "Format of body.\n\nSame meaning with extension like `html`, `md`, `txt`."
+          },
+          "body": {
+            "type": "string",
+            "title": "Content body of article",
+            "description": "Content body of article."
+          }
+        },
+        "required": [
+          "id",
+          "created_at",
+          "files",
+          "bbs_article_exports",
+          "title",
+          "format",
+          "body"
+        ]
+      },
+      "IAttachmentFile": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Primary Key",
+            "description": "Primary Key."
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "date time for creation of this file"
+          },
+          "name": {
+            "type": "string",
+            "maxLength": 255,
+            "title": "File name",
+            "description": "File name, except extension.\n\nPossible to make empty string like `.gitignore` case."
+          },
+          "extension": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 8
+              }
+            ],
+            "title": "File extension",
+            "description": "Extension.\n\nPossible to omit like `README` case.\nExtensions must exclude dot characters."
+          },
+          "url": {
+            "type": "string",
+            "format": "uri",
+            "title": "File url",
+            "description": "URL path of the real file.\n\nIn addition to the case of attaching a file,\nit is recommended to attach the URL address of the file when linking within the markdown document."
+          }
+        },
+        "required": [
+          "id",
+          "created_at",
+          "name",
+          "extension",
+          "url"
+        ],
+        "title": "Attachment File"
+      },
+      "IArticleExport": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Primary Key"
+          },
+          "bbs_article_snapshot_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Snapshot ID"
+          },
+          "provider": {
+            "type": "string",
+            "title": "provider name",
+            "description": "It means the name of the service from which the post was exported,\nand if the service name is motion,\nit means that the same post is posted in the corresponding url of the provider service."
+          },
+          "uid": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "title": "Unique Document ID in external service"
+          },
+          "url": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string",
+                "format": "iri"
+              }
+            ],
+            "title": "URL",
+            "description": "This is a redirect link that allows you to locate the exported document,\nwhich is stored at export time."
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Creation time ot {@link IArticleExport}"
+          },
+          "deleted_at": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string",
+                "format": "date-time"
+              }
+            ],
+            "title": "Deletion time ot {@link IArticleExport}"
+          }
+        },
+        "required": [
+          "id",
+          "bbs_article_snapshot_id",
+          "provider",
+          "uid",
+          "url",
+          "created_at",
+          "deleted_at"
+        ]
+      },
+      "IArticle.ISync.ToNotionInput": {
+        "type": "object",
+        "properties": {
+          "notion": {
+            "type": "object",
+            "properties": {
+              "secretKey": {
+                "type": "string",
+                "x-wrtn-secret-key": "notion",
+                "title": "Notion Secret Key for synchronization"
+              }
+            },
+            "required": [
+              "secretKey"
+            ],
+            "title": "Notion SecretKey and Parent Page ID to sync"
+          },
+          "snapshot": {
+            "type": "object",
+            "properties": {
+              "from": {
+                "type": "string",
+                "format": "uuid",
+                "x-wrtn-prerequisite": {
+                  "method": "patch",
+                  "path": "/connector/articles/:id",
+                  "jmesPath": "snapshot[].{ value: id, label: ['created_at ', created_at].join(':', @) }"
+                },
+                "title": "ID of the snapshot to be previously synchronized",
+                "description": "The user synchronizes the text associated with that snapshot.\n\nFor example, when you have v1 and v2,\nif you pass v1 by ID,\nyou replace the exported document in snapshot v1 with the exported document\nin v2 and update the properties,\nincluding the title and content of the exported document.\n\nIf you want to synchronize the notion documents linked to the snapshot at once,\nplease only forward the snapshot's ID (=`from` property).\nIf you want to synchronize only some of the documents exported from that snapshot, pass only the ID of bbs_article_exports.\nbbs_article_exports is the point of connection between snapshots and documents exported from those snapshots."
+              },
+              "to": {
+                "type": "string",
+                "format": "uuid",
+                "x-wrtn-prerequisite": {
+                  "method": "patch",
+                  "path": "/connector/articles/:id",
+                  "jmesPath": "snapshot[].{ value: id, label: ['created_at ', created_at].join(':', @) }"
+                },
+                "title": "The ID of the snapshot that will be after synchronization"
+              },
+              "article_snapshot_exports": {
+                "type": "object",
+                "properties": {
+                  "ids": {
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "format": "uuid"
+                    },
+                    "minItems": 1,
+                    "title": "IDs of IArticleExport",
+                    "description": "IDs of {@link IArticleExport bbs_article_exports}\n\nIf you want to synchronize the notion documents linked to the snapshot at once,\nplease only forward the snapshot's ID (=`from` property).\nIf you want to synchronize only some of the documents exported from that snapshot, pass only the ID of bbs_article_exports.\nbbs_article_exports is the point of connection between snapshots and documents exported from those snapshots.\n\nIf it is to be specified, it must be an array of at least one size."
+                  }
+                },
+                "title": "Exported Document's information"
+              }
+            },
+            "required": [
+              "from",
+              "to"
+            ],
+            "title": "snapshot information for synchronization"
+          }
+        },
+        "required": [
+          "notion",
+          "snapshot"
+        ]
+      },
+      "IArticle.IExport.ToNotionOutput": {
+        "type": "object",
+        "properties": {
+          "notion": {
+            "$ref": "#/components/schemas/INotion.ICreatePageOutput",
+            "title": "About the note page that was successfully exported"
+          },
+          "article_snapshot_exports": {
+            "$ref": "#/components/schemas/StrictOmitIArticleExportdeleted_at",
+            "title": "Exporting infomation"
+          }
+        },
+        "required": [
+          "notion",
+          "article_snapshot_exports"
+        ]
+      },
+      "INotion.ICreatePageOutput": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "page id",
+            "description": "Unique id of the generated page"
+          },
+          "title": {
+            "type": "string",
+            "title": "tilte\n\nTitle of the document you just created"
+          },
+          "link": {
+            "type": "string",
+            "format": "iri",
+            "title": "page link"
+          }
+        },
+        "required": [
+          "id",
+          "title",
+          "link"
+        ],
+        "title": "Page creation result"
+      },
+      "StrictOmitIArticleExportdeleted_at": {
+        "type": "object",
+        "properties": {
+          "url": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string",
+                "format": "iri"
+              }
+            ],
+            "title": "URL",
+            "description": "This is a redirect link that allows you to locate the exported document,\nwhich is stored at export time."
+          },
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Primary Key"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Creation time ot {@link IArticleExport}"
+          },
+          "bbs_article_snapshot_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Snapshot ID"
+          },
+          "provider": {
+            "type": "string",
+            "title": "provider name",
+            "description": "It means the name of the service from which the post was exported,\nand if the service name is motion,\nit means that the same post is posted in the corresponding url of the provider service."
+          },
+          "uid": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "title": "Unique Document ID in external service"
+          }
+        },
+        "required": [
+          "url",
+          "id",
+          "created_at",
+          "bbs_article_snapshot_id",
+          "provider",
+          "uid"
+        ]
+      },
+      "IArticle.IExport.ToNotionInput": {
+        "type": "object",
+        "properties": {
+          "notion": {
+            "type": "object",
+            "properties": {
+              "secretKey": {
+                "type": "string",
+                "x-wrtn-secret-key": "notion",
+                "title": "Notion Secret Key for exporting"
+              },
+              "parentPageId": {
+                "oneOf": [
+                  {
+                    "type": "string",
+                    "x-wrtn-prerequisite": {
+                      "method": "post",
+                      "path": "/connector/notion/get/page",
+                      "jmesPath": "[].{value:pageId, label:title}"
+                    },
+                    "x-wrtn-placeholder": "부모 페이지를 선택하세요."
+                  },
+                  {
+                    "type": "string",
+                    "x-wrtn-prerequisite": {
+                      "method": "post",
+                      "path": "/connector/notion/page",
+                      "jmesPath": "[].{value:id, label:id}"
+                    },
+                    "x-wrtn-placeholder": "부모 페이지를 선택하세요."
+                  }
+                ],
+                "title": "Parent Page ID for exporting"
+              }
+            },
+            "required": [
+              "secretKey",
+              "parentPageId"
+            ],
+            "title": "Notion SecretKey and Parent Page ID to export"
+          },
+          "snapshot": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "x-wrtn-prerequisite": {
+                  "method": "patch",
+                  "path": "/connector/articles/:id",
+                  "jmesPath": "snapshot[].{ value: id, label: ['created_at ', created_at].join(':', @) }"
+                },
+                "title": "Snapshot ID of the article you want to export to another service"
+              }
+            },
+            "required": [
+              "id"
+            ],
+            "title": "snapshot information to export"
+          }
+        },
+        "required": [
+          "notion",
+          "snapshot"
+        ]
+      },
+      "StrictOmitIArticleIArticle.ISnapshotpassword": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Primary Key"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Creation time of article",
+            "description": "The most recent snapshot made is the higher version,\nand in fact, this time value can serve as the version."
+          },
+          "external_user_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "External User ID"
+          },
+          "snapshots": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/IArticle.ISnapshot"
+            },
+            "minItems": 1,
+            "title": "List of snapshot contents",
+            "description": "It is created for the first time when an article is created, and is\naccumulated every time the article is modified."
+          },
+          "deleted_at": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string",
+                "format": "date-time"
+              }
+            ],
+            "title": "Deletion time of article"
+          }
+        },
+        "required": [
+          "id",
+          "created_at",
+          "external_user_id",
+          "snapshots",
+          "deleted_at"
+        ]
+      },
+      "IArticle.IUpdate": {
+        "type": "object",
+        "properties": {
+          "props": {
+            "$ref": "#/components/schemas/IArticle.ICreate",
+            "title": "props"
+          }
+        },
+        "required": [
+          "props"
+        ],
+        "title": "Article to update"
+      },
+      "IArticle.ICreate": {
+        "type": "object",
+        "properties": {
+          "format": {
+            "const": "md",
+            "title": "format",
+            "description": "Format of body.\n\nSame meaning with extension like `html`, `md`, `txt`."
+          },
+          "title": {
+            "type": "string",
+            "title": "Title of article",
+            "description": "Title of article."
+          },
+          "body": {
+            "type": "string",
+            "title": "Content body of article",
+            "description": "Content body of article."
+          },
+          "files": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/IAttachmentFile.ICreate"
+            },
+            "title": "List of attachment files",
+            "description": "List of attachment files."
+          }
+        },
+        "required": [
+          "format",
+          "title",
+          "body"
+        ],
+        "title": "Article to write"
+      },
+      "IAttachmentFile.ICreate": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "maxLength": 255,
+            "title": "File name",
+            "description": "File name, except extension.\n\nPossible to make empty string like `.gitignore` case."
+          },
+          "extension": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string",
+                "minLength": 1,
+                "maxLength": 8
+              }
+            ],
+            "title": "File extension",
+            "description": "Extension.\n\nPossible to omit like `README` case.\nExtensions must exclude dot characters."
+          },
+          "url": {
+            "type": "string",
+            "format": "uri",
+            "title": "File url",
+            "description": "URL path of the real file.\n\nIn addition to the case of attaching a file,\nit is recommended to attach the URL address of the file when linking within the markdown document."
+          }
+        },
+        "required": [
+          "name",
+          "extension",
+          "url"
+        ]
+      },
+      "IPageIArticle.ISummary": {
+        "type": "object",
+        "properties": {
+          "pagination": {
+            "$ref": "#/components/schemas/IPage.IPagination",
+            "description": "Page information"
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/IArticle.ISummary"
+            },
+            "description": "List of records"
+          }
+        },
+        "required": [
+          "pagination",
+          "data"
+        ],
+        "description": "A page\n\nCollection of records with pagination indformation"
+      },
+      "IPage.IPagination": {
+        "type": "object",
+        "properties": {
+          "current": {
+            "type": "integer",
+            "description": "Current page number"
+          },
+          "limit": {
+            "type": "integer",
+            "description": "Limitation of records per a page"
+          },
+          "records": {
+            "type": "integer",
+            "description": "Count of total records in database"
+          },
+          "pages": {
+            "type": "integer",
+            "description": "Number of total pages\n\nEqual to {@link records} / {@link limit} with ceiling."
+          }
+        },
+        "required": [
+          "current",
+          "limit",
+          "records",
+          "pages"
+        ],
+        "description": "Page information"
+      },
+      "IArticle.ISummary": {
+        "type": "object",
+        "properties": {
+          "snapshot": {
+            "$ref": "#/components/schemas/StrictOmitISnapshotbodybodystringMaxLength100",
+            "title": "Last Snapshot"
+          },
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Primary Key"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Creation time of article",
+            "description": "The most recent snapshot made is the higher version,\nand in fact, this time value can serve as the version."
+          }
+        },
+        "required": [
+          "snapshot",
+          "id",
+          "created_at"
+        ]
+      },
+      "StrictOmitISnapshotbodybodystringMaxLength100": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "title": "Title of article",
+            "description": "Title of article."
+          },
+          "bbs_article_exports": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/IArticleExport"
+            },
+            "title": "History of this snapshot being exported",
+            "description": "If it has been exported,\nthe location of the export will be recorded in the properties."
+          },
+          "format": {
+            "const": "md",
+            "title": "format",
+            "description": "Format of body.\n\nSame meaning with extension like `html`, `md`, `txt`."
+          },
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Primary Key"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Creation time of snapshot record",
+            "description": "In other words, creation time or update time or article"
+          },
+          "files": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/IAttachmentFile"
+            },
+            "title": "List of attachment files"
+          },
+          "body": {
+            "type": "string",
+            "maxLength": 100,
+            "title": "Summarized Body"
+          }
+        },
+        "required": [
+          "title",
+          "bbs_article_exports",
+          "format",
+          "id",
+          "created_at",
+          "files",
+          "body"
+        ]
+      },
+      "IArticle.IRequest": {
+        "type": "object",
+        "properties": {
+          "search": {
+            "$ref": "#/components/schemas/IArticle.IRequest.ISearch",
+            "title": "search"
+          },
+          "sort": {
+            "type": "array",
+            "items": {
+              "oneOf": [
+                {
+                  "const": "-created_at"
+                },
+                {
+                  "const": "-snapshot.created_at"
+                },
+                {
+                  "const": "-snapshot.title"
+                },
+                {
+                  "const": "+created_at"
+                },
+                {
+                  "const": "+snapshot.created_at"
+                },
+                {
+                  "const": "+snapshot.title"
+                }
+              ]
+            },
+            "title": "sort"
+          },
+          "page": {
+            "type": "integer",
+            "title": "Page number",
+            "description": "Page number."
+          },
+          "limit": {
+            "type": "integer",
+            "title": "Limitation of records per a page",
+            "description": "Limitation of records per a page."
+          }
+        },
+        "title": "Query Condition"
+      },
+      "IArticle.IRequest.ISearch": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Article ID"
+          },
+          "ids": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "title": "Article IDs"
+          },
+          "snapshot": {
+            "type": "object",
+            "properties": {
+              "format": {
+                "const": "md",
+                "title": "Format of article"
+              },
+              "title": {
+                "type": "string",
+                "title": "Title of article"
+              }
+            },
+            "required": [
+              "format",
+              "title"
+            ],
+            "title": "Last Snapshot"
+          }
+        }
+      },
       "IKeywordExtraction.IExtractKeywordOutput": {
         "type": "object",
         "properties": {
@@ -29896,10 +30968,10 @@
                     "const": "c"
                   },
                   {
-                    "const": "json"
+                    "const": "html"
                   },
                   {
-                    "const": "html"
+                    "const": "json"
                   },
                   {
                     "const": "r"
@@ -30395,15 +31467,6 @@
                     "const": "default"
                   },
                   {
-                    "const": "red"
-                  },
-                  {
-                    "const": "green"
-                  },
-                  {
-                    "const": "blue"
-                  },
-                  {
                     "const": "gray"
                   },
                   {
@@ -30416,10 +31479,19 @@
                     "const": "yellow"
                   },
                   {
+                    "const": "green"
+                  },
+                  {
+                    "const": "blue"
+                  },
+                  {
                     "const": "purple"
                   },
                   {
                     "const": "pink"
+                  },
+                  {
+                    "const": "red"
                   },
                   {
                     "const": "gray_background"
@@ -30661,15 +31733,6 @@
                 "const": "default"
               },
               {
-                "const": "red"
-              },
-              {
-                "const": "green"
-              },
-              {
-                "const": "blue"
-              },
-              {
                 "const": "gray"
               },
               {
@@ -30682,10 +31745,19 @@
                 "const": "yellow"
               },
               {
+                "const": "green"
+              },
+              {
+                "const": "blue"
+              },
+              {
                 "const": "purple"
               },
               {
                 "const": "pink"
+              },
+              {
+                "const": "red"
               },
               {
                 "const": "gray_background"
@@ -30790,15 +31862,6 @@
                 "const": "default"
               },
               {
-                "const": "red"
-              },
-              {
-                "const": "green"
-              },
-              {
-                "const": "blue"
-              },
-              {
                 "const": "gray"
               },
               {
@@ -30811,10 +31874,19 @@
                 "const": "yellow"
               },
               {
+                "const": "green"
+              },
+              {
+                "const": "blue"
+              },
+              {
                 "const": "purple"
               },
               {
                 "const": "pink"
+              },
+              {
+                "const": "red"
               },
               {
                 "const": "gray_background"
@@ -30919,15 +31991,6 @@
                 "const": "default"
               },
               {
-                "const": "red"
-              },
-              {
-                "const": "green"
-              },
-              {
-                "const": "blue"
-              },
-              {
                 "const": "gray"
               },
               {
@@ -30940,10 +32003,19 @@
                 "const": "yellow"
               },
               {
+                "const": "green"
+              },
+              {
+                "const": "blue"
+              },
+              {
                 "const": "purple"
               },
               {
                 "const": "pink"
+              },
+              {
+                "const": "red"
               },
               {
                 "const": "gray_background"
@@ -31029,15 +32101,6 @@
                           "const": "default"
                         },
                         {
-                          "const": "red"
-                        },
-                        {
-                          "const": "green"
-                        },
-                        {
-                          "const": "blue"
-                        },
-                        {
                           "const": "gray"
                         },
                         {
@@ -31050,10 +32113,19 @@
                           "const": "yellow"
                         },
                         {
+                          "const": "green"
+                        },
+                        {
+                          "const": "blue"
+                        },
+                        {
                           "const": "purple"
                         },
                         {
                           "const": "pink"
+                        },
+                        {
+                          "const": "red"
                         },
                         {
                           "const": "gray_background"
@@ -31103,31 +32175,6 @@
           "children"
         ]
       },
-      "INotion.ICreatePageOutput": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string",
-            "title": "page id",
-            "description": "Unique id of the generated page"
-          },
-          "title": {
-            "type": "string",
-            "title": "tilte\n\nTitle of the document you just created"
-          },
-          "link": {
-            "type": "string",
-            "format": "iri",
-            "title": "page link"
-          }
-        },
-        "required": [
-          "id",
-          "title",
-          "link"
-        ],
-        "title": "Page creation result"
-      },
       "INotion.ICreatePageInput": {
         "type": "object",
         "properties": {
@@ -31157,7 +32204,8 @@
           "title": {
             "type": "string",
             "x-wrtn-placeholder": "테스트 페이지.",
-            "title": "title"
+            "title": "Page title",
+            "description": "New page title to be created"
           },
           "secretKey": {
             "type": "string",
@@ -31658,15 +32706,6 @@
                           "const": "default"
                         },
                         {
-                          "const": "red"
-                        },
-                        {
-                          "const": "green"
-                        },
-                        {
-                          "const": "blue"
-                        },
-                        {
                           "const": "gray"
                         },
                         {
@@ -31679,10 +32718,19 @@
                           "const": "yellow"
                         },
                         {
+                          "const": "green"
+                        },
+                        {
+                          "const": "blue"
+                        },
+                        {
                           "const": "purple"
                         },
                         {
                           "const": "pink"
+                        },
+                        {
+                          "const": "red"
                         }
                       ],
                       "title": "color"
@@ -31748,15 +32796,6 @@
                           "const": "default"
                         },
                         {
-                          "const": "red"
-                        },
-                        {
-                          "const": "green"
-                        },
-                        {
-                          "const": "blue"
-                        },
-                        {
                           "const": "gray"
                         },
                         {
@@ -31769,10 +32808,19 @@
                           "const": "yellow"
                         },
                         {
+                          "const": "green"
+                        },
+                        {
+                          "const": "blue"
+                        },
+                        {
                           "const": "purple"
                         },
                         {
                           "const": "pink"
+                        },
+                        {
+                          "const": "red"
                         }
                       ],
                       "title": "color"
@@ -31838,15 +32886,6 @@
                           "const": "default"
                         },
                         {
-                          "const": "red"
-                        },
-                        {
-                          "const": "green"
-                        },
-                        {
-                          "const": "blue"
-                        },
-                        {
                           "const": "gray"
                         },
                         {
@@ -31859,10 +32898,19 @@
                           "const": "yellow"
                         },
                         {
+                          "const": "green"
+                        },
+                        {
+                          "const": "blue"
+                        },
+                        {
                           "const": "purple"
                         },
                         {
                           "const": "pink"
+                        },
+                        {
+                          "const": "red"
                         }
                       ],
                       "title": "color"
@@ -31895,15 +32943,6 @@
                           "const": "default"
                         },
                         {
-                          "const": "red"
-                        },
-                        {
-                          "const": "green"
-                        },
-                        {
-                          "const": "blue"
-                        },
-                        {
                           "const": "gray"
                         },
                         {
@@ -31916,10 +32955,19 @@
                           "const": "yellow"
                         },
                         {
+                          "const": "green"
+                        },
+                        {
+                          "const": "blue"
+                        },
+                        {
                           "const": "purple"
                         },
                         {
                           "const": "pink"
+                        },
+                        {
+                          "const": "red"
                         }
                       ],
                       "title": "color"
@@ -32524,19 +33572,19 @@
           "object": {
             "oneOf": [
               {
-                "const": "user"
+                "const": "block"
               },
               {
                 "const": "page"
               },
               {
-                "const": "list"
-              },
-              {
                 "const": "database"
               },
               {
-                "const": "block"
+                "const": "user"
+              },
+              {
+                "const": "list"
               },
               {
                 "const": "property_item"
@@ -32564,19 +33612,19 @@
               "object": {
                 "oneOf": [
                   {
-                    "const": "user"
+                    "const": "block"
                   },
                   {
                     "const": "page"
                   },
                   {
-                    "const": "list"
-                  },
-                  {
                     "const": "database"
                   },
                   {
-                    "const": "block"
+                    "const": "user"
+                  },
+                  {
+                    "const": "list"
                   },
                   {
                     "const": "property_item"
@@ -32607,19 +33655,19 @@
               "object": {
                 "oneOf": [
                   {
-                    "const": "user"
+                    "const": "block"
                   },
                   {
                     "const": "page"
                   },
                   {
-                    "const": "list"
-                  },
-                  {
                     "const": "database"
                   },
                   {
-                    "const": "block"
+                    "const": "user"
+                  },
+                  {
+                    "const": "list"
                   },
                   {
                     "const": "property_item"
@@ -32937,19 +33985,19 @@
           "object": {
             "oneOf": [
               {
-                "const": "user"
+                "const": "block"
               },
               {
                 "const": "page"
               },
               {
-                "const": "list"
-              },
-              {
                 "const": "database"
               },
               {
-                "const": "block"
+                "const": "user"
+              },
+              {
+                "const": "list"
               },
               {
                 "const": "property_item"
@@ -32988,19 +34036,19 @@
               "object": {
                 "oneOf": [
                   {
-                    "const": "user"
+                    "const": "block"
                   },
                   {
                     "const": "page"
                   },
                   {
-                    "const": "list"
-                  },
-                  {
                     "const": "database"
                   },
                   {
-                    "const": "block"
+                    "const": "user"
+                  },
+                  {
+                    "const": "list"
                   },
                   {
                     "const": "property_item"
@@ -33031,19 +34079,19 @@
               "object": {
                 "oneOf": [
                   {
-                    "const": "user"
+                    "const": "block"
                   },
                   {
                     "const": "page"
                   },
                   {
-                    "const": "list"
-                  },
-                  {
                     "const": "database"
                   },
                   {
-                    "const": "block"
+                    "const": "user"
+                  },
+                  {
+                    "const": "list"
                   },
                   {
                     "const": "property_item"
@@ -33382,7 +34430,8 @@
           "title": {
             "type": "string",
             "x-wrtn-placeholder": "테스트 페이지.",
-            "title": "title"
+            "title": "Page title",
+            "description": "New page title to be created"
           },
           "secretKey": {
             "type": "string",
@@ -34847,6 +35896,11 @@
             "x-wrtn-placeholder": "1234567890.123456",
             "title": "when the user scheduled the message"
           },
+          "channel": {
+            "type": "string",
+            "pattern": "^((C(.*))|(D(.*))|(G(.*)))",
+            "title": "channel id"
+          },
           "text": {
             "type": "string",
             "title": "message contents",
@@ -34860,11 +35914,6 @@
             "title": "Attachments",
             "description": "Attachement contains all types of files and can sometimes be an external link.\nIt is not the type that can be confirmed because the internal properties can vary depending on the type of block it is making up."
           },
-          "channel": {
-            "type": "string",
-            "pattern": "^((C(.*))|(D(.*))|(G(.*)))",
-            "title": "channel id"
-          },
           "id": {
             "type": "string",
             "title": "id of scheduled message"
@@ -34877,8 +35926,8 @@
         "required": [
           "post_at",
           "date_created",
-          "text",
           "channel",
+          "text",
           "id",
           "post_at_date"
         ]
@@ -35247,6 +36296,11 @@
             "title": "shortcut link",
             "description": "Link to view the conversation history immediately.\nWe can provide you with a shortcut link if user want, but you don't have to expose it to them in normal times."
           },
+          "channel": {
+            "type": "string",
+            "pattern": "^((C(.*))|(D(.*))|(G(.*)))",
+            "title": "channel id"
+          },
           "text": {
             "type": "string",
             "title": "message contents",
@@ -35262,11 +36316,6 @@
               }
             ],
             "title": "ID of the person who made this message\n\nIf not a user, message does not have an ID."
-          },
-          "channel": {
-            "type": "string",
-            "pattern": "^((C(.*))|(D(.*))|(G(.*)))",
-            "title": "channel id"
           },
           "ts": {
             "type": "string",
@@ -35301,9 +36350,9 @@
           "usergroups",
           "username",
           "link",
+          "channel",
           "text",
           "user",
-          "channel",
           "ts",
           "reply_count",
           "reply_users_count",
@@ -35876,7 +36925,7 @@
           "files": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/MyPickISlack.Filenameidusercreatedsizechannelscomments_countmimetypeurl_privateurl_private_downloadthumb_1024"
+              "$ref": "#/components/schemas/MyPickISlack.Filechannelsnameidusercreatedsizecomments_countmimetypeurl_privateurl_private_downloadthumb_1024"
             }
           },
           "paging": {
@@ -35914,9 +36963,17 @@
         ],
         "title": "File Lookup Results"
       },
-      "MyPickISlack.Filenameidusercreatedsizechannelscomments_countmimetypeurl_privateurl_private_downloadthumb_1024": {
+      "MyPickISlack.Filechannelsnameidusercreatedsizecomments_countmimetypeurl_privateurl_private_downloadthumb_1024": {
         "type": "object",
         "properties": {
+          "channels": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "pattern": "^((C(.*))|(D(.*))|(G(.*)))"
+            },
+            "title": "channels"
+          },
           "name": {
             "type": "string",
             "title": "name"
@@ -35936,14 +36993,6 @@
           "size": {
             "type": "integer",
             "title": "size"
-          },
-          "channels": {
-            "type": "array",
-            "items": {
-              "type": "string",
-              "pattern": "^((C(.*))|(D(.*))|(G(.*)))"
-            },
-            "title": "channels"
           },
           "comments_count": {
             "type": "integer",
@@ -35970,12 +37019,12 @@
           }
         },
         "required": [
+          "channels",
           "name",
           "id",
           "user",
           "created",
           "size",
-          "channels",
           "comments_count",
           "mimetype"
         ]
@@ -36348,7 +37397,7 @@
           "comments": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/MyPickIJira.CommentidcreatedbodyauthorupdatedupdateAuthor"
+              "$ref": "#/components/schemas/MyPickIJira.CommentidbodycreatedauthorupdatedupdateAuthor"
             },
             "title": "comments"
           },
@@ -36378,16 +37427,12 @@
           "total"
         ]
       },
-      "MyPickIJira.CommentidcreatedbodyauthorupdatedupdateAuthor": {
+      "MyPickIJira.CommentidbodycreatedauthorupdatedupdateAuthor": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string",
             "title": "id of comment"
-          },
-          "created": {
-            "type": "string",
-            "title": "created time of this comment"
           },
           "body": {
             "type": "object",
@@ -36447,6 +37492,10 @@
             ],
             "title": "body of comment"
           },
+          "created": {
+            "type": "string",
+            "title": "created time of this comment"
+          },
           "author": {
             "$ref": "#/components/schemas/MyPickIJira.UseractiveaccountIddisplayName",
             "title": "author of this comment"
@@ -36462,8 +37511,8 @@
         },
         "required": [
           "id",
-          "created",
           "body",
+          "created",
           "author",
           "updated",
           "updateAuthor"
@@ -42249,11 +43298,11 @@
           "direction": {
             "oneOf": [
               {
-                "const": "desc",
+                "const": "asc",
                 "default": "desc"
               },
               {
-                "const": "asc",
+                "const": "desc",
                 "default": "desc"
               }
             ],
@@ -42396,11 +43445,11 @@
           "direction": {
             "oneOf": [
               {
-                "const": "desc",
+                "const": "asc",
                 "default": "desc"
               },
               {
-                "const": "asc",
+                "const": "desc",
                 "default": "desc"
               }
             ],
@@ -44057,11 +45106,11 @@
           "direction": {
             "oneOf": [
               {
-                "const": "desc",
+                "const": "asc",
                 "default": "desc"
               },
               {
-                "const": "asc",
+                "const": "desc",
                 "default": "desc"
               }
             ],
@@ -44246,6 +45295,10 @@
             "type": "string",
             "title": "title\n\nThe title of the new pull request. Required unless issue is specified."
           },
+          "body": {
+            "type": "string",
+            "title": "body\n\nThe contents of the pull request."
+          },
           "secretKey": {
             "type": "string",
             "x-wrtn-secret-key": "github",
@@ -44263,10 +45316,6 @@
           "repo": {
             "type": "string",
             "title": "repository name\n\nThe owner's name and the repository's name can be combined to form '${owner}/${repo}' and can be a unique path name for a single repository."
-          },
-          "body": {
-            "type": "string",
-            "title": "body\n\nThe contents of the pull request."
           },
           "head_repo": {
             "type": "string",
@@ -44493,10 +45542,6 @@
             "format": "date-time",
             "title": "created_at"
           },
-          "user": {
-            "$ref": "#/components/schemas/MyPickIGithub.Useridtypeloginhtml_urlavatar_url",
-            "title": "user"
-          },
           "body": {
             "type": "string",
             "title": "body"
@@ -44505,6 +45550,10 @@
             "type": "string",
             "format": "date-time",
             "title": "updated_at"
+          },
+          "user": {
+            "$ref": "#/components/schemas/MyPickIGithub.Useridtypeloginhtml_urlavatar_url",
+            "title": "user"
           }
         },
         "required": [
@@ -44512,8 +45561,8 @@
           "author_association",
           "id",
           "created_at",
-          "user",
-          "updated_at"
+          "updated_at",
+          "user"
         ]
       },
       "IGithub.IGetPullRequestCommentsInput": {
@@ -45407,13 +46456,13 @@
             "type": "string",
             "title": "start_side"
           },
-          "path": {
-            "type": "string",
-            "title": "path"
-          },
           "body": {
             "type": "string",
             "title": "body"
+          },
+          "path": {
+            "type": "string",
+            "title": "path"
           },
           "position": {
             "oneOf": [
@@ -47427,11 +48476,11 @@
           "order": {
             "oneOf": [
               {
-                "const": "desc",
+                "const": "asc",
                 "default": "desc"
               },
               {
-                "const": "asc",
+                "const": "desc",
                 "default": "desc"
               }
             ],
@@ -48316,10 +49365,6 @@
             "format": "date-time",
             "title": "created_at"
           },
-          "user": {
-            "$ref": "#/components/schemas/MyPickIGithub.Useridtypelogin",
-            "title": "user"
-          },
           "body": {
             "oneOf": [
               {
@@ -48331,6 +49376,15 @@
             ],
             "title": "body",
             "description": "Contents of the issue\n\nYou can also render this content because it is in a markdown format."
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "updated_at"
+          },
+          "user": {
+            "$ref": "#/components/schemas/MyPickIGithub.Useridtypelogin",
+            "title": "user"
           },
           "state": {
             "type": "string",
@@ -48414,11 +49468,6 @@
           "draft": {
             "type": "boolean",
             "title": "draft\n\nIndicates whether or not the pull request is a draft."
-          },
-          "updated_at": {
-            "type": "string",
-            "format": "date-time",
-            "title": "updated_at"
           },
           "milestone": {
             "oneOf": [
@@ -48546,11 +49595,11 @@
           "head",
           "id",
           "created_at",
+          "updated_at",
           "user",
           "state",
           "labels",
           "html_url",
-          "updated_at",
           "milestone",
           "author_association",
           "requested_reviewers",
@@ -49052,11 +50101,11 @@
           "order": {
             "oneOf": [
               {
-                "const": "desc",
+                "const": "asc",
                 "default": "desc"
               },
               {
-                "const": "asc",
+                "const": "desc",
                 "default": "desc"
               }
             ],
@@ -49195,11 +50244,11 @@
           "order": {
             "oneOf": [
               {
-                "const": "desc",
+                "const": "asc",
                 "default": "desc"
               },
               {
-                "const": "asc",
+                "const": "desc",
                 "default": "desc"
               }
             ],
@@ -49307,11 +50356,11 @@
           "order": {
             "oneOf": [
               {
-                "const": "desc",
+                "const": "asc",
                 "default": "desc"
               },
               {
-                "const": "asc",
+                "const": "desc",
                 "default": "desc"
               }
             ],
@@ -49500,6 +50549,11 @@
             "type": "string",
             "title": "tite of this issue"
           },
+          "body": {
+            "type": "string",
+            "title": "body of this issue",
+            "description": "It can be markdown format\nIf you provide text in utf-8 format, which can be recognized by a person, in markdown format, it will be written as it is."
+          },
           "secretKey": {
             "type": "string",
             "x-wrtn-secret-key": "github",
@@ -49516,11 +50570,6 @@
           "repo": {
             "type": "string",
             "title": "The name of the repository"
-          },
-          "body": {
-            "type": "string",
-            "title": "body of this issue",
-            "description": "It can be markdown format\nIf you provide text in utf-8 format, which can be recognized by a person, in markdown format, it will be written as it is."
           },
           "labels": {
             "type": "array",
@@ -57515,78 +58564,171 @@
         "type": "object",
         "properties": {
           "provider_url": {
-            "type": "string",
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ],
             "title": "The provider URL"
           },
           "version": {
-            "type": "string",
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ],
             "title": "The version of the Oembed"
           },
           "title": {
-            "type": "string",
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ],
             "title": "The title of the Oembed"
           },
           "description": {
-            "type": "string",
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ],
             "title": "The description of the Oembed"
           },
           "type": {
-            "type": "string",
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ],
             "title": "The type of the Oembed"
           },
           "thumbnail_width": {
-            "type": "number",
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "number"
+              }
+            ],
             "title": "The width of the thumbnail"
           },
           "height": {
-            "type": "number",
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "number"
+              }
+            ],
             "title": "The height of the Oembed"
           },
           "width": {
-            "type": "number",
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "number"
+              }
+            ],
             "title": "The width of the Oembed"
           },
           "html": {
-            "type": "string",
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ],
             "title": "The HTML content"
           },
           "author_name": {
-            "type": "string",
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ],
             "title": "The name of the author"
           },
           "provider_name": {
-            "type": "string",
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ],
             "title": "The name of the provider"
           },
           "thumbnail_url": {
-            "type": "string",
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ],
             "title": "The URL of the thumbnail"
           },
           "thumbnail_height": {
-            "type": "number",
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "number"
+              }
+            ],
             "title": "The height of the thumbnail"
           },
           "author_url": {
-            "type": "string",
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ],
             "title": "The URL of the author"
           },
           "url": {
-            "type": "string",
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ],
             "title": "The URL of the Oembed"
           }
-        },
-        "required": [
-          "provider_url",
-          "version",
-          "title",
-          "thumbnail_width",
-          "height",
-          "width",
-          "html",
-          "provider_name",
-          "thumbnail_url",
-          "thumbnail_height"
-        ]
+        }
       },
       "IReddit.SecureMediaEmbed": {
         "type": "object",
@@ -57857,6 +58999,10 @@
             "type": "string",
             "title": "ID of the post"
           },
+          "archived": {
+            "type": "boolean",
+            "title": "Whether the post is archived"
+          },
           "view_count": {
             "oneOf": [
               {
@@ -57917,10 +59063,6 @@
               }
             ],
             "title": "Media information"
-          },
-          "archived": {
-            "type": "boolean",
-            "title": "Whether the post is archived"
           },
           "subreddit": {
             "type": "string",
@@ -59179,7 +60321,7 @@
                 "title": "NO_REPLIES"
               },
               {
-                "$ref": "#/components/schemas/__type.o2181"
+                "$ref": "#/components/schemas/__type.o2223"
               }
             ],
             "title": "replies"
@@ -59253,6 +60395,10 @@
             "type": "string",
             "title": "The name of the post"
           },
+          "archived": {
+            "type": "boolean",
+            "title": "Whether the post is archived"
+          },
           "created": {
             "type": "number",
             "title": "Creation time"
@@ -59268,10 +60414,6 @@
           "score": {
             "type": "number",
             "title": "Score of the post"
-          },
-          "archived": {
-            "type": "boolean",
-            "title": "Whether the post is archived"
           },
           "subreddit": {
             "type": "string",
@@ -59626,14 +60768,14 @@
           "name"
         ]
       },
-      "__type.o2181": {
+      "__type.o2223": {
         "type": "object",
         "properties": {
           "kind": {
             "const": "Listing"
           },
           "data": {
-            "$ref": "#/components/schemas/__type.o2182"
+            "$ref": "#/components/schemas/__type.o2224"
           }
         },
         "required": [
@@ -59641,7 +60783,7 @@
           "data"
         ]
       },
-      "__type.o2182": {
+      "__type.o2224": {
         "type": "object",
         "properties": {
           "after": {
@@ -59661,7 +60803,7 @@
             "items": {
               "oneOf": [
                 {
-                  "$ref": "#/components/schemas/__type.o2183"
+                  "$ref": "#/components/schemas/__type.o2225"
                 },
                 {
                   "type": "object",
@@ -59735,7 +60877,7 @@
           "before"
         ]
       },
-      "__type.o2183": {
+      "__type.o2225": {
         "type": "object",
         "properties": {
           "kind": {

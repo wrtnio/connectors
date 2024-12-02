@@ -18,7 +18,7 @@
     "title": "Crunchbase",
     "summary": "Crunchbase에서 기업 정보를 가져올 수 있어요",
     "description": "전세계 기업의 펀딩 라운드나 투자, 재무 정보 등 자세한 내역을 확인할 수 있어요",
-    "version": "0.1.368",
+    "version": "0.1.369",
     "license": {
       "name": "AGPL-3.0-only"
     }
@@ -3138,11 +3138,11 @@
           "direction": {
             "oneOf": [
               {
-                "const": "desc",
+                "const": "asc",
                 "default": "desc"
               },
               {
-                "const": "asc",
+                "const": "desc",
                 "default": "desc"
               }
             ],
@@ -3285,11 +3285,11 @@
           "direction": {
             "oneOf": [
               {
-                "const": "desc",
+                "const": "asc",
                 "default": "desc"
               },
               {
-                "const": "asc",
+                "const": "desc",
                 "default": "desc"
               }
             ],
@@ -4946,11 +4946,11 @@
           "direction": {
             "oneOf": [
               {
-                "const": "desc",
+                "const": "asc",
                 "default": "desc"
               },
               {
-                "const": "asc",
+                "const": "desc",
                 "default": "desc"
               }
             ],
@@ -5135,6 +5135,10 @@
             "type": "string",
             "title": "title\n\nThe title of the new pull request. Required unless issue is specified."
           },
+          "body": {
+            "type": "string",
+            "title": "body\n\nThe contents of the pull request."
+          },
           "secretKey": {
             "type": "string",
             "x-wrtn-secret-key": "github",
@@ -5152,10 +5156,6 @@
           "repo": {
             "type": "string",
             "title": "repository name\n\nThe owner's name and the repository's name can be combined to form '${owner}/${repo}' and can be a unique path name for a single repository."
-          },
-          "body": {
-            "type": "string",
-            "title": "body\n\nThe contents of the pull request."
           },
           "head_repo": {
             "type": "string",
@@ -5382,10 +5382,6 @@
             "format": "date-time",
             "title": "created_at"
           },
-          "user": {
-            "$ref": "#/components/schemas/MyPickIGithub.Useridtypeloginhtml_urlavatar_url",
-            "title": "user"
-          },
           "body": {
             "type": "string",
             "title": "body"
@@ -5394,6 +5390,10 @@
             "type": "string",
             "format": "date-time",
             "title": "updated_at"
+          },
+          "user": {
+            "$ref": "#/components/schemas/MyPickIGithub.Useridtypeloginhtml_urlavatar_url",
+            "title": "user"
           }
         },
         "required": [
@@ -5401,8 +5401,8 @@
           "author_association",
           "id",
           "created_at",
-          "user",
-          "updated_at"
+          "updated_at",
+          "user"
         ]
       },
       "IGithub.IGetPullRequestCommentsInput": {
@@ -6296,13 +6296,13 @@
             "type": "string",
             "title": "start_side"
           },
-          "path": {
-            "type": "string",
-            "title": "path"
-          },
           "body": {
             "type": "string",
             "title": "body"
+          },
+          "path": {
+            "type": "string",
+            "title": "path"
           },
           "position": {
             "oneOf": [
@@ -8316,11 +8316,11 @@
           "order": {
             "oneOf": [
               {
-                "const": "desc",
+                "const": "asc",
                 "default": "desc"
               },
               {
-                "const": "asc",
+                "const": "desc",
                 "default": "desc"
               }
             ],
@@ -9205,10 +9205,6 @@
             "format": "date-time",
             "title": "created_at"
           },
-          "user": {
-            "$ref": "#/components/schemas/MyPickIGithub.Useridtypelogin",
-            "title": "user"
-          },
           "body": {
             "oneOf": [
               {
@@ -9220,6 +9216,15 @@
             ],
             "title": "body",
             "description": "Contents of the issue\n\nYou can also render this content because it is in a markdown format."
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "updated_at"
+          },
+          "user": {
+            "$ref": "#/components/schemas/MyPickIGithub.Useridtypelogin",
+            "title": "user"
           },
           "state": {
             "type": "string",
@@ -9303,11 +9308,6 @@
           "draft": {
             "type": "boolean",
             "title": "draft\n\nIndicates whether or not the pull request is a draft."
-          },
-          "updated_at": {
-            "type": "string",
-            "format": "date-time",
-            "title": "updated_at"
           },
           "milestone": {
             "oneOf": [
@@ -9435,11 +9435,11 @@
           "head",
           "id",
           "created_at",
+          "updated_at",
           "user",
           "state",
           "labels",
           "html_url",
-          "updated_at",
           "milestone",
           "author_association",
           "requested_reviewers",
@@ -9941,11 +9941,11 @@
           "order": {
             "oneOf": [
               {
-                "const": "desc",
+                "const": "asc",
                 "default": "desc"
               },
               {
-                "const": "asc",
+                "const": "desc",
                 "default": "desc"
               }
             ],
@@ -10084,11 +10084,11 @@
           "order": {
             "oneOf": [
               {
-                "const": "desc",
+                "const": "asc",
                 "default": "desc"
               },
               {
-                "const": "asc",
+                "const": "desc",
                 "default": "desc"
               }
             ],
@@ -10196,11 +10196,11 @@
           "order": {
             "oneOf": [
               {
-                "const": "desc",
+                "const": "asc",
                 "default": "desc"
               },
               {
-                "const": "asc",
+                "const": "desc",
                 "default": "desc"
               }
             ],
@@ -10389,6 +10389,11 @@
             "type": "string",
             "title": "tite of this issue"
           },
+          "body": {
+            "type": "string",
+            "title": "body of this issue",
+            "description": "It can be markdown format\nIf you provide text in utf-8 format, which can be recognized by a person, in markdown format, it will be written as it is."
+          },
           "secretKey": {
             "type": "string",
             "x-wrtn-secret-key": "github",
@@ -10405,11 +10410,6 @@
           "repo": {
             "type": "string",
             "title": "The name of the repository"
-          },
-          "body": {
-            "type": "string",
-            "title": "body of this issue",
-            "description": "It can be markdown format\nIf you provide text in utf-8 format, which can be recognized by a person, in markdown format, it will be written as it is."
           },
           "labels": {
             "type": "array",

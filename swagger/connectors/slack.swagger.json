@@ -18,7 +18,7 @@
     "title": "Slack",
     "summary": "슬랙에서 대화 내용을 가져오거나 메시지를 보낼 수 있어요.",
     "description": "슬랙에서 우리 멤버들이 어떤 주제를 가지고 논의를 하는지 확인해요. 우리 워크스페이스에 있는 유저 그룹이나 동료의 프로필을 확인할 수도 있고, 동료에게 말을 걸 수도 있고, 채널에 메세지를 보내고, 또 답글을 달 수도 있어요.",
-    "version": "0.1.368",
+    "version": "0.1.369",
     "license": {
       "name": "AGPL-3.0-only"
     }
@@ -1319,6 +1319,11 @@
             "x-wrtn-placeholder": "1234567890.123456",
             "title": "when the user scheduled the message"
           },
+          "channel": {
+            "type": "string",
+            "pattern": "^((C(.*))|(D(.*))|(G(.*)))",
+            "title": "channel id"
+          },
           "text": {
             "type": "string",
             "title": "message contents",
@@ -1332,11 +1337,6 @@
             "title": "Attachments",
             "description": "Attachement contains all types of files and can sometimes be an external link.\nIt is not the type that can be confirmed because the internal properties can vary depending on the type of block it is making up."
           },
-          "channel": {
-            "type": "string",
-            "pattern": "^((C(.*))|(D(.*))|(G(.*)))",
-            "title": "channel id"
-          },
           "id": {
             "type": "string",
             "title": "id of scheduled message"
@@ -1349,8 +1349,8 @@
         "required": [
           "post_at",
           "date_created",
-          "text",
           "channel",
+          "text",
           "id",
           "post_at_date"
         ]
@@ -1719,6 +1719,11 @@
             "title": "shortcut link",
             "description": "Link to view the conversation history immediately.\nWe can provide you with a shortcut link if user want, but you don't have to expose it to them in normal times."
           },
+          "channel": {
+            "type": "string",
+            "pattern": "^((C(.*))|(D(.*))|(G(.*)))",
+            "title": "channel id"
+          },
           "text": {
             "type": "string",
             "title": "message contents",
@@ -1734,11 +1739,6 @@
               }
             ],
             "title": "ID of the person who made this message\n\nIf not a user, message does not have an ID."
-          },
-          "channel": {
-            "type": "string",
-            "pattern": "^((C(.*))|(D(.*))|(G(.*)))",
-            "title": "channel id"
           },
           "ts": {
             "type": "string",
@@ -1773,9 +1773,9 @@
           "usergroups",
           "username",
           "link",
+          "channel",
           "text",
           "user",
-          "channel",
           "ts",
           "reply_count",
           "reply_users_count",
@@ -2348,7 +2348,7 @@
           "files": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/MyPickISlack.Filenameidusercreatedsizechannelscomments_countmimetypeurl_privateurl_private_downloadthumb_1024"
+              "$ref": "#/components/schemas/MyPickISlack.Filechannelsnameidusercreatedsizecomments_countmimetypeurl_privateurl_private_downloadthumb_1024"
             }
           },
           "paging": {
@@ -2386,9 +2386,17 @@
         ],
         "title": "File Lookup Results"
       },
-      "MyPickISlack.Filenameidusercreatedsizechannelscomments_countmimetypeurl_privateurl_private_downloadthumb_1024": {
+      "MyPickISlack.Filechannelsnameidusercreatedsizecomments_countmimetypeurl_privateurl_private_downloadthumb_1024": {
         "type": "object",
         "properties": {
+          "channels": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "pattern": "^((C(.*))|(D(.*))|(G(.*)))"
+            },
+            "title": "channels"
+          },
           "name": {
             "type": "string",
             "title": "name"
@@ -2408,14 +2416,6 @@
           "size": {
             "type": "integer",
             "title": "size"
-          },
-          "channels": {
-            "type": "array",
-            "items": {
-              "type": "string",
-              "pattern": "^((C(.*))|(D(.*))|(G(.*)))"
-            },
-            "title": "channels"
           },
           "comments_count": {
             "type": "integer",
@@ -2442,12 +2442,12 @@
           }
         },
         "required": [
+          "channels",
           "name",
           "id",
           "user",
           "created",
           "size",
-          "channels",
           "comments_count",
           "mimetype"
         ]
