@@ -307,14 +307,14 @@ export const test_api_connector_notion_create_page = async (
     },
   );
 
-  await CApi.functional.connector.notion.page.breadcrumb.createBreadcrumb(
-    connection,
-    {
-      breadcrumb: {},
-      pageId: page.id,
-      secretKey: ConnectorGlobal.env.NOTION_TEST_SECRET,
-    },
-  );
+  // await CApi.functional.connector.notion.page.breadcrumb.createBreadcrumb(
+  //   connection,
+  //   {
+  //     breadcrumb: {},
+  //     pageId: page.id,
+  //     secretKey: ConnectorGlobal.env.NOTION_TEST_SECRET,
+  //   },
+  // );
 
   await CApi.functional.connector.notion.page.table_of_contents.createTableOfContents(
     connection,
