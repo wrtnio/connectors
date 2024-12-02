@@ -5,6 +5,7 @@ import { IPage } from "@wrtn/connector-api/lib/structures/common/IPage";
 import { IArticle } from "@wrtn/connector-api/lib/structures/connector/articles/IArticle";
 import { IArticleExport } from "@wrtn/connector-api/lib/structures/connector/articles/IArticleExport";
 import { StrictOmit } from "@wrtn/connector-api/lib/structures/types/strictOmit";
+import { Prerequisite } from "@wrtnio/decorators";
 import { ExternalUser } from "../../../decorators/ExternalUser";
 import { DocumentProvider } from "../../../providers/connector/article/DocumentProvider";
 
@@ -26,7 +27,12 @@ export class ArticlesController {
   @core.TypedRoute.Post(":id/sync/notion")
   async syncToNotion(
     @ExternalUser() external_user: IExternalUser,
-    @TypedParam("id") articleId: IArticle["id"],
+    @Prerequisite({
+      neighbor: () => ArticlesController.prototype.index,
+      jmesPath: "data[].{ value: id, label: snapshot.title }",
+    })
+    @TypedParam("id")
+    articleId: IArticle["id"],
     @TypedBody() input: IArticle.ISync.ToNotionInput,
   ): Promise<IArticle.ISync.ToNotionOutput> {
     return DocumentProvider.sync("notion")(external_user, articleId, input);
@@ -52,7 +58,12 @@ export class ArticlesController {
   @core.TypedRoute.Post(":id/exports/notion")
   async exportsToNotion(
     @ExternalUser() external_user: IExternalUser,
-    @TypedParam("id") articleId: IArticle["id"],
+    @Prerequisite({
+      neighbor: () => ArticlesController.prototype.index,
+      jmesPath: "data[].{ value: id, label: snapshot.title }",
+    })
+    @TypedParam("id")
+    articleId: IArticle["id"],
     @TypedBody() input: IArticle.IExport.ToNotionInput,
   ): Promise<IArticle.IExport.ToNotionOutput> {
     return DocumentProvider.exports("notion")(external_user, articleId, input);
@@ -72,7 +83,12 @@ export class ArticlesController {
   @core.TypedRoute.Patch(":id")
   async at(
     @ExternalUser() external_user: IExternalUser,
-    @TypedParam("id") articleId: IArticle["id"],
+    @Prerequisite({
+      neighbor: () => ArticlesController.prototype.index,
+      jmesPath: "data[].{ value: id, label: snapshot.title }",
+    })
+    @TypedParam("id")
+    articleId: IArticle["id"],
   ): Promise<StrictOmit<IArticle, "password">> {
     return DocumentProvider.at(external_user, articleId);
   }
@@ -93,7 +109,12 @@ export class ArticlesController {
     /**
      * @title Article ID to remove
      */
-    @TypedParam("id") articleId: IArticle["id"],
+    @Prerequisite({
+      neighbor: () => ArticlesController.prototype.index,
+      jmesPath: "data[].{ value: id, label: snapshot.title }",
+    })
+    @TypedParam("id")
+    articleId: IArticle["id"],
   ): Promise<void> {
     return DocumentProvider.remove(external_user, articleId);
   }
@@ -116,7 +137,12 @@ export class ArticlesController {
     /**
      * @title Article ID to update
      */
-    @TypedParam("id") articleId: IArticle["id"],
+    @Prerequisite({
+      neighbor: () => ArticlesController.prototype.index,
+      jmesPath: "data[].{ value: id, label: snapshot.title }",
+    })
+    @TypedParam("id")
+    articleId: IArticle["id"],
     @TypedBody() input: IArticle.IUpdate,
   ): Promise<IArticle.ISnapshot> {
     return DocumentProvider.update(external_user, articleId, input);
@@ -129,6 +155,9 @@ export class ArticlesController {
    * it may be appropriate to call this connector if the user asks to call the text without saying the service name.
    * It is recommended that you first ask the user for the service name.
    * If you are asked to look up the text under the names of `Swal`, `Wrtn Technologies`, `Wrtn`, `user own DB`, `user DB`, etc., you should call this connector.
+   *
+   * A list of pageed articles will appear.
+   * The article contains abbreviated body content, so you can infer what you have from the title and body.
    *
    * @summary List up all summarized articles
    * @param input Request info of pagination and searching options.
@@ -157,6 +186,10 @@ export class ArticlesController {
    *
    * If the user asked to edit the text, it would most likely not be this connector.
    * There is a separate connector for the update, so please use it.
+   *
+   * If the user asks you to write without any service names,
+   * you may be referring to this connector.
+   * Ask the user to confirm.
    *
    * @sumamry Write Article
    */
