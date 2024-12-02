@@ -835,19 +835,26 @@ export namespace INotion {
     children?: any[];
   };
 
-  export type IReadPageContentOutput = IMarkdownBlock[];
   export interface IReadPageContentInput extends INotion.ISecret {
     /**
      * Indicates the ID of the page.
-     * you can put the block ID back into this factor and use it to look up the child blocks.
      *
-     * @title block_id
+     * The unique ID of the page from which you want to read the content.
+     *
+     * @title pageId
      */
+    pageId: PageIdInput["pageId"];
+  }
 
+  export interface IReadPageContentOutput {
     /**
-     * @title block_id
+     * The contents of the page you  read.
+     *
+     * The contents are in Markdown format.
+     *
+     * @title content
      */
-    block_id: PageIdInput["pageId"];
+    content: string;
   }
 
   /**

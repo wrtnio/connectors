@@ -126,6 +126,7 @@
     "mdast-util-from-markdown": "^2.0.1",
     "mime-types": "^2.1.35",
     "nestjs-pino": "^4.0.0",
+    "notion-to-md": "^3.1.1",
     "openai": "^4.24.1",
     "pino": "^9.5.0",
     "prisma": "^5.22.0",
