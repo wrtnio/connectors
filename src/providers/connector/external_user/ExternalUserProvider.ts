@@ -29,9 +29,9 @@ export namespace ExternalUserProvider {
   ) => {
     return {
       id: randomUUID(),
-      application: input["x-wrtn-application"],
-      password: input["x-wrtn-password"],
-      uid: input["x-wrtn-uid"],
+      application: input["x-wrtn-user-application"],
+      password: input["x-wrtn-user-password"],
+      uid: input["x-wrtn-user-uid"],
       created_at: new Date().toISOString(),
     } satisfies Prisma.external_usersCreateWithoutChannelInput;
   };
@@ -44,14 +44,14 @@ export namespace ExternalUserProvider {
       {
         ...ExternalUserProvider.json.select(),
         where: {
-          application: input["x-wrtn-application"],
-          uid: input["x-wrtn-uid"],
+          application: input["x-wrtn-user-application"],
+          uid: input["x-wrtn-user-uid"],
         },
       },
     );
 
     if (external_user) {
-      if (external_user.password !== input["x-wrtn-password"]) {
+      if (external_user.password !== input["x-wrtn-user-password"]) {
         throw new ForbiddenException("Invalid password.");
       }
 
@@ -60,7 +60,7 @@ export namespace ExternalUserProvider {
 
     const channel = await ConnectorGlobal.prisma.channels.findFirst({
       where: {
-        code: input["x-wrtn-application"],
+        code: input["x-wrtn-user-application"],
       },
     });
 
@@ -71,7 +71,7 @@ export namespace ExternalUserProvider {
         },
         data: {
           id: randomUUID(),
-          code: input["x-wrtn-application"],
+          code: input["x-wrtn-user-application"],
           created_at,
           updated_at: created_at,
           external_users: {

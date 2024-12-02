@@ -5,17 +5,17 @@ export namespace IExternalUser {
     /**
      * @title application
      */
-    "x-wrtn-application"?: string;
+    "x-wrtn-user-application"?: string;
 
     /**
      * @title uid
      */
-    "x-wrtn-uid"?: string;
+    "x-wrtn-user-uid"?: string;
 
     /**
      * @title password
      */
-    "x-wrtn-password"?: string;
+    "x-wrtn-user-password"?: string;
   }
 }
 

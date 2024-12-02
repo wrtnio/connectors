@@ -16,9 +16,9 @@ const uid = randomUUID();
 const connectionWithSameUser = (connection: CApi.IConnection) => ({
   ...connection,
   headers: {
-    "x-wrtn-application": "kakasoo",
-    "x-wrtn-password": password,
-    "x-wrtn-uid": uid,
+    "x-wrtn-user-application": "kakasoo",
+    "x-wrtn-user-password": password,
+    "x-wrtn-user-uid": uid,
   } satisfies IExternalUser.ExternalUserIdentifier,
 });
 
@@ -102,9 +102,9 @@ export const test_api_connector_article_update_with_invalid_application =
         {
           ...connection,
           headers: {
-            "x-wrtn-application": randomUUID(), // application이 다른 경우
-            "x-wrtn-password": password,
-            "x-wrtn-uid": uid,
+            "x-wrtn-user-application": randomUUID(), // application이 다른 경우
+            "x-wrtn-user-password": password,
+            "x-wrtn-user-uid": uid,
           },
         },
         article.id,
@@ -132,9 +132,9 @@ export const test_api_connector_article_update_with_invalid_password = async (
       {
         ...connection,
         headers: {
-          "x-wrtn-application": "kakasoo",
-          "x-wrtn-password": randomUUID(), // password이 다른 경우
-          "x-wrtn-uid": uid,
+          "x-wrtn-user-application": "kakasoo",
+          "x-wrtn-user-password": randomUUID(), // password이 다른 경우
+          "x-wrtn-user-uid": uid,
         },
       },
       article.id,
@@ -162,9 +162,9 @@ export const test_api_connector_article_update_with_invalid_uid = async (
       {
         ...connection,
         headers: {
-          "x-wrtn-application": "kakasoo",
-          "x-wrtn-password": password,
-          "x-wrtn-uid": randomUUID(), // uid이 다른 경우
+          "x-wrtn-user-application": "kakasoo",
+          "x-wrtn-user-password": password,
+          "x-wrtn-user-uid": randomUUID(), // uid이 다른 경우
         },
       },
       article.id,
@@ -202,9 +202,9 @@ export const test_api_connector_article_index = async (
     {
       ...connection,
       headers: {
-        "x-wrtn-application": "kakasoo",
-        "x-wrtn-password": password,
-        "x-wrtn-uid": randomUUID(),
+        "x-wrtn-user-application": "kakasoo",
+        "x-wrtn-user-password": password,
+        "x-wrtn-user-uid": randomUUID(),
       },
     },
     {
@@ -250,9 +250,9 @@ export const test_api_connector_article_index_only_can_view_user_owen_articles =
     const otherUserConnection = {
       ...connection,
       headers: {
-        "x-wrtn-application": "kakasoo",
-        "x-wrtn-password": password,
-        "x-wrtn-uid": randomUUID(),
+        "x-wrtn-user-application": "kakasoo",
+        "x-wrtn-user-password": password,
+        "x-wrtn-user-uid": randomUUID(),
       },
     } as const;
 
@@ -369,9 +369,9 @@ export const test_api_connector_article_at = async (
   const otherUserConnection = {
     ...connection,
     headers: {
-      "x-wrtn-application": "kakasoo",
-      "x-wrtn-password": password,
-      "x-wrtn-uid": randomUUID(),
+      "x-wrtn-user-application": "kakasoo",
+      "x-wrtn-user-password": password,
+      "x-wrtn-user-uid": randomUUID(),
     },
   } as const;
 
