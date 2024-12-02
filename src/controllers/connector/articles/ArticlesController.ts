@@ -15,6 +15,8 @@ export class ArticlesController {
    *
    * Synchronize on a snapshot basis,
    * such as upgrading or downgrading the version of a document exported to Notion.
+   * If you specify the id of the snapshot in the names from and to among the internal properties,
+   * find the exported text from `from` and start synchronizing to the version of `to`.
    *
    * @summary Syncronize article version
    * @param articleId Target article's {@link IArticle.id}
@@ -120,6 +122,11 @@ export class ArticlesController {
   /**
    * List up all summarized articles with pagination and searching options
    *
+   * Because it is a call to a text stored in the connector server's own DB,
+   * it may be appropriate to call this connector if the user asks to call the text without saying the service name.
+   * It is recommended that you first ask the user for the service name.
+   * If you are asked to look up the text under the names of `Swal`, `Wrtn Technologies`, `Wrtn`, `user own DB`, `user DB`, etc., you should call this connector.
+   *
    * @summary List up all summarized articles
    * @param input Request info of pagination and searching options.
    * @returns Paginated summarized articles.
@@ -144,6 +151,9 @@ export class ArticlesController {
    * This allows you to compare previous and current versions, track changes, and synchronize updates across services.
    * As these APIs store data exclusively in the Wrtn Technologies Ecosystem Team's database without relying on external APIs,
    * this setup serves as an ideal starting point for creating and managing documents efficiently with robust version control.
+   *
+   * If the user asked to edit the text, it would most likely not be this connector.
+   * There is a separate connector for the update, so please use it.
    *
    * @sumamry Write Article
    */
