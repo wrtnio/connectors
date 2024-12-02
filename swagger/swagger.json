@@ -15,7 +15,7 @@
     }
   ],
   "info": {
-    "version": "0.1.369",
+    "version": "0.1.370",
     "title": "@wrtn/connector",
     "description": "wrtn-ecosystem connectors and sdk",
     "license": {
@@ -6577,35 +6577,6 @@
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg"
       }
     },
-    "/connector/notion/page/breadcrumb": {
-      "post": {
-        "summary": "Append an breadcrumb type child node",
-        "description": "Append an breadcrumb type child node\n\nNotion is a very complex type, so you have to create a page in a block coding manner.\nTherefore, this connector is designed to create a page by taking only the page ID and one block of the corresponding block and continuously adding it to the bottom.\nThe type of block you can put in here is `breadcrumb`.\n\nCalling this connector requires the correct page ID, so it should only be called if you have previously created a page to obtain that ID, viewed the page, or obtained a link or page ID from the user in advance.",
-        "tags": [
-          "Notion"
-        ],
-        "parameters": [],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/INotion.ICreateChildContentTypeBreadcrumbInput"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "201": {
-            "description": "",
-            "content": {
-              "application/json": {}
-            }
-          }
-        },
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg"
-      }
-    },
     "/connector/notion/page/table_of_contents": {
       "post": {
         "summary": "Append an table_of_contents type child node",
@@ -6729,13 +6700,14 @@
     },
     "/connector/notion/get/page/contents": {
       "post": {
-        "summary": "Retrieve block children",
-        "description": "Retrieve block children\n\nReturns a paginated array of child block objects contained in the block using the ID specified.\nIt is used to check the contents of the page by inquiring about the children of the page or block.\nIt recursively traverses and looks for all blocks. Here, we are ready to combine online blocks and blocks containing text.\n\nFor child pages, it does not even look up the contents.",
+        "summary": "Read the contents of a Notion page",
+        "description": "Read the contents of a Notion page.\nReads the contents of a Notion page in Markdown format.\n\nRead Notion page contents",
         "tags": [
           "Notion"
         ],
         "parameters": [],
         "requestBody": {
+          "description": "pageId",
           "content": {
             "application/json": {
               "schema": {
@@ -6751,10 +6723,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/INotion.IMarkdownBlock"
-                  }
+                  "$ref": "#/components/schemas/INotion.IReadPageContentOutput"
                 }
               }
             }
@@ -31411,50 +31380,6 @@
         "properties": {},
         "description": "Construct a type with a set of properties K of type T"
       },
-      "INotion.ICreateChildContentTypeBreadcrumbInput": {
-        "type": "object",
-        "properties": {
-          "breadcrumb": {
-            "$ref": "#/components/schemas/Recordstringnever",
-            "title": "breadcrumb\n\nYou only need to match the key name correctly, so you just need to pass on an empty object."
-          },
-          "secretKey": {
-            "type": "string",
-            "x-wrtn-secret-key": "notion",
-            "title": "Select authentication information",
-            "description": "secret key."
-          },
-          "pageId": {
-            "oneOf": [
-              {
-                "type": "string",
-                "x-wrtn-prerequisite": {
-                  "method": "post",
-                  "path": "/connector/notion/get/page",
-                  "jmesPath": "[].{value:pageId, label:title}"
-                },
-                "x-wrtn-placeholder": "부모 페이지를 선택하세요."
-              },
-              {
-                "type": "string",
-                "x-wrtn-prerequisite": {
-                  "method": "post",
-                  "path": "/connector/notion/page",
-                  "jmesPath": "[].{value:id, label:id}"
-                },
-                "x-wrtn-placeholder": "부모 페이지를 선택하세요."
-              }
-            ],
-            "title": "pageId",
-            "description": "Indicates the page on which you want to add a block.\nAt the bottom of this page, a block is added to match the requested object here.\nCalling this connector requires the correct page ID,\nso it should only be called if you have previously created a page to obtain that ID, viewed the page,\nor obtained a link or page ID from the user in advance."
-          }
-        },
-        "required": [
-          "breadcrumb",
-          "secretKey",
-          "pageId"
-        ]
-      },
       "INotion.ICreateChildContentTypeTableOfContentsInput": {
         "type": "object",
         "properties": {
@@ -32221,40 +32146,23 @@
         ],
         "title": "Conditions required to create a page"
       },
-      "INotion.IMarkdownBlock": {
+      "INotion.IReadPageContentOutput": {
         "type": "object",
         "properties": {
-          "id": {
+          "content": {
             "type": "string",
-            "format": "uuid",
-            "title": "id"
-          },
-          "type": {
-            "type": "string",
-            "title": "type"
-          },
-          "text": {
-            "type": "string",
-            "title": "text"
-          },
-          "hasChild": {
-            "type": "boolean",
-            "title": "hasChild"
-          },
-          "children": {
-            "type": "array",
-            "items": {},
-            "title": "children"
+            "title": "content",
+            "description": "The contents of the page you  read.\n\nThe contents are in Markdown format."
           }
         },
         "required": [
-          "id"
+          "content"
         ]
       },
       "INotion.IReadPageContentInput": {
         "type": "object",
         "properties": {
-          "block_id": {
+          "pageId": {
             "oneOf": [
               {
                 "type": "string",
@@ -32275,7 +32183,8 @@
                 "x-wrtn-placeholder": "부모 페이지를 선택하세요."
               }
             ],
-            "title": "block_id"
+            "title": "pageId",
+            "description": "Indicates the ID of the page.\n\nThe unique ID of the page from which you want to read the content."
           },
           "secretKey": {
             "type": "string",
@@ -32285,7 +32194,7 @@
           }
         },
         "required": [
-          "block_id",
+          "pageId",
           "secretKey"
         ]
       },
