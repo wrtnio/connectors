@@ -13,7 +13,5 @@ export const test_api_connector_notion_get_page_contents_by_page_id = async (
         secretKey: ConnectorGlobal.env.NOTION_TEST_SECRET,
       },
     );
-  console.log("RES", res);
-
   typia.assertEquals(res);
 };
