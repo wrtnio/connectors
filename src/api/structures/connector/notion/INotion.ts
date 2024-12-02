@@ -864,10 +864,6 @@ export namespace INotion {
      *
      * @title Page title
      */
-
-    /**
-     * @title title
-     */
     title: string & Placeholder<"테스트 페이지.">;
   }
 
@@ -2453,6 +2449,13 @@ export namespace INotion {
 
     /**
      * @title Page ID to update
+     */
+    pageId: PageIdInput["pageId"];
+  }
+
+  export interface ICrear extends INotion.ISecret {
+    /**
+     * @title Page ID to clear
      */
     pageId: PageIdInput["pageId"];
   }

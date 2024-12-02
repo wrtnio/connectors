@@ -1,0 +1,88 @@
+/// External user information.
+///
+/// An entity for when this system is linked to an external service and 
+/// their users are accepted as customers of this service.
+///
+/// And `password` is a password issued to the user by the external service system
+/// (so-called user permanent authentication token), and is never an actual user 
+/// password. However, it is used to determine whether a customer who entered the 
+/// same `application` and `uid` as the current external system user is 
+/// a correct external system user or a violation.
+///
+/// In addition, additional information received from external services can be 
+/// recorded in the `data` field in JSON format.
+///
+/// @namespace Actors
+/// @author kakasoo
+model external_users {
+  //----
+  // COLUMNS
+  //----
+  /// @format uuid
+  id String @id @db.Uuid
+
+  /// {@link channels.id} of the affiliated channel
+  channel_id String @db.Uuid
+
+  /// The identifier code of the external service.
+  ///
+  /// It is most likely the same as {@link channels.code}.
+  application String @db.VarChar
+
+  /// An identifier key for that user in an external service.
+  uid String @db.VarChar
+
+  /// System password for external service users.
+  ///
+  /// This is a password issued by the external service to the user, 
+  /// and is never the actual user password. However, it is used to determine 
+  /// whether a customer who entered the same `application` and `code` as the 
+  /// current external system user is considered a valid external system user 
+  /// or a violation.
+  password String @db.VarChar
+
+  /// Record creation date and time (first external user authentication date and time)
+  created_at DateTime
+
+  channel channels @relation(fields: [channel_id], references: [id], onDelete: Cascade)
+
+  bbs_article bbs_articles[]
+
+  @@unique([channel_id, application, uid])
+  @@index([application, created_at])
+  @@index([created_at])
+}
+
+/// channel information.
+///
+/// 
+/// @namespace Systematic
+/// @erd SaleContents
+/// @author kakasoo
+model channels {
+  //----
+  // COLUMNS
+  //----
+  /// @format uuid
+  id String @id @db.Uuid
+
+  /// Identifier code.
+  code String @db.VarChar
+
+  /// The date and time the record was created.
+  created_at DateTime @db.Timestamptz
+
+  /// Date and time of record edit.
+  updated_at DateTime @db.Timestamptz
+
+  /// Date and time of record deletion.
+  deleted_at DateTime? @db.Timestamptz
+
+  //----
+  // RELATIONS
+  //----
+  external_users external_users[]
+
+  @@unique([code])
+  @@index([created_at])
+}
