@@ -141,6 +141,11 @@ export namespace IArticle {
      */
     snapshot: StrictOmit<IArticle.ISnapshot, "body"> & {
       /**
+       * Summarized Body Content
+       *
+       * This is the content of the text that has been omitted so that only 100 characters appear.
+       * If you want to see the whole thing, use the detailed lookup connector.
+       *
        * @title Summarized Body
        */
       body: string & tags.MaxLength<100>;
@@ -153,6 +158,7 @@ export namespace IArticle {
        * Article ID, not Article Snapshot ID
        *
        * It is Article's ID, Not Article Snapshot ID and {@link IArticleExport bbs_article_exports} ID.
+       * This is a condition for filtering, not for detailed inquiry.
        *
        * @title Article ID
        */

@@ -159,6 +159,12 @@ export class ArticlesController {
    * A list of pageed articles will appear.
    * The article contains abbreviated body content, so you can infer what you have from the title and body.
    *
+   * If you want to see the full text instead of the omitted text,
+   * or if you want to see the history of this article being exported to Notion or other services,
+   * please look up the details.
+   * You can view all the snapshots of this article if you want to look at them in detail.
+   * The detailed lookup connector is 'PATCH connector/articles/:id'.
+   *
    * @summary List up all summarized articles
    * @param input Request info of pagination and searching options.
    * @returns Paginated summarized articles.
