@@ -5,7 +5,6 @@ import { PickPartial } from "@wrtn/connector-api/lib/structures/types/PickPartia
 import { StrictOmit } from "@wrtn/connector-api/lib/structures/types/strictOmit";
 import axios from "axios";
 import { randomUUID } from "node:crypto";
-import util from "node:util";
 import slackifyMarkdown from "slackify-markdown";
 import typia, { tags } from "typia";
 import { ElementOf } from "../../../api/structures/types/ElementOf";
@@ -303,91 +302,37 @@ export class SlackProvider {
   async getUserDetails(
     input: ISlack.IGetUserDetailInput,
   ): Promise<ISlack.IGetUserDetailOutput[]> {
-    const { id: external_team_id } = await this.getTeamInfo(input);
-    const createdTeam = await this.getOneOrCreateTeam(external_team_id);
-    const response: ISlack.IGetUserDetailOutput[] = [];
+    const response = [];
 
-    /**
-     * DB에 이미 저장된 경우 DB를 통해 유저를 가져온다.
-     * @param userId 슬랙에서 유저를 지칭하는 유니크한 아이디를 의미한다.
-     * @returns
-     */
-    const savedUsers = await this.findMany(external_team_id);
-    const nonSavedUsers = input.userIds.filter((external_user_id) => {
-      if (external_user_id === "USLACKBOT") {
-        return false;
-      }
+    const fetch = async (userId: string) => {
+      const url = `https://slack.com/api/users.profile.get?include_labels=true&user=${userId}`;
+      const token = await this.getToken(input.secretKey);
+      try {
+        const res = await axios.get(url, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/x-www-form-urlencoded; charset=utf-8;",
+          },
+        });
 
-      return savedUsers.every((el) => el.external_user_id !== external_user_id);
-    });
-
-    for await (const external_user_id of nonSavedUsers) {
-      const fetched = await retry(async () => {
-        const fetchedUser = await this.getOneSlackUserDetail(
-          external_user_id,
-          input.secretKey,
-        );
-
-        await this.create(createdTeam.id, external_user_id, fetchedUser);
-
-        return fetchedUser;
-      })();
-
-      if (input.userIds.includes(external_user_id)) {
-        response.push({ ...fetched, id: external_user_id });
-      }
-    }
-
-    const targetUsers = savedUsers.filter((el) =>
-      input.userIds.includes(el.external_user_id),
-    );
-    // 이미 저장되어 있던 것들 중 오래된 데이터를 최신 상태로 유지하게끔 한다.
-
-    let isError: boolean = false;
-    for await (const user of targetUsers) {
-      if (isError === false) {
-        try {
-          const fetchedUser = await this.getOneSlackUserDetail(
-            user.external_user_id,
-            input.secretKey,
-          );
-
-          if (fetchedUser) {
-            if (
-              !util.isDeepStrictEqual(
-                {
-                  display_name: fetchedUser.display_name,
-                  fields: fetchedUser.fields,
-                  real_name: fetchedUser.real_name,
-                  profile_image: fetchedUser.profile_image,
-                },
-                {
-                  display_name: user.display_name,
-                  fields: user.fields,
-                  real_name: user.real_name,
-                  profile_image: user.profile_image,
-                },
-              )
-            ) {
-              await this.update(user.id, fetchedUser);
-            }
-            response.push({ ...fetchedUser, id: user.external_user_id });
-          } else {
-            response.push({ ...user, id: user.external_user_id });
-          }
-        } catch (err) {
-          // 에러가 날 경우에는 동기화를 멈춘다. (추후 이벤트 방식이나 배치 함수를 작성하여 동기화를 이어갈 것)
-          isError = true;
-          response.push({ ...user, id: user.external_user_id });
-          break;
+        if (typia.is<{ ok: false; error: "ratelimited" }>(res.data)) {
+          throw new Error(res.data.error);
         }
-      } else {
-        response.push({ ...user, id: user.external_user_id });
+
+        const fields = this.getUserProfileFields(res.data.profile);
+        return { ...res.data.profile, fields };
+      } catch (err) {
+        console.error(JSON.stringify(err));
+        throw err;
       }
+    };
+
+    for await (const userId of input.userIds) {
+      const fetched = await retry(() => fetch(userId))();
+      response.push({ ...fetched, id: userId });
     }
 
     return response;
-    // return [...savedUsers, ...response];
   }
 
   async getUsers(
