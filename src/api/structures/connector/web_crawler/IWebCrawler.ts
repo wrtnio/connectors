@@ -31,34 +31,29 @@ export namespace IWebCrawler {
    * @title Response from crawled web page
    */
   export interface IResponse {
-    pages: IPage[];
-    summary: ISummary;
+    text: string;
+    images: IImage[];
+    metadata?: IMetadata;
+    paginationGroups: {
+      identifier: string[]; // 각 페이지네이션 그룹의 식별자
+      pages: IPage[];
+    }[];
+  }
+
+  export interface IMetadata {
+    title?: string;
+    description?: string;
+    author?: string;
+    publishDate?: string;
+    [key: string]: any;
   }
 
   export interface IPage {
+    classNames: string[];
     url: string;
-    index: number; // 페이지 순서
-    content: {
-      text: string; // 핵심 텍스트 컨텐츠
-      images: IImage[];
-      metadata?: {
-        title?: string;
-        description?: string;
-        author?: string;
-        publishDate?: string;
-        [key: string]: any; // 기타 메타데이터는 유연하게 수집
-      };
-    };
-
-    rawContent: string | null; // 필요한 경우 원본 HTML애서 text만 뽑아 전달
-
-    pagination: IPagination;
-  }
-
-  export interface ISummary {
-    totalPages: number;
-    timestamp: string;
-    hasMore: boolean;
+    text: string;
+    res_json?: any;
+    images: IImage[];
     pagination: IPagination;
   }
 
@@ -88,4 +83,13 @@ export namespace IWebCrawler {
     | "infinite-scroll"
     | "load-more"
     | null;
+
+  export interface IXHR {
+    url: string;
+    method: string;
+    body: string;
+    headers?: Record<string, string>;
+    timestamp: number; // 요청이 발생한 시간
+    responseStatus?: number;
+  }
 }
