@@ -1,4 +1,4 @@
-import { Injectable } from "@nestjs/common";
+import { Injectable, Logger } from "@nestjs/common";
 import axios from "axios";
 
 import { IPrompt } from "@wrtn/connector-api/lib/structures/connector/prompt/IPrompt";
@@ -7,6 +7,7 @@ import { ConnectorGlobal } from "../../../ConnectorGlobal";
 
 @Injectable()
 export class PromptProvider {
+  private readonly logger = new Logger("PromptProvider");
   private readonly HAMLET_URL = ConnectorGlobal.env.HAMLET_URL;
 
   async generate(input: IPrompt.IRequest): Promise<IPrompt.IResponse> {
@@ -48,9 +49,13 @@ export class PromptProvider {
           },
         },
       );
-      return { result: res.data.choices?.[0].message?.content };
+
+      if (res.data.choices.length === 0) {
+        this.logger.warn("No response from LLM");
+      }
+      return { result: res.data.choices[0]?.message?.content };
     } catch (error) {
-      console.error(JSON.stringify(error));
+      this.logger.error("Error in generating prompt", error);
       throw error;
     }
   }
