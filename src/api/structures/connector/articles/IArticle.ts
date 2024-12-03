@@ -8,7 +8,19 @@ import { IAttachmentFile } from "./IAttachmentFile";
 
 export namespace IArticle {
   export namespace ISync {
-    export type ToNotionOutput = StrictOmit<IArticle, "password">;
+    export interface ToNotionOutput {
+      /**
+       * Indicates whether synchronization is successful or not
+       *
+       * @title response
+       */
+      isSuccess: boolean;
+
+      /**
+       * @title article information
+       */
+      article: StrictOmit<IArticle, "password">;
+    }
 
     export interface ToNotionInput {
       /**
