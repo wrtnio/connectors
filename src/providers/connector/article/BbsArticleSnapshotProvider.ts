@@ -21,7 +21,8 @@ export namespace BbsArticleSnapshotProvider {
         format: format,
         bbs_article_exports: input.bbs_article_exports
           .sort((a, b) => a.created_at.getTime() - b.created_at.getTime())
-          .map((p) => BbsArticleExportProvider.json.transform(p)),
+          .map((p) => BbsArticleExportProvider.json.transform(p))
+          .filter((p) => p.deleted_at === null),
         files: input.to_files
           .sort((a, b) => a.sequence - b.sequence)
           .map((p) => AttachmentFileProvider.json.transform(p.file)),
