@@ -168,6 +168,7 @@ erDiagram
 }
 "bbs_article_exports" {
   String id PK
+  String provider_id FK "nullable"
   String bbs_article_snapshot_id FK
   String provider
   String uid "nullable"
@@ -331,6 +332,7 @@ M: N relationship resolution.
 
 **Properties**
   - `id`: 
+  - `provider_id`: 
   - `bbs_article_snapshot_id`: [bbs_article_snapshots.id](#bbs_article_snapshots) of the attributed article snapshot
   - `provider`
     > Meaning of the name of the external service
@@ -458,6 +460,11 @@ The tweet information of X.
 ## default
 ```mermaid
 erDiagram
+"provider" {
+  String id PK
+  String name UK
+  DateTime created_at
+}
 "slack_team" {
   String id PK
   String external_team_id
@@ -487,6 +494,13 @@ erDiagram
 "slack_last_snapshots" |o--|| "slack_users" : slack_user
 "slack_last_snapshots" |o--|| "slack_user_snapshots" : slack_user_snapshot
 ```
+
+### `provider`
+
+**Properties**
+  - `id`: 
+  - `name`: 
+  - `created_at`: The date and time the record was created.
 
 ### `slack_team`
 

@@ -475,6 +475,8 @@ export const test_api_connector_article_sync_by_snapshot_id = async (
   typia.assertEquals(res);
 
   // 최종적으로 어떤 스냅샷이 exports를 가지고 있는지 본다.
-  const snapshot = res.snapshots.find((el) => el.bbs_article_exports.length);
+  const snapshot = res.article.snapshots.find(
+    (el) => el.bbs_article_exports.length,
+  );
   assert(snapshot?.id === to);
 };

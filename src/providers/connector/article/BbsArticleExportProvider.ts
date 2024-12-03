@@ -33,8 +33,21 @@ export namespace BbsArticleExportProvider {
       "bbs_article_snapshot_id" | "created_at" | "deleted_at"
     >,
   ) => {
+    const created_at = new Date().toISOString();
     return {
       id: randomUUID(),
+      bbs_article_provider: {
+        connectOrCreate: {
+          create: {
+            id: randomUUID(),
+            name: input.provider,
+            created_at,
+          },
+          where: {
+            name: input.provider,
+          },
+        },
+      },
       provider: input.provider,
       snapshot: {
         connect: {
@@ -43,7 +56,7 @@ export namespace BbsArticleExportProvider {
       },
       uid: input.uid ?? null,
       url: input.url ?? null,
-      created_at: new Date().toISOString(),
+      created_at,
     } satisfies Prisma.bbs_article_exportsCreateInput;
   };
 

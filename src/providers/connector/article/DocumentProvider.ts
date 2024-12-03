@@ -42,6 +42,8 @@ export namespace DocumentProvider {
       articleId: IArticle["id"],
       input: IArticle.ISync.ToNotionInput,
     ): Promise<IArticle.ISync.ToNotionOutput> => {
+      let isSuccess: boolean = false;
+
       const article = await BbsArticleProvider.at({ id: articleId });
       const before = article.snapshots.find(
         (el) => el.id === input.snapshot.from,
@@ -83,11 +85,14 @@ export namespace DocumentProvider {
               bbs_article_snapshot_id: input.snapshot.to,
               created_at,
             });
+
+            isSuccess = true;
           }
         }
       }
 
-      return DocumentProvider.at(external_user, articleId);
+      const response = await DocumentProvider.at(external_user, articleId);
+      return { article: response, isSuccess };
     };
   }
 

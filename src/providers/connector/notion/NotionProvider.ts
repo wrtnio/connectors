@@ -7,6 +7,7 @@ import { markdownToBlocks } from "@tryfabric/martian";
 import { Block } from "@tryfabric/martian/build/src/notion/blocks";
 import { INotion } from "@wrtn/connector-api/lib/structures/connector/notion/INotion";
 import typia from "typia";
+import { retry } from "../../../utils/retry";
 import { OAuthSecretProvider } from "../../internal/oauth_secret/OAuthSecretProvider";
 import { IOAuthSecret } from "../../internal/oauth_secret/structures/IOAuthSecret";
 import { NotionToMarkdown } from "notion-to-md";
@@ -966,13 +967,28 @@ export namespace NotionProvider {
 
   export async function clear(input: INotion.ICrear): Promise<boolean> {
     try {
-      const notion = await createClient(input.secretKey);
-      const blocks = await notion.blocks.children.list({
-        block_id: input.pageId,
-      });
+      const { pageId, secretKey } = input;
+      const notion = await createClient(secretKey);
 
-      for await (const block of blocks.results) {
-        await notion.blocks.delete({ block_id: block.id });
+      let hasMore = true;
+      let cursor: string | null = null;
+
+      while (hasMore) {
+        const response = await notion.blocks.children.list({
+          block_id: pageId,
+          ...(cursor && { start_cursor: cursor }),
+        });
+
+        await Promise.all(
+          response.results.map(async (block) => {
+            await retry(async () =>
+              notion.blocks.delete({ block_id: block.id }),
+            )();
+          }),
+        );
+
+        cursor = response.next_cursor;
+        hasMore = response.has_more;
       }
 
       return true;
