@@ -18,7 +18,7 @@
     "title": "Github",
     "summary": "Github에서 코드를 읽고 분석하고 작성해요",
     "description": "Github에서 유저나 코드를 조회하고 분석할 수 있어요. 직접 코드를 작성하고 커밋하고 PR을 날리거나, 또 코멘트를 남겨줄 수도 있습니다.",
-    "version": "0.1.373",
+    "version": "0.1.374",
     "license": {
       "name": "AGPL-3.0-only"
     }
@@ -1244,7 +1244,55 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "string"
+                  "oneOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "message": {
+                          "type": "string",
+                          "title": "Error Message"
+                        },
+                        "errors": {
+                          "type": "array",
+                          "prefixItems": [
+                            {
+                              "type": "object",
+                              "properties": {
+                                "resource": {
+                                  "const": "PullRequest"
+                                },
+                                "field": {
+                                  "const": "diff"
+                                },
+                                "code": {
+                                  "const": "too_large"
+                                }
+                              },
+                              "required": [
+                                "resource",
+                                "field",
+                                "code"
+                              ]
+                            }
+                          ],
+                          "additionalItems": false,
+                          "title": "error objects"
+                        },
+                        "status": {
+                          "type": "string",
+                          "title": "error code"
+                        }
+                      },
+                      "required": [
+                        "message",
+                        "errors",
+                        "status"
+                      ]
+                    }
+                  ]
                 }
               }
             }

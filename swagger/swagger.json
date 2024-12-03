@@ -15,7 +15,7 @@
     }
   ],
   "info": {
-    "version": "0.1.373",
+    "version": "0.1.374",
     "title": "@wrtn/connector",
     "description": "wrtn-ecosystem connectors and sdk",
     "license": {
@@ -10048,7 +10048,55 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "type": "string"
+                  "oneOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "message": {
+                          "type": "string",
+                          "title": "Error Message"
+                        },
+                        "errors": {
+                          "type": "array",
+                          "prefixItems": [
+                            {
+                              "type": "object",
+                              "properties": {
+                                "resource": {
+                                  "const": "PullRequest"
+                                },
+                                "field": {
+                                  "const": "diff"
+                                },
+                                "code": {
+                                  "const": "too_large"
+                                }
+                              },
+                              "required": [
+                                "resource",
+                                "field",
+                                "code"
+                              ]
+                            }
+                          ],
+                          "additionalItems": false,
+                          "title": "error objects"
+                        },
+                        "status": {
+                          "type": "string",
+                          "title": "error code"
+                        }
+                      },
+                      "required": [
+                        "message",
+                        "errors",
+                        "status"
+                      ]
+                    }
+                  ]
                 }
               }
             }
@@ -30971,6 +31019,9 @@
                     "const": "json"
                   },
                   {
+                    "const": "diff"
+                  },
+                  {
                     "const": "r"
                   },
                   {
@@ -31020,9 +31071,6 @@
                   },
                   {
                     "const": "dhall"
-                  },
-                  {
-                    "const": "diff"
                   },
                   {
                     "const": "docker"
@@ -60258,7 +60306,7 @@
                 "title": "NO_REPLIES"
               },
               {
-                "$ref": "#/components/schemas/__type.o2223"
+                "$ref": "#/components/schemas/__type.o2225"
               }
             ],
             "title": "replies"
@@ -60705,14 +60753,14 @@
           "name"
         ]
       },
-      "__type.o2223": {
+      "__type.o2225": {
         "type": "object",
         "properties": {
           "kind": {
             "const": "Listing"
           },
           "data": {
-            "$ref": "#/components/schemas/__type.o2224"
+            "$ref": "#/components/schemas/__type.o2226"
           }
         },
         "required": [
@@ -60720,7 +60768,7 @@
           "data"
         ]
       },
-      "__type.o2224": {
+      "__type.o2226": {
         "type": "object",
         "properties": {
           "after": {
@@ -60740,7 +60788,7 @@
             "items": {
               "oneOf": [
                 {
-                  "$ref": "#/components/schemas/__type.o2225"
+                  "$ref": "#/components/schemas/__type.o2227"
                 },
                 {
                   "type": "object",
@@ -60814,7 +60862,7 @@
           "before"
         ]
       },
-      "__type.o2225": {
+      "__type.o2227": {
         "type": "object",
         "properties": {
           "kind": {
