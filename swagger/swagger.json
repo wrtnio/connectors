@@ -15,7 +15,7 @@
     }
   ],
   "info": {
-    "version": "0.1.374",
+    "version": "0.1.375",
     "title": "@wrtn/connector",
     "description": "wrtn-ecosystem connectors and sdk",
     "license": {
@@ -13323,6 +13323,24 @@
       "IArticle.ISync.ToNotionOutput": {
         "type": "object",
         "properties": {
+          "isSuccess": {
+            "type": "boolean",
+            "title": "response",
+            "description": "Indicates whether synchronization is successful or not"
+          },
+          "article": {
+            "$ref": "#/components/schemas/StrictOmitIArticleIArticle.ISnapshotpassword",
+            "title": "article information"
+          }
+        },
+        "required": [
+          "isSuccess",
+          "article"
+        ]
+      },
+      "StrictOmitIArticleIArticle.ISnapshotpassword": {
+        "type": "object",
+        "properties": {
           "id": {
             "type": "string",
             "format": "uuid",
@@ -13659,6 +13677,11 @@
       "StrictOmitIArticleExportdeleted_at": {
         "type": "object",
         "properties": {
+          "provider": {
+            "type": "string",
+            "title": "provider name",
+            "description": "It means the name of the service from which the post was exported,\nand if the service name is motion,\nit means that the same post is posted in the corresponding url of the provider service."
+          },
           "url": {
             "oneOf": [
               {
@@ -13687,11 +13710,6 @@
             "format": "uuid",
             "title": "Snapshot ID"
           },
-          "provider": {
-            "type": "string",
-            "title": "provider name",
-            "description": "It means the name of the service from which the post was exported,\nand if the service name is motion,\nit means that the same post is posted in the corresponding url of the provider service."
-          },
           "uid": {
             "oneOf": [
               {
@@ -13705,11 +13723,11 @@
           }
         },
         "required": [
+          "provider",
           "url",
           "id",
           "created_at",
           "bbs_article_snapshot_id",
-          "provider",
           "uid"
         ]
       },
@@ -13776,55 +13794,6 @@
         "required": [
           "notion",
           "snapshot"
-        ]
-      },
-      "StrictOmitIArticleIArticle.ISnapshotpassword": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string",
-            "format": "uuid",
-            "title": "Primary Key"
-          },
-          "created_at": {
-            "type": "string",
-            "format": "date-time",
-            "title": "Creation time of article",
-            "description": "The most recent snapshot made is the higher version,\nand in fact, this time value can serve as the version."
-          },
-          "external_user_id": {
-            "type": "string",
-            "format": "uuid",
-            "title": "External User ID"
-          },
-          "snapshots": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/IArticle.ISnapshot"
-            },
-            "minItems": 1,
-            "title": "List of snapshot contents",
-            "description": "It is created for the first time when an article is created, and is\naccumulated every time the article is modified."
-          },
-          "deleted_at": {
-            "oneOf": [
-              {
-                "type": "null"
-              },
-              {
-                "type": "string",
-                "format": "date-time"
-              }
-            ],
-            "title": "Deletion time of article"
-          }
-        },
-        "required": [
-          "id",
-          "created_at",
-          "external_user_id",
-          "snapshots",
-          "deleted_at"
         ]
       },
       "IArticle.IUpdate": {
