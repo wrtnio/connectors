@@ -1,0 +1,19 @@
+model provider {
+  //----
+  // COLUMNS
+  //----
+  /// @format uuid
+  id String @id @db.Uuid
+
+  name String
+
+  /// The date and time the record was created.
+  created_at DateTime @db.Timestamptz
+
+  ///----
+  /// RELATIONS
+  ///----
+  bbs_article_exports bbs_article_exports[]
+
+  @@unique([name])
+}

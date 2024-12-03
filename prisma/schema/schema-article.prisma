@@ -415,6 +415,11 @@ model bbs_article_exports {
   /// @format uuid
   id String @id @db.Uuid
 
+  // Provider's ID, for example notion, google_docs, etc.
+  //
+  // @format uuid
+  provider_id String? @db.Uuid
+
   /// {@link bbs_article_snapshots.id} of the attributed article snapshot
   /// 
   /// @format uuid
@@ -447,4 +452,7 @@ model bbs_article_exports {
   // RELATIONS
   //----
   snapshot bbs_article_snapshots @relation(fields: [bbs_article_snapshot_id], references: [id], onDelete: Cascade)
+
+  /// There must be a provider, but it is optional before migration to previous data.
+  bbs_article_provider provider? @relation(fields: [provider_id], references: [id], onDelete: Cascade)
 }
