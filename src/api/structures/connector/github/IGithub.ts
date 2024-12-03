@@ -465,6 +465,33 @@ export namespace IGithub {
 
   export type IReadPullRequestDetailOutput = PullRequest;
 
+  /**
+   * @title Diff or Error
+   */
+  export type IReadPullRequestDiffOutput =
+    | string
+    | {
+        /**
+         * @title Error Message
+         */
+        message: string;
+        /**
+         * @title error objects
+         */
+        errors: [
+          {
+            resource: "PullRequest";
+            field: "diff";
+            code: "too_large";
+          },
+        ];
+
+        /**
+         * @title error code
+         */
+        status: string;
+      };
+
   export interface IReadPullRequestDetailInput
     extends ICommon.ISecret<"github", ["repo"]> {
     /**
