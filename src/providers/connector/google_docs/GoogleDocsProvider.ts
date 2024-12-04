@@ -5,6 +5,7 @@ import { IGoogleDocs } from "@wrtn/connector-api/lib/structures/connector/google
 
 import { decode } from "he";
 import { Tokens } from "marked";
+import { ConnectorGlobal } from "../../../ConnectorGlobal";
 import { markdownConverter } from "../../../utils/markdown-converter";
 import { GoogleProvider } from "../../internal/google/GoogleProvider";
 import { OAuthSecretProvider } from "../../internal/oauth_secret/OAuthSecretProvider";
@@ -13,6 +14,46 @@ import { IOAuthSecret } from "../../internal/oauth_secret/structures/IOAuthSecre
 @Injectable()
 export class GoogleDocsProvider {
   constructor(private readonly googleProvider: GoogleProvider) {}
+
+  async write(input: IGoogleDocs.IRequest): Promise<IGoogleDocs.IResponse> {
+    const token = await this.getToken(ConnectorGlobal.env.GOOGLE_TEST_SECRET);
+    const accessToken = await this.googleProvider.refreshAccessToken(token);
+    const authClient = new google.auth.OAuth2();
+
+    authClient.setCredentials({ access_token: accessToken });
+    const drive = google.drive({ version: "v3", auth: authClient });
+
+    const markdownFile = await drive.files.create({
+      media: {
+        body: input.markdown,
+      },
+      requestBody: {
+        name: `${input.name}.md`,
+        mimeType: "text/markdown",
+        ...(input.folderId && { parents: [input.folderId] }),
+      },
+    });
+
+    const googleDocsFile = await drive.files.copy({
+      fileId: markdownFile.data.id as string,
+      requestBody: {
+        name: input.name,
+        mimeType: "application/vnd.google-apps.document" as const,
+      },
+      supportsAllDrives: true,
+    });
+
+    return {
+      markdown: {
+        id: markdownFile.data.id as string,
+      },
+      googleDocs: {
+        id: googleDocsFile.data.id as string,
+        url: `https://docs.google.com/document/d/${googleDocsFile.data.id as string}/`,
+      },
+    };
+  }
+
   async createDocs(
     input: IGoogleDocs.ICreateGoogleDocsInput,
   ): Promise<IGoogleDocs.ICreateGoogleDocsOutput> {
