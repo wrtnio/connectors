@@ -107,7 +107,7 @@ export namespace IGoogleDocs {
       /**
        * @title File URL
        */
-      url: string;
+      url: string & tags.Format<"iri">;
     };
   }
 

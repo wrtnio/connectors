@@ -11,36 +11,36 @@ import { DocumentProvider } from "../../../providers/connector/article/DocumentP
 
 @Controller("connector/articles")
 export class ArticlesController {
-  /**
-   * Synchronize version
-   *
-   * Synchronize on a snapshot basis,
-   * such as upgrading or downgrading the version of a document exported to GoogleDocs.
-   * If you specify the id of the snapshot in the names from and to among the internal properties,
-   * find the exported text from `from` and start synchronizing to the version of `to`.
-   *
-   * @summary Syncronize article version
-   * @param articleId Target article's {@link IArticle.id}, Not snapshot ID
-   * @param input GoogleDocs Secret and snapshot information to sync
-   * @returns Response of Synchronization
-   */
-  @core.TypedRoute.Post(":id/sync/google-docs")
-  async syncToGoogleDocs(
-    @ExternalUser() external_user: IExternalUser,
-    @Prerequisite({
-      neighbor: () => ArticlesController.prototype.index,
-      jmesPath: "data[].{ value: id, label: snapshot.title }",
-    })
-    @TypedParam("id")
-    articleId: IArticle["id"],
-    @TypedBody() input: IArticle.ISync.ToGoogleDocsInput,
-  ): Promise<IArticle.ISync.ToGoogleDocsOutput> {
-    return DocumentProvider.sync("google_docs")(
-      external_user,
-      articleId,
-      input,
-    );
-  }
+  // /**
+  //  * Synchronize version
+  //  *
+  //  * Synchronize on a snapshot basis,
+  //  * such as upgrading or downgrading the version of a document exported to GoogleDocs.
+  //  * If you specify the id of the snapshot in the names from and to among the internal properties,
+  //  * find the exported text from `from` and start synchronizing to the version of `to`.
+  //  *
+  //  * @summary Syncronize article version
+  //  * @param articleId Target article's {@link IArticle.id}, Not snapshot ID
+  //  * @param input GoogleDocs Secret and snapshot information to sync
+  //  * @returns Response of Synchronization
+  //  */
+  // @core.TypedRoute.Post(":id/sync/google-docs")
+  // async syncToGoogleDocs(
+  //   @ExternalUser() external_user: IExternalUser,
+  //   @Prerequisite({
+  //     neighbor: () => ArticlesController.prototype.index,
+  //     jmesPath: "data[].{ value: id, label: snapshot.title }",
+  //   })
+  //   @TypedParam("id")
+  //   articleId: IArticle["id"],
+  //   @TypedBody() input: IArticle.ISync.ToGoogleDocsInput,
+  // ): Promise<IArticle.ISync.ToGoogleDocsOutput> {
+  //   return DocumentProvider.sync("google_docs")(
+  //     external_user,
+  //     articleId,
+  //     input,
+  //   );
+  // }
 
   /**
    * Synchronize version

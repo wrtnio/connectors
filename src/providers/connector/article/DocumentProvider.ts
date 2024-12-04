@@ -5,6 +5,8 @@ import { IPage } from "@wrtn/connector-api/lib/structures/common/IPage";
 import { IArticle } from "@wrtn/connector-api/lib/structures/connector/articles/IArticle";
 import { ConnectorGlobal } from "../../../ConnectorGlobal";
 import { PaginationUtil } from "../../../utils/PaginationUtil";
+import { GoogleProvider } from "../../internal/google/GoogleProvider";
+import { GoogleDocsProvider } from "../google_docs/GoogleDocsProvider";
 import { NotionProvider } from "../notion/NotionProvider";
 import { BbsArticleExportProvider } from "./BbsArticleExportProvider";
 import { BbsArticleProvider } from "./BbsArticleProvider";
@@ -15,28 +17,82 @@ import { BbsArticleSnapshotProvider } from "./BbsArticleSnapshotProvider";
  * 이렇게 분리한 까닭은 {@link IArticle} 타입이 본디 목적이 하위 타입, 즉 base로서 정의된 것이기에 추후 기능 확장이 될 여지가 남아있기 때문이다.
  */
 export namespace DocumentProvider {
+  const GoogleDocs = new GoogleDocsProvider(new GoogleProvider());
+
   export function sync(provider: "google_docs"): ReturnType<any>; // NOT IMPLEMENT
   export function sync(provider: "notion"): typeof sync.notion;
   export function sync(provider: "notion" | "google_docs") {
     if (provider === "notion") {
       return sync.notion;
     } else if (provider === "google_docs") {
-      return function something(
-        external_user: IExternalUser,
-        articleId: IArticle["id"],
-        input: {
-          google_docs: {
-            secretKey: string;
-            folder_id?: string;
-          };
-        },
-      ) {};
+      return sync.google_docs;
     }
 
     throw new Error("Cannot sync to this service.");
   }
 
   export namespace sync {
+    export const google_docs = async (
+      external_user: IExternalUser,
+      articleId: IArticle["id"],
+      input: IArticle.ISync.ToGoogleDocsInput,
+    ): Promise<IArticle.ISync.ToGoogleDocsOutput> => {
+      const isSuccess: boolean = false;
+
+      const article = await BbsArticleProvider.at({ id: articleId });
+      const before = article.snapshots.find(
+        (el) => el.id === input.snapshot.from,
+      );
+
+      const article_snapshot_exports = before?.bbs_article_exports
+        .filter(
+          (bbs_article_export) => bbs_article_export.provider === "google_docs",
+        )
+        .filter((bbs_article_export) =>
+          input.snapshot.article_snapshot_exports?.ids?.length
+            ? input.snapshot.article_snapshot_exports?.ids?.includes(
+                bbs_article_export.id,
+              )
+            : true,
+        );
+
+      if (before && article_snapshot_exports?.length) {
+        const created_at = new Date().toISOString();
+        for await (const bbs_article_export of article_snapshot_exports) {
+          const pageId = bbs_article_export.uid!;
+          const secretKey = input.google_docs.secretKey;
+
+          // if ((await GoogleDocs.clear({ pageId, secretKey })) === true) {
+          //   const snapshot = article.snapshots.find(
+          //     (el) => el.id === input.snapshot.to,
+          //   )!;
+
+          //   await GoogleDocs.updatePageTitle({
+          //     title: snapshot.title,
+          //     pageId,
+          //     secretKey,
+          //   });
+
+          //   await GoogleDocs.appendBlocksByMarkdown({
+          //     markdown: snapshot?.body,
+          //     pageId,
+          //     secretKey,
+          //   });
+
+          //   await BbsArticleExportProvider.sync(bbs_article_export)({
+          //     bbs_article_snapshot_id: input.snapshot.to,
+          //     created_at,
+          //   });
+
+          //   isSuccess = true;
+          // }
+        }
+      }
+
+      const response = await DocumentProvider.at(external_user, articleId);
+      return { article: response, isSuccess };
+    };
+
     export const notion = async (
       external_user: IExternalUser,
       articleId: IArticle["id"],
@@ -49,14 +105,17 @@ export namespace DocumentProvider {
         (el) => el.id === input.snapshot.from,
       );
 
-      const article_snapshot_exports = before?.bbs_article_exports.filter(
-        (bbs_article_export) =>
+      const article_snapshot_exports = before?.bbs_article_exports
+        .filter(
+          (bbs_article_export) => bbs_article_export.provider === "notion",
+        )
+        .filter((bbs_article_export) =>
           input.snapshot.article_snapshot_exports?.ids?.length
             ? input.snapshot.article_snapshot_exports?.ids?.includes(
                 bbs_article_export.id,
               )
             : true,
-      );
+        );
 
       if (before && article_snapshot_exports?.length) {
         const created_at = new Date().toISOString();
@@ -102,22 +161,47 @@ export namespace DocumentProvider {
     if (provider === "notion") {
       return exports.notion;
     } else if (provider === "google_docs") {
-      return function something(
-        external_user: IExternalUser,
-        articleId: IArticle["id"],
-        input: {
-          google_docs: {
-            secretKey: string;
-            folder_id?: string;
-          };
-        },
-      ) {};
+      return exports.google_docs;
     }
 
     throw new Error("Cannot export to this service.");
   }
 
   export namespace exports {
+    export const google_docs = async (
+      external_user: IExternalUser,
+      articleId: IArticle["id"],
+      input: IArticle.IExport.ToGoogleDocsInput,
+    ): Promise<IArticle.IExport.ToGoogleDocsOutput> => {
+      const { snapshots } = await DocumentProvider.at(external_user, articleId);
+      const snapshot = snapshots.find(({ id }) => id === input.snapshot.id)!;
+
+      const { googleDocs } = await GoogleDocs.write({
+        name: snapshot.title,
+        markdown: snapshot.body,
+        folderId: input.google_docs.folderId,
+        secretKey: input.google_docs.secretKey,
+      });
+
+      const article_snapshot_exports = await BbsArticleExportProvider.exports(
+        snapshot,
+      )({
+        provider: "google_docs",
+        uid: googleDocs.id,
+        url: `https://docs.google.com/document/d/${googleDocs.id as string}/`,
+        created_at: new Date().toISOString(),
+      });
+
+      return {
+        google_docs: {
+          id: googleDocs.id,
+          title: snapshot.title,
+          link: `https://docs.google.com/document/d/${googleDocs.id as string}/`,
+        },
+        article_snapshot_exports,
+      };
+    };
+
     export const notion = async (
       external_user: IExternalUser,
       articleId: IArticle["id"],

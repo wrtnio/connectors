@@ -5,7 +5,6 @@ import { IGoogleDocs } from "@wrtn/connector-api/lib/structures/connector/google
 
 import { decode } from "he";
 import { Tokens } from "marked";
-import { ConnectorGlobal } from "../../../ConnectorGlobal";
 import { markdownConverter } from "../../../utils/markdown-converter";
 import { GoogleProvider } from "../../internal/google/GoogleProvider";
 import { OAuthSecretProvider } from "../../internal/oauth_secret/OAuthSecretProvider";
@@ -16,7 +15,7 @@ export class GoogleDocsProvider {
   constructor(private readonly googleProvider: GoogleProvider) {}
 
   async write(input: IGoogleDocs.IRequest): Promise<IGoogleDocs.IResponse> {
-    const token = await this.getToken(ConnectorGlobal.env.GOOGLE_TEST_SECRET);
+    const token = await this.getToken(input.secretKey);
     const accessToken = await this.googleProvider.refreshAccessToken(token);
     const authClient = new google.auth.OAuth2();
 

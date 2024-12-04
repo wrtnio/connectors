@@ -147,14 +147,29 @@ export namespace IArticle {
       /**
        * @title About the google doc that was successfully exported
        */
-      google_docs: IGoogleDocs.IResponse;
+      google_docs: {
+        /**
+         * @title Created Google Docs File ID
+         */
+        id: string;
+
+        /**
+         * @title Title of Created Google Docs File
+         */
+        title: string;
+
+        /**
+         * @title File URL
+         */
+        link: string;
+      };
     }
 
     export interface ToGoogleDocsInput extends SnapshotInput {
       /**
        * @title Google Docs Secret Key and information to create file
        */
-      google_docs: IGoogleDocs.IRequest;
+      google_docs: StrictOmit<IGoogleDocs.IRequest, "name" | "markdown">;
     }
 
     export interface ToNotionOutput extends SnapshotOutput {
