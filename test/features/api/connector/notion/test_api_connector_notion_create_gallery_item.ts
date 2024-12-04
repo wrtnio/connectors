@@ -1,18 +1,15 @@
 import CApi from "@wrtn/connector-api/lib/index";
 import typia from "typia";
 import { ConnectorGlobal } from "../../../../../src/ConnectorGlobal";
-import { test_api_connector_notion_create_gallery_database } from "./test_api_connector_notion_create_gallery_database";
 
 export const test_api_connector_notion_create_gallery_item = async (
   connection: CApi.IConnection,
 ) => {
-  const databaseId =
-    await test_api_connector_notion_create_gallery_database(connection);
   const res =
-    await CApi.functional.connector.notion.create_gallery_database_item.createGalleryDatabaseItem(
+    await CApi.functional.connector.notion.create_gallery_item.createGalleryItem(
       connection,
       {
-        databaseId: databaseId,
+        databaseId: "152ab4840d33817a8f31de646ec296b3",
         secretKey: ConnectorGlobal.env.NOTION_TEST_SECRET,
         title: "Gallery Item",
         markdown: `

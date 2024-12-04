@@ -328,7 +328,8 @@ export namespace NotionProvider {
       const database = res.data;
       return {
         id: databaseId,
-        title: database.title[0].plain_text,
+        title: database.title[0].plain_text ?? "제목 없음",
+        url: database.url,
         properties: database.properties,
       };
     } catch (error) {
@@ -380,6 +381,7 @@ export namespace NotionProvider {
       );
 
       const headers = await getHeaders(input.secretKey);
+      const blocks = markdownToBlocks(input.markdown);
 
       /**
        * 데이터베이스에 페이지 생성
@@ -389,22 +391,7 @@ export namespace NotionProvider {
         {
           parent: { database_id: databaseId },
           properties: properties,
-          children: [
-            {
-              object: "block",
-              type: "paragraph",
-              paragraph: {
-                rich_text: [
-                  {
-                    type: "text",
-                    text: {
-                      content: input.content ?? "",
-                    },
-                  },
-                ],
-              },
-            },
-          ],
+          children: blocks,
         },
         { headers: headers },
       );
@@ -970,7 +957,7 @@ export namespace NotionProvider {
 
   export async function createGalleryDatabase(
     input: INotion.ICreateGalleryDatabaseInput,
-  ): Promise<string> {
+  ): Promise<INotion.ICreateGalleryDatabaseOutput> {
     try {
       const headers = await getHeaders(input.secretKey);
       const res = await axios.post(
@@ -989,17 +976,24 @@ export namespace NotionProvider {
             },
           ],
           properties: {
-            Name: {
+            name: {
               title: {},
             },
+            created_at: {
+              date: {},
+            },
           },
-          is_inline: false,
         },
         {
           headers: headers,
         },
       );
-      return res.data.id;
+
+      return {
+        id: res.data.id,
+        title: res.data.title[0].plain_text ?? "제목 없음",
+        url: res.data.url,
+      };
     } catch (err) {
       console.error(JSON.stringify(err));
       throw err;
@@ -1013,6 +1007,17 @@ export namespace NotionProvider {
       const headers = await getHeaders(input.secretKey);
       const blocks = markdownToBlocks(input.markdown);
 
+      const database = await axios.get(
+        `https://api.notion.com/v1/databases/${input.databaseId}`,
+        {
+          headers: headers,
+        },
+      );
+
+      const titlePropertyName: any = Object.keys(database.data.properties).find(
+        (key) => database.data.properties[key].type === "title",
+      );
+
       await axios.post(
         `https://api.notion.com/v1/pages`,
         {
@@ -1021,7 +1026,7 @@ export namespace NotionProvider {
             database_id: input.databaseId,
           },
           properties: {
-            Name: {
+            [titlePropertyName]: {
               title: [
                 {
                   type: "text",
