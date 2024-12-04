@@ -610,6 +610,10 @@ export class WebCrawlerProvider {
           HttpStatus.TOO_MANY_REQUESTS,
         );
       }
+
+      if (data.code === "AUTH002") {
+        throw new HttpException("Api key is invalid", HttpStatus.UNAUTHORIZED);
+      }
       throw new Error(`HTTP error! status: ${response.status}`);
     }
 
