@@ -15,6 +15,37 @@ export class ArticlesController {
    * Synchronize version
    *
    * Synchronize on a snapshot basis,
+   * such as upgrading or downgrading the version of a document exported to GoogleDocs.
+   * If you specify the id of the snapshot in the names from and to among the internal properties,
+   * find the exported text from `from` and start synchronizing to the version of `to`.
+   *
+   * @summary Syncronize article version
+   * @param articleId Target article's {@link IArticle.id}, Not snapshot ID
+   * @param input GoogleDocs Secret and snapshot information to sync
+   * @returns Response of Synchronization
+   */
+  @core.TypedRoute.Post(":id/sync/google-docs")
+  async syncToGoogleDocs(
+    @ExternalUser() external_user: IExternalUser,
+    @Prerequisite({
+      neighbor: () => ArticlesController.prototype.index,
+      jmesPath: "data[].{ value: id, label: snapshot.title }",
+    })
+    @TypedParam("id")
+    articleId: IArticle["id"],
+    @TypedBody() input: IArticle.ISync.ToGoogleDocsInput,
+  ): Promise<IArticle.ISync.ToGoogleDocsOutput> {
+    return DocumentProvider.sync("google_docs")(
+      external_user,
+      articleId,
+      input,
+    );
+  }
+
+  /**
+   * Synchronize version
+   *
+   * Synchronize on a snapshot basis,
    * such as upgrading or downgrading the version of a document exported to Notion.
    * If you specify the id of the snapshot in the names from and to among the internal properties,
    * find the exported text from `from` and start synchronizing to the version of `to`.
@@ -36,6 +67,41 @@ export class ArticlesController {
     @TypedBody() input: IArticle.ISync.ToNotionInput,
   ): Promise<IArticle.ISync.ToNotionOutput> {
     return DocumentProvider.sync("notion")(external_user, articleId, input);
+  }
+
+  /**
+   * Export the text to GoogleDocs
+   *
+   * The exported text is recorded by creating a
+   * {@link IArticleExport bbs_article_exports} object based on the snapshot.
+   * You can upgrade and downgrade the version using
+   * the 'POST /connector/articles/:id/exports/sync/google_docs' connector in the future.
+   * Also, it doesn't matter if you export the same version of the text multiple times.
+   *
+   * Because each export generates a new text,
+   * you must use the `sync` connector if you want to change the version of an already exported text.
+   *
+   * @summary Exports specified article to google_docs
+   * @param articleId Target article's {@link IArticle.id}, Not snapshot ID
+   * @param input GoogleDocs Secret and snapshot information to export
+   * @returns Article Infomation and google_docs secretKey
+   */
+  @core.TypedRoute.Post(":id/exports/google-docs")
+  async exportsToGoogleDocs(
+    @ExternalUser() external_user: IExternalUser,
+    @Prerequisite({
+      neighbor: () => ArticlesController.prototype.index,
+      jmesPath: "data[].{ value: id, label: snapshot.title }",
+    })
+    @TypedParam("id")
+    articleId: IArticle["id"],
+    @TypedBody() input: IArticle.IExport.ToGoogleDocsInput,
+  ): Promise<IArticle.IExport.ToGoogleDocsOutput> {
+    return DocumentProvider.exports("google_docs")(
+      external_user,
+      articleId,
+      input,
+    );
   }
 
   /**
