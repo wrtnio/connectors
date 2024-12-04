@@ -174,12 +174,6 @@ export namespace DocumentProvider {
       },
     ];
 
-    if (input?.id !== undefined) {
-      condition.push({
-        id: input.id,
-      });
-    }
-
     if (input?.ids !== undefined) {
       condition.push({
         id: {
