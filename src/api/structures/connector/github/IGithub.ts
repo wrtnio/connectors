@@ -477,14 +477,15 @@ export namespace IGithub {
         message: string;
         /**
          * @title error objects
+         * @todo change to single object type
          */
-        errors: [
-          {
-            resource: "PullRequest";
-            field: "diff";
-            code: "too_large";
-          },
-        ];
+        errors: Array<{
+          resource: "PullRequest";
+          field: "diff";
+          code: "too_large";
+        }> &
+          tags.MinItems<1> &
+          tags.MaxItems<1>;
 
         /**
          * @title error code

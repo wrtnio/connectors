@@ -119,7 +119,6 @@ const NESTIA_CONFIG: sdk.INestiaConfig[] = [
     },
     distribute: "packages/api",
     simulate: true,
-    e2e: "test",
   },
   swagger({
     module: ArxivSearchModule,

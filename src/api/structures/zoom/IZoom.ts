@@ -477,7 +477,7 @@ export namespace IZoom {
     /**
      * @title Custom keys and values assigned to the meeting
      */
-    custom_keys: ({
+    custom_keys: {
       /**
        * @title Custom key associated with the user
        */
@@ -487,7 +487,8 @@ export namespace IZoom {
        * @title Value of the custom key associated with the user
        */
       value: string & tags.MaxLength<256>;
-    } & tags.MaxItems<10>)[];
+    }[] &
+      tags.MaxItems<10>;
 
     /**
      * Whether to send email notifications to alternative hosts and users with scheduling privileges.
