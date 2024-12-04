@@ -17,8 +17,7 @@ export namespace CommonExtractor {
     return {
       classNames,
       url: currentUrl,
-      text: $("body").text(),
-      images: [],
+      data: [],
       res_json: extractResponseJSON(xhr),
       pagination,
     };

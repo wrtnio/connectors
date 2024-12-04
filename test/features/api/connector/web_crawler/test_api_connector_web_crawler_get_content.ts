@@ -5,13 +5,12 @@ import fs from "fs";
 export const test_api_connector_web_crawler_get_content = async (
   pool: CApi.IConnection,
 ) => {
-  const URL = "https://ohou.se/productions/2069615/selling";
+  const URL = "https://ohou.se/productions/770267/selling";
   const res: IWebCrawler.IResponse =
     await CApi.functional.connector.crawler.get_web_content.getWebContent(
       pool,
       {
         url: URL,
-        rawContent: true,
         pagination: {
           followNextPage: true,
           followNextPageCount: 10,
