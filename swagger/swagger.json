@@ -15,7 +15,7 @@
     }
   ],
   "info": {
-    "version": "0.1.376",
+    "version": "0.1.377",
     "title": "@wrtn/connector",
     "description": "wrtn-ecosystem connectors and sdk",
     "license": {
@@ -14058,12 +14058,6 @@
       "IArticle.IRequest.ISearch": {
         "type": "object",
         "properties": {
-          "id": {
-            "type": "string",
-            "format": "uuid",
-            "title": "Article ID",
-            "description": "Article ID, not Article Snapshot ID\n\nIt is Article's ID, Not Article Snapshot ID and {@link IArticleExport bbs_article_exports} ID.\nThis is a condition for filtering, not for detailed inquiry."
-          },
           "ids": {
             "type": "array",
             "items": {
