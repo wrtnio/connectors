@@ -695,4 +695,42 @@ export class NotionController {
   ): Promise<INotion.ICreatePageOutput> {
     return retry(() => NotionProvider.updatePageTitle(input))();
   }
+
+  /**
+   * Create a gallery view database for notion.
+   * It is not possible to create a gallery view at once, and you must change the view to a gallery directly.
+   *
+   * @summary Create a Notion Gallery Database
+   * @param input
+   * @returns
+   */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg",
+  )
+  @ApiTags("Notion")
+  @core.TypedRoute.Post("create-gallery-database")
+  async createGalleryDatabase(
+    @core.TypedBody() input: INotion.ICreateGalleryDatabaseInput,
+  ): Promise<INotion.ICreateGalleryDatabaseOutput> {
+    return retry(() => NotionProvider.createGalleryDatabase(input))();
+  }
+
+  /**
+   * Create an item in the generated gallery view database.
+   * If there is no database received from input, you must first create a database using the POST: /connector/notion/create-gallery-database endpoint and then run it.
+   *
+   * @summary Create a item in the gallery database
+   * @param input
+   * @returns
+   */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg",
+  )
+  @ApiTags("Notion")
+  @core.TypedRoute.Post("create-gallery-item")
+  async createGalleryItem(
+    @core.TypedBody() input: INotion.ICreateGalleryDatabaseItemInput,
+  ): Promise<void> {
+    return retry(() => NotionProvider.createGalleryDatabaseItem(input))();
+  }
 }

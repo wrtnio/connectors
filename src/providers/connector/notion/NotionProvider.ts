@@ -6,12 +6,10 @@ import { BlockObjectRequest } from "@notionhq/client/build/src/api-endpoints";
 import { markdownToBlocks } from "@tryfabric/martian";
 import { Block } from "@tryfabric/martian/build/src/notion/blocks";
 import { INotion } from "@wrtn/connector-api/lib/structures/connector/notion/INotion";
-import typia from "typia";
 import { retry } from "../../../utils/retry";
 import { OAuthSecretProvider } from "../../internal/oauth_secret/OAuthSecretProvider";
 import { IOAuthSecret } from "../../internal/oauth_secret/structures/IOAuthSecret";
 import { NotionToMarkdown } from "notion-to-md";
-import { MdStringObject } from "notion-to-md/build/types";
 
 export namespace NotionProvider {
   export async function deleteBlock(
@@ -267,24 +265,6 @@ export namespace NotionProvider {
     }
   }
 
-  // export async function getAllPageContents(
-  //   input: INotion.IReadPageContentInput,
-  //   indent: number = 0,
-  // ) {
-  //   let response: any[] = [];
-  //   let next_cursor = null;
-  //   do {
-  //     const url = `https://api.notion.com/v1/blocks/${input.block_id}/children`;
-  //     const headers = await getHeaders(input.secretKey);
-  //     const res = await axios.get(url, { headers: headers });
-
-  //     response = response.concat(res.data.results);
-  //     next_cursor = res.data.next_cursor;
-  //   } while (next_cursor !== null);
-
-  //   return blocksToMarkdown(response, indent);
-  // }
-
   export async function readPageList(
     input: INotion.ISecret,
   ): Promise<INotion.IReadPageOutput[]> {
@@ -328,37 +308,6 @@ export namespace NotionProvider {
     }
   }
 
-  export async function appendPageToContent(
-    pageId: string,
-    input: INotion.IAppendPageToContentInput,
-  ): Promise<void> {
-    try {
-      const notion = await createClient(input.secretKey);
-      await notion.blocks.children.append({
-        block_id: pageId,
-        children: [
-          {
-            object: "block",
-            type: "paragraph",
-            paragraph: {
-              rich_text: [
-                {
-                  type: "text",
-                  text: {
-                    content: input.content,
-                  },
-                },
-              ],
-            },
-          },
-        ],
-      });
-    } catch (error) {
-      console.error(JSON.stringify(error));
-      throw error;
-    }
-  }
-
   export async function getDatabaseInfo(
     input: INotion.ISecret,
     databaseId: string,
@@ -379,7 +328,8 @@ export namespace NotionProvider {
       const database = res.data;
       return {
         id: databaseId,
-        title: database.title[0].plain_text,
+        title: database.title[0].plain_text ?? "제목 없음",
+        url: database.url,
         properties: database.properties,
       };
     } catch (error) {
@@ -431,6 +381,7 @@ export namespace NotionProvider {
       );
 
       const headers = await getHeaders(input.secretKey);
+      const blocks = markdownToBlocks(input.markdown);
 
       /**
        * 데이터베이스에 페이지 생성
@@ -440,22 +391,7 @@ export namespace NotionProvider {
         {
           parent: { database_id: databaseId },
           properties: properties,
-          children: [
-            {
-              object: "block",
-              type: "paragraph",
-              paragraph: {
-                rich_text: [
-                  {
-                    type: "text",
-                    text: {
-                      content: input.content ?? "",
-                    },
-                  },
-                ],
-              },
-            },
-          ],
+          children: blocks,
         },
         { headers: headers },
       );
@@ -1015,6 +951,100 @@ export namespace NotionProvider {
         link: `https://www.notion.so/${uuid}`,
       };
     } catch (err) {
+      throw err;
+    }
+  }
+
+  export async function createGalleryDatabase(
+    input: INotion.ICreateGalleryDatabaseInput,
+  ): Promise<INotion.ICreateGalleryDatabaseOutput> {
+    try {
+      const headers = await getHeaders(input.secretKey);
+      const res = await axios.post(
+        `https://api.notion.com/v1/databases`,
+        {
+          parent: {
+            type: "page_id",
+            page_id: input.parentPageId,
+          },
+          title: [
+            {
+              type: "text",
+              text: {
+                content: input.title,
+              },
+            },
+          ],
+          properties: {
+            name: {
+              title: {},
+            },
+            created_at: {
+              date: {},
+            },
+          },
+        },
+        {
+          headers: headers,
+        },
+      );
+
+      return {
+        id: res.data.id,
+        title: res.data.title[0].plain_text ?? "제목 없음",
+        url: res.data.url,
+      };
+    } catch (err) {
+      console.error(JSON.stringify(err));
+      throw err;
+    }
+  }
+
+  export async function createGalleryDatabaseItem(
+    input: INotion.ICreateGalleryDatabaseItemInput,
+  ): Promise<void> {
+    try {
+      const headers = await getHeaders(input.secretKey);
+      const blocks = markdownToBlocks(input.markdown);
+
+      const database = await axios.get(
+        `https://api.notion.com/v1/databases/${input.databaseId}`,
+        {
+          headers: headers,
+        },
+      );
+
+      const titlePropertyName: any = Object.keys(database.data.properties).find(
+        (key) => database.data.properties[key].type === "title",
+      );
+
+      await axios.post(
+        `https://api.notion.com/v1/pages`,
+        {
+          parent: {
+            type: "database_id",
+            database_id: input.databaseId,
+          },
+          properties: {
+            [titlePropertyName]: {
+              title: [
+                {
+                  type: "text",
+                  text: {
+                    content: input.title,
+                  },
+                },
+              ],
+            },
+          },
+          children: blocks,
+        },
+        {
+          headers: headers,
+        },
+      );
+    } catch (err) {
+      console.error(JSON.stringify(err));
       throw err;
     }
   }
