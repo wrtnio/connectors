@@ -1800,8 +1800,11 @@ export namespace IReddit {
 
         /**
          * @title icon_size
+         * @todo Change to point
          */
-        icon_size?: [number & tags.Type<"int64">, number & tags.Type<"int64">];
+        icon_size?: Array<number & tags.Type<"int64">> &
+          tags.MinItems<2> &
+          tags.MaxItems<2>;
 
         /**
          * @title primary_color
@@ -1890,9 +1893,12 @@ export namespace IReddit {
 
         /**
          * @title banner_size
+         * @todo change to point
          */
         banner_size?:
-          | [number & tags.Type<"int64">, number & tags.Type<"int64">]
+          | (Array<number & tags.Type<"int64">> &
+              tags.MinItems<2> &
+              tags.MaxItems<2>)
           | null;
 
         /**
@@ -1943,10 +1949,13 @@ export namespace IReddit {
 
       /**
        * @title snoovatar_size
+       * @todo change to regular object type
        */
 
       snoovatar_size?:
-        | [number & tags.Type<"int64">, number & tags.Type<"int64">]
+        | (Array<number & tags.Type<"int64">> &
+            tags.MinItems<2> &
+            tags.MaxItems<2>)
         | null;
 
       /**

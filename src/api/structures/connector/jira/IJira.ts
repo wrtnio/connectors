@@ -1283,19 +1283,19 @@ export namespace IJira {
      *
      * @title code content
      */
-    content?: [
-      {
-        /**
-         * @title type
-         */
-        type: "text";
+    content?: Array<{
+      /**
+       * @title type
+       */
+      type: "text";
 
-        /**
-         * @title text includeing code
-         */
-        text: string;
-      },
-    ];
+      /**
+       * @title text includeing code
+       */
+      text: string;
+    }> &
+      tags.MinItems<1> &
+      tags.MaxItems<1>;
   };
 
   /**
@@ -1616,7 +1616,7 @@ export namespace IJira {
      *
      * only single of media node type
      */
-    content: [MediaNode];
+    content: Array<MediaNode> & tags.MinItems<1> & tags.MaxItems<1>;
   };
 
   /**
@@ -1860,11 +1860,9 @@ export namespace IJira {
        *
        * @title colwidth
        */
-      colwidth?: [
-        number & tags.Type<"uint64">,
-        number & tags.Type<"uint64">,
-        number & tags.Type<"uint64">,
-      ];
+      colwidth?: Array<number & tags.Type<"uint64">> &
+        tags.MinItems<3> &
+        tags.MaxItems<3>;
 
       /**
        * rowspan defines the number of rows a cell spans.
@@ -1921,12 +1919,11 @@ export namespace IJira {
        * for example, a cell merged across 3 columns where one unfixed column is surrounded by two fixed might be represented as `[120, 0, 120].
        *
        * @title colwidth
+       * @todo change to regular object type
        */
-      colwidth?: [
-        number & tags.Type<"uint64">,
-        number & tags.Type<"uint64">,
-        number & tags.Type<"uint64">,
-      ];
+      colwidth?: Array<number & tags.Type<"uint64">> &
+        tags.MinItems<3> &
+        tags.MaxItems<3>;
 
       /**
        * rowspan defines the number of rows a cell spans.

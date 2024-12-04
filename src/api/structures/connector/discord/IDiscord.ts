@@ -1211,10 +1211,11 @@ export namespace IDiscord {
      */
     emoji: Partial<IEmoji>;
 
-    /**
-     * @title burst_colors
-     */
-    burst_colors: []; //TODO: https://discord.com/developers/docs/resources/message#reaction-count-details-object
+    // /**
+    //  * @title burst_colors
+    //  * @todo remove property
+    //  */
+    // burst_colors: []; //TODO: https://discord.com/developers/docs/resources/message#reaction-count-details-object
   }
   export interface IReactionCountDetails {
     /**

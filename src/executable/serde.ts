@@ -7,6 +7,7 @@ import {
 import {
   IHttpOpenAiApplication,
   ISwaggerMigrateApplication,
+  HttpOpenAi,
   OpenAiTypeChecker,
 } from "@wrtnio/schema";
 import cp from "child_process";
@@ -206,12 +207,15 @@ const generateOpenAiFunctionCallingSchemas = async (
     HttpMigration.application(document);
 
   for (const keyword of [false, true]) {
-    const openai: IHttpOpenAiApplication = HttpLlm.application(document, {
-      keyword,
-      separate: (s) =>
-        OpenAiTypeChecker.isString(s) &&
-        (s["x-wrtn-secret-key"] !== undefined ||
-          s.contentMediaType !== undefined),
+    const openai: IHttpOpenAiApplication = HttpOpenAi.application({
+      document,
+      options: {
+        keyword,
+        separate: (s) =>
+          OpenAiTypeChecker.isString(s) &&
+          (s["x-wrtn-secret-key"] !== undefined ||
+            s.contentMediaType !== undefined),
+      },
     });
     if (openai.errors.length > 0) {
       console.log(JSON.stringify(openai.errors, null, 2));
