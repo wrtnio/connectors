@@ -100,7 +100,7 @@
     "@nestjs/testing": "^10.4.13",
     "@notionhq/client": "^2.2.15",
     "@prisma/client": "^5.21.1",
-    "@samchon/openapi": "^2.0.0",
+    "@samchon/openapi": "^2.0.1",
     "@slack/web-api": "^7.6.0",
     "@tryfabric/mack": "^1.2.1",
     "@tryfabric/martian": "^1.2.4",
