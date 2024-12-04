@@ -18,7 +18,7 @@
     "title": "Crunchbase",
     "summary": "Crunchbase에서 기업 정보를 가져올 수 있어요",
     "description": "전세계 기업의 펀딩 라운드나 투자, 재무 정보 등 자세한 내역을 확인할 수 있어요",
-    "version": "0.1.377",
+    "version": "0.1.378",
     "license": {
       "name": "AGPL-3.0-only"
     }
@@ -1257,28 +1257,27 @@
                         },
                         "errors": {
                           "type": "array",
-                          "prefixItems": [
-                            {
-                              "type": "object",
-                              "properties": {
-                                "resource": {
-                                  "const": "PullRequest"
-                                },
-                                "field": {
-                                  "const": "diff"
-                                },
-                                "code": {
-                                  "const": "too_large"
-                                }
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "resource": {
+                                "const": "PullRequest"
                               },
-                              "required": [
-                                "resource",
-                                "field",
-                                "code"
-                              ]
-                            }
-                          ],
-                          "additionalItems": false,
+                              "field": {
+                                "const": "diff"
+                              },
+                              "code": {
+                                "const": "too_large"
+                              }
+                            },
+                            "required": [
+                              "resource",
+                              "field",
+                              "code"
+                            ]
+                          },
+                          "minItems": 1,
+                          "maxItems": 1,
                           "title": "error objects"
                         },
                         "status": {
@@ -2092,89 +2091,55 @@
                       "type": "null"
                     },
                     {
-                      "const": "CommitCommentEvent",
-                      "title": "CommitCommentEvent",
-                      "description": "Triggered when a comment is added to a commit."
+                      "const": "CommitCommentEvent"
                     },
                     {
-                      "const": "CreateEvent",
-                      "title": "CreateEvent",
-                      "description": "Triggered when a new branch, tag, or repository is created."
+                      "const": "CreateEvent"
                     },
                     {
-                      "const": "DeleteEvent",
-                      "title": "DeleteEvent",
-                      "description": "Triggered when a branch or tag is deleted."
+                      "const": "DeleteEvent"
                     },
                     {
-                      "const": "ForkEvent",
-                      "title": "ForkEvent",
-                      "description": "Triggered when a user forks a repository."
+                      "const": "ForkEvent"
                     },
                     {
-                      "const": "GollumEvent",
-                      "title": "GollumEvent",
-                      "description": "Triggered when a Wiki page is created or updated."
+                      "const": "GollumEvent"
                     },
                     {
-                      "const": "IssueCommentEvent",
-                      "title": "IssueCommentEvent",
-                      "description": "Triggered when a comment is added to an issue."
+                      "const": "IssueCommentEvent"
                     },
                     {
-                      "const": "IssuesEvent",
-                      "title": "IssuesEvent",
-                      "description": "Triggered when an issue is opened, edited, or closed."
+                      "const": "IssuesEvent"
                     },
                     {
-                      "const": "MemberEvent",
-                      "title": "MemberEvent",
-                      "description": "Triggered when a user is added as a collaborator to a repository."
+                      "const": "MemberEvent"
                     },
                     {
-                      "const": "PublicEvent",
-                      "title": "PublicEvent",
-                      "description": "Triggered when a private repository is made public."
+                      "const": "PublicEvent"
                     },
                     {
-                      "const": "PullRequestEvent",
-                      "title": "PullRequestEvent",
-                      "description": "Triggered when a pull request is opened, edited, merged, or closed."
+                      "const": "PullRequestEvent"
                     },
                     {
-                      "const": "PullRequestReviewEvent",
-                      "title": "PullRequestReviewEvent",
-                      "description": "Triggered when a review is submitted for a pull request."
+                      "const": "PullRequestReviewEvent"
                     },
                     {
-                      "const": "PullRequestReviewCommentEvent",
-                      "title": "PullRequestReviewCommentEvent",
-                      "description": "Triggered when a comment is added to a pull request's review."
+                      "const": "PullRequestReviewCommentEvent"
                     },
                     {
-                      "const": "PullRequestReviewThreadEvent",
-                      "title": "PullRequestReviewThreadEvent",
-                      "description": "Triggered when a review thread in a pull request has a change."
+                      "const": "PullRequestReviewThreadEvent"
                     },
                     {
-                      "const": "PushEvent",
-                      "title": "PushEvent",
-                      "description": "Triggered when commits are pushed to a repository."
+                      "const": "PushEvent"
                     },
                     {
-                      "const": "ReleaseEvent",
-                      "title": "ReleaseEvent",
-                      "description": "Triggered when a release is published."
+                      "const": "ReleaseEvent"
                     },
                     {
-                      "const": "SponsorshipEvent",
-                      "title": "SponsorshipEvent",
-                      "description": "Triggered when a sponsorship is started or modified."
+                      "const": "SponsorshipEvent"
                     },
                     {
-                      "const": "WatchEvent",
-                      "title": "WatchEvent",
-                      "description": "Triggered when a user stars a repository."
+                      "const": "WatchEvent"
                     }
                   ],
                   "title": "event type\nThere are various events such as `WatchEvent`, `CreateEvent`, `ForkEvent`."
@@ -2351,7 +2316,8 @@
             "title": "comment",
             "description": "If it is an event for an comment, contain the comment information."
           }
-        }
+        },
+        "required": []
       },
       "IGithub.Issue": {
         "type": "object",
@@ -2462,7 +2428,8 @@
                       "type": "boolean",
                       "title": "default"
                     }
-                  }
+                  },
+                  "required": []
                 }
               ]
             },
@@ -2670,7 +2637,8 @@
             "type": "string",
             "title": "html_url"
           }
-        }
+        },
+        "required": []
       },
       "IGithub.IGetReceivedEventInput": {
         "type": "object",
@@ -3164,20 +3132,16 @@
           "sort": {
             "oneOf": [
               {
-                "const": "created",
-                "default": "full_name"
+                "const": "created"
               },
               {
-                "const": "updated",
-                "default": "full_name"
+                "const": "updated"
               },
               {
-                "const": "pushed",
-                "default": "full_name"
+                "const": "pushed"
               },
               {
-                "const": "full_name",
-                "default": "full_name"
+                "const": "full_name"
               }
             ],
             "title": "sorting condition",
@@ -3186,12 +3150,10 @@
           "direction": {
             "oneOf": [
               {
-                "const": "asc",
-                "default": "desc"
+                "const": "asc"
               },
               {
-                "const": "desc",
-                "default": "desc"
+                "const": "desc"
               }
             ],
             "title": "direction",
@@ -3333,12 +3295,10 @@
           "direction": {
             "oneOf": [
               {
-                "const": "asc",
-                "default": "desc"
+                "const": "asc"
               },
               {
-                "const": "desc",
-                "default": "desc"
+                "const": "desc"
               }
             ],
             "title": "direction",
@@ -3347,40 +3307,22 @@
           "filter": {
             "oneOf": [
               {
-                "const": "assigned",
-                "title": "assigned",
-                "description": "Indicates which sorts of issues to return.",
-                "default": "assigned"
+                "const": "assigned"
               },
               {
-                "const": "created",
-                "title": "created",
-                "description": "assigned means issues assigned to you.",
-                "default": "assigned"
+                "const": "created"
               },
               {
-                "const": "mentioned",
-                "title": "mentioned",
-                "description": "created means issues created by you.",
-                "default": "assigned"
+                "const": "mentioned"
               },
               {
-                "const": "subscribed",
-                "title": "subscribed",
-                "description": "mentioned means issues mentioning you.",
-                "default": "assigned"
+                "const": "subscribed"
               },
               {
-                "const": "repos",
-                "title": "repos",
-                "description": "subscribed means issues you're subscribed to updates for.",
-                "default": "assigned"
+                "const": "repos"
               },
               {
-                "const": "all",
-                "title": "all",
-                "description": "all or repos means all issues you can see, regardless of participation or creation.",
-                "default": "assigned"
+                "const": "all"
               }
             ],
             "title": "filter",
@@ -3389,19 +3331,13 @@
           "state": {
             "oneOf": [
               {
-                "const": "open",
-                "title": "open",
-                "default": "open"
+                "const": "open"
               },
               {
-                "const": "closed",
-                "title": "closed",
-                "default": "open"
+                "const": "closed"
               },
               {
-                "const": "all",
-                "title": "all",
-                "default": "open"
+                "const": "all"
               }
             ],
             "title": "state",
@@ -3414,19 +3350,13 @@
           "sort": {
             "oneOf": [
               {
-                "const": "created",
-                "title": "created",
-                "default": "created"
+                "const": "created"
               },
               {
-                "const": "updated",
-                "title": "updated",
-                "default": "created"
+                "const": "updated"
               },
               {
-                "const": "comments",
-                "title": "comments",
-                "default": "created"
+                "const": "comments"
               }
             ],
             "title": "sort\nIt must be 'created', 'updated', 'comments'"
@@ -3925,19 +3855,13 @@
           "affiliation": {
             "oneOf": [
               {
-                "const": "outside",
-                "title": "outside",
-                "default": "all"
+                "const": "outside"
               },
               {
-                "const": "direct",
-                "title": "direct",
-                "default": "all"
+                "const": "direct"
               },
               {
-                "const": "all",
-                "title": "all",
-                "default": "all"
+                "const": "all"
               }
             ],
             "title": "affiliation",
@@ -3946,24 +3870,19 @@
           "permission": {
             "oneOf": [
               {
-                "const": "pull",
-                "title": "pull"
+                "const": "pull"
               },
               {
-                "const": "triage",
-                "title": "triage"
+                "const": "triage"
               },
               {
-                "const": "push",
-                "title": "push"
+                "const": "push"
               },
               {
-                "const": "maintain",
-                "title": "maintain"
+                "const": "maintain"
               },
               {
-                "const": "admin",
-                "title": "admin"
+                "const": "admin"
               }
             ],
             "title": "permission",
@@ -4910,28 +4829,22 @@
           "activity_type": {
             "oneOf": [
               {
-                "const": "push",
-                "title": "push"
+                "const": "push"
               },
               {
-                "const": "force_push",
-                "title": "force_push"
+                "const": "force_push"
               },
               {
-                "const": "branch_creation",
-                "title": "branch_creation"
+                "const": "branch_creation"
               },
               {
-                "const": "branch_deletion",
-                "title": "branch_deletion"
+                "const": "branch_deletion"
               },
               {
-                "const": "pr_merge",
-                "title": "pr_merge"
+                "const": "pr_merge"
               },
               {
-                "const": "merge_queue_merge",
-                "title": "merge_queue_merge"
+                "const": "merge_queue_merge"
               }
             ],
             "title": "activity type"
@@ -4994,12 +4907,10 @@
           "direction": {
             "oneOf": [
               {
-                "const": "asc",
-                "default": "desc"
+                "const": "asc"
               },
               {
-                "const": "desc",
-                "default": "desc"
+                "const": "desc"
               }
             ],
             "title": "direction",
@@ -5059,28 +4970,22 @@
           "activity_type": {
             "oneOf": [
               {
-                "const": "push",
-                "title": "push"
+                "const": "push"
               },
               {
-                "const": "force_push",
-                "title": "force_push"
+                "const": "force_push"
               },
               {
-                "const": "branch_creation",
-                "title": "branch_creation"
+                "const": "branch_creation"
               },
               {
-                "const": "branch_deletion",
-                "title": "branch_deletion"
+                "const": "branch_deletion"
               },
               {
-                "const": "pr_merge",
-                "title": "pr_merge"
+                "const": "pr_merge"
               },
               {
-                "const": "merge_queue_merge",
-                "title": "merge_queue_merge"
+                "const": "merge_queue_merge"
               }
             ],
             "title": "activity_type"
@@ -5160,12 +5065,10 @@
           "state": {
             "oneOf": [
               {
-                "const": "open",
-                "title": "open"
+                "const": "open"
               },
               {
-                "const": "closed",
-                "title": "closed"
+                "const": "closed"
               }
             ],
             "title": "state",
@@ -6254,16 +6157,13 @@
           "event": {
             "oneOf": [
               {
-                "const": "APPROVE",
-                "title": "APPROVE"
+                "const": "APPROVE"
               },
               {
-                "const": "REQUEST_CHANGES",
-                "title": "REQUEST_CHANGES"
+                "const": "REQUEST_CHANGES"
               },
               {
-                "const": "COMMENT",
-                "title": "COMMENT"
+                "const": "COMMENT"
               }
             ],
             "title": "event",
@@ -7162,7 +7062,8 @@
                       "type": "boolean",
                       "title": "default"
                     }
-                  }
+                  },
+                  "required": []
                 }
               ]
             },
@@ -7359,6 +7260,7 @@
             "title": "permission"
           }
         },
+        "required": [],
         "description": "Make all properties in T optional"
       },
       "IGithub.IFetchRepositoryPullRequestOutput": {
@@ -7404,16 +7306,13 @@
           "state": {
             "oneOf": [
               {
-                "const": "OPEN",
-                "title": "OPEN"
+                "const": "OPEN"
               },
               {
-                "const": "CLOSED",
-                "title": "CLOSED"
+                "const": "CLOSED"
               },
               {
-                "const": "MERGED",
-                "title": "MERGED"
+                "const": "MERGED"
               }
             ],
             "title": "issue state"
@@ -7558,12 +7457,10 @@
           "sort": {
             "oneOf": [
               {
-                "const": "CREATED_AT",
-                "title": "CREATED_AT"
+                "const": "CREATED_AT"
               },
               {
-                "const": "UPDATED_AT",
-                "title": "UPDATED_AT"
+                "const": "UPDATED_AT"
               }
             ],
             "title": "sort\nIt must be one of: \"CREATED_AT\", \"UPDATED_AT\"."
@@ -7597,16 +7494,13 @@
           "state": {
             "oneOf": [
               {
-                "const": "OPEN",
-                "title": "OPEN"
+                "const": "OPEN"
               },
               {
-                "const": "CLOSED",
-                "title": "CLOSED"
+                "const": "CLOSED"
               },
               {
-                "const": "MERGED",
-                "title": "MERGED"
+                "const": "MERGED"
               }
             ],
             "title": "state",
@@ -7623,12 +7517,10 @@
           "direction": {
             "oneOf": [
               {
-                "const": "ASC",
-                "title": "ASC"
+                "const": "ASC"
               },
               {
-                "const": "DESC",
-                "title": "DESC"
+                "const": "DESC"
               }
             ],
             "title": "direction\nIt must be one of: \"ASC\", \"DESC\"."
@@ -7826,7 +7718,8 @@
                       "type": "boolean",
                       "title": "default"
                     }
-                  }
+                  },
+                  "required": []
                 }
               ]
             },
@@ -8023,16 +7916,13 @@
           "state": {
             "oneOf": [
               {
-                "const": "OPEN",
-                "title": "OPEN"
+                "const": "OPEN"
               },
               {
-                "const": "CLOSED",
-                "title": "CLOSED"
+                "const": "CLOSED"
               },
               {
-                "const": "MERGED",
-                "title": "MERGED"
+                "const": "MERGED"
               }
             ],
             "title": "issue state"
@@ -8143,16 +8033,13 @@
           "state": {
             "oneOf": [
               {
-                "const": "OPEN",
-                "title": "OPEN"
+                "const": "OPEN"
               },
               {
-                "const": "CLOSED",
-                "title": "CLOSED"
+                "const": "CLOSED"
               },
               {
-                "const": "MERGED",
-                "title": "MERGED"
+                "const": "MERGED"
               }
             ],
             "title": "state",
@@ -8161,12 +8048,10 @@
           "direction": {
             "oneOf": [
               {
-                "const": "ASC",
-                "title": "ASC"
+                "const": "ASC"
               },
               {
-                "const": "DESC",
-                "title": "DESC"
+                "const": "DESC"
               }
             ],
             "title": "direction\nIt must be one of: \"ASC\", \"DESC\"."
@@ -8174,16 +8059,13 @@
           "sort": {
             "oneOf": [
               {
-                "const": "CREATED_AT",
-                "title": "CREATED_AT"
+                "const": "CREATED_AT"
               },
               {
-                "const": "UPDATED_AT",
-                "title": "UPDATED_AT"
+                "const": "UPDATED_AT"
               },
               {
-                "const": "COMMENTS",
-                "title": "COMMENTS"
+                "const": "COMMENTS"
               }
             ],
             "title": "condition of direction\nIt must be one of: \"CREATED_AT\", \"UPDATED_AT\", \"COMMENTS\"."
@@ -8364,12 +8246,10 @@
           "order": {
             "oneOf": [
               {
-                "const": "asc",
-                "default": "desc"
+                "const": "asc"
               },
               {
-                "const": "desc",
-                "default": "desc"
+                "const": "desc"
               }
             ],
             "title": "order",
@@ -9327,7 +9207,8 @@
                       "type": "boolean",
                       "title": "default"
                     }
-                  }
+                  },
+                  "required": []
                 }
               ]
             },
@@ -9989,12 +9870,10 @@
           "order": {
             "oneOf": [
               {
-                "const": "asc",
-                "default": "desc"
+                "const": "asc"
               },
               {
-                "const": "desc",
-                "default": "desc"
+                "const": "desc"
               }
             ],
             "title": "order",
@@ -10132,12 +10011,10 @@
           "order": {
             "oneOf": [
               {
-                "const": "asc",
-                "default": "desc"
+                "const": "asc"
               },
               {
-                "const": "desc",
-                "default": "desc"
+                "const": "desc"
               }
             ],
             "title": "order",
@@ -10244,12 +10121,10 @@
           "order": {
             "oneOf": [
               {
-                "const": "asc",
-                "default": "desc"
+                "const": "asc"
               },
               {
-                "const": "desc",
-                "default": "desc"
+                "const": "desc"
               }
             ],
             "title": "order",

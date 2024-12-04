@@ -17,7 +17,7 @@
   "info": {
     "title": "키워드 추출",
     "description": "",
-    "version": "0.1.377",
+    "version": "0.1.378",
     "license": {
       "name": "AGPL-3.0-only"
     }
@@ -100,20 +100,16 @@
           "type": {
             "oneOf": [
               {
-                "const": "video",
-                "title": "video"
+                "const": "video"
               },
               {
-                "const": "image",
-                "title": "image"
+                "const": "image"
               },
               {
-                "const": "news_article",
-                "title": "news_article"
+                "const": "news_article"
               },
               {
-                "const": "research_paper",
-                "title": "research_paper"
+                "const": "research_paper"
               }
             ],
             "title": "Output Type",
@@ -122,28 +118,22 @@
           "source": {
             "oneOf": [
               {
-                "const": "youtube",
-                "title": "youtube"
+                "const": "youtube"
               },
               {
-                "const": "facebook",
-                "title": "facebook"
+                "const": "facebook"
               },
               {
-                "const": "instagram",
-                "title": "instagram"
+                "const": "instagram"
               },
               {
-                "const": "google_search",
-                "title": "google_search"
+                "const": "google_search"
               },
               {
-                "const": "arxiv",
-                "title": "arxiv"
+                "const": "arxiv"
               },
               {
-                "const": "google_news",
-                "title": "google_news"
+                "const": "google_news"
               }
             ],
             "title": "Source of output",
@@ -191,7 +181,8 @@
           "rank": {
             "type": "integer"
           }
-        }
+        },
+        "required": []
       }
     }
   },

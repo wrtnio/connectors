@@ -18,7 +18,7 @@
     "title": "아임웹 상품 정보 관리",
     "summary": "아임웹으로 상품 정보를 효과적으로 관리해요.",
     "description": "아임웹에서 상품 리스트를 조회회할 수 있어요. 판매자 인증을 통해 API 토큰을 발급받아 더 많은 기능을 활용할 수 있어요.",
-    "version": "0.1.377",
+    "version": "0.1.378",
     "license": {
       "name": "AGPL-3.0-only"
     }
@@ -75,16 +75,13 @@
           "prod_status": {
             "oneOf": [
               {
-                "const": "sale",
-                "title": "판매중"
+                "const": "sale"
               },
               {
-                "const": "soldout",
-                "title": "품절"
+                "const": "soldout"
               },
               {
-                "const": "nosale",
-                "title": "숨김"
+                "const": "nosale"
               }
             ],
             "title": "Status of product"
@@ -152,16 +149,13 @@
           "prod_type": {
             "oneOf": [
               {
-                "const": "normal",
-                "title": "일반 상품"
+                "const": "normal"
               },
               {
-                "const": "digital",
-                "title": "디지털 상품"
+                "const": "digital"
               },
               {
-                "const": "subscribe",
-                "title": "회원그룹 이용권"
+                "const": "subscribe"
               }
             ],
             "title": "Setting the sales method\n\nIt will be 'normal', 'digital' and 'subscribe' product."
@@ -218,16 +212,13 @@
             "items": {
               "oneOf": [
                 {
-                  "const": "coupon",
-                  "title": "Coupon"
+                  "const": "coupon"
                 },
                 {
-                  "const": "point",
-                  "title": "Points"
+                  "const": "point"
                 },
                 {
-                  "const": "shopping_group_dc",
-                  "title": "Shopping Group Discount"
+                  "const": "shopping_group_dc"
                 }
               ]
             },
@@ -273,12 +264,10 @@
           "is_exist_options": {
             "oneOf": [
               {
-                "const": "Y",
-                "title": "Options Exist"
+                "const": "Y"
               },
               {
-                "const": "N",
-                "title": "Single Product"
+                "const": "N"
               }
             ],
             "title": "Existence of Product Options"
@@ -286,12 +275,10 @@
           "is_mix": {
             "oneOf": [
               {
-                "const": "Y",
-                "title": "Combination Option"
+                "const": "Y"
               },
               {
-                "const": "N",
-                "title": "Single Option"
+                "const": "N"
               }
             ],
             "title": "Combination Option for Product"
@@ -384,12 +371,10 @@
           "type": {
             "oneOf": [
               {
-                "const": "common",
-                "title": "Default Settings"
+                "const": "common"
               },
               {
-                "const": "individual",
-                "title": "Individual Point Settings"
+                "const": "individual"
               }
             ],
             "title": "Point Configuration Type"
@@ -397,12 +382,10 @@
           "value_type": {
             "oneOf": [
               {
-                "const": "percent",
-                "title": "Percentage"
+                "const": "percent"
               },
               {
-                "const": "price",
-                "title": "Currency Unit"
+                "const": "price"
               }
             ],
             "title": "Point Accumulation Unit"
@@ -506,32 +489,25 @@
           "product_flag": {
             "oneOf": [
               {
-                "const": "소매",
-                "title": "Retail"
+                "const": "소매"
               },
               {
-                "const": "도매",
-                "title": "Wholesale"
+                "const": "도매"
               },
               {
-                "const": "렌탈",
-                "title": "Rental"
+                "const": "렌탈"
               },
               {
-                "const": "대여",
-                "title": "Lease"
+                "const": "대여"
               },
               {
-                "const": "할부",
-                "title": "Installment"
+                "const": "할부"
               },
               {
-                "const": "예약판매",
-                "title": "Pre-order"
+                "const": "예약판매"
               },
               {
-                "const": "구매대행",
-                "title": "Buying Agent"
+                "const": "구매대행"
               }
             ],
             "title": "Naver Shopping Sales Method"
@@ -539,28 +515,22 @@
           "product_condition": {
             "oneOf": [
               {
-                "const": "신상품",
-                "title": "New"
+                "const": "신상품"
               },
               {
-                "const": "중고",
-                "title": "Used"
+                "const": "중고"
               },
               {
-                "const": "리퍼",
-                "title": "Refurbished"
+                "const": "리퍼"
               },
               {
-                "const": "전시",
-                "title": "Exhibition"
+                "const": "전시"
               },
               {
-                "const": "반품",
-                "title": "Returned"
+                "const": "반품"
               },
               {
-                "const": "스크래치",
-                "title": "Scratch"
+                "const": "스크래치"
               }
             ],
             "title": "Naver Shopping Product Condition"
@@ -613,16 +583,13 @@
           "optional_limit_type": {
             "oneOf": [
               {
-                "const": "relative",
-                "title": "Can Purchase as Much as the Main Product"
+                "const": "relative"
               },
               {
-                "const": "limit",
-                "title": "Maximum Purchase Quantity Limit"
+                "const": "limit"
               },
               {
-                "const": "unique",
-                "title": "Can Purchase Only One"
+                "const": "unique"
               }
             ],
             "title": "Maximum Purchase Quantity Limit Type for Free Options"
@@ -634,17 +601,13 @@
           "use_unipass_number": {
             "oneOf": [
               {
-                "const": "default",
-                "title": "Follow Default Method",
-                "description": "May vary depending on shopping environment settings"
+                "const": "default"
               },
               {
-                "const": "Y",
-                "title": "Use"
+                "const": "Y"
               },
               {
-                "const": "N",
-                "title": "Do Not Use"
+                "const": "N"
               }
             ],
             "title": "use_unipass_number"
@@ -670,16 +633,13 @@
           "prod_status": {
             "oneOf": [
               {
-                "const": "sale",
-                "title": "판매중"
+                "const": "sale"
               },
               {
-                "const": "soldout",
-                "title": "품절"
+                "const": "soldout"
               },
               {
-                "const": "nosale",
-                "title": "숨김"
+                "const": "nosale"
               }
             ],
             "title": "the sales status of a product",

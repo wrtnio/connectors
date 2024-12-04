@@ -17,7 +17,7 @@
   "info": {
     "title": "마케팅 카피",
     "description": "마케팅 카피를 생성할 수 있어요",
-    "version": "0.1.377",
+    "version": "0.1.378",
     "license": {
       "name": "AGPL-3.0-only"
     }
@@ -108,7 +108,8 @@
             "title": "A description of the marketing copy",
             "description": "Here is a description of the marketing copy."
           }
-        }
+        },
+        "required": []
       },
       "IMarketingCopyGenerator.IGenerateMarketingCopyInput": {
         "type": "object",
@@ -263,20 +264,16 @@
           "type": {
             "oneOf": [
               {
-                "const": "video",
-                "title": "video"
+                "const": "video"
               },
               {
-                "const": "image",
-                "title": "image"
+                "const": "image"
               },
               {
-                "const": "news_article",
-                "title": "news_article"
+                "const": "news_article"
               },
               {
-                "const": "research_paper",
-                "title": "research_paper"
+                "const": "research_paper"
               }
             ],
             "title": "Output Type",
@@ -285,28 +282,22 @@
           "source": {
             "oneOf": [
               {
-                "const": "youtube",
-                "title": "youtube"
+                "const": "youtube"
               },
               {
-                "const": "facebook",
-                "title": "facebook"
+                "const": "facebook"
               },
               {
-                "const": "instagram",
-                "title": "instagram"
+                "const": "instagram"
               },
               {
-                "const": "google_search",
-                "title": "google_search"
+                "const": "google_search"
               },
               {
-                "const": "arxiv",
-                "title": "arxiv"
+                "const": "arxiv"
               },
               {
-                "const": "google_news",
-                "title": "google_news"
+                "const": "google_news"
               }
             ],
             "title": "Source of output",
@@ -354,7 +345,8 @@
           "rank": {
             "type": "integer"
           }
-        }
+        },
+        "required": []
       },
       "IMarketingCopyImage": {
         "type": "object",

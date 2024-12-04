@@ -18,7 +18,7 @@
     "title": "Calendly",
     "summary": "Calendly에서 고객과의 미팅을 잡을 수 있어요",
     "description": "Calendly에서 미팅을 잡고 고객들을 초대하세요. 쉽고 빠르게 미팅을 관리할 수 있어요.",
-    "version": "0.1.377",
+    "version": "0.1.378",
     "license": {
       "name": "AGPL-3.0-only"
     }
@@ -583,12 +583,10 @@
           "kind": {
             "oneOf": [
               {
-                "const": "solo",
-                "title": "solo"
+                "const": "solo"
               },
               {
-                "const": "group",
-                "title": "group"
+                "const": "group"
               }
             ],
             "title": "kind",
@@ -600,16 +598,13 @@
                 "type": "null"
               },
               {
-                "const": "round_robin",
-                "title": "round_robin"
+                "const": "round_robin"
               },
               {
-                "const": "collective",
-                "title": "collective"
+                "const": "collective"
               },
               {
-                "const": "multi_pool",
-                "title": "multi_pool"
+                "const": "multi_pool"
               }
             ],
             "title": "pooling_type",
@@ -618,12 +613,10 @@
           "type": {
             "oneOf": [
               {
-                "const": "StandardEventType",
-                "title": "StandardEventType"
+                "const": "StandardEventType"
               },
               {
-                "const": "AdhocEventType",
-                "title": "AdhocEventType"
+                "const": "AdhocEventType"
               }
             ],
             "title": "type",
@@ -637,26 +630,14 @@
             "description": "The hexadecimal color value of the event type's scheduling page"
           },
           "created_at": {
-            "oneOf": [
-              {
-                "type": "string"
-              },
-              {
-                "$ref": "#/components/schemas/Formatdate-time"
-              }
-            ],
+            "type": "string",
+            "format": "date-time",
             "title": "created_at",
             "description": "The moment the event type was created (e.g. \"2020-01-02T03:04:05.678123Z\")"
           },
           "updated_at": {
-            "oneOf": [
-              {
-                "type": "string"
-              },
-              {
-                "$ref": "#/components/schemas/Formatdate-time"
-              }
-            ],
+            "type": "string",
+            "format": "date-time",
             "title": "updated_at",
             "description": "The moment the event type was last updated (e.g. \"2020-01-02T03:04:05.678123Z\")"
           },
@@ -718,12 +699,10 @@
           "booking_method": {
             "oneOf": [
               {
-                "const": "instant",
-                "title": "instant"
+                "const": "instant"
               },
               {
-                "const": "poll",
-                "title": "poll"
+                "const": "poll"
               }
             ],
             "title": "booking_method",
@@ -801,73 +780,16 @@
           "position"
         ]
       },
-      "Formatdate-time": {
-        "type": "object",
-        "properties": {
-          "typia.tag": {
-            "type": "object",
-            "properties": {
-              "target": {
-                "const": "string"
-              },
-              "kind": {
-                "const": "format"
-              },
-              "value": {
-                "const": "date-time"
-              },
-              "validate": {
-                "const": "/^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])(T|\\s)([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9](?:\\.[0-9]{1,9})?(Z|[+-]([01][0-9]|2[0-3]):[0-5][0-9])$/i.test($input)"
-              },
-              "exclusive": {
-                "type": "array",
-                "prefixItems": [
-                  {
-                    "const": "format"
-                  },
-                  {
-                    "const": "pattern"
-                  }
-                ],
-                "additionalItems": false
-              },
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "format": {
-                    "const": "date-time"
-                  }
-                },
-                "required": [
-                  "format"
-                ]
-              }
-            },
-            "required": [
-              "target",
-              "kind",
-              "value",
-              "validate",
-              "exclusive",
-              "schema"
-            ],
-            "title": "This is a dummy property for compilation",
-            "description": "This is a dummy property for compilation.\n\nIt does not mean anything in runtime."
-          }
-        }
-      },
       "ICalendly.Profile": {
         "type": "object",
         "properties": {
           "type": {
             "oneOf": [
               {
-                "const": "User",
-                "title": "User"
+                "const": "User"
               },
               {
-                "const": "Team",
-                "title": "Team"
+                "const": "Team"
               }
             ],
             "title": "type",
@@ -904,20 +826,16 @@
           "type": {
             "oneOf": [
               {
-                "const": "text",
-                "title": "text"
+                "const": "text"
               },
               {
-                "const": "phone_number",
-                "title": "phone_number"
+                "const": "phone_number"
               },
               {
-                "const": "single_select",
-                "title": "single_select"
+                "const": "single_select"
               },
               {
-                "const": "multi_select",
-                "title": "multi_select"
+                "const": "multi_select"
               }
             ],
             "title": "type",
@@ -1107,36 +1025,28 @@
           "sort": {
             "oneOf": [
               {
-                "const": "name:asc",
-                "title": "이름 정순 정렬"
+                "const": "name:asc"
               },
               {
-                "const": "name:desc",
-                "title": "이름 역순 정렬"
+                "const": "name:desc"
               },
               {
-                "const": "position:asc",
-                "title": "위치 정순 정렬"
+                "const": "position:asc"
               },
               {
-                "const": "position:desc",
-                "title": "위치 역순 정렬"
+                "const": "position:desc"
               },
               {
-                "const": "created_at:asc",
-                "title": "생성일자 정순 정렬"
+                "const": "created_at:asc"
               },
               {
-                "const": "created_at:desc",
-                "title": "생성일자 역순 정렬"
+                "const": "created_at:desc"
               },
               {
-                "const": "updated_at:asc",
-                "title": "수정일자 정순 정렬"
+                "const": "updated_at:asc"
               },
               {
-                "const": "updated_at:desc",
-                "title": "수정일자 역순 정렬"
+                "const": "updated_at:desc"
               }
             ],
             "title": "sort",
@@ -1234,12 +1144,10 @@
           "status": {
             "oneOf": [
               {
-                "const": "active",
-                "title": "active"
+                "const": "active"
               },
               {
-                "const": "canceled",
-                "title": "canceled"
+                "const": "canceled"
               }
             ],
             "title": "status",
@@ -1456,12 +1364,10 @@
           "canceler_type": {
             "oneOf": [
               {
-                "const": "host",
-                "title": "host"
+                "const": "host"
               },
               {
-                "const": "invitee",
-                "title": "invitee"
+                "const": "invitee"
               }
             ],
             "title": "canceler_type"
@@ -1602,12 +1508,10 @@
           "sort": {
             "oneOf": [
               {
-                "const": "start_time:asc",
-                "title": "시작 시간 정순 정렬"
+                "const": "start_time:asc"
               },
               {
-                "const": "start_time:desc",
-                "title": "시작 시간 역순 정렬"
+                "const": "start_time:desc"
               }
             ],
             "title": "sort",
@@ -1616,12 +1520,10 @@
           "status": {
             "oneOf": [
               {
-                "const": "active",
-                "title": "active"
+                "const": "active"
               },
               {
-                "const": "canceled",
-                "title": "canceled"
+                "const": "canceled"
               }
             ],
             "title": "status",
@@ -1735,12 +1637,10 @@
           "status": {
             "oneOf": [
               {
-                "const": "active",
-                "title": "active"
+                "const": "active"
               },
               {
-                "const": "canceled",
-                "title": "canceled"
+                "const": "canceled"
               }
             ],
             "title": "status",
@@ -2005,8 +1905,7 @@
                 "type": "null"
               },
               {
-                "const": "instant_book",
-                "title": "instant_book"
+                "const": "instant_book"
               }
             ],
             "title": "scheduling_method",
@@ -2073,24 +1972,19 @@
           "currency": {
             "oneOf": [
               {
-                "const": "AUD",
-                "title": "AUD"
+                "const": "AUD"
               },
               {
-                "const": "CAD",
-                "title": "CAD"
+                "const": "CAD"
               },
               {
-                "const": "EUR",
-                "title": "EUR"
+                "const": "EUR"
               },
               {
-                "const": "GBP",
-                "title": "GBP"
+                "const": "GBP"
               },
               {
-                "const": "USD",
-                "title": "USD"
+                "const": "USD"
               }
             ],
             "title": "currency\nThe currency format that the payment is in."
@@ -2197,15 +2091,10 @@
           "sort": {
             "oneOf": [
               {
-                "const": "created_at:asc",
-                "title": "created_at:asc"
+                "const": "created_at:asc"
               },
               {
-                "const": "\"created_at:desc\"",
-                "title": "\"created_at:desc\""
-              },
-              {
-                "$ref": "#/components/schemas/Defaultcreated_atasc"
+                "const": "\"created_at:desc\""
               }
             ],
             "title": "sort",
@@ -2214,12 +2103,10 @@
           "status": {
             "oneOf": [
               {
-                "const": "active",
-                "title": "active"
+                "const": "active"
               },
               {
-                "const": "canceled",
-                "title": "canceled"
+                "const": "canceled"
               }
             ],
             "title": "status",
@@ -2236,48 +2123,6 @@
           "scheduled_event_uuid",
           "secretKey"
         ]
-      },
-      "Defaultcreated_atasc": {
-        "type": "object",
-        "properties": {
-          "typia.tag": {
-            "type": "object",
-            "properties": {
-              "target": {
-                "const": "string"
-              },
-              "kind": {
-                "const": "default"
-              },
-              "value": {
-                "const": "created_at:asc"
-              },
-              "exclusive": {
-                "const": true
-              },
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "default": {
-                    "const": "created_at:asc"
-                  }
-                },
-                "required": [
-                  "default"
-                ]
-              }
-            },
-            "required": [
-              "target",
-              "kind",
-              "value",
-              "exclusive",
-              "schema"
-            ],
-            "title": "This is a dummy property for compilation",
-            "description": "This is a dummy property for compilation.\n\nIt does not mean anything in runtime."
-          }
-        }
       },
       "ICalendly.ICreateOneOffEventTypeOutput": {
         "type": "object",

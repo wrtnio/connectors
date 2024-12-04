@@ -18,7 +18,7 @@
     "title": "카카오톡 메시징 및 일정 관리",
     "summary": "카카오톡으로 메시지를 보내고 일정을 관리해요.",
     "description": "카카오톡으로 다양한 유형의 메시지를 보내고, 캘린더를 조회하고 일정을 추가할 수 있어요. 친구 목록도 조회할 수 있어요. 텍스트 메시지는 물론 이미지, 링크, 위치 정보 등을 포함한 다양한 형태의 메시지를 전송할 수 있어요. 개인 캘린더와 채널 캘린더를 관리하여 효율적인 일정 관리가 가능해요. 친구나 그룹채팅방에 일정을 공유하고, 알림을 설정할 수 있어 중요한 약속을 잊지 않을 수 있어요.",
-    "version": "0.1.377",
+    "version": "0.1.378",
     "license": {
       "name": "AGPL-3.0-only"
     }
@@ -399,6 +399,7 @@
             "title": "Failure Information"
           }
         },
+        "required": [],
         "title": "Message Sending Result"
       },
       "IKakaoTalk.failureInfo": {
@@ -472,8 +473,7 @@
         "properties": {
           "result_code": {
             "const": 0,
-            "title": "Response Code",
-            "description": "Indicates successful message sending"
+            "title": "Response Code"
           }
         },
         "required": [
@@ -510,8 +510,7 @@
         "properties": {
           "object_type": {
             "const": "commerce",
-            "title": "Commerce Type",
-            "x-wrtn-placeholder": "commerce"
+            "title": "Commerce Type"
           },
           "commerce": {
             "oneOf": [
@@ -582,12 +581,10 @@
           "currency_unit_position": {
             "oneOf": [
               {
-                "const": 0,
-                "title": "Displayed after price"
+                "const": 0
               },
               {
-                "const": 1,
-                "title": "Displayed before price"
+                "const": 1
               }
             ],
             "title": "Currency Unit Position"
@@ -627,12 +624,10 @@
           "currency_unit_position": {
             "oneOf": [
               {
-                "const": 0,
-                "title": "Displayed after price"
+                "const": 0
               },
               {
-                "const": 1,
-                "title": "Displayed before price"
+                "const": 1
               }
             ],
             "title": "Currency Unit Position"
@@ -895,8 +890,7 @@
         "properties": {
           "object_type": {
             "const": "location",
-            "title": "Location Type",
-            "x-wrtn-placeholder": "location"
+            "title": "Location Type"
           },
           "address": {
             "type": "string",
@@ -969,6 +963,7 @@
             "title": "Number of Subscribers to the Content"
           }
         },
+        "required": [],
         "title": "Social Information",
         "description": "Up to 3 out of 5 attributes will be displayed. Priority is Like > Comment > Shared > View > Subscriber."
       },
@@ -1002,8 +997,7 @@
         "properties": {
           "object_type": {
             "const": "list",
-            "title": "List Type",
-            "x-wrtn-placeholder": "list"
+            "title": "List Type"
           },
           "header_title": {
             "type": "string",
@@ -1196,6 +1190,7 @@
             "title": "Price Summary Information"
           }
         },
+        "required": [],
         "title": "Item Content"
       },
       "IKakaoTalk.ItemInfo": {
@@ -1389,79 +1384,49 @@
           "color": {
             "oneOf": [
               {
-                "const": "BLUE",
-                "title": "BLUE",
-                "description": "2C88DE"
+                "const": "BLUE"
               },
               {
-                "const": "ROYAL_BLUE",
-                "title": "ROYAL_BLUE",
-                "description": "2D69E0"
+                "const": "ROYAL_BLUE"
               },
               {
-                "const": "NAVY_BLUE",
-                "title": "NAVY_BLUE",
-                "description": "223788"
+                "const": "NAVY_BLUE"
               },
               {
-                "const": "RED",
-                "title": "RED",
-                "description": "D42726"
+                "const": "RED"
               },
               {
-                "const": "PINK",
-                "title": "PINK",
-                "description": "ED5683"
+                "const": "PINK"
               },
               {
-                "const": "ORANGE",
-                "title": "ORANGE",
-                "description": "FF9429"
+                "const": "ORANGE"
               },
               {
-                "const": "GREEN",
-                "title": "GREEN",
-                "description": "149959"
+                "const": "GREEN"
               },
               {
-                "const": "LIME",
-                "title": "LIME",
-                "description": "7CB343"
+                "const": "LIME"
               },
               {
-                "const": "OLIVE",
-                "title": "OLIVE",
-                "description": "A4AD15"
+                "const": "OLIVE"
               },
               {
-                "const": "MINT",
-                "title": "MINT",
-                "description": "5CC5BE"
+                "const": "MINT"
               },
               {
-                "const": "MAGENTA",
-                "title": "MAGENTA",
-                "description": "AB47BC"
+                "const": "MAGENTA"
               },
               {
-                "const": "VIOLET",
-                "title": "VIOLET",
-                "description": "8A4B9B"
+                "const": "VIOLET"
               },
               {
-                "const": "LAVENDER",
-                "title": "LAVENDER",
-                "description": "7986CB"
+                "const": "LAVENDER"
               },
               {
-                "const": "BROWN",
-                "title": "BROWN",
-                "description": "945C1F"
+                "const": "BROWN"
               },
               {
-                "const": "GRAY",
-                "title": "GRAY",
-                "description": "666666"
+                "const": "GRAY"
               }
             ],
             "title": "Event color"
@@ -1494,15 +1459,14 @@
           },
           "all_day": {
             "type": "boolean",
-            "default": false,
             "title": "Whether the event is all-day"
           },
           "lunar": {
             "type": "boolean",
-            "default": false,
             "title": "Whether to set the date based on the lunar calendar"
           }
         },
+        "required": [],
         "title": "Time settings for an event"
       },
       "IKakaoTalk.Location": {
@@ -1530,6 +1494,7 @@
             "title": "Longitude"
           }
         },
+        "required": [],
         "title": "Location"
       },
       "IKakaoTalk.IGetFriendsOutput": {
@@ -1605,8 +1570,7 @@
           "profile_thumbnail_image": {
             "oneOf": [
               {
-                "const": "",
-                "title": "NO_PROFILE_IMAGE"
+                "const": ""
               },
               {
                 "type": "string",
@@ -1638,14 +1602,10 @@
           "order": {
             "oneOf": [
               {
-                "const": "asc",
-                "title": "Ascending",
-                "default": "asc"
+                "const": "asc"
               },
               {
-                "const": "desc",
-                "title": "Descending",
-                "default": "asc"
+                "const": "desc"
               }
             ],
             "title": "Sort order of the friends list"
@@ -1653,14 +1613,10 @@
           "friend_order": {
             "oneOf": [
               {
-                "const": "favorite",
-                "title": "Sort by favorite",
-                "default": "favorite"
+                "const": "favorite"
               },
               {
-                "const": "nickname",
-                "title": "Sort by nickname",
-                "default": "favorite"
+                "const": "nickname"
               }
             ],
             "title": "Sort criteria of the friends list",
@@ -1741,7 +1697,6 @@
           },
           "is_host": {
             "type": "boolean",
-            "default": false,
             "title": "Whether the user is the host of the event",
             "description": "For public/subscribed or invited events"
           },
@@ -1753,79 +1708,49 @@
           "color": {
             "oneOf": [
               {
-                "const": "BLUE",
-                "title": "BLUE",
-                "description": "2C88DE"
+                "const": "BLUE"
               },
               {
-                "const": "ROYAL_BLUE",
-                "title": "ROYAL_BLUE",
-                "description": "2D69E0"
+                "const": "ROYAL_BLUE"
               },
               {
-                "const": "NAVY_BLUE",
-                "title": "NAVY_BLUE",
-                "description": "223788"
+                "const": "NAVY_BLUE"
               },
               {
-                "const": "RED",
-                "title": "RED",
-                "description": "D42726"
+                "const": "RED"
               },
               {
-                "const": "PINK",
-                "title": "PINK",
-                "description": "ED5683"
+                "const": "PINK"
               },
               {
-                "const": "ORANGE",
-                "title": "ORANGE",
-                "description": "FF9429"
+                "const": "ORANGE"
               },
               {
-                "const": "GREEN",
-                "title": "GREEN",
-                "description": "149959"
+                "const": "GREEN"
               },
               {
-                "const": "LIME",
-                "title": "LIME",
-                "description": "7CB343"
+                "const": "LIME"
               },
               {
-                "const": "OLIVE",
-                "title": "OLIVE",
-                "description": "A4AD15"
+                "const": "OLIVE"
               },
               {
-                "const": "MINT",
-                "title": "MINT",
-                "description": "5CC5BE"
+                "const": "MINT"
               },
               {
-                "const": "MAGENTA",
-                "title": "MAGENTA",
-                "description": "AB47BC"
+                "const": "MAGENTA"
               },
               {
-                "const": "VIOLET",
-                "title": "VIOLET",
-                "description": "8A4B9B"
+                "const": "VIOLET"
               },
               {
-                "const": "LAVENDER",
-                "title": "LAVENDER",
-                "description": "7986CB"
+                "const": "LAVENDER"
               },
               {
-                "const": "BROWN",
-                "title": "BROWN",
-                "description": "945C1F"
+                "const": "BROWN"
               },
               {
-                "const": "GRAY",
-                "title": "GRAY",
-                "description": "666666"
+                "const": "GRAY"
               }
             ],
             "title": "Event color",
@@ -1864,16 +1789,13 @@
           "preset": {
             "oneOf": [
               {
-                "const": "TODAY",
-                "title": "The day of the query"
+                "const": "TODAY"
               },
               {
-                "const": "THIS_WEEK",
-                "title": "The week containing the query date starting on Sunday"
+                "const": "THIS_WEEK"
               },
               {
-                "const": "THIS_MONTH",
-                "title": "The month containing the query date starting on the 1st"
+                "const": "THIS_MONTH"
               }
             ],
             "title": "Time Period for Retrieving Events",
@@ -1935,16 +1857,13 @@
           "preset": {
             "oneOf": [
               {
-                "const": "TODAY",
-                "title": "The day of the query"
+                "const": "TODAY"
               },
               {
-                "const": "THIS_WEEK",
-                "title": "The week containing the query date starting on Sunday"
+                "const": "THIS_WEEK"
               },
               {
-                "const": "THIS_MONTH",
-                "title": "The month containing the query date starting on the 1st"
+                "const": "THIS_MONTH"
               }
             ],
             "title": "Time Period for Retrieving Events",
@@ -1991,6 +1910,7 @@
             "description": "Subscription calendars.\nThese are managed in chat rooms where multiple members have created a group. You can view the calendars of the chat rooms you belong to."
           }
         },
+        "required": [],
         "title": "Talk Calendar",
         "description": "There are two types of calendars in KakaoTalk:\n1. Basic Calendar: This is a personal calendar. While it is personal, it is not limited to viewing only your own events; you can view events shared by friends or events you were invited to.\n2. Subscription Calendar: This is a shared calendar managed by a group of members in a chat room. You can view the calendars of the chat rooms you are part of."
       },
@@ -2011,79 +1931,49 @@
           "color": {
             "oneOf": [
               {
-                "const": "BLUE",
-                "title": "BLUE",
-                "description": "2C88DE"
+                "const": "BLUE"
               },
               {
-                "const": "ROYAL_BLUE",
-                "title": "ROYAL_BLUE",
-                "description": "2D69E0"
+                "const": "ROYAL_BLUE"
               },
               {
-                "const": "NAVY_BLUE",
-                "title": "NAVY_BLUE",
-                "description": "223788"
+                "const": "NAVY_BLUE"
               },
               {
-                "const": "RED",
-                "title": "RED",
-                "description": "D42726"
+                "const": "RED"
               },
               {
-                "const": "PINK",
-                "title": "PINK",
-                "description": "ED5683"
+                "const": "PINK"
               },
               {
-                "const": "ORANGE",
-                "title": "ORANGE",
-                "description": "FF9429"
+                "const": "ORANGE"
               },
               {
-                "const": "GREEN",
-                "title": "GREEN",
-                "description": "149959"
+                "const": "GREEN"
               },
               {
-                "const": "LIME",
-                "title": "LIME",
-                "description": "7CB343"
+                "const": "LIME"
               },
               {
-                "const": "OLIVE",
-                "title": "OLIVE",
-                "description": "A4AD15"
+                "const": "OLIVE"
               },
               {
-                "const": "MINT",
-                "title": "MINT",
-                "description": "5CC5BE"
+                "const": "MINT"
               },
               {
-                "const": "MAGENTA",
-                "title": "MAGENTA",
-                "description": "AB47BC"
+                "const": "MAGENTA"
               },
               {
-                "const": "VIOLET",
-                "title": "VIOLET",
-                "description": "8A4B9B"
+                "const": "VIOLET"
               },
               {
-                "const": "LAVENDER",
-                "title": "LAVENDER",
-                "description": "7986CB"
+                "const": "LAVENDER"
               },
               {
-                "const": "BROWN",
-                "title": "BROWN",
-                "description": "945C1F"
+                "const": "BROWN"
               },
               {
-                "const": "GRAY",
-                "title": "GRAY",
-                "description": "666666"
+                "const": "GRAY"
               }
             ],
             "title": "Event Color"
@@ -2136,79 +2026,49 @@
           "color": {
             "oneOf": [
               {
-                "const": "BLUE",
-                "title": "BLUE",
-                "description": "2C88DE"
+                "const": "BLUE"
               },
               {
-                "const": "ROYAL_BLUE",
-                "title": "ROYAL_BLUE",
-                "description": "2D69E0"
+                "const": "ROYAL_BLUE"
               },
               {
-                "const": "NAVY_BLUE",
-                "title": "NAVY_BLUE",
-                "description": "223788"
+                "const": "NAVY_BLUE"
               },
               {
-                "const": "RED",
-                "title": "RED",
-                "description": "D42726"
+                "const": "RED"
               },
               {
-                "const": "PINK",
-                "title": "PINK",
-                "description": "ED5683"
+                "const": "PINK"
               },
               {
-                "const": "ORANGE",
-                "title": "ORANGE",
-                "description": "FF9429"
+                "const": "ORANGE"
               },
               {
-                "const": "GREEN",
-                "title": "GREEN",
-                "description": "149959"
+                "const": "GREEN"
               },
               {
-                "const": "LIME",
-                "title": "LIME",
-                "description": "7CB343"
+                "const": "LIME"
               },
               {
-                "const": "OLIVE",
-                "title": "OLIVE",
-                "description": "A4AD15"
+                "const": "OLIVE"
               },
               {
-                "const": "MINT",
-                "title": "MINT",
-                "description": "5CC5BE"
+                "const": "MINT"
               },
               {
-                "const": "MAGENTA",
-                "title": "MAGENTA",
-                "description": "AB47BC"
+                "const": "MAGENTA"
               },
               {
-                "const": "VIOLET",
-                "title": "VIOLET",
-                "description": "8A4B9B"
+                "const": "VIOLET"
               },
               {
-                "const": "LAVENDER",
-                "title": "LAVENDER",
-                "description": "7986CB"
+                "const": "LAVENDER"
               },
               {
-                "const": "BROWN",
-                "title": "BROWN",
-                "description": "945C1F"
+                "const": "BROWN"
               },
               {
-                "const": "GRAY",
-                "title": "GRAY",
-                "description": "666666"
+                "const": "GRAY"
               }
             ],
             "title": "Event Color"

@@ -18,7 +18,7 @@
     "title": "피그마 디자인 협업 플랫폼",
     "summary": "피그마 파일을 쉽게 관리하고 협업할 수 있어요.",
     "description": "피그마 파일에 접근하고, 댓글을 가져오거나 추가할 수 있어요. 디자인 작업과 팀 협업을 효율적으로 진행할 수 있어요. 프로젝트의 진행 상황을 확인하고, 팀원들의 피드백을 실시간으로 주고받을 수 있어요. 디자인 에셋을 관리하고, 버전 히스토리를 추적할 수 있어요. UI/UX 디자인, 프로토타이핑, 그래픽 디자인 등 다양한 디자인 작업을 수행하고 관리할 수 있어요.",
-    "version": "0.1.377",
+    "version": "0.1.378",
     "license": {
       "name": "AGPL-3.0-only"
     }
@@ -303,6 +303,7 @@
           "components": {
             "type": "object",
             "properties": {},
+            "required": [],
             "title": "Mapping between component ID and component metadata",
             "description": "Mapping between component ID and component metadata.",
             "additionalProperties": {
@@ -312,6 +313,7 @@
           "componentSets": {
             "type": "object",
             "properties": {},
+            "required": [],
             "title": "A mapping between a component set ID and component set metadata",
             "description": "A mapping between a component set ID and component set metadata.",
             "additionalProperties": {
@@ -326,6 +328,7 @@
           "styles": {
             "type": "object",
             "properties": {},
+            "required": [],
             "title": "Mapping between style ID and style metadata",
             "description": "Mapping between style ID and style metadata.",
             "additionalProperties": {
@@ -555,7 +558,6 @@
           },
           "branch_data": {
             "type": "boolean",
-            "default": false,
             "title": "Indicates whether to return branch metadata for the requested file",
             "description": "Returns branch metadata for the requested file. If the file is a branch, the returned response also includes the main file key. If the file has a branch, its metadata is also returned. Default: false."
           },
@@ -1142,6 +1144,7 @@
       "Recordstringnumber": {
         "type": "object",
         "properties": {},
+        "required": [],
         "description": "Construct a type with a set of properties K of type T",
         "additionalProperties": {
           "type": "number"

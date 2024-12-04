@@ -18,7 +18,7 @@
     "title": "통합 택배 추적기",
     "summary": "택배 정보를 쉽게 확인할 수 있어요.",
     "description": "택배사를 조회하고, 송장번호에 맞는 택배사를 추천받을 수 있어요. 송장 조회로 택배 배송 상태를 실시간으로 확인할 수 있어요. 여러 택배사의 배송 정보를 한 번에 관리할 수 있고, 배송 알림을 설정할 수도 있어요. 개인 사용자는 물론 온라인 쇼핑몰 운영자나 물류 관리자들이 효율적으로 배송 상황을 추적하고 관리할 수 있어요.",
-    "version": "0.1.377",
+    "version": "0.1.378",
     "license": {
       "name": "AGPL-3.0-only"
     }
@@ -255,34 +255,22 @@
                 "type": "null"
               },
               {
-                "const": 1,
-                "title": "배송 준비 중",
-                "description": "배송 준비 중"
+                "const": 1
               },
               {
-                "const": 2,
-                "title": "집화 완료",
-                "description": "집화 완료"
+                "const": 2
               },
               {
-                "const": 3,
-                "title": "배송 중",
-                "description": "배송 중"
+                "const": 3
               },
               {
-                "const": 4,
-                "title": "지점 도착",
-                "description": "지점 도착"
+                "const": 4
               },
               {
-                "const": 5,
-                "title": "배송 출발",
-                "description": "배송 출발"
+                "const": 5
               },
               {
-                "const": 6,
-                "title": "배송 완료",
-                "description": "배송 완료"
+                "const": 6
               }
             ],
             "title": "Progress stage"
@@ -372,14 +360,10 @@
                 "type": "null"
               },
               {
-                "const": "Y",
-                "title": "배송 완료",
-                "description": "배송이 완료된 경우에는 Y로 표기된다."
+                "const": "Y"
               },
               {
-                "const": "N",
-                "title": "배송 중",
-                "description": "배송이 완료되지 않은 경우에는 N으로 표기된다."
+                "const": "N"
               }
             ],
             "title": "Delivery Completed"
@@ -461,7 +445,8 @@
             ],
             "title": "Product Name"
           }
-        }
+        },
+        "required": []
       },
       "ISweetTracker.TrackingDetail": {
         "type": "object",
@@ -494,34 +479,22 @@
                 "type": "null"
               },
               {
-                "const": 1,
-                "title": "배송 준비 중",
-                "description": "배송 준비 중"
+                "const": 1
               },
               {
-                "const": 2,
-                "title": "집화 완료",
-                "description": "집화 완료"
+                "const": 2
               },
               {
-                "const": 3,
-                "title": "배송 중",
-                "description": "배송 중"
+                "const": 3
               },
               {
-                "const": 4,
-                "title": "지점 도착",
-                "description": "지점 도착"
+                "const": 4
               },
               {
-                "const": 5,
-                "title": "배송 출발",
-                "description": "배송 출발"
+                "const": 5
               },
               {
-                "const": 6,
-                "title": "배송 완료",
-                "description": "배송 완료"
+                "const": 6
               }
             ],
             "title": "Progress stage"
@@ -614,7 +587,8 @@
             ],
             "title": "Progress location"
           }
-        }
+        },
+        "required": []
       },
       "ISweetTracker.IGetTrackingInfoInput": {
         "type": "object",

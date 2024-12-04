@@ -18,7 +18,7 @@
     "title": "구글 이메일 서비스 관리",
     "summary": "지메일로 이메일을 편리하게 관리해요.",
     "description": "지메일을 통해 메일을 보내고, 초안을 만들고, 답장을 할 수 있어요. 메일 정보를 가져오고, 삭제하고, 라벨을 관리할 수 있어요. 대량의 이메일을 자동으로 처리하거나, 특정 조건에 따라 이메일을 분류하고 정리할 수 있어요. 개인 사용자부터 비즈니스 사용자까지 효율적인 이메일 관리와 커뮤니케이션을 할 수 있어요.",
-    "version": "0.1.377",
+    "version": "0.1.378",
     "license": {
       "name": "AGPL-3.0-only"
     }
@@ -662,6 +662,7 @@
             "description": "List of files attached to the email."
           }
         },
+        "required": [],
         "title": "Email search results"
       },
       "IGmail.IAttachmentOutput": {
@@ -731,6 +732,7 @@
             "description": "The body of the message part of this section, which may be empty for container MIME message parts."
           }
         },
+        "required": [],
         "title": "Attachment file information"
       },
       "IGmail.IAttachmentHeader": {
@@ -761,6 +763,7 @@
             "description": "Attachment header value."
           }
         },
+        "required": [],
         "title": "Attachment file header information"
       },
       "IGmail.IAttachmentBody": {
@@ -791,6 +794,7 @@
             "description": "The number of bytes in the attachment data."
           }
         },
+        "required": [],
         "title": "Attached file body information"
       },
       "IGmail.ISecret": {

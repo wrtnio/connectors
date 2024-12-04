@@ -18,7 +18,7 @@
     "title": "Excel",
     "summary": "엑셀을 이용해서 알아보기 쉽게 데이터를 관리할 수 있어요",
     "description": "엑셀에 시트를 넣거나 데이터를 추가하여 보기 쉽게 데이터를 관리할 수 있어요. 또 기존 파일을 업데이트해서 데이터를 누적해나갈 수도 있어요.",
-    "version": "0.1.377",
+    "version": "0.1.378",
     "license": {
       "name": "AGPL-3.0-only"
     }
@@ -289,6 +289,7 @@
       "IExcel.IReadExcelRowData": {
         "type": "object",
         "properties": {},
+        "required": [],
         "title": "Read Excel row data",
         "additionalProperties": {}
       },
@@ -395,6 +396,7 @@
       "Recordstringany": {
         "type": "object",
         "properties": {},
+        "required": [],
         "description": "Construct a type with a set of properties K of type T",
         "additionalProperties": {}
       },
@@ -450,7 +452,8 @@
             "title": "Excel sheet name",
             "description": "Sheet name to add Excel rows to\nIf no input is entered, the first sheet is used as the default."
           }
-        }
+        },
+        "required": []
       }
     }
   },

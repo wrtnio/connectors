@@ -18,7 +18,7 @@
     "title": "Jira",
     "summary": "Jira로 프로젝트 이슈를 관리해요.",
     "description": "프로젝트에 이슈를 생성하고 담당자를 할당해요. 완료된 이슈가 있다면 상태를 변경할 수도 있고 댓글을 남겨 의견 교류도 가능해요.",
-    "version": "0.1.377",
+    "version": "0.1.378",
     "license": {
       "name": "AGPL-3.0-only"
     }
@@ -1126,31 +1126,31 @@
                 "title": "programming language name"
               }
             },
+            "required": [],
             "title": "attrs",
             "description": "If you do not specify a programming language, this property may not exist."
           },
           "content": {
             "type": "array",
-            "prefixItems": [
-              {
-                "type": "object",
-                "properties": {
-                  "type": {
-                    "const": "text",
-                    "title": "type"
-                  },
-                  "text": {
-                    "type": "string",
-                    "title": "text includeing code"
-                  }
+            "items": {
+              "type": "object",
+              "properties": {
+                "type": {
+                  "const": "text",
+                  "title": "type"
                 },
-                "required": [
-                  "type",
-                  "text"
-                ]
-              }
-            ],
-            "additionalItems": false,
+                "text": {
+                  "type": "string",
+                  "title": "text includeing code"
+                }
+              },
+              "required": [
+                "type",
+                "text"
+              ]
+            },
+            "minItems": 1,
+            "maxItems": 1,
             "title": "code content",
             "description": "content takes an array of one or more text nodes without marks."
           }
@@ -1207,12 +1207,10 @@
               "widthType": {
                 "oneOf": [
                   {
-                    "const": "pixel",
-                    "default": "percentage"
+                    "const": "pixel"
                   },
                   {
-                    "const": "percentage",
-                    "default": "percentage"
+                    "const": "percentage"
                   }
                 ],
                 "title": "widthType",
@@ -1226,139 +1224,138 @@
           },
           "content": {
             "type": "array",
-            "prefixItems": [
-              {
-                "oneOf": [
-                  {
-                    "type": "object",
-                    "properties": {
-                      "type": {
-                        "const": "media",
-                        "title": "type"
-                      },
-                      "attrs": {
-                        "type": "object",
-                        "properties": {
-                          "width": {
-                            "type": "number",
-                            "title": "width",
-                            "description": "width defines the display width of the media item in pixels. Must be provided within mediaSingle or the media isn't displayed."
-                          },
-                          "height": {
-                            "type": "number",
-                            "title": "height",
-                            "description": "height defines the display height of the media item in pixels. Must be provided within mediaSingle or the media isn't displayed."
-                          },
-                          "id": {
-                            "type": "string",
-                            "title": "id",
-                            "description": "id is the Media Services ID and is used for querying the media services API to retrieve metadata, such as, filename. Consumers of the document should always fetch fresh metadata using the Media API."
-                          },
-                          "type": {
-                            "oneOf": [
-                              {
-                                "const": "link"
-                              },
-                              {
-                                "const": "file"
-                              }
-                            ],
-                            "title": "type",
-                            "description": "There are three types.\nHowever, in our service, we have to use \"external\" type only, because we are only considering universal users who do not save images through Media API, but save images through external links."
-                          }
+            "items": {
+              "oneOf": [
+                {
+                  "type": "object",
+                  "properties": {
+                    "type": {
+                      "const": "media",
+                      "title": "type"
+                    },
+                    "attrs": {
+                      "type": "object",
+                      "properties": {
+                        "width": {
+                          "type": "number",
+                          "title": "width",
+                          "description": "width defines the display width of the media item in pixels. Must be provided within mediaSingle or the media isn't displayed."
                         },
-                        "required": [
-                          "type"
-                        ],
-                        "title": "Attributes"
-                      },
-                      "marks": {
-                        "type": "object",
-                        "properties": {
-                          "type": {
-                            "const": "link",
-                            "title": "type"
-                          },
-                          "attrs": {
-                            "type": "object",
-                            "properties": {
-                              "href": {
-                                "type": "string",
-                                "format": "iri",
-                                "title": "link"
-                              }
+                        "height": {
+                          "type": "number",
+                          "title": "height",
+                          "description": "height defines the display height of the media item in pixels. Must be provided within mediaSingle or the media isn't displayed."
+                        },
+                        "id": {
+                          "type": "string",
+                          "title": "id",
+                          "description": "id is the Media Services ID and is used for querying the media services API to retrieve metadata, such as, filename. Consumers of the document should always fetch fresh metadata using the Media API."
+                        },
+                        "type": {
+                          "oneOf": [
+                            {
+                              "const": "link"
                             },
-                            "required": [
-                              "href"
-                            ],
-                            "title": "attrs"
-                          }
-                        },
-                        "required": [
-                          "type",
-                          "attrs"
-                        ],
-                        "title": "marks"
-                      }
-                    },
-                    "required": [
-                      "type",
-                      "attrs",
-                      "marks"
-                    ]
-                  },
-                  {
-                    "type": "object",
-                    "properties": {
-                      "type": {
-                        "const": "media",
-                        "title": "type"
+                            {
+                              "const": "file"
+                            }
+                          ],
+                          "title": "type",
+                          "description": "There are three types.\nHowever, in our service, we have to use \"external\" type only, because we are only considering universal users who do not save images through Media API, but save images through external links."
+                        }
                       },
-                      "attrs": {
-                        "type": "object",
-                        "properties": {
-                          "width": {
-                            "type": "number",
-                            "title": "width",
-                            "description": "width defines the display width of the media item in pixels. Must be provided within mediaSingle or the media isn't displayed."
-                          },
-                          "height": {
-                            "type": "number",
-                            "title": "height",
-                            "description": "height defines the display height of the media item in pixels. Must be provided within mediaSingle or the media isn't displayed."
-                          },
-                          "id": {
-                            "type": "string",
-                            "title": "id",
-                            "description": "id is the Media Services ID and is used for querying the media services API to retrieve metadata, such as, filename. Consumers of the document should always fetch fresh metadata using the Media API."
-                          },
-                          "type": {
-                            "const": "external",
-                            "title": "type",
-                            "description": "There are three types.\nHowever, in our service, we have to use \"external\" type only, because we are only considering universal users who do not save images through Media API, but save images through external links."
-                          },
-                          "url": {
-                            "type": "string",
-                            "format": "iri",
-                            "title": "url"
-                          }
-                        },
-                        "required": [
-                          "type",
-                          "url"
-                        ],
-                        "title": "Attributes"
-                      }
+                      "required": [
+                        "type"
+                      ],
+                      "title": "Attributes"
                     },
-                    "required": [
-                      "type",
-                      "attrs"
-                    ]
-                  }
-                ]
-              }
-            ],
-            "additionalItems": false,
+                    "marks": {
+                      "type": "object",
+                      "properties": {
+                        "type": {
+                          "const": "link",
+                          "title": "type"
+                        },
+                        "attrs": {
+                          "type": "object",
+                          "properties": {
+                            "href": {
+                              "type": "string",
+                              "format": "iri",
+                              "title": "link"
+                            }
+                          },
+                          "required": [
+                            "href"
+                          ],
+                          "title": "attrs"
+                        }
+                      },
+                      "required": [
+                        "type",
+                        "attrs"
+                      ],
+                      "title": "marks"
+                    }
+                  },
+                  "required": [
+                    "type",
+                    "attrs",
+                    "marks"
+                  ]
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "type": {
+                      "const": "media",
+                      "title": "type"
+                    },
+                    "attrs": {
+                      "type": "object",
+                      "properties": {
+                        "width": {
+                          "type": "number",
+                          "title": "width",
+                          "description": "width defines the display width of the media item in pixels. Must be provided within mediaSingle or the media isn't displayed."
+                        },
+                        "height": {
+                          "type": "number",
+                          "title": "height",
+                          "description": "height defines the display height of the media item in pixels. Must be provided within mediaSingle or the media isn't displayed."
+                        },
+                        "id": {
+                          "type": "string",
+                          "title": "id",
+                          "description": "id is the Media Services ID and is used for querying the media services API to retrieve metadata, such as, filename. Consumers of the document should always fetch fresh metadata using the Media API."
+                        },
+                        "type": {
+                          "const": "external",
+                          "title": "type",
+                          "description": "There are three types.\nHowever, in our service, we have to use \"external\" type only, because we are only considering universal users who do not save images through Media API, but save images through external links."
+                        },
+                        "url": {
+                          "type": "string",
+                          "format": "iri",
+                          "title": "url"
+                        }
+                      },
+                      "required": [
+                        "type",
+                        "url"
+                      ],
+                      "title": "Attributes"
+                    }
+                  },
+                  "required": [
+                    "type",
+                    "attrs"
+                  ]
+                }
+              ]
+            },
+            "minItems": 1,
+            "maxItems": 1,
             "title": "media\n\nonly single of media node type"
           }
         },
@@ -1423,6 +1420,7 @@
       "Recordstringnever": {
         "type": "object",
         "properties": {},
+        "required": [],
         "description": "Construct a type with a set of properties K of type T"
       },
       "IJira.EmojiNode": {
@@ -1476,6 +1474,7 @@
                 "title": "text\n\nIt can be only `\\n` text for braking."
               }
             },
+            "required": [],
             "title": "attributes of hard break node"
           }
         },
@@ -1519,7 +1518,8 @@
       },
       "object": {
         "type": "object",
-        "properties": {}
+        "properties": {},
+        "required": []
       },
       "IJira.MentionNode": {
         "type": "object",
@@ -1964,34 +1964,22 @@
               "level": {
                 "oneOf": [
                   {
-                    "const": 1,
-                    "title": "1",
-                    "description": "level"
+                    "const": 1
                   },
                   {
-                    "const": 2,
-                    "title": "2",
-                    "description": "level"
+                    "const": 2
                   },
                   {
-                    "const": 3,
-                    "title": "3",
-                    "description": "level"
+                    "const": 3
                   },
                   {
-                    "const": 4,
-                    "title": "4",
-                    "description": "level"
+                    "const": 4
                   },
                   {
-                    "const": 5,
-                    "title": "5",
-                    "description": "level"
+                    "const": 5
                   },
                   {
-                    "const": 6,
-                    "title": "6",
-                    "description": "level"
+                    "const": 6
                   }
                 ],
                 "title": "level\n\nlevel represents the depth of the heading following the same convention as HTML: when level is set to 1 it's the equivalent of <h1>."
@@ -2080,7 +2068,6 @@
             "properties": {
               "isNumberColumnEnabled": {
                 "type": "boolean",
-                "default": true,
                 "title": "isNumberColumnEnabled",
                 "description": "When isNumberColumnEnabled is set to 'true' the first table column provides numbering for the table rows."
               },
@@ -2115,6 +2102,7 @@
                 "description": "displayMode attribute controls how tables adapt to narrow screens:\nWhen displayMode is set to 'default' or left unset, the table's columns will automatically scale down to accommodate narrow screens, with a maximum reduction of up to 40%.\nWhen displayMode is set to 'fixed', the table's columns will maintain their original width, regardless of screen size."
               }
             },
+            "required": [],
             "title": "attrs"
           }
         },
@@ -2216,18 +2204,11 @@
               },
               "colwidth": {
                 "type": "array",
-                "prefixItems": [
-                  {
-                    "type": "integer"
-                  },
-                  {
-                    "type": "integer"
-                  },
-                  {
-                    "type": "integer"
-                  }
-                ],
-                "additionalItems": false,
+                "items": {
+                  "type": "integer"
+                },
+                "minItems": 3,
+                "maxItems": 3,
                 "title": "colwidth",
                 "description": "defines the width of the column or,\nwhere the cell spans columns, the width of the columns it spans in pixels.\nThe length of the array should be equal to the number of spanned columns.\n0 is permitted as an array value if the column size is not fixed,\nfor example, a cell merged across 3 columns where one unfixed column is surrounded by two fixed might be represented as `[120, 0, 120]."
               },
@@ -2238,6 +2219,7 @@
                 "description": "rowspan defines the number of rows a cell spans."
               }
             },
+            "required": [],
             "title": "attrs"
           }
         },
@@ -2462,18 +2444,11 @@
               },
               "colwidth": {
                 "type": "array",
-                "prefixItems": [
-                  {
-                    "type": "integer"
-                  },
-                  {
-                    "type": "integer"
-                  },
-                  {
-                    "type": "integer"
-                  }
-                ],
-                "additionalItems": false,
+                "items": {
+                  "type": "integer"
+                },
+                "minItems": 3,
+                "maxItems": 3,
                 "title": "colwidth",
                 "description": "defines the width of the column or,\nwhere the cell spans columns, the width of the columns it spans in pixels.\nThe length of the array should be equal to the number of spanned columns.\n0 is permitted as an array value if the column size is not fixed,\nfor example, a cell merged across 3 columns where one unfixed column is surrounded by two fixed might be represented as `[120, 0, 120]."
               },
@@ -2484,6 +2459,7 @@
                 "description": "rowspan defines the number of rows a cell spans."
               }
             },
+            "required": [],
             "title": "attrs"
           }
         },
@@ -2992,7 +2968,8 @@
             "title": "summary",
             "description": "Meaning the title of the issue.\nMake sure you write a sentence that best represents this issue."
           }
-        }
+        },
+        "required": []
       },
       "IJira.ICreateIssueOutput": {
         "type": "object",
@@ -3628,6 +3605,7 @@
                 "title": "summary"
               }
             },
+            "required": [],
             "title": "fields"
           }
         },
@@ -3996,19 +3974,13 @@
           "orderBy": {
             "oneOf": [
               {
-                "const": "issueCount",
-                "title": "issueCount",
-                "description": "Sorts by the total number of issues in each project."
+                "const": "issueCount"
               },
               {
-                "const": "lastIssueUpdatedTime",
-                "title": "lastIssueUpdatedTime",
-                "description": "Sorts by the last issue update time."
+                "const": "lastIssueUpdatedTime"
               },
               {
-                "const": "name",
-                "title": "name",
-                "description": "Sorts by project name."
+                "const": "name"
               }
             ],
             "title": "order by",

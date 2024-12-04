@@ -18,7 +18,7 @@
     "title": "카카오 내비게이션 경로 안내",
     "summary": "카카오 내비로 빠른 길을 찾아요.",
     "description": "카카오 내비게이션을 통해 교통 정보를 조회하고 길찾기를 할 수 있어요. 출발지와 도착지를 설정하면 최적의 경로를 제안받을 수 있어요.",
-    "version": "0.1.377",
+    "version": "0.1.378",
     "license": {
       "name": "AGPL-3.0-only"
     }
@@ -89,84 +89,64 @@
           "result_code": {
             "oneOf": [
               {
-                "const": 0,
-                "title": "길찾기 성공"
+                "const": 0
               },
               {
-                "const": 1,
-                "title": "길찾기 결과를 찾을 수 없음"
+                "const": 1
               },
               {
-                "const": 101,
-                "title": "경유지 지점 주변의 도로를 탐색할 수 없음"
+                "const": 101
               },
               {
-                "const": 102,
-                "title": "시작 지점 주변의 도로를 탐색할 수 없음"
+                "const": 102
               },
               {
-                "const": 103,
-                "title": "도착 지점 주변의 도로를 탐색할 수 없음"
+                "const": 103
               },
               {
-                "const": 104,
-                "title": "출발지와 도착지가 5 m 이내로 설정된 경우 경로를 탐색할 수 없음"
+                "const": 104
               },
               {
-                "const": 105,
-                "title": "시작 지점 주변의 도로에 유고 정보(교통 장애)가 있음"
+                "const": 105
               },
               {
-                "const": 106,
-                "title": "도착 지점 주변의 도로에 유고 정보(교통 장애)가 있음"
+                "const": 106
               },
               {
-                "const": 107,
-                "title": "경유지 주변의 도로에 유고 정보(교통 장애)가 있음."
+                "const": 107
               },
               {
-                "const": 201,
-                "title": "다중 출발지: 출발지가 탐색 영역에 포함되지 않음"
+                "const": 201
               },
               {
-                "const": 202,
-                "title": "다중 출발지: 출발지 최대 개수 초과 도로 선택 실패"
+                "const": 202
               },
               {
-                "const": 203,
-                "title": "다중 출발지: 목적지 도로 선택 실패"
+                "const": 203
               },
               {
-                "const": 204,
-                "title": "다중 출발지: 경로 탐색 처리 시간 제한"
+                "const": 204
               },
               {
-                "const": 205,
-                "title": "다중 출발지: 출발지 주변의 유고 정보(교통 장애)로 인한 통행 불가"
+                "const": 205
               },
               {
-                "const": 206,
-                "title": "다중 출발지: 목적지 주변의 유고 정보(교통 장애)로 인한 통행 불가"
+                "const": 206
               },
               {
-                "const": 207,
-                "title": "다중 출발지: 출발지가 설정한 길찾기 반경 범위를 벗어남"
+                "const": 207
               },
               {
-                "const": 301,
-                "title": "다중 목적지: 출발지 도로 선택 실패"
+                "const": 301
               },
               {
-                "const": 302,
-                "title": "다중 목적지: 목적지 도로 선택 실패"
+                "const": 302
               },
               {
-                "const": 303,
-                "title": "다중 목적지: 목적지 최대 개수 초과로 인해 경로 탐색 실패"
+                "const": 303
               },
               {
-                "const": 304,
-                "title": "다중 목적지: 목적지가 설정한 길찾기 반경 범위를 벗어남"
+                "const": 304
               }
             ],
             "title": "Path search result code"
@@ -371,28 +351,22 @@
           "traffic_state": {
             "oneOf": [
               {
-                "const": 0,
-                "title": "교통 상태 정보 없음"
+                "const": 0
               },
               {
-                "const": 1,
-                "title": "교통 정체"
+                "const": 1
               },
               {
-                "const": 2,
-                "title": "교통 지체"
+                "const": 2
               },
               {
-                "const": 3,
-                "title": "교통 서행"
+                "const": 3
               },
               {
-                "const": 4,
-                "title": "교통 원활"
+                "const": 4
               },
               {
-                "const": 6,
-                "title": "교통사고(통행 불가)"
+                "const": 6
               }
             ],
             "title": "Current traffic information status"
@@ -421,292 +395,220 @@
           "type": {
             "oneOf": [
               {
-                "const": 0,
-                "title": "직진"
+                "const": 0
               },
               {
-                "const": 1,
-                "title": "좌회전"
+                "const": 1
               },
               {
-                "const": 2,
-                "title": "우회전"
+                "const": 2
               },
               {
-                "const": 3,
-                "title": "유턴"
+                "const": 3
               },
               {
-                "const": 5,
-                "title": "왼쪽 방향"
+                "const": 5
               },
               {
-                "const": 6,
-                "title": "오른쪽 방향"
+                "const": 6
               },
               {
-                "const": 7,
-                "title": "고속 도로 출구"
+                "const": 7
               },
               {
-                "const": 8,
-                "title": "왼쪽에 고속 도로 출구"
+                "const": 8
               },
               {
-                "const": 9,
-                "title": "오른쪽에 고속 도로 출구"
+                "const": 9
               },
               {
-                "const": 10,
-                "title": "고속 도로 입구"
+                "const": 10
               },
               {
-                "const": 11,
-                "title": "왼쪽에 고속 도로 입구"
+                "const": 11
               },
               {
-                "const": 12,
-                "title": "오른쪽에 고속 도로 입구"
+                "const": 12
               },
               {
-                "const": 14,
-                "title": "고가 도로 진입"
+                "const": 14
               },
               {
-                "const": 15,
-                "title": "지하 차도 진입"
+                "const": 15
               },
               {
-                "const": 16,
-                "title": "고가 도로 옆길"
+                "const": 16
               },
               {
-                "const": 17,
-                "title": "지하 차도 옆길"
+                "const": 17
               },
               {
-                "const": 18,
-                "title": "오른쪽 1시 방향"
+                "const": 18
               },
               {
-                "const": 19,
-                "title": "오른쪽 2시 방향"
+                "const": 19
               },
               {
-                "const": 20,
-                "title": "오른쪽 3시 방향"
+                "const": 20
               },
               {
-                "const": 21,
-                "title": "오른쪽 4시 방향"
+                "const": 21
               },
               {
-                "const": 22,
-                "title": "오른쪽 5시 방향"
+                "const": 22
               },
               {
-                "const": 23,
-                "title": "6시 방향"
+                "const": 23
               },
               {
-                "const": 24,
-                "title": "왼쪽 7시 방향"
+                "const": 24
               },
               {
-                "const": 25,
-                "title": "왼쪽 8시 방향"
+                "const": 25
               },
               {
-                "const": 26,
-                "title": "왼쪽 9시 방향"
+                "const": 26
               },
               {
-                "const": 27,
-                "title": "왼쪽 10시 방향"
+                "const": 27
               },
               {
-                "const": 28,
-                "title": "왼쪽 11시 방향"
+                "const": 28
               },
               {
-                "const": 29,
-                "title": "12시 방향"
+                "const": 29
               },
               {
-                "const": 30,
-                "title": "로터리에서 오른쪽 1시 방향"
+                "const": 30
               },
               {
-                "const": 31,
-                "title": "로터리에서 오른쪽 2시 방향"
+                "const": 31
               },
               {
-                "const": 32,
-                "title": "로터리에서 오른쪽 3시 방향"
+                "const": 32
               },
               {
-                "const": 33,
-                "title": "로터리에서 오른쪽 4시 방향"
+                "const": 33
               },
               {
-                "const": 34,
-                "title": "로터리에서 오른쪽 5시 방향"
+                "const": 34
               },
               {
-                "const": 35,
-                "title": "로터리에서 6시 방향"
+                "const": 35
               },
               {
-                "const": 36,
-                "title": "로터리에서 왼쪽 7시 방향"
+                "const": 36
               },
               {
-                "const": 37,
-                "title": "로터리에서 왼쪽 8시 방향"
+                "const": 37
               },
               {
-                "const": 38,
-                "title": "로터리에서 왼쪽 9시 방향"
+                "const": 38
               },
               {
-                "const": 39,
-                "title": "로터리에서 왼쪽 10시 방향"
+                "const": 39
               },
               {
-                "const": 40,
-                "title": "로터리에서 왼쪽 11시 방향"
+                "const": 40
               },
               {
-                "const": 41,
-                "title": "로터리에서 12시 방향"
+                "const": 41
               },
               {
-                "const": 42,
-                "title": "도시 고속 도로 출구"
+                "const": 42
               },
               {
-                "const": 43,
-                "title": "왼쪽에 도시 고속 도로 출구"
+                "const": 43
               },
               {
-                "const": 44,
-                "title": "오른쪽에 도시 고속 도로 출구"
+                "const": 44
               },
               {
-                "const": 45,
-                "title": "도시 고속 도로 입구"
+                "const": 45
               },
               {
-                "const": 46,
-                "title": "왼쪽에 도시 고속 도로 입구"
+                "const": 46
               },
               {
-                "const": 47,
-                "title": "오른쪽에 도시 고속 도로 입구"
+                "const": 47
               },
               {
-                "const": 48,
-                "title": "왼쪽 고속 도로 진입"
+                "const": 48
               },
               {
-                "const": 49,
-                "title": "오른쪽 고속 도로 진입"
+                "const": 49
               },
               {
-                "const": 61,
-                "title": "페리 항로 진입"
+                "const": 61
               },
               {
-                "const": 62,
-                "title": "페리 항로 진출"
+                "const": 62
               },
               {
-                "const": 70,
-                "title": "회전 교차로에서 오른쪽 1시 방향"
+                "const": 70
               },
               {
-                "const": 71,
-                "title": "회전 교차로에서 오른쪽 2시 방향"
+                "const": 71
               },
               {
-                "const": 72,
-                "title": "회전 교차로에서 오른쪽 3시 방향"
+                "const": 72
               },
               {
-                "const": 73,
-                "title": "회전 교차로에서 오른쪽 4시 방향"
+                "const": 73
               },
               {
-                "const": 74,
-                "title": "회전 교차로에서 오른쪽 5시 방향"
+                "const": 74
               },
               {
-                "const": 75,
-                "title": "회전 교차로에서 6시 방향"
+                "const": 75
               },
               {
-                "const": 76,
-                "title": "회전 교차로에서 왼쪽 7시 방향"
+                "const": 76
               },
               {
-                "const": 77,
-                "title": "회전 교차로에서 왼쪽 8시 방향"
+                "const": 77
               },
               {
-                "const": 78,
-                "title": "회전 교차로에서 왼쪽 9시 방향"
+                "const": 78
               },
               {
-                "const": 79,
-                "title": "회전 교차로에서 왼쪽 10시 방향"
+                "const": 79
               },
               {
-                "const": 80,
-                "title": "회전 교차로에서 왼쪽 11시 방향"
+                "const": 80
               },
               {
-                "const": 81,
-                "title": "회전 교차로에서 12시 방향"
+                "const": 81
               },
               {
-                "const": 82,
-                "title": "왼쪽 직진"
+                "const": 82
               },
               {
-                "const": 83,
-                "title": "오른쪽 직진"
+                "const": 83
               },
               {
-                "const": 84,
-                "title": "톨게이트 진입"
+                "const": 84
               },
               {
-                "const": 85,
-                "title": "원톨링 진입"
+                "const": 85
               },
               {
-                "const": 86,
-                "title": "분기 후 합류 구간 진입"
+                "const": 86
               },
               {
-                "const": 100,
-                "title": "출발지"
+                "const": 100
               },
               {
-                "const": 101,
-                "title": "목적지"
+                "const": 101
               },
               {
-                "const": 300,
-                "title": "톨게이트"
+                "const": 300
               },
               {
-                "const": 301,
-                "title": "휴게소"
+                "const": 301
               },
               {
-                "const": 1000,
-                "title": "경유지"
+                "const": 1000
               }
             ],
             "title": "Guide type"

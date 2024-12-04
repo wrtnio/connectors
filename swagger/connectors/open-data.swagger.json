@@ -18,7 +18,7 @@
     "title": "통합 공공정보 조회",
     "summary": "다양한 공공 정보를 한 곳에서 확인해요.",
     "description": "기업 주가, 날씨, 건축물 정보, 캠핑장, 약국, 관광지, 주택 가격 등 다양한 공공 데이터를 조회할 수 있어요. 지역별 상세 날씨 정보를 확인하고, 전국의 캠핑장 현황을 파악할 수 있어요. 주변 약국이나 병원 위치를 찾을 수 있고, 관심 있는 지역의 부동산 시세도 확인할 수 있어요. 또한 교통 정보, 환경 정보, 문화 행사 정보 등 일상생활에 유용한 다양한 정보를 얻을 수 있어 편리한 생활을 할 수 있어요.",
-    "version": "0.1.377",
+    "version": "0.1.378",
     "license": {
       "name": "AGPL-3.0-only"
     }
@@ -456,7 +456,8 @@
                     "type": "string",
                     "title": "error message"
                   }
-                }
+                },
+                "required": []
               },
               "newAddressListAreaCd": {
                 "type": "array",
@@ -849,7 +850,8 @@
                   "title": "Subdivision Name",
                   "description": "Indicates the name of the subdivision, e.g., \"Ogeum-dong.\""
                 }
-              }
+              },
+              "required": []
             }
           },
           "numOfRows": {
@@ -1066,7 +1068,8 @@
                   "title": "Subdivision Name",
                   "description": "Indicates the name of the subdivision, e.g., \"Ogeum-dong.\""
                 }
-              }
+              },
+              "required": []
             }
           },
           "numOfRows": {
@@ -1182,72 +1185,55 @@
           "CNP_CD": {
             "oneOf": [
               {
-                "const": 11,
-                "title": "서울특별시"
+                "const": 11
               },
               {
-                "const": 26,
-                "title": "부산광역시"
+                "const": 26
               },
               {
-                "const": 27,
-                "title": "대구광역시"
+                "const": 27
               },
               {
-                "const": 28,
-                "title": "인천광역시"
+                "const": 28
               },
               {
-                "const": 29,
-                "title": "광주광역시"
+                "const": 29
               },
               {
-                "const": 30,
-                "title": "대전광역시"
+                "const": 30
               },
               {
-                "const": 31,
-                "title": "울산광역시"
+                "const": 31
               },
               {
-                "const": 41,
-                "title": "경기도"
+                "const": 41
               },
               {
-                "const": 42,
-                "title": "강원도"
+                "const": 42
               },
               {
-                "const": 43,
-                "title": "충청북도"
+                "const": 43
               },
               {
-                "const": 44,
-                "title": "충청남도"
+                "const": 44
               },
               {
-                "const": 45,
-                "title": "전라북도"
+                "const": 45
               },
               {
-                "const": 46,
-                "title": "전라남도"
+                "const": 46
               },
               {
-                "const": 47,
-                "title": "경상북도"
+                "const": 47
               },
               {
-                "const": 48,
-                "title": "경상남도"
+                "const": 48
               },
               {
-                "const": 50,
-                "title": "제주특별자치도"
+                "const": 50
               },
               {
-                "const": 36110,
-                "title": "세종특별자치시"
+                "const": 36110
               }
             ],
             "title": "Area Code",
@@ -1256,32 +1242,25 @@
           "SPL_TP_CD": {
             "oneOf": [
               {
-                "const": "07",
-                "title": "국민임대"
+                "const": "07"
               },
               {
-                "const": "08",
-                "title": "공공임대"
+                "const": "08"
               },
               {
-                "const": "09",
-                "title": "영구임대"
+                "const": "09"
               },
               {
-                "const": "10",
-                "title": "행복주택"
+                "const": "10"
               },
               {
-                "const": "11",
-                "title": "장기전세"
+                "const": "11"
               },
               {
-                "const": "13",
-                "title": "매입임대"
+                "const": "13"
               },
               {
-                "const": "17",
-                "title": "전세임대"
+                "const": "17"
               }
             ],
             "title": "Supply Type Code",
@@ -1483,7 +1462,8 @@
             "type": "string",
             "title": "Provider Name of institution"
           }
-        }
+        },
+        "required": []
       },
       "IPaginationInputMyPickParkingLotrdnmadr": {
         "type": "object",
@@ -1507,7 +1487,8 @@
             },
             "title": "road name address (read name address)"
           }
-        }
+        },
+        "required": []
       },
       "IPaginationInputMyPickParkingLotlnmadr": {
         "type": "object",
@@ -1531,7 +1512,8 @@
             },
             "title": "Lot number address"
           }
-        }
+        },
+        "required": []
       },
       "IMOLIT.GetBuildingInfoOutput": {
         "type": "object",
@@ -2023,16 +2005,13 @@
           "rserthqkDsgnApplyYn": {
             "oneOf": [
               {
-                "const": 0,
-                "title": "미적용"
+                "const": 0
               },
               {
-                "const": 1,
-                "title": "적용"
+                "const": 1
               },
               {
-                "const": " ",
-                "title": "알 수 없음"
+                "const": " "
               }
             ],
             "title": "Whether earthquake-resistant design is applied"
@@ -2196,89 +2175,55 @@
           "locatadd_nm": {
             "oneOf": [
               {
-                "const": "서울특별시",
-                "title": "서울특별시",
-                "x-wrtn-placeholder": "서울특별시"
+                "const": "서울특별시"
               },
               {
-                "const": "부산광역시",
-                "title": "부산광역시",
-                "x-wrtn-placeholder": "서울특별시"
+                "const": "부산광역시"
               },
               {
-                "const": "대구광역시",
-                "title": "대구광역시",
-                "x-wrtn-placeholder": "서울특별시"
+                "const": "대구광역시"
               },
               {
-                "const": "인천광역시",
-                "title": "인천광역시",
-                "x-wrtn-placeholder": "서울특별시"
+                "const": "인천광역시"
               },
               {
-                "const": "광주광역시",
-                "title": "광주광역시",
-                "x-wrtn-placeholder": "서울특별시"
+                "const": "광주광역시"
               },
               {
-                "const": "대전광역시",
-                "title": "대전광역시",
-                "x-wrtn-placeholder": "서울특별시"
+                "const": "대전광역시"
               },
               {
-                "const": "울산광역시",
-                "title": "울산광역시",
-                "x-wrtn-placeholder": "서울특별시"
+                "const": "울산광역시"
               },
               {
-                "const": "세종특별자치시",
-                "title": "세종특별자치시",
-                "x-wrtn-placeholder": "서울특별시"
+                "const": "세종특별자치시"
               },
               {
-                "const": "경기도",
-                "title": "경기도",
-                "x-wrtn-placeholder": "서울특별시"
+                "const": "경기도"
               },
               {
-                "const": "충청북도",
-                "title": "충청북도",
-                "x-wrtn-placeholder": "서울특별시"
+                "const": "충청북도"
               },
               {
-                "const": "충청남도",
-                "title": "충청남도",
-                "x-wrtn-placeholder": "서울특별시"
+                "const": "충청남도"
               },
               {
-                "const": "경상북도",
-                "title": "경상북도",
-                "x-wrtn-placeholder": "서울특별시"
+                "const": "경상북도"
               },
               {
-                "const": "경상남도",
-                "title": "경상남도",
-                "x-wrtn-placeholder": "서울특별시"
+                "const": "경상남도"
               },
               {
-                "const": "전라남도",
-                "title": "전라남도",
-                "x-wrtn-placeholder": "서울특별시"
+                "const": "전라남도"
               },
               {
-                "const": "제주특별자치도",
-                "title": "제주특별자치도",
-                "x-wrtn-placeholder": "서울특별시"
+                "const": "제주특별자치도"
               },
               {
-                "const": "강원특별자치도",
-                "title": "강원특별자치도",
-                "x-wrtn-placeholder": "서울특별시"
+                "const": "강원특별자치도"
               },
               {
-                "const": "전북특별자치도",
-                "title": "전북특별자치도",
-                "x-wrtn-placeholder": "서울특별시"
+                "const": "전북특별자치도"
               }
             ],
             "title": "Region address name",
@@ -2353,16 +2298,13 @@
                             "mrktCtg": {
                               "oneOf": [
                                 {
-                                  "const": "KOSPI",
-                                  "title": "KOSPI"
+                                  "const": "KOSPI"
                                 },
                                 {
-                                  "const": "KOSDAQ",
-                                  "title": "KOSDAQ"
+                                  "const": "KOSDAQ"
                                 },
                                 {
-                                  "const": "KONEX",
-                                  "title": "KONEX"
+                                  "const": "KONEX"
                                 }
                               ],
                               "title": "Market category"
@@ -2487,7 +2429,8 @@
             "title": "Base date",
             "description": "Searches for data matching the search value and base date\nYYYYMMDD format date string."
           }
-        }
+        },
+        "required": []
       },
       "IPaginationInputlikeItmsNm(stringMaxLength120PlaceholderSamsungElectronics)undefinedbeginBasDt(stringPlaceholder...)undefinedendBasDt(stringPlaceholder...)undefined": {
         "type": "object",
@@ -2521,7 +2464,8 @@
             "title": "End date (exclusive)",
             "description": "Searches for data where the base date is less than the search value\nYYYYMMDD format date string."
           }
-        }
+        },
+        "required": []
       },
       "IKoreaMeteorologicalAdministration.IGetForecastOutput": {
         "type": "object",
@@ -2539,94 +2483,52 @@
           "category": {
             "oneOf": [
               {
-                "const": "POP",
-                "title": "Precipitation Probability",
-                "description": "Unit is %"
+                "const": "POP"
               },
               {
-                "const": "PTY",
-                "title": "Precipitation Type",
-                "description": "Code value"
+                "const": "PTY"
               },
               {
-                "const": "PCP",
-                "title": "Hourly Precipitation",
-                "description": "Category (1mm)"
+                "const": "PCP"
               },
               {
-                "const": "REH",
-                "title": "Humidity",
-                "description": "Unit is %"
+                "const": "REH"
               },
               {
-                "const": "SNO",
-                "title": "Hourly Snowfall",
-                "description": "Category (1cm)"
+                "const": "SNO"
               },
               {
-                "const": "SKY",
-                "title": "Sky Condition",
-                "description": "Code value"
+                "const": "SKY"
               },
               {
-                "const": "TMP",
-                "title": "Hourly Temperature",
-                "description": "Celsius temperature"
+                "const": "TMP"
               },
               {
-                "const": "TMN",
-                "title": "Daily Minimum Temperature",
-                "description": "Celsius temperature"
+                "const": "TMN"
               },
               {
-                "const": "TMX",
-                "title": "Daily Maximum Temperature",
-                "description": "Celsius temperature"
+                "const": "TMX"
               },
               {
-                "const": "UUU",
-                "title": "Wind Speed (East-West Component)",
-                "description": "m/s"
+                "const": "UUU"
               },
               {
-                "const": "VVV",
-                "title": "Wind Speed (North-South Component)",
-                "description": "m/s"
+                "const": "VVV"
               },
               {
-                "const": "WAV",
-                "title": "Wave Height (Wave Height)",
-                "description": "M"
+                "const": "WAV"
               },
               {
-                "const": "VEC",
-                "title": "Wind Direction",
-                "description": "Angle (deg)"
+                "const": "VEC"
               },
               {
-                "const": "VEC",
-                "title": "Wind Direction",
-                "description": "deg"
+                "const": "WSD"
               },
               {
-                "const": "WSD",
-                "title": "Wind Speed",
-                "description": "m/s"
+                "const": "T1H"
               },
               {
-                "const": "T1H",
-                "title": "Temperature",
-                "description": "Celsius temperature"
-              },
-              {
-                "const": "T1H",
-                "title": "Temperature",
-                "description": "Celsius temperature"
-              },
-              {
-                "const": "RN1",
-                "title": "Hourly Precipitation",
-                "description": "mm"
+                "const": "RN1"
               }
             ],
             "title": "Category",
@@ -2723,12 +2625,10 @@
           "type": {
             "oneOf": [
               {
-                "const": "latitude_and_longitude",
-                "title": "latitude and longitude"
+                "const": "latitude_and_longitude"
               },
               {
-                "const": "grid_coordinates",
-                "title": "Grid Coordinates of Korean"
+                "const": "grid_coordinates"
               }
             ],
             "title": "Definition of nx, ny",
@@ -2847,6 +2747,7 @@
             "title": "Copyright holder name\n\nThis refers to the name of the copyright holder. It can be a person's name, or the name of a company or specific organization."
           }
         },
+        "required": [],
         "title": "Copyright inquiry conditions"
       }
     }

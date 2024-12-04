@@ -18,7 +18,7 @@
     "title": "구글 호텔 정보 검색 및 예약",
     "summary": "일정에 맞는 숙소를 쉽게 찾아볼 수 있어요.",
     "description": "여행 일정에 맞는 호텔, 리조트, 펜션 등 다양한 숙소를 검색할 수 있어요. 목적지, 체크인/체크아웃 날짜, 인원 수 등을 입력하면 조건에 맞는 숙소 목록을 볼 수 있어요. 가격, 평점, 위치 등으로 검색 결과를 필터링하거나 정렬할 수 있어요. 또한 지도 보기를 통해 숙소의 위치를 직관적으로 파악할 수 있어, 여행 계획을 더욱 쉽고 효율적으로 세울 수 있어요.",
-    "version": "0.1.377",
+    "version": "0.1.378",
     "license": {
       "name": "AGPL-3.0-only"
     }
@@ -236,16 +236,13 @@
           "sort_by": {
             "oneOf": [
               {
-                "const": "3",
-                "title": "낮은 가격 순"
+                "const": "3"
               },
               {
-                "const": "8",
-                "title": "평점 높은 순"
+                "const": "8"
               },
               {
-                "const": "13",
-                "title": "리뷰 많은 순"
+                "const": "13"
               }
             ],
             "title": "Sort criteria",
@@ -264,16 +261,13 @@
           "rating": {
             "oneOf": [
               {
-                "const": "7",
-                "title": "평점 3.5 이상"
+                "const": "7"
               },
               {
-                "const": "8",
-                "title": "평점 4.0 이상"
+                "const": "8"
               },
               {
-                "const": "9",
-                "title": "평점 4.5 이상"
+                "const": "9"
               }
             ],
             "title": "Rating",
@@ -284,56 +278,43 @@
             "items": {
               "oneOf": [
                 {
-                  "const": "12",
-                  "title": "비치 호텔"
+                  "const": "12"
                 },
                 {
-                  "const": "13",
-                  "title": "부티크 호텔"
+                  "const": "13"
                 },
                 {
-                  "const": "14",
-                  "title": "호스텔"
+                  "const": "14"
                 },
                 {
-                  "const": "15",
-                  "title": "여관"
+                  "const": "15"
                 },
                 {
-                  "const": "16",
-                  "title": "모텔"
+                  "const": "16"
                 },
                 {
-                  "const": "17",
-                  "title": "리조트"
+                  "const": "17"
                 },
                 {
-                  "const": "18",
-                  "title": "스파 호텔"
+                  "const": "18"
                 },
                 {
-                  "const": "19",
-                  "title": "아침 식사를 제공하는 숙소(B&B)"
+                  "const": "19"
                 },
                 {
-                  "const": "20",
-                  "title": "기타"
+                  "const": "20"
                 },
                 {
-                  "const": "21",
-                  "title": "아파트 호텔"
+                  "const": "21"
                 },
                 {
-                  "const": "22",
-                  "title": "민박"
+                  "const": "22"
                 },
                 {
-                  "const": "23",
-                  "title": "일본식 비즈니스 호텔"
+                  "const": "23"
                 },
                 {
-                  "const": "24",
-                  "title": "료칸"
+                  "const": "24"
                 }
               ]
             },
@@ -345,24 +326,19 @@
             "items": {
               "oneOf": [
                 {
-                  "const": "1",
-                  "title": "1성급"
+                  "const": "1"
                 },
                 {
-                  "const": "2",
-                  "title": "2성급"
+                  "const": "2"
                 },
                 {
-                  "const": "3",
-                  "title": "3성급"
+                  "const": "3"
                 },
                 {
-                  "const": "4",
-                  "title": "4성급"
+                  "const": "4"
                 },
                 {
-                  "const": "5",
-                  "title": "5성급"
+                  "const": "5"
                 }
               ]
             },
@@ -371,7 +347,6 @@
           },
           "free_cancellation": {
             "type": "boolean",
-            "default": false,
             "title": "Is free cancellation possible?",
             "description": "Search only properties with free cancellation."
           },

@@ -18,7 +18,7 @@
     "title": "구글 프레젠테이션 제작",
     "summary": "구글 프레젠테이션을 쉽게 만들고 꾸밀 수 있어요.",
     "description": "구글 슬라이드로 프레젠테이션을 만들고, 페이지를 추가하거나 수정할 수 있어요. 텍스트, 이미지, 도형을 추가하고 다양한 효과를 설정할 수 있어요. 슬라이드 전환 효과를 적용하고, 개체의 순서를 조정할 수 있어요. 슬라이드 노트를 작성하여 발표 준비를 할 수 있고, 프레젠테이션의 메타데이터를 수정할 수 있어요. 팀원들과 실시간으로 협업하며 프레젠테이션을 만들 수 있고, 완성된 프레젠테이션을 PDF로 내보낼 수도 있어요.",
-    "version": "0.1.377",
+    "version": "0.1.378",
     "license": {
       "name": "AGPL-3.0-only"
     }
@@ -823,7 +823,8 @@
             ],
             "title": "Presentation ID"
           }
-        }
+        },
+        "required": []
       },
       "IGoogleSlides.Size": {
         "type": "object",
@@ -836,7 +837,8 @@
             "$ref": "#/components/schemas/IGoogleSlides.Dimension",
             "title": "The height of the object"
           }
-        }
+        },
+        "required": []
       },
       "IGoogleSlides.Dimension": {
         "type": "object",
@@ -858,23 +860,19 @@
                 "type": "null"
               },
               {
-                "const": "UNIT_UNSPECIFIED",
-                "title": "알 수 없는 단위"
+                "const": "UNIT_UNSPECIFIED"
               },
               {
-                "const": "EMU",
-                "title": "영국식 단위 (EMU)",
-                "description": "는 1센티미터의 1/360,000으로 정의되므로 인치당 914,400 EMU 및 포인트당 12,700 EMU가 있습니다."
+                "const": "EMU"
               },
               {
-                "const": "PT",
-                "title": "포인트",
-                "description": "1/72인치입니다."
+                "const": "PT"
               }
             ],
             "title": "Size units"
           }
-        }
+        },
+        "required": []
       },
       "IGoogleSlides.IGetPresentationInput": {
         "type": "object",
@@ -985,7 +983,8 @@
             ],
             "title": "ID"
           }
-        }
+        },
+        "required": []
       },
       "IGoogleSlides.AppendEntireSlideInput": {
         "type": "object",
@@ -1484,7 +1483,8 @@
                   "title": "Google drive folder name",
                   "description": "Google drive folder name."
                 }
-              }
+              },
+              "required": []
             },
             "title": "Google Drive Folder Data",
             "description": "List of folder data in Google Drive."
@@ -1557,7 +1557,8 @@
                   ],
                   "title": "webContentLink"
                 }
-              }
+              },
+              "required": []
             },
             "title": "Google Drive File Data",
             "description": "List of file data in Google Drive."

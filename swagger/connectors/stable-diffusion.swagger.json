@@ -18,7 +18,7 @@
     "title": "Stable Diffusion 이미지 생성",
     "summary": "프롬프트를 입력하여 AI로 이미지를 생성해요.",
     "description": "텍스트 프롬프트를 입력하면 AI가 그에 맞는 이미지를 생성해줘요. 원하는 스타일, 분위기, 구체적인 요소들을 자세히 설명하면 그에 맞는 이미지를 만들 수 있어요. 생성된 이미지의 크기, 품질, 생성 속도 등을 조절할 수 있고, 여러 장의 이미지를 한 번에 생성할 수도 있어요. 디자인 아이디어 얻기, 콘텐츠 제작, 아트워크 생성 등 다양한 창작 활동에 활용할 수 있어요.",
-    "version": "0.1.377",
+    "version": "0.1.378",
     "license": {
       "name": "AGPL-3.0-only"
     }
@@ -89,19 +89,13 @@
           "image_ratio": {
             "oneOf": [
               {
-                "const": "square",
-                "title": "정사각형",
-                "description": "512x512"
+                "const": "square"
               },
               {
-                "const": "landscape",
-                "title": "풍경",
-                "description": "896x512"
+                "const": "landscape"
               },
               {
-                "const": "portrait",
-                "title": "인물",
-                "description": "512x896"
+                "const": "portrait"
               }
             ],
             "title": "Image Size",
@@ -110,72 +104,55 @@
           "style_preset": {
             "oneOf": [
               {
-                "const": "3d-model",
-                "title": "3D 모델"
+                "const": "3d-model"
               },
               {
-                "const": "analog-film",
-                "title": "아날로그 필름"
+                "const": "analog-film"
               },
               {
-                "const": "anime",
-                "title": "에니메이션"
+                "const": "anime"
               },
               {
-                "const": "cinematic",
-                "title": "영화"
+                "const": "cinematic"
               },
               {
-                "const": "comic-book",
-                "title": "만화"
+                "const": "comic-book"
               },
               {
-                "const": "digital-art",
-                "title": "디지털 아트"
+                "const": "digital-art"
               },
               {
-                "const": "enhance",
-                "title": "보정"
+                "const": "enhance"
               },
               {
-                "const": "fantasy-art",
-                "title": "판타지 아트"
+                "const": "fantasy-art"
               },
               {
-                "const": "isometric",
-                "title": "등각뷰"
+                "const": "isometric"
               },
               {
-                "const": "line-art",
-                "title": "라인 아트"
+                "const": "line-art"
               },
               {
-                "const": "low-poly",
-                "title": "로우 폴리곤"
+                "const": "low-poly"
               },
               {
-                "const": "modeling-compound",
-                "title": "클레이 아트"
+                "const": "modeling-compound"
               },
               {
-                "const": "neon-punk",
-                "title": "네온 펑크"
+                "const": "neon-punk"
               },
               {
-                "const": "origami",
-                "title": "종이 접기"
+                "const": "origami"
               },
               {
-                "const": "photographic",
-                "title": "사진"
+                "const": "photographic"
               },
               {
-                "const": "pixel-art",
-                "title": "픽셀 아트"
+                "const": "pixel-art"
               },
               {
-                "const": "tile-texture",
-                "title": "타일 텍스쳐"
+                "const": "tile-texture"
               }
             ],
             "title": "Style Preset",
