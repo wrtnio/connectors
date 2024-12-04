@@ -15,7 +15,7 @@
     }
   ],
   "info": {
-    "version": "0.1.378",
+    "version": "0.1.379",
     "title": "@wrtn/connector",
     "description": "wrtn-ecosystem connectors and sdk",
     "license": {
@@ -7207,6 +7207,68 @@
                   "$ref": "#/components/schemas/INotion.ICreatePageOutput"
                 }
               }
+            }
+          }
+        },
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg"
+      }
+    },
+    "/connector/notion/create-gallery-database": {
+      "post": {
+        "summary": "Create a Notion Gallery Database",
+        "description": "Create a gallery view database for notion.\nIt is not possible to create a gallery view at once, and you must change the view to a gallery directly.",
+        "tags": [
+          "Notion"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/INotion.ICreateGalleryDatabaseInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/INotion.ICreateGalleryDatabaseOutput"
+                }
+              }
+            }
+          }
+        },
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg"
+      }
+    },
+    "/connector/notion/create-gallery-item": {
+      "post": {
+        "summary": "Create a item in the gallery database",
+        "description": "Create an item in the generated gallery view database.\nIf there is no database received from input, you must first create a database using the POST: /connector/notion/create-gallery-database endpoint and then run it.",
+        "tags": [
+          "Notion"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/INotion.ICreateGalleryDatabaseItemInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {}
             }
           }
         },
@@ -31744,8 +31806,14 @@
           },
           "title": {
             "type": "string",
-            "title": "TitleP",
+            "title": "Title",
             "description": "Database Title"
+          },
+          "url": {
+            "type": "string",
+            "format": "iri",
+            "title": "url",
+            "description": "Database Page URL"
           },
           "properties": {
             "$ref": "#/components/schemas/RecordstringINotion.DatabaseProperty",
@@ -31756,6 +31824,7 @@
         "required": [
           "id",
           "title",
+          "url",
           "properties"
         ],
         "title": "Database Information"
@@ -33268,22 +33337,10 @@
             "title": "property value",
             "description": "Value to add to database property"
           },
-          "content": {
+          "markdown": {
             "type": "string",
-            "title": "page",
-            "description": "What to put on the database item page you want to create\n\nWhat to put on the"
-          },
-          "contentType": {
-            "oneOf": [
-              {
-                "const": "markdown"
-              },
-              {
-                "const": "plainText"
-              }
-            ],
-            "title": "Page content type",
-            "description": "Database item page content type to create"
+            "title": "markdown",
+            "description": "If you add a markdown string, it will be converted appropriately according to the Notion's block.\nTherefore, you don't have to use Unicode symbols to implement lists or decorate documents using letters.\nOf course, this depends on the user, and there is no problem using the character string you want, such as inserting an emoji as well as Unicode."
           },
           "secretKey": {
             "type": "string",
@@ -33293,6 +33350,7 @@
           }
         },
         "required": [
+          "markdown",
           "secretKey"
         ],
         "title": "Information required to add an item to the database",
@@ -33311,10 +33369,10 @@
             "title": "Page",
             "description": "Page to update"
           },
-          "content": {
+          "markdown": {
             "type": "string",
-            "title": "Content",
-            "description": "Database page content to update"
+            "title": "markdown",
+            "description": "If you add a markdown string, it will be converted appropriately according to the Notion's block.\nTherefore, you don't have to use Unicode symbols to implement lists or decorate documents using letters.\nOf course, this depends on the user, and there is no problem using the character string you want, such as inserting an emoji as well as Unicode."
           },
           "value": {
             "type": "string",
@@ -33330,6 +33388,7 @@
         },
         "required": [
           "pageId",
+          "markdown",
           "secretKey"
         ],
         "title": "Information required to modify an item that exists in the database",
@@ -33876,6 +33935,115 @@
           "pageId",
           "secretKey"
         ]
+      },
+      "INotion.ICreateGalleryDatabaseOutput": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "id",
+            "description": "Database id"
+          },
+          "title": {
+            "type": "string",
+            "title": "title",
+            "description": "Title of database"
+          },
+          "url": {
+            "type": "string",
+            "format": "iri",
+            "title": "url",
+            "description": "Page url of database"
+          }
+        },
+        "required": [
+          "id",
+          "title",
+          "url"
+        ],
+        "title": "Information created a gallery view database"
+      },
+      "INotion.ICreateGalleryDatabaseInput": {
+        "type": "object",
+        "properties": {
+          "parentPageId": {
+            "oneOf": [
+              {
+                "type": "string",
+                "x-wrtn-prerequisite": {
+                  "method": "post",
+                  "path": "/connector/notion/get/page",
+                  "jmesPath": "[].{value:pageId, label:title}"
+                },
+                "x-wrtn-placeholder": "부모 페이지를 선택하세요."
+              },
+              {
+                "type": "string",
+                "x-wrtn-prerequisite": {
+                  "method": "post",
+                  "path": "/connector/notion/page",
+                  "jmesPath": "[].{value:id, label:id}"
+                },
+                "x-wrtn-placeholder": "부모 페이지를 선택하세요."
+              }
+            ],
+            "title": "parentPageId"
+          },
+          "title": {
+            "type": "string",
+            "title": "databaseTitle"
+          },
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "notion",
+            "title": "Select authentication information",
+            "description": "secret key."
+          }
+        },
+        "required": [
+          "parentPageId",
+          "title",
+          "secretKey"
+        ],
+        "title": "Information needed to create a gallery view database"
+      },
+      "INotion.ICreateGalleryDatabaseItemInput": {
+        "type": "object",
+        "properties": {
+          "databaseId": {
+            "type": "string",
+            "x-wrtn-prerequisite": {
+              "method": "post",
+              "path": "/connector/notion/get/database-info",
+              "jmesPath": "[].{value:id, label:title}"
+            },
+            "title": "databaseId",
+            "description": "Database Id what you want to add a item.\n\nIf the database is not created, you can create a database using the `Create Gallery Database` function first.\nThe endpoint is POST: /connector/notion/create-gallery-database."
+          },
+          "title": {
+            "type": "string",
+            "title": "title",
+            "description": "Database Item Title.\nThe title of the item to be added to the database."
+          },
+          "markdown": {
+            "type": "string",
+            "title": "markdown",
+            "description": "If you add a markdown string, it will be converted appropriately according to the Notion's block.\nTherefore, you don't have to use Unicode symbols to implement lists or decorate documents using letters.\nOf course, this depends on the user, and there is no problem using the character string you want, such as inserting an emoji as well as Unicode."
+          },
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "notion",
+            "title": "Select authentication information",
+            "description": "secret key."
+          }
+        },
+        "required": [
+          "databaseId",
+          "title",
+          "markdown",
+          "secretKey"
+        ],
+        "title": "Information needed to create a gallery view database item"
       },
       "IGoogleHotel.IResponse": {
         "type": "object",
@@ -59329,7 +59497,7 @@
                 "const": ""
               },
               {
-                "$ref": "#/components/schemas/__type.o2247"
+                "$ref": "#/components/schemas/__type.o2250"
               }
             ],
             "title": "replies"
@@ -59776,14 +59944,14 @@
           "name"
         ]
       },
-      "__type.o2247": {
+      "__type.o2250": {
         "type": "object",
         "properties": {
           "kind": {
             "const": "Listing"
           },
           "data": {
-            "$ref": "#/components/schemas/__type.o2248"
+            "$ref": "#/components/schemas/__type.o2251"
           }
         },
         "required": [
@@ -59791,7 +59959,7 @@
           "data"
         ]
       },
-      "__type.o2248": {
+      "__type.o2251": {
         "type": "object",
         "properties": {
           "after": {
@@ -59811,7 +59979,7 @@
             "items": {
               "oneOf": [
                 {
-                  "$ref": "#/components/schemas/__type.o2249"
+                  "$ref": "#/components/schemas/__type.o2252"
                 },
                 {
                   "type": "object",
@@ -59885,7 +60053,7 @@
           "before"
         ]
       },
-      "__type.o2249": {
+      "__type.o2252": {
         "type": "object",
         "properties": {
           "kind": {
