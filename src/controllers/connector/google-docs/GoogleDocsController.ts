@@ -11,6 +11,24 @@ import { retry } from "../../../utils/retry";
 @Controller("connector/google-docs")
 export class GoogleDocsController {
   constructor(private readonly googleDocsProvider: GoogleDocsProvider) {}
+
+  /**
+   * Generate Google Docs By markdown format string
+   *
+   * Create a document with a markdown, which is the ID of the markdown file and the ID of the document.
+   * In the case of Google Docs, URLs are included, so you can open and inquire files directly based on your ID.
+   *
+   * @summary Write Google Docs by markdown format string
+   * @param input Google Docs infomation to write
+   * @returns Created Google Docs and markdown File ids
+   */
+  @core.TypedRoute.Post("markdown")
+  async write(
+    @core.TypedBody() input: IGoogleDocs.IRequest,
+  ): Promise<IGoogleDocs.IResponse> {
+    return retry(() => this.googleDocsProvider.write(input))();
+  }
+
   /**
    * Generate Google Docs
    *

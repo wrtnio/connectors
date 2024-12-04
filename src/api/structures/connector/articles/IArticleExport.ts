@@ -35,7 +35,7 @@ export interface IArticleExport {
    *
    * @title provider name
    */
-  provider: "notion" | (string & {});
+  provider: "notion" | "google_docs" | (string & {});
 
   /**
    * @title Unique Document ID in external service

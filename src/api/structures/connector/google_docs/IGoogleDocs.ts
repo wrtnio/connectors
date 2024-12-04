@@ -1,6 +1,7 @@
 import { JMESPath, Prerequisite } from "@wrtnio/decorators";
 import { tags } from "typia";
 import { ICommon } from "../common/ISecretValue";
+import { IGoogleDrive } from "../google_drive/IGoogleDrive";
 
 /**
  * owner: Grants owner permissions. Users with this permission can delete files or folders or grant permissions to other users.
@@ -89,6 +90,65 @@ interface IGoogleDocs {
 }
 
 export namespace IGoogleDocs {
+  export interface IResponse {
+    markdown: {
+      /**
+       * @title Created Markdown File ID
+       */
+      id: string;
+    };
+
+    googleDocs: {
+      /**
+       * @title Created Google Docs File ID
+       */
+      id: string;
+
+      /**
+       * @title File URL
+       */
+      url: string & tags.Format<"iri">;
+    };
+  }
+
+  /**
+   * @title Information required to create a file in Google Drive
+   */
+  export interface IRequest
+    extends ICommon.ISecret<
+      "google",
+      ["https://www.googleapis.com/auth/drive.file"]
+    > {
+    /**
+     * File name to be created in drive
+     *
+     * @title Google drive file name
+     */
+    name: string;
+
+    /**
+     * Folder id that will contain the file to be created in the drive
+     *
+     * @title Google Drive Folder ID
+     */
+    folderId?: string &
+      Prerequisite<{
+        method: "post";
+        path: "/connector/google-drive/get/folders";
+        jmesPath: JMESPath<
+          IGoogleDrive.IFolderListGoogleDriveOutput,
+          "data[].{value:id, label:name}"
+        >;
+      }>;
+
+    /**
+     * Contents of the file to be created in drive
+     *
+     * @title markdown
+     */
+    markdown: string;
+  }
+
   /**
    * @title Google Docs creation result
    */

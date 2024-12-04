@@ -393,7 +393,8 @@ export const test_api_connector_article_at = async (
   }
 };
 
-export const test_api_connector_article_exports = async (
+// 노션으로 내보내기, 함수명에는 `notion` 키워드를 제외하여 테스트가 중복되지 않게 한다.
+export const test_api_connector_article_exports_1 = async (
   connection: CApi.IConnection,
   article?: IArticle,
 ) => {
@@ -442,11 +443,62 @@ export const test_api_connector_article_exports = async (
   return response;
 };
 
+// 노션으로 내보내기, 함수명에는 `google_docs` 키워드를 제외하여 테스트가 중복되지 않게 한다.
+export const test_api_connector_article_exports_2 = async (
+  connection: CApi.IConnection,
+  article?: IArticle,
+) => {
+  const target =
+    article ?? (await test_api_connector_article_write(connection));
+
+  const exported =
+    await CApi.functional.connector.articles.exports.google_docs.exportsToGoogleDocs(
+      connectionWithSameUser(connection),
+      target.id,
+      {
+        google_docs: {
+          secretKey: ConnectorGlobal.env.GOOGLE_TEST_SECRET,
+        },
+        snapshot: {
+          id: target.snapshots[target.snapshots.length - 1]?.id as string,
+        },
+      },
+    );
+
+  typia.assertEquals(exported);
+
+  const exportedArticle = await CApi.functional.connector.articles.at(
+    connectionWithSameUser(connection),
+    target.id,
+  );
+
+  const information = exportedArticle.snapshots[
+    target.snapshots.length - 1
+  ].bbs_article_exports.find((el) => {
+    return (
+      el.uid === exported.google_docs.id && el.url === exported.google_docs.link
+    );
+  });
+
+  typia.assertEquals<IArticleExport>(information);
+
+  const response = await CApi.functional.connector.articles.at(
+    connectionWithSameUser(connection),
+    target.id,
+  );
+
+  assert(response.snapshots.length === 1);
+  assert(response.snapshots[0].bbs_article_exports.length === 1);
+
+  console.log(JSON.stringify(response, null, 2));
+  return response;
+};
+
 export const test_api_connector_article_sync_by_snapshot_id = async (
   connection: CApi.IConnection,
 ) => {
   // 생성 후 내보내기
-  const target = await test_api_connector_article_exports(connection);
+  const target = await test_api_connector_article_exports_1(connection);
 
   // 업데이트하여 새 스냅샷을 추가
   const updated = await test_api_connector_article_update(connection, target);

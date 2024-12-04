@@ -135,7 +135,6 @@ export class GoogleDriveProvider {
   }
 
   /**
-   * @deprecated
    * @param input
    * @returns
    */

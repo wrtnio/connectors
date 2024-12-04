@@ -11,6 +11,37 @@ import { DocumentProvider } from "../../../providers/connector/article/DocumentP
 
 @Controller("connector/articles")
 export class ArticlesController {
+  // /**
+  //  * Synchronize version
+  //  *
+  //  * Synchronize on a snapshot basis,
+  //  * such as upgrading or downgrading the version of a document exported to GoogleDocs.
+  //  * If you specify the id of the snapshot in the names from and to among the internal properties,
+  //  * find the exported text from `from` and start synchronizing to the version of `to`.
+  //  *
+  //  * @summary Syncronize article version
+  //  * @param articleId Target article's {@link IArticle.id}, Not snapshot ID
+  //  * @param input GoogleDocs Secret and snapshot information to sync
+  //  * @returns Response of Synchronization
+  //  */
+  // @core.TypedRoute.Post(":id/sync/google-docs")
+  // async syncToGoogleDocs(
+  //   @ExternalUser() external_user: IExternalUser,
+  //   @Prerequisite({
+  //     neighbor: () => ArticlesController.prototype.index,
+  //     jmesPath: "data[].{ value: id, label: snapshot.title }",
+  //   })
+  //   @TypedParam("id")
+  //   articleId: IArticle["id"],
+  //   @TypedBody() input: IArticle.ISync.ToGoogleDocsInput,
+  // ): Promise<IArticle.ISync.ToGoogleDocsOutput> {
+  //   return DocumentProvider.sync("google_docs")(
+  //     external_user,
+  //     articleId,
+  //     input,
+  //   );
+  // }
+
   /**
    * Synchronize version
    *
@@ -36,6 +67,41 @@ export class ArticlesController {
     @TypedBody() input: IArticle.ISync.ToNotionInput,
   ): Promise<IArticle.ISync.ToNotionOutput> {
     return DocumentProvider.sync("notion")(external_user, articleId, input);
+  }
+
+  /**
+   * Export the text to GoogleDocs
+   *
+   * The exported text is recorded by creating a
+   * {@link IArticleExport bbs_article_exports} object based on the snapshot.
+   * You can upgrade and downgrade the version using
+   * the 'POST /connector/articles/:id/exports/sync/google_docs' connector in the future.
+   * Also, it doesn't matter if you export the same version of the text multiple times.
+   *
+   * Because each export generates a new text,
+   * you must use the `sync` connector if you want to change the version of an already exported text.
+   *
+   * @summary Exports specified article to google_docs
+   * @param articleId Target article's {@link IArticle.id}, Not snapshot ID
+   * @param input GoogleDocs Secret and snapshot information to export
+   * @returns Article Infomation and google_docs secretKey
+   */
+  @core.TypedRoute.Post(":id/exports/google-docs")
+  async exportsToGoogleDocs(
+    @ExternalUser() external_user: IExternalUser,
+    @Prerequisite({
+      neighbor: () => ArticlesController.prototype.index,
+      jmesPath: "data[].{ value: id, label: snapshot.title }",
+    })
+    @TypedParam("id")
+    articleId: IArticle["id"],
+    @TypedBody() input: IArticle.IExport.ToGoogleDocsInput,
+  ): Promise<IArticle.IExport.ToGoogleDocsOutput> {
+    return DocumentProvider.exports("google_docs")(
+      external_user,
+      articleId,
+      input,
+    );
   }
 
   /**
@@ -72,11 +138,12 @@ export class ArticlesController {
   /**
    * Reads an article with its every snapshots
    *
-   * Reads an article with its every snapshots {@link IArticle.ISnapshot snapshots}
+   * All text content that is not omitted is shown here, so you can also see how the text has been modified at once.
+   * This connector reads an article with its every snapshots {@link IArticle.ISnapshot snapshots}
    * This detail contains the entire content created for each version of the document,
    * as well as the connection information to the external services from which it was exported.
    *
-   * @sumamry Read individual article
+   * @sumamry Read individual detailed article includes body
    * @param articleId Target article's {@link IArticle.id}, Not snapshot ID
    * @returns Article Infomation
    */
@@ -162,6 +229,7 @@ export class ArticlesController {
    * If you want to see the full text instead of the omitted text,
    * or if you want to see the history of this article being exported to Notion or other services,
    * please look up the details.
+   * Here, we only show the content of the text up to 100 characters, so if you want to see the latter, you need to look up the details.
    * You can view all the snapshots of this article if you want to look at them in detail.
    * The detailed lookup connector is 'PATCH connector/articles/:id'.
    *

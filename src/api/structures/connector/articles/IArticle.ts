@@ -2,37 +2,21 @@ import { Prerequisite, SecretKey } from "@wrtnio/decorators";
 import { tags } from "typia";
 import { IPage } from "../../common/IPage";
 import { StrictOmit } from "../../types/strictOmit";
+import { IGoogleDocs } from "../google_docs/IGoogleDocs";
 import { INotion } from "../notion/INotion";
 import { IArticleExport } from "./IArticleExport";
 import { IAttachmentFile } from "./IAttachmentFile";
 
 export namespace IArticle {
   export namespace ISync {
-    export interface ToNotionOutput {
-      /**
-       * Indicates whether synchronization is successful or not
-       *
-       * @title response
-       */
-      isSuccess: boolean;
-
+    export interface SnapshotOutput {
       /**
        * @title article information
        */
       article: StrictOmit<IArticle, "password">;
     }
 
-    export interface ToNotionInput {
-      /**
-       * @title Notion SecretKey and Parent Page ID to sync
-       */
-      notion: {
-        /**
-         * @title Notion Secret Key for synchronization
-         */
-        secretKey: string & SecretKey<"notion">;
-      };
-
+    export interface SnapshotInput {
       /**
        * @title snapshot information for synchronization
        */
@@ -90,37 +74,59 @@ export namespace IArticle {
         };
       };
     }
+
+    export interface ToGoogleDocsOutput extends SnapshotOutput {
+      /**
+       * Indicates whether synchronization is successful or not
+       *
+       * @title response
+       */
+      isSuccess: boolean;
+    }
+
+    export interface ToGoogleDocsInput extends SnapshotInput {
+      /**
+       * @title Google Docs SecretKey for synchronization
+       */
+      google_docs: {
+        /**
+         * @title Google Docs Secret Key synchronization
+         */
+        secretKey: string &
+          SecretKey<"google", ["https://www.googleapis.com/auth/drive.file"]>;
+      };
+    }
+
+    export interface ToNotionOutput extends SnapshotOutput {
+      /**
+       * Indicates whether synchronization is successful or not
+       *
+       * @title response
+       */
+      isSuccess: boolean;
+    }
+
+    export interface ToNotionInput extends SnapshotInput {
+      /**
+       * @title Notion SecretKey for synchronization
+       */
+      notion: {
+        /**
+         * @title Notion Secret Key for synchronization
+         */
+        secretKey: string & SecretKey<"notion">;
+      };
+    }
   }
 
   export namespace IExport {
-    export interface ToNotionOutput {
-      /**
-       * @title About the note page that was successfully exported
-       */
-      notion: INotion.ICreatePageOutput;
-
+    export interface SnapshotOutput {
       /**
        * @title Exporting infomation
        */
       article_snapshot_exports: StrictOmit<IArticleExport, "deleted_at">;
     }
-
-    export interface ToNotionInput {
-      /**
-       * @title Notion SecretKey and Parent Page ID to export
-       */
-      notion: {
-        /**
-         * @title Notion Secret Key for exporting
-         */
-        secretKey: string & SecretKey<"notion">;
-
-        /**
-         * @title Parent Page ID for exporting
-         */
-        parentPageId: INotion.PageIdInput["pageId"];
-      };
-
+    export interface SnapshotInput {
       /**
        * @title snapshot information to export
        */
@@ -134,6 +140,59 @@ export namespace IArticle {
             path: "/connector/articles/:id";
             jmesPath: "snapshot[].{ value: id, label: ['created_at ', created_at].join(':', @) }";
           }>;
+      };
+    }
+
+    export interface ToGoogleDocsOutput extends SnapshotOutput {
+      /**
+       * @title About the google doc that was successfully exported
+       */
+      google_docs: {
+        /**
+         * @title Created Google Docs File ID
+         */
+        id: string;
+
+        /**
+         * @title Title of Created Google Docs File
+         */
+        title: string;
+
+        /**
+         * @title File URL
+         */
+        link: string;
+      };
+    }
+
+    export interface ToGoogleDocsInput extends SnapshotInput {
+      /**
+       * @title Google Docs Secret Key and information to create file
+       */
+      google_docs: StrictOmit<IGoogleDocs.IRequest, "name" | "markdown">;
+    }
+
+    export interface ToNotionOutput extends SnapshotOutput {
+      /**
+       * @title About the notion page that was successfully exported
+       */
+      notion: INotion.ICreatePageOutput;
+    }
+
+    export interface ToNotionInput extends SnapshotInput {
+      /**
+       * @title Notion SecretKey and Parent Page ID to export
+       */
+      notion: {
+        /**
+         * @title Notion Secret Key for exporting
+         */
+        secretKey: string & SecretKey<"notion">;
+
+        /**
+         * @title Parent Page ID for exporting
+         */
+        parentPageId: INotion.PageIdInput["pageId"];
       };
     }
   }

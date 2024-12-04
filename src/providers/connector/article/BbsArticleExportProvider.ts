@@ -30,10 +30,10 @@ export namespace BbsArticleExportProvider {
     articleSnapshot: IEntity,
     input: StrictOmit<
       IArticleExport.ICreate,
-      "bbs_article_snapshot_id" | "created_at" | "deleted_at"
+      "bbs_article_snapshot_id" | "deleted_at"
     >,
   ) => {
-    const created_at = new Date().toISOString();
+    const created_at = input.created_at ?? new Date().toISOString();
     return {
       id: randomUUID(),
       bbs_article_provider: {
@@ -65,7 +65,7 @@ export namespace BbsArticleExportProvider {
     async (
       input: StrictOmit<
         IArticleExport.ICreate,
-        "bbs_article_snapshot_id" | "created_at" | "deleted_at"
+        "bbs_article_snapshot_id" | "deleted_at"
       >,
     ) => {
       const exports = await ConnectorGlobal.prisma.bbs_article_exports.create({
@@ -78,15 +78,25 @@ export namespace BbsArticleExportProvider {
       return BbsArticleExportProvider.json.transform(exports);
     };
 
-  export const update =
+  export const sync =
     (bbs_article_export: IEntity) => async (input: IArticleExport.IUpdate) => {
-      await ConnectorGlobal.prisma.bbs_article_exports.update({
+      const now = input.created_at;
+      const deleted = await ConnectorGlobal.prisma.bbs_article_exports.update({
+        select: {
+          provider: true,
+          uid: true,
+          url: true,
+        },
         data: {
-          bbs_article_snapshot_id: input.bbs_article_snapshot_id,
+          deleted_at: now,
         },
         where: {
           id: bbs_article_export.id,
         },
       });
+
+      await BbsArticleExportProvider.exports({
+        id: input.bbs_article_snapshot_id,
+      })({ ...deleted, created_at: now });
     };
 }
