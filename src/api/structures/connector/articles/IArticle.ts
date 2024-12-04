@@ -167,16 +167,6 @@ export namespace IArticle {
   export namespace IRequest {
     export interface ISearch {
       /**
-       * Article ID, not Article Snapshot ID
-       *
-       * It is Article's ID, Not Article Snapshot ID and {@link IArticleExport bbs_article_exports} ID.
-       * This is a condition for filtering, not for detailed inquiry.
-       *
-       * @title Article ID
-       */
-      id?: IArticle["id"];
-
-      /**
        * Article IDs, not Article Snapshot ID
        *
        * It is Article's ID, Not Article Snapshot ID and {@link IArticleExport bbs_article_exports} ID.
