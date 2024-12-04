@@ -698,7 +698,11 @@ export class NotionController {
 
   /**
    * Create a gallery view database for notion.
+   *
    * It is not possible to create a gallery view at once, and you must change the view to a gallery directly.
+   * This endpoint must not be used to create each items.
+   * This endpoint is only used to create a database.
+   * Creating a database is different from adding items to a database.
    *
    * @summary Create a Notion Gallery Database
    * @param input
@@ -717,7 +721,10 @@ export class NotionController {
 
   /**
    * Create an item in the generated gallery view database.
+   * Creating a database item means adding an item to an existing database.
    * If there is no database received from input, you must first create a database using the POST: /connector/notion/create-gallery-database endpoint and then run it.
+   * You should use this endpoint when adding items to an already created database.
+   * For example, if you search for clothes in a shopping mall and create each results in a gallery database, if there are 5 search results, you should call this endpoint 5 times to create 5 items in the existing database.
    *
    * @summary Create a item in the gallery database
    * @param input
