@@ -72,11 +72,12 @@ export class ArticlesController {
   /**
    * Reads an article with its every snapshots
    *
-   * Reads an article with its every snapshots {@link IArticle.ISnapshot snapshots}
+   * All text content that is not omitted is shown here, so you can also see how the text has been modified at once.
+   * This connector reads an article with its every snapshots {@link IArticle.ISnapshot snapshots}
    * This detail contains the entire content created for each version of the document,
    * as well as the connection information to the external services from which it was exported.
    *
-   * @sumamry Read individual article
+   * @sumamry Read individual detailed article includes body
    * @param articleId Target article's {@link IArticle.id}, Not snapshot ID
    * @returns Article Infomation
    */
@@ -162,6 +163,7 @@ export class ArticlesController {
    * If you want to see the full text instead of the omitted text,
    * or if you want to see the history of this article being exported to Notion or other services,
    * please look up the details.
+   * Here, we only show the content of the text up to 100 characters, so if you want to see the latter, you need to look up the details.
    * You can view all the snapshots of this article if you want to look at them in detail.
    * The detailed lookup connector is 'PATCH connector/articles/:id'.
    *

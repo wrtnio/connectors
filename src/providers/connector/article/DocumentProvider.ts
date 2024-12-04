@@ -81,7 +81,7 @@ export namespace DocumentProvider {
               secretKey,
             });
 
-            await BbsArticleExportProvider.update(bbs_article_export)({
+            await BbsArticleExportProvider.sync(bbs_article_export)({
               bbs_article_snapshot_id: input.snapshot.to,
               created_at,
             });
@@ -138,6 +138,7 @@ export namespace DocumentProvider {
         provider: "notion",
         uid: notion.id,
         url: notion.link,
+        created_at: new Date().toISOString(),
       });
 
       return { notion, article_snapshot_exports };
