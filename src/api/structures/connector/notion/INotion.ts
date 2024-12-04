@@ -2486,25 +2486,17 @@ export namespace INotion {
     databaseId: string;
 
     /**
-     * @title property
-     */
-    property: IGalleryDatabaseItemProperty[];
-  }
-
-  interface IGalleryDatabaseItemProperty {
-    /**
      * @title title
      */
     title: string;
 
     /**
-     * @title description
+     * If you add a markdown string, it will be converted appropriately according to the Notion's block.
+     * Therefore, you don't have to use Unicode symbols to implement lists or decorate documents using letters.
+     * Of course, this depends on the user, and there is no problem using the character string you want, such as inserting an emoji as well as Unicode.
+     *
+     * @title markdown
      */
-    description: string;
-
-    /**
-     * @title url
-     */
-    imageUrl: string & tags.Format<"iri">;
+    markdown: string;
   }
 }

@@ -992,11 +992,8 @@ export namespace NotionProvider {
             Name: {
               title: {},
             },
-            Description: {
-              rich_text: {},
-            },
           },
-          is_inline: false, // 기본값은 페이지에 삽입되지 않는 독립형 데이터베이스입니다.
+          is_inline: false,
         },
         {
           headers: headers,
@@ -1014,54 +1011,33 @@ export namespace NotionProvider {
   ): Promise<void> {
     try {
       const headers = await getHeaders(input.secretKey);
-      for (const item of input.property) {
-        await axios.post(
-          `https://api.notion.com/v1/pages`,
-          {
-            parent: {
-              type: "database_id",
-              database_id: input.databaseId,
-            },
-            properties: {
-              Name: {
-                title: [
-                  {
-                    type: "text",
-                    text: {
-                      content: item.title,
-                    },
-                  },
-                ],
-              },
-              Description: {
-                rich_text: [
-                  {
-                    type: "text",
-                    text: {
-                      content: item.description,
-                    },
-                  },
-                ],
-              },
-            },
-            children: [
-              {
-                object: "block",
-                type: "image",
-                image: {
-                  type: "external",
-                  external: {
-                    url: item.imageUrl,
+      const blocks = markdownToBlocks(input.markdown);
+
+      await axios.post(
+        `https://api.notion.com/v1/pages`,
+        {
+          parent: {
+            type: "database_id",
+            database_id: input.databaseId,
+          },
+          properties: {
+            Name: {
+              title: [
+                {
+                  type: "text",
+                  text: {
+                    content: input.title,
                   },
                 },
-              },
-            ],
+              ],
+            },
           },
-          {
-            headers: headers,
-          },
-        );
-      }
+          children: blocks,
+        },
+        {
+          headers: headers,
+        },
+      );
     } catch (err) {
       console.error(JSON.stringify(err));
       throw err;
