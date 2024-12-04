@@ -18,7 +18,7 @@
     "title": "Gmail",
     "summary": "Gmail로 메일을 관리해요",
     "description": "메일을 보내거나 초안을 작성할 수 있어요. 필요하다면 파일도 첨부해 보낼 수 있어요",
-    "version": "0.1.380",
+    "version": "0.1.381",
     "license": {
       "name": "AGPL-3.0-only"
     }

@@ -15,7 +15,7 @@
     }
   ],
   "info": {
-    "version": "0.1.380",
+    "version": "0.1.381",
     "title": "@wrtn/connector",
     "description": "wrtn-ecosystem connectors and sdk",
     "license": {
@@ -63,6 +63,58 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/IArticle.ISync.ToNotionOutput"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
+    },
+    "/connector/articles/{id}/exports/google-docs": {
+      "post": {
+        "summary": "Exports specified article to google_docs",
+        "description": "Export the text to GoogleDocs\n\nThe exported text is recorded by creating a\n{@link IArticleExport bbs_article_exports} object based on the snapshot.\nYou can upgrade and downgrade the version using\nthe 'POST /connector/articles/:id/exports/sync/google_docs' connector in the future.\nAlso, it doesn't matter if you export the same version of the text multiple times.\n\nBecause each export generates a new text,\nyou must use the `sync` connector if you want to change the version of an already exported text.",
+        "tags": [],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "x-wrtn-prerequisite": {
+                "method": "patch",
+                "path": "/connector/articles",
+                "jmesPath": "data[].{ value: id, label: snapshot.title }"
+              }
+            },
+            "required": true,
+            "description": " Target article's {@link IArticle.id }, Not snapshot ID"
+          }
+        ],
+        "requestBody": {
+          "description": "GoogleDocs Secret and snapshot information to export",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IArticle.IExport.ToGoogleDocsInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Article Infomation and google_docs secretKey",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IArticle.IExport.ToGoogleDocsOutput"
                 }
               }
             }
@@ -129,7 +181,7 @@
     },
     "/connector/articles/{id}": {
       "patch": {
-        "description": "Reads an article with its every snapshots\n\nReads an article with its every snapshots {@link IArticle.ISnapshot snapshots}\nThis detail contains the entire content created for each version of the document,\nas well as the connection information to the external services from which it was exported.",
+        "description": "Reads an article with its every snapshots\n\nAll text content that is not omitted is shown here, so you can also see how the text has been modified at once.\nThis connector reads an article with its every snapshots {@link IArticle.ISnapshot snapshots}\nThis detail contains the entire content created for each version of the document,\nas well as the connection information to the external services from which it was exported.",
         "tags": [],
         "parameters": [
           {
@@ -254,7 +306,7 @@
     "/connector/articles": {
       "patch": {
         "summary": "List up all summarized articles",
-        "description": "List up all summarized articles with pagination and searching options\n\nBecause it is a call to a text stored in the connector server's own DB,\nit may be appropriate to call this connector if the user asks to call the text without saying the service name.\nIt is recommended that you first ask the user for the service name.\nIf you are asked to look up the text under the names of `Swal`, `Wrtn Technologies`, `Wrtn`, `user own DB`, `user DB`, etc., you should call this connector.\n\nA list of pageed articles will appear.\nThe article contains abbreviated body content, so you can infer what you have from the title and body.\n\nIf you want to see the full text instead of the omitted text,\nor if you want to see the history of this article being exported to Notion or other services,\nplease look up the details.\nYou can view all the snapshots of this article if you want to look at them in detail.\nThe detailed lookup connector is 'PATCH connector/articles/:id'.",
+        "description": "List up all summarized articles with pagination and searching options\n\nBecause it is a call to a text stored in the connector server's own DB,\nit may be appropriate to call this connector if the user asks to call the text without saying the service name.\nIt is recommended that you first ask the user for the service name.\nIf you are asked to look up the text under the names of `Swal`, `Wrtn Technologies`, `Wrtn`, `user own DB`, `user DB`, etc., you should call this connector.\n\nA list of pageed articles will appear.\nThe article contains abbreviated body content, so you can infer what you have from the title and body.\n\nIf you want to see the full text instead of the omitted text,\nor if you want to see the history of this article being exported to Notion or other services,\nplease look up the details.\nHere, we only show the content of the text up to 100 characters, so if you want to see the latter, you need to look up the details.\nYou can view all the snapshots of this article if you want to look at them in detail.\nThe detailed lookup connector is 'PATCH connector/articles/:id'.",
         "tags": [],
         "parameters": [],
         "requestBody": {
@@ -826,6 +878,37 @@
           }
         },
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/light/excel.svg"
+      }
+    },
+    "/connector/google-docs/markdown": {
+      "post": {
+        "summary": "Write Google Docs by markdown format string",
+        "description": "Generate Google Docs By markdown format string\n\nCreate a document with a markdown, which is the ID of the markdown file and the ID of the document.\nIn the case of Google Docs, URLs are included, so you can open and inquire files directly based on your ID.",
+        "tags": [],
+        "parameters": [],
+        "requestBody": {
+          "description": "Google Docs infomation to write",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IGoogleDocs.IRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Created Google Docs and markdown File ids",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IGoogleDocs.IResponse"
+                }
+              }
+            }
+          }
+        }
       }
     },
     "/connector/google-docs": {
@@ -13638,7 +13721,7 @@
             "required": [
               "secretKey"
             ],
-            "title": "Notion SecretKey and Parent Page ID to sync"
+            "title": "Notion SecretKey for synchronization"
           },
           "snapshot": {
             "type": "object",
@@ -13694,12 +13777,31 @@
           "snapshot"
         ]
       },
-      "IArticle.IExport.ToNotionOutput": {
+      "IArticle.IExport.ToGoogleDocsOutput": {
         "type": "object",
         "properties": {
-          "notion": {
-            "$ref": "#/components/schemas/INotion.ICreatePageOutput",
-            "title": "About the note page that was successfully exported"
+          "google_docs": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "title": "Created Google Docs File ID"
+              },
+              "title": {
+                "type": "string",
+                "title": "Title of Created Google Docs File"
+              },
+              "link": {
+                "type": "string",
+                "title": "File URL"
+              }
+            },
+            "required": [
+              "id",
+              "title",
+              "link"
+            ],
+            "title": "About the google doc that was successfully exported"
           },
           "article_snapshot_exports": {
             "$ref": "#/components/schemas/StrictOmitIArticleExportdeleted_at",
@@ -13707,34 +13809,9 @@
           }
         },
         "required": [
-          "notion",
+          "google_docs",
           "article_snapshot_exports"
         ]
-      },
-      "INotion.ICreatePageOutput": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string",
-            "title": "page id",
-            "description": "Unique id of the generated page"
-          },
-          "title": {
-            "type": "string",
-            "title": "tilte\n\nTitle of the document you just created"
-          },
-          "link": {
-            "type": "string",
-            "format": "iri",
-            "title": "page link"
-          }
-        },
-        "required": [
-          "id",
-          "title",
-          "link"
-        ],
-        "title": "Page creation result"
       },
       "StrictOmitIArticleExportdeleted_at": {
         "type": "object",
@@ -13792,6 +13869,106 @@
           "bbs_article_snapshot_id",
           "uid"
         ]
+      },
+      "IArticle.IExport.ToGoogleDocsInput": {
+        "type": "object",
+        "properties": {
+          "google_docs": {
+            "$ref": "#/components/schemas/StrictOmitIGoogleDocs.IRequestnamemarkdown",
+            "title": "Google Docs Secret Key and information to create file"
+          },
+          "snapshot": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "x-wrtn-prerequisite": {
+                  "method": "patch",
+                  "path": "/connector/articles/:id",
+                  "jmesPath": "snapshot[].{ value: id, label: ['created_at ', created_at].join(':', @) }"
+                },
+                "title": "Snapshot ID of the article you want to export to another service"
+              }
+            },
+            "required": [
+              "id"
+            ],
+            "title": "snapshot information to export"
+          }
+        },
+        "required": [
+          "google_docs",
+          "snapshot"
+        ]
+      },
+      "StrictOmitIGoogleDocs.IRequestnamemarkdown": {
+        "type": "object",
+        "properties": {
+          "folderId": {
+            "type": "string",
+            "x-wrtn-prerequisite": {
+              "method": "post",
+              "path": "/connector/google-drive/get/folders",
+              "jmesPath": "data[].{value:id, label:name}"
+            },
+            "title": "Google Drive Folder ID",
+            "description": "Folder id that will contain the file to be created in the drive"
+          },
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "google",
+            "x-wrtn-secret-scopes": [
+              "https://www.googleapis.com/auth/drive.file"
+            ],
+            "title": "Select authentication information",
+            "description": "secret key."
+          }
+        },
+        "required": [
+          "secretKey"
+        ]
+      },
+      "IArticle.IExport.ToNotionOutput": {
+        "type": "object",
+        "properties": {
+          "notion": {
+            "$ref": "#/components/schemas/INotion.ICreatePageOutput",
+            "title": "About the notion page that was successfully exported"
+          },
+          "article_snapshot_exports": {
+            "$ref": "#/components/schemas/StrictOmitIArticleExportdeleted_at",
+            "title": "Exporting infomation"
+          }
+        },
+        "required": [
+          "notion",
+          "article_snapshot_exports"
+        ]
+      },
+      "INotion.ICreatePageOutput": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "page id",
+            "description": "Unique id of the generated page"
+          },
+          "title": {
+            "type": "string",
+            "title": "tilte\n\nTitle of the document you just created"
+          },
+          "link": {
+            "type": "string",
+            "format": "iri",
+            "title": "page link"
+          }
+        },
+        "required": [
+          "id",
+          "title",
+          "link"
+        ],
+        "title": "Page creation result"
       },
       "IArticle.IExport.ToNotionInput": {
         "type": "object",
@@ -14960,6 +15137,85 @@
         },
         "required": []
       },
+      "IGoogleDocs.IResponse": {
+        "type": "object",
+        "properties": {
+          "markdown": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "title": "Created Markdown File ID"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          },
+          "googleDocs": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "title": "Created Google Docs File ID"
+              },
+              "url": {
+                "type": "string",
+                "format": "iri",
+                "title": "File URL"
+              }
+            },
+            "required": [
+              "id",
+              "url"
+            ]
+          }
+        },
+        "required": [
+          "markdown",
+          "googleDocs"
+        ]
+      },
+      "IGoogleDocs.IRequest": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "title": "Google drive file name",
+            "description": "File name to be created in drive"
+          },
+          "folderId": {
+            "type": "string",
+            "x-wrtn-prerequisite": {
+              "method": "post",
+              "path": "/connector/google-drive/get/folders",
+              "jmesPath": "data[].{value:id, label:name}"
+            },
+            "title": "Google Drive Folder ID",
+            "description": "Folder id that will contain the file to be created in the drive"
+          },
+          "markdown": {
+            "type": "string",
+            "title": "markdown",
+            "description": "Contents of the file to be created in drive"
+          },
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "google",
+            "x-wrtn-secret-scopes": [
+              "https://www.googleapis.com/auth/drive.file"
+            ],
+            "title": "Select authentication information",
+            "description": "secret key."
+          }
+        },
+        "required": [
+          "name",
+          "markdown",
+          "secretKey"
+        ],
+        "title": "Information required to create a file in Google Drive"
+      },
       "IGoogleDocs.ICreateGoogleDocsOutput": {
         "type": "object",
         "properties": {
@@ -15080,10 +15336,10 @@
           "type": {
             "oneOf": [
               {
-                "const": "group"
+                "const": "user"
               },
               {
-                "const": "user"
+                "const": "group"
               },
               {
                 "const": "domain"
@@ -16887,10 +17143,10 @@
           "type": {
             "oneOf": [
               {
-                "const": "group"
+                "const": "user"
               },
               {
-                "const": "user"
+                "const": "group"
               },
               {
                 "const": "domain"
@@ -16922,10 +17178,10 @@
               "type": {
                 "oneOf": [
                   {
-                    "const": "group"
+                    "const": "user"
                   },
                   {
-                    "const": "user"
+                    "const": "group"
                   },
                   {
                     "const": "domain"
@@ -30472,6 +30728,9 @@
                     "const": "html"
                   },
                   {
+                    "const": "markdown"
+                  },
+                  {
                     "const": "json"
                   },
                   {
@@ -30479,9 +30738,6 @@
                   },
                   {
                     "const": "r"
-                  },
-                  {
-                    "const": "markdown"
                   },
                   {
                     "const": "abap"
@@ -30925,6 +31181,15 @@
                     "const": "default"
                   },
                   {
+                    "const": "red"
+                  },
+                  {
+                    "const": "green"
+                  },
+                  {
+                    "const": "blue"
+                  },
+                  {
                     "const": "gray"
                   },
                   {
@@ -30937,19 +31202,10 @@
                     "const": "yellow"
                   },
                   {
-                    "const": "green"
-                  },
-                  {
-                    "const": "blue"
-                  },
-                  {
                     "const": "purple"
                   },
                   {
                     "const": "pink"
-                  },
-                  {
-                    "const": "red"
                   },
                   {
                     "const": "gray_background"
@@ -31191,6 +31447,15 @@
                 "const": "default"
               },
               {
+                "const": "red"
+              },
+              {
+                "const": "green"
+              },
+              {
+                "const": "blue"
+              },
+              {
                 "const": "gray"
               },
               {
@@ -31203,19 +31468,10 @@
                 "const": "yellow"
               },
               {
-                "const": "green"
-              },
-              {
-                "const": "blue"
-              },
-              {
                 "const": "purple"
               },
               {
                 "const": "pink"
-              },
-              {
-                "const": "red"
               },
               {
                 "const": "gray_background"
@@ -31320,6 +31576,15 @@
                 "const": "default"
               },
               {
+                "const": "red"
+              },
+              {
+                "const": "green"
+              },
+              {
+                "const": "blue"
+              },
+              {
                 "const": "gray"
               },
               {
@@ -31332,19 +31597,10 @@
                 "const": "yellow"
               },
               {
-                "const": "green"
-              },
-              {
-                "const": "blue"
-              },
-              {
                 "const": "purple"
               },
               {
                 "const": "pink"
-              },
-              {
-                "const": "red"
               },
               {
                 "const": "gray_background"
@@ -31449,6 +31705,15 @@
                 "const": "default"
               },
               {
+                "const": "red"
+              },
+              {
+                "const": "green"
+              },
+              {
+                "const": "blue"
+              },
+              {
                 "const": "gray"
               },
               {
@@ -31461,19 +31726,10 @@
                 "const": "yellow"
               },
               {
-                "const": "green"
-              },
-              {
-                "const": "blue"
-              },
-              {
                 "const": "purple"
               },
               {
                 "const": "pink"
-              },
-              {
-                "const": "red"
               },
               {
                 "const": "gray_background"
@@ -31559,6 +31815,15 @@
                           "const": "default"
                         },
                         {
+                          "const": "red"
+                        },
+                        {
+                          "const": "green"
+                        },
+                        {
+                          "const": "blue"
+                        },
+                        {
                           "const": "gray"
                         },
                         {
@@ -31571,19 +31836,10 @@
                           "const": "yellow"
                         },
                         {
-                          "const": "green"
-                        },
-                        {
-                          "const": "blue"
-                        },
-                        {
                           "const": "purple"
                         },
                         {
                           "const": "pink"
-                        },
-                        {
-                          "const": "red"
                         },
                         {
                           "const": "gray_background"
@@ -32156,6 +32412,15 @@
                           "const": "default"
                         },
                         {
+                          "const": "red"
+                        },
+                        {
+                          "const": "green"
+                        },
+                        {
+                          "const": "blue"
+                        },
+                        {
                           "const": "gray"
                         },
                         {
@@ -32168,19 +32433,10 @@
                           "const": "yellow"
                         },
                         {
-                          "const": "green"
-                        },
-                        {
-                          "const": "blue"
-                        },
-                        {
                           "const": "purple"
                         },
                         {
                           "const": "pink"
-                        },
-                        {
-                          "const": "red"
                         }
                       ],
                       "title": "color"
@@ -32246,6 +32502,15 @@
                           "const": "default"
                         },
                         {
+                          "const": "red"
+                        },
+                        {
+                          "const": "green"
+                        },
+                        {
+                          "const": "blue"
+                        },
+                        {
                           "const": "gray"
                         },
                         {
@@ -32258,19 +32523,10 @@
                           "const": "yellow"
                         },
                         {
-                          "const": "green"
-                        },
-                        {
-                          "const": "blue"
-                        },
-                        {
                           "const": "purple"
                         },
                         {
                           "const": "pink"
-                        },
-                        {
-                          "const": "red"
                         }
                       ],
                       "title": "color"
@@ -32336,6 +32592,15 @@
                           "const": "default"
                         },
                         {
+                          "const": "red"
+                        },
+                        {
+                          "const": "green"
+                        },
+                        {
+                          "const": "blue"
+                        },
+                        {
                           "const": "gray"
                         },
                         {
@@ -32348,19 +32613,10 @@
                           "const": "yellow"
                         },
                         {
-                          "const": "green"
-                        },
-                        {
-                          "const": "blue"
-                        },
-                        {
                           "const": "purple"
                         },
                         {
                           "const": "pink"
-                        },
-                        {
-                          "const": "red"
                         }
                       ],
                       "title": "color"
@@ -32393,6 +32649,15 @@
                           "const": "default"
                         },
                         {
+                          "const": "red"
+                        },
+                        {
+                          "const": "green"
+                        },
+                        {
+                          "const": "blue"
+                        },
+                        {
                           "const": "gray"
                         },
                         {
@@ -32405,19 +32670,10 @@
                           "const": "yellow"
                         },
                         {
-                          "const": "green"
-                        },
-                        {
-                          "const": "blue"
-                        },
-                        {
                           "const": "purple"
                         },
                         {
                           "const": "pink"
-                        },
-                        {
-                          "const": "red"
                         }
                       ],
                       "title": "color"
@@ -32531,13 +32787,13 @@
               "function": {
                 "oneOf": [
                   {
+                    "const": "range"
+                  },
+                  {
                     "const": "date_range"
                   },
                   {
                     "const": "count"
-                  },
-                  {
-                    "const": "range"
                   },
                   {
                     "const": "average"
@@ -33022,6 +33278,12 @@
           "object": {
             "oneOf": [
               {
+                "const": "user"
+              },
+              {
+                "const": "list"
+              },
+              {
                 "const": "block"
               },
               {
@@ -33029,12 +33291,6 @@
               },
               {
                 "const": "database"
-              },
-              {
-                "const": "user"
-              },
-              {
-                "const": "list"
               },
               {
                 "const": "property_item"
@@ -33062,6 +33318,12 @@
               "object": {
                 "oneOf": [
                   {
+                    "const": "user"
+                  },
+                  {
+                    "const": "list"
+                  },
+                  {
                     "const": "block"
                   },
                   {
@@ -33069,12 +33331,6 @@
                   },
                   {
                     "const": "database"
-                  },
-                  {
-                    "const": "user"
-                  },
-                  {
-                    "const": "list"
                   },
                   {
                     "const": "property_item"
@@ -33105,6 +33361,12 @@
               "object": {
                 "oneOf": [
                   {
+                    "const": "user"
+                  },
+                  {
+                    "const": "list"
+                  },
+                  {
                     "const": "block"
                   },
                   {
@@ -33112,12 +33374,6 @@
                   },
                   {
                     "const": "database"
-                  },
-                  {
-                    "const": "user"
-                  },
-                  {
-                    "const": "list"
                   },
                   {
                     "const": "property_item"
@@ -33425,6 +33681,12 @@
           "object": {
             "oneOf": [
               {
+                "const": "user"
+              },
+              {
+                "const": "list"
+              },
+              {
                 "const": "block"
               },
               {
@@ -33432,12 +33694,6 @@
               },
               {
                 "const": "database"
-              },
-              {
-                "const": "user"
-              },
-              {
-                "const": "list"
               },
               {
                 "const": "property_item"
@@ -33476,6 +33732,12 @@
               "object": {
                 "oneOf": [
                   {
+                    "const": "user"
+                  },
+                  {
+                    "const": "list"
+                  },
+                  {
                     "const": "block"
                   },
                   {
@@ -33483,12 +33745,6 @@
                   },
                   {
                     "const": "database"
-                  },
-                  {
-                    "const": "user"
-                  },
-                  {
-                    "const": "list"
                   },
                   {
                     "const": "property_item"
@@ -33519,6 +33775,12 @@
               "object": {
                 "oneOf": [
                   {
+                    "const": "user"
+                  },
+                  {
+                    "const": "list"
+                  },
+                  {
                     "const": "block"
                   },
                   {
@@ -33526,12 +33788,6 @@
                   },
                   {
                     "const": "database"
-                  },
-                  {
-                    "const": "user"
-                  },
-                  {
-                    "const": "list"
                   },
                   {
                     "const": "property_item"
@@ -35760,11 +36016,6 @@
             "pattern": "^((C(.*))|(D(.*))|(G(.*)))",
             "title": "channel id"
           },
-          "text": {
-            "type": "string",
-            "title": "message contents",
-            "description": "When users occasionally call others, they can be called in the form of '@USERNAME', which is called a tag.\nIn the conversation history, the link and code box are abbreviated to <LINK/> and <CODE/>, respectively.\nFor users, it is replaced by a user name, Like <@USERNAME>.\n<@USERNAME> is about calling someone else, and it's not the name of the person who started the conversation, so be careful.\nif you want to find who started this conversation, check 'user' property."
-          },
           "user": {
             "oneOf": [
               {
@@ -35775,6 +36026,11 @@
               }
             ],
             "title": "ID of the person who made this message\n\nIf not a user, message does not have an ID."
+          },
+          "text": {
+            "type": "string",
+            "title": "message contents",
+            "description": "When users occasionally call others, they can be called in the form of '@USERNAME', which is called a tag.\nIn the conversation history, the link and code box are abbreviated to <LINK/> and <CODE/>, respectively.\nFor users, it is replaced by a user name, Like <@USERNAME>.\n<@USERNAME> is about calling someone else, and it's not the name of the person who started the conversation, so be careful.\nif you want to find who started this conversation, check 'user' property."
           },
           "ts": {
             "type": "string",
@@ -35810,8 +36066,8 @@
           "username",
           "link",
           "channel",
-          "text",
           "user",
+          "text",
           "ts",
           "reply_count",
           "reply_users_count",
@@ -58176,6 +58432,10 @@
             "type": "string",
             "title": "ID of the post"
           },
+          "domain": {
+            "type": "string",
+            "title": "Domain of the post"
+          },
           "archived": {
             "type": "boolean",
             "title": "Whether the post is archived"
@@ -58210,10 +58470,6 @@
           "locked": {
             "type": "boolean",
             "title": "Whether the post is locked"
-          },
-          "domain": {
-            "type": "string",
-            "title": "Domain of the post"
           },
           "score": {
             "type": "number",
@@ -59497,7 +59753,7 @@
                 "const": ""
               },
               {
-                "$ref": "#/components/schemas/__type.o2250"
+                "$ref": "#/components/schemas/__type.o2256"
               }
             ],
             "title": "replies"
@@ -59944,14 +60200,14 @@
           "name"
         ]
       },
-      "__type.o2250": {
+      "__type.o2256": {
         "type": "object",
         "properties": {
           "kind": {
             "const": "Listing"
           },
           "data": {
-            "$ref": "#/components/schemas/__type.o2251"
+            "$ref": "#/components/schemas/__type.o2257"
           }
         },
         "required": [
@@ -59959,7 +60215,7 @@
           "data"
         ]
       },
-      "__type.o2251": {
+      "__type.o2257": {
         "type": "object",
         "properties": {
           "after": {
@@ -59979,7 +60235,7 @@
             "items": {
               "oneOf": [
                 {
-                  "$ref": "#/components/schemas/__type.o2252"
+                  "$ref": "#/components/schemas/__type.o2258"
                 },
                 {
                   "type": "object",
@@ -60053,7 +60309,7 @@
           "before"
         ]
       },
-      "__type.o2252": {
+      "__type.o2258": {
         "type": "object",
         "properties": {
           "kind": {

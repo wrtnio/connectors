@@ -18,12 +18,43 @@
     "title": "구글 문서 작성 및 관리",
     "summary": "구글 독스를 쉽게 만들고 관리할 수 있어요.",
     "description": "구글 독스로 다양한 문서 작업을 할 수 있어요. 새로운 문서를 생성하고, 기존 문서에 접근 권한을 부여하거나 수정할 수 있어요. 문서를 복사하거나 삭제할 수도 있고, 특정 구글 드라이브 내의 모든 문서 목록을 가져올 수도 있어요. 문서에 새로운 텍스트를 추가하는 것도 가능해요. 이를 통해 팀 프로젝트, 개인 노트 작성, 보고서 작성 등 다양한 문서 작업을 클라우드 환경에서 효율적으로 수행할 수 있어요. 실시간 협업이 가능해 여러 사람이 동시에 작업할 수 있는 것도 큰 장점이에요. 주의할 점은 구글 슬라이드를 사용하려면 반드시 구글 드라이브 커넥터도 함께 사용해야 해요.",
-    "version": "0.1.380",
+    "version": "0.1.381",
     "license": {
       "name": "AGPL-3.0-only"
     }
   },
   "paths": {
+    "/connector/google-docs/markdown": {
+      "post": {
+        "summary": "Write Google Docs by markdown format string",
+        "description": "Generate Google Docs By markdown format string\n\nCreate a document with a markdown, which is the ID of the markdown file and the ID of the document.\nIn the case of Google Docs, URLs are included, so you can open and inquire files directly based on your ID.",
+        "tags": [],
+        "parameters": [],
+        "requestBody": {
+          "description": "Google Docs infomation to write",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IGoogleDocs.IRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Created Google Docs and markdown File ids",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IGoogleDocs.IResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/connector/google-docs": {
       "post": {
         "summary": "Generate Google Docs",
@@ -285,6 +316,85 @@
   },
   "components": {
     "schemas": {
+      "IGoogleDocs.IResponse": {
+        "type": "object",
+        "properties": {
+          "markdown": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "title": "Created Markdown File ID"
+              }
+            },
+            "required": [
+              "id"
+            ]
+          },
+          "googleDocs": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "title": "Created Google Docs File ID"
+              },
+              "url": {
+                "type": "string",
+                "format": "iri",
+                "title": "File URL"
+              }
+            },
+            "required": [
+              "id",
+              "url"
+            ]
+          }
+        },
+        "required": [
+          "markdown",
+          "googleDocs"
+        ]
+      },
+      "IGoogleDocs.IRequest": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "title": "Google drive file name",
+            "description": "File name to be created in drive"
+          },
+          "folderId": {
+            "type": "string",
+            "x-wrtn-prerequisite": {
+              "method": "post",
+              "path": "/connector/google-drive/get/folders",
+              "jmesPath": "data[].{value:id, label:name}"
+            },
+            "title": "Google Drive Folder ID",
+            "description": "Folder id that will contain the file to be created in the drive"
+          },
+          "markdown": {
+            "type": "string",
+            "title": "markdown",
+            "description": "Contents of the file to be created in drive"
+          },
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "google",
+            "x-wrtn-secret-scopes": [
+              "https://www.googleapis.com/auth/drive.file"
+            ],
+            "title": "Select authentication information",
+            "description": "secret key."
+          }
+        },
+        "required": [
+          "name",
+          "markdown",
+          "secretKey"
+        ],
+        "title": "Information required to create a file in Google Drive"
+      },
       "IGoogleDocs.ICreateGoogleDocsOutput": {
         "type": "object",
         "properties": {
@@ -405,10 +515,10 @@
           "type": {
             "oneOf": [
               {
-                "const": "group"
+                "const": "user"
               },
               {
-                "const": "user"
+                "const": "group"
               },
               {
                 "const": "domain"
