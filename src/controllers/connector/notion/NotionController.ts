@@ -695,4 +695,18 @@ export class NotionController {
   ): Promise<INotion.ICreatePageOutput> {
     return retry(() => NotionProvider.updatePageTitle(input))();
   }
+
+  @core.TypedRoute.Post("create-gallery-database")
+  async createGalleryDatabase(
+    @core.TypedBody() input: INotion.ICreateGalleryDatabaseInput,
+  ): Promise<string> {
+    return retry(() => NotionProvider.createGalleryDatabase(input))();
+  }
+
+  @core.TypedRoute.Post("create-gallery-database-item")
+  async createGalleryDatabaseItem(
+    @core.TypedBody() input: INotion.ICreateGalleryDatabaseItemInput,
+  ): Promise<void> {
+    return NotionProvider.createGalleryDatabaseItem(input);
+  }
 }

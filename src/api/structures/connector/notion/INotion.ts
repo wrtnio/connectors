@@ -2466,4 +2466,45 @@ export namespace INotion {
      */
     pageId: PageIdInput["pageId"];
   }
+
+  export interface ICreateGalleryDatabaseInput extends INotion.ISecret {
+    /**
+     * @title parentPageId
+     */
+    parentPageId: PageIdInput["pageId"];
+
+    /**
+     * @title databaseTitle
+     */
+    title: string;
+  }
+
+  export interface ICreateGalleryDatabaseItemInput extends INotion.ISecret {
+    /**
+     * @title databaseId
+     */
+    databaseId: string;
+
+    /**
+     * @title property
+     */
+    property: IGalleryDatabaseItemProperty[];
+  }
+
+  interface IGalleryDatabaseItemProperty {
+    /**
+     * @title title
+     */
+    title: string;
+
+    /**
+     * @title description
+     */
+    description: string;
+
+    /**
+     * @title url
+     */
+    imageUrl: string & tags.Format<"iri">;
+  }
 }

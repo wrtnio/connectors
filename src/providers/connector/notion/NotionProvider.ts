@@ -6,12 +6,10 @@ import { BlockObjectRequest } from "@notionhq/client/build/src/api-endpoints";
 import { markdownToBlocks } from "@tryfabric/martian";
 import { Block } from "@tryfabric/martian/build/src/notion/blocks";
 import { INotion } from "@wrtn/connector-api/lib/structures/connector/notion/INotion";
-import typia from "typia";
 import { retry } from "../../../utils/retry";
 import { OAuthSecretProvider } from "../../internal/oauth_secret/OAuthSecretProvider";
 import { IOAuthSecret } from "../../internal/oauth_secret/structures/IOAuthSecret";
 import { NotionToMarkdown } from "notion-to-md";
-import { MdStringObject } from "notion-to-md/build/types";
 
 export namespace NotionProvider {
   export async function deleteBlock(
@@ -267,24 +265,6 @@ export namespace NotionProvider {
     }
   }
 
-  // export async function getAllPageContents(
-  //   input: INotion.IReadPageContentInput,
-  //   indent: number = 0,
-  // ) {
-  //   let response: any[] = [];
-  //   let next_cursor = null;
-  //   do {
-  //     const url = `https://api.notion.com/v1/blocks/${input.block_id}/children`;
-  //     const headers = await getHeaders(input.secretKey);
-  //     const res = await axios.get(url, { headers: headers });
-
-  //     response = response.concat(res.data.results);
-  //     next_cursor = res.data.next_cursor;
-  //   } while (next_cursor !== null);
-
-  //   return blocksToMarkdown(response, indent);
-  // }
-
   export async function readPageList(
     input: INotion.ISecret,
   ): Promise<INotion.IReadPageOutput[]> {
@@ -322,37 +302,6 @@ export namespace NotionProvider {
       }
 
       return pageOutput;
-    } catch (error) {
-      console.error(JSON.stringify(error));
-      throw error;
-    }
-  }
-
-  export async function appendPageToContent(
-    pageId: string,
-    input: INotion.IAppendPageToContentInput,
-  ): Promise<void> {
-    try {
-      const notion = await createClient(input.secretKey);
-      await notion.blocks.children.append({
-        block_id: pageId,
-        children: [
-          {
-            object: "block",
-            type: "paragraph",
-            paragraph: {
-              rich_text: [
-                {
-                  type: "text",
-                  text: {
-                    content: input.content,
-                  },
-                },
-              ],
-            },
-          },
-        ],
-      });
     } catch (error) {
       console.error(JSON.stringify(error));
       throw error;
@@ -1015,6 +964,106 @@ export namespace NotionProvider {
         link: `https://www.notion.so/${uuid}`,
       };
     } catch (err) {
+      throw err;
+    }
+  }
+
+  export async function createGalleryDatabase(
+    input: INotion.ICreateGalleryDatabaseInput,
+  ): Promise<string> {
+    try {
+      const headers = await getHeaders(input.secretKey);
+      const res = await axios.post(
+        `https://api.notion.com/v1/databases`,
+        {
+          parent: {
+            type: "page_id",
+            page_id: input.parentPageId,
+          },
+          title: [
+            {
+              type: "text",
+              text: {
+                content: input.title,
+              },
+            },
+          ],
+          properties: {
+            Name: {
+              title: {},
+            },
+            Description: {
+              rich_text: {},
+            },
+          },
+          is_inline: false, // 기본값은 페이지에 삽입되지 않는 독립형 데이터베이스입니다.
+        },
+        {
+          headers: headers,
+        },
+      );
+      return res.data.id;
+    } catch (err) {
+      console.error(JSON.stringify(err));
+      throw err;
+    }
+  }
+
+  export async function createGalleryDatabaseItem(
+    input: INotion.ICreateGalleryDatabaseItemInput,
+  ): Promise<void> {
+    try {
+      const headers = await getHeaders(input.secretKey);
+      for (const item of input.property) {
+        await axios.post(
+          `https://api.notion.com/v1/pages`,
+          {
+            parent: {
+              type: "database_id",
+              database_id: input.databaseId,
+            },
+            properties: {
+              Name: {
+                title: [
+                  {
+                    type: "text",
+                    text: {
+                      content: item.title,
+                    },
+                  },
+                ],
+              },
+              Description: {
+                rich_text: [
+                  {
+                    type: "text",
+                    text: {
+                      content: item.description,
+                    },
+                  },
+                ],
+              },
+            },
+            children: [
+              {
+                object: "block",
+                type: "image",
+                image: {
+                  type: "external",
+                  external: {
+                    url: item.imageUrl,
+                  },
+                },
+              },
+            ],
+          },
+          {
+            headers: headers,
+          },
+        );
+      }
+    } catch (err) {
+      console.error(JSON.stringify(err));
       throw err;
     }
   }
