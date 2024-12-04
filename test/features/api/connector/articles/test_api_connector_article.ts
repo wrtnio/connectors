@@ -318,7 +318,6 @@ export const test_api_connector_article_write_and_index_query_condition =
         limit: 100,
         page: 1,
         search: {
-          id: article.id,
           ids: [article.id],
           snapshot: {
             format: "md",
