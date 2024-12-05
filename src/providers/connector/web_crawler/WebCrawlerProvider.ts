@@ -3,6 +3,7 @@ import { CheerioAPI, Cheerio, load } from "cheerio";
 import { ZenRows } from "zenrows";
 import { ConnectorGlobal } from "../../../ConnectorGlobal";
 import { IWebCrawler } from "@wrtn/connector-api/lib/structures/connector/web_crawler/IWebCrawler";
+import { CommonExtractor } from "./extractors/CommonExtractor";
 
 @Injectable()
 export class WebCrawlerProvider {
@@ -110,9 +111,9 @@ export class WebCrawlerProvider {
 
       if (url && this.isValidImageUrl(url) && this.isValidImage($img)) {
         images.push({
-          id: $img.attr("id") || "",
+          id: $img.attr("id") || undefined,
           url,
-          alt: $img.attr("alt") || "",
+          alt: $img.attr("alt") || undefined,
           classNames:
             this.getClassNames($img).length > 0
               ? this.getClassNames($img)
@@ -190,40 +191,65 @@ export class WebCrawlerProvider {
     request: IWebCrawler.IRequest,
   ): Promise<IWebCrawler.IResponse["paginationGroups"]> {
     const paginationGroups: IWebCrawler.IResponse["paginationGroups"] = [];
-    const paginationElements = await this.findPaginationElements($);
+    const paginationElements = await CommonExtractor.findPaginationElements($);
 
-    for (const element of paginationElements) {
-      const $element = $(element);
-      const type = await this.detectPaginationType($element);
+    for (const section of paginationElements) {
+      const $section = $(section);
+      const type = await CommonExtractor.detectPaginationType($section);
 
       if (!type) continue;
+
+      // 리스트 데이터 찾기
+      const listSelectors = [
+        '[class*="list"]',
+        '[class*="items"]',
+        '[class*="feed"]',
+      ];
+
+      const $listElements = listSelectors
+        .map((selector) => $section.find(selector))
+        .filter(($el) => $el.length > 0)[0];
+
+      if (!$listElements) continue;
+
+      const dataItems = await Promise.all(
+        $listElements
+          .children()
+          .map(async (_, item) => {
+            const $item = $(item);
+            return {
+              text: this.cleanText($item.text()),
+              images: await this.extractImages($, $item),
+            };
+          })
+          .get(),
+      );
 
       const pages: IWebCrawler.IPage[] = [
         {
           url: request.url,
-          classNames: this.getClassNames($element),
-          data: [
-            {
-              text: this.cleanText($element.text()),
-              images: await this.extractImages($, $element),
-            },
-          ],
-          pagination: await this.extractPaginationInfo($element, type),
+          classNames: this.getClassNames($listElements),
+          data: dataItems,
+          pagination: await this.extractPaginationInfo(
+            $section,
+            type.type,
+            xhr,
+          ),
         },
       ];
 
-      // Handle pagination if enabled
       if (request.pagination?.followNextPage) {
         const additionalPages = await this.followPagination(
           $,
           pages[0],
+          xhr,
           request.pagination.followNextPageCount || 10,
         );
         pages.push(...additionalPages);
       }
 
       paginationGroups.push({
-        identifier: [this.generateIdentifier($element)],
+        identifier: [this.generateIdentifier($section)],
         pages,
       });
     }
@@ -231,55 +257,56 @@ export class WebCrawlerProvider {
     return paginationGroups;
   }
 
-  private async detectPaginationType(
-    $element: Cheerio<any>,
-  ): Promise<IWebCrawler.PaginationType> {
-    // Check for infinite scroll
-    if (
-      $element.find("[data-infinite-scroll]").length ||
-      $element.find('[class*="infinite"]').length
-    ) {
-      return "infinite-scroll";
-    }
-
-    // Check for load more button
-    if (
-      $element.find(
-        'button:contains("Load more"), button:contains("Show more")',
-      ).length
-    ) {
-      return "load-more";
-    }
-
-    // Check for numbered pagination
-    if ($element.find('.pagination, [class*="page-numbers"]').length) {
-      return "numbered";
-    }
-
-    return null;
-  }
-
   private async extractPaginationInfo(
     $element: Cheerio<any>,
     type: IWebCrawler.PaginationType,
+    xhr: IWebCrawler.IXHR[],
   ): Promise<IWebCrawler.IPagination> {
     const pagination: IWebCrawler.IPagination = {
       type,
       hasNextPage: false,
     };
 
+    // XHR에서 pagination 관련 API 찾기
+    const paginationXHR = xhr.find((req) => {
+      return (
+        req.url.includes("page=") ||
+        req.url.includes("offset=") ||
+        req.url.includes("cursor=") ||
+        /\/api\/.*\/(list|items|page)/.test(req.url)
+      );
+    });
+
+    if (paginationXHR) {
+      pagination.hasNextPage = true;
+      pagination.nextPageUrl = paginationXHR.url;
+      pagination.pattern = {
+        baseUrl: new URL(paginationXHR.url).pathname,
+        queryParam: new URLSearchParams(paginationXHR.url).has("page")
+          ? "page"
+          : new URLSearchParams(paginationXHR.url).has("offset")
+            ? "offset"
+            : "cursor",
+      };
+
+      // 현재 페이지 번호 추출
+      const pageMatch = paginationXHR.url.match(/page=(\d+)/);
+      if (pageMatch) {
+        pagination.currentPage = parseInt(pageMatch[1], 10);
+      }
+
+      return pagination;
+    }
+
+    // XHR이 없는 경우 기존 DOM 기반 처리
     const $nextLink = $element.find('a:contains("Next"), a[rel="next"]');
     if ($nextLink.length) {
       pagination.hasNextPage = true;
       pagination.nextPageUrl = $nextLink.attr("href");
-
-      // Try to extract current page number
       const currentPageElement = $element.find(".current, .active");
       if (currentPageElement.length) {
         pagination.currentPage = parseInt(currentPageElement.text(), 10);
       }
-
-      // Extract pagination pattern
       if (pagination.nextPageUrl) {
         pagination.pattern = this.extractPaginationPattern(
           pagination.nextPageUrl,
@@ -293,6 +320,7 @@ export class WebCrawlerProvider {
   private async followPagination(
     $: CheerioAPI,
     firstPage: IWebCrawler.IPage,
+    xhr: IWebCrawler.IXHR[],
     maxPages: number,
   ): Promise<IWebCrawler.IPage[]> {
     const pages: IWebCrawler.IPage[] = [];
@@ -327,6 +355,7 @@ export class WebCrawlerProvider {
           pagination: await this.extractPaginationInfo(
             $matchingContent,
             currentPage.pagination.type,
+            xhr,
           ),
         };
 
@@ -389,27 +418,5 @@ export class WebCrawlerProvider {
       if ($matched.length) return $matched;
     }
     return $();
-  }
-
-  private async findPaginationElements($: CheerioAPI): Promise<Cheerio<any>[]> {
-    const selectors = [
-      ".pagination",
-      '[class*="pagination"]',
-      '[class*="paging"]',
-      ".load-more",
-      "[data-infinite-scroll]",
-      '[class*="infinite"]',
-      '[class*="page-numbers"]',
-    ];
-
-    const elements: Cheerio<any>[] = [];
-    for (const selector of selectors) {
-      const $found = $(selector);
-      if ($found.length) {
-        elements.push($found);
-      }
-    }
-
-    return elements;
   }
 }

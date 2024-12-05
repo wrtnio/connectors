@@ -114,17 +114,7 @@ export namespace IWebCrawler {
     /**
      * 페이지네이션된 페이지의 엘리먼트 데이터 정보
      */
-    data: {
-      /**
-       * 페이지네이션된 페이지의 엘리먼트의 텍스트 정보
-       */
-      text: string;
-
-      /**
-       * 페이지네이션된 페이지의 엘리먼트의 이미지 정보
-       */
-      images: IImage[];
-    }[];
+    data: IData[];
 
     /**
      * 페이지네이션이 XHR 요청을 통해 이루어진 경우, 해당 요청의 응답 정보
@@ -135,6 +125,18 @@ export namespace IWebCrawler {
      * 페이지네이션된 데이터의 메타데이터 정보
      */
     pagination: IPagination;
+  }
+
+  export interface IData {
+    /**
+     * 페이지네이션된 페이지의 엘리먼트의 텍스트 정보
+     */
+    text: string;
+
+    /**
+     * 페이지네이션된 페이지의 엘리먼트의 이미지 정보
+     */
+    images: IImage[];
   }
 
   export interface IImage {

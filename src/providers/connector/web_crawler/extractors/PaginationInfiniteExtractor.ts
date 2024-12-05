@@ -3,74 +3,75 @@ import { IWebCrawler } from "@wrtn/connector-api/lib/structures/connector/web_cr
 import { ApiExtractor } from "./ApiExtractor";
 
 export namespace PaginationInfiniteExtractor {
-  export const isInfiniteScroll = ($: CheerioAPI): boolean => {
-    // HTML 클래스/속성 기반 감지
-    const infiniteScrollSelectors = [
-      // 클래스 기반 셀렉터
-      '[class*="infinite"]',
-      '[class*="endless"]',
-      '[class*="load-more"]',
-      '[class*="continuous"]',
-      '[class*="scroll-load"]',
-      "[data-infinite]",
+  export const infiniteScrollSelectors = [
+    // 클래스 기반 셀렉터
+    '[class*="infinite"]',
+    '[class*="endless"]',
+    '[class*="load-more"]',
+    '[class*="continuous"]',
+    '[class*="scroll-load"]',
+    "[data-infinite]",
 
-      // WAI-ARIA 속성
-      '[role="feed"]',
-      '[aria-live="polite"]',
+    // WAI-ARIA 속성
+    '[role="feed"]',
+    '[aria-live="polite"]',
 
-      // 데이터 속성
-      "[data-infinite-scroll]",
-      "[data-endless-scroll]",
-      "[data-continuous-scroll]",
-      "[data-scroll-loading]",
+    // 데이터 속성
+    "[data-infinite-scroll]",
+    "[data-endless-scroll]",
+    "[data-continuous-scroll]",
+    "[data-scroll-loading]",
 
-      // 일반적인 컨테이너
-      ".infinite-container",
-      ".infinite-wrapper",
-      ".scroll-container",
-      ".stream-container",
-    ];
+    // 일반적인 컨테이너
+    ".infinite-container",
+    ".infinite-wrapper",
+    ".scroll-container",
+    ".stream-container",
+  ];
 
-    // 스크립트 기반 감지
-    const scriptSelectors = [
-      // IntersectionObserver 사용 감지
-      'script:contains("IntersectionObserver")',
-      // 일반적인 무한 스크롤 라이브러리 감지
-      'script:contains("infinite-scroll")',
-      'script:contains("infiniteScroll")',
-      'script[src*="infinite-scroll"]',
-      'script[src*="ias.min.js"]',
-      // 스크롤 이벤트 리스너 감지
-      'script:contains("scroll")',
-      'script:contains("scrollTop")',
-      'script:contains("scrollHeight")',
-      // 커스텀 스크롤 관련 함수 감지
-      'script:contains("loadMore")',
-      'script:contains("fetchMore")',
-      'script:contains("getNextPage")',
-    ];
+  // 스크립트 기반 감지
+  export const scriptSelectors = [
+    // IntersectionObserver 사용 감지
+    'script:contains("IntersectionObserver")',
+    // 일반적인 무한 스크롤 라이브러리 감지
+    'script:contains("infinite-scroll")',
+    'script:contains("infiniteScroll")',
+    'script[src*="infinite-scroll"]',
+    'script[src*="ias.min.js"]',
+    // 스크롤 이벤트 리스너 감지
+    'script:contains("scroll")',
+    'script:contains("scrollTop")',
+    'script:contains("scrollHeight")',
+    // 커스텀 스크롤 관련 함수 감지
+    'script:contains("loadMore")',
+    'script:contains("fetchMore")',
+    'script:contains("getNextPage")',
+  ];
 
+  export const isInfiniteScroll = ($element: Cheerio<any>): boolean => {
     return (
-      infiniteScrollSelectors.some((selector) => $(selector).length > 0) ||
-      scriptSelectors.some((selector) => $(selector).length > 0) ||
-      hasScrollEventHandlers($)
+      infiniteScrollSelectors.some(
+        (selector) => $element.find(selector).length > 0,
+      ) ||
+      scriptSelectors.some((selector) => $element.find(selector).length > 0) ||
+      hasScrollEventHandlers($element)
     );
   };
 
-  const hasScrollEventHandlers = ($: CheerioAPI): boolean => {
-    // Sentinel 요소 검사 (스크롤 감지용 요소)
+  const hasScrollEventHandlers = ($element: Cheerio<any>): boolean => {
     const hasSentinel =
-      $('[class*="sentinel"], [class*="observer"], [class*="waypoint"]')
-        .length > 0;
+      $element.find(
+        '[class*="sentinel"], [class*="observer"], [class*="waypoint"]',
+      ).length > 0;
 
-    // 로딩 인디케이터 검사
     const hasLoadingIndicator =
-      $('[class*="loading"], [class*="spinner"], .loader:not(.hidden)').length >
-      0;
+      $element.find(
+        '[class*="loading"], [class*="spinner"], .loader:not(.hidden)',
+      ).length > 0;
 
-    // 스크롤 이벤트 리스너가 있는지 검사
-    const scripts = $("script")
-      .map((_, el) => $(el).html())
+    const scripts = $element
+      .find("script")
+      .map((_, el) => el.name || "")
       .get()
       .filter(Boolean);
 

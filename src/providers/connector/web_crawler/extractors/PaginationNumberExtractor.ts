@@ -2,46 +2,61 @@ import { Cheerio, CheerioAPI } from "cheerio";
 import { IWebCrawler } from "@wrtn/connector-api/lib/structures/connector/web_crawler/IWebCrawler";
 
 export namespace PaginationNumberExtractor {
-  export const isNumberedPagination = ($: CheerioAPI): boolean => {
-    const paginationSelectors = [
-      // 기본 페이지네이션 구조
-      ".pagination",
-      ".paging",
-      ".pager",
-      '[role="navigation"]',
-      'nav[aria-label*="pagination" i]',
+  export const paginationSelectors = [
+    // 기본 페이지네이션 구조
+    ".pagination",
+    ".paging",
+    ".pager",
+    '[role="navigation"]',
+    'nav[aria-label*="pagination" i]',
 
-      // URL 패턴 기반
-      'a[href*="page="]',
-      'a[href*="p="]',
-      'a[href*="offset="]',
-      'a[href*="start="]',
-      'a[href*="/page/"]',
+    // URL 패턴 기반
+    'a[href*="page="]',
+    'a[href*="p="]',
+    'a[href*="offset="]',
+    'a[href*="start="]',
+    'a[href*="/page/"]',
 
-      // 일반적인 페이지 번호 컨테이너
-      ".page-numbers",
-      ".page-links",
-      ".page-nav",
+    // 일반적인 페이지 번호 컨테이너
+    ".page-numbers",
+    ".page-links",
+    ".page-nav",
 
-      // 특정 페이지네이션 컴포넌트
-      '[class*="pagination"]',
-      '[class*="paging"]',
-      '[class*="paginator"]',
-      "[data-pagination]",
+    // 특정 페이지네이션 컴포넌트
+    '[class*="pagination"]',
+    '[class*="paging"]',
+    '[class*="paginator"]',
+    "[data-pagination]",
 
-      // 페이지 번호 표시 요소
-      ".current-page",
-      ".page-current",
-      '[aria-current="page"]',
-    ];
+    // 페이지 번호 표시 요소
+    ".current-page",
+    ".page-current",
+    '[aria-current="page"]',
 
-    // 숫자 기반 페이지네이션 확인
+    // 추가적인 페이지네이션 패턴
+    '[class*="paginator"]',
+    '[class*="pagination"]',
+    '[class*="paging"]',
+    'ul[class*="production-review__paginator"]', // 오늘의집 specific
+
+    // 버튼 기반 페이징
+    'button[class*="page"]',
+    'button[class*="paging"]',
+    'button[type="button"][class*="page"]',
+
+    // 리스트 기반 페이지네이션
+    'ul > li > button[type="button"]',
+    'ul[class*="paginator"] > li > button',
+  ];
+
+  export const isNumberedPagination = ($element: Cheerio<any>): boolean => {
     const hasNumberedLinks = Boolean(
-      $("a").filter(function () {
-        const href = $(this).attr("href");
-        const text = $(this).text().trim();
-        // 숫자만 포함된 텍스트를 가진 링크이고
-        // URL에 페이지 관련 파라미터가 있는 경우만 true 반환
+      $element.find("a").filter((_, el) => {
+        const href = el.attribs?.href;
+
+        const text = $element.find(el).text().trim();
+
+        console.log("text", text);
         return (
           /^\d+$/.test(text) &&
           Boolean(href?.match(/(?:page|p|offset|start)=\d+|\/page\/\d+/i))
@@ -49,21 +64,33 @@ export namespace PaginationNumberExtractor {
       }).length,
     );
 
-    // 이전/다음 네비게이션 확인
+    console.log("hasNumberedLinks", hasNumberedLinks);
+
     const hasNavigation = Boolean(
-      $("a, button").filter(function () {
-        const text = $(this).text().toLowerCase();
+      $element.find("a, button").filter((_, el) => {
+        const text = $element.find(el).text().trim();
         const hasNavigationText = Boolean(
           text.match(/prev|next|이전|다음|◀|▶|←|→/i),
         );
         const hasNavigationImage =
-          $(this).find('img[alt*="prev" i], img[alt*="next" i]').length > 0;
+          $element.find(el).find('img[alt*="prev" i], img[alt*="next" i]')
+            .length > 0;
         return hasNavigationText || hasNavigationImage;
       }).length,
     );
 
+    console.log("hasNavigation", hasNavigation);
+
+    console.log(
+      "paginationSelectors",
+      paginationSelectors.some(
+        (selector) => $element.find(selector).length > 0,
+      ),
+    );
     return (
-      paginationSelectors.some((selector) => $(selector).length > 0) ||
+      paginationSelectors.some(
+        (selector) => $element.find(selector).length > 0,
+      ) ||
       hasNumberedLinks ||
       hasNavigation
     );

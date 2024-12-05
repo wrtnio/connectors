@@ -2,71 +2,71 @@ import { Cheerio, CheerioAPI } from "cheerio";
 import { IWebCrawler } from "@wrtn/connector-api/lib/structures/connector/web_crawler/IWebCrawler";
 
 export namespace PaginationLoadMoreExtractor {
-  export const isLoadMore = ($: CheerioAPI): boolean => {
-    const loadMoreSelectors = [
-      // 버튼 텍스트 기반
-      'button:contains("더보기")',
-      'button:contains("load more")',
-      'button:contains("show more")',
-      'button:contains("view more")',
-      'button:contains("see more")',
-      'a:contains("더보기")',
-      'a:contains("load more")',
-      'a:contains("show more")',
-      'a:contains("view more")',
-      'a:contains("see more")',
+  export const loadMoreSelectors = [
+    // 버튼 텍스트 기반
+    'button:contains("더보기")',
+    'button:contains("load more")',
+    'button:contains("show more")',
+    'button:contains("view more")',
+    'button:contains("see more")',
+    'a:contains("더보기")',
+    'a:contains("load more")',
+    'a:contains("show more")',
+    'a:contains("view more")',
+    'a:contains("see more")',
 
-      // 클래스/ID 기반
-      '[class*="load-more"]',
-      '[class*="show-more"]',
-      '[class*="view-more"]',
-      '[id*="load-more"]',
-      '[id*="show-more"]',
-      "#loadMore",
-      "#showMore",
+    // 클래스/ID 기반
+    '[class*="load-more"]',
+    '[class*="show-more"]',
+    '[class*="view-more"]',
+    '[id*="load-more"]',
+    '[id*="show-more"]',
+    "#loadMore",
+    "#showMore",
 
-      // 데이터 속성
-      "[data-load-more]",
-      "[data-more]",
-      '[data-action="load-more"]',
+    // 데이터 속성
+    "[data-load-more]",
+    "[data-more]",
+    '[data-action="load-more"]',
 
-      // WAI-ARIA 속성
-      '[aria-label*="load more" i]',
-      '[aria-label*="show more" i]',
-      '[role="button"]:contains("more")',
+    // WAI-ARIA 속성
+    '[aria-label*="load more" i]',
+    '[aria-label*="show more" i]',
+    '[role="button"]:contains("more")',
 
-      // 다국어 지원
-      'button:contains("더보기")',
-      'button:contains("もっと見る")',
-      'button:contains("查看更多")',
-      'button:contains("显示更多")',
-      'button:contains("Показать еще")',
-      'button:contains("Mehr anzeigen")',
-      'button:contains("Voir plus")',
-      'button:contains("Ver más")',
-      'button:contains("Mostrar mais")',
-    ];
+    // 다국어 지원
+    'button:contains("더보기")',
+    'button:contains("もっと見る")',
+    'button:contains("查看更多")',
+    'button:contains("显示更多")',
+    'button:contains("Показать еще")',
+    'button:contains("Mehr anzeigen")',
+    'button:contains("Voir plus")',
+    'button:contains("Ver más")',
+    'button:contains("Mostrar mais")',
+  ];
 
-    // 버튼 요소 존재 확인
+  export const isLoadMore = ($element: Cheerio<any>): boolean => {
     const hasLoadMoreButton = loadMoreSelectors.some(
-      (selector) => $(selector).length > 0,
+      (selector) => $element.find(selector).length > 0,
     );
 
-    // API/Script 패턴 확인
-    const hasLoadMoreAPI = hasLoadMoreAPICalls($);
-
-    // 로딩 상태 요소 확인
+    const hasLoadMoreAPI = hasLoadMoreAPICalls($element);
     const hasLoadingState = Boolean(
-      $('[class*="loading"]:not(.hidden), [class*="spinner"]:not(.hidden)')
-        .length,
+      $element.find(
+        '[class*="loading"]:not(.hidden), [class*="spinner"]:not(.hidden)',
+      ).length,
     );
 
     return hasLoadMoreButton || (hasLoadMoreAPI && hasLoadingState);
   };
 
-  const hasLoadMoreAPICalls = ($: CheerioAPI): boolean => {
-    const scriptContent = $("script")
-      .map((_, el) => $(el).html())
+  const hasLoadMoreAPICalls = ($element: Cheerio<any>): boolean => {
+    const scriptContent = $element
+      .find("script")
+      .map(function () {
+        return $element.text();
+      })
       .get()
       .join(" ");
 

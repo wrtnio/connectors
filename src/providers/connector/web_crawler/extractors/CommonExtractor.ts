@@ -3,150 +3,128 @@ import { IWebCrawler } from "@wrtn/connector-api/lib/structures/connector/web_cr
 import { PaginationInfiniteExtractor } from "./PaginationInfiniteExtractor";
 import { PaginationNumberExtractor } from "./PaginationNumberExtractor";
 import { PaginationLoadMoreExtractor } from "./PaginationLoadMoreExtractor";
-import { ApiExtractor } from "./ApiExtractor";
 
 export namespace CommonExtractor {
-  export const extractPage = async (
+  const hasPageContent = ($element: Cheerio<any>): boolean => {
+    const contentList = $element.find('[class*="feed__list"]');
+    if (!contentList.length) return false;
+
+    const paginator = $element.find('[class*="paginator"]');
+    return paginator.length > 0;
+  };
+
+  export const findPaginationElements = async (
     $: CheerioAPI,
-    xhr: IWebCrawler.IXHR[],
-    currentUrl: string,
-  ): Promise<IWebCrawler.IPage> => {
-    const classNames = extractPageClassNames($);
-    const pagination = await extractPaginationInfo($, xhr, currentUrl);
+  ): Promise<Cheerio<any>[]> => {
+    const paginatorSelectors = [
+      ...PaginationInfiniteExtractor.scriptSelectors,
+      ...PaginationInfiniteExtractor.infiniteScrollSelectors,
+      ...PaginationLoadMoreExtractor.loadMoreSelectors,
+      ...PaginationNumberExtractor.paginationSelectors,
+    ];
 
-    return {
-      classNames,
-      url: currentUrl,
-      data: [],
-      res_json: extractResponseJSON(xhr),
-      pagination,
-    };
-  };
+    const sections: Cheerio<any>[] = [];
 
-  const extractPageClassNames = ($: CheerioAPI): string[] => {
-    const classNames = new Set<string>();
+    // 페이지네이터가 있는 섹션 찾기
+    $("section").each((_, section) => {
+      const $section = $(section);
+      const hasPaginator = paginatorSelectors.some(
+        (selector) => $section.find(selector).length > 0,
+      );
 
-    $("[class]").each((_, element) => {
-      const elementClasses = ($(element).attr("class") || "")
-        .split(/\s+/)
-        .filter(Boolean);
-      elementClasses.forEach((className) => classNames.add(className));
-    });
+      if (hasPaginator) {
+        // 데이터 리스트 찾기
+        const listSelectors = [
+          '[class*="list"]',
+          '[class*="items"]',
+          '[class*="feed"]',
+        ];
 
-    return Array.from(classNames);
-  };
-
-  const extractResponseJSON = (xhr: IWebCrawler.IXHR[]): any => {
-    // XHR 응답 중 JSON 데이터가 있는 경우 파싱하여 반환
-    for (const request of xhr) {
-      try {
-        if (request.responseStatus === 200 && request.body) {
-          return JSON.parse(request.body);
-        }
-      } catch {
-        continue;
-      }
-    }
-    return null;
-  };
-
-  export const extractImages = async (
-    $: CheerioAPI,
-  ): Promise<IWebCrawler.IImage[]> => {
-    const images: IWebCrawler.IImage[] = [];
-
-    $("img").each((_, element) => {
-      const $img = $(element);
-      const $parent = $img.parent();
-      const url = $img.attr("src");
-
-      if (url && isValidImage($img)) {
-        images.push({
-          id: $img.attr("id"),
-          url,
-          alt: $img.attr("alt"),
-          classNames: extractElementClasses($img),
-          parentClassNames: extractElementClasses($parent),
-        });
-      }
-    });
-
-    return images;
-  };
-
-  const isValidImage = ($img: Cheerio<any>): boolean => {
-    // 작은 이미지나 장식용 이미지 필터링
-    const width = Number($img.attr("width"));
-    const height = Number($img.attr("height"));
-    const isDecorative = $img.attr("role") === "presentation";
-
-    return !(width < 100 || height < 100 || isDecorative);
-  };
-
-  const extractElementClasses = ($element: Cheerio<any>): string[] => {
-    return ($element.attr("class") || "").split(/\s+/).filter(Boolean);
-  };
-
-  const detectPaginationType = async (
-    $: CheerioAPI,
-  ): Promise<IWebCrawler.PaginationType> => {
-    if (PaginationInfiniteExtractor.isInfiniteScroll($)) {
-      return "infinite-scroll";
-    }
-
-    if (PaginationNumberExtractor.isNumberedPagination($)) {
-      return "numbered";
-    }
-
-    if (PaginationLoadMoreExtractor.isLoadMore($)) {
-      return "load-more";
-    }
-
-    return null;
-  };
-
-  export const extractPaginationInfo = async (
-    $: CheerioAPI,
-    xhr: IWebCrawler.IXHR[],
-    currentUrl: string,
-  ): Promise<IWebCrawler.IPagination> => {
-    const type = await detectPaginationType($);
-    const apiPattern = ApiExtractor.detectAPIPattern($);
-
-    let paginationInfo: IWebCrawler.IPagination;
-
-    switch (type) {
-      case "numbered":
-        paginationInfo =
-          await PaginationNumberExtractor.handleNumberedPagination(
-            $,
-            currentUrl,
-          );
-        break;
-      case "infinite-scroll":
-        paginationInfo =
-          await PaginationInfiniteExtractor.handleInfiniteScroll($);
-        break;
-      case "load-more":
-        paginationInfo = await PaginationLoadMoreExtractor.handleLoadMore(
-          $,
-          currentUrl,
+        const hasList = listSelectors.some(
+          (selector) => $section.find(selector).length > 0,
         );
-        break;
-      default:
-        paginationInfo = {
-          type: null,
-          hasNextPage: false,
-        };
-    }
 
-    // API 패턴이 감지된 경우 패턴 정보 병합
-    if (apiPattern.found) {
-      paginationInfo.pattern = apiPattern.pattern;
-    }
+        if (hasList) {
+          sections.push($section);
+        }
+      }
+    });
 
-    return paginationInfo;
+    return sections;
   };
+
+  export const detectPaginationType = async (
+    $element: Cheerio<any>,
+  ): Promise<{
+    type: IWebCrawler.PaginationType;
+    $element: Cheerio<any>;
+  } | null> => {
+    if (PaginationInfiniteExtractor.isInfiniteScroll($element)) {
+      return {
+        type: "infinite-scroll",
+        $element: $element,
+      };
+    }
+
+    if (PaginationNumberExtractor.isNumberedPagination($element)) {
+      return {
+        type: "numbered",
+        $element: $element,
+      };
+    }
+
+    if (PaginationLoadMoreExtractor.isLoadMore($element)) {
+      return {
+        type: "load-more",
+        $element: $element,
+      };
+    }
+
+    return null;
+  };
+
+  // export const extractPaginationInfo = async (
+  //   $: CheerioAPI,
+  //   xhr: IWebCrawler.IXHR[],
+  //   currentUrl: string,
+  // ): Promise<IWebCrawler.IPagination> => {
+  //   const type = await detectPaginationType($);
+  //   const apiPattern = ApiExtractor.detectAPIPattern($);
+  //
+  //   let paginationInfo: IWebCrawler.IPagination;
+  //
+  //   switch (type) {
+  //     case "numbered":
+  //       paginationInfo =
+  //         await PaginationNumberExtractor.handleNumberedPagination(
+  //           $,
+  //           currentUrl,
+  //         );
+  //       break;
+  //     case "infinite-scroll":
+  //       paginationInfo =
+  //         await PaginationInfiniteExtractor.handleInfiniteScroll($);
+  //       break;
+  //     case "load-more":
+  //       paginationInfo = await PaginationLoadMoreExtractor.handleLoadMore(
+  //         $,
+  //         currentUrl,
+  //       );
+  //       break;
+  //     default:
+  //       paginationInfo = {
+  //         type: null,
+  //         hasNextPage: false,
+  //       };
+  //   }
+  //
+  //   // API 패턴이 감지된 경우 패턴 정보 병합
+  //   if (apiPattern.found) {
+  //     paginationInfo.pattern = apiPattern.pattern;
+  //   }
+  //
+  //   return paginationInfo;
+  // };
 
   export const groupPages = (
     pages: IWebCrawler.IPage[],
