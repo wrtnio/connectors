@@ -10,6 +10,8 @@ import { retry } from "../../../utils/retry";
 import { OAuthSecretProvider } from "../../internal/oauth_secret/OAuthSecretProvider";
 import { IOAuthSecret } from "../../internal/oauth_secret/structures/IOAuthSecret";
 import { NotionToMarkdown } from "notion-to-md";
+import { AwsProvider } from "../aws/AwsProvider";
+import { v4 } from "uuid";
 
 export namespace NotionProvider {
   export async function deleteBlock(
@@ -1005,7 +1007,29 @@ export namespace NotionProvider {
   ): Promise<void> {
     try {
       const headers = await getHeaders(input.secretKey);
-      const blocks = markdownToBlocks(input.markdown);
+
+      const imageRegex = /!\[.*?\]\((https?:\/\/[^\s)]+)\)/g;
+      const matches = [...input.markdown.matchAll(imageRegex)];
+      const imageUrls = await Promise.all(
+        matches.map(async (match) => {
+          const imageUrl = match[1];
+          const imageBuffer = await axios.get(imageUrl, {
+            responseType: "arraybuffer",
+          });
+          return await uploadImageToS3(imageBuffer.data);
+        }),
+      );
+
+      const modifiedMarkdown = matches
+        .map((match, index) => {
+          return input.markdown.replace(
+            match[0],
+            `![Image](${imageUrls[index]})`,
+          );
+        })
+        .join("");
+
+      const blocks = markdownToBlocks(modifiedMarkdown);
 
       const database = await axios.get(
         `https://api.notion.com/v1/databases/${input.databaseId}`,
@@ -1043,6 +1067,21 @@ export namespace NotionProvider {
           headers: headers,
         },
       );
+    } catch (err) {
+      console.error(JSON.stringify(err));
+      throw err;
+    }
+  }
+
+  async function uploadImageToS3(img: Buffer) {
+    try {
+      const imgUrl = await AwsProvider.uploadObject({
+        key: `connector/notion/gallery-database-image/${v4()}.png`,
+        data: img,
+        contentType: "image/png",
+      });
+
+      return imgUrl;
     } catch (err) {
       console.error(JSON.stringify(err));
       throw err;
