@@ -22,23 +22,32 @@ export class GoogleDocsProvider {
     const authClient = new google.auth.OAuth2();
 
     authClient.setCredentials({ access_token: accessToken });
-    const docs = google.docs("v1");
-    await docs.documents.batchUpdate({
+    const docs = google.docs({ version: "v1", auth: authClient });
+    const document = await docs.documents.get({
       documentId: input.documentId,
-      requestBody: {
-        requests: [
-          {
-            replaceAllText: {
-              replaceText: "",
-              containsText: {
-                text: "{{.*}}",
-                matchCase: false,
+      fields: "body.content(startIndex,endIndex)",
+    });
+
+    const content = document.data.body?.content;
+    if (content instanceof Array && content.length >= 2) {
+      const startIndex = content[0].endIndex;
+      const lastContent = content[content.length - 1].endIndex! - 1;
+      await docs.documents.batchUpdate({
+        documentId: input.documentId,
+        requestBody: {
+          requests: [
+            {
+              deleteContentRange: {
+                range: {
+                  startIndex: startIndex,
+                  endIndex: lastContent,
+                },
               },
             },
-          },
-        ],
-      },
-    });
+          ],
+        },
+      });
+    }
 
     const url = `https://docs.google.com/document/d/${input.documentId as string}/`;
     return { id: input.documentId, url };
@@ -333,6 +342,20 @@ export class GoogleDocsProvider {
     const docs = google.docs({ version: "v1", auth: authClient });
     const document = await docs.documents.get({ documentId });
     return document.data;
+  }
+
+  getEndIndex(document: { data: docs_v1.Schema$Document }) {
+    console.log(JSON.stringify(document.data.body?.content, null, 2));
+    // 문서의 끝 인덱스 반환
+    const weight =
+      (document.data.body?.content?.reduce<number>((acc, element) => {
+        if (typeof element.endIndex === "number") {
+          return Math.max(acc, element.endIndex);
+        }
+        return acc;
+      }, 0) ?? 2) - 2; // 빈 문서는 줄바꿈 문자를 포함하여 최소 index가 2부터 시작한다.
+
+    return weight;
   }
 
   async append(
