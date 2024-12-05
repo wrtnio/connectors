@@ -30,6 +30,22 @@ export class GoogleDocsController {
   }
 
   /**
+   * Remove entire contents of google docs
+   *
+   * Make Google Docs a blank file like you just created.
+   *
+   * @summary erase the entire contents of a file and make it an empty file
+   * @param input Google Drive and Docs Secret Key and information to clear file
+   * @returns
+   */
+  @core.TypedRoute.Delete("contents")
+  async clear(
+    @TypedBody() input: IGoogleDocs.IClearInput,
+  ): Promise<IGoogleDocs.IClearOutput> {
+    return retry(() => this.googleDocsProvider.clear(input))();
+  }
+
+  /**
    * Generate Google Docs
    *
    * Since this is creating a blank page, we recommend that you use connectors that add the content of google-docs in a row.

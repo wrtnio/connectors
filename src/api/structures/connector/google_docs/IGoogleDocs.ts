@@ -112,6 +112,48 @@ export namespace IGoogleDocs {
   }
 
   /**
+   * @title Document ID and URL
+   */
+  export interface IClearOutput {
+    /**
+     * @title Created Google Docs File ID
+     */
+    id: string;
+
+    /**
+     * @title File URL
+     */
+    url: string & tags.Format<"iri">;
+  }
+
+  /**
+   * @title Google Drive and Docs Secret Key and information to clear file
+   */
+  export interface IClearInput
+    extends ICommon.ISecret<
+      "google",
+      [
+        "https://www.googleapis.com/auth/drive.file",
+        "https://www.googleapis.com/auth/documents",
+      ]
+    > {
+    /**
+     * ID when you want to erase the entire contents of a file and make it an empty file
+     *
+     * @title ID of Google Docs File
+     */
+    documentId: string &
+      Prerequisite<{
+        method: "post";
+        path: "/connector/google-docs/get-list";
+        jmesPath: JMESPath<
+          IListGoogleDocsOutput,
+          "data[].{value:id, label:title}"
+        >;
+      }>;
+  }
+
+  /**
    * @title Information required to create a file in Google Drive
    */
   export interface IRequest

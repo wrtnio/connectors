@@ -14,6 +14,36 @@ import { IOAuthSecret } from "../../internal/oauth_secret/structures/IOAuthSecre
 export class GoogleDocsProvider {
   constructor(private readonly googleProvider: GoogleProvider) {}
 
+  async clear(
+    input: IGoogleDocs.IClearInput,
+  ): Promise<IGoogleDocs.IClearOutput> {
+    const token = await this.getToken(input.secretKey);
+    const accessToken = await this.googleProvider.refreshAccessToken(token);
+    const authClient = new google.auth.OAuth2();
+
+    authClient.setCredentials({ access_token: accessToken });
+    const docs = google.docs("v1");
+    await docs.documents.batchUpdate({
+      documentId: input.documentId,
+      requestBody: {
+        requests: [
+          {
+            replaceAllText: {
+              replaceText: "",
+              containsText: {
+                text: "{{.*}}",
+                matchCase: false,
+              },
+            },
+          },
+        ],
+      },
+    });
+
+    const url = `https://docs.google.com/document/d/${input.documentId as string}/`;
+    return { id: input.documentId, url };
+  }
+
   async write(input: IGoogleDocs.IRequest): Promise<IGoogleDocs.IResponse> {
     const token = await this.getToken(input.secretKey);
     const accessToken = await this.googleProvider.refreshAccessToken(token);
