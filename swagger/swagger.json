@@ -15,7 +15,7 @@
     }
   ],
   "info": {
-    "version": "0.1.381",
+    "version": "0.1.382",
     "title": "@wrtn/connector",
     "description": "wrtn-ecosystem connectors and sdk",
     "license": {
@@ -7341,7 +7341,10 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/INotion.ICreateGalleryDatabaseItemInput"
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/INotion.ICreateGalleryDatabaseItemInput"
+                }
               }
             }
           },
@@ -7351,7 +7354,14 @@
           "201": {
             "description": "",
             "content": {
-              "application/json": {}
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/INotion.ICreateGalleryDatabaseItemOutput"
+                  }
+                }
+              }
             }
           }
         },
@@ -34262,6 +34272,27 @@
           "secretKey"
         ],
         "title": "Information needed to create a gallery view database"
+      },
+      "INotion.ICreateGalleryDatabaseItemOutput": {
+        "type": "object",
+        "properties": {
+          "pageId": {
+            "type": "string",
+            "title": "pageId",
+            "description": "Created item database id"
+          },
+          "url": {
+            "type": "string",
+            "format": "iri",
+            "title": "page url",
+            "description": "Created item page url"
+          }
+        },
+        "required": [
+          "pageId",
+          "url"
+        ],
+        "title": "Information created a gallery view database item"
       },
       "INotion.ICreateGalleryDatabaseItemInput": {
         "type": "object",
