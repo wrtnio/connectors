@@ -1003,17 +1003,17 @@ export namespace NotionProvider {
   }
 
   export async function createGalleryDatabaseItem(
-    input: INotion.ICreateGalleryDatabaseItemInput[],
+    input: INotion.ICreateGalleryDatabaseItemInput,
   ): Promise<INotion.ICreateGalleryDatabaseItemOutput[]> {
     try {
       const result: INotion.ICreateGalleryDatabaseItemOutput[] = [];
       await Promise.all(
-        input.map(async (input) => {
+        input.info.map(async (info: INotion.ICreateGalleryDatabaseItemInfo) => {
           try {
             const headers = await getHeaders(input.secretKey);
 
             const imageRegex = /!\[.*?\]\((https?:\/\/[^\s)]+)\)/g;
-            const matches = [...input.markdown.matchAll(imageRegex)];
+            const matches = [...info.markdown.matchAll(imageRegex)];
             const imageUrls = await Promise.all(
               matches.map(async (match) => {
                 const imageUrl = match[1];
@@ -1026,7 +1026,7 @@ export namespace NotionProvider {
 
             const modifiedMarkdown = matches.reduce((acc, match, index) => {
               return acc.replace(match[0], `![Image](${imageUrls[index]})`);
-            }, input.markdown);
+            }, info.markdown);
 
             const blocks = markdownToBlocks(modifiedMarkdown);
 
@@ -1054,7 +1054,7 @@ export namespace NotionProvider {
                       {
                         type: "text",
                         text: {
-                          content: input.title,
+                          content: info.title,
                         },
                       },
                     ],
@@ -1072,7 +1072,7 @@ export namespace NotionProvider {
             });
           } catch (err) {
             console.error(
-              `Error creating page for input titled "${input.title}":`,
+              `Error creating page for input titled "${info.title}":`,
               JSON.stringify(err),
             );
           }

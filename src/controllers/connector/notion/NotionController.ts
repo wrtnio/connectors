@@ -724,7 +724,6 @@ export class NotionController {
    * Creating a database item means adding an item to an existing database.
    * If there is no database received from input, you must first create a database using the POST: /connector/notion/create-gallery-database endpoint and then run it.
    * You should use this endpoint when adding items to an already created database.
-   * For example, if you search for clothes in a shopping mall and create each results in a gallery database, if there are 5 search results, you should call this endpoint 5 times to create 5 items in the existing database.
    *
    * @summary Create a item in the gallery database
    * @param input
@@ -736,7 +735,7 @@ export class NotionController {
   @ApiTags("Notion")
   @core.TypedRoute.Post("create-gallery-item")
   async createGalleryItem(
-    @core.TypedBody() input: INotion.ICreateGalleryDatabaseItemInput[],
+    @core.TypedBody() input: INotion.ICreateGalleryDatabaseItemInput,
   ): Promise<INotion.ICreateGalleryDatabaseItemOutput[]> {
     return retry(() => NotionProvider.createGalleryDatabaseItem(input))();
   }
