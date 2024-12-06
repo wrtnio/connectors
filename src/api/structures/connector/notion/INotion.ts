@@ -1,9 +1,4 @@
-import {
-  JMESPath,
-  Placeholder,
-  Prerequisite,
-  SecretKey,
-} from "@wrtnio/decorators";
+import { JMESPath, Placeholder, Prerequisite } from "@wrtnio/decorators";
 import { tags } from "typia";
 
 import {
