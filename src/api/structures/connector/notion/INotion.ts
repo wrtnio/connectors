@@ -2513,7 +2513,7 @@ export namespace INotion {
   }
 
   /**
-   * @title Information needed to create a gallery view database item
+   * @title Information needed to create a gallery view database items
    */
   export interface ICreateGalleryDatabaseItemInput extends INotion.ISecret {
     /**
@@ -2531,6 +2531,18 @@ export namespace INotion {
         jmesPath: JMESPath<IDatabaseInfo[], "[].{value:id, label:title}">;
       }>;
 
+    /**
+     * Information needed to create a gallery database items.
+     *
+     * @title information
+     */
+    info: ICreateGalleryDatabaseItemInfo[];
+  }
+
+  /**
+   * @title Information created a gallery view database item
+   */
+  export interface ICreateGalleryDatabaseItemInfo {
     /**
      * Database Item Title.
      * The title of the item to be added to the database.
