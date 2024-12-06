@@ -15,7 +15,7 @@
     }
   ],
   "info": {
-    "version": "0.1.383",
+    "version": "0.1.384",
     "title": "@wrtn/connector",
     "description": "wrtn-ecosystem connectors and sdk",
     "license": {
@@ -7331,8 +7331,8 @@
     },
     "/connector/notion/create-gallery-item": {
       "post": {
-        "summary": "Create a item in the gallery database",
-        "description": "Create an item in the generated gallery view database.\nCreating a database item means adding an item to an existing database.\nIf there is no database received from input, you must first create a database using the POST: /connector/notion/create-gallery-database endpoint and then run it.\nYou should use this endpoint when adding items to an already created database.",
+        "summary": "Create items in the gallery database",
+        "description": "Create an item in the generated gallery view database.\nCreating a database item means adding an item to an existing database.\nIf there is no database received from input, you must first create a database using the POST: /connector/notion/create-gallery-database endpoint and then run it.\nYou should use this endpoint when adding items to an already created database.\nYou need to use this endpoint to add multiple items to the gallery database at once.\nIf you need to add 3 items, instead of calling the endpoint 3 times, you should put the 3 items in an array in the info information and add the 3 items in 1 endpoint call.",
         "tags": [
           "Notion"
         ],
@@ -34309,8 +34309,8 @@
             "items": {
               "$ref": "#/components/schemas/INotion.ICreateGalleryDatabaseItemInfo"
             },
-            "title": "information",
-            "description": "Information needed to create a gallery database items."
+            "title": "informations",
+            "description": "Information needed to create a gallery database items.\n\nYou can add multiple items at once.\nIf you need to add multiple database items, you should add each piece of information to the info as an array.\nYou should not make multiple calls when you need to add multiple items."
           },
           "secretKey": {
             "type": "string",

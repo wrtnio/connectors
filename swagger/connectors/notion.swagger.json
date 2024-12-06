@@ -18,7 +18,7 @@
     "title": "노션 워크스페이스 관리",
     "summary": "노션 으로 작업 공간을 효율적으로 관리해요.",
     "description": "노션 에서 페이지를 만들고, 내용을 추가하고, 데이터베이스를 관리할 수 있어요. 페이지 검색, 데이터베이스 아이템 관리 등 다양한 기능을 활용할 수 있어요. 프로젝트 관리, 노트 작성, 팀 협업, 지식 베이스 구축 등 다양한 목적으로 사용할 수 있어요. 텍스트, 이미지, 표, 리스트 등 다양한 형식의 콘텐츠를 조합하여 풍부한 문서를 만들 수 있고, 팀원들과 실시간으로 공유하고 협업할 수 있어요.",
-    "version": "0.1.383",
+    "version": "0.1.384",
     "license": {
       "name": "AGPL-3.0-only"
     }
@@ -992,8 +992,8 @@
     },
     "/connector/notion/create-gallery-item": {
       "post": {
-        "summary": "Create a item in the gallery database",
-        "description": "Create an item in the generated gallery view database.\nCreating a database item means adding an item to an existing database.\nIf there is no database received from input, you must first create a database using the POST: /connector/notion/create-gallery-database endpoint and then run it.\nYou should use this endpoint when adding items to an already created database.",
+        "summary": "Create items in the gallery database",
+        "description": "Create an item in the generated gallery view database.\nCreating a database item means adding an item to an existing database.\nIf there is no database received from input, you must first create a database using the POST: /connector/notion/create-gallery-database endpoint and then run it.\nYou should use this endpoint when adding items to an already created database.\nYou need to use this endpoint to add multiple items to the gallery database at once.\nIf you need to add 3 items, instead of calling the endpoint 3 times, you should put the 3 items in an array in the info information and add the 3 items in 1 endpoint call.",
         "tags": [
           "Notion"
         ],
@@ -5360,8 +5360,8 @@
             "items": {
               "$ref": "#/components/schemas/INotion.ICreateGalleryDatabaseItemInfo"
             },
-            "title": "information",
-            "description": "Information needed to create a gallery database items."
+            "title": "informations",
+            "description": "Information needed to create a gallery database items.\n\nYou can add multiple items at once.\nIf you need to add multiple database items, you should add each piece of information to the info as an array.\nYou should not make multiple calls when you need to add multiple items."
           },
           "secretKey": {
             "type": "string",
