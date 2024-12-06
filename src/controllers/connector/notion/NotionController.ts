@@ -724,8 +724,10 @@ export class NotionController {
    * Creating a database item means adding an item to an existing database.
    * If there is no database received from input, you must first create a database using the POST: /connector/notion/create-gallery-database endpoint and then run it.
    * You should use this endpoint when adding items to an already created database.
+   * You need to use this endpoint to add multiple items to the gallery database at once.
+   * If you need to add 3 items, instead of calling the endpoint 3 times, you should put the 3 items in an array in the info information and add the 3 items in 1 endpoint call.
    *
-   * @summary Create a item in the gallery database
+   * @summary Create items in the gallery database
    * @param input
    * @returns
    */
