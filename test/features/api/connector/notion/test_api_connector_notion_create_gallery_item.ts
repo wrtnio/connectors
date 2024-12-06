@@ -1,10 +1,11 @@
 import CApi from "@wrtn/connector-api/lib/index";
 import typia from "typia";
 import { ConnectorGlobal } from "../../../../../src/ConnectorGlobal";
+import { INotion } from "@wrtn/connector-api/lib/structures/connector/notion/INotion";
 
 export const test_api_connector_notion_create_gallery_item = async (
   connection: CApi.IConnection,
-) => {
+): Promise<INotion.ICreateGalleryDatabaseItemOutput[]> => {
   const res =
     await CApi.functional.connector.notion.create_gallery_item.createGalleryItem(
       connection,
@@ -58,4 +59,5 @@ export const test_api_connector_notion_create_gallery_item = async (
       ],
     );
   typia.assertEquals(res);
+  return res;
 };

@@ -2548,4 +2548,23 @@ export namespace INotion {
      */
     markdown: string;
   }
+
+  /**
+   * @title Information created a gallery view database item
+   */
+  export interface ICreateGalleryDatabaseItemOutput {
+    /**
+     * Created item database id
+     *
+     * @title pageId
+     */
+    pageId: string;
+
+    /**
+     * Created item page url
+     *
+     * @title page url
+     */
+    url: string & tags.Format<"iri">;
+  }
 }

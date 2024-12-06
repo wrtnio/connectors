@@ -1004,8 +1004,9 @@ export namespace NotionProvider {
 
   export async function createGalleryDatabaseItem(
     input: INotion.ICreateGalleryDatabaseItemInput[],
-  ): Promise<void> {
+  ): Promise<INotion.ICreateGalleryDatabaseItemOutput[]> {
     try {
+      const result: INotion.ICreateGalleryDatabaseItemOutput[] = [];
       await Promise.all(
         input.map(async (input) => {
           try {
@@ -1040,7 +1041,7 @@ export namespace NotionProvider {
               database.data.properties,
             ).find((key) => database.data.properties[key].type === "title");
 
-            await axios.post(
+            const item = await axios.post(
               `https://api.notion.com/v1/pages`,
               {
                 parent: {
@@ -1065,6 +1066,10 @@ export namespace NotionProvider {
                 headers: headers,
               },
             );
+            result.push({
+              pageId: item.data.id,
+              url: item.data.url,
+            });
           } catch (err) {
             console.error(
               `Error creating page for input titled "${input.title}":`,
@@ -1073,6 +1078,7 @@ export namespace NotionProvider {
           }
         }),
       );
+      return result;
     } catch (err) {
       console.error(JSON.stringify(err));
       throw err;
