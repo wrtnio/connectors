@@ -15,7 +15,7 @@
     }
   ],
   "info": {
-    "version": "0.1.382",
+    "version": "0.1.383",
     "title": "@wrtn/connector",
     "description": "wrtn-ecosystem connectors and sdk",
     "license": {
@@ -7332,7 +7332,7 @@
     "/connector/notion/create-gallery-item": {
       "post": {
         "summary": "Create a item in the gallery database",
-        "description": "Create an item in the generated gallery view database.\nCreating a database item means adding an item to an existing database.\nIf there is no database received from input, you must first create a database using the POST: /connector/notion/create-gallery-database endpoint and then run it.\nYou should use this endpoint when adding items to an already created database.\nFor example, if you search for clothes in a shopping mall and create each results in a gallery database, if there are 5 search results, you should call this endpoint 5 times to create 5 items in the existing database.",
+        "description": "Create an item in the generated gallery view database.\nCreating a database item means adding an item to an existing database.\nIf there is no database received from input, you must first create a database using the POST: /connector/notion/create-gallery-database endpoint and then run it.\nYou should use this endpoint when adding items to an already created database.",
         "tags": [
           "Notion"
         ],
@@ -7341,10 +7341,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "type": "array",
-                "items": {
-                  "$ref": "#/components/schemas/INotion.ICreateGalleryDatabaseItemInput"
-                }
+                "$ref": "#/components/schemas/INotion.ICreateGalleryDatabaseItemInput"
               }
             }
           },
@@ -34307,15 +34304,13 @@
             "title": "databaseId",
             "description": "Database Id what you want to add a item.\n\nIf the database is not created, you can create a database using the `Create Gallery Database` function first.\nThe endpoint is POST: /connector/notion/create-gallery-database."
           },
-          "title": {
-            "type": "string",
-            "title": "title",
-            "description": "Database Item Title.\nThe title of the item to be added to the database."
-          },
-          "markdown": {
-            "type": "string",
-            "title": "markdown",
-            "description": "If you add a markdown string, it will be converted appropriately according to the Notion's block.\nTherefore, you don't have to use Unicode symbols to implement lists or decorate documents using letters.\nOf course, this depends on the user, and there is no problem using the character string you want, such as inserting an emoji as well as Unicode."
+          "info": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/INotion.ICreateGalleryDatabaseItemInfo"
+            },
+            "title": "information",
+            "description": "Information needed to create a gallery database items."
           },
           "secretKey": {
             "type": "string",
@@ -34326,11 +34321,30 @@
         },
         "required": [
           "databaseId",
-          "title",
-          "markdown",
+          "info",
           "secretKey"
         ],
-        "title": "Information needed to create a gallery view database item"
+        "title": "Information needed to create a gallery view database items"
+      },
+      "INotion.ICreateGalleryDatabaseItemInfo": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "title": "title",
+            "description": "Database Item Title.\nThe title of the item to be added to the database."
+          },
+          "markdown": {
+            "type": "string",
+            "title": "markdown",
+            "description": "If you add a markdown string, it will be converted appropriately according to the Notion's block.\nTherefore, you don't have to use Unicode symbols to implement lists or decorate documents using letters.\nOf course, this depends on the user, and there is no problem using the character string you want, such as inserting an emoji as well as Unicode."
+          }
+        },
+        "required": [
+          "title",
+          "markdown"
+        ],
+        "title": "Information created a gallery view database item"
       },
       "IGoogleHotel.IResponse": {
         "type": "object",

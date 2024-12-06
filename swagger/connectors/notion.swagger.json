@@ -18,7 +18,7 @@
     "title": "노션 워크스페이스 관리",
     "summary": "노션 으로 작업 공간을 효율적으로 관리해요.",
     "description": "노션 에서 페이지를 만들고, 내용을 추가하고, 데이터베이스를 관리할 수 있어요. 페이지 검색, 데이터베이스 아이템 관리 등 다양한 기능을 활용할 수 있어요. 프로젝트 관리, 노트 작성, 팀 협업, 지식 베이스 구축 등 다양한 목적으로 사용할 수 있어요. 텍스트, 이미지, 표, 리스트 등 다양한 형식의 콘텐츠를 조합하여 풍부한 문서를 만들 수 있고, 팀원들과 실시간으로 공유하고 협업할 수 있어요.",
-    "version": "0.1.382",
+    "version": "0.1.383",
     "license": {
       "name": "AGPL-3.0-only"
     }
@@ -993,7 +993,7 @@
     "/connector/notion/create-gallery-item": {
       "post": {
         "summary": "Create a item in the gallery database",
-        "description": "Create an item in the generated gallery view database.\nCreating a database item means adding an item to an existing database.\nIf there is no database received from input, you must first create a database using the POST: /connector/notion/create-gallery-database endpoint and then run it.\nYou should use this endpoint when adding items to an already created database.\nFor example, if you search for clothes in a shopping mall and create each results in a gallery database, if there are 5 search results, you should call this endpoint 5 times to create 5 items in the existing database.",
+        "description": "Create an item in the generated gallery view database.\nCreating a database item means adding an item to an existing database.\nIf there is no database received from input, you must first create a database using the POST: /connector/notion/create-gallery-database endpoint and then run it.\nYou should use this endpoint when adding items to an already created database.",
         "tags": [
           "Notion"
         ],
@@ -1002,10 +1002,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "type": "array",
-                "items": {
-                  "$ref": "#/components/schemas/INotion.ICreateGalleryDatabaseItemInput"
-                }
+                "$ref": "#/components/schemas/INotion.ICreateGalleryDatabaseItemInput"
               }
             }
           },
@@ -5358,15 +5355,13 @@
             "title": "databaseId",
             "description": "Database Id what you want to add a item.\n\nIf the database is not created, you can create a database using the `Create Gallery Database` function first.\nThe endpoint is POST: /connector/notion/create-gallery-database."
           },
-          "title": {
-            "type": "string",
-            "title": "title",
-            "description": "Database Item Title.\nThe title of the item to be added to the database."
-          },
-          "markdown": {
-            "type": "string",
-            "title": "markdown",
-            "description": "If you add a markdown string, it will be converted appropriately according to the Notion's block.\nTherefore, you don't have to use Unicode symbols to implement lists or decorate documents using letters.\nOf course, this depends on the user, and there is no problem using the character string you want, such as inserting an emoji as well as Unicode."
+          "info": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/INotion.ICreateGalleryDatabaseItemInfo"
+            },
+            "title": "information",
+            "description": "Information needed to create a gallery database items."
           },
           "secretKey": {
             "type": "string",
@@ -5377,11 +5372,30 @@
         },
         "required": [
           "databaseId",
-          "title",
-          "markdown",
+          "info",
           "secretKey"
         ],
-        "title": "Information needed to create a gallery view database item"
+        "title": "Information needed to create a gallery view database items"
+      },
+      "INotion.ICreateGalleryDatabaseItemInfo": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "title": "title",
+            "description": "Database Item Title.\nThe title of the item to be added to the database."
+          },
+          "markdown": {
+            "type": "string",
+            "title": "markdown",
+            "description": "If you add a markdown string, it will be converted appropriately according to the Notion's block.\nTherefore, you don't have to use Unicode symbols to implement lists or decorate documents using letters.\nOf course, this depends on the user, and there is no problem using the character string you want, such as inserting an emoji as well as Unicode."
+          }
+        },
+        "required": [
+          "title",
+          "markdown"
+        ],
+        "title": "Information created a gallery view database item"
       }
     }
   },
