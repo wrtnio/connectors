@@ -1003,69 +1003,75 @@ export namespace NotionProvider {
   }
 
   export async function createGalleryDatabaseItem(
-    input: INotion.ICreateGalleryDatabaseItemInput,
+    input: INotion.ICreateGalleryDatabaseItemInput[],
   ): Promise<void> {
     try {
-      const headers = await getHeaders(input.secretKey);
+      await Promise.all(
+        input.map(async (input) => {
+          try {
+            const headers = await getHeaders(input.secretKey);
 
-      const imageRegex = /!\[.*?\]\((https?:\/\/[^\s)]+)\)/g;
-      const matches = [...input.markdown.matchAll(imageRegex)];
-      const imageUrls = await Promise.all(
-        matches.map(async (match) => {
-          const imageUrl = match[1];
-          const imageBuffer = await axios.get(imageUrl, {
-            responseType: "arraybuffer",
-          });
-          return await uploadImageToS3(imageBuffer.data);
-        }),
-      );
+            const imageRegex = /!\[.*?\]\((https?:\/\/[^\s)]+)\)/g;
+            const matches = [...input.markdown.matchAll(imageRegex)];
+            const imageUrls = await Promise.all(
+              matches.map(async (match) => {
+                const imageUrl = match[1];
+                const imageBuffer = await axios.get(imageUrl, {
+                  responseType: "arraybuffer",
+                });
+                return await uploadImageToS3(imageBuffer.data);
+              }),
+            );
 
-      const modifiedMarkdown = matches
-        .map((match, index) => {
-          return input.markdown.replace(
-            match[0],
-            `![Image](${imageUrls[index]})`,
-          );
-        })
-        .join("");
+            const modifiedMarkdown = matches.reduce((acc, match, index) => {
+              return acc.replace(match[0], `![Image](${imageUrls[index]})`);
+            }, input.markdown);
 
-      const blocks = markdownToBlocks(modifiedMarkdown);
+            const blocks = markdownToBlocks(modifiedMarkdown);
 
-      const database = await axios.get(
-        `https://api.notion.com/v1/databases/${input.databaseId}`,
-        {
-          headers: headers,
-        },
-      );
+            const database = await axios.get(
+              `https://api.notion.com/v1/databases/${input.databaseId}`,
+              {
+                headers: headers,
+              },
+            );
 
-      const titlePropertyName: any = Object.keys(database.data.properties).find(
-        (key) => database.data.properties[key].type === "title",
-      );
+            const titlePropertyName: any = Object.keys(
+              database.data.properties,
+            ).find((key) => database.data.properties[key].type === "title");
 
-      await axios.post(
-        `https://api.notion.com/v1/pages`,
-        {
-          parent: {
-            type: "database_id",
-            database_id: input.databaseId,
-          },
-          properties: {
-            [titlePropertyName]: {
-              title: [
-                {
-                  type: "text",
-                  text: {
-                    content: input.title,
+            await axios.post(
+              `https://api.notion.com/v1/pages`,
+              {
+                parent: {
+                  type: "database_id",
+                  database_id: input.databaseId,
+                },
+                properties: {
+                  [titlePropertyName]: {
+                    title: [
+                      {
+                        type: "text",
+                        text: {
+                          content: input.title,
+                        },
+                      },
+                    ],
                   },
                 },
-              ],
-            },
-          },
-          children: blocks,
-        },
-        {
-          headers: headers,
-        },
+                children: blocks,
+              },
+              {
+                headers: headers,
+              },
+            );
+          } catch (err) {
+            console.error(
+              `Error creating page for input titled "${input.title}":`,
+              JSON.stringify(err),
+            );
+          }
+        }),
       );
     } catch (err) {
       console.error(JSON.stringify(err));
