@@ -2534,7 +2534,11 @@ export namespace INotion {
     /**
      * Information needed to create a gallery database items.
      *
-     * @title information
+     * You can add multiple items at once.
+     * If you need to add multiple database items, you should add each piece of information to the info as an array.
+     * You should not make multiple calls when you need to add multiple items.
+     *
+     * @title informations
      */
     info: ICreateGalleryDatabaseItemInfo[];
   }
