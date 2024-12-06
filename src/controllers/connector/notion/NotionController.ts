@@ -736,8 +736,8 @@ export class NotionController {
   @ApiTags("Notion")
   @core.TypedRoute.Post("create-gallery-item")
   async createGalleryItem(
-    @core.TypedBody() input: INotion.ICreateGalleryDatabaseItemInput,
-  ): Promise<void> {
+    @core.TypedBody() input: INotion.ICreateGalleryDatabaseItemInput[],
+  ): Promise<INotion.ICreateGalleryDatabaseItemOutput[]> {
     return retry(() => NotionProvider.createGalleryDatabaseItem(input))();
   }
 }

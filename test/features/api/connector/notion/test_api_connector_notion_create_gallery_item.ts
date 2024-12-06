@@ -1,18 +1,20 @@
 import CApi from "@wrtn/connector-api/lib/index";
 import typia from "typia";
 import { ConnectorGlobal } from "../../../../../src/ConnectorGlobal";
+import { INotion } from "@wrtn/connector-api/lib/structures/connector/notion/INotion";
 
 export const test_api_connector_notion_create_gallery_item = async (
   connection: CApi.IConnection,
-) => {
+): Promise<INotion.ICreateGalleryDatabaseItemOutput[]> => {
   const res =
     await CApi.functional.connector.notion.create_gallery_item.createGalleryItem(
       connection,
-      {
-        databaseId: "152ab4840d33817a8f31de646ec296b3",
-        secretKey: ConnectorGlobal.env.NOTION_TEST_SECRET,
-        title: "Gallery Item",
-        markdown: `
+      [
+        {
+          databaseId: "152ab4840d33817a8f31de646ec296b3",
+          secretKey: ConnectorGlobal.env.NOTION_TEST_SECRET,
+          title: "Gallery Item",
+          markdown: `
         # 📢 프로젝트 알림: TodoList 앱 출시!
 
 **안녕하세요, 개발자 여러분!**
@@ -34,7 +36,28 @@ export const test_api_connector_notion_create_gallery_item = async (
 **지금 다운로드하고, 오늘 할 일을 기록하세요!**  
 [다운로드 링크](https://studio-pro.wrtn.ai)  
 여러분의 피드백은 언제나 환영입니다. `,
-      },
+        },
+        {
+          databaseId: "152ab4840d33817a8f31de646ec296b3",
+          secretKey: ConnectorGlobal.env.NOTION_TEST_SECRET,
+          title: "Gallery Item 2",
+          markdown: `
+       # 내 사진 갤러리
+
+환영합니다! 아래는 제가 찍은 멋진 사진들입니다.
+
+![아름다운 일몰](https://serpapi.com/searches/67527ebd3c9575cb36004eec/images/48830a2bc5c5b5663e0df241272a4ca47bf7b38dde8af091f6b953ded7cd88be.jpeg)
+
+더 많은 사진을 보고 싶으시면 [저희 웹사이트](https://studio-pro.wrtn.ai)를 방문해주세요.
+
+또 다른 멋진 사진도 확인해보세요:
+
+![산 풍경](https://serpapi.com/searches/67527ebd3c9575cb36004eec/images/48830a2bc5c5b56650f7a6df6b16015a9956c231bd797b273b64c28cf003fd90.jpeg)
+
+감사합니다!`,
+        },
+      ],
     );
   typia.assertEquals(res);
+  return res;
 };
