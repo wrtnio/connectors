@@ -12,12 +12,14 @@ import { DocumentProvider } from "../../../providers/connector/article/DocumentP
 @Controller("connector/articles")
 export class ArticlesController {
   /**
-   * Synchronize version of exported google docs file
+   * upgrade or downgrade version of exported google docs file
    *
    * Synchronize on a snapshot basis,
    * such as upgrading or downgrading the version of a document exported to GoogleDocs.
-   * If you specify the id of the snapshot in the names from and to among the internal properties,
+   * If user specify the id of the snapshot in the names from and to among the internal properties,
    * find the exported text from `from` and start synchronizing to the version of `to`.
+   * If user want to revert to the past version of the snapshot,
+   * user can put the current version in 'from' and the past version in 'to'.
    *
    * @summary Syncronize article version
    * @param articleId Target article's {@link IArticle.id}, Not snapshot ID
@@ -43,12 +45,14 @@ export class ArticlesController {
   }
 
   /**
-   * Synchronize version of exported notion page
+   * upgrade or downgrade version of exported notion page
    *
    * Synchronize on a snapshot basis,
    * such as upgrading or downgrading the version of a document exported to Notion.
-   * If you specify the id of the snapshot in the names from and to among the internal properties,
+   * If user specify the id of the snapshot in the names from and to among the internal properties,
    * find the exported text from `from` and start synchronizing to the version of `to`.
+   * If user want to revert to the past version of the snapshot,
+   * user can put the current version in 'from' and the past version in 'to'.
    *
    * @summary Syncronize article version
    * @param articleId Target article's {@link IArticle.id}, Not snapshot ID
@@ -136,7 +140,7 @@ export class ArticlesController {
   }
 
   /**
-   * Reads an article with its every snapshots
+   * Read an entire contents of article with its every snapshots
    *
    * All text content that is not omitted is shown here, so you can also see how the text has been modified at once.
    * This connector reads an article with its every snapshots {@link IArticle.ISnapshot snapshots}
