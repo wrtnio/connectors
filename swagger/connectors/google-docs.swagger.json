@@ -18,7 +18,7 @@
     "title": "구글 문서 작성 및 관리",
     "summary": "구글 독스를 쉽게 만들고 관리할 수 있어요.",
     "description": "구글 독스로 다양한 문서 작업을 할 수 있어요. 새로운 문서를 생성하고, 기존 문서에 접근 권한을 부여하거나 수정할 수 있어요. 문서를 복사하거나 삭제할 수도 있고, 특정 구글 드라이브 내의 모든 문서 목록을 가져올 수도 있어요. 문서에 새로운 텍스트를 추가하는 것도 가능해요. 이를 통해 팀 프로젝트, 개인 노트 작성, 보고서 작성 등 다양한 문서 작업을 클라우드 환경에서 효율적으로 수행할 수 있어요. 실시간 협업이 가능해 여러 사람이 동시에 작업할 수 있는 것도 큰 장점이에요. 주의할 점은 구글 슬라이드를 사용하려면 반드시 구글 드라이브 커넥터도 함께 사용해야 해요.",
-    "version": "0.1.384",
+    "version": "0.1.385",
     "license": {
       "name": "AGPL-3.0-only"
     }
@@ -48,6 +48,37 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/IGoogleDocs.IResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/connector/google-docs/contents": {
+      "delete": {
+        "summary": "erase the entire contents of a file and make it an empty file",
+        "description": "Remove entire contents of google docs\n\nMake Google Docs a blank file like you just created.",
+        "tags": [],
+        "parameters": [],
+        "requestBody": {
+          "description": "Google Drive and Docs Secret Key and information to clear file",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IGoogleDocs.IClearInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IGoogleDocs.IClearOutput"
                 }
               }
             }
@@ -203,6 +234,55 @@
       }
     },
     "/connector/google-docs/{id}": {
+      "put": {
+        "tags": [],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "schema": {
+              "type": "string",
+              "x-wrtn-prerequisite": {
+                "method": "post",
+                "path": "/connector/google-docs/get-list",
+                "jmesPath": "[].{value: id, label: title || ''}"
+              }
+            },
+            "required": true,
+            "description": " Google Docs File ID to update"
+          }
+        ],
+        "requestBody": {
+          "description": "Google Secret Key and information to update google docs",
+          "content": {
+            "application/json": {
+              "schema": {
+                "oneOf": [
+                  {
+                    "$ref": "#/components/schemas/IGoogleDocs.IUpdateTitleInput"
+                  },
+                  {
+                    "$ref": "#/components/schemas/IGoogleDocs.IUpdateContentInput"
+                  }
+                ]
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Updated Google Docs file info",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IGoogleDocs.IUpdateOutput"
+                }
+              }
+            }
+          }
+        }
+      },
       "delete": {
         "summary": "Delete Google Docs",
         "description": "Delete Google Docs",
@@ -283,7 +363,8 @@
     "/connector/google-docs/append": {
       "post": {
         "summary": "Add text to Google Docs",
-        "description": "Add text to Google Docs\n\nWhen you pass the input of the markdown format, change the markdown to the appropriate format.",
+        "description": "Add text to Google Docs\n\nWhen you pass the input of the markdown format, change the markdown to the appropriate format.\nIt is recommended to check the existing content\nand then use the `update` connector to include the existing content,\nin the case of the 'append' connector, it is not fully Markdown compatible.\nUpdate connector is `PUT /connector/google-docs/:id`.",
+        "deprecated": true,
         "tags": [
           "Google Docs"
         ],
@@ -394,6 +475,55 @@
           "secretKey"
         ],
         "title": "Information required to create a file in Google Drive"
+      },
+      "IGoogleDocs.IClearOutput": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Created Google Docs File ID"
+          },
+          "url": {
+            "type": "string",
+            "format": "iri",
+            "title": "File URL"
+          }
+        },
+        "required": [
+          "id",
+          "url"
+        ],
+        "title": "Document ID and URL"
+      },
+      "IGoogleDocs.IClearInput": {
+        "type": "object",
+        "properties": {
+          "documentId": {
+            "type": "string",
+            "x-wrtn-prerequisite": {
+              "method": "post",
+              "path": "/connector/google-docs/get-list",
+              "jmesPath": "data[].{value:id, label:title}"
+            },
+            "title": "ID of Google Docs File",
+            "description": "ID when you want to erase the entire contents of a file and make it an empty file"
+          },
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "google",
+            "x-wrtn-secret-scopes": [
+              "https://www.googleapis.com/auth/drive.file",
+              "https://www.googleapis.com/auth/documents"
+            ],
+            "title": "Select authentication information",
+            "description": "secret key."
+          }
+        },
+        "required": [
+          "documentId",
+          "secretKey"
+        ],
+        "title": "Google Drive and Docs Secret Key and information to clear file"
       },
       "IGoogleDocs.ICreateGoogleDocsOutput": {
         "type": "object",
@@ -645,6 +775,74 @@
           "secretKey"
         ],
         "title": "Information needed to duplicate Google Docs"
+      },
+      "IGoogleDocs.IUpdateOutput": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Updated Google Docs File ID"
+          },
+          "url": {
+            "type": "string",
+            "format": "iri",
+            "title": "File URL"
+          }
+        },
+        "required": [
+          "id",
+          "url"
+        ]
+      },
+      "IGoogleDocs.IUpdateTitleInput": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "title": "title",
+            "description": "Title to update"
+          },
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "google",
+            "x-wrtn-secret-scopes": [
+              "https://www.googleapis.com/auth/drive.file",
+              "https://www.googleapis.com/auth/documents"
+            ],
+            "title": "Select authentication information",
+            "description": "secret key."
+          }
+        },
+        "required": [
+          "title",
+          "secretKey"
+        ],
+        "title": "Google Docs Secret Key and title to update"
+      },
+      "IGoogleDocs.IUpdateContentInput": {
+        "type": "object",
+        "properties": {
+          "contents": {
+            "type": "string",
+            "title": "contents as markdown format",
+            "description": "Existing content will be covered with this content,\nso if you want to add content, you should check the previous content and specify what you have added with this parameter."
+          },
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "google",
+            "x-wrtn-secret-scopes": [
+              "https://www.googleapis.com/auth/drive.file",
+              "https://www.googleapis.com/auth/documents"
+            ],
+            "title": "Select authentication information",
+            "description": "secret key."
+          }
+        },
+        "required": [
+          "contents",
+          "secretKey"
+        ],
+        "title": "Google Docs Secret Key and contents to update"
       },
       "IGoogleDocs.IListGoogleDocsOutput": {
         "type": "object",

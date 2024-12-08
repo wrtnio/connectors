@@ -15,7 +15,7 @@
     }
   ],
   "info": {
-    "version": "0.1.384",
+    "version": "0.1.385",
     "title": "@wrtn/connector",
     "description": "wrtn-ecosystem connectors and sdk",
     "license": {
@@ -23,10 +23,62 @@
     }
   },
   "paths": {
+    "/connector/articles/{id}/sync/google-docs": {
+      "post": {
+        "summary": "Syncronize article version",
+        "description": "Synchronize version of exported google docs file\n\nSynchronize on a snapshot basis,\nsuch as upgrading or downgrading the version of a document exported to GoogleDocs.\nIf you specify the id of the snapshot in the names from and to among the internal properties,\nfind the exported text from `from` and start synchronizing to the version of `to`.",
+        "tags": [],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "x-wrtn-prerequisite": {
+                "method": "patch",
+                "path": "/connector/articles",
+                "jmesPath": "data[].{ value: id, label: snapshot.title }"
+              }
+            },
+            "required": true,
+            "description": " Target article's {@link IArticle.id }, Not snapshot ID"
+          }
+        ],
+        "requestBody": {
+          "description": "GoogleDocs Secret and snapshot information to sync",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IArticle.ISync.ToGoogleDocsInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Response of Synchronization",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IArticle.ISync.ToGoogleDocsOutput"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
+    },
     "/connector/articles/{id}/sync/notion": {
       "post": {
         "summary": "Syncronize article version",
-        "description": "Synchronize version\n\nSynchronize on a snapshot basis,\nsuch as upgrading or downgrading the version of a document exported to Notion.\nIf you specify the id of the snapshot in the names from and to among the internal properties,\nfind the exported text from `from` and start synchronizing to the version of `to`.",
+        "description": "Synchronize version of exported notion page\n\nSynchronize on a snapshot basis,\nsuch as upgrading or downgrading the version of a document exported to Notion.\nIf you specify the id of the snapshot in the names from and to among the internal properties,\nfind the exported text from `from` and start synchronizing to the version of `to`.",
         "tags": [],
         "parameters": [
           {
@@ -911,6 +963,37 @@
         }
       }
     },
+    "/connector/google-docs/contents": {
+      "delete": {
+        "summary": "erase the entire contents of a file and make it an empty file",
+        "description": "Remove entire contents of google docs\n\nMake Google Docs a blank file like you just created.",
+        "tags": [],
+        "parameters": [],
+        "requestBody": {
+          "description": "Google Drive and Docs Secret Key and information to clear file",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IGoogleDocs.IClearInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IGoogleDocs.IClearOutput"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/connector/google-docs": {
       "post": {
         "summary": "Generate Google Docs",
@@ -1059,6 +1142,55 @@
       }
     },
     "/connector/google-docs/{id}": {
+      "put": {
+        "tags": [],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "schema": {
+              "type": "string",
+              "x-wrtn-prerequisite": {
+                "method": "post",
+                "path": "/connector/google-docs/get-list",
+                "jmesPath": "[].{value: id, label: title || ''}"
+              }
+            },
+            "required": true,
+            "description": " Google Docs File ID to update"
+          }
+        ],
+        "requestBody": {
+          "description": "Google Secret Key and information to update google docs",
+          "content": {
+            "application/json": {
+              "schema": {
+                "oneOf": [
+                  {
+                    "$ref": "#/components/schemas/IGoogleDocs.IUpdateTitleInput"
+                  },
+                  {
+                    "$ref": "#/components/schemas/IGoogleDocs.IUpdateContentInput"
+                  }
+                ]
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Updated Google Docs file info",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IGoogleDocs.IUpdateOutput"
+                }
+              }
+            }
+          }
+        }
+      },
       "delete": {
         "summary": "Delete Google Docs",
         "description": "Delete Google Docs",
@@ -1139,7 +1271,8 @@
     "/connector/google-docs/append": {
       "post": {
         "summary": "Add text to Google Docs",
-        "description": "Add text to Google Docs\n\nWhen you pass the input of the markdown format, change the markdown to the appropriate format.",
+        "description": "Add text to Google Docs\n\nWhen you pass the input of the markdown format, change the markdown to the appropriate format.\nIt is recommended to check the existing content\nand then use the `update` connector to include the existing content,\nin the case of the 'append' connector, it is not fully Markdown compatible.\nUpdate connector is `PUT /connector/google-docs/:id`.",
+        "deprecated": true,
         "tags": [
           "Google Docs"
         ],
@@ -13471,7 +13604,7 @@
   },
   "components": {
     "schemas": {
-      "IArticle.ISync.ToNotionOutput": {
+      "IArticle.ISync.ToGoogleDocsOutput": {
         "type": "object",
         "properties": {
           "isSuccess": {
@@ -13711,6 +13844,98 @@
           "url",
           "created_at",
           "deleted_at"
+        ]
+      },
+      "IArticle.ISync.ToGoogleDocsInput": {
+        "type": "object",
+        "properties": {
+          "google_docs": {
+            "type": "object",
+            "properties": {
+              "secretKey": {
+                "type": "string",
+                "x-wrtn-secret-key": "google",
+                "x-wrtn-secret-scopes": [
+                  "https://www.googleapis.com/auth/drive.file"
+                ],
+                "title": "Google Docs Secret Key synchronization"
+              }
+            },
+            "required": [
+              "secretKey"
+            ],
+            "title": "Google Docs SecretKey for synchronization"
+          },
+          "snapshot": {
+            "type": "object",
+            "properties": {
+              "from": {
+                "type": "string",
+                "format": "uuid",
+                "x-wrtn-prerequisite": {
+                  "method": "patch",
+                  "path": "/connector/articles/:id",
+                  "jmesPath": "snapshot[].{ value: id, label: ['created_at ', created_at].join(':', @) }"
+                },
+                "title": "ID of the snapshot to be previously synchronized",
+                "description": "The user synchronizes the text associated with that snapshot.\n\nFor example, when you have v1 and v2,\nif you pass v1 by ID,\nyou replace the exported document in snapshot v1 with the exported document\nin v2 and update the properties,\nincluding the title and content of the exported document.\n\nIf you want to synchronize the notion documents linked to the snapshot at once,\nplease only forward the snapshot's ID (=`from` property).\nIf you want to synchronize only some of the documents exported from that snapshot, pass only the ID of bbs_article_exports.\nbbs_article_exports is the point of connection between snapshots and documents exported from those snapshots."
+              },
+              "to": {
+                "type": "string",
+                "format": "uuid",
+                "x-wrtn-prerequisite": {
+                  "method": "patch",
+                  "path": "/connector/articles/:id",
+                  "jmesPath": "snapshot[].{ value: id, label: ['created_at ', created_at].join(':', @) }"
+                },
+                "title": "The ID of the snapshot that will be after synchronization"
+              },
+              "article_snapshot_exports": {
+                "type": "object",
+                "properties": {
+                  "ids": {
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "format": "uuid"
+                    },
+                    "minItems": 1,
+                    "title": "IDs of IArticleExport",
+                    "description": "IDs of {@link IArticleExport bbs_article_exports}\n\nIf you want to synchronize the notion documents linked to the snapshot at once,\nplease only forward the snapshot's ID (=`from` property).\nIf you want to synchronize only some of the documents exported from that snapshot, pass only the ID of bbs_article_exports.\nbbs_article_exports is the point of connection between snapshots and documents exported from those snapshots.\n\nIf it is to be specified, it must be an array of at least one size."
+                  }
+                },
+                "required": [],
+                "title": "Exported Document's information"
+              }
+            },
+            "required": [
+              "from",
+              "to"
+            ],
+            "title": "snapshot information for synchronization"
+          }
+        },
+        "required": [
+          "google_docs",
+          "snapshot"
+        ]
+      },
+      "IArticle.ISync.ToNotionOutput": {
+        "type": "object",
+        "properties": {
+          "isSuccess": {
+            "type": "boolean",
+            "title": "response",
+            "description": "Indicates whether synchronization is successful or not"
+          },
+          "article": {
+            "$ref": "#/components/schemas/StrictOmitIArticleIArticle.ISnapshotpassword",
+            "title": "article information"
+          }
+        },
+        "required": [
+          "isSuccess",
+          "article"
         ]
       },
       "IArticle.ISync.ToNotionInput": {
@@ -15223,6 +15448,55 @@
         ],
         "title": "Information required to create a file in Google Drive"
       },
+      "IGoogleDocs.IClearOutput": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Created Google Docs File ID"
+          },
+          "url": {
+            "type": "string",
+            "format": "iri",
+            "title": "File URL"
+          }
+        },
+        "required": [
+          "id",
+          "url"
+        ],
+        "title": "Document ID and URL"
+      },
+      "IGoogleDocs.IClearInput": {
+        "type": "object",
+        "properties": {
+          "documentId": {
+            "type": "string",
+            "x-wrtn-prerequisite": {
+              "method": "post",
+              "path": "/connector/google-docs/get-list",
+              "jmesPath": "data[].{value:id, label:title}"
+            },
+            "title": "ID of Google Docs File",
+            "description": "ID when you want to erase the entire contents of a file and make it an empty file"
+          },
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "google",
+            "x-wrtn-secret-scopes": [
+              "https://www.googleapis.com/auth/drive.file",
+              "https://www.googleapis.com/auth/documents"
+            ],
+            "title": "Select authentication information",
+            "description": "secret key."
+          }
+        },
+        "required": [
+          "documentId",
+          "secretKey"
+        ],
+        "title": "Google Drive and Docs Secret Key and information to clear file"
+      },
       "IGoogleDocs.ICreateGoogleDocsOutput": {
         "type": "object",
         "properties": {
@@ -15473,6 +15747,74 @@
           "secretKey"
         ],
         "title": "Information needed to duplicate Google Docs"
+      },
+      "IGoogleDocs.IUpdateOutput": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Updated Google Docs File ID"
+          },
+          "url": {
+            "type": "string",
+            "format": "iri",
+            "title": "File URL"
+          }
+        },
+        "required": [
+          "id",
+          "url"
+        ]
+      },
+      "IGoogleDocs.IUpdateTitleInput": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "title": "title",
+            "description": "Title to update"
+          },
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "google",
+            "x-wrtn-secret-scopes": [
+              "https://www.googleapis.com/auth/drive.file",
+              "https://www.googleapis.com/auth/documents"
+            ],
+            "title": "Select authentication information",
+            "description": "secret key."
+          }
+        },
+        "required": [
+          "title",
+          "secretKey"
+        ],
+        "title": "Google Docs Secret Key and title to update"
+      },
+      "IGoogleDocs.IUpdateContentInput": {
+        "type": "object",
+        "properties": {
+          "contents": {
+            "type": "string",
+            "title": "contents as markdown format",
+            "description": "Existing content will be covered with this content,\nso if you want to add content, you should check the previous content and specify what you have added with this parameter."
+          },
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "google",
+            "x-wrtn-secret-scopes": [
+              "https://www.googleapis.com/auth/drive.file",
+              "https://www.googleapis.com/auth/documents"
+            ],
+            "title": "Select authentication information",
+            "description": "secret key."
+          }
+        },
+        "required": [
+          "contents",
+          "secretKey"
+        ],
+        "title": "Google Docs Secret Key and contents to update"
       },
       "IGoogleDocs.IListGoogleDocsOutput": {
         "type": "object",
@@ -59798,7 +60140,7 @@
                 "const": ""
               },
               {
-                "$ref": "#/components/schemas/__type.o2256"
+                "$ref": "#/components/schemas/__type.o2260"
               }
             ],
             "title": "replies"
@@ -60245,14 +60587,14 @@
           "name"
         ]
       },
-      "__type.o2256": {
+      "__type.o2260": {
         "type": "object",
         "properties": {
           "kind": {
             "const": "Listing"
           },
           "data": {
-            "$ref": "#/components/schemas/__type.o2257"
+            "$ref": "#/components/schemas/__type.o2261"
           }
         },
         "required": [
@@ -60260,7 +60602,7 @@
           "data"
         ]
       },
-      "__type.o2257": {
+      "__type.o2261": {
         "type": "object",
         "properties": {
           "after": {
@@ -60280,7 +60622,7 @@
             "items": {
               "oneOf": [
                 {
-                  "$ref": "#/components/schemas/__type.o2258"
+                  "$ref": "#/components/schemas/__type.o2262"
                 },
                 {
                   "type": "object",
@@ -60354,7 +60696,7 @@
           "before"
         ]
       },
-      "__type.o2258": {
+      "__type.o2262": {
         "type": "object",
         "properties": {
           "kind": {
