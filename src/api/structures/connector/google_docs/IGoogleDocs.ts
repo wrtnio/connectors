@@ -103,9 +103,29 @@ export namespace IGoogleDocs {
   }
 
   /**
-   * @title Google Secret key and information to update docs file
+   * @title Google Docs Secret Key and contents to update
    */
-  export interface IUpdateInput
+  export interface IUpdateContentInput
+    extends ICommon.ISecret<
+      "google",
+      [
+        "https://www.googleapis.com/auth/drive.file",
+        "https://www.googleapis.com/auth/documents",
+      ]
+    > {
+    /**
+     * Existing content will be covered with this content,
+     * so if you want to add content, you should check the previous content and specify what you have added with this parameter.
+     *
+     * @title contents as markdown format
+     */
+    contents: string;
+  }
+
+  /**
+   * @title Google Docs Secret Key and title to update
+   */
+  export interface IUpdateTitleInput
     extends ICommon.ISecret<
       "google",
       [
@@ -118,16 +138,13 @@ export namespace IGoogleDocs {
      *
      * @title title
      */
-    title?: string;
-
-    /**
-     * Existing content will be covered with this content,
-     * so if you want to add content, you should check the previous content and specify what you have added with this parameter.
-     *
-     * @title contents as markdown format
-     */
-    contents?: string;
+    title: string;
   }
+
+  /**
+   * @title Google Secret key and information to update docs file
+   */
+  export type IUpdateInput = IUpdateTitleInput | IUpdateContentInput;
 
   export interface IResponse {
     markdown: {

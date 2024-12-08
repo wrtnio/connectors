@@ -37,7 +37,7 @@ export namespace DocumentProvider {
       articleId: IArticle["id"],
       input: IArticle.ISync.ToGoogleDocsInput,
     ): Promise<IArticle.ISync.ToGoogleDocsOutput> => {
-      const isSuccess: boolean = false;
+      let isSuccess: boolean = false;
 
       const article = await BbsArticleProvider.at({ id: articleId });
       const before = article.snapshots.find(
@@ -60,32 +60,24 @@ export namespace DocumentProvider {
         const created_at = new Date().toISOString();
         for await (const bbs_article_export of article_snapshot_exports) {
           const pageId = bbs_article_export.uid!;
-          const secretKey = input.google_docs.secretKey;
+          const secretKey = input.google_docs.secretKey as string;
 
-          // if ((await GoogleDocs.clear({ pageId, secretKey })) === true) {
-          //   const snapshot = article.snapshots.find(
-          //     (el) => el.id === input.snapshot.to,
-          //   )!;
+          const snapshot = article.snapshots.find(
+            (el) => el.id === input.snapshot.to,
+          )!;
 
-          //   await GoogleDocs.updatePageTitle({
-          //     title: snapshot.title,
-          //     pageId,
-          //     secretKey,
-          //   });
+          await GoogleDocs.update(pageId, {
+            secretKey,
+            title: snapshot.title,
+            contents: snapshot.body,
+          });
 
-          //   await GoogleDocs.appendBlocksByMarkdown({
-          //     markdown: snapshot?.body,
-          //     pageId,
-          //     secretKey,
-          //   });
+          await BbsArticleExportProvider.sync(bbs_article_export)({
+            bbs_article_snapshot_id: input.snapshot.to,
+            created_at,
+          });
 
-          //   await BbsArticleExportProvider.sync(bbs_article_export)({
-          //     bbs_article_snapshot_id: input.snapshot.to,
-          //     created_at,
-          //   });
-
-          //   isSuccess = true;
-          // }
+          isSuccess = true;
         }
       }
 

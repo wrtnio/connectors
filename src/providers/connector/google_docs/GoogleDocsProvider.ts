@@ -18,7 +18,7 @@ export class GoogleDocsProvider {
     file_id: string,
     input: IGoogleDocs.IUpdateInput,
   ): Promise<IGoogleDocs.IUpdateOutput> {
-    const { contents, title, secretKey } = input;
+    const { secretKey } = input;
     const token = await this.getToken(secretKey);
     const accessToken = await this.googleProvider.refreshAccessToken(token);
     const authClient = new google.auth.OAuth2();
@@ -26,13 +26,18 @@ export class GoogleDocsProvider {
     authClient.setCredentials({ access_token: accessToken });
     const drive = google.drive({ version: "v2", auth: authClient });
 
-    if (title || contents) {
+    if (
+      ("title" in input && input.title) ||
+      ("contents" in input && input.contents)
+    ) {
       await drive.files.update({
         fileId: file_id,
-        ...(contents && {
-          media: { mimeType: "text/markdown", body: contents },
-        }),
-        ...(title && { requestBody: { title: title } }),
+        ...("contents" in input &&
+          input.contents && {
+            media: { mimeType: "text/markdown", body: input.contents },
+          }),
+        ...("title" in input &&
+          input.title && { requestBody: { title: input.title } }),
       });
     }
 
