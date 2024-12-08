@@ -14,6 +14,31 @@ import { IOAuthSecret } from "../../internal/oauth_secret/structures/IOAuthSecre
 export class GoogleDocsProvider {
   constructor(private readonly googleProvider: GoogleProvider) {}
 
+  async update(
+    file_id: string,
+    input: IGoogleDocs.IUpdateInput,
+  ): Promise<IGoogleDocs.IUpdateOutput> {
+    const token = await this.getToken(input.secretKey);
+    const accessToken = await this.googleProvider.refreshAccessToken(token);
+    const authClient = new google.auth.OAuth2();
+
+    authClient.setCredentials({ access_token: accessToken });
+    const drive = google.drive({ version: "v2", auth: authClient });
+
+    await drive.files.update({
+      fileId: file_id,
+      media: {
+        mimeType: "text/markdown",
+        body: input.contents,
+      },
+    });
+
+    return {
+      id: file_id,
+      url: `https://docs.google.com/document/d/${file_id as string}/`,
+    };
+  }
+
   async clear(
     input: IGoogleDocs.IClearInput,
   ): Promise<IGoogleDocs.IClearOutput> {
