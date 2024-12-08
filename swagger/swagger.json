@@ -15,7 +15,7 @@
     }
   ],
   "info": {
-    "version": "0.1.385",
+    "version": "0.1.386",
     "title": "@wrtn/connector",
     "description": "wrtn-ecosystem connectors and sdk",
     "license": {
@@ -26,7 +26,7 @@
     "/connector/articles/{id}/sync/google-docs": {
       "post": {
         "summary": "Syncronize article version",
-        "description": "Synchronize version of exported google docs file\n\nSynchronize on a snapshot basis,\nsuch as upgrading or downgrading the version of a document exported to GoogleDocs.\nIf you specify the id of the snapshot in the names from and to among the internal properties,\nfind the exported text from `from` and start synchronizing to the version of `to`.",
+        "description": "upgrade or downgrade version of exported google docs file\n\nSynchronize on a snapshot basis,\nsuch as upgrading or downgrading the version of a document exported to GoogleDocs.\nIf user specify the id of the snapshot in the names from and to among the internal properties,\nfind the exported text from `from` and start synchronizing to the version of `to`.\nIf user want to revert to the past version of the snapshot,\nuser can put the current version in 'from' and the past version in 'to'.",
         "tags": [],
         "parameters": [
           {
@@ -78,7 +78,7 @@
     "/connector/articles/{id}/sync/notion": {
       "post": {
         "summary": "Syncronize article version",
-        "description": "Synchronize version of exported notion page\n\nSynchronize on a snapshot basis,\nsuch as upgrading or downgrading the version of a document exported to Notion.\nIf you specify the id of the snapshot in the names from and to among the internal properties,\nfind the exported text from `from` and start synchronizing to the version of `to`.",
+        "description": "upgrade or downgrade version of exported notion page\n\nSynchronize on a snapshot basis,\nsuch as upgrading or downgrading the version of a document exported to Notion.\nIf user specify the id of the snapshot in the names from and to among the internal properties,\nfind the exported text from `from` and start synchronizing to the version of `to`.\nIf user want to revert to the past version of the snapshot,\nuser can put the current version in 'from' and the past version in 'to'.",
         "tags": [],
         "parameters": [
           {
@@ -233,7 +233,7 @@
     },
     "/connector/articles/{id}": {
       "patch": {
-        "description": "Reads an article with its every snapshots\n\nAll text content that is not omitted is shown here, so you can also see how the text has been modified at once.\nThis connector reads an article with its every snapshots {@link IArticle.ISnapshot snapshots}\nThis detail contains the entire content created for each version of the document,\nas well as the connection information to the external services from which it was exported.",
+        "description": "Read an entire contents of article with its every snapshots\n\nAll text content that is not omitted is shown here, so you can also see how the text has been modified at once.\nThis connector reads an article with its every snapshots {@link IArticle.ISnapshot snapshots}\nThis detail contains the entire content created for each version of the document,\nas well as the connection information to the external services from which it was exported.",
         "tags": [],
         "parameters": [
           {
