@@ -30,6 +30,22 @@ export class GoogleDocsController {
   }
 
   /**
+   * Remove entire contents of google docs
+   *
+   * Make Google Docs a blank file like you just created.
+   *
+   * @summary erase the entire contents of a file and make it an empty file
+   * @param input Google Drive and Docs Secret Key and information to clear file
+   * @returns
+   */
+  @core.TypedRoute.Delete("contents")
+  async clear(
+    @TypedBody() input: IGoogleDocs.IClearInput,
+  ): Promise<IGoogleDocs.IClearOutput> {
+    return retry(() => this.googleDocsProvider.clear(input))();
+  }
+
+  /**
    * Generate Google Docs
    *
    * Since this is creating a blank page, we recommend that you use connectors that add the content of google-docs in a row.
@@ -116,6 +132,29 @@ export class GoogleDocsController {
   }
 
   /**
+   * @sumamry Update Google Docs title and contents
+   * @param file_id Google Docs File ID to update
+   * @param input Google Secret Key and information to update google docs
+   * @returns Updated Google Docs file info
+   */
+  @core.TypedRoute.Put(":id")
+  async update(
+    /**
+     * @title Docs file to update
+     * @description Please select the docs file to update
+     */
+    @Prerequisite({
+      neighbor: () => GoogleDocsController.prototype.list,
+      jmesPath: "[].{value: id, label: title || ''}",
+    })
+    @core.TypedParam("id")
+    file_id: string,
+    @TypedBody() input: IGoogleDocs.IUpdateInput,
+  ): Promise<IGoogleDocs.IUpdateOutput> {
+    return this.googleDocsProvider.update(file_id, input);
+  }
+
+  /**
    * Delete Google Docs
    *
    * @summary Delete Google Docs
@@ -166,8 +205,13 @@ export class GoogleDocsController {
    * Add text to Google Docs
    *
    * When you pass the input of the markdown format, change the markdown to the appropriate format.
+   * It is recommended to check the existing content
+   * and then use the `update` connector to include the existing content,
+   * in the case of the 'append' connector, it is not fully Markdown compatible.
+   * Update connector is `PUT /connector/google-docs/:id`.
    *
    * @summary Add text to Google Docs
+   * @deprecated It is better to use the update connector than append.
    */
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Google+Docs_full.svg",

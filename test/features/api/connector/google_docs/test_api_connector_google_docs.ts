@@ -237,6 +237,27 @@ print(f"삼성전자의 매출 증가율: {growth_rate:.2f}%")
       },
     );
 
-    console.log(JSON.stringify(res, null, 2));
     typia.assert(res);
+
+    return res;
   };
+
+export const test_api_connector_google_docs_clear = async (
+  connection: CApi.IConnection,
+) => {
+  const { googleDocs } =
+    await test_api_connector_google_docs_write_by_markdown_format_string(
+      connection,
+    );
+
+  const google_docs_id = googleDocs.id;
+  const res = await CApi.functional.connector.google_docs.contents.clear(
+    connection,
+    {
+      documentId: google_docs_id,
+      secretKey: ConnectorGlobal.env.GOOGLE_TEST_SECRET,
+    },
+  );
+
+  typia.assertEquals(res);
+};

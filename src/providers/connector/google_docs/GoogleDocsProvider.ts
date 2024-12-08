@@ -14,6 +14,78 @@ import { IOAuthSecret } from "../../internal/oauth_secret/structures/IOAuthSecre
 export class GoogleDocsProvider {
   constructor(private readonly googleProvider: GoogleProvider) {}
 
+  async update(
+    file_id: string,
+    input: IGoogleDocs.IUpdateInput,
+  ): Promise<IGoogleDocs.IUpdateOutput> {
+    const { secretKey } = input;
+    const token = await this.getToken(secretKey);
+    const accessToken = await this.googleProvider.refreshAccessToken(token);
+    const authClient = new google.auth.OAuth2();
+
+    authClient.setCredentials({ access_token: accessToken });
+    const drive = google.drive({ version: "v2", auth: authClient });
+
+    if (
+      ("title" in input && input.title) ||
+      ("contents" in input && input.contents)
+    ) {
+      await drive.files.update({
+        fileId: file_id,
+        ...("contents" in input &&
+          input.contents && {
+            media: { mimeType: "text/markdown", body: input.contents },
+          }),
+        ...("title" in input &&
+          input.title && { requestBody: { title: input.title } }),
+      });
+    }
+
+    return {
+      id: file_id,
+      url: `https://docs.google.com/document/d/${file_id as string}/`,
+    };
+  }
+
+  async clear(
+    input: IGoogleDocs.IClearInput,
+  ): Promise<IGoogleDocs.IClearOutput> {
+    const token = await this.getToken(input.secretKey);
+    const accessToken = await this.googleProvider.refreshAccessToken(token);
+    const authClient = new google.auth.OAuth2();
+
+    authClient.setCredentials({ access_token: accessToken });
+    const docs = google.docs({ version: "v1", auth: authClient });
+    const document = await docs.documents.get({
+      documentId: input.documentId,
+      fields: "body.content(startIndex,endIndex)",
+    });
+
+    const content = document.data.body?.content;
+    if (content instanceof Array && content.length >= 2) {
+      const startIndex = content[0].endIndex;
+      const lastContent = content[content.length - 1].endIndex! - 1;
+      await docs.documents.batchUpdate({
+        documentId: input.documentId,
+        requestBody: {
+          requests: [
+            {
+              deleteContentRange: {
+                range: {
+                  startIndex: startIndex,
+                  endIndex: lastContent,
+                },
+              },
+            },
+          ],
+        },
+      });
+    }
+
+    const url = `https://docs.google.com/document/d/${input.documentId as string}/`;
+    return { id: input.documentId, url };
+  }
+
   async write(input: IGoogleDocs.IRequest): Promise<IGoogleDocs.IResponse> {
     const token = await this.getToken(input.secretKey);
     const accessToken = await this.googleProvider.refreshAccessToken(token);
@@ -303,6 +375,20 @@ export class GoogleDocsProvider {
     const docs = google.docs({ version: "v1", auth: authClient });
     const document = await docs.documents.get({ documentId });
     return document.data;
+  }
+
+  getEndIndex(document: { data: docs_v1.Schema$Document }) {
+    console.log(JSON.stringify(document.data.body?.content, null, 2));
+    // 문서의 끝 인덱스 반환
+    const weight =
+      (document.data.body?.content?.reduce<number>((acc, element) => {
+        if (typeof element.endIndex === "number") {
+          return Math.max(acc, element.endIndex);
+        }
+        return acc;
+      }, 0) ?? 2) - 2; // 빈 문서는 줄바꿈 문자를 포함하여 최소 index가 2부터 시작한다.
+
+    return weight;
   }
 
   async append(
