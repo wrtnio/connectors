@@ -18,7 +18,7 @@
     "title": "Jira",
     "summary": "Jira로 프로젝트 이슈를 관리해요.",
     "description": "프로젝트에 이슈를 생성하고 담당자를 할당해요. 완료된 이슈가 있다면 상태를 변경할 수도 있고 댓글을 남겨 의견 교류도 가능해요.",
-    "version": "0.1.386",
+    "version": "0.1.387",
     "license": {
       "name": "AGPL-3.0-only"
     }
@@ -308,7 +308,7 @@
     "/connector/jira/issues/markdown": {
       "post": {
         "summary": "create issue by markdown in jira",
-        "description": "Create an issue by markdown\n\nIssue type, project, and summary are essential properties.\nIf you don't know the issue type or priority type's id for generating the issue, you can look it up through other connectors.\n\nIn order to write the body of an issue, you must create the body as if you were assembling several blocks.\nThere are pre-designated content types, so please check this type information carefully.",
+        "description": "Create an issue by markdown\n\nIssue type, project, and summary are essential properties.\nIf you don't know the issue type or priority type's id for generating the issue, you can look it up through other connectors.\n\nIn order to write the body of an issue, you must create the body as if you were assembling several blocks.\nThere are pre-designated content types, so please check this type information carefully.\n\nTo prioritize, make sure that the project manager has set it up so that the project can be prioritized.\nDepending on the project settings, it may not be possible to prioritize issues.\nIf there is an error when creating an issue, I recommend that you remove the priority and recreate it.\nEven if a user wants to assign Assignees, they will need to check if Assignees exists.\nA user cannot assign a user to Assignees that does not exist.\nAssignees cannot be guaranteed to be the same nickname or ID as Slack or any other service name.\nBe sure to check how the name is defined within the Jira service.\nThe issue type, project ID, and key are all the same.\nIf the error continues, first create a basic issue type using only the project key, ID, and text content,\nand then try updating the person in charge or priorities one by one.\nThat way, you can create an issue and suggest that users check the issue with a link.\nThe content of the proposal will include asking you to check whether assignee or priorities are really allocable attributes.",
         "tags": [
           "Jira"
         ],
@@ -3027,7 +3027,8 @@
                 "required": [
                   "id"
                 ],
-                "title": "Specify a representative at the same time as you create"
+                "title": "Specify a representative at the same time as you create",
+                "description": "The person in charge who wants to register must be a registered user in Jira.\nIf the person in charge does not exist, an error will occur.\nYou should not think that the ID of Slack or external service will be the same in Jira.\nIt is a good idea to check the person in charge because the user's ID may be different for each service."
               },
               "description": {
                 "type": "object",
@@ -3071,7 +3072,8 @@
                 "required": [
                   "id"
                 ],
-                "title": "issuetype"
+                "title": "issuetype",
+                "description": "The issue type must be set, but the issue type that can be assigned to the project is set.\nUse the Issue Type Inquiry connector to determine which issue types can be set up."
               },
               "labels": {
                 "type": "array",
@@ -3118,7 +3120,8 @@
                 "required": [
                   "id"
                 ],
-                "title": "priority"
+                "title": "priority",
+                "description": "The project manager may have prohibited or not set priorities for each issue in the project.\nEven in the case of a project you just created,\nthe priority assignment for each issue may be omitted depending on the user.\nIn this case, priority assignment is not possible through API,\nso you should check the project settings.\n\nIf there is an error when creating it,\nit is likely to be a matter of priority,\nso please create it without priorities.\nAlso, it takes a long time to check the settings for each user on a daily basis,\nso make sure that you don't tell the user about the priority assignment,\nbut present it as an option."
               },
               "project": {
                 "oneOf": [
