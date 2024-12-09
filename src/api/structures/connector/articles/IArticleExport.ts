@@ -9,7 +9,7 @@ export namespace IArticleExport {
     bbs_article_snapshot_id: string & tags.Format<"uuid">;
 
     /**
-     * @title Creation time ot {@link IArticleExport}
+     * @title Creation time of {@link IArticleExport}
      */
     created_at: string & tags.Format<"date-time">;
   }
@@ -51,7 +51,7 @@ export interface IArticleExport {
   url: (string & tags.Format<"iri">) | null;
 
   /**
-   * @title Creation time ot {@link IArticleExport}
+   * @title Creation time of {@link IArticleExport}
    */
   created_at: string & tags.Format<"date-time">;
 

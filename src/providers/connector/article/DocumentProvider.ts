@@ -94,7 +94,7 @@ export namespace DocumentProvider {
 
       const article = await BbsArticleProvider.at({ id: articleId });
       const before = article.snapshots.find(
-        (el) => el.id === input.snapshot.from,
+        (el): boolean => el.id === input.snapshot.from,
       );
 
       const article_snapshot_exports = before?.bbs_article_exports
