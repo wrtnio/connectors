@@ -165,6 +165,9 @@ export namespace IArticle {
       };
     }
 
+    /**
+     * @title Conditions and secret keys for exporting to Google Docs
+     */
     export interface ToGoogleDocsInput extends SnapshotInput {
       /**
        * @title Google Docs Secret Key and information to create file
@@ -172,6 +175,9 @@ export namespace IArticle {
       google_docs: StrictOmit<IGoogleDocs.IRequest, "name" | "markdown">;
     }
 
+    /**
+     * @title Conditions and secret keys for exporting to Notion
+     */
     export interface ToNotionOutput extends SnapshotOutput {
       /**
        * @title About the notion page that was successfully exported

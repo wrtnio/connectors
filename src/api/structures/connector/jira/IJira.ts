@@ -692,6 +692,11 @@ export namespace IJira {
      */
     fields: {
       /**
+       * The person in charge who wants to register must be a registered user in Jira.
+       * If the person in charge does not exist, an error will occur.
+       * You should not think that the ID of Slack or external service will be the same in Jira.
+       * It is a good idea to check the person in charge because the user's ID may be different for each service.
+       *
        * @title Specify a representative at the same time as you create
        */
       assignee?: {
@@ -750,6 +755,9 @@ export namespace IJira {
       };
 
       /**
+       * The issue type must be set, but the issue type that can be assigned to the project is set.
+       * Use the Issue Type Inquiry connector to determine which issue types can be set up.
+       *
        * @title issuetype
        */
       issuetype: {
@@ -801,6 +809,19 @@ export namespace IJira {
       };
 
       /**
+       * The project manager may have prohibited or not set priorities for each issue in the project.
+       * Even in the case of a project you just created,
+       * the priority assignment for each issue may be omitted depending on the user.
+       * In this case, priority assignment is not possible through API,
+       * so you should check the project settings.
+       *
+       * If there is an error when creating it,
+       * it is likely to be a matter of priority,
+       * so please create it without priorities.
+       * Also, it takes a long time to check the settings for each user on a daily basis,
+       * so make sure that you don't tell the user about the priority assignment,
+       * but present it as an option.
+       *
        * @title priority
        */
       priority?: {
