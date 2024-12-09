@@ -1107,8 +1107,8 @@ export namespace NotionProvider {
     input: INotion.IUpdatePageContentInput,
   ): Promise<INotion.IAppendPageByMarkdownOutput> {
     try {
-      archiveBlocks(input.secretKey, input.blockId);
-      return appendBlocksByMarkdown({
+      await archiveBlocks(input.secretKey, input.blockId);
+      return await appendBlocksByMarkdown({
         pageId: input.blockId,
         secretKey: input.secretKey,
         markdown: input.markdown,
@@ -1137,20 +1137,15 @@ export namespace NotionProvider {
           },
         );
         const blocks = res.data.results;
-
-        const archivePromises = blocks.map((block: any) =>
-          axios.patch(
-            `https://api.notion.com/v1/blocks/${block.id}`,
-            {
-              archived: true,
-            },
-            {
-              headers: headers,
-            },
-          ),
-        );
-
-        await Promise.all(archivePromises);
+        for (const block of blocks) {
+          if (!block.archived) {
+            await axios.patch(
+              `https://api.notion.com/v1/blocks/${block.id}`,
+              { archived: true },
+              { headers: headers },
+            );
+          }
+        }
 
         hasMore = res.data.has_more;
         cursor = res.data.next_cursor;
