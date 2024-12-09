@@ -2,7 +2,10 @@ import { HttpException, HttpStatus } from "@nestjs/common";
 import { Client } from "@notionhq/client";
 import axios from "axios";
 
-import { BlockObjectRequest } from "@notionhq/client/build/src/api-endpoints";
+import {
+  appendBlockChildren,
+  BlockObjectRequest,
+} from "@notionhq/client/build/src/api-endpoints";
 import { markdownToBlocks } from "@tryfabric/martian";
 import { Block } from "@tryfabric/martian/build/src/notion/blocks";
 import { INotion } from "@wrtn/connector-api/lib/structures/connector/notion/INotion";
@@ -1094,6 +1097,64 @@ export namespace NotionProvider {
       });
 
       return imgUrl;
+    } catch (err) {
+      console.error(JSON.stringify(err));
+      throw err;
+    }
+  }
+
+  export async function updatePageContent(
+    input: INotion.IUpdatePageContentInput,
+  ): Promise<INotion.IAppendPageByMarkdownOutput> {
+    try {
+      archiveBlocks(input.secretKey, input.blockId);
+      return appendBlocksByMarkdown({
+        pageId: input.blockId,
+        secretKey: input.secretKey,
+        markdown: input.markdown,
+      });
+    } catch (err) {
+      console.error(JSON.stringify(err));
+      throw err;
+    }
+  }
+
+  async function archiveBlocks(secretKey: string, pageId: string) {
+    try {
+      const headers = await getHeaders(secretKey);
+      let cursor: string | undefined = undefined;
+      let hasMore = true;
+
+      while (hasMore) {
+        const res: any = await axios.get(
+          `https://api.notion.com/v1/blocks/${pageId}/children`,
+          {
+            params: {
+              start_cursor: cursor,
+              page_size: 100,
+            },
+            headers: headers,
+          },
+        );
+        const blocks = res.data.results;
+
+        const archivePromises = blocks.map((block: any) =>
+          axios.patch(
+            `https://api.notion.com/v1/blocks/${block.id}`,
+            {
+              archived: true,
+            },
+            {
+              headers: headers,
+            },
+          ),
+        );
+
+        await Promise.all(archivePromises);
+
+        hasMore = res.data.has_more;
+        cursor = res.data.next_cursor;
+      }
     } catch (err) {
       console.error(JSON.stringify(err));
       throw err;

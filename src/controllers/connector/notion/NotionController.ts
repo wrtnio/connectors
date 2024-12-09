@@ -741,4 +741,15 @@ export class NotionController {
   ): Promise<INotion.ICreateGalleryDatabaseItemOutput[]> {
     return retry(() => NotionProvider.createGalleryDatabaseItem(input))();
   }
+
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg",
+  )
+  @ApiTags("Notion")
+  @core.TypedRoute.Post("update-page-content")
+  async updatePageContent(
+    @core.TypedBody() input: INotion.IUpdatePageContentInput,
+  ): Promise<INotion.IAppendPageByMarkdownOutput> {
+    return NotionProvider.updatePageContent(input);
+  }
 }
