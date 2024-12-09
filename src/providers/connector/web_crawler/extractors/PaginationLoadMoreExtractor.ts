@@ -36,14 +36,26 @@ export namespace PaginationLoadMoreExtractor {
 
     // 다국어 지원
     'button:contains("더보기")',
+    'button:contains("상품정보더보기")',
     'button:contains("もっと見る")',
     'button:contains("查看更多")',
     'button:contains("显示更多")',
     'button:contains("Показать еще")',
     'button:contains("Mehr anzeigen")',
     'button:contains("Voir plus")',
+
     'button:contains("Ver más")',
     'button:contains("Mostrar mais")',
+
+    // 무신사 후기 더보기 버튼 관련 셀렉터
+    ".GoodsReviewListFilterSection__FilterContainer-sc-7s7w6h-1",
+    ".GoodsReviewTabGroup__Container-sc-gh2o5q-0",
+    ".GoodsReviewStaticList__Container-sc-2iel5v-0",
+    ".GoodsReviewListSection__Container-sc-1x35scp-0",
+    ".GoodsReviewMoreButton__Wrapper-sc-dgupoo-0",
+    '[data-shp-area="revlist.pgn"]',
+    '[role="menubar"]',
+    '[class*="GoodsReview"]', // GoodsReview로 시작하는 모든 클래스
   ];
 
   export const isLoadMore = ($element: Cheerio<any>): boolean => {

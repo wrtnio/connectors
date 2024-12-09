@@ -23,31 +23,52 @@ export namespace CommonExtractor {
       ...PaginationNumberExtractor.paginationSelectors,
     ];
 
+    const listSelectors = [
+      '[class*="list"]',
+      '[class*="items"]',
+      '[class*="feed"]',
+      '[class*="review"]', // 리뷰 관련 클래스
+      "ul",
+      "ol",
+      '[role="list"]',
+      '[class*="grid"]',
+    ];
+
+    const excludeSelectors = ['[class*="_spi_lst spi_list"]'];
+
+    const containerSelectors = ["section", "div"];
     const sections: Cheerio<any>[] = [];
 
-    // 페이지네이터가 있는 섹션 찾기
-    $("section").each((_, section) => {
-      const $section = $(section);
-      const hasPaginator = paginatorSelectors.some(
-        (selector) => $section.find(selector).length > 0,
-      );
+    // 모든 컨테이너 셀렉터에 대해 한 번의 로직으로 처리
+    containerSelectors.forEach((containerSelector) => {
+      $(containerSelector).each((_, element) => {
+        const $element = $(element);
 
-      if (hasPaginator) {
-        // 데이터 리스트 찾기
-        const listSelectors = [
-          '[class*="list"]',
-          '[class*="items"]',
-          '[class*="feed"]',
-        ];
-
-        const hasList = listSelectors.some(
-          (selector) => $section.find(selector).length > 0,
+        // 페이지네이터 존재 여부 확인
+        const hasPaginator = paginatorSelectors.some(
+          (selector) => $element.find(selector).length > 0,
         );
 
+        if (!hasPaginator) return;
+
+        // 리스트 존재 여부 확인
+        const hasList = listSelectors.some(
+          (selector) => $element.find(selector).length > 0,
+        );
+
+        // // 제외할 요소 확인
+        // const hasExclude = excludeSelectors.some(
+        //   (selector) => $element.find(selector).length > 0,
+        // );
+
         if (hasList) {
-          sections.push($section);
+          sections.push($element);
+
+          excludeSelectors.map((selector) => {
+            $element.find(selector).remove();
+          });
         }
-      }
+      });
     });
 
     return sections;
@@ -83,85 +104,82 @@ export namespace CommonExtractor {
     return null;
   };
 
-  // export const extractPaginationInfo = async (
-  //   $: CheerioAPI,
-  //   xhr: IWebCrawler.IXHR[],
-  //   currentUrl: string,
-  // ): Promise<IWebCrawler.IPagination> => {
-  //   const type = await detectPaginationType($);
-  //   const apiPattern = ApiExtractor.detectAPIPattern($);
-  //
-  //   let paginationInfo: IWebCrawler.IPagination;
-  //
-  //   switch (type) {
-  //     case "numbered":
-  //       paginationInfo =
-  //         await PaginationNumberExtractor.handleNumberedPagination(
-  //           $,
-  //           currentUrl,
-  //         );
-  //       break;
-  //     case "infinite-scroll":
-  //       paginationInfo =
-  //         await PaginationInfiniteExtractor.handleInfiniteScroll($);
-  //       break;
-  //     case "load-more":
-  //       paginationInfo = await PaginationLoadMoreExtractor.handleLoadMore(
-  //         $,
-  //         currentUrl,
-  //       );
-  //       break;
-  //     default:
-  //       paginationInfo = {
-  //         type: null,
-  //         hasNextPage: false,
-  //       };
-  //   }
-  //
-  //   // API 패턴이 감지된 경우 패턴 정보 병합
-  //   if (apiPattern.found) {
-  //     paginationInfo.pattern = apiPattern.pattern;
-  //   }
-  //
-  //   return paginationInfo;
-  // };
+  export const extractPaginationInfo = async (
+    $element: Cheerio<any>,
+    type: IWebCrawler.PaginationType,
+    xhr: IWebCrawler.IXHR[],
+  ): Promise<IWebCrawler.IPagination> => {
+    const pagination: IWebCrawler.IPagination = {
+      type,
+      hasNextPage: false,
+    };
 
-  export const groupPages = (
-    pages: IWebCrawler.IPage[],
-  ): IWebCrawler.IResponse["paginationGroups"] => {
-    // 페이지들을 공통된 특성으로 그룹화
-    const groups = new Map<string, IWebCrawler.IPage[]>();
-
-    pages.forEach((page) => {
-      // URL 패턴, 클래스명 패턴 등을 기반으로 식별자 생성
-      const identifier = generatePageIdentifier(page);
-
-      if (!groups.has(identifier)) {
-        groups.set(identifier, []);
-      }
-      groups.get(identifier)!.push(page);
+    // XHR에서 pagination 관련 API 찾기
+    const paginationXHR = xhr.find((req) => {
+      return (
+        req.url.includes("page=") ||
+        req.url.includes("offset=") ||
+        req.url.includes("cursor=") ||
+        /\/api\/.*\/(list|items|page)/.test(req.url)
+      );
     });
 
-    return Array.from(groups.entries()).map(([identifier, pages]) => ({
-      identifier: [identifier], // 식별자 배열로 변환
-      pages,
-    }));
+    if (paginationXHR) {
+      pagination.hasNextPage = true;
+      pagination.nextPageUrl = paginationXHR.url;
+      pagination.pattern = {
+        baseUrl: new URL(paginationXHR.url).pathname,
+        queryParam: new URLSearchParams(paginationXHR.url).has("page")
+          ? "page"
+          : new URLSearchParams(paginationXHR.url).has("offset")
+            ? "offset"
+            : "cursor",
+      };
+
+      // 현재 페이지 번호 추출
+      const pageMatch = paginationXHR.url.match(/page=(\d+)/);
+      if (pageMatch) {
+        pagination.currentPage = parseInt(pageMatch[1], 10);
+      }
+
+      return pagination;
+    }
+
+    // XHR이 없는 경우 기존 DOM 기반 처리
+    const $nextLink = $element.find('a:contains("Next"), a[rel="next"]');
+    if ($nextLink.length) {
+      pagination.hasNextPage = true;
+      pagination.nextPageUrl = $nextLink.attr("href");
+      const currentPageElement = $element.find(".current, .active");
+      if (currentPageElement.length) {
+        pagination.currentPage = parseInt(currentPageElement.text(), 10);
+      }
+      if (pagination.nextPageUrl) {
+        pagination.pattern = extractPaginationPattern(pagination.nextPageUrl);
+      }
+    }
+
+    return pagination;
   };
 
-  const generatePageIdentifier = (page: IWebCrawler.IPage): string => {
-    // URL 패턴, 클래스명 패턴, 페이지네이션 타입 등을 조합하여 고유 식별자 생성
-    const urlPattern = new URL(page.url).pathname.split("/")[1] || "";
-    const commonClasses = page.classNames
-      .filter(
-        (cls) =>
-          cls.includes("content") ||
-          cls.includes("article") ||
-          cls.includes("post"),
-      )
-      .sort()
-      .join("-");
-    const paginationType = page.pagination.type || "none";
-
-    return `${urlPattern}-${commonClasses}-${paginationType}`;
+  const extractPaginationPattern = (
+    url: string,
+  ): IWebCrawler.IPagination["pattern"] => {
+    try {
+      const urlObj = new URL(url);
+      return {
+        baseUrl: `${urlObj.protocol}//${urlObj.host}${urlObj.pathname}`,
+        queryParam: urlObj.searchParams.has("page")
+          ? "page"
+          : urlObj.searchParams.has("p")
+            ? "p"
+            : undefined,
+        fragment: urlObj.hash || undefined,
+      };
+    } catch {
+      return {
+        baseUrl: url,
+      };
+    }
   };
 }

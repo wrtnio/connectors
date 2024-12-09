@@ -47,6 +47,15 @@ export namespace PaginationNumberExtractor {
     // 리스트 기반 페이지네이션
     'ul > li > button[type="button"]',
     'ul[class*="paginator"] > li > button',
+
+    // 네이버 쇼핑 리뷰 페이지네이션
+    "._1HJarNZHiI", // 페이지네이션 컨테이너
+    '[role="menubar"]', // 페이지네이션 메뉴바
+    'a[role="menuitem"]', // 페이지 번호 링크
+    'a[aria-current="true"]', // 현재 페이지
+    ".UWN4IvaQza", // 페이지 번호 공통 클래스
+    "._2PB8-gs2tG", // 이전 버튼
+    "._2Ar8-aEUTq", // 다음 버튼
   ];
 
   export const isNumberedPagination = ($element: Cheerio<any>): boolean => {

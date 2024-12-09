@@ -1,5 +1,5 @@
-import { Injectable, Logger, HttpException, HttpStatus } from "@nestjs/common";
-import { CheerioAPI, Cheerio, load } from "cheerio";
+import { HttpException, HttpStatus, Injectable, Logger } from "@nestjs/common";
+import { Cheerio, CheerioAPI, load } from "cheerio";
 import { ZenRows } from "zenrows";
 import { ConnectorGlobal } from "../../../ConnectorGlobal";
 import { IWebCrawler } from "@wrtn/connector-api/lib/structures/connector/web_crawler/IWebCrawler";
@@ -9,6 +9,8 @@ import { CommonExtractor } from "./extractors/CommonExtractor";
 export class WebCrawlerProvider {
   private readonly logger = new Logger(WebCrawlerProvider.name);
   private readonly client: ZenRows;
+  private readonly naverBlog = "https://blog.naver.com";
+  private readonly arxiv = "https://arxiv.org";
 
   constructor() {
     this.client = new ZenRows(ConnectorGlobal.env.ZENROWS_API_KEY);
@@ -43,16 +45,24 @@ export class WebCrawlerProvider {
 
   private async fetchPage(
     request: IWebCrawler.IRequest,
+    js_instructions?: string,
   ): Promise<{ $: CheerioAPI; xhr: IWebCrawler.IXHR[] }> {
     try {
-      const response = await this.client.get(request.url, {
+      const response = await this.client.get(this.transformUrl(request.url), {
         js_render: true,
         wait: 5000,
         json_response: true,
         wait_for: request.wait_for,
+        js_instructions: js_instructions
+          ? encodeURIComponent(js_instructions)
+          : undefined,
+
+        ...this.getProxyOptions(request.url),
       });
 
       if (!response.ok) {
+        console.log(await response.text());
+
         throw new Error(`HTTP error! status: ${response.status}`);
       }
 
@@ -193,6 +203,8 @@ export class WebCrawlerProvider {
     const paginationGroups: IWebCrawler.IResponse["paginationGroups"] = [];
     const paginationElements = await CommonExtractor.findPaginationElements($);
 
+    console.log(paginationElements);
+
     for (const section of paginationElements) {
       const $section = $(section);
       const type = await CommonExtractor.detectPaginationType($section);
@@ -204,6 +216,7 @@ export class WebCrawlerProvider {
         '[class*="list"]',
         '[class*="items"]',
         '[class*="feed"]',
+        '[class*="review"]', // 리뷰 관련 클래스
       ];
 
       const $listElements = listSelectors
@@ -230,8 +243,8 @@ export class WebCrawlerProvider {
           url: request.url,
           classNames: this.getClassNames($listElements),
           data: dataItems,
-          pagination: await this.extractPaginationInfo(
-            $section,
+          pagination: await CommonExtractor.extractPaginationInfo(
+            $listElements,
             type.type,
             xhr,
           ),
@@ -241,6 +254,7 @@ export class WebCrawlerProvider {
       if (request.pagination?.followNextPage) {
         const additionalPages = await this.followPagination(
           $,
+          request.url,
           pages[0],
           xhr,
           request.pagination.followNextPageCount || 10,
@@ -257,68 +271,9 @@ export class WebCrawlerProvider {
     return paginationGroups;
   }
 
-  private async extractPaginationInfo(
-    $element: Cheerio<any>,
-    type: IWebCrawler.PaginationType,
-    xhr: IWebCrawler.IXHR[],
-  ): Promise<IWebCrawler.IPagination> {
-    const pagination: IWebCrawler.IPagination = {
-      type,
-      hasNextPage: false,
-    };
-
-    // XHR에서 pagination 관련 API 찾기
-    const paginationXHR = xhr.find((req) => {
-      return (
-        req.url.includes("page=") ||
-        req.url.includes("offset=") ||
-        req.url.includes("cursor=") ||
-        /\/api\/.*\/(list|items|page)/.test(req.url)
-      );
-    });
-
-    if (paginationXHR) {
-      pagination.hasNextPage = true;
-      pagination.nextPageUrl = paginationXHR.url;
-      pagination.pattern = {
-        baseUrl: new URL(paginationXHR.url).pathname,
-        queryParam: new URLSearchParams(paginationXHR.url).has("page")
-          ? "page"
-          : new URLSearchParams(paginationXHR.url).has("offset")
-            ? "offset"
-            : "cursor",
-      };
-
-      // 현재 페이지 번호 추출
-      const pageMatch = paginationXHR.url.match(/page=(\d+)/);
-      if (pageMatch) {
-        pagination.currentPage = parseInt(pageMatch[1], 10);
-      }
-
-      return pagination;
-    }
-
-    // XHR이 없는 경우 기존 DOM 기반 처리
-    const $nextLink = $element.find('a:contains("Next"), a[rel="next"]');
-    if ($nextLink.length) {
-      pagination.hasNextPage = true;
-      pagination.nextPageUrl = $nextLink.attr("href");
-      const currentPageElement = $element.find(".current, .active");
-      if (currentPageElement.length) {
-        pagination.currentPage = parseInt(currentPageElement.text(), 10);
-      }
-      if (pagination.nextPageUrl) {
-        pagination.pattern = this.extractPaginationPattern(
-          pagination.nextPageUrl,
-        );
-      }
-    }
-
-    return pagination;
-  }
-
   private async followPagination(
     $: CheerioAPI,
+    url: string,
     firstPage: IWebCrawler.IPage,
     xhr: IWebCrawler.IXHR[],
     maxPages: number,
@@ -333,26 +288,92 @@ export class WebCrawlerProvider {
       currentPage.pagination.nextPageUrl
     ) {
       try {
-        const { $: $next } = await this.fetchPage({
-          url: currentPage.pagination.nextPageUrl,
-        });
+        let jsInstructions: string | undefined;
+
+        // Pagination type별 처리 로직
+        switch (currentPage.pagination.type) {
+          case "load-more": {
+            // "더보기" 버튼 클릭
+            const loadMoreSelectors = [
+              'button:contains("더보기")',
+              'button:contains("load more")',
+              '[class*="load-more"]',
+              "[data-load-more]",
+            ];
+            const selector = loadMoreSelectors.find((sel) => $(sel).length > 0);
+            if (selector) {
+              jsInstructions = `[{ "click": "${selector}" }, { "wait": 5000 }]`;
+            }
+            break;
+          }
+
+          case "infinite-scroll": {
+            // 무한 스크롤 처리
+            const scrollHeight = await this.getScrollHeight($);
+            jsInstructions = `[
+              { "scroll_y": ${scrollHeight} },
+              { "wait": 2000 }
+            ]`;
+            break;
+          }
+
+          case "numbered": {
+            // 오늘의집 페이지네이션 처리
+            const nextPageSelector = [
+              "button._2XI47._3I7ex",
+              'button[class="_2XI47 _3I7ex"]',
+            ].find((sel) => $(sel).length > 0);
+
+            if (nextPageSelector) {
+              jsInstructions = `[{ "click": "${nextPageSelector}" }, { "wait": 5000 }]`;
+            }
+            break;
+          }
+        }
+
+        // 페이지 패치 및 데이터 추출
+        const { $: $next } = await this.fetchPage(
+          {
+            url: url,
+          },
+          jsInstructions,
+        );
+
         const $matchingContent = this.findMatchingContent(
           $next,
           currentPage.classNames,
         );
 
-        if (!$matchingContent.length) break;
+        const listSelectors = [
+          '[class*="list"]',
+          '[class*="items"]',
+          '[class*="feed"]',
+        ];
+
+        const $listElements = listSelectors
+          .map((selector) => $matchingContent.find(selector))
+          .filter(($el) => $el.length > 0)[0];
+
+        if (!$listElements) continue;
+
+        const dataItems = await Promise.all(
+          $listElements
+            .children()
+            .map(async (_, item) => {
+              const $item = $next(item);
+              return {
+                text: this.cleanText($item.text()),
+                images: await this.extractImages($next, $item),
+              };
+            })
+            .get(),
+        );
 
         const newPage: IWebCrawler.IPage = {
-          url: currentPage.pagination.nextPageUrl,
-          classNames: this.getClassNames($matchingContent),
-          data: [
-            {
-              text: this.cleanText($matchingContent.text()),
-              images: await this.extractImages($next, $matchingContent),
-            },
-          ],
-          pagination: await this.extractPaginationInfo(
+          url: url,
+          classNames: this.getClassNames($listElements),
+          data: dataItems,
+          pagination: await CommonExtractor.extractPaginationInfo(
             $matchingContent,
             currentPage.pagination.type,
             xhr,
@@ -371,9 +392,91 @@ export class WebCrawlerProvider {
     return pages;
   }
 
+  // 스크롤 높이 계산을 위한 헬퍼 메소드
+  private async getScrollHeight($: CheerioAPI): Promise<number> {
+    // 페이지의 주요 컨테이너들을 찾아서 예상 높이 계산
+    const mainContainers = [
+      "main",
+      "article",
+      '[role="main"]',
+      ".container",
+      "#content",
+      ".content",
+      ".main-content",
+    ];
+
+    let totalHeight = 0;
+    for (const selector of mainContainers) {
+      const elements = $(selector);
+      if (elements.length) {
+        // 각 요소의 상대적 위치와 크기를 기반으로 높이 추정
+        elements.each((_, el) => {
+          const marginBottom = parseInt($(el).css("margin-bottom") || "0", 10);
+          const paddingBottom = parseInt(
+            $(el).css("padding-bottom") || "0",
+            10,
+          );
+          totalHeight +=
+            $(el).children().length * 100 + marginBottom + paddingBottom;
+        });
+      }
+    }
+
+    // 컨테이너를 찾지 못했거나 높이가 너무 작은 경우 기본값 사용
+    return Math.max(totalHeight, 2000);
+  }
+
+  // 대기할 셀렉터 결정을 위한 헬퍼 메소드
+  // private getWaitForSelector(classNames: string[]): string {
+  //   // 컨텐츠 관련 클래스를 찾아 대기 셀렉터로 사용
+  //   const contentClass = classNames.find(
+  //     (cls) =>
+  //       cls.includes("list") ||
+  //       cls.includes("items") ||
+  //       cls.includes("content"),
+  //   );
+  //
+  //   return contentClass ? `.${contentClass}` : "body";
+  // }
+
   // Helper methods
   private cleanText(text: string): string {
     return text.replace(/[\s\n\r\t]+/g, " ").trim();
+  }
+
+  private transformNaverBlogURL(url: string): string {
+    const regex = /https:\/\/blog\.naver\.com\/([^/]+)\/(\d+)/;
+    const match = url.match(regex);
+
+    if (!match) return url;
+
+    const [, blogId, logNo] = match;
+    return `${this.naverBlog}/PostView.naver?blogId=${blogId}&logNo=${logNo}`;
+  }
+
+  private transformUrl(url: string): string {
+    return url.includes(this.naverBlog) ? this.transformNaverBlogURL(url) : url;
+  }
+
+  private getProxyOptions(url: string) {
+    if (url.includes(this.arxiv)) {
+      return {
+        premium_proxy: true,
+        proxy_country: "kr",
+      };
+    }
+
+    if (
+      url.includes("https://brand.naver.com") ||
+      url.includes("https://www.coupang.com")
+    ) {
+      return {
+        premium_proxy: true,
+        proxy_country: "kr",
+      };
+    }
+
+    return undefined;
   }
 
   private getClassNames($element: Cheerio<any>): string[] {
@@ -386,27 +489,6 @@ export class WebCrawlerProvider {
         .filter(Boolean)
         .join("-") || "default-group"
     );
-  }
-
-  private extractPaginationPattern(
-    url: string,
-  ): IWebCrawler.IPagination["pattern"] {
-    try {
-      const urlObj = new URL(url);
-      return {
-        baseUrl: `${urlObj.protocol}//${urlObj.host}${urlObj.pathname}`,
-        queryParam: urlObj.searchParams.has("page")
-          ? "page"
-          : urlObj.searchParams.has("p")
-            ? "p"
-            : undefined,
-        fragment: urlObj.hash || undefined,
-      };
-    } catch {
-      return {
-        baseUrl: url,
-      };
-    }
   }
 
   private findMatchingContent(
