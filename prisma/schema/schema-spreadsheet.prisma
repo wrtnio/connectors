@@ -1,0 +1,323 @@
+/// @namespace Spreadsheets
+/// @author kakasoo
+model spreadsheets {
+  //----
+  // COLUMNS
+  //----
+  /// @format uuid
+  id String @id @db.Uuid
+
+  /// External User ID
+  external_user_id String @db.Uuid
+
+  /// System Password
+  /// 
+  /// This is a randomly issued password for encryption by
+  /// this system, and has absolutely nothing to do with the user.
+  password String @db.VarChar
+
+  /// The date and time the spreadsheet was created.
+  created_at DateTime @db.Timestamptz
+
+  /// The date and time the spreadsheet was deleted.
+  deleted_at DateTime? @db.Timestamptz
+
+  //----
+  // RELATIONS
+  //----
+  /// Snapshot list.
+  ///
+  /// Generated once when an spreadsheet is created, and accumulated each time 
+  /// the spreadsheet is edited.
+  ///
+  /// @minItems 1
+  snapshots spreadsheet_snapshots[]
+
+  /// Cell list.
+  ///
+  ///
+  spreadsheet_cells spreadsheet_cells[]
+
+  ///
+  ///
+  ///
+  spreadsheet_formats       spreadsheet_formats[]
+  spreadsheet_last_snapshot spreadsheet_last_snapshot[]
+}
+
+/// @namespace Spreadsheets
+/// @author kakasoo
+model spreadsheet_snapshots {
+  //----
+  // COLUMNS
+  //----
+
+  /// @format uuid
+  id String @id @db.Uuid
+
+  /// @foramt uuid
+  spreadsheet_id String? @db.Uuid
+
+  /// Title of this spreadsheet
+  title String
+
+  /// Description of this spreadsheet, but it is optional.
+  description String?
+
+  /// The date and time the spreadsheet_snapshot was created.
+  created_at DateTime @db.Timestamptz
+
+  //----
+  // RELATIONS
+  //----
+  spreadsheets              spreadsheets?               @relation(fields: [spreadsheet_id], references: [id])
+  spreadsheet_last_snapshot spreadsheet_last_snapshot[]
+  spreadsheet_exports       spreadsheet_exports[]
+}
+
+/// cells of spreadsheet
+/// 
+/// @namespace Spreadsheets
+/// @author kakasoo
+model spreadsheet_cells {
+  //----
+  // COLUMNS
+  //----
+  /// Primary Key.
+  ///
+  /// @format uuid
+  id String @id @db.Uuid
+
+  ///
+  ///
+  /// @format uuid
+  spreadsheet_id String @db.Uuid
+
+  /// Column Number
+  ///
+  /// It counts from 1.
+  column Int
+
+  /// Row Number
+  ///
+  /// It counts from 1.
+  row Int
+
+  /// The date and time the spreadsheet_cells was created.
+  created_at DateTime @db.Timestamptz
+
+  //----
+  // RELATIONS
+  //---
+  spreadsheet                     spreadsheets                      @relation(fields: [spreadsheet_id], references: [id])
+  spreadsheet_cell_snapshots      spreadsheet_cell_snapshots[]
+  spreadsheet_cell_last_snapshots spreadsheet_cell_last_snapshots[]
+
+  @@unique([spreadsheet_id, column, row])
+}
+
+/// spreadsheet cell snapshots
+/// 
+/// @namespace Spreadsheets
+/// @author kakasoo
+model spreadsheet_cell_snapshots {
+  //----
+  // COLUMNS
+  //----
+  /// Primary Key.
+  ///
+  /// @format uuid
+  id String @id @db.Uuid
+
+  ///
+  ///
+  /// @format uuid
+  spreadsheet_cell_id String @db.Uuid
+
+  /// Format type of this cell
+  ///
+  /// For example, date, datetime, bool, text an so on.
+  /// If you want add new type, please discuss within our team.
+  type String
+
+  /// value
+  ///
+  /// If the value of the final cell is in the erased form, null.
+  /// A null value will be stored only when the value of this cell disappears after modification, and other than that, null can never be entered.
+  /// This is to indicate that the value has been explicitly deleted to prevent the cell value of the previous snapshot from being exposed when a cell is soft-delete.
+  value String?
+
+  /// The date and time the spreadsheet_cell_snapshot was created.
+  created_at DateTime @db.Timestamptz
+
+  //----
+  // RELATIONS
+  //----
+  spreadsheet_cell                spreadsheet_cells                 @relation(fields: [spreadsheet_cell_id], references: [id])
+  spreadsheet_cell_last_snapshots spreadsheet_cell_last_snapshots[]
+}
+
+/// spreadsheet cell lsat snapshots relation
+/// 
+/// @hidden
+/// @namespace Spreadsheets
+/// @author kakasoo
+model spreadsheet_cell_last_snapshots {
+  //----
+  // COLUMNS
+  //----
+  /// Primary Key.
+  ///
+  /// @format uuid
+  spreadsheet_cell_id String @id @db.Uuid
+
+  /// spreadsheet cell snapshot ID
+  ///
+  /// @format uuid
+  spreadsheet_cell_snapshot_id String @db.Uuid
+
+  //----
+  // RELATIONS
+  //----
+  spreadsheet_cell_snapshot spreadsheet_cell_snapshots @relation(fields: [spreadsheet_cell_snapshot_id], references: [id])
+  spreadsheet_cell          spreadsheet_cells          @relation(fields: [spreadsheet_cell_id], references: [id])
+
+  @@unique([spreadsheet_cell_snapshot_id])
+}
+
+/// Spreadsheet format means '서식' in Korean.
+///
+/// The columns here are not final and will continue to be added in the future.
+/// This will probably be the table with the most columns in the Spreadsheets group.
+/// @namespace Spreadsheets
+/// @author kakasoo
+model spreadsheet_formats {
+  //----
+  // COLUMNS
+  //----
+  /// @format uuid
+  id String @id @db.Uuid
+
+  /// @format uuid
+  spreadsheet_id String @db.Uuid
+
+  /// Name of Font
+  font_name String
+
+  // Size of Font
+  font_size Decimal
+
+  /// Backround color
+  ///
+  ///  To ensure mutual compatibility, be sure to enter color values ​​and do not enter natural language names.
+  /// For example, '#FFFFFF'
+  background_color String
+
+  /// This means text alignment (Horizontal alignment).
+  ///
+  /// For example, 'left', 'right', 'center'
+  text_alignment String
+
+  /// The date and time the spreadsheet_format was created.
+  created_at DateTime @db.Timestamptz
+
+  /// The date and time the spreadsheet_format was created.
+  deleted_at DateTime? @db.Timestamptz
+
+  //----
+  // RELATIONS
+  //----
+  spreadsheet spreadsheets @relation(fields: [spreadsheet_id], references: [id])
+
+  /// Range of Format
+  ///
+  ///
+  spreadsheet_ranges spreadsheet_ranges[]
+}
+
+/// @namespace Spreadsheets
+/// @author kakasoo
+model spreadsheet_ranges {
+  //----
+  // COLUMNS
+  //----
+  /// @format uuid
+  id String @id @db.Uuid
+
+  /// @format uuid
+  spreadsheet_format_id String @db.Uuid
+
+  /// This refers to the starting row value of the point where the format will be applied.
+  start_row Int
+
+  /// This refers to the ending row value of the point where the format will be applied.
+  end_row Int
+
+  /// This refers to the starting column value of the point where the format will be applied.
+  start_column Int
+
+  /// This refers to the ending column value of the point where the format will be applied.
+  end_column Int
+
+  /// The date and time the spreadsheet_ranges was created.
+  created_at DateTime @db.Timestamptz
+
+  //---- 
+  // RELATIONS
+  //----
+  spreadsheet_format spreadsheet_formats @relation(fields: [spreadsheet_format_id], references: [id])
+}
+
+/// @hidden
+/// @namespace Spreadsheets
+/// @author kakasoo
+model spreadsheet_last_snapshot {
+  //----
+  // COLUMNS
+  //----
+  /// {@link spreadsheets.id} of the attached spreadsheet.
+  ///
+  /// @format uuid
+  spreadsheet_id String @id @db.Uuid
+
+  /// {@link spreadsheet_snapshots.id} of the last snapshot.
+  ///
+  /// @format uuid
+  spreadsheet_snapshot_id String @db.Uuid
+
+  //----
+  // RELAITONS
+  //----
+  spreadsheet spreadsheets          @relation(fields: [spreadsheet_id], references: [id])
+  snapshot    spreadsheet_snapshots @relation(fields: [spreadsheet_snapshot_id], references: [id])
+
+  @@unique([spreadsheet_snapshot_id])
+}
+
+/// @namespace Spreadsheets
+/// @author kakasoo
+model spreadsheet_exports {
+  //----
+  // COLUMNS
+  //----
+  /// @format uuid
+  id String @id @db.Uuid
+
+  // Provider's ID, for example notion, google_docs, etc.
+  //
+  // @format uuid
+  provider_id String @db.Uuid
+
+  /// {@link spreadsheet_snapshots.id} of the attributed article snapshot
+  /// 
+  /// @format uuid
+  spreadsheet_snapshot_id String @db.Uuid
+
+  //----
+  // RELATIONS
+  //----
+  snapshot spreadsheet_snapshots @relation(fields: [spreadsheet_snapshot_id], references: [id], onDelete: Cascade)
+
+  /// There must be a provider
+  spreadsheet_provider provider @relation(fields: [provider_id], references: [id], onDelete: Cascade)
+}

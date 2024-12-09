@@ -6,6 +6,7 @@
 - [AirportInformations](#airportinformations)
 - [Articles](#articles)
 - [Crunchbase](#crunchbase)
+- [Spreadsheets](#spreadsheets)
 - [Similarweb](#similarweb)
 - [X](#x)
 - [SaleContents](#salecontents)
@@ -176,6 +177,11 @@ erDiagram
   DateTime created_at
   DateTime deleted_at "nullable"
 }
+"provider" {
+  String id PK
+  String name UK
+  DateTime created_at
+}
 "bbs_article_snapshots" }|--|| "bbs_articles" : article
 "bbs_article_snapshot_files" }o--|| "bbs_article_snapshots" : snapshot
 "bbs_article_snapshot_files" }o--|| "attachment_files" : file
@@ -185,6 +191,7 @@ erDiagram
 "bbs_article_comment_snapshot_files" }o--|| "bbs_article_comment_snapshots" : snapshot
 "bbs_article_comment_snapshot_files" }o--|| "attachment_files" : file
 "bbs_article_exports" }o--|| "bbs_article_snapshots" : snapshot
+"bbs_article_exports" }o--o| "provider" : bbs_article_provider
 ```
 
 ### `attachment_files`
@@ -343,6 +350,13 @@ M: N relationship resolution.
   - `created_at`: The date and time the record was created.
   - `deleted_at`: Date and time of article deletion.
 
+### `provider`
+
+**Properties**
+  - `id`: Provider's unique ID 
+  - `name`: name of provider, for example, 'notion', 'google_docs', 'excel', 'google_sheets'
+  - `created_at`: The date and time the record was created.
+
 
 ## Crunchbase
 ```mermaid
@@ -373,6 +387,181 @@ Get company information using the Crunchbase Rapid API.
     > The data returned by the API.
     > Since the format of the response data depends on an external API and it is difficult to determine the type, it is saved as JSON type.
   - `created_at`: The date and time the record was created.
+
+
+## Spreadsheets
+```mermaid
+erDiagram
+"provider" {
+  String id PK
+  String name UK
+  DateTime created_at
+}
+"spreadsheets" {
+  String id PK
+  String external_user_id
+  String password
+  DateTime created_at
+  DateTime deleted_at "nullable"
+}
+"spreadsheet_snapshots" {
+  String id PK
+  String spreadsheet_id FK "nullable"
+  String title
+  String description "nullable"
+  DateTime created_at
+}
+"spreadsheet_cells" {
+  String id PK
+  String spreadsheet_id FK
+  Int column
+  Int row
+  DateTime created_at
+}
+"spreadsheet_cell_snapshots" {
+  String id PK
+  String spreadsheet_cell_id FK
+  String type
+  String value "nullable"
+  DateTime created_at
+}
+"spreadsheet_formats" {
+  String id PK
+  String spreadsheet_id FK
+  String font_name
+  Decimal font_size
+  String background_color
+  String text_alignment
+  DateTime created_at
+  DateTime deleted_at "nullable"
+}
+"spreadsheet_ranges" {
+  String id PK
+  String spreadsheet_format_id FK
+  Int start_row
+  Int end_row
+  Int start_column
+  Int end_column
+  DateTime created_at
+}
+"spreadsheet_exports" {
+  String id PK
+  String provider_id FK
+  String spreadsheet_snapshot_id FK
+}
+"spreadsheet_snapshots" }|--o| "spreadsheets" : spreadsheets
+"spreadsheet_cells" }o--|| "spreadsheets" : spreadsheet
+"spreadsheet_cell_snapshots" }o--|| "spreadsheet_cells" : spreadsheet_cell
+"spreadsheet_formats" }o--|| "spreadsheets" : spreadsheet
+"spreadsheet_ranges" }o--|| "spreadsheet_formats" : spreadsheet_format
+"spreadsheet_exports" }o--|| "spreadsheet_snapshots" : snapshot
+"spreadsheet_exports" }o--|| "provider" : spreadsheet_provider
+```
+
+### `provider`
+
+**Properties**
+  - `id`: Provider's unique ID 
+  - `name`: name of provider, for example, 'notion', 'google_docs', 'excel', 'google_sheets'
+  - `created_at`: The date and time the record was created.
+
+### `spreadsheets`
+
+**Properties**
+  - `id`: 
+  - `external_user_id`: External User ID
+  - `password`
+    > System Password
+    > 
+    > This is a randomly issued password for encryption by
+    > this system, and has absolutely nothing to do with the user.
+  - `created_at`: The date and time the spreadsheet was created.
+  - `deleted_at`: The date and time the spreadsheet was deleted.
+
+### `spreadsheet_snapshots`
+
+**Properties**
+  - `id`: 
+  - `spreadsheet_id`: 
+  - `title`: Title of this spreadsheet
+  - `description`: Description of this spreadsheet, but it is optional.
+  - `created_at`: The date and time the spreadsheet_snapshot was created.
+
+### `spreadsheet_cells`
+cells of spreadsheet
+
+**Properties**
+  - `id`: Primary Key.
+  - `spreadsheet_id`: 
+  - `column`
+    > Column Number
+    > 
+    > It counts from 1.
+  - `row`
+    > Row Number
+    > 
+    > It counts from 1.
+  - `created_at`: The date and time the spreadsheet_cells was created.
+
+### `spreadsheet_cell_snapshots`
+spreadsheet cell snapshots
+
+**Properties**
+  - `id`: Primary Key.
+  - `spreadsheet_cell_id`: 
+  - `type`
+    > Format type of this cell
+    > 
+    > For example, date, datetime, bool, text an so on.
+    > If you want add new type, please discuss within our team.
+  - `value`
+    > value
+    > 
+    > If the value of the final cell is in the erased form, null.
+    > A null value will be stored only when the value of this cell disappears after modification, and other than that, null can never be entered.
+    > This is to indicate that the value has been explicitly deleted to prevent the cell value of the previous snapshot from being exposed when a cell is soft-delete.
+  - `created_at`: The date and time the spreadsheet_cell_snapshot was created.
+
+### `spreadsheet_formats`
+Spreadsheet format means '서식' in Korean.
+
+The columns here are not final and will continue to be added in the future.
+This will probably be the table with the most columns in the Spreadsheets group.
+
+**Properties**
+  - `id`: 
+  - `spreadsheet_id`: 
+  - `font_name`: Name of Font
+  - `font_size`: 
+  - `background_color`
+    > Backround color
+    > 
+    > To ensure mutual compatibility, be sure to enter color values ​​and do not enter natural language names.
+    > For example, '#FFFFFF'
+  - `text_alignment`
+    > This means text alignment (Horizontal alignment).
+    > 
+    > For example, 'left', 'right', 'center'
+  - `created_at`: The date and time the spreadsheet_format was created.
+  - `deleted_at`: The date and time the spreadsheet_format was created.
+
+### `spreadsheet_ranges`
+
+**Properties**
+  - `id`: 
+  - `spreadsheet_format_id`: 
+  - `start_row`: This refers to the starting row value of the point where the format will be applied.
+  - `end_row`: This refers to the ending row value of the point where the format will be applied.
+  - `start_column`: This refers to the starting column value of the point where the format will be applied.
+  - `end_column`: This refers to the ending column value of the point where the format will be applied.
+  - `created_at`: The date and time the spreadsheet_ranges was created.
+
+### `spreadsheet_exports`
+
+**Properties**
+  - `id`: 
+  - `provider_id`: 
+  - `spreadsheet_snapshot_id`: [spreadsheet_snapshots.id](#spreadsheet_snapshots) of the attributed article snapshot
 
 
 ## Similarweb
@@ -460,11 +649,6 @@ The tweet information of X.
 ## default
 ```mermaid
 erDiagram
-"provider" {
-  String id PK
-  String name UK
-  DateTime created_at
-}
 "slack_team" {
   String id PK
   String external_team_id
@@ -494,13 +678,6 @@ erDiagram
 "slack_last_snapshots" |o--|| "slack_users" : slack_user
 "slack_last_snapshots" |o--|| "slack_user_snapshots" : slack_user_snapshot
 ```
-
-### `provider`
-
-**Properties**
-  - `id`: 
-  - `name`: 
-  - `created_at`: The date and time the record was created.
 
 ### `slack_team`
 
