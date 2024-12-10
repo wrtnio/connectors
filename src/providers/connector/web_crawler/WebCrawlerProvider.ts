@@ -4,6 +4,7 @@ import { ZenRows } from "zenrows";
 import { ConnectorGlobal } from "../../../ConnectorGlobal";
 import { IWebCrawler } from "@wrtn/connector-api/lib/structures/connector/web_crawler/IWebCrawler";
 import { CommonExtractor } from "./extractors/CommonExtractor";
+import fs from "fs";
 
 @Injectable()
 export class WebCrawlerProvider {
@@ -13,22 +14,20 @@ export class WebCrawlerProvider {
   private readonly arxiv = "https://arxiv.org";
 
   constructor() {
-    this.client = new ZenRows(ConnectorGlobal.env.ZENROWS_API_KEY);
+    this.client = new ZenRows(ConnectorGlobal.env.ZENROWS_API_KEY, {
+      retries: 3,
+    });
   }
 
   async crawl(request: IWebCrawler.IRequest): Promise<IWebCrawler.IResponse> {
     try {
-      const { $, xhr } = await this.fetchPage(request);
+      const $ = await this.fetchPage(request);
 
       // Extract main content
       const mainContent = await this.extractMainContent($);
 
       // Extract paginated content
-      const paginationGroups = await this.extractPaginatedContent(
-        $,
-        xhr,
-        request,
-      );
+      const paginationGroups = await this.extractPaginatedContent($, request);
 
       return {
         ...mainContent,
@@ -46,11 +45,12 @@ export class WebCrawlerProvider {
   private async fetchPage(
     request: IWebCrawler.IRequest,
     js_instructions?: string,
-  ): Promise<{ $: CheerioAPI; xhr: IWebCrawler.IXHR[] }> {
+  ): Promise<CheerioAPI> {
+    console.log("fetching");
     try {
       const response = await this.client.get(this.transformUrl(request.url), {
         js_render: true,
-        wait: 5000,
+        wait: 10000,
         json_response: true,
         wait_for: request.wait_for,
         js_instructions: js_instructions
@@ -67,12 +67,7 @@ export class WebCrawlerProvider {
       }
 
       const data = await response.json();
-      const $ = load(data.html);
-
-      return {
-        $,
-        xhr: data.xhr || [],
-      };
+      return load(data.html);
     } catch (error) {
       this.logger.error("Failed to fetch page:", error);
       throw error;
@@ -178,7 +173,7 @@ export class WebCrawlerProvider {
       $('meta[name="description"]').attr("content") ||
       $('meta[property="og:description"]').attr("content");
     if (description) {
-      metadata.description = { text: description };
+      metadata.description = { text: description.toString(), images: [] };
     }
 
     // Additional metadata
@@ -197,13 +192,30 @@ export class WebCrawlerProvider {
 
   private async extractPaginatedContent(
     $: CheerioAPI,
-    xhr: IWebCrawler.IXHR[],
     request: IWebCrawler.IRequest,
   ): Promise<IWebCrawler.IResponse["paginationGroups"]> {
     const paginationGroups: IWebCrawler.IResponse["paginationGroups"] = [];
     const paginationElements = await CommonExtractor.findPaginationElements($);
 
-    console.log(paginationElements);
+    console.log(paginationElements.length);
+
+    const elementsInfo = paginationElements.map((element) => {
+      const $el = $(element);
+      return {
+        classes: this.getClassNames($el),
+        text: this.cleanText($el.text()).slice(0, 100), // 첫 100자만 표시
+        children: $el.children().length,
+      };
+    });
+
+    await fs.promises.writeFile(
+      `/Users/jeonsehyeon/Documents/wrtn/connectors/test/features/api/connector/web_crawler/logs/logs.json`,
+      JSON.stringify(elementsInfo, null, 2),
+      "utf8",
+    );
+
+    // 컨텐츠 중복 체크를 위한 Set (첫 번째 아이템의 텍스트로 비교)
+    const processedContents = new Set<string>();
 
     for (const section of paginationElements) {
       const $section = $(section);
@@ -211,8 +223,8 @@ export class WebCrawlerProvider {
 
       if (!type) continue;
 
-      // 리스트 데이터 찾기
       const listSelectors = [
+        'ul[class*="_2ms2i3dD92"]',
         '[class*="list"]',
         '[class*="items"]',
         '[class*="feed"]',
@@ -224,6 +236,14 @@ export class WebCrawlerProvider {
         .filter(($el) => $el.length > 0)[0];
 
       if (!$listElements) continue;
+
+      // 유효성 체크
+      if (!this.isValidPaginationContent($listElements)) continue;
+
+      // 첫 번째 아이템의 텍스트로 중복 체크
+      const firstItemText = $listElements.children().first().text().trim();
+      if (processedContents.has(firstItemText)) continue;
+      processedContents.add(firstItemText);
 
       const dataItems = await Promise.all(
         $listElements
@@ -246,7 +266,6 @@ export class WebCrawlerProvider {
           pagination: await CommonExtractor.extractPaginationInfo(
             $listElements,
             type.type,
-            xhr,
           ),
         },
       ];
@@ -256,8 +275,7 @@ export class WebCrawlerProvider {
           $,
           request.url,
           pages[0],
-          xhr,
-          request.pagination.followNextPageCount || 10,
+          request.pagination.followNextPageCount ?? 10,
         );
         pages.push(...additionalPages);
       }
@@ -271,22 +289,80 @@ export class WebCrawlerProvider {
     return paginationGroups;
   }
 
+  private isValidPaginationContent($element: Cheerio<any>): boolean {
+    // UI 요소 제외
+    const invalidClasses = [
+      "_27jmWaPaKy",
+      "_productFloatingTab",
+      "_2ZMO1PVXbA",
+      "spi_sns_share",
+      "share_area",
+      "btn_share",
+    ];
+
+    for (const cls of invalidClasses) {
+      if (
+        $element.hasClass(cls) ||
+        $element.find(`[class*="${cls}"]`).length > 0
+      ) {
+        return false;
+      }
+    }
+
+    const contentText = $element.text().trim();
+
+    // 컨텐츠가 너무 짧으면 제외
+    if (contentText.length < 50) return false;
+
+    // 리스트 구조 확인
+    const hasListStructure =
+      $element.find("li").length > 0 || $element.children().length > 3;
+
+    // 페이지네이션 관련 요소가 있는지 확인
+    const hasPaginationElements =
+      $element.find(
+        '[class*="paginate"], [class*="pagination"], [class*="paging"]',
+      ).length > 0 ||
+      $element.find(
+        'a:contains("다음"), a:contains("이전"), a:contains("Next"), a:contains("Prev")',
+      ).length > 0;
+
+    // 일반적인 리스트 컨텐츠 확인
+    const hasValidContent =
+      // 리뷰/문의 관련
+      contentText.includes("리뷰") ||
+      contentText.includes("문의") ||
+      $element.find('[class*="review"], [class*="qna"]').length > 0 ||
+      // 게시판 관련
+      contentText.includes("게시") ||
+      contentText.includes("글") ||
+      $element.find('[class*="board"], [class*="post"]').length > 0 ||
+      // 상품 목록 관련
+      contentText.includes("상품") ||
+      contentText.includes("제품") ||
+      $element.find('[class*="product"], [class*="item"]').length > 0 ||
+      // 댓글 관련
+      contentText.includes("댓글") ||
+      contentText.includes("코멘트") ||
+      $element.find('[class*="comment"], [class*="reply"]').length > 0 ||
+      // 피드 형태
+      $element.find('[class*="feed"], [class*="timeline"], [class*="stream"]')
+        .length > 0;
+
+    return hasListStructure && (hasValidContent || hasPaginationElements);
+  }
+
   private async followPagination(
     $: CheerioAPI,
     url: string,
     firstPage: IWebCrawler.IPage,
-    xhr: IWebCrawler.IXHR[],
     maxPages: number,
   ): Promise<IWebCrawler.IPage[]> {
     const pages: IWebCrawler.IPage[] = [];
     let currentPage = firstPage;
     let pageCount = 1;
 
-    while (
-      pageCount < maxPages &&
-      currentPage.pagination.hasNextPage &&
-      currentPage.pagination.nextPageUrl
-    ) {
+    while (pageCount < maxPages && currentPage.pagination.hasNextPage) {
       try {
         let jsInstructions: string | undefined;
 
@@ -300,7 +376,9 @@ export class WebCrawlerProvider {
               '[class*="load-more"]',
               "[data-load-more]",
             ];
-            const selector = loadMoreSelectors.find((sel) => $(sel).length > 0);
+            const selector = loadMoreSelectors.find(
+              (sel) => $next(sel).length > 0,
+            );
             if (selector) {
               jsInstructions = `[{ "click": "${selector}" }, { "wait": 5000 }]`;
             }
@@ -322,6 +400,7 @@ export class WebCrawlerProvider {
             const nextPageSelector = [
               "button._2XI47._3I7ex",
               'button[class="_2XI47 _3I7ex"]',
+              "a[class*='_2Ar8-aEUTq']",
             ].find((sel) => $(sel).length > 0);
 
             if (nextPageSelector) {
@@ -332,7 +411,7 @@ export class WebCrawlerProvider {
         }
 
         // 페이지 패치 및 데이터 추출
-        const { $: $next } = await this.fetchPage(
+        const $next = await this.fetchPage(
           {
             url: url,
           },
@@ -348,6 +427,7 @@ export class WebCrawlerProvider {
           '[class*="list"]',
           '[class*="items"]',
           '[class*="feed"]',
+          'ul[class*="_2ms2i3dD92"]',
         ];
 
         const $listElements = listSelectors
@@ -376,7 +456,6 @@ export class WebCrawlerProvider {
           pagination: await CommonExtractor.extractPaginationInfo(
             $matchingContent,
             currentPage.pagination.type,
-            xhr,
           ),
         };
 

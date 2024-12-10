@@ -12,10 +12,6 @@ export namespace PaginationInfiniteExtractor {
     '[class*="scroll-load"]',
     "[data-infinite]",
 
-    // WAI-ARIA 속성
-    '[role="feed"]',
-    '[aria-live="polite"]',
-
     // 데이터 속성
     "[data-infinite-scroll]",
     "[data-endless-scroll]",

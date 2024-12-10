@@ -4,12 +4,10 @@ import { IWebCrawler } from "@wrtn/connector-api/lib/structures/connector/web_cr
 export namespace PaginationLoadMoreExtractor {
   export const loadMoreSelectors = [
     // 버튼 텍스트 기반
-    'button:contains("더보기")',
     'button:contains("load more")',
     'button:contains("show more")',
     'button:contains("view more")',
     'button:contains("see more")',
-    'a:contains("더보기")',
     'a:contains("load more")',
     'a:contains("show more")',
     'a:contains("view more")',
@@ -29,13 +27,7 @@ export namespace PaginationLoadMoreExtractor {
     "[data-more]",
     '[data-action="load-more"]',
 
-    // WAI-ARIA 속성
-    '[aria-label*="load more" i]',
-    '[aria-label*="show more" i]',
-    '[role="button"]:contains("more")',
-
     // 다국어 지원
-    'button:contains("더보기")',
     'button:contains("상품정보더보기")',
     'button:contains("もっと見る")',
     'button:contains("查看更多")',
@@ -54,7 +46,6 @@ export namespace PaginationLoadMoreExtractor {
     ".GoodsReviewListSection__Container-sc-1x35scp-0",
     ".GoodsReviewMoreButton__Wrapper-sc-dgupoo-0",
     '[data-shp-area="revlist.pgn"]',
-    '[role="menubar"]',
     '[class*="GoodsReview"]', // GoodsReview로 시작하는 모든 클래스
   ];
 

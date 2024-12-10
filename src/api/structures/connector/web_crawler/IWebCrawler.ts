@@ -181,28 +181,4 @@ export namespace IWebCrawler {
     | "infinite-scroll"
     | "load-more"
     | null;
-
-  /**
-   * ZENROWS 를 사용해 응답받은 정보.
-   */
-  export interface IFetch {
-    /**
-     * @title HTML content of the page
-     */
-    html: string;
-
-    /**
-     * XHR 요청 정보.
-     */
-    xhr: IWebCrawler.IXHR[];
-  }
-
-  export interface IXHR {
-    url: string;
-    method: string;
-    body: string;
-    headers?: Record<string, string>;
-    timestamp: number; // 요청이 발생한 시간
-    responseStatus?: number;
-  }
 }

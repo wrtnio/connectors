@@ -29,25 +29,31 @@ export namespace CommonExtractor {
       '[class*="feed"]',
       '[class*="review"]', // 리뷰 관련 클래스
       "ul",
+      "ul:nth-child(1)",
+      "ul:nth-child(2)",
       "ol",
       '[role="list"]',
       '[class*="grid"]',
     ];
 
-    const excludeSelectors = ['[class*="_spi_lst spi_list"]'];
-
+    const excludeSelectors = ['[class="_spi_lst spi_list"]'];
     const containerSelectors = ["section", "div"];
-    const sections: Cheerio<any>[] = [];
 
-    // 모든 컨테이너 셀렉터에 대해 한 번의 로직으로 처리
+    const sections: Cheerio<any>[] = []; // 모든 컨테이너 셀렉터에 대해 한 번의 로직으로 처리
+
     containerSelectors.forEach((containerSelector) => {
       $(containerSelector).each((_, element) => {
         const $element = $(element);
 
         // 페이지네이터 존재 여부 확인
-        const hasPaginator = paginatorSelectors.some(
-          (selector) => $element.find(selector).length > 0,
-        );
+        const hasPaginator = paginatorSelectors.some((selector) => {
+          const req = $element.find(selector).length > 0;
+
+          if (req) {
+            console.log("selector", selector);
+          }
+          return req;
+        });
 
         if (!hasPaginator) return;
 
@@ -107,57 +113,11 @@ export namespace CommonExtractor {
   export const extractPaginationInfo = async (
     $element: Cheerio<any>,
     type: IWebCrawler.PaginationType,
-    xhr: IWebCrawler.IXHR[],
   ): Promise<IWebCrawler.IPagination> => {
     const pagination: IWebCrawler.IPagination = {
       type,
       hasNextPage: false,
     };
-
-    // XHR에서 pagination 관련 API 찾기
-    const paginationXHR = xhr.find((req) => {
-      return (
-        req.url.includes("page=") ||
-        req.url.includes("offset=") ||
-        req.url.includes("cursor=") ||
-        /\/api\/.*\/(list|items|page)/.test(req.url)
-      );
-    });
-
-    if (paginationXHR) {
-      pagination.hasNextPage = true;
-      pagination.nextPageUrl = paginationXHR.url;
-      pagination.pattern = {
-        baseUrl: new URL(paginationXHR.url).pathname,
-        queryParam: new URLSearchParams(paginationXHR.url).has("page")
-          ? "page"
-          : new URLSearchParams(paginationXHR.url).has("offset")
-            ? "offset"
-            : "cursor",
-      };
-
-      // 현재 페이지 번호 추출
-      const pageMatch = paginationXHR.url.match(/page=(\d+)/);
-      if (pageMatch) {
-        pagination.currentPage = parseInt(pageMatch[1], 10);
-      }
-
-      return pagination;
-    }
-
-    // XHR이 없는 경우 기존 DOM 기반 처리
-    const $nextLink = $element.find('a:contains("Next"), a[rel="next"]');
-    if ($nextLink.length) {
-      pagination.hasNextPage = true;
-      pagination.nextPageUrl = $nextLink.attr("href");
-      const currentPageElement = $element.find(".current, .active");
-      if (currentPageElement.length) {
-        pagination.currentPage = parseInt(currentPageElement.text(), 10);
-      }
-      if (pagination.nextPageUrl) {
-        pagination.pattern = extractPaginationPattern(pagination.nextPageUrl);
-      }
-    }
 
     return pagination;
   };

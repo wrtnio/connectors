@@ -38,11 +38,11 @@ export const test_api_connector_web_crawler_get_content = async (
     );
   };
 
-  // await execute(OHOU, "OHOU");
-  // await execute(MUSINSA, "MUSINSA");
-  // await execute(IHERB, "IHERB");
-  // await execute(CUPANG, "CUPANG");
-  // await execute(ALADIN, "ALADIN");
-  // await execute(ALIEXPRESS, "ALIEXPRESS");
+  await execute(OHOU, "OHOU");
+  await execute(MUSINSA, "MUSINSA");
+  await execute(IHERB, "IHERB");
+  await execute(CUPANG, "CUPANG");
+  await execute(ALADIN, "ALADIN");
+  await execute(ALIEXPRESS, "ALIEXPRESS");
   await execute(NAVERSTORE, "NAVERSTORE");
 };

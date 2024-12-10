@@ -10,13 +10,6 @@ export namespace PaginationNumberExtractor {
     '[role="navigation"]',
     'nav[aria-label*="pagination" i]',
 
-    // URL 패턴 기반
-    'a[href*="page="]',
-    'a[href*="p="]',
-    'a[href*="offset="]',
-    'a[href*="start="]',
-    'a[href*="/page/"]',
-
     // 일반적인 페이지 번호 컨테이너
     ".page-numbers",
     ".page-links",
@@ -37,7 +30,6 @@ export namespace PaginationNumberExtractor {
     '[class*="paginator"]',
     '[class*="pagination"]',
     '[class*="paging"]',
-    'ul[class*="production-review__paginator"]', // 오늘의집 specific
 
     // 버튼 기반 페이징
     'button[class*="page"]',
@@ -48,14 +40,29 @@ export namespace PaginationNumberExtractor {
     'ul > li > button[type="button"]',
     'ul[class*="paginator"] > li > button',
 
+    // 오늘의집
+    'ul[class*="production-review__paginator"]',
+    "body > div.page > div > div > div.production-selling > div.production-selling__detail-wrap.container > div > div.production-selling__detail__content.col-12.col-lg-8 > div > section:nth-child(5) > div > div.production-review-feed__list",
+
     // 네이버 쇼핑 리뷰 페이지네이션
-    "._1HJarNZHiI", // 페이지네이션 컨테이너
-    '[role="menubar"]', // 페이지네이션 메뉴바
-    'a[role="menuitem"]', // 페이지 번호 링크
-    'a[aria-current="true"]', // 현재 페이지
-    ".UWN4IvaQza", // 페이지 번호 공통 클래스
-    "._2PB8-gs2tG", // 이전 버튼
-    "._2Ar8-aEUTq", // 다음 버튼
+    `#REVIEW > div > div._2LvIMaBiIO > div._2g7PKvqCKe > ul:nth-child(1)`,
+    "#REVIEW > div > div._2LvIMaBiIO > div._2g7PKvqCKe > ul",
+    `#QNA > div > div.bd_2yati > ul`,
+
+    // 쿠팡
+    "#btfTab > ul.tab-contents > li.product-review.tab-contents__content > div > div.sdp-review__article.js_reviewArticleContainer > section.js_reviewArticleListContainer > article:nth-child(3)",
+
+    // 알라딘
+    "#CommentReviewList > div.review_list_wrap",
+
+    // 무신사
+    "#reviewPosition > div.sc-1umfic3-0.dfdNyN > div:nth-child(1) > div > div.GoodsReviewListSection__Container-sc-1x35scp-0.eVYWaM > div.GoodsReviewStaticList__Container-sc-2iel5v-0.jvzJoL",
+
+    // 알리
+    "#nav-review > div:nth-child(2) > div.list--wrap--yFAThmi > div",
+
+    // 레딧
+    "#main-content > shreddit-feed",
   ];
 
   export const isNumberedPagination = ($element: Cheerio<any>): boolean => {
@@ -64,16 +71,12 @@ export namespace PaginationNumberExtractor {
         const href = el.attribs?.href;
 
         const text = $element.find(el).text().trim();
-
-        console.log("text", text);
         return (
           /^\d+$/.test(text) &&
           Boolean(href?.match(/(?:page|p|offset|start)=\d+|\/page\/\d+/i))
         );
       }).length,
     );
-
-    console.log("hasNumberedLinks", hasNumberedLinks);
 
     const hasNavigation = Boolean(
       $element.find("a, button").filter((_, el) => {
@@ -86,15 +89,6 @@ export namespace PaginationNumberExtractor {
             .length > 0;
         return hasNavigationText || hasNavigationImage;
       }).length,
-    );
-
-    console.log("hasNavigation", hasNavigation);
-
-    console.log(
-      "paginationSelectors",
-      paginationSelectors.some(
-        (selector) => $element.find(selector).length > 0,
-      ),
     );
     return (
       paginationSelectors.some(
