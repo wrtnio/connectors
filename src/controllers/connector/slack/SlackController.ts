@@ -167,6 +167,10 @@ export class SlackController {
    * Here, you can send a message as long as you have the message and channel information you want to send.
    * Slack is a very close service to work, so it's dangerous to send messages that haven't been confirmed.
    * You must send the contents after receiving confirmation from the user.
+   * If you want to send a message to a DM channel, you need to search for an IM channel.
+   * Most IM channel IDs will start with 'D', but if the value provided by the user is a value that starts with 'U',
+   * this is most likely the user ID of the IM channel, not the channel.
+   * You need to search for a user starting with that ID and then send a message.
    *
    * @summary post text message
    * @param input

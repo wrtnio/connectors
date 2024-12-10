@@ -704,6 +704,8 @@ export class SlackProvider {
   }
 
   async getAllImChannels(input: { secretKey: string }) {
+    const users = await this.getAllUsers(input);
+
     let nextCursor: string | null = null;
     let response: Awaited<ReturnType<typeof this.getImChannels>>["channels"] =
       [];
@@ -718,7 +720,11 @@ export class SlackProvider {
       nextCursor = next_cursor;
     } while (nextCursor);
 
-    return response;
+    return response.map((channel) => {
+      const user = users.find((user): boolean => user.id === channel.user);
+      channel.username = user?.name ?? null;
+      return channel;
+    });
   }
 
   async getImChannels(
