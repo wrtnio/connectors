@@ -23,6 +23,11 @@ export namespace ISpreadsheetCell {
      * @title value
      */
     value: string | null;
+
+    /**
+     * @title Creation time of spreadsheet cell snapshot
+     */
+    created_at: string & tags.Format<"date-time">;
   }
 }
 
@@ -54,17 +59,11 @@ export interface ISpreadsheetCell<
   row: number & tags.Type<"uint32">;
 
   /**
-   * It is created for the first time when an spreadsheet cell is created, and is
-   * accumulated every time the spreadsheet is modified.
-   *
-   * @title List of snapshot contents
+   * @title Last Snapshot
    */
-  snapshots: Snapshot[] & tags.MinItems<1>;
+  snapshot: Snapshot;
 
   /**
-   * The most recent snapshot made is the higher version,
-   * and in fact, this time value can serve as the version.
-   *
    * @title Creation time of spreadsheet cell
    */
   created_at: string & tags.Format<"date-time">;
