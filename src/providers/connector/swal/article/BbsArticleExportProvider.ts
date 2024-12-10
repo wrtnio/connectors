@@ -3,7 +3,7 @@ import { IEntity } from "@wrtn/connector-api/lib/structures/common/IEntity";
 import { IArticleExport } from "@wrtn/connector-api/lib/structures/connector/articles/IArticleExport";
 import { StrictOmit } from "@wrtn/connector-api/lib/structures/types/strictOmit";
 import { randomUUID } from "crypto";
-import { ConnectorGlobal } from "../../../ConnectorGlobal";
+import { ConnectorGlobal } from "../../../../ConnectorGlobal";
 
 export namespace BbsArticleExportProvider {
   export namespace json {

@@ -4,7 +4,7 @@ import { IArticle } from "@wrtn/connector-api/lib/structures/connector/articles/
 import { randomUUID } from "crypto";
 import std from "tstl";
 import typia from "typia";
-import { ConnectorGlobal } from "../../../ConnectorGlobal";
+import { ConnectorGlobal } from "../../../../ConnectorGlobal";
 import { AttachmentFileProvider } from "./AttachmentFileProvider";
 import { BbsArticleExportProvider } from "./BbsArticleExportProvider";
 

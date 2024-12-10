@@ -69,7 +69,8 @@ import { StableDiffusionBetaModule } from "./stable_diffustion_beta/StableDiffus
 import { StoryGeneratorModule } from "./story_generator/StoryGeneratorModule";
 import { StoryImageGeneratorModule } from "./story_image_generator/StoryImageGeneratorModule";
 import { StudentReportGeneratorModule } from "./student_report_generator/StudentReportGeneratorModule";
-import { ArticlesModule } from "./swal/articles/ArticlesModule";
+import { ArticleModule } from "./swal/article/ArticleModule";
+import { SpreadsheetModule } from "./swal/spreadsheet/SpreadsheetModule";
 import { SweetTackerModule } from "./sweet_tracker/SweetTrackerModule";
 import { ToolModule } from "./tool/ToolModule";
 import { TypeformModule } from "./typeform/TypeformModule";
@@ -82,7 +83,8 @@ import { ZoomModule } from "./zoom/ZoomModule";
   // connectors that require DI of some sort shall be declared as modules
   // the rest can be simply imported as controllers
   imports: [
-    ArticlesModule,
+    ArticleModule,
+    SpreadsheetModule,
     KeywordExtractModule,
     RankModule,
     MarketingCopyModule,
