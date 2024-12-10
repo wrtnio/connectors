@@ -3,7 +3,6 @@ import { LoggerModule } from "nestjs-pino";
 
 import { AISearchModule } from "./ai_search/AISearchModule";
 import { AirportInformationModule } from "./airport_information/AirportInformationModule";
-import { ArticlesModule } from "./articles/ArticlesModule";
 import { ArxivSearchModule } from "./arxiv_search/ArxivSearchModule";
 import { AwsModule } from "./aws/AwsModule";
 import { CalendlyModule } from "./calendly/CalendlyModule";
@@ -70,6 +69,7 @@ import { StableDiffusionBetaModule } from "./stable_diffustion_beta/StableDiffus
 import { StoryGeneratorModule } from "./story_generator/StoryGeneratorModule";
 import { StoryImageGeneratorModule } from "./story_image_generator/StoryImageGeneratorModule";
 import { StudentReportGeneratorModule } from "./student_report_generator/StudentReportGeneratorModule";
+import { ArticlesModule } from "./swal/articles/ArticlesModule";
 import { SweetTackerModule } from "./sweet_tracker/SweetTrackerModule";
 import { ToolModule } from "./tool/ToolModule";
 import { TypeformModule } from "./typeform/TypeformModule";

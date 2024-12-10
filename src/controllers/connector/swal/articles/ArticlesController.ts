@@ -6,10 +6,10 @@ import { IArticle } from "@wrtn/connector-api/lib/structures/connector/articles/
 import { IArticleExport } from "@wrtn/connector-api/lib/structures/connector/articles/IArticleExport";
 import { StrictOmit } from "@wrtn/connector-api/lib/structures/types/strictOmit";
 import { Prerequisite } from "@wrtnio/decorators";
-import { ExternalUser } from "../../../decorators/ExternalUser";
-import { DocumentProvider } from "../../../providers/connector/article/DocumentProvider";
+import { ExternalUser } from "../../../../decorators/ExternalUser";
+import { DocumentProvider } from "../../../../providers/connector/article/DocumentProvider";
 
-@Controller("connector/articles")
+@Controller("connector/swal/articles")
 export class ArticlesController {
   /**
    * upgrade or downgrade version of exported google docs file

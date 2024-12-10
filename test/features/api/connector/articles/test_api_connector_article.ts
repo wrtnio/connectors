@@ -25,7 +25,7 @@ const connectionWithSameUser = (connection: CApi.IConnection) => ({
 export const test_api_connector_article_write = async (
   connection: CApi.IConnection,
 ) => {
-  const article = await CApi.functional.connector.articles.write(
+  const article = await CApi.functional.connector.swal.articles.write(
     connectionWithSameUser(connection),
     typia.random<StrictOmit<IArticle.ICreate, "files">>(),
   );
@@ -43,7 +43,7 @@ export const test_api_connector_article_write_with_files = async (
     url: "http://test.png",
   } as const;
 
-  const article = await CApi.functional.connector.articles.write(
+  const article = await CApi.functional.connector.swal.articles.write(
     connectionWithSameUser(connection),
     {
       ...typia.random<IArticle.ICreate>(),
@@ -66,7 +66,7 @@ export const test_api_connector_article_update = async (
   const target =
     article ?? (await test_api_connector_article_write(connection));
 
-  const snapshot = await CApi.functional.connector.articles.update(
+  const snapshot = await CApi.functional.connector.swal.articles.update(
     connectionWithSameUser(connection),
     target.id,
     typia.random<IArticle.IUpdate>(),
@@ -81,7 +81,7 @@ export const test_api_connector_article_update_with_same_properties = async (
 ) => {
   const article = await test_api_connector_article_write(connection);
   const lastSnapshot = article.snapshots[0];
-  const snapshot = await CApi.functional.connector.articles.update(
+  const snapshot = await CApi.functional.connector.swal.articles.update(
     connectionWithSameUser(connection),
     article.id,
     { props: lastSnapshot },
@@ -98,7 +98,7 @@ export const test_api_connector_article_update_with_invalid_application =
       const article = await test_api_connector_article_write(connection);
       // invalid_application이라는 용어가 성립할 수 없으며, application이 다른 경우는 고유한 유저일 뿐이다.
       // 따라서 해당 유저는 생성이 됨이 옳지만 수정 단계에서는 작성자가 다르므로 수정할 수 없다.
-      await CApi.functional.connector.articles.update(
+      await CApi.functional.connector.swal.articles.update(
         {
           ...connection,
           headers: {
@@ -128,7 +128,7 @@ export const test_api_connector_article_update_with_invalid_password = async (
 ) => {
   try {
     const article = await test_api_connector_article_write(connection);
-    await CApi.functional.connector.articles.update(
+    await CApi.functional.connector.swal.articles.update(
       {
         ...connection,
         headers: {
@@ -158,7 +158,7 @@ export const test_api_connector_article_update_with_invalid_uid = async (
 ) => {
   try {
     const article = await test_api_connector_article_write(connection);
-    await CApi.functional.connector.articles.update(
+    await CApi.functional.connector.swal.articles.update(
       {
         ...connection,
         headers: {
@@ -187,7 +187,7 @@ export const test_api_connector_article_remove = async (
   connection: CApi.IConnection,
 ) => {
   const article = await test_api_connector_article_write(connection);
-  const res = await CApi.functional.connector.articles.remove(
+  const res = await CApi.functional.connector.swal.articles.remove(
     connectionWithSameUser(connection),
     article.id,
   );
@@ -198,7 +198,7 @@ export const test_api_connector_article_remove = async (
 export const test_api_connector_article_index = async (
   connection: CApi.IConnection,
 ) => {
-  const articles = await CApi.functional.connector.articles.index(
+  const articles = await CApi.functional.connector.swal.articles.index(
     {
       ...connection,
       headers: {
@@ -227,7 +227,7 @@ export const test_api_connector_article_write_and_index = async (
   connection: CApi.IConnection,
 ) => {
   await test_api_connector_article_write(connection);
-  const articles = await CApi.functional.connector.articles.index(
+  const articles = await CApi.functional.connector.swal.articles.index(
     connectionWithSameUser(connection),
     {
       limit: 100,
@@ -256,7 +256,7 @@ export const test_api_connector_article_index_only_can_view_user_owen_articles =
       },
     } as const;
 
-    const before = await CApi.functional.connector.articles.index(
+    const before = await CApi.functional.connector.swal.articles.index(
       otherUserConnection,
       {
         limit: 100,
@@ -267,7 +267,7 @@ export const test_api_connector_article_index_only_can_view_user_owen_articles =
     );
 
     await test_api_connector_article_write(connection);
-    const after = await CApi.functional.connector.articles.index(
+    const after = await CApi.functional.connector.swal.articles.index(
       otherUserConnection,
       {
         limit: 100,
@@ -284,7 +284,7 @@ export const test_api_connector_article_write_and_index_order_by = async (
   connection: CApi.IConnection,
 ) => {
   await test_api_connector_article_write(connection);
-  const articles = await CApi.functional.connector.articles.index(
+  const articles = await CApi.functional.connector.swal.articles.index(
     connectionWithSameUser(connection),
     {
       limit: 100,
@@ -312,7 +312,7 @@ export const test_api_connector_article_write_and_index_order_by = async (
 export const test_api_connector_article_write_and_index_query_condition =
   async (connection: CApi.IConnection) => {
     const article = await test_api_connector_article_write(connection);
-    const articles = await CApi.functional.connector.articles.index(
+    const articles = await CApi.functional.connector.swal.articles.index(
       connectionWithSameUser(connection),
       {
         limit: 100,
@@ -342,7 +342,7 @@ export const test_api_connector_article_write_and_index_query_condition =
 export const test_api_connector_article_at = async (
   connection: CApi.IConnection,
 ) => {
-  const articles = await CApi.functional.connector.articles.index(
+  const articles = await CApi.functional.connector.swal.articles.index(
     connectionWithSameUser(connection),
     {
       limit: 100,
@@ -357,7 +357,7 @@ export const test_api_connector_article_at = async (
   }
 
   for await (const article of articles.data) {
-    const res = await CApi.functional.connector.articles.at(
+    const res = await CApi.functional.connector.swal.articles.at(
       connectionWithSameUser(connection),
       article.id,
     );
@@ -376,7 +376,7 @@ export const test_api_connector_article_at = async (
 
   // 다른 사람의 게시글을 조회하고자 하는 경우에는 불가능해야 한다.
   try {
-    await CApi.functional.connector.articles.at(
+    await CApi.functional.connector.swal.articles.at(
       otherUserConnection,
       articles.data[0].id,
     );
@@ -403,7 +403,7 @@ export const test_api_connector_article_exports_1 = async (
     article ?? (await test_api_connector_article_write(connection));
 
   const exported =
-    await CApi.functional.connector.articles.exports.notion.exportsToNotion(
+    await CApi.functional.connector.swal.articles.exports.notion.exportsToNotion(
       connectionWithSameUser(connection),
       target.id,
       {
@@ -419,7 +419,7 @@ export const test_api_connector_article_exports_1 = async (
 
   typia.assertEquals(exported);
 
-  const exportedArticle = await CApi.functional.connector.articles.at(
+  const exportedArticle = await CApi.functional.connector.swal.articles.at(
     connectionWithSameUser(connection),
     target.id,
   );
@@ -432,7 +432,7 @@ export const test_api_connector_article_exports_1 = async (
 
   typia.assertEquals<IArticleExport>(information);
 
-  const response = await CApi.functional.connector.articles.at(
+  const response = await CApi.functional.connector.swal.articles.at(
     connectionWithSameUser(connection),
     target.id,
   );
@@ -452,7 +452,7 @@ export const test_api_connector_article_exports_2 = async (
     article ?? (await test_api_connector_article_write(connection));
 
   const exported =
-    await CApi.functional.connector.articles.exports.google_docs.exportsToGoogleDocs(
+    await CApi.functional.connector.swal.articles.exports.google_docs.exportsToGoogleDocs(
       connectionWithSameUser(connection),
       target.id,
       {
@@ -467,7 +467,7 @@ export const test_api_connector_article_exports_2 = async (
 
   typia.assertEquals(exported);
 
-  const exportedArticle = await CApi.functional.connector.articles.at(
+  const exportedArticle = await CApi.functional.connector.swal.articles.at(
     connectionWithSameUser(connection),
     target.id,
   );
@@ -482,7 +482,7 @@ export const test_api_connector_article_exports_2 = async (
 
   typia.assertEquals<IArticleExport>(information);
 
-  const response = await CApi.functional.connector.articles.at(
+  const response = await CApi.functional.connector.swal.articles.at(
     connectionWithSameUser(connection),
     target.id,
   );
@@ -509,19 +509,20 @@ export const test_api_connector_article_sync_by_snapshot_id_1 = async (
   // from에서 to로 이동시키는 것이기 때문에 두 snapshot 아이디는 달라야 한다.
   assert.notEqual(from, to);
 
-  const res = await CApi.functional.connector.articles.sync.notion.syncToNotion(
-    connectionWithSameUser(connection),
-    target.id,
-    {
-      notion: {
-        secretKey: ConnectorGlobal.env.NOTION_TEST_SECRET,
+  const res =
+    await CApi.functional.connector.swal.articles.sync.notion.syncToNotion(
+      connectionWithSameUser(connection),
+      target.id,
+      {
+        notion: {
+          secretKey: ConnectorGlobal.env.NOTION_TEST_SECRET,
+        },
+        snapshot: {
+          from,
+          to,
+        },
       },
-      snapshot: {
-        from,
-        to,
-      },
-    },
-  );
+    );
   typia.assertEquals(res);
 
   // 최종적으로 어떤 스냅샷이 exports를 가지고 있는지 본다.
@@ -548,7 +549,7 @@ export const test_api_connector_article_sync_by_snapshot_id_2 = async (
   assert.notEqual(from, to);
 
   const res =
-    await CApi.functional.connector.articles.sync.google_docs.syncToGoogleDocs(
+    await CApi.functional.connector.swal.articles.sync.google_docs.syncToGoogleDocs(
       connectionWithSameUser(connection),
       target.id,
       {
