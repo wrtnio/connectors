@@ -2584,11 +2584,16 @@ export namespace INotion {
     url: string & tags.Format<"iri">;
   }
 
+  /**
+   * @title Information needed to update the page content
+   */
   export interface IUpdatePageContentInput extends INotion.ISecret {
     /**
+     * Page id what you want to update.
+     *
      * @title pageId
      */
-    blockId: PageIdInput["pageId"];
+    pageId: PageIdInput["pageId"];
 
     /**
      * If you add a markdown string, it will be converted appropriately according to the Notion's block.

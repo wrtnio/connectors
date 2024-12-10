@@ -77,7 +77,7 @@ Typia는 빠른 성능을 자랑하며, 자동 타입 추론 기능을 통해 �
     await CApi.functional.connector.notion.update_page_content.updatePageContent(
       connection,
       {
-        blockId: "157ab4840d3380248e42cc9179831179",
+        pageId: "157ab4840d3380248e42cc9179831179",
         secretKey: ConnectorGlobal.env.NOTION_TEST_SECRET,
         markdown: markdownExamples[randomIndex],
       },

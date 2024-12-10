@@ -1107,9 +1107,9 @@ export namespace NotionProvider {
     input: INotion.IUpdatePageContentInput,
   ): Promise<INotion.IAppendPageByMarkdownOutput> {
     try {
-      await clear({ secretKey: input.secretKey, pageId: input.blockId });
+      await clear({ secretKey: input.secretKey, pageId: input.pageId });
       return await appendBlocksByMarkdown({
-        pageId: input.blockId,
+        pageId: input.pageId,
         secretKey: input.secretKey,
         markdown: input.markdown,
       });
