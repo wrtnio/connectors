@@ -342,7 +342,19 @@ export namespace ISlack {
     "name" | "deleted" | "profile_image"
   >;
 
+  /**
+   * @title User informations
+   */
   export interface IGetUserOutput {
+    /**
+     * Indicates the ID of the user.
+     * This is different from the ID of the DM channel, or IM Channel.
+     * DM is a communication channel with people in that channel,
+     * and even if it is 1:1 the user has multiple DM channels,
+     * so it is not possible to say that the user's ID is a DM channel.
+     *
+     * @title User ID
+     */
     id: ISlack.User["id"];
 
     /**
