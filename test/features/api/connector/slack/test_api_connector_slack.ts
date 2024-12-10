@@ -45,6 +45,8 @@ export const test_api_connector_slack_get_im_channels = async (
     );
 
   typia.assert(res);
+  assert(res.every((el) => typeof el.username === "string"));
+
   return res;
 };
 

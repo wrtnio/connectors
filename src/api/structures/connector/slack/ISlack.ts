@@ -495,6 +495,8 @@ export namespace ISlack {
     /**
      * It refers to the channel on which you want to view the conversation history.
      * If you don't know the channel's ID, You need to view the channel first.
+     * When sending a message to a DM channel, you need the channel's ID, not the user's ID.
+     * The user's ID starts with 'U', but if it's a DM channel, it's more likely to start with 'D'.
      *
      * @title channel id
      */
@@ -775,6 +777,11 @@ export namespace ISlack {
      * @title channel owner's id
      */
     user: User["id"];
+
+    /**
+     * @title username
+     */
+    username?: User["name"] | null;
   }
 
   export interface PrivateChannel extends Channel {
