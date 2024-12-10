@@ -380,6 +380,6 @@ export namespace IGoogleFlight {
      *
      * @title Reservation Link
      */
-    book_link: string | tags.Format<"uri">;
+    book_link: string & tags.Format<"uri">;
   }
 }

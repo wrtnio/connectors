@@ -870,7 +870,7 @@ export class GithubController {
   @core.TypedRoute.Post("repositories/pull-requests/get-diff")
   async readPullRequestDiff(
     @TypedBody() input: IGithub.IReadPullRequestDetailInput,
-  ): Promise<string> {
+  ): Promise<IGithub.IReadPullRequestDiffOutput> {
     return this.githubProvider.readPullRequestDiff(input);
   }
 

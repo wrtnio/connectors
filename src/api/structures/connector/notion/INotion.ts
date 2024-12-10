@@ -835,19 +835,26 @@ export namespace INotion {
     children?: any[];
   };
 
-  export type IReadPageContentOutput = IMarkdownBlock[];
   export interface IReadPageContentInput extends INotion.ISecret {
     /**
      * Indicates the ID of the page.
-     * you can put the block ID back into this factor and use it to look up the child blocks.
      *
-     * @title block_id
+     * The unique ID of the page from which you want to read the content.
+     *
+     * @title pageId
      */
+    pageId: PageIdInput["pageId"];
+  }
 
+  export interface IReadPageContentOutput {
     /**
-     * @title block_id
+     * The contents of the page you  read.
+     *
+     * The contents are in Markdown format.
+     *
+     * @title content
      */
-    block_id: PageIdInput["pageId"];
+    content: string;
   }
 
   /**
@@ -863,10 +870,6 @@ export namespace INotion {
      * New page title to be created
      *
      * @title Page title
-     */
-
-    /**
-     * @title title
      */
     title: string & Placeholder<"테스트 페이지.">;
   }
@@ -1763,18 +1766,13 @@ export namespace INotion {
     value?: string;
 
     /**
-     * What to put on the database item page you want to create
+     * If you add a markdown string, it will be converted appropriately according to the Notion's block.
+     * Therefore, you don't have to use Unicode symbols to implement lists or decorate documents using letters.
+     * Of course, this depends on the user, and there is no problem using the character string you want, such as inserting an emoji as well as Unicode.
      *
-     * What to put on the @title page
+     * @title markdown
      */
-    content?: string;
-
-    /**
-     * Database item page content type to create
-     *
-     * @title Page content type
-     */
-    contentType?: ContentType;
+    markdown: string;
   }
 
   /**
@@ -1796,11 +1794,13 @@ export namespace INotion {
       }>;
 
     /**
-     * Database page content to update
+     * If you add a markdown string, it will be converted appropriately according to the Notion's block.
+     * Therefore, you don't have to use Unicode symbols to implement lists or decorate documents using letters.
+     * Of course, this depends on the user, and there is no problem using the character string you want, such as inserting an emoji as well as Unicode.
      *
-     * @title Content
+     * @title markdown
      */
-    content?: string;
+    markdown: string;
 
     /**
      * Database property value to update
@@ -1824,9 +1824,16 @@ export namespace INotion {
     /**
      * Database Title
      *
-     * @title TitleP
+     * @title Title
      */
     title: string;
+
+    /**
+     * Database Page URL
+     *
+     * @title url
+     */
+    url: string & tags.Format<"iri">;
 
     /**
      * Database property information
@@ -2455,5 +2462,146 @@ export namespace INotion {
      * @title Page ID to update
      */
     pageId: PageIdInput["pageId"];
+  }
+
+  export interface ICrear extends INotion.ISecret {
+    /**
+     * @title Page ID to clear
+     */
+    pageId: PageIdInput["pageId"];
+  }
+
+  /**
+   * @title Information needed to create a gallery view database
+   */
+  export interface ICreateGalleryDatabaseInput extends INotion.ISecret {
+    /**
+     * @title parentPageId
+     */
+    parentPageId: PageIdInput["pageId"];
+
+    /**
+     * @title databaseTitle
+     */
+    title: string;
+  }
+
+  /**
+   * @title Information created a gallery view database
+   */
+  export interface ICreateGalleryDatabaseOutput {
+    /**
+     * Database id
+     *
+     * @title id
+     */
+    id: string;
+
+    /**
+     * Title of database
+     *
+     * @title title
+     */
+    title: string;
+
+    /**
+     * Page url of database
+     *
+     * @title url
+     */
+    url: string & tags.Format<"iri">;
+  }
+
+  /**
+   * @title Information needed to create a gallery view database items
+   */
+  export interface ICreateGalleryDatabaseItemInput extends INotion.ISecret {
+    /**
+     * Database Id what you want to add a item.
+     *
+     * If the database is not created, you can create a database using the `Create Gallery Database` function first.
+     * The endpoint is POST: /connector/notion/create-gallery-database.
+     *
+     * @title databaseId
+     */
+    databaseId: string &
+      Prerequisite<{
+        method: "post";
+        path: "/connector/notion/get/database-info";
+        jmesPath: JMESPath<IDatabaseInfo[], "[].{value:id, label:title}">;
+      }>;
+
+    /**
+     * Information needed to create a gallery database items.
+     *
+     * You can add multiple items at once.
+     * If you need to add multiple database items, you should add each piece of information to the info as an array.
+     * You should not make multiple calls when you need to add multiple items.
+     *
+     * @title informations
+     */
+    info: ICreateGalleryDatabaseItemInfo[];
+  }
+
+  /**
+   * @title Information created a gallery view database item
+   */
+  export interface ICreateGalleryDatabaseItemInfo {
+    /**
+     * Database Item Title.
+     * The title of the item to be added to the database.
+     *
+     * @title title
+     */
+    title: string;
+
+    /**
+     * If you add a markdown string, it will be converted appropriately according to the Notion's block.
+     * Therefore, you don't have to use Unicode symbols to implement lists or decorate documents using letters.
+     * Of course, this depends on the user, and there is no problem using the character string you want, such as inserting an emoji as well as Unicode.
+     *
+     * @title markdown
+     */
+    markdown: string;
+  }
+
+  /**
+   * @title Information created a gallery view database item
+   */
+  export interface ICreateGalleryDatabaseItemOutput {
+    /**
+     * Created item database id
+     *
+     * @title pageId
+     */
+    pageId: string;
+
+    /**
+     * Created item page url
+     *
+     * @title page url
+     */
+    url: string & tags.Format<"iri">;
+  }
+
+  /**
+   * @title Information needed to update the page content
+   */
+  export interface IUpdatePageContentInput extends INotion.ISecret {
+    /**
+     * Page id what you want to update.
+     *
+     * @title pageId
+     */
+    pageId: PageIdInput["pageId"];
+
+    /**
+     * If you add a markdown string, it will be converted appropriately according to the Notion's block.
+     * Therefore, you don't have to use Unicode symbols to implement lists or decorate documents using letters.
+     * Of course, this depends on the user, and there is no problem using the character string you want, such as inserting an emoji as well as Unicode.
+     *
+     * @title markdown
+     */
+    markdown: string;
   }
 }

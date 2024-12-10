@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 
 import { ICommon } from "@wrtn/connector-api/lib/structures/connector/common/ISecretValue";
 import { IKakaoTalk } from "@wrtn/connector-api/lib/structures/connector/kakao_talk/IKakaoTalk";
@@ -185,7 +185,11 @@ export namespace KakaoTalkProvider {
 
       return res.data;
     } catch (error) {
-      console.error(JSON.stringify(error));
+      if (error instanceof AxiosError) {
+        console.error(JSON.stringify(error.response?.data));
+      } else {
+        console.error(JSON.stringify(error));
+      }
       throw error;
     }
   }

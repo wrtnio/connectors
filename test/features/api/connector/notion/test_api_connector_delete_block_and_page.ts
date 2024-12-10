@@ -20,22 +20,6 @@ export const test_api_connector_notion_delete_block_and_page = async (
       },
     );
 
-  const blocks =
-    await CApi.functional.connector.notion.get.page.contents.readPageContents(
-      connection,
-      {
-        block_id: page.id,
-        secretKey: ConnectorGlobal.env.NOTION_TEST_SECRET,
-      },
-    );
-
-  for await (const block of blocks) {
-    await CApi.functional.connector.notion.page.block.deleteBlock(connection, {
-      block_id: block.id as string,
-      secretKey: ConnectorGlobal.env.NOTION_TEST_SECRET,
-    });
-  }
-
   await CApi.functional.connector.notion.page.block.deleteBlock(connection, {
     block_id: page.id as string,
     secretKey: ConnectorGlobal.env.NOTION_TEST_SECRET,

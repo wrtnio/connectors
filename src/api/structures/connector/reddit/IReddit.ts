@@ -729,77 +729,77 @@ export namespace IReddit {
     /**
      * @title The provider URL
      **/
-    provider_url: string;
+    provider_url?: string | null;
 
     /**
      * @title The version of the Oembed
      **/
-    version: string;
+    version?: string | null;
 
     /**
      * @title The title of the Oembed
      **/
-    title: string;
+    title?: string | null;
 
     /**
      * @title The description of the Oembed
      **/
-    description?: string;
+    description?: string | null;
 
     /**
      * @title The type of the Oembed
      **/
-    type?: string;
+    type?: string | null;
 
     /**
      * @title The width of the thumbnail
      **/
-    thumbnail_width: number;
+    thumbnail_width?: number | null;
 
     /**
      * @title The height of the Oembed
      **/
-    height: number;
+    height?: number | null;
 
     /**
      * @title The width of the Oembed
      **/
-    width: number;
+    width?: number | null;
 
     /**
      * @title The HTML content
      **/
-    html: string;
+    html?: string | null;
 
     /**
      * @title The name of the author
      **/
-    author_name?: string;
+    author_name?: string | null;
 
     /**
      * @title The name of the provider
      **/
-    provider_name: string;
+    provider_name?: string | null;
 
     /**
      * @title The URL of the thumbnail
      **/
-    thumbnail_url: string;
+    thumbnail_url?: string | null;
 
     /**
      * @title The height of the thumbnail
      **/
-    thumbnail_height: number;
+    thumbnail_height?: number | null;
 
     /**
      * @title The URL of the author
      **/
-    author_url?: string;
+    author_url?: string | null;
 
     /**
      * @title The URL of the Oembed
      */
-    url?: string;
+    url?: string | null;
   }
 
   export interface SecureMediaEmbed {
@@ -1800,8 +1800,11 @@ export namespace IReddit {
 
         /**
          * @title icon_size
+         * @todo Change to point
          */
-        icon_size?: [number & tags.Type<"int64">, number & tags.Type<"int64">];
+        icon_size?: Array<number & tags.Type<"int64">> &
+          tags.MinItems<2> &
+          tags.MaxItems<2>;
 
         /**
          * @title primary_color
@@ -1890,9 +1893,12 @@ export namespace IReddit {
 
         /**
          * @title banner_size
+         * @todo change to point
          */
         banner_size?:
-          | [number & tags.Type<"int64">, number & tags.Type<"int64">]
+          | (Array<number & tags.Type<"int64">> &
+              tags.MinItems<2> &
+              tags.MaxItems<2>)
           | null;
 
         /**
@@ -1943,10 +1949,13 @@ export namespace IReddit {
 
       /**
        * @title snoovatar_size
+       * @todo change to regular object type
        */
 
       snoovatar_size?:
-        | [number & tags.Type<"int64">, number & tags.Type<"int64">]
+        | (Array<number & tags.Type<"int64">> &
+            tags.MinItems<2> &
+            tags.MaxItems<2>)
         | null;
 
       /**
@@ -2749,7 +2758,7 @@ export namespace IReddit {
     /**
      * @title is_crosspostable_subreddit
      */
-    is_crosspostable_subreddit?: boolean;
+    is_crosspostable_subreddit?: boolean | null;
 
     /**
      * @title should_show_media_in_comments_setting

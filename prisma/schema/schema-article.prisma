@@ -1,0 +1,458 @@
+/// Attachments.
+///
+/// Attachment entities used everywhere in this DB.
+///
+/// @namespace Articles
+/// @author kakasoo
+model attachment_files {
+  //----
+  // COLUMNS
+  //----
+  /// @format uuid
+  id String @id @db.Uuid
+
+  /// File name, excluding extension.
+  ///
+  /// @maxLength 255
+  name String @db.VarChar
+
+  /// Extension.
+  ///
+  /// @minLength 1
+  /// @maxLength 8
+  extension String? @db.VarChar
+
+  /// URL path to the file.
+  ///
+  /// @format uri
+  url String @db.VarChar(80000)
+
+  /// The date and time the record was created.
+  created_at DateTime @db.Timestamptz
+
+  //----
+  // RELATIONS
+  //----
+  bbs_article_snapshot_files          bbs_article_snapshot_files[]
+  bbs_article_comment_snapshots_files bbs_article_comment_snapshot_files[]
+
+  @@index([url])
+}
+
+/// Article entity.
+///
+/// `bbs_articles` is a entity for all types of articles existing 
+/// in the current exchange system, and literally embodies individual articles 
+/// on the bulletin board.
+///
+/// And elements such as titles and texts that must exist in articles do not exist 
+/// in this `bbs_articles`, but exist in a 1:N relationship in the lower entity, 
+/// {@link bbs_article_snapshots}, because a new snapshot record is issued every time 
+/// an article is modified.
+///
+/// And disputes can arise through articles or comments on them, and in this case, 
+/// articles are designed in this structure to prevent manipulation of the situation 
+/// by modifying existing articles.
+///
+/// To prevent so-called 'undercutting', keeping evidence and preventing fraud.
+///
+/// @namespace Articles 
+/// @erd Audits 
+/// @erd Inquiries 
+/// @erd Issues 
+/// @author kakasoo
+model bbs_articles {
+  //----
+  // COLUMNS
+  //----
+  /// @format uuid
+  id String @id @db.Uuid
+
+  /// External User ID
+  external_user_id String @db.Uuid
+
+  /// System Password
+  /// 
+  /// This is a randomly issued password for encryption by
+  /// this system, and has absolutely nothing to do with the user.
+  password String @db.VarChar
+
+  /// The type of subtype.
+  type String
+
+  /// The date and time the article was created.
+  created_at DateTime @db.Timestamptz
+
+  /// Date and time of article deletion.
+  deleted_at DateTime? @db.Timestamptz
+
+  //----
+  // RELATIONS
+  //----
+  /// Last snapshot information.
+  ///
+  /// Logically, it is always NOT NULL.
+  mv_last mv_bbs_article_last_snapshots?
+
+  /// Snapshot list.
+  ///
+  /// Generated once when an article is created, and accumulated each time 
+  /// the article is edited.
+  ///
+  /// @minItems 1
+  snapshots bbs_article_snapshots[]
+
+  /// Comment list.
+  comments bbs_article_comments[]
+
+  external_user external_users @relation(fields: [external_user_id], references: [id], onDelete: Cascade)
+
+  @@index([created_at])
+}
+
+/// Article Snapshots
+///
+/// `bbs_article_snapshots` is a snapshot entity that contains the content of 
+/// an article. As explained in {@link bbs_articles}, the content is separated 
+/// from the article record to prevent undercutting.
+///
+/// @namespace Articles
+/// @erd Inquiries
+/// @author kakasoo
+model bbs_article_snapshots {
+  //----
+  // COLUMNS
+  //----
+  /// Primary Key.
+  ///
+  /// @format uuid
+  id String @id @db.Uuid
+
+  /// {@link bbs_articles.id} of the attached article
+  ///
+  /// @format uuid
+  bbs_article_id String @db.Uuid
+
+  /// Format of the body.
+  ///
+  /// Similar meanings of extensions: html, md, txt, etc.
+  format String @db.VarChar
+
+  /// Title of the article
+  title String @db.VarChar
+
+  /// Article body content
+  body String
+
+  /// Record creation date.
+  ///
+  /// When the article was first created or edited.
+  created_at DateTime @db.Timestamptz
+
+  //----
+  // RELATIONS
+  //----
+  /// Last snapshot information.
+  ///
+  /// NOT NULL means that this record is the last snapshot.
+  mv_last mv_bbs_article_last_snapshots?
+
+  /// Information about the attributed article.
+  article bbs_articles @relation(fields: [bbs_article_id], references: [id], onDelete: Cascade)
+
+  /// Attachment list
+  to_files bbs_article_snapshot_files[]
+
+  /// Hanging a document about a snapshot for reference to an exported document
+  bbs_article_exports bbs_article_exports[]
+
+  @@index([bbs_article_id, created_at])
+  @@index([title(ops: raw("gin_trgm_ops"))], type: Gin)
+  @@index([body(ops: raw("gin_trgm_ops"))], type: Gin)
+}
+
+/// Attachment files of article snapshots.
+///
+/// `bbs_article_snapshot_files` is an entity that visualizes attachment files 
+/// of article snapshots.
+///
+/// `bbs_article_snapshot_files` is a typical pair relationship table that 
+/// resolves the M: N relationship between {@link bbs_article_snapshots} and
+/// {@link attachment_files}. And to ensure the order of attachment files, it has 
+/// an additional property, {@link bbs_article_snapshot_files.sequence}. 
+///  
+/// This is a pattern that we will continue to see in the future, so let's get 
+/// used to it in advance.
+///
+/// @namespace Articles
+/// @author kakasoo
+model bbs_article_snapshot_files {
+  //----
+  // COLUMNS
+  //----
+  /// @format uuid
+  id String @id @db.Uuid
+
+  /// {@link bbs_article_snapshots.id} of the attributed article snapshot
+  ///
+  /// @format uuid
+  bbs_article_snapshot_id String @db.Uuid
+
+  /// {@link attachment_files.id}
+  ///
+  /// @format uuid of attachment file
+  attachment_file_id String @db.Uuid
+
+  /// The order in which attachments are placed in the article snapshot.
+  ///
+  /// @format int
+  sequence Int @db.Integer
+
+  //----
+  // RELATIONS
+  //----
+  snapshot bbs_article_snapshots @relation(fields: [bbs_article_snapshot_id], references: [id], onDelete: Cascade)
+  file     attachment_files      @relation(fields: [attachment_file_id], references: [id], onDelete: Cascade)
+
+  @@index([bbs_article_snapshot_id])
+  @@index([attachment_file_id])
+}
+
+/// Comments written on an article.
+///
+/// `bbs_article_comments` is an entity that visualizes comments written on an article.
+///
+/// And this comment, as in the relationship between {@link bbs_articles} 
+/// and {@link bbs_article_snapshots}, is stored in the subordinate
+/// {@link bbs_article_comment_snapshots} for evidentialism, and a new snapshot 
+/// record is issued whenever a comment is modified.
+///
+/// In addition, the relationship between replies is expressed through the 
+/// {@link bbs_article_comments.parent_id} property.
+///
+/// @namespace Articles
+/// @erd Audits
+/// @erd Inquiries
+/// @erd Issues
+/// @author kakasoo
+model bbs_article_comments {
+  //----
+  // COLUMNS
+  //----
+  /// @format uuid
+  id String @id @db.Uuid
+
+  /// {@link bbs_articles.id} of the attached article.
+  ///
+  /// @format uuid
+  bbs_article_id String @db.Uuid
+
+  /// The ID of the parent comment.
+  ///
+  /// Used when writing a reply.
+  ///
+  /// @format uuid
+  parent_id String? @db.Uuid
+
+  /// The type of subtype.
+  type String
+
+  /// Comment creation date and time.
+  created_at DateTime @db.Timestamptz
+
+  /// Comment deletion date and time.
+  deleted_at DateTime? @db.Timestamptz
+
+  //----
+  // RELATIONS
+  //----
+  /// Affiliated article.
+  article bbs_articles @relation(fields: [bbs_article_id], references: [id], onDelete: Cascade)
+
+  /// Parents' comments.
+  ///
+  /// Only in case of replies.
+  parent bbs_article_comments? @relation("bbs_article_comments_reply", fields: [parent_id], references: [id], onDelete: Cascade)
+
+  /// List of child comments.
+  ///
+  /// List of replies to this comment.
+  children bbs_article_comments[] @relation("bbs_article_comments_reply")
+
+  /// Snapshot list.
+  ///
+  /// Generated once when comment is written, and accumulated when comment is edited.
+  ///
+  /// @minItems 1
+  snapshots bbs_article_comment_snapshots[]
+
+  @@index([bbs_article_id, parent_id, created_at])
+}
+
+/// Comment snapshots.
+///
+/// `bbs_article_comment_snapshots` is a snapshot entity that contains 
+/// the main content of the comment.
+///
+/// As explained in {@link bbs_article_comments} above, to prevent undercutting.
+///
+/// @namespace Articles
+/// @author kakasoo
+model bbs_article_comment_snapshots {
+  //----
+  // COLUMNS
+  //----
+  /// @format uuid
+  id String @id @db.Uuid
+
+  /// {@link bbs_article_comments.id} of the comment on the attached article.
+  ///
+  /// @format uuid
+  bbs_article_comment_id String @db.Uuid
+
+  /// Format of the body.
+  ///
+  /// Similar meanings of extensions: html, md, txt, etc.
+  format String @db.VarChar
+
+  /// Comment body.
+  body String
+
+  /// Record creation date and time (when the comment was first created or edited)
+  created_at DateTime @db.Timestamptz
+
+  //----
+  // RELATIONS
+  //----
+  /// Attribution Comment Information
+  comment bbs_article_comments @relation(fields: [bbs_article_comment_id], references: [id], onDelete: Cascade)
+
+  /// List of attachments.
+  to_files bbs_article_comment_snapshot_files[]
+
+  @@index([bbs_article_comment_id, created_at])
+  @@index([body(ops: raw("gin_trgm_ops"))], type: Gin)
+}
+
+/// Attachments to comment snapshots.
+///
+/// {@link bbs_article_comment_snapshots} {@link attachment_files}
+///
+/// M: N relationship resolution.
+///
+/// @namespace Articles
+/// @author kakasoo
+model bbs_article_comment_snapshot_files {
+  //----
+  // COLUMNS
+  //----
+  /// @format uuid
+  id String @id @db.Uuid
+
+  /// {@link bbs_article_comment_snapshots.id} of the attributed comment snapshot
+  ///
+  /// @format uuid
+  bbs_article_comment_snapshot_id String @db.Uuid
+
+  /// {@link attachment_files.id}
+  ///
+  /// @format uuid of attachment file
+  attachment_file_id String @db.Uuid
+
+  /// Batch order.
+  ///
+  /// The order in which the files attached to the comment snapshot are placed.
+  ///
+  /// @type int
+  sequence Int @db.Integer
+
+  //----
+  // RELATIONS
+  //----
+  /// Attribution snapshot.
+  snapshot bbs_article_comment_snapshots @relation(fields: [bbs_article_comment_snapshot_id], references: [id], onDelete: Cascade)
+
+  /// Attached file.
+  file attachment_files @relation(fields: [attachment_file_id], references: [id], onDelete: Cascade)
+
+  @@index([bbs_article_comment_snapshot_id])
+  @@index([attachment_file_id])
+}
+
+/// The very last snapshot information of the article.
+///
+/// @author kakasoo
+/// @hidden
+model mv_bbs_article_last_snapshots {
+  //----
+  // COLUMNS
+  //----
+  /// {@link bbs_articles.id} of the attached article.
+  ///
+  /// @format uuid
+  bbs_article_id String @id @db.Uuid
+
+  /// {@link bbs_article_snapshots.id} of the last snapshot.
+  ///
+  /// @format uuid
+  bbs_article_snapshot_id String @db.Uuid
+
+  //----
+  // RELATIONS
+  //----
+  article  bbs_articles          @relation(fields: [bbs_article_id], references: [id], onDelete: Cascade)
+  snapshot bbs_article_snapshots @relation(fields: [bbs_article_snapshot_id], references: [id], onDelete: Cascade)
+
+  @@unique([bbs_article_snapshot_id])
+}
+
+/// @namespace Articles
+/// @author kakasoo
+model bbs_article_exports {
+  //----
+  // COLUMNS
+  //----
+  /// @format uuid
+  id String @id @db.Uuid
+
+  // Provider's ID, for example notion, google_docs, etc.
+  //
+  // @format uuid
+  provider_id String? @db.Uuid
+
+  /// {@link bbs_article_snapshots.id} of the attributed article snapshot
+  /// 
+  /// @format uuid
+  bbs_article_snapshot_id String @db.Uuid
+
+  /// Meaning of the name of the external service
+  ///
+  /// For example, google_docs, notion
+  provider String
+
+  /// Unique ID of this exported document
+  ///
+  /// 
+  uid String?
+
+  /// URL path to the reference
+  ///
+  /// @format uri
+  url String? @db.VarChar(80000)
+
+  // language String
+
+  /// The date and time the record was created.
+  created_at DateTime @db.Timestamptz
+
+  /// Date and time of article deletion.
+  deleted_at DateTime? @db.Timestamptz
+
+  //----
+  // RELATIONS
+  //----
+  snapshot bbs_article_snapshots @relation(fields: [bbs_article_snapshot_id], references: [id], onDelete: Cascade)
+
+  /// There must be a provider, but it is optional before migration to previous data.
+  bbs_article_provider provider? @relation(fields: [provider_id], references: [id], onDelete: Cascade)
+}

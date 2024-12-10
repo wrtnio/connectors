@@ -237,8 +237,7 @@ export class XProvider {
             {
               params: {
                 max_results: 100,
-                expansions: "referenced_tweets.id",
-                "tweet.fields": "created_at",
+                expansions: "referenced_tweets.id,tweet.fields,created_at",
                 end_time: new Date().toISOString(),
                 start_time: new Date(
                   new Date().getTime() - 1000 * 60 * 60 * 24,
@@ -502,5 +501,124 @@ export class XProvider {
       console.error(JSON.stringify(err));
       throw err;
     }
+  }
+
+  async generalSearch(
+    input: IX.IGeneralSearchRequest,
+  ): Promise<IX.IGeneralSearchResponse[]> {
+    try {
+      const query = this.makeQuery(input);
+      const searchResult = await axios.get(
+        `https://api.x.com/2/tweets/search/all`,
+        {
+          params: {
+            query: query,
+            expansions: "author_id,attachments.media_keys",
+            "tweet.fields": "created_at,public_metrics",
+            "user.fields": "id,name,username",
+            "media.fields": "preview_image_url,url",
+            max_results: input.maxResults,
+            sort_order: input.sort_order,
+            ...(input.start_time && { start_time: input.start_time }),
+            ...(input.end_time && { end_time: input.end_time }),
+          },
+          headers: {
+            Authorization: `Bearer ${ConnectorGlobal.env.X_APP_USER_BEARER_TOKEN}`,
+          },
+        },
+      );
+
+      if (!searchResult?.data) {
+        return [];
+      }
+
+      const tweetData = searchResult?.data?.data;
+      const tweetUserData: { id: string; name: string; username: string }[] =
+        searchResult?.data?.includes?.users;
+      const mediaData = searchResult?.data?.includes?.media || [];
+
+      if (!tweetData || !tweetUserData) {
+        return [];
+      }
+
+      const userMap = new Map(
+        tweetUserData.map(
+          (user: { id: string; name: string; username: string }) => [
+            user.id,
+            user,
+          ],
+        ),
+      );
+
+      const results: IX.IGeneralSearchResponse[] = tweetData.map(
+        (tweet: {
+          id: string;
+          author_id: string;
+          text: string;
+          edit_history_tweet_ids: string[];
+          public_metrics: {
+            retweet_count: number;
+            reply_count: number;
+            like_count: number;
+            quote_count: number;
+            bookmark_count: number;
+            impression_count: number;
+          };
+          attachments: { media_keys: string[] };
+        }) => {
+          const user = userMap.get(tweet.author_id);
+          const mediaKeys = tweet.attachments?.media_keys || [];
+          const media = mediaKeys.map((key) =>
+            mediaData.find(
+              (m: {
+                media_key: string;
+                type: string;
+                url: string;
+                preview_image_url?: string;
+              }) => m.media_key === key,
+            ),
+          );
+
+          const thumbnail =
+            media.find((m) => m?.preview_image_url)?.preview_image_url ||
+            media.find((m) => m?.url)?.url ||
+            null;
+
+          return {
+            id: tweet.id,
+            text: tweet.text,
+            userName: user?.username,
+            tweet_link: `https://twitter.com/${user?.username}/status/${tweet.id}`,
+            metric: tweet.public_metrics,
+            thumbnail: thumbnail,
+          };
+        },
+      );
+
+      return results;
+    } catch (err) {
+      console.error(JSON.stringify(err));
+      throw err;
+    }
+  }
+
+  private makeQuery(input: IX.IGeneralSearchRequest): string {
+    let query = "";
+
+    query += input.query;
+
+    if (input.isExcludeQuote) {
+      query += " -is:quote";
+    }
+
+    if (input.isExcludeRetweet) {
+      query += " -is:retweet";
+    }
+
+    if (input.isExcludeReply) {
+      query += " -is:reply";
+    }
+
+    return `${query} has:media lang:${input.lang}`;
   }
 }

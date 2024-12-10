@@ -3,6 +3,7 @@ import { LoggerModule } from "nestjs-pino";
 
 import { AISearchModule } from "./ai_search/AISearchModule";
 import { AirportInformationModule } from "./airport_information/AirportInformationModule";
+import { ArticlesModule } from "./articles/ArticlesModule";
 import { ArxivSearchModule } from "./arxiv_search/ArxivSearchModule";
 import { AwsModule } from "./aws/AwsModule";
 import { CalendlyModule } from "./calendly/CalendlyModule";
@@ -72,15 +73,16 @@ import { StudentReportGeneratorModule } from "./student_report_generator/Student
 import { SweetTackerModule } from "./sweet_tracker/SweetTrackerModule";
 import { ToolModule } from "./tool/ToolModule";
 import { TypeformModule } from "./typeform/TypeformModule";
+import { WebCrawlerModule } from "./web_crawler/WebCrawlerModule";
 import { XModule } from "./x/XModule";
 import { YoutubeSearchModule } from "./youtube_search/YoutubeSearchModule";
 import { ZoomModule } from "./zoom/ZoomModule";
-import { WebCrawlerModule } from "./web_crawler/WebCrawlerModule";
 
 @Module({
   // connectors that require DI of some sort shall be declared as modules
   // the rest can be simply imported as controllers
   imports: [
+    ArticlesModule,
     KeywordExtractModule,
     RankModule,
     MarketingCopyModule,

@@ -1,5 +1,4 @@
-import { uuid } from "typia/lib/utils/RandomGenerator/RandomGenerator";
-
+import { randomUUID } from "crypto";
 import { GenerateToolVO } from "./GenerateToolVO";
 
 export class GenerateToolEasyVO extends GenerateToolVO {
@@ -14,7 +13,7 @@ export class GenerateToolEasyVO extends GenerateToolVO {
     vo.max_tokens = tool.maxTokens;
     vo.id = tool.toolId.$oid;
     vo.instructions = text;
-    vo.requestId = uuid();
+    vo.requestId = randomUUID();
     vo.plain_text_embedding = !!tool.isPlainTextEmbedding;
     vo.examples = tool.examples;
     vo.user_input = tool.userInput;

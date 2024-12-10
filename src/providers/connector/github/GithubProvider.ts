@@ -396,7 +396,7 @@ export class GithubProvider {
 
   async readPullRequestDiff(
     input: IGithub.IReadPullRequestDetailInput,
-  ): Promise<string> {
+  ): Promise<IGithub.IReadPullRequestDiffOutput> {
     try {
       const { owner, repo, pull_number, secretKey } = input;
       const token = await this.getToken(secretKey);
@@ -410,7 +410,14 @@ export class GithubProvider {
 
       return res.data;
     } catch (err) {
-      console.log(JSON.stringify((err as any).response.data, null, 2));
+      if (err instanceof AxiosError) {
+        const data = err.response?.data;
+        if (typia.is<IGithub.IReadPullRequestDiffOutput>(data)) {
+          return data;
+        } else {
+          console.log(JSON.stringify((err as any).response.data, null, 2));
+        }
+      }
       throw err;
     }
   }

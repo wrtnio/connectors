@@ -1,0 +1,43 @@
+model slack_team {
+  id               String        @id @db.Uuid /// Unique ID of the team in Studio-Pro
+  external_team_id String /// Unique ID of the team in Slack
+  slack_users      slack_users[]
+}
+
+model slack_users {
+  id               String  @id @db.Uuid /// Unique ID of the user in Studio-Pro
+  slack_team_id    String  @db.Uuid
+  external_user_id String  @db.Text /// Unique ID of the user in Slack
+  status_text      String? /// 유저의 상태 값
+
+  slack_user_snapshots slack_user_snapshots[]
+  slack_last_snapshot  slack_last_snapshots?
+  slack_team           slack_team             @relation(fields: [slack_team_id], references: [id])
+
+  @@unique([external_user_id])
+}
+
+model slack_user_snapshots {
+  id            String   @id @db.Uuid
+  slack_user_id String   @db.Uuid /// slack_users.id를 의미한다.
+  fields        Json /// 슬랙 내에서 `Record<string, string>` 형태로 관리되는 여러 정보들
+  display_name  String?
+  real_name     String?
+  deleted       Boolean
+  profile_image String?
+  snapshot_at   DateTime @default(now()) @db.Timestamptz /// 마지막으로 조회한 시간을 의미하며, 데이터가 유효하다고 믿을 수 있는 마지막 시간을 의미
+
+  slack_user    slack_users           @relation(fields: [slack_user_id], references: [id])
+  last_snapshot slack_last_snapshots?
+}
+
+model slack_last_snapshots {
+  slack_user_id          String @db.Uuid
+  slack_user_snapshot_id String @db.Uuid
+
+  slack_user          slack_users          @relation(fields: [slack_user_id], references: [id], onDelete: Cascade)
+  slack_user_snapshot slack_user_snapshots @relation(fields: [slack_user_snapshot_id], references: [id], onDelete: Cascade)
+
+  @@unique([slack_user_id])
+  @@unique([slack_user_snapshot_id])
+}

@@ -166,12 +166,11 @@ export namespace ICalendly {
      * @title sort
      * @default "created_at:asc"
      */
-    sort?:
-      | (
-          | tags.Constant<"created_at:asc", { title: "created_at:asc" }>
-          | tags.Constant<'"created_at:desc"', { title: '"created_at:desc"' }>
-        )
-      | tags.Default<"created_at:asc">;
+    sort?: (
+      | tags.Constant<"created_at:asc", { title: "created_at:asc" }>
+      | tags.Constant<'"created_at:desc"', { title: '"created_at:desc"' }>
+    ) &
+      tags.Default<"created_at:asc">;
 
     /**
      * Filter by invitee status (either "active" or "canceled").
@@ -554,14 +553,14 @@ export namespace ICalendly {
      *
      * @title created_at
      */
-    created_at: string | tags.Format<"date-time">;
+    created_at: string & tags.Format<"date-time">;
 
     /**
      * The moment the event type was last updated (e.g. "2020-01-02T03:04:05.678123Z")
      *
      * @title updated_at
      */
-    updated_at: string | tags.Format<"date-time">;
+    updated_at: string & tags.Format<"date-time">;
 
     /**
      * Contents of a note that may be associated with the event type

@@ -289,29 +289,29 @@ export class NotionController {
     return retry(() => NotionProvider.createDivider(input))();
   }
 
-  /**
-   * Append an breadcrumb type child node
-   *
-   * Notion is a very complex type, so you have to create a page in a block coding manner.
-   * Therefore, this connector is designed to create a page by taking only the page ID and one block of the corresponding block and continuously adding it to the bottom.
-   * The type of block you can put in here is `breadcrumb`.
-   *
-   * Calling this connector requires the correct page ID, so it should only be called if you have previously created a page to obtain that ID, viewed the page, or obtained a link or page ID from the user in advance.
-   *
-   * @summary Append an breadcrumb type child node
-   * @param input
-   * @returns
-   */
-  @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg",
-  )
-  @ApiTags("Notion")
-  @core.TypedRoute.Post("page/breadcrumb")
-  async createBreadcrumb(
-    @TypedBody() input: INotion.ICreateChildContentTypeBreadcrumbInput,
-  ): Promise<void> {
-    return retry(() => NotionProvider.createBreadcrumb(input))();
-  }
+  // /**
+  //  * Append an breadcrumb type child node
+  //  *
+  //  * Notion is a very complex type, so you have to create a page in a block coding manner.
+  //  * Therefore, this connector is designed to create a page by taking only the page ID and one block of the corresponding block and continuously adding it to the bottom.
+  //  * The type of block you can put in here is `breadcrumb`.
+  //  *
+  //  * Calling this connector requires the correct page ID, so it should only be called if you have previously created a page to obtain that ID, viewed the page, or obtained a link or page ID from the user in advance.
+  //  *
+  //  * @summary Append an breadcrumb type child node
+  //  * @param input
+  //  * @returns
+  //  */
+  // @RouteIcon(
+  //   "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg",
+  // )
+  // @ApiTags("Notion")
+  // @core.TypedRoute.Post("page/breadcrumb")
+  // async createBreadcrumb(
+  //   @TypedBody() input: INotion.ICreateChildContentTypeBreadcrumbInput,
+  // ): Promise<void> {
+  //   return retry(() => NotionProvider.createBreadcrumb(input))();
+  // }
 
   /**
    * Append an table_of_contents type child node
@@ -412,16 +412,13 @@ export class NotionController {
   }
 
   /**
-   * Retrieve block children
+   * Read the contents of a Notion page.
+   * Reads the contents of a Notion page in Markdown format.
    *
-   * Returns a paginated array of child block objects contained in the block using the ID specified.
-   * It is used to check the contents of the page by inquiring about the children of the page or block.
-   * It recursively traverses and looks for all blocks. Here, we are ready to combine online blocks and blocks containing text.
+   * Read Notion page contents
    *
-   * For child pages, it does not even look up the contents.
-   *
-   * @summary Retrieve block children
-   * @param input
+   * @summaryRead the contents of a Notion page
+   * @param input pageId
    * @returns
    */
   @RouteIcon(
@@ -697,5 +694,74 @@ export class NotionController {
     @core.TypedBody() input: INotion.IUpdateNotionTitleInput,
   ): Promise<INotion.ICreatePageOutput> {
     return retry(() => NotionProvider.updatePageTitle(input))();
+  }
+
+  /**
+   * Create a gallery view database for notion.
+   *
+   * It is not possible to create a gallery view at once, and you must change the view to a gallery directly.
+   * This endpoint must not be used to create each items.
+   * This endpoint is only used to create a database.
+   * Creating a database is different from adding items to a database.
+   *
+   * @summary Create a Notion Gallery Database
+   * @param input
+   * @returns
+   */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg",
+  )
+  @ApiTags("Notion")
+  @core.TypedRoute.Post("create-gallery-database")
+  async createGalleryDatabase(
+    @core.TypedBody() input: INotion.ICreateGalleryDatabaseInput,
+  ): Promise<INotion.ICreateGalleryDatabaseOutput> {
+    return retry(() => NotionProvider.createGalleryDatabase(input))();
+  }
+
+  /**
+   * Create an item in the generated gallery view database.
+   * Creating a database item means adding an item to an existing database.
+   * If there is no database received from input, you must first create a database using the POST: /connector/notion/create-gallery-database endpoint and then run it.
+   * You should use this endpoint when adding items to an already created database.
+   * You need to use this endpoint to add multiple items to the gallery database at once.
+   * If you need to add 3 items, instead of calling the endpoint 3 times, you should put the 3 items in an array in the info information and add the 3 items in 1 endpoint call.
+   *
+   * @summary Create items in the gallery database
+   * @param input
+   * @returns
+   */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg",
+  )
+  @ApiTags("Notion")
+  @core.TypedRoute.Post("create-gallery-item")
+  async createGalleryItem(
+    @core.TypedBody() input: INotion.ICreateGalleryDatabaseItemInput,
+  ): Promise<INotion.ICreateGalleryDatabaseItemOutput[]> {
+    return retry(() => NotionProvider.createGalleryDatabaseItem(input))();
+  }
+
+  /**
+   * Updates the contents of the page.
+   *
+   * This function updates the contents written on the page to the desired contents.
+   *
+   * The contents to be updated must be written in Markdown format.
+   *
+   *
+   * @summary Update Page Content
+   * @param input
+   * @returns
+   */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg",
+  )
+  @ApiTags("Notion")
+  @core.TypedRoute.Post("update-page-content")
+  async updatePageContent(
+    @core.TypedBody() input: INotion.IUpdatePageContentInput,
+  ): Promise<INotion.IAppendPageByMarkdownOutput> {
+    return NotionProvider.updatePageContent(input);
   }
 }

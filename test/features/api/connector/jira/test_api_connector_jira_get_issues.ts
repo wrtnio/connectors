@@ -41,7 +41,7 @@ export const test_api_connector_jira_get_issues_with_issue_type = async (
         connection,
         {
           secretKey: JSON.stringify(Configuration),
-          projectId: project.id as number,
+          projectId: project.id as string,
         },
       );
 
@@ -50,7 +50,7 @@ export const test_api_connector_jira_get_issues_with_issue_type = async (
       {
         secretKey: JSON.stringify(Configuration),
         project_key: project.key,
-        issuetype: issuetypes[0].id as number,
+        issuetype: issuetypes[0].id as string,
       },
     );
 
@@ -70,7 +70,7 @@ export const test_api_connector_jira_get_issues_with_status = async (
         connection,
         {
           secretKey: JSON.stringify(Configuration),
-          projectId: project.id as number,
+          projectId: project.id as string,
         },
       );
 

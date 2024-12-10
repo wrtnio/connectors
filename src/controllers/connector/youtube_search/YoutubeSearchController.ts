@@ -2,7 +2,6 @@ import core from "@nestia/core";
 import { Controller } from "@nestjs/common";
 import { RouteIcon, Standalone } from "@wrtnio/decorators";
 
-import { IConnector } from "@wrtn/connector-api/lib/structures/common/IConnector";
 import { IYoutubeSearch } from "@wrtn/connector-api/lib/structures/connector/youtube_search/IYoutubeSearch";
 
 import { ApiTags } from "@nestjs/swagger";
@@ -46,7 +45,47 @@ export class YoutubeSearchController {
   async search(
     @core.TypedBody() input: IYoutubeSearch.ISearchInput,
   ): Promise<IYoutubeSearch.ISearchOutput[]> {
-    return retry(this.youtubeSearchProvider.search)(input);
+    return retry(() => this.youtubeSearchProvider.search(input))();
+  }
+
+  /**
+   * Get YouTube video search results (official)
+   *
+   * This function use the official YouTube API to search for videos.
+   *
+   * If you want users to use the official YouTube API, use this function.
+   *
+   * The search results have the video title and link.
+   *
+   * If most users are going to use this feature, they probably want to watch the video, so it's better to provide a URL.
+   *
+   * In order to filter the period that the user wants, you should use the response field "published_date".
+   *
+   * For example, if the user wants to retrieve only this year's videos, you should exclude videos that were uploaded in a period that the user does not want, such as "1 year ago" or "2 years ago" with a published_date.
+   *
+   * It's great to use with the /transcript endpoint when summarizing videos, analyzing content, extracting keywords, etc.
+   *
+   * Extract the URL from the YouTube video information obtained from the execution result of the corresponding function and use it as the input of the /transcript endpoint.
+   *
+   * Based on the transcripts obtained from the execution result of the /transcript endpoint, perform tasks such as summarizing videos, analyzing content, and extracting keywords.
+   *
+   * Example Use Cases:
+   * Product Reviews: Extract product names, pros, cons, and recommendations from air purifier review videos.
+   * Tutorials: Create text-based tutorials or step-by-step guides from instructional videos.
+   *
+   * @summary YouTube video search (official)
+   * @param input
+   * @returns
+   */
+  @core.TypedRoute.Post("/official")
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Youtube_full.svg",
+  )
+  @ApiTags("Youtube")
+  async searchVideo(
+    @core.TypedBody() input: IYoutubeSearch.IYoutubeSearchVideoRequest,
+  ): Promise<IYoutubeSearch.IYoutubeSearchVideoResponse[]> {
+    return retry(() => this.youtubeSearchProvider.searchVideo(input))();
   }
 
   /**

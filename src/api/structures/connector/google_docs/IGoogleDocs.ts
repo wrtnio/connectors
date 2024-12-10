@@ -1,6 +1,7 @@
 import { JMESPath, Prerequisite } from "@wrtnio/decorators";
 import { tags } from "typia";
 import { ICommon } from "../common/ISecretValue";
+import { IGoogleDrive } from "../google_drive/IGoogleDrive";
 
 /**
  * owner: Grants owner permissions. Users with this permission can delete files or folders or grant permissions to other users.
@@ -89,6 +90,163 @@ interface IGoogleDocs {
 }
 
 export namespace IGoogleDocs {
+  export interface IUpdateOutput {
+    /**
+     * @title Updated Google Docs File ID
+     */
+    id: string;
+
+    /**
+     * @title File URL
+     */
+    url: string & tags.Format<"iri">;
+  }
+
+  /**
+   * @title Google Docs Secret Key and contents to update
+   */
+  export interface IUpdateContentInput
+    extends ICommon.ISecret<
+      "google",
+      [
+        "https://www.googleapis.com/auth/drive.file",
+        "https://www.googleapis.com/auth/documents",
+      ]
+    > {
+    /**
+     * Existing content will be covered with this content,
+     * so if you want to add content, you should check the previous content and specify what you have added with this parameter.
+     *
+     * @title contents as markdown format
+     */
+    contents: string;
+  }
+
+  /**
+   * @title Google Docs Secret Key and title to update
+   */
+  export interface IUpdateTitleInput
+    extends ICommon.ISecret<
+      "google",
+      [
+        "https://www.googleapis.com/auth/drive.file",
+        "https://www.googleapis.com/auth/documents",
+      ]
+    > {
+    /**
+     * Title to update
+     *
+     * @title title
+     */
+    title: string;
+  }
+
+  /**
+   * @title Google Secret key and information to update docs file
+   */
+  export type IUpdateInput = IUpdateTitleInput | IUpdateContentInput;
+
+  export interface IResponse {
+    markdown: {
+      /**
+       * @title Created Markdown File ID
+       */
+      id: string;
+    };
+
+    googleDocs: {
+      /**
+       * @title Created Google Docs File ID
+       */
+      id: string;
+
+      /**
+       * @title File URL
+       */
+      url: string & tags.Format<"iri">;
+    };
+  }
+
+  /**
+   * @title Document ID and URL
+   */
+  export interface IClearOutput {
+    /**
+     * @title Created Google Docs File ID
+     */
+    id: string;
+
+    /**
+     * @title File URL
+     */
+    url: string & tags.Format<"iri">;
+  }
+
+  /**
+   * @title Google Drive and Docs Secret Key and information to clear file
+   */
+  export interface IClearInput
+    extends ICommon.ISecret<
+      "google",
+      [
+        "https://www.googleapis.com/auth/drive.file",
+        "https://www.googleapis.com/auth/documents",
+      ]
+    > {
+    /**
+     * ID when you want to erase the entire contents of a file and make it an empty file
+     *
+     * @title ID of Google Docs File
+     */
+    documentId: string &
+      Prerequisite<{
+        method: "post";
+        path: "/connector/google-docs/get-list";
+        jmesPath: JMESPath<
+          IListGoogleDocsOutput,
+          "data[].{value:id, label:title}"
+        >;
+      }>;
+  }
+
+  /**
+   * @title Information required to create a file in Google Drive
+   */
+  export interface IRequest
+    extends ICommon.ISecret<
+      "google",
+      ["https://www.googleapis.com/auth/drive.file"]
+    > {
+    /**
+     * File name to be created in drive
+     *
+     * @title Google drive file name
+     */
+    name: string;
+
+    /**
+     * Folder id that will contain the file to be created in the drive
+     *
+     * @title Google Drive Folder ID
+     */
+    folderId?: string &
+      Prerequisite<{
+        method: "post";
+        path: "/connector/google-drive/get/folders";
+        jmesPath: JMESPath<
+          IGoogleDrive.IFolderListGoogleDriveOutput,
+          "data[].{value:id, label:name}"
+        >;
+      }>;
+
+    /**
+     * Contents of the file to be created in drive
+     *
+     * @title markdown
+     */
+    markdown: string;
+  }
+
   /**
    * @title Google Docs creation result
    */

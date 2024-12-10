@@ -1,5 +1,5 @@
 import { OpenApi } from "@samchon/openapi";
-import { IOpenAiFunction } from "@wrtnio/schema";
+import { IHttpOpenAiFunction } from "@wrtnio/schema";
 import { randomInt } from "crypto";
 import { readFileSync } from "fs";
 import { google, sheets_v4 } from "googleapis";
@@ -407,7 +407,8 @@ function readOpenaiPositionalFile() {
     const saleSwagger = `../../packages/api/openai-positional.json`;
     const filepath = path.join(__dirname, saleSwagger);
     const functionSchema = readFileSync(filepath, { encoding: "utf-8" });
-    const functions: IOpenAiFunction[] = JSON.parse(functionSchema).functions;
+    const functions: IHttpOpenAiFunction[] =
+      JSON.parse(functionSchema).functions;
 
     return functions;
   } catch (err) {
@@ -448,7 +449,7 @@ async function convertSwaggerToGoogleSheet(input: {
       const service = getServiceName(pathname);
 
       return Object.entries(schema).map(([method, operation]) => {
-        if (typia.is<OpenApi.IOperation<OpenApi.IJsonSchema>>(operation)) {
+        if (typia.is<OpenApi.IOperation>(operation)) {
           const icon = String(
             "x-wrtn-icon" in operation ? operation["x-wrtn-icon"] : "",
           );

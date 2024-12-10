@@ -10,7 +10,7 @@ datasource db {
   extensions = [pg_trgm]
 }
 
-// generator markdown {
-//   provider = "prisma-markdown"
-//   output   = "../../docs/ERD.md"
-// }
+generator markdown {
+  provider = "prisma-markdown"
+  output   = "../../docs/ERD.md"
+}

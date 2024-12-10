@@ -1,4 +1,4 @@
-import { JMESPath, Prerequisite } from "@wrtnio/decorators";
+import { JMESPath, Placeholder, Prerequisite } from "@wrtnio/decorators";
 import { ICommon } from "../common/ISecretValue";
 import { tags } from "typia";
 
@@ -302,5 +302,183 @@ export namespace IX {
      * @title query
      */
     query: string;
+  }
+
+  /**
+   * @title Tweet Search Condition
+   */
+  export interface IGeneralSearchRequest {
+    /**
+     * Get tweets by query.
+     *
+     * The query should be entered in natural language.
+     *
+     * For example, if the user asks "Search for what books are trending on Twitter these days," the query should be "trending books."
+     *
+     * @title search query
+     */
+    query: string;
+
+    /**
+     * Matches posts categorized by X in a specific language.
+     *
+     * You can only pass a single BCP 47 language identifier.
+     *
+     * ex) You want to setting korean language, you can pass "ko".
+     *
+     * @title Tweet Settings Language
+     */
+    lang: string;
+
+    /**
+     * Sets the maximum number of results to be searched.
+     *
+     * @title Maximum number of search results.
+     */
+    maxResults: number & tags.Type<"int32"> & tags.Default<10>;
+
+    /**
+     * Determines the sort order.
+     * - recency: newest
+     * - relevancy: relevance
+     *
+     * @title Sort order
+     */
+    sort_order:
+      | tags.Constant<"recency", { title: "recency" }>
+      | tags.Constant<"relevancy", { title: "relevancy" }>;
+
+    /**
+     * The oldest UTC timestamp from which the Tweets will be provided.
+     *
+     * By default, a request will return Tweets from up to 30 days ago if you do not include this parameter.
+     *
+     * @title Start time for search tweet
+     */
+    start_time?: string & tags.Format<"date-time">;
+
+    /**
+     * Used with start_time. The newest, most recent UTC timestamp to which the Tweets will be provided.
+     *
+     * If used without start_time, Tweets from 30 days before end_time will be returned by default. If not specified, end_time will default to [now - 30 seconds].
+     *
+     * @title End time for search tweet
+     */
+    end_time?: string & tags.Format<"date-time">;
+
+    /**
+     * Sets whether to remove retweeted tweets from search results.
+     *
+     * @title Whether to remove retweets
+     */
+    isExcludeRetweet?: boolean;
+
+    /**
+     * Sets whether to remove replied tweets from search results.
+     *
+     * @title Whether to remove replies
+     */
+    isExcludeReply?: boolean;
+
+    /**
+     * Sets whether to remove quoted tweets from search results.
+     *
+     * @title Whether to remove quotes
+     */
+    isExcludeQuote?: boolean;
+  }
+
+  /**
+   * @title Tweet Search Result
+   */
+  export interface IGeneralSearchResponse {
+    /**
+     * The unique id of the tweet
+     *
+     * @title tweet ID
+     */
+    id: string;
+
+    /**
+     * The user name of the tweet
+     *
+     * @title user name
+     */
+    userName: string;
+
+    /**
+     * The content text of the tweet
+     *
+     * @title tweet content
+     */
+    text: string;
+
+    /**
+     * The link of the tweet
+     *
+     * @title tweet link
+     */
+    tweet_link: string & tags.Format<"iri">;
+
+    /**
+     * Metric data for the tweet
+     *
+     * @title metric
+     */
+    metric: IMetric;
+
+    /**
+     * Thumbnail Image URL of the tweet
+     *
+     * @title thumbnail
+     */
+    thumbnail: (string & tags.Format<"iri">) | null;
+  }
+
+  /**
+   * @title Metric for tweet
+   */
+  interface IMetric {
+    /**
+     *
+     *
+     * @title Retweet Count
+     */
+    retweet_count: number & tags.Type<"int32">;
+
+    /**
+     * Indicates how many replies a tweet has.
+     *
+     * @title Reply Count
+     */
+    reply_count: number & tags.Type<"int32">;
+
+    /**
+     * Indicates how many likes a tweet has received.
+     *
+     * @title Like Count
+     */
+    like_count: number & tags.Type<"int32">;
+
+    /**
+     * Indicates how many times a tweet has been quoted.
+     *
+     * @title Quote Count
+     */
+    quote_count: number & tags.Type<"int32">;
+
+    /**
+     * Indicates how many times a tweet has been bookmarked.
+     *
+     * @title Bookmark Count
+     */
+    bookmark_count: number & tags.Type<"int32">;
+
+    /**
+     * Indicates how many times a tweet has been viewed.
+     *
+     * @title Impression Count
+     */
+    impression_count: number & tags.Type<"int32">;
   }
 }

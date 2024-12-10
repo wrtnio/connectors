@@ -102,4 +102,26 @@ export class XController {
   ): Promise<IX.IGetChunkDocumentOutput> {
     return await this.XProvider.summarizeTweet(input);
   }
+
+  /**
+   * Search for tweets based on search query requested by the user.
+   *
+   * You need to analyze the user's request and retrieve tweets through natural language queries (search terms).
+   *
+   * For example, when a user requests "Search for books that are trending on Twitter these days," the query (search term) should be natural language, not a keyword, such as "trending books."
+   *
+   * @summary General Search Tweets
+   *
+   * @param input
+   * @returns
+   */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/X_full.svg",
+  )
+  @core.TypedRoute.Post("/general-search")
+  async generalSearch(
+    @core.TypedBody() input: IX.IGeneralSearchRequest,
+  ): Promise<IX.IGeneralSearchResponse[]> {
+    return await this.XProvider.generalSearch(input);
+  }
 }
