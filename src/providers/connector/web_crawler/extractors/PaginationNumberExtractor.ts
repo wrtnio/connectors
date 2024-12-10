@@ -63,6 +63,12 @@ export namespace PaginationNumberExtractor {
 
     // 레딧
     "#main-content > shreddit-feed",
+
+    // 올리브영
+    "#gdasContentsArea > div > div.review_list_wrap",
+
+    // 유튜브
+    "#contents",
   ];
 
   export const isNumberedPagination = ($element: Cheerio<any>): boolean => {

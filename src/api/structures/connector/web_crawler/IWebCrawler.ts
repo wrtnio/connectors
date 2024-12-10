@@ -1,80 +1,119 @@
 export namespace IWebCrawler {
   /**
-   * @title Request to crawl a web page
+   * @title Web Crawling Request
+   *
+   * Request configuration for crawling a web page, including pagination settings
+   * and wait conditions
    */
   export interface IRequest {
     /**
-     * @title Target URL to crawl
+     * @title Target URL
+     *
+     * The URL of the webpage to be crawled
      */
     url: string;
 
     /**
-     * @title Wait for a CSS selector to appear before returning content. (not required)
+     * @title Wait Selector
+     *
+     * Optional CSS selector to wait for before capturing content.
+     * Crawler will pause until this element appears in the DOM
      */
     wait_for?: string;
 
     /**
-     * 페이지네이션을 따라가는 옵션
+     * @title Pagination Options
+     *
+     * Configuration for handling paginated content discovery and traversal.
+     * Controls whether to follow pagination and how many pages to process
      */
     pagination?: {
       /**
-       * 페이지네이션이 발견되었을 경우 페이지네이션을 따라가는 옵션.
+       * @title Follow Next Page
+       *
+       * When true, crawler will attempt to follow pagination links when detected
        */
       followNextPage: boolean;
 
       /**
-       * 페이지네이션을 따라가는 최대 페이지 수. (기본 10).
+       * @title Maximum Pages
+       *
+       * Maximum number of pages to follow in pagination sequence.
+       * Defaults to 10 if not specified
        */
       followNextPageCount?: number;
     };
   }
 
   /**
-   * @title Response from crawled web page
+   * @title Web Crawling Response
+   *
+   * Structured data extracted from the crawled webpage, including content,
+   * images, metadata, and paginated results
    */
   export interface IResponse {
     /**
-     * 페이지네이션 처리가 안된 컴포넌트의 텍스트 정보
+     * @title Main Content Text
+     *
+     * Extracted text content from the main (non-paginated) components of the page
      */
     text: string;
 
     /**
-     * 페이지네이션 처리가 안된 컴포넌트의 이미지 정보
+     * @title Main Content Images
+     *
+     * Array of images found in the main (non-paginated) components of the page
      */
     images: IImage[];
 
     /**
-     * 페이지네이션 처리가 안된 사이트의 메타데이터 정보
+     * @title Page Metadata
+     *
+     * Metadata information extracted from the webpage headers and meta tags
      */
     metadata?: IMetadata;
 
     /**
-     * 페이지네이션 처리 된 컴포넌트의 정보의 배열
+     * @title Paginated Content Groups
+     *
+     * Collection of content groups that were discovered through pagination,
+     * organized by their structural identifiers
      */
     paginationGroups: {
       /**
-       * 페이지네이션 그룹의 식별자 (html 의 section 의 id 와 같은 역할)
+       * @title Group Identifiers
+       *
+       * Array of identifiers that uniquely identify this pagination group
+       * (similar to HTML section IDs)
        */
-      identifier: string[]; // 각 페이지네이션 그룹의 식별자
+      identifier: string[];
 
       /**
-       * 페이지네이션 된 컴포넌트의 각 페이지 정보.
+       * @title Paginated Pages
+       *
+       * Array of page objects containing the content found across pagination
        */
       pages: IPage[];
     }[];
   }
 
   /**
-   * @title Metadata of a web page
+   * @title Page Metadata
+   *
+   * Structured metadata extracted from the webpage's meta tags and headers
    */
   export interface IMetadata {
     /**
-     * @title Title of the web page
+     * @title Page Title
+     *
+     * Title of the webpage, typically from the <title> tag or og:title
      */
     title?: string;
 
     /**
-     * @title Description of the web page
+     * @title Page Description
+     *
+     * Description content including both text and associated images
      */
     description?: {
       text?: string;
@@ -82,100 +121,197 @@ export namespace IWebCrawler {
     };
 
     /**
-     * @title Author of the web page
+     * @title Content Author
+     *
+     * Author information for the webpage content
      */
     author?: string;
 
     /**
-     * @title Published date of the web page
+     * @title Publication Date
+     *
+     * Date when the content was published
      */
     publishDate?: string;
 
     /**
-     * 정규화 되지 않은 데이터
+     * @title Additional Metadata
+     *
+     * Any additional non-standardized metadata key-value pairs found
      */
     [key: string]: any;
   }
 
   /**
-   * 페이지네이션된 데이터의 페이지 별 데이터 정보
+   * @title Paginated Page Data
+   *
+   * Content and metadata for a single page within a pagination sequence
    */
   export interface IPage {
     /**
-     * 페이지네이션된 데이터의 페이지 별 클래스 정보
+     * @title CSS Classes
+     *
+     * Array of CSS class names associated with the paginated content container
      */
     classNames: string[];
 
     /**
-     * 페이지네이션 된 데이터의 URL 정보
+     * @title Page URL
+     *
+     * URL where this paginated content was found
      */
     url: string;
 
     /**
-     * 페이지네이션된 페이지의 엘리먼트 데이터 정보
+     * @title Page Content
+     *
+     * Array of content elements found on this paginated page
      */
     data: IData[];
 
     /**
-     * 페이지네이션이 XHR 요청을 통해 이루어진 경우, 해당 요청의 응답 정보
-     */
-    res_json?: any;
-
-    /**
-     * 페이지네이션된 데이터의 메타데이터 정보
+     * @title Pagination Metadata
+     *
+     * Metadata specific to the pagination structure and navigation
      */
     pagination: IPagination;
   }
 
+  /**
+   * @title Page Element Data
+   *
+   * Content data for an individual element within a paginated page
+   */
   export interface IData {
     /**
-     * 페이지네이션된 페이지의 엘리먼트의 텍스트 정보
+     * @title Element Text
+     *
+     * Text content extracted from the element
      */
     text: string;
 
     /**
-     * 페이지네이션된 페이지의 엘리먼트의 이미지 정보
+     * @title Element Images
+     *
+     * Array of images found within the element
      */
     images: IImage[];
   }
 
+  /**
+   * @title Image Data
+   *
+   * Detailed information about an image found during crawling
+   */
   export interface IImage {
-    id?: string; // 이미지의 id 속성
-    url: string; // 이미지 URL
-    alt?: string; // 이미지 설명
-    classNames: string[]; // 이미지에 할당된 클래스 배열
-    parentClassNames?: string[]; // 부모 요소의 클래스 배열
+    /**
+     * @title Image ID
+     *
+     * HTML id attribute of the image element, if present
+     */
+    id?: string;
+
+    /**
+     * @title Image URL
+     *
+     * Source URL of the image
+     */
+    url: string;
+
+    /**
+     * @title Image Alt Text
+     *
+     * Alternative text description of the image
+     */
+    alt?: string;
+
+    /**
+     * @title Image Classes
+     *
+     * CSS classes directly applied to the image element
+     */
+    classNames: string[];
+
+    /**
+     * @title Parent Element Classes
+     *
+     * CSS classes of the parent elements containing this image
+     */
+    parentClassNames?: string[];
   }
 
+  /**
+   * @title Pagination Information
+   *
+   * Metadata and configuration for handling content pagination
+   */
   export interface IPagination {
     /**
-     * 페이지네이션의 타입
+     * @title Pagination Type
+     *
+     * The style of pagination implemented on the page
      */
     type: PaginationType;
 
     /**
-     * 페이지네이션의 현재 페이지 번호
+     * @title Current Page Number
+     *
+     * The current page number in the pagination sequence
      */
     currentPage?: number;
 
     /**
-     * 다음 페이지 존제 여부
+     * @title Has Next Page
+     *
+     * Indicates whether additional pages exist after the current page
      */
     hasNextPage: boolean;
 
     /**
-     * 다음 페이지 URL (XHR 요청을 통해 페이지네이션이 이루어진 경우)
+     * @title Next Page URL
+     *
+     * URL for the next page when using XHR-based pagination
      */
     nextPageUrl?: string;
 
-    // 발견된 페이지네이션 패턴 (있는 경우)
+    /**
+     * @title Pagination Pattern
+     *
+     * Detected pattern structure for generating pagination URLs
+     */
     pattern?: {
+      /**
+       * @title Base URL
+       *
+       * The base URL pattern for pagination
+       */
       baseUrl: string;
-      queryParam?: string; // e.g., "page", "offset"
-      fragment?: string; // e.g., "#page-2"
+
+      /**
+       * @title Query Parameter
+       *
+       * Name of the query parameter used for pagination (e.g., "page", "offset")
+       */
+      queryParam?: string;
+
+      /**
+       * @title URL Fragment
+       *
+       * Fragment identifier used for pagination (e.g., "#page-2")
+       */
+      fragment?: string;
     };
   }
 
+  /**
+   * @title Pagination Type Enum
+   *
+   * Enumeration of supported pagination mechanisms:
+   * - numbered: Traditional numbered page navigation
+   * - infinite-scroll: Continuous scrolling with automatic loading
+   * - load-more: Manual trigger for loading additional content
+   * - null: No pagination detected
+   */
   export type PaginationType =
     | "numbered"
     | "infinite-scroll"

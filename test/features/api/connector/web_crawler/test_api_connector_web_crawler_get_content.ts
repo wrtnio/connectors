@@ -17,6 +17,11 @@ export const test_api_connector_web_crawler_get_content = async (
   const NAVERSTORE =
     "https://brand.naver.com/stena/products/9205111057?site_preference=device&NaPm=ct%3Dm4gknwh2%7Cci%3Dshopn%7Ctr%3Dnshfd%7Chk%3D9ff83a29ff768da277fcf5a1fde48206e7c5524d%7Ctrx%3Dundefined";
 
+  const OLIVE =
+    "https://www.oliveyoung.co.kr/store/goods/getGoodsDetail.do?goodsNo=A000000204767&dispCatNo=90000010001&trackingCd=Home_Recommand&t_page=%ED%99%88&t_click=%EC%9D%B4%EC%83%81%ED%92%88%EC%96%B4%EB%95%8C%EC%9A%94_%EC%83%81%ED%92%88%EC%83%81%EC%84%B8&t_number=2";
+
+  const YOUTUBE = "https://www.youtube.com/watch?v=E1IXFBCVVw4";
+
   const execute = async (url: string, name: string) => {
     console.log(`Start ${name}...`);
     const res: IWebCrawler.IResponse =
@@ -38,11 +43,13 @@ export const test_api_connector_web_crawler_get_content = async (
     );
   };
 
-  await execute(OHOU, "OHOU");
-  await execute(MUSINSA, "MUSINSA");
-  await execute(IHERB, "IHERB");
-  await execute(CUPANG, "CUPANG");
-  await execute(ALADIN, "ALADIN");
-  await execute(ALIEXPRESS, "ALIEXPRESS");
-  await execute(NAVERSTORE, "NAVERSTORE");
+  // await execute(OHOU, "OHOU");
+  // await execute(MUSINSA, "MUSINSA");
+  // await execute(IHERB, "IHERB");
+  // await execute(CUPANG, "CUPANG");
+  // await execute(ALADIN, "ALADIN");
+  // await execute(ALIEXPRESS, "ALIEXPRESS");
+  // await execute(NAVERSTORE, "NAVERSTORE");
+  // await execute(OLIVE, "OLIVE");
+  await execute(YOUTUBE, "YOUTUBE");
 };

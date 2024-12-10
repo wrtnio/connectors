@@ -10,17 +10,28 @@ export class WebCrawlerController {
   constructor(private readonly webCrawlerProvider: WebCrawlerProvider) {}
 
   /**
-   * Get HTML content from the URL
+   * @title Web Crawler Service
    *
-   * This API accepts a URL as input and returns the HTML content of the body of the corresponding web page.
-   * It fetches only the <body> element, excluding the head and other parts of the HTML structure, providing developers
-   * with a streamlined way to access the main content of a web page for further processing or analysis.
+   * A comprehensive web crawling service that extracts structured content from web pages,
+   * including text, images, metadata, and paginated content. The crawler can:
    *
-   * The API includes a "Wait For Selector" option, allowing it to wait for a specific CSS selector
-   * to be present in the DOM before returning the content.
-   * This is useful for ensuring that dynamic elements or data are fully loaded.
+   * - Extract main content and images from the target webpage
+   * - Handle different types of pagination (numbered, infinite scroll, load more)
+   * - Process dynamic content by waiting for specific selectors
+   * - Collect metadata and structural information
+   * - Follow pagination patterns up to a specified limit
    *
-   * @summary Get HTML content from the URL
+   * The service is designed to provide developers with structured, organized data
+   * that preserves the hierarchical relationships found in the original webpage while
+   * making the content easily accessible for further processing or analysis.
+   *
+   * Features include:
+   * - Configurable pagination following
+   * - Dynamic content loading support
+   * - Metadata extraction
+   * - Image collection with context
+   *
+   * @summary An advanced web crawler that supports extraction of structured content with pagination support
    */
   @ApiTags("Web Crawler")
   @core.TypedRoute.Post("get-web-content")
