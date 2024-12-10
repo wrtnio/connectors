@@ -1,9 +1,9 @@
 import { Prerequisite, SecretKey } from "@wrtnio/decorators";
 import { tags } from "typia";
-import { IPage } from "../../common/IPage";
-import { StrictOmit } from "../../types/strictOmit";
-import { IGoogleDocs } from "../google_docs/IGoogleDocs";
-import { INotion } from "../notion/INotion";
+import { IPage } from "../../../common/IPage";
+import { StrictOmit } from "../../../types/strictOmit";
+import { IGoogleDocs } from "../../google_docs/IGoogleDocs";
+import { INotion } from "../../notion/INotion";
 import { IArticleExport } from "./IArticleExport";
 import { IAttachmentFile } from "./IAttachmentFile";
 

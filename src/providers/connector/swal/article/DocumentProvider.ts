@@ -2,7 +2,7 @@ import { ForbiddenException, NotFoundException } from "@nestjs/common";
 import { Prisma } from "@prisma/client";
 import { IExternalUser } from "@wrtn/connector-api/lib/structures/common/IExternalUser";
 import { IPage } from "@wrtn/connector-api/lib/structures/common/IPage";
-import { IArticle } from "@wrtn/connector-api/lib/structures/connector/articles/IArticle";
+import { IArticle } from "@wrtn/connector-api/lib/structures/connector/swal/article/IArticle";
 import { ConnectorGlobal } from "../../../../ConnectorGlobal";
 import { PaginationUtil } from "../../../../utils/PaginationUtil";
 import { GoogleProvider } from "../../../internal/google/GoogleProvider";

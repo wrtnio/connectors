@@ -1,7 +1,7 @@
 import { Prisma } from "@prisma/client";
 import { IEntity } from "@wrtn/connector-api/lib/structures/common/IEntity";
 import { IExternalUser } from "@wrtn/connector-api/lib/structures/common/IExternalUser";
-import { IArticle } from "@wrtn/connector-api/lib/structures/connector/articles/IArticle";
+import { IArticle } from "@wrtn/connector-api/lib/structures/connector/swal/article/IArticle";
 import { randomUUID } from "crypto";
 import { ConnectorGlobal } from "../../../../ConnectorGlobal";
 import { BbsArticleSnapshotProvider } from "./BbsArticleSnapshotProvider";

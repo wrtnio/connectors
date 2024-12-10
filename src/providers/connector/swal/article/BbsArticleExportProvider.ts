@@ -1,6 +1,6 @@
 import { Prisma } from "@prisma/client";
 import { IEntity } from "@wrtn/connector-api/lib/structures/common/IEntity";
-import { IArticleExport } from "@wrtn/connector-api/lib/structures/connector/articles/IArticleExport";
+import { IArticleExport } from "@wrtn/connector-api/lib/structures/connector/swal/article/IArticleExport";
 import { StrictOmit } from "@wrtn/connector-api/lib/structures/types/strictOmit";
 import { randomUUID } from "crypto";
 import { ConnectorGlobal } from "../../../../ConnectorGlobal";
