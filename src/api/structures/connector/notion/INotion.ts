@@ -2583,4 +2583,25 @@ export namespace INotion {
      */
     url: string & tags.Format<"iri">;
   }
+
+  /**
+   * @title Information needed to update the page content
+   */
+  export interface IUpdatePageContentInput extends INotion.ISecret {
+    /**
+     * Page id what you want to update.
+     *
+     * @title pageId
+     */
+    pageId: PageIdInput["pageId"];
+
+    /**
+     * If you add a markdown string, it will be converted appropriately according to the Notion's block.
+     * Therefore, you don't have to use Unicode symbols to implement lists or decorate documents using letters.
+     * Of course, this depends on the user, and there is no problem using the character string you want, such as inserting an emoji as well as Unicode.
+     *
+     * @title markdown
+     */
+    markdown: string;
+  }
 }

@@ -2,7 +2,10 @@ import { HttpException, HttpStatus } from "@nestjs/common";
 import { Client } from "@notionhq/client";
 import axios from "axios";
 
-import { BlockObjectRequest } from "@notionhq/client/build/src/api-endpoints";
+import {
+  appendBlockChildren,
+  BlockObjectRequest,
+} from "@notionhq/client/build/src/api-endpoints";
 import { markdownToBlocks } from "@tryfabric/martian";
 import { Block } from "@tryfabric/martian/build/src/notion/blocks";
 import { INotion } from "@wrtn/connector-api/lib/structures/connector/notion/INotion";
@@ -1094,6 +1097,22 @@ export namespace NotionProvider {
       });
 
       return imgUrl;
+    } catch (err) {
+      console.error(JSON.stringify(err));
+      throw err;
+    }
+  }
+
+  export async function updatePageContent(
+    input: INotion.IUpdatePageContentInput,
+  ): Promise<INotion.IAppendPageByMarkdownOutput> {
+    try {
+      await clear({ secretKey: input.secretKey, pageId: input.pageId });
+      return await appendBlocksByMarkdown({
+        pageId: input.pageId,
+        secretKey: input.secretKey,
+        markdown: input.markdown,
+      });
     } catch (err) {
       console.error(JSON.stringify(err));
       throw err;

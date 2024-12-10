@@ -741,4 +741,27 @@ export class NotionController {
   ): Promise<INotion.ICreateGalleryDatabaseItemOutput[]> {
     return retry(() => NotionProvider.createGalleryDatabaseItem(input))();
   }
+
+  /**
+   * Updates the contents of the page.
+   *
+   * This function updates the contents written on the page to the desired contents.
+   *
+   * The contents to be updated must be written in Markdown format.
+   *
+   *
+   * @summary Update Page Content
+   * @param input
+   * @returns
+   */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg",
+  )
+  @ApiTags("Notion")
+  @core.TypedRoute.Post("update-page-content")
+  async updatePageContent(
+    @core.TypedBody() input: INotion.IUpdatePageContentInput,
+  ): Promise<INotion.IAppendPageByMarkdownOutput> {
+    return NotionProvider.updatePageContent(input);
+  }
 }
