@@ -15,7 +15,7 @@
     }
   ],
   "info": {
-    "version": "0.1.391",
+    "version": "0.1.392",
     "title": "@wrtn/connector",
     "description": "wrtn-ecosystem connectors and sdk",
     "license": {
@@ -7490,6 +7490,39 @@
                   "items": {
                     "$ref": "#/components/schemas/INotion.ICreateGalleryDatabaseItemOutput"
                   }
+                }
+              }
+            }
+          }
+        },
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg"
+      }
+    },
+    "/connector/notion/update-page-content": {
+      "post": {
+        "summary": "Update Page Content",
+        "description": "Updates the contents of the page.\n\nThis function updates the contents written on the page to the desired contents.\n\nThe contents to be updated must be written in Markdown format.",
+        "tags": [
+          "Notion"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/INotion.IUpdatePageContentInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/INotion.IAppendPageByMarkdownOutput"
                 }
               }
             }
@@ -34689,6 +34722,52 @@
           "markdown"
         ],
         "title": "Information created a gallery view database item"
+      },
+      "INotion.IUpdatePageContentInput": {
+        "type": "object",
+        "properties": {
+          "pageId": {
+            "oneOf": [
+              {
+                "type": "string",
+                "x-wrtn-prerequisite": {
+                  "method": "post",
+                  "path": "/connector/notion/get/page",
+                  "jmesPath": "[].{value:pageId, label:title}"
+                },
+                "x-wrtn-placeholder": "부모 페이지를 선택하세요."
+              },
+              {
+                "type": "string",
+                "x-wrtn-prerequisite": {
+                  "method": "post",
+                  "path": "/connector/notion/page",
+                  "jmesPath": "[].{value:id, label:id}"
+                },
+                "x-wrtn-placeholder": "부모 페이지를 선택하세요."
+              }
+            ],
+            "title": "pageId",
+            "description": "Page id what you want to update."
+          },
+          "markdown": {
+            "type": "string",
+            "title": "markdown",
+            "description": "If you add a markdown string, it will be converted appropriately according to the Notion's block.\nTherefore, you don't have to use Unicode symbols to implement lists or decorate documents using letters.\nOf course, this depends on the user, and there is no problem using the character string you want, such as inserting an emoji as well as Unicode."
+          },
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "notion",
+            "title": "Select authentication information",
+            "description": "secret key."
+          }
+        },
+        "required": [
+          "pageId",
+          "markdown",
+          "secretKey"
+        ],
+        "title": "Information needed to update the page content"
       },
       "IGoogleHotel.IResponse": {
         "type": "object",
