@@ -41,8 +41,12 @@ model spreadsheets {
   ///
   ///
   ///
-  spreadsheet_formats       spreadsheet_formats[]
-  spreadsheet_last_snapshot spreadsheet_last_snapshot[]
+  spreadsheet_formats spreadsheet_formats[]
+
+  /// Last snapshot information
+  ///
+  /// NOT NULL means that this record is the last snapshot.
+  mv_last spreadsheet_last_snapshot?
 }
 
 /// @namespace Spreadsheets
@@ -70,9 +74,14 @@ model spreadsheet_snapshots {
   //----
   // RELATIONS
   //----
-  spreadsheets              spreadsheets?               @relation(fields: [spreadsheet_id], references: [id])
-  spreadsheet_last_snapshot spreadsheet_last_snapshot[]
-  spreadsheet_exports       spreadsheet_exports[]
+  spreadsheets spreadsheets? @relation(fields: [spreadsheet_id], references: [id])
+
+  /// /// Last snapshot information
+  ///
+  /// NOT NULL means that this record is the last snapshot.
+  mv_last spreadsheet_last_snapshot?
+
+  spreadsheet_exports spreadsheet_exports[]
 }
 
 /// cells of spreadsheet
@@ -109,9 +118,13 @@ model spreadsheet_cells {
   //----
   // RELATIONS
   //---
-  spreadsheet                     spreadsheets                      @relation(fields: [spreadsheet_id], references: [id])
-  spreadsheet_cell_snapshots      spreadsheet_cell_snapshots[]
-  spreadsheet_cell_last_snapshots spreadsheet_cell_last_snapshots[]
+  spreadsheet                spreadsheets                 @relation(fields: [spreadsheet_id], references: [id])
+  spreadsheet_cell_snapshots spreadsheet_cell_snapshots[]
+
+  /// Last snapshot information
+  ///
+  /// NOT NULL means that this record is the last snapshot.
+  mv_last spreadsheet_cell_last_snapshots?
 
   @@unique([spreadsheet_id, column, row])
 }
@@ -153,8 +166,12 @@ model spreadsheet_cell_snapshots {
   //----
   // RELATIONS
   //----
-  spreadsheet_cell                spreadsheet_cells                 @relation(fields: [spreadsheet_cell_id], references: [id])
-  spreadsheet_cell_last_snapshots spreadsheet_cell_last_snapshots[]
+  spreadsheet_cell spreadsheet_cells @relation(fields: [spreadsheet_cell_id], references: [id])
+
+  /// Last snapshot information
+  ///
+  /// NOT NULL means that this record is the last snapshot.
+  mv_last spreadsheet_cell_last_snapshots?
 }
 
 /// spreadsheet cell lsat snapshots relation
@@ -179,8 +196,8 @@ model spreadsheet_cell_last_snapshots {
   //----
   // RELATIONS
   //----
-  spreadsheet_cell_snapshot spreadsheet_cell_snapshots @relation(fields: [spreadsheet_cell_snapshot_id], references: [id])
-  spreadsheet_cell          spreadsheet_cells          @relation(fields: [spreadsheet_cell_id], references: [id])
+  snapshot         spreadsheet_cell_snapshots @relation(fields: [spreadsheet_cell_snapshot_id], references: [id])
+  spreadsheet_cell spreadsheet_cells          @relation(fields: [spreadsheet_cell_id], references: [id])
 
   @@unique([spreadsheet_cell_snapshot_id])
 }
