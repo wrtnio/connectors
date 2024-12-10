@@ -18,7 +18,7 @@
     "title": "Slack",
     "summary": "슬랙에서 대화 내용을 가져오거나 메시지를 보낼 수 있어요.",
     "description": "슬랙에서 우리 멤버들이 어떤 주제를 가지고 논의를 하는지 확인해요. 우리 워크스페이스에 있는 유저 그룹이나 동료의 프로필을 확인할 수도 있고, 동료에게 말을 걸 수도 있고, 채널에 메세지를 보내고, 또 답글을 달 수도 있어요.",
-    "version": "0.1.393",
+    "version": "0.1.394",
     "license": {
       "name": "AGPL-3.0-only"
     }
@@ -216,7 +216,7 @@
     "/connector/slack/postMessage/text": {
       "post": {
         "summary": "post text message",
-        "description": "send message to channel\n\nHere, you can send a message as long as you have the message and channel information you want to send.\nSlack is a very close service to work, so it's dangerous to send messages that haven't been confirmed.\nYou must send the contents after receiving confirmation from the user.\nIf you want to send a message to a DM channel, you need to search for an IM channel.\nMost IM channel IDs will start with 'D', but if the value provided by the user is a value that starts with 'U',\nthis is most likely the user ID of the IM channel, not the channel.\nYou need to search for a user starting with that ID and then send a message.",
+        "description": "send message to channel\n\nHere, you can send a message as long as you have the message and channel information you want to send.\nSlack is a very close service to work, so it's dangerous to send messages that haven't been confirmed.\nYou must send the contents after receiving confirmation from the user.\n\nIf you want to send a message to a DM channel, you need to search for an IM channel.\nMost IM channel IDs will start with 'D', but if the value provided by the user is a value that starts with 'U',\nthis is most likely the user ID of the IM channel, not the channel.\nYou need to search for a user starting with that ID and then send a message.",
         "tags": [
           "Slack"
         ],
@@ -554,7 +554,7 @@
     "/connector/slack/get-im-channels": {
       "post": {
         "summary": "get im channels",
-        "description": "get im channels\n\nView channels.\nThis connector will only look up its own `im` channel.\nThe channel ID is required to look up the conversation history within the channel later.\n`im` channel is a conversation that takes place in one's profile and refers to a personal channel that can only be viewed by oneself.\nUsers also use chat as storage or notepad, such as storing files and images here.",
+        "description": "get im channels\n\nView channels.\nThis connector will only look up its own `im` channel.\nThe channel ID is required to look up the conversation history within the channel later.\n`im` channel is a conversation that takes place in one's profile and refers to a personal channel that can only be viewed by oneself.\nUsers also use chat as storage or notepad, such as storing files and images here.\n\nTo send a 1:1 message to other users, you must first look up the `im` channel.",
         "tags": [
           "Slack"
         ],
@@ -1417,7 +1417,9 @@
             "title": "custom fields"
           },
           "id": {
-            "type": "string"
+            "type": "string",
+            "title": "User ID",
+            "description": "Indicates the ID of the user.\nThis is different from the ID of the DM channel, or IM Channel.\nDM is a communication channel with people in that channel,\nand even if it is 1:1 the user has multiple DM channels,\nso it is not possible to say that the user's ID is a DM channel."
           },
           "display_name": {
             "oneOf": [
@@ -1551,7 +1553,9 @@
             "description": "This is the name of the user,\nbut in some countries,\nit may not be possible to call the user's name carelessly,\nand the company should refrain from using it because the position exists."
           },
           "id": {
-            "type": "string"
+            "type": "string",
+            "title": "User ID",
+            "description": "Indicates the ID of the user.\nThis is different from the ID of the DM channel, or IM Channel.\nDM is a communication channel with people in that channel,\nand even if it is 1:1 the user has multiple DM channels,\nso it is not possible to say that the user's ID is a DM channel."
           },
           "profile_image": {
             "oneOf": [
@@ -1940,7 +1944,9 @@
         "type": "object",
         "properties": {
           "id": {
-            "type": "string"
+            "type": "string",
+            "title": "User ID",
+            "description": "Indicates the ID of the user.\nThis is different from the ID of the DM channel, or IM Channel.\nDM is a communication channel with people in that channel,\nand even if it is 1:1 the user has multiple DM channels,\nso it is not possible to say that the user's ID is a DM channel."
           },
           "display_name": {
             "oneOf": [
