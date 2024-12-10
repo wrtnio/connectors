@@ -15,7 +15,7 @@
     }
   ],
   "info": {
-    "version": "0.1.392",
+    "version": "0.1.393",
     "title": "@wrtn/connector",
     "description": "wrtn-ecosystem connectors and sdk",
     "license": {
@@ -7869,7 +7869,7 @@
     "/connector/slack/postMessage/text": {
       "post": {
         "summary": "post text message",
-        "description": "send message to channel\n\nHere, you can send a message as long as you have the message and channel information you want to send.\nSlack is a very close service to work, so it's dangerous to send messages that haven't been confirmed.\nYou must send the contents after receiving confirmation from the user.",
+        "description": "send message to channel\n\nHere, you can send a message as long as you have the message and channel information you want to send.\nSlack is a very close service to work, so it's dangerous to send messages that haven't been confirmed.\nYou must send the contents after receiving confirmation from the user.\nIf you want to send a message to a DM channel, you need to search for an IM channel.\nMost IM channel IDs will start with 'D', but if the value provided by the user is a value that starts with 'U',\nthis is most likely the user ID of the IM channel, not the channel.\nYou need to search for a user starting with that ID and then send a message.",
         "tags": [
           "Slack"
         ],
@@ -35651,7 +35651,7 @@
               }
             ],
             "title": "channel id",
-            "description": "It refers to the channel on which you want to view the conversation history.\nIf you don't know the channel's ID, You need to view the channel first."
+            "description": "It refers to the channel on which you want to view the conversation history.\nIf you don't know the channel's ID, You need to view the channel first.\nWhen sending a message to a DM channel, you need the channel's ID, not the user's ID.\nThe user's ID starts with 'U', but if it's a DM channel, it's more likely to start with 'D'."
           },
           "text": {
             "type": "string",
@@ -35847,7 +35847,7 @@
               }
             ],
             "title": "channel id",
-            "description": "It refers to the channel on which you want to view the conversation history.\nIf you don't know the channel's ID, You need to view the channel first."
+            "description": "It refers to the channel on which you want to view the conversation history.\nIf you don't know the channel's ID, You need to view the channel first.\nWhen sending a message to a DM channel, you need the channel's ID, not the user's ID.\nThe user's ID starts with 'U', but if it's a DM channel, it's more likely to start with 'D'."
           },
           "text": {
             "type": "string",
@@ -35915,7 +35915,7 @@
               }
             ],
             "title": "channel id",
-            "description": "It refers to the channel on which you want to view the conversation history.\nIf you don't know the channel's ID, You need to view the channel first."
+            "description": "It refers to the channel on which you want to view the conversation history.\nIf you don't know the channel's ID, You need to view the channel first.\nWhen sending a message to a DM channel, you need the channel's ID, not the user's ID.\nThe user's ID starts with 'U', but if it's a DM channel, it's more likely to start with 'D'."
           },
           "text": {
             "type": "string",
@@ -36001,7 +36001,7 @@
               }
             ],
             "title": "channel id",
-            "description": "It refers to the channel on which you want to view the conversation history.\nIf you don't know the channel's ID, You need to view the channel first."
+            "description": "It refers to the channel on which you want to view the conversation history.\nIf you don't know the channel's ID, You need to view the channel first.\nWhen sending a message to a DM channel, you need the channel's ID, not the user's ID.\nThe user's ID starts with 'U', but if it's a DM channel, it's more likely to start with 'D'."
           },
           "text": {
             "type": "string",
@@ -37081,6 +37081,17 @@
           "user": {
             "type": "string",
             "title": "channel owner's id"
+          },
+          "username": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "title": "username"
           },
           "id": {
             "type": "string",
