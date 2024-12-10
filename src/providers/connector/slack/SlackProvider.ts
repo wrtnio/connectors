@@ -448,6 +448,11 @@ export class SlackProvider {
         },
       );
 
+      const ts = res.data.ts;
+      if (!ts) {
+        throw new Error("Failed to send slack message.");
+      }
+
       return { ts: res.data.ts };
     } catch (err) {
       console.error(JSON.stringify(err));
