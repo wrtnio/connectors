@@ -1,14 +1,14 @@
 import CApi from "@wrtn/connector-api/lib/index";
 import { IEntity } from "@wrtn/connector-api/lib/structures/common/IEntity";
 import { IExternalUser } from "@wrtn/connector-api/lib/structures/common/IExternalUser";
-import { IArticle } from "@wrtn/connector-api/lib/structures/connector/articles/IArticle";
-import { IArticleExport } from "@wrtn/connector-api/lib/structures/connector/articles/IArticleExport";
+import { IArticle } from "@wrtn/connector-api/lib/structures/connector/swal/article/IArticle";
+import { IArticleExport } from "@wrtn/connector-api/lib/structures/connector/swal/article/IArticleExport";
 import { StrictOmit } from "@wrtn/connector-api/lib/structures/types/strictOmit";
 import assert, { deepStrictEqual } from "assert";
 import { randomUUID } from "crypto";
 import typia from "typia";
-import { ConnectorGlobal } from "../../../../../src/ConnectorGlobal";
-import { ErrorUtil } from "../../../../../src/utils/ErrorUtil";
+import { ConnectorGlobal } from "../../../../../../src/ConnectorGlobal";
+import { ErrorUtil } from "../../../../../../src/utils/ErrorUtil";
 
 const password = randomUUID();
 const uid = randomUUID();
