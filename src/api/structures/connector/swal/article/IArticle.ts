@@ -230,6 +230,14 @@ export namespace IArticle {
   }
 
   export namespace IRequest {
+    /**
+     * If an attribute exists,
+     * it returns only the result of 'AND' calculations of all the attributes.
+     * For example, if the format is 'md' and 'title' is 'swal',
+     * it will only look up the case where it is marked down and 'swal' is included in the title.
+     *
+     * @title Search Conditions
+     */
     export interface ISearch {
       /**
        * Article IDs, not Article Snapshot ID
@@ -250,6 +258,9 @@ export namespace IArticle {
         format: IArticle.ISnapshot["format"];
 
         /**
+         * This property is not a complete match, but a feature
+         * that allows you to search for a title that contains that character.
+         *
          * @title Title of article
          */
         title: IArticle.ISnapshot["title"];
