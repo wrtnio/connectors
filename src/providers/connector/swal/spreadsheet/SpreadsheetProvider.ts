@@ -3,70 +3,31 @@ import { IExternalUser } from "@wrtn/connector-api/lib/structures/common/IExtern
 import { IPage } from "@wrtn/connector-api/lib/structures/common/IPage";
 import { ISpreadsheet } from "@wrtn/connector-api/lib/structures/connector/swal/spreadsheet/ISpreadsheet";
 import { ConnectorGlobal } from "../../../../ConnectorGlobal";
+import { SpreadsheetCellProvider } from "./SpreadsheetCellProvider";
+import { SpreadsheetFormatProvider } from "./SpreadsheetFormatProvider";
+import { SpreadsheetSnapshotProvider } from "./SpreadsheetSnapshotProvider";
 
 export namespace SpreadsheetProvider {
   export namespace summary {
+    export const transform = (
+      input: Prisma.spreadsheetsGetPayload<ReturnType<typeof summary.select>>,
+    ): ISpreadsheet.ISummary => {
+      return {} as any;
+    };
+
     export const select = () => {
       return {
         select: {
           id: true,
           external_user_id: true,
           created_at: true,
-          spreadsheet_cells: {
-            select: {
-              id: true,
-              column: true,
-              row: true,
-              mv_last: {
-                select: {
-                  snapshot: {
-                    select: {
-                      id: true,
-                      type: true,
-                      value: true,
-                      created_at: true,
-                    },
-                  },
-                },
-              },
-            },
-          },
+          spreadsheet_cells: SpreadsheetCellProvider.summary.select(),
           mv_last: {
             select: {
-              snapshot: {
-                select: {
-                  id: true,
-                  title: true,
-                  description: true,
-                  created_at: true,
-                  spreadsheet_exports: {
-                    select: {
-                      id: true,
-                      spreadsheet_provider: {
-                        include: {},
-                      },
-                    },
-                  },
-                },
-              },
+              snapshot: SpreadsheetSnapshotProvider.summary.select(),
             },
           },
-          spreadsheet_formats: {
-            select: {
-              id: true,
-              font_name: true,
-              font_size: true,
-              background_color: true,
-              text_alignment: true,
-              created_at: true,
-              spreadsheet_ranges: {
-                include: {},
-              },
-            },
-            where: {
-              deleted_at: null,
-            },
-          },
+          spreadsheet_formats: SpreadsheetFormatProvider.summary.select(),
         },
       } satisfies Prisma.spreadsheetsFindManyArgs;
     };
