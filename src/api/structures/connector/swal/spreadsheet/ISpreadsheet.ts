@@ -1,12 +1,13 @@
 import { tags } from "typia";
 import { StrictOmit } from "../../../types/strictOmit";
+import { ISpreadsheetCell } from "./ISpreadsheetCell";
 import { ISpreadsheetExport } from "./ISpreadsheetExport";
 
 export namespace ISpreadsheet {
   export interface ISummary
     extends StrictOmit<
       ISpreadsheet,
-      "external_user_id" | "password" | "snapshots" | "deleted_at"
+      "external_user_id" | "snapshots" | "deleted_at"
     > {
     /**
      * @title Total count of cells
@@ -68,15 +69,15 @@ export interface ISpreadsheet<
   external_user_id: string & tags.Format<"uuid">;
 
   /**
-   * @title password
+   * @title cells
    */
-  password: string;
+  spreadsheet_cells: ISpreadsheetCell[];
 
   /**
-   *  It is created for the first time when an spreadsheet is created, and is
-   *  accumulated every time the spreadsheet is modified.
+   * It is created for the first time when an spreadsheet is created, and is
+   * accumulated every time the spreadsheet is modified.
    *
-   *  @title List of snapshot contents
+   * @title List of snapshot contents
    */
   snapshots: Snapshot[] & tags.MinItems<1>;
 
