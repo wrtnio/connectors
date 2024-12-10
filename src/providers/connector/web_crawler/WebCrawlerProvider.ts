@@ -197,57 +197,13 @@ export class WebCrawlerProvider {
     const paginationGroups: IWebCrawler.IResponse["paginationGroups"] = [];
     const paginationElements = await CommonExtractor.findPaginationElements($);
 
-    console.log(paginationElements.length);
+    const itemSelector = CommonExtractor.getItemSelector(request.url);
 
-    const elementsInfo = paginationElements.map((element) => {
-      const $el = $(element);
-      return {
-        classes: this.getClassNames($el),
-        text: this.cleanText($el.text()).slice(0, 100), // 첫 100자만 표시
-        children: $el.children().length,
-      };
-    });
-
-    await fs.promises.writeFile(
-      `/Users/jeonsehyeon/Documents/wrtn/connectors/test/features/api/connector/web_crawler/logs/logs.json`,
-      JSON.stringify(elementsInfo, null, 2),
-      "utf8",
-    );
-
-    // 컨텐츠 중복 체크를 위한 Set (첫 번째 아이템의 텍스트로 비교)
-    const processedContents = new Set<string>();
-
-    for (const section of paginationElements) {
-      const $section = $(section);
-      const type = await CommonExtractor.detectPaginationType($section);
-
-      if (!type) continue;
-
-      const listSelectors = [
-        'ul[class*="_2ms2i3dD92"]',
-        '[class*="list"]',
-        '[class*="items"]',
-        '[class*="feed"]',
-        '[class*="review"]', // 리뷰 관련 클래스
-      ];
-
-      const $listElements = listSelectors
-        .map((selector) => $section.find(selector))
-        .filter(($el) => $el.length > 0)[0];
-
-      if (!$listElements) continue;
-
-      // 유효성 체크
-      if (!this.isValidPaginationContent($listElements)) continue;
-
-      // 첫 번째 아이템의 텍스트로 중복 체크
-      const firstItemText = $listElements.children().first().text().trim();
-      if (processedContents.has(firstItemText)) continue;
-      processedContents.add(firstItemText);
+    for (const { type, $element } of paginationElements) {
+      const items = $element.find(itemSelector);
 
       const dataItems = await Promise.all(
-        $listElements
-          .children()
+        items
           .map(async (_, item) => {
             const $item = $(item);
             return {
@@ -258,14 +214,16 @@ export class WebCrawlerProvider {
           .get(),
       );
 
+      if (!dataItems.length) continue;
+
       const pages: IWebCrawler.IPage[] = [
         {
           url: request.url,
-          classNames: this.getClassNames($listElements),
+          classNames: this.getClassNames($element),
           data: dataItems,
           pagination: await CommonExtractor.extractPaginationInfo(
-            $listElements,
-            type.type,
+            $element,
+            type,
           ),
         },
       ];
@@ -281,75 +239,12 @@ export class WebCrawlerProvider {
       }
 
       paginationGroups.push({
-        identifier: [this.generateIdentifier($section)],
+        identifier: [this.generateIdentifier($element)],
         pages,
       });
     }
 
     return paginationGroups;
-  }
-
-  private isValidPaginationContent($element: Cheerio<any>): boolean {
-    // UI 요소 제외
-    const invalidClasses = [
-      "_27jmWaPaKy",
-      "_productFloatingTab",
-      "_2ZMO1PVXbA",
-      "spi_sns_share",
-      "share_area",
-      "btn_share",
-    ];
-
-    for (const cls of invalidClasses) {
-      if (
-        $element.hasClass(cls) ||
-        $element.find(`[class*="${cls}"]`).length > 0
-      ) {
-        return false;
-      }
-    }
-
-    const contentText = $element.text().trim();
-
-    // 컨텐츠가 너무 짧으면 제외
-    if (contentText.length < 50) return false;
-
-    // 리스트 구조 확인
-    const hasListStructure =
-      $element.find("li").length > 0 || $element.children().length > 3;
-
-    // 페이지네이션 관련 요소가 있는지 확인
-    const hasPaginationElements =
-      $element.find(
-        '[class*="paginate"], [class*="pagination"], [class*="paging"]',
-      ).length > 0 ||
-      $element.find(
-        'a:contains("다음"), a:contains("이전"), a:contains("Next"), a:contains("Prev")',
-      ).length > 0;
-
-    // 일반적인 리스트 컨텐츠 확인
-    const hasValidContent =
-      // 리뷰/문의 관련
-      contentText.includes("리뷰") ||
-      contentText.includes("문의") ||
-      $element.find('[class*="review"], [class*="qna"]').length > 0 ||
-      // 게시판 관련
-      contentText.includes("게시") ||
-      contentText.includes("글") ||
-      $element.find('[class*="board"], [class*="post"]').length > 0 ||
-      // 상품 목록 관련
-      contentText.includes("상품") ||
-      contentText.includes("제품") ||
-      $element.find('[class*="product"], [class*="item"]').length > 0 ||
-      // 댓글 관련
-      contentText.includes("댓글") ||
-      contentText.includes("코멘트") ||
-      $element.find('[class*="comment"], [class*="reply"]').length > 0 ||
-      // 피드 형태
-      $element.find('[class*="feed"], [class*="timeline"], [class*="stream"]')
-        .length > 0;
-
-    return hasListStructure && (hasValidContent || hasPaginationElements);
   }
 
   private async followPagination(

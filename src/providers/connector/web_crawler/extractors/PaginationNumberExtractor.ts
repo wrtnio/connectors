@@ -7,7 +7,6 @@ export namespace PaginationNumberExtractor {
     ".pagination",
     ".paging",
     ".pager",
-    '[role="navigation"]',
     'nav[aria-label*="pagination" i]',
 
     // 일반적인 페이지 번호 컨테이너
@@ -27,7 +26,6 @@ export namespace PaginationNumberExtractor {
     '[aria-current="page"]',
 
     // 추가적인 페이지네이션 패턴
-    '[class*="paginator"]',
     '[class*="pagination"]',
     '[class*="paging"]',
 
@@ -65,7 +63,7 @@ export namespace PaginationNumberExtractor {
     "#main-content > shreddit-feed",
 
     // 올리브영
-    "#gdasContentsArea > div > div.review_list_wrap",
+    "#gdasList",
 
     // 유튜브
     "#contents",
@@ -103,27 +101,6 @@ export namespace PaginationNumberExtractor {
       hasNumberedLinks ||
       hasNavigation
     );
-  };
-
-  export const handleNumberedPagination = async (
-    $: CheerioAPI,
-    currentUrl: string,
-  ): Promise<IWebCrawler.IPagination> => {
-    const url = new URL(currentUrl);
-    const pageParam = url.searchParams.get("page") || "1";
-    const currentPage = parseInt(pageParam, 10);
-
-    // 페이지네이션 정보 찾기
-    const { nextPageUrl, hasNextPage } = findNextPageInfo($);
-    const pattern = detectHTMLPaginationPattern($);
-
-    return {
-      type: "numbered",
-      currentPage,
-      hasNextPage,
-      nextPageUrl,
-      pattern,
-    };
   };
 
   const findNextPageInfo = (

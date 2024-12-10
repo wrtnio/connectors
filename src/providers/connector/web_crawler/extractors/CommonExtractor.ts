@@ -5,50 +5,38 @@ import { PaginationNumberExtractor } from "./PaginationNumberExtractor";
 import { PaginationLoadMoreExtractor } from "./PaginationLoadMoreExtractor";
 
 export namespace CommonExtractor {
-  const hasPageContent = ($element: Cheerio<any>): boolean => {
-    const contentList = $element.find('[class*="feed__list"]');
-    if (!contentList.length) return false;
-
-    const paginator = $element.find('[class*="paginator"]');
-    return paginator.length > 0;
-  };
-
   export const findPaginationElements = async (
     $: CheerioAPI,
-  ): Promise<Cheerio<any>[]> => {
+  ): Promise<
+    Array<{
+      type: IWebCrawler.PaginationType;
+      $element: Cheerio<any>;
+    }>
+  > => {
     const paginatorSelectors = [
+      ...PaginationNumberExtractor.paginationSelectors,
       ...PaginationInfiniteExtractor.scriptSelectors,
       ...PaginationInfiniteExtractor.infiniteScrollSelectors,
       ...PaginationLoadMoreExtractor.loadMoreSelectors,
-      ...PaginationNumberExtractor.paginationSelectors,
     ];
 
-    const listSelectors = [
-      '[class*="list"]',
-      '[class*="items"]',
-      '[class*="feed"]',
-      '[class*="review"]', // 리뷰 관련 클래스
-      "ul",
-      "ul:nth-child(1)",
-      "ul:nth-child(2)",
-      "ol",
-      '[role="list"]',
-      '[class*="grid"]',
-    ];
+    const result: Array<{
+      type: IWebCrawler.PaginationType;
+      $element: Cheerio<any>;
+    }> = [];
 
-    const excludeSelectors = ['[class="_spi_lst spi_list"]'];
-    const containerSelectors = ["section", "div"];
+    console.log("Full HTML:", $.html()); // 전체 HTML 출력
+    const reviews = $("contents");
 
-    const sections: Cheerio<any>[] = []; // 모든 컨테이너 셀렉터에 대해 한 번의 로직으로 처리
+    console.log(reviews);
 
-    containerSelectors.forEach((containerSelector) => {
-      $(containerSelector).each((_, element) => {
+    $("body")
+      .find("*")
+      .each((_, element) => {
         const $element = $(element);
 
-        // 페이지네이터 존재 여부 확인
         const hasPaginator = paginatorSelectors.some((selector) => {
           const req = $element.find(selector).length > 0;
-
           if (req) {
             console.log("selector", selector);
           }
@@ -57,57 +45,26 @@ export namespace CommonExtractor {
 
         if (!hasPaginator) return;
 
-        // 리스트 존재 여부 확인
-        const hasList = listSelectors.some(
-          (selector) => $element.find(selector).length > 0,
-        );
-
-        // // 제외할 요소 확인
-        // const hasExclude = excludeSelectors.some(
-        //   (selector) => $element.find(selector).length > 0,
-        // );
-
-        if (hasList) {
-          sections.push($element);
-
-          excludeSelectors.map((selector) => {
-            $element.find(selector).remove();
+        // 타입 감지 로직
+        if (PaginationInfiniteExtractor.isInfiniteScroll($element)) {
+          result.push({
+            type: "infinite-scroll",
+            $element,
+          });
+        } else if (PaginationNumberExtractor.isNumberedPagination($element)) {
+          result.push({
+            type: "numbered",
+            $element,
+          });
+        } else if (PaginationLoadMoreExtractor.isLoadMore($element)) {
+          result.push({
+            type: "load-more",
+            $element,
           });
         }
       });
-    });
 
-    return sections;
-  };
-
-  export const detectPaginationType = async (
-    $element: Cheerio<any>,
-  ): Promise<{
-    type: IWebCrawler.PaginationType;
-    $element: Cheerio<any>;
-  } | null> => {
-    if (PaginationInfiniteExtractor.isInfiniteScroll($element)) {
-      return {
-        type: "infinite-scroll",
-        $element: $element,
-      };
-    }
-
-    if (PaginationNumberExtractor.isNumberedPagination($element)) {
-      return {
-        type: "numbered",
-        $element: $element,
-      };
-    }
-
-    if (PaginationLoadMoreExtractor.isLoadMore($element)) {
-      return {
-        type: "load-more",
-        $element: $element,
-      };
-    }
-
-    return null;
+    return result;
   };
 
   export const extractPaginationInfo = async (
@@ -122,24 +79,12 @@ export namespace CommonExtractor {
     return pagination;
   };
 
-  const extractPaginationPattern = (
-    url: string,
-  ): IWebCrawler.IPagination["pattern"] => {
-    try {
-      const urlObj = new URL(url);
-      return {
-        baseUrl: `${urlObj.protocol}//${urlObj.host}${urlObj.pathname}`,
-        queryParam: urlObj.searchParams.has("page")
-          ? "page"
-          : urlObj.searchParams.has("p")
-            ? "p"
-            : undefined,
-        fragment: urlObj.hash || undefined,
-      };
-    } catch {
-      return {
-        baseUrl: url,
-      };
-    }
+  export const getItemSelector = (url: string): string => {
+    if (url.includes("youtube.com")) return "ytd-comment-thread-renderer";
+    if (url.includes("oliveyoung.co.kr")) return "li";
+    if (url.includes("coupang.com"))
+      return 'article[class*="sdp-review__article__list"]';
+    // 기타 사이트들...
+    return "li"; // 기본값
   };
 }
