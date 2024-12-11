@@ -43,7 +43,7 @@ export namespace IDevTo {
       /**
        * @title description
        */
-      description: string;
+      description?: string;
     };
   }
 }

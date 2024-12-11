@@ -13,7 +13,9 @@ export namespace DevToProvider {
         article: {
           title: input.article.title,
           description: input.article.description,
-          body_markdown: input.article.body_markdown,
+          ...(input.article.body_markdown && {
+            body_markdown: input.article.body_markdown,
+          }),
           published: true,
         },
       },

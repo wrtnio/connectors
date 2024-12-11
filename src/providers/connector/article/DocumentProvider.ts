@@ -20,13 +20,16 @@ import { BbsArticleSnapshotProvider } from "./BbsArticleSnapshotProvider";
 export namespace DocumentProvider {
   const GoogleDocs = new GoogleDocsProvider(new GoogleProvider());
 
-  export function sync(provider: "google_docs"): typeof sync.notion; // NOT IMPLEMENT
+  export function sync(provider: "dev_to"): typeof sync.dev_to;
+  export function sync(provider: "google_docs"): typeof sync.notion;
   export function sync(provider: "notion"): typeof sync.notion;
-  export function sync(provider: "notion" | "google_docs") {
+  export function sync(provider: "notion" | "google_docs" | "dev_to") {
     if (provider === "notion") {
       return sync.notion;
     } else if (provider === "google_docs") {
       return sync.google_docs;
+    } else if (provider === "dev_to") {
+      return sync.dev_to;
     }
 
     throw new Error("Cannot sync to this service.");
@@ -203,19 +206,57 @@ export namespace DocumentProvider {
     };
   }
 
-  export function exports(provider: "google_docs"): typeof exports.google_docs; // NOT IMPLEMENT
+  export function exports(provider: "dev_to"): typeof exports.dev_to;
+  export function exports(provider: "google_docs"): typeof exports.google_docs;
   export function exports(provider: "notion"): typeof exports.notion;
-  export function exports(provider: "notion" | "google_docs") {
+  export function exports(provider: "notion" | "google_docs" | "dev_to") {
     if (provider === "notion") {
       return exports.notion;
     } else if (provider === "google_docs") {
       return exports.google_docs;
+    } else if (provider === "dev_to") {
+      return exports.dev_to;
     }
 
     throw new Error("Cannot export to this service.");
   }
 
   export namespace exports {
+    export const dev_to = async (
+      external_user: IExternalUser,
+      articleId: IArticle["id"],
+      input: IArticle.IExport.ToDevToInput,
+    ): Promise<IArticle.IExport.ToDevToOutput> => {
+      const { snapshots } = await DocumentProvider.at(external_user, articleId);
+      const snapshot = snapshots.find(({ id }) => id === input.snapshot.id)!;
+
+      const { id: uid, url: link } = await DevToProvider.create({
+        secretKey: input.dev_to.secretKey,
+        article: {
+          title: snapshot.title,
+          body_markdown: snapshot.body,
+        },
+      });
+
+      const article_snapshot_exports = await BbsArticleExportProvider.exports(
+        snapshot,
+      )({
+        provider: "dev_to",
+        uid: uid,
+        url: link,
+        created_at: new Date().toISOString(),
+      });
+
+      return {
+        dev_to: {
+          id: uid,
+          title: snapshot.title,
+          link: link,
+        },
+        article_snapshot_exports,
+      };
+    };
+
     export const google_docs = async (
       external_user: IExternalUser,
       articleId: IArticle["id"],
