@@ -3,41 +3,6 @@ import { IWebCrawler } from "@wrtn/connector-api/lib/structures/connector/web_cr
 
 export namespace PaginationNumberExtractor {
   export const paginationSelectors = [
-    // 기본 페이지네이션 구조
-    ".pagination",
-    ".paging",
-    ".pager",
-    'nav[aria-label*="pagination" i]',
-
-    // 일반적인 페이지 번호 컨테이너
-    ".page-numbers",
-    ".page-links",
-    ".page-nav",
-
-    // 특정 페이지네이션 컴포넌트
-    '[class*="pagination"]',
-    '[class*="paging"]',
-    '[class*="paginator"]',
-    "[data-pagination]",
-
-    // 페이지 번호 표시 요소
-    ".current-page",
-    ".page-current",
-    '[aria-current="page"]',
-
-    // 추가적인 페이지네이션 패턴
-    '[class*="pagination"]',
-    '[class*="paging"]',
-
-    // 버튼 기반 페이징
-    'button[class*="page"]',
-    'button[class*="paging"]',
-    'button[type="button"][class*="page"]',
-
-    // 리스트 기반 페이지네이션
-    'ul > li > button[type="button"]',
-    'ul[class*="paginator"] > li > button',
-
     // 오늘의집
     'ul[class*="production-review__paginator"]',
     "body > div.page > div > div > div.production-selling > div.production-selling__detail-wrap.container > div > div.production-selling__detail__content.col-12.col-lg-8 > div > section:nth-child(5) > div > div.production-review-feed__list",
@@ -67,6 +32,40 @@ export namespace PaginationNumberExtractor {
 
     // 유튜브
     "#contents",
+
+    // 기본 페이지네이션 구조
+    ".pagination",
+    ".paging",
+    ".pager",
+    'nav[aria-label*="pagination" i]',
+
+    // 일반적인 페이지 번호 컨테이너
+    ".page-numbers",
+    ".page-links",
+    ".page-nav",
+
+    // 특정 페이지네이션 컴포넌트
+    '[class*="pagination"]',
+    '[class*="paging"]',
+    "[data-pagination]",
+
+    // 페이지 번호 표시 요소
+    ".current-page",
+    ".page-current",
+    '[aria-current="page"]',
+
+    // 추가적인 페이지네이션 패턴
+    '[class*="pagination"]',
+    '[class*="paging"]',
+
+    // 버튼 기반 페이징
+    'button[class*="page"]',
+    'button[class*="paging"]',
+    'button[type="button"][class*="page"]',
+
+    // 리스트 기반 페이지네이션
+    'ul > li > button[type="button"]',
+    'ul[class*="paginator"] > li > button',
   ];
 
   export const isNumberedPagination = ($element: Cheerio<any>): boolean => {

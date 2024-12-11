@@ -4,14 +4,12 @@ import { ZenRows } from "zenrows";
 import { ConnectorGlobal } from "../../../ConnectorGlobal";
 import { IWebCrawler } from "@wrtn/connector-api/lib/structures/connector/web_crawler/IWebCrawler";
 import { CommonExtractor } from "./extractors/CommonExtractor";
-import fs from "fs";
+import { ServiceExtractor } from "./extractors/ServiceExtractor";
 
 @Injectable()
 export class WebCrawlerProvider {
   private readonly logger = new Logger(WebCrawlerProvider.name);
   private readonly client: ZenRows;
-  private readonly naverBlog = "https://blog.naver.com";
-  private readonly arxiv = "https://arxiv.org";
 
   constructor() {
     this.client = new ZenRows(ConnectorGlobal.env.ZENROWS_API_KEY, {
@@ -20,8 +18,14 @@ export class WebCrawlerProvider {
   }
 
   async crawl(request: IWebCrawler.IRequest): Promise<IWebCrawler.IResponse> {
+    const serviceCrawl = await ServiceExtractor.getServiceCrawl(request);
+
+    if (serviceCrawl !== null) {
+      return serviceCrawl;
+    }
+
     try {
-      const $ = await this.fetchPage(request);
+      const $ = await CommonExtractor.fetchPage(request);
 
       // Extract main content
       const mainContent = await this.extractMainContent($);
@@ -41,46 +45,13 @@ export class WebCrawlerProvider {
       );
     }
   }
-
-  private async fetchPage(
-    request: IWebCrawler.IRequest,
-    js_instructions?: string,
-  ): Promise<CheerioAPI> {
-    console.log("fetching");
-    try {
-      const response = await this.client.get(this.transformUrl(request.url), {
-        js_render: true,
-        wait: 10000,
-        json_response: true,
-        wait_for: request.wait_for,
-        js_instructions: js_instructions
-          ? encodeURIComponent(js_instructions)
-          : undefined,
-
-        ...this.getProxyOptions(request.url),
-      });
-
-      if (!response.ok) {
-        console.log(await response.text());
-
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-
-      const data = await response.json();
-      return load(data.html);
-    } catch (error) {
-      this.logger.error("Failed to fetch page:", error);
-      throw error;
-    }
-  }
-
   private async extractMainContent(
     $: CheerioAPI,
   ): Promise<Omit<IWebCrawler.IResponse, "paginationGroups">> {
     return {
       text: await this.extractMainText($),
-      images: await this.extractImages($, $("body")),
-      metadata: await this.extractMetadata($),
+      images: await CommonExtractor.extractImages($, $("body")),
+      metadata: await CommonExtractor.extractMetadata($),
     };
   }
 
@@ -103,93 +74,6 @@ export class WebCrawlerProvider {
     return this.cleanText($("body").text());
   }
 
-  private async extractImages(
-    $: CheerioAPI,
-    $context: Cheerio<any>,
-  ): Promise<IWebCrawler.IImage[]> {
-    const images: IWebCrawler.IImage[] = [];
-
-    $context.find("img").each((_, element) => {
-      const $img = $(element);
-      const $parent = $img.parent();
-      const url = $img.attr("src");
-
-      if (url && this.isValidImageUrl(url) && this.isValidImage($img)) {
-        images.push({
-          id: $img.attr("id") || undefined,
-          url,
-          alt: $img.attr("alt") || undefined,
-          classNames:
-            this.getClassNames($img).length > 0
-              ? this.getClassNames($img)
-              : ["no-class"],
-          parentClassNames: this.getClassNames($parent),
-        });
-      }
-    });
-
-    return images;
-  }
-
-  private isValidImageUrl(url: string): boolean {
-    try {
-      const urlObj = new URL(url);
-      const validPatterns = [
-        /\.(jpg|jpeg|png|webp|gif)$/i,
-        /\/i\/.*\.(jpg|jpeg|png|webp|gif)/i,
-        /\/uploads\/.*\.(jpg|jpeg|png|webp|gif)/i,
-        /bucketplace.*\.(jpg|jpeg|png|webp|gif)/i,
-      ];
-
-      return validPatterns.some((pattern) => pattern.test(url));
-    } catch {
-      return false;
-    }
-  }
-
-  private isValidImage = ($img: Cheerio<any>): boolean => {
-    // 작은 이미지나 장식용 이미지 필터링
-    const width = Number($img.attr("width"));
-    const height = Number($img.attr("height"));
-    const isDecorative = $img.attr("role") === "presentation";
-
-    return !(width < 100 || height < 100 || isDecorative);
-  };
-
-  private async extractMetadata($: CheerioAPI): Promise<IWebCrawler.IMetadata> {
-    const metadata: IWebCrawler.IMetadata = {};
-
-    // Basic metadata
-    metadata.title =
-      $("title").text().trim() ||
-      $('meta[property="og:title"]').attr("content");
-    metadata.author = $('meta[name="author"]').attr("content");
-    metadata.publishDate = $('meta[property="article:published_time"]').attr(
-      "content",
-    );
-
-    // Description
-    const description =
-      $('meta[name="description"]').attr("content") ||
-      $('meta[property="og:description"]').attr("content");
-    if (description) {
-      metadata.description = { text: description.toString(), images: [] };
-    }
-
-    // Additional metadata
-    $("meta").each((_, element) => {
-      const $meta = $(element);
-      const name = $meta.attr("name") || $meta.attr("property");
-      const content = $meta.attr("content");
-
-      if (name && content) {
-        metadata[name] = content;
-      }
-    });
-
-    return metadata;
-  }
-
   private async extractPaginatedContent(
     $: CheerioAPI,
     request: IWebCrawler.IRequest,
@@ -197,18 +81,24 @@ export class WebCrawlerProvider {
     const paginationGroups: IWebCrawler.IResponse["paginationGroups"] = [];
     const paginationElements = await CommonExtractor.findPaginationElements($);
 
-    const itemSelector = CommonExtractor.getItemSelector(request.url);
-
     for (const { type, $element } of paginationElements) {
-      const items = $element.find(itemSelector);
+      const newIdentifier = this.generateIdentifier($element);
+      if (
+        paginationGroups.some((group) =>
+          group.identifier.includes(newIdentifier),
+        )
+      ) {
+        continue;
+      }
 
       const dataItems = await Promise.all(
-        items
+        $element
+          .children()
           .map(async (_, item) => {
             const $item = $(item);
             return {
               text: this.cleanText($item.text()),
-              images: await this.extractImages($, $item),
+              images: await CommonExtractor.extractImages($, $item),
             };
           })
           .get(),
@@ -228,18 +118,18 @@ export class WebCrawlerProvider {
         },
       ];
 
-      if (request.pagination?.followNextPage) {
-        const additionalPages = await this.followPagination(
-          $,
-          request.url,
-          pages[0],
-          request.pagination.followNextPageCount ?? 10,
-        );
-        pages.push(...additionalPages);
-      }
+      // if (request.pagination?.followNextPage) {
+      //   const additionalPages = await this.followPagination(
+      //     $,
+      //     request.url,
+      //     pages[0],
+      //     request.pagination.followNextPageCount ?? 10,
+      //   );
+      //   pages.push(...additionalPages);
+      // }
 
       paginationGroups.push({
-        identifier: [this.generateIdentifier($element)],
+        identifier: [newIdentifier],
         pages,
       });
     }
@@ -306,7 +196,7 @@ export class WebCrawlerProvider {
         }
 
         // 페이지 패치 및 데이터 추출
-        const $next = await this.fetchPage(
+        const $next = await CommonExtractor.fetchPage(
           {
             url: url,
           },
@@ -338,7 +228,7 @@ export class WebCrawlerProvider {
               const $item = $next(item);
               return {
                 text: this.cleanText($item.text()),
-                images: await this.extractImages($next, $item),
+                images: await CommonExtractor.extractImages($next, $item),
               };
             })
             .get(),
@@ -416,41 +306,6 @@ export class WebCrawlerProvider {
   // Helper methods
   private cleanText(text: string): string {
     return text.replace(/[\s\n\r\t]+/g, " ").trim();
-  }
-
-  private transformNaverBlogURL(url: string): string {
-    const regex = /https:\/\/blog\.naver\.com\/([^/]+)\/(\d+)/;
-    const match = url.match(regex);
-
-    if (!match) return url;
-
-    const [, blogId, logNo] = match;
-    return `${this.naverBlog}/PostView.naver?blogId=${blogId}&logNo=${logNo}`;
-  }
-
-  private transformUrl(url: string): string {
-    return url.includes(this.naverBlog) ? this.transformNaverBlogURL(url) : url;
-  }
-
-  private getProxyOptions(url: string) {
-    if (url.includes(this.arxiv)) {
-      return {
-        premium_proxy: true,
-        proxy_country: "kr",
-      };
-    }
-
-    if (
-      url.includes("https://brand.naver.com") ||
-      url.includes("https://www.coupang.com")
-    ) {
-      return {
-        premium_proxy: true,
-        proxy_country: "kr",
-      };
-    }
-
-    return undefined;
   }
 
   private getClassNames($element: Cheerio<any>): string[] {

@@ -20,7 +20,7 @@ export const test_api_connector_web_crawler_get_content = async (
   const OLIVE =
     "https://www.oliveyoung.co.kr/store/goods/getGoodsDetail.do?goodsNo=A000000204767&dispCatNo=90000010001&trackingCd=Home_Recommand&t_page=%ED%99%88&t_click=%EC%9D%B4%EC%83%81%ED%92%88%EC%96%B4%EB%95%8C%EC%9A%94_%EC%83%81%ED%92%88%EC%83%81%EC%84%B8&t_number=2";
 
-  const YOUTUBE = "https://www.youtube.com/watch?v=E1IXFBCVVw4";
+  const YOUTUBE = "https://www.youtube.com/watch?v=3vaFFVJGCw4&t=18s";
 
   const execute = async (url: string, name: string) => {
     console.log(`Start ${name}...`);
@@ -50,6 +50,6 @@ export const test_api_connector_web_crawler_get_content = async (
   // await execute(ALADIN, "ALADIN");
   // await execute(ALIEXPRESS, "ALIEXPRESS");
   // await execute(NAVERSTORE, "NAVERSTORE");
-  // await execute(OLIVE, "OLIVE");
-  await execute(YOUTUBE, "YOUTUBE");
+  await execute(OLIVE, "OLIVE");
+  // await execute(YOUTUBE, "YOUTUBE");
 };
