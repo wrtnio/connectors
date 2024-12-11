@@ -15,8 +15,8 @@ export class GoogleImageController {
    * Search Google for images based on the search terms you enter
    *
    * @summary Search Google Image
-   * @param input
-   * @returns
+   * @param input Image Search conditions
+   * @returns Image search results
    */
   @core.TypedRoute.Post("")
   @RouteIcon(
