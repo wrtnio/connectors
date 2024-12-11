@@ -21,7 +21,7 @@ export namespace DocumentProvider {
   const GoogleDocs = new GoogleDocsProvider(new GoogleProvider());
 
   export function sync(provider: "dev_to"): typeof sync.dev_to;
-  export function sync(provider: "google_docs"): typeof sync.notion;
+  export function sync(provider: "google_docs"): typeof sync.google_docs;
   export function sync(provider: "notion"): typeof sync.notion;
   export function sync(provider: "notion" | "google_docs" | "dev_to") {
     if (provider === "notion") {
