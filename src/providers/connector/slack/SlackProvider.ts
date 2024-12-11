@@ -262,6 +262,11 @@ export class SlackProvider {
           }),
       );
 
+    const includedUsergroups = this.extract("usergroup")?.({
+      response: replies,
+      allUserGroup: usergroups,
+    });
+
     const userIds = Array.from(
       new Set(replies.map((message) => message.user).filter(Boolean)),
     );
@@ -277,7 +282,34 @@ export class SlackProvider {
       replies,
       next_cursor: next_cursor ? next_cursor : null,
       members,
+      usergroups: includedUsergroups ?? [],
     };
+  }
+
+  extract(target: "usergroup") {
+    if (target === "usergroup") {
+      return function (input: {
+        response: Pick<ISlack.Message, "text">[];
+        allUserGroup: ISlack.UserGroup[];
+      }): ISlack.UserGroup[] {
+        const refinedTags = Array.from(
+          new Set(
+            ...input.response.flatMap((message) => {
+              const tags = message.text.match(/<!subteam\^\w+>/g);
+              const refinedTags: string[] = tags
+                ? Array.from(new Set(tags))
+                : [];
+              return refinedTags;
+            }),
+          ),
+        );
+        const includedUsergroups = input.allUserGroup.filter((usergroup) => {
+          return refinedTags.includes(`<!subteam^${usergroup.id}>`);
+        });
+
+        return includedUsergroups;
+      };
+    }
   }
 
   async getAllUsers(input: {
@@ -532,6 +564,11 @@ export class SlackProvider {
         return message.links.length !== 0;
       });
 
+    const includedUsergroups = this.extract("usergroup")?.({
+      response: messages,
+      allUserGroup: usergroups,
+    });
+
     const userIds = Array.from(
       new Set(messages.map((message) => message.user).filter(Boolean)),
     );
@@ -547,6 +584,7 @@ export class SlackProvider {
       messages,
       next_cursor: next_cursor ? next_cursor : null,
       members,
+      usergroups: includedUsergroups ?? [],
     }; // next_cursor가 빈 문자인 경우 대비
   }
 
@@ -595,6 +633,11 @@ export class SlackProvider {
         }),
     );
 
+    const includedUsergroups = this.extract("usergroup")?.({
+      response: messages,
+      allUserGroup: usergroups,
+    });
+
     const userIds = Array.from(
       new Set(messages.map((message) => message.user).filter(Boolean)),
     );
@@ -610,6 +653,7 @@ export class SlackProvider {
       messages,
       next_cursor: next_cursor ? next_cursor : null,
       members,
+      usergroups: includedUsergroups ?? [],
     }; // next_cursor가 빈 문자인 경우 대비
   }
 
@@ -919,7 +963,7 @@ export class SlackProvider {
       reply_users_count: input.message?.reply_users_count ?? 0,
       ts_date: new Date(timestamp).toISOString(),
       link: `${input.workspaceUrl}archives/${input.channel}/p${input.message.ts.replace(".", "")}`,
-      usergroups,
+      // usergroups,
       // ...(input.message.attachments && { attachments: input.message.attachments }),
     };
   }

@@ -596,6 +596,11 @@ export namespace ISlack {
      * This is a list of people who participated in the conversation in this conversation list.
      */
     members: MyPick<IGetUserOutput, "id" | "display_name">[];
+
+    /**
+     * @title usergroups
+     */
+    usergroups: ISlack.UserGroup[];
   }
 
   export interface IGetReplyInput extends IGetChannelHistoryInput {
@@ -617,7 +622,7 @@ export namespace ISlack {
     /**
      * @title usergroups
      */
-    usergroups: ISlack.UserGroup[];
+    // usergroups: ISlack.UserGroup[];
 
     /**
      * @title username of the person who made this message
@@ -642,6 +647,11 @@ export namespace ISlack {
      * This is a list of people who participated in the conversation in this conversation list.
      */
     members: MyPick<IGetUserOutput, "id" | "display_name">[];
+
+    /**
+     * @title usergroups
+     */
+    usergroups: ISlack.UserGroup[];
   }
 
   export interface IGetChannelHistoryOutput extends ICommonPaginationOutput {
@@ -660,6 +670,11 @@ export namespace ISlack {
      * This is a list of people who participated in the conversation in this conversation list.
      */
     members: MyPick<IGetUserOutput, "id" | "display_name">[];
+
+    /**
+     * @title usergroups
+     */
+    usergroups: ISlack.UserGroup[];
   }
 
   export interface IGetChannelHistoryInput
