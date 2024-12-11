@@ -15,7 +15,7 @@
     }
   ],
   "info": {
-    "version": "0.1.394",
+    "version": "0.1.395",
     "title": "@wrtn/connector",
     "description": "wrtn-ecosystem connectors and sdk",
     "license": {
@@ -13632,6 +13632,43 @@
             }
           }
         }
+      }
+    },
+    "/connector/google-image": {
+      "post": {
+        "summary": "Search Google Image",
+        "description": "Search Google for images based on the search terms you enter",
+        "tags": [
+          "Google Image"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "description": "Image Search conditions",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IGoogleImage.IRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Image search results",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/IGoogleImage.IResponse"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleImage_full.svg"
       }
     }
   },
@@ -65311,6 +65348,73 @@
           "url"
         ],
         "title": "Request to crawl a web page"
+      },
+      "IGoogleImage.IResponse": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "title": "title",
+            "description": "Image title"
+          },
+          "imageUrl": {
+            "type": "string",
+            "format": "iri",
+            "title": "url",
+            "description": "Image url"
+          },
+          "thumbnail": {
+            "type": "string",
+            "format": "iri",
+            "title": "thumbnail",
+            "description": "Image Thumbnail"
+          }
+        },
+        "required": [
+          "title",
+          "imageUrl",
+          "thumbnail"
+        ],
+        "title": "Google Image Search Result"
+      },
+      "IGoogleImage.IRequest": {
+        "type": "object",
+        "properties": {
+          "query": {
+            "type": "string",
+            "title": "Search Query",
+            "description": "Set a search query to get images."
+          },
+          "lang": {
+            "type": "string",
+            "title": "Language Setting",
+            "description": "Choose which language you want to use as your search term.\n\nYou can only pass a single BCP 47 language identifier.\n\nex) You want to setting korean language, you can pass \"ko\"."
+          },
+          "ratio": {
+            "oneOf": [
+              {
+                "const": "s"
+              },
+              {
+                "const": "t"
+              },
+              {
+                "const": "w"
+              },
+              {
+                "const": "xw"
+              }
+            ],
+            "title": "Image Ratio",
+            "description": "Set the ratio of the images to be retrieved as search results"
+          }
+        },
+        "required": [
+          "query",
+          "lang",
+          "ratio"
+        ],
+        "title": "Google Image Search Condition"
       }
     }
   },
@@ -65510,6 +65614,9 @@
     },
     {
       "name": "Web Crawler"
+    },
+    {
+      "name": "Google Image"
     }
   ],
   "x-samchon-emended": true
