@@ -22,7 +22,7 @@ export class JiraProvider {
         issueKey: input.issueKey,
       });
 
-      const url = `${config.domain}/user/assignable/search?${queryParameter}`;
+      const url = `${config.baseUrl}/user/assignable/search?${queryParameter}`;
       const res = await axios.get(url, {
         headers: {
           Authorization: config.Authorization,
@@ -44,7 +44,7 @@ export class JiraProvider {
   ): Promise<IJira.IGetStatusCategoryOutput> {
     try {
       const config = await this.getAuthorizationAndDomain(input);
-      const res = await axios.get(`${config.domain}/statuscategory`, {
+      const res = await axios.get(`${config.baseUrl}/statuscategory`, {
         headers: {
           Authorization: config.Authorization,
           Accept: "application/json",
@@ -72,7 +72,7 @@ export class JiraProvider {
         startAt: input.startAt,
         projectKeys: input.project_key,
       });
-      const url = `${config.domain}/user/assignable/multiProjectSearch?${queryParameter}`;
+      const url = `${config.baseUrl}/user/assignable/multiProjectSearch?${queryParameter}`;
       const res = await axios.get(url, {
         headers: {
           Authorization: config.Authorization,
@@ -95,7 +95,7 @@ export class JiraProvider {
     try {
       const projectId = input.projectId;
       const config = await this.getAuthorizationAndDomain(input);
-      const url = `${config.domain}/status`;
+      const url = `${config.baseUrl}/status`;
       const res = await axios.get(url, {
         headers: {
           Authorization: config.Authorization,
@@ -132,7 +132,7 @@ export class JiraProvider {
   ): Promise<IJira.IGetIssueLabelOutput> {
     try {
       const config = await this.getAuthorizationAndDomain(input);
-      const url = `${config.domain}/label`;
+      const url = `${config.baseUrl}/label`;
       const res = await axios.get(url, {
         headers: {
           Authorization: config.Authorization,
@@ -155,7 +155,7 @@ export class JiraProvider {
   ): Promise<IJira.IGetIssuePriorityOutput> {
     try {
       const config = await this.getAuthorizationAndDomain(input);
-      const url = `${config.domain}/priority`;
+      const url = `${config.baseUrl}/priority`;
       const res = await axios.get(url, {
         headers: {
           Authorization: config.Authorization,
@@ -178,7 +178,7 @@ export class JiraProvider {
   ): Promise<IJira.IGetIssueTypeOutput> {
     try {
       const config = await this.getAuthorizationAndDomain(input);
-      const url = `${config.domain}/issuetype/project?projectId=${input.projectId}`;
+      const url = `${config.baseUrl}/issuetype/project?projectId=${input.projectId}`;
       const res = await axios.get(url, {
         headers: {
           Authorization: config.Authorization,
@@ -209,7 +209,7 @@ export class JiraProvider {
         startAt: input.startAt,
       });
 
-      const url = `${config.domain}/project/search?${queryParameter}`;
+      const url = `${config.baseUrl}/project/search?${queryParameter}`;
       const res = await axios.get(url, {
         headers: {
           Authorization: config.Authorization,
@@ -233,7 +233,7 @@ export class JiraProvider {
     try {
       const config = await this.getAuthorizationAndDomain(input);
       const res = await axios.get(
-        `${config.domain}/issue/${input.issueIdOrKey}`,
+        `${config.baseUrl}/issue/${input.issueIdOrKey}`,
         {
           headers: {
             Authorization: config.Authorization,
@@ -259,7 +259,7 @@ export class JiraProvider {
     try {
       const config = await this.getAuthorizationAndDomain(input);
       const res = await axios.post(
-        `${config.domain}/search`,
+        `${config.baseUrl}/search`,
         {
           jql: `
           project = "${input.project_key}"
@@ -283,6 +283,16 @@ export class JiraProvider {
           },
         },
       );
+
+      const issues = res.data.issues as Pick<
+        IJira.Issue,
+        "fields" | "id" | "key"
+      >[];
+
+      res.data.issues = issues.map((issue) => {
+        const link = `${config.domain}/browse/${issue.key}` as const;
+        return { ...issue, link };
+      });
 
       return res.data;
     } catch (err) {
@@ -323,17 +333,17 @@ export class JiraProvider {
 
   async getAuthorizationAndDomain(
     input: { secretKey: string } | IJira.BasicAuthorization,
-  ): Promise<{ Authorization: string; domain: string }> {
+  ): Promise<{ Authorization: string; baseUrl: string; domain?: string }> {
     const Authorization = await this.getAuthorization(input);
     if ("email" in input && "token" in input) {
-      const domain = `${input.domain}/rest/api/3`;
-      return { Authorization, domain };
+      const baseUrl = `${input.domain}/rest/api/3`;
+      return { Authorization, baseUrl: baseUrl, domain: input.domain };
     } else {
       // OAuth
       const accessTokenDto = await this.refresh({ secretKey: input.secretKey });
       const { id: cloudId } = await this.getAccessibleResources(accessTokenDto);
-      const domain = `https://api.atlassian.com/ex/jira/${cloudId}/rest/api/3`;
-      return { Authorization, domain };
+      const baseUrl = `https://api.atlassian.com/ex/jira/${cloudId}/rest/api/3`;
+      return { Authorization, baseUrl: baseUrl };
     }
   }
 
@@ -388,7 +398,7 @@ export class JiraProvider {
     try {
       const config = await this.getAuthorizationAndDomain(input);
       await axios.delete(
-        `${config.domain}/issue/${input.issueIdOrKey}/comment/${input.commentId}`,
+        `${config.baseUrl}/issue/${input.issueIdOrKey}/comment/${input.commentId}`,
         {
           headers: {
             Authorization: config.Authorization,
@@ -420,7 +430,7 @@ export class JiraProvider {
       }
 
       const res = await axios.post(
-        `${config.domain}/issue/${input.issueIdOrKey}/comment`,
+        `${config.baseUrl}/issue/${input.issueIdOrKey}/comment`,
         {
           body: copiedInput.body,
         },
@@ -450,7 +460,7 @@ export class JiraProvider {
     try {
       const config = await this.getAuthorizationAndDomain(input);
       const res = await axios.get(
-        `${config.domain}/issue/${input.issueIdOrKey}/comment`,
+        `${config.baseUrl}/issue/${input.issueIdOrKey}/comment`,
         {
           headers: {
             Authorization: config.Authorization,
@@ -520,7 +530,7 @@ export class JiraProvider {
     try {
       const config = await this.getAuthorizationAndDomain(input);
       const res = await axios.get(
-        `${config.domain}/issue/${input.issueIdOrKey}/transitions`,
+        `${config.baseUrl}/issue/${input.issueIdOrKey}/transitions`,
         {
           headers: {
             Authorization: config.Authorization,
@@ -545,7 +555,7 @@ export class JiraProvider {
     try {
       const config = await this.getAuthorizationAndDomain(input);
       await axios.post(
-        `${config.domain}/issue/${input.issueIdOrKey}/transitions`,
+        `${config.baseUrl}/issue/${input.issueIdOrKey}/transitions`,
         {
           transition: {
             id: input.transitionId,
@@ -582,7 +592,7 @@ export class JiraProvider {
 
       const { commentId, issueIdOrKey } = input;
       await axios.put(
-        `${config.domain}/issue/${issueIdOrKey}/comment/${commentId}`,
+        `${config.baseUrl}/issue/${issueIdOrKey}/comment/${commentId}`,
         {
           body: copiedInput.body,
         },
@@ -617,7 +627,7 @@ export class JiraProvider {
 
       const config = await this.getAuthorizationAndDomain(copiedInput);
       await axios.put(
-        `${config.domain}/issue/${id}`,
+        `${config.baseUrl}/issue/${id}`,
         {
           fields: copiedInput.fields,
         },
@@ -651,7 +661,7 @@ export class JiraProvider {
 
       const config = await this.getAuthorizationAndDomain(copiedInput);
       const res = await axios.post(
-        `${config.domain}/issue`,
+        `${config.baseUrl}/issue`,
         {
           fields: copiedInput.fields,
         },
@@ -681,7 +691,7 @@ export class JiraProvider {
     try {
       const config = await this.getAuthorizationAndDomain(input);
       const res = await axios.post(
-        `${config.domain}/issue`,
+        `${config.baseUrl}/issue`,
         {
           fields: input.fields,
         },

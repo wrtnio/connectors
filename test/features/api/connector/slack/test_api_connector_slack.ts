@@ -66,6 +66,9 @@ export const test_api_connector_slack_get_channel_histories = async (
     );
 
   typia.assert(messages);
+  assert(typeof messages.usergroups.length === "number");
+  assert(typeof messages.channel.name === "string");
+
   return messages;
 };
 
