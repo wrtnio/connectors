@@ -601,6 +601,24 @@ export namespace ISlack {
      * @title usergroups
      */
     usergroups: ISlack.UserGroup[];
+
+    /**
+     * @title Channel information
+     */
+    channel: {
+      /**
+       * The channel name is the name of the channel for 'public' and 'private',
+       * and the name of the user for 'im'.
+       * If the channel's name is not found, it is marked null.
+       *
+       * @title Channel Name
+       */
+      name:
+        | PublicChannel["name"]
+        | PrivateChannel["name"]
+        | ImChannel["username"]
+        | null;
+    };
   }
 
   export interface IGetReplyInput extends IGetChannelHistoryInput {
@@ -652,6 +670,24 @@ export namespace ISlack {
      * @title usergroups
      */
     usergroups: ISlack.UserGroup[];
+
+    /**
+     * @title Channel information
+     */
+    channel: {
+      /**
+       * The channel name is the name of the channel for 'public' and 'private',
+       * and the name of the user for 'im'.
+       * If the channel's name is not found, it is marked null.
+       *
+       * @title Channel Name
+       */
+      name:
+        | PublicChannel["name"]
+        | PrivateChannel["name"]
+        | ImChannel["username"]
+        | null;
+    };
   }
 
   export interface IGetChannelHistoryOutput extends ICommonPaginationOutput {
@@ -675,11 +711,38 @@ export namespace ISlack {
      * @title usergroups
      */
     usergroups: ISlack.UserGroup[];
+
+    /**
+     * @title Channel information
+     */
+    channel: {
+      /**
+       * The channel name is the name of the channel for 'public' and 'private',
+       * and the name of the user for 'im'.
+       * If the channel's name is not found, it is marked null.
+       *
+       * @title Channel Name
+       */
+      name:
+        | PublicChannel["name"]
+        | PrivateChannel["name"]
+        | ImChannel["username"]
+        | null;
+    };
   }
 
   export interface IGetChannelHistoryInput
     extends ISlack.ISecret,
       ISlack.ICommonPaginationInput {
+    /**
+     * If you know that the channel
+     * you want to read the message is public, private, or im,
+     * make sure to include it.
+     *
+     * @title Channel Type
+     */
+    channel_type?: "public" | "private" | "im";
+
     /**
      * It refers to the channel on which you want to view the conversation history.
      * You need to view the channel first.

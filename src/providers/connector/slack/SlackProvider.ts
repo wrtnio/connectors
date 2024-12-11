@@ -283,6 +283,7 @@ export class SlackProvider {
       next_cursor: next_cursor ? next_cursor : null,
       members,
       usergroups: includedUsergroups ?? [],
+      channel: await this.getChannelName(input),
     };
   }
 
@@ -310,6 +311,8 @@ export class SlackProvider {
         return includedUsergroups;
       };
     }
+
+    throw new Error("invalid target.");
   }
 
   async getAllUsers(input: {
@@ -585,7 +588,35 @@ export class SlackProvider {
       next_cursor: next_cursor ? next_cursor : null,
       members,
       usergroups: includedUsergroups ?? [],
+      channel: await this.getChannelName(input),
     }; // next_cursor가 빈 문자인 경우 대비
+  }
+
+  async getChannelName(
+    input: Pick<
+      ISlack.IGetChannelHistoryInput,
+      "channel_type" | "channel" | "secretKey"
+    >,
+  ): Promise<{ name: string | null }> {
+    const { channel_type, channel: channel_id, secretKey } = input;
+    if (channel_type === "public" || channel_type === undefined) {
+      const channel = (await this.getAllPublicChannels({ secretKey })).find(
+        (el) => el.id === channel_id,
+      );
+      if (channel) return { name: channel.name };
+    } else if (channel_type === "private" || channel_type === undefined) {
+      const channel = (await this.getAllPrivateChannels({ secretKey })).find(
+        (el) => el.id === channel_id,
+      );
+      if (channel) return { name: channel.name };
+    } else if (channel_type === "im" || channel_type === undefined) {
+      const channel = (await this.getAllImChannels({ secretKey })).find(
+        (el) => el.id === channel_id,
+      );
+      if (channel) return { name: channel.username ?? null };
+    }
+
+    return { name: null };
   }
 
   async getChannelHistories(
@@ -654,6 +685,7 @@ export class SlackProvider {
       next_cursor: next_cursor ? next_cursor : null,
       members,
       usergroups: includedUsergroups ?? [],
+      channel: await this.getChannelName(input),
     }; // next_cursor가 빈 문자인 경우 대비
   }
 
