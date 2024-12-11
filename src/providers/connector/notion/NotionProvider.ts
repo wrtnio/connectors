@@ -2,10 +2,7 @@ import { HttpException, HttpStatus } from "@nestjs/common";
 import { Client } from "@notionhq/client";
 import axios from "axios";
 
-import {
-  appendBlockChildren,
-  BlockObjectRequest,
-} from "@notionhq/client/build/src/api-endpoints";
+import { BlockObjectRequest } from "@notionhq/client/build/src/api-endpoints";
 import { markdownToBlocks } from "@tryfabric/martian";
 import { Block } from "@tryfabric/martian/build/src/notion/blocks";
 import { INotion } from "@wrtn/connector-api/lib/structures/connector/notion/INotion";
@@ -1118,4 +1115,299 @@ export namespace NotionProvider {
       throw err;
     }
   }
+
+  /**
+   * 데이터베이스 생성
+   */
+  export const createDatabase = async (
+    params: INotion.CreateDatabaseParams,
+  ) => {
+    const { parentPageId, title, properties } = params;
+
+    try {
+      const response = await axios.post("/databases", {
+        parent: { page_id: parentPageId },
+        title: [
+          {
+            type: "text",
+            text: { content: title },
+          },
+        ],
+        properties,
+      });
+      return response.data;
+    } catch (error: any) {
+      console.error(
+        "데이터베이스 생성 오류:",
+        error.response?.data || error.message,
+      );
+      throw error;
+    }
+  };
+
+  /**
+   * 데이터베이스 프로퍼티 수정
+   */
+  export const updateDatabaseProperty = async (
+    params: INotion.UpdatePropertyParams,
+  ) => {
+    const { databaseId, propertyName, newPropertyDefinition } = params;
+
+    try {
+      await axios.patch(`/databases/${databaseId}`, {
+        properties: {
+          [propertyName]: newPropertyDefinition,
+        },
+      });
+      console.log(
+        `프로퍼티 '${propertyName}'가 성공적으로 업데이트되었습니다.`,
+      );
+    } catch (error: any) {
+      console.error(
+        "프로퍼티 업데이트 오류:",
+        error.response?.data || error.message,
+      );
+      throw error;
+    }
+  };
+
+  /**
+   * 데이터베이스 프로퍼티 삭제
+   */
+  export const deleteDatabaseProperty = async (
+    params: INotion.DeletePropertyParams,
+  ) => {
+    const { databaseId, propertyName } = params;
+
+    try {
+      // 기존 데이터베이스 프로퍼티 가져오기
+      const getResponse = await axios.get(`/databases/${databaseId}`);
+      const existingProperties: INotion.DatabaseSchema =
+        getResponse.data.properties;
+
+      // 삭제할 프로퍼티 제거
+      const { [propertyName]: _, ...updatedProperties } = existingProperties;
+
+      // 업데이트된 프로퍼티로 데이터베이스 수정
+      await axios.patch(`/databases/${databaseId}`, {
+        properties: updatedProperties,
+      });
+
+      console.log(`프로퍼티 '${propertyName}'가 성공적으로 삭제되었습니다.`);
+    } catch (error: any) {
+      console.error(
+        "프로퍼티 삭제 오류:",
+        error.response?.data || error.message,
+      );
+      throw error;
+    }
+  };
+
+  /**
+   * 데이터베이스에 아이템 추가
+   */
+  export const addItemToDatabase = async (params: INotion.AddItemParams) => {
+    const { databaseId, properties } = params;
+
+    try {
+      const response = await axios.post("/pages", {
+        parent: { database_id: databaseId },
+        properties,
+      });
+      return response.data;
+    } catch (error: any) {
+      console.error(
+        "데이터베이스에 아이템 추가 오류:",
+        error.response?.data || error.message,
+      );
+      throw error;
+    }
+  };
+
+  /**
+   * 데이터베이스 스키마 가져오기
+   */
+  export const getDatabaseSchema = async (databaseId: string) => {
+    try {
+      const response = await axios.get(`/databases/${databaseId}`);
+      return response.data.properties;
+    } catch (error: any) {
+      console.error(
+        "데이터베이스 스키마 가져오기 오류:",
+        error.response?.data || error.message,
+      );
+      throw error;
+    }
+  };
+
+  // const createTitleProperty = (name: string): INotion.Property => ({
+  //   name,
+  //   type: "title",
+  //   title: {},
+  // });
+
+  // const createRichTextProperty = (name: string): INotion.Property => ({
+  //   name,
+  //   type: "rich_text",
+  //   rich_text: {},
+  // });
+
+  // const createSelectProperty = (
+  //   name: string,
+  //   options: { name: string; color: string }[],
+  // ): INotion.Property => ({
+  //   name,
+  //   type: "select",
+  //   select: { options },
+  // });
+
+  // const createMultiSelectProperty = (
+  //   name: string,
+  //   options: { name: string; color: string }[],
+  // ): INotion.Property => ({
+  //   name,
+  //   type: "multi_select",
+  //   multi_select: { options },
+  // });
+
+  // /**
+  //  * 숫자 프로퍼티 생성
+  //  */
+  // const createNumberProperty = (
+  //   name: string,
+  //   format?: string,
+  // ): INotion.Property => ({
+  //   name,
+  //   type: "number",
+  //   number: {
+  //     format: format || "number", // 기본 형식은 'number'
+  //   },
+  // });
+
+  // /**
+  //  * 날짜 프로퍼티 생성
+  //  */
+  // const createDateProperty = (
+  //   name: string,
+  //   dateOptions?: {
+  //     start?: string;
+  //     end?: string;
+  //     time_zone?: string;
+  //   },
+  // ): INotion.Property => ({
+  //   name,
+  //   type: "date",
+  //   date: {
+  //     start: dateOptions?.start,
+  //     end: dateOptions?.end,
+  //     time_zone: dateOptions?.time_zone,
+  //   },
+  // });
+
+  // /**
+  //  * 사람 프로퍼티 생성
+  //  */
+  // const createPeopleProperty = (name: string): INotion.Property => ({
+  //   name,
+  //   type: "people",
+  //   people: {},
+  // });
+
+  // /**
+  //  * 파일 프로퍼티 생성
+  //  */
+  // const createFilesProperty = (name: string): INotion.Property => ({
+  //   name,
+  //   type: "files",
+  //   files: {},
+  // });
+
+  // /**
+  //  * 체크박스 프로퍼티 생성
+  //  */
+  // const createCheckboxProperty = (name: string): INotion.Property => ({
+  //   name,
+  //   type: "checkbox",
+  //   checkbox: {},
+  // });
+
+  // /**
+  //  * URL 프로퍼티 생성
+  //  */
+  // const createUrlProperty = (name: string): INotion.Property => ({
+  //   name,
+  //   type: "url",
+  //   url: {},
+  // });
+
+  // /**
+  //  * 이메일 프로퍼티 생성
+  //  */
+  // const createEmailProperty = (name: string): INotion.Property => ({
+  //   name,
+  //   type: "email",
+  //   email: {},
+  // });
+
+  // /**
+  //  * 전화번호 프로퍼티 생성
+  //  */
+  // const createPhoneNumberProperty = (name: string): INotion.Property => ({
+  //   name,
+  //   type: "phone_number",
+  //   phone_number: {},
+  // });
+
+  // /**
+  //  * 관계(Relation) 프로퍼티 생성
+  //  * @param name 프로퍼티 이름
+  //  * @param databaseId 관계를 맺을 다른 데이터베이스의 ID
+  //  */
+  // const createRelationProperty = (
+  //   name: string,
+  //   databaseId: string,
+  // ): INotion.Property => ({
+  //   name,
+  //   type: "relation",
+  //   relation: {
+  //     database_id: databaseId,
+  //     // optional: 'synced_property_name' 등 추가 설정 가능
+  //   },
+  // });
+
+  // /**
+  //  * 롤업(Rollup) 프로퍼티 생성
+  //  * @param name 프로퍼티 이름
+  //  * @param relationPropertyName 관계 프로퍼티 이름
+  //  * @param rollupFunction 롤업 함수 (예: 'count', 'sum', 등)
+  //  */
+  // const createRollupProperty = (
+  //   name: string,
+  //   relationPropertyName: string,
+  //   rollupFunction: string,
+  // ): INotion.Property => ({
+  //   name,
+  //   type: "rollup",
+  //   rollup: {
+  //     relation_property: relationPropertyName,
+  //     function: rollupFunction,
+  //     // optional: 'rollup_property_name' 등 추가 설정 가능
+  //   },
+  // });
+
+  // /**
+  //  * 포뮬러(Formula) 프로퍼티 생성
+  //  * @param name 프로퍼티 이름
+  //  * @param expression 포뮬러 표현식 (예: "prop('Name') + ' - ' + prop('Status')")
+  //  */
+  // const createFormulaProperty = (
+  //   name: string,
+  //   expression: string,
+  // ): INotion.Property => ({
+  //   name,
+  //   type: "formula",
+  //   formula: {
+  //     expression,
+  //   },
+  // });
 }

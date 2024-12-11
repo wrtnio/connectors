@@ -2604,4 +2604,58 @@ export namespace INotion {
      */
     markdown: string;
   }
+
+  export type PropertyType =
+    | "title"
+    | "rich_text"
+    | "number"
+    | "select"
+    | "multi_select"
+    | "date"
+    | "people"
+    | "files"
+    | "checkbox"
+    | "url"
+    | "email"
+    | "phone_number"
+    | "relation"
+    | "rollup"
+    | "formula"
+    | "created_time"
+    | "created_by"
+    | "last_edited_time"
+    | "last_edited_by";
+
+  export interface Property {
+    id?: string;
+    name: string;
+    type: PropertyType;
+    [key: string]: any;
+  }
+
+  export interface DatabaseSchema {
+    [propertyName: string]: Property;
+  }
+
+  export interface CreateDatabaseParams {
+    parentPageId: string;
+    title: string;
+    properties: DatabaseSchema;
+  }
+
+  export interface AddItemParams {
+    databaseId: string;
+    properties: { [key: string]: any };
+  }
+
+  export interface UpdatePropertyParams {
+    databaseId: string;
+    propertyName: string;
+    newPropertyDefinition: Property;
+  }
+
+  export interface DeletePropertyParams {
+    databaseId: string;
+    propertyName: string;
+  }
 }
