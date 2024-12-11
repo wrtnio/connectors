@@ -5,21 +5,21 @@ export namespace IDevTo {
   export type IUpdateOutput = ICreateOutput;
 
   export interface IUpdateInput extends ICommon.ISecret<"dev.to", []> {
-    article: {
+    article?: {
       /**
        * @title Title
        */
-      title: string;
+      title?: string;
 
       /**
        * @title The body of the article
        */
-      body_markdown: string;
+      body_markdown?: string;
 
       /**
        * @title description
        */
-      description: string;
+      description?: string;
     };
   }
 

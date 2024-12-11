@@ -2,6 +2,7 @@ import { Prerequisite, SecretKey } from "@wrtnio/decorators";
 import { tags } from "typia";
 import { IPage } from "../../common/IPage";
 import { StrictOmit } from "../../types/strictOmit";
+import { IDevTo } from "../dev.to/IDevTo";
 import { IGoogleDocs } from "../google_docs/IGoogleDocs";
 import { INotion } from "../notion/INotion";
 import { IArticleExport } from "./IArticleExport";
@@ -75,6 +76,27 @@ export namespace IArticle {
       };
     }
 
+    export interface ToDevToOutput extends SnapshotOutput {
+      /**
+       * Indicates whether synchronization is successful or not
+       *
+       * @title response
+       */
+      isSuccess: boolean;
+    }
+
+    export interface ToDevToInput extends SnapshotInput {
+      /**
+       * @title Dev.to API Key for synchronization
+       */
+      dev_to: {
+        /**
+         * @title Dev.to API Key for synchronization
+         */
+        secretKey: string & SecretKey<"dev.to", []>;
+      };
+    }
+
     export interface ToGoogleDocsOutput extends SnapshotOutput {
       /**
        * Indicates whether synchronization is successful or not
@@ -90,7 +112,7 @@ export namespace IArticle {
        */
       google_docs: {
         /**
-         * @title Google Docs Secret Key synchronization
+         * @title Google Docs Secret Key for synchronization
          */
         secretKey: string &
           SecretKey<"google", ["https://www.googleapis.com/auth/drive.file"]>;
@@ -141,6 +163,38 @@ export namespace IArticle {
             jmesPath: "snapshot[].{ value: id, label: ['created_at ', created_at].join(':', @) }";
           }>;
       };
+    }
+
+    export interface ToDevToOutput extends SnapshotOutput {
+      /**
+       * @title About the google doc that was successfully exported
+       */
+      dev_to: {
+        /**
+         * @title Created Google Docs File ID
+         */
+        id: string;
+
+        /**
+         * @title Title of Created Google Docs File
+         */
+        title: string;
+
+        /**
+         * @title File URL
+         */
+        link: string;
+      };
+    }
+
+    /**
+     * @title Conditions and secret keys for exporting to Google Docs
+     */
+    export interface ToDevToInput extends SnapshotInput {
+      /**
+       * @title Google Docs Secret Key and information to create file
+       */
+      dev_to: IDevTo.ICreateInput;
     }
 
     export interface ToGoogleDocsOutput extends SnapshotOutput {

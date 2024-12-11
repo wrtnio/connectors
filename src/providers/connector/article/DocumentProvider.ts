@@ -6,6 +6,7 @@ import { IArticle } from "@wrtn/connector-api/lib/structures/connector/articles/
 import { ConnectorGlobal } from "../../../ConnectorGlobal";
 import { PaginationUtil } from "../../../utils/PaginationUtil";
 import { GoogleProvider } from "../../internal/google/GoogleProvider";
+import { DevToProvider } from "../dev.to/DevToProvider";
 import { GoogleDocsProvider } from "../google_docs/GoogleDocsProvider";
 import { NotionProvider } from "../notion/NotionProvider";
 import { BbsArticleExportProvider } from "./BbsArticleExportProvider";
@@ -19,7 +20,7 @@ import { BbsArticleSnapshotProvider } from "./BbsArticleSnapshotProvider";
 export namespace DocumentProvider {
   const GoogleDocs = new GoogleDocsProvider(new GoogleProvider());
 
-  export function sync(provider: "google_docs"): ReturnType<any>; // NOT IMPLEMENT
+  export function sync(provider: "google_docs"): typeof sync.notion; // NOT IMPLEMENT
   export function sync(provider: "notion"): typeof sync.notion;
   export function sync(provider: "notion" | "google_docs") {
     if (provider === "notion") {
@@ -32,6 +33,61 @@ export namespace DocumentProvider {
   }
 
   export namespace sync {
+    export const dev_to = async (
+      external_user: IExternalUser,
+      articleId: IArticle["id"],
+      input: IArticle.ISync.ToDevToInput,
+    ): Promise<IArticle.ISync.ToDevToOutput> => {
+      let isSuccess: boolean = false;
+
+      const article = await BbsArticleProvider.at({ id: articleId });
+      const before = article.snapshots.find(
+        (el) => el.id === input.snapshot.from,
+      );
+
+      const article_snapshot_exports = before?.bbs_article_exports
+        .filter(
+          (bbs_article_export) => bbs_article_export.provider === "dev_to",
+        )
+        .filter((bbs_article_export) =>
+          input.snapshot.article_snapshot_exports?.ids?.length
+            ? input.snapshot.article_snapshot_exports?.ids?.includes(
+                bbs_article_export.id,
+              )
+            : true,
+        );
+
+      if (before && article_snapshot_exports?.length) {
+        const created_at = new Date().toISOString();
+        for await (const bbs_article_export of article_snapshot_exports) {
+          const pageId = bbs_article_export.uid!;
+          const secretKey = input.dev_to.secretKey as string;
+
+          const snapshot = article.snapshots.find(
+            (el) => el.id === input.snapshot.to,
+          )!;
+
+          await DevToProvider.update(pageId)({
+            secretKey,
+            article: {
+              title: snapshot.title,
+              body_markdown: snapshot.body,
+            },
+          });
+
+          await BbsArticleExportProvider.sync(bbs_article_export)({
+            bbs_article_snapshot_id: input.snapshot.to,
+            created_at,
+          });
+
+          isSuccess = true;
+        }
+      }
+
+      const response = await DocumentProvider.at(external_user, articleId);
+      return { article: response, isSuccess };
+    };
+
     export const google_docs = async (
       external_user: IExternalUser,
       articleId: IArticle["id"],
@@ -147,7 +203,7 @@ export namespace DocumentProvider {
     };
   }
 
-  export function exports(provider: "google_docs"): ReturnType<any>; // NOT IMPLEMENT
+  export function exports(provider: "google_docs"): typeof exports.google_docs; // NOT IMPLEMENT
   export function exports(provider: "notion"): typeof exports.notion;
   export function exports(provider: "notion" | "google_docs") {
     if (provider === "notion") {
