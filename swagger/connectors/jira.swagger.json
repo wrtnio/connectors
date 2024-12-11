@@ -18,7 +18,7 @@
     "title": "Jira",
     "summary": "Jira로 프로젝트 이슈를 관리해요.",
     "description": "프로젝트에 이슈를 생성하고 담당자를 할당해요. 완료된 이슈가 있다면 상태를 변경할 수도 있고 댓글을 남겨 의견 교류도 가능해요.",
-    "version": "0.1.395",
+    "version": "0.1.396",
     "license": {
       "name": "AGPL-3.0-only"
     }
@@ -3661,7 +3661,7 @@
           "issues": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/MyPickIJira.Issuefieldskeyid"
+              "$ref": "#/components/schemas/linkstringFormatiriMyPickIssuefieldskeyid"
             },
             "title": "Jira issue list"
           },
@@ -3691,9 +3691,13 @@
           "total"
         ]
       },
-      "MyPickIJira.Issuefieldskeyid": {
+      "linkstringFormatiriMyPickIssuefieldskeyid": {
         "type": "object",
         "properties": {
+          "link": {
+            "type": "string",
+            "format": "iri"
+          },
           "fields": {
             "$ref": "#/components/schemas/IJira.IssueField",
             "title": "fields"
@@ -3708,6 +3712,7 @@
           }
         },
         "required": [
+          "link",
           "fields",
           "key",
           "id"

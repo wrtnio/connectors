@@ -15,7 +15,7 @@
     }
   ],
   "info": {
-    "version": "0.1.395",
+    "version": "0.1.396",
     "title": "@wrtn/connector",
     "description": "wrtn-ecosystem connectors and sdk",
     "license": {
@@ -36474,6 +36474,32 @@
             },
             "title": "members\n\nThis is a list of people who participated in the conversation in this conversation list."
           },
+          "usergroups": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ISlack.UserGroup"
+            },
+            "title": "usergroups"
+          },
+          "channel": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "oneOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "type": "string"
+                  }
+                ],
+                "title": "Channel Name",
+                "description": "The channel name is the name of the channel for 'public' and 'private',\nand the name of the user for 'im'.\nIf the channel's name is not found, it is marked null."
+              }
+            },
+            "required": [],
+            "title": "Channel information"
+          },
           "next_cursor": {
             "oneOf": [
               {
@@ -36490,19 +36516,14 @@
         "required": [
           "replies",
           "members",
+          "usergroups",
+          "channel",
           "next_cursor"
         ]
       },
       "ISlack.ChannelHistory": {
         "type": "object",
         "properties": {
-          "usergroups": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/ISlack.UserGroup"
-            },
-            "title": "usergroups"
-          },
           "username": {
             "oneOf": [
               {
@@ -36571,7 +36592,6 @@
           }
         },
         "required": [
-          "usergroups",
           "username",
           "link",
           "channel",
@@ -36582,6 +36602,32 @@
           "reply_users_count",
           "ts_date",
           "links"
+        ]
+      },
+      "MyPickISlack.IGetUserOutputiddisplay_name": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "User ID",
+            "description": "Indicates the ID of the user.\nThis is different from the ID of the DM channel, or IM Channel.\nDM is a communication channel with people in that channel,\nand even if it is 1:1 the user has multiple DM channels,\nso it is not possible to say that the user's ID is a DM channel."
+          },
+          "display_name": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "title": "display name",
+            "description": "The user has a separate display name.\nA display name is a name that the user has chosen to show.\nTherefore, it would be best to use this name as a courtesy."
+          }
+        },
+        "required": [
+          "id",
+          "display_name"
         ]
       },
       "ISlack.UserGroup": {
@@ -36735,32 +36781,6 @@
         "title": "UserGroup",
         "description": "Represents a user group with various properties like ID, name, and user details."
       },
-      "MyPickISlack.IGetUserOutputiddisplay_name": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string",
-            "title": "User ID",
-            "description": "Indicates the ID of the user.\nThis is different from the ID of the DM channel, or IM Channel.\nDM is a communication channel with people in that channel,\nand even if it is 1:1 the user has multiple DM channels,\nso it is not possible to say that the user's ID is a DM channel."
-          },
-          "display_name": {
-            "oneOf": [
-              {
-                "type": "null"
-              },
-              {
-                "type": "string"
-              }
-            ],
-            "title": "display name",
-            "description": "The user has a separate display name.\nA display name is a name that the user has chosen to show.\nTherefore, it would be best to use this name as a courtesy."
-          }
-        },
-        "required": [
-          "id",
-          "display_name"
-        ]
-      },
       "ISlack.IGetReplyInput": {
         "type": "object",
         "properties": {
@@ -36774,6 +36794,21 @@
             },
             "title": "ts",
             "description": "It means the 'ts' value of the chat you want to look up."
+          },
+          "channel_type": {
+            "oneOf": [
+              {
+                "const": "private"
+              },
+              {
+                "const": "public"
+              },
+              {
+                "const": "im"
+              }
+            ],
+            "title": "Channel Type",
+            "description": "If you know that the channel\nyou want to read the message is public, private, or im,\nmake sure to include it."
           },
           "channel": {
             "oneOf": [
@@ -36877,6 +36912,32 @@
             },
             "title": "members\n\nThis is a list of people who participated in the conversation in this conversation list."
           },
+          "usergroups": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ISlack.UserGroup"
+            },
+            "title": "usergroups"
+          },
+          "channel": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "oneOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "type": "string"
+                  }
+                ],
+                "title": "Channel Name",
+                "description": "The channel name is the name of the channel for 'public' and 'private',\nand the name of the user for 'im'.\nIf the channel's name is not found, it is marked null."
+              }
+            },
+            "required": [],
+            "title": "Channel information"
+          },
           "next_cursor": {
             "oneOf": [
               {
@@ -36893,12 +36954,29 @@
         "required": [
           "messages",
           "members",
+          "usergroups",
+          "channel",
           "next_cursor"
         ]
       },
       "ISlack.IGetChannelHistoryInput": {
         "type": "object",
         "properties": {
+          "channel_type": {
+            "oneOf": [
+              {
+                "const": "private"
+              },
+              {
+                "const": "public"
+              },
+              {
+                "const": "im"
+              }
+            ],
+            "title": "Channel Type",
+            "description": "If you know that the channel\nyou want to read the message is public, private, or im,\nmake sure to include it."
+          },
           "channel": {
             "oneOf": [
               {
@@ -37000,6 +37078,32 @@
             },
             "title": "members\n\nThis is a list of people who participated in the conversation in this conversation list."
           },
+          "usergroups": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ISlack.UserGroup"
+            },
+            "title": "usergroups"
+          },
+          "channel": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "oneOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "type": "string"
+                  }
+                ],
+                "title": "Channel Name",
+                "description": "The channel name is the name of the channel for 'public' and 'private',\nand the name of the user for 'im'.\nIf the channel's name is not found, it is marked null."
+              }
+            },
+            "required": [],
+            "title": "Channel information"
+          },
           "next_cursor": {
             "oneOf": [
               {
@@ -37016,6 +37120,8 @@
         "required": [
           "messages",
           "members",
+          "usergroups",
+          "channel",
           "next_cursor"
         ]
       },
@@ -40409,7 +40515,7 @@
           "issues": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/MyPickIJira.Issuefieldskeyid"
+              "$ref": "#/components/schemas/linkstringFormatiriMyPickIssuefieldskeyid"
             },
             "title": "Jira issue list"
           },
@@ -40439,9 +40545,13 @@
           "total"
         ]
       },
-      "MyPickIJira.Issuefieldskeyid": {
+      "linkstringFormatiriMyPickIssuefieldskeyid": {
         "type": "object",
         "properties": {
+          "link": {
+            "type": "string",
+            "format": "iri"
+          },
           "fields": {
             "$ref": "#/components/schemas/IJira.IssueField",
             "title": "fields"
@@ -40456,6 +40566,7 @@
           }
         },
         "required": [
+          "link",
           "fields",
           "key",
           "id"
@@ -60278,7 +60389,7 @@
                 "const": ""
               },
               {
-                "$ref": "#/components/schemas/__type.o2260"
+                "$ref": "#/components/schemas/__type.o2261"
               }
             ],
             "title": "replies"
@@ -60725,14 +60836,14 @@
           "name"
         ]
       },
-      "__type.o2260": {
+      "__type.o2261": {
         "type": "object",
         "properties": {
           "kind": {
             "const": "Listing"
           },
           "data": {
-            "$ref": "#/components/schemas/__type.o2261"
+            "$ref": "#/components/schemas/__type.o2262"
           }
         },
         "required": [
@@ -60740,7 +60851,7 @@
           "data"
         ]
       },
-      "__type.o2261": {
+      "__type.o2262": {
         "type": "object",
         "properties": {
           "after": {
@@ -60760,7 +60871,7 @@
             "items": {
               "oneOf": [
                 {
-                  "$ref": "#/components/schemas/__type.o2262"
+                  "$ref": "#/components/schemas/__type.o2263"
                 },
                 {
                   "type": "object",
@@ -60834,7 +60945,7 @@
           "before"
         ]
       },
-      "__type.o2262": {
+      "__type.o2263": {
         "type": "object",
         "properties": {
           "kind": {
