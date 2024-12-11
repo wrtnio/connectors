@@ -26,4 +26,28 @@ export namespace DevToProvider {
 
     return res.data;
   };
+
+  export const update =
+    (article_id: string) =>
+    async (input: IDevTo.IUpdateInput): Promise<IDevTo.IUpdateOutput> => {
+      const url = `https://dev.to/api/articles/${article_id}`;
+
+      const res = await axios.put(
+        url,
+        {
+          article: {
+            title: input.article.title,
+            description: input.article.description,
+            body_markdown: input.article.body_markdown,
+          },
+        },
+        {
+          headers: {
+            api_key: input.secretKey,
+          },
+        },
+      );
+
+      return res.data;
+    };
 }
