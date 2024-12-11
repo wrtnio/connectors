@@ -1,5 +1,5 @@
 import { Prisma } from "@prisma/client";
-import { IAttachmentFile } from "@wrtn/connector-api/lib/structures/connector/articles/IAttachmentFile";
+import { IAttachmentFile } from "@wrtn/connector-api/lib/structures/connector/swal/article/IAttachmentFile";
 
 export namespace AttachmentFileProvider {
   export namespace json {
