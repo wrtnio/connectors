@@ -237,7 +237,8 @@ export class XProvider {
             {
               params: {
                 max_results: 100,
-                expansions: "referenced_tweets.id,tweet.fields,created_at",
+                expansions: "referenced_tweets.id",
+                "tweet.fields": "created_at",
                 end_time: new Date().toISOString(),
                 start_time: new Date(
                   new Date().getTime() - 1000 * 60 * 60 * 24,
