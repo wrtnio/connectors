@@ -188,11 +188,11 @@ export namespace IArticle {
     }
 
     /**
-     * @title Conditions and secret keys for exporting to Google Docs
+     * @title Conditions and secret keys for exporting to `dev.to`
      */
     export interface ToDevToInput extends SnapshotInput {
       /**
-       * @title Google Docs Secret Key and information to create file
+       * @title `dev.to` Secret Key and information to create file
        */
       dev_to: StrictOmit<IDevTo.ICreateInput, "article">;
     }
