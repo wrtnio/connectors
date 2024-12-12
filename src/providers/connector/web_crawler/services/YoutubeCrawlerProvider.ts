@@ -19,9 +19,9 @@ export namespace YoutubeCrawlerProvider {
     const $ = await CommonExtractor.fetchPage(
       { ...request, wait_for: "ytd-comment-view-model" },
       `[
-          { "wait": 500 },
-          { "click": "#expand-sizer, #expand, tp-yt-paper-button.button" }
-        ]`,
+        { "click": "#expand-sizer, #expand, tp-yt-paper-button.button" },
+        { "wait": 500 },
+      ]`,
     );
 
     const title = extractTitle($);
