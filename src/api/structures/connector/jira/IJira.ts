@@ -2155,10 +2155,14 @@ export namespace IJira {
     /**
      * @title Jira issue list
      */
-    issues: ({ link: string & tags.Format<"iri"> } & MyPick<
-      Issue,
-      "fields" | "id" | "key"
-    >)[];
+    issues: ({
+      /**
+       * User can access by using this link
+       *
+       * @title Link of issue
+       */
+      link: string & tags.Format<"iri">;
+    } & MyPick<Issue, "fields" | "id" | "key">)[];
   }
 
   export interface IGetIssueTypeOutput {
