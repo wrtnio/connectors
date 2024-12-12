@@ -1,10 +1,10 @@
+import { PrismaClient } from "@prisma/client";
 import axios from "axios";
 import dotenv from "dotenv";
 import dotenvExpand from "dotenv-expand";
 import { Singleton } from "tstl";
 import typia, { tags } from "typia";
 import { AwsProvider } from "./providers/connector/aws/AwsProvider";
-import { PrismaClient } from "@prisma/client";
 
 export class ConnectorGlobal {
   public static readonly prisma: PrismaClient = new PrismaClient();
@@ -94,6 +94,9 @@ export namespace ConnectorGlobal {
 
     // DAUM
     DAUM_API_KEY: string;
+
+    // DEV_TO
+    DEV_TO_TEST_API_KEY: string;
 
     // GITHUB
     G_GITHUB_TEST_SECRET: string;
