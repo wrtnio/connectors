@@ -493,6 +493,53 @@ export const test_api_connector_article_exports_2 = async (
   return response;
 };
 
+export const test_api_connector_article_exports_3 = async (
+  connection: CApi.IConnection,
+  article?: IArticle,
+) => {
+  const target =
+    article ?? (await test_api_connector_article_write(connection));
+
+  const exported =
+    await CApi.functional.connector.articles.exports.dev_to.exportsToDevTo(
+      connectionWithSameUser(connection),
+      target.id,
+      {
+        dev_to: {
+          secretKey: ConnectorGlobal.env.DEV_TO_TEST_API_KEY,
+        },
+        snapshot: {
+          id: target.snapshots[target.snapshots.length - 1]?.id as string,
+        },
+      },
+    );
+
+  typia.assertEquals(exported);
+
+  const exportedArticle = await CApi.functional.connector.articles.at(
+    connectionWithSameUser(connection),
+    target.id,
+  );
+
+  const information = exportedArticle.snapshots[
+    target.snapshots.length - 1
+  ].bbs_article_exports.find((el) => {
+    return el.uid === exported.dev_to.id && el.url === exported.dev_to.link;
+  });
+
+  typia.assertEquals<IArticleExport>(information);
+
+  const response = await CApi.functional.connector.articles.at(
+    connectionWithSameUser(connection),
+    target.id,
+  );
+
+  assert(response.snapshots.length === 1);
+  assert(response.snapshots[0].bbs_article_exports.length === 1);
+
+  return response;
+};
+
 export const test_api_connector_article_sync_by_snapshot_id_1 = async (
   connection: CApi.IConnection,
 ) => {

@@ -194,7 +194,7 @@ export namespace IArticle {
       /**
        * @title Google Docs Secret Key and information to create file
        */
-      dev_to: IDevTo.ICreateInput;
+      dev_to: StrictOmit<IDevTo.ICreateInput, "article">;
     }
 
     export interface ToGoogleDocsOutput extends SnapshotOutput {
