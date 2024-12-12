@@ -174,7 +174,7 @@ export namespace CommonExtractor {
         await client.get()
       ).get(transformUrl(request.url), {
         js_render: true,
-        wait: 10000,
+        wait: 5000,
         json_response: true,
         wait_for: request.wait_for,
         js_instructions: js_instructions

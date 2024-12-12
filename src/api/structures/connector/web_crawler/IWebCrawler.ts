@@ -275,6 +275,13 @@ export namespace IWebCrawler {
     nextPageUrl?: string;
 
     /**
+     * @title Next Page Number
+     *
+     * Number of the next page in the sequence when using numbered pagination
+     */
+    nextPageNo?: number;
+
+    /**
      * @title Pagination Pattern
      *
      * Detected pattern structure for generating pagination URLs
