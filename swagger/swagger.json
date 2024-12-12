@@ -15,7 +15,7 @@
     }
   ],
   "info": {
-    "version": "0.1.401",
+    "version": "0.1.402",
     "title": "@wrtn/connector",
     "description": "wrtn-ecosystem connectors and sdk",
     "license": {
@@ -72,7 +72,8 @@
           {
             "bearer": []
           }
-        ]
+        ],
+        "x-wrtn-experimental": true
       }
     },
     "/connector/articles/{id}/sync/google-docs": {
@@ -228,7 +229,8 @@
           {
             "bearer": []
           }
-        ]
+        ],
+        "x-wrtn-experimental": true
       }
     },
     "/connector/articles/{id}/exports/google-docs": {
