@@ -2701,24 +2701,85 @@ export namespace INotion {
    * @title Information created a notion database
    */
   export interface ICreateDatabaseOutput {
+    /**
+     * Database id
+     *
+     * @title id
+     */
     id: string;
+
+    /**
+     * Database title
+     *
+     * @title title
+     */
     title: string;
+
+    /**
+     * Database page url
+     *
+     * @title url
+     */
     url: string & tags.Format<"iri">;
   }
 
-  export interface AddItemParams {
-    databaseId: string;
-    properties: { [key: string]: any };
+  /**
+   * @title Information needed to add a property to the database
+   */
+  export interface IAddDatabasePropertyInput extends INotion.ISecret {
+    /**
+     * Database Id what you want to delete property.
+     *
+     * @title databaseId
+     */
+    databaseId: string &
+      Prerequisite<{
+        method: "post";
+        path: "/connector/notion/get/database-info";
+        jmesPath: JMESPath<IDatabaseInfo[], "[].{value:id, label:title}">;
+      }>;
+
+    /**
+     * Database Properties Schema what want to add
+     *
+     * @title property
+     */
+    property: IDatabaseSchema;
   }
 
-  export interface UpdatePropertyParams {
-    databaseId: string;
+  /**
+   * @title Information database for added property
+   */
+  export interface IAddDatabasePropertyOutput
+    extends INotion.ICreateDatabaseOutput {}
+
+  /**
+   * @title Information needed to delete a property to the database
+   */
+  export interface IDeleteDatabasePropertyInput extends INotion.ISecret {
+    /**
+     * Database Id what you want to delete property.
+     *
+     * @title databaseId
+     */
+    databaseId: string &
+      Prerequisite<{
+        method: "post";
+        path: "/connector/notion/get/database-info";
+        jmesPath: JMESPath<IDatabaseInfo[], "[].{value:id, label:title}">;
+      }>;
+
+    /**
+     * The name of the property want to delete
+     *
+     * @title propertyName
+     */
     propertyName: string;
-    newPropertyDefinition: IDatabaseProperty;
   }
 
-  export interface DeletePropertyParams {
-    databaseId: string;
-    propertyName: string;
-  }
+  /**
+   * @title Information database for deleted property
+   */
+  export interface IDeleteDatabasePropertyOutput
+    extends INotion.ICreateDatabaseOutput {}
 }

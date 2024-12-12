@@ -2,7 +2,10 @@ import { HttpException, HttpStatus } from "@nestjs/common";
 import { Client } from "@notionhq/client";
 import axios from "axios";
 
-import { BlockObjectRequest } from "@notionhq/client/build/src/api-endpoints";
+import {
+  BlockObjectRequest,
+  UpdateDatabaseParameters,
+} from "@notionhq/client/build/src/api-endpoints";
 import { markdownToBlocks } from "@tryfabric/martian";
 import { Block } from "@tryfabric/martian/build/src/notion/blocks";
 import { INotion } from "@wrtn/connector-api/lib/structures/connector/notion/INotion";
@@ -12,6 +15,7 @@ import { IOAuthSecret } from "../../internal/oauth_secret/structures/IOAuthSecre
 import { NotionToMarkdown } from "notion-to-md";
 import { AwsProvider } from "../aws/AwsProvider";
 import { v4 } from "uuid";
+import { title } from "process";
 
 export namespace NotionProvider {
   export async function deleteBlock(
@@ -1162,98 +1166,55 @@ export namespace NotionProvider {
     }
   }
 
-  /**
-   * 데이터베이스 프로퍼티 수정
-   */
-  export const updateDatabaseProperty = async (
-    params: INotion.UpdatePropertyParams,
-  ) => {
-    const { databaseId, propertyName, newPropertyDefinition } = params;
-
+  export async function addDatabaseProperty(
+    input: INotion.IAddDatabasePropertyInput,
+  ): Promise<INotion.IAddDatabasePropertyOutput> {
     try {
-      await axios.patch(`/databases/${databaseId}`, {
-        properties: {
-          [propertyName]: newPropertyDefinition,
+      const headers = await getHeaders(input.secretKey);
+      const res = await axios.patch(
+        `https://api.notion.com/v1/databases/${input.databaseId}`,
+        {
+          properties: input.property,
         },
-      });
-      console.log(
-        `프로퍼티 '${propertyName}'가 성공적으로 업데이트되었습니다.`,
+        {
+          headers: headers,
+        },
       );
-    } catch (error: any) {
-      console.error(
-        "프로퍼티 업데이트 오류:",
-        error.response?.data || error.message,
-      );
-      throw error;
+      return {
+        id: res.data.id,
+        title: res.data.title[0].plain_text ?? "제목 없음",
+        url: res.data.url,
+      };
+    } catch (err) {
+      console.error(JSON.stringify(err));
+      throw err;
     }
-  };
+  }
 
-  /**
-   * 데이터베이스 프로퍼티 삭제
-   */
-  export const deleteDatabaseProperty = async (
-    params: INotion.DeletePropertyParams,
-  ) => {
-    const { databaseId, propertyName } = params;
-
+  export async function deleteDatabaseProperty(
+    input: INotion.IDeleteDatabasePropertyInput,
+  ): Promise<INotion.IDeleteDatabasePropertyOutput> {
     try {
-      // 기존 데이터베이스 프로퍼티 가져오기
-      const getResponse = await axios.get(`/databases/${databaseId}`);
-      const existingProperties: INotion.IDatabaseSchema =
-        getResponse.data.properties;
-
-      // 삭제할 프로퍼티 제거
-      const { [propertyName]: _, ...updatedProperties } = existingProperties;
-
-      // 업데이트된 프로퍼티로 데이터베이스 수정
-      await axios.patch(`/databases/${databaseId}`, {
-        properties: updatedProperties,
-      });
-
-      console.log(`프로퍼티 '${propertyName}'가 성공적으로 삭제되었습니다.`);
-    } catch (error: any) {
-      console.error(
-        "프로퍼티 삭제 오류:",
-        error.response?.data || error.message,
+      const headers = await getHeaders(input.secretKey);
+      const res = await axios.patch(
+        `https://api.notion.com/v1/databases/${input.databaseId}`,
+        {
+          properties: {
+            [input.propertyName]: null,
+          },
+        },
+        {
+          headers: headers,
+        },
       );
+      return {
+        id: res.data.id,
+        title: res.data.title[0].plain_text ?? "제목 없음",
+        url: res.data.url,
+      };
+    } catch (error) {
+      console.error(JSON.stringify(error));
       throw error;
     }
-  };
-
-  /**
-   * 데이터베이스에 아이템 추가
-   */
-  export const addItemToDatabase = async (params: INotion.AddItemParams) => {
-    const { databaseId, properties } = params;
-
-    try {
-      const response = await axios.post("/pages", {
-        parent: { database_id: databaseId },
-        properties,
-      });
-      return response.data;
-    } catch (error: any) {
-      console.error(
-        "데이터베이스에 아이템 추가 오류:",
-        error.response?.data || error.message,
-      );
-      throw error;
-    }
-  };
-
-  /**
-   * 데이터베이스 스키마 가져오기
-   */
-  export const getDatabaseSchema = async (databaseId: string) => {
-    try {
-      const response = await axios.get(`/databases/${databaseId}`);
-      return response.data.properties;
-    } catch (error: any) {
-      console.error(
-        "데이터베이스 스키마 가져오기 오류:",
-        error.response?.data || error.message,
-      );
-      throw error;
-    }
-  };
+  }
 }

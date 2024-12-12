@@ -726,6 +726,7 @@ export class NotionController {
    * You should use this endpoint when adding items to an already created database.
    * You need to use this endpoint to add multiple items to the gallery database at once.
    * If you need to add 3 items, instead of calling the endpoint 3 times, you should put the 3 items in an array in the info information and add the 3 items in 1 endpoint call.
+   * Since the Notion database can only be created in table format, you will need to instruct users to manually change it to a gallery database view.
    *
    * @summary Create items in the gallery database
    * @param input
@@ -765,6 +766,17 @@ export class NotionController {
     return NotionProvider.updatePageContent(input);
   }
 
+  /**
+   * Create a Notion Database
+   *
+   * Creating a database is different from adding items to a database.
+   * Creating a database is a process of creating a database, and adding items to a database is a process of adding items to an existing database.
+   * You need to understand what your users are asking for, how many properties they need, and which properties should be created.
+   *
+   * @summary Create a database
+   * @param input
+   * @returns
+   */
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg",
   )
@@ -774,5 +786,48 @@ export class NotionController {
     @core.TypedBody() input: INotion.ICreateDatabaseInput,
   ): Promise<INotion.ICreateDatabaseOutput> {
     return NotionProvider.createDatabase(input);
+  }
+
+  /**
+   * Add property to notion database
+   * If you want to add a property to an existing database, you should use this function.
+   * For example, if there is an English word database in the Notion database, and there are three existing properties: word, meaning, and example sentence, and the user wants to add a property called Korean meaning, you should use this function to add a new property.
+   * This function can only add one property at a time.
+   *
+   * @summary Add property to database
+   * @param input
+   * @returns
+   */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg",
+  )
+  @ApiTags("Notion")
+  @core.TypedRoute.Post("add-database-property")
+  async addDatabaseProperty(
+    @core.TypedBody() input: INotion.IAddDatabasePropertyInput,
+  ): Promise<INotion.IAddDatabasePropertyOutput> {
+    return NotionProvider.addDatabaseProperty(input);
+  }
+
+  /**
+   * Delete property to notion database
+   * If you want to delete a property in an existing database, you should use this function.
+   * For example, if there is an English word database in the Notion database, and there are 4 properties: word, meaning, example, and Korean meaning, and the user wants to delete the property called Korean meaning, you should use this function to delete the property.
+   * You need to know the property name to delete it.
+   * This function can only delete one property at a time.
+   *
+   * @summary Delete property to database
+   * @param input
+   * @returns
+   */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg",
+  )
+  @ApiTags("Notion")
+  @core.TypedRoute.Post("delete-database-property")
+  async deleteDatabaseProperty(
+    @core.TypedBody() input: INotion.IDeleteDatabasePropertyInput,
+  ): Promise<INotion.IDeleteDatabasePropertyOutput> {
+    return NotionProvider.deleteDatabaseProperty(input);
   }
 }
