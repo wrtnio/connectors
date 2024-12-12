@@ -1126,6 +1126,10 @@ export namespace NotionProvider {
 
     try {
       const headers = await getHeaders(input.secretKey);
+      const mergedProperties = properties.reduce(
+        (acc, curr) => ({ ...acc, ...curr }),
+        {},
+      );
       const res = await axios.post(
         "https://api.notion.com/v1/databases",
         {
@@ -1140,7 +1144,7 @@ export namespace NotionProvider {
             },
           ],
           properties: {
-            ...properties,
+            ...mergedProperties,
           },
         },
         {

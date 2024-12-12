@@ -2626,23 +2626,80 @@ export namespace INotion {
     | "last_edited_time"
     | "last_edited_by";
 
-  export interface IDatabaseProperty {
-    id?: string;
-    name: string;
-    type: PropertyType;
-    [key: string]: any;
+  /**
+   * This property is used when adding a text property to the database.
+   * The text property can only accept text.
+   * This is a property for creating items that should be expressed as text.
+   * For example, when creating an English vocabulary list, if you need three properties: word, meaning, and idiom, you should be able to create the meaning and idiom as rich_text properties.
+   *
+   * @title Notion Database rich_text property
+   */
+  interface IRichTextProperty {
+    rich_text: {};
   }
 
+  /**
+   * This property is used when adding a title property to a database.
+   * This property must be added when creating a database.
+   * It must never be omitted.
+   * The title property can only accept text.
+   * Items added to that property can be used as pages, and content can also be added to the pages.
+   * This is a property for creating items that should be expressed as topics or titles.
+   * For example, when creating an English vocabulary list, if you need three properties: word, meaning, and idiom, you should be able to create words as title properties because words can be used as topics or titles.
+   *
+   * @title Notion Database title property
+   */
+  interface ITitleProperty {
+    title: {};
+  }
+
+  /**
+   * These are the types that are possible as database properties.
+   *
+   * @title Database property
+   */
+  type IDatabaseProperty = IRichTextProperty | ITitleProperty;
+
+  /**
+   * @title Database Schema
+   */
   export interface IDatabaseSchema {
+    /**
+     * The property name should be selected with appropriate words based on the user's request.
+     * The type should also be selected with appropriate properties between the title property and the rich_text property based on the user's request.
+     *
+     * @title database property schema
+     */
     [propertyName: string]: IDatabaseProperty;
   }
 
+  /**
+   * @title Information needed to create a notion database
+   */
   export interface ICreateDatabaseInput extends INotion.ISecret {
+    /**
+     * @title parentPageId
+     */
     parentPageId: PageIdInput["pageId"];
+
+    /**
+     * Database Title
+     *
+     * @title title
+     */
     title: string;
-    properties: IDatabaseSchema;
+
+    /**
+     * Database Properties Schema
+     *
+     * @properties properties
+     */
+    properties: IDatabaseSchema[];
   }
 
+  /**
+   * @title Information created a notion database
+   */
   export interface ICreateDatabaseOutput {
     id: string;
     title: string;
