@@ -15,7 +15,7 @@
     }
   ],
   "info": {
-    "version": "0.1.400",
+    "version": "0.1.401",
     "title": "@wrtn/connector",
     "description": "wrtn-ecosystem connectors and sdk",
     "license": {
@@ -40827,7 +40827,9 @@
         "properties": {
           "link": {
             "type": "string",
-            "format": "iri"
+            "format": "iri",
+            "title": "Link of issue",
+            "description": "User can access by using this link"
           },
           "fields": {
             "$ref": "#/components/schemas/IJira.IssueField",

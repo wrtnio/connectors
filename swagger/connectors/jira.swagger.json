@@ -18,7 +18,7 @@
     "title": "Jira",
     "summary": "Jira로 프로젝트 이슈를 관리해요.",
     "description": "프로젝트에 이슈를 생성하고 담당자를 할당해요. 완료된 이슈가 있다면 상태를 변경할 수도 있고 댓글을 남겨 의견 교류도 가능해요.",
-    "version": "0.1.400",
+    "version": "0.1.401",
     "license": {
       "name": "AGPL-3.0-only"
     }
@@ -3696,7 +3696,9 @@
         "properties": {
           "link": {
             "type": "string",
-            "format": "iri"
+            "format": "iri",
+            "title": "Link of issue",
+            "description": "User can access by using this link"
           },
           "fields": {
             "$ref": "#/components/schemas/IJira.IssueField",
