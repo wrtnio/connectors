@@ -18,7 +18,7 @@
     "title": "Similarweb",
     "summary": "Similarweb을 이용해서 특정 사이트의 정보를 가져올 수 있어요",
     "description": "웹 사이트의 월별 트래픽이나 홈페이지의 관리 주체가 누구인지 등 자세한 정보를 조회할 수 있어요",
-    "version": "0.1.397",
+    "version": "0.1.398",
     "license": {
       "name": "AGPL-3.0-only"
     }

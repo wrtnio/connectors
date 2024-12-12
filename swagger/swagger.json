@@ -15,7 +15,7 @@
     }
   ],
   "info": {
-    "version": "0.1.397",
+    "version": "0.1.398",
     "title": "@wrtn/connector",
     "description": "wrtn-ecosystem connectors and sdk",
     "license": {
@@ -23,6 +23,58 @@
     }
   },
   "paths": {
+    "/connector/articles/{id}/sync/dev-to": {
+      "post": {
+        "summary": "Syncronize article version",
+        "description": "upgrade or downgrade version of exported dev.to\n\nSynchronize on a snapshot basis,\nsuch as upgrading or downgrading the version of a document exported to DevTo.\nIf user specify the id of the snapshot in the names from and to among the internal properties,\nfind the exported text from `from` and start synchronizing to the version of `to`.\nIf user want to revert to the past version of the snapshot,\nuser can put the current version in 'from' and the past version in 'to'.",
+        "tags": [],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "x-wrtn-prerequisite": {
+                "method": "patch",
+                "path": "/connector/articles",
+                "jmesPath": "data[].{ value: id, label: snapshot.title }"
+              }
+            },
+            "required": true,
+            "description": " Target article's {@link IArticle.id }, Not snapshot ID"
+          }
+        ],
+        "requestBody": {
+          "description": "DevTo Secret and snapshot information to sync",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IArticle.ISync.ToDevToInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Response of Synchronization",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IArticle.ISync.ToDevToOutput"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
+    },
     "/connector/articles/{id}/sync/google-docs": {
       "post": {
         "summary": "Syncronize article version",
@@ -115,6 +167,58 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/IArticle.ISync.ToNotionOutput"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ]
+      }
+    },
+    "/connector/articles/{id}/exports/dev-to": {
+      "post": {
+        "summary": "Exports specified article to dev_to",
+        "description": "Export the text to Dev.to\n\nThe exported text is recorded by creating a\n{@link IArticleExport bbs_article_exports} object based on the snapshot.\nYou can upgrade and downgrade the version using\nthe 'POST /connector/articles/:id/exports/sync/dev_to' connector in the future.\nAlso, it doesn't matter if you export the same version of the text multiple times.\n\nBecause each export generates a new text,\nyou must use the `sync` connector if you want to change the version of an already exported text.",
+        "tags": [],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "x-wrtn-prerequisite": {
+                "method": "patch",
+                "path": "/connector/articles",
+                "jmesPath": "data[].{ value: id, label: snapshot.title }"
+              }
+            },
+            "required": true,
+            "description": " Target article's {@link IArticle.id }, Not snapshot ID"
+          }
+        ],
+        "requestBody": {
+          "description": "DevTo Secret and snapshot information to export",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IArticle.IExport.ToDevToInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Article Infomation and dev_to secretKey",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IArticle.IExport.ToDevToOutput"
                 }
               }
             }
@@ -13674,7 +13778,7 @@
   },
   "components": {
     "schemas": {
-      "IArticle.ISync.ToGoogleDocsOutput": {
+      "IArticle.ISync.ToDevToOutput": {
         "type": "object",
         "properties": {
           "isSuccess": {
@@ -13916,6 +14020,96 @@
           "deleted_at"
         ]
       },
+      "IArticle.ISync.ToDevToInput": {
+        "type": "object",
+        "properties": {
+          "dev_to": {
+            "type": "object",
+            "properties": {
+              "secretKey": {
+                "type": "string",
+                "x-wrtn-secret-key": "dev.to",
+                "x-wrtn-secret-scopes": [],
+                "title": "Dev.to API Key for synchronization"
+              }
+            },
+            "required": [
+              "secretKey"
+            ],
+            "title": "Dev.to API Key for synchronization"
+          },
+          "snapshot": {
+            "type": "object",
+            "properties": {
+              "from": {
+                "type": "string",
+                "format": "uuid",
+                "x-wrtn-prerequisite": {
+                  "method": "patch",
+                  "path": "/connector/articles/:id",
+                  "jmesPath": "snapshot[].{ value: id, label: ['created_at ', created_at].join(':', @) }"
+                },
+                "title": "ID of the snapshot to be previously synchronized",
+                "description": "The user synchronizes the text associated with that snapshot.\n\nFor example, when you have v1 and v2,\nif you pass v1 by ID,\nyou replace the exported document in snapshot v1 with the exported document\nin v2 and update the properties,\nincluding the title and content of the exported document.\n\nIf you want to synchronize the notion documents linked to the snapshot at once,\nplease only forward the snapshot's ID (=`from` property).\nIf you want to synchronize only some of the documents exported from that snapshot, pass only the ID of bbs_article_exports.\nbbs_article_exports is the point of connection between snapshots and documents exported from those snapshots."
+              },
+              "to": {
+                "type": "string",
+                "format": "uuid",
+                "x-wrtn-prerequisite": {
+                  "method": "patch",
+                  "path": "/connector/articles/:id",
+                  "jmesPath": "snapshot[].{ value: id, label: ['created_at ', created_at].join(':', @) }"
+                },
+                "title": "The ID of the snapshot that will be after synchronization"
+              },
+              "article_snapshot_exports": {
+                "type": "object",
+                "properties": {
+                  "ids": {
+                    "type": "array",
+                    "items": {
+                      "type": "string",
+                      "format": "uuid"
+                    },
+                    "minItems": 1,
+                    "title": "IDs of IArticleExport",
+                    "description": "IDs of {@link IArticleExport bbs_article_exports}\n\nIf you want to synchronize the notion documents linked to the snapshot at once,\nplease only forward the snapshot's ID (=`from` property).\nIf you want to synchronize only some of the documents exported from that snapshot, pass only the ID of bbs_article_exports.\nbbs_article_exports is the point of connection between snapshots and documents exported from those snapshots.\n\nIf it is to be specified, it must be an array of at least one size."
+                  }
+                },
+                "required": [],
+                "title": "Exported Document's information"
+              }
+            },
+            "required": [
+              "from",
+              "to"
+            ],
+            "title": "snapshot information for synchronization"
+          }
+        },
+        "required": [
+          "dev_to",
+          "snapshot"
+        ]
+      },
+      "IArticle.ISync.ToGoogleDocsOutput": {
+        "type": "object",
+        "properties": {
+          "isSuccess": {
+            "type": "boolean",
+            "title": "response",
+            "description": "Indicates whether synchronization is successful or not"
+          },
+          "article": {
+            "$ref": "#/components/schemas/StrictOmitIArticleIArticle.ISnapshotpassword",
+            "title": "article information"
+          }
+        },
+        "required": [
+          "isSuccess",
+          "article"
+        ]
+      },
       "IArticle.ISync.ToGoogleDocsInput": {
         "type": "object",
         "properties": {
@@ -13928,7 +14122,7 @@
                 "x-wrtn-secret-scopes": [
                   "https://www.googleapis.com/auth/drive.file"
                 ],
-                "title": "Google Docs Secret Key synchronization"
+                "title": "Google Docs Secret Key for synchronization"
               }
             },
             "required": [
@@ -14079,10 +14273,10 @@
           "snapshot"
         ]
       },
-      "IArticle.IExport.ToGoogleDocsOutput": {
+      "IArticle.IExport.ToDevToOutput": {
         "type": "object",
         "properties": {
-          "google_docs": {
+          "dev_to": {
             "type": "object",
             "properties": {
               "id": {
@@ -14111,7 +14305,7 @@
           }
         },
         "required": [
-          "google_docs",
+          "dev_to",
           "article_snapshot_exports"
         ]
       },
@@ -14172,6 +14366,89 @@
           "uid"
         ]
       },
+      "IArticle.IExport.ToDevToInput": {
+        "type": "object",
+        "properties": {
+          "dev_to": {
+            "$ref": "#/components/schemas/StrictOmitIDevTo.ICreateInputarticle",
+            "title": "Google Docs Secret Key and information to create file"
+          },
+          "snapshot": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "x-wrtn-prerequisite": {
+                  "method": "patch",
+                  "path": "/connector/articles/:id",
+                  "jmesPath": "snapshot[].{ value: id, label: ['created_at ', created_at].join(':', @) }"
+                },
+                "title": "Snapshot ID of the article you want to export to another service"
+              }
+            },
+            "required": [
+              "id"
+            ],
+            "title": "snapshot information to export"
+          }
+        },
+        "required": [
+          "dev_to",
+          "snapshot"
+        ],
+        "title": "Conditions and secret keys for exporting to Google Docs"
+      },
+      "StrictOmitIDevTo.ICreateInputarticle": {
+        "type": "object",
+        "properties": {
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "dev.to",
+            "x-wrtn-secret-scopes": [],
+            "title": "Select authentication information",
+            "description": "secret key."
+          }
+        },
+        "required": [
+          "secretKey"
+        ]
+      },
+      "IArticle.IExport.ToGoogleDocsOutput": {
+        "type": "object",
+        "properties": {
+          "google_docs": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "title": "Created Google Docs File ID"
+              },
+              "title": {
+                "type": "string",
+                "title": "Title of Created Google Docs File"
+              },
+              "link": {
+                "type": "string",
+                "title": "File URL"
+              }
+            },
+            "required": [
+              "id",
+              "title",
+              "link"
+            ],
+            "title": "About the google doc that was successfully exported"
+          },
+          "article_snapshot_exports": {
+            "$ref": "#/components/schemas/StrictOmitIArticleExportdeleted_at",
+            "title": "Exporting infomation"
+          }
+        },
+        "required": [
+          "google_docs",
+          "article_snapshot_exports"
+        ]
+      },
       "IArticle.IExport.ToGoogleDocsInput": {
         "type": "object",
         "properties": {
@@ -14207,6 +14484,15 @@
       "StrictOmitIGoogleDocs.IRequestnamemarkdown": {
         "type": "object",
         "properties": {
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "google",
+            "x-wrtn-secret-scopes": [
+              "https://www.googleapis.com/auth/drive.file"
+            ],
+            "title": "Select authentication information",
+            "description": "secret key."
+          },
           "folderId": {
             "type": "string",
             "x-wrtn-prerequisite": {
@@ -14216,15 +14502,6 @@
             },
             "title": "Google Drive Folder ID",
             "description": "Folder id that will contain the file to be created in the drive"
-          },
-          "secretKey": {
-            "type": "string",
-            "x-wrtn-secret-key": "google",
-            "x-wrtn-secret-scopes": [
-              "https://www.googleapis.com/auth/drive.file"
-            ],
-            "title": "Select authentication information",
-            "description": "secret key."
           }
         },
         "required": [
@@ -60389,7 +60666,7 @@
                 "const": ""
               },
               {
-                "$ref": "#/components/schemas/__type.o2261"
+                "$ref": "#/components/schemas/__type.o2265"
               }
             ],
             "title": "replies"
@@ -60836,14 +61113,14 @@
           "name"
         ]
       },
-      "__type.o2261": {
+      "__type.o2265": {
         "type": "object",
         "properties": {
           "kind": {
             "const": "Listing"
           },
           "data": {
-            "$ref": "#/components/schemas/__type.o2262"
+            "$ref": "#/components/schemas/__type.o2266"
           }
         },
         "required": [
@@ -60851,7 +61128,7 @@
           "data"
         ]
       },
-      "__type.o2262": {
+      "__type.o2266": {
         "type": "object",
         "properties": {
           "after": {
@@ -60871,7 +61148,7 @@
             "items": {
               "oneOf": [
                 {
-                  "$ref": "#/components/schemas/__type.o2263"
+                  "$ref": "#/components/schemas/__type.o2267"
                 },
                 {
                   "type": "object",
@@ -60945,7 +61222,7 @@
           "before"
         ]
       },
-      "__type.o2263": {
+      "__type.o2267": {
         "type": "object",
         "properties": {
           "kind": {
