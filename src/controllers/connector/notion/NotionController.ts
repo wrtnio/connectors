@@ -764,4 +764,15 @@ export class NotionController {
   ): Promise<INotion.IAppendPageByMarkdownOutput> {
     return NotionProvider.updatePageContent(input);
   }
+
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg",
+  )
+  @ApiTags("Notion")
+  @core.TypedRoute.Post("create-database")
+  async createDatabase(
+    @core.TypedBody() input: INotion.ICreateDatabaseInput,
+  ): Promise<INotion.ICreateDatabaseOutput> {
+    return NotionProvider.createDatabase(input);
+  }
 }

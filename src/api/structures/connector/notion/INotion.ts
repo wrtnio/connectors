@@ -2626,21 +2626,27 @@ export namespace INotion {
     | "last_edited_time"
     | "last_edited_by";
 
-  export interface Property {
+  export interface IDatabaseProperty {
     id?: string;
     name: string;
     type: PropertyType;
     [key: string]: any;
   }
 
-  export interface DatabaseSchema {
-    [propertyName: string]: Property;
+  export interface IDatabaseSchema {
+    [propertyName: string]: IDatabaseProperty;
   }
 
-  export interface CreateDatabaseParams {
-    parentPageId: string;
+  export interface ICreateDatabaseInput extends INotion.ISecret {
+    parentPageId: PageIdInput["pageId"];
     title: string;
-    properties: DatabaseSchema;
+    properties: IDatabaseSchema;
+  }
+
+  export interface ICreateDatabaseOutput {
+    id: string;
+    title: string;
+    url: string & tags.Format<"iri">;
   }
 
   export interface AddItemParams {
@@ -2651,7 +2657,7 @@ export namespace INotion {
   export interface UpdatePropertyParams {
     databaseId: string;
     propertyName: string;
-    newPropertyDefinition: Property;
+    newPropertyDefinition: IDatabaseProperty;
   }
 
   export interface DeletePropertyParams {
