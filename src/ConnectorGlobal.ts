@@ -163,7 +163,6 @@ export namespace ConnectorGlobal {
 
     // SWEET_TRACKER
     TEST_SWEET_TRACKER_KEY: string;
-    TEST_SWEET_TRACKER_T_INVOICE: string;
 
     // KAKAO_TALK
     KAKAO_TALK_CLIENT_ID: string;
