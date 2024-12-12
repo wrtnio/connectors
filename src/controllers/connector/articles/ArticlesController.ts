@@ -5,7 +5,7 @@ import { IPage } from "@wrtn/connector-api/lib/structures/common/IPage";
 import { IArticle } from "@wrtn/connector-api/lib/structures/connector/articles/IArticle";
 import { IArticleExport } from "@wrtn/connector-api/lib/structures/connector/articles/IArticleExport";
 import { StrictOmit } from "@wrtn/connector-api/lib/structures/types/strictOmit";
-import { Prerequisite } from "@wrtnio/decorators";
+import { ExperimentalRoute, Prerequisite } from "@wrtnio/decorators";
 import { ExternalUser } from "../../../decorators/ExternalUser";
 import { DocumentProvider } from "../../../providers/connector/article/DocumentProvider";
 
@@ -26,6 +26,7 @@ export class ArticlesController {
    * @param input DevTo Secret and snapshot information to sync
    * @returns Response of Synchronization
    */
+  @ExperimentalRoute()
   @core.TypedRoute.Post(":id/sync/dev-to")
   async syncToDevTo(
     @ExternalUser() external_user: IExternalUser,
@@ -119,6 +120,7 @@ export class ArticlesController {
    * @param input DevTo Secret and snapshot information to export
    * @returns Article Infomation and dev_to secretKey
    */
+  @ExperimentalRoute()
   @core.TypedRoute.Post(":id/exports/dev-to")
   async exportsToDevTo(
     @ExternalUser() external_user: IExternalUser,
