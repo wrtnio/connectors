@@ -54,8 +54,8 @@ export namespace BbsArticleExportProvider {
           id: articleSnapshot.id,
         },
       },
-      uid: input.uid ?? null,
-      url: input.url ?? null,
+      uid: input.uid ? String(input.uid) : null,
+      url: input.url ? String(input.url) : null,
       created_at,
     } satisfies Prisma.bbs_article_exportsCreateInput;
   };

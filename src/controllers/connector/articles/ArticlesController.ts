@@ -12,6 +12,35 @@ import { DocumentProvider } from "../../../providers/connector/article/DocumentP
 @Controller("connector/articles")
 export class ArticlesController {
   /**
+   * upgrade or downgrade version of exported dev.to
+   *
+   * Synchronize on a snapshot basis,
+   * such as upgrading or downgrading the version of a document exported to DevTo.
+   * If user specify the id of the snapshot in the names from and to among the internal properties,
+   * find the exported text from `from` and start synchronizing to the version of `to`.
+   * If user want to revert to the past version of the snapshot,
+   * user can put the current version in 'from' and the past version in 'to'.
+   *
+   * @summary Syncronize article version
+   * @param articleId Target article's {@link IArticle.id}, Not snapshot ID
+   * @param input DevTo Secret and snapshot information to sync
+   * @returns Response of Synchronization
+   */
+  @core.TypedRoute.Post(":id/sync/dev-to")
+  async syncToDevTo(
+    @ExternalUser() external_user: IExternalUser,
+    @Prerequisite({
+      neighbor: () => ArticlesController.prototype.index,
+      jmesPath: "data[].{ value: id, label: snapshot.title }",
+    })
+    @TypedParam("id")
+    articleId: IArticle["id"],
+    @TypedBody() input: IArticle.ISync.ToDevToInput,
+  ): Promise<IArticle.ISync.ToDevToOutput> {
+    return DocumentProvider.sync("dev_to")(external_user, articleId, input);
+  }
+
+  /**
    * upgrade or downgrade version of exported google docs file
    *
    * Synchronize on a snapshot basis,
@@ -71,6 +100,37 @@ export class ArticlesController {
     @TypedBody() input: IArticle.ISync.ToNotionInput,
   ): Promise<IArticle.ISync.ToNotionOutput> {
     return DocumentProvider.sync("notion")(external_user, articleId, input);
+  }
+
+  /**
+   * Export the text to Dev.to
+   *
+   * The exported text is recorded by creating a
+   * {@link IArticleExport bbs_article_exports} object based on the snapshot.
+   * You can upgrade and downgrade the version using
+   * the 'POST /connector/articles/:id/exports/sync/dev_to' connector in the future.
+   * Also, it doesn't matter if you export the same version of the text multiple times.
+   *
+   * Because each export generates a new text,
+   * you must use the `sync` connector if you want to change the version of an already exported text.
+   *
+   * @summary Exports specified article to dev_to
+   * @param articleId Target article's {@link IArticle.id}, Not snapshot ID
+   * @param input DevTo Secret and snapshot information to export
+   * @returns Article Infomation and dev_to secretKey
+   */
+  @core.TypedRoute.Post(":id/exports/dev-to")
+  async exportsToDevTo(
+    @ExternalUser() external_user: IExternalUser,
+    @Prerequisite({
+      neighbor: () => ArticlesController.prototype.index,
+      jmesPath: "data[].{ value: id, label: snapshot.title }",
+    })
+    @TypedParam("id")
+    articleId: IArticle["id"],
+    @TypedBody() input: IArticle.IExport.ToDevToInput,
+  ): Promise<IArticle.IExport.ToDevToOutput> {
+    return DocumentProvider.exports("dev_to")(external_user, articleId, input);
   }
 
   /**

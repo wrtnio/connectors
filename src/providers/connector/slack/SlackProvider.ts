@@ -891,21 +891,25 @@ export class SlackProvider {
   async getUserGroups(
     input: ISlack.IGetUserGroupInput,
   ): Promise<ISlack.IGetUserGroupOutput> {
-    const url = `https://slack.com/api/usergroups.list?include_users=true`;
-    const token = await this.getToken(input.secretKey);
-    const res = await axios.get(url, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-        "Content-Type": "application/json; charset=utf-8;",
-      },
-    });
+    try {
+      const url = `https://slack.com/api/usergroups.list?include_users=true`;
+      const token = await this.getToken(input.secretKey);
+      const res = await axios.get(url, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json; charset=utf-8;",
+        },
+      });
 
-    if (res.data.ok === false) {
-      // Missing scope error
-      throw new Error(JSON.stringify(res.data));
+      if (res.data.ok === false) {
+        // Missing scope error
+        throw new Error(JSON.stringify(res.data));
+      }
+
+      return res.data;
+    } catch (err) {
+      return { usergroups: [], ok: false };
     }
-
-    return res.data;
   }
 
   private getUserProfileFields(profile: { fields: Record<string, string> }) {
