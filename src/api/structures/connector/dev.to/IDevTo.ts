@@ -24,7 +24,14 @@ export namespace IDevTo {
   }
 
   export interface ICreateOutput {
-    id: string;
+    /**
+     * @title Article ID
+     */
+    id: number;
+
+    /**
+     * @title Article URL for viewing
+     */
     url: string & tags.Format<"iri">;
   }
 

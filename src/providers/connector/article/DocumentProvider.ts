@@ -242,14 +242,14 @@ export namespace DocumentProvider {
         snapshot,
       )({
         provider: "dev_to",
-        uid: uid,
+        uid: String(uid),
         url: link,
         created_at: new Date().toISOString(),
       });
 
       return {
         dev_to: {
-          id: uid,
+          id: String(uid),
           title: snapshot.title,
           link: link,
         },
