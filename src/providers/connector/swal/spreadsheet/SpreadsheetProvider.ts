@@ -3,6 +3,7 @@ import { IExternalUser } from "@wrtn/connector-api/lib/structures/common/IExtern
 import { IPage } from "@wrtn/connector-api/lib/structures/common/IPage";
 import { ISpreadsheet } from "@wrtn/connector-api/lib/structures/connector/swal/spreadsheet/ISpreadsheet";
 import { ConnectorGlobal } from "../../../../ConnectorGlobal";
+import { PaginationUtil } from "../../../../utils/PaginationUtil";
 import { SpreadsheetCellProvider } from "./SpreadsheetCellProvider";
 import { SpreadsheetFormatProvider } from "./SpreadsheetFormatProvider";
 import { SpreadsheetSnapshotProvider } from "./SpreadsheetSnapshotProvider";
@@ -57,9 +58,20 @@ export namespace SpreadsheetProvider {
 
   export const index = async (
     external_user: IExternalUser,
-    input: any,
+    input: ISpreadsheet.IRequest,
   ): Promise<IPage<ISpreadsheet.ISummary>> => {
-    return {} as any;
+    return PaginationUtil.paginate({
+      schema: ConnectorGlobal.prisma.spreadsheets,
+      payload: SpreadsheetProvider.summary.select(),
+      transform: SpreadsheetProvider.summary.transform,
+    })({
+      where: {
+        AND: [...(await search(external_user, input.search))],
+      },
+      orderBy: input.sort?.length
+        ? PaginationUtil.orderBy(orderBy)(input.sort)
+        : [{ created_at: "desc" }],
+    })(input);
   };
 
   export const search = async (
@@ -132,5 +144,22 @@ export namespace SpreadsheetProvider {
         },
       });
     }
+
+    return condition;
+  };
+
+  export const orderBy = (
+    key: ISpreadsheet.IRequest.SortableColumns,
+    direction: "asc" | "desc",
+  ) => {
+    return (
+      key === "created_at"
+        ? { created_at: direction }
+        : key === "snapshot.created_at"
+          ? { mv_last: { snapshot: { created_at: direction } } }
+          : key === "snapshot.title"
+            ? { mv_last: { snapshot: { title: direction } } }
+            : {}
+    ) satisfies Prisma.spreadsheetsOrderByWithRelationInput;
   };
 }
