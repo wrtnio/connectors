@@ -514,65 +514,65 @@ export class NotionController {
     return retry(() => NotionProvider.getDatabaseInfo(input, databaseId))();
   }
 
-  /**
-   * Create an item in the Notion Table database
-   *
-   * @summary Create a database item
-   * @param input Information needed to create a database item
-   *
-   * @param databaseId Unique id of the database in which to create the item
-   * @returns Information about the created database item
-   */
-  @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg",
-  )
-  @ApiTags("Notion")
-  @core.TypedRoute.Post("/database-item/:databaseId")
-  async createDatabaseItem(
-    @core.TypedBody() input: INotion.ICreateDatabaseItemInput,
-    /**
-     * @title Database to add item to
-     * @description Please select the database to add item to.
-     */
-    @Prerequisite({
-      neighbor: () => NotionController.prototype.getDatabaseListInfo,
-      jmesPath: "[].{value:id, label:title || ''}",
-    })
-    @core.TypedParam("databaseId")
-    databaseId: string,
-  ): Promise<INotion.IDatabaseItemOutput> {
-    return retry(() => NotionProvider.createDatabaseItem(input, databaseId))();
-  }
+  // /**
+  //  * Create an item in the Notion Table database
+  //  *
+  //  * @summary Create a database item
+  //  * @param input Information needed to create a database item
+  //  *
+  //  * @param databaseId Unique id of the database in which to create the item
+  //  * @returns Information about the created database item
+  //  */
+  // @RouteIcon(
+  //   "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg",
+  // )
+  // @ApiTags("Notion")
+  // @core.TypedRoute.Post("/database-item/:databaseId")
+  // async createDatabaseItem(
+  //   @core.TypedBody() input: INotion.ICreateDatabaseItemInput,
+  //   /**
+  //    * @title Database to add item to
+  //    * @description Please select the database to add item to.
+  //    */
+  //   @Prerequisite({
+  //     neighbor: () => NotionController.prototype.getDatabaseListInfo,
+  //     jmesPath: "[].{value:id, label:title || ''}",
+  //   })
+  //   @core.TypedParam("databaseId")
+  //   databaseId: string,
+  // ): Promise<INotion.IDatabaseItemOutput> {
+  //   return retry(() => NotionProvider.createDatabaseItem(input, databaseId))();
+  // }
 
-  /**
-   * Modify item information in the database
-   *
-   * @summary Modify database item
-   * @param input Database item information to modify
-   *
-   * @param databaseId Unique id of the database to modify
-   * @returns Modified database item information
-   */
-  @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg",
-  )
-  @ApiTags("Notion")
-  @core.TypedRoute.Patch("/database-item/:databaseId")
-  async updateDatabaseItem(
-    @core.TypedBody() input: INotion.IUpdateDatabaseItemInput,
-    /**
-     * @title Database to modify item
-     * @description Please select the database to modify item
-     */
-    @Prerequisite({
-      neighbor: () => NotionController.prototype.getDatabaseListInfo,
-      jmesPath: "[].{value:id, label:title || ''}",
-    })
-    @core.TypedParam("databaseId")
-    databaseId: string,
-  ): Promise<INotion.IDatabaseItemOutput> {
-    return retry(() => NotionProvider.updateDatabaseItem(input, databaseId))();
-  }
+  // /**
+  //  * Modify item information in the database
+  //  *
+  //  * @summary Modify database item
+  //  * @param input Database item information to modify
+  //  *
+  //  * @param databaseId Unique id of the database to modify
+  //  * @returns Modified database item information
+  //  */
+  // @RouteIcon(
+  //   "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg",
+  // )
+  // @ApiTags("Notion")
+  // @core.TypedRoute.Patch("/database-item/:databaseId")
+  // async updateDatabaseItem(
+  //   @core.TypedBody() input: INotion.IUpdateDatabaseItemInput,
+  //   /**
+  //    * @title Database to modify item
+  //    * @description Please select the database to modify item
+  //    */
+  //   @Prerequisite({
+  //     neighbor: () => NotionController.prototype.getDatabaseListInfo,
+  //     jmesPath: "[].{value:id, label:title || ''}",
+  //   })
+  //   @core.TypedParam("databaseId")
+  //   databaseId: string,
+  // ): Promise<INotion.IDatabaseItemOutput> {
+  //   return retry(() => NotionProvider.updateDatabaseItem(input, databaseId))();
+  // }
 
   /**
    * Search for pages by title

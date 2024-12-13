@@ -365,114 +365,114 @@ export namespace NotionProvider {
     }
   }
 
-  export async function createDatabaseItem(
-    input: INotion.ICreateDatabaseItemInput,
-    databaseId: string,
-  ): Promise<INotion.IDatabaseItemOutput> {
-    try {
-      const databaseInfo = await getDatabaseInfo(
-        { secretKey: input.secretKey },
-        databaseId,
-      );
-      /**
-       * 데이터베이스에 아이템을 추가할 때 필요한 데이터베이스별 프로퍼티 정보
-       */
-      const properties = formattingDatabaseProperties(
-        input,
-        databaseInfo.properties,
-      );
+  // export async function createDatabaseItem(
+  //   input: INotion.ICreateDatabaseItemInput,
+  //   databaseId: string,
+  // ): Promise<INotion.IDatabaseItemOutput> {
+  //   try {
+  //     const databaseInfo = await getDatabaseInfo(
+  //       { secretKey: input.secretKey },
+  //       databaseId,
+  //     );
+  //     /**
+  //      * 데이터베이스에 아이템을 추가할 때 필요한 데이터베이스별 프로퍼티 정보
+  //      */
+  //     const properties = formattingDatabaseProperties(
+  //       input,
+  //       databaseInfo.properties,
+  //     );
 
-      const headers = await getHeaders(input.secretKey);
-      const blocks = markdownToBlocks(input.markdown);
+  //     const headers = await getHeaders(input.secretKey);
+  //     const blocks = markdownToBlocks(input.markdown);
 
-      /**
-       * 데이터베이스에 페이지 생성
-       */
-      const res = await axios.post(
-        "https://api.notion.com/v1/pages",
-        {
-          parent: { database_id: databaseId },
-          properties: properties,
-          children: blocks,
-        },
-        { headers: headers },
-      );
+  //     /**
+  //      * 데이터베이스에 페이지 생성
+  //      */
+  //     const res = await axios.post(
+  //       "https://api.notion.com/v1/pages",
+  //       {
+  //         parent: { database_id: databaseId },
+  //         properties: properties,
+  //         children: blocks,
+  //       },
+  //       { headers: headers },
+  //     );
 
-      const createdDatabaseItem: INotion.IDatabaseItemOutput = res.data;
-      return createdDatabaseItem;
-    } catch (error) {
-      console.error(JSON.stringify(error));
-      throw error;
-    }
-  }
+  //     const createdDatabaseItem: INotion.IDatabaseItemOutput = res.data;
+  //     return createdDatabaseItem;
+  //   } catch (error) {
+  //     console.error(JSON.stringify(error));
+  //     throw error;
+  //   }
+  // }
 
-  export async function updateDatabaseItem(
-    input: INotion.IUpdateDatabaseItemInput,
-    databaseId: string,
-  ): Promise<INotion.IDatabaseItemOutput> {
-    try {
-      const databaseInfo = await getDatabaseInfo(
-        { secretKey: input.secretKey },
-        databaseId,
-      );
-      /**
-       * 업데이트 할 데이터베이스 아이템 프로퍼티 값
-       */
-      const properties = formattingDatabaseProperties(
-        input,
-        databaseInfo.properties,
-      );
+  // export async function updateDatabaseItem(
+  //   input: INotion.IUpdateDatabaseItemInput,
+  //   databaseId: string,
+  // ): Promise<INotion.IDatabaseItemOutput> {
+  //   try {
+  //     const databaseInfo = await getDatabaseInfo(
+  //       { secretKey: input.secretKey },
+  //       databaseId,
+  //     );
+  //     /**
+  //      * 업데이트 할 데이터베이스 아이템 프로퍼티 값
+  //      */
+  //     const properties = formattingDatabaseProperties(
+  //       input,
+  //       databaseInfo.properties,
+  //     );
 
-      const headers = await getHeaders(input.secretKey);
-      /**
-       *
-       * 데이터베이스 아이템 업데이트
-       */
-      const res = await axios.patch(
-        `https://api.notion.com/v1/pages/${input.pageId}`,
-        {
-          properties: properties,
-        },
-        { headers: headers },
-      );
+  //     const headers = await getHeaders(input.secretKey);
+  //     /**
+  //      *
+  //      * 데이터베이스 아이템 업데이트
+  //      */
+  //     const res = await axios.patch(
+  //       `https://api.notion.com/v1/pages/${input.pageId}`,
+  //       {
+  //         properties: properties,
+  //       },
+  //       { headers: headers },
+  //     );
 
-      /**
-       * 데이터베이스 안의 페이지 내용 업데이트
-       */
-      const response = await axios.get(
-        `https://api.notion.com/v1/blocks/${input.pageId}/children`,
-        {
-          headers: headers,
-        },
-      );
+  //     /**
+  //      * 데이터베이스 안의 페이지 내용 업데이트
+  //      */
+  //     const response = await axios.get(
+  //       `https://api.notion.com/v1/blocks/${input.pageId}/children`,
+  //       {
+  //         headers: headers,
+  //       },
+  //     );
 
-      const firstBlockId = response.data.results[0].id;
-      const originalContent =
-        response.data.results[0].paragraph.rich_text[0].plain_text;
-      await axios.patch(
-        `https://api.notion.com/v1/blocks/${firstBlockId}`,
-        {
-          paragraph: {
-            rich_text: [
-              {
-                type: "text",
-                text: {
-                  content: input.content ?? originalContent,
-                },
-              },
-            ],
-          },
-        },
-        { headers: headers },
-      );
+  //     const firstBlockId = response.data.results[0].id;
+  //     const originalContent =
+  //       response.data.results[0].paragraph.rich_text[0].plain_text;
+  //     await axios.patch(
+  //       `https://api.notion.com/v1/blocks/${firstBlockId}`,
+  //       {
+  //         paragraph: {
+  //           rich_text: [
+  //             {
+  //               type: "text",
+  //               text: {
+  //                 content: input.content ?? originalContent,
+  //               },
+  //             },
+  //           ],
+  //         },
+  //       },
+  //       { headers: headers },
+  //     );
 
-      const updatedDatabaseItem: INotion.IDatabaseItemOutput = res.data;
-      return updatedDatabaseItem;
-    } catch (error) {
-      console.error(JSON.stringify(error));
-      throw error;
-    }
-  }
+  //     const updatedDatabaseItem: INotion.IDatabaseItemOutput = res.data;
+  //     return updatedDatabaseItem;
+  //   } catch (error) {
+  //     console.error(JSON.stringify(error));
+  //     throw error;
+  //   }
+  // }
 
   export async function getUsers(
     input: INotion.ISecret,
