@@ -222,6 +222,7 @@ export class ArticleController {
   /**
    * List up all summarized articles with pagination and searching options
    *
+   * Because it is looking at the user's individual writing, user cannot inquire other than your own writing.
    * Because it is a call to a text stored in the connector server's own DB,
    * it may be appropriate to call this connector if the user asks to call the text without saying the service name.
    * It is recommended that you first ask the user for the service name.

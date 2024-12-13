@@ -260,6 +260,8 @@ export namespace IArticle {
         /**
          * This property is not a complete match, but a feature
          * that allows you to search for a title that contains that character.
+         * This property should be undefined unless the user wants to see his or her writing
+         * and only wants to find a title that contains a particular text.
          *
          * @title Title of article
          */
