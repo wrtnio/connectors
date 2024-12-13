@@ -514,65 +514,65 @@ export class NotionController {
     return retry(() => NotionProvider.getDatabaseInfo(input, databaseId))();
   }
 
-  /**
-   * Create an item in the Notion Table database
-   *
-   * @summary Create a database item
-   * @param input Information needed to create a database item
-   *
-   * @param databaseId Unique id of the database in which to create the item
-   * @returns Information about the created database item
-   */
-  @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg",
-  )
-  @ApiTags("Notion")
-  @core.TypedRoute.Post("/database-item/:databaseId")
-  async createDatabaseItem(
-    @core.TypedBody() input: INotion.ICreateDatabaseItemInput,
-    /**
-     * @title Database to add item to
-     * @description Please select the database to add item to.
-     */
-    @Prerequisite({
-      neighbor: () => NotionController.prototype.getDatabaseListInfo,
-      jmesPath: "[].{value:id, label:title || ''}",
-    })
-    @core.TypedParam("databaseId")
-    databaseId: string,
-  ): Promise<INotion.IDatabaseItemOutput> {
-    return retry(() => NotionProvider.createDatabaseItem(input, databaseId))();
-  }
+  // /**
+  //  * Create an item in the Notion Table database
+  //  *
+  //  * @summary Create a database item
+  //  * @param input Information needed to create a database item
+  //  *
+  //  * @param databaseId Unique id of the database in which to create the item
+  //  * @returns Information about the created database item
+  //  */
+  // @RouteIcon(
+  //   "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg",
+  // )
+  // @ApiTags("Notion")
+  // @core.TypedRoute.Post("/database-item/:databaseId")
+  // async createDatabaseItem(
+  //   @core.TypedBody() input: INotion.ICreateDatabaseItemInput,
+  //   /**
+  //    * @title Database to add item to
+  //    * @description Please select the database to add item to.
+  //    */
+  //   @Prerequisite({
+  //     neighbor: () => NotionController.prototype.getDatabaseListInfo,
+  //     jmesPath: "[].{value:id, label:title || ''}",
+  //   })
+  //   @core.TypedParam("databaseId")
+  //   databaseId: string,
+  // ): Promise<INotion.IDatabaseItemOutput> {
+  //   return retry(() => NotionProvider.createDatabaseItem(input, databaseId))();
+  // }
 
-  /**
-   * Modify item information in the database
-   *
-   * @summary Modify database item
-   * @param input Database item information to modify
-   *
-   * @param databaseId Unique id of the database to modify
-   * @returns Modified database item information
-   */
-  @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg",
-  )
-  @ApiTags("Notion")
-  @core.TypedRoute.Patch("/database-item/:databaseId")
-  async updateDatabaseItem(
-    @core.TypedBody() input: INotion.IUpdateDatabaseItemInput,
-    /**
-     * @title Database to modify item
-     * @description Please select the database to modify item
-     */
-    @Prerequisite({
-      neighbor: () => NotionController.prototype.getDatabaseListInfo,
-      jmesPath: "[].{value:id, label:title || ''}",
-    })
-    @core.TypedParam("databaseId")
-    databaseId: string,
-  ): Promise<INotion.IDatabaseItemOutput> {
-    return retry(() => NotionProvider.updateDatabaseItem(input, databaseId))();
-  }
+  // /**
+  //  * Modify item information in the database
+  //  *
+  //  * @summary Modify database item
+  //  * @param input Database item information to modify
+  //  *
+  //  * @param databaseId Unique id of the database to modify
+  //  * @returns Modified database item information
+  //  */
+  // @RouteIcon(
+  //   "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg",
+  // )
+  // @ApiTags("Notion")
+  // @core.TypedRoute.Patch("/database-item/:databaseId")
+  // async updateDatabaseItem(
+  //   @core.TypedBody() input: INotion.IUpdateDatabaseItemInput,
+  //   /**
+  //    * @title Database to modify item
+  //    * @description Please select the database to modify item
+  //    */
+  //   @Prerequisite({
+  //     neighbor: () => NotionController.prototype.getDatabaseListInfo,
+  //     jmesPath: "[].{value:id, label:title || ''}",
+  //   })
+  //   @core.TypedParam("databaseId")
+  //   databaseId: string,
+  // ): Promise<INotion.IDatabaseItemOutput> {
+  //   return retry(() => NotionProvider.updateDatabaseItem(input, databaseId))();
+  // }
 
   /**
    * Search for pages by title
@@ -726,6 +726,7 @@ export class NotionController {
    * You should use this endpoint when adding items to an already created database.
    * You need to use this endpoint to add multiple items to the gallery database at once.
    * If you need to add 3 items, instead of calling the endpoint 3 times, you should put the 3 items in an array in the info information and add the 3 items in 1 endpoint call.
+   * Since the Notion database can only be created in table format, you will need to instruct users to manually change it to a gallery database view.
    *
    * @summary Create items in the gallery database
    * @param input
@@ -762,6 +763,95 @@ export class NotionController {
   async updatePageContent(
     @core.TypedBody() input: INotion.IUpdatePageContentInput,
   ): Promise<INotion.IAppendPageByMarkdownOutput> {
-    return NotionProvider.updatePageContent(input);
+    return retry(() => NotionProvider.updatePageContent(input))();
+  }
+
+  /**
+   * Create a Notion Database
+   *
+   * Creating a database is different from adding items to a database.
+   * Creating a database is a process of creating a database, and adding items to a database is a process of adding items to an existing database.
+   * You need to understand what your users are asking for, how many properties they need, and which properties should be created.
+   *
+   * @summary Create a database
+   * @param input
+   * @returns
+   */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg",
+  )
+  @ApiTags("Notion")
+  @core.TypedRoute.Post("create-database")
+  async createDatabase(
+    @core.TypedBody() input: INotion.ICreateDatabaseInput,
+  ): Promise<INotion.ICreateDatabaseOutput> {
+    return retry(() => NotionProvider.createDatabase(input))();
+  }
+
+  /**
+   * Add property to notion database
+   * If you want to add a property to an existing database, you should use this function.
+   * For example, if there is an English word database in the Notion database, and there are three existing properties: word, meaning, and example sentence, and the user wants to add a property called Korean meaning, you should use this function to add a new property.
+   * This function can only add one property at a time.
+   *
+   * @summary Add property to database
+   * @param input
+   * @returns
+   */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg",
+  )
+  @ApiTags("Notion")
+  @core.TypedRoute.Post("add-database-property")
+  async addDatabaseProperty(
+    @core.TypedBody() input: INotion.IAddDatabasePropertyInput,
+  ): Promise<INotion.IAddDatabasePropertyOutput> {
+    return retry(() => NotionProvider.addDatabaseProperty(input))();
+  }
+
+  /**
+   * Delete property to notion database
+   * If you want to delete a property in an existing database, you should use this function.
+   * For example, if there is an English word database in the Notion database, and there are 4 properties: word, meaning, example, and Korean meaning, and the user wants to delete the property called Korean meaning, you should use this function to delete the property.
+   * You need to know the property name to delete it.
+   * This function can only delete one property at a time.
+   *
+   * @summary Delete property to database
+   * @param input
+   * @returns
+   */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg",
+  )
+  @ApiTags("Notion")
+  @core.TypedRoute.Post("delete-database-property")
+  async deleteDatabaseProperty(
+    @core.TypedBody() input: INotion.IDeleteDatabasePropertyInput,
+  ): Promise<INotion.IDeleteDatabasePropertyOutput> {
+    return retry(() => NotionProvider.deleteDatabaseProperty(input))();
+  }
+
+  /**
+   * Adds an item to each row in the database
+   * If you want to add items to an existing database, you should use this function.
+   * You should analyze the user's requirements and assign appropriate values ​​to each property.
+   * You should select the value you want to add and the property to which you want to add the value.
+   * For example, if you have an English vocabulary database and the properties are word, example, and Korean meaning, and you create two items,
+   * if the items to add are [{"apple", "Apple is a fruit", "사과"}, {"snack", "I like snack", "과자"}],
+   * you should assign "apple" and "snack" to the word property,  "Apple is a fruit" and "I like snack" to the example, and "사과" and "과자" to the Korean meaning property.
+   *
+   * @summary Add items to the database
+   * @param input Items to add to the database
+   * @returns
+   */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg",
+  )
+  @ApiTags("Notion")
+  @core.TypedRoute.Post("add-items-to-database")
+  async addItemsToDatabase(
+    @core.TypedBody() input: INotion.IAddItemsToDatabaseInput,
+  ): Promise<INotion.IAddItemsToDatabaseOutput> {
+    return retry(() => NotionProvider.addItemsToDatabase(input))();
   }
 }

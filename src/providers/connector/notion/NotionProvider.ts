@@ -2,10 +2,7 @@ import { HttpException, HttpStatus } from "@nestjs/common";
 import { Client } from "@notionhq/client";
 import axios from "axios";
 
-import {
-  appendBlockChildren,
-  BlockObjectRequest,
-} from "@notionhq/client/build/src/api-endpoints";
+import { BlockObjectRequest } from "@notionhq/client/build/src/api-endpoints";
 import { markdownToBlocks } from "@tryfabric/martian";
 import { Block } from "@tryfabric/martian/build/src/notion/blocks";
 import { INotion } from "@wrtn/connector-api/lib/structures/connector/notion/INotion";
@@ -368,114 +365,114 @@ export namespace NotionProvider {
     }
   }
 
-  export async function createDatabaseItem(
-    input: INotion.ICreateDatabaseItemInput,
-    databaseId: string,
-  ): Promise<INotion.IDatabaseItemOutput> {
-    try {
-      const databaseInfo = await getDatabaseInfo(
-        { secretKey: input.secretKey },
-        databaseId,
-      );
-      /**
-       * 데이터베이스에 아이템을 추가할 때 필요한 데이터베이스별 프로퍼티 정보
-       */
-      const properties = formattingDatabaseProperties(
-        input,
-        databaseInfo.properties,
-      );
+  // export async function createDatabaseItem(
+  //   input: INotion.ICreateDatabaseItemInput,
+  //   databaseId: string,
+  // ): Promise<INotion.IDatabaseItemOutput> {
+  //   try {
+  //     const databaseInfo = await getDatabaseInfo(
+  //       { secretKey: input.secretKey },
+  //       databaseId,
+  //     );
+  //     /**
+  //      * 데이터베이스에 아이템을 추가할 때 필요한 데이터베이스별 프로퍼티 정보
+  //      */
+  //     const properties = formattingDatabaseProperties(
+  //       input,
+  //       databaseInfo.properties,
+  //     );
 
-      const headers = await getHeaders(input.secretKey);
-      const blocks = markdownToBlocks(input.markdown);
+  //     const headers = await getHeaders(input.secretKey);
+  //     const blocks = markdownToBlocks(input.markdown);
 
-      /**
-       * 데이터베이스에 페이지 생성
-       */
-      const res = await axios.post(
-        "https://api.notion.com/v1/pages",
-        {
-          parent: { database_id: databaseId },
-          properties: properties,
-          children: blocks,
-        },
-        { headers: headers },
-      );
+  //     /**
+  //      * 데이터베이스에 페이지 생성
+  //      */
+  //     const res = await axios.post(
+  //       "https://api.notion.com/v1/pages",
+  //       {
+  //         parent: { database_id: databaseId },
+  //         properties: properties,
+  //         children: blocks,
+  //       },
+  //       { headers: headers },
+  //     );
 
-      const createdDatabaseItem: INotion.IDatabaseItemOutput = res.data;
-      return createdDatabaseItem;
-    } catch (error) {
-      console.error(JSON.stringify(error));
-      throw error;
-    }
-  }
+  //     const createdDatabaseItem: INotion.IDatabaseItemOutput = res.data;
+  //     return createdDatabaseItem;
+  //   } catch (error) {
+  //     console.error(JSON.stringify(error));
+  //     throw error;
+  //   }
+  // }
 
-  export async function updateDatabaseItem(
-    input: INotion.IUpdateDatabaseItemInput,
-    databaseId: string,
-  ): Promise<INotion.IDatabaseItemOutput> {
-    try {
-      const databaseInfo = await getDatabaseInfo(
-        { secretKey: input.secretKey },
-        databaseId,
-      );
-      /**
-       * 업데이트 할 데이터베이스 아이템 프로퍼티 값
-       */
-      const properties = formattingDatabaseProperties(
-        input,
-        databaseInfo.properties,
-      );
+  // export async function updateDatabaseItem(
+  //   input: INotion.IUpdateDatabaseItemInput,
+  //   databaseId: string,
+  // ): Promise<INotion.IDatabaseItemOutput> {
+  //   try {
+  //     const databaseInfo = await getDatabaseInfo(
+  //       { secretKey: input.secretKey },
+  //       databaseId,
+  //     );
+  //     /**
+  //      * 업데이트 할 데이터베이스 아이템 프로퍼티 값
+  //      */
+  //     const properties = formattingDatabaseProperties(
+  //       input,
+  //       databaseInfo.properties,
+  //     );
 
-      const headers = await getHeaders(input.secretKey);
-      /**
-       *
-       * 데이터베이스 아이템 업데이트
-       */
-      const res = await axios.patch(
-        `https://api.notion.com/v1/pages/${input.pageId}`,
-        {
-          properties: properties,
-        },
-        { headers: headers },
-      );
+  //     const headers = await getHeaders(input.secretKey);
+  //     /**
+  //      *
+  //      * 데이터베이스 아이템 업데이트
+  //      */
+  //     const res = await axios.patch(
+  //       `https://api.notion.com/v1/pages/${input.pageId}`,
+  //       {
+  //         properties: properties,
+  //       },
+  //       { headers: headers },
+  //     );
 
-      /**
-       * 데이터베이스 안의 페이지 내용 업데이트
-       */
-      const response = await axios.get(
-        `https://api.notion.com/v1/blocks/${input.pageId}/children`,
-        {
-          headers: headers,
-        },
-      );
+  //     /**
+  //      * 데이터베이스 안의 페이지 내용 업데이트
+  //      */
+  //     const response = await axios.get(
+  //       `https://api.notion.com/v1/blocks/${input.pageId}/children`,
+  //       {
+  //         headers: headers,
+  //       },
+  //     );
 
-      const firstBlockId = response.data.results[0].id;
-      const originalContent =
-        response.data.results[0].paragraph.rich_text[0].plain_text;
-      await axios.patch(
-        `https://api.notion.com/v1/blocks/${firstBlockId}`,
-        {
-          paragraph: {
-            rich_text: [
-              {
-                type: "text",
-                text: {
-                  content: input.content ?? originalContent,
-                },
-              },
-            ],
-          },
-        },
-        { headers: headers },
-      );
+  //     const firstBlockId = response.data.results[0].id;
+  //     const originalContent =
+  //       response.data.results[0].paragraph.rich_text[0].plain_text;
+  //     await axios.patch(
+  //       `https://api.notion.com/v1/blocks/${firstBlockId}`,
+  //       {
+  //         paragraph: {
+  //           rich_text: [
+  //             {
+  //               type: "text",
+  //               text: {
+  //                 content: input.content ?? originalContent,
+  //               },
+  //             },
+  //           ],
+  //         },
+  //       },
+  //       { headers: headers },
+  //     );
 
-      const updatedDatabaseItem: INotion.IDatabaseItemOutput = res.data;
-      return updatedDatabaseItem;
-    } catch (error) {
-      console.error(JSON.stringify(error));
-      throw error;
-    }
-  }
+  //     const updatedDatabaseItem: INotion.IDatabaseItemOutput = res.data;
+  //     return updatedDatabaseItem;
+  //   } catch (error) {
+  //     console.error(JSON.stringify(error));
+  //     throw error;
+  //   }
+  // }
 
   export async function getUsers(
     input: INotion.ISecret,
@@ -1113,6 +1110,236 @@ export namespace NotionProvider {
         secretKey: input.secretKey,
         markdown: input.markdown,
       });
+    } catch (err) {
+      console.error(JSON.stringify(err));
+      throw err;
+    }
+  }
+
+  export async function createDatabase(
+    input: INotion.ICreateDatabaseInput,
+  ): Promise<INotion.ICreateDatabaseOutput> {
+    const { parentPageId, title, properties } = input;
+
+    try {
+      const headers = await getHeaders(input.secretKey);
+      const mergedProperties = properties.reduce(
+        (acc, curr) => ({ ...acc, ...curr }),
+        {},
+      );
+      const res = await axios.post(
+        "https://api.notion.com/v1/databases",
+        {
+          parent: {
+            type: "page_id",
+            page_id: parentPageId,
+          },
+          title: [
+            {
+              type: "text",
+              text: { content: title },
+            },
+          ],
+          properties: {
+            ...mergedProperties,
+            created_at: {
+              date: {},
+            },
+          },
+        },
+        {
+          headers: headers,
+        },
+      );
+      return {
+        id: res.data.id,
+        title: res.data.title[0].plain_text ?? "제목 없음",
+        url: res.data.url,
+      };
+    } catch (err) {
+      console.error(JSON.stringify(err));
+      throw err;
+    }
+  }
+
+  export async function addDatabaseProperty(
+    input: INotion.IAddDatabasePropertyInput,
+  ): Promise<INotion.IAddDatabasePropertyOutput> {
+    try {
+      const headers = await getHeaders(input.secretKey);
+      const res = await axios.patch(
+        `https://api.notion.com/v1/databases/${input.databaseId}`,
+        {
+          properties: input.property,
+        },
+        {
+          headers: headers,
+        },
+      );
+      return {
+        id: res.data.id,
+        title: res.data.title[0].plain_text ?? "제목 없음",
+        url: res.data.url,
+      };
+    } catch (err) {
+      console.error(JSON.stringify(err));
+      throw err;
+    }
+  }
+
+  export async function deleteDatabaseProperty(
+    input: INotion.IDeleteDatabasePropertyInput,
+  ): Promise<INotion.IDeleteDatabasePropertyOutput> {
+    try {
+      const headers = await getHeaders(input.secretKey);
+      const res = await axios.patch(
+        `https://api.notion.com/v1/databases/${input.databaseId}`,
+        {
+          properties: {
+            [input.propertyName]: null,
+          },
+        },
+        {
+          headers: headers,
+        },
+      );
+      return {
+        id: res.data.id,
+        title: res.data.title[0].plain_text ?? "제목 없음",
+        url: res.data.url,
+      };
+    } catch (error) {
+      console.error(JSON.stringify(error));
+      throw error;
+    }
+  }
+
+  async function getDatabaseProperties(
+    databaseId: string,
+    secretKey: string,
+  ): Promise<INotion.IDatabaseProperties> {
+    try {
+      const headers = await getHeaders(secretKey);
+      const res = await axios.get(
+        `https://api.notion.com/v1/databases/${databaseId}`,
+        {
+          headers: headers,
+        },
+      );
+      return res.data.properties;
+    } catch (err) {
+      console.error(JSON.stringify(err));
+      throw err;
+    }
+  }
+
+  export async function addItemsToDatabase(
+    input: INotion.IAddItemsToDatabaseInput,
+  ): Promise<INotion.IAddItemsToDatabaseOutput> {
+    try {
+      const headers = await getHeaders(input.secretKey);
+      const properties = await getDatabaseProperties(
+        input.databaseId,
+        input.secretKey,
+      );
+
+      let titlePropertyName: string = "";
+      const richTextPropertyNames: string[] = [];
+      let datePropertyName: string = "";
+
+      for (const [propName, propValue] of Object.entries(properties)) {
+        switch (propValue.type) {
+          case "title":
+            titlePropertyName = propName;
+            break;
+          case "rich_text":
+            richTextPropertyNames.push(propName);
+            break;
+          case "date":
+            if (!datePropertyName) {
+              datePropertyName = propName;
+            }
+            break;
+          default:
+            break;
+        }
+      }
+
+      const createItemPromises = input.items.map(async (item) => {
+        try {
+          const propertiesToSet: any = {};
+          if (item.title) {
+            propertiesToSet[titlePropertyName] = {
+              title: [
+                {
+                  type: "text",
+                  text: {
+                    content: item.title,
+                  },
+                },
+              ],
+            };
+          }
+
+          if (item.rich_text && item.rich_text.length > 0) {
+            item.rich_text.forEach((text, index) => {
+              propertiesToSet[richTextPropertyNames[index]] = {
+                rich_text: [
+                  {
+                    type: "text",
+                    text: {
+                      content: text.value,
+                    },
+                  },
+                ],
+              };
+            });
+          }
+
+          if (item.date) {
+            propertiesToSet[datePropertyName] = {
+              date: {
+                start: item.date,
+              },
+            };
+          }
+
+          let blocks;
+
+          if (item.markdown) {
+            blocks = markdownToBlocks(item.markdown);
+          }
+
+          await axios.post(
+            "https://api.notion.com/v1/pages",
+            {
+              parent: {
+                database_id: input.databaseId,
+              },
+              properties: propertiesToSet,
+              ...(blocks && { children: blocks }),
+            },
+            {
+              headers: headers,
+            },
+          );
+        } catch (err) {
+          console.error(JSON.stringify(err));
+          throw err;
+        }
+      });
+      await Promise.all(createItemPromises);
+      const database = await axios.get(
+        `https://api.notion.com/v1/databases/${input.databaseId}`,
+        {
+          headers: headers,
+        },
+      );
+      return {
+        id: database.data.id,
+        title: database.data.title[0].plain_text ?? "제목 없음",
+        url: database.data.url,
+      };
     } catch (err) {
       console.error(JSON.stringify(err));
       throw err;
