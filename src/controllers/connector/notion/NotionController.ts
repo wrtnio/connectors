@@ -763,7 +763,7 @@ export class NotionController {
   async updatePageContent(
     @core.TypedBody() input: INotion.IUpdatePageContentInput,
   ): Promise<INotion.IAppendPageByMarkdownOutput> {
-    return NotionProvider.updatePageContent(input);
+    return retry(() => NotionProvider.updatePageContent(input))();
   }
 
   /**
@@ -785,7 +785,7 @@ export class NotionController {
   async createDatabase(
     @core.TypedBody() input: INotion.ICreateDatabaseInput,
   ): Promise<INotion.ICreateDatabaseOutput> {
-    return NotionProvider.createDatabase(input);
+    return retry(() => NotionProvider.createDatabase(input))();
   }
 
   /**
@@ -806,7 +806,7 @@ export class NotionController {
   async addDatabaseProperty(
     @core.TypedBody() input: INotion.IAddDatabasePropertyInput,
   ): Promise<INotion.IAddDatabasePropertyOutput> {
-    return NotionProvider.addDatabaseProperty(input);
+    return retry(() => NotionProvider.addDatabaseProperty(input))();
   }
 
   /**
@@ -828,6 +828,30 @@ export class NotionController {
   async deleteDatabaseProperty(
     @core.TypedBody() input: INotion.IDeleteDatabasePropertyInput,
   ): Promise<INotion.IDeleteDatabasePropertyOutput> {
-    return NotionProvider.deleteDatabaseProperty(input);
+    return retry(() => NotionProvider.deleteDatabaseProperty(input))();
+  }
+
+  /**
+   * Adds an item to each row in the database
+   * If you want to add items to an existing database, you should use this function.
+   * You should analyze the user's requirements and assign appropriate values ​​to each property.
+   * You should select the value you want to add and the property to which you want to add the value.
+   * For example, if you have an English vocabulary database and the properties are word, example, and Korean meaning, and you create two items,
+   * if the items to add are [{"apple", "Apple is a fruit", "사과"}, {"snack", "I like snack", "과자"}],
+   * you should assign "apple" and "snack" to the word property,  "Apple is a fruit" and "I like snack" to the example, and "사과" and "과자" to the Korean meaning property.
+   *
+   * @summary Add items to the database
+   * @param input Items to add to the database
+   * @returns
+   */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg",
+  )
+  @ApiTags("Notion")
+  @core.TypedRoute.Post("add-items-to-database")
+  async addItemsToDatabase(
+    @core.TypedBody() input: INotion.IAddItemsToDatabaseInput,
+  ): Promise<INotion.IAddItemsToDatabaseOutput> {
+    return retry(() => NotionProvider.addItemsToDatabase(input))();
   }
 }

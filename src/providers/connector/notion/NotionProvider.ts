@@ -2,10 +2,7 @@ import { HttpException, HttpStatus } from "@nestjs/common";
 import { Client } from "@notionhq/client";
 import axios from "axios";
 
-import {
-  BlockObjectRequest,
-  UpdateDatabaseParameters,
-} from "@notionhq/client/build/src/api-endpoints";
+import { BlockObjectRequest } from "@notionhq/client/build/src/api-endpoints";
 import { markdownToBlocks } from "@tryfabric/martian";
 import { Block } from "@tryfabric/martian/build/src/notion/blocks";
 import { INotion } from "@wrtn/connector-api/lib/structures/connector/notion/INotion";
@@ -15,7 +12,6 @@ import { IOAuthSecret } from "../../internal/oauth_secret/structures/IOAuthSecre
 import { NotionToMarkdown } from "notion-to-md";
 import { AwsProvider } from "../aws/AwsProvider";
 import { v4 } from "uuid";
-import { title } from "process";
 
 export namespace NotionProvider {
   export async function deleteBlock(
@@ -1120,9 +1116,6 @@ export namespace NotionProvider {
     }
   }
 
-  /**
-   * 데이터베이스 생성
-   */
   export async function createDatabase(
     input: INotion.ICreateDatabaseInput,
   ): Promise<INotion.ICreateDatabaseOutput> {
@@ -1149,6 +1142,9 @@ export namespace NotionProvider {
           ],
           properties: {
             ...mergedProperties,
+            created_at: {
+              date: {},
+            },
           },
         },
         {
@@ -1215,6 +1211,138 @@ export namespace NotionProvider {
     } catch (error) {
       console.error(JSON.stringify(error));
       throw error;
+    }
+  }
+
+  async function getDatabaseProperties(
+    databaseId: string,
+    secretKey: string,
+  ): Promise<INotion.IDatabaseProperties> {
+    try {
+      const headers = await getHeaders(secretKey);
+      const res = await axios.get(
+        `https://api.notion.com/v1/databases/${databaseId}`,
+        {
+          headers: headers,
+        },
+      );
+      return res.data.properties;
+    } catch (err) {
+      console.error(JSON.stringify(err));
+      throw err;
+    }
+  }
+
+  export async function addItemsToDatabase(
+    input: INotion.IAddItemsToDatabaseInput,
+  ): Promise<INotion.IAddItemsToDatabaseOutput> {
+    try {
+      const headers = await getHeaders(input.secretKey);
+      const properties = await getDatabaseProperties(
+        input.databaseId,
+        input.secretKey,
+      );
+
+      let titlePropertyName: string = "";
+      const richTextPropertyNames: string[] = [];
+      let datePropertyName: string = "";
+
+      for (const [propName, propValue] of Object.entries(properties)) {
+        switch (propValue.type) {
+          case "title":
+            titlePropertyName = propName;
+            break;
+          case "rich_text":
+            richTextPropertyNames.push(propName);
+            break;
+          case "date":
+            if (!datePropertyName) {
+              datePropertyName = propName;
+            }
+            break;
+          default:
+            break;
+        }
+      }
+
+      const createItemPromises = input.items.map(async (item) => {
+        try {
+          const propertiesToSet: any = {};
+          if (item.title) {
+            propertiesToSet[titlePropertyName] = {
+              title: [
+                {
+                  type: "text",
+                  text: {
+                    content: item.title,
+                  },
+                },
+              ],
+            };
+          }
+
+          if (item.rich_text && item.rich_text.length > 0) {
+            item.rich_text.forEach((text, index) => {
+              propertiesToSet[richTextPropertyNames[index]] = {
+                rich_text: [
+                  {
+                    type: "text",
+                    text: {
+                      content: text.value,
+                    },
+                  },
+                ],
+              };
+            });
+          }
+
+          if (item.date) {
+            propertiesToSet[datePropertyName] = {
+              date: {
+                start: item.date,
+              },
+            };
+          }
+
+          let blocks;
+
+          if (item.markdown) {
+            blocks = markdownToBlocks(item.markdown);
+          }
+
+          await axios.post(
+            "https://api.notion.com/v1/pages",
+            {
+              parent: {
+                database_id: input.databaseId,
+              },
+              properties: propertiesToSet,
+              ...(blocks && { children: blocks }),
+            },
+            {
+              headers: headers,
+            },
+          );
+        } catch (err) {
+          console.error(JSON.stringify(err));
+          throw err;
+        }
+      });
+      await Promise.all(createItemPromises);
+      const database = await axios.get(
+        `https://api.notion.com/v1/databases/${input.databaseId}`,
+        {
+          headers: headers,
+        },
+      );
+      return {
+        id: database.data.id,
+        title: database.data.title[0].plain_text ?? "제목 없음",
+        url: database.data.url,
+      };
+    } catch (err) {
+      console.error(JSON.stringify(err));
+      throw err;
     }
   }
 }

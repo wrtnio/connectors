@@ -12,14 +12,6 @@ import { ICommon } from "../common/ISecretValue";
 
 export namespace INotion {
   /**
-   * - plainText: text
-   * - markdown: markdown
-   *
-   * @title The type of content in the database item page
-   */
-  type ContentType = "plainText" | "markdown";
-
-  /**
    * @title color
    */
   type Color =
@@ -2605,27 +2597,6 @@ export namespace INotion {
     markdown: string;
   }
 
-  export type PropertyType =
-    | "title"
-    | "rich_text"
-    | "number"
-    | "select"
-    | "multi_select"
-    | "date"
-    | "people"
-    | "files"
-    | "checkbox"
-    | "url"
-    | "email"
-    | "phone_number"
-    | "relation"
-    | "rollup"
-    | "formula"
-    | "created_time"
-    | "created_by"
-    | "last_edited_time"
-    | "last_edited_by";
-
   /**
    * This property is used when adding a text property to the database.
    * The text property can only accept text.
@@ -2782,4 +2753,92 @@ export namespace INotion {
    */
   export interface IDeleteDatabasePropertyOutput
     extends INotion.ICreateDatabaseOutput {}
+
+  /**
+   * @title Information needed to add an items to the database
+   */
+  export interface IAddItemsToDatabaseInput extends INotion.ISecret {
+    /**
+     * Database Id what you want to add a item.
+     *
+     * If the database is not created, you can create a database using the `Create Database` function first.
+     * The endpoint is POST: /connector/notion/create-database.
+     *
+     * @title databaseId
+     */
+    databaseId: string &
+      Prerequisite<{
+        method: "post";
+        path: "/connector/notion/get/database-info";
+        jmesPath: JMESPath<IDatabaseInfo[], "[].{value:id, label:title}">;
+      }>;
+
+    /**
+     * These are the item combinations to be created in the database.
+     * Each item combination is created for each row in the database.
+     *
+     * @title Items to create
+     */
+    items: ICreateDatabaseItem[];
+  }
+
+  /**
+   * This combination of items is used to populate a row in the database.
+   * For example, if the properties of the database are title, rich_text, rich_text, rich_text, date, The combination of items requires 1 title, 3 rich_texts, and 1 date.
+   *
+   * @title Information about the item added to the database
+   */
+  export interface ICreateDatabaseItem {
+    /**
+     * The value to be filled in the title property.
+     *
+     * @title title value
+     */
+    title: string;
+
+    /**
+     * The values to be filled in the rich_text property.
+     *
+     * @title rich_text value
+     */
+    rich_text: {
+      propertyName: string;
+      value: string;
+    }[];
+
+    /**
+     * The value to be filled in the date property.
+     * You must specify the date-time at the time the input was filled in.
+     *
+     * @title date value
+     */
+    date: string & tags.Format<"date-time">;
+
+    /**
+     * If you add a markdown string, it will be converted appropriately according to the Notion's block.
+     * Therefore, you don't have to use Unicode symbols to implement lists or decorate documents using letters.
+     * Of course, this depends on the user, and there is no problem using the character string you want, such as inserting an emoji as well as Unicode.
+     * This Markdown string is used to add content to the page of each database row.
+     *
+     * @title page content
+     */
+    markdown?: string;
+  }
+
+  /**
+   * @title Information database for added items
+   */
+  export interface IAddItemsToDatabaseOutput
+    extends INotion.ICreateDatabaseOutput {}
+
+  export interface IDatabasePropertyOutput {
+    id: string;
+    name: string;
+    type: string;
+    [key: string]: any;
+  }
+
+  export interface IDatabaseProperties {
+    [propertyName: string]: IDatabasePropertyOutput;
+  }
 }
