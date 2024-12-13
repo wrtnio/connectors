@@ -1,4 +1,4 @@
-import { Injectable } from "@nestjs/common";
+import { BadRequestException, Injectable } from "@nestjs/common";
 import { getJson } from "serpapi";
 
 import { ConnectorGlobal } from "../../../ConnectorGlobal";
@@ -179,6 +179,53 @@ export class GoogleShoppingProvider {
   async yes24(
     input: IGoogleShopping.IRequestStandAlone,
   ): Promise<IGoogleShopping.IResponse[]> {
+    const extractInputKeywords = [
+      "윤석열",
+      "한덕수",
+      "이종섭",
+      "추경호",
+      "박진",
+      "김기현",
+      "이재명",
+      "주호영",
+      "박광온",
+      "김건희",
+      "심상정",
+      "문재인",
+      "박근혜",
+      "이명박",
+      "안철수",
+      "홍준표",
+      "오세훈",
+      "유승민",
+      "김동연",
+      "이낙연",
+      "원희룡",
+      "나경원",
+      "이준석",
+      "박영선",
+      "하태경",
+      "조국",
+      "유시민",
+      "박용진",
+      "장혜영",
+      "국민의힘",
+      "더불어민주당",
+      "정의당",
+      "새누리당",
+      "김정은",
+      "한나라당",
+      "민주당",
+      "추미애",
+      "윤미향",
+      "송영길",
+      "민형배",
+    ];
+    if (extractInputKeywords.includes(input.keyword)) {
+      throw new BadRequestException(
+        `민감한 검색어 ${input.keyword}가 포함되어 있습니다.`,
+      );
+    }
     return this.getGoogleShoppingResults(input, "mr:1,merchagg:m534059966");
   }
 
