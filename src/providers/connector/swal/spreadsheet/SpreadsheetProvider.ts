@@ -1,3 +1,4 @@
+import { getSortable } from "@kakasoo/sortable";
 import { Prisma } from "@prisma/client";
 import { IExternalUser } from "@wrtn/connector-api/lib/structures/common/IExternalUser";
 import { IPage } from "@wrtn/connector-api/lib/structures/common/IPage";
@@ -148,18 +149,13 @@ export namespace SpreadsheetProvider {
     return condition;
   };
 
-  export const orderBy = (
-    key: ISpreadsheet.IRequest.SortableColumns,
+  export const orderBy = <T extends ISpreadsheet.IRequest.SortableColumns>(
+    key: T,
     direction: "asc" | "desc",
   ) => {
-    return (
-      key === "created_at"
-        ? { created_at: direction }
-        : key === "snapshot.created_at"
-          ? { mv_last: { snapshot: { created_at: direction } } }
-          : key === "snapshot.title"
-            ? { mv_last: { snapshot: { title: direction } } }
-            : {}
+    return getSortable(
+      key,
+      direction,
     ) satisfies Prisma.spreadsheetsOrderByWithRelationInput;
   };
 }
