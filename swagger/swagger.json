@@ -15,7 +15,7 @@
     }
   ],
   "info": {
-    "version": "0.1.403",
+    "version": "0.1.404",
     "title": "@wrtn/connector",
     "description": "wrtn-ecosystem connectors and sdk",
     "license": {
@@ -7238,102 +7238,6 @@
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg"
       }
     },
-    "/connector/notion/database-item/{databaseId}": {
-      "post": {
-        "summary": "Create a database item",
-        "description": "Create an item in the Notion Table database",
-        "tags": [
-          "Notion"
-        ],
-        "parameters": [
-          {
-            "name": "databaseId",
-            "in": "path",
-            "schema": {
-              "type": "string",
-              "x-wrtn-prerequisite": {
-                "method": "post",
-                "path": "/connector/notion/get/database-info",
-                "jmesPath": "[].{value:id, label:title || ''}"
-              }
-            },
-            "required": true,
-            "description": " Unique id of the database in which to create the item"
-          }
-        ],
-        "requestBody": {
-          "description": "Information needed to create a database item",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/INotion.ICreateDatabaseItemInput"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "201": {
-            "description": "Information about the created database item",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/INotion.IDatabaseItemOutput"
-                }
-              }
-            }
-          }
-        },
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg"
-      },
-      "patch": {
-        "summary": "Modify database item",
-        "description": "Modify item information in the database",
-        "tags": [
-          "Notion"
-        ],
-        "parameters": [
-          {
-            "name": "databaseId",
-            "in": "path",
-            "schema": {
-              "type": "string",
-              "x-wrtn-prerequisite": {
-                "method": "post",
-                "path": "/connector/notion/get/database-info",
-                "jmesPath": "[].{value:id, label:title || ''}"
-              }
-            },
-            "required": true,
-            "description": " Unique id of the database to modify"
-          }
-        ],
-        "requestBody": {
-          "description": "Database item information to modify",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/INotion.IUpdateDatabaseItemInput"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "200": {
-            "description": "Modified database item information",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/INotion.IDatabaseItemOutput"
-                }
-              }
-            }
-          }
-        },
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg"
-      }
-    },
     "/connector/notion/get-page-by-title": {
       "post": {
         "summary": "Search for pages by title",
@@ -7571,7 +7475,7 @@
     "/connector/notion/create-gallery-item": {
       "post": {
         "summary": "Create items in the gallery database",
-        "description": "Create an item in the generated gallery view database.\nCreating a database item means adding an item to an existing database.\nIf there is no database received from input, you must first create a database using the POST: /connector/notion/create-gallery-database endpoint and then run it.\nYou should use this endpoint when adding items to an already created database.\nYou need to use this endpoint to add multiple items to the gallery database at once.\nIf you need to add 3 items, instead of calling the endpoint 3 times, you should put the 3 items in an array in the info information and add the 3 items in 1 endpoint call.",
+        "description": "Create an item in the generated gallery view database.\nCreating a database item means adding an item to an existing database.\nIf there is no database received from input, you must first create a database using the POST: /connector/notion/create-gallery-database endpoint and then run it.\nYou should use this endpoint when adding items to an already created database.\nYou need to use this endpoint to add multiple items to the gallery database at once.\nIf you need to add 3 items, instead of calling the endpoint 3 times, you should put the 3 items in an array in the info information and add the 3 items in 1 endpoint call.\nSince the Notion database can only be created in table format, you will need to instruct users to manually change it to a gallery database view.",
         "tags": [
           "Notion"
         ],
@@ -7629,6 +7533,139 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/INotion.IAppendPageByMarkdownOutput"
+                }
+              }
+            }
+          }
+        },
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg"
+      }
+    },
+    "/connector/notion/create-database": {
+      "post": {
+        "summary": "Create a database",
+        "description": "Create a Notion Database\n\nCreating a database is different from adding items to a database.\nCreating a database is a process of creating a database, and adding items to a database is a process of adding items to an existing database.\nYou need to understand what your users are asking for, how many properties they need, and which properties should be created.",
+        "tags": [
+          "Notion"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/INotion.ICreateDatabaseInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/INotion.ICreateDatabaseOutput"
+                }
+              }
+            }
+          }
+        },
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg"
+      }
+    },
+    "/connector/notion/add-database-property": {
+      "post": {
+        "summary": "Add property to database",
+        "description": "Add property to notion database\nIf you want to add a property to an existing database, you should use this function.\nFor example, if there is an English word database in the Notion database, and there are three existing properties: word, meaning, and example sentence, and the user wants to add a property called Korean meaning, you should use this function to add a new property.\nThis function can only add one property at a time.",
+        "tags": [
+          "Notion"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/INotion.IAddDatabasePropertyInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/INotion.IAddDatabasePropertyOutput"
+                }
+              }
+            }
+          }
+        },
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg"
+      }
+    },
+    "/connector/notion/delete-database-property": {
+      "post": {
+        "summary": "Delete property to database",
+        "description": "Delete property to notion database\nIf you want to delete a property in an existing database, you should use this function.\nFor example, if there is an English word database in the Notion database, and there are 4 properties: word, meaning, example, and Korean meaning, and the user wants to delete the property called Korean meaning, you should use this function to delete the property.\nYou need to know the property name to delete it.\nThis function can only delete one property at a time.",
+        "tags": [
+          "Notion"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/INotion.IDeleteDatabasePropertyInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/INotion.IDeleteDatabasePropertyOutput"
+                }
+              }
+            }
+          }
+        },
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg"
+      }
+    },
+    "/connector/notion/add-items-to-database": {
+      "post": {
+        "summary": "Add items to the database",
+        "description": "Adds an item to each row in the database\nIf you want to add items to an existing database, you should use this function.\nYou should analyze the user's requirements and assign appropriate values ​​to each property.\nYou should select the value you want to add and the property to which you want to add the value.\nFor example, if you have an English vocabulary database and the properties are word, example, and Korean meaning, and you create two items,\nif the items to add are [{\"apple\", \"Apple is a fruit\", \"사과\"}, {\"snack\", \"I like snack\", \"과자\"}],\nyou should assign \"apple\" and \"snack\" to the word property,  \"Apple is a fruit\" and \"I like snack\" to the example, and \"사과\" and \"과자\" to the Korean meaning property.",
+        "tags": [
+          "Notion"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "description": "Items to add to the database",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/INotion.IAddItemsToDatabaseInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/INotion.IAddItemsToDatabaseOutput"
                 }
               }
             }
@@ -33947,409 +33984,6 @@
         ],
         "title": "Database Modification Time Attribute"
       },
-      "INotion.IDatabaseItemOutput": {
-        "type": "object",
-        "properties": {
-          "parent": {
-            "type": "object",
-            "properties": {
-              "type": {
-                "type": "string",
-                "title": "type",
-                "description": "Parent database item object type"
-              },
-              "database_id": {
-                "type": "string",
-                "title": "database id",
-                "description": "database item parent id"
-              }
-            },
-            "required": [
-              "type",
-              "database_id"
-            ],
-            "title": "Parent Database Item",
-            "description": "Parent Database Item Information"
-          },
-          "properties": {
-            "title": "Property",
-            "description": "Database Item Properties"
-          },
-          "object": {
-            "oneOf": [
-              {
-                "const": "user"
-              },
-              {
-                "const": "list"
-              },
-              {
-                "const": "block"
-              },
-              {
-                "const": "page"
-              },
-              {
-                "const": "database"
-              },
-              {
-                "const": "property_item"
-              },
-              {
-                "const": "comment"
-              }
-            ],
-            "title": "Object Type",
-            "description": "Type of page object"
-          },
-          "created_time": {
-            "type": "string",
-            "title": "Date created",
-            "description": "Date the page was created"
-          },
-          "last_edited_time": {
-            "type": "string",
-            "title": "Last modified",
-            "description": "Date the page was last modified"
-          },
-          "created_by": {
-            "type": "object",
-            "properties": {
-              "object": {
-                "oneOf": [
-                  {
-                    "const": "user"
-                  },
-                  {
-                    "const": "list"
-                  },
-                  {
-                    "const": "block"
-                  },
-                  {
-                    "const": "page"
-                  },
-                  {
-                    "const": "database"
-                  },
-                  {
-                    "const": "property_item"
-                  },
-                  {
-                    "const": "comment"
-                  }
-                ],
-                "title": "Object Type",
-                "description": "The type of the object that created the page"
-              },
-              "id": {
-                "type": "string",
-                "title": "id",
-                "description": "Unique id of the person who created the page"
-              }
-            },
-            "required": [
-              "object",
-              "id"
-            ],
-            "title": "Created by",
-            "description": "Information about who created the page"
-          },
-          "last_edited_by": {
-            "type": "object",
-            "properties": {
-              "object": {
-                "oneOf": [
-                  {
-                    "const": "user"
-                  },
-                  {
-                    "const": "list"
-                  },
-                  {
-                    "const": "block"
-                  },
-                  {
-                    "const": "page"
-                  },
-                  {
-                    "const": "database"
-                  },
-                  {
-                    "const": "property_item"
-                  },
-                  {
-                    "const": "comment"
-                  }
-                ],
-                "title": "Object Type",
-                "description": "The type of object that last modified the page"
-              },
-              "id": {
-                "type": "string",
-                "title": "id",
-                "description": "Unique id of the last person to edit the page"
-              }
-            },
-            "required": [
-              "object",
-              "id"
-            ],
-            "title": "Last modified by",
-            "description": "Information about who last modified the page"
-          },
-          "cover": {
-            "oneOf": [
-              {
-                "type": "null"
-              },
-              {
-                "$ref": "#/components/schemas/INotion.IPageCover"
-              }
-            ],
-            "title": "Background Image",
-            "description": "Page Background Image Information"
-          },
-          "icon": {
-            "oneOf": [
-              {
-                "type": "null"
-              },
-              {
-                "$ref": "#/components/schemas/INotion.IPageIcon"
-              }
-            ],
-            "title": "Icon",
-            "description": "Page Icon Information"
-          },
-          "archived": {
-            "type": "boolean",
-            "title": "Whether to archive the page",
-            "description": "Whether to archive the page"
-          },
-          "url": {
-            "type": "string",
-            "format": "iri",
-            "title": "url",
-            "description": "Page url"
-          },
-          "public_url": {
-            "oneOf": [
-              {
-                "type": "null"
-              },
-              {
-                "type": "string",
-                "format": "iri"
-              }
-            ],
-            "title": "public url",
-            "description": "Page public url"
-          },
-          "id": {
-            "type": "string",
-            "title": "page id",
-            "description": "Unique id of the generated page"
-          },
-          "title": {
-            "type": "string",
-            "title": "tilte\n\nTitle of the document you just created"
-          },
-          "link": {
-            "type": "string",
-            "format": "iri",
-            "title": "page link"
-          }
-        },
-        "required": [
-          "parent",
-          "properties",
-          "object",
-          "created_time",
-          "last_edited_time",
-          "created_by",
-          "last_edited_by",
-          "cover",
-          "icon",
-          "archived",
-          "url",
-          "public_url",
-          "id",
-          "title",
-          "link"
-        ],
-        "title": "Database item creation result"
-      },
-      "INotion.IPageCover": {
-        "type": "object",
-        "properties": {
-          "type": {
-            "type": "string",
-            "title": "Type",
-            "description": "Image Type"
-          },
-          "external": {
-            "$ref": "#/components/schemas/INotion.IExternalImage",
-            "title": "Image",
-            "description": "Image information"
-          }
-        },
-        "required": [
-          "type",
-          "external"
-        ],
-        "title": "Page background image information"
-      },
-      "INotion.IExternalImage": {
-        "type": "object",
-        "properties": {
-          "url": {
-            "type": "string",
-            "format": "iri",
-            "title": "url",
-            "description": "image url"
-          }
-        },
-        "required": [
-          "url"
-        ],
-        "title": "External image information"
-      },
-      "INotion.IPageIcon": {
-        "type": "object",
-        "properties": {
-          "type": {
-            "oneOf": [
-              {
-                "const": "file"
-              },
-              {
-                "const": "external"
-              },
-              {
-                "const": "emoji"
-              }
-            ],
-            "title": "Type",
-            "description": "Icon Type"
-          },
-          "emoji": {
-            "oneOf": [
-              {
-                "type": "null"
-              },
-              {
-                "type": "string"
-              }
-            ],
-            "title": "Emoji icon",
-            "description": "Icon information when the icon type is emoji"
-          },
-          "external": {
-            "oneOf": [
-              {
-                "type": "null"
-              },
-              {
-                "$ref": "#/components/schemas/INotion.IExternalImage"
-              }
-            ],
-            "title": "Icon",
-            "description": "Icon information when the icon type is icon"
-          },
-          "file": {
-            "type": "object",
-            "properties": {
-              "url": {
-                "type": "string",
-                "format": "iri",
-                "title": "url",
-                "description": "file url"
-              },
-              "expiry_time": {
-                "type": "string",
-                "title": "expiration time",
-                "description": "Image file expiration time"
-              }
-            },
-            "required": [
-              "url",
-              "expiry_time"
-            ],
-            "title": "Icon file",
-            "description": "Icon information when the icon type is file"
-          }
-        },
-        "required": [
-          "type"
-        ],
-        "title": "Page Icon Information"
-      },
-      "INotion.ICreateDatabaseItemInput": {
-        "type": "object",
-        "properties": {
-          "value": {
-            "type": "string",
-            "title": "property value",
-            "description": "Value to add to database property"
-          },
-          "markdown": {
-            "type": "string",
-            "title": "markdown",
-            "description": "If you add a markdown string, it will be converted appropriately according to the Notion's block.\nTherefore, you don't have to use Unicode symbols to implement lists or decorate documents using letters.\nOf course, this depends on the user, and there is no problem using the character string you want, such as inserting an emoji as well as Unicode."
-          },
-          "secretKey": {
-            "type": "string",
-            "x-wrtn-secret-key": "notion",
-            "title": "Select authentication information",
-            "description": "secret key."
-          }
-        },
-        "required": [
-          "markdown",
-          "secretKey"
-        ],
-        "title": "Information required to add an item to the database",
-        "additionalProperties": {}
-      },
-      "INotion.IUpdateDatabaseItemInput": {
-        "type": "object",
-        "properties": {
-          "pageId": {
-            "type": "string",
-            "x-wrtn-prerequisite": {
-              "method": "post",
-              "path": "/connector/notion/get/page",
-              "jmesPath": "[].{value:pageId, label:title}"
-            },
-            "title": "Page",
-            "description": "Page to update"
-          },
-          "markdown": {
-            "type": "string",
-            "title": "markdown",
-            "description": "If you add a markdown string, it will be converted appropriately according to the Notion's block.\nTherefore, you don't have to use Unicode symbols to implement lists or decorate documents using letters.\nOf course, this depends on the user, and there is no problem using the character string you want, such as inserting an emoji as well as Unicode."
-          },
-          "value": {
-            "type": "string",
-            "title": "property value",
-            "description": "Database property value to update"
-          },
-          "secretKey": {
-            "type": "string",
-            "x-wrtn-secret-key": "notion",
-            "title": "Select authentication information",
-            "description": "secret key."
-          }
-        },
-        "required": [
-          "pageId",
-          "markdown",
-          "secretKey"
-        ],
-        "title": "Information required to modify an item that exists in the database",
-        "additionalProperties": {}
-      },
       "INotion.IFindPageByTitleOutput": {
         "type": "object",
         "properties": {
@@ -34728,6 +34362,111 @@
         ],
         "title": "Page title Additional information"
       },
+      "INotion.IPageCover": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "title": "Type",
+            "description": "Image Type"
+          },
+          "external": {
+            "$ref": "#/components/schemas/INotion.IExternalImage",
+            "title": "Image",
+            "description": "Image information"
+          }
+        },
+        "required": [
+          "type",
+          "external"
+        ],
+        "title": "Page background image information"
+      },
+      "INotion.IExternalImage": {
+        "type": "object",
+        "properties": {
+          "url": {
+            "type": "string",
+            "format": "iri",
+            "title": "url",
+            "description": "image url"
+          }
+        },
+        "required": [
+          "url"
+        ],
+        "title": "External image information"
+      },
+      "INotion.IPageIcon": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "oneOf": [
+              {
+                "const": "file"
+              },
+              {
+                "const": "external"
+              },
+              {
+                "const": "emoji"
+              }
+            ],
+            "title": "Type",
+            "description": "Icon Type"
+          },
+          "emoji": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "title": "Emoji icon",
+            "description": "Icon information when the icon type is emoji"
+          },
+          "external": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/INotion.IExternalImage"
+              }
+            ],
+            "title": "Icon",
+            "description": "Icon information when the icon type is icon"
+          },
+          "file": {
+            "type": "object",
+            "properties": {
+              "url": {
+                "type": "string",
+                "format": "iri",
+                "title": "url",
+                "description": "file url"
+              },
+              "expiry_time": {
+                "type": "string",
+                "title": "expiration time",
+                "description": "Image file expiration time"
+              }
+            },
+            "required": [
+              "url",
+              "expiry_time"
+            ],
+            "title": "Icon file",
+            "description": "Icon information when the icon type is file"
+          }
+        },
+        "required": [
+          "type"
+        ],
+        "title": "Page Icon Information"
+      },
       "INotion.IFindPageOrDatabaseItemInput": {
         "type": "object",
         "properties": {
@@ -34748,6 +34487,239 @@
           "secretKey"
         ],
         "title": "Information needed to search the page"
+      },
+      "INotion.IDatabaseItemOutput": {
+        "type": "object",
+        "properties": {
+          "parent": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "title": "type",
+                "description": "Parent database item object type"
+              },
+              "database_id": {
+                "type": "string",
+                "title": "database id",
+                "description": "database item parent id"
+              }
+            },
+            "required": [
+              "type",
+              "database_id"
+            ],
+            "title": "Parent Database Item",
+            "description": "Parent Database Item Information"
+          },
+          "properties": {
+            "title": "Property",
+            "description": "Database Item Properties"
+          },
+          "object": {
+            "oneOf": [
+              {
+                "const": "user"
+              },
+              {
+                "const": "list"
+              },
+              {
+                "const": "block"
+              },
+              {
+                "const": "page"
+              },
+              {
+                "const": "database"
+              },
+              {
+                "const": "property_item"
+              },
+              {
+                "const": "comment"
+              }
+            ],
+            "title": "Object Type",
+            "description": "Type of page object"
+          },
+          "created_time": {
+            "type": "string",
+            "title": "Date created",
+            "description": "Date the page was created"
+          },
+          "last_edited_time": {
+            "type": "string",
+            "title": "Last modified",
+            "description": "Date the page was last modified"
+          },
+          "created_by": {
+            "type": "object",
+            "properties": {
+              "object": {
+                "oneOf": [
+                  {
+                    "const": "user"
+                  },
+                  {
+                    "const": "list"
+                  },
+                  {
+                    "const": "block"
+                  },
+                  {
+                    "const": "page"
+                  },
+                  {
+                    "const": "database"
+                  },
+                  {
+                    "const": "property_item"
+                  },
+                  {
+                    "const": "comment"
+                  }
+                ],
+                "title": "Object Type",
+                "description": "The type of the object that created the page"
+              },
+              "id": {
+                "type": "string",
+                "title": "id",
+                "description": "Unique id of the person who created the page"
+              }
+            },
+            "required": [
+              "object",
+              "id"
+            ],
+            "title": "Created by",
+            "description": "Information about who created the page"
+          },
+          "last_edited_by": {
+            "type": "object",
+            "properties": {
+              "object": {
+                "oneOf": [
+                  {
+                    "const": "user"
+                  },
+                  {
+                    "const": "list"
+                  },
+                  {
+                    "const": "block"
+                  },
+                  {
+                    "const": "page"
+                  },
+                  {
+                    "const": "database"
+                  },
+                  {
+                    "const": "property_item"
+                  },
+                  {
+                    "const": "comment"
+                  }
+                ],
+                "title": "Object Type",
+                "description": "The type of object that last modified the page"
+              },
+              "id": {
+                "type": "string",
+                "title": "id",
+                "description": "Unique id of the last person to edit the page"
+              }
+            },
+            "required": [
+              "object",
+              "id"
+            ],
+            "title": "Last modified by",
+            "description": "Information about who last modified the page"
+          },
+          "cover": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/INotion.IPageCover"
+              }
+            ],
+            "title": "Background Image",
+            "description": "Page Background Image Information"
+          },
+          "icon": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/INotion.IPageIcon"
+              }
+            ],
+            "title": "Icon",
+            "description": "Page Icon Information"
+          },
+          "archived": {
+            "type": "boolean",
+            "title": "Whether to archive the page",
+            "description": "Whether to archive the page"
+          },
+          "url": {
+            "type": "string",
+            "format": "iri",
+            "title": "url",
+            "description": "Page url"
+          },
+          "public_url": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string",
+                "format": "iri"
+              }
+            ],
+            "title": "public url",
+            "description": "Page public url"
+          },
+          "id": {
+            "type": "string",
+            "title": "page id",
+            "description": "Unique id of the generated page"
+          },
+          "title": {
+            "type": "string",
+            "title": "tilte\n\nTitle of the document you just created"
+          },
+          "link": {
+            "type": "string",
+            "format": "iri",
+            "title": "page link"
+          }
+        },
+        "required": [
+          "parent",
+          "properties",
+          "object",
+          "created_time",
+          "last_edited_time",
+          "created_by",
+          "last_edited_by",
+          "cover",
+          "icon",
+          "archived",
+          "url",
+          "public_url",
+          "id",
+          "title",
+          "link"
+        ],
+        "title": "Database item creation result"
       },
       "INotion.IFindDatabaseItemInput": {
         "type": "object",
@@ -35084,6 +35056,360 @@
           "secretKey"
         ],
         "title": "Information needed to update the page content"
+      },
+      "INotion.ICreateDatabaseOutput": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "id",
+            "description": "Database id"
+          },
+          "title": {
+            "type": "string",
+            "title": "title",
+            "description": "Database title"
+          },
+          "url": {
+            "type": "string",
+            "format": "iri",
+            "title": "url",
+            "description": "Database page url"
+          }
+        },
+        "required": [
+          "id",
+          "title",
+          "url"
+        ],
+        "title": "Information created a notion database"
+      },
+      "INotion.ICreateDatabaseInput": {
+        "type": "object",
+        "properties": {
+          "parentPageId": {
+            "oneOf": [
+              {
+                "type": "string",
+                "x-wrtn-prerequisite": {
+                  "method": "post",
+                  "path": "/connector/notion/get/page",
+                  "jmesPath": "[].{value:pageId, label:title}"
+                },
+                "x-wrtn-placeholder": "부모 페이지를 선택하세요."
+              },
+              {
+                "type": "string",
+                "x-wrtn-prerequisite": {
+                  "method": "post",
+                  "path": "/connector/notion/page",
+                  "jmesPath": "[].{value:id, label:id}"
+                },
+                "x-wrtn-placeholder": "부모 페이지를 선택하세요."
+              }
+            ],
+            "title": "parentPageId"
+          },
+          "title": {
+            "type": "string",
+            "title": "title",
+            "description": "Database Title"
+          },
+          "properties": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/INotion.IDatabaseSchema"
+            },
+            "description": "Database Properties Schema"
+          },
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "notion",
+            "title": "Select authentication information",
+            "description": "secret key."
+          }
+        },
+        "required": [
+          "parentPageId",
+          "title",
+          "properties",
+          "secretKey"
+        ],
+        "title": "Information needed to create a notion database"
+      },
+      "INotion.IDatabaseSchema": {
+        "type": "object",
+        "properties": {},
+        "required": [],
+        "title": "Database Schema",
+        "additionalProperties": {
+          "oneOf": [
+            {
+              "$ref": "#/components/schemas/INotion.IRichTextProperty"
+            },
+            {
+              "$ref": "#/components/schemas/INotion.ITitleProperty"
+            }
+          ]
+        }
+      },
+      "INotion.IRichTextProperty": {
+        "type": "object",
+        "properties": {
+          "rich_text": {
+            "type": "object",
+            "properties": {},
+            "required": []
+          }
+        },
+        "required": [
+          "rich_text"
+        ],
+        "title": "Notion Database rich_text property",
+        "description": "This property is used when adding a text property to the database.\nThe text property can only accept text.\nThis is a property for creating items that should be expressed as text.\nFor example, when creating an English vocabulary list, if you need three properties: word, meaning, and idiom, you should be able to create the meaning and idiom as rich_text properties."
+      },
+      "INotion.ITitleProperty": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "object",
+            "properties": {},
+            "required": []
+          }
+        },
+        "required": [
+          "title"
+        ],
+        "title": "Notion Database title property",
+        "description": "This property is used when adding a title property to a database.\nThis property must be added when creating a database.\nIt must never be omitted.\nThe title property can only accept text.\nItems added to that property can be used as pages, and content can also be added to the pages.\nThis is a property for creating items that should be expressed as topics or titles.\nFor example, when creating an English vocabulary list, if you need three properties: word, meaning, and idiom, you should be able to create words as title properties because words can be used as topics or titles."
+      },
+      "INotion.IAddDatabasePropertyOutput": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "id",
+            "description": "Database id"
+          },
+          "title": {
+            "type": "string",
+            "title": "title",
+            "description": "Database title"
+          },
+          "url": {
+            "type": "string",
+            "format": "iri",
+            "title": "url",
+            "description": "Database page url"
+          }
+        },
+        "required": [
+          "id",
+          "title",
+          "url"
+        ],
+        "title": "Information database for added property"
+      },
+      "INotion.IAddDatabasePropertyInput": {
+        "type": "object",
+        "properties": {
+          "databaseId": {
+            "type": "string",
+            "x-wrtn-prerequisite": {
+              "method": "post",
+              "path": "/connector/notion/get/database-info",
+              "jmesPath": "[].{value:id, label:title}"
+            },
+            "title": "databaseId",
+            "description": "Database Id what you want to delete property."
+          },
+          "property": {
+            "$ref": "#/components/schemas/INotion.IDatabaseSchema",
+            "title": "property",
+            "description": "Database Properties Schema what want to add"
+          },
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "notion",
+            "title": "Select authentication information",
+            "description": "secret key."
+          }
+        },
+        "required": [
+          "databaseId",
+          "property",
+          "secretKey"
+        ],
+        "title": "Information needed to add a property to the database"
+      },
+      "INotion.IDeleteDatabasePropertyOutput": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "id",
+            "description": "Database id"
+          },
+          "title": {
+            "type": "string",
+            "title": "title",
+            "description": "Database title"
+          },
+          "url": {
+            "type": "string",
+            "format": "iri",
+            "title": "url",
+            "description": "Database page url"
+          }
+        },
+        "required": [
+          "id",
+          "title",
+          "url"
+        ],
+        "title": "Information database for deleted property"
+      },
+      "INotion.IDeleteDatabasePropertyInput": {
+        "type": "object",
+        "properties": {
+          "databaseId": {
+            "type": "string",
+            "x-wrtn-prerequisite": {
+              "method": "post",
+              "path": "/connector/notion/get/database-info",
+              "jmesPath": "[].{value:id, label:title}"
+            },
+            "title": "databaseId",
+            "description": "Database Id what you want to delete property."
+          },
+          "propertyName": {
+            "type": "string",
+            "title": "propertyName",
+            "description": "The name of the property want to delete"
+          },
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "notion",
+            "title": "Select authentication information",
+            "description": "secret key."
+          }
+        },
+        "required": [
+          "databaseId",
+          "propertyName",
+          "secretKey"
+        ],
+        "title": "Information needed to delete a property to the database"
+      },
+      "INotion.IAddItemsToDatabaseOutput": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "id",
+            "description": "Database id"
+          },
+          "title": {
+            "type": "string",
+            "title": "title",
+            "description": "Database title"
+          },
+          "url": {
+            "type": "string",
+            "format": "iri",
+            "title": "url",
+            "description": "Database page url"
+          }
+        },
+        "required": [
+          "id",
+          "title",
+          "url"
+        ],
+        "title": "Information database for added items"
+      },
+      "INotion.IAddItemsToDatabaseInput": {
+        "type": "object",
+        "properties": {
+          "databaseId": {
+            "type": "string",
+            "x-wrtn-prerequisite": {
+              "method": "post",
+              "path": "/connector/notion/get/database-info",
+              "jmesPath": "[].{value:id, label:title}"
+            },
+            "title": "databaseId",
+            "description": "Database Id what you want to add a item.\n\nIf the database is not created, you can create a database using the `Create Database` function first.\nThe endpoint is POST: /connector/notion/create-database."
+          },
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/INotion.ICreateDatabaseItem"
+            },
+            "title": "Items to create",
+            "description": "These are the item combinations to be created in the database.\nEach item combination is created for each row in the database."
+          },
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "notion",
+            "title": "Select authentication information",
+            "description": "secret key."
+          }
+        },
+        "required": [
+          "databaseId",
+          "items",
+          "secretKey"
+        ],
+        "title": "Information needed to add an items to the database"
+      },
+      "INotion.ICreateDatabaseItem": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "title": "title value",
+            "description": "The value to be filled in the title property."
+          },
+          "rich_text": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "propertyName": {
+                  "type": "string"
+                },
+                "value": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "propertyName",
+                "value"
+              ]
+            },
+            "title": "rich_text value",
+            "description": "The values to be filled in the rich_text property."
+          },
+          "date": {
+            "type": "string",
+            "format": "date-time",
+            "title": "date value",
+            "description": "The value to be filled in the date property.\nYou must specify the date-time at the time the input was filled in."
+          },
+          "markdown": {
+            "type": "string",
+            "title": "page content",
+            "description": "If you add a markdown string, it will be converted appropriately according to the Notion's block.\nTherefore, you don't have to use Unicode symbols to implement lists or decorate documents using letters.\nOf course, this depends on the user, and there is no problem using the character string you want, such as inserting an emoji as well as Unicode.\nThis Markdown string is used to add content to the page of each database row."
+          }
+        },
+        "required": [
+          "title",
+          "rich_text",
+          "date"
+        ],
+        "title": "Information about the item added to the database",
+        "description": "This combination of items is used to populate a row in the database.\nFor example, if the properties of the database are title, rich_text, rich_text, rich_text, date, The combination of items requires 1 title, 3 rich_texts, and 1 date."
       },
       "IGoogleHotel.IResponse": {
         "type": "object",
@@ -60670,7 +60996,7 @@
                 "const": ""
               },
               {
-                "$ref": "#/components/schemas/__type.o2265"
+                "$ref": "#/components/schemas/__type.o2272"
               }
             ],
             "title": "replies"
@@ -61117,14 +61443,14 @@
           "name"
         ]
       },
-      "__type.o2265": {
+      "__type.o2272": {
         "type": "object",
         "properties": {
           "kind": {
             "const": "Listing"
           },
           "data": {
-            "$ref": "#/components/schemas/__type.o2266"
+            "$ref": "#/components/schemas/__type.o2273"
           }
         },
         "required": [
@@ -61132,7 +61458,7 @@
           "data"
         ]
       },
-      "__type.o2266": {
+      "__type.o2273": {
         "type": "object",
         "properties": {
           "after": {
@@ -61152,7 +61478,7 @@
             "items": {
               "oneOf": [
                 {
-                  "$ref": "#/components/schemas/__type.o2267"
+                  "$ref": "#/components/schemas/__type.o2274"
                 },
                 {
                   "type": "object",
@@ -61226,7 +61552,7 @@
           "before"
         ]
       },
-      "__type.o2267": {
+      "__type.o2274": {
         "type": "object",
         "properties": {
           "kind": {
