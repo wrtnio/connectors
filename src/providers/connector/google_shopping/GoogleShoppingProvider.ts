@@ -221,9 +221,14 @@ export class GoogleShoppingProvider {
       "송영길",
       "민형배",
     ];
-    if (extractInputKeywords.includes(input.keyword)) {
+    const normalizedKeyword = input.keyword.trim();
+    const isSensitiveKeyword = extractInputKeywords.some((keyword) =>
+      normalizedKeyword.includes(keyword),
+    );
+
+    if (isSensitiveKeyword) {
       throw new BadRequestException(
-        `민감한 검색어 ${input.keyword}가 포함되어 있습니다.`,
+        `Contains sensitive keyword: ${input.keyword}`,
       );
     }
     return this.getGoogleShoppingResults(input, "mr:1,merchagg:m534059966");
