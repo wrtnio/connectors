@@ -81,9 +81,14 @@ export namespace ISpreadsheet {
       "external_user_id" | "snapshots" | "deleted_at"
     > {
     /**
-     * @title Total count of cells
+     * It is the summarized cell content, and only up to 100 are searched.
+     * You can check the whole thing by searching in detail.
+     *
+     * @title Summarized Cell Contents
      */
-    total_cell_count: number & tags.Type<"uint64">;
+    spreadsheet_cells: Array<StrictOmit<ISpreadsheetCell, "spreadsheet_id">> &
+      tags.MinItems<0> &
+      tags.MaxItems<100>;
   }
 
   export interface ICreate {
@@ -100,7 +105,7 @@ export namespace ISpreadsheet {
      *
      * @title description
      */
-    description?: string;
+    description?: string | null;
 
     /**
      * @title cells
@@ -108,7 +113,7 @@ export namespace ISpreadsheet {
     cells?: ISpreadsheetCell.ICreate[];
   }
 
-  export interface ISnapshot extends ISpreadsheet.ICreate {
+  export interface ISnapshot extends StrictOmit<ISpreadsheet.ICreate, "cells"> {
     /**
      * @title Primary Key
      */
@@ -127,7 +132,7 @@ export namespace ISpreadsheet {
      *
      * @title History of this snapshot being exported
      */
-    spreadsheet_exports: ISpreadsheetExport[];
+    spreadsheet_exports: ISpreadsheetExport.ISummary[];
   }
 }
 
@@ -179,4 +184,9 @@ export interface ISpreadsheet<
    * @title Deletion time of spreadsheet
    */
   deleted_at: (string & tags.Format<"date-time">) | null;
+
+  /**
+   * @title Total count of cells
+   */
+  total_cell_count: number & tags.Type<"uint64">;
 }

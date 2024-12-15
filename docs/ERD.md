@@ -449,7 +449,11 @@ erDiagram
 "spreadsheet_exports" {
   String id PK
   String provider_id FK
+  String uid "nullable"
+  String url "nullable"
   String spreadsheet_snapshot_id FK
+  DateTime created_at
+  DateTime deleted_at "nullable"
 }
 "spreadsheet_snapshots" }|--o| "spreadsheets" : spreadsheets
 "spreadsheet_cells" }o--|| "spreadsheets" : spreadsheet
@@ -565,7 +569,11 @@ This will probably be the table with the most columns in the Spreadsheets group.
 **Properties**
   - `id`: 
   - `provider_id`: 
+  - `uid`: Unique ID of this exported document
+  - `url`: URL path to the reference
   - `spreadsheet_snapshot_id`: [spreadsheet_snapshots.id](#spreadsheet_snapshots) of the attributed article snapshot
+  - `created_at`: The date and time the record was created.
+  - `deleted_at`: Date and time of article deletion.
 
 
 ## Similarweb

@@ -1,6 +1,12 @@
 import { tags } from "typia";
+import { StrictOmit } from "../../../types/strictOmit";
 
-export namespace ISpreadsheetExport {}
+export namespace ISpreadsheetExport {
+  export type ISummary = StrictOmit<
+    ISpreadsheetExport,
+    "spreadsheet_snapshot_id" | "deleted_at"
+  >;
+}
 
 export interface ISpreadsheetExport {
   /**
@@ -11,7 +17,7 @@ export interface ISpreadsheetExport {
   /**
    * @title Snapshot ID
    */
-  bbs_article_snapshot_id: string & tags.Format<"uuid">;
+  spreadsheet_snapshot_id: string & tags.Format<"uuid">;
 
   /**
    * It means the name of the service from which the post was exported,

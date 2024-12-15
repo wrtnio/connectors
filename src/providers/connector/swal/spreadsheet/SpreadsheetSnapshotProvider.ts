@@ -4,6 +4,59 @@ import { randomUUID } from "node:crypto";
 import { tags } from "typia";
 
 export namespace SpreadsheetSnapshotProvider {
+  export namespace json {
+    export const transform = (
+      input: Prisma.spreadsheet_snapshotsGetPayload<
+        ReturnType<typeof json.select>
+      >,
+    ): ISpreadsheet.ISnapshot => {
+      return {
+        id: input.id,
+        title: input.title,
+        description: input.description ?? null,
+        spreadsheet_exports: input.spreadsheet_exports.map((el) => {
+          return {
+            id: el.id,
+            uid: el.uid,
+            url: el.url,
+            created_at: el.created_at.toISOString(),
+            provider: el.spreadsheet_provider.name,
+          };
+        }),
+        created_at: input.created_at.toISOString(),
+      };
+    };
+
+    export const select = () => {
+      return {
+        select: {
+          id: true,
+          title: true,
+          description: true,
+          created_at: true,
+          spreadsheet_exports: {
+            select: {
+              id: true,
+              uid: true,
+              url: true,
+              created_at: true,
+              deleted_at: true,
+              spreadsheet_provider: {
+                select: {
+                  id: true,
+                  name: true,
+                },
+              },
+            },
+            where: {
+              deleted_at: null,
+            },
+          },
+        },
+      } satisfies Prisma.spreadsheet_snapshotsFindManyArgs;
+    };
+  }
+
   export namespace summary {
     export const select = () => {
       return {
@@ -15,9 +68,19 @@ export namespace SpreadsheetSnapshotProvider {
           spreadsheet_exports: {
             select: {
               id: true,
+              uid: true,
+              url: true,
+              created_at: true,
+              deleted_at: true,
               spreadsheet_provider: {
-                include: {},
+                select: {
+                  id: true,
+                  name: true,
+                },
               },
+            },
+            where: {
+              deleted_at: null,
             },
           },
         },

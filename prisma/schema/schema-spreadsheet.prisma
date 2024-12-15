@@ -329,10 +329,26 @@ model spreadsheet_exports {
   // @format uuid
   provider_id String @db.Uuid
 
+  /// Unique ID of this exported document
+  ///
+  /// 
+  uid String?
+
+  /// URL path to the reference
+  ///
+  /// @format uri
+  url String? @db.VarChar(80000)
+
   /// {@link spreadsheet_snapshots.id} of the attributed article snapshot
   /// 
   /// @format uuid
   spreadsheet_snapshot_id String @db.Uuid
+
+  /// The date and time the record was created.
+  created_at DateTime @db.Timestamptz
+
+  /// Date and time of article deletion.
+  deleted_at DateTime? @db.Timestamptz
 
   //----
   // RELATIONS

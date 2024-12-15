@@ -23,11 +23,13 @@ export namespace SpreadsheetProvider {
         id: input.id,
         title: input.title,
         description: input.description,
-        total_cell_count: 0,
+        total_cell_count: input.spreadsheet_cells.length,
         created_at: input.created_at.toISOString(),
-        spreadsheet_cells: input.spreadsheet_cells.map((cell) => {
-          return SpreadsheetCellProvider.summary.transform(cell);
-        }),
+        spreadsheet_cells: input.spreadsheet_cells
+          .map((cell) => {
+            return SpreadsheetCellProvider.summary.transform(cell);
+          })
+          .slice(0, 100),
       };
     };
 
@@ -46,6 +48,48 @@ export namespace SpreadsheetProvider {
             },
           },
           spreadsheet_formats: SpreadsheetFormatProvider.summary.select(),
+        },
+      } satisfies Prisma.spreadsheetsFindManyArgs;
+    };
+  }
+
+  export namespace json {
+    export const transform = (
+      input: Prisma.spreadsheetsGetPayload<ReturnType<typeof json.select>>,
+    ): ISpreadsheet => {
+      return {
+        id: input.id,
+        external_user_id: input.external_user_id,
+        title: input.title,
+        description: input.description,
+        total_cell_count: input.spreadsheet_cells.length,
+        created_at: input.created_at.toISOString(),
+        snapshots: input.snapshots.map((snapshot) => {
+          return SpreadsheetSnapshotProvider.json.transform(snapshot);
+        }),
+        spreadsheet_cells: input.spreadsheet_cells.map((cell) => {
+          return SpreadsheetCellProvider.summary.transform(cell);
+        }),
+        deleted_at: null,
+      };
+    };
+
+    export const select = () => {
+      return {
+        select: {
+          id: true,
+          external_user_id: true,
+          title: true,
+          description: true,
+          created_at: true,
+          spreadsheet_cells: SpreadsheetCellProvider.summary.select(),
+          mv_last: {
+            select: {
+              snapshot: SpreadsheetSnapshotProvider.summary.select(),
+            },
+          },
+          spreadsheet_formats: SpreadsheetFormatProvider.summary.select(),
+          snapshots: SpreadsheetSnapshotProvider.json.select(),
         },
       } satisfies Prisma.spreadsheetsFindManyArgs;
     };
@@ -132,10 +176,16 @@ export namespace SpreadsheetProvider {
     input: any,
   ) => {};
 
-  export const at = async (
-    external_user: IExternalUser,
-    spreadsheetId: any,
-  ) => {};
+  // export const at = async (
+  //   external_user: IExternalUser,
+  //   spreadsheetId: ISpreadsheet["id"],
+  // ): Promise<ISpreadsheet> => {
+  // ConnectorGlobal.prisma.spreadsheets.findFirstOrThrow({
+  //   ...SpreadsheetProvider
+  //   where: {
+  //   }
+  // })
+  // };
 
   export const index = async (
     external_user: IExternalUser,
