@@ -1,5 +1,7 @@
 import { Prisma } from "@prisma/client";
 import { ISpreadsheetCell } from "@wrtn/connector-api/lib/structures/connector/swal/spreadsheet/ISpreadsheetCell";
+import { randomUUID } from "crypto";
+import { tags } from "typia";
 
 export namespace SpreadsheetCellSnapshotProvider {
   export namespace summary {
@@ -27,4 +29,16 @@ export namespace SpreadsheetCellSnapshotProvider {
       } satisfies Prisma.spreadsheet_cell_snapshotsFindManyArgs;
     };
   }
+
+  export const collect = (
+    input: ISpreadsheetCell.ISnapshot.ICreate,
+    created_at: string & tags.Format<"date-time">,
+  ) => {
+    return {
+      id: randomUUID(),
+      type: input.type,
+      value: input.value,
+      created_at,
+    } satisfies Prisma.spreadsheet_cell_snapshotsCreateWithoutSpreadsheet_cellInput;
+  };
 }

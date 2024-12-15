@@ -3,9 +3,14 @@ import { Prisma } from "@prisma/client";
 import { IExternalUser } from "@wrtn/connector-api/lib/structures/common/IExternalUser";
 import { IPage } from "@wrtn/connector-api/lib/structures/common/IPage";
 import { ISpreadsheet } from "@wrtn/connector-api/lib/structures/connector/swal/spreadsheet/ISpreadsheet";
+import { MyPick } from "@wrtn/connector-api/lib/structures/types/MyPick";
+import { StrictOmit } from "@wrtn/connector-api/lib/structures/types/strictOmit";
+import { randomUUID } from "node:crypto";
+import { tags } from "typia";
 import { ConnectorGlobal } from "../../../../ConnectorGlobal";
 import { PaginationUtil } from "../../../../utils/PaginationUtil";
 import { SpreadsheetCellProvider } from "./SpreadsheetCellProvider";
+import { SpreadsheetCellSnapshotProvider } from "./SpreadsheetCellSnapshotProvider";
 import { SpreadsheetFormatProvider } from "./SpreadsheetFormatProvider";
 import { SpreadsheetSnapshotProvider } from "./SpreadsheetSnapshotProvider";
 
@@ -38,7 +43,69 @@ export namespace SpreadsheetProvider {
   export namespace sync {}
   export namespace exports {}
 
-  export const create = async (external_user: IExternalUser, input: any) => {};
+  export const create =
+    (
+      external_user: IExternalUser,
+      createSheetInput: StrictOmit<ISpreadsheet.ICreate, "cells">,
+    ) =>
+    async (createCellInput: MyPick<ISpreadsheet.ICreate, "cells">) => {
+      const created_at = new Date().toISOString();
+      const spreadsheet = await ConnectorGlobal.prisma.spreadsheets.create({
+        ...SpreadsheetProvider.summary.select(),
+        data: SpreadsheetProvider.collect(
+          external_user,
+          SpreadsheetSnapshotProvider.collect,
+          created_at,
+        )(createSheetInput),
+      });
+
+      if (createCellInput.cells?.length) {
+        await ConnectorGlobal.prisma.spreadsheet_cells.createMany({
+          data: createCellInput.cells.map((cell) => {
+            return {
+              spreadsheet_id: spreadsheet.id,
+              ...SpreadsheetCellProvider.collect(spreadsheet.id)(
+                cell,
+                SpreadsheetCellSnapshotProvider.collect,
+                created_at,
+              ),
+            };
+          }),
+        });
+      }
+    };
+
+  export const collect =
+    <
+      Input extends ISpreadsheet.ICreate,
+      Snapshot extends Prisma.spreadsheet_snapshotsCreateInput,
+    >(
+      external_user: IExternalUser,
+      snapshotFactory: (
+        input: Input,
+        created_at: string & tags.Format<"date-time">,
+      ) => Snapshot,
+      created_at: string & tags.Format<"date-time">,
+    ) =>
+    (input: Input) => {
+      const snapshot = snapshotFactory(input, created_at);
+      return {
+        id: randomUUID(),
+        external_user_id: external_user.id,
+        password: external_user.password,
+        created_at,
+        snapshots: {
+          create: [snapshot],
+        },
+        mv_last: {
+          create: {
+            snapshot: {
+              connect: { id: snapshot.id },
+            },
+          },
+        },
+      } satisfies Prisma.spreadsheetsCreateInput;
+    };
 
   export const update = async (
     external_user: IExternalUser,

@@ -15,4 +15,15 @@ export class SpreadsheetController {
   ): Promise<IPage<ISpreadsheet.ISummary>> {
     return SpreadsheetProvider.index(external_user, input);
   }
+
+  async create(
+    @ExternalUser() external_user: IExternalUser,
+    @TypedBody() input: ISpreadsheet.ICreate,
+  ) {
+    const { cells, ...createSheetInput } = input;
+    return SpreadsheetProvider.create(
+      external_user,
+      createSheetInput,
+    )({ cells });
+  }
 }

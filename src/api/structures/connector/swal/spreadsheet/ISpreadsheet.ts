@@ -101,6 +101,11 @@ export namespace ISpreadsheet {
      * @title description
      */
     description?: string;
+
+    /**
+     * @title cells
+     */
+    cells?: ISpreadsheetCell.ICreate[];
   }
 
   export interface ISnapshot extends ISpreadsheet.ICreate {
