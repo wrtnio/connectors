@@ -15,15 +15,26 @@ const connectionWithSameUser = (connection: CApi.IConnection) => ({
   } satisfies IExternalUser.ExternalUserIdentifier,
 });
 
-export const test_api_connector_swal_spreadsheets = async (
+export const test_api_connector_swal_spreadsheets_index = async (
   connection: CApi.IConnection,
 ) => {
-  // 조회
-  // 조회 시 cell count로 필터링 가능한지 테스트하기
   const res = await CApi.functional.connector.swal.spreadsheets.index(
     connectionWithSameUser(connection),
     {},
   );
 
   typia.assertEquals(res);
+  return res;
 };
+
+export const test_api_connector_swal_spreadsheets_create_empty_spreadsheet =
+  async (connection: CApi.IConnection) => {
+    const res = await CApi.functional.connector.swal.spreadsheets.create(
+      connectionWithSameUser(connection),
+      {
+        title: "TEST",
+      },
+    );
+
+    typia.assertEquals(res);
+  };

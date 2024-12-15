@@ -16,6 +16,7 @@ export class SpreadsheetController {
     return SpreadsheetProvider.index(external_user, input);
   }
 
+  @core.TypedRoute.Post()
   async create(
     @ExternalUser() external_user: IExternalUser,
     @TypedBody() input: ISpreadsheet.ICreate,
