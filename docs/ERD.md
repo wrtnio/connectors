@@ -399,6 +399,8 @@ erDiagram
 }
 "spreadsheets" {
   String id PK
+  String title
+  String description "nullable"
   String external_user_id
   String password
   DateTime created_at
@@ -469,6 +471,8 @@ erDiagram
 
 **Properties**
   - `id`: 
+  - `title`: 
+  - `description`: 
   - `external_user_id`: External User ID
   - `password`
     > System Password

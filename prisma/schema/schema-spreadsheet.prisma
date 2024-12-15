@@ -7,6 +7,10 @@ model spreadsheets {
   /// @format uuid
   id String @id @db.Uuid
 
+  title String
+
+  description String?
+
   /// External User ID
   external_user_id String @db.Uuid
 
