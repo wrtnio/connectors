@@ -45,3 +45,22 @@ export const test_api_connector_swal_spreadsheets_create_empty_spreadsheet =
     const after = await test_api_connector_swal_spreadsheets_index(connection);
     assert(before.pagination.records + 1 === after.pagination.records);
   };
+
+export const test_api_connector_swal_spreadsheets_create_spreadsheet = async (
+  _connection: CApi.IConnection,
+) => {
+  const uuid = randomUUID();
+  const connection = connectionWithSameUser(_connection);
+  const res = await CApi.functional.connector.swal.spreadsheets.create(
+    connectionWithSameUser(connection),
+    {
+      title: uuid,
+      description: uuid,
+    },
+  );
+
+  typia.assertEquals(res);
+
+  const list = await test_api_connector_swal_spreadsheets_index(connection);
+  assert(list.data.some((el) => el.title === uuid && el.description === uuid));
+};

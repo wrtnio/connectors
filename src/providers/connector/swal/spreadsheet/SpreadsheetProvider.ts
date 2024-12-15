@@ -21,6 +21,8 @@ export namespace SpreadsheetProvider {
     ): ISpreadsheet.ISummary => {
       return {
         id: input.id,
+        title: input.title,
+        description: input.description,
         total_cell_count: 0,
         created_at: input.created_at.toISOString(),
         spreadsheet_cells: input.spreadsheet_cells.map((cell) => {
@@ -34,6 +36,8 @@ export namespace SpreadsheetProvider {
         select: {
           id: true,
           external_user_id: true,
+          title: true,
+          description: true,
           created_at: true,
           spreadsheet_cells: SpreadsheetCellProvider.summary.select(),
           mv_last: {
@@ -99,6 +103,8 @@ export namespace SpreadsheetProvider {
       return {
         id: randomUUID(),
         external_user_id: external_user.id,
+        title: input.title,
+        description: input.description,
         password: external_user.password,
         created_at,
         snapshots: {

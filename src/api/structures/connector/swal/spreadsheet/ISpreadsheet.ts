@@ -145,6 +145,16 @@ export interface ISpreadsheet<
   external_user_id: string & tags.Format<"uuid">;
 
   /**
+   * @title Title of Sheet
+   */
+  title: string;
+
+  /**
+   * @title Description of Sheet
+   */
+  description: string | null;
+
+  /**
    * @title cells
    */
   spreadsheet_cells: StrictOmit<ISpreadsheetCell, "spreadsheet_id">[];
