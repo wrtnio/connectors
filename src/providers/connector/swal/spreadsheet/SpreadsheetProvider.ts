@@ -1,4 +1,5 @@
 import { getSortable } from "@kakasoo/sortable";
+import { ForbiddenException, NotFoundException } from "@nestjs/common";
 import { Prisma } from "@prisma/client";
 import { IExternalUser } from "@wrtn/connector-api/lib/structures/common/IExternalUser";
 import { IPage } from "@wrtn/connector-api/lib/structures/common/IPage";
@@ -82,6 +83,7 @@ export namespace SpreadsheetProvider {
           title: true,
           description: true,
           created_at: true,
+          password: true,
           spreadsheet_cells: SpreadsheetCellProvider.summary.select(),
           mv_last: {
             select: {
@@ -176,16 +178,32 @@ export namespace SpreadsheetProvider {
     input: any,
   ) => {};
 
-  // export const at = async (
-  //   external_user: IExternalUser,
-  //   spreadsheetId: ISpreadsheet["id"],
-  // ): Promise<ISpreadsheet> => {
-  // ConnectorGlobal.prisma.spreadsheets.findFirstOrThrow({
-  //   ...SpreadsheetProvider
-  //   where: {
-  //   }
-  // })
-  // };
+  export const at = async (
+    external_user: IExternalUser,
+    spreadsheetId: ISpreadsheet["id"],
+  ): Promise<ISpreadsheet> => {
+    const spreadsheet =
+      await ConnectorGlobal.prisma.spreadsheets.findFirstOrThrow({
+        ...SpreadsheetProvider.json.select(),
+        where: {
+          id: spreadsheetId,
+        },
+      });
+
+    if (spreadsheet === null) {
+      throw new NotFoundException("Not Found spreadsheet");
+    }
+
+    if (spreadsheet.external_user_id !== external_user.id) {
+      throw new ForbiddenException("This spreadsheet is not yours.");
+    }
+
+    if (spreadsheet.password !== external_user.password) {
+      throw new ForbiddenException("This spreadsheet is not yours.");
+    }
+
+    return SpreadsheetProvider.json.transform(spreadsheet);
+  };
 
   export const index = async (
     external_user: IExternalUser,

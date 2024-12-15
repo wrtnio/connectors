@@ -1,4 +1,4 @@
-import core, { TypedBody } from "@nestia/core";
+import core, { TypedBody, TypedParam } from "@nestia/core";
 import { Controller } from "@nestjs/common";
 import { IExternalUser } from "@wrtn/connector-api/lib/structures/common/IExternalUser";
 import { IPage } from "@wrtn/connector-api/lib/structures/common/IPage";
@@ -8,6 +8,14 @@ import { SpreadsheetProvider } from "../../../../providers/connector/swal/spread
 
 @Controller("connector/swal/spreadsheets")
 export class SpreadsheetController {
+  @core.TypedRoute.Patch(":id")
+  async at(
+    @ExternalUser() external_user: IExternalUser,
+    @TypedParam("id") spreadsheetId: ISpreadsheet["id"],
+  ): Promise<ISpreadsheet> {
+    return SpreadsheetProvider.at(external_user, spreadsheetId);
+  }
+
   @core.TypedRoute.Patch()
   async index(
     @ExternalUser() external_user: IExternalUser,
