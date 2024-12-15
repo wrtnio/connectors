@@ -19,7 +19,14 @@ export namespace SpreadsheetProvider {
     export const transform = (
       input: Prisma.spreadsheetsGetPayload<ReturnType<typeof summary.select>>,
     ): ISpreadsheet.ISummary => {
-      return {} as any;
+      return {
+        id: input.id,
+        total_cell_count: 0,
+        created_at: input.created_at.toISOString(),
+        spreadsheet_cells: input.spreadsheet_cells.map((cell) => {
+          return SpreadsheetCellProvider.summary.transform(cell);
+        }),
+      };
     };
 
     export const select = () => {

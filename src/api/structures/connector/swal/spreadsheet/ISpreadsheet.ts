@@ -147,7 +147,7 @@ export interface ISpreadsheet<
   /**
    * @title cells
    */
-  spreadsheet_cells: ISpreadsheetCell[];
+  spreadsheet_cells: StrictOmit<ISpreadsheetCell, "spreadsheet_id">[];
 
   /**
    * It is created for the first time when an spreadsheet is created, and is
