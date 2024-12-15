@@ -1,8 +1,9 @@
 import CApi from "@wrtn/connector-api";
 import { IExternalUser } from "@wrtn/connector-api/lib/structures/common/IExternalUser";
+import { ISpreadsheetCell } from "@wrtn/connector-api/lib/structures/connector/swal/spreadsheet/ISpreadsheetCell";
 import assert from "assert";
 import { randomUUID } from "crypto";
-import typia from "typia";
+import typia, { tags } from "typia";
 
 const password = randomUUID();
 const uid = randomUUID();
@@ -64,3 +65,44 @@ export const test_api_connector_swal_spreadsheets_create_spreadsheet = async (
   const list = await test_api_connector_swal_spreadsheets_index(connection);
   assert(list.data.some((el) => el.title === uuid && el.description === uuid));
 };
+
+export const test_api_connector_swal_spreadsheets_at = async (
+  _connection: CApi.IConnection,
+) => {
+  const connection = connectionWithSameUser(_connection);
+  const list = await test_api_connector_swal_spreadsheets_index(connection);
+
+  assert(list.data.length > 1);
+
+  for await (const { id: srpeadsheetId } of list.data.slice(0, 10)) {
+    const spreadsheet = await CApi.functional.connector.swal.spreadsheets.at(
+      connection,
+      srpeadsheetId,
+    );
+
+    typia.assert(spreadsheet);
+  }
+};
+
+export const test_api_connector_swal_spreadsheets_create_with_cell_and_at =
+  async (_connection: CApi.IConnection) => {
+    const uuid = randomUUID();
+    const connection = connectionWithSameUser(_connection);
+
+    const cellsToCreate = typia.random<
+      ISpreadsheetCell.ICreate[] & tags.MinItems<1>
+    >();
+    const spreadsheet =
+      await CApi.functional.connector.swal.spreadsheets.create(
+        connectionWithSameUser(connection),
+        {
+          title: uuid,
+          description: uuid,
+          cells: cellsToCreate,
+        },
+      );
+
+    typia.assertEquals(spreadsheet);
+
+    assert(cellsToCreate.length === spreadsheet.total_cell_count);
+  };

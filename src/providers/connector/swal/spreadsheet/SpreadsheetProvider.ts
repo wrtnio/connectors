@@ -117,19 +117,25 @@ export namespace SpreadsheetProvider {
       });
 
       if (createCellInput.cells?.length) {
-        await ConnectorGlobal.prisma.spreadsheet_cells.createMany({
-          data: createCellInput.cells.map((cell) => {
-            return {
+        await Promise.all(
+          createCellInput.cells.map(async (cell) => {
+            const data = {
               spreadsheet_id: spreadsheet.id,
-              ...SpreadsheetCellProvider.collect(spreadsheet.id)(
+              ...SpreadsheetCellProvider.collect()(
                 cell,
                 SpreadsheetCellSnapshotProvider.collect,
                 created_at,
               ),
             };
+
+            await ConnectorGlobal.prisma.spreadsheet_cells.create({
+              data,
+            });
           }),
-        });
+        );
       }
+
+      return SpreadsheetProvider.at(external_user, spreadsheet.id);
     };
 
   export const collect =

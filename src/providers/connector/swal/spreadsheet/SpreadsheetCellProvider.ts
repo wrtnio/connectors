@@ -1,5 +1,4 @@
 import { Prisma } from "@prisma/client";
-import { ISpreadsheet } from "@wrtn/connector-api/lib/structures/connector/swal/spreadsheet/ISpreadsheet";
 import { ISpreadsheetCell } from "@wrtn/connector-api/lib/structures/connector/swal/spreadsheet/ISpreadsheetCell";
 import { StrictOmit } from "@wrtn/connector-api/lib/structures/types/strictOmit";
 import { randomUUID } from "node:crypto";
@@ -41,7 +40,7 @@ export namespace SpreadsheetCellProvider {
   }
 
   export const collect =
-    (spreadsheet_id: ISpreadsheet["id"]) =>
+    () =>
     <
       Input extends ISpreadsheetCell.ICreate,
       CreatedAt extends string & tags.Format<"date-time">,
@@ -59,11 +58,6 @@ export namespace SpreadsheetCellProvider {
         column: input.column,
         row: input.row,
         created_at: created_at,
-        spreadsheet: {
-          connect: {
-            id: spreadsheet_id,
-          },
-        },
         spreadsheet_cell_snapshots: {
           create: [snapshot],
         },
@@ -74,6 +68,6 @@ export namespace SpreadsheetCellProvider {
             },
           },
         },
-      } satisfies Prisma.spreadsheet_cellsCreateInput;
+      } satisfies Prisma.spreadsheet_cellsCreateWithoutSpreadsheetInput;
     };
 }
