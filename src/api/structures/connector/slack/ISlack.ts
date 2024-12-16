@@ -363,15 +363,12 @@ export namespace ISlack {
     slack_team_id: string;
 
     /**
-     * 만약에 유저가 다른 유저에게 DM 메시지를 전송하고자 한다면
-     * im channel에서 유저의 아이디가 일치하는 채널을 찾아야 한다.
-     * 그리고 메시지 전송 커넥터를 호출해야 한다.
-     * 단, 유저를 조회하는 목적이 대개 유저의 정보를 파악하거나,
-     * 또는 그 유저에게 메시지를 전송하기 위함이므로 이 스펙을 확장하여,
-     * 유저 조회 시 두 유저가 존재하는 DM 채널 ( = IM 채널 ) 아이디를
-     * 이 프로퍼티에 제공한다.
-     *
-     * 만약 이 값이 'null' 이라면 해당 유저의 im_channel_id를 찾지 못한 것이다.
+     * If a user wants to send a DM message to another user,
+     * they need to find a channel in im channels that matches their username.
+     * And call the message sending connector.
+     * However, since the purpose of looking up a user is usually to get information about the user or to send a message to the user,
+     * this specification is extended to provide the DM channel (= IM channel) ID of the two users in this property when looking up a user.
+     * If this value is 'null', then the user's im_channel_id was not found.
      *
      * @title im_channel_id
      */

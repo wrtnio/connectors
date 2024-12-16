@@ -789,7 +789,7 @@ export class SlackProvider {
 
   async getAllImChannels(input: { secretKey: string }) {
     const users = await this.getAllUsers(input);
-    let response: Awaited<ReturnType<typeof this.getImChannels>>["channels"] =
+    const response: Awaited<ReturnType<typeof this.getImChannels>>["channels"] =
       await this.__getAllImChannels(input);
 
     return response.map((channel) => {
