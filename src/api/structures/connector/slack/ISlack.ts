@@ -357,6 +357,27 @@ export namespace ISlack {
      */
     id: ISlack.User["id"];
 
+
+    /**
+     * @title slack_team_id
+     */
+    slack_team_id: string;
+
+    /**
+     * 만약에 유저가 다른 유저에게 DM 메시지를 전송하고자 한다면
+     * im channel에서 유저의 아이디가 일치하는 채널을 찾아야 한다.
+     * 그리고 메시지 전송 커넥터를 호출해야 한다.
+     * 단, 유저를 조회하는 목적이 대개 유저의 정보를 파악하거나,
+     * 또는 그 유저에게 메시지를 전송하기 위함이므로 이 스펙을 확장하여,
+     * 유저 조회 시 두 유저가 존재하는 DM 채널 ( = IM 채널 ) 아이디를
+     * 이 프로퍼티에 제공한다.
+     * 
+     * 만약 이 값이 'null' 이라면 해당 유저의 im_channel_id를 찾지 못한 것이다.
+     * 
+     * @title im_channel_id
+     */
+    im_channel_id: string | null;
+
     /**
      * This is the name of the user,
      * but in some countries,

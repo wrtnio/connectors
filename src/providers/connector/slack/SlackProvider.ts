@@ -376,6 +376,9 @@ export class SlackProvider {
     const { secretKey, ...rest } = input;
     const queryParameter = createQueryParameter(rest);
 
+    const im_channels = await this.getAllImChannels(input);
+
+
     const url = `https://slack.com/api/users.list?pretty=1`;
     const token = await this.getToken(secretKey);
     const res = await axios.get(`${url}&${queryParameter}`, {
@@ -386,11 +389,14 @@ export class SlackProvider {
     });
 
     const next_cursor = res.data.response_metadata?.next_cursor;
-    const users: StrictOmit<ISlack.IGetUserOutput, "fields">[] =
-      res.data.members.map((el: ISlack.User) => {
+    type User = StrictOmit<ISlack.IGetUserOutput, "fields">
+    const users:User [] =
+      res.data.members.map((el: ISlack.User): User => {
+        const im_channel =im_channels.find((channel) => channel.user === el.id)
         return {
           id: el.id,
           slack_team_id: el.team_id,
+          im_channel_id: im_channel?.id ?? null,          
           name: el.name,
           real_name: el.profile.real_name ?? null,
           display_name: el.profile.display_name,
