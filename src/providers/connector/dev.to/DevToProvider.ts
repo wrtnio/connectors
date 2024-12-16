@@ -8,7 +8,8 @@ export namespace DevToProvider {
   ): Promise<IDevTo.ICreateOutput> => {
     const url = `https://dev.to/api/articles`;
 
-    const api_key = await OAuthSecretProvider.getSecretValue(input.secretKey);
+    const secret = await OAuthSecretProvider.getSecretValue(input.secretKey);
+    const api_key = JSON.parse(secret).key;
     const res = await axios.post(
       url,
       {
@@ -36,7 +37,8 @@ export namespace DevToProvider {
     async (input: IDevTo.IUpdateInput): Promise<IDevTo.IUpdateOutput> => {
       const url = `https://dev.to/api/articles/${article_id}`;
 
-      const api_key = await OAuthSecretProvider.getSecretValue(input.secretKey);
+      const secret = await OAuthSecretProvider.getSecretValue(input.secretKey);
+      const api_key = JSON.parse(secret).key;
       try {
         const res = await axios.put(
           url,
