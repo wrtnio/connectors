@@ -301,12 +301,18 @@ export namespace IArticle {
         /**
          * @title Format of article
          */
-        format: IArticle.ISnapshot["format"];
+        format?: IArticle.ISnapshot["format"];
 
         /**
+         * If you want to search for something that contains a specific title,
+         * you can put the keyword you want in it.
+         * You must put keywords that must be included.
+         * If you don't have anything to search for,
+         * you can put in or not empty characters.
+         *
          * @title Title of article
          */
-        title: IArticle.ISnapshot["title"];
+        title?: IArticle.ISnapshot["title"];
       };
     }
 
