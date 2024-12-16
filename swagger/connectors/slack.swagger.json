@@ -18,7 +18,7 @@
     "title": "Slack",
     "summary": "슬랙에서 대화 내용을 가져오거나 메시지를 보낼 수 있어요.",
     "description": "슬랙에서 우리 멤버들이 어떤 주제를 가지고 논의를 하는지 확인해요. 우리 워크스페이스에 있는 유저 그룹이나 동료의 프로필을 확인할 수도 있고, 동료에게 말을 걸 수도 있고, 채널에 메세지를 보내고, 또 답글을 달 수도 있어요.",
-    "version": "0.1.410",
+    "version": "0.1.411",
     "license": {
       "name": "AGPL-3.0-only"
     }
@@ -890,6 +890,15 @@
                   "path": "/connector/slack/get-im-channels",
                   "jmesPath": "[].{value:id, label:name || '개인 채널'}"
                 }
+              },
+              {
+                "type": "string",
+                "pattern": "^((C(.*))|(D(.*))|(G(.*)))",
+                "x-wrtn-prerequisite": {
+                  "method": "post",
+                  "path": "/connector/slack/get-users",
+                  "jmesPath": "users[].{ value: im_channel_id, label: display_name }"
+                }
               }
             ],
             "title": "channel id",
@@ -1086,6 +1095,15 @@
                   "path": "/connector/slack/get-im-channels",
                   "jmesPath": "[].{value:id, label:name || '개인 채널'}"
                 }
+              },
+              {
+                "type": "string",
+                "pattern": "^((C(.*))|(D(.*))|(G(.*)))",
+                "x-wrtn-prerequisite": {
+                  "method": "post",
+                  "path": "/connector/slack/get-users",
+                  "jmesPath": "users[].{ value: im_channel_id, label: display_name }"
+                }
               }
             ],
             "title": "channel id",
@@ -1153,6 +1171,15 @@
                   "method": "post",
                   "path": "/connector/slack/get-im-channels",
                   "jmesPath": "[].{value:id, label:name || '개인 채널'}"
+                }
+              },
+              {
+                "type": "string",
+                "pattern": "^((C(.*))|(D(.*))|(G(.*)))",
+                "x-wrtn-prerequisite": {
+                  "method": "post",
+                  "path": "/connector/slack/get-users",
+                  "jmesPath": "users[].{ value: im_channel_id, label: display_name }"
                 }
               }
             ],
@@ -1239,6 +1266,15 @@
                   "method": "post",
                   "path": "/connector/slack/get-im-channels",
                   "jmesPath": "[].{value:id, label:name || '개인 채널'}"
+                }
+              },
+              {
+                "type": "string",
+                "pattern": "^((C(.*))|(D(.*))|(G(.*)))",
+                "x-wrtn-prerequisite": {
+                  "method": "post",
+                  "path": "/connector/slack/get-users",
+                  "jmesPath": "users[].{ value: im_channel_id, label: display_name }"
                 }
               }
             ],
@@ -1571,6 +1607,22 @@
             "title": "profile image",
             "description": "There are several profile images for each image quality,\nbut here we provide them based on the first image uploaded by the user."
           },
+          "slack_team_id": {
+            "type": "string",
+            "title": "slack_team_id"
+          },
+          "im_channel_id": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "title": "im_channel_id",
+            "description": "If a user wants to send a DM message to another user,\nthey need to find a channel in im channels that matches their username.\nAnd call the message sending connector.\nHowever, since the purpose of looking up a user is usually to get information about the user or to send a message to the user,\nthis specification is extended to provide the DM channel (= IM channel) ID of the two users in this property when looking up a user.\nIf this value is 'null', then the user's im_channel_id was not found."
+          },
           "display_name": {
             "oneOf": [
               {
@@ -1616,6 +1668,8 @@
           "name",
           "id",
           "profile_image",
+          "slack_team_id",
+          "im_channel_id",
           "display_name",
           "real_name",
           "deleted"
