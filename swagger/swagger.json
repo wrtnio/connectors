@@ -15,7 +15,7 @@
     }
   ],
   "info": {
-    "version": "0.1.404",
+    "version": "0.1.405",
     "title": "@wrtn/connector",
     "description": "wrtn-ecosystem connectors and sdk",
     "license": {
@@ -14067,7 +14067,7 @@
             "properties": {
               "secretKey": {
                 "type": "string",
-                "x-wrtn-secret-key": "dev.to",
+                "x-wrtn-secret-key": "dev_to",
                 "x-wrtn-secret-scopes": [],
                 "title": "Dev.to API Key for synchronization"
               }
@@ -14442,7 +14442,7 @@
         "properties": {
           "secretKey": {
             "type": "string",
-            "x-wrtn-secret-key": "dev.to",
+            "x-wrtn-secret-key": "dev_to",
             "x-wrtn-secret-scopes": [],
             "title": "Select authentication information",
             "description": "secret key."
