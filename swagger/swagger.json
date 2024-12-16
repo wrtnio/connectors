@@ -15,7 +15,7 @@
     }
   ],
   "info": {
-    "version": "0.1.408",
+    "version": "0.1.409",
     "title": "@wrtn/connector",
     "description": "wrtn-ecosystem connectors and sdk",
     "license": {
@@ -14320,11 +14320,11 @@
             "properties": {
               "id": {
                 "type": "string",
-                "title": "Created Google Docs File ID"
+                "title": "Created dev.to Article ID"
               },
               "title": {
                 "type": "string",
-                "title": "Title of Created Google Docs File"
+                "title": "Title of Created dev.to Article"
               },
               "link": {
                 "type": "string",
@@ -14410,7 +14410,7 @@
         "properties": {
           "dev_to": {
             "$ref": "#/components/schemas/StrictOmitIDevTo.ICreateInputarticle",
-            "title": "Google Docs Secret Key and information to create file"
+            "title": "dev.to Secret Key and information to create file"
           },
           "snapshot": {
             "type": "object",
@@ -14435,7 +14435,7 @@
           "dev_to",
           "snapshot"
         ],
-        "title": "Conditions and secret keys for exporting to Google Docs"
+        "title": "Conditions and secret keys for exporting to dev.to"
       },
       "StrictOmitIDevTo.ICreateInputarticle": {
         "type": "object",
