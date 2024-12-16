@@ -93,7 +93,7 @@ export namespace IArticle {
         /**
          * @title Dev.to API Key for synchronization
          */
-        secretKey: string & SecretKey<"dev.to", []>;
+        secretKey: string & SecretKey<"dev_to", []>;
       };
     }
 

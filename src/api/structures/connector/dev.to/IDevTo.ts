@@ -4,7 +4,7 @@ import { ICommon } from "../common/ISecretValue";
 export namespace IDevTo {
   export type IUpdateOutput = ICreateOutput;
 
-  export interface IUpdateInput extends ICommon.ISecret<"dev.to", []> {
+  export interface IUpdateInput extends ICommon.ISecret<"dev_to", []> {
     article?: {
       /**
        * @title Title
@@ -35,7 +35,7 @@ export namespace IDevTo {
     url: string & tags.Format<"iri">;
   }
 
-  export interface ICreateInput extends ICommon.ISecret<"dev.to", []> {
+  export interface ICreateInput extends ICommon.ISecret<"dev_to", []> {
     article: {
       /**
        * @title Title
