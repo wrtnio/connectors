@@ -45,6 +45,8 @@ export const test_api_connector_slack_get_im_channels = async (
     );
 
   typia.assert(res);
+  assert(res.every((el) => typeof el.username === "string"));
+
   return res;
 };
 
@@ -64,6 +66,9 @@ export const test_api_connector_slack_get_channel_histories = async (
     );
 
   typia.assert(messages);
+  assert(typeof messages.usergroups.length === "number");
+  assert(typeof messages.channel.name === "string");
+
   return messages;
 };
 
@@ -86,6 +91,29 @@ export const test_api_connector_slack_get_channel_histories_with_date_time =
     typia.assert(messages);
     return messages;
   };
+
+export const test_api_connector_slack_send_text_message_to_im = async (
+  connection: CApi.IConnection,
+) => {
+  const [imchannel] =
+    await test_api_connector_slack_get_im_channels(connection);
+  const message =
+    await CApi.functional.connector.slack.postMessage.text.sendText(
+      connection,
+      {
+        channel: imchannel.id as any,
+        text: "hello, imchannel and world",
+        secretKey: ConnectorGlobal.env.SLACK_TEST_SECRET,
+      },
+    );
+
+  await CApi.functional.connector.slack.message.updateMessage(connection, {
+    thread_ts: message.ts,
+    channel: imchannel.id as any,
+    text: "hello, imchannel and world[updated]",
+    secretKey: ConnectorGlobal.env.SLACK_TEST_SECRET,
+  });
+};
 
 export const test_api_connector_slack_send_text_message_to_public = async (
   connection: CApi.IConnection,

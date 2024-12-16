@@ -2,9 +2,7 @@ import typia from "typia";
 
 import CApi from "@wrtn/connector-api/lib/index";
 
-import { ConnectorGlobal } from "../../../../../src/ConnectorGlobal";
-
-const TEST_T_INVOICE = ConnectorGlobal.env.TEST_SWEET_TRACKER_T_INVOICE;
+const TEST_T_INVOICE = "590329217840" as const;
 
 export const test_api_connector_sweet_tracker_get_companies = async (
   connection: CApi.IConnection,

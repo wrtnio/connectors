@@ -342,7 +342,19 @@ export namespace ISlack {
     "name" | "deleted" | "profile_image"
   >;
 
+  /**
+   * @title User informations
+   */
   export interface IGetUserOutput {
+    /**
+     * Indicates the ID of the user.
+     * This is different from the ID of the DM channel, or IM Channel.
+     * DM is a communication channel with people in that channel,
+     * and even if it is 1:1 the user has multiple DM channels,
+     * so it is not possible to say that the user's ID is a DM channel.
+     *
+     * @title User ID
+     */
     id: ISlack.User["id"];
 
     /**
@@ -495,6 +507,8 @@ export namespace ISlack {
     /**
      * It refers to the channel on which you want to view the conversation history.
      * If you don't know the channel's ID, You need to view the channel first.
+     * When sending a message to a DM channel, you need the channel's ID, not the user's ID.
+     * The user's ID starts with 'U', but if it's a DM channel, it's more likely to start with 'D'.
      *
      * @title channel id
      */
@@ -583,6 +597,29 @@ export namespace ISlack {
      * This is a list of people who participated in the conversation in this conversation list.
      */
     members: MyPick<IGetUserOutput, "id" | "display_name">[];
+
+    /**
+     * @title usergroups
+     */
+    usergroups: ISlack.UserGroup[];
+
+    /**
+     * @title Channel information
+     */
+    channel: {
+      /**
+       * The channel name is the name of the channel for 'public' and 'private',
+       * and the name of the user for 'im'.
+       * If the channel's name is not found, it is marked null.
+       *
+       * @title Channel Name
+       */
+      name:
+        | PublicChannel["name"]
+        | PrivateChannel["name"]
+        | ImChannel["username"]
+        | null;
+    };
   }
 
   export interface IGetReplyInput extends IGetChannelHistoryInput {
@@ -604,7 +641,7 @@ export namespace ISlack {
     /**
      * @title usergroups
      */
-    usergroups: ISlack.UserGroup[];
+    // usergroups: ISlack.UserGroup[];
 
     /**
      * @title username of the person who made this message
@@ -629,6 +666,29 @@ export namespace ISlack {
      * This is a list of people who participated in the conversation in this conversation list.
      */
     members: MyPick<IGetUserOutput, "id" | "display_name">[];
+
+    /**
+     * @title usergroups
+     */
+    usergroups: ISlack.UserGroup[];
+
+    /**
+     * @title Channel information
+     */
+    channel: {
+      /**
+       * The channel name is the name of the channel for 'public' and 'private',
+       * and the name of the user for 'im'.
+       * If the channel's name is not found, it is marked null.
+       *
+       * @title Channel Name
+       */
+      name:
+        | PublicChannel["name"]
+        | PrivateChannel["name"]
+        | ImChannel["username"]
+        | null;
+    };
   }
 
   export interface IGetChannelHistoryOutput extends ICommonPaginationOutput {
@@ -647,11 +707,43 @@ export namespace ISlack {
      * This is a list of people who participated in the conversation in this conversation list.
      */
     members: MyPick<IGetUserOutput, "id" | "display_name">[];
+
+    /**
+     * @title usergroups
+     */
+    usergroups: ISlack.UserGroup[];
+
+    /**
+     * @title Channel information
+     */
+    channel: {
+      /**
+       * The channel name is the name of the channel for 'public' and 'private',
+       * and the name of the user for 'im'.
+       * If the channel's name is not found, it is marked null.
+       *
+       * @title Channel Name
+       */
+      name:
+        | PublicChannel["name"]
+        | PrivateChannel["name"]
+        | ImChannel["username"]
+        | null;
+    };
   }
 
   export interface IGetChannelHistoryInput
     extends ISlack.ISecret,
       ISlack.ICommonPaginationInput {
+    /**
+     * If you know that the channel
+     * you want to read the message is public, private, or im,
+     * make sure to include it.
+     *
+     * @title Channel Type
+     */
+    channel_type?: "public" | "private" | "im";
+
     /**
      * It refers to the channel on which you want to view the conversation history.
      * You need to view the channel first.
@@ -776,6 +868,11 @@ export namespace ISlack {
      * @title channel owner's id
      */
     user: User["id"];
+
+    /**
+     * @title username
+     */
+    username?: User["name"] | null;
   }
 
   export interface PrivateChannel extends Channel {

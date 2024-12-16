@@ -78,6 +78,7 @@ import { WebCrawlerModule } from "./web_crawler/WebCrawlerModule";
 import { XModule } from "./x/XModule";
 import { YoutubeSearchModule } from "./youtube_search/YoutubeSearchModule";
 import { ZoomModule } from "./zoom/ZoomModule";
+import { GoogleImageModule } from "./google_image/GoogleImageModule";
 
 @Module({
   // connectors that require DI of some sort shall be declared as modules
@@ -161,6 +162,7 @@ import { ZoomModule } from "./zoom/ZoomModule";
     RedditModule,
     InnoforestModule,
     WebCrawlerModule,
+    GoogleImageModule,
   ],
 })
 export class ConnectorModule {}

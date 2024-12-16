@@ -12,14 +12,6 @@ import { ICommon } from "../common/ISecretValue";
 
 export namespace INotion {
   /**
-   * - plainText: text
-   * - markdown: markdown
-   *
-   * @title The type of content in the database item page
-   */
-  type ContentType = "plainText" | "markdown";
-
-  /**
    * @title color
    */
   type Color =
@@ -2582,5 +2574,271 @@ export namespace INotion {
      * @title page url
      */
     url: string & tags.Format<"iri">;
+  }
+
+  /**
+   * @title Information needed to update the page content
+   */
+  export interface IUpdatePageContentInput extends INotion.ISecret {
+    /**
+     * Page id what you want to update.
+     *
+     * @title pageId
+     */
+    pageId: PageIdInput["pageId"];
+
+    /**
+     * If you add a markdown string, it will be converted appropriately according to the Notion's block.
+     * Therefore, you don't have to use Unicode symbols to implement lists or decorate documents using letters.
+     * Of course, this depends on the user, and there is no problem using the character string you want, such as inserting an emoji as well as Unicode.
+     *
+     * @title markdown
+     */
+    markdown: string;
+  }
+
+  /**
+   * This property is used when adding a text property to the database.
+   * The text property can only accept text.
+   * This is a property for creating items that should be expressed as text.
+   * For example, when creating an English vocabulary list, if you need three properties: word, meaning, and idiom, you should be able to create the meaning and idiom as rich_text properties.
+   *
+   * @title Notion Database rich_text property
+   */
+  interface IRichTextProperty {
+    rich_text: {};
+  }
+
+  /**
+   * This property is used when adding a title property to a database.
+   * This property must be added when creating a database.
+   * It must never be omitted.
+   * The title property can only accept text.
+   * Items added to that property can be used as pages, and content can also be added to the pages.
+   * This is a property for creating items that should be expressed as topics or titles.
+   * For example, when creating an English vocabulary list, if you need three properties: word, meaning, and idiom, you should be able to create words as title properties because words can be used as topics or titles.
+   *
+   * @title Notion Database title property
+   */
+  interface ITitleProperty {
+    title: {};
+  }
+
+  /**
+   * These are the types that are possible as database properties.
+   *
+   * @title Database property
+   */
+  type IDatabaseProperty = IRichTextProperty | ITitleProperty;
+
+  /**
+   * @title Database Schema
+   */
+  export interface IDatabaseSchema {
+    /**
+     * The property name should be selected with appropriate words based on the user's request.
+     * The type should also be selected with appropriate properties between the title property and the rich_text property based on the user's request.
+     *
+     * @title database property schema
+     */
+    [propertyName: string]: IDatabaseProperty;
+  }
+
+  /**
+   * @title Information needed to create a notion database
+   */
+  export interface ICreateDatabaseInput extends INotion.ISecret {
+    /**
+     * @title parentPageId
+     */
+    parentPageId: PageIdInput["pageId"];
+
+    /**
+     * Database Title
+     *
+     * @title title
+     */
+    title: string;
+
+    /**
+     * Database Properties Schema
+     *
+     * @properties properties
+     */
+    properties: IDatabaseSchema[];
+  }
+
+  /**
+   * @title Information created a notion database
+   */
+  export interface ICreateDatabaseOutput {
+    /**
+     * Database id
+     *
+     * @title id
+     */
+    id: string;
+
+    /**
+     * Database title
+     *
+     * @title title
+     */
+    title: string;
+
+    /**
+     * Database page url
+     *
+     * @title url
+     */
+    url: string & tags.Format<"iri">;
+  }
+
+  /**
+   * @title Information needed to add a property to the database
+   */
+  export interface IAddDatabasePropertyInput extends INotion.ISecret {
+    /**
+     * Database Id what you want to delete property.
+     *
+     * @title databaseId
+     */
+    databaseId: string &
+      Prerequisite<{
+        method: "post";
+        path: "/connector/notion/get/database-info";
+        jmesPath: JMESPath<IDatabaseInfo[], "[].{value:id, label:title}">;
+      }>;
+
+    /**
+     * Database Properties Schema what want to add
+     *
+     * @title property
+     */
+    property: IDatabaseSchema;
+  }
+
+  /**
+   * @title Information database for added property
+   */
+  export interface IAddDatabasePropertyOutput
+    extends INotion.ICreateDatabaseOutput {}
+
+  /**
+   * @title Information needed to delete a property to the database
+   */
+  export interface IDeleteDatabasePropertyInput extends INotion.ISecret {
+    /**
+     * Database Id what you want to delete property.
+     *
+     * @title databaseId
+     */
+    databaseId: string &
+      Prerequisite<{
+        method: "post";
+        path: "/connector/notion/get/database-info";
+        jmesPath: JMESPath<IDatabaseInfo[], "[].{value:id, label:title}">;
+      }>;
+
+    /**
+     * The name of the property want to delete
+     *
+     * @title propertyName
+     */
+    propertyName: string;
+  }
+
+  /**
+   * @title Information database for deleted property
+   */
+  export interface IDeleteDatabasePropertyOutput
+    extends INotion.ICreateDatabaseOutput {}
+
+  /**
+   * @title Information needed to add an items to the database
+   */
+  export interface IAddItemsToDatabaseInput extends INotion.ISecret {
+    /**
+     * Database Id what you want to add a item.
+     *
+     * If the database is not created, you can create a database using the `Create Database` function first.
+     * The endpoint is POST: /connector/notion/create-database.
+     *
+     * @title databaseId
+     */
+    databaseId: string &
+      Prerequisite<{
+        method: "post";
+        path: "/connector/notion/get/database-info";
+        jmesPath: JMESPath<IDatabaseInfo[], "[].{value:id, label:title}">;
+      }>;
+
+    /**
+     * These are the item combinations to be created in the database.
+     * Each item combination is created for each row in the database.
+     *
+     * @title Items to create
+     */
+    items: ICreateDatabaseItem[];
+  }
+
+  /**
+   * This combination of items is used to populate a row in the database.
+   * For example, if the properties of the database are title, rich_text, rich_text, rich_text, date, The combination of items requires 1 title, 3 rich_texts, and 1 date.
+   *
+   * @title Information about the item added to the database
+   */
+  export interface ICreateDatabaseItem {
+    /**
+     * The value to be filled in the title property.
+     *
+     * @title title value
+     */
+    title: string;
+
+    /**
+     * The values to be filled in the rich_text property.
+     *
+     * @title rich_text value
+     */
+    rich_text: {
+      propertyName: string;
+      value: string;
+    }[];
+
+    /**
+     * The value to be filled in the date property.
+     * You must specify the date-time at the time the input was filled in.
+     *
+     * @title date value
+     */
+    date: string & tags.Format<"date-time">;
+
+    /**
+     * If you add a markdown string, it will be converted appropriately according to the Notion's block.
+     * Therefore, you don't have to use Unicode symbols to implement lists or decorate documents using letters.
+     * Of course, this depends on the user, and there is no problem using the character string you want, such as inserting an emoji as well as Unicode.
+     * This Markdown string is used to add content to the page of each database row.
+     *
+     * @title page content
+     */
+    markdown?: string;
+  }
+
+  /**
+   * @title Information database for added items
+   */
+  export interface IAddItemsToDatabaseOutput
+    extends INotion.ICreateDatabaseOutput {}
+
+  export interface IDatabasePropertyOutput {
+    id: string;
+    name: string;
+    type: string;
+    [key: string]: any;
+  }
+
+  export interface IDatabaseProperties {
+    [propertyName: string]: IDatabasePropertyOutput;
   }
 }

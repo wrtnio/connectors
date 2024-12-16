@@ -262,6 +262,11 @@ export class SlackProvider {
           }),
       );
 
+    const includedUsergroups = this.extract("usergroup")?.({
+      response: replies,
+      allUserGroup: usergroups,
+    });
+
     const userIds = Array.from(
       new Set(replies.map((message) => message.user).filter(Boolean)),
     );
@@ -277,7 +282,37 @@ export class SlackProvider {
       replies,
       next_cursor: next_cursor ? next_cursor : null,
       members,
+      usergroups: includedUsergroups ?? [],
+      channel: await this.getChannelName(input),
     };
+  }
+
+  extract(target: "usergroup") {
+    if (target === "usergroup") {
+      return function (input: {
+        response: Pick<ISlack.Message, "text">[];
+        allUserGroup: ISlack.UserGroup[];
+      }): ISlack.UserGroup[] {
+        const refinedTags = Array.from(
+          new Set(
+            ...input.response.flatMap((message) => {
+              const tags = message.text.match(/<!subteam\^\w+>/g);
+              const refinedTags: string[] = tags
+                ? Array.from(new Set(tags))
+                : [];
+              return refinedTags;
+            }),
+          ),
+        );
+        const includedUsergroups = input.allUserGroup.filter((usergroup) => {
+          return refinedTags.includes(`<!subteam^${usergroup.id}>`);
+        });
+
+        return includedUsergroups;
+      };
+    }
+
+    throw new Error("invalid target.");
   }
 
   async getAllUsers(input: {
@@ -448,6 +483,11 @@ export class SlackProvider {
         },
       );
 
+      const ts = res.data.ts;
+      if (!ts) {
+        throw new Error("Failed to send slack message.");
+      }
+
       return { ts: res.data.ts };
     } catch (err) {
       console.error(JSON.stringify(err));
@@ -527,6 +567,11 @@ export class SlackProvider {
         return message.links.length !== 0;
       });
 
+    const includedUsergroups = this.extract("usergroup")?.({
+      response: messages,
+      allUserGroup: usergroups,
+    });
+
     const userIds = Array.from(
       new Set(messages.map((message) => message.user).filter(Boolean)),
     );
@@ -542,7 +587,36 @@ export class SlackProvider {
       messages,
       next_cursor: next_cursor ? next_cursor : null,
       members,
+      usergroups: includedUsergroups ?? [],
+      channel: await this.getChannelName(input),
     }; // next_cursor가 빈 문자인 경우 대비
+  }
+
+  async getChannelName(
+    input: Pick<
+      ISlack.IGetChannelHistoryInput,
+      "channel_type" | "channel" | "secretKey"
+    >,
+  ): Promise<{ name: string | null }> {
+    const { channel_type, channel: channel_id, secretKey } = input;
+    if (channel_type === "public" || channel_type === undefined) {
+      const channel = (await this.getAllPublicChannels({ secretKey })).find(
+        (el) => el.id === channel_id,
+      );
+      if (channel) return { name: channel.name };
+    } else if (channel_type === "private" || channel_type === undefined) {
+      const channel = (await this.getAllPrivateChannels({ secretKey })).find(
+        (el) => el.id === channel_id,
+      );
+      if (channel) return { name: channel.name };
+    } else if (channel_type === "im" || channel_type === undefined) {
+      const channel = (await this.getAllImChannels({ secretKey })).find(
+        (el) => el.id === channel_id,
+      );
+      if (channel) return { name: channel.username ?? null };
+    }
+
+    return { name: null };
   }
 
   async getChannelHistories(
@@ -590,6 +664,11 @@ export class SlackProvider {
         }),
     );
 
+    const includedUsergroups = this.extract("usergroup")?.({
+      response: messages,
+      allUserGroup: usergroups,
+    });
+
     const userIds = Array.from(
       new Set(messages.map((message) => message.user).filter(Boolean)),
     );
@@ -605,6 +684,8 @@ export class SlackProvider {
       messages,
       next_cursor: next_cursor ? next_cursor : null,
       members,
+      usergroups: includedUsergroups ?? [],
+      channel: await this.getChannelName(input),
     }; // next_cursor가 빈 문자인 경우 대비
   }
 
@@ -704,6 +785,8 @@ export class SlackProvider {
   }
 
   async getAllImChannels(input: { secretKey: string }) {
+    const users = await this.getAllUsers(input);
+
     let nextCursor: string | null = null;
     let response: Awaited<ReturnType<typeof this.getImChannels>>["channels"] =
       [];
@@ -718,7 +801,11 @@ export class SlackProvider {
       nextCursor = next_cursor;
     } while (nextCursor);
 
-    return response;
+    return response.map((channel) => {
+      const user = users.find((user): boolean => user.id === channel.user);
+      channel.username = user?.name ?? null;
+      return channel;
+    });
   }
 
   async getImChannels(
@@ -804,21 +891,25 @@ export class SlackProvider {
   async getUserGroups(
     input: ISlack.IGetUserGroupInput,
   ): Promise<ISlack.IGetUserGroupOutput> {
-    const url = `https://slack.com/api/usergroups.list?include_users=true`;
-    const token = await this.getToken(input.secretKey);
-    const res = await axios.get(url, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-        "Content-Type": "application/json; charset=utf-8;",
-      },
-    });
+    try {
+      const url = `https://slack.com/api/usergroups.list?include_users=true`;
+      const token = await this.getToken(input.secretKey);
+      const res = await axios.get(url, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json; charset=utf-8;",
+        },
+      });
 
-    if (res.data.ok === false) {
-      // Missing scope error
-      throw new Error(JSON.stringify(res.data));
+      if (res.data.ok === false) {
+        // Missing scope error
+        throw new Error(JSON.stringify(res.data));
+      }
+
+      return res.data;
+    } catch (err) {
+      return { usergroups: [], ok: false };
     }
-
-    return res.data;
   }
 
   private getUserProfileFields(profile: { fields: Record<string, string> }) {
@@ -908,7 +999,7 @@ export class SlackProvider {
       reply_users_count: input.message?.reply_users_count ?? 0,
       ts_date: new Date(timestamp).toISOString(),
       link: `${input.workspaceUrl}archives/${input.channel}/p${input.message.ts.replace(".", "")}`,
-      usergroups,
+      // usergroups,
       // ...(input.message.attachments && { attachments: input.message.attachments }),
     };
   }

@@ -493,6 +493,53 @@ export const test_api_connector_article_exports_2 = async (
   return response;
 };
 
+// export const test_api_connector_article_exports_3 = async (
+//   connection: CApi.IConnection,
+//   article?: IArticle,
+// ) => {
+//   const target =
+//     article ?? (await test_api_connector_article_write(connection));
+
+//   const exported =
+//     await CApi.functional.connector.articles.exports.dev_to.exportsToDevTo(
+//       connectionWithSameUser(connection),
+//       target.id,
+//       {
+//         dev_to: {
+//           secretKey: ConnectorGlobal.env.DEV_TO_TEST_API_KEY,
+//         },
+//         snapshot: {
+//           id: target.snapshots[target.snapshots.length - 1]?.id as string,
+//         },
+//       },
+//     );
+
+//   typia.assertEquals(exported);
+
+//   const exportedArticle = await CApi.functional.connector.articles.at(
+//     connectionWithSameUser(connection),
+//     target.id,
+//   );
+
+//   const information = exportedArticle.snapshots[
+//     target.snapshots.length - 1
+//   ].bbs_article_exports.find((el) => {
+//     return el.uid === exported.dev_to.id && el.url === exported.dev_to.link;
+//   });
+
+//   typia.assertEquals<IArticleExport>(information);
+
+//   const response = await CApi.functional.connector.articles.at(
+//     connectionWithSameUser(connection),
+//     target.id,
+//   );
+
+//   assert(response.snapshots.length === 1);
+//   assert(response.snapshots[0].bbs_article_exports.length === 1);
+
+//   return response;
+// };
+
 export const test_api_connector_article_sync_by_snapshot_id_1 = async (
   connection: CApi.IConnection,
 ) => {
@@ -571,3 +618,42 @@ export const test_api_connector_article_sync_by_snapshot_id_2 = async (
 
   assert(snapshot?.id === to);
 };
+
+// export const test_api_connector_article_sync_by_snapshot_id_3 = async (
+//   connection: CApi.IConnection,
+// ) => {
+//   // 생성 후 내보내기
+//   const target = await test_api_connector_article_exports_3(connection);
+
+//   // 업데이트하여 새 스냅샷을 추가
+//   const updated = await test_api_connector_article_update(connection, target);
+
+//   // 전체 exports에 대한 내보내기 시도
+//   const from = target.snapshots[0].id as string;
+//   const to = updated.id as string;
+
+//   // from에서 to로 이동시키는 것이기 때문에 두 snapshot 아이디는 달라야 한다.
+//   assert.notEqual(from, to);
+
+//   const res = await CApi.functional.connector.articles.sync.dev_to.syncToDevTo(
+//     connectionWithSameUser(connection),
+//     String(target.id),
+//     {
+//       dev_to: {
+//         secretKey: ConnectorGlobal.env.DEV_TO_TEST_API_KEY,
+//       },
+//       snapshot: {
+//         from,
+//         to,
+//       },
+//     },
+//   );
+//   typia.assertEquals(res);
+
+//   // 최종적으로 어떤 스냅샷이 exports를 가지고 있는지 본다.
+//   const snapshot = res.article.snapshots.find(
+//     (el) => el.bbs_article_exports.length,
+//   );
+
+//   assert(snapshot?.id === to);
+// };
