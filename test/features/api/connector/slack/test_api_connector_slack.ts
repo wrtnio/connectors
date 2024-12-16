@@ -380,7 +380,8 @@ export const test_api_connector_slack_get_users = async (
   );
 
   typia.assert(res);
-  assert(res.users.every((el) => typeof el.im_channel_id === 'string'));
+  assert(res.users.every((el) => typeof el.im_channel_id === "string"));
+  assert(res.users.every((el) => typeof el.slack_team_id === "string"));
 
   return res.users;
 };
