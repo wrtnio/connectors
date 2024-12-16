@@ -17,7 +17,7 @@
   "info": {
     "title": "Airport Information",
     "summary": "항공 정보를 조회해요.",
-    "version": "0.1.409",
+    "version": "0.1.410",
     "description": "wrtn-ecosystem connectors and sdk",
     "license": {
       "name": "AGPL-3.0-only"
@@ -27,7 +27,7 @@
     "/connector/airport-information/search": {
       "post": {
         "summary": "Search for airport information",
-        "description": "Search for airport information using the entered search term.",
+        "description": "Search for airport information using the entered search term.\nOnly one keyword should be requested per request.\nFor example, if you need to enter Seoul and Tokyo as keywords, you should make two requests with one word, \"Seoul\" and \"Tokyo\", not \"Seoul, Tokyo\".",
         "tags": [
           "Search Airport Information"
         ],
@@ -103,7 +103,7 @@
           "keyword": {
             "type": "string",
             "title": "Search term",
-            "description": "Enter the name of the country or city you want to search for."
+            "description": "Enter the name of the country or city you want to search for.\nA keyword must contain only one word.\nIf you want to enter multiple words, you must make multiple requests, breaking them up into individual words."
           }
         },
         "required": [
