@@ -15,7 +15,7 @@
     }
   ],
   "info": {
-    "version": "0.1.406",
+    "version": "0.1.407",
     "title": "@wrtn/connector",
     "description": "wrtn-ecosystem connectors and sdk",
     "license": {
@@ -22616,7 +22616,8 @@
           "query": {
             "type": "string",
             "x-wrtn-placeholder": "종로구 맛집",
-            "title": "Search Keyword"
+            "title": "Search Keyword",
+            "description": "Search Keyword\n\nThe simpler the search term, the better.\nIt is a good idea to search for a specific area name\nand the type you are looking for.\nFor example, it can be 'Seoul Cafe'.\nIf you search by composing only these clear words,\nyou will provide the search results\nthat are best suited to the keyword inside the Kakao server.\nIf adjectives or words decorating places, such as 'popular cafes',\nare included, the search quality may be lowered or nothing may be searched,\nso put the search word as plain as possible."
           },
           "page": {
             "type": "integer",
