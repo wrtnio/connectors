@@ -339,7 +339,7 @@ export namespace ISlack {
    */
   export type IGetUserDetailOutput = StrictOmit<
     IGetUserOutput,
-    "name" | "deleted" | "profile_image"
+    "name" | "deleted" | "profile_image" | "slack_team_id" | "im_channel_id"
   >;
 
   /**
