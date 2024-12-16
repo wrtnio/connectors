@@ -7,6 +7,19 @@ export namespace IKakaoMap {
    */
   export interface SearchByKeywordInput {
     /**
+     * Search Keyword
+     *
+     * The simpler the search term, the better.
+     * It is a good idea to search for a specific area name
+     * and the type you are looking for.
+     * For example, it can be 'Seoul Cafe'.
+     * If you search by composing only these clear words,
+     * you will provide the search results
+     * that are best suited to the keyword inside the Kakao server.
+     * If adjectives or words decorating places, such as 'popular cafes',
+     * are included, the search quality may be lowered or nothing may be searched,
+     * so put the search word as plain as possible.
+     *
      * @title Search Keyword
      */
     query: string & Placeholder<"종로구 맛집">;
