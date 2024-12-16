@@ -2,15 +2,15 @@ import core, { TypedBody, TypedParam } from "@nestia/core";
 import { Controller } from "@nestjs/common";
 import { IExternalUser } from "@wrtn/connector-api/lib/structures/common/IExternalUser";
 import { IPage } from "@wrtn/connector-api/lib/structures/common/IPage";
-import { IArticle } from "@wrtn/connector-api/lib/structures/connector/articles/IArticle";
-import { IArticleExport } from "@wrtn/connector-api/lib/structures/connector/articles/IArticleExport";
+import { IArticle } from "@wrtn/connector-api/lib/structures/connector/swal/article/IArticle";
+import { IArticleExport } from "@wrtn/connector-api/lib/structures/connector/swal/article/IArticleExport";
 import { StrictOmit } from "@wrtn/connector-api/lib/structures/types/strictOmit";
 import { ExperimentalRoute, Prerequisite } from "@wrtnio/decorators";
-import { ExternalUser } from "../../../decorators/ExternalUser";
-import { DocumentProvider } from "../../../providers/connector/article/DocumentProvider";
+import { ExternalUser } from "../../../../decorators/ExternalUser";
+import { DocumentProvider } from "../../../../providers/connector/swal/article/DocumentProvider";
 
-@Controller("connector/articles")
-export class ArticlesController {
+@Controller("connector/swal/articles")
+export class ArticleController {
   /**
    * upgrade or downgrade version of exported dev.to
    *
@@ -31,7 +31,7 @@ export class ArticlesController {
   async syncToDevTo(
     @ExternalUser() external_user: IExternalUser,
     @Prerequisite({
-      neighbor: () => ArticlesController.prototype.index,
+      neighbor: () => ArticleController.prototype.index,
       jmesPath: "data[].{ value: id, label: snapshot.title }",
     })
     @TypedParam("id")
@@ -60,7 +60,7 @@ export class ArticlesController {
   async syncToGoogleDocs(
     @ExternalUser() external_user: IExternalUser,
     @Prerequisite({
-      neighbor: () => ArticlesController.prototype.index,
+      neighbor: () => ArticleController.prototype.index,
       jmesPath: "data[].{ value: id, label: snapshot.title }",
     })
     @TypedParam("id")
@@ -93,7 +93,7 @@ export class ArticlesController {
   async syncToNotion(
     @ExternalUser() external_user: IExternalUser,
     @Prerequisite({
-      neighbor: () => ArticlesController.prototype.index,
+      neighbor: () => ArticleController.prototype.index,
       jmesPath: "data[].{ value: id, label: snapshot.title }",
     })
     @TypedParam("id")
@@ -125,7 +125,7 @@ export class ArticlesController {
   async exportsToDevTo(
     @ExternalUser() external_user: IExternalUser,
     @Prerequisite({
-      neighbor: () => ArticlesController.prototype.index,
+      neighbor: () => ArticleController.prototype.index,
       jmesPath: "data[].{ value: id, label: snapshot.title }",
     })
     @TypedParam("id")
@@ -156,7 +156,7 @@ export class ArticlesController {
   async exportsToGoogleDocs(
     @ExternalUser() external_user: IExternalUser,
     @Prerequisite({
-      neighbor: () => ArticlesController.prototype.index,
+      neighbor: () => ArticleController.prototype.index,
       jmesPath: "data[].{ value: id, label: snapshot.title }",
     })
     @TypedParam("id")
@@ -191,7 +191,7 @@ export class ArticlesController {
   async exportsToNotion(
     @ExternalUser() external_user: IExternalUser,
     @Prerequisite({
-      neighbor: () => ArticlesController.prototype.index,
+      neighbor: () => ArticleController.prototype.index,
       jmesPath: "data[].{ value: id, label: snapshot.title }",
     })
     @TypedParam("id")
@@ -217,7 +217,7 @@ export class ArticlesController {
   async at(
     @ExternalUser() external_user: IExternalUser,
     @Prerequisite({
-      neighbor: () => ArticlesController.prototype.index,
+      neighbor: () => ArticleController.prototype.index,
       jmesPath: "data[].{ value: id, label: snapshot.title }",
     })
     @TypedParam("id")
@@ -243,7 +243,7 @@ export class ArticlesController {
      * @title Article ID to remove
      */
     @Prerequisite({
-      neighbor: () => ArticlesController.prototype.index,
+      neighbor: () => ArticleController.prototype.index,
       jmesPath: "data[].{ value: id, label: snapshot.title }",
     })
     @TypedParam("id")
@@ -271,7 +271,7 @@ export class ArticlesController {
      * @title Article ID to update
      */
     @Prerequisite({
-      neighbor: () => ArticlesController.prototype.index,
+      neighbor: () => ArticleController.prototype.index,
       jmesPath: "data[].{ value: id, label: snapshot.title }",
     })
     @TypedParam("id")
@@ -284,6 +284,7 @@ export class ArticlesController {
   /**
    * List up all summarized articles with pagination and searching options
    *
+   * Because it is looking at the user's individual writing, user cannot inquire other than your own writing.
    * Because it is a call to a text stored in the connector server's own DB,
    * it may be appropriate to call this connector if the user asks to call the text without saying the service name.
    * It is recommended that you first ask the user for the service name.

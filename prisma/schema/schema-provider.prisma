@@ -1,19 +1,30 @@
+/// @namespace Spreadsheets
+/// @namespace Articles
+/// @author kakasoo
 model provider {
   //----
   // COLUMNS
   //----
+  /// Provider's unique ID 
+  ///
   /// @format uuid
   id String @id @db.Uuid
 
+  /// name of provider, for example, 'notion', 'google_docs', 'excel', 'google_sheets'
   name String
 
   /// The date and time the record was created.
   created_at DateTime @db.Timestamptz
 
-  ///----
-  /// RELATIONS
-  ///----
+  //----
+  // RELATIONS
+  //----
+
+  /// articles
   bbs_article_exports bbs_article_exports[]
+
+  /// spreadsheets
+  spreadsheet_exports spreadsheet_exports[]
 
   @@unique([name])
 }

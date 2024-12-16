@@ -1,5 +1,5 @@
 import { tags } from "typia";
-import { StrictOmit } from "../../types/strictOmit";
+import { StrictOmit } from "../../../types/strictOmit";
 
 export namespace IArticleExport {
   export interface IUpdate {
@@ -29,9 +29,9 @@ export interface IArticleExport {
   bbs_article_snapshot_id: string & tags.Format<"uuid">;
 
   /**
-   * It means the name of the service from which the post was exported,
+   * It means the name of the service from which the article was exported,
    * and if the service name is motion,
-   * it means that the same post is posted in the corresponding url of the provider service.
+   * it means that the same article is posted in the corresponding url of the provider service.
    *
    * @title provider name
    */
