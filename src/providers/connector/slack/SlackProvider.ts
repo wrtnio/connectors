@@ -963,13 +963,6 @@ export class SlackProvider {
       return links ? Array.from(new Set(links)) : [];
     }
 
-    // <!subteam^S06AS8Y5QAU>
-    const tags = input.message.text.match(/<!subteam\^\w+>/g); // (\w+)가 아님에 주목하라.
-    const refinedTags: string[] = tags ? Array.from(new Set(tags)) : [];
-    const usergroups = input.allUsergroups.filter((usergroup) =>
-      refinedTags.includes(`<!subteam^${usergroup.id}>`),
-    );
-
     const timestamp = this.transformTsToTimestamp(input.message.ts);
     const speaker = input.allMembers.find((el) => el.id === input.message.user);
     const links = extractLinks(input.message.text);
@@ -977,6 +970,7 @@ export class SlackProvider {
       // type: input.message.type,
       user: input.message.user ?? null,
       username: speaker?.display_name ?? null,
+      user_profile: speaker?.profile_image ?? null,
       text: input.message.text
         .replaceAll(/```[\s\S]+?```/g, "<CODE/>")
         .replaceAll(/<https?:\/\/[^\>]+>/g, () => {

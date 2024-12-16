@@ -68,6 +68,11 @@ export const test_api_connector_slack_get_channel_histories = async (
   typia.assert(messages);
   assert(typeof messages.usergroups.length === "number");
   assert(typeof messages.channel.name === "string");
+  assert(
+    messages.messages.every(
+      (el) => typeof el.user_profile === "string" || el.user_profile === null,
+    ),
+  );
 
   return messages;
 };
@@ -395,6 +400,12 @@ export const test_api_connector_slack_reply = async (
     },
   );
 
+  assert(
+    before.replies.every(
+      (el) => typeof el.user_profile === "string" || el.user_profile === null,
+    ),
+  );
+
   typia.assert(before);
 
   await CApi.functional.connector.slack.postMessage.reply.sendReply(
@@ -445,6 +456,12 @@ export const test_api_connector_slack_get_channel_link_histories = async (
 
   assert(res.messages.length > 0);
   typia.assert(res);
+
+  assert(
+    res.messages.every(
+      (el) => typeof el.user_profile === "string" || el.user_profile === null,
+    ),
+  );
 };
 
 export const test_api_connector_slack_get_user_details = async (
