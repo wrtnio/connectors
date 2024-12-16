@@ -375,9 +375,7 @@ export class SlackProvider {
   ): Promise<ISlack.IGetUserListOutput> {
     const { secretKey, ...rest } = input;
     const queryParameter = createQueryParameter(rest);
-
-    const im_channels = await this.getAllImChannels(input);
-
+    const im_channels = await this.__getAllImChannels(input);
 
     const url = `https://slack.com/api/users.list?pretty=1`;
     const token = await this.getToken(secretKey);
@@ -390,7 +388,7 @@ export class SlackProvider {
 
     const next_cursor = res.data.response_metadata?.next_cursor;
     type User = StrictOmit<ISlack.IGetUserOutput, "fields">
-    const users:User [] =
+    const users: User[] =
       res.data.members.map((el: ISlack.User): User => {
         const im_channel =im_channels.find((channel) => channel.user === el.id)
         return {
@@ -792,10 +790,20 @@ export class SlackProvider {
 
   async getAllImChannels(input: { secretKey: string }) {
     const users = await this.getAllUsers(input);
+    let response: Awaited<ReturnType<typeof this.getImChannels>>["channels"] = 
+      await this.__getAllImChannels(input);
 
+    return response.map((channel) => {
+      const user = users.find((user): boolean => user.id === channel.user);
+      channel.username = user?.name ?? null;
+      return channel;
+    });
+  }
+
+  async __getAllImChannels (input: { secretKey: string }) {
     let nextCursor: string | null = null;
     let response: Awaited<ReturnType<typeof this.getImChannels>>["channels"] =
-      [];
+    [];
     do {
       const { next_cursor, channels } = await this.getImChannels({
         secretKey: input.secretKey,
@@ -807,11 +815,7 @@ export class SlackProvider {
       nextCursor = next_cursor;
     } while (nextCursor);
 
-    return response.map((channel) => {
-      const user = users.find((user): boolean => user.id === channel.user);
-      channel.username = user?.name ?? null;
-      return channel;
-    });
+    return response;
   }
 
   async getImChannels(
