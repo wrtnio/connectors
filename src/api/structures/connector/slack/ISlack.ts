@@ -339,7 +339,7 @@ export namespace ISlack {
    */
   export type IGetUserDetailOutput = StrictOmit<
     IGetUserOutput,
-    "name" | "deleted" | "profile_image"
+    "name" | "deleted" | "profile_image" | "slack_team_id" | "im_channel_id"
   >;
 
   /**
@@ -356,6 +356,23 @@ export namespace ISlack {
      * @title User ID
      */
     id: ISlack.User["id"];
+
+    /**
+     * @title slack_team_id
+     */
+    slack_team_id: string;
+
+    /**
+     * If a user wants to send a DM message to another user,
+     * they need to find a channel in im channels that matches their username.
+     * And call the message sending connector.
+     * However, since the purpose of looking up a user is usually to get information about the user or to send a message to the user,
+     * this specification is extended to provide the DM channel (= IM channel) ID of the two users in this property when looking up a user.
+     * If this value is 'null', then the user's im_channel_id was not found.
+     *
+     * @title im_channel_id
+     */
+    im_channel_id: string | null;
 
     /**
      * This is the name of the user,
@@ -528,6 +545,11 @@ export namespace ISlack {
             method: "post";
             path: "/connector/slack/get-im-channels";
             jmesPath: "[].{value:id, label:name || '개인 채널'}";
+          }>
+        | Prerequisite<{
+            method: "post";
+            path: "/connector/slack/get-users";
+            jmesPath: "users[].{ value: im_channel_id, label: display_name }";
           }>
       );
 
