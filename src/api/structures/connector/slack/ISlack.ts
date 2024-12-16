@@ -646,6 +646,11 @@ export namespace ISlack {
      * @title username of the person who made this message
      */
     username: User["name"] | null;
+
+    /**
+     * @title user profile image
+     */
+    user_profile: (string & tags.Format<"iri">) | null;
   }
 
   export interface IGetChannelLinkHistoryOutput
