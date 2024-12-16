@@ -387,23 +387,22 @@ export class SlackProvider {
     });
 
     const next_cursor = res.data.response_metadata?.next_cursor;
-    type User = StrictOmit<ISlack.IGetUserOutput, "fields">
-    const users: User[] =
-      res.data.members.map((el: ISlack.User): User => {
-        const im_channel =im_channels.find((channel) => channel.user === el.id)
-        return {
-          id: el.id,
-          slack_team_id: el.team_id,
-          im_channel_id: im_channel?.id ?? null,          
-          name: el.name,
-          real_name: el.profile.real_name ?? null,
-          display_name: el.profile.display_name,
-          deleted: el.deleted,
-          profile_image: el.profile.image_original
-            ? el.profile.image_original
-            : null,
-        };
-      });
+    type User = StrictOmit<ISlack.IGetUserOutput, "fields">;
+    const users: User[] = res.data.members.map((el: ISlack.User): User => {
+      const im_channel = im_channels.find((channel) => channel.user === el.id);
+      return {
+        id: el.id,
+        slack_team_id: el.team_id,
+        im_channel_id: im_channel?.id ?? null,
+        name: el.name,
+        real_name: el.profile.real_name ?? null,
+        display_name: el.profile.display_name,
+        deleted: el.deleted,
+        profile_image: el.profile.image_original
+          ? el.profile.image_original
+          : null,
+      };
+    });
 
     return { users, next_cursor: next_cursor ? next_cursor : null };
   }
@@ -790,7 +789,7 @@ export class SlackProvider {
 
   async getAllImChannels(input: { secretKey: string }) {
     const users = await this.getAllUsers(input);
-    let response: Awaited<ReturnType<typeof this.getImChannels>>["channels"] = 
+    let response: Awaited<ReturnType<typeof this.getImChannels>>["channels"] =
       await this.__getAllImChannels(input);
 
     return response.map((channel) => {
@@ -800,10 +799,10 @@ export class SlackProvider {
     });
   }
 
-  async __getAllImChannels (input: { secretKey: string }) {
+  async __getAllImChannels(input: { secretKey: string }) {
     let nextCursor: string | null = null;
     let response: Awaited<ReturnType<typeof this.getImChannels>>["channels"] =
-    [];
+      [];
     do {
       const { next_cursor, channels } = await this.getImChannels({
         secretKey: input.secretKey,

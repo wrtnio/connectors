@@ -357,7 +357,6 @@ export namespace ISlack {
      */
     id: ISlack.User["id"];
 
-
     /**
      * @title slack_team_id
      */
@@ -371,9 +370,9 @@ export namespace ISlack {
      * 또는 그 유저에게 메시지를 전송하기 위함이므로 이 스펙을 확장하여,
      * 유저 조회 시 두 유저가 존재하는 DM 채널 ( = IM 채널 ) 아이디를
      * 이 프로퍼티에 제공한다.
-     * 
+     *
      * 만약 이 값이 'null' 이라면 해당 유저의 im_channel_id를 찾지 못한 것이다.
-     * 
+     *
      * @title im_channel_id
      */
     im_channel_id: string | null;
@@ -549,6 +548,11 @@ export namespace ISlack {
             method: "post";
             path: "/connector/slack/get-im-channels";
             jmesPath: "[].{value:id, label:name || '개인 채널'}";
+          }>
+        | Prerequisite<{
+            method: "post";
+            path: "/connector/slack/get-users";
+            jmesPath: "users[].{ value: im_channel_id, label: display_name }";
           }>
       );
 
