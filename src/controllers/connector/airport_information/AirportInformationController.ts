@@ -15,6 +15,9 @@ export class AirportInformationController {
 
   /**
    * Search for airport information using the entered search term.
+   * Only one keyword should be requested per request.
+   * For example, if you need to enter Seoul and Tokyo as keywords, you should make two requests with one word, "Seoul" and "Tokyo", not "Seoul, Tokyo".
+   *
    *
    * @summary Search for airport information
    * @param input Conditions for searching for airport information
@@ -30,15 +33,5 @@ export class AirportInformationController {
     @core.TypedBody() input: IAirportInformation.IRequest,
   ): Promise<IAirportInformation.IResponse[]> {
     return retry(() => this.airportInformationProvider.search(input))();
-  }
-
-  /**
-   *
-   * @hidden
-   * @internal
-   */
-  @core.TypedRoute.Post("save-database")
-  async saveDatabase(): Promise<void> {
-    return await this.airportInformationProvider.saveToDatabase();
   }
 }
