@@ -15,7 +15,7 @@
     }
   ],
   "info": {
-    "version": "0.1.407",
+    "version": "0.1.408",
     "title": "@wrtn/connector",
     "description": "wrtn-ecosystem connectors and sdk",
     "license": {
@@ -14936,13 +14936,11 @@
               },
               "title": {
                 "type": "string",
-                "title": "Title of article"
+                "title": "Title of article",
+                "description": "If you want to search for something that contains a specific title,\nyou can put the keyword you want in it.\nYou must put keywords that must be included.\nIf you don't have anything to search for,\nyou can put in or not empty characters."
               }
             },
-            "required": [
-              "format",
-              "title"
-            ],
+            "required": [],
             "title": "Last Snapshot"
           }
         },
