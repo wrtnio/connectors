@@ -171,12 +171,12 @@ export namespace IArticle {
        */
       dev_to: {
         /**
-         * @title Created Google Docs File ID
+         * @title Created dev.to Article ID
          */
         id: string;
 
         /**
-         * @title Title of Created Google Docs File
+         * @title Title of Created dev.to Article
          */
         title: string;
 
@@ -188,11 +188,11 @@ export namespace IArticle {
     }
 
     /**
-     * @title Conditions and secret keys for exporting to Google Docs
+     * @title Conditions and secret keys for exporting to dev.to
      */
     export interface ToDevToInput extends SnapshotInput {
       /**
-       * @title Google Docs Secret Key and information to create file
+       * @title dev.to Secret Key and information to create file
        */
       dev_to: StrictOmit<IDevTo.ICreateInput, "article">;
     }
