@@ -931,32 +931,32 @@ export namespace IReddit {
     /**
      * @title The status of the metadata
      **/
-    status: string;
+    status?: string;
 
     /**
      * @title The type of the element
      **/
-    e: string;
+    e?: string;
 
     /**
      * @title The media type
      **/
-    m: string;
+    m?: string;
 
     /**
      * @title The positions
      **/
-    p: Position[];
+    p?: Position[];
 
     /**
      * @title The position
      **/
-    s: Position;
+    s?: Position;
 
     /**
      * @title The ID of the metadata
      **/
-    id: string;
+    id?: string;
   }
 
   export interface GalleryData {
