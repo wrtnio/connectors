@@ -15,7 +15,7 @@
     }
   ],
   "info": {
-    "version": "0.1.416",
+    "version": "0.1.417",
     "title": "@wrtn/connector",
     "description": "wrtn-ecosystem connectors and sdk",
     "license": {
@@ -5198,7 +5198,7 @@
     "/connector/google-shopping/aladine": {
       "post": {
         "summary": "Aladdin Search",
-        "description": "Search for products in Aladdin\nAladdin is a service that allows you to purchase used books.\nOnly one keyword should be requested per request.\nFor example, If you use \"novel book\" and \"fairy tale book\" as keywords, you must make two requests, each with separate keywords.",
+        "description": "Search for products in Aladdin\nAladdin is a service that allows you to purchase used books.\nOnly one item should be requested per request.\nThis connector only processes one search term at a time, so if you want to search for multiple terms, you will need to call this connector separately for each search term.",
         "tags": [
           "Aladin"
         ],
@@ -5239,7 +5239,7 @@
     "/connector/google-shopping/ali-express": {
       "post": {
         "summary": "Search for AliExpress",
-        "description": "Search for products on AliExpress\n Only one keyword should be requested per request.\nFor example, If you use \"phone\" and \"cup\" as keywords, you must make two requests, each with separate keywords.",
+        "description": "Search for products on AliExpress\nOnly one item should be requested per request.\nThis connector only processes one search term at a time, so if you want to search for multiple terms, you will need to call this connector separately for each search term.",
         "tags": [
           "AliExpress"
         ],
@@ -5271,16 +5271,13 @@
           }
         },
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/AliExpress_full.svg",
-        "x-wrtn-standalone": true,
-        "x-wrtn-function-select-benchmarks": [
-          "알리 익스프레스에서 상품 좀 찾아줘"
-        ]
+        "x-wrtn-standalone": true
       }
     },
     "/connector/google-shopping/coupang": {
       "post": {
         "summary": "Coupang Search",
-        "description": "Search for products on Coupang\nOnly one keyword should be requested per request.\nFor example, If you use \"phone\" and \"cup\" as keywords, you must make two requests, each with separate keywords.",
+        "description": "Search for products on Coupang\nOnly one item should be requested per request.\nThis connector only processes one search term at a time, so if you want to search for multiple terms, you will need to call this connector separately for each search term.",
         "tags": [
           "Coupang"
         ],
@@ -5321,7 +5318,7 @@
     "/connector/google-shopping/eql": {
       "post": {
         "summary": "EQL search",
-        "description": "Search for products in EQL\nEQL is a service that allows you to purchase clothes or shoes.\nOnly one keyword should be requested per request.\nFor example, If you use \"shirts\" and \"pants\" as keywords, you must make two requests, each with separate keywords.",
+        "description": "Search for products in EQL\nEQL is a service that allows you to purchase clothes or shoes.\nOnly one item should be requested per request.\nThis connector only processes one search term at a time, so if you want to search for multiple terms, you will need to call this connector separately for each search term.",
         "tags": [
           "EQL"
         ],
@@ -5362,7 +5359,7 @@
     "/connector/google-shopping/iherb": {
       "post": {
         "summary": "iHerb Search",
-        "description": "Search for products on iHerb\niHerb is a service that allows you to purchase Nutritional supplement.\nOnly one keyword should be requested per request.\nFor example, If you use \"vitamin\" and \"calcium\" as keywords, you must make two requests, each with separate keywords.",
+        "description": "Search for products on iHerb\niHerb is a service that allows you to purchase Nutritional supplement.\nOnly one item should be requested per request.\nThis connector only processes one search term at a time, so if you want to search for multiple terms, you will need to call this connector separately for each search term.",
         "tags": [
           "iHerb"
         ],
@@ -5403,7 +5400,7 @@
     "/connector/google-shopping/market-kurly": {
       "post": {
         "summary": "Market Kurly Search",
-        "description": "Search for products on Market Kurly\nMarket Kurly is a service where you can purchase groceries.\nOnly one keyword should be requested per request.\nFor example, If you use \"apple\" and \"potato\" as keywords, you must make two requests, each with separate keywords.",
+        "description": "Search for products on Market Kurly\nMarket Kurly is a service where you can purchase groceries.\nOnly one item should be requested per request.\nThis connector only processes one search term at a time, so if you want to search for multiple terms, you will need to call this connector separately for each search term.",
         "tags": [
           "Market Kurly"
         ],
@@ -5444,7 +5441,7 @@
     "/connector/google-shopping/oco": {
       "post": {
         "summary": "OCO search",
-        "description": "Search for products in OCO\n\nOco is one of the Korean companies and is a brand that advocates a brand editing shop.\nOnly one keyword should be requested per request.\nFor example, If you use \"shirts\" and \"pants\" as keywords, you must make two requests, each with separate keywords.",
+        "description": "Search for products in OCO\n\nOco is one of the Korean companies and is a brand that advocates a brand editing shop.\nOnly one item should be requested per request.\nThis connector only processes one search term at a time, so if you want to search for multiple terms, you will need to call this connector separately for each search term.",
         "tags": [
           "OCO"
         ],
@@ -5485,7 +5482,7 @@
     "/connector/google-shopping/olive-young": {
       "post": {
         "summary": "Olive Young Search",
-        "description": "Search for products at Olive Young\nOlive Young is a service that allows you to purchase cosmetics.\nOnly one keyword should be requested per request.\nFor example, If you use \"sun block\" and \"serum\" as keywords, you must make two requests, each with separate keywords.",
+        "description": "Search for products at Olive Young\nOlive Young is a service that allows you to purchase cosmetics.\nOnly one item should be requested per request.\nThis connector only processes one search term at a time, so if you want to search for multiple terms, you will need to call this connector separately for each search term.",
         "tags": [
           "Olive Young"
         ],
@@ -5526,7 +5523,7 @@
     "/connector/google-shopping/twenty-nine-centimeter": {
       "post": {
         "summary": "29cm search",
-        "description": "Search for products from 29cm\n29cm is a service that allows you to purchase clothes or shoes.\nOnly one keyword should be requested per request.\nFor example, If you use \"shirts\" and \"pants\" as keywords, you must make two requests, each with separate keywords.",
+        "description": "Search for products from 29cm\n29cm is a service that allows you to purchase clothes or shoes.\nOnly one item should be requested per request.\nThis connector only processes one search term at a time, so if you want to search for multiple terms, you will need to call this connector separately for each search term.",
         "tags": [
           "29CM"
         ],
@@ -5567,7 +5564,7 @@
     "/connector/google-shopping/uniqlo": {
       "post": {
         "summary": "Uniqlo Search",
-        "description": "Search for products in Uniqlo\nUniqlo is a service that allows you to purchase clothes or shoes.\nOnly one keyword should be requested per request.\nFor example, If you use \"shirts\" and \"pants\" as keywords, you must make two requests, each with separate keywords.",
+        "description": "Search for products in Uniqlo\nUniqlo is a service that allows you to purchase clothes or shoes.\nOnly one item should be requested per request.\nThis connector only processes one search term at a time, so if you want to search for multiple terms, you will need to call this connector separately for each search term.",
         "tags": [
           "Uniqlo"
         ],
@@ -5608,7 +5605,7 @@
     "/connector/google-shopping/yes-twenty-four": {
       "post": {
         "summary": "yes24 search",
-        "description": "Search for products on yes24\nyes24 is a service that allows you to purchase books.\nOnly one keyword should be requested per request.\nFor example, If you use \"novel book\" and \"fairy tale book\" as keywords, you must make two requests, each with separate keywords.",
+        "description": "Search for products on yes24\nyes24 is a service that allows you to purchase books.\nOnly one item should be requested per request.\nThis connector only processes one search term at a time, so if you want to search for multiple terms, you will need to call this connector separately for each search term.",
         "tags": [
           "yes24"
         ],
@@ -5650,7 +5647,7 @@
     "/connector/google-shopping/musinsa": {
       "post": {
         "summary": "Musinsa Search",
-        "description": "Search for products in Musinsa\nMusinsa is a service that allows you to purchase clothes or shoes.\nOnly one keyword should be requested per request.\nFor example, If you use \"shirts\" and \"pants\" as keywords, you must make two requests, each with separate keywords.",
+        "description": "Search for products in Musinsa\nMusinsa is a service that allows you to purchase clothes or shoes.\nOnly one item should be requested per request.\nThis connector only processes one search term at a time, so if you want to search for multiple terms, you will need to call this connector separately for each search term.",
         "tags": [
           "Musinsa"
         ],
@@ -7971,7 +7968,7 @@
     "/connector/google-hotel": {
       "post": {
         "summary": "Google Hotels Search",
-        "description": "Search for accommodations using Google Hotels service\nOnly one keyword should be requested per request.\nFor example, if you need to enter Seoul and Tokyo as keywords, you should make two requests with one word, \"Seoul\" and \"Tokyo\", not \"Seoul, Tokyo\".",
+        "description": "Search for accommodations using Google Hotels service\nOnly one item should be requested per request.\nThis connector only processes one search term at a time, so if you want to search for multiple terms, you will need to call this connector separately for each search term.",
         "tags": [
           "Google Hotel"
         ],
@@ -8012,7 +8009,7 @@
     "/connector/airport-information/search": {
       "post": {
         "summary": "Search for airport information",
-        "description": "Search for airport information using the entered search term.\nOnly one keyword should be requested per request.\nFor example, if you need to enter Seoul and Tokyo as keywords, you should make two requests with one word, \"Seoul\" and \"Tokyo\", not \"Seoul, Tokyo\".",
+        "description": "Search for airport information using the entered search term.\nOnly one item should be requested per request.\nThis connector only processes one search term at a time, so if you want to search for multiple terms, you will need to call this connector separately for each search term.",
         "tags": [
           "Search Airport Information"
         ],
@@ -27892,7 +27889,7 @@
           "keyword": {
             "type": "string",
             "title": "Search term",
-            "description": "Enter the keyword you want to search for.\nA keyword must contain only one word.\nIf you want to enter multiple words, you must make multiple requests, breaking them up into individual words."
+            "description": "Enter the keyword you want to search for."
           },
           "max_results": {
             "type": "integer",
@@ -36145,7 +36142,7 @@
           "keyword": {
             "type": "string",
             "title": "Search term",
-            "description": "Enter the keyword you want to search for.\nA keyword must contain only one word.\nIf you want to enter multiple words, you must make multiple requests, breaking them up into individual words."
+            "description": "Enter the keyword you want to search for."
           },
           "check_in_date": {
             "type": "string",
@@ -36340,7 +36337,7 @@
           "keyword": {
             "type": "string",
             "title": "Search term",
-            "description": "Enter the name of the country or city you want to search for.\nA keyword must contain only one word.\nIf you want to enter multiple words, you must make multiple requests, breaking them up into individual words."
+            "description": "Enter the name of the country or city you want to search for."
           }
         },
         "required": [

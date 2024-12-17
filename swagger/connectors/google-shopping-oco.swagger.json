@@ -18,7 +18,7 @@
     "title": "OCO 상품 검색",
     "summary": "OCO 쇼핑몰의 상품을 한 번에 검색해요.",
     "description": "OCO 쇼핑몰의 상품을 검색할 수 있어요. 원하는 상품의 가격을 비교할 수 있고, 최저가 정보도 쉽게 확인할 수 있어요. 카테고리별 검색 옵션을 사용할 수 있어요. 이를 통해 효율적인 쇼핑은 물론, 시장 조사나 가격 동향 분석 등에도 활용할 수 있어요.",
-    "version": "0.1.416",
+    "version": "0.1.417",
     "license": {
       "name": "AGPL-3.0-only"
     }
@@ -27,7 +27,7 @@
     "/connector/google-shopping/oco": {
       "post": {
         "summary": "OCO search",
-        "description": "Search for products in OCO\n\nOco is one of the Korean companies and is a brand that advocates a brand editing shop.\nOnly one keyword should be requested per request.\nFor example, If you use \"shirts\" and \"pants\" as keywords, you must make two requests, each with separate keywords.",
+        "description": "Search for products in OCO\n\nOco is one of the Korean companies and is a brand that advocates a brand editing shop.\nOnly one item should be requested per request.\nThis connector only processes one search term at a time, so if you want to search for multiple terms, you will need to call this connector separately for each search term.",
         "tags": [
           "OCO"
         ],
@@ -121,7 +121,7 @@
           "keyword": {
             "type": "string",
             "title": "Search term",
-            "description": "Enter the keyword you want to search for.\nA keyword must contain only one word.\nIf you want to enter multiple words, you must make multiple requests, breaking them up into individual words."
+            "description": "Enter the keyword you want to search for."
           },
           "max_results": {
             "type": "integer",
