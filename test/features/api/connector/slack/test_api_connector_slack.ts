@@ -431,6 +431,7 @@ export const test_api_connector_slack_reply = async (
   );
 
   typia.assert(after);
+  assert(after.members.every((el) => typeof el.im_channel_id === "string"));
 
   if (before.replies.length + 1 !== after.replies.length) {
     throw new Error("Reply가 추가되지 않은 것으로 추정되는 상태");
