@@ -15,6 +15,9 @@ export class GoogleShoppingEqlController {
 
   /**
    * Search for products in EQL
+   * EQL is a service that allows you to purchase clothes or shoes.
+   * Only one keyword should be requested per request.
+   * For example, If you use "shirts" and "pants" as keywords, you must make two requests, each with separate keywords.
    *
    * @summary EQL search
    * @param input search conditions
