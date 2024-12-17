@@ -273,7 +273,7 @@ export class SlackProvider {
 
     const im_channels = await this.__getAllImChannels(input);
 
-    const members = this.getMemebers({
+    const members = this.getMembers({
       userIds,
       allMembers,
       im_channels,
@@ -593,7 +593,7 @@ export class SlackProvider {
 
     const im_channels = await this.__getAllImChannels(input);
 
-    const members = this.getMemebers({
+    const members = this.getMembers({
       userIds,
       allMembers,
       im_channels,
@@ -691,7 +691,7 @@ export class SlackProvider {
 
     const im_channels = await this.__getAllImChannels(input);
 
-    const members = this.getMemebers({
+    const members = this.getMembers({
       userIds,
       allMembers,
       im_channels,
@@ -706,7 +706,7 @@ export class SlackProvider {
     }; // next_cursor가 빈 문자인 경우 대비
   }
 
-  getMemebers(input: {
+  getMembers(input: {
     userIds: (string | null)[];
     allMembers: StrictOmit<ISlack.IGetUserOutput, "fields">[];
     im_channels: ISlack.ImChannel[];
