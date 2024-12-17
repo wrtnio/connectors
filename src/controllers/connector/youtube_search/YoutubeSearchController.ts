@@ -55,6 +55,10 @@ export class YoutubeSearchController {
    *
    * If you want users to use the official YouTube API, use this function.
    *
+   * If you think you need to call an endpoint that retrieves YouTube video captions without explicitly specifying that you want to use the official YouTube API, call this endpoint.
+   * For example, in a scenario like "Get the content of the Galaxy Watch 7 review videos. Then, organize the user reviews of the product into pros and cons based on the content and organize which comments were made by whom. Please write the comments as they were made.",
+   * you need to retrieve the video content and the YouTuber's comments. This can be figured out from the YouTube video transcriptions, so you can see that you need to call an endpoint that retrieves YouTube video transcriptions. In this case, you should call this endpoint.
+   *
    * The search results have the video title and link.
    *
    * If most users are going to use this feature, they probably want to watch the video, so it's better to provide a URL.
