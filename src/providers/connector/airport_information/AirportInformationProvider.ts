@@ -1,14 +1,13 @@
 import { Injectable, Logger } from "@nestjs/common";
 import { IAirportInformation } from "@wrtn/connector-api/lib/structures/connector/airport_information/IAirportInformation";
 import * as csv from "fast-csv";
-import { AwsProvider } from "../aws/AwsProvider";
 import { Readable } from "stream";
-import { ConnectorGlobal } from "../../../ConnectorGlobal";
 import { v4 } from "uuid";
+import { ConnectorGlobal } from "../../../ConnectorGlobal";
+import { AwsProvider } from "../aws/AwsProvider";
 
 @Injectable()
 export class AirportInformationProvider {
-  constructor(private readonly awsProvider: AwsProvider) {}
   private readonly logger = new Logger("AirportInformationProvider");
   async search(
     input: IAirportInformation.IRequest,
@@ -53,7 +52,7 @@ export class AirportInformationProvider {
     const match = fileUrl.match(AwsProvider.S3BucketURL);
     if (!match) throw new Error("Invalid S3 URL");
 
-    const fileBuffer = await this.awsProvider.getObject(fileUrl);
+    const fileBuffer = await AwsProvider.getObject(fileUrl);
     const s3Stream = new Readable();
     s3Stream.push(fileBuffer);
     s3Stream.push(null);

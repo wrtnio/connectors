@@ -9,13 +9,12 @@ import { AwsProvider } from "../aws/AwsProvider";
 
 @Injectable()
 export class ExcelProvider {
-  constructor(private readonly awsProvider: AwsProvider) {}
   async readSheets(
     input: IExcel.IGetWorksheetListInput,
   ): Promise<IExcel.IWorksheetListOutput> {
     try {
       const { fileUrl } = input;
-      const buffer = await this.awsProvider.getObject(fileUrl); // AWS Provider를 사용해 S3에서 파일 읽기
+      const buffer = await AwsProvider.getObject(fileUrl); // AWS Provider를 사용해 S3에서 파일 읽기
 
       const workbook = new Excel.Workbook();
       await workbook.xlsx.load(buffer);

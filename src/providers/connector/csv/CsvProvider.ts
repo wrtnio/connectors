@@ -22,7 +22,7 @@ export class CsvProvider {
 
       const body: string = await (async (): Promise<string> => {
         if (match) {
-          return (await this.awsProvider.getObject(match[0])).toString("utf-8");
+          return (await AwsProvider.getObject(match[0])).toString("utf-8");
         } else {
           const response: Response = await fetch(s3Url);
           return response.text();
