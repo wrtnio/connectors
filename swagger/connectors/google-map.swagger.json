@@ -18,7 +18,7 @@
     "title": "Google Map",
     "summary": "구글맵으로 원하는 장소를 찾아요.",
     "description": "구글맵으로 식당이나 원하는 장소를 검색하고 리뷰를 미리 확인해볼 수 있어요.",
-    "version": "0.1.414",
+    "version": "0.1.415",
     "license": {
       "name": "AGPL-3.0-only"
     }
@@ -92,7 +92,11 @@
           }
         },
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleMap_full.svg",
-        "x-wrtn-standalone": true
+        "x-wrtn-standalone": true,
+        "x-wrtn-function-select-benchmarks": [
+          "구글 맵에서 식당 리뷰 좀 봐줘",
+          "식당 리뷰 좀 보고 알려줘"
+        ]
       }
     },
     "/connector/google-map/search-text": {
@@ -126,7 +130,11 @@
             }
           }
         },
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleMap_full.svg"
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleMap_full.svg",
+        "x-wrtn-function-select-benchmarks": [
+          "구글 맵에서 장소 검색 좀 해줘",
+          "구글 맵에서 카페 좀 찾아줘"
+        ]
       }
     },
     "/connector/google-map": {
@@ -164,7 +172,10 @@
           }
         },
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleMap_full.svg",
-        "x-wrtn-standalone": true
+        "x-wrtn-standalone": true,
+        "x-wrtn-function-select-benchmarks": [
+          "구글 맵에서 식당 좀 찾아줘"
+        ]
       }
     }
   },

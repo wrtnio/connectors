@@ -17,7 +17,7 @@
   "info": {
     "title": "Discord",
     "description": "디스코드로 메세지를 보내요.",
-    "version": "0.1.414",
+    "version": "0.1.415",
     "license": {
       "name": "AGPL-3.0-only"
     }
@@ -53,7 +53,11 @@
             }
           }
         },
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/discord.svg"
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/discord.svg",
+        "x-wrtn-function-select-benchmarks": [
+          "DM 채널 만들어줘",
+          "디스코드 DM 채널 만들어줘"
+        ]
       }
     },
     "/connector/discord/modify-guild": {
@@ -86,7 +90,10 @@
             }
           }
         },
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/discord.svg"
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/discord.svg",
+        "x-wrtn-function-select-benchmarks": [
+          "길드 수정해줘"
+        ]
       }
     },
     "/connector/discord/get-guild-channels": {
@@ -122,7 +129,10 @@
             }
           }
         },
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/discord.svg"
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/discord.svg",
+        "x-wrtn-function-select-benchmarks": [
+          "길드 채널 조회해줘"
+        ]
       }
     },
     "/connector/discord/create-guild-channel": {
@@ -155,7 +165,10 @@
             }
           }
         },
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/discord.svg"
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/discord.svg",
+        "x-wrtn-function-select-benchmarks": [
+          "길드 채널 생성해줘"
+        ]
       }
     },
     "/connector/discord/get-list-guild-members": {
@@ -191,7 +204,10 @@
             }
           }
         },
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/discord.svg"
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/discord.svg",
+        "x-wrtn-function-select-benchmarks": [
+          "길드 멤버 조회해줘"
+        ]
       }
     },
     "/connector/discord/modify-channel": {
@@ -224,7 +240,12 @@
             }
           }
         },
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/discord.svg"
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/discord.svg",
+        "x-wrtn-function-select-benchmarks": [
+          "디스코드 채널 정보 수정해줘",
+          "채널 정보 수정해줘",
+          "채널 수정해줘"
+        ]
       }
     },
     "/connector/discord/delete-channel": {
@@ -253,7 +274,11 @@
             }
           }
         },
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/discord.svg"
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/discord.svg",
+        "x-wrtn-function-select-benchmarks": [
+          "디스코드 채널 삭제해줘",
+          "채널 삭제해줘"
+        ]
       }
     },
     "/connector/discord/get-pinned-messages": {
@@ -289,7 +314,11 @@
             }
           }
         },
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/discord.svg"
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/discord.svg",
+        "x-wrtn-function-select-benchmarks": [
+          "디스코드 메세지 고정해둔 것들 조회해줘",
+          "핀꽂은 메세지만 조회해줘"
+        ]
       }
     },
     "/connector/discord/pin-message": {
@@ -318,7 +347,11 @@
             }
           }
         },
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/discord.svg"
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/discord.svg",
+        "x-wrtn-function-select-benchmarks": [
+          "디스코드 메시지 고정해줘",
+          "메시지 고정해줘"
+        ]
       }
     },
     "/connector/discord/unpin-message": {
@@ -347,7 +380,11 @@
             }
           }
         },
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/discord.svg"
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/discord.svg",
+        "x-wrtn-function-select-benchmarks": [
+          "디스코드 메시지 고정 해제해줘",
+          "메시지 고정 해제해줘"
+        ]
       }
     },
     "/connector/discord/get-channel-message-histories": {
@@ -383,7 +420,11 @@
             }
           }
         },
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/discord.svg"
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/discord.svg",
+        "x-wrtn-function-select-benchmarks": [
+          "디스코드 메시지 조회해줘",
+          "메시지 조회해줘"
+        ]
       }
     },
     "/connector/discord/create-message": {
@@ -416,7 +457,11 @@
             }
           }
         },
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/discord.svg"
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/discord.svg",
+        "x-wrtn-function-select-benchmarks": [
+          "디스코드 메시지 보내줘",
+          "메시지 보내줘"
+        ]
       }
     },
     "/connector/discord/edit-message": {
@@ -449,7 +494,11 @@
             }
           }
         },
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/discord.svg"
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/discord.svg",
+        "x-wrtn-function-select-benchmarks": [
+          "디스코드 메시지 수정해줘",
+          "메시지 수정해줘"
+        ]
       }
     },
     "/connector/discord/delete-message": {
@@ -478,7 +527,15 @@
             }
           }
         },
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/discord.svg"
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/discord.svg",
+        "x-wrtn-function-select-benchmarks": [
+          "디스코드 메시지 전송 취소해줘",
+          "디스코드 메시지 취소해줘",
+          "디스코드 메시지 삭제해줘",
+          "메시지 전송 취소해줘",
+          "메시지 취소해줘",
+          "메시지 삭제해줘"
+        ]
       }
     },
     "/connector/discord/bulk-delete-message": {
@@ -507,7 +564,15 @@
             }
           }
         },
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/discord.svg"
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/discord.svg",
+        "x-wrtn-function-select-benchmarks": [
+          "디스코드 메시지 전송 취소해줘",
+          "디스코드 메시지 취소해줘",
+          "디스코드 메시지 삭제해줘",
+          "메시지 전송 취소해줘",
+          "메시지 취소해줘",
+          "메시지 삭제해줘"
+        ]
       }
     }
   },

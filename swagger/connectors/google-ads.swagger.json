@@ -18,7 +18,7 @@
     "title": "구글 광고 캠페인 운영",
     "summary": "구글 광고를 쉽게 만들고 관리해요.",
     "description": "키워드 검색을 통한 SEO 전략을 최적화하고, 노출 광고의 효과를 높여 잠재 고객에게 효과적으로 도달할 수 있어요.구글 광고에서 검색 광고, 디스플레이 광고, 동영상 광고 등 다양한 유형의 광고를 만들고 수정할 수 있어요. 이후 광고 상태를 관리하고, 성과를 조회할 수 있어요.",
-    "version": "0.1.414",
+    "version": "0.1.415",
     "license": {
       "name": "AGPL-3.0-only"
     }
@@ -56,7 +56,11 @@
           }
         },
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/googleAD_full.svg",
-        "x-wrtn-standalone": true
+        "x-wrtn-standalone": true,
+        "x-wrtn-function-select-benchmarks": [
+          "키워드 기반으로 광고 키워드 아이디어 좀 줘",
+          "URL 기반으로 광고 키워드 아이디어 좀 줘"
+        ]
       }
     },
     "/connector/google-ads/generateKeywordIdeas/keywords": {
@@ -91,7 +95,10 @@
           }
         },
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/googleAD_full.svg",
-        "x-wrtn-standalone": true
+        "x-wrtn-standalone": true,
+        "x-wrtn-function-select-benchmarks": [
+          "키워드 기반으로 광고 키워드 아이디어 좀 줘"
+        ]
       }
     },
     "/connector/google-ads/generateKeywordIdeas/url": {
@@ -126,13 +133,16 @@
           }
         },
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/googleAD_full.svg",
-        "x-wrtn-standalone": true
+        "x-wrtn-standalone": true,
+        "x-wrtn-function-select-benchmarks": [
+          "URL 기반으로 광고 키워드 아이디어 좀 줘"
+        ]
       }
     },
     "/connector/google-ads/customerClientLink": {
       "post": {
-        "summary": "Register Rutten as an administrator",
-        "description": "Designate Rutten as the advertising account manager of the user\n\nTo call the Google Ads API for a specific Google account, you must own the advertising account or be registered as an administrator.\nThis connector is a connector that sends a kind of invitation to all of the user's Google advertising accounts to register the `Wrtn` advertising account as the customer's administrator.\nAfter the connector is executed, an email registered to the customer account will be sent via Gmail.\nThose who receive the email can go to the dashboard through the email and give the `Wrtn` account administrator rights.\nIf `Wrtn` is registered as an administrator, he will be able to use other APIs created in Google Ads.\n\nThis administrator designation must be done before calling all Google Ads connectors except for connectors that do not receive `customerId` as an argument, such as keyword recommendations.\nHowever, even if this connector is called, `Wrtn` will not be designated as an administrator without the user's approval, so there is no need to worry.\n\nBefore calling the function, we need to ask the user for his `customerId`, so we need to suggest a connector that can check `customerId`.",
+        "summary": "Register Wrtn as an administrator",
+        "description": "Designate Wrtn as the advertising account manager of the user\n\nTo call the Google Ads API for a specific Google account, you must own the advertising account or be registered as an administrator.\nThis connector is a connector that sends a kind of invitation to all of the user's Google advertising accounts to register the `Wrtn` advertising account as the customer's administrator.\nAfter the connector is executed, an email registered to the customer account will be sent via Gmail.\nThose who receive the email can go to the dashboard through the email and give the `Wrtn` account administrator rights.\nIf `Wrtn` is registered as an administrator, he will be able to use other APIs created in Google Ads.\n\nThis administrator designation must be done before calling all Google Ads connectors except for connectors that do not receive `customerId` as an argument, such as keyword recommendations.\nHowever, even if this connector is called, `Wrtn` will not be designated as an administrator without the user's approval, so there is no need to worry.\n\nBefore calling the function, we need to ask the user for his `customerId`, so we need to suggest a connector that can check `customerId`.",
         "tags": [
           "Google Ads"
         ],
@@ -156,7 +166,10 @@
             }
           }
         },
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/googleAD_full.svg"
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/googleAD_full.svg",
+        "x-wrtn-function-select-benchmarks": [
+          "Wrtn 광고 계정에 내 계정 등록하게 링크 좀 줘"
+        ]
       }
     },
     "/connector/google-ads/get-customers": {
@@ -194,7 +207,10 @@
           }
         },
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/googleAD_full.svg",
-        "x-wrtn-standalone": true
+        "x-wrtn-standalone": true,
+        "x-wrtn-function-select-benchmarks": [
+          "내 구글 광고 계정 좀 보여줘"
+        ]
       }
     },
     "/connector/google-ads/get-campaigns": {
@@ -231,7 +247,10 @@
             }
           }
         },
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/googleAD_full.svg"
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/googleAD_full.svg",
+        "x-wrtn-function-select-benchmarks": [
+          "내 구글 광고 캠페인들 보여줘"
+        ]
       }
     },
     "/connector/google-ads/get-ad-groups": {
@@ -268,7 +287,10 @@
             }
           }
         },
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/googleAD_full.svg"
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/googleAD_full.svg",
+        "x-wrtn-function-select-benchmarks": [
+          "내 구글 광고 그룹들 보여줘"
+        ]
       }
     },
     "/connector/google-ads/get-ads": {
@@ -305,7 +327,10 @@
             }
           }
         },
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/googleAD_full.svg"
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/googleAD_full.svg",
+        "x-wrtn-function-select-benchmarks": [
+          "내 구글 광고들 보여줘"
+        ]
       }
     },
     "/connector/google-ads/ad-groups/get-metrics": {
@@ -342,7 +367,12 @@
             }
           }
         },
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/googleAD_full.svg"
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/googleAD_full.svg",
+        "x-wrtn-function-select-benchmarks": [
+          "내 구글 광고 통계 좀 보여줘",
+          "내 구글 광고 지표 좀 보여줘",
+          "광고 성과 좀 보여줘"
+        ]
       }
     },
     "/connector/google-ads/campaigns/ads/get-keywords": {
@@ -379,7 +409,10 @@
             }
           }
         },
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/googleAD_full.svg"
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/googleAD_full.svg",
+        "x-wrtn-function-select-benchmarks": [
+          "광고 키워드 목록 좀 보여줄래?"
+        ]
       }
     },
     "/connector/google-ads/campaigns/ads/status": {
@@ -409,7 +442,11 @@
             }
           }
         },
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/googleAD_full.svg"
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/googleAD_full.svg",
+        "x-wrtn-function-select-benchmarks": [
+          "광고 켜줘",
+          "광고 꺼줘"
+        ]
       }
     },
     "/connector/google-ads/campaigns/ads/keywords": {
@@ -439,7 +476,10 @@
             }
           }
         },
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/googleAD_full.svg"
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/googleAD_full.svg",
+        "x-wrtn-function-select-benchmarks": [
+          "광고 키워드 지워줘"
+        ]
       },
       "post": {
         "summary": "Add keywords to ads",
@@ -476,7 +516,10 @@
             }
           }
         },
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/googleAD_full.svg"
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/googleAD_full.svg",
+        "x-wrtn-function-select-benchmarks": [
+          "광고 키워드 추가해줘"
+        ]
       }
     },
     "/connector/google-ads/campaigns/ads/get-details": {
@@ -510,7 +553,10 @@
             }
           }
         },
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/googleAD_full.svg"
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/googleAD_full.svg",
+        "x-wrtn-function-select-benchmarks": [
+          "광고 상세 조회해줘"
+        ]
       }
     },
     "/connector/google-ads/campaigns/ads": {
@@ -558,7 +604,11 @@
             }
           }
         },
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/googleAD_full.svg"
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/googleAD_full.svg",
+        "x-wrtn-function-select-benchmarks": [
+          "캠페인에 광고 생성해줘",
+          "캠페인 광고 생성해줘"
+        ]
       }
     },
     "/connector/google-ads/campaigns": {
@@ -588,7 +638,10 @@
             }
           }
         },
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/googleAD_full.svg"
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/googleAD_full.svg",
+        "x-wrtn-function-select-benchmarks": [
+          "캠페인 수정해줘"
+        ]
       },
       "post": {
         "summary": "Create a campaign",
@@ -620,7 +673,10 @@
             }
           }
         },
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/googleAD_full.svg"
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/googleAD_full.svg",
+        "x-wrtn-function-select-benchmarks": [
+          "캠페인 생성해줘"
+        ]
       }
     },
     "/connector/google-ads/search-ads": {
@@ -654,7 +710,10 @@
             }
           }
         },
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/googleAD_full.svg"
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/googleAD_full.svg",
+        "x-wrtn-function-select-benchmarks": [
+          "검색 광고 생성해줘"
+        ]
       }
     },
     "/connector/google-ads/display-ads": {
@@ -688,7 +747,10 @@
             }
           }
         },
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/googleAD_full.svg"
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/googleAD_full.svg",
+        "x-wrtn-function-select-benchmarks": [
+          "디스플레이 광고 생성해줘"
+        ]
       }
     }
   },

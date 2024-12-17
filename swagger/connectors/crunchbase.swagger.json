@@ -18,7 +18,7 @@
     "title": "Crunchbase",
     "summary": "Crunchbase에서 기업 정보를 가져올 수 있어요",
     "description": "전세계 기업의 펀딩 라운드나 투자, 재무 정보 등 자세한 내역을 확인할 수 있어요",
-    "version": "0.1.414",
+    "version": "0.1.415",
     "license": {
       "name": "AGPL-3.0-only"
     }
@@ -33,6 +33,7 @@
         ],
         "parameters": [],
         "requestBody": {
+          "description": "Information for Getting Received Event",
           "content": {
             "application/json": {
               "schema": {
@@ -44,7 +45,7 @@
         },
         "responses": {
           "201": {
-            "description": "",
+            "description": "Received Event of user",
             "content": {
               "application/json": {
                 "schema": {
@@ -54,7 +55,11 @@
             }
           }
         },
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg"
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
+        "x-wrtn-function-select-benchmarks": [
+          "유저의 최근 이벤트 알려줘",
+          "유저가 받은 이벤트 알려줘"
+        ]
       }
     },
     "/connector/github/users/get-pinned-repositories": {
@@ -90,7 +95,11 @@
             }
           }
         },
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg"
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
+        "x-wrtn-function-select-benchmarks": [
+          "유저의 대표 레포지토리들 조회해줘",
+          "유저가 핀 꽂은 레포들 알려줘"
+        ]
       }
     },
     "/connector/github/users/get-repositories": {
@@ -123,7 +132,11 @@
             }
           }
         },
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg"
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
+        "x-wrtn-function-select-benchmarks": [
+          "유저의 레포지토리들 조회해줘",
+          "유저 레포들 알려줘"
+        ]
       }
     },
     "/connector/github/organizations/users/get-events": {
@@ -156,7 +169,10 @@
             }
           }
         },
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg"
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
+        "x-wrtn-function-select-benchmarks": [
+          "organization에서 특정 유저 이벤트 조회해줘"
+        ]
       }
     },
     "/connector/github/organizations/get-issues": {
@@ -189,7 +205,10 @@
             }
           }
         },
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg"
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
+        "x-wrtn-function-select-benchmarks": [
+          "organization에 생성되어 있는 이슈 좀 봐줘"
+        ]
       }
     },
     "/connector/github/organizations/get-repositories": {
@@ -222,7 +241,10 @@
             }
           }
         },
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg"
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
+        "x-wrtn-function-select-benchmarks": [
+          "organization에 생성되어 있는 레포 좀 봐줘"
+        ]
       }
     },
     "/connector/github/organizations/get-events": {
@@ -255,7 +277,10 @@
             }
           }
         },
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg"
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
+        "x-wrtn-function-select-benchmarks": [
+          "organization에서 이벤트 조회해줘"
+        ]
       }
     },
     "/connector/github/repos/get-collaborators": {
@@ -288,7 +313,11 @@
             }
           }
         },
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg"
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
+        "x-wrtn-function-select-benchmarks": [
+          "내 레포 코드 리뷰해줄 사람 찾아줘",
+          "레포 콜라보레이터 조회해줘"
+        ]
       }
     },
     "/connector/github/repos/commits/contents": {
@@ -317,7 +346,11 @@
             }
           }
         },
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg"
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
+        "x-wrtn-function-select-benchmarks": [
+          "방금 커밋한 거 취소해줘",
+          "커밋된 파일 삭제해줘"
+        ]
       },
       "put": {
         "summary": "Update File content and commit",
@@ -348,7 +381,10 @@
             }
           }
         },
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg"
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
+        "x-wrtn-function-select-benchmarks": [
+          "커밋 수정해줘"
+        ]
       },
       "post": {
         "summary": "Create File content and commit",
@@ -379,7 +415,10 @@
             }
           }
         },
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg"
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
+        "x-wrtn-function-select-benchmarks": [
+          "커밋 추가해줘"
+        ]
       }
     },
     "/connector/github/repos/get-folder-structures": {
@@ -429,7 +468,11 @@
             }
           }
         },
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg"
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
+        "x-wrtn-function-select-benchmarks": [
+          "레포 폴더 구조 조회해줘",
+          "레포 폴더 구조 봐줘"
+        ]
       }
     },
     "/connector/github/repos/get-contents/bulk": {
@@ -511,7 +554,11 @@
             }
           }
         },
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg"
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
+        "x-wrtn-function-select-benchmarks": [
+          "유저가 짠 코드 좀 봐줘",
+          "레포 코드 좀 봐줘"
+        ]
       }
     },
     "/connector/github/repos/get-contents": {
@@ -590,7 +637,11 @@
             }
           }
         },
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg"
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
+        "x-wrtn-function-select-benchmarks": [
+          "유저가 짠 코드 좀 봐줘",
+          "레포 코드 좀 봐줘"
+        ]
       }
     },
     "/connector/github/repos/get-readme": {
@@ -636,7 +687,12 @@
             }
           }
         },
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg"
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
+        "x-wrtn-function-select-benchmarks": [
+          "리드미 내용 보고 레포 설명해줘",
+          "레포지토리에 대해 설명해봐",
+          "리드미 읽어줘"
+        ]
       }
     },
     "/connector/github/repos/get-events": {
@@ -669,7 +725,10 @@
             }
           }
         },
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg"
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
+        "x-wrtn-function-select-benchmarks": [
+          "레포 이벤트 조회해줘"
+        ]
       }
     },
     "/connector/github/networks/get-events": {
@@ -702,7 +761,10 @@
             }
           }
         },
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg"
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
+        "x-wrtn-function-select-benchmarks": [
+          "레포 포크한 사람들 조회해줘"
+        ]
       }
     },
     "/connector/github/users/get-events": {
@@ -735,7 +797,10 @@
             }
           }
         },
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg"
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
+        "x-wrtn-function-select-benchmarks": [
+          "내 github 이벤트 조회해줘"
+        ]
       }
     },
     "/connector/github/users/get-organizations": {
@@ -768,7 +833,10 @@
             }
           }
         },
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg"
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
+        "x-wrtn-function-select-benchmarks": [
+          "Github Organization 조회해줘"
+        ]
       }
     },
     "/connector/github/get-events": {
@@ -834,7 +902,10 @@
             }
           }
         },
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg"
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
+        "x-wrtn-function-select-benchmarks": [
+          "레포의 최근 이력 좀 조회해줘"
+        ]
       }
     },
     "/connector/github/repositories/pull-requests": {
@@ -867,7 +938,10 @@
             }
           }
         },
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg"
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
+        "x-wrtn-function-select-benchmarks": [
+          "PR 수정해줘"
+        ]
       },
       "post": {
         "description": "Create pull request\n\nCreates a pull request from a branch to a particular branch.\nIf the branch has already generated a pull request to the base branch, an error of 422 may occur.\nThis error indicates a collision because only one pull request from branch to another branch can exist open at the same time.\n\nIf the user wants to see each PR unit, this connector will be suitable.\n\nWhen creating a PR, be sure to specify the base branch and the head branch, and even if it can be omitted, be sure to include Titles and bodies as much as possible.\nYou can also create a pull request in draft state if necessary.\n\nIn order to create PR, you may need to refer to the PULL_REQUEST_TEMPLATE.md file that you specified in the .github folder in advance, in which case refer to the connector 'POST /connector/github/repos/get-contents'.",
@@ -898,7 +972,11 @@
             }
           }
         },
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg"
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
+        "x-wrtn-function-select-benchmarks": [
+          "PR 생성해줘",
+          "PR 보내줘"
+        ]
       }
     },
     "/connector/github/repositories/pull-requests/get-comments": {
@@ -931,7 +1009,11 @@
             }
           }
         },
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg"
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
+        "x-wrtn-function-select-benchmarks": [
+          "PR 댓글 보여줘",
+          "PR 댓글 봐줘"
+        ]
       }
     },
     "/connector/github/repositories/pull-requests/comments": {
@@ -964,7 +1046,11 @@
             }
           }
         },
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg"
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
+        "x-wrtn-function-select-benchmarks": [
+          "PR 댓글 좀 달아줘",
+          "PR 댓글 생성해줘"
+        ]
       }
     },
     "/connector/github/repositories/pull-requests/get-requested-reviewers": {
@@ -997,7 +1083,10 @@
             }
           }
         },
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg"
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
+        "x-wrtn-function-select-benchmarks": [
+          "이 PR 리뷰어 누구야?"
+        ]
       }
     },
     "/connector/github/repositories/pull-requests/requested-reviewers": {
@@ -1026,7 +1115,10 @@
             }
           }
         },
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg"
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
+        "x-wrtn-function-select-benchmarks": [
+          "이 PR에 리뷰어 해제해줘"
+        ]
       },
       "post": {
         "summary": "Request reviewers for a pull request",
@@ -1053,7 +1145,10 @@
             }
           }
         },
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg"
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
+        "x-wrtn-function-select-benchmarks": [
+          "이 PR에 리뷰어 지정해줘"
+        ]
       }
     },
     "/connector/github/repositories/pull-requests/reviews/get-comments": {
@@ -1086,7 +1181,10 @@
             }
           }
         },
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg"
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
+        "x-wrtn-function-select-benchmarks": [
+          "PR 리뷰에 달린 답글 좀 보여줘"
+        ]
       }
     },
     "/connector/github/repositories/pull-requests/get-reviews": {
@@ -1119,7 +1217,11 @@
             }
           }
         },
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg"
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
+        "x-wrtn-function-select-benchmarks": [
+          "PR 리뷰 조회해줘",
+          "PR에 리뷰 있어?"
+        ]
       }
     },
     "/connector/github/repositories/pull-requests/reviews": {
@@ -1152,7 +1254,10 @@
             }
           }
         },
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg"
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
+        "x-wrtn-function-select-benchmarks": [
+          "PR에 리뷰 좀 달아줘"
+        ]
       }
     },
     "/connector/github/repositories/pull-requests/get-files": {
@@ -1185,7 +1290,10 @@
             }
           }
         },
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg"
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
+        "x-wrtn-function-select-benchmarks": [
+          "PR 파일 좀 조회해봐"
+        ]
       }
     },
     "/connector/github/repositories/pull-requests/get-commits": {
@@ -1217,7 +1325,10 @@
             }
           }
         },
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg"
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
+        "x-wrtn-function-select-benchmarks": [
+          "PR 커밋 목록 가져와봐"
+        ]
       }
     },
     "/connector/github/repositories/pull-requests/get-diff": {
@@ -1297,7 +1408,10 @@
             }
           }
         },
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg"
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
+        "x-wrtn-function-select-benchmarks": [
+          "PR의 변경점이 뭐야?"
+        ]
       }
     },
     "/connector/github/repositories/pull-requests/get-detail": {
@@ -1330,7 +1444,10 @@
             }
           }
         },
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg"
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
+        "x-wrtn-function-select-benchmarks": [
+          "이 PR에 대해 상세히 알려줘"
+        ]
       }
     },
     "/connector/github/repositories/get-pull-requests": {
@@ -1363,7 +1480,10 @@
             }
           }
         },
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg"
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
+        "x-wrtn-function-select-benchmarks": [
+          "PR 목록 좀 조회해줘"
+        ]
       }
     },
     "/connector/github/repositories/issues/get-detail": {
@@ -1396,7 +1516,10 @@
             }
           }
         },
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg"
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
+        "x-wrtn-function-select-benchmarks": [
+          "레포 이슈 좀 조회해줘"
+        ]
       }
     },
     "/connector/github/repositories/issues/get-comments": {
@@ -1429,7 +1552,10 @@
             }
           }
         },
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg"
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
+        "x-wrtn-function-select-benchmarks": [
+          "이 이슈에서 무슨 얘기가 오가는 중이야?"
+        ]
       }
     },
     "/connector/github/repositories/issues/comments": {
@@ -1462,7 +1588,10 @@
             }
           }
         },
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg"
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
+        "x-wrtn-function-select-benchmarks": [
+          "이슈에 댓글 달아줘"
+        ]
       }
     },
     "/connector/github/repositories/get-issues": {
@@ -1495,7 +1624,11 @@
             }
           }
         },
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg"
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
+        "x-wrtn-function-select-benchmarks": [
+          "이 레포 이슈 목록 좀 가져와줘",
+          "레포에서 이슈 좀 찾아줄래?"
+        ]
       }
     },
     "/connector/github/get-users": {
@@ -1528,7 +1661,10 @@
             }
           }
         },
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg"
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
+        "x-wrtn-function-select-benchmarks": [
+          "Github 유저 검색해줘"
+        ]
       }
     },
     "/connector/github/get-user-profile": {
@@ -1561,7 +1697,10 @@
             }
           }
         },
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg"
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
+        "x-wrtn-function-select-benchmarks": [
+          "Github 유저 상세 보여줘"
+        ]
       }
     },
     "/connector/github/get-organizations": {
@@ -1594,13 +1733,16 @@
             }
           }
         },
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg"
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
+        "x-wrtn-function-select-benchmarks": [
+          "내 Organization 조회해줘"
+        ]
       }
     },
     "/connector/github/get-branches": {
       "post": {
         "summary": "Inquire the user's branch",
-        "description": "Inquire the user's branch\nYou can look up a list of branches in a specific repository.\nBecause it says what the last commit is, and when and to whom it was made,\nyou can see which of the branches is the latest and managed.\n\nYou shouldn't call the main branch arbitrarily because there may be people who use the master branch.",
+        "description": "Inquire the user's branch\n\nYou can look up a list of branches in a specific repository.\nBecause it says what the last commit is, and when and to whom it was made,\nyou can see which of the branches is the latest and managed.\n\nYou shouldn't call the main branch arbitrarily because there may be people who use the master branch.",
         "tags": [
           "Github"
         ],
@@ -1627,7 +1769,10 @@
             }
           }
         },
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg"
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
+        "x-wrtn-function-select-benchmarks": [
+          "레포에서 브랜치 좀 조회해줘"
+        ]
       }
     },
     "/connector/github/branches": {
@@ -1660,7 +1805,10 @@
             }
           }
         },
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg"
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
+        "x-wrtn-function-select-benchmarks": [
+          "브랜치 생성해줘"
+        ]
       }
     },
     "/connector/github/get-pull-requests-associated-with-a-commit": {
@@ -1762,7 +1910,10 @@
             }
           }
         },
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg"
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
+        "x-wrtn-function-select-benchmarks": [
+          "커밋 상세 보여줘"
+        ]
       }
     },
     "/connector/github/get-commit-diff": {
@@ -1795,7 +1946,10 @@
             }
           }
         },
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg"
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
+        "x-wrtn-function-select-benchmarks": [
+          "커밋 상세 보여줘"
+        ]
       }
     },
     "/connector/github/get-commit-list": {
@@ -1828,7 +1982,10 @@
             }
           }
         },
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg"
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
+        "x-wrtn-function-select-benchmarks": [
+          "커밋 목록 보여줘"
+        ]
       }
     },
     "/connector/github/get-followers": {
@@ -1861,7 +2018,10 @@
             }
           }
         },
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg"
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
+        "x-wrtn-function-select-benchmarks": [
+          "내 github 팔로워 보여줘"
+        ]
       }
     },
     "/connector/github/get-followees": {
@@ -1894,7 +2054,10 @@
             }
           }
         },
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg"
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
+        "x-wrtn-function-select-benchmarks": [
+          "내가 github에서 팔로우한 사람 보여줘"
+        ]
       }
     },
     "/connector/github/get-labels": {
@@ -1927,7 +2090,10 @@
             }
           }
         },
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg"
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
+        "x-wrtn-function-select-benchmarks": [
+          "issue 라벨 보여줘"
+        ]
       }
     },
     "/connector/github/issues": {
@@ -1960,7 +2126,10 @@
             }
           }
         },
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg"
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
+        "x-wrtn-function-select-benchmarks": [
+          "이슈 수정해줘"
+        ]
       },
       "post": {
         "summary": "Create an issue",
@@ -1991,7 +2160,10 @@
             }
           }
         },
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg"
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
+        "x-wrtn-function-select-benchmarks": [
+          "이슈 생성해줘"
+        ]
       }
     },
     "/connector/rag/analyze": {

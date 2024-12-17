@@ -18,7 +18,7 @@
     "title": "Calendly",
     "summary": "Calendly에서 고객과의 미팅을 잡을 수 있어요",
     "description": "Calendly에서 미팅을 잡고 고객들을 초대하세요. 쉽고 빠르게 미팅을 관리할 수 있어요.",
-    "version": "0.1.414",
+    "version": "0.1.415",
     "license": {
       "name": "AGPL-3.0-only"
     }
@@ -55,7 +55,10 @@
             }
           }
         },
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/calendly.svg"
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/calendly.svg",
+        "x-wrtn-function-select-benchmarks": [
+          "calendly 미팅 좀 잡아줘"
+        ]
       }
     },
     "/connector/calendly/get-event-types": {
@@ -155,7 +158,10 @@
             }
           }
         },
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/calendly.svg"
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/calendly.svg",
+        "x-wrtn-function-select-benchmarks": [
+          "calendly 미팅 좀 취소해줘"
+        ]
       }
     },
     "/connector/calendly/get-events/{eventId}": {
@@ -200,7 +206,10 @@
             }
           }
         },
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/calendly.svg"
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/calendly.svg",
+        "x-wrtn-function-select-benchmarks": [
+          "calendly 미팅 정보 좀 조회해줘"
+        ]
       }
     },
     "/connector/calendly/get-scheduled-events": {
@@ -234,7 +243,10 @@
             }
           }
         },
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/calendly.svg"
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/calendly.svg",
+        "x-wrtn-function-select-benchmarks": [
+          "예약된 미팅들 좀 알려줘"
+        ]
       }
     },
     "/connector/calendly/events/{eventId}/invitees/{inviteeId}/no-show": {
@@ -289,7 +301,10 @@
             }
           }
         },
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/calendly.svg"
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/calendly.svg",
+        "x-wrtn-function-select-benchmarks": [
+          "미팅에 노쇼한 사람 체크 좀 해줘"
+        ]
       }
     },
     "/connector/calendly/events/{eventId}/invitees/{inviteeId}": {
@@ -344,7 +359,10 @@
             }
           }
         },
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/calendly.svg"
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/calendly.svg",
+        "x-wrtn-function-select-benchmarks": [
+          "미팅 참석자 정보 좀 찾아줘"
+        ]
       }
     },
     "/connector/calendly/events/get-invitees": {
@@ -378,7 +396,10 @@
             }
           }
         },
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/calendly.svg"
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/calendly.svg",
+        "x-wrtn-function-select-benchmarks": [
+          "미팅 참석자 정보 좀 찾아줘"
+        ]
       }
     },
     "/connector/calendly/one-off-event-types": {
@@ -412,7 +433,10 @@
             }
           }
         },
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/calendly.svg"
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/calendly.svg",
+        "x-wrtn-function-select-benchmarks": [
+          "1회성 미팅 초대 링크 좀 줄래?"
+        ]
       }
     },
     "/connector/calendly/users/get-me": {
