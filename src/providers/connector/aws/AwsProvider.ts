@@ -33,37 +33,6 @@ export class AwsProvider {
     });
   }
 
-  async getPutObjectUrl(
-    input: IAws.IGetPutObjectUrlInput,
-  ): Promise<IAws.IGetPutObjectUrlOutput> {
-    try {
-      const { extension } = input;
-      const fileUUID = randomUUID();
-      const fileSuffixUrl = `${fileUUID}.${extension}`;
-      const putObjectConfig = new PutObjectCommand({
-        Bucket: this.fileBucket,
-        Key: `${fileSuffixUrl}`,
-      });
-      const urlValidityThresholdInMinutes = 3 * 1000 * 60;
-      const now = new Date();
-      now.setMinutes(now.getMinutes() + urlValidityThresholdInMinutes);
-      const urlExpDate = now;
-      const uploadUrl = await getSignedUrl(this.s3, putObjectConfig, {
-        expiresIn: 60 * 3,
-        signingRegion: this.region,
-      });
-
-      return {
-        uuid: fileUUID,
-        uploadUrl,
-        urlExpTsMillis: urlExpDate.getTime(), // * date to milliseconds timestamp
-      };
-    } catch (error) {
-      console.error(JSON.stringify(error));
-      throw error;
-    }
-  }
-
   async getObject(fileUrl: string): Promise<Buffer> {
     try {
       const { bucket, key } = AwsProvider.extractS3InfoFromUrl(fileUrl);
@@ -217,6 +186,37 @@ export namespace AwsProvider {
     });
     await s3.send(putObjectConfig);
     return addBucketPrefix(input.key);
+  }
+
+  export async function getPutObjectUrl(
+    input: IAws.IGetPutObjectUrlInput,
+  ): Promise<IAws.IGetPutObjectUrlOutput> {
+    try {
+      const { extension } = input;
+      const fileUUID = randomUUID();
+      const fileSuffixUrl = `${fileUUID}.${extension}`;
+      const putObjectConfig = new PutObjectCommand({
+        Bucket: fileBucket,
+        Key: `${fileSuffixUrl}`,
+      });
+      const urlValidityThresholdInMinutes = 3 * 1000 * 60;
+      const now = new Date();
+      now.setMinutes(now.getMinutes() + urlValidityThresholdInMinutes);
+      const urlExpDate = now;
+      const uploadUrl = await getSignedUrl(s3, putObjectConfig, {
+        expiresIn: 60 * 3,
+        signingRegion: region,
+      });
+
+      return {
+        uuid: fileUUID,
+        uploadUrl,
+        urlExpTsMillis: urlExpDate.getTime(), // * date to milliseconds timestamp
+      };
+    } catch (error) {
+      console.error(JSON.stringify(error));
+      throw error;
+    }
   }
 
   export function extractS3InfoFromUrl(url: string): {
