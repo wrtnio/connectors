@@ -14,7 +14,7 @@ export class ExcelProvider {
   ): Promise<IExcel.IWorksheetListOutput> {
     try {
       const { fileUrl } = input;
-      const buffer = await AwsProvider.getObject(fileUrl); // AWS Provider를 사용해 S3에서 파일 읽기
+      const buffer = await AwsProvider.getObject({ fileUrl }); // AWS Provider를 사용해 S3에서 파일 읽기
 
       const workbook = new Excel.Workbook();
       await workbook.xlsx.load(buffer);

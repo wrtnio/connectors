@@ -33,33 +33,6 @@ export class AwsProvider {
     });
   }
 
-  async getObjectByFileName(fileName: string): Promise<Buffer> {
-    try {
-      const getObjectCommand = new GetObjectCommand({
-        Bucket: this.fileBucket,
-        Key: fileName, // file name
-      });
-
-      const response = await this.s3.send(getObjectCommand);
-
-      if (!response.Body) {
-        throw new InternalServerErrorException("S3 object has no content");
-      }
-
-      const stream = response.Body as Readable;
-      const chunks: Buffer[] = [];
-
-      for await (const chunk of stream) {
-        chunks.push(Buffer.from(chunk));
-      }
-
-      return Buffer.concat(chunks);
-    } catch (error) {
-      console.error(`Failed to get object from S3 using fileName: ${error}`);
-      throw error;
-    }
-  }
-
   /**
    * Transforms S3 URLs in output to presigned URLs
    */
@@ -190,13 +163,23 @@ export namespace AwsProvider {
     }
   }
 
-  export async function getObject(fileUrl: string): Promise<Buffer> {
+  export async function getObject(
+    input: { fileUrl: string } | { filename: string },
+  ): Promise<Buffer> {
     try {
-      const { bucket, key } = AwsProvider.extractS3InfoFromUrl(fileUrl);
-      const getObjectCommand = new GetObjectCommand({
-        Bucket: bucket,
-        Key: key,
-      });
+      let getObjectCommand: GetObjectCommand;
+      if ("fileUrl" in input) {
+        const { bucket, key } = AwsProvider.extractS3InfoFromUrl(input.fileUrl);
+        getObjectCommand = new GetObjectCommand({
+          Bucket: bucket,
+          Key: key,
+        });
+      } else {
+        getObjectCommand = new GetObjectCommand({
+          Bucket: fileBucket,
+          Key: input.filename, // file name
+        });
+      }
 
       const response = await s3.send(getObjectCommand);
 

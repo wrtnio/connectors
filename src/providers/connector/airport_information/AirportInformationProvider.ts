@@ -52,7 +52,7 @@ export class AirportInformationProvider {
     const match = fileUrl.match(AwsProvider.S3BucketURL);
     if (!match) throw new Error("Invalid S3 URL");
 
-    const fileBuffer = await AwsProvider.getObject(fileUrl);
+    const fileBuffer = await AwsProvider.getObject({ fileUrl });
     const s3Stream = new Readable();
     s3Stream.push(fileBuffer);
     s3Stream.push(null);
