@@ -7,6 +7,8 @@ export namespace IGoogleShopping {
   export interface IRequestStandAlone {
     /**
      * Enter the keyword you want to search for.
+     * A keyword must contain only one word.
+     * If you want to enter multiple words, you must make multiple requests, breaking them up into individual words.
      *
      * @title Search term
      */

@@ -15,6 +15,9 @@ export class GoogleShoppingMarketKurlyController {
 
   /**
    * Search for products on Market Kurly
+   * Market Kurly is a service where you can purchase groceries.
+   * Only one keyword should be requested per request.
+   * For example, If you use "apple" and "potato" as keywords, you must make two requests, each with separate keywords.
    *
    * @summary Market Kurly Search
    * @param input Search conditions
