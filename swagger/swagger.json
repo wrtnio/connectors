@@ -15,7 +15,7 @@
     }
   ],
   "info": {
-    "version": "0.1.413",
+    "version": "0.1.414",
     "title": "@wrtn/connector",
     "description": "wrtn-ecosystem connectors and sdk",
     "license": {
@@ -5027,7 +5027,7 @@
     "/connector/google-shopping/aladine": {
       "post": {
         "summary": "Aladdin Search",
-        "description": "Search for products in Aladdin",
+        "description": "Search for products in Aladdin\nAladdin is a service that allows you to purchase used books.\nOnly one keyword should be requested per request.\nFor example, If you use \"novel book\" and \"fairy tale book\" as keywords, you must make two requests, each with separate keywords.",
         "tags": [
           "Aladin"
         ],
@@ -5065,7 +5065,7 @@
     "/connector/google-shopping/ali-express": {
       "post": {
         "summary": "Search for AliExpress",
-        "description": "Search for products on AliExpress",
+        "description": "Search for products on AliExpress\n Only one keyword should be requested per request.\nFor example, If you use \"phone\" and \"cup\" as keywords, you must make two requests, each with separate keywords.",
         "tags": [
           "AliExpress"
         ],
@@ -5103,7 +5103,7 @@
     "/connector/google-shopping/coupang": {
       "post": {
         "summary": "Coupang Search",
-        "description": "Search for products on Coupang",
+        "description": "Search for products on Coupang\nOnly one keyword should be requested per request.\nFor example, If you use \"phone\" and \"cup\" as keywords, you must make two requests, each with separate keywords.",
         "tags": [
           "Coupang"
         ],
@@ -5141,7 +5141,7 @@
     "/connector/google-shopping/eql": {
       "post": {
         "summary": "EQL search",
-        "description": "Search for products in EQL",
+        "description": "Search for products in EQL\nEQL is a service that allows you to purchase clothes or shoes.\nOnly one keyword should be requested per request.\nFor example, If you use \"shirts\" and \"pants\" as keywords, you must make two requests, each with separate keywords.",
         "tags": [
           "EQL"
         ],
@@ -5179,7 +5179,7 @@
     "/connector/google-shopping/iherb": {
       "post": {
         "summary": "iHerb Search",
-        "description": "Search for products on iHerb",
+        "description": "Search for products on iHerb\niHerb is a service that allows you to purchase Nutritional supplement.\nOnly one keyword should be requested per request.\nFor example, If you use \"vitamin\" and \"calcium\" as keywords, you must make two requests, each with separate keywords.",
         "tags": [
           "iHerb"
         ],
@@ -5217,7 +5217,7 @@
     "/connector/google-shopping/market-kurly": {
       "post": {
         "summary": "Market Kurly Search",
-        "description": "Search for products on Market Kurly",
+        "description": "Search for products on Market Kurly\nMarket Kurly is a service where you can purchase groceries.\nOnly one keyword should be requested per request.\nFor example, If you use \"apple\" and \"potato\" as keywords, you must make two requests, each with separate keywords.",
         "tags": [
           "Market Kurly"
         ],
@@ -5255,7 +5255,7 @@
     "/connector/google-shopping/oco": {
       "post": {
         "summary": "OCO search",
-        "description": "Search for products in OCO\n\nOco is one of the Korean companies and is a brand that advocates a brand editing shop.",
+        "description": "Search for products in OCO\n\nOco is one of the Korean companies and is a brand that advocates a brand editing shop.\nOnly one keyword should be requested per request.\nFor example, If you use \"shirts\" and \"pants\" as keywords, you must make two requests, each with separate keywords.",
         "tags": [
           "OCO"
         ],
@@ -5293,7 +5293,7 @@
     "/connector/google-shopping/olive-young": {
       "post": {
         "summary": "Olive Young Search",
-        "description": "Search for products at Olive Young",
+        "description": "Search for products at Olive Young\nOlive Young is a service that allows you to purchase cosmetics.\nOnly one keyword should be requested per request.\nFor example, If you use \"sun block\" and \"serum\" as keywords, you must make two requests, each with separate keywords.",
         "tags": [
           "Olive Young"
         ],
@@ -5331,7 +5331,7 @@
     "/connector/google-shopping/twenty-nine-centimeter": {
       "post": {
         "summary": "29cm search",
-        "description": "Search for products from 29cm",
+        "description": "Search for products from 29cm\n29cm is a service that allows you to purchase clothes or shoes.\nOnly one keyword should be requested per request.\nFor example, If you use \"shirts\" and \"pants\" as keywords, you must make two requests, each with separate keywords.",
         "tags": [
           "29CM"
         ],
@@ -5369,7 +5369,7 @@
     "/connector/google-shopping/uniqlo": {
       "post": {
         "summary": "Uniqlo Search",
-        "description": "Search for products in Uniqlo",
+        "description": "Search for products in Uniqlo\nUniqlo is a service that allows you to purchase clothes or shoes.\nOnly one keyword should be requested per request.\nFor example, If you use \"shirts\" and \"pants\" as keywords, you must make two requests, each with separate keywords.",
         "tags": [
           "Uniqlo"
         ],
@@ -5407,7 +5407,7 @@
     "/connector/google-shopping/yes-twenty-four": {
       "post": {
         "summary": "yes24 search",
-        "description": "Search for products on yes24",
+        "description": "Search for products on yes24\nyes24 is a service that allows you to purchase books.\nOnly one keyword should be requested per request.\nFor example, If you use \"novel book\" and \"fairy tale book\" as keywords, you must make two requests, each with separate keywords.",
         "tags": [
           "yes24"
         ],
@@ -5445,7 +5445,7 @@
     "/connector/google-shopping/musinsa": {
       "post": {
         "summary": "Musinsa Search",
-        "description": "Search for products in Musinsa",
+        "description": "Search for products in Musinsa\nMusinsa is a service that allows you to purchase clothes or shoes.\nOnly one keyword should be requested per request.\nFor example, If you use \"shirts\" and \"pants\" as keywords, you must make two requests, each with separate keywords.",
         "tags": [
           "Musinsa"
         ],
@@ -7677,7 +7677,7 @@
     "/connector/google-hotel": {
       "post": {
         "summary": "Google Hotels Search",
-        "description": "Search for accommodations using Google Hotels service",
+        "description": "Search for accommodations using Google Hotels service\nOnly one keyword should be requested per request.\nFor example, if you need to enter Seoul and Tokyo as keywords, you should make two requests with one word, \"Seoul\" and \"Tokyo\", not \"Seoul, Tokyo\".",
         "tags": [
           "Google Hotel"
         ],
@@ -27299,7 +27299,7 @@
           "keyword": {
             "type": "string",
             "title": "Search term",
-            "description": "Enter the keyword you want to search for."
+            "description": "Enter the keyword you want to search for.\nA keyword must contain only one word.\nIf you want to enter multiple words, you must make multiple requests, breaking them up into individual words."
           },
           "max_results": {
             "type": "integer",
@@ -35552,7 +35552,7 @@
           "keyword": {
             "type": "string",
             "title": "Search term",
-            "description": "Enter the keyword you want to search for."
+            "description": "Enter the keyword you want to search for.\nA keyword must contain only one word.\nIf you want to enter multiple words, you must make multiple requests, breaking them up into individual words."
           },
           "check_in_date": {
             "type": "string",
