@@ -18,7 +18,7 @@
     "title": "구글 문서 작성 및 관리",
     "summary": "구글 독스를 쉽게 만들고 관리할 수 있어요.",
     "description": "구글 독스로 다양한 문서 작업을 할 수 있어요. 새로운 문서를 생성하고, 기존 문서에 접근 권한을 부여하거나 수정할 수 있어요. 문서를 복사하거나 삭제할 수도 있고, 특정 구글 드라이브 내의 모든 문서 목록을 가져올 수도 있어요. 문서에 새로운 텍스트를 추가하는 것도 가능해요. 이를 통해 팀 프로젝트, 개인 노트 작성, 보고서 작성 등 다양한 문서 작업을 클라우드 환경에서 효율적으로 수행할 수 있어요. 실시간 협업이 가능해 여러 사람이 동시에 작업할 수 있는 것도 큰 장점이에요. 주의할 점은 구글 슬라이드를 사용하려면 반드시 구글 드라이브 커넥터도 함께 사용해야 해요.",
-    "version": "0.1.417",
+    "version": "0.1.418",
     "license": {
       "name": "AGPL-3.0-only"
     }
@@ -89,7 +89,7 @@
     "/connector/google-docs": {
       "post": {
         "summary": "Generate Google Docs",
-        "description": "Generate Google Docs\n\nSince this is creating a blank page, we recommend that you use connectors that add the content of google-docs in a row.",
+        "description": "Generate Google Docs\n\nSince this is creating a blank page, we recommend that you use\nconnectors that add the content of google-docs in a row.\nAlternatively, we recommend using a different connector because\nthere are other connectors that have the ability to generate\ndocuments with markdown.",
         "tags": [
           "Google Docs"
         ],
@@ -111,7 +111,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/IGoogleDocs.ICreateGoogleDocsOutput"
+                  "$ref": "#/components/schemas/IGoogleDocs.ICreateEmptyFileOutput"
                 }
               }
             }
@@ -525,9 +525,18 @@
         ],
         "title": "Google Drive and Docs Secret Key and information to clear file"
       },
-      "IGoogleDocs.ICreateGoogleDocsOutput": {
+      "IGoogleDocs.ICreateEmptyFileOutput": {
         "type": "object",
         "properties": {
+          "isEmpty": {
+            "const": true,
+            "title": "Property that specifies that this file is empty"
+          },
+          "message": {
+            "const": "the content is empty; you can now fill content in there",
+            "title": "Message",
+            "description": "State it's empty because it's a file you just created."
+          },
           "id": {
             "type": "string",
             "title": "Generated docs id",
@@ -540,10 +549,12 @@
           }
         },
         "required": [
+          "isEmpty",
+          "message",
           "id",
           "url"
         ],
-        "title": "Google Docs creation result"
+        "title": "Creation Response of Empty Google Docs File"
       },
       "IGoogleDocs.ICreateGoogleDocsInput": {
         "type": "object",
@@ -887,6 +898,26 @@
           "data"
         ],
         "title": "Google docs list query results"
+      },
+      "IGoogleDocs.ICreateGoogleDocsOutput": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Generated docs id",
+            "description": "The ID of the generated docs."
+          },
+          "url": {
+            "type": "string",
+            "format": "iri",
+            "title": "url"
+          }
+        },
+        "required": [
+          "id",
+          "url"
+        ],
+        "title": "Google Docs creation result"
       },
       "IGoogleDocs.IAppendTextGoogleDocsInput": {
         "type": "object",

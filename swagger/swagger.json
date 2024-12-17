@@ -15,7 +15,7 @@
     }
   ],
   "info": {
-    "version": "0.1.417",
+    "version": "0.1.418",
     "title": "@wrtn/connector",
     "description": "wrtn-ecosystem connectors and sdk",
     "license": {
@@ -1160,7 +1160,7 @@
     "/connector/google-docs": {
       "post": {
         "summary": "Generate Google Docs",
-        "description": "Generate Google Docs\n\nSince this is creating a blank page, we recommend that you use connectors that add the content of google-docs in a row.",
+        "description": "Generate Google Docs\n\nSince this is creating a blank page, we recommend that you use\nconnectors that add the content of google-docs in a row.\nAlternatively, we recommend using a different connector because\nthere are other connectors that have the ability to generate\ndocuments with markdown.",
         "tags": [
           "Google Docs"
         ],
@@ -1182,7 +1182,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/IGoogleDocs.ICreateGoogleDocsOutput"
+                  "$ref": "#/components/schemas/IGoogleDocs.ICreateEmptyFileOutput"
                 }
               }
             }
@@ -16473,9 +16473,18 @@
         ],
         "title": "Google Drive and Docs Secret Key and information to clear file"
       },
-      "IGoogleDocs.ICreateGoogleDocsOutput": {
+      "IGoogleDocs.ICreateEmptyFileOutput": {
         "type": "object",
         "properties": {
+          "isEmpty": {
+            "const": true,
+            "title": "Property that specifies that this file is empty"
+          },
+          "message": {
+            "const": "the content is empty; you can now fill content in there",
+            "title": "Message",
+            "description": "State it's empty because it's a file you just created."
+          },
           "id": {
             "type": "string",
             "title": "Generated docs id",
@@ -16488,10 +16497,12 @@
           }
         },
         "required": [
+          "isEmpty",
+          "message",
           "id",
           "url"
         ],
-        "title": "Google Docs creation result"
+        "title": "Creation Response of Empty Google Docs File"
       },
       "IGoogleDocs.ICreateGoogleDocsInput": {
         "type": "object",
@@ -16835,6 +16846,26 @@
           "data"
         ],
         "title": "Google docs list query results"
+      },
+      "IGoogleDocs.ICreateGoogleDocsOutput": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Generated docs id",
+            "description": "The ID of the generated docs."
+          },
+          "url": {
+            "type": "string",
+            "format": "iri",
+            "title": "url"
+          }
+        },
+        "required": [
+          "id",
+          "url"
+        ],
+        "title": "Google Docs creation result"
       },
       "IGoogleDocs.IAppendTextGoogleDocsInput": {
         "type": "object",
