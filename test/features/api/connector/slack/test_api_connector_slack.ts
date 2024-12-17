@@ -73,6 +73,7 @@ export const test_api_connector_slack_get_channel_histories = async (
       (el) => typeof el.user_profile === "string" || el.user_profile === null,
     ),
   );
+  assert(messages.members.every((el) => typeof el.im_channel_id === "string"));
 
   return messages;
 };
