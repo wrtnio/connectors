@@ -127,7 +127,7 @@ export class GoogleDocsProvider {
 
   async createDocs(
     input: IGoogleDocs.ICreateGoogleDocsInput,
-  ): Promise<IGoogleDocs.ICreateGoogleDocsOutput> {
+  ): Promise<IGoogleDocs.ICreateEmptyFileOutput> {
     try {
       const token = await this.getToken(input.secretKey);
       const accessToken = await this.googleProvider.refreshAccessToken(token);
@@ -149,8 +149,12 @@ export class GoogleDocsProvider {
         throw new Error("Failed to create new doc");
       }
 
-      const url = `https://docs.google.com/document/d/${id}/`;
-      return { id, url };
+      return {
+        id,
+        url: `https://docs.google.com/document/d/${id}/`,
+        isEmpty: true,
+        message: "the content is empty; you can now fill content in there",
+      };
     } catch (error) {
       console.error(JSON.stringify(error));
       throw error;

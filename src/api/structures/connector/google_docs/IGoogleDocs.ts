@@ -265,6 +265,23 @@ export namespace IGoogleDocs {
   }
 
   /**
+   * @title Creation Response of Empty Google Docs File
+   */
+  export interface ICreateEmptyFileOutput extends ICreateGoogleDocsOutput {
+    /**
+     * @title Property that specifies that this file is empty
+     */
+    isEmpty: true;
+
+    /**
+     * State it's empty because it's a file you just created.
+     *
+     * @title Message
+     */
+    message: "the content is empty; you can now fill content in there";
+  }
+
+  /**
    * @title Information required to create Google docs
    */
   export interface ICreateGoogleDocsInput
