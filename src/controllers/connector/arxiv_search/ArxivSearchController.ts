@@ -1,6 +1,6 @@
 import core from "@nestia/core";
 import { Controller } from "@nestjs/common";
-import { RouteIcon, Standalone } from "@wrtnio/decorators";
+import { RouteIcon, SelectBenchmark, Standalone } from "@wrtnio/decorators";
 
 import { IConnector } from "@wrtn/connector-api/lib/structures/common/IConnector";
 
@@ -17,6 +17,7 @@ export class ArxivSearchController {
    * @param input Archive Paper Search Criteria
    * @returns A list of papers found in the archive based on the search criteria.
    */
+  @SelectBenchmark("논문 찾아줘")
   @Standalone()
   @core.TypedRoute.Post()
   @RouteIcon(

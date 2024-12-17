@@ -1,11 +1,11 @@
 import core from "@nestia/core";
 import { Controller } from "@nestjs/common";
-import { RouteIcon, Standalone } from "@wrtnio/decorators";
+import { RouteIcon, SelectBenchmark } from "@wrtnio/decorators";
 
 import { ApiTags } from "@nestjs/swagger";
-import { retry } from "../../../utils/retry";
 import { IGoogleImage } from "@wrtn/connector-api/lib/structures/connector/google_image/IGoogleImage";
 import { GoogleImageProvider } from "../../../providers/google_image/GoogleImageProvider";
+import { retry } from "../../../utils/retry";
 
 @Controller("connector/google-image")
 export class GoogleImageController {
@@ -18,6 +18,7 @@ export class GoogleImageController {
    * @param input Image Search conditions
    * @returns Image search results
    */
+  @SelectBenchmark("구글에서 이미지 좀 검색해줘")
   @core.TypedRoute.Post("")
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleImage_full.svg",

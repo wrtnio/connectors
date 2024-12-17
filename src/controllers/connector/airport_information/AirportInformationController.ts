@@ -1,11 +1,11 @@
 import core from "@nestia/core";
 import { Controller } from "@nestjs/common";
-import { RouteIcon, Standalone } from "@wrtnio/decorators";
+import { RouteIcon, SelectBenchmark, Standalone } from "@wrtnio/decorators";
 
-import { retry } from "../../../utils/retry";
+import { ApiTags } from "@nestjs/swagger";
 import { IAirportInformation } from "@wrtn/connector-api/lib/structures/connector/airport_information/IAirportInformation";
 import { AirportInformationProvider } from "../../../providers/connector/airport_information/AirportInformationProvider";
-import { ApiTags } from "@nestjs/swagger";
+import { retry } from "../../../utils/retry";
 
 @Controller("connector/airport-information")
 export class AirportInformationController {
@@ -23,6 +23,7 @@ export class AirportInformationController {
    * @param input Conditions for searching for airport information
    * @returns Search results for airport information
    */
+  @SelectBenchmark("공항 찾아줘")
   @Standalone()
   @core.TypedRoute.Post("search")
   @RouteIcon(

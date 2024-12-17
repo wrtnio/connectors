@@ -2,7 +2,7 @@ import core from "@nestia/core";
 import { Controller } from "@nestjs/common";
 import { ApiTags } from "@nestjs/swagger";
 import { IGoogleShopping } from "@wrtn/connector-api/lib/structures/connector/google_shopping/IGoogleShopping";
-import { RouteIcon, Standalone } from "@wrtnio/decorators";
+import { RouteIcon, SelectBenchmark, Standalone } from "@wrtnio/decorators";
 import { GoogleShoppingProvider } from "../../../../providers/connector/google_shopping/GoogleShoppingProvider";
 import { retry } from "../../../../utils/retry";
 
@@ -19,6 +19,7 @@ export class GoogleShoppingMusinsaController {
    * @param input Search conditions
    * @returns Search results
    */
+  @SelectBenchmark("무신사에서 상품 좀 찾아줘")
   @Standalone()
   @core.TypedRoute.Post("musinsa")
   @RouteIcon(

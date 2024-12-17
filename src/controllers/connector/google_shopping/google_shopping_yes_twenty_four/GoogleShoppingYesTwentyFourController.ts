@@ -1,6 +1,6 @@
 import core from "@nestia/core";
 import { Controller } from "@nestjs/common";
-import { RouteIcon, Standalone } from "@wrtnio/decorators";
+import { RouteIcon, SelectBenchmark, Standalone } from "@wrtnio/decorators";
 
 import { ApiTags } from "@nestjs/swagger";
 import { IGoogleShopping } from "@wrtn/connector-api/lib/structures/connector/google_shopping/IGoogleShopping";
@@ -20,6 +20,8 @@ export class GoogleShoppingYesTwentyFourController {
    * @param input search conditions
    * @returns search results
    */
+  @SelectBenchmark("도서 검색 좀 해줘")
+  @SelectBenchmark("yes24에서 상품 좀 찾아줘")
   @Standalone()
   @core.TypedRoute.Post("yes-twenty-four")
   @RouteIcon(

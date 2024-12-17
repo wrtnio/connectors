@@ -1,6 +1,6 @@
 import core from "@nestia/core";
 import { Controller } from "@nestjs/common";
-import { RouteIcon, Standalone } from "@wrtnio/decorators";
+import { RouteIcon, SelectBenchmark, Standalone } from "@wrtnio/decorators";
 
 import { ApiTags } from "@nestjs/swagger";
 import { IGoogleHotel } from "@wrtn/connector-api/lib/structures/connector/google_hotel/IGoogleHotel";
@@ -18,6 +18,7 @@ export class GoogleHotelController {
    * @param input Google Hotels search criteria
    * @returns Google Hotels Search Results
    */
+  @SelectBenchmark("호텔 좀 찾아줘")
   @Standalone()
   @core.TypedRoute.Post("")
   @RouteIcon(
