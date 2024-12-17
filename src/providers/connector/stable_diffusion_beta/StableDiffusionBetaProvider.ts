@@ -41,7 +41,7 @@ export class StableDiffusionBetaProvider {
     try {
       const imgUrl = await Promise.all(
         img.map(async (img) => {
-          return await this.awsProvider.uploadObject({
+          return await AwsProvider.uploadObject({
             key: `connector/generate-image-node/sdxl-beta/${v4()}`,
             data: img,
             contentType: "image/png",

@@ -36,7 +36,7 @@ export class MarpProvider {
       execSync(command, { stdio: "ignore" });
 
       const data = await fs.readFile(pptFilePath);
-      const uploaded = await this.awsProvider.uploadObject({
+      const uploaded = await AwsProvider.uploadObject({
         contentType: "text/html; charset=UTF-8",
         data: data,
         key: `connector/marp/${uuid}.html`,

@@ -40,7 +40,7 @@ export class GoogleSlidesProvider {
         responseType: "arraybuffer",
       });
 
-      const hanshow = await this.awsProvider.uploadObject({
+      const hanshow = await AwsProvider.uploadObject({
         contentType: mimeType,
         data: res.data,
         key: `${this.uploadPrefix}/${v4()}.show`,
@@ -69,7 +69,7 @@ export class GoogleSlidesProvider {
         responseType: "arraybuffer",
       });
 
-      const powerPoint = await this.awsProvider.uploadObject({
+      const powerPoint = await AwsProvider.uploadObject({
         contentType: mimeType,
         data: res.data,
         key: `${this.uploadPrefix}/${v4()}.pptx`,

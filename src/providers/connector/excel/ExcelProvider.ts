@@ -149,7 +149,7 @@ export class ExcelProvider {
 
       const modifiedBuffer = await workbook.xlsx.writeBuffer();
       const key = `excel-connector/${v4()}`;
-      const url = await this.awsProvider.uploadObject({
+      const url = await AwsProvider.uploadObject({
         key,
         data: Buffer.from(modifiedBuffer),
         contentType:
@@ -184,7 +184,7 @@ export class ExcelProvider {
 
     const modifiedBuffer: ArrayBuffer = await workbook.xlsx.writeBuffer();
     const key = `excel-connector/${v4()}`;
-    const fileUrl = await this.awsProvider.uploadObject({
+    const fileUrl = await AwsProvider.uploadObject({
       key,
       data: Buffer.from(modifiedBuffer),
       contentType:

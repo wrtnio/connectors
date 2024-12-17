@@ -134,7 +134,7 @@ export class CsvProvider {
               contentType:
                 "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
             };
-            await this.awsProvider.uploadObject(uploadParams);
+            await AwsProvider.uploadObject(uploadParams);
             resolve();
           });
       } catch (err) {

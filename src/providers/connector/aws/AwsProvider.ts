@@ -33,10 +33,6 @@ export class AwsProvider {
     });
   }
 
-  async uploadObject(input: IAws.IUploadObjectInput): Promise<string> {
-    return AwsProvider.uploadObject(input);
-  }
-
   async getPutObjectUrl(
     input: IAws.IGetPutObjectUrlInput,
   ): Promise<IAws.IGetPutObjectUrlOutput> {
@@ -186,6 +182,43 @@ export class AwsProvider {
 }
 
 export namespace AwsProvider {
+  //-----
+  // CONFIGURATION
+  //-----
+  const s3: S3Client = new S3Client({
+    region: "ap-northeast-2",
+    maxAttempts: 3,
+    credentials: {
+      accessKeyId: ConnectorGlobal.env.AWS_ACCESS_KEY_ID,
+      secretAccessKey: ConnectorGlobal.env.AWS_SECRET_ACCESS_KEY,
+    },
+  });
+  const region = "ap-northeast-2" as const;
+  const fileBucket = ConnectorGlobal.env.AWS_S3_BUCKET;
+  const EXPIRATION_IN_MINUTES = 3 as const;
+
+  //-----
+  // METHODS
+  //-----
+  export function addBucketPrefix(key: string): string {
+    const url = `https://${ConnectorGlobal.env.AWS_S3_BUCKET}.s3.ap-northeast-2.amazonaws.com/${key}`;
+    return url;
+  }
+
+  export async function uploadObject(
+    input: IAws.IUploadObjectInput,
+  ): Promise<string> {
+    const { data, contentType } = input;
+    const putObjectConfig = new PutObjectCommand({
+      Bucket: ConnectorGlobal.env.AWS_S3_BUCKET,
+      Key: input.key,
+      Body: data,
+      ContentType: contentType,
+    });
+    await s3.send(putObjectConfig);
+    return addBucketPrefix(input.key);
+  }
+
   export function extractS3InfoFromUrl(url: string): {
     bucket: string;
     key: string;
@@ -204,30 +237,6 @@ export namespace AwsProvider {
       console.error("Invalid URL:", error);
       throw new BadRequestException("Invalid S3 URL");
     }
-  }
-
-  export async function uploadObject(
-    input: IAws.IUploadObjectInput,
-  ): Promise<string> {
-    const s3 = new S3Client({
-      region: "ap-northeast-2",
-      maxAttempts: 3,
-      credentials: {
-        accessKeyId: ConnectorGlobal.env.AWS_ACCESS_KEY_ID,
-        secretAccessKey: ConnectorGlobal.env.AWS_SECRET_ACCESS_KEY,
-      },
-    });
-
-    const { data, contentType } = input;
-
-    const putObjectConfig = new PutObjectCommand({
-      Bucket: ConnectorGlobal.env.AWS_S3_BUCKET,
-      Key: input.key,
-      Body: data,
-      ContentType: contentType,
-    });
-    await s3.send(putObjectConfig);
-    return `https://${ConnectorGlobal.env.AWS_S3_BUCKET}.s3.ap-northeast-2.amazonaws.com/${input.key}`;
   }
 
   export const S3BucketURL =

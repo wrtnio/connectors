@@ -36,7 +36,7 @@ export class HancellProvider {
 
       const key = `${this.uploadPrefix}/${v4()}`;
       const contentType = `application/vnd.openxmlformats-officedocument.spreadsheetml.sheet`;
-      await this.awsProvider.uploadObject({ key, data: buffer, contentType });
+      await AwsProvider.uploadObject({ key, data: buffer, contentType });
 
       const fileUrl = this.awsProvider.getFileUrl(key);
       return { fileUrl };
