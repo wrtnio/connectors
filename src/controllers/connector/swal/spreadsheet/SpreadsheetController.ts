@@ -3,12 +3,27 @@ import { Controller } from "@nestjs/common";
 import { IExternalUser } from "@wrtn/connector-api/lib/structures/common/IExternalUser";
 import { IPage } from "@wrtn/connector-api/lib/structures/common/IPage";
 import { ISpreadsheet } from "@wrtn/connector-api/lib/structures/connector/swal/spreadsheet/ISpreadsheet";
-import { ExperimentalRoute } from "@wrtnio/decorators";
+import { ExperimentalRoute, Prerequisite } from "@wrtnio/decorators";
 import { ExternalUser } from "../../../../decorators/ExternalUser";
 import { SpreadsheetProvider } from "../../../../providers/connector/swal/spreadsheet/SpreadsheetProvider";
 
 @Controller("connector/swal/spreadsheets")
 export class SpreadsheetController {
+  @ExperimentalRoute()
+  @core.TypedRoute.Post(":id/exports/excel")
+  async exportsToExcel(
+    @ExternalUser() external_user: IExternalUser,
+    @Prerequisite({
+      neighbor: () => SpreadsheetController.prototype.index,
+      jmesPath: "data[].{ value: id, label: snapshot.title }",
+    })
+    @TypedParam("id")
+    spreadsheetId: ISpreadsheet["id"],
+    @TypedBody() input: ISpreadsheet.IExport.ToExcelToInput,
+  ): Promise<ISpreadsheet.IExport.ToExcelToOutput> {
+    return {} as any;
+  }
+
   @ExperimentalRoute()
   @core.TypedRoute.Patch(":id")
   async at(

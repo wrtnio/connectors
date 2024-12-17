@@ -1,3 +1,4 @@
+import { Prerequisite } from "@wrtnio/decorators";
 import { tags } from "typia";
 import { IPage } from "../../../common/IPage";
 import { StrictOmit } from "../../../types/strictOmit";
@@ -5,6 +6,93 @@ import { ISpreadsheetCell } from "./ISpreadsheetCell";
 import { ISpreadsheetExport } from "./ISpreadsheetExport";
 
 export namespace ISpreadsheet {
+  export namespace IExport {
+    /**
+     * @title Spreadsheet information
+     */
+    export interface SnapshotOutput {
+      /**
+       * @title article information
+       */
+      spreadsheet: ISpreadsheet;
+    }
+
+    export interface SnapshotInput {
+      /**
+       * @title snapshot information for synchronization
+       */
+      snapshot: {
+        /**
+         * The user synchronizes the text associated with that snapshot.
+         *
+         * For example, when you have v1 and v2,
+         * if you pass v1 by ID,
+         * you replace the exported document in snapshot v1 with the exported document
+         * in v2 and update the properties,
+         * including the title and content of the exported document.
+         *
+         * If you want to synchronize the notion documents linked to the snapshot at once,
+         * please only forward the snapshot's ID (=`from` property).
+         * If you want to synchronize only some of the documents exported from that snapshot, pass only the ID of spreadsheet_exports.
+         * spreadsheet_exports is the point of connection between snapshots and documents exported from those snapshots.
+         *
+         * @title ID of the snapshot to be previously synchronized
+         */
+        from: ISpreadsheet.ISnapshot["id"] &
+          Prerequisite<{
+            method: "patch";
+            path: "/connector/spreadsheets/:id";
+            jmesPath: "snapshot[].{ value: id, label: ['created_at ', created_at].join(':', @) }";
+          }>;
+
+        /**
+         * @title The ID of the snapshot that will be after synchronization
+         */
+        to: ISpreadsheet.ISnapshot["id"] &
+          Prerequisite<{
+            method: "patch";
+            path: "/connector/spreadsheets/:id";
+            jmesPath: "snapshot[].{ value: id, label: ['created_at ', created_at].join(':', @) }";
+          }>;
+
+        /**
+         * @@title Exported Document's information
+         */
+        spreadsheet_snapshot_exports?: {
+          /**
+           * IDs of {@link ISpreadsheetExport spreadsheet_exports}
+           *
+           * If you want to synchronize the notion documents linked to the snapshot at once,
+           * please only forward the snapshot's ID (=`from` property).
+           * If you want to synchronize only some of the documents exported from that snapshot, pass only the ID of spreadsheet_exports.
+           * spreadsheet_exports is the point of connection between snapshots and documents exported from those snapshots.
+           *
+           * If it is to be specified, it must be an array of at least one size.
+           *
+           * @title IDs of ISpreadsheetExport
+           */
+          ids?: Array<ISpreadsheetExport["id"]> & tags.MinItems<1>;
+        };
+      };
+    }
+
+    /**
+     * @title result of exporting spreadsheet to excel
+     */
+    export interface ToExcelToOutput extends SnapshotOutput {
+      /**
+       * Indicates whether synchronization is successful or not
+       *
+       * @title response
+       */
+      isSuccess: boolean;
+    }
+
+    /**
+     * @title Information to export to excel file
+     */
+    export type ToExcelToInput = SnapshotInput;
+  }
   export namespace IRequest {
     /**
      * If an attribute exists,
