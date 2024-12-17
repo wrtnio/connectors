@@ -9,7 +9,6 @@ import { AwsProvider } from "../aws/AwsProvider";
 
 @Injectable()
 export class MarpProvider {
-  constructor(private readonly awsProvider: AwsProvider) {}
   /**
    * Converts Marp markdown to a PPT and uploads to S3.
    *

@@ -18,10 +18,8 @@ import { AwsProvider } from "../aws/AwsProvider";
 import { RagProvider } from "../rag/RagProvider";
 @Injectable()
 export class XProvider {
-  constructor(
-    private awsProvider: AwsProvider,
-    private readonly ragProvider: RagProvider,
-  ) {}
+  constructor(private readonly ragProvider: RagProvider) {}
+
   private readonly logger = new Logger("XProvider");
 
   async getUsers(input: IX.IUserInput): Promise<IX.IUserOutput[]> {

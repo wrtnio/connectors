@@ -19,10 +19,7 @@ import { RagProvider } from "../rag/RagProvider";
 
 @Injectable()
 export class GithubProvider {
-  constructor(
-    private readonly awsProvider: AwsProvider,
-    private readonly ragProvider: RagProvider,
-  ) {}
+  constructor(private readonly ragProvider: RagProvider) {}
 
   async getUserOrganizations(
     input: IGithub.IGetUserOrganizationInput,

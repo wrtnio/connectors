@@ -14,7 +14,6 @@ import { AwsProvider } from "../aws/AwsProvider";
 
 @Injectable()
 export class StableDiffusionBetaProvider {
-  constructor(private awsProvider: AwsProvider) {}
   async generateImage(
     input: IStableDiffusionBeta.IRequest,
   ): Promise<IStableDiffusionBeta.IResponse> {

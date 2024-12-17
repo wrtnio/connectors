@@ -14,7 +14,6 @@ import { AwsProvider } from "../aws/AwsProvider";
 @Injectable()
 export class DallE3Provider {
   constructor(
-    private awsProvider: AwsProvider,
     private openAIProvider: OpenAIProvider,
     private httpService: HttpService,
   ) {}

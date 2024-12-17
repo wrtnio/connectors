@@ -9,8 +9,6 @@ import { AwsProvider } from "../aws/AwsProvider";
 
 @Injectable()
 export class HancellProvider {
-  constructor(private readonly awsProvider: AwsProvider) {}
-
   private readonly uploadPrefix = "hancell-connector";
 
   async upsertSheet(
@@ -38,7 +36,7 @@ export class HancellProvider {
       const contentType = `application/vnd.openxmlformats-officedocument.spreadsheetml.sheet`;
       await AwsProvider.uploadObject({ key, data: buffer, contentType });
 
-      const fileUrl = this.awsProvider.getFileUrl(key);
+      const fileUrl = AwsProvider.addBucketPrefix(key);
       return { fileUrl };
     } catch (error) {
       console.error(JSON.stringify(error));

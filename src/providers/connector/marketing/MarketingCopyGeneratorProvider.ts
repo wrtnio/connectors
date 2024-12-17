@@ -21,7 +21,6 @@ export class MarketingCopyGeneratorProvider {
   constructor(
     private openAIProvider: OpenAIProvider,
     private httpService: HttpService,
-    private awsProvider: AwsProvider,
   ) {}
 
   async generateCopy(

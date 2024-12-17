@@ -13,8 +13,6 @@ import { AwsProvider } from "../aws/AwsProvider";
 
 @Injectable()
 export class CsvProvider {
-  constructor(private readonly awsProvider: AwsProvider) {}
-
   async read(input: ICsv.IReadInput): Promise<ICsv.IReadOutput> {
     try {
       const { s3Url, delimiter } = input;

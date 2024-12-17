@@ -20,7 +20,6 @@ export class GoogleSlidesProvider {
   constructor(
     private readonly googleDriveProvider: GoogleDriveProvider,
     private readonly googleProvider: GoogleProvider,
-    private readonly awsProvider: AwsProvider,
   ) {}
 
   async createHanshow(
@@ -134,7 +133,7 @@ export class GoogleSlidesProvider {
     }
 
     const transformed = await Promise.all(
-      matched.map(async (match) => this.awsProvider.getGetObjectUrl(match)),
+      matched.map(async (match) => AwsProvider.getGetObjectUrl(match)),
     );
 
     // let stringified = JSON.stringify(input);
@@ -1018,7 +1017,7 @@ export class GoogleSlidesProvider {
               });
 
               request.createImage.url =
-                await this.awsProvider.getGetObjectUrl(saved);
+                await AwsProvider.getGetObjectUrl(saved);
             }
           }
         }
