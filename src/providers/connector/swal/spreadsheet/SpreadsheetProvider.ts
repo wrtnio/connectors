@@ -97,8 +97,67 @@ export namespace SpreadsheetProvider {
     };
   }
 
-  export namespace sync {}
-  export namespace exports {}
+  export function sync(provider: "excel"): typeof sync.excel;
+  export function sync(provider: "hancel"): typeof sync.hancel;
+  export function sync(provider: "google_sheet"): typeof sync.google_sheet;
+  export function sync(provider: "excel" | "hancel" | "google_sheet") {
+    if (provider === "excel") return sync.excel;
+    if (provider === "hancel") return sync.hancel;
+    if (provider === "google_sheet") return sync.google_sheet;
+  }
+
+  export namespace sync {
+    export const excel = (
+      external_user: IExternalUser,
+      spreadsheetId: ISpreadsheet["id"],
+      // input: ISpreadsheet.ISync.ToInput,
+    ) => {};
+
+    export const hancel = (
+      external_user: IExternalUser,
+      spreadsheetId: ISpreadsheet["id"],
+      // input: ISpreadsheet.ISync.ToInput,
+    ) => {};
+
+    export const google_sheet = (
+      external_user: IExternalUser,
+      spreadsheetId: ISpreadsheet["id"],
+      // input: ISpreadsheet.ISync.ToInput,
+    ) => {};
+  }
+
+  export function exports(provider: "excel"): typeof exports.excel;
+  export function exports(provider: "hancel"): typeof exports.hancel;
+  export function exports(
+    provider: "google_sheet",
+  ): typeof exports.google_sheet;
+  export function exports(provider: "excel" | "hancel" | "google_sheet") {
+    if (provider === "excel") return exports.excel;
+    if (provider === "hancel") return exports.hancel;
+    if (provider === "google_sheet") return exports.google_sheet;
+  }
+
+  export namespace exports {
+    export const excel = (
+      external_user: IExternalUser,
+      spreadsheetId: ISpreadsheet["id"],
+      input: ISpreadsheet.IExport.ToExcelToInput,
+    ): Promise<ISpreadsheet.IExport.ToExcelToOutput> => {
+      return {} as any;
+    };
+
+    export const hancel = (
+      external_user: IExternalUser,
+      spreadsheetId: ISpreadsheet["id"],
+      // input: ISpreadsheet.IExport.ToInput,
+    ) => {};
+
+    export const google_sheet = (
+      external_user: IExternalUser,
+      spreadsheetId: ISpreadsheet["id"],
+      // input: ISpreadsheet.IExport.ToInput,
+    ) => {};
+  }
 
   export const create =
     (
