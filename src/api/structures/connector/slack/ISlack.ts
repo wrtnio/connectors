@@ -595,6 +595,8 @@ export namespace ISlack {
 
   export interface ICommonPaginationOutput {
     /**
+     * Cursor for pagination
+     *
      * If the following data exist, the cursor value exists.
      * If you want to see the next data from these data,
      * you can pass this value to the next request condition, `cursor`.

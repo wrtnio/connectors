@@ -270,6 +270,9 @@ export class SlackController {
    * A display name is a name that the user has chosen to show.
    * Therefore, it would be best to use this name as a courtesy.
    *
+   * It can look up Slack users, but it can look up the entire user through pagenation.
+   * There could be hundreds of people in the company, so you'll have to look at multiple pages.
+   *
    * @param input
    * @returns Users
    */
