@@ -271,12 +271,19 @@ export class SlackProvider {
       new Set(replies.map((message) => message.user).filter(Boolean)),
     );
 
+    const im_channels = await this.__getAllImChannels(input);
+
     const members = userIds
       .map((userId) => {
         const member = allMembers.find((el) => el.id === userId);
-        return member;
+        const im_channel = im_channels.find((el) => el.user === userId);
+
+        return { ...member, im_channel_id: im_channel?.id ?? null };
       })
-      .filter(Boolean) as Pick<ISlack.IGetUserOutput, "id" | "display_name">[];
+      .filter(Boolean) as Pick<
+      ISlack.IGetUserOutput,
+      "id" | "display_name" | "im_channel_id"
+    >[];
 
     return {
       replies,

@@ -613,11 +613,11 @@ export namespace ISlack {
     replies: ChannelHistory[];
 
     /**
-     * @title members
-     *
      * This is a list of people who participated in the conversation in this conversation list.
+     *
+     * @title members
      */
-    members: MyPick<IGetUserOutput, "id" | "display_name">[];
+    members: MyPick<IGetUserOutput, "id" | "display_name" | "im_channel_id">[];
 
     /**
      * @title usergroups
