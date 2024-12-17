@@ -1,0 +1,48 @@
+{
+  "function": {
+    "method": "post",
+    "path": "/connector/github/repos/get-contents/bulk",
+    "name": "connector_github_repos_get_contents_bulk_post",
+    "description": "Look up repository files(bulk)\n\nIf the file you want to inquire is a folder, internal files are provided in an array,\nand if it is a file, it inquires about the encoding method of the file and the body content of the file.\nSince there may be countless files and folders in the github repository, there may be many files that exceed the rate limit.\nIn this case, you can try to solve this problem by sequentially finding the folders one by one using the corresponding connector.\nYou can pass multiple file paths to view multiple files at the same time.\nThere is no limit to the number of files.\n\nThis is suitable for viewing files on specific branches, but if the user is for the purpose of viewing details of code reviews or PR, it is recommended to use a different connector.\nThere are connectors that view the list of files changed in PR, or see the changes."
+  },
+  "keyword": "레포 코드 좀 봐줘",
+  "event": {
+    "kind": "failure",
+    "started_at": "2024-12-17T10:00:07.525Z",
+    "completed_at": "2024-12-17T10:00:09.308Z",
+    "elapsed": 1783,
+    "completion": {
+      "id": "chatcmpl-AfOevPhQRcPKwZYgUYvwFaGaMJtO3",
+      "object": "chat.completion",
+      "created": 1734429601,
+      "model": "gpt-4o-2024-08-06",
+      "choices": [
+        {
+          "index": 0,
+          "message": {
+            "role": "assistant",
+            "content": null,
+            "tool_calls": [
+              {
+                "id": "call_TKlnypVFmLcN2o4t3atdqPQL",
+                "type": "function",
+                "function": {
+                  "name": "selectFunction",
+                  "arguments": "{\"method\":\"post\",\"path\":\"/connector/github/repos/get-folder-structures\",\"name\":\"connector_github_repos_get_folder_structures_post\"}"
+                }
+              }
+            ]
+          },
+          "logprobs": null,
+          "finish_reason": "stop"
+        }
+      ],
+      "usage": {
+        "prompt_tokens": 43219,
+        "completion_tokens": 36,
+        "total_tokens": 43255
+      },
+      "system_fingerprint": "fp_fa1dad0729"
+    }
+  }
+}

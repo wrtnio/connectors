@@ -1,0 +1,48 @@
+{
+  "function": {
+    "method": "patch",
+    "path": "/connector/articles/{id}",
+    "name": "connector_articles_patchById",
+    "description": "Read an entire contents of article with its every snapshots\n\nAll text content that is not omitted is shown here, so you can also see how the text has been modified at once.\nThis connector reads an article with its every snapshots {@link IArticle.ISnapshot snapshots}\nThis detail contains the entire content created for each version of the document,\nas well as the connection information to the external services from which it was exported."
+  },
+  "keyword": "전체 내용 글 내용 다 보여줘",
+  "event": {
+    "kind": "failure",
+    "started_at": "2024-12-17T08:59:42.088Z",
+    "completed_at": "2024-12-17T08:59:43.368Z",
+    "elapsed": 1280,
+    "completion": {
+      "id": "chatcmpl-AfNiSxSNNl6tmCTJe7vq7nxwlOX1J",
+      "object": "chat.completion",
+      "created": 1734425976,
+      "model": "gpt-4o-2024-08-06",
+      "choices": [
+        {
+          "index": 0,
+          "message": {
+            "role": "assistant",
+            "content": null,
+            "tool_calls": [
+              {
+                "id": "call_wWZVj1Kf112EgaTjgwIA9G31",
+                "type": "function",
+                "function": {
+                  "name": "next",
+                  "arguments": "{}"
+                }
+              }
+            ]
+          },
+          "logprobs": null,
+          "finish_reason": "stop"
+        }
+      ],
+      "usage": {
+        "prompt_tokens": 43219,
+        "completion_tokens": 7,
+        "total_tokens": 43226
+      },
+      "system_fingerprint": "fp_fa1dad0729"
+    }
+  }
+}

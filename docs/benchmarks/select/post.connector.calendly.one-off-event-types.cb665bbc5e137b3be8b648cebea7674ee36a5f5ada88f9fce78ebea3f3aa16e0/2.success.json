@@ -1,0 +1,48 @@
+{
+  "function": {
+    "method": "post",
+    "path": "/connector/calendly/one-off-event-types",
+    "name": "connector_calendly_one_off_event_types_post",
+    "description": "Create a one-off event type.\n\nAllows users to create a one-off event type for special occasions or single events.\n\nThis is useful for events that do not fit into regular scheduling patterns."
+  },
+  "keyword": "1회성 미팅 초대 링크 좀 줄래?",
+  "event": {
+    "kind": "success",
+    "started_at": "2024-12-17T10:38:12.092Z",
+    "completed_at": "2024-12-17T10:38:14.709Z",
+    "elapsed": 2617,
+    "completion": {
+      "id": "chatcmpl-AfPFmk0d0dLYTWNQgfPvgNolp8DxO",
+      "object": "chat.completion",
+      "created": 1734431886,
+      "model": "gpt-4o-2024-08-06",
+      "choices": [
+        {
+          "index": 0,
+          "message": {
+            "role": "assistant",
+            "content": null,
+            "tool_calls": [
+              {
+                "id": "call_Qr1JIbHUrCyjknRnw9QcNQvq",
+                "type": "function",
+                "function": {
+                  "name": "selectFunction",
+                  "arguments": "{\"method\":\"post\",\"path\":\"/connector/calendly/one-off-event-types\",\"name\":\"connector_calendly_one_off_event_types_post\"}"
+                }
+              }
+            ]
+          },
+          "logprobs": null,
+          "finish_reason": "stop"
+        }
+      ],
+      "usage": {
+        "prompt_tokens": 43224,
+        "completion_tokens": 37,
+        "total_tokens": 43261
+      },
+      "system_fingerprint": "fp_fa1dad0729"
+    }
+  }
+}

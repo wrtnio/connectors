@@ -1,0 +1,48 @@
+{
+  "function": {
+    "method": "post",
+    "path": "/connector/google-ads/get-customers",
+    "name": "connector_google_ads_get_customers_post",
+    "description": "Get ad account.\n\nGet the customer's advertising account\n\nUsing the user's access token, search for the user's advertising account, i.e., `customer`, among the accounts where `Wrtn` is an administrator.\nEven if the user has an advertising account, if `Wrtn` is not an administrator, it will not be listed.\nTherefore, if `Wrtn` has never been registered as an administrator, you must call the `POST connector/google-ads/customerClientLink` connector.\n\nIn addition, this connector filters out advertising accounts that do not use the Korean currency unit `KRW`.\nThe reason for this is to prevent mistakes from occurring in other campaign budget modification or ad status change connectors in the future.\nWhen creating ads through the Google Ads connector, human errors may occur in budget settings depending on the currency unit of each account.\nFor example, if you register a budget for an account with a currency unit of `USD` as an account with a currency unit of `KRW`, a budget difference of the exchange rate may occur.\n\nBefore calling the function, we need to ask the user for his `customerId`, so we need to suggest a connector that can check `customerId`."
+  },
+  "keyword": "내 구글 광고 계정 좀 보여줘",
+  "event": {
+    "kind": "success",
+    "started_at": "2024-12-17T09:34:31.400Z",
+    "completed_at": "2024-12-17T09:34:33.053Z",
+    "elapsed": 1653,
+    "completion": {
+      "id": "chatcmpl-AfOG9S8xySS1xs21BBHA4Y0RGoL97",
+      "object": "chat.completion",
+      "created": 1734428065,
+      "model": "gpt-4o-2024-08-06",
+      "choices": [
+        {
+          "index": 0,
+          "message": {
+            "role": "assistant",
+            "content": null,
+            "tool_calls": [
+              {
+                "id": "call_rzmehkXuBDFluDmZWzWKlCmM",
+                "type": "function",
+                "function": {
+                  "name": "selectFunction",
+                  "arguments": "{\"method\":\"post\",\"path\":\"/connector/google-ads/get-customers\",\"name\":\"connector_google_ads_get_customers_post\"}"
+                }
+              }
+            ]
+          },
+          "logprobs": null,
+          "finish_reason": "stop"
+        }
+      ],
+      "usage": {
+        "prompt_tokens": 43221,
+        "completion_tokens": 33,
+        "total_tokens": 43254
+      },
+      "system_fingerprint": "fp_fa1dad0729"
+    }
+  }
+}

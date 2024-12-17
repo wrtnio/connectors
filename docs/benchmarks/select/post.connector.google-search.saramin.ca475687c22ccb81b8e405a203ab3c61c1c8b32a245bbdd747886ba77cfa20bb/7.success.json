@@ -1,0 +1,48 @@
+{
+  "function": {
+    "method": "post",
+    "path": "/connector/google-search/saramin",
+    "name": "connector_google_search_saramin_post",
+    "description": "Search for Saramin job postings.\n\nSearch for job postings in Saramin"
+  },
+  "keyword": "채용 공고 좀 찾아줘",
+  "event": {
+    "kind": "success",
+    "started_at": "2024-12-17T09:24:08.339Z",
+    "completed_at": "2024-12-17T09:24:09.951Z",
+    "elapsed": 1612,
+    "completion": {
+      "id": "chatcmpl-AfO66D7gde6P78Lvp2p3z43hlXt6u",
+      "object": "chat.completion",
+      "created": 1734427442,
+      "model": "gpt-4o-2024-08-06",
+      "choices": [
+        {
+          "index": 0,
+          "message": {
+            "role": "assistant",
+            "content": null,
+            "tool_calls": [
+              {
+                "id": "call_y80xCXvdU9s5UmGtZpeeH5fR",
+                "type": "function",
+                "function": {
+                  "name": "selectFunction",
+                  "arguments": "{\"method\":\"post\",\"path\":\"/connector/google-search/saramin\",\"name\":\"connector_google_search_saramin_post\"}"
+                }
+              }
+            ]
+          },
+          "logprobs": null,
+          "finish_reason": "stop"
+        }
+      ],
+      "usage": {
+        "prompt_tokens": 43219,
+        "completion_tokens": 32,
+        "total_tokens": 43251
+      },
+      "system_fingerprint": "fp_fa1dad0729"
+    }
+  }
+}

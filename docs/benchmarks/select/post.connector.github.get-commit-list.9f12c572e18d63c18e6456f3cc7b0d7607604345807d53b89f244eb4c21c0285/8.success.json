@@ -1,0 +1,48 @@
+{
+  "function": {
+    "method": "post",
+    "path": "/connector/github/get-commit-list",
+    "name": "connector_github_get_commit_list_post",
+    "description": "Look up the list of commitments for a specific repo, a specific branch\n\nThis function can be used in general because it sees the commit list in units of branches, but if the user wants to see it in units of PR, it is better to use another connector.\nIf the user specifies to view in PR units, use other connectors because there are connectors for viewing files, commit lists, and changes in PR units elsewhere."
+  },
+  "keyword": "커밋 목록 보여줘",
+  "event": {
+    "kind": "success",
+    "started_at": "2024-12-17T10:18:48.252Z",
+    "completed_at": "2024-12-17T10:18:51.744Z",
+    "elapsed": 3492,
+    "completion": {
+      "id": "chatcmpl-AfOx0JGuRWNrtp8kfkw5VPmJUSrIm",
+      "object": "chat.completion",
+      "created": 1734430722,
+      "model": "gpt-4o-2024-08-06",
+      "choices": [
+        {
+          "index": 0,
+          "message": {
+            "role": "assistant",
+            "content": null,
+            "tool_calls": [
+              {
+                "id": "call_No12b5BwR4MLzJf9Ndo3FPI6",
+                "type": "function",
+                "function": {
+                  "name": "selectFunction",
+                  "arguments": "{\"method\":\"post\",\"path\":\"/connector/github/get-commit-list\",\"name\":\"connector_github_get_commit_list_post\"}"
+                }
+              }
+            ]
+          },
+          "logprobs": null,
+          "finish_reason": "stop"
+        }
+      ],
+      "usage": {
+        "prompt_tokens": 43218,
+        "completion_tokens": 32,
+        "total_tokens": 43250
+      },
+      "system_fingerprint": "fp_fa1dad0729"
+    }
+  }
+}

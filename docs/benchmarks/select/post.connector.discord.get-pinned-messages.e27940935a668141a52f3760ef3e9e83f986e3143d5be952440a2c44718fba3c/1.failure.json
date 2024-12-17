@@ -1,0 +1,48 @@
+{
+  "function": {
+    "method": "post",
+    "path": "/connector/discord/get-pinned-messages",
+    "name": "connector_discord_get_pinned_messages_post",
+    "description": "Get a list of pinned messages in a channel"
+  },
+  "keyword": "핀꽂은 메세지만 조회해줘",
+  "event": {
+    "kind": "failure",
+    "started_at": "2024-12-17T10:26:14.885Z",
+    "completed_at": "2024-12-17T10:26:18.739Z",
+    "elapsed": 3854,
+    "completion": {
+      "id": "chatcmpl-AfP4DewaQWF9DtFxRKxUf2TOuOUVW",
+      "object": "chat.completion",
+      "created": 1734431169,
+      "model": "gpt-4o-2024-08-06",
+      "choices": [
+        {
+          "index": 0,
+          "message": {
+            "role": "assistant",
+            "content": null,
+            "tool_calls": [
+              {
+                "id": "call_TKlnypVFmLcN2o4t3atdqPQL",
+                "type": "function",
+                "function": {
+                  "name": "selectFunction",
+                  "arguments": "{\"method\":\"post\",\"path\":\"/connector/slack/get-pinned-messages\",\"name\":\"connector_slack_get_pinned_messages_post\"}"
+                }
+              }
+            ]
+          },
+          "logprobs": null,
+          "finish_reason": "stop"
+        }
+      ],
+      "usage": {
+        "prompt_tokens": 43223,
+        "completion_tokens": 35,
+        "total_tokens": 43258
+      },
+      "system_fingerprint": "fp_fa1dad0729"
+    }
+  }
+}

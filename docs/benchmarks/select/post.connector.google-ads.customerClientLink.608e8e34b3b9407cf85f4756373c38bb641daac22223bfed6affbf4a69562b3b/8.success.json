@@ -1,0 +1,48 @@
+{
+  "function": {
+    "method": "post",
+    "path": "/connector/google-ads/customerClientLink",
+    "name": "connector_google_ads_customerClientLink_post",
+    "description": "Register Wrtn as an administrator.\n\nDesignate Wrtn as the advertising account manager of the user\n\nTo call the Google Ads API for a specific Google account, you must own the advertising account or be registered as an administrator.\nThis connector is a connector that sends a kind of invitation to all of the user's Google advertising accounts to register the `Wrtn` advertising account as the customer's administrator.\nAfter the connector is executed, an email registered to the customer account will be sent via Gmail.\nThose who receive the email can go to the dashboard through the email and give the `Wrtn` account administrator rights.\nIf `Wrtn` is registered as an administrator, he will be able to use other APIs created in Google Ads.\n\nThis administrator designation must be done before calling all Google Ads connectors except for connectors that do not receive `customerId` as an argument, such as keyword recommendations.\nHowever, even if this connector is called, `Wrtn` will not be designated as an administrator without the user's approval, so there is no need to worry.\n\nBefore calling the function, we need to ask the user for his `customerId`, so we need to suggest a connector that can check `customerId`."
+  },
+  "keyword": "Wrtn 광고 계정에 내 계정 등록하게 링크 좀 줘",
+  "event": {
+    "kind": "success",
+    "started_at": "2024-12-17T09:34:17.759Z",
+    "completed_at": "2024-12-17T09:34:19.343Z",
+    "elapsed": 1584,
+    "completion": {
+      "id": "chatcmpl-AfOFwaN7jTFyWLqbQvouMfN0FDAWE",
+      "object": "chat.completion",
+      "created": 1734428052,
+      "model": "gpt-4o-2024-08-06",
+      "choices": [
+        {
+          "index": 0,
+          "message": {
+            "role": "assistant",
+            "content": null,
+            "tool_calls": [
+              {
+                "id": "call_AxnR3ugXSgRFfvGkTJvMj6XG",
+                "type": "function",
+                "function": {
+                  "name": "selectFunction",
+                  "arguments": "{\"method\":\"post\",\"path\":\"/connector/google-ads/customerClientLink\",\"name\":\"connector_google_ads_customerClientLink_post\"}"
+                }
+              }
+            ]
+          },
+          "logprobs": null,
+          "finish_reason": "stop"
+        }
+      ],
+      "usage": {
+        "prompt_tokens": 43227,
+        "completion_tokens": 33,
+        "total_tokens": 43260
+      },
+      "system_fingerprint": "fp_fa1dad0729"
+    }
+  }
+}

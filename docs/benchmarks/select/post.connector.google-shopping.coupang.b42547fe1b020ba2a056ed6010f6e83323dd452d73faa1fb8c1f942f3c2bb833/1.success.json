@@ -1,0 +1,48 @@
+{
+  "function": {
+    "method": "post",
+    "path": "/connector/google-shopping/coupang",
+    "name": "connector_google_shopping_coupang_post",
+    "description": "Coupang Search.\n\nSearch for products on Coupang\nOnly one keyword should be requested per request.\nFor example, If you use \"phone\" and \"cup\" as keywords, you must make two requests, each with separate keywords."
+  },
+  "keyword": "쿠팡에서 상품 좀 찾아줘",
+  "event": {
+    "kind": "success",
+    "started_at": "2024-12-17T09:27:04.558Z",
+    "completed_at": "2024-12-17T09:27:06.236Z",
+    "elapsed": 1678,
+    "completion": {
+      "id": "chatcmpl-AfO8wFcyeoTg8iEgLHbkjLS6uqscl",
+      "object": "chat.completion",
+      "created": 1734427618,
+      "model": "gpt-4o-2024-08-06",
+      "choices": [
+        {
+          "index": 0,
+          "message": {
+            "role": "assistant",
+            "content": null,
+            "tool_calls": [
+              {
+                "id": "call_TKlnypVFmLcN2o4t3atdqPQL",
+                "type": "function",
+                "function": {
+                  "name": "selectFunction",
+                  "arguments": "{\"name\":\"connector_google_shopping_coupang_post\",\"method\":\"post\",\"path\":\"/connector/google-shopping/coupang\"}"
+                }
+              }
+            ]
+          },
+          "logprobs": null,
+          "finish_reason": "stop"
+        }
+      ],
+      "usage": {
+        "prompt_tokens": 43220,
+        "completion_tokens": 33,
+        "total_tokens": 43253
+      },
+      "system_fingerprint": "fp_fa1dad0729"
+    }
+  }
+}

@@ -1,0 +1,48 @@
+{
+  "function": {
+    "method": "post",
+    "path": "/connector/discord/unpin-message",
+    "name": "connector_discord_unpin_message_post",
+    "description": "Unpin message.\n\nUnpin a pinned message from a channel"
+  },
+  "keyword": "메시지 고정 해제해줘",
+  "event": {
+    "kind": "success",
+    "started_at": "2024-12-17T10:27:52.080Z",
+    "completed_at": "2024-12-17T10:27:56.093Z",
+    "elapsed": 4013,
+    "completion": {
+      "id": "chatcmpl-AfP5mFxqggNwBk6qJsExhdhRn5ou2",
+      "object": "chat.completion",
+      "created": 1734431266,
+      "model": "gpt-4o-2024-08-06",
+      "choices": [
+        {
+          "index": 0,
+          "message": {
+            "role": "assistant",
+            "content": null,
+            "tool_calls": [
+              {
+                "id": "call_WoF0SOttePc9m1NEIqSFDL3t",
+                "type": "function",
+                "function": {
+                  "name": "selectFunction",
+                  "arguments": "{\"method\":\"post\",\"path\":\"/connector/discord/unpin-message\",\"name\":\"connector_discord_unpin_message_post\"}"
+                }
+              }
+            ]
+          },
+          "logprobs": null,
+          "finish_reason": "stop"
+        }
+      ],
+      "usage": {
+        "prompt_tokens": 43221,
+        "completion_tokens": 32,
+        "total_tokens": 43253
+      },
+      "system_fingerprint": "fp_fa1dad0729"
+    }
+  }
+}

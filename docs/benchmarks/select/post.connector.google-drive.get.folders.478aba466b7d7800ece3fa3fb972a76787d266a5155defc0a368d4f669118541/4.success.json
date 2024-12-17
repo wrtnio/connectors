@@ -1,0 +1,48 @@
+{
+  "function": {
+    "method": "post",
+    "path": "/connector/google-drive/get/folders",
+    "name": "connector_google_drive_get_folders_post",
+    "description": "Get a list of Google Drive folders.\n\nGet a list of folders in Google Drive"
+  },
+  "keyword": "구글 드라이브에 폴더 목록 좀 봐줘",
+  "event": {
+    "kind": "success",
+    "started_at": "2024-12-17T09:09:38.988Z",
+    "completed_at": "2024-12-17T09:09:47.411Z",
+    "elapsed": 8423,
+    "completion": {
+      "id": "chatcmpl-AfNs5fYahyVuJ2HSLLfd9oPswDr5P",
+      "object": "chat.completion",
+      "created": 1734426573,
+      "model": "gpt-4o-2024-08-06",
+      "choices": [
+        {
+          "index": 0,
+          "message": {
+            "role": "assistant",
+            "content": null,
+            "tool_calls": [
+              {
+                "id": "call_As1I6VEtNv6SGpAPl8cyrO8o",
+                "type": "function",
+                "function": {
+                  "name": "selectFunction",
+                  "arguments": "{\"method\":\"post\",\"path\":\"/connector/google-drive/get/folders\",\"name\":\"connector_google_drive_get_folders_post\"}"
+                }
+              }
+            ]
+          },
+          "logprobs": null,
+          "finish_reason": "stop"
+        }
+      ],
+      "usage": {
+        "prompt_tokens": 43226,
+        "completion_tokens": 32,
+        "total_tokens": 43258
+      },
+      "system_fingerprint": "fp_fa1dad0729"
+    }
+  }
+}

@@ -1,0 +1,48 @@
+{
+  "function": {
+    "method": "post",
+    "path": "/connector/google-map/review",
+    "name": "connector_google_map_review_post",
+    "description": "Search Google Map restaurant reviews.\n\nSearch for restaurant reviews selected from Google Maps"
+  },
+  "keyword": "식당 리뷰 좀 보고 알려줘",
+  "event": {
+    "kind": "success",
+    "started_at": "2024-12-17T09:49:27.277Z",
+    "completed_at": "2024-12-17T09:49:30.810Z",
+    "elapsed": 3533,
+    "completion": {
+      "id": "chatcmpl-AfOUbu5YXhzBYPfRZtBo7aNGtXaAO",
+      "object": "chat.completion",
+      "created": 1734428961,
+      "model": "gpt-4o-2024-08-06",
+      "choices": [
+        {
+          "index": 0,
+          "message": {
+            "role": "assistant",
+            "content": null,
+            "tool_calls": [
+              {
+                "id": "call_PaPu0Cg75RnasKlXbs7LRuv9",
+                "type": "function",
+                "function": {
+                  "name": "selectFunction",
+                  "arguments": "{\"method\":\"post\",\"path\":\"/connector/google-map/review\",\"name\":\"connector_google_map_review_post\"}"
+                }
+              }
+            ]
+          },
+          "logprobs": null,
+          "finish_reason": "stop"
+        }
+      ],
+      "usage": {
+        "prompt_tokens": 43219,
+        "completion_tokens": 29,
+        "total_tokens": 43248
+      },
+      "system_fingerprint": "fp_fa1dad0729"
+    }
+  }
+}

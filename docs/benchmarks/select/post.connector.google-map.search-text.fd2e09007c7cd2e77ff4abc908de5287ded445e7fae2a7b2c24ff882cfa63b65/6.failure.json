@@ -1,0 +1,48 @@
+{
+  "function": {
+    "method": "post",
+    "path": "/connector/google-map/search-text",
+    "name": "connector_google_map_search_text_post",
+    "description": "Search by text in Google Maps.\n\nGeneral search functionality on Google Maps\n\nIf possible, it is recommended to use POST/connector/google-map/search-text connector rather than this.\nHere, it is difficult to conduct additional search after providing information to users because only restaurants are searched using the Serp API and the response parameter does not provide a Google Map link."
+  },
+  "keyword": "구글 맵에서 카페 좀 찾아줘",
+  "event": {
+    "kind": "failure",
+    "started_at": "2024-12-17T09:50:34.927Z",
+    "completed_at": "2024-12-17T09:50:36.526Z",
+    "elapsed": 1599,
+    "completion": {
+      "id": "chatcmpl-AfOVhPQz1fvjNeqdBKwyZbsGw5wxT",
+      "object": "chat.completion",
+      "created": 1734429029,
+      "model": "gpt-4o-2024-08-06",
+      "choices": [
+        {
+          "index": 0,
+          "message": {
+            "role": "assistant",
+            "content": null,
+            "tool_calls": [
+              {
+                "id": "call_qrbnO3c0TmtclHLXFDMzZbrB",
+                "type": "function",
+                "function": {
+                  "name": "selectFunction",
+                  "arguments": "{\"method\":\"post\",\"path\":\"/connector/google-map\",\"name\":\"connector_google_map_post\"}"
+                }
+              }
+            ]
+          },
+          "logprobs": null,
+          "finish_reason": "stop"
+        }
+      ],
+      "usage": {
+        "prompt_tokens": 43222,
+        "completion_tokens": 26,
+        "total_tokens": 43248
+      },
+      "system_fingerprint": "fp_fa1dad0729"
+    }
+  }
+}

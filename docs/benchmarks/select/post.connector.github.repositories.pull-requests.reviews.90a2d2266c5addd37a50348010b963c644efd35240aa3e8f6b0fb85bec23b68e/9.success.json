@@ -1,0 +1,48 @@
+{
+  "function": {
+    "method": "post",
+    "path": "/connector/github/repositories/pull-requests/reviews",
+    "name": "connector_github_repositories_pull_requests_reviews_post",
+    "description": "Create a review for a pull request\n\nPull request reviews created in the PENDING state are not submitted and therefore do not include the submitted_at property in the response. To create a pending review for a pull request, leave the event parameter blank.\nThe position value equals the number of lines down from the first \"@@\" hunk header in the file you want to add a comment. The line just below the \"@@\" line is position 1, the next line is position 2, and so on. The position in the diff continues to increase through lines of whitespace and additional hunks until the beginning of a new file."
+  },
+  "keyword": "PR에 리뷰 좀 달아줘",
+  "event": {
+    "kind": "success",
+    "started_at": "2024-12-17T10:11:07.899Z",
+    "completed_at": "2024-12-17T10:11:10.269Z",
+    "elapsed": 2370,
+    "completion": {
+      "id": "chatcmpl-AfOpaQhGn4uP78PXsdHfOWr5wJyaI",
+      "object": "chat.completion",
+      "created": 1734430262,
+      "model": "gpt-4o-2024-08-06",
+      "choices": [
+        {
+          "index": 0,
+          "message": {
+            "role": "assistant",
+            "content": null,
+            "tool_calls": [
+              {
+                "id": "call_W923ZXpBKGvVeHqqBS0bKkHC",
+                "type": "function",
+                "function": {
+                  "name": "selectFunction",
+                  "arguments": "{\"method\":\"post\",\"path\":\"/connector/github/repositories/pull-requests/reviews\",\"name\":\"connector_github_repositories_pull_requests_reviews_post\"}"
+                }
+              }
+            ]
+          },
+          "logprobs": null,
+          "finish_reason": "stop"
+        }
+      ],
+      "usage": {
+        "prompt_tokens": 43219,
+        "completion_tokens": 38,
+        "total_tokens": 43257
+      },
+      "system_fingerprint": "fp_fa1dad0729"
+    }
+  }
+}

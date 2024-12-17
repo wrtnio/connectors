@@ -1,0 +1,48 @@
+{
+  "function": {
+    "method": "post",
+    "path": "/connector/gmail/label/{mailId}",
+    "name": "connector_gmail_label_postByMailid",
+    "description": "GMAIL Label Assignment.\n\nAssign a label to a mail\n\nGmail is a free web-based email service provided by Google."
+  },
+  "keyword": "메일에 라벨링해줘",
+  "event": {
+    "kind": "success",
+    "started_at": "2024-12-17T09:18:33.870Z",
+    "completed_at": "2024-12-17T09:18:36.152Z",
+    "elapsed": 2282,
+    "completion": {
+      "id": "chatcmpl-AfO0ic1C3oQ9TeWBQmzPmi2NPnhzr",
+      "object": "chat.completion",
+      "created": 1734427108,
+      "model": "gpt-4o-2024-08-06",
+      "choices": [
+        {
+          "index": 0,
+          "message": {
+            "role": "assistant",
+            "content": null,
+            "tool_calls": [
+              {
+                "id": "call_wWZVj1Kf112EgaTjgwIA9G31",
+                "type": "function",
+                "function": {
+                  "name": "selectFunction",
+                  "arguments": "{\"method\":\"post\",\"path\":\"/connector/gmail/label/{mailId}\",\"name\":\"connector_gmail_label_postByMailid\"}"
+                }
+              }
+            ]
+          },
+          "logprobs": null,
+          "finish_reason": "stop"
+        }
+      ],
+      "usage": {
+        "prompt_tokens": 43219,
+        "completion_tokens": 36,
+        "total_tokens": 43255
+      },
+      "system_fingerprint": "fp_fa1dad0729"
+    }
+  }
+}

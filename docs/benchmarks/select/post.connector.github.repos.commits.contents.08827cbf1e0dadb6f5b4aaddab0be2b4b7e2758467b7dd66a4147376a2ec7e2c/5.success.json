@@ -1,0 +1,48 @@
+{
+  "function": {
+    "method": "post",
+    "path": "/connector/github/repos/commits/contents",
+    "name": "connector_github_repos_commits_contents_post",
+    "description": "Create File content and commit.\n\nCreate file content in github repository\n\nIf the file already exists in the same path, you should use the modification API and this connector is only responsible for generation.\nCreating file content is the same as creating a single commit.\nCommit is a hash that must be created in github to save changes, such as uploading, modifying, deleting, and so on.\n\nIf someone says they want to add a file to the repo it's like they want to commit.\nHowever, in this case, you should check which branch you want to add the file to, and you should not create it in the default branch if you do not specify the branch.\nUsers value branches that reflect their commitments.\nIn addition, it is recommended to receive confirmation from the user every time about the content and then modify or add it.\n\nIf the user directly asks you to add, modify, or delete a file for a specific PR or specific branch, this connector should be considered.\n\nThe input property, which means the content of a file, changes to base64 inside that connector when written in human-recognizable natural language. So, do not encode any writing into base64."
+  },
+  "keyword": "커밋 추가해줘",
+  "event": {
+    "kind": "success",
+    "started_at": "2024-12-17T09:56:49.471Z",
+    "completed_at": "2024-12-17T09:56:53.035Z",
+    "elapsed": 3564,
+    "completion": {
+      "id": "chatcmpl-AfObjwy4ofO8QYsCizC5R2SgxPREo",
+      "object": "chat.completion",
+      "created": 1734429403,
+      "model": "gpt-4o-2024-08-06",
+      "choices": [
+        {
+          "index": 0,
+          "message": {
+            "role": "assistant",
+            "content": null,
+            "tool_calls": [
+              {
+                "id": "call_cSu7BDwJrcj3snbGdUhKaShM",
+                "type": "function",
+                "function": {
+                  "name": "selectFunction",
+                  "arguments": "{\"method\":\"post\",\"path\":\"/connector/github/repos/commits/contents\",\"name\":\"connector_github_repos_commits_contents_post\"}"
+                }
+              }
+            ]
+          },
+          "logprobs": null,
+          "finish_reason": "stop"
+        }
+      ],
+      "usage": {
+        "prompt_tokens": 43218,
+        "completion_tokens": 36,
+        "total_tokens": 43254
+      },
+      "system_fingerprint": "fp_fa1dad0729"
+    }
+  }
+}

@@ -1,0 +1,48 @@
+{
+  "function": {
+    "method": "post",
+    "path": "/connector/github/repos/get-readme",
+    "name": "connector_github_repos_get_readme_post",
+    "description": "Read the README file in the repository\n\nREADME is one of the initial settings of the project and usually records a description of this repository,\nso it's useful if you want to see a rough description of the repository."
+  },
+  "keyword": "레포지토리에 대해 설명해봐",
+  "event": {
+    "kind": "failure",
+    "started_at": "2024-12-17T10:01:55.302Z",
+    "completed_at": "2024-12-17T10:01:59.277Z",
+    "elapsed": 3975,
+    "completion": {
+      "id": "chatcmpl-AfOgfprrPANqA9XSTuFi3BBbRDiYl",
+      "object": "chat.completion",
+      "created": 1734429709,
+      "model": "gpt-4o-2024-08-06",
+      "choices": [
+        {
+          "index": 0,
+          "message": {
+            "role": "assistant",
+            "content": null,
+            "tool_calls": [
+              {
+                "id": "call_g6ki19BUNaZG5BdPhxF3j2zu",
+                "type": "function",
+                "function": {
+                  "name": "selectFunction",
+                  "arguments": "{\"method\":\"post\",\"path\":\"/connector/github/repos/get-overview\",\"name\":\"connector_github_repos_get_overview_post\"}"
+                }
+              }
+            ]
+          },
+          "logprobs": null,
+          "finish_reason": "stop"
+        }
+      ],
+      "usage": {
+        "prompt_tokens": 43221,
+        "completion_tokens": 34,
+        "total_tokens": 43255
+      },
+      "system_fingerprint": "fp_fa1dad0729"
+    }
+  }
+}

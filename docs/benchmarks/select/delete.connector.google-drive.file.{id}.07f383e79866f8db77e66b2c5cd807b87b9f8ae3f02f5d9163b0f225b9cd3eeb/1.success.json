@@ -1,0 +1,48 @@
+{
+  "function": {
+    "method": "delete",
+    "path": "/connector/google-drive/file/{id}",
+    "name": "connector_google_drive_file_eraseById",
+    "description": "Delete a Google Drive file.\n\nDelete a file in Google Drive"
+  },
+  "keyword": "드라이브에 파일 좀 삭제해줘",
+  "event": {
+    "kind": "success",
+    "started_at": "2024-12-17T09:11:48.966Z",
+    "completed_at": "2024-12-17T09:11:51.904Z",
+    "elapsed": 2938,
+    "completion": {
+      "id": "chatcmpl-AfNuBcJAj4EuWTh9vuydr4cOxl9MK",
+      "object": "chat.completion",
+      "created": 1734426703,
+      "model": "gpt-4o-2024-08-06",
+      "choices": [
+        {
+          "index": 0,
+          "message": {
+            "role": "assistant",
+            "content": null,
+            "tool_calls": [
+              {
+                "id": "call_609mpl5qDLuufq7ZD0NVxfcJ",
+                "type": "function",
+                "function": {
+                  "name": "selectFunction",
+                  "arguments": "{\"method\":\"delete\",\"path\":\"/connector/google-drive/file/{id}\",\"name\":\"connector_google_drive_file_eraseById\"}"
+                }
+              }
+            ]
+          },
+          "logprobs": null,
+          "finish_reason": "stop"
+        }
+      ],
+      "usage": {
+        "prompt_tokens": 43221,
+        "completion_tokens": 34,
+        "total_tokens": 43255
+      },
+      "system_fingerprint": "fp_fa1dad0729"
+    }
+  }
+}

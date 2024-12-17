@@ -1,0 +1,48 @@
+{
+  "function": {
+    "method": "post",
+    "path": "/connector/google-ads/display-ads",
+    "name": "connector_google_ads_display_ads_post",
+    "description": "Create responsive display ads in Google Account Ads at once.\n\nCreate display ads in your Google customer account at once\n\nCreating Google ads at once means creating campaigns, ad groups, and ads that exist in the Google Ads tree structure at once.\n\nIn this case, you do not need to specify which campaign to create ads for.\n\nThis is because everything from the first resource, the campaign, to the ad is created at once.\n\nThe campaign tree structure of Google Ads is such that the top campaign node is in charge of the budget, and when the ad is optimized, the ad group and ad share the budget of the campaign.\nIn simple terms, this means that the ad within the campaign learns and optimizes itself to determine which ad will be exposed to the end user.\n\nTherefore, it is easy to create ads in the connector structure that creates them at once, but it may not be suitable if you want to create multiple ads.\n\nHowever, if you have multiple ad materials and do not intend to create and compare multiple ads, it will be very convenient because you can easily execute the ad.\n\nIn most cases, there is no problem creating ads in this way.\n\nIf `customerId` is not passed, it is automatically selected only if there is only one ad account accessible to `Wrtn` from the user.\n\nThe ad is immediately reviewed after being created, and if Google's review is passed, the ad will be executed and expenses will be incurred.\nHowever, if an ad is created with this connector, the ad status is set to `PAUSED`.\nThis is to prepare for an emergency so that the user can check the campaign, ad group, ad, etc. again to see if they are in the desired state.\nTherefore, even if the ad review is complete, the ad will not be executed and no performance or expenses will be incurred.\n\nIf the ad is checked to be correct, the user can change the ad status to `ENABLED` using the `Ad Edit Connector`.\n\nBefore calling the function, you should ask the user for `customerId`, so you should suggest a connector that can check `customerId`.\n\nOriginally, there was no amount limit, but in preparation for an emergency, the function is currently limited to 100,000 won per campaign."
+  },
+  "keyword": "디스플레이 광고 생성해줘",
+  "event": {
+    "kind": "success",
+    "started_at": "2024-12-17T09:42:17.448Z",
+    "completed_at": "2024-12-17T09:42:21.223Z",
+    "elapsed": 3775,
+    "completion": {
+      "id": "chatcmpl-AfONfhQuIjRMV9PoAFvspouVXEoNz",
+      "object": "chat.completion",
+      "created": 1734428531,
+      "model": "gpt-4o-2024-08-06",
+      "choices": [
+        {
+          "index": 0,
+          "message": {
+            "role": "assistant",
+            "content": null,
+            "tool_calls": [
+              {
+                "id": "call_6i4FtNBhS5ZJb4HeJBWJ92pV",
+                "type": "function",
+                "function": {
+                  "name": "selectFunction",
+                  "arguments": "{\"method\":\"post\",\"path\":\"/connector/google-ads/display-ads\",\"name\":\"connector_google_ads_display_ads_post\"}"
+                }
+              }
+            ]
+          },
+          "logprobs": null,
+          "finish_reason": "stop"
+        }
+      ],
+      "usage": {
+        "prompt_tokens": 43220,
+        "completion_tokens": 32,
+        "total_tokens": 43252
+      },
+      "system_fingerprint": "fp_fa1dad0729"
+    }
+  }
+}

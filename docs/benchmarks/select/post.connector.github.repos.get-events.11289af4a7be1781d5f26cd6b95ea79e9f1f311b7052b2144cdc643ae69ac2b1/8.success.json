@@ -1,0 +1,48 @@
+{
+  "function": {
+    "method": "post",
+    "path": "/connector/github/repos/get-events",
+    "name": "connector_github_repos_get_events_post",
+    "description": "List events for the authenticated user\n\nIf you are authenticated as the given user, you will see your private events. Otherwise, you'll only see public events.\nYou can check all events surrounding the repository, such as who inquired and who forked.\nIt is used in conjunction with a connector that inquires the activity details and is suitable for checking how active the repository is."
+  },
+  "keyword": "레포 이벤트 조회해줘",
+  "event": {
+    "kind": "success",
+    "started_at": "2024-12-17T10:02:57.968Z",
+    "completed_at": "2024-12-17T10:02:59.634Z",
+    "elapsed": 1666,
+    "completion": {
+      "id": "chatcmpl-AfOhgwCI6SzuBypQZEiUpcqRY7hMY",
+      "object": "chat.completion",
+      "created": 1734429772,
+      "model": "gpt-4o-2024-08-06",
+      "choices": [
+        {
+          "index": 0,
+          "message": {
+            "role": "assistant",
+            "content": null,
+            "tool_calls": [
+              {
+                "id": "call_rzmehkXuBDFluDmZWzWKlCmM",
+                "type": "function",
+                "function": {
+                  "name": "selectFunction",
+                  "arguments": "{\"method\":\"post\",\"path\":\"/connector/github/repos/get-events\",\"name\":\"connector_github_repos_get_events_post\"}"
+                }
+              }
+            ]
+          },
+          "logprobs": null,
+          "finish_reason": "stop"
+        }
+      ],
+      "usage": {
+        "prompt_tokens": 43218,
+        "completion_tokens": 32,
+        "total_tokens": 43250
+      },
+      "system_fingerprint": "fp_fa1dad0729"
+    }
+  }
+}

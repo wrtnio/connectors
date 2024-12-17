@@ -1,0 +1,48 @@
+{
+  "function": {
+    "method": "post",
+    "path": "/connector/google-ads/campaigns/ads/get-details",
+    "name": "connector_google_ads_campaigns_ads_get_details_post",
+    "description": "View ad details\n\nDepending on the campaign, it is either a responsive search ad or a responsive display ad.\n\nIf `customerId` is not passed, it will be automatically selected only if the user has only one ad account that `Wrtn` can access.\n\nBefore calling the function, you should ask the user for `customerId`, so you should suggest a connector that can check `customerId`."
+  },
+  "keyword": "광고 상세 조회해줘",
+  "event": {
+    "kind": "success",
+    "started_at": "2024-12-17T09:39:48.975Z",
+    "completed_at": "2024-12-17T09:39:50.738Z",
+    "elapsed": 1763,
+    "completion": {
+      "id": "chatcmpl-AfOLHvDpB4GGf2eyA9AP0QWrWQ2A2",
+      "object": "chat.completion",
+      "created": 1734428383,
+      "model": "gpt-4o-2024-08-06",
+      "choices": [
+        {
+          "index": 0,
+          "message": {
+            "role": "assistant",
+            "content": null,
+            "tool_calls": [
+              {
+                "id": "call_DNJQUUZpbUfo931mY6JJTq15",
+                "type": "function",
+                "function": {
+                  "name": "selectFunction",
+                  "arguments": "{\"method\":\"post\",\"path\":\"/connector/google-ads/campaigns/ads/get-details\",\"name\":\"connector_google_ads_campaigns_ads_get_details_post\"}"
+                }
+              }
+            ]
+          },
+          "logprobs": null,
+          "finish_reason": "stop"
+        }
+      ],
+      "usage": {
+        "prompt_tokens": 43218,
+        "completion_tokens": 39,
+        "total_tokens": 43257
+      },
+      "system_fingerprint": "fp_fa1dad0729"
+    }
+  }
+}

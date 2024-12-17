@@ -1,0 +1,48 @@
+{
+  "function": {
+    "method": "post",
+    "path": "/connector/gmail/reply/{id}",
+    "name": "connector_gmail_reply_postById",
+    "description": "GMAIL Reply.\n\nReply to received email\n\nGmail is a free web-based email service provided by Google.\n\nThis connector is for sending emails,\nand if you send it as simple text, the sentences will be displayed as one long line, so you need to insert a line break character.\nThe current format uses `text/html; charset=utf-8` as content-type.\nIn some cases, you can also use the HTML format."
+  },
+  "keyword": "지메일 온 거 답장해줘",
+  "event": {
+    "kind": "success",
+    "started_at": "2024-12-17T09:15:34.055Z",
+    "completed_at": "2024-12-17T09:15:35.745Z",
+    "elapsed": 1690,
+    "completion": {
+      "id": "chatcmpl-AfNxouEbBN08sjdJUNcg2rdo3V7et",
+      "object": "chat.completion",
+      "created": 1734426928,
+      "model": "gpt-4o-2024-08-06",
+      "choices": [
+        {
+          "index": 0,
+          "message": {
+            "role": "assistant",
+            "content": null,
+            "tool_calls": [
+              {
+                "id": "call_6i4FtNBhS5ZJb4HeJBWJ92pV",
+                "type": "function",
+                "function": {
+                  "name": "selectFunction",
+                  "arguments": "{\"method\":\"post\",\"path\":\"/connector/gmail/reply/{id}\",\"name\":\"connector_gmail_reply_postById\"}"
+                }
+              }
+            ]
+          },
+          "logprobs": null,
+          "finish_reason": "stop"
+        }
+      ],
+      "usage": {
+        "prompt_tokens": 43220,
+        "completion_tokens": 34,
+        "total_tokens": 43254
+      },
+      "system_fingerprint": "fp_fa1dad0729"
+    }
+  }
+}

@@ -1,0 +1,48 @@
+{
+  "function": {
+    "method": "post",
+    "path": "/connector/excel",
+    "name": "connector_excel_post",
+    "description": "Add Excel files and sheet\n\nCreate an Excel file and get the link back.\nYou can also forward this link to the following connector to reflect further modifications.\nWhen creating a sheet with this feature, the default name 'Sheet1' is created if the sheet name is not provided."
+  },
+  "keyword": "엑셀 생성해줘",
+  "event": {
+    "kind": "success",
+    "started_at": "2024-12-17T09:05:41.253Z",
+    "completed_at": "2024-12-17T09:05:44.683Z",
+    "elapsed": 3430,
+    "completion": {
+      "id": "chatcmpl-AfNoFdbnwe3amZ6iAfsz6yTOXfWVB",
+      "object": "chat.completion",
+      "created": 1734426335,
+      "model": "gpt-4o-2024-08-06",
+      "choices": [
+        {
+          "index": 0,
+          "message": {
+            "role": "assistant",
+            "content": null,
+            "tool_calls": [
+              {
+                "id": "call_CIqOFfIWNjakHBbllNBeNpae",
+                "type": "function",
+                "function": {
+                  "name": "selectFunction",
+                  "arguments": "{\"method\":\"post\",\"path\":\"/connector/excel\",\"name\":\"connector_excel_post\"}"
+                }
+              }
+            ]
+          },
+          "logprobs": null,
+          "finish_reason": "stop"
+        }
+      ],
+      "usage": {
+        "prompt_tokens": 43218,
+        "completion_tokens": 25,
+        "total_tokens": 43243
+      },
+      "system_fingerprint": "fp_fa1dad0729"
+    }
+  }
+}

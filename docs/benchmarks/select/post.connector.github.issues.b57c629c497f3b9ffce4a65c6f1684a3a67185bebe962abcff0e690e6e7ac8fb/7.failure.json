@@ -1,0 +1,48 @@
+{
+  "function": {
+    "method": "post",
+    "path": "/connector/github/issues",
+    "name": "connector_github_issues_post",
+    "description": "Create an issue.\n\nLeave an issue in the repository\n\nCreate an issue, where you can enter labels and assignes together.\nThe information you must enter is who will create the issue in the owner's repository and under what title.\nThe information in the text should follow the markdown grammar allowed by github.\n\nIn some cases, if you are not the owner of this repository, you may not be able to make any marking on issues such as labels, assignees, milestones, etc.\n\nIn order to create issue, you may need to refer to the issue template files that you specified in the .github folder in advance, in which case refer to the connector 'POST /connector/github/repos/get-contents'."
+  },
+  "keyword": "이슈 생성해줘",
+  "event": {
+    "kind": "failure",
+    "started_at": "2024-12-17T10:20:26.552Z",
+    "completed_at": "2024-12-17T10:20:28.854Z",
+    "elapsed": 2302,
+    "completion": {
+      "id": "chatcmpl-AfOybwbBQoKSssY8iTwCSh4BVUXQD",
+      "object": "chat.completion",
+      "created": 1734430821,
+      "model": "gpt-4o-2024-08-06",
+      "choices": [
+        {
+          "index": 0,
+          "message": {
+            "role": "assistant",
+            "content": null,
+            "tool_calls": [
+              {
+                "id": "call_AfQnV8uVjfSy2b3soHbKqx3H",
+                "type": "function",
+                "function": {
+                  "name": "selectFunction",
+                  "arguments": "{\"method\":\"post\",\"path\":\"/connector/jira/issues/markdown\",\"name\":\"connector_jira_issues_markdown_post\"}"
+                }
+              }
+            ]
+          },
+          "logprobs": null,
+          "finish_reason": "stop"
+        }
+      ],
+      "usage": {
+        "prompt_tokens": 43217,
+        "completion_tokens": 33,
+        "total_tokens": 43250
+      },
+      "system_fingerprint": "fp_fa1dad0729"
+    }
+  }
+}

@@ -1,0 +1,48 @@
+{
+  "function": {
+    "method": "post",
+    "path": "/connector/google-flight/one-way",
+    "name": "connector_google_flight_one_way_post",
+    "description": "Search for one-way flights"
+  },
+  "keyword": "항공권 조회해줘",
+  "event": {
+    "kind": "failure",
+    "started_at": "2024-12-17T09:47:41.118Z",
+    "completed_at": "2024-12-17T09:47:44.652Z",
+    "elapsed": 3534,
+    "completion": {
+      "id": "chatcmpl-AfOStKNuWqqI6O0oKum9zjPlVsKth",
+      "object": "chat.completion",
+      "created": 1734428855,
+      "model": "gpt-4o-2024-08-06",
+      "choices": [
+        {
+          "index": 0,
+          "message": {
+            "role": "assistant",
+            "content": null,
+            "tool_calls": [
+              {
+                "id": "call_vpBzRk6j1yV73vAHUeNKFyeD",
+                "type": "function",
+                "function": {
+                  "name": "selectFunction",
+                  "arguments": "{\"method\":\"post\",\"path\":\"/connector/google-flight/round-trip\",\"name\":\"connector_google_flight_round_trip_post\"}"
+                }
+              }
+            ]
+          },
+          "logprobs": null,
+          "finish_reason": "stop"
+        }
+      ],
+      "usage": {
+        "prompt_tokens": 43218,
+        "completion_tokens": 32,
+        "total_tokens": 43250
+      },
+      "system_fingerprint": "fp_fa1dad0729"
+    }
+  }
+}

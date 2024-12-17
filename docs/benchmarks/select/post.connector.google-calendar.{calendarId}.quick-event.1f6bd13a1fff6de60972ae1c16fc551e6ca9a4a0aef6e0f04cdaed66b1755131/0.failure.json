@@ -1,0 +1,48 @@
+{
+  "function": {
+    "method": "post",
+    "path": "/connector/google-calendar/{calendarId}/quick-event",
+    "name": "connector_google_calendar_quick_event_postByCalendarid",
+    "description": "Add a quick event to Google Calendar"
+  },
+  "keyword": "구글 캘린더에 이벤트 하나 생성해줘",
+  "event": {
+    "kind": "failure",
+    "started_at": "2024-12-17T09:07:30.999Z",
+    "completed_at": "2024-12-17T09:07:32.652Z",
+    "elapsed": 1653,
+    "completion": {
+      "id": "chatcmpl-AfNq1TfQBt0O6yO6eYgyH6jLTaZoe",
+      "object": "chat.completion",
+      "created": 1734426445,
+      "model": "gpt-4o-2024-08-06",
+      "choices": [
+        {
+          "index": 0,
+          "message": {
+            "role": "assistant",
+            "content": null,
+            "tool_calls": [
+              {
+                "id": "call_ov0B5bCePP7rk8KRtbe174HN",
+                "type": "function",
+                "function": {
+                  "name": "selectFunction",
+                  "arguments": "{\"method\":\"post\",\"path\":\"/connector/google-calendar/{calendarId}/event\",\"name\":\"connector_google_calendar_event_postByCalendarid\"}"
+                }
+              }
+            ]
+          },
+          "logprobs": null,
+          "finish_reason": "stop"
+        }
+      ],
+      "usage": {
+        "prompt_tokens": 43224,
+        "completion_tokens": 35,
+        "total_tokens": 43259
+      },
+      "system_fingerprint": "fp_fa1dad0729"
+    }
+  }
+}

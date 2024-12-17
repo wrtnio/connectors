@@ -1,0 +1,48 @@
+{
+  "function": {
+    "method": "post",
+    "path": "/connector/google-hotel",
+    "name": "connector_google_hotel_post",
+    "description": "Google Hotels Search.\n\nSearch for accommodations using Google Hotels service\nOnly one keyword should be requested per request.\nFor example, if you need to enter Seoul and Tokyo as keywords, you should make two requests with one word, \"Seoul\" and \"Tokyo\", not \"Seoul, Tokyo\"."
+  },
+  "keyword": "호텔 좀 찾아줘",
+  "event": {
+    "kind": "success",
+    "started_at": "2024-12-17T09:46:54.662Z",
+    "completed_at": "2024-12-17T09:46:56.585Z",
+    "elapsed": 1923,
+    "completion": {
+      "id": "chatcmpl-AfOS98lquHwzzyOOnclNfZRePNhhd",
+      "object": "chat.completion",
+      "created": 1734428809,
+      "model": "gpt-4o-2024-08-06",
+      "choices": [
+        {
+          "index": 0,
+          "message": {
+            "role": "assistant",
+            "content": null,
+            "tool_calls": [
+              {
+                "id": "call_No12b5BwR4MLzJf9Ndo3FPI6",
+                "type": "function",
+                "function": {
+                  "name": "selectFunction",
+                  "arguments": "{\"method\":\"post\",\"path\":\"/connector/google-hotel\",\"name\":\"connector_google_hotel_post\"}"
+                }
+              }
+            ]
+          },
+          "logprobs": null,
+          "finish_reason": "stop"
+        }
+      ],
+      "usage": {
+        "prompt_tokens": 43216,
+        "completion_tokens": 28,
+        "total_tokens": 43244
+      },
+      "system_fingerprint": "fp_fa1dad0729"
+    }
+  }
+}

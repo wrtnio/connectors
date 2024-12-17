@@ -1,0 +1,48 @@
+{
+  "function": {
+    "method": "post",
+    "path": "/connector/discord/get-channel-message-histories",
+    "name": "connector_discord_get_channel_message_histories_post",
+    "description": "Get a list of messages.\n\nGet the messages that exist in the channel"
+  },
+  "keyword": "메시지 조회해줘",
+  "event": {
+    "kind": "failure",
+    "started_at": "2024-12-17T10:28:39.244Z",
+    "completed_at": "2024-12-17T10:28:43.507Z",
+    "elapsed": 4263,
+    "completion": {
+      "id": "chatcmpl-AfP6XHuAdxdJbRn60KDO3Z8kem4fi",
+      "object": "chat.completion",
+      "created": 1734431313,
+      "model": "gpt-4o-2024-08-06",
+      "choices": [
+        {
+          "index": 0,
+          "message": {
+            "role": "assistant",
+            "content": null,
+            "tool_calls": [
+              {
+                "id": "call_lc21MPrrjjvcQbdPfXy2tJDq",
+                "type": "function",
+                "function": {
+                  "name": "selectFunction",
+                  "arguments": "{\"method\":\"post\",\"path\":\"/connector/slack/get-channel-message-histories\",\"name\":\"connector_slack_get_channel_message_histories_post\"}"
+                }
+              }
+            ]
+          },
+          "logprobs": null,
+          "finish_reason": "stop"
+        }
+      ],
+      "usage": {
+        "prompt_tokens": 43218,
+        "completion_tokens": 37,
+        "total_tokens": 43255
+      },
+      "system_fingerprint": "fp_fa1dad0729"
+    }
+  }
+}

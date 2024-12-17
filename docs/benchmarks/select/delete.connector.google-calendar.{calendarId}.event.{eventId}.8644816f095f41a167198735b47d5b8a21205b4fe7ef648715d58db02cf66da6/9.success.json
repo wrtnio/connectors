@@ -1,0 +1,48 @@
+{
+  "function": {
+    "method": "delete",
+    "path": "/connector/google-calendar/{calendarId}/event/{eventId}",
+    "name": "connector_google_calendar_event_eraseByCalendaridAndEventid",
+    "description": "Delete a Google Calendar event.\n\nDelete an event"
+  },
+  "keyword": "구글 캘린더에 일정 지워줘",
+  "event": {
+    "kind": "success",
+    "started_at": "2024-12-17T09:09:02.202Z",
+    "completed_at": "2024-12-17T09:09:03.999Z",
+    "elapsed": 1797,
+    "completion": {
+      "id": "chatcmpl-AfNrUVFIhWm9XGNjcXZlPBBpz2Z5s",
+      "object": "chat.completion",
+      "created": 1734426536,
+      "model": "gpt-4o-2024-08-06",
+      "choices": [
+        {
+          "index": 0,
+          "message": {
+            "role": "assistant",
+            "content": null,
+            "tool_calls": [
+              {
+                "id": "call_qkowfNWrhZtnrtUgpHMN0X04",
+                "type": "function",
+                "function": {
+                  "name": "selectFunction",
+                  "arguments": "{\"method\":\"delete\",\"path\":\"/connector/google-calendar/{calendarId}/event/{eventId}\",\"name\":\"connector_google_calendar_event_eraseByCalendaridAndEventid\"}"
+                }
+              }
+            ]
+          },
+          "logprobs": null,
+          "finish_reason": "stop"
+        }
+      ],
+      "usage": {
+        "prompt_tokens": 43223,
+        "completion_tokens": 43,
+        "total_tokens": 43266
+      },
+      "system_fingerprint": "fp_fa1dad0729"
+    }
+  }
+}

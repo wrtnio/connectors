@@ -1,0 +1,48 @@
+{
+  "function": {
+    "method": "post",
+    "path": "/connector/google-ads/campaigns/ads",
+    "name": "connector_google_ads_campaigns_ads_post",
+    "description": "Create an ad for a Google customer account\n\nThe `Wrtn` manager creates one ad per ad group for convenience.\nTherefore, this connector does not receive the resource name or ID of the ad group (=adGroup) to create the ad, and the ad group is created first when creating the ad.\nSince the types of ads that can be created depend on the campaign, you must create them after checking the campaign.\nFor example, search ads must be created in a search campaign.\n\nIf `customerId` is not passed, `Wrtn` will automatically select only one ad account that the user can access.\n\nThe ad is immediately moved to the review stage after creation, and if Google's review is passed, the ad will be executed and expenses will be incurred.\nHowever, when creating an ad with this connector, the ad status is set to `PAUSED`.\nThis is to allow users to check the campaign, ad group, ad, etc. again to check if they have been created in the desired state in case of an emergency.\nTherefore, even if the ad review is complete, the ad will not be executed, and no performance or expenses will be incurred. If the ad is checked to be correct, the user can change the ad status to `ENABLED` using the `ad edit connector`.\n\nBefore calling the function, you should ask the user for `customerId`, so you should suggest a connector that can check `customerId`."
+  },
+  "keyword": "캠페인 광고 생성해줘",
+  "event": {
+    "kind": "failure",
+    "started_at": "2024-12-17T09:40:31.464Z",
+    "completed_at": "2024-12-17T09:40:33.725Z",
+    "elapsed": 2261,
+    "completion": {
+      "id": "chatcmpl-AfOLypj7UU9rSRiB6Foesc1Wqqbv8",
+      "object": "chat.completion",
+      "created": 1734428426,
+      "model": "gpt-4o-2024-08-06",
+      "choices": [
+        {
+          "index": 0,
+          "message": {
+            "role": "assistant",
+            "content": null,
+            "tool_calls": [
+              {
+                "id": "call_tRji7dpE3tygHGNHxNPlia9K",
+                "type": "function",
+                "function": {
+                  "name": "selectFunction",
+                  "arguments": "{\"method\":\"post\",\"path\":\"/connector/google-ads/search-ads\",\"name\":\"connector_google_ads_search_ads_post\"}"
+                }
+              }
+            ]
+          },
+          "logprobs": null,
+          "finish_reason": "stop"
+        }
+      ],
+      "usage": {
+        "prompt_tokens": 43220,
+        "completion_tokens": 32,
+        "total_tokens": 43252
+      },
+      "system_fingerprint": "fp_fa1dad0729"
+    }
+  }
+}

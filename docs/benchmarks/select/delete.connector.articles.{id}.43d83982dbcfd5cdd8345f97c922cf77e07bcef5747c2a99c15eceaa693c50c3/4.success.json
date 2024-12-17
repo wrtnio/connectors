@@ -1,0 +1,48 @@
+{
+  "function": {
+    "method": "delete",
+    "path": "/connector/articles/{id}",
+    "name": "connector_articles_eraseById",
+    "description": "Remove an specified article.\n\nErase an article\n\nPerforms soft deletion to the article.\nThis makes the article no longer available, regardless of the number of snapshots."
+  },
+  "keyword": "내 글 삭제해줘",
+  "event": {
+    "kind": "success",
+    "started_at": "2024-12-17T09:00:28.668Z",
+    "completed_at": "2024-12-17T09:00:32.317Z",
+    "elapsed": 3649,
+    "completion": {
+      "id": "chatcmpl-AfNjDRcnXOzRSPWx1MkyuTWKxTO1F",
+      "object": "chat.completion",
+      "created": 1734426023,
+      "model": "gpt-4o-2024-08-06",
+      "choices": [
+        {
+          "index": 0,
+          "message": {
+            "role": "assistant",
+            "content": null,
+            "tool_calls": [
+              {
+                "id": "call_4Eh3S40uaQODKPiyxKyiVC6i",
+                "type": "function",
+                "function": {
+                  "name": "selectFunction",
+                  "arguments": "{\"method\":\"delete\",\"path\":\"/connector/articles/{id}\",\"name\":\"connector_articles_eraseById\"}"
+                }
+              }
+            ]
+          },
+          "logprobs": null,
+          "finish_reason": "stop"
+        }
+      ],
+      "usage": {
+        "prompt_tokens": 43217,
+        "completion_tokens": 30,
+        "total_tokens": 43247
+      },
+      "system_fingerprint": "fp_fa1dad0729"
+    }
+  }
+}

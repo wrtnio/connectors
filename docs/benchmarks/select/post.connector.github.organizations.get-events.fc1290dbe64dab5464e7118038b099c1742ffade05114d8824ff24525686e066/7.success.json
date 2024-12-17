@@ -1,0 +1,48 @@
+{
+  "function": {
+    "method": "post",
+    "path": "/connector/github/organizations/get-events",
+    "name": "connector_github_organizations_get_events_post",
+    "description": "List public organization events\n\nIf you are authenticated as the given user, you will see your private events. Otherwise, you'll only see public events.\n\nThis API endpoint retrieves a stream of public events that have occurred\nwithin a specified organization. These events include activities such as\nrepository creation, issues, pull requests, and other actions taken by members\nof the organization across all its public repositories.\n\nThis is useful for monitoring the public activity within an organization,\nproviding insights into how the organization is managing its projects,\nthe work being done by its members, and the overall public engagement with\nits repositories."
+  },
+  "keyword": "organization에서 이벤트 조회해줘",
+  "event": {
+    "kind": "success",
+    "started_at": "2024-12-17T09:55:38.409Z",
+    "completed_at": "2024-12-17T09:55:40.141Z",
+    "elapsed": 1732,
+    "completion": {
+      "id": "chatcmpl-AfOaa8ztkcYeSbVwfVq1ZhljgH1uC",
+      "object": "chat.completion",
+      "created": 1734429332,
+      "model": "gpt-4o-2024-08-06",
+      "choices": [
+        {
+          "index": 0,
+          "message": {
+            "role": "assistant",
+            "content": null,
+            "tool_calls": [
+              {
+                "id": "call_MeIcW19EI5icW6equOlxAcWG",
+                "type": "function",
+                "function": {
+                  "name": "selectFunction",
+                  "arguments": "{\"method\":\"post\",\"path\":\"/connector/github/organizations/get-events\",\"name\":\"connector_github_organizations_get_events_post\"}"
+                }
+              }
+            ]
+          },
+          "logprobs": null,
+          "finish_reason": "stop"
+        }
+      ],
+      "usage": {
+        "prompt_tokens": 43218,
+        "completion_tokens": 33,
+        "total_tokens": 43251
+      },
+      "system_fingerprint": "fp_fa1dad0729"
+    }
+  }
+}

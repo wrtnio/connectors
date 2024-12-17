@@ -1,0 +1,48 @@
+{
+  "function": {
+    "method": "put",
+    "path": "/connector/google-calendar/{calendarId}/event/{eventId}/attendees",
+    "name": "connector_google_calendar_event_attendees_putByCalendaridAndEventid",
+    "description": "Add attendees to a Google Calendar event.\n\nAdd attendees to an event"
+  },
+  "keyword": "구글 캘린더에 이벤트 참석자 추가해줘",
+  "event": {
+    "kind": "success",
+    "started_at": "2024-12-17T09:09:07.218Z",
+    "completed_at": "2024-12-17T09:09:09.087Z",
+    "elapsed": 1869,
+    "completion": {
+      "id": "chatcmpl-AfNrZPiUatKXxjx5SCi2htHxiakbg",
+      "object": "chat.completion",
+      "created": 1734426541,
+      "model": "gpt-4o-2024-08-06",
+      "choices": [
+        {
+          "index": 0,
+          "message": {
+            "role": "assistant",
+            "content": null,
+            "tool_calls": [
+              {
+                "id": "call_JUabpS84OHuqzRldXtLmpbS5",
+                "type": "function",
+                "function": {
+                  "name": "selectFunction",
+                  "arguments": "{\"method\":\"put\",\"path\":\"/connector/google-calendar/{calendarId}/event/{eventId}/attendees\",\"name\":\"connector_google_calendar_event_attendees_putByCalendaridAndEventid\"}"
+                }
+              }
+            ]
+          },
+          "logprobs": null,
+          "finish_reason": "stop"
+        }
+      ],
+      "usage": {
+        "prompt_tokens": 43225,
+        "completion_tokens": 46,
+        "total_tokens": 43271
+      },
+      "system_fingerprint": "fp_fa1dad0729"
+    }
+  }
+}

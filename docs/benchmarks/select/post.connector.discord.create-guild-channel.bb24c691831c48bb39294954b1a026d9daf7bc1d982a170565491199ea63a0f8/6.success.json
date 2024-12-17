@@ -1,0 +1,48 @@
+{
+  "function": {
+    "method": "post",
+    "path": "/connector/discord/create-guild-channel",
+    "name": "connector_discord_create_guild_channel_post",
+    "description": "Create a channel.\n\nCreate a new channel on the server"
+  },
+  "keyword": "길드 채널 생성해줘",
+  "event": {
+    "kind": "success",
+    "started_at": "2024-12-17T10:23:06.605Z",
+    "completed_at": "2024-12-17T10:23:08.302Z",
+    "elapsed": 1697,
+    "completion": {
+      "id": "chatcmpl-AfP1AbjbsmGqUsOd7CxEcsyDSziKH",
+      "object": "chat.completion",
+      "created": 1734430980,
+      "model": "gpt-4o-2024-08-06",
+      "choices": [
+        {
+          "index": 0,
+          "message": {
+            "role": "assistant",
+            "content": null,
+            "tool_calls": [
+              {
+                "id": "call_yKOFgu1kHqK8RRug5PRnanPt",
+                "type": "function",
+                "function": {
+                  "name": "selectFunction",
+                  "arguments": "{\"name\":\"connector_discord_create_guild_channel_post\",\"method\":\"post\",\"path\":\"/connector/discord/create-guild-channel\"}"
+                }
+              }
+            ]
+          },
+          "logprobs": null,
+          "finish_reason": "stop"
+        }
+      ],
+      "usage": {
+        "prompt_tokens": 43219,
+        "completion_tokens": 34,
+        "total_tokens": 43253
+      },
+      "system_fingerprint": "fp_fa1dad0729"
+    }
+  }
+}

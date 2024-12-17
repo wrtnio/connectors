@@ -1,0 +1,48 @@
+{
+  "function": {
+    "method": "post",
+    "path": "/connector/github/repositories/get-issues",
+    "name": "connector_github_repositories_get_issues_post",
+    "description": "List repository issues\n\nList issues in a repository.\nThis connector is perfect if you want to see the issue of the repository because it can be viewed without being authenticated.\nInformation on the issue comes out, but only 10 people and labels attached to the issue are provided.\nTherefore, if you want more detailed information, it's a good idea to look at it with a connector that looks at the details of the issue.\nWhen looking up an issue, you can view open and closed issues and sort them by creation time, correction time, comment count, and reaction count.\nFor more information, you should check the properties part of the request type.\n\nThe content of the body is omitted, so if you want to see it, you should use the detailed lookup connector.\nIf the user wants to see the body property, '/connector/github/repositories/issues/get-detail' connector must be called."
+  },
+  "keyword": "레포에서 이슈 좀 찾아줄래?",
+  "event": {
+    "kind": "success",
+    "started_at": "2024-12-17T10:15:13.827Z",
+    "completed_at": "2024-12-17T10:15:16.091Z",
+    "elapsed": 2264,
+    "completion": {
+      "id": "chatcmpl-AfOtYjGzH0qIg0xdeZAkLqtL1cHny",
+      "object": "chat.completion",
+      "created": 1734430508,
+      "model": "gpt-4o-2024-08-06",
+      "choices": [
+        {
+          "index": 0,
+          "message": {
+            "role": "assistant",
+            "content": null,
+            "tool_calls": [
+              {
+                "id": "call_6x9qxYhg2RqJhB1VysS77aCU",
+                "type": "function",
+                "function": {
+                  "name": "selectFunction",
+                  "arguments": "{\"method\":\"post\",\"path\":\"/connector/github/repositories/get-issues\",\"name\":\"connector_github_repositories_get_issues_post\"}"
+                }
+              }
+            ]
+          },
+          "logprobs": null,
+          "finish_reason": "stop"
+        }
+      ],
+      "usage": {
+        "prompt_tokens": 43222,
+        "completion_tokens": 35,
+        "total_tokens": 43257
+      },
+      "system_fingerprint": "fp_fa1dad0729"
+    }
+  }
+}

@@ -1,6 +1,6 @@
 import core from "@nestia/core";
 import { Controller } from "@nestjs/common";
-import { RouteIcon, Standalone } from "@wrtnio/decorators";
+import { RouteIcon, SelectBenchmark, Standalone } from "@wrtnio/decorators";
 
 import { IGoogleSearch } from "@wrtn/connector-api/lib/structures/connector/google_search/IGoogleSearch";
 
@@ -19,6 +19,7 @@ export class GoogleSearchController {
    * @param input Google search terms
    * @returns Google search results
    */
+  @SelectBenchmark("구글 검색 좀 해줘")
   @Standalone()
   @core.TypedRoute.Post("")
   @RouteIcon(

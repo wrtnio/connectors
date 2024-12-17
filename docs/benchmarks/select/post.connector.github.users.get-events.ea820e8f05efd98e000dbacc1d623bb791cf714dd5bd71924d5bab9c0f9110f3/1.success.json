@@ -1,0 +1,48 @@
+{
+  "function": {
+    "method": "post",
+    "path": "/connector/github/users/get-events",
+    "name": "connector_github_users_get_events_post",
+    "description": "List events for the authenticated user\n\nThis API endpoint retrieves a stream of events related to the authenticated user,\nincluding activities such as issues, pull requests, commits, and repository actions\nthat the user has participated in or been mentioned in. The events reflect the user's\ninteractions across all repositories they have access to, both public and private (if\nthe user has appropriate permissions).\n\nThis is useful for tracking a user's activity on GitHub, allowing you to see a\npersonalized feed of their involvement in various projects and interactions with\nother users.\n\nIf you are authenticated as the given user, you will see your private events. Otherwise, you'll only see public events.\nIt looks up users' public events. Username should be your own nickname because you can usually only see your own events."
+  },
+  "keyword": "내 github 이벤트 조회해줘",
+  "event": {
+    "kind": "success",
+    "started_at": "2024-12-17T10:03:24.063Z",
+    "completed_at": "2024-12-17T10:03:25.659Z",
+    "elapsed": 1596,
+    "completion": {
+      "id": "chatcmpl-AfOi6RWjDFmhOGLa70InhrUyH5PJi",
+      "object": "chat.completion",
+      "created": 1734429798,
+      "model": "gpt-4o-2024-08-06",
+      "choices": [
+        {
+          "index": 0,
+          "message": {
+            "role": "assistant",
+            "content": null,
+            "tool_calls": [
+              {
+                "id": "call_d1b4q8WKjrotEtP7hrFya1u9",
+                "type": "function",
+                "function": {
+                  "name": "selectFunction",
+                  "arguments": "{\"method\":\"post\",\"path\":\"/connector/github/users/get-events\",\"name\":\"connector_github_users_get_events_post\"}"
+                }
+              }
+            ]
+          },
+          "logprobs": null,
+          "finish_reason": "stop"
+        }
+      ],
+      "usage": {
+        "prompt_tokens": 43218,
+        "completion_tokens": 31,
+        "total_tokens": 43249
+      },
+      "system_fingerprint": "fp_fa1dad0729"
+    }
+  }
+}

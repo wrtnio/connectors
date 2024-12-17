@@ -1,0 +1,48 @@
+{
+  "function": {
+    "method": "delete",
+    "path": "/connector/google-drive/folder/{id}",
+    "name": "connector_google_drive_folder_eraseById",
+    "description": "Delete a Google Drive folder.\n\nDelete a folder in Google Drive"
+  },
+  "keyword": "드라이브에 폴더 좀 삭제해줘",
+  "event": {
+    "kind": "success",
+    "started_at": "2024-12-17T09:12:22.115Z",
+    "completed_at": "2024-12-17T09:12:24.959Z",
+    "elapsed": 2844,
+    "completion": {
+      "id": "chatcmpl-AfNuiNmua2nc1HTHfEJKLsMVydP27",
+      "object": "chat.completion",
+      "created": 1734426736,
+      "model": "gpt-4o-2024-08-06",
+      "choices": [
+        {
+          "index": 0,
+          "message": {
+            "role": "assistant",
+            "content": null,
+            "tool_calls": [
+              {
+                "id": "call_cEl3lG8VqrwMFLHRPbuicg7S",
+                "type": "function",
+                "function": {
+                  "name": "selectFunction",
+                  "arguments": "{\"method\":\"delete\",\"path\":\"/connector/google-drive/folder/{id}\",\"name\":\"connector_google_drive_folder_eraseById\"}"
+                }
+              }
+            ]
+          },
+          "logprobs": null,
+          "finish_reason": "stop"
+        }
+      ],
+      "usage": {
+        "prompt_tokens": 43223,
+        "completion_tokens": 35,
+        "total_tokens": 43258
+      },
+      "system_fingerprint": "fp_fa1dad0729"
+    }
+  }
+}

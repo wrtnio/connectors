@@ -1,0 +1,48 @@
+{
+  "function": {
+    "method": "post",
+    "path": "/connector/articles/{id}/exports/notion",
+    "name": "connector_articles_exports_notion_postById",
+    "description": "Exports specified article to notion.\n\nExport the text to Notion\n\nThe exported text is recorded by creating a\n{@link IArticleExport bbs_article_exports} object based on the snapshot.\nYou can upgrade and downgrade the version using\nthe 'POST /connector/articles/:id/exports/sync/notion' connector in the future.\nAlso, it doesn't matter if you export the same version of the text multiple times.\n\nBecause each export generates a new text,\nyou must use the `sync` connector if you want to change the version of an already exported text."
+  },
+  "keyword": "notion으로 내보내줘",
+  "event": {
+    "kind": "success",
+    "started_at": "2024-12-17T08:59:02.716Z",
+    "completed_at": "2024-12-17T08:59:06.546Z",
+    "elapsed": 3830,
+    "completion": {
+      "id": "chatcmpl-AfNhpY9B93EMcM9XJCt5IY2bjIcd2",
+      "object": "chat.completion",
+      "created": 1734425937,
+      "model": "gpt-4o-2024-08-06",
+      "choices": [
+        {
+          "index": 0,
+          "message": {
+            "role": "assistant",
+            "content": null,
+            "tool_calls": [
+              {
+                "id": "call_uZgggw3FZ3PmPYc7tUfB1O3S",
+                "type": "function",
+                "function": {
+                  "name": "selectFunction",
+                  "arguments": "{\"method\":\"post\",\"path\":\"/connector/articles/{id}/exports/notion\",\"name\":\"connector_articles_exports_notion_postById\"}"
+                }
+              }
+            ]
+          },
+          "logprobs": null,
+          "finish_reason": "stop"
+        }
+      ],
+      "usage": {
+        "prompt_tokens": 43219,
+        "completion_tokens": 35,
+        "total_tokens": 43254
+      },
+      "system_fingerprint": "fp_fa1dad0729"
+    }
+  }
+}

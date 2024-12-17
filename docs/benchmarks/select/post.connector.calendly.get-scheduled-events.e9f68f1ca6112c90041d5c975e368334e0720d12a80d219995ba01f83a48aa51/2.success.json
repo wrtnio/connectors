@@ -1,0 +1,48 @@
+{
+  "function": {
+    "method": "post",
+    "path": "/connector/calendly/get-scheduled-events",
+    "name": "connector_calendly_get_scheduled_events_post",
+    "description": "Get all scheduled events.\n\nRetrieves all scheduled events within a given time period or based on certain criteria.\n\nThis can help users manage their calendar by viewing all upcoming events."
+  },
+  "keyword": "예약된 미팅들 좀 알려줘",
+  "event": {
+    "kind": "success",
+    "started_at": "2024-12-17T10:36:30.973Z",
+    "completed_at": "2024-12-17T10:36:32.670Z",
+    "elapsed": 1697,
+    "completion": {
+      "id": "chatcmpl-AfPE8a8QBZ0yf0IS4BX0pTZ8o6jHZ",
+      "object": "chat.completion",
+      "created": 1734431784,
+      "model": "gpt-4o-2024-08-06",
+      "choices": [
+        {
+          "index": 0,
+          "message": {
+            "role": "assistant",
+            "content": null,
+            "tool_calls": [
+              {
+                "id": "call_ISGvzl3Jm8gSlF0TKBfZ9PvS",
+                "type": "function",
+                "function": {
+                  "name": "selectFunction",
+                  "arguments": "{\"method\":\"post\",\"path\":\"/connector/calendly/get-scheduled-events\",\"name\":\"connector_calendly_get_scheduled_events_post\"}"
+                }
+              }
+            ]
+          },
+          "logprobs": null,
+          "finish_reason": "stop"
+        }
+      ],
+      "usage": {
+        "prompt_tokens": 43220,
+        "completion_tokens": 36,
+        "total_tokens": 43256
+      },
+      "system_fingerprint": "fp_fa1dad0729"
+    }
+  }
+}

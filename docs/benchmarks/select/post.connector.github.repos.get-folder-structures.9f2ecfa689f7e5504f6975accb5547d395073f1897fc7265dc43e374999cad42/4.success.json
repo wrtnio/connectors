@@ -1,0 +1,48 @@
+{
+  "function": {
+    "method": "post",
+    "path": "/connector/github/repos/get-folder-structures",
+    "name": "connector_github_repos_get_folder_structures_post",
+    "description": "Review Repository Folder Structure\n\nIt allows you to know the overall folder structure by traversing files in the repository.\nThis feature is intended to navigate like a DFS based on folders.\nIf this function is so vast that you cannot see the entire folder, you can pass the `path` again to inquire.\nThe `path` delivered is treated like a Root folder and continues the navigation from this folder.\nThis feature is designed to navigate to the inside two more times, up to steps 0, 1 at a time, based on the root folder.\n\nIf you want to know the details of the file, it is recommended to use the get-contents connector."
+  },
+  "keyword": "레포 폴더 구조 조회해줘",
+  "event": {
+    "kind": "success",
+    "started_at": "2024-12-17T09:58:30.542Z",
+    "completed_at": "2024-12-17T09:58:34.662Z",
+    "elapsed": 4120,
+    "completion": {
+      "id": "chatcmpl-AfOdN5ByAApLhu52oTSpNRmQWMpIs",
+      "object": "chat.completion",
+      "created": 1734429505,
+      "model": "gpt-4o-2024-08-06",
+      "choices": [
+        {
+          "index": 0,
+          "message": {
+            "role": "assistant",
+            "content": null,
+            "tool_calls": [
+              {
+                "id": "call_609mpl5qDLuufq7ZD0NVxfcJ",
+                "type": "function",
+                "function": {
+                  "name": "selectFunction",
+                  "arguments": "{\"method\":\"post\",\"path\":\"/connector/github/repos/get-folder-structures\",\"name\":\"connector_github_repos_get_folder_structures_post\"}"
+                }
+              }
+            ]
+          },
+          "logprobs": null,
+          "finish_reason": "stop"
+        }
+      ],
+      "usage": {
+        "prompt_tokens": 43221,
+        "completion_tokens": 36,
+        "total_tokens": 43257
+      },
+      "system_fingerprint": "fp_fa1dad0729"
+    }
+  }
+}

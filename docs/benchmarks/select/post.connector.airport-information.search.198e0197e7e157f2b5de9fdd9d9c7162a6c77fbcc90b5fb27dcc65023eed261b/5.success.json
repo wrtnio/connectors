@@ -1,0 +1,48 @@
+{
+  "function": {
+    "method": "post",
+    "path": "/connector/airport-information/search",
+    "name": "connector_airport_information_search_post",
+    "description": "Search for airport information using the entered search term.\nOnly one keyword should be requested per request.\nFor example, if you need to enter Seoul and Tokyo as keywords, you should make two requests with one word, \"Seoul\" and \"Tokyo\", not \"Seoul, Tokyo\"."
+  },
+  "keyword": "공항 찾아줘",
+  "event": {
+    "kind": "success",
+    "started_at": "2024-12-17T09:47:25.503Z",
+    "completed_at": "2024-12-17T09:47:29.063Z",
+    "elapsed": 3560,
+    "completion": {
+      "id": "chatcmpl-AfOSdoNKnT9OWVQxo7nMo4sdfPwLc",
+      "object": "chat.completion",
+      "created": 1734428839,
+      "model": "gpt-4o-2024-08-06",
+      "choices": [
+        {
+          "index": 0,
+          "message": {
+            "role": "assistant",
+            "content": null,
+            "tool_calls": [
+              {
+                "id": "call_tvdrPLBO9sMrRVtbiXBRrWGf",
+                "type": "function",
+                "function": {
+                  "name": "selectFunction",
+                  "arguments": "{\"method\":\"post\",\"path\":\"/connector/airport-information/search\",\"name\":\"connector_airport_information_search_post\"}"
+                }
+              }
+            ]
+          },
+          "logprobs": null,
+          "finish_reason": "stop"
+        }
+      ],
+      "usage": {
+        "prompt_tokens": 43216,
+        "completion_tokens": 30,
+        "total_tokens": 43246
+      },
+      "system_fingerprint": "fp_fa1dad0729"
+    }
+  }
+}

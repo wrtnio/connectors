@@ -1,0 +1,48 @@
+{
+  "function": {
+    "method": "post",
+    "path": "/connector/discord/get-channel-message-histories",
+    "name": "connector_discord_get_channel_message_histories_post",
+    "description": "Get a list of messages.\n\nGet the messages that exist in the channel"
+  },
+  "keyword": "디스코드 메시지 조회해줘",
+  "event": {
+    "kind": "success",
+    "started_at": "2024-12-17T10:28:16.209Z",
+    "completed_at": "2024-12-17T10:28:19.249Z",
+    "elapsed": 3040,
+    "completion": {
+      "id": "chatcmpl-AfP6AV491N8lX7UHyeh6kWS5QiCOI",
+      "object": "chat.completion",
+      "created": 1734431290,
+      "model": "gpt-4o-2024-08-06",
+      "choices": [
+        {
+          "index": 0,
+          "message": {
+            "role": "assistant",
+            "content": null,
+            "tool_calls": [
+              {
+                "id": "call_pKszGlKOS1tOtDeLMUfHyPmM",
+                "type": "function",
+                "function": {
+                  "name": "selectFunction",
+                  "arguments": "{\"method\":\"post\",\"path\":\"/connector/discord/get-channel-message-histories\",\"name\":\"connector_discord_get_channel_message_histories_post\"}"
+                }
+              }
+            ]
+          },
+          "logprobs": null,
+          "finish_reason": "stop"
+        }
+      ],
+      "usage": {
+        "prompt_tokens": 43221,
+        "completion_tokens": 37,
+        "total_tokens": 43258
+      },
+      "system_fingerprint": "fp_fa1dad0729"
+    }
+  }
+}

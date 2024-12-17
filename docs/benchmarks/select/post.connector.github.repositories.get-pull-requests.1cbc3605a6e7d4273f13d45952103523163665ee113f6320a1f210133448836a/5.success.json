@@ -1,0 +1,48 @@
+{
+  "function": {
+    "method": "post",
+    "path": "/connector/github/repositories/get-pull-requests",
+    "name": "connector_github_repositories_get_pull_requests_post",
+    "description": "Get Repository' pull request.\n\nList repository pull requests\n\nQuery pool requests to specific repositories.\nHere, you can filter issues and see only pool requests, and you can sort them by creation and inquiry dates, or filter by open or closed status.\nThe content of the body is omitted, so if you want to see it, you should use the detailed lookup connector.\nIf the user wants to see the body property, '/connector/github/repositories/pull-requests/get-detail' connector must be called."
+  },
+  "keyword": "PR 목록 좀 조회해줘",
+  "event": {
+    "kind": "success",
+    "started_at": "2024-12-17T10:13:02.539Z",
+    "completed_at": "2024-12-17T10:13:04.272Z",
+    "elapsed": 1733,
+    "completion": {
+      "id": "chatcmpl-AfOrQZP2w0tLhk2UbGgt4xV4lWBNO",
+      "object": "chat.completion",
+      "created": 1734430376,
+      "model": "gpt-4o-2024-08-06",
+      "choices": [
+        {
+          "index": 0,
+          "message": {
+            "role": "assistant",
+            "content": null,
+            "tool_calls": [
+              {
+                "id": "call_6xidW1lNZFIv9AHfClc5eZkx",
+                "type": "function",
+                "function": {
+                  "name": "selectFunction",
+                  "arguments": "{\"method\":\"post\",\"path\":\"/connector/github/repositories/get-pull-requests\",\"name\":\"connector_github_repositories_get_pull_requests_post\"}"
+                }
+              }
+            ]
+          },
+          "logprobs": null,
+          "finish_reason": "stop"
+        }
+      ],
+      "usage": {
+        "prompt_tokens": 43218,
+        "completion_tokens": 37,
+        "total_tokens": 43255
+      },
+      "system_fingerprint": "fp_fa1dad0729"
+    }
+  }
+}

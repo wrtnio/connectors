@@ -1,0 +1,48 @@
+{
+  "function": {
+    "method": "post",
+    "path": "/connector/articles/{id}/sync/google-docs",
+    "name": "connector_articles_sync_google_docs_postById",
+    "description": "Syncronize article version.\n\nupgrade or downgrade version of exported google docs file\n\nSynchronize on a snapshot basis,\nsuch as upgrading or downgrading the version of a document exported to GoogleDocs.\nIf user specify the id of the snapshot in the names from and to among the internal properties,\nfind the exported text from `from` and start synchronizing to the version of `to`.\nIf user want to revert to the past version of the snapshot,\nuser can put the current version in 'from' and the past version in 'to'."
+  },
+  "keyword": "google docs에 동기화해줘",
+  "event": {
+    "kind": "success",
+    "started_at": "2024-12-17T08:56:59.066Z",
+    "completed_at": "2024-12-17T08:57:03.457Z",
+    "elapsed": 4391,
+    "completion": {
+      "id": "chatcmpl-AfNfqtZKuDLeUeFbpfHHNHHKlwu8P",
+      "object": "chat.completion",
+      "created": 1734425814,
+      "model": "gpt-4o-2024-08-06",
+      "choices": [
+        {
+          "index": 0,
+          "message": {
+            "role": "assistant",
+            "content": null,
+            "tool_calls": [
+              {
+                "id": "call_tvdrPLBO9sMrRVtbiXBRrWGf",
+                "type": "function",
+                "function": {
+                  "name": "selectFunction",
+                  "arguments": "{\"method\":\"post\",\"path\":\"/connector/articles/{id}/sync/google-docs\",\"name\":\"connector_articles_sync_google_docs_postById\"}"
+                }
+              }
+            ]
+          },
+          "logprobs": null,
+          "finish_reason": "stop"
+        }
+      ],
+      "usage": {
+        "prompt_tokens": 43220,
+        "completion_tokens": 36,
+        "total_tokens": 43256
+      },
+      "system_fingerprint": "fp_fa1dad0729"
+    }
+  }
+}

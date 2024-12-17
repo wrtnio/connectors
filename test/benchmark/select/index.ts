@@ -1,15 +1,21 @@
+import chalk from "chalk";
 import cp from "child_process";
 import fs from "fs";
 import { ArgumentParser } from "../../helpers/ArgumentParser";
 import { ConnectorConfiguration } from "../../../src/ConnectorConfiguration";
 import typia from "typia";
 import { ISwagger } from "@wrtnio/schema";
-import { HttpLlm, IHttpLlmApplication } from "@samchon/openapi";
+import {
+  HttpLlm,
+  IHttpLlmApplication,
+  IHttpLlmFunction,
+} from "@samchon/openapi";
 import { FunctionSelectBenchmarkExecutor } from "./FunctionSelectBenchmarkExecutor";
 import { ArrayUtil } from "@nestia/e2e";
 import { IFunctionSelectBenchmarkResult } from "./IFunctionSelectBenchmarkResult";
 import { FunctionSelectBenchmarkReporter } from "./FunctionSelectBenchmarkReporter";
 import { IFunctionSelectBenchmarkOptions } from "./IFunctionSelectBenchmarkOptions";
+import { MathUtil } from "../../../src/utils/MathUtil";
 
 interface IOptions extends IFunctionSelectBenchmarkOptions {
   swagger: boolean;
@@ -56,23 +62,48 @@ const main = async (): Promise<void> => {
     ),
   });
   application.functions = application.functions.filter(
-    (f) =>
-      f.operation()["x-wrtn-experimental"] !== true &&
-      f.operation()["x-wrtn-function-select-benchmarks"] !== undefined &&
-      (!options.include?.length ||
-        options.include.some((str) => f.path.includes(str))) &&
-      (!options.exclude?.length ||
-        options.exclude.every((str) => f.path.includes(str) === false)),
+    (f) => f.operation()["x-wrtn-experimental"] !== true,
   );
+  const candidates: IHttpLlmFunction<"chatgpt">[] =
+    application.functions.filter(
+      (f) =>
+        f.operation()["x-wrtn-function-select-benchmarks"] !== undefined &&
+        (!options.include?.length ||
+          options.include.some((str) => f.path.includes(str))) &&
+        (!options.exclude?.length ||
+          options.exclude.every((str) => f.path.includes(str) === false)),
+    );
 
   // DO BENCHMARK
   const executor: FunctionSelectBenchmarkExecutor =
     new FunctionSelectBenchmarkExecutor(application, options.repeat);
   const results: IFunctionSelectBenchmarkResult[] = (
-    await ArrayUtil.asyncMap(application.functions)((func) =>
+    await ArrayUtil.asyncMap(candidates)((func) =>
       ArrayUtil.asyncMap(
-        func.operation()["x-wrtn-function-select-benchmarks"]!,
-      )((keyword) => executor.execute(func, keyword)),
+        func.operation()["x-wrtn-function-select-benchmarks"] ?? [],
+      )(async (keyword) => {
+        const result: IFunctionSelectBenchmarkResult = await executor.execute(
+          func,
+          keyword,
+        );
+        console.log(
+          chalk.blueBright(func.method),
+          chalk.greenBright(func.path) + ":",
+          `${result.success === 0 ? chalk.redBright(result.success) : chalk.yellowBright(result.success)} of ${chalk.yellowBright(result.count)}`,
+          "->",
+          chalk.cyanBright(
+            MathUtil.round(
+              result.events
+                .map(
+                  (event) =>
+                    event.completed_at.getTime() - event.started_at.getTime(),
+                )
+                .reduce((prev, curr) => prev + curr, 0),
+            ).toLocaleString(),
+          ) + " ms",
+        );
+        return result;
+      }),
     )
   ).flat();
 

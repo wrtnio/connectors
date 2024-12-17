@@ -1,0 +1,48 @@
+{
+  "function": {
+    "method": "post",
+    "path": "/connector/csv/write",
+    "name": "connector_csv_write_post",
+    "description": "Create a CSV file"
+  },
+  "keyword": "CSV 파일 좀 만들어줘",
+  "event": {
+    "kind": "success",
+    "started_at": "2024-12-17T09:46:08.005Z",
+    "completed_at": "2024-12-17T09:46:10.108Z",
+    "elapsed": 2103,
+    "completion": {
+      "id": "chatcmpl-AfOROmO6gGJVfqxKNQ2QUiPrxSs1e",
+      "object": "chat.completion",
+      "created": 1734428762,
+      "model": "gpt-4o-2024-08-06",
+      "choices": [
+        {
+          "index": 0,
+          "message": {
+            "role": "assistant",
+            "content": null,
+            "tool_calls": [
+              {
+                "id": "call_qkowfNWrhZtnrtUgpHMN0X04",
+                "type": "function",
+                "function": {
+                  "name": "selectFunction",
+                  "arguments": "{\"method\":\"post\",\"path\":\"/connector/csv/write\",\"name\":\"connector_csv_write_post\"}"
+                }
+              }
+            ]
+          },
+          "logprobs": null,
+          "finish_reason": "stop"
+        }
+      ],
+      "usage": {
+        "prompt_tokens": 43217,
+        "completion_tokens": 27,
+        "total_tokens": 43244
+      },
+      "system_fingerprint": "fp_fa1dad0729"
+    }
+  }
+}

@@ -1,0 +1,48 @@
+{
+  "function": {
+    "method": "post",
+    "path": "/connector/google-search/wanted",
+    "name": "connector_google_search_wanted_post",
+    "description": "Wanted job posting search.\n\nSearch for job postings on Wanted"
+  },
+  "keyword": "원티드에서 채용 공고 좀 찾아줘",
+  "event": {
+    "kind": "success",
+    "started_at": "2024-12-17T09:21:48.486Z",
+    "completed_at": "2024-12-17T09:21:50.210Z",
+    "elapsed": 1724,
+    "completion": {
+      "id": "chatcmpl-AfO3qBgRtPoJRd73yqn9kGqLPxfMt",
+      "object": "chat.completion",
+      "created": 1734427302,
+      "model": "gpt-4o-2024-08-06",
+      "choices": [
+        {
+          "index": 0,
+          "message": {
+            "role": "assistant",
+            "content": null,
+            "tool_calls": [
+              {
+                "id": "call_8sEeBOkWxX3OmSXsnuJKW01Y",
+                "type": "function",
+                "function": {
+                  "name": "selectFunction",
+                  "arguments": "{\"method\":\"post\",\"path\":\"/connector/google-search/wanted\",\"name\":\"connector_google_search_wanted_post\"}"
+                }
+              }
+            ]
+          },
+          "logprobs": null,
+          "finish_reason": "stop"
+        }
+      ],
+      "usage": {
+        "prompt_tokens": 43223,
+        "completion_tokens": 30,
+        "total_tokens": 43253
+      },
+      "system_fingerprint": "fp_fa1dad0729"
+    }
+  }
+}

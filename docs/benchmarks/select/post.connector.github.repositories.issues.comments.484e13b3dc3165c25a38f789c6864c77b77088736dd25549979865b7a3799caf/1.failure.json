@@ -1,0 +1,48 @@
+{
+  "function": {
+    "method": "post",
+    "path": "/connector/github/repositories/issues/comments",
+    "name": "connector_github_repositories_issues_comments_post",
+    "description": "Create an issue comment\n\nAdd a comment. If you put an issue number, you can add a comment to the issue, where the issue number is also the number of PR.\nIn other words, both issue and PR can add a comment through this connector."
+  },
+  "keyword": "이슈에 댓글 달아줘",
+  "event": {
+    "kind": "failure",
+    "started_at": "2024-12-17T10:14:07.951Z",
+    "completed_at": "2024-12-17T10:14:09.648Z",
+    "elapsed": 1697,
+    "completion": {
+      "id": "chatcmpl-AfOsUGe3j3dzQoTok9hXQIEa8gKJj",
+      "object": "chat.completion",
+      "created": 1734430442,
+      "model": "gpt-4o-2024-08-06",
+      "choices": [
+        {
+          "index": 0,
+          "message": {
+            "role": "assistant",
+            "content": null,
+            "tool_calls": [
+              {
+                "id": "call_ZLLm95yo67KcP7deEq7JrGAO",
+                "type": "function",
+                "function": {
+                  "name": "selectFunction",
+                  "arguments": "{\"method\":\"post\",\"path\":\"/connector/jira/issues/comments/markdown\",\"name\":\"connector_jira_issues_comments_markdown_post\"}"
+                }
+              }
+            ]
+          },
+          "logprobs": null,
+          "finish_reason": "stop"
+        }
+      ],
+      "usage": {
+        "prompt_tokens": 43219,
+        "completion_tokens": 35,
+        "total_tokens": 43254
+      },
+      "system_fingerprint": "fp_fa1dad0729"
+    }
+  }
+}

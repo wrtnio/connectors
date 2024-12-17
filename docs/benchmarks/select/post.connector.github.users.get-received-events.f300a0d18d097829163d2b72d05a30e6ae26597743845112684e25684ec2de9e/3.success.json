@@ -1,0 +1,48 @@
+{
+  "function": {
+    "method": "post",
+    "path": "/connector/github/users/get-received-events",
+    "name": "connector_github_users_get_received_events_post",
+    "description": "List events received by the authenticated user\n\nThese are events that you've received by watching repositories and following users.\nIf you are authenticated as the given user, you will see private events. Otherwise, you'll only see public events.\nIn this case, the \"received\" event includes the repository that the user is interested in or the activity of the user who is following,\nfor example, if the user has pushed to the repository, or if an issue has been created from the repository that the user is interested in."
+  },
+  "keyword": "유저가 받은 이벤트 알려줘",
+  "event": {
+    "kind": "success",
+    "started_at": "2024-12-17T09:51:47.107Z",
+    "completed_at": "2024-12-17T09:51:48.923Z",
+    "elapsed": 1816,
+    "completion": {
+      "id": "chatcmpl-AfOWrtTTg138tUmhY4tPob351rqOY",
+      "object": "chat.completion",
+      "created": 1734429101,
+      "model": "gpt-4o-2024-08-06",
+      "choices": [
+        {
+          "index": 0,
+          "message": {
+            "role": "assistant",
+            "content": null,
+            "tool_calls": [
+              {
+                "id": "call_dqAeBY3OQuM4flD1EbznH2ul",
+                "type": "function",
+                "function": {
+                  "name": "selectFunction",
+                  "arguments": "{\"method\":\"post\",\"path\":\"/connector/github/users/get-received-events\",\"name\":\"connector_github_users_get_received_events_post\"}"
+                }
+              }
+            ]
+          },
+          "logprobs": null,
+          "finish_reason": "stop"
+        }
+      ],
+      "usage": {
+        "prompt_tokens": 43219,
+        "completion_tokens": 34,
+        "total_tokens": 43253
+      },
+      "system_fingerprint": "fp_fa1dad0729"
+    }
+  }
+}

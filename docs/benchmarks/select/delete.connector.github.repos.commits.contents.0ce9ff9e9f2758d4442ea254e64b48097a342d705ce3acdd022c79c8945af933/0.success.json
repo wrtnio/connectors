@@ -1,0 +1,48 @@
+{
+  "function": {
+    "method": "delete",
+    "path": "/connector/github/repos/commits/contents",
+    "name": "connector_github_repos_commits_contents_erase",
+    "description": "Delete file content and commit.\n\nDelete file content in github repository\n\nTo delete file content is the same as creating a single commit.\nCommit is a hash that must be created in github to save changes, such as uploading, modifying, deleting, and so on.\n\nAs the sha value of the file to be modified, a conflict may occur if it is not the latest sha value among the sha values of the file.\nIt's safe when you look up a list of files through API to check sha and put in a value, or want to re-modify the sha value of a file you just created.\n\nIf the user directly asks you to add, modify, or delete a file for a specific PR or specific branch, this connector should be considered.\nMany repositories are working on commit conventions. Before committing, it's a good idea to look up the commit-list to see how you leave the commit message."
+  },
+  "keyword": "커밋된 파일 삭제해줘",
+  "event": {
+    "kind": "success",
+    "started_at": "2024-12-17T09:57:58.469Z",
+    "completed_at": "2024-12-17T09:58:00.231Z",
+    "elapsed": 1762,
+    "completion": {
+      "id": "chatcmpl-AfOcqnfnLTmlJ8Oty8jblDSEER0g8",
+      "object": "chat.completion",
+      "created": 1734429472,
+      "model": "gpt-4o-2024-08-06",
+      "choices": [
+        {
+          "index": 0,
+          "message": {
+            "role": "assistant",
+            "content": null,
+            "tool_calls": [
+              {
+                "id": "call_PaPu0Cg75RnasKlXbs7LRuv9",
+                "type": "function",
+                "function": {
+                  "name": "selectFunction",
+                  "arguments": "{\"method\":\"delete\",\"path\":\"/connector/github/repos/commits/contents\",\"name\":\"connector_github_repos_commits_contents_erase\"}"
+                }
+              }
+            ]
+          },
+          "logprobs": null,
+          "finish_reason": "stop"
+        }
+      ],
+      "usage": {
+        "prompt_tokens": 43220,
+        "completion_tokens": 37,
+        "total_tokens": 43257
+      },
+      "system_fingerprint": "fp_fa1dad0729"
+    }
+  }
+}

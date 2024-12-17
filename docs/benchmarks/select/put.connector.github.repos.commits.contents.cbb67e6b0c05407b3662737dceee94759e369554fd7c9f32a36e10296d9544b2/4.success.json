@@ -1,0 +1,48 @@
+{
+  "function": {
+    "method": "put",
+    "path": "/connector/github/repos/commits/contents",
+    "name": "connector_github_repos_commits_contents_put",
+    "description": "Update File content and commit.\n\nUpdate file content in github repository\n\nUpdating file content is the same as creating a single commit.\nCommit is a hash that must be created in github to save changes, such as uploading, modifying, deleting, and so on.\n\nAs the sha value of the file to be modified, a conflict may occur if it is not the latest sha value among the sha values of the file.\nIt's safe when you look up a list of files through API to check sha and put in a value, or want to re-modify the sha value of a file you just created.\n\nIf you modify a file, it's not like appending the code to the file, it's like overwriting the file.\nGenerally, if a user says he wants to modify it, it means that he wants to add the code to a specific file or refact it,\nso it's right to check the existing code and then change some of the contents to the original to reflect it.\nIn addition, it is recommended to receive confirmation from the user every time about the content and then modify or add it.\n\nIf the user directly asks you to add, modify, or delete a file for a specific PR or specific branch, this connector should be considered.\nMany repositories are working on commit conventions. Before committing, it's a good idea to look up the commit-list to see how you leave the commit message.\n\nThe input property, which means the content of a file, changes to base64 inside that connector when written in human-recognizable natural language. So, do not encode any writing into base64."
+  },
+  "keyword": "커밋 수정해줘",
+  "event": {
+    "kind": "success",
+    "started_at": "2024-12-17T09:57:11.539Z",
+    "completed_at": "2024-12-17T09:57:17.325Z",
+    "elapsed": 5786,
+    "completion": {
+      "id": "chatcmpl-AfOc65WvGtrSJxpC1D1PqehDEwxi6",
+      "object": "chat.completion",
+      "created": 1734429426,
+      "model": "gpt-4o-2024-08-06",
+      "choices": [
+        {
+          "index": 0,
+          "message": {
+            "role": "assistant",
+            "content": null,
+            "tool_calls": [
+              {
+                "id": "call_8sEeBOkWxX3OmSXsnuJKW01Y",
+                "type": "function",
+                "function": {
+                  "name": "selectFunction",
+                  "arguments": "{\"method\":\"put\",\"path\":\"/connector/github/repos/commits/contents\",\"name\":\"connector_github_repos_commits_contents_put\"}"
+                }
+              }
+            ]
+          },
+          "logprobs": null,
+          "finish_reason": "stop"
+        }
+      ],
+      "usage": {
+        "prompt_tokens": 43218,
+        "completion_tokens": 36,
+        "total_tokens": 43254
+      },
+      "system_fingerprint": "fp_fa1dad0729"
+    }
+  }
+}

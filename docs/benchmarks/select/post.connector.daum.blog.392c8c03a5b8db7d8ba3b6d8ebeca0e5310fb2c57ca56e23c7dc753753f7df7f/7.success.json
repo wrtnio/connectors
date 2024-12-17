@@ -1,0 +1,48 @@
+{
+  "function": {
+    "method": "post",
+    "path": "/connector/daum/blog",
+    "name": "connector_daum_blog_post",
+    "description": "Search the following blog content"
+  },
+  "keyword": "블로그 검색 해줘",
+  "event": {
+    "kind": "success",
+    "started_at": "2024-12-17T09:43:16.079Z",
+    "completed_at": "2024-12-17T09:43:17.675Z",
+    "elapsed": 1596,
+    "completion": {
+      "id": "chatcmpl-AfOOcYQgXJgpRTekoiahQLSubgcIa",
+      "object": "chat.completion",
+      "created": 1734428590,
+      "model": "gpt-4o-2024-08-06",
+      "choices": [
+        {
+          "index": 0,
+          "message": {
+            "role": "assistant",
+            "content": null,
+            "tool_calls": [
+              {
+                "id": "call_qrbnO3c0TmtclHLXFDMzZbrB",
+                "type": "function",
+                "function": {
+                  "name": "selectFunction",
+                  "arguments": "{\"method\":\"post\",\"path\":\"/connector/daum/blog\",\"name\":\"connector_daum_blog_post\"}"
+                }
+              }
+            ]
+          },
+          "logprobs": null,
+          "finish_reason": "stop"
+        }
+      ],
+      "usage": {
+        "prompt_tokens": 43217,
+        "completion_tokens": 29,
+        "total_tokens": 43246
+      },
+      "system_fingerprint": "fp_fa1dad0729"
+    }
+  }
+}

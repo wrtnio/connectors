@@ -1,0 +1,48 @@
+{
+  "function": {
+    "method": "post",
+    "path": "/connector/discord/bulk-delete-message",
+    "name": "connector_discord_bulk_delete_message_post",
+    "description": "Delete multiple messages"
+  },
+  "keyword": "메시지 전송 취소해줘",
+  "event": {
+    "kind": "failure",
+    "started_at": "2024-12-17T10:34:07.568Z",
+    "completed_at": "2024-12-17T10:34:09.275Z",
+    "elapsed": 1707,
+    "completion": {
+      "id": "chatcmpl-AfPBpJJA9BjsSgGOKYbwNi2LvAtIY",
+      "object": "chat.completion",
+      "created": 1734431641,
+      "model": "gpt-4o-2024-08-06",
+      "choices": [
+        {
+          "index": 0,
+          "message": {
+            "role": "assistant",
+            "content": null,
+            "tool_calls": [
+              {
+                "id": "call_GMtQZKUVVxkyFeQwqnnB0sP4",
+                "type": "function",
+                "function": {
+                  "name": "selectFunction",
+                  "arguments": "{\"method\":\"delete\",\"path\":\"/connector/slack/scheduleMessage\",\"name\":\"connector_slack_scheduleMessage_erase\"}"
+                }
+              }
+            ]
+          },
+          "logprobs": null,
+          "finish_reason": "stop"
+        }
+      ],
+      "usage": {
+        "prompt_tokens": 43221,
+        "completion_tokens": 32,
+        "total_tokens": 43253
+      },
+      "system_fingerprint": "fp_fa1dad0729"
+    }
+  }
+}

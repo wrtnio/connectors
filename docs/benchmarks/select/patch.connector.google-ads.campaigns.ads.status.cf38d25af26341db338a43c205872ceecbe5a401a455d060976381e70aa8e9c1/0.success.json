@@ -1,0 +1,48 @@
+{
+  "function": {
+    "method": "patch",
+    "path": "/connector/google-ads/campaigns/ads/status",
+    "name": "connector_google_ads_campaigns_ads_status_patch",
+    "description": "Change the status of the ad.\n\nChange the ad status of a Google customer account\n\nChange the ad status by receiving the ID of the ad account and the resource name of the ad in the ad group (=`adGroupAd```ResourceName`).\n\nIf `customerId` is not passed, it is automatically selected only if there is only one ad account that `Wrtn` can access from the user.\n\nThe ad status supported by this connector is `ENABLED` and `PAUSED`, which means the execution and suspension of the ad, respectively.\nSince the `Wrtn` manager account only changes the status of the ad without changing the status of the campaign and ad group,\nunless the user changes the status of the campaign and ad group directly in the Google Ads dashboard, the ad status means whether or not spending occurs.\nIf the user wants to change the status of the ad group, instead of changing the status of the ad group, query the ad group and change the status of all ads in the ad group.\nIf the user wants to change the status of the campaign, instead of changing the status of the campaign, query the campaign and change the status of all ads in the campaign. However, if you change the status of a campaign, you must go down the campaign and ad group in the Google Ads ad structure and terminate all ads.\n\nAlso, our connector does not support deleting ads.\n\nIf there is a user who wants to delete a campaign, ad group, or ad, we recommend changing all child ads of the corresponding node to the `PAUSED` status.\n\nSince deleting an ad means losing the means to check previous performance and indicators, it is advantageous to terminate the ad instead of deleting it for future ad re-execution.\n\nBefore calling the function, you must ask the user for `customerId`, so you must suggest a connector that can check `customerId`."
+  },
+  "keyword": "광고 켜줘",
+  "event": {
+    "kind": "success",
+    "started_at": "2024-12-17T09:37:56.989Z",
+    "completed_at": "2024-12-17T09:38:04.431Z",
+    "elapsed": 7442,
+    "completion": {
+      "id": "chatcmpl-AfOJT2C2UnOtILhSvG8AGwLShPgcx",
+      "object": "chat.completion",
+      "created": 1734428271,
+      "model": "gpt-4o-2024-08-06",
+      "choices": [
+        {
+          "index": 0,
+          "message": {
+            "role": "assistant",
+            "content": null,
+            "tool_calls": [
+              {
+                "id": "call_H1694pOYzg89Fm45gxVEgtZi",
+                "type": "function",
+                "function": {
+                  "name": "selectFunction",
+                  "arguments": "{\"method\":\"patch\",\"path\":\"/connector/google-ads/campaigns/ads/status\",\"name\":\"connector_google_ads_campaigns_ads_status_patch\"}"
+                }
+              }
+            ]
+          },
+          "logprobs": null,
+          "finish_reason": "stop"
+        }
+      ],
+      "usage": {
+        "prompt_tokens": 43217,
+        "completion_tokens": 37,
+        "total_tokens": 43254
+      },
+      "system_fingerprint": "fp_fa1dad0729"
+    }
+  }
+}

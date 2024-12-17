@@ -1,0 +1,48 @@
+{
+  "function": {
+    "method": "post",
+    "path": "/connector/google-ads/campaigns/ads/keywords",
+    "name": "connector_google_ads_campaigns_ads_keywords_post",
+    "description": "Add keywords to ads.\n\nAdd search keywords to ads in Google customer accounts\n\nStrictly speaking, add keywords to the ad group (=adGroup), which is the parent of the ad.\nSince keywords are added to ad groups, they are applied to all child ads.\n\nIf `customerId` is not passed, it is automatically selected only if there is only one ad account accessible to `Wrtn` from the user.\n\nBefore calling the function, you should ask the user for `customerId`, so you should suggest a connector that can check `customerId`."
+  },
+  "keyword": "광고 키워드 추가해줘",
+  "event": {
+    "kind": "success",
+    "started_at": "2024-12-17T09:38:57.945Z",
+    "completed_at": "2024-12-17T09:39:00.203Z",
+    "elapsed": 2258,
+    "completion": {
+      "id": "chatcmpl-AfOKSAYrvNQC5UomDUnSC9aYJDxhM",
+      "object": "chat.completion",
+      "created": 1734428332,
+      "model": "gpt-4o-2024-08-06",
+      "choices": [
+        {
+          "index": 0,
+          "message": {
+            "role": "assistant",
+            "content": null,
+            "tool_calls": [
+              {
+                "id": "call_d1b4q8WKjrotEtP7hrFya1u9",
+                "type": "function",
+                "function": {
+                  "name": "selectFunction",
+                  "arguments": "{\"method\":\"post\",\"path\":\"/connector/google-ads/campaigns/ads/keywords\",\"name\":\"connector_google_ads_campaigns_ads_keywords_post\"}"
+                }
+              }
+            ]
+          },
+          "logprobs": null,
+          "finish_reason": "stop"
+        }
+      ],
+      "usage": {
+        "prompt_tokens": 43220,
+        "completion_tokens": 38,
+        "total_tokens": 43258
+      },
+      "system_fingerprint": "fp_fa1dad0729"
+    }
+  }
+}

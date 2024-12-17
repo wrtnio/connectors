@@ -1,0 +1,48 @@
+{
+  "function": {
+    "method": "post",
+    "path": "/connector/google-drive/permission",
+    "name": "connector_google_drive_permission_post",
+    "description": "Grant Google Drive permission.\n\nGrants permission to access a file or folder"
+  },
+  "keyword": "드라이브 폴더에 접근 권한 좀 설정해줘",
+  "event": {
+    "kind": "success",
+    "started_at": "2024-12-17T09:13:15.334Z",
+    "completed_at": "2024-12-17T09:13:19.068Z",
+    "elapsed": 3734,
+    "completion": {
+      "id": "chatcmpl-AfNvZFiRxsSCLQigtfQcVe8WACtyr",
+      "object": "chat.completion",
+      "created": 1734426789,
+      "model": "gpt-4o-2024-08-06",
+      "choices": [
+        {
+          "index": 0,
+          "message": {
+            "role": "assistant",
+            "content": null,
+            "tool_calls": [
+              {
+                "id": "call_IZ0aCM9FlLXn7JCjeywlUmUp",
+                "type": "function",
+                "function": {
+                  "name": "selectFunction",
+                  "arguments": "{\"method\":\"post\",\"path\":\"/connector/google-drive/permission\",\"name\":\"connector_google_drive_permission_post\"}"
+                }
+              }
+            ]
+          },
+          "logprobs": null,
+          "finish_reason": "stop"
+        }
+      ],
+      "usage": {
+        "prompt_tokens": 43226,
+        "completion_tokens": 29,
+        "total_tokens": 43255
+      },
+      "system_fingerprint": "fp_fa1dad0729"
+    }
+  }
+}

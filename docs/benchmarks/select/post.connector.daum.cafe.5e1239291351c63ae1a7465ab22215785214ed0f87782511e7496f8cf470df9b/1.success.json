@@ -1,0 +1,48 @@
+{
+  "function": {
+    "method": "post",
+    "path": "/connector/daum/cafe",
+    "name": "connector_daum_cafe_post",
+    "description": "Search for the following cafe content"
+  },
+  "keyword": "카페 검색 해줘",
+  "event": {
+    "kind": "success",
+    "started_at": "2024-12-17T09:43:45.140Z",
+    "completed_at": "2024-12-17T09:43:46.709Z",
+    "elapsed": 1569,
+    "completion": {
+      "id": "chatcmpl-AfOP5RjES8llNYAHIjCuja1vYfo8o",
+      "object": "chat.completion",
+      "created": 1734428619,
+      "model": "gpt-4o-2024-08-06",
+      "choices": [
+        {
+          "index": 0,
+          "message": {
+            "role": "assistant",
+            "content": null,
+            "tool_calls": [
+              {
+                "id": "call_ifyDDutlZe87gjCbXf8WoGLB",
+                "type": "function",
+                "function": {
+                  "name": "selectFunction",
+                  "arguments": "{\"method\":\"post\",\"path\":\"/connector/daum/cafe\",\"name\":\"connector_daum_cafe_post\"}"
+                }
+              }
+            ]
+          },
+          "logprobs": null,
+          "finish_reason": "stop"
+        }
+      ],
+      "usage": {
+        "prompt_tokens": 43217,
+        "completion_tokens": 31,
+        "total_tokens": 43248
+      },
+      "system_fingerprint": "fp_fa1dad0729"
+    }
+  }
+}

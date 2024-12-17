@@ -1,0 +1,48 @@
+{
+  "function": {
+    "method": "put",
+    "path": "/connector/google-calendar/{calendarId}/event/{eventId}",
+    "name": "connector_google_calendar_event_putByCalendaridAndEventid",
+    "description": "Modify a Google Calendar event.\n\nModify an event"
+  },
+  "keyword": "구글 캘린더에 이벤트 하나 수정해줘",
+  "event": {
+    "kind": "success",
+    "started_at": "2024-12-17T09:08:31.818Z",
+    "completed_at": "2024-12-17T09:08:34.379Z",
+    "elapsed": 2561,
+    "completion": {
+      "id": "chatcmpl-AfNr0oEtrQGQqLJfbJwajZ4IjYb6m",
+      "object": "chat.completion",
+      "created": 1734426506,
+      "model": "gpt-4o-2024-08-06",
+      "choices": [
+        {
+          "index": 0,
+          "message": {
+            "role": "assistant",
+            "content": null,
+            "tool_calls": [
+              {
+                "id": "call_gZXGCu3Babnwshsf8HFdHCS0",
+                "type": "function",
+                "function": {
+                  "name": "selectFunction",
+                  "arguments": "{\"method\":\"put\",\"path\":\"/connector/google-calendar/{calendarId}/event/{eventId}\",\"name\":\"connector_google_calendar_event_putByCalendaridAndEventid\"}"
+                }
+              }
+            ]
+          },
+          "logprobs": null,
+          "finish_reason": "stop"
+        }
+      ],
+      "usage": {
+        "prompt_tokens": 43224,
+        "completion_tokens": 42,
+        "total_tokens": 43266
+      },
+      "system_fingerprint": "fp_fa1dad0729"
+    }
+  }
+}

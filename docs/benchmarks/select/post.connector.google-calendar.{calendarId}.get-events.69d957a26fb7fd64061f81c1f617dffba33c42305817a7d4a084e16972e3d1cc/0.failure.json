@@ -1,0 +1,48 @@
+{
+  "function": {
+    "method": "post",
+    "path": "/connector/google-calendar/{calendarId}/get-events",
+    "name": "connector_google_calendar_get_events_postByCalendarid",
+    "description": "Get a list of Google Calendar events.\n\nGet a list of events in Google Calendar"
+  },
+  "keyword": "캘린더에 등록된 일정 좀 봐줘",
+  "event": {
+    "kind": "failure",
+    "started_at": "2024-12-17T09:07:06.887Z",
+    "completed_at": "2024-12-17T09:07:10.598Z",
+    "elapsed": 3711,
+    "completion": {
+      "id": "chatcmpl-AfNpddxOFbjJT2wnAJJKr0RW0V7E6",
+      "object": "chat.completion",
+      "created": 1734426421,
+      "model": "gpt-4o-2024-08-06",
+      "choices": [
+        {
+          "index": 0,
+          "message": {
+            "role": "assistant",
+            "content": null,
+            "tool_calls": [
+              {
+                "id": "call_ifyDDutlZe87gjCbXf8WoGLB",
+                "type": "function",
+                "function": {
+                  "name": "selectFunction",
+                  "arguments": "{\"method\":\"post\",\"path\":\"/connector/google-calendar/get-list\",\"name\":\"connector_google_calendar_get_list_post\"}"
+                }
+              }
+            ]
+          },
+          "logprobs": null,
+          "finish_reason": "stop"
+        }
+      ],
+      "usage": {
+        "prompt_tokens": 43224,
+        "completion_tokens": 30,
+        "total_tokens": 43254
+      },
+      "system_fingerprint": "fp_fa1dad0729"
+    }
+  }
+}

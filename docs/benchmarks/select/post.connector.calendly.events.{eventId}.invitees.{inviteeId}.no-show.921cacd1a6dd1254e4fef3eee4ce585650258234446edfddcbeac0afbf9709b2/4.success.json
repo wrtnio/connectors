@@ -1,0 +1,48 @@
+{
+  "function": {
+    "method": "post",
+    "path": "/connector/calendly/events/{eventId}/invitees/{inviteeId}/no-show",
+    "name": "connector_calendly_events_invitees_no_show_postByEventidAndInviteeid",
+    "description": "Mark an invitee as no-show.\n\nMarks an invitee as a no-show for a specific event.\n\nThis is useful for tracking attendance and managing follow-ups with participants who did not attend."
+  },
+  "keyword": "미팅에 노쇼한 사람 체크 좀 해줘",
+  "event": {
+    "kind": "success",
+    "started_at": "2024-12-17T10:37:01.057Z",
+    "completed_at": "2024-12-17T10:37:03.063Z",
+    "elapsed": 2006,
+    "completion": {
+      "id": "chatcmpl-AfPEd2nutFGNuhFnYe7Rre1jtVuJ1",
+      "object": "chat.completion",
+      "created": 1734431815,
+      "model": "gpt-4o-2024-08-06",
+      "choices": [
+        {
+          "index": 0,
+          "message": {
+            "role": "assistant",
+            "content": null,
+            "tool_calls": [
+              {
+                "id": "call_y80xCXvdU9s5UmGtZpeeH5fR",
+                "type": "function",
+                "function": {
+                  "name": "selectFunction",
+                  "arguments": "{\"method\":\"post\",\"path\":\"/connector/calendly/events/{eventId}/invitees/{inviteeId}/no-show\",\"name\":\"connector_calendly_events_invitees_no_show_postByEventidAndInviteeid\"}"
+                }
+              }
+            ]
+          },
+          "logprobs": null,
+          "finish_reason": "stop"
+        }
+      ],
+      "usage": {
+        "prompt_tokens": 43223,
+        "completion_tokens": 54,
+        "total_tokens": 43277
+      },
+      "system_fingerprint": "fp_fa1dad0729"
+    }
+  }
+}

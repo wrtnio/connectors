@@ -1,0 +1,48 @@
+{
+  "function": {
+    "method": "post",
+    "path": "/connector/google-ads/campaigns",
+    "name": "connector_google_ads_campaigns_post",
+    "description": "Create a campaign.\n\nCreate an ad campaign for your Google customer account\n\nCreate a campaign (=campaign).\nA campaign is located under an account in Google Ads, and is located at the top of the tree structure consisting of campaigns, ad groups, and ads.\nA campaign is a parent object for grouping ad groups, and is responsible for the duration, budget, purpose, channel, etc. of the ad.\nIf you do not specify a campaign name, a random name will be assigned. In this case, it may be difficult to identify.\nTherefore, it is recommended to give different names to each campaign according to its purpose so that you can distinguish them.\nThe name of the campaign is only for the user to easily identify, and does not affect the effectiveness of the ad at all, so you can rest assured.\n\nIf you do not pass `customerId`, it will be automatically selected only if there is only one ad account accessible to `Wrtn` from the user.\n\nYou should ask the user for `customerId` before calling the function, so you should suggest a connector that can check `customerId`.\n\nOriginally, there was no limit on the amount, but in preparation for an emergency, the function is currently limited to 100,000 won per campaign."
+  },
+  "keyword": "캠페인 생성해줘",
+  "event": {
+    "kind": "success",
+    "started_at": "2024-12-17T09:41:01.593Z",
+    "completed_at": "2024-12-17T09:41:05.303Z",
+    "elapsed": 3710,
+    "completion": {
+      "id": "chatcmpl-AfOMR2dMkVci2tlBBJVdrwyNTJAtz",
+      "object": "chat.completion",
+      "created": 1734428455,
+      "model": "gpt-4o-2024-08-06",
+      "choices": [
+        {
+          "index": 0,
+          "message": {
+            "role": "assistant",
+            "content": null,
+            "tool_calls": [
+              {
+                "id": "call_No12b5BwR4MLzJf9Ndo3FPI6",
+                "type": "function",
+                "function": {
+                  "name": "selectFunction",
+                  "arguments": "{\"method\":\"post\",\"path\":\"/connector/google-ads/campaigns\",\"name\":\"connector_google_ads_campaigns_post\"}"
+                }
+              }
+            ]
+          },
+          "logprobs": null,
+          "finish_reason": "stop"
+        }
+      ],
+      "usage": {
+        "prompt_tokens": 43219,
+        "completion_tokens": 32,
+        "total_tokens": 43251
+      },
+      "system_fingerprint": "fp_fa1dad0729"
+    }
+  }
+}

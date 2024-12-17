@@ -1,0 +1,48 @@
+{
+  "function": {
+    "method": "post",
+    "path": "/connector/calendly/events/get-invitees",
+    "name": "connector_calendly_events_get_invitees_post",
+    "description": "Get all invitees for a scheduled event.\n\nRetrieves the list of invitees for a scheduled event.\n\nThis can be used to see who is expected to attend and manage communications with them."
+  },
+  "keyword": "미팅 참석자 정보 좀 찾아줘",
+  "event": {
+    "kind": "success",
+    "started_at": "2024-12-17T10:37:54.002Z",
+    "completed_at": "2024-12-17T10:37:57.853Z",
+    "elapsed": 3851,
+    "completion": {
+      "id": "chatcmpl-AfPFUUVblocB1hod3NLXHpYphGNJI",
+      "object": "chat.completion",
+      "created": 1734431868,
+      "model": "gpt-4o-2024-08-06",
+      "choices": [
+        {
+          "index": 0,
+          "message": {
+            "role": "assistant",
+            "content": null,
+            "tool_calls": [
+              {
+                "id": "call_pHwD1T6K1hChf6q5vWy86EPi",
+                "type": "function",
+                "function": {
+                  "name": "selectFunction",
+                  "arguments": "{\"method\":\"post\",\"path\":\"/connector/calendly/events/get-invitees\",\"name\":\"connector_calendly_events_get_invitees_post\"}"
+                }
+              }
+            ]
+          },
+          "logprobs": null,
+          "finish_reason": "stop"
+        }
+      ],
+      "usage": {
+        "prompt_tokens": 43220,
+        "completion_tokens": 38,
+        "total_tokens": 43258
+      },
+      "system_fingerprint": "fp_fa1dad0729"
+    }
+  }
+}

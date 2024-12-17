@@ -1,0 +1,48 @@
+{
+  "function": {
+    "method": "post",
+    "path": "/connector/github/repositories/pull-requests/get-detail",
+    "name": "connector_github_repositories_pull_requests_get_detail_post",
+    "description": "Get a pull request.\n\nGet a deatiled pull-request info\n\nYou can view detailed PR information using the PR number.\nHere, you can see the branch to be merged and the information on the branch it points to, and you can see information such as the status of the PR, the time of each state, and the person who created the PR.\nHowever, it should be used with other connectors because it provides information close to the header of PR and does not provide information about each file or commit of PR.\n\nIf the user wants to see each PR unit, this connector will be suitable."
+  },
+  "keyword": "이 PR에 대해 상세히 알려줘",
+  "event": {
+    "kind": "success",
+    "started_at": "2024-12-17T10:12:38.840Z",
+    "completed_at": "2024-12-17T10:12:41.439Z",
+    "elapsed": 2599,
+    "completion": {
+      "id": "chatcmpl-AfOr2IMxsKX0GAhU2KCbcaOC0npB3",
+      "object": "chat.completion",
+      "created": 1734430352,
+      "model": "gpt-4o-2024-08-06",
+      "choices": [
+        {
+          "index": 0,
+          "message": {
+            "role": "assistant",
+            "content": null,
+            "tool_calls": [
+              {
+                "id": "call_pFoi5kp8FeLOWzSMNNjbQT9u",
+                "type": "function",
+                "function": {
+                  "name": "selectFunction",
+                  "arguments": "{\"method\":\"post\",\"path\":\"/connector/github/repositories/pull-requests/get-detail\",\"name\":\"connector_github_repositories_pull_requests_get_detail_post\"}"
+                }
+              }
+            ]
+          },
+          "logprobs": null,
+          "finish_reason": "stop"
+        }
+      ],
+      "usage": {
+        "prompt_tokens": 43220,
+        "completion_tokens": 39,
+        "total_tokens": 43259
+      },
+      "system_fingerprint": "fp_fa1dad0729"
+    }
+  }
+}

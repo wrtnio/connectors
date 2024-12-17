@@ -1,0 +1,48 @@
+{
+  "function": {
+    "method": "post",
+    "path": "/connector/github/get-followees",
+    "name": "connector_github_get_followees_post",
+    "description": "Inquire the followees of the user\n\nThis value can be viewed by about 100 people at a time because it is a page-nated result.\nIf you have someone you're looking for, it's important to keep looking for the next page, even if you haven't found the value on the first page."
+  },
+  "keyword": "내가 github에서 팔로우한 사람 보여줘",
+  "event": {
+    "kind": "success",
+    "started_at": "2024-12-17T10:19:30.768Z",
+    "completed_at": "2024-12-17T10:19:34.523Z",
+    "elapsed": 3755,
+    "completion": {
+      "id": "chatcmpl-AfOxg4zBzzaHlMj7zG5oVuERj3FTE",
+      "object": "chat.completion",
+      "created": 1734430764,
+      "model": "gpt-4o-2024-08-06",
+      "choices": [
+        {
+          "index": 0,
+          "message": {
+            "role": "assistant",
+            "content": null,
+            "tool_calls": [
+              {
+                "id": "call_PaPu0Cg75RnasKlXbs7LRuv9",
+                "type": "function",
+                "function": {
+                  "name": "selectFunction",
+                  "arguments": "{\"method\":\"post\",\"path\":\"/connector/github/get-followees\",\"name\":\"connector_github_get_followees_post\"}"
+                }
+              }
+            ]
+          },
+          "logprobs": null,
+          "finish_reason": "stop"
+        }
+      ],
+      "usage": {
+        "prompt_tokens": 43223,
+        "completion_tokens": 31,
+        "total_tokens": 43254
+      },
+      "system_fingerprint": "fp_fa1dad0729"
+    }
+  }
+}

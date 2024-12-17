@@ -1,0 +1,48 @@
+{
+  "function": {
+    "method": "post",
+    "path": "/connector/discord/delete-message",
+    "name": "connector_discord_delete_message_post",
+    "description": "Delete message"
+  },
+  "keyword": "디스코드 메시지 취소해줘",
+  "event": {
+    "kind": "failure",
+    "started_at": "2024-12-17T10:31:23.173Z",
+    "completed_at": "2024-12-17T10:31:26.894Z",
+    "elapsed": 3721,
+    "completion": {
+      "id": "chatcmpl-AfP9BLTmi4sQYxqx6dKU6ikI0JifL",
+      "object": "chat.completion",
+      "created": 1734431477,
+      "model": "gpt-4o-2024-08-06",
+      "choices": [
+        {
+          "index": 0,
+          "message": {
+            "role": "assistant",
+            "content": null,
+            "tool_calls": [
+              {
+                "id": "call_pFoi5kp8FeLOWzSMNNjbQT9u",
+                "type": "function",
+                "function": {
+                  "name": "selectFunction",
+                  "arguments": "{\"method\":\"post\",\"path\":\"/connector/slack/get-scheduled-messages\",\"name\":\"connector_slack_get_scheduled_messages_post\"}"
+                }
+              }
+            ]
+          },
+          "logprobs": null,
+          "finish_reason": "stop"
+        }
+      ],
+      "usage": {
+        "prompt_tokens": 43222,
+        "completion_tokens": 35,
+        "total_tokens": 43257
+      },
+      "system_fingerprint": "fp_fa1dad0729"
+    }
+  }
+}

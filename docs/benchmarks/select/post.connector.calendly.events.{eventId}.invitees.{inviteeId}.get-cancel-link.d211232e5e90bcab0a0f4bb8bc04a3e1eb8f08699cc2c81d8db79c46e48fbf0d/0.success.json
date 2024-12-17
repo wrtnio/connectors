@@ -1,0 +1,48 @@
+{
+  "function": {
+    "method": "post",
+    "path": "/connector/calendly/events/{eventId}/invitees/{inviteeId}/get-cancel-link",
+    "name": "connector_calendly_events_invitees_get_cancel_link_postByEventidAndInviteeid",
+    "description": "Get cancel link for invitee.\n\nRetrieves the cancel link for a specific invitee in an event.\n\nThis link allows the invitee to cancel their participation in the event if needed."
+  },
+  "keyword": "calendly 미팅 좀 취소해줘",
+  "event": {
+    "kind": "success",
+    "started_at": "2024-12-17T10:35:34.382Z",
+    "completed_at": "2024-12-17T10:35:36.362Z",
+    "elapsed": 1980,
+    "completion": {
+      "id": "chatcmpl-AfPDEb1mvpbrvWvqfFoCx5YZEzKSE",
+      "object": "chat.completion",
+      "created": 1734431728,
+      "model": "gpt-4o-2024-08-06",
+      "choices": [
+        {
+          "index": 0,
+          "message": {
+            "role": "assistant",
+            "content": null,
+            "tool_calls": [
+              {
+                "id": "call_xNzgaFTrRF21oplN6pWg3pQF",
+                "type": "function",
+                "function": {
+                  "name": "selectFunction",
+                  "arguments": "{\"method\":\"post\",\"path\":\"/connector/calendly/events/{eventId}/invitees/{inviteeId}/get-cancel-link\",\"name\":\"connector_calendly_events_invitees_get_cancel_link_postByEventidAndInviteeid\"}"
+                }
+              }
+            ]
+          },
+          "logprobs": null,
+          "finish_reason": "stop"
+        }
+      ],
+      "usage": {
+        "prompt_tokens": 43222,
+        "completion_tokens": 57,
+        "total_tokens": 43279
+      },
+      "system_fingerprint": "fp_fa1dad0729"
+    }
+  }
+}

@@ -1,0 +1,48 @@
+{
+  "function": {
+    "method": "post",
+    "path": "/connector/google-shopping/oco",
+    "name": "connector_google_shopping_oco_post",
+    "description": "OCO search.\n\nSearch for products in OCO\n\nOco is one of the Korean companies and is a brand that advocates a brand editing shop.\nOnly one keyword should be requested per request.\nFor example, If you use \"shirts\" and \"pants\" as keywords, you must make two requests, each with separate keywords."
+  },
+  "keyword": "OCO에서 상품 좀 찾아줘",
+  "event": {
+    "kind": "failure",
+    "started_at": "2024-12-17T09:29:28.129Z",
+    "completed_at": "2024-12-17T09:29:31.793Z",
+    "elapsed": 3664,
+    "completion": {
+      "id": "chatcmpl-AfOBGc6KfIaqVxrMAlo20GprKZZ2n",
+      "object": "chat.completion",
+      "created": 1734427762,
+      "model": "gpt-4o-2024-08-06",
+      "choices": [
+        {
+          "index": 0,
+          "message": {
+            "role": "assistant",
+            "content": null,
+            "tool_calls": [
+              {
+                "id": "call_rzmehkXuBDFluDmZWzWKlCmM",
+                "type": "function",
+                "function": {
+                  "name": "selectFunction",
+                  "arguments": "{\"method\":\"post\",\"name\":\"OCO search\",\"path\":\"/connector/google-shopping/oco\"}"
+                }
+              }
+            ]
+          },
+          "logprobs": null,
+          "finish_reason": "stop"
+        }
+      ],
+      "usage": {
+        "prompt_tokens": 43219,
+        "completion_tokens": 27,
+        "total_tokens": 43246
+      },
+      "system_fingerprint": "fp_fa1dad0729"
+    }
+  }
+}

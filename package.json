@@ -1,7 +1,7 @@
 {
   "private": false,
   "name": "@wrtn/connector",
-  "version": "0.1.413",
+  "version": "0.1.416",
   "description": "wrtn-ecosystem connectors and sdk",
   "main": "lib/index.js",
   "scripts": {
@@ -106,7 +106,7 @@
     "@tryfabric/mack": "^1.2.1",
     "@tryfabric/martian": "^1.2.4",
     "@types/he": "^1.2.3",
-    "@wrtnio/decorators": "^1.5.0",
+    "@wrtnio/decorators": "^1.6.0",
     "@wrtnio/schema": "^3.2.0",
     "aws-sdk": "^2.1691.0",
     "axios": "^1.7.7",

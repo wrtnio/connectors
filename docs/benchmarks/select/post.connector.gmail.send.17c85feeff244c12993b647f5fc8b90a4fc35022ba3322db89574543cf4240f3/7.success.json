@@ -1,0 +1,48 @@
+{
+  "function": {
+    "method": "post",
+    "path": "/connector/gmail/send",
+    "name": "connector_gmail_send_post",
+    "description": "GMAIL Send.\n\nSending mail\n\nGmail is a free web-based email service provided by Google.\n\nThis connector is for sending emails,\nand if you send it as simple text, the sentences will be displayed as one long line, so you need to insert a line break character.\nThe current format uses `text/html; charset=utf-8` as content-type.\nIn some cases, you can use the HTML format.\n\nIf you want to attach a file, you must specify the name of the file and the address at which it is stored.\nThe saved file is read as a GET request inside the function, encoded, and processed."
+  },
+  "keyword": "지메일 보내줘",
+  "event": {
+    "kind": "success",
+    "started_at": "2024-12-17T09:14:19.695Z",
+    "completed_at": "2024-12-17T09:14:21.509Z",
+    "elapsed": 1814,
+    "completion": {
+      "id": "chatcmpl-AfNwcbgKNUs0CascVhikBGstOegYw",
+      "object": "chat.completion",
+      "created": 1734426854,
+      "model": "gpt-4o-2024-08-06",
+      "choices": [
+        {
+          "index": 0,
+          "message": {
+            "role": "assistant",
+            "content": null,
+            "tool_calls": [
+              {
+                "id": "call_TKlnypVFmLcN2o4t3atdqPQL",
+                "type": "function",
+                "function": {
+                  "name": "selectFunction",
+                  "arguments": "{\"method\":\"post\",\"path\":\"/connector/gmail/send\",\"name\":\"connector_gmail_send_post\"}"
+                }
+              }
+            ]
+          },
+          "logprobs": null,
+          "finish_reason": "stop"
+        }
+      ],
+      "usage": {
+        "prompt_tokens": 43216,
+        "completion_tokens": 28,
+        "total_tokens": 43244
+      },
+      "system_fingerprint": "fp_fa1dad0729"
+    }
+  }
+}

@@ -1,0 +1,48 @@
+{
+  "function": {
+    "method": "post",
+    "path": "/connector/discord/modify-channel",
+    "name": "connector_discord_modify_channel_post",
+    "description": "Modify channel information"
+  },
+  "keyword": "디스코드 채널 정보 수정해줘",
+  "event": {
+    "kind": "success",
+    "started_at": "2024-12-17T10:23:59.811Z",
+    "completed_at": "2024-12-17T10:24:03.691Z",
+    "elapsed": 3880,
+    "completion": {
+      "id": "chatcmpl-AfP221zHaIFJesSSt7cdS1US0y17P",
+      "object": "chat.completion",
+      "created": 1734431034,
+      "model": "gpt-4o-2024-08-06",
+      "choices": [
+        {
+          "index": 0,
+          "message": {
+            "role": "assistant",
+            "content": null,
+            "tool_calls": [
+              {
+                "id": "call_tX72Iq617eF5onvhiVAxc7Xv",
+                "type": "function",
+                "function": {
+                  "name": "selectFunction",
+                  "arguments": "{\"method\":\"post\",\"path\":\"/connector/discord/modify-channel\",\"name\":\"connector_discord_modify_channel_post\"}"
+                }
+              }
+            ]
+          },
+          "logprobs": null,
+          "finish_reason": "stop"
+        }
+      ],
+      "usage": {
+        "prompt_tokens": 43222,
+        "completion_tokens": 31,
+        "total_tokens": 43253
+      },
+      "system_fingerprint": "fp_fa1dad0729"
+    }
+  }
+}

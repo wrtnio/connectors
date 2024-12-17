@@ -1,0 +1,48 @@
+{
+  "function": {
+    "method": "patch",
+    "path": "/connector/github/issues",
+    "name": "connector_github_issues_patch",
+    "description": "Update an issue in the repository\n\nUpdate an issue, where you can enter labels and assignes together.\nThe information you must enter is who will create the issue in the owner's repository and under what title.\nThe information in the text should follow the markdown grammar allowed by github.\n\nIn some cases, if you are not the owner of this repository, you may not be able to make any marking on issues such as labels, assignees, milestones, etc.\nIt can also be used to close or reopen issues."
+  },
+  "keyword": "이슈 수정해줘",
+  "event": {
+    "kind": "failure",
+    "started_at": "2024-12-17T10:20:48.753Z",
+    "completed_at": "2024-12-17T10:20:54.154Z",
+    "elapsed": 5401,
+    "completion": {
+      "id": "chatcmpl-AfOyw7S7CDuoF04i3CfB2hsFZOndl",
+      "object": "chat.completion",
+      "created": 1734430842,
+      "model": "gpt-4o-2024-08-06",
+      "choices": [
+        {
+          "index": 0,
+          "message": {
+            "role": "assistant",
+            "content": null,
+            "tool_calls": [
+              {
+                "id": "call_F7kJYXHjnnu808YBe3qZlpMI",
+                "type": "function",
+                "function": {
+                  "name": "selectFunction",
+                  "arguments": "{\"method\":\"put\",\"path\":\"/connector/jira/issues/{id}\",\"name\":\"connector_jira_issues_putById\"}"
+                }
+              }
+            ]
+          },
+          "logprobs": null,
+          "finish_reason": "stop"
+        }
+      ],
+      "usage": {
+        "prompt_tokens": 43217,
+        "completion_tokens": 34,
+        "total_tokens": 43251
+      },
+      "system_fingerprint": "fp_fa1dad0729"
+    }
+  }
+}

@@ -1,0 +1,48 @@
+{
+  "function": {
+    "method": "post",
+    "path": "/connector/github/repos/get-contents",
+    "name": "connector_github_repos_get_contents_post",
+    "description": "Look up repository files\n\nIf the file you want to inquire is a folder, internal files are provided in an array,\nand if it is a file, it inquires about the encoding method of the file and the body content of the file.\nSince there may be countless files and folders in the github repository, there may be many files that exceed the rate limit.\nIn this case, you can try to solve this problem by sequentially finding the folders one by one using the corresponding connector.\n\nThis is suitable for viewing files on specific branches, but if the user is for the purpose of viewing details of code reviews or PR, it is recommended to use a different connector.\nThere are connectors that view the list of files changed in PR, or see the changes."
+  },
+  "keyword": "유저가 짠 코드 좀 봐줘",
+  "event": {
+    "kind": "failure",
+    "started_at": "2024-12-17T10:00:09.309Z",
+    "completed_at": "2024-12-17T10:00:16.249Z",
+    "elapsed": 6940,
+    "completion": {
+      "id": "chatcmpl-AfOey818BCXBqcStbkiiAmz6HuDlI",
+      "object": "chat.completion",
+      "created": 1734429604,
+      "model": "gpt-4o-2024-08-06",
+      "choices": [
+        {
+          "index": 0,
+          "message": {
+            "role": "assistant",
+            "content": null,
+            "tool_calls": [
+              {
+                "id": "call_3M995j41wL8A3Go83Cnpdsa8",
+                "type": "function",
+                "function": {
+                  "name": "selectFunction",
+                  "arguments": "{\"method\":\"post\",\"path\":\"/connector/github/repositories/get-contents\",\"name\":\"connector_github_repositories_get_contents_post\"}"
+                }
+              }
+            ]
+          },
+          "logprobs": null,
+          "finish_reason": "stop"
+        }
+      ],
+      "usage": {
+        "prompt_tokens": 43222,
+        "completion_tokens": 34,
+        "total_tokens": 43256
+      },
+      "system_fingerprint": "fp_fa1dad0729"
+    }
+  }
+}

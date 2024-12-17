@@ -1,0 +1,48 @@
+{
+  "function": {
+    "method": "post",
+    "path": "/connector/csv/read",
+    "name": "connector_csv_read_post",
+    "description": "Read CSV file contents"
+  },
+  "keyword": "CSV 좀 읽어줘",
+  "event": {
+    "kind": "success",
+    "started_at": "2024-12-17T09:45:15.218Z",
+    "completed_at": "2024-12-17T09:45:16.747Z",
+    "elapsed": 1529,
+    "completion": {
+      "id": "chatcmpl-AfOQXQVGfCmxt4zJruZq5oQnfZN2e",
+      "object": "chat.completion",
+      "created": 1734428709,
+      "model": "gpt-4o-2024-08-06",
+      "choices": [
+        {
+          "index": 0,
+          "message": {
+            "role": "assistant",
+            "content": null,
+            "tool_calls": [
+              {
+                "id": "call_LltKDkf6RR701ZYJGXBvvSpP",
+                "type": "function",
+                "function": {
+                  "name": "selectFunction",
+                  "arguments": "{\"method\":\"post\",\"path\":\"/connector/csv/read\",\"name\":\"connector_csv_read_post\"}"
+                }
+              }
+            ]
+          },
+          "logprobs": null,
+          "finish_reason": "stop"
+        }
+      ],
+      "usage": {
+        "prompt_tokens": 43217,
+        "completion_tokens": 27,
+        "total_tokens": 43244
+      },
+      "system_fingerprint": "fp_fa1dad0729"
+    }
+  }
+}

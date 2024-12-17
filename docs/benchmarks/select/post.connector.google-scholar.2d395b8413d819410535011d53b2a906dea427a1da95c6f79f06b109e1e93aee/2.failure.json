@@ -1,0 +1,48 @@
+{
+  "function": {
+    "method": "post",
+    "path": "/connector/google-scholar",
+    "name": "connector_google_scholar_post",
+    "description": "Search Google Scholar paper list.\n\nGet a list of papers in Google Scholar"
+  },
+  "keyword": "논문 좀 찾아줘",
+  "event": {
+    "kind": "failure",
+    "started_at": "2024-12-17T09:44:42.751Z",
+    "completed_at": "2024-12-17T09:44:47.974Z",
+    "elapsed": 5223,
+    "completion": {
+      "id": "chatcmpl-AfOQ1eKGHx779EP4WoGCx2Oja6XEn",
+      "object": "chat.completion",
+      "created": 1734428677,
+      "model": "gpt-4o-2024-08-06",
+      "choices": [
+        {
+          "index": 0,
+          "message": {
+            "role": "assistant",
+            "content": null,
+            "tool_calls": [
+              {
+                "id": "call_L38RrXdwz5CpVnvFWl91TuM7",
+                "type": "function",
+                "function": {
+                  "name": "selectFunction",
+                  "arguments": "{\"method\":\"post\",\"path\":\"/connector/arxiv-search\",\"name\":\"connector_arxiv_search_post\"}"
+                }
+              }
+            ]
+          },
+          "logprobs": null,
+          "finish_reason": "stop"
+        }
+      ],
+      "usage": {
+        "prompt_tokens": 43217,
+        "completion_tokens": 28,
+        "total_tokens": 43245
+      },
+      "system_fingerprint": "fp_fa1dad0729"
+    }
+  }
+}

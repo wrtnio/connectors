@@ -1,0 +1,48 @@
+{
+  "function": {
+    "method": "post",
+    "path": "/connector/discord/bulk-delete-message",
+    "name": "connector_discord_bulk_delete_message_post",
+    "description": "Delete multiple messages"
+  },
+  "keyword": "디스코드 메시지 취소해줘",
+  "event": {
+    "kind": "failure",
+    "started_at": "2024-12-17T10:33:24.592Z",
+    "completed_at": "2024-12-17T10:33:26.344Z",
+    "elapsed": 1752,
+    "completion": {
+      "id": "chatcmpl-AfPB86hBbC2ALfAEoSbafbuwTVEvW",
+      "object": "chat.completion",
+      "created": 1734431598,
+      "model": "gpt-4o-2024-08-06",
+      "choices": [
+        {
+          "index": 0,
+          "message": {
+            "role": "assistant",
+            "content": null,
+            "tool_calls": [
+              {
+                "id": "call_MeIcW19EI5icW6equOlxAcWG",
+                "type": "function",
+                "function": {
+                  "name": "selectFunction",
+                  "arguments": "{\"method\":\"delete\",\"path\":\"/connector/discord/delete-message\",\"name\":\"connector_discord_delete_message_post\"}"
+                }
+              }
+            ]
+          },
+          "logprobs": null,
+          "finish_reason": "stop"
+        }
+      ],
+      "usage": {
+        "prompt_tokens": 43222,
+        "completion_tokens": 30,
+        "total_tokens": 43252
+      },
+      "system_fingerprint": "fp_fa1dad0729"
+    }
+  }
+}

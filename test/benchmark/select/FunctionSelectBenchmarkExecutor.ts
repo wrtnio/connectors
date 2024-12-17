@@ -7,6 +7,7 @@ import { IFunctionSelectBenchmarkResult } from "./IFunctionSelectBenchmarkResult
 import { ArrayUtil } from "@nestia/e2e";
 import OpenAI from "openai";
 import typia from "typia";
+import { IFunctionSelectBenchmarkEvent } from "./IFunctionSelectBenchmarkEvent";
 import { ConnectorGlobal } from "../../../src/ConnectorGlobal";
 
 export class FunctionSelectBenchmarkExecutor {
@@ -23,26 +24,26 @@ export class FunctionSelectBenchmarkExecutor {
     func: IHttpLlmFunction<"chatgpt">,
     keyword: string,
   ): Promise<IFunctionSelectBenchmarkResult> {
-    const events: IFunctionSelectBenchmarkResult.IEvent[] =
-      await ArrayUtil.asyncRepeat(this.repeat)(async () => {
-        const started_at: Date = new Date();
-        try {
-          return await this.step(func, keyword, started_at);
-        } catch (error) {
-          return {
-            success: false,
-            started_at,
-            completed_at: new Date(),
-            kind: "error",
-            error,
-          } satisfies IFunctionSelectBenchmarkResult.IErrorEvent;
-        }
-      });
+    const events: IFunctionSelectBenchmarkEvent[] = await ArrayUtil.asyncRepeat(
+      this.repeat,
+    )(async () => {
+      const started_at: Date = new Date();
+      try {
+        return await this.step(func, keyword, started_at);
+      } catch (error) {
+        return {
+          kind: "error",
+          error,
+          started_at,
+          completed_at: new Date(),
+        } satisfies IFunctionSelectBenchmarkEvent.IError;
+      }
+    });
     return {
       function: func,
       keyword,
       count: this.repeat,
-      success: events.filter((event) => event.success).length,
+      success: events.filter((event) => event.kind === "success").length,
       events,
     };
   }
@@ -51,7 +52,7 @@ export class FunctionSelectBenchmarkExecutor {
     func: IHttpLlmFunction<"chatgpt">,
     keyword: string,
     started_at: Date,
-  ): Promise<IFunctionSelectBenchmarkResult.IEvent> {
+  ): Promise<IFunctionSelectBenchmarkEvent> {
     const client: OpenAI = new OpenAI({
       apiKey: "something",
       baseURL: ConnectorGlobal.env.HAMLET_URL,
@@ -110,17 +111,18 @@ export class FunctionSelectBenchmarkExecutor {
         : null;
     if (found === func)
       return {
-        success: true,
+        kind: "success",
+        completion,
         started_at,
         completed_at: new Date(),
       };
     else
       return {
-        success: false,
-        started_at,
-        completed_at: new Date(),
         kind: "failure",
         found,
+        completion,
+        started_at,
+        completed_at: new Date(),
       };
   }
 }
@@ -161,7 +163,8 @@ const getDefaultPrompts = (
     ],
   },
   {
-    role: "assistant",
+    role: "tool",
+    tool_call_id: "listApiFunctionsOfBackend",
     content: [
       "Now, user may request something. If you can find some proper API function",
       "to call, please select the API function by utilizing the `selectFunction()`",

@@ -1,0 +1,48 @@
+{
+  "function": {
+    "method": "post",
+    "path": "/connector/google-search/incruit",
+    "name": "connector_google_search_incruit_post",
+    "description": "Search Incruit job postings.\n\nSearch for job postings on Incruit"
+  },
+  "keyword": "채용 공고 좀 찾아줘",
+  "event": {
+    "kind": "failure",
+    "started_at": "2024-12-17T09:23:23.713Z",
+    "completed_at": "2024-12-17T09:23:25.342Z",
+    "elapsed": 1629,
+    "completion": {
+      "id": "chatcmpl-AfO5Ot7Hm6S6KSIF0j8o3xYKjjJ1t",
+      "object": "chat.completion",
+      "created": 1734427398,
+      "model": "gpt-4o-2024-08-06",
+      "choices": [
+        {
+          "index": 0,
+          "message": {
+            "role": "assistant",
+            "content": null,
+            "tool_calls": [
+              {
+                "id": "call_iqHP4d07TWJ5TtUV3hMNQeSU",
+                "type": "function",
+                "function": {
+                  "name": "selectFunction",
+                  "arguments": "{\"method\":\"post\",\"path\":\"/connector/google-search/wanted\",\"name\":\"connector_google_search_wanted_post\"}"
+                }
+              }
+            ]
+          },
+          "logprobs": null,
+          "finish_reason": "stop"
+        }
+      ],
+      "usage": {
+        "prompt_tokens": 43219,
+        "completion_tokens": 30,
+        "total_tokens": 43249
+      },
+      "system_fingerprint": "fp_fa1dad0729"
+    }
+  }
+}

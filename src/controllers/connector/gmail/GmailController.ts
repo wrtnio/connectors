@@ -1,6 +1,11 @@
 import core from "@nestia/core";
 import { Controller } from "@nestjs/common";
-import { Prerequisite, RouteIcon, Standalone } from "@wrtnio/decorators";
+import {
+  Prerequisite,
+  RouteIcon,
+  SelectBenchmark,
+  Standalone,
+} from "@wrtnio/decorators";
 
 import { IGmail } from "@wrtn/connector-api/lib/structures/connector/gmail/IGmail";
 
@@ -28,6 +33,8 @@ export class GmailController {
    * @param input Information needed to send an email.
    * @returns ID of the sent email.
    */
+  @SelectBenchmark("메일 보내줘")
+  @SelectBenchmark("지메일 보내줘")
   @Standalone()
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleMail_full.svg",
@@ -56,6 +63,7 @@ export class GmailController {
    * @summary Create GMAIL Draft
    * @param input Information for creating a mail draft.
    */
+  @SelectBenchmark("메일 초안 생성해줘")
   @Standalone()
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleMail_full.svg",
@@ -79,6 +87,7 @@ export class GmailController {
    * @summary GMAIL Reply
    * @param input Information required for replying to emails.
    */
+  @SelectBenchmark("지메일 온 거 답장해줘")
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleMail_full.svg",
   )
@@ -110,6 +119,7 @@ export class GmailController {
    * @param id Unique ID of the email.
    * @returns Information about the email.
    */
+  @SelectBenchmark("메일 상세 조회해줘")
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleMail_full.svg",
   )
@@ -141,6 +151,7 @@ export class GmailController {
    * @param input Information for getting mailing list
    * @returns Mailing list
    */
+  @SelectBenchmark("메일 목록 조회해줘")
   @Standalone()
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleMail_full.svg",
@@ -169,6 +180,7 @@ export class GmailController {
    * @param input
    * @returns
    */
+  @SelectBenchmark("메일 삭제해줘")
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleMail_full.svg",
   )
@@ -199,6 +211,7 @@ export class GmailController {
    * @summary Delete GMAIL
    * @param id The unique ID of the email to be deleted
    */
+  @SelectBenchmark("메일 삭제해줘")
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleMail_full.svg",
   )
@@ -230,6 +243,7 @@ export class GmailController {
    * @param input Information for creating a label
    * @returns Unique ID of the created label
    */
+  @SelectBenchmark("메일 라벨 생성해줘")
   @Standalone()
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleMail_full.svg",
@@ -251,6 +265,7 @@ export class GmailController {
    * @param mailId Unique ID of the mail to assign a label to
    * @param input A list of unique IDs of labels to assign
    */
+  @SelectBenchmark("메일에 라벨링해줘")
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleMail_full.svg",
   )
@@ -281,6 +296,7 @@ export class GmailController {
    * @param mailId Unique ID of the mail from which to remove labels.
    * @param input A list of unique IDs of labels to remove.
    */
+  @SelectBenchmark("메일에 라벨 제거해줘")
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleMail_full.svg",
   )
@@ -315,6 +331,7 @@ export class GmailController {
    * @param input
    * @returns
    */
+  @SelectBenchmark("메일 삭제해줘")
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleMail_full.svg",
   )

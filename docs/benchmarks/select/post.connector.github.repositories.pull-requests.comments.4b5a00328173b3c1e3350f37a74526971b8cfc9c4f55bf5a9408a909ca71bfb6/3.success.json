@@ -1,0 +1,48 @@
+{
+  "function": {
+    "method": "post",
+    "path": "/connector/github/repositories/pull-requests/comments",
+    "name": "connector_github_repositories_pull_requests_comments_post",
+    "description": "Create an pull request comment"
+  },
+  "keyword": "PR 댓글 생성해줘",
+  "event": {
+    "kind": "success",
+    "started_at": "2024-12-17T10:07:25.062Z",
+    "completed_at": "2024-12-17T10:07:30.474Z",
+    "elapsed": 5412,
+    "completion": {
+      "id": "chatcmpl-AfOlz2V0nXg9sKvFyYGAduscmv1ko",
+      "object": "chat.completion",
+      "created": 1734430039,
+      "model": "gpt-4o-2024-08-06",
+      "choices": [
+        {
+          "index": 0,
+          "message": {
+            "role": "assistant",
+            "content": null,
+            "tool_calls": [
+              {
+                "id": "call_8fhAY6thehMKvkrX0MBD1f0g",
+                "type": "function",
+                "function": {
+                  "name": "selectFunction",
+                  "arguments": "{\"method\":\"post\",\"path\":\"/connector/github/repositories/pull-requests/comments\",\"name\":\"connector_github_repositories_pull_requests_comments_post\"}"
+                }
+              }
+            ]
+          },
+          "logprobs": null,
+          "finish_reason": "stop"
+        }
+      ],
+      "usage": {
+        "prompt_tokens": 43217,
+        "completion_tokens": 37,
+        "total_tokens": 43254
+      },
+      "system_fingerprint": "fp_fa1dad0729"
+    }
+  }
+}

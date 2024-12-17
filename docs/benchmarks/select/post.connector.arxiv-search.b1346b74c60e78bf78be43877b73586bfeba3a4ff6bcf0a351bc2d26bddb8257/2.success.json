@@ -1,0 +1,48 @@
+{
+  "function": {
+    "method": "post",
+    "path": "/connector/arxiv-search",
+    "name": "connector_arxiv_search_post",
+    "description": "Archive Paper Search.\n\nSearches the archive for papers based on the search criteria you entered"
+  },
+  "keyword": "논문 찾아줘",
+  "event": {
+    "kind": "success",
+    "started_at": "2024-12-17T09:42:42.147Z",
+    "completed_at": "2024-12-17T09:42:43.721Z",
+    "elapsed": 1574,
+    "completion": {
+      "id": "chatcmpl-AfOO4ZJj1HLl7n7M9kbaGsyW19lMM",
+      "object": "chat.completion",
+      "created": 1734428556,
+      "model": "gpt-4o-2024-08-06",
+      "choices": [
+        {
+          "index": 0,
+          "message": {
+            "role": "assistant",
+            "content": null,
+            "tool_calls": [
+              {
+                "id": "call_jsKq0NZPMFZj6D0gdfLcLBa6",
+                "type": "function",
+                "function": {
+                  "name": "selectFunction",
+                  "arguments": "{\"method\":\"post\",\"path\":\"/connector/arxiv-search\",\"name\":\"connector_arxiv_search_post\"}"
+                }
+              }
+            ]
+          },
+          "logprobs": null,
+          "finish_reason": "stop"
+        }
+      ],
+      "usage": {
+        "prompt_tokens": 43216,
+        "completion_tokens": 28,
+        "total_tokens": 43244
+      },
+      "system_fingerprint": "fp_fa1dad0729"
+    }
+  }
+}

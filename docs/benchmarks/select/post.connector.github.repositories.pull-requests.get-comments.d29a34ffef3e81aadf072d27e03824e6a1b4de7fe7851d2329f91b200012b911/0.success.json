@@ -1,0 +1,48 @@
+{
+  "function": {
+    "method": "post",
+    "path": "/connector/github/repositories/pull-requests/get-comments",
+    "name": "connector_github_repositories_pull_requests_get_comments_post",
+    "description": "List pull request comments\n\nYou can use the REST API to list comments on issues and pull requests. Every pull request is an issue, but not every issue is a pull request.\nIn any case, you can also view comments with the number on pull request.\nIssue comments are ordered by ascending ID.\n\nThis is actually the same as connector POST '/connector/github/repositories/issues/get-comments'.\nComments and reviews on PR are separate, you can only see comments on this connector."
+  },
+  "keyword": "PR 댓글 보여줘",
+  "event": {
+    "kind": "success",
+    "started_at": "2024-12-17T10:06:02.938Z",
+    "completed_at": "2024-12-17T10:06:04.840Z",
+    "elapsed": 1902,
+    "completion": {
+      "id": "chatcmpl-AfOkf5qTGJiXt0NiqrTyTfo6AA2FC",
+      "object": "chat.completion",
+      "created": 1734429957,
+      "model": "gpt-4o-2024-08-06",
+      "choices": [
+        {
+          "index": 0,
+          "message": {
+            "role": "assistant",
+            "content": null,
+            "tool_calls": [
+              {
+                "id": "call_rzmehkXuBDFluDmZWzWKlCmM",
+                "type": "function",
+                "function": {
+                  "name": "selectFunction",
+                  "arguments": "{\"method\":\"post\",\"path\":\"/connector/github/repositories/pull-requests/get-comments\",\"name\":\"connector_github_repositories_pull_requests_get_comments_post\"}"
+                }
+              }
+            ]
+          },
+          "logprobs": null,
+          "finish_reason": "stop"
+        }
+      ],
+      "usage": {
+        "prompt_tokens": 43216,
+        "completion_tokens": 39,
+        "total_tokens": 43255
+      },
+      "system_fingerprint": "fp_fa1dad0729"
+    }
+  }
+}

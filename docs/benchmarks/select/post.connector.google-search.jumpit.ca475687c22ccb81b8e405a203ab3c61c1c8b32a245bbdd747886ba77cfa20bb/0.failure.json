@@ -1,0 +1,48 @@
+{
+  "function": {
+    "method": "post",
+    "path": "/connector/google-search/jumpit",
+    "name": "connector_google_search_jumpit_post",
+    "description": "Jumpfit job posting search.\n\nSearch for job postings on Jumpfit"
+  },
+  "keyword": "채용 공고 좀 찾아줘",
+  "event": {
+    "kind": "failure",
+    "started_at": "2024-12-17T09:24:49.073Z",
+    "completed_at": "2024-12-17T09:24:54.983Z",
+    "elapsed": 5910,
+    "completion": {
+      "id": "chatcmpl-AfO6lhfIrHV0Yoc9nt1Plm441l1Z1",
+      "object": "chat.completion",
+      "created": 1734427483,
+      "model": "gpt-4o-2024-08-06",
+      "choices": [
+        {
+          "index": 0,
+          "message": {
+            "role": "assistant",
+            "content": null,
+            "tool_calls": [
+              {
+                "id": "call_6i4FtNBhS5ZJb4HeJBWJ92pV",
+                "type": "function",
+                "function": {
+                  "name": "selectFunction",
+                  "arguments": "{\"method\":\"post\",\"path\":\"/connector/google-search/saramin\",\"name\":\"connector_google_search_saramin_post\"}"
+                }
+              }
+            ]
+          },
+          "logprobs": null,
+          "finish_reason": "stop"
+        }
+      ],
+      "usage": {
+        "prompt_tokens": 43219,
+        "completion_tokens": 32,
+        "total_tokens": 43251
+      },
+      "system_fingerprint": "fp_fa1dad0729"
+    }
+  }
+}

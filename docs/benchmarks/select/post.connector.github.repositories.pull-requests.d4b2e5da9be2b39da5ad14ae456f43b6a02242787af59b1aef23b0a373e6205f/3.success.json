@@ -1,0 +1,48 @@
+{
+  "function": {
+    "method": "post",
+    "path": "/connector/github/repositories/pull-requests",
+    "name": "connector_github_repositories_pull_requests_post",
+    "description": "Create pull request\n\nCreates a pull request from a branch to a particular branch.\nIf the branch has already generated a pull request to the base branch, an error of 422 may occur.\nThis error indicates a collision because only one pull request from branch to another branch can exist open at the same time.\n\nIf the user wants to see each PR unit, this connector will be suitable.\n\nWhen creating a PR, be sure to specify the base branch and the head branch, and even if it can be omitted, be sure to include Titles and bodies as much as possible.\nYou can also create a pull request in draft state if necessary.\n\nIn order to create PR, you may need to refer to the PULL_REQUEST_TEMPLATE.md file that you specified in the .github folder in advance, in which case refer to the connector 'POST /connector/github/repos/get-contents'."
+  },
+  "keyword": "PR 생성해줘",
+  "event": {
+    "kind": "success",
+    "started_at": "2024-12-17T10:04:53.278Z",
+    "completed_at": "2024-12-17T10:04:57.127Z",
+    "elapsed": 3849,
+    "completion": {
+      "id": "chatcmpl-AfOjX2DREncN2W3KMYUlhKz37gAlB",
+      "object": "chat.completion",
+      "created": 1734429887,
+      "model": "gpt-4o-2024-08-06",
+      "choices": [
+        {
+          "index": 0,
+          "message": {
+            "role": "assistant",
+            "content": null,
+            "tool_calls": [
+              {
+                "id": "call_s5YyuUDLmDHukd5ld2njQuyV",
+                "type": "function",
+                "function": {
+                  "name": "selectFunction",
+                  "arguments": "{\"method\":\"post\",\"path\":\"/connector/github/repositories/pull-requests\",\"name\":\"connector_github_repositories_pull_requests_post\"}"
+                }
+              }
+            ]
+          },
+          "logprobs": null,
+          "finish_reason": "stop"
+        }
+      ],
+      "usage": {
+        "prompt_tokens": 43216,
+        "completion_tokens": 35,
+        "total_tokens": 43251
+      },
+      "system_fingerprint": "fp_fa1dad0729"
+    }
+  }
+}

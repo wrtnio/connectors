@@ -1,0 +1,48 @@
+{
+  "function": {
+    "method": "post",
+    "path": "/connector/articles",
+    "name": "connector_articles_post",
+    "description": "Write Article to User Database\n\nPosts are managed in a snapshot-based structure, enabling rollback at any time.\nWhen a post is created, the system automatically generates the first snapshot.\nThe most recent snapshot reflects the current state of the post.\nBy editing the post or exporting it to external services, you can track which version—i.e., which snapshot—was exported and synchronize it using foreign keys.\nThis system is designed to efficiently handle any post-like documents, such as those from Google Docs, Notion, or Reddit.\nUsing Markdown as the standard format for writing and versioning, it identifies changes through a diff algorithm whenever edits are made.\nThis allows you to compare previous and current versions, track changes, and synchronize updates across services.\nAs these APIs store data exclusively in the Wrtn Technologies Ecosystem Team's database without relying on external APIs,\nthis setup serves as an ideal starting point for creating and managing documents efficiently with robust version control.\n\nIf the user asked to edit the text, it would most likely not be this connector.\nThere is a separate connector for the update, so please use it.\n\nIf the user asks you to write without any service names,\nyou may be referring to this connector.\nAsk the user to confirm."
+  },
+  "keyword": "내 개인 DB에 글 좀 써줘",
+  "event": {
+    "kind": "success",
+    "started_at": "2024-12-17T09:01:02.618Z",
+    "completed_at": "2024-12-17T09:01:04.364Z",
+    "elapsed": 1746,
+    "completion": {
+      "id": "chatcmpl-AfNjlxTda6OYgM1ydP7k31vuPr9yU",
+      "object": "chat.completion",
+      "created": 1734426057,
+      "model": "gpt-4o-2024-08-06",
+      "choices": [
+        {
+          "index": 0,
+          "message": {
+            "role": "assistant",
+            "content": null,
+            "tool_calls": [
+              {
+                "id": "call_609mpl5qDLuufq7ZD0NVxfcJ",
+                "type": "function",
+                "function": {
+                  "name": "selectFunction",
+                  "arguments": "{\"name\":\"connector_articles_post\",\"method\":\"post\",\"path\":\"/connector/articles\"}"
+                }
+              }
+            ]
+          },
+          "logprobs": null,
+          "finish_reason": "stop"
+        }
+      ],
+      "usage": {
+        "prompt_tokens": 43221,
+        "completion_tokens": 24,
+        "total_tokens": 43245
+      },
+      "system_fingerprint": "fp_fa1dad0729"
+    }
+  }
+}

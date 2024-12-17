@@ -1,0 +1,48 @@
+{
+  "function": {
+    "method": "post",
+    "path": "/connector/gmail/draft",
+    "name": "connector_gmail_draft_post",
+    "description": "Create GMAIL Draft.\n\nCreate a mail draft\n\nGmail is a free web-based email service provided by Google.\n\nThis connector is for sending emails,\nand if you send it as simple text, the sentences will be displayed as one long line, so you need to insert a line break character.\nThe current format uses `text/html; charset=utf-8` as content-type.\nIn some cases, you can use the html format.\n\nIf you want to attach a file, you must specify the name of the file and the address at which it is stored.\nThe saved file is read as a GET request inside the function, encoded, and processed."
+  },
+  "keyword": "메일 초안 생성해줘",
+  "event": {
+    "kind": "success",
+    "started_at": "2024-12-17T09:15:04.965Z",
+    "completed_at": "2024-12-17T09:15:16.177Z",
+    "elapsed": 11212,
+    "completion": {
+      "id": "chatcmpl-AfNxLrSnDV5YFTQhaNmhT2GwBEsOu",
+      "object": "chat.completion",
+      "created": 1734426899,
+      "model": "gpt-4o-2024-08-06",
+      "choices": [
+        {
+          "index": 0,
+          "message": {
+            "role": "assistant",
+            "content": null,
+            "tool_calls": [
+              {
+                "id": "call_Pjrd56yFwmtdEctzjljpa0P7",
+                "type": "function",
+                "function": {
+                  "name": "selectFunction",
+                  "arguments": "{\"method\":\"post\",\"path\":\"/connector/gmail/draft\",\"name\":\"connector_gmail_draft_post\"}"
+                }
+              }
+            ]
+          },
+          "logprobs": null,
+          "finish_reason": "stop"
+        }
+      ],
+      "usage": {
+        "prompt_tokens": 43218,
+        "completion_tokens": 30,
+        "total_tokens": 43248
+      },
+      "system_fingerprint": "fp_fa1dad0729"
+    }
+  }
+}

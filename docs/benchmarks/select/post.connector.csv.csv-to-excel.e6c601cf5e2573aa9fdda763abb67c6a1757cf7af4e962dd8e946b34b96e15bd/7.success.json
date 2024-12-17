@@ -1,0 +1,48 @@
+{
+  "function": {
+    "method": "post",
+    "path": "/connector/csv/csv-to-excel",
+    "name": "connector_csv_csv_to_excel_post",
+    "description": "Convert CSV file to Excel file."
+  },
+  "keyword": "CSV 파일 엑셀로 변환해줘",
+  "event": {
+    "kind": "success",
+    "started_at": "2024-12-17T09:46:41.057Z",
+    "completed_at": "2024-12-17T09:46:43.398Z",
+    "elapsed": 2341,
+    "completion": {
+      "id": "chatcmpl-AfORvZkidGxeans9if56DBguhorlJ",
+      "object": "chat.completion",
+      "created": 1734428795,
+      "model": "gpt-4o-2024-08-06",
+      "choices": [
+        {
+          "index": 0,
+          "message": {
+            "role": "assistant",
+            "content": null,
+            "tool_calls": [
+              {
+                "id": "call_ISGvzl3Jm8gSlF0TKBfZ9PvS",
+                "type": "function",
+                "function": {
+                  "name": "selectFunction",
+                  "arguments": "{\"method\":\"post\",\"path\":\"/connector/csv/csv-to-excel\",\"name\":\"connector_csv_csv_to_excel_post\"}"
+                }
+              }
+            ]
+          },
+          "logprobs": null,
+          "finish_reason": "stop"
+        }
+      ],
+      "usage": {
+        "prompt_tokens": 43222,
+        "completion_tokens": 33,
+        "total_tokens": 43255
+      },
+      "system_fingerprint": "fp_fa1dad0729"
+    }
+  }
+}

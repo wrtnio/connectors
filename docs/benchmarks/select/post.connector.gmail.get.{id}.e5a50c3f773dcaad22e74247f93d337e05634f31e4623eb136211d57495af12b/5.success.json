@@ -1,0 +1,48 @@
+{
+  "function": {
+    "method": "post",
+    "path": "/connector/gmail/get/{id}",
+    "name": "connector_gmail_get_postById",
+    "description": "Get GMAIL information.\n\nGet information about a mail\n\nGmail is a free web-based email service provided by Google."
+  },
+  "keyword": "메일 상세 조회해줘",
+  "event": {
+    "kind": "success",
+    "started_at": "2024-12-17T09:16:00.547Z",
+    "completed_at": "2024-12-17T09:16:02.796Z",
+    "elapsed": 2249,
+    "completion": {
+      "id": "chatcmpl-AfNyEtxU5hfeIiuG2OoXg2rWJATmo",
+      "object": "chat.completion",
+      "created": 1734426954,
+      "model": "gpt-4o-2024-08-06",
+      "choices": [
+        {
+          "index": 0,
+          "message": {
+            "role": "assistant",
+            "content": null,
+            "tool_calls": [
+              {
+                "id": "call_3M995j41wL8A3Go83Cnpdsa8",
+                "type": "function",
+                "function": {
+                  "name": "selectFunction",
+                  "arguments": "{\"method\":\"post\",\"path\":\"/connector/gmail/get/{id}\",\"name\":\"connector_gmail_get_postById\"}"
+                }
+              }
+            ]
+          },
+          "logprobs": null,
+          "finish_reason": "stop"
+        }
+      ],
+      "usage": {
+        "prompt_tokens": 43217,
+        "completion_tokens": 33,
+        "total_tokens": 43250
+      },
+      "system_fingerprint": "fp_fa1dad0729"
+    }
+  }
+}

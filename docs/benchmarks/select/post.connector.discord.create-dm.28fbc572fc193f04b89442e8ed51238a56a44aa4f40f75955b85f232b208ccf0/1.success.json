@@ -1,0 +1,48 @@
+{
+  "function": {
+    "method": "post",
+    "path": "/connector/discord/create-dm",
+    "name": "connector_discord_create_dm_post",
+    "description": "Create a DM channel.\n\nCreate a new DM channel"
+  },
+  "keyword": "디스코드 DM 채널 만들어줘",
+  "event": {
+    "kind": "success",
+    "started_at": "2024-12-17T10:21:34.775Z",
+    "completed_at": "2024-12-17T10:21:36.377Z",
+    "elapsed": 1602,
+    "completion": {
+      "id": "chatcmpl-AfOzgmWsbMdUjQ8YzGkbgC513jAQd",
+      "object": "chat.completion",
+      "created": 1734430888,
+      "model": "gpt-4o-2024-08-06",
+      "choices": [
+        {
+          "index": 0,
+          "message": {
+            "role": "assistant",
+            "content": null,
+            "tool_calls": [
+              {
+                "id": "call_cXZHYWZQoiBhthZpwTRDZgWf",
+                "type": "function",
+                "function": {
+                  "name": "selectFunction",
+                  "arguments": "{\"method\":\"post\",\"path\":\"/connector/discord/create-dm\",\"name\":\"connector_discord_create_dm_post\"}"
+                }
+              }
+            ]
+          },
+          "logprobs": null,
+          "finish_reason": "stop"
+        }
+      ],
+      "usage": {
+        "prompt_tokens": 43221,
+        "completion_tokens": 31,
+        "total_tokens": 43252
+      },
+      "system_fingerprint": "fp_fa1dad0729"
+    }
+  }
+}

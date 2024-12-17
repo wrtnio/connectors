@@ -1,0 +1,48 @@
+{
+  "function": {
+    "method": "post",
+    "path": "/connector/github/get-users",
+    "name": "connector_github_get_users_post",
+    "description": "Search for users by keyword in github"
+  },
+  "keyword": "Github 유저 검색해줘",
+  "event": {
+    "kind": "success",
+    "started_at": "2024-12-17T10:16:06.081Z",
+    "completed_at": "2024-12-17T10:16:07.638Z",
+    "elapsed": 1557,
+    "completion": {
+      "id": "chatcmpl-AfOuOxitSxkSLoOWB6psp7l6tUl04",
+      "object": "chat.completion",
+      "created": 1734430560,
+      "model": "gpt-4o-2024-08-06",
+      "choices": [
+        {
+          "index": 0,
+          "message": {
+            "role": "assistant",
+            "content": null,
+            "tool_calls": [
+              {
+                "id": "call_EiZilYl0at4APClbaa1nWmnp",
+                "type": "function",
+                "function": {
+                  "name": "selectFunction",
+                  "arguments": "{\"method\":\"post\",\"path\":\"/connector/github/get-users\",\"name\":\"connector_github_get_users_post\"}"
+                }
+              }
+            ]
+          },
+          "logprobs": null,
+          "finish_reason": "stop"
+        }
+      ],
+      "usage": {
+        "prompt_tokens": 43218,
+        "completion_tokens": 29,
+        "total_tokens": 43247
+      },
+      "system_fingerprint": "fp_fa1dad0729"
+    }
+  }
+}

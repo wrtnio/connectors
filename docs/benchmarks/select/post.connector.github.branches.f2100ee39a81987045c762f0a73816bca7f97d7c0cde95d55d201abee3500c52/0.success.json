@@ -1,0 +1,48 @@
+{
+  "function": {
+    "method": "post",
+    "path": "/connector/github/branches",
+    "name": "connector_github_branches_post",
+    "description": "Create branch\n\nCreates a reference for your repository. You are unable to create new references for empty repositories, even if the commit SHA-1 hash used exists. Empty repositories are repositories without branches.\nYou need to know the sha of the commit, so if you want to create a branch, you should first call another connector that looks up the commit list or header commitments to find out the sha value.\nIf you want to copy the branch, you should also look up the commit history of the branch and then retrieve the sha value from the branch's HEAD commit."
+  },
+  "keyword": "브랜치 생성해줘",
+  "event": {
+    "kind": "success",
+    "started_at": "2024-12-17T10:17:21.448Z",
+    "completed_at": "2024-12-17T10:17:23.093Z",
+    "elapsed": 1645,
+    "completion": {
+      "id": "chatcmpl-AfOvbFb1lnTwIhb0amVweTNLLoXac",
+      "object": "chat.completion",
+      "created": 1734430635,
+      "model": "gpt-4o-2024-08-06",
+      "choices": [
+        {
+          "index": 0,
+          "message": {
+            "role": "assistant",
+            "content": null,
+            "tool_calls": [
+              {
+                "id": "call_fL90WUiVyt4CrduvWftEQZkM",
+                "type": "function",
+                "function": {
+                  "name": "selectFunction",
+                  "arguments": "{\"method\":\"post\",\"path\":\"/connector/github/branches\",\"name\":\"connector_github_branches_post\"}"
+                }
+              }
+            ]
+          },
+          "logprobs": null,
+          "finish_reason": "stop"
+        }
+      ],
+      "usage": {
+        "prompt_tokens": 43218,
+        "completion_tokens": 29,
+        "total_tokens": 43247
+      },
+      "system_fingerprint": "fp_fa1dad0729"
+    }
+  }
+}

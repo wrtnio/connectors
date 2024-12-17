@@ -1,0 +1,48 @@
+{
+  "function": {
+    "method": "post",
+    "path": "/connector/github/get-labels",
+    "name": "connector_github_get_labels_post",
+    "description": "List labels for a repository\n\nView a list of issues created and used in that repository.\nEach issue will only have labels that are already registered in this repository.\nOf course, it doesn't necessarily mean that you have to use only the labels here when creating issues,\nbut it would be beneficial to assign them by referring to the labels here."
+  },
+  "keyword": "issue 라벨 보여줘",
+  "event": {
+    "kind": "success",
+    "started_at": "2024-12-17T10:19:40.466Z",
+    "completed_at": "2024-12-17T10:19:42.133Z",
+    "elapsed": 1667,
+    "completion": {
+      "id": "chatcmpl-AfOxqDd56Xn5dak1ImN8QRhA1Y9eQ",
+      "object": "chat.completion",
+      "created": 1734430774,
+      "model": "gpt-4o-2024-08-06",
+      "choices": [
+        {
+          "index": 0,
+          "message": {
+            "role": "assistant",
+            "content": null,
+            "tool_calls": [
+              {
+                "id": "call_MIdIAF0bShRALGjJvcPWDPET",
+                "type": "function",
+                "function": {
+                  "name": "selectFunction",
+                  "arguments": "{\"method\":\"post\",\"path\":\"/connector/github/get-labels\",\"name\":\"connector_github_get_labels_post\"}"
+                }
+              }
+            ]
+          },
+          "logprobs": null,
+          "finish_reason": "stop"
+        }
+      ],
+      "usage": {
+        "prompt_tokens": 43217,
+        "completion_tokens": 30,
+        "total_tokens": 43247
+      },
+      "system_fingerprint": "fp_fa1dad0729"
+    }
+  }
+}

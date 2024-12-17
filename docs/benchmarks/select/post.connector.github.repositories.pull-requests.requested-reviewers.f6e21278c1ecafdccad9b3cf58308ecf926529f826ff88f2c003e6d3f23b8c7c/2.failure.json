@@ -1,0 +1,48 @@
+{
+  "function": {
+    "method": "post",
+    "path": "/connector/github/repositories/pull-requests/requested-reviewers",
+    "name": "connector_github_repositories_pull_requests_requested_reviewers_post",
+    "description": "Request reviewers for a pull request\n\nRequests reviews for a pull request from a given set of users and/or teams. This endpoint triggers notifications.\nYou can specify a reviewer by the user's name alone, but not by anyone, so use a connector that looks up collaborators first."
+  },
+  "keyword": "이 PR에 리뷰어 지정해줘",
+  "event": {
+    "kind": "failure",
+    "started_at": "2024-12-17T10:08:15.634Z",
+    "completed_at": "2024-12-17T10:08:19.184Z",
+    "elapsed": 3550,
+    "completion": {
+      "id": "chatcmpl-AfOmnicItieNIhupTDPBCcA4CacP4",
+      "object": "chat.completion",
+      "created": 1734430089,
+      "model": "gpt-4o-2024-08-06",
+      "choices": [
+        {
+          "index": 0,
+          "message": {
+            "role": "assistant",
+            "content": null,
+            "tool_calls": [
+              {
+                "id": "call_1oQNo5A776lg9BpBli2jOKdx",
+                "type": "function",
+                "function": {
+                  "name": "selectFunction",
+                  "arguments": "{\"name\":\"Add reviewers to a pull request\",\"method\":\"post\",\"path\":\"/connector/github/repositories/pull-requests/requested-reviewers\"}"
+                }
+              }
+            ]
+          },
+          "logprobs": null,
+          "finish_reason": "stop"
+        }
+      ],
+      "usage": {
+        "prompt_tokens": 43220,
+        "completion_tokens": 37,
+        "total_tokens": 43257
+      },
+      "system_fingerprint": "fp_fa1dad0729"
+    }
+  }
+}

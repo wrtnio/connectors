@@ -1,0 +1,48 @@
+{
+  "function": {
+    "method": "post",
+    "path": "/connector/github/organizations/get-issues",
+    "name": "connector_github_organizations_get_issues_post",
+    "description": "List organization issues assigned to the authenticated user\n\nSimilar to the 'get-issues' connector, it is suitable for inquiring only about issues assigned within a specific organization.\nNaturally, the user will have to be a member of that organization.\n\nHere, the result value can be inquired together with PR because PR on GitHub is essentially an issue-like object.\nIf you want to see the issue separately, you should use a connector that looks up the issue in the repo, not the organization."
+  },
+  "keyword": "organization에 생성되어 있는 이슈 좀 봐줘",
+  "event": {
+    "kind": "success",
+    "started_at": "2024-12-17T09:54:29.937Z",
+    "completed_at": "2024-12-17T09:54:31.716Z",
+    "elapsed": 1779,
+    "completion": {
+      "id": "chatcmpl-AfOZUYDhrBSlsyTrP42n7bsgdr2nU",
+      "object": "chat.completion",
+      "created": 1734429264,
+      "model": "gpt-4o-2024-08-06",
+      "choices": [
+        {
+          "index": 0,
+          "message": {
+            "role": "assistant",
+            "content": null,
+            "tool_calls": [
+              {
+                "id": "call_B9lMiKjRr1cY443ha0haGDL5",
+                "type": "function",
+                "function": {
+                  "name": "selectFunction",
+                  "arguments": "{\"method\":\"post\",\"path\":\"/connector/github/organizations/get-issues\",\"name\":\"connector_github_organizations_get_issues_post\"}"
+                }
+              }
+            ]
+          },
+          "logprobs": null,
+          "finish_reason": "stop"
+        }
+      ],
+      "usage": {
+        "prompt_tokens": 43223,
+        "completion_tokens": 35,
+        "total_tokens": 43258
+      },
+      "system_fingerprint": "fp_fa1dad0729"
+    }
+  }
+}

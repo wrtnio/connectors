@@ -1,0 +1,48 @@
+{
+  "function": {
+    "method": "post",
+    "path": "/connector/github/users/get-repositories",
+    "name": "connector_github_users_get_repositories_post",
+    "description": "Inquire the user's repositories\n\nSince it contains only the simplest information of the repository here, there is no way to know the lead me of the repository or detailed information.\nIt is recommended to use additional connectors to explore because other connectors have the ability to read leads or internal files in the repository."
+  },
+  "keyword": "유저 레포들 알려줘",
+  "event": {
+    "kind": "success",
+    "started_at": "2024-12-17T09:53:37.790Z",
+    "completed_at": "2024-12-17T09:53:41.647Z",
+    "elapsed": 3857,
+    "completion": {
+      "id": "chatcmpl-AfOYeO1jBaDN4th11prkTgiXM9dl7",
+      "object": "chat.completion",
+      "created": 1734429212,
+      "model": "gpt-4o-2024-08-06",
+      "choices": [
+        {
+          "index": 0,
+          "message": {
+            "role": "assistant",
+            "content": null,
+            "tool_calls": [
+              {
+                "id": "call_vImbSvrFh1r43ef20lU57oFO",
+                "type": "function",
+                "function": {
+                  "name": "selectFunction",
+                  "arguments": "{\"method\":\"post\",\"path\":\"/connector/github/users/get-repositories\",\"name\":\"connector_github_users_get_repositories_post\"}"
+                }
+              }
+            ]
+          },
+          "logprobs": null,
+          "finish_reason": "stop"
+        }
+      ],
+      "usage": {
+        "prompt_tokens": 43219,
+        "completion_tokens": 33,
+        "total_tokens": 43252
+      },
+      "system_fingerprint": "fp_fa1dad0729"
+    }
+  }
+}

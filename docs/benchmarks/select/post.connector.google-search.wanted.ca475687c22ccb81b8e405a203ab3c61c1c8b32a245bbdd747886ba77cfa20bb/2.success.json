@@ -1,0 +1,48 @@
+{
+  "function": {
+    "method": "post",
+    "path": "/connector/google-search/wanted",
+    "name": "connector_google_search_wanted_post",
+    "description": "Wanted job posting search.\n\nSearch for job postings on Wanted"
+  },
+  "keyword": "채용 공고 좀 찾아줘",
+  "event": {
+    "kind": "success",
+    "started_at": "2024-12-17T09:22:10.587Z",
+    "completed_at": "2024-12-17T09:22:14.198Z",
+    "elapsed": 3611,
+    "completion": {
+      "id": "chatcmpl-AfO4DrzCdJUsF9DVngKpSTFyQ73Uq",
+      "object": "chat.completion",
+      "created": 1734427325,
+      "model": "gpt-4o-2024-08-06",
+      "choices": [
+        {
+          "index": 0,
+          "message": {
+            "role": "assistant",
+            "content": null,
+            "tool_calls": [
+              {
+                "id": "call_4Eh3S40uaQODKPiyxKyiVC6i",
+                "type": "function",
+                "function": {
+                  "name": "selectFunction",
+                  "arguments": "{\"method\":\"post\",\"path\":\"/connector/google-search/wanted\",\"name\":\"connector_google_search_wanted_post\"}"
+                }
+              }
+            ]
+          },
+          "logprobs": null,
+          "finish_reason": "stop"
+        }
+      ],
+      "usage": {
+        "prompt_tokens": 43219,
+        "completion_tokens": 30,
+        "total_tokens": 43249
+      },
+      "system_fingerprint": "fp_fa1dad0729"
+    }
+  }
+}

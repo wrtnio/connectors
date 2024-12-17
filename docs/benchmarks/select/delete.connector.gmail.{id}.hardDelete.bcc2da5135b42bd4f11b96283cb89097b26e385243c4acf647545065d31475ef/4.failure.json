@@ -1,0 +1,48 @@
+{
+  "function": {
+    "method": "delete",
+    "path": "/connector/gmail/{id}/hardDelete",
+    "name": "connector_gmail_hardDelete_eraseById",
+    "description": "Delete mail\n\nGmail is a free web-based email service provided by Google.\n\nThis function requires special attention because it permanently deletes mail instead of moving it to the trash.\n\nMost users will want to delete mail that is already in the trash.\n\nTherefore, if the user wants to delete it, it is better to guide them to move the mail to the trash, but if they still want to delete it, it is right to target the trash."
+  },
+  "keyword": "메일 삭제해줘",
+  "event": {
+    "kind": "failure",
+    "started_at": "2024-12-17T09:16:59.310Z",
+    "completed_at": "2024-12-17T09:17:03.243Z",
+    "elapsed": 3933,
+    "completion": {
+      "id": "chatcmpl-AfNzBfnibVuvZOLRUjmpNjzXVzOqe",
+      "object": "chat.completion",
+      "created": 1734427013,
+      "model": "gpt-4o-2024-08-06",
+      "choices": [
+        {
+          "index": 0,
+          "message": {
+            "role": "assistant",
+            "content": null,
+            "tool_calls": [
+              {
+                "id": "call_yI8tMwCc9w4uWn63ugol07vX",
+                "type": "function",
+                "function": {
+                  "name": "selectFunction",
+                  "arguments": "{\"method\":\"delete\",\"path\":\"/connector/gmail/{id}\",\"name\":\"connector_gmail_eraseById\"}"
+                }
+              }
+            ]
+          },
+          "logprobs": null,
+          "finish_reason": "stop"
+        }
+      ],
+      "usage": {
+        "prompt_tokens": 43216,
+        "completion_tokens": 32,
+        "total_tokens": 43248
+      },
+      "system_fingerprint": "fp_fa1dad0729"
+    }
+  }
+}

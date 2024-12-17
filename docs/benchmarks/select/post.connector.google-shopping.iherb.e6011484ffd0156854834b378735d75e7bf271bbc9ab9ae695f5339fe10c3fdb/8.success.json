@@ -1,0 +1,48 @@
+{
+  "function": {
+    "method": "post",
+    "path": "/connector/google-shopping/iherb",
+    "name": "connector_google_shopping_iherb_post",
+    "description": "iHerb Search.\n\nSearch for products on iHerb\niHerb is a service that allows you to purchase Nutritional supplement.\nOnly one keyword should be requested per request.\nFor example, If you use \"vitamin\" and \"calcium\" as keywords, you must make two requests, each with separate keywords."
+  },
+  "keyword": "iherb에서 상품 좀 찾아줘",
+  "event": {
+    "kind": "success",
+    "started_at": "2024-12-17T09:28:16.210Z",
+    "completed_at": "2024-12-17T09:28:20.238Z",
+    "elapsed": 4028,
+    "completion": {
+      "id": "chatcmpl-AfOA6TewzFICUbv4K1UwlHsdJcUTo",
+      "object": "chat.completion",
+      "created": 1734427690,
+      "model": "gpt-4o-2024-08-06",
+      "choices": [
+        {
+          "index": 0,
+          "message": {
+            "role": "assistant",
+            "content": null,
+            "tool_calls": [
+              {
+                "id": "call_ck1IlGsvYvxqQ1qlIHjnlA2u",
+                "type": "function",
+                "function": {
+                  "name": "selectFunction",
+                  "arguments": "{\"method\":\"post\",\"path\":\"/connector/google-shopping/iherb\",\"name\":\"connector_google_shopping_iherb_post\"}"
+                }
+              }
+            ]
+          },
+          "logprobs": null,
+          "finish_reason": "stop"
+        }
+      ],
+      "usage": {
+        "prompt_tokens": 43220,
+        "completion_tokens": 33,
+        "total_tokens": 43253
+      },
+      "system_fingerprint": "fp_fa1dad0729"
+    }
+  }
+}

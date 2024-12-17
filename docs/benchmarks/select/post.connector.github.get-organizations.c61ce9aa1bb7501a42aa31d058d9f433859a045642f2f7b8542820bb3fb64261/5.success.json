@@ -1,0 +1,48 @@
+{
+  "function": {
+    "method": "post",
+    "path": "/connector/github/get-organizations",
+    "name": "connector_github_get_organizations_post",
+    "description": "List organizations for the authenticated user\n\nInquire the user's repository.\nHere, the user is an authenticated user, which means a user of that token.\nIf a user does not select an organization at login or ask the organization's admin to link it,\nthe resource might not be viewed even if the token scope has permissions."
+  },
+  "keyword": "내 Organization 조회해줘",
+  "event": {
+    "kind": "success",
+    "started_at": "2024-12-17T10:16:45.896Z",
+    "completed_at": "2024-12-17T10:16:47.485Z",
+    "elapsed": 1589,
+    "completion": {
+      "id": "chatcmpl-AfOv2JIul1dDQSPn2eldYdCbYLAiq",
+      "object": "chat.completion",
+      "created": 1734430600,
+      "model": "gpt-4o-2024-08-06",
+      "choices": [
+        {
+          "index": 0,
+          "message": {
+            "role": "assistant",
+            "content": null,
+            "tool_calls": [
+              {
+                "id": "call_Pjrd56yFwmtdEctzjljpa0P7",
+                "type": "function",
+                "function": {
+                  "name": "selectFunction",
+                  "arguments": "{\"method\":\"post\",\"path\":\"/connector/github/get-organizations\",\"name\":\"connector_github_get_organizations_post\"}"
+                }
+              }
+            ]
+          },
+          "logprobs": null,
+          "finish_reason": "stop"
+        }
+      ],
+      "usage": {
+        "prompt_tokens": 43217,
+        "completion_tokens": 31,
+        "total_tokens": 43248
+      },
+      "system_fingerprint": "fp_fa1dad0729"
+    }
+  }
+}

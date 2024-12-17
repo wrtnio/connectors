@@ -5,7 +5,7 @@ import { IPage } from "@wrtn/connector-api/lib/structures/common/IPage";
 import { IArticle } from "@wrtn/connector-api/lib/structures/connector/articles/IArticle";
 import { IArticleExport } from "@wrtn/connector-api/lib/structures/connector/articles/IArticleExport";
 import { StrictOmit } from "@wrtn/connector-api/lib/structures/types/strictOmit";
-import { ExperimentalRoute, Prerequisite } from "@wrtnio/decorators";
+import { Prerequisite, SelectBenchmark } from "@wrtnio/decorators";
 import { ExternalUser } from "../../../decorators/ExternalUser";
 import { DocumentProvider } from "../../../providers/connector/article/DocumentProvider";
 
@@ -26,7 +26,7 @@ export class ArticlesController {
    * @param input DevTo Secret and snapshot information to sync
    * @returns Response of Synchronization
    */
-  @ExperimentalRoute()
+  @SelectBenchmark("dev.to에 동기화해줘")
   @core.TypedRoute.Post(":id/sync/dev-to")
   async syncToDevTo(
     @ExternalUser() external_user: IExternalUser,
@@ -56,6 +56,7 @@ export class ArticlesController {
    * @param input GoogleDocs Secret and snapshot information to sync
    * @returns Response of Synchronization
    */
+  @SelectBenchmark("google docs에 동기화해줘")
   @core.TypedRoute.Post(":id/sync/google-docs")
   async syncToGoogleDocs(
     @ExternalUser() external_user: IExternalUser,
@@ -89,6 +90,7 @@ export class ArticlesController {
    * @param input Notion Secret and snapshot information to sync
    * @returns Response of Synchronization
    */
+  @SelectBenchmark("노션에 동기화해줘")
   @core.TypedRoute.Post(":id/sync/notion")
   async syncToNotion(
     @ExternalUser() external_user: IExternalUser,
@@ -120,7 +122,7 @@ export class ArticlesController {
    * @param input DevTo Secret and snapshot information to export
    * @returns Article Infomation and dev_to secretKey
    */
-  @ExperimentalRoute()
+  @SelectBenchmark("dev.to로 내보내줘")
   @core.TypedRoute.Post(":id/exports/dev-to")
   async exportsToDevTo(
     @ExternalUser() external_user: IExternalUser,
@@ -152,6 +154,7 @@ export class ArticlesController {
    * @param input GoogleDocs Secret and snapshot information to export
    * @returns Article Infomation and google_docs secretKey
    */
+  @SelectBenchmark("google docs로 내보내줘")
   @core.TypedRoute.Post(":id/exports/google-docs")
   async exportsToGoogleDocs(
     @ExternalUser() external_user: IExternalUser,
@@ -187,6 +190,7 @@ export class ArticlesController {
    * @param input Notion Secret and snapshot information to export
    * @returns Article Infomation and notion secretKey
    */
+  @SelectBenchmark("notion으로 내보내줘")
   @core.TypedRoute.Post(":id/exports/notion")
   async exportsToNotion(
     @ExternalUser() external_user: IExternalUser,
@@ -213,6 +217,8 @@ export class ArticlesController {
    * @param articleId Target article's {@link IArticle.id}, Not snapshot ID
    * @returns Article Infomation
    */
+  @SelectBenchmark("글 내용 보여줘")
+  @SelectBenchmark("전체 내용 글 내용 다 보여줘")
   @core.TypedRoute.Patch(":id")
   async at(
     @ExternalUser() external_user: IExternalUser,
@@ -236,6 +242,7 @@ export class ArticlesController {
    * @param articleId Target article's {@link IArticle.id}, Not snapshot ID
    * @param input Password of the article.
    */
+  @SelectBenchmark("내 글 삭제해줘")
   @core.TypedRoute.Delete(":id")
   async remove(
     @ExternalUser() external_user: IExternalUser,
@@ -264,6 +271,7 @@ export class ArticlesController {
    * @param input - The new data to update the article. It must match the `IArticle.IUpdate` type.
    * @returns The result of the update operation from the DocumentProvider.
    */
+  @SelectBenchmark("내 글 수정해줘")
   @core.TypedRoute.Put(":id")
   async update(
     @ExternalUser() external_user: IExternalUser,
@@ -303,6 +311,7 @@ export class ArticlesController {
    * @param input Request info of pagination and searching options.
    * @returns Paginated summarized articles.
    */
+  @SelectBenchmark("내 글 조회해줘")
   @core.TypedRoute.Patch()
   async index(
     @ExternalUser() external_user: IExternalUser,
@@ -333,6 +342,7 @@ export class ArticlesController {
    *
    * @sumamry Write Article
    */
+  @SelectBenchmark("내 개인 DB에 글 좀 써줘")
   @core.TypedRoute.Post()
   async write(
     @ExternalUser() external_user: IExternalUser,

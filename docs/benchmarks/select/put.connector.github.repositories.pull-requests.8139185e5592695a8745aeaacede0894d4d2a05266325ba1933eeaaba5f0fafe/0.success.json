@@ -1,0 +1,48 @@
+{
+  "function": {
+    "method": "put",
+    "path": "/connector/github/repositories/pull-requests",
+    "name": "connector_github_repositories_pull_requests_put",
+    "description": "Update pull request\n\nUse to change the title or body of a PR, or draft status or open-close status.\nIt can also be used for overwriting labels or modifying them.\nIt can also be used to close or reopen pull request."
+  },
+  "keyword": "PR 수정해줘",
+  "event": {
+    "kind": "success",
+    "started_at": "2024-12-17T10:05:38.963Z",
+    "completed_at": "2024-12-17T10:05:42.816Z",
+    "elapsed": 3853,
+    "completion": {
+      "id": "chatcmpl-AfOkHF1f2NFM2TdqaJFXt7kMFveq4",
+      "object": "chat.completion",
+      "created": 1734429933,
+      "model": "gpt-4o-2024-08-06",
+      "choices": [
+        {
+          "index": 0,
+          "message": {
+            "role": "assistant",
+            "content": null,
+            "tool_calls": [
+              {
+                "id": "call_cXZHYWZQoiBhthZpwTRDZgWf",
+                "type": "function",
+                "function": {
+                  "name": "selectFunction",
+                  "arguments": "{\"method\":\"put\",\"path\":\"/connector/github/repositories/pull-requests\",\"name\":\"connector_github_repositories_pull_requests_put\"}"
+                }
+              }
+            ]
+          },
+          "logprobs": null,
+          "finish_reason": "stop"
+        }
+      ],
+      "usage": {
+        "prompt_tokens": 43216,
+        "completion_tokens": 35,
+        "total_tokens": 43251
+      },
+      "system_fingerprint": "fp_fa1dad0729"
+    }
+  }
+}

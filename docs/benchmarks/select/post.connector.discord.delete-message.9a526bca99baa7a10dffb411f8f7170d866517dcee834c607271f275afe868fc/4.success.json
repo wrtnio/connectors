@@ -1,0 +1,48 @@
+{
+  "function": {
+    "method": "post",
+    "path": "/connector/discord/delete-message",
+    "name": "connector_discord_delete_message_post",
+    "description": "Delete message"
+  },
+  "keyword": "디스코드 메시지 삭제해줘",
+  "event": {
+    "kind": "success",
+    "started_at": "2024-12-17T10:31:39.558Z",
+    "completed_at": "2024-12-17T10:31:44.507Z",
+    "elapsed": 4949,
+    "completion": {
+      "id": "chatcmpl-AfP9R6BHA8CPvM21pWNry7f4BNTgs",
+      "object": "chat.completion",
+      "created": 1734431493,
+      "model": "gpt-4o-2024-08-06",
+      "choices": [
+        {
+          "index": 0,
+          "message": {
+            "role": "assistant",
+            "content": null,
+            "tool_calls": [
+              {
+                "id": "call_vWB790kIoRylcvM4iYGNSpYq",
+                "type": "function",
+                "function": {
+                  "name": "selectFunction",
+                  "arguments": "{\"method\":\"post\",\"path\":\"/connector/discord/delete-message\",\"name\":\"connector_discord_delete_message_post\"}"
+                }
+              }
+            ]
+          },
+          "logprobs": null,
+          "finish_reason": "stop"
+        }
+      ],
+      "usage": {
+        "prompt_tokens": 43221,
+        "completion_tokens": 30,
+        "total_tokens": 43251
+      },
+      "system_fingerprint": "fp_fa1dad0729"
+    }
+  }
+}

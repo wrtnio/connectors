@@ -1,0 +1,48 @@
+{
+  "function": {
+    "method": "post",
+    "path": "/connector/google-calendar",
+    "name": "connector_google_calendar_post",
+    "description": "Create a Google Calendar"
+  },
+  "keyword": "구글 새 캘린더 만들어줘",
+  "event": {
+    "kind": "success",
+    "started_at": "2024-12-17T09:06:22.288Z",
+    "completed_at": "2024-12-17T09:06:24.026Z",
+    "elapsed": 1738,
+    "completion": {
+      "id": "chatcmpl-AfNou559MsUq6D5Ttrjp77v59K7tl",
+      "object": "chat.completion",
+      "created": 1734426376,
+      "model": "gpt-4o-2024-08-06",
+      "choices": [
+        {
+          "index": 0,
+          "message": {
+            "role": "assistant",
+            "content": null,
+            "tool_calls": [
+              {
+                "id": "call_SFwCp0HaFAWg4JodfA0O2t5A",
+                "type": "function",
+                "function": {
+                  "name": "selectFunction",
+                  "arguments": "{\"method\":\"post\",\"path\":\"/connector/google-calendar\",\"name\":\"connector_google_calendar_post\"}"
+                }
+              }
+            ]
+          },
+          "logprobs": null,
+          "finish_reason": "stop"
+        }
+      ],
+      "usage": {
+        "prompt_tokens": 43221,
+        "completion_tokens": 26,
+        "total_tokens": 43247
+      },
+      "system_fingerprint": "fp_fa1dad0729"
+    }
+  }
+}

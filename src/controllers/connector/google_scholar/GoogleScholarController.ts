@@ -1,6 +1,6 @@
 import core from "@nestia/core";
 import { Controller } from "@nestjs/common";
-import { RouteIcon, Standalone } from "@wrtnio/decorators";
+import { RouteIcon, SelectBenchmark, Standalone } from "@wrtnio/decorators";
 
 import { IGoogleScholar } from "@wrtn/connector-api/lib/structures/connector/google_scholar/IGoogleScholar";
 
@@ -17,6 +17,7 @@ export class GoogleScholarController {
    * @param input Google Scholar paper search criteria
    * @returns Google Scholar paper list
    */
+  @SelectBenchmark("논문 좀 찾아줘")
   @Standalone()
   @core.TypedRoute.Post()
   @RouteIcon(

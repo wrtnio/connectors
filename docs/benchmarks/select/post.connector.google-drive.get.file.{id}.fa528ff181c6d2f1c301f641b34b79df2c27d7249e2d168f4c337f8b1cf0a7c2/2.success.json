@@ -1,0 +1,48 @@
+{
+  "function": {
+    "method": "post",
+    "path": "/connector/google-drive/get/file/{id}",
+    "name": "connector_google_drive_get_file_postById",
+    "description": "Read text from a Google Drive file.\n\nRead text from a file"
+  },
+  "keyword": "드라이브 파일에 텍스트 좀 읽어줘",
+  "event": {
+    "kind": "success",
+    "started_at": "2024-12-17T09:13:44.413Z",
+    "completed_at": "2024-12-17T09:13:48.313Z",
+    "elapsed": 3900,
+    "completion": {
+      "id": "chatcmpl-AfNw2OLlJPDIP6iD6gZD0PqikPpy6",
+      "object": "chat.completion",
+      "created": 1734426818,
+      "model": "gpt-4o-2024-08-06",
+      "choices": [
+        {
+          "index": 0,
+          "message": {
+            "role": "assistant",
+            "content": null,
+            "tool_calls": [
+              {
+                "id": "call_IWSu9AViUvUp4F61LC79bkrU",
+                "type": "function",
+                "function": {
+                  "name": "selectFunction",
+                  "arguments": "{\"method\":\"post\",\"path\":\"/connector/google-drive/get/file/{id}\",\"name\":\"connector_google_drive_get_file_postById\"}"
+                }
+              }
+            ]
+          },
+          "logprobs": null,
+          "finish_reason": "stop"
+        }
+      ],
+      "usage": {
+        "prompt_tokens": 43224,
+        "completion_tokens": 35,
+        "total_tokens": 43259
+      },
+      "system_fingerprint": "fp_fa1dad0729"
+    }
+  }
+}

@@ -1,0 +1,48 @@
+{
+  "function": {
+    "method": "post",
+    "path": "/connector/google-ads/get-ads",
+    "name": "connector_google_ads_get_ads_post",
+    "description": "Retrieves a list of campaign ads.\n\nGet the list of ads from the Google customer account\n\nPass the `customerId` to the user and search for the ads (=ad) in the customer's ad account.\nIf `customerId` is not passed, it will be automatically selected only if there is only one ad account accessible to `Wrtn` from the user.\nAn ad is a node at the end of a tree structure consisting of campaigns, ad groups, and ads, and is a section in charge of materials,\nand is also a unit exposed to end users.\nIf the resource name of an ad group (=adGroup) is passed as an argument, only the ads belonging to that ad group will be searched.\nThe purpose of this connector is to determine whether the user's ad is currently running or not.\nIn the case of `Wrtn` managers, campaigns and ad groups are not changed to `PAUSED` status unless the user directly changes the campaign and ad group status in the Google Ads dashboard.\nTherefore, in general, if the ad status is `ENABLED`, the ad is running, and if it is `PAUSED`, the ad is stopped. Again, the `Wrtn` connector does not change the status of a campaign or ad group.\n\nThis function can also be used to check whether an ad is being properly executed in addition to viewing the ad.\n\nEach ad has an evaluation history for ad review and policy, which exists as a property called `PolicySummary`.\n\nThis property contains whether the ad has been approved, and the `APPROVED` status means that Google has approved the review and determined it is eligible.\n\nYou can change the ad status in `PATCH connector/google-ads/campaigns/ads/status`.\n\nBefore calling the function, you should ask the user for their `customerId`, so you should suggest a connector that can check their `customerId`."
+  },
+  "keyword": "내 구글 광고들 보여줘",
+  "event": {
+    "kind": "failure",
+    "started_at": "2024-12-17T09:35:46.440Z",
+    "completed_at": "2024-12-17T09:35:48.167Z",
+    "elapsed": 1727,
+    "completion": {
+      "id": "chatcmpl-AfOHMCP5RlWDJ4zZ14eFZOGEULlis",
+      "object": "chat.completion",
+      "created": 1734428140,
+      "model": "gpt-4o-2024-08-06",
+      "choices": [
+        {
+          "index": 0,
+          "message": {
+            "role": "assistant",
+            "content": null,
+            "tool_calls": [
+              {
+                "id": "call_aGQXoieTIGXjxN2rXeHBG7hR",
+                "type": "function",
+                "function": {
+                  "name": "selectFunction",
+                  "arguments": "{\"method\":\"post\",\"path\":\"/connector/google-ads/get-customers\",\"name\":\"connector_google_ads_get_customers_post\"}"
+                }
+              }
+            ]
+          },
+          "logprobs": null,
+          "finish_reason": "stop"
+        }
+      ],
+      "usage": {
+        "prompt_tokens": 43219,
+        "completion_tokens": 33,
+        "total_tokens": 43252
+      },
+      "system_fingerprint": "fp_fa1dad0729"
+    }
+  }
+}

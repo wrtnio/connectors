@@ -1,0 +1,48 @@
+{
+  "function": {
+    "method": "post",
+    "path": "/connector/excel/worksheet",
+    "name": "connector_excel_worksheet_post",
+    "description": "Get a list of Excel worksheets that exist in the input file url"
+  },
+  "keyword": "엑셀 시트 읽어줘",
+  "event": {
+    "kind": "failure",
+    "started_at": "2024-12-17T09:02:58.900Z",
+    "completed_at": "2024-12-17T09:03:00.422Z",
+    "elapsed": 1522,
+    "completion": {
+      "id": "chatcmpl-AfNldjf9ZX4ZJCerZvDg5zyGLwPbr",
+      "object": "chat.completion",
+      "created": 1734426173,
+      "model": "gpt-4o-2024-08-06",
+      "choices": [
+        {
+          "index": 0,
+          "message": {
+            "role": "assistant",
+            "content": null,
+            "tool_calls": [
+              {
+                "id": "call_ov0B5bCePP7rk8KRtbe174HN",
+                "type": "function",
+                "function": {
+                  "name": "selectFunction",
+                  "arguments": "{\"method\":\"post\",\"path\":\"/connector/excel/read\",\"name\":\"connector_excel_read_post\"}"
+                }
+              }
+            ]
+          },
+          "logprobs": null,
+          "finish_reason": "stop"
+        }
+      ],
+      "usage": {
+        "prompt_tokens": 43220,
+        "completion_tokens": 27,
+        "total_tokens": 43247
+      },
+      "system_fingerprint": "fp_fa1dad0729"
+    }
+  }
+}

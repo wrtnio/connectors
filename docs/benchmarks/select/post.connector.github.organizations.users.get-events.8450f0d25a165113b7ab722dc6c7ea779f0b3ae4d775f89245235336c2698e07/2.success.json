@@ -1,0 +1,48 @@
+{
+  "function": {
+    "method": "post",
+    "path": "/connector/github/organizations/users/get-events",
+    "name": "connector_github_organizations_users_get_events_post",
+    "description": "Lists organization events for the authenticated user\n\nThis API endpoint retrieves events that have occurred within the organizations\nthe authenticated user is a member of. It includes activities such as issues,\npull requests, commits, and other actions taken within the organization's repositories.\n\nThe events cover all repositories within the organization that the user has access to,\nmaking it useful for tracking the organization's activity or monitoring the progress\nof projects that the user is involved in within the team."
+  },
+  "keyword": "organization에서 특정 유저 이벤트 조회해줘",
+  "event": {
+    "kind": "success",
+    "started_at": "2024-12-17T09:53:59.437Z",
+    "completed_at": "2024-12-17T09:54:03.909Z",
+    "elapsed": 4472,
+    "completion": {
+      "id": "chatcmpl-AfOZ0kAiwfhwiNXkiKddf5jUBieOl",
+      "object": "chat.completion",
+      "created": 1734429234,
+      "model": "gpt-4o-2024-08-06",
+      "choices": [
+        {
+          "index": 0,
+          "message": {
+            "role": "assistant",
+            "content": null,
+            "tool_calls": [
+              {
+                "id": "call_1oQNo5A776lg9BpBli2jOKdx",
+                "type": "function",
+                "function": {
+                  "name": "selectFunction",
+                  "arguments": "{\"method\":\"post\",\"path\":\"/connector/github/organizations/users/get-events\",\"name\":\"connector_github_organizations_users_get_events_post\"}"
+                }
+              }
+            ]
+          },
+          "logprobs": null,
+          "finish_reason": "stop"
+        }
+      ],
+      "usage": {
+        "prompt_tokens": 43221,
+        "completion_tokens": 35,
+        "total_tokens": 43256
+      },
+      "system_fingerprint": "fp_fa1dad0729"
+    }
+  }
+}

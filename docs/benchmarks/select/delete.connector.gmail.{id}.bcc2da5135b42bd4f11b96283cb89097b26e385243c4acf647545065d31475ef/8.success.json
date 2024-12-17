@@ -1,0 +1,48 @@
+{
+  "function": {
+    "method": "delete",
+    "path": "/connector/gmail/{id}",
+    "name": "connector_gmail_eraseById",
+    "description": "Delete GMAIL.\n\nMove mail to trash\n\nGmail is a free web-based email service provided by Google."
+  },
+  "keyword": "메일 삭제해줘",
+  "event": {
+    "kind": "success",
+    "started_at": "2024-12-17T09:17:37.018Z",
+    "completed_at": "2024-12-17T09:17:38.786Z",
+    "elapsed": 1768,
+    "completion": {
+      "id": "chatcmpl-AfNznCTO57u56POoVS2tdDs9y2rMk",
+      "object": "chat.completion",
+      "created": 1734427051,
+      "model": "gpt-4o-2024-08-06",
+      "choices": [
+        {
+          "index": 0,
+          "message": {
+            "role": "assistant",
+            "content": null,
+            "tool_calls": [
+              {
+                "id": "call_oK7zJutFKwgwdQZ2sZPwvnC5",
+                "type": "function",
+                "function": {
+                  "name": "selectFunction",
+                  "arguments": "{\"method\":\"delete\",\"path\":\"/connector/gmail/{id}\",\"name\":\"connector_gmail_eraseById\"}"
+                }
+              }
+            ]
+          },
+          "logprobs": null,
+          "finish_reason": "stop"
+        }
+      ],
+      "usage": {
+        "prompt_tokens": 43216,
+        "completion_tokens": 32,
+        "total_tokens": 43248
+      },
+      "system_fingerprint": "fp_fa1dad0729"
+    }
+  }
+}
