@@ -3,11 +3,13 @@ import { Controller } from "@nestjs/common";
 import { IExternalUser } from "@wrtn/connector-api/lib/structures/common/IExternalUser";
 import { IPage } from "@wrtn/connector-api/lib/structures/common/IPage";
 import { ISpreadsheet } from "@wrtn/connector-api/lib/structures/connector/swal/spreadsheet/ISpreadsheet";
+import { ExperimentalRoute } from "@wrtnio/decorators";
 import { ExternalUser } from "../../../../decorators/ExternalUser";
 import { SpreadsheetProvider } from "../../../../providers/connector/swal/spreadsheet/SpreadsheetProvider";
 
 @Controller("connector/swal/spreadsheets")
 export class SpreadsheetController {
+  @ExperimentalRoute()
   @core.TypedRoute.Patch(":id")
   async at(
     @ExternalUser() external_user: IExternalUser,
@@ -16,6 +18,7 @@ export class SpreadsheetController {
     return SpreadsheetProvider.at(external_user, spreadsheetId);
   }
 
+  @ExperimentalRoute()
   @core.TypedRoute.Patch()
   async index(
     @ExternalUser() external_user: IExternalUser,
@@ -24,6 +27,7 @@ export class SpreadsheetController {
     return SpreadsheetProvider.index(external_user, input);
   }
 
+  @ExperimentalRoute()
   @core.TypedRoute.Post()
   async create(
     @ExternalUser() external_user: IExternalUser,
