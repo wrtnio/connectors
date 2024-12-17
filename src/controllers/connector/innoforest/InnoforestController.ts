@@ -1,6 +1,7 @@
 import { TypedBody, TypedRoute } from "@nestia/core";
 import { Controller } from "@nestjs/common";
 import { IInnoforest } from "@wrtn/connector-api/lib/structures/connector/innoforest/IInnoforest";
+import { SelectBenchmark } from "@wrtnio/decorators";
 import { InnoforestProvider } from "../../../providers/connector/innoforest/InnoforestProvider";
 
 @Controller("connector/innoforest")
@@ -19,6 +20,10 @@ export class InnoforestController {
    *
    * @summary Retrieve all company data from Innoforest
    */
+  @SelectBenchmark("회사 정보 좀 찾아줘")
+  @SelectBenchmark("스타트업 정보 좀 찾아줘")
+  @SelectBenchmark("회사 투자 라운드 좀 알려줘")
+  @SelectBenchmark("혁신의 숲에서 회사 정보 좀 찾아줘")
   @TypedRoute.Post("unify")
   async unify(
     @TypedBody() input: IInnoforest.IUnifyInput,

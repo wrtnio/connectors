@@ -1,6 +1,6 @@
 import core from "@nestia/core";
 import { Controller } from "@nestjs/common";
-import { RouteIcon } from "@wrtnio/decorators";
+import { RouteIcon, SelectBenchmark } from "@wrtnio/decorators";
 
 import { IDallE3 } from "@wrtn/connector-api/lib/structures/connector/dall_e_3/IDallE3";
 
@@ -18,6 +18,8 @@ export class DallE3Controller {
    * @param input Information for image generation
    * @returns URL of the generated image
    */
+  @SelectBenchmark("그림 그려줘")
+  @SelectBenchmark("dall-e로 그림 그려줘")
   @core.TypedRoute.Post("/generate")
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Dall-e3_full.svg",

@@ -1,6 +1,6 @@
 import core from "@nestia/core";
 import { Controller } from "@nestjs/common";
-import { RouteIcon, Standalone } from "@wrtnio/decorators";
+import { RouteIcon, SelectBenchmark, Standalone } from "@wrtnio/decorators";
 
 import { ApiTags } from "@nestjs/swagger";
 import { IGoogleShopping } from "@wrtn/connector-api/lib/structures/connector/google_shopping/IGoogleShopping";
@@ -23,6 +23,7 @@ export class GoogleShoppingAladinController {
    * @param input Search conditions
    * @returns Search results
    */
+  @SelectBenchmark("도서 좀 검색해줘")
   @Standalone()
   @core.TypedRoute.Post("aladine")
   @RouteIcon(

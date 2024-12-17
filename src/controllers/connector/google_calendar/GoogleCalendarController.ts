@@ -1,6 +1,11 @@
 import core from "@nestia/core";
 import { Controller } from "@nestjs/common";
-import { Prerequisite, RouteIcon, Standalone } from "@wrtnio/decorators";
+import {
+  Prerequisite,
+  RouteIcon,
+  SelectBenchmark,
+  Standalone,
+} from "@wrtnio/decorators";
 
 import { IGoogleCalendar } from "@wrtn/connector-api/lib/structures/connector/google_calendar/IGoogleCalendar";
 
@@ -19,6 +24,7 @@ export class GoogleCalendarController {
    * @summary Get a list of Google Calendars
    * @returns A list of Google Calendars
    */
+  @SelectBenchmark("캘린더 리스트 조회해줘")
   @Standalone()
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleCal_full.svg",
@@ -39,6 +45,7 @@ export class GoogleCalendarController {
    * @param input The title of the calendar to be created
    * @returns The unique ID of the calendar and the title of the calendar
    */
+  @SelectBenchmark("구글 새 캘린더 만들어줘")
   @Standalone()
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleCal_full.svg",
@@ -57,6 +64,7 @@ export class GoogleCalendarController {
    * @summary Delete a Google Calendar
    * @param calendarId The unique ID of the calendar to delete
    */
+  @SelectBenchmark("구글 캘린더 중 이거 삭제해줘")
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleCal_full.svg",
   )
@@ -89,6 +97,7 @@ export class GoogleCalendarController {
    * @param input Condition to get the list of events
    * @returns A list of Google Calendar events
    */
+  @SelectBenchmark("캘린더에 등록된 일정 좀 봐줘")
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleCal_full.svg",
   )
@@ -119,6 +128,7 @@ export class GoogleCalendarController {
    * @param calendarId Unique ID of the calendar to add the event to
    * @param input Unique ID of the calendar to add the event to, and the event name
    */
+  @SelectBenchmark("구글 캘린더에 이벤트 하나 생성해줘")
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleCal_full.svg",
   )
@@ -150,6 +160,7 @@ export class GoogleCalendarController {
    * @param input Information for adding the event
    * @returns Information about the added event
    */
+  @SelectBenchmark("구글 캘린더에 이벤트 하나 생성해줘")
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleCal_full.svg",
   )
@@ -182,6 +193,7 @@ export class GoogleCalendarController {
    * @param input The event information to update
    * @returns The updated event information
    */
+  @SelectBenchmark("구글 캘린더에 이벤트 하나 수정해줘")
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleCal_full.svg",
   )
@@ -224,6 +236,7 @@ export class GoogleCalendarController {
    * @param input List of email addresses of attendees to add
    * @returns Event information with attendees added
    */
+  @SelectBenchmark("구글 캘린더에 이벤트 참석자 추가해줘")
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleCal_full.svg",
   )
@@ -269,6 +282,7 @@ export class GoogleCalendarController {
    * @param calendarId The unique ID of the calendar that contains the event
    * @param eventId The unique ID of the event to delete
    */
+  @SelectBenchmark("구글 캘린더에 일정 지워줘")
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleCal_full.svg",
   )

@@ -1,6 +1,6 @@
 import core from "@nestia/core";
 import { Controller } from "@nestjs/common";
-import { RouteIcon } from "@wrtnio/decorators";
+import { RouteIcon, SelectBenchmark } from "@wrtnio/decorators";
 
 import { ApiTags } from "@nestjs/swagger";
 import { IDiscord } from "@wrtn/connector-api/lib/structures/connector/discord/IDiscord";
@@ -17,6 +17,8 @@ export class DiscordController {
    * @param input
    * @returns Channel information
    */
+  @SelectBenchmark("디스코드 DM 채널 만들어줘")
+  @SelectBenchmark("DM 채널 만들어줘")
   @core.TypedRoute.Post("create-dm")
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/discord.svg",
@@ -35,6 +37,7 @@ export class DiscordController {
    * @param input
    * @returns Modified server information
    */
+  @SelectBenchmark("길드 수정해줘")
   @core.TypedRoute.Post("modify-guild")
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/discord.svg",
@@ -53,6 +56,7 @@ export class DiscordController {
    * @param input
    * @returns List of channels
    */
+  @SelectBenchmark("길드 채널 조회해줘")
   @core.TypedRoute.Post("get-guild-channels")
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/discord.svg",
@@ -71,6 +75,7 @@ export class DiscordController {
    * @param input
    * @returns Created channel information
    */
+  @SelectBenchmark("길드 채널 생성해줘")
   @core.TypedRoute.Post("create-guild-channel")
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/discord.svg",
@@ -89,6 +94,7 @@ export class DiscordController {
    * @param input
    * @returns List of server members
    */
+  @SelectBenchmark("길드 멤버 조회해줘")
   @core.TypedRoute.Post("get-list-guild-members")
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/discord.svg",
@@ -109,6 +115,8 @@ export class DiscordController {
    *
    * @internal
    */
+  @SelectBenchmark("길드 멤버 지워줘")
+  @SelectBenchmark("길드 멤버 추방해줘")
   @core.TypedRoute.Post("remove-guild-member")
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/discord.svg",
@@ -127,6 +135,9 @@ export class DiscordController {
    * @param input
    * @returns Modified channel information
    */
+  @SelectBenchmark("채널 수정해줘")
+  @SelectBenchmark("채널 정보 수정해줘")
+  @SelectBenchmark("디스코드 채널 정보 수정해줘")
   @core.TypedRoute.Post("modify-channel")
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/discord.svg",
@@ -145,6 +156,8 @@ export class DiscordController {
    * @param input
    * @returns
    */
+  @SelectBenchmark("채널 삭제해줘")
+  @SelectBenchmark("디스코드 채널 삭제해줘")
   @core.TypedRoute.Post("delete-channel")
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/discord.svg",
@@ -163,6 +176,8 @@ export class DiscordController {
    * @param input
    * @returns a list of pinned messages
    */
+  @SelectBenchmark("핀꽂은 메세지만 조회해줘")
+  @SelectBenchmark("디스코드 메세지 고정해둔 것들 조회해줘")
   @core.TypedRoute.Post("get-pinned-messages")
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/discord.svg",
@@ -181,6 +196,8 @@ export class DiscordController {
    * @param input
    * @returns
    */
+  @SelectBenchmark("메시지 고정해줘")
+  @SelectBenchmark("디스코드 메시지 고정해줘")
   @core.TypedRoute.Post("pin-message")
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/discord.svg",
@@ -199,6 +216,8 @@ export class DiscordController {
    * @param input
    * @returns
    */
+  @SelectBenchmark("메시지 고정 해제해줘")
+  @SelectBenchmark("디스코드 메시지 고정 해제해줘")
   @core.TypedRoute.Post("unpin-message")
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/discord.svg",
@@ -217,6 +236,8 @@ export class DiscordController {
    * @param input
    * @returns List of messages
    */
+  @SelectBenchmark("메시지 조회해줘")
+  @SelectBenchmark("디스코드 메시지 조회해줘")
   @core.TypedRoute.Post("get-channel-message-histories")
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/discord.svg",
@@ -237,6 +258,8 @@ export class DiscordController {
    * @param input
    * @returns The generated message
    */
+  @SelectBenchmark("메시지 보내줘")
+  @SelectBenchmark("디스코드 메시지 보내줘")
   @core.TypedRoute.Post("create-message")
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/discord.svg",
@@ -255,6 +278,8 @@ export class DiscordController {
    * @param input
    * @returns Modified message
    */
+  @SelectBenchmark("메시지 수정해줘")
+  @SelectBenchmark("디스코드 메시지 수정해줘")
   @core.TypedRoute.Post("edit-message")
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/discord.svg",
@@ -273,6 +298,12 @@ export class DiscordController {
    * @param input
    * @returns
    */
+  @SelectBenchmark("메시지 삭제해줘")
+  @SelectBenchmark("메시지 취소해줘")
+  @SelectBenchmark("메시지 전송 취소해줘")
+  @SelectBenchmark("디스코드 메시지 삭제해줘")
+  @SelectBenchmark("디스코드 메시지 취소해줘")
+  @SelectBenchmark("디스코드 메시지 전송 취소해줘")
   @core.TypedRoute.Post("delete-message")
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/discord.svg",
@@ -291,6 +322,12 @@ export class DiscordController {
    * @param input
    * @returns
    */
+  @SelectBenchmark("메시지 삭제해줘")
+  @SelectBenchmark("메시지 취소해줘")
+  @SelectBenchmark("메시지 전송 취소해줘")
+  @SelectBenchmark("디스코드 메시지 삭제해줘")
+  @SelectBenchmark("디스코드 메시지 취소해줘")
+  @SelectBenchmark("디스코드 메시지 전송 취소해줘")
   @core.TypedRoute.Post("bulk-delete-message")
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/discord.svg",
