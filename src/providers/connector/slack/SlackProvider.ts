@@ -273,17 +273,11 @@ export class SlackProvider {
 
     const im_channels = await this.__getAllImChannels(input);
 
-    const members = userIds
-      .map((userId) => {
-        const member = allMembers.find((el) => el.id === userId);
-        const im_channel = im_channels.find((el) => el.user === userId);
-
-        return { ...member, im_channel_id: im_channel?.id ?? null };
-      })
-      .filter(Boolean) as Pick<
-      ISlack.IGetUserOutput,
-      "id" | "display_name" | "im_channel_id"
-    >[];
+    const members = this.getMemebers({
+      userIds,
+      allMembers,
+      im_channels,
+    });
 
     return {
       replies,
@@ -599,17 +593,11 @@ export class SlackProvider {
 
     const im_channels = await this.__getAllImChannels(input);
 
-    const members = userIds
-      .map((userId) => {
-        const member = allMembers.find((el) => el.id === userId);
-        const im_channel = im_channels.find((el) => el.user === userId);
-
-        return { ...member, im_channel_id: im_channel?.id ?? null };
-      })
-      .filter(Boolean) as Pick<
-      ISlack.IGetUserOutput,
-      "id" | "display_name" | "im_channel_id"
-    >[];
+    const members = this.getMemebers({
+      userIds,
+      allMembers,
+      im_channels,
+    });
 
     return {
       messages,
@@ -703,17 +691,11 @@ export class SlackProvider {
 
     const im_channels = await this.__getAllImChannels(input);
 
-    const members = userIds
-      .map((userId) => {
-        const member = allMembers.find((el) => el.id === userId);
-        const im_channel = im_channels.find((el) => el.user === userId);
-
-        return { ...member, im_channel_id: im_channel?.id ?? null };
-      })
-      .filter(Boolean) as Pick<
-      ISlack.IGetUserOutput,
-      "id" | "display_name" | "im_channel_id"
-    >[];
+    const members = this.getMemebers({
+      userIds,
+      allMembers,
+      im_channels,
+    });
 
     return {
       messages,
@@ -722,6 +704,26 @@ export class SlackProvider {
       usergroups: includedUsergroups ?? [],
       channel: await this.getChannelName(input),
     }; // next_cursor가 빈 문자인 경우 대비
+  }
+
+  getMemebers(input: {
+    userIds: (string | null)[];
+    allMembers: StrictOmit<ISlack.IGetUserOutput, "fields">[];
+    im_channels: ISlack.ImChannel[];
+  }) {
+    const members = input.userIds
+      .map((userId) => {
+        const member = input.allMembers.find((el) => el.id === userId);
+        const im_channel = input.im_channels.find((el) => el.user === userId);
+
+        return { ...member, im_channel_id: im_channel?.id ?? null };
+      })
+      .filter(Boolean) as Pick<
+      ISlack.IGetUserOutput,
+      "id" | "display_name" | "im_channel_id"
+    >[];
+
+    return members;
   }
 
   async getAllPrivateChannels(input: { secretKey: string }) {
