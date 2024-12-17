@@ -9,6 +9,7 @@ import OpenAI from "openai";
 import typia from "typia";
 import { IFunctionSelectBenchmarkEvent } from "./IFunctionSelectBenchmarkEvent";
 import { ConnectorGlobal } from "../../../src/ConnectorGlobal";
+import { IFunctionSelectBenchmarkApplication } from "./IFunctionSelectBenchmarkApplication";
 
 export class FunctionSelectBenchmarkExecutor {
   private default_prompts_: OpenAI.ChatCompletionMessageParam[];
@@ -89,11 +90,12 @@ export class FunctionSelectBenchmarkExecutor {
         },
       );
 
-    const endpoints: IOperationEndpoint[] = completion.choices
-      .map((choice) => choice.message.tool_calls ?? [])
-      .flat()
-      .filter((call) => call.function.name === "selectFunction")
-      .map((call) => JSON.parse(call.function.arguments));
+    const endpoints: IFunctionSelectBenchmarkApplication.IEndpoint[] =
+      completion.choices
+        .map((choice) => choice.message.tool_calls ?? [])
+        .flat()
+        .filter((call) => call.function.name === "selectFunction")
+        .map((call) => JSON.parse(call.function.arguments));
     const found: IHttpLlmFunction<"chatgpt"> | null = endpoints.find(
       (e) =>
         e.method === func.method &&
@@ -179,56 +181,6 @@ const getDefaultPrompts = (
 ];
 
 const metaApp: ILlmApplication<"chatgpt"> = typia.llm.application<
-  ISelectApplication,
+  IFunctionSelectBenchmarkApplication,
   "chatgpt"
 >();
-
-interface ISelectApplication {
-  /**
-   * Get list of API functions.
-   *
-   * If agent or user want to list up every remote API functions that
-   * can be called from the backend server, utilize this function.
-   */
-  getApiFunctions(p: {}): IOperationMetadata[];
-
-  /**
-   * Select proper API function to execute.
-   *
-   * If you can find some proper API function to call by analyzing the user's
-   * conversation, please select the API endpoint by utilizing this function.
-   *
-   * @param props Properties of the function
-   */
-  selectFunction(props: IOperationEndpoint): void;
-
-  /**
-   * Go to the next conversation.
-   *
-   * If there's nothing to remotely call to the API function from the user's
-   * conversation, just call this function to keep going the next conversation.
-   */
-  next(p: {}): void;
-}
-
-type IOperationMetadata = Pick<
-  IHttpLlmFunction<"chatgpt">,
-  "method" | "path" | "name" | "description"
->;
-
-interface IOperationEndpoint {
-  /**
-   * Method of the API function.
-   */
-  method: string;
-
-  /**
-   * Path of the API function.
-   */
-  path: string;
-
-  /**
-   * Representative name of the API function.
-   */
-  name: string;
-}
