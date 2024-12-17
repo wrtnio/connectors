@@ -48,7 +48,11 @@ export class GoogleDocsController {
   /**
    * Generate Google Docs
    *
-   * Since this is creating a blank page, we recommend that you use connectors that add the content of google-docs in a row.
+   * Since this is creating a blank page, we recommend that you use
+   * connectors that add the content of google-docs in a row.
+   * Alternatively, we recommend using a different connector because
+   * there are other connectors that have the ability to generate
+   * documents with markdown.
    *
    * @summary Generate Google Docs
    * @param input Title of Google Docs to generate
@@ -62,7 +66,7 @@ export class GoogleDocsController {
   @core.TypedRoute.Post()
   async createDocs(
     @core.TypedBody() input: IGoogleDocs.ICreateGoogleDocsInput,
-  ): Promise<IGoogleDocs.ICreateGoogleDocsOutput> {
+  ): Promise<IGoogleDocs.ICreateEmptyFileOutput> {
     return retry(() => this.googleDocsProvider.createDocs(input))();
   }
 
