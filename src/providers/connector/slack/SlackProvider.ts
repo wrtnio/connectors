@@ -337,7 +337,9 @@ export class SlackProvider {
   async getUserDetails(
     input: ISlack.IGetUserDetailInput,
   ): Promise<ISlack.IGetUserDetailOutput[]> {
-    const response = [];
+    const response: ISlack.IGetUserDetailOutput[] = [];
+
+    const im_channels = await this.__getAllImChannels(input);
 
     const fetch = async (userId: string) => {
       const url = `https://slack.com/api/users.profile.get?include_labels=true&user=${userId}`;
@@ -363,8 +365,16 @@ export class SlackProvider {
     };
 
     for await (const userId of input.userIds) {
-      const fetched = await retry(() => fetch(userId))();
-      response.push({ ...fetched, id: userId });
+      const fetched: StrictOmit<ISlack.IGetUserDetailOutput, "im_channel_id"> =
+        await retry(() => fetch(userId))();
+
+      const im_channel = im_channels.find((channel) => channel.user === userId);
+
+      response.push({
+        ...fetched,
+        id: userId,
+        im_channel_id: im_channel?.id ?? null,
+      });
     }
 
     return response;
@@ -390,6 +400,7 @@ export class SlackProvider {
     type User = StrictOmit<ISlack.IGetUserOutput, "fields">;
     const users: User[] = res.data.members.map((el: ISlack.User): User => {
       const im_channel = im_channels.find((channel) => channel.user === el.id);
+
       return {
         id: el.id,
         slack_team_id: el.team_id,

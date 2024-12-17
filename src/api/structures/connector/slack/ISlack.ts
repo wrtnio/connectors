@@ -339,7 +339,7 @@ export namespace ISlack {
    */
   export type IGetUserDetailOutput = StrictOmit<
     IGetUserOutput,
-    "name" | "deleted" | "profile_image" | "slack_team_id" | "im_channel_id"
+    "name" | "deleted" | "profile_image" | "slack_team_id"
   >;
 
   /**
@@ -894,6 +894,11 @@ export namespace ISlack {
      * @title channel owner's id
      */
     user: User["id"];
+
+    /**
+     * @title channel owner's team id
+     */
+    context_team_id: string;
 
     /**
      * @title username
