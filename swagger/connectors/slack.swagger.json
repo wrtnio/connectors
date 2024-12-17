@@ -18,7 +18,7 @@
     "title": "Slack",
     "summary": "슬랙에서 대화 내용을 가져오거나 메시지를 보낼 수 있어요.",
     "description": "슬랙에서 우리 멤버들이 어떤 주제를 가지고 논의를 하는지 확인해요. 우리 워크스페이스에 있는 유저 그룹이나 동료의 프로필을 확인할 수도 있고, 동료에게 말을 걸 수도 있고, 채널에 메세지를 보내고, 또 답글을 달 수도 있어요.",
-    "version": "0.1.412",
+    "version": "0.1.413",
     "license": {
       "name": "AGPL-3.0-only"
     }
@@ -351,7 +351,7 @@
     "/connector/slack/get-users": {
       "post": {
         "summary": "Look up the list of users",
-        "description": "Look up the list of users.\n\nUsers include bots and refer to all users in the team who are looking up.\nHere, you can look up the user's ID and name, the name the user wanted to display, the profile image, and whether the user has been deleted.\nIf you look up the user here, you can send a message to your colleagues on a specific direct channel, such as an `im` ( = channel type. )\n\nThis connector is essential because the `im` channel query only shows the user's ID and does not know who the direct channel is talking to.\n\nThe user has a separate display name.\nA display name is a name that the user has chosen to show.\nTherefore, it would be best to use this name as a courtesy.",
+        "description": "Look up the list of users.\n\nUsers include bots and refer to all users in the team who are looking up.\nHere, you can look up the user's ID and name, the name the user wanted to display, the profile image, and whether the user has been deleted.\nIf you look up the user here, you can send a message to your colleagues on a specific direct channel, such as an `im` ( = channel type. )\n\nThis connector is essential because the `im` channel query only shows the user's ID and does not know who the direct channel is talking to.\n\nThe user has a separate display name.\nA display name is a name that the user has chosen to show.\nTherefore, it would be best to use this name as a courtesy.\n\nIt can look up Slack users, but it can look up the entire user through pagenation.\nThere could be hundreds of people in the company, so you'll have to look at multiple pages.",
         "tags": [
           "Slack"
         ],
@@ -1333,7 +1333,7 @@
               }
             ],
             "title": "next_cursor",
-            "description": "If the following data exist, the cursor value exists.\nIf you want to see the next data from these data,\nyou can pass this value to the next request condition, `cursor`."
+            "description": "Cursor for pagination\n\nIf the following data exist, the cursor value exists.\nIf you want to see the next data from these data,\nyou can pass this value to the next request condition, `cursor`."
           }
         },
         "required": [
@@ -1572,7 +1572,7 @@
               }
             ],
             "title": "next_cursor",
-            "description": "If the following data exist, the cursor value exists.\nIf you want to see the next data from these data,\nyou can pass this value to the next request condition, `cursor`."
+            "description": "Cursor for pagination\n\nIf the following data exist, the cursor value exists.\nIf you want to see the next data from these data,\nyou can pass this value to the next request condition, `cursor`."
           }
         },
         "required": [
@@ -1769,7 +1769,7 @@
               }
             ],
             "title": "next_cursor",
-            "description": "If the following data exist, the cursor value exists.\nIf you want to see the next data from these data,\nyou can pass this value to the next request condition, `cursor`."
+            "description": "Cursor for pagination\n\nIf the following data exist, the cursor value exists.\nIf you want to see the next data from these data,\nyou can pass this value to the next request condition, `cursor`."
           }
         },
         "required": [
@@ -2220,7 +2220,7 @@
               }
             ],
             "title": "next_cursor",
-            "description": "If the following data exist, the cursor value exists.\nIf you want to see the next data from these data,\nyou can pass this value to the next request condition, `cursor`."
+            "description": "Cursor for pagination\n\nIf the following data exist, the cursor value exists.\nIf you want to see the next data from these data,\nyou can pass this value to the next request condition, `cursor`."
           }
         },
         "required": [
@@ -2386,7 +2386,7 @@
               }
             ],
             "title": "next_cursor",
-            "description": "If the following data exist, the cursor value exists.\nIf you want to see the next data from these data,\nyou can pass this value to the next request condition, `cursor`."
+            "description": "Cursor for pagination\n\nIf the following data exist, the cursor value exists.\nIf you want to see the next data from these data,\nyou can pass this value to the next request condition, `cursor`."
           }
         },
         "required": [
