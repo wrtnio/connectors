@@ -459,6 +459,7 @@ export const test_api_connector_slack_get_channel_link_histories = async (
     );
 
   assert(res.messages.length > 0);
+  assert(res.members.every((el) => typeof el.im_channel_id === "string"));
   typia.assert(res);
 
   assert(
