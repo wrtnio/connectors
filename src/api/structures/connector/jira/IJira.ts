@@ -157,9 +157,9 @@ export namespace IJira {
       "id" | "author" | "created" | "updated" | "updateAuthor"
     > & {
       /**
-       * @title Content of This Arti
+       * @title Content of This Comments
        */
-      body: object;
+      body: any;
     })[];
   }
 
@@ -1239,12 +1239,34 @@ export namespace IJira {
       /**
        * @title Comment Infomation and Pagination Metadata
        */
-      comment: object;
+      comment: {
+        /**
+         * @title Number of comments viewed at one time
+         */
+        maxResults: number;
+
+        /**
+         * @title Total count of comments
+         */
+        total: number;
+
+        /**
+         * The index of the first item to return in a page of results (page offset).
+         *
+         * @title page offset
+         */
+        startAt: number;
+
+        /**
+         * @title list of comments
+         */
+        comments: any[];
+      };
 
       /**
        * @title Description of Issue
        */
-      description: null | object;
+      description: null | any;
     };
   }
 
@@ -1487,7 +1509,7 @@ export namespace IJira {
       /**
        * @title representation of the link
        */
-      data?: object;
+      data?: any;
     };
   };
 
