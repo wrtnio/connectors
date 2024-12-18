@@ -16,8 +16,8 @@ export class GoogleShoppingYesTwentyFourController {
   /**
    * Search for products on yes24
    * yes24 is a service that allows you to purchase books.
-   * Only one item should be requested per request.
-   * This connector only processes one search term at a time, so if you want to search for multiple terms, you will need to call this connector separately for each search term.
+   * Only one keyword should be requested per request.
+   * For example, If you use "novel book" and "fairy tale book" as keywords, you must make two requests, each with separate keywords.
    *
    * @summary yes24 search
    * @param input search conditions

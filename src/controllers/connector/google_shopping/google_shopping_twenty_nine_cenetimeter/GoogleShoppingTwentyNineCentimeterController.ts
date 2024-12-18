@@ -16,8 +16,8 @@ export class GoogleShoppingTwentyNineCentimeterController {
   /**
    * Search for products from 29cm
    * 29cm is a service that allows you to purchase clothes or shoes.
-   * Only one item should be requested per request.
-   * This connector only processes one search term at a time, so if you want to search for multiple terms, you will need to call this connector separately for each search term.
+   * Only one keyword should be requested per request.
+   * For example, If you use "shirts" and "pants" as keywords, you must make two requests, each with separate keywords.
    *
    *
    * @summary 29cm search
