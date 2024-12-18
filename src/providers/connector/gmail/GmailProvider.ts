@@ -394,6 +394,9 @@ export class GmailProvider {
       "",
       `--${boundary}`,
       `Content-Type: text/html; charset=utf-8`,
+      "",
+      input.body,
+      "",
     ];
 
     if (input.files?.length) {
