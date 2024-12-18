@@ -152,10 +152,15 @@ export namespace IJira {
     /**
      * @title comments
      */
-    comments: MyPick<
+    comments: (MyPick<
       IJira.Comment,
-      "id" | "author" | "body" | "created" | "updated" | "updateAuthor"
-    >[];
+      "id" | "author" | "created" | "updated" | "updateAuthor"
+    > & {
+      /**
+       * @title Content of This Arti
+       */
+      body: object;
+    })[];
   }
 
   export interface IGetCommentInput
@@ -1230,7 +1235,17 @@ export namespace IJira {
     /**
      * @title Details of the issue
      */
-    fields: DetailedIssueField;
+    fields: StrictOmit<DetailedIssueField, "comment" | "description"> & {
+      /**
+       * @title Comment Infomation and Pagination Metadata
+       */
+      comment: object;
+
+      /**
+       * @title Description of Issue
+       */
+      description: null | object;
+    };
   }
 
   /**
