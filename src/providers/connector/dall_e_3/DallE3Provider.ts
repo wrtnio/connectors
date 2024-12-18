@@ -14,7 +14,6 @@ import { AwsProvider } from "../aws/AwsProvider";
 @Injectable()
 export class DallE3Provider {
   constructor(
-    private awsProvider: AwsProvider,
     private openAIProvider: OpenAIProvider,
     private httpService: HttpService,
   ) {}
@@ -41,7 +40,7 @@ export class DallE3Provider {
 
   async uploadDallE3ToS3(img: Buffer) {
     try {
-      const imgUrl = await this.awsProvider.uploadObject({
+      const imgUrl = await AwsProvider.uploadObject({
         key: `connector/generate-DallE3-node/dall-e-3/${v4()}`,
         data: img,
         contentType: "image/png",

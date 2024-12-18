@@ -1,10 +1,12 @@
+import { PutObjectCommand, S3Client } from "@aws-sdk/client-s3";
 import { PrismaClient } from "@prisma/client";
 import axios from "axios";
 import dotenv from "dotenv";
 import dotenvExpand from "dotenv-expand";
 import { Singleton } from "tstl";
 import typia, { tags } from "typia";
-import { AwsProvider } from "./providers/connector/aws/AwsProvider";
+import { IAws } from "./api/structures/connector/aws/IAws";
+// import { AwsProvider } from "./providers/connector/aws/AwsProvider";
 
 export class ConnectorGlobal {
   public static readonly prisma: PrismaClient = new PrismaClient();
@@ -29,7 +31,28 @@ export class ConnectorGlobal {
     });
 
     const data = Buffer.from(JSON.stringify(parsed), "utf-8");
-    await AwsProvider.uploadObject({ key, data, contentType: "plain/text" });
+
+    // copied AWS Provider's uploadObject
+    async function uploadObject(input: IAws.IUploadObjectInput) {
+      const { data, contentType } = input;
+      const putObjectConfig = new PutObjectCommand({
+        Bucket: ConnectorGlobal.env.AWS_S3_BUCKET,
+        Key: input.key,
+        Body: data,
+        ContentType: contentType,
+      });
+
+      await new S3Client({
+        region: "ap-northeast-2",
+        maxAttempts: 3,
+        credentials: {
+          accessKeyId: ConnectorGlobal.env.AWS_ACCESS_KEY_ID,
+          secretAccessKey: ConnectorGlobal.env.AWS_SECRET_ACCESS_KEY,
+        },
+      }).send(putObjectConfig);
+    }
+
+    await uploadObject({ key, data, contentType: "plain/text" });
 
     return await this.reload();
   }

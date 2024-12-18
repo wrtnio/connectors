@@ -13,8 +13,6 @@ import { AwsProvider } from "../aws/AwsProvider";
 
 @Injectable()
 export class CsvProvider {
-  constructor(private readonly awsProvider: AwsProvider) {}
-
   async read(input: ICsv.IReadInput): Promise<ICsv.IReadOutput> {
     try {
       const { s3Url, delimiter } = input;
@@ -22,7 +20,9 @@ export class CsvProvider {
 
       const body: string = await (async (): Promise<string> => {
         if (match) {
-          return (await this.awsProvider.getObject(match[0])).toString("utf-8");
+          return (await AwsProvider.getObject({ filename: match[0] })).toString(
+            "utf-8",
+          );
         } else {
           const response: Response = await fetch(s3Url);
           return response.text();
@@ -42,13 +42,11 @@ export class CsvProvider {
   }
 
   async write(input: ICsv.IWriteInput): Promise<ICsv.IWriteOutput> {
-    const { values, fileName, delimiter } = input;
+    const { values, fileName: filename, delimiter } = input;
     let existValues = [];
     try {
       const response =
-        (await this.awsProvider.getObjectByFileName(fileName)).toString(
-          "utf-8",
-        ) || "";
+        (await AwsProvider.getObject({ filename })).toString("utf-8") || "";
       existValues = parse(response, {
         columns: true,
         delimiter: delimiter,
@@ -72,7 +70,7 @@ export class CsvProvider {
             const bufferContent = csvBuffer.getContents() || Buffer.from("");
 
             await AwsProvider.uploadObject({
-              key: fileName,
+              key: filename,
               data: bufferContent,
               contentType: "text/csv",
             });
@@ -85,7 +83,7 @@ export class CsvProvider {
     );
     // TODO: override bucket
     return {
-      s3Url: `https://${ConnectorGlobal.env.AWS_S3_BUCKET}.s3.amazonaws.com/${fileName}`,
+      s3Url: `https://${ConnectorGlobal.env.AWS_S3_BUCKET}.s3.amazonaws.com/${filename}`,
     };
   }
 
@@ -96,8 +94,8 @@ export class CsvProvider {
     const match = s3Url.match(AwsProvider.S3BucketURL);
     if (!match) throw new Error("Invalid S3 URL");
 
-    const fileName = match[3];
-    const s3Buffer = await this.awsProvider.getObjectByFileName(fileName);
+    const filename = match[3];
+    const s3Buffer = await AwsProvider.getObject({ filename: filename });
 
     // Buffer를 스트림으로 변환
     const s3Stream = new Readable();
@@ -109,7 +107,7 @@ export class CsvProvider {
     const worksheet = workbook.addWorksheet("Sheet1");
     let headers;
 
-    const key = `${fileName.split(".").slice(0, -1).join(".")}.xlsx`;
+    const key = `${filename.split(".").slice(0, -1).join(".")}.xlsx`;
 
     await new Promise<void>((resolve, reject) => {
       try {
@@ -134,7 +132,7 @@ export class CsvProvider {
               contentType:
                 "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
             };
-            await this.awsProvider.uploadObject(uploadParams);
+            await AwsProvider.uploadObject(uploadParams);
             resolve();
           });
       } catch (err) {

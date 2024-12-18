@@ -30,7 +30,6 @@ import { AwsProvider } from "../aws/AwsProvider";
 export class RagProvider {
   private readonly ragServer = ConnectorGlobal.env.RAG_SERVER_URL;
   private readonly logger = new Logger("RagProvider");
-  constructor(private readonly awsProvider: AwsProvider) {}
 
   /**
    * s3 url transform to presigned url
@@ -49,7 +48,7 @@ export class RagProvider {
     if (!matches) {
       return fileUrl;
     }
-    const transFormedUrl = await this.awsProvider.getGetObjectUrl(matches[0]);
+    const transFormedUrl = await AwsProvider.getGetObjectUrl(matches[0]);
     return transFormedUrl as string &
       tags.Format<"uri"> &
       tags.ContentMediaType<"application/pdf, application/vnd.openxmlformats-officedocument.wordprocessingml.document, application/vnd.hancom.hwp, text/plain, text/html">;
@@ -123,7 +122,7 @@ export class RagProvider {
         const replacedUrl = await this.saveAndReturns(file);
         url = await this.transformInput(replacedUrl);
         //파일 크기 5MB 이하로 제한
-        const fileSize = await this.awsProvider.getFileSize(url);
+        const fileSize = await AwsProvider.getFileSize(url);
         if (fileSize > 5 * 1024 * 1024) {
           throw new BadRequestException("파일 크기가 5MB 보다 큽니다.");
         }

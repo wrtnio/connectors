@@ -6,7 +6,7 @@ import { RagProvider } from "../../../../../src/providers/connector/rag/RagProvi
 
 export async function test_aws_provider_upload_object() {
   const buffer = Buffer.from(JSON.stringify([]), "utf-8");
-  const uploaded = await new AwsProvider().uploadObject({
+  const uploaded = await AwsProvider.uploadObject({
     contentType: "text/plain; charset=utf-8;",
     key: "TES NAME",
     data: buffer,
@@ -36,7 +36,7 @@ export async function test_api_connector_github_upload_repo(
       key: `connector/github/upload-test/${filename}`,
     });
 
-    const ragProvider = new RagProvider(new AwsProvider());
+    const ragProvider = new RagProvider();
     const transformedUrl = await ragProvider.transformInput(url);
 
     try {

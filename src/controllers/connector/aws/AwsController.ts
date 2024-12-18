@@ -9,7 +9,6 @@ import { retry } from "../../../utils/retry";
 
 @Controller("connector/aws")
 export class AwsController {
-  constructor(private readonly awsProvider: AwsProvider) {}
   /**
    * Generate the URL required to upload a file
    *
@@ -22,6 +21,6 @@ export class AwsController {
   async getUploadUrl(
     @core.TypedQuery() extension: IAws.IGetPutObjectUrlInput,
   ): Promise<IAws.IGetPutObjectUrlOutput> {
-    return retry(() => this.awsProvider.getPutObjectUrl(extension))();
+    return retry(() => AwsProvider.getPutObjectUrl(extension))();
   }
 }
