@@ -392,9 +392,17 @@ export class GmailProvider {
       this.encodeHeaderFieldForKorean("Subject", input.subject),
       `Content-Type: multipart/mixed; boundary="${boundary}"`, // 파일이 들어갈지도 모르기 때문에 multipart/mixed로 수정, 바운더리 기호 명시
       "",
-      `--${boundary}`,
-      `Content-Type: text/html; charset=utf-8`,
     ];
+
+    if (input.body) {
+      emailLines.push(
+        `--${boundary}`,
+        `Content-Type: text/html; charset=utf-8`,
+        "",
+        input.body,
+        "",
+      );
+    }
 
     if (input.files?.length) {
       for await (const { filename, fileUrl } of input.files) {
@@ -413,8 +421,9 @@ export class GmailProvider {
 
         emailLines.push(...filePart);
       }
-      emailLines.push(`--${boundary}--`); // 모든 파일이 입력된 후 바운더리를 추가로 입력하여 바운더리 사이에 파일이 위치하도록 한다.
     }
+
+    emailLines.push(`--${boundary}--`); // 모든 파일 및 내용이 입력된 후 바운더리를 추가로 입력하여 바운더리 사이에 파일이 위치하도록 한다.
 
     /**
      * 참조 대상 있는 경우 헤더에 추가
