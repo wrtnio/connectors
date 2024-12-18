@@ -52,7 +52,7 @@ export class CsvProvider {
         delimiter: delimiter,
       });
     } catch (err: unknown) {
-      if ((err as any).code !== "NoSuchKey") {
+      if ((err as any).Code !== "NoSuchKey") {
         console.error("Error reading file:", err);
         throw err;
       }
