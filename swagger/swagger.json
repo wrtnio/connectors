@@ -15,7 +15,7 @@
     }
   ],
   "info": {
-    "version": "0.1.418",
+    "version": "0.1.419",
     "title": "@wrtn/connector",
     "description": "wrtn-ecosystem connectors and sdk",
     "license": {
@@ -37477,6 +37477,18 @@
             "title": "User ID",
             "description": "Indicates the ID of the user.\nThis is different from the ID of the DM channel, or IM Channel.\nDM is a communication channel with people in that channel,\nand even if it is 1:1 the user has multiple DM channels,\nso it is not possible to say that the user's ID is a DM channel."
           },
+          "im_channel_id": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "title": "im_channel_id",
+            "description": "If a user wants to send a DM message to another user,\nthey need to find a channel in im channels that matches their username.\nAnd call the message sending connector.\nHowever, since the purpose of looking up a user is usually to get information about the user or to send a message to the user,\nthis specification is extended to provide the DM channel (= IM channel) ID of the two users in this property when looking up a user.\nIf this value is 'null', then the user's im_channel_id was not found."
+          },
           "display_name": {
             "oneOf": [
               {
@@ -37516,6 +37528,7 @@
         "required": [
           "fields",
           "id",
+          "im_channel_id",
           "display_name",
           "real_name"
         ],
@@ -37749,9 +37762,10 @@
           "members": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/MyPickISlack.IGetUserOutputiddisplay_name"
+              "$ref": "#/components/schemas/MyPickISlack.IGetUserOutputidim_channel_iddisplay_name"
             },
-            "title": "members\n\nThis is a list of people who participated in the conversation in this conversation list."
+            "title": "members",
+            "description": "This is a list of people who participated in the conversation in this conversation list."
           },
           "usergroups": {
             "type": "array",
@@ -37896,13 +37910,25 @@
           "links"
         ]
       },
-      "MyPickISlack.IGetUserOutputiddisplay_name": {
+      "MyPickISlack.IGetUserOutputidim_channel_iddisplay_name": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string",
             "title": "User ID",
             "description": "Indicates the ID of the user.\nThis is different from the ID of the DM channel, or IM Channel.\nDM is a communication channel with people in that channel,\nand even if it is 1:1 the user has multiple DM channels,\nso it is not possible to say that the user's ID is a DM channel."
+          },
+          "im_channel_id": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "title": "im_channel_id",
+            "description": "If a user wants to send a DM message to another user,\nthey need to find a channel in im channels that matches their username.\nAnd call the message sending connector.\nHowever, since the purpose of looking up a user is usually to get information about the user or to send a message to the user,\nthis specification is extended to provide the DM channel (= IM channel) ID of the two users in this property when looking up a user.\nIf this value is 'null', then the user's im_channel_id was not found."
           },
           "display_name": {
             "oneOf": [
@@ -37919,6 +37945,7 @@
         },
         "required": [
           "id",
+          "im_channel_id",
           "display_name"
         ]
       },
@@ -38200,7 +38227,7 @@
           "members": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/MyPickISlack.IGetUserOutputiddisplay_name"
+              "$ref": "#/components/schemas/MyPickISlack.IGetUserOutputidim_channel_iddisplay_name"
             },
             "title": "members\n\nThis is a list of people who participated in the conversation in this conversation list."
           },
@@ -38366,7 +38393,7 @@
           "members": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/MyPickISlack.IGetUserOutputiddisplay_name"
+              "$ref": "#/components/schemas/MyPickISlack.IGetUserOutputidim_channel_iddisplay_name"
             },
             "title": "members\n\nThis is a list of people who participated in the conversation in this conversation list."
           },
@@ -38523,6 +38550,10 @@
             "type": "string",
             "title": "channel owner's id"
           },
+          "context_team_id": {
+            "type": "string",
+            "title": "channel owner's team id"
+          },
           "username": {
             "oneOf": [
               {
@@ -38548,6 +38579,7 @@
           "is_user_deleted",
           "priority",
           "user",
+          "context_team_id",
           "id"
         ]
       },
