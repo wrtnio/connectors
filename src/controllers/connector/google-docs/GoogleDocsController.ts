@@ -1,6 +1,11 @@
 import core, { TypedBody } from "@nestia/core";
 import { Controller } from "@nestjs/common";
-import { Prerequisite, RouteIcon, Standalone } from "@wrtnio/decorators";
+import {
+  HumanRoute,
+  Prerequisite,
+  RouteIcon,
+  Standalone,
+} from "@wrtnio/decorators";
 
 import { IGoogleDocs } from "@wrtn/connector-api/lib/structures/connector/google_docs/IGoogleDocs";
 
@@ -43,6 +48,33 @@ export class GoogleDocsController {
     @TypedBody() input: IGoogleDocs.IClearInput,
   ): Promise<IGoogleDocs.IClearOutput> {
     return retry(() => this.googleDocsProvider.clear(input))();
+  }
+
+  /**
+   * Generate Google Docs
+   *
+   * Since this is creating a blank page, we recommend that you use
+   * connectors that add the content of google-docs in a row.
+   * Alternatively, we recommend using a different connector because
+   * there are other connectors that have the ability to generate
+   * documents with markdown.
+   *
+   * @deprecated
+   * @summary Generate Google Docs
+   * @param input Title of Google Docs to generate
+   * @returns Unique ID of generated Google Docs
+   */
+  @HumanRoute()
+  @Standalone()
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Google+Docs_full.svg",
+  )
+  @ApiTags("Google Docs")
+  @core.TypedRoute.Post()
+  async createDocs(
+    @core.TypedBody() input: IGoogleDocs.ICreateGoogleDocsInput,
+  ): Promise<IGoogleDocs.ICreateEmptyFileOutput> {
+    return retry(() => this.googleDocsProvider.createDocs(input))();
   }
 
   /**
@@ -178,5 +210,29 @@ export class GoogleDocsController {
     input: IGoogleDocs.ISecret,
   ): Promise<IGoogleDocs.IListGoogleDocsOutput> {
     return retry(() => this.googleDocsProvider.list(input))();
+  }
+
+  /**
+   * Add text to Google Docs
+   *
+   * When you pass the input of the markdown format, change the markdown to the appropriate format.
+   * It is recommended to check the existing content
+   * and then use the `update` connector to include the existing content,
+   * in the case of the 'append' connector, it is not fully Markdown compatible.
+   * Update connector is `PUT /connector/google-docs/:id`.
+   *
+   * @summary Add text to Google Docs
+   * @deprecated It is better to use the update connector than append.
+   */
+  @HumanRoute()
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Google+Docs_full.svg",
+  )
+  @ApiTags("Google Docs")
+  @core.TypedRoute.Post("/append")
+  async append(
+    @TypedBody() input: IGoogleDocs.IAppendTextGoogleDocsInput,
+  ): Promise<IGoogleDocs.ICreateGoogleDocsOutput> {
+    return this.googleDocsProvider.append(input);
   }
 }
