@@ -97,9 +97,9 @@ export const test_api_connector_jira_create_and_update_and_delete_comment =
         },
       );
 
-    const updatedContent = afterUpdate.comments.find(
-      (el) => el.id === comment.id,
-    )?.body.content;
+    const updatedContent = (
+      afterUpdate.comments.find((el) => el.id === comment.id)?.body as any
+    ).content;
 
     // 댓글을 수정한다.
     const contentToUpdate = [

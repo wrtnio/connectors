@@ -1,6 +1,11 @@
 import core, { TypedBody } from "@nestia/core";
 import { Controller } from "@nestjs/common";
-import { Prerequisite, RouteIcon, Standalone } from "@wrtnio/decorators";
+import {
+  HumanRoute,
+  Prerequisite,
+  RouteIcon,
+  Standalone,
+} from "@wrtnio/decorators";
 
 import { IGoogleDocs } from "@wrtn/connector-api/lib/structures/connector/google_docs/IGoogleDocs";
 
@@ -54,10 +59,12 @@ export class GoogleDocsController {
    * there are other connectors that have the ability to generate
    * documents with markdown.
    *
+   * @deprecated
    * @summary Generate Google Docs
    * @param input Title of Google Docs to generate
    * @returns Unique ID of generated Google Docs
    */
+  @HumanRoute()
   @Standalone()
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Google+Docs_full.svg",
@@ -217,6 +224,7 @@ export class GoogleDocsController {
    * @summary Add text to Google Docs
    * @deprecated It is better to use the update connector than append.
    */
+  @HumanRoute()
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Google+Docs_full.svg",
   )
