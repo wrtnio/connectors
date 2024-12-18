@@ -15,7 +15,7 @@
     }
   ],
   "info": {
-    "version": "0.1.419",
+    "version": "0.1.420",
     "title": "@wrtn/connector",
     "description": "wrtn-ecosystem connectors and sdk",
     "license": {
@@ -46103,13 +46103,13 @@
       "StrictOmitIGithub.RepositoryFilecontentencoding": {
         "type": "object",
         "properties": {
-          "url": {
-            "type": "string",
-            "title": "url\n\nA link that allows you to view the contents of the file as an Url value for viewing the details of the file."
-          },
           "name": {
             "type": "string",
             "title": "name of this file"
+          },
+          "url": {
+            "type": "string",
+            "title": "url\n\nA link that allows you to view the contents of the file as an Url value for viewing the details of the file."
           },
           "type": {
             "const": "file",
@@ -46140,8 +46140,8 @@
           }
         },
         "required": [
-          "url",
           "name",
+          "url",
           "type",
           "path",
           "size",
@@ -60375,13 +60375,13 @@
             "type": "string",
             "title": "The title of the post"
           },
-          "url": {
-            "type": "string",
-            "title": "URL of the post"
-          },
           "name": {
             "type": "string",
             "title": "The name of the post"
+          },
+          "url": {
+            "type": "string",
+            "title": "URL of the post"
           },
           "id": {
             "type": "string",
@@ -61167,8 +61167,8 @@
         },
         "required": [
           "title",
-          "url",
           "name",
+          "url",
           "id"
         ]
       },
