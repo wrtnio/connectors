@@ -339,7 +339,7 @@ export namespace ISlack {
    */
   export type IGetUserDetailOutput = StrictOmit<
     IGetUserOutput,
-    "name" | "deleted" | "profile_image" | "slack_team_id" | "im_channel_id"
+    "name" | "deleted" | "profile_image" | "slack_team_id"
   >;
 
   /**
@@ -615,11 +615,11 @@ export namespace ISlack {
     replies: ChannelHistory[];
 
     /**
-     * @title members
-     *
      * This is a list of people who participated in the conversation in this conversation list.
+     *
+     * @title members
      */
-    members: MyPick<IGetUserOutput, "id" | "display_name">[];
+    members: MyPick<IGetUserOutput, "id" | "display_name" | "im_channel_id">[];
 
     /**
      * @title usergroups
@@ -693,7 +693,7 @@ export namespace ISlack {
      *
      * This is a list of people who participated in the conversation in this conversation list.
      */
-    members: MyPick<IGetUserOutput, "id" | "display_name">[];
+    members: MyPick<IGetUserOutput, "id" | "display_name" | "im_channel_id">[];
 
     /**
      * @title usergroups
@@ -734,7 +734,7 @@ export namespace ISlack {
      *
      * This is a list of people who participated in the conversation in this conversation list.
      */
-    members: MyPick<IGetUserOutput, "id" | "display_name">[];
+    members: MyPick<IGetUserOutput, "id" | "display_name" | "im_channel_id">[];
 
     /**
      * @title usergroups
@@ -896,6 +896,11 @@ export namespace ISlack {
      * @title channel owner's id
      */
     user: User["id"];
+
+    /**
+     * @title channel owner's team id
+     */
+    context_team_id: string;
 
     /**
      * @title username

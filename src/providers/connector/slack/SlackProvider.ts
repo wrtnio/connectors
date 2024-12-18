@@ -271,12 +271,13 @@ export class SlackProvider {
       new Set(replies.map((message) => message.user).filter(Boolean)),
     );
 
-    const members = userIds
-      .map((userId) => {
-        const member = allMembers.find((el) => el.id === userId);
-        return member;
-      })
-      .filter(Boolean) as Pick<ISlack.IGetUserOutput, "id" | "display_name">[];
+    const im_channels = await this.__getAllImChannels(input);
+
+    const members = this.getMembers({
+      userIds,
+      allMembers,
+      im_channels,
+    });
 
     return {
       replies,
@@ -337,7 +338,9 @@ export class SlackProvider {
   async getUserDetails(
     input: ISlack.IGetUserDetailInput,
   ): Promise<ISlack.IGetUserDetailOutput[]> {
-    const response = [];
+    const response: ISlack.IGetUserDetailOutput[] = [];
+
+    const im_channels = await this.__getAllImChannels(input);
 
     const fetch = async (userId: string) => {
       const url = `https://slack.com/api/users.profile.get?include_labels=true&user=${userId}`;
@@ -363,8 +366,16 @@ export class SlackProvider {
     };
 
     for await (const userId of input.userIds) {
-      const fetched = await retry(() => fetch(userId))();
-      response.push({ ...fetched, id: userId });
+      const fetched: StrictOmit<ISlack.IGetUserDetailOutput, "im_channel_id"> =
+        await retry(() => fetch(userId))();
+
+      const im_channel = im_channels.find((channel) => channel.user === userId);
+
+      response.push({
+        ...fetched,
+        id: userId,
+        im_channel_id: im_channel?.id ?? null,
+      });
     }
 
     return response;
@@ -390,6 +401,7 @@ export class SlackProvider {
     type User = StrictOmit<ISlack.IGetUserOutput, "fields">;
     const users: User[] = res.data.members.map((el: ISlack.User): User => {
       const im_channel = im_channels.find((channel) => channel.user === el.id);
+
       return {
         id: el.id,
         slack_team_id: el.team_id,
@@ -579,12 +591,13 @@ export class SlackProvider {
       new Set(messages.map((message) => message.user).filter(Boolean)),
     );
 
-    const members = userIds
-      .map((userId) => {
-        const member = allMembers.find((el) => el.id === userId);
-        return member;
-      })
-      .filter(Boolean) as Pick<ISlack.IGetUserOutput, "id" | "display_name">[];
+    const im_channels = await this.__getAllImChannels(input);
+
+    const members = this.getMembers({
+      userIds,
+      allMembers,
+      im_channels,
+    });
 
     return {
       messages,
@@ -676,12 +689,13 @@ export class SlackProvider {
       new Set(messages.map((message) => message.user).filter(Boolean)),
     );
 
-    const members = userIds
-      .map((userId) => {
-        const member = allMembers.find((el) => el.id === userId);
-        return member;
-      })
-      .filter(Boolean) as Pick<ISlack.IGetUserOutput, "id" | "display_name">[];
+    const im_channels = await this.__getAllImChannels(input);
+
+    const members = this.getMembers({
+      userIds,
+      allMembers,
+      im_channels,
+    });
 
     return {
       messages,
@@ -690,6 +704,26 @@ export class SlackProvider {
       usergroups: includedUsergroups ?? [],
       channel: await this.getChannelName(input),
     }; // next_cursor가 빈 문자인 경우 대비
+  }
+
+  getMembers(input: {
+    userIds: (string | null)[];
+    allMembers: StrictOmit<ISlack.IGetUserOutput, "fields">[];
+    im_channels: ISlack.ImChannel[];
+  }) {
+    const members = input.userIds
+      .map((userId) => {
+        const member = input.allMembers.find((el) => el.id === userId);
+        const im_channel = input.im_channels.find((el) => el.user === userId);
+
+        return { ...member, im_channel_id: im_channel?.id ?? null };
+      })
+      .filter(Boolean) as Pick<
+      ISlack.IGetUserOutput,
+      "id" | "display_name" | "im_channel_id"
+    >[];
+
+    return members;
   }
 
   async getAllPrivateChannels(input: { secretKey: string }) {
