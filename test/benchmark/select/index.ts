@@ -16,9 +16,11 @@ import { IFunctionSelectBenchmarkResult } from "./IFunctionSelectBenchmarkResult
 import { FunctionSelectBenchmarkReporter } from "./FunctionSelectBenchmarkReporter";
 import { IFunctionSelectBenchmarkOptions } from "./IFunctionSelectBenchmarkOptions";
 import { MathUtil } from "../../../src/utils/MathUtil";
+import { Semaphore } from "tstl";
 
 interface IOptions extends IFunctionSelectBenchmarkOptions {
   swagger: boolean;
+  semaphore: number;
 }
 
 const SWAGGER_LOCATION = `${ConnectorConfiguration.ROOT}/packages/api/swagger.json`;
@@ -27,6 +29,8 @@ const getOptions = () =>
   ArgumentParser.parse<IOptions>(async (command, prompt, action) => {
     command.option("--swagger <true|false>", "Build swagger document");
     command.option("--repeat <number>", "repeat benchmark");
+    command.option("--capacity <number>", "dividing count");
+    command.option("--semaphore <number>", "semaphore size");
     command.option("--include <string...>", "include benchmrk endpoints");
     command.option("--exclude <string...>", "exclude benchmark endpoints");
     return action(async (options) => {
@@ -40,7 +44,22 @@ const getOptions = () =>
       }
       if (typeof options.repeat === "string")
         options.repeat = Number(options.repeat);
-      options.repeat ??= await prompt.number("repeat")("Repeating count");
+      options.repeat ??= await prompt.number("repeat")(
+        "Repeating count (default 10)",
+        10,
+      );
+      if (typeof options.capacity === "string")
+        options.capacity = Number(options.capacity);
+      options.capacity ??= await prompt.number("capacity")(
+        "Capacity count per agent (divide and conquer, default 100)",
+        100,
+      );
+      if (typeof options.semaphore === "string")
+        options.semaphore = Number(options.semaphore);
+      options.semaphore ??= await prompt.number("semaphore")(
+        "Semaphore size (default 100)",
+        100,
+      );
       return options as IOptions;
     });
   });
@@ -75,13 +94,18 @@ const main = async (): Promise<void> => {
     );
 
   // DO BENCHMARK
+  const semaphore: Semaphore = new Semaphore(options.semaphore);
   const executor: FunctionSelectBenchmarkExecutor =
-    new FunctionSelectBenchmarkExecutor(application, options.repeat);
-  const results: IFunctionSelectBenchmarkResult[] = (
-    await ArrayUtil.asyncMap(candidates)((func) =>
-      ArrayUtil.asyncMap(
-        func.operation()["x-wrtn-function-select-benchmarks"] ?? [],
-      )(async (keyword) => {
+    new FunctionSelectBenchmarkExecutor(application, options, semaphore);
+  const results: IFunctionSelectBenchmarkResult[] = await Promise.all(
+    candidates
+      .map((func) =>
+        (func.operation()["x-wrtn-function-select-benchmarks"] ?? []).map(
+          (keyword) => [func, keyword] as const,
+        ),
+      )
+      .flat()
+      .map(async ([func, keyword]) => {
         const result: IFunctionSelectBenchmarkResult = await executor.execute(
           func,
           keyword,
@@ -101,11 +125,11 @@ const main = async (): Promise<void> => {
                 .reduce((prev, curr) => prev + curr, 0),
             ).toLocaleString(),
           ) + " ms",
+          `(${keyword})`,
         );
         return result;
       }),
-    )
-  ).flat();
+  );
 
   // REPORT IT
   await FunctionSelectBenchmarkReporter.report({
