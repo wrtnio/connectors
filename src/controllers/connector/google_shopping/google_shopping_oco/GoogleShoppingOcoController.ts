@@ -17,8 +17,8 @@ export class GoogleShoppingOcoController {
    * Search for products in OCO
    *
    * Oco is one of the Korean companies and is a brand that advocates a brand editing shop.
-   * Only one item should be requested per request.
-   * This connector only processes one search term at a time, so if you want to search for multiple terms, you will need to call this connector separately for each search term.
+   * Only one keyword should be requested per request.
+   * For example, If you use "shirts" and "pants" as keywords, you must make two requests, each with separate keywords.
    *
    * @summary OCO search
    * @param input Search conditions
