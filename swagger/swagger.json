@@ -15,7 +15,7 @@
     }
   ],
   "info": {
-    "version": "0.1.422",
+    "version": "0.1.423",
     "title": "@wrtn/connector",
     "description": "wrtn-ecosystem connectors and sdk",
     "license": {
@@ -1354,6 +1354,7 @@
       "post": {
         "summary": "Generate Google Docs",
         "description": "Generate Google Docs\n\nSince this is creating a blank page, we recommend that you use\nconnectors that add the content of google-docs in a row.\nAlternatively, we recommend using a different connector because\nthere are other connectors that have the ability to generate\ndocuments with markdown.",
+        "deprecated": true,
         "tags": [
           "Google Docs"
         ],
@@ -1388,7 +1389,8 @@
         ],
         "x-samchon-controller": "GoogleDocsController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Google+Docs_full.svg",
-        "x-wrtn-standalone": true
+        "x-wrtn-standalone": true,
+        "x-samchon-human": true
       }
     },
     "/connector/google-docs/permission": {
@@ -1706,7 +1708,8 @@
           "append"
         ],
         "x-samchon-controller": "GoogleDocsController",
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Google+Docs_full.svg"
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Google+Docs_full.svg",
+        "x-samchon-human": true
       }
     },
     "/connector/google-sheet": {
@@ -11827,6 +11830,7 @@
         ],
         "parameters": [],
         "requestBody": {
+          "description": "test",
           "content": {
             "application/json": {
               "schema": {
@@ -37481,10 +37485,10 @@
                 "const": "database"
               },
               {
-                "const": "property_item"
+                "const": "comment"
               },
               {
-                "const": "comment"
+                "const": "property_item"
               }
             ],
             "title": "Object Type",
@@ -37532,10 +37536,10 @@
                     "const": "database"
                   },
                   {
-                    "const": "property_item"
+                    "const": "comment"
                   },
                   {
-                    "const": "comment"
+                    "const": "property_item"
                   }
                 ],
                 "title": "Object Type",
@@ -37575,10 +37579,10 @@
                     "const": "database"
                   },
                   {
-                    "const": "property_item"
+                    "const": "comment"
                   },
                   {
-                    "const": "comment"
+                    "const": "property_item"
                   }
                 ],
                 "title": "Object Type",
@@ -37857,10 +37861,10 @@
                 "const": "file"
               },
               {
-                "const": "external"
+                "const": "emoji"
               },
               {
-                "const": "emoji"
+                "const": "external"
               }
             ],
             "title": "Type",
@@ -37985,10 +37989,10 @@
                 "const": "database"
               },
               {
-                "const": "property_item"
+                "const": "comment"
               },
               {
-                "const": "comment"
+                "const": "property_item"
               }
             ],
             "title": "Object Type",
@@ -38025,10 +38029,10 @@
                     "const": "database"
                   },
                   {
-                    "const": "property_item"
+                    "const": "comment"
                   },
                   {
-                    "const": "comment"
+                    "const": "property_item"
                   }
                 ],
                 "title": "Object Type",
@@ -38068,10 +38072,10 @@
                     "const": "database"
                   },
                   {
-                    "const": "property_item"
+                    "const": "comment"
                   },
                   {
-                    "const": "comment"
+                    "const": "property_item"
                   }
                 ],
                 "title": "Object Type",
@@ -41896,7 +41900,7 @@
           "comments": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/MyPickIJira.CommentidbodycreatedauthorupdatedupdateAuthor"
+              "$ref": "#/components/schemas/MyPickCommentidcreatedauthorupdatedupdateAuthorbodyany"
             },
             "title": "comments"
           },
@@ -41926,70 +41930,12 @@
           "total"
         ]
       },
-      "MyPickIJira.CommentidbodycreatedauthorupdatedupdateAuthor": {
+      "MyPickCommentidcreatedauthorupdatedupdateAuthorbodyany": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string",
             "title": "id of comment"
-          },
-          "body": {
-            "type": "object",
-            "properties": {
-              "type": {
-                "const": "doc",
-                "title": "type"
-              },
-              "version": {
-                "const": 1,
-                "title": "version"
-              },
-              "content": {
-                "type": "array",
-                "items": {
-                  "oneOf": [
-                    {
-                      "$ref": "#/components/schemas/IJira.BlockquoteNode"
-                    },
-                    {
-                      "$ref": "#/components/schemas/ListNode"
-                    },
-                    {
-                      "$ref": "#/components/schemas/IJira.CodeBlockNode"
-                    },
-                    {
-                      "$ref": "#/components/schemas/IJira.HeadingNode"
-                    },
-                    {
-                      "$ref": "#/components/schemas/IJira.MediaSingleNode"
-                    },
-                    {
-                      "$ref": "#/components/schemas/IJira.PanelNode"
-                    },
-                    {
-                      "$ref": "#/components/schemas/IJira.ParagraphNode"
-                    },
-                    {
-                      "$ref": "#/components/schemas/IJira.TableNode"
-                    },
-                    {
-                      "$ref": "#/components/schemas/IJira.MediaGroupNode"
-                    },
-                    {
-                      "$ref": "#/components/schemas/IJira.RuleNode"
-                    }
-                  ]
-                },
-                "title": "A document in Jira is a combination of several blocks, so a single comment appears in the form of an array",
-                "description": "A document in Jira is a combination of several blocks, so a single comment appears in the form of an array.\nBy combining each element in the array, you can understand the entire comment content."
-              }
-            },
-            "required": [
-              "type",
-              "version",
-              "content"
-            ],
-            "title": "body of comment"
           },
           "created": {
             "type": "string",
@@ -42006,1475 +41952,18 @@
           "updateAuthor": {
             "$ref": "#/components/schemas/MyPickIJira.UseractiveaccountIddisplayName",
             "title": "who updates this comment"
+          },
+          "body": {
+            "title": "Content of This Comments"
           }
         },
         "required": [
           "id",
-          "body",
           "created",
           "author",
           "updated",
-          "updateAuthor"
-        ]
-      },
-      "IJira.BlockquoteNode": {
-        "type": "object",
-        "properties": {
-          "type": {
-            "const": "blockquote",
-            "title": "blockquote type"
-          },
-          "content": {
-            "type": "array",
-            "items": {
-              "oneOf": [
-                {
-                  "$ref": "#/components/schemas/ListNode"
-                },
-                {
-                  "$ref": "#/components/schemas/IJira.ParagraphContentWithoutNoMarks"
-                }
-              ]
-            },
-            "minItems": 1,
-            "title": "content",
-            "description": "content must contain array of one or more of the following nodes:\n- paragraph with no marks.\n- bulletList\n- orderedList"
-          }
-        },
-        "required": [
-          "type",
-          "content"
-        ],
-        "title": "Blockquote node",
-        "description": "The blockquote node is a container for quotes.\nblockquote is a top-level block node."
-      },
-      "ListNode": {
-        "type": "object",
-        "properties": {
-          "type": {
-            "oneOf": [
-              {
-                "const": "bulletList"
-              },
-              {
-                "const": "orderedList"
-              }
-            ],
-            "title": "type"
-          },
-          "content": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/ListItemNode_1"
-            },
-            "title": "content"
-          }
-        },
-        "required": [
-          "type",
-          "content"
-        ]
-      },
-      "ListItemNode_1": {
-        "type": "object",
-        "properties": {
-          "type": {
-            "const": "listItem",
-            "title": "type"
-          },
-          "content": {
-            "type": "array",
-            "items": {
-              "oneOf": [
-                {
-                  "$ref": "#/components/schemas/IJira.CodeBlockNode"
-                },
-                {
-                  "$ref": "#/components/schemas/IJira.MediaSingleNode"
-                },
-                {
-                  "$ref": "#/components/schemas/IJira.ParagraphContentWithoutNoMarks"
-                },
-                {
-                  "type": "object",
-                  "properties": {
-                    "type": {
-                      "oneOf": [
-                        {
-                          "const": "bulletList"
-                        },
-                        {
-                          "const": "orderedList"
-                        }
-                      ],
-                      "title": "type"
-                    }
-                  },
-                  "required": [
-                    "type"
-                  ]
-                }
-              ]
-            },
-            "title": "content",
-            "description": "content must contain at least one of the following nodes:\n- bulletList\n- codeBlock with no marks\n- mediaSingle\n- orderedList\n- paragraph with no marks"
-          }
-        },
-        "required": [
-          "type",
-          "content"
-        ]
-      },
-      "IJira.CodeBlockNode": {
-        "type": "object",
-        "properties": {
-          "type": {
-            "const": "codeBlock",
-            "title": "type"
-          },
-          "attrs": {
-            "type": "object",
-            "properties": {
-              "language": {
-                "type": "string",
-                "x-wrtn-placeholder": "TypeScript",
-                "title": "programming language name"
-              }
-            },
-            "required": [],
-            "title": "attrs",
-            "description": "If you do not specify a programming language, this property may not exist."
-          },
-          "content": {
-            "type": "array",
-            "items": {
-              "type": "object",
-              "properties": {
-                "type": {
-                  "const": "text",
-                  "title": "type"
-                },
-                "text": {
-                  "type": "string",
-                  "title": "text includeing code"
-                }
-              },
-              "required": [
-                "type",
-                "text"
-              ]
-            },
-            "minItems": 1,
-            "maxItems": 1,
-            "title": "code content",
-            "description": "content takes an array of one or more text nodes without marks."
-          }
-        },
-        "required": [
-          "type"
-        ],
-        "title": "code block"
-      },
-      "IJira.MediaSingleNode": {
-        "type": "object",
-        "properties": {
-          "type": {
-            "const": "mediaSingle",
-            "title": "mediaSingle type"
-          },
-          "attrs": {
-            "type": "object",
-            "properties": {
-              "layout": {
-                "oneOf": [
-                  {
-                    "const": "center"
-                  },
-                  {
-                    "const": "wrap-left"
-                  },
-                  {
-                    "const": "wrap-right"
-                  },
-                  {
-                    "const": "wide"
-                  },
-                  {
-                    "const": "full-width"
-                  },
-                  {
-                    "const": "align-start"
-                  },
-                  {
-                    "const": "align-end"
-                  }
-                ],
-                "title": "layout determines the placement of the node on the page. wrap-left and wrap-right provide an image floated to the left or right of the page respectively, with text wrapped around it. center center aligns the image as a block, while wide does the same but bleeds into the margins. full-width makes the image stretch from edge to edge of the page",
-                "description": "layout determines the placement of the node on the page. wrap-left and wrap-right provide an image floated to the left or right of the page respectively, with text wrapped around it. center center aligns the image as a block, while wide does the same but bleeds into the margins. full-width makes the image stretch from edge to edge of the page."
-              },
-              "width": {
-                "type": "number",
-                "minimum": 0,
-                "maximum": 100,
-                "title": "width",
-                "description": "width determines the width of the image as a percentage of the width of the text content area. Has no effect if layout mode is wide or full-width."
-              },
-              "widthType": {
-                "oneOf": [
-                  {
-                    "const": "pixel"
-                  },
-                  {
-                    "const": "percentage"
-                  }
-                ],
-                "title": "widthType",
-                "description": "widthType [optional] determines what the \"unit\" of the width attribute is presenting. Possible values are pixel and percentage. If the widthType attribute is undefined, it fallbacks to percentage."
-              }
-            },
-            "required": [
-              "layout"
-            ],
-            "title": "attrs"
-          },
-          "content": {
-            "type": "array",
-            "items": {
-              "oneOf": [
-                {
-                  "type": "object",
-                  "properties": {
-                    "type": {
-                      "const": "media",
-                      "title": "type"
-                    },
-                    "attrs": {
-                      "type": "object",
-                      "properties": {
-                        "width": {
-                          "type": "number",
-                          "title": "width",
-                          "description": "width defines the display width of the media item in pixels. Must be provided within mediaSingle or the media isn't displayed."
-                        },
-                        "height": {
-                          "type": "number",
-                          "title": "height",
-                          "description": "height defines the display height of the media item in pixels. Must be provided within mediaSingle or the media isn't displayed."
-                        },
-                        "id": {
-                          "type": "string",
-                          "title": "id",
-                          "description": "id is the Media Services ID and is used for querying the media services API to retrieve metadata, such as, filename. Consumers of the document should always fetch fresh metadata using the Media API."
-                        },
-                        "type": {
-                          "oneOf": [
-                            {
-                              "const": "link"
-                            },
-                            {
-                              "const": "file"
-                            }
-                          ],
-                          "title": "type",
-                          "description": "There are three types.\nHowever, in our service, we have to use \"external\" type only, because we are only considering universal users who do not save images through Media API, but save images through external links."
-                        }
-                      },
-                      "required": [
-                        "type"
-                      ],
-                      "title": "Attributes"
-                    },
-                    "marks": {
-                      "type": "object",
-                      "properties": {
-                        "type": {
-                          "const": "link",
-                          "title": "type"
-                        },
-                        "attrs": {
-                          "type": "object",
-                          "properties": {
-                            "href": {
-                              "type": "string",
-                              "format": "iri",
-                              "title": "link"
-                            }
-                          },
-                          "required": [
-                            "href"
-                          ],
-                          "title": "attrs"
-                        }
-                      },
-                      "required": [
-                        "type",
-                        "attrs"
-                      ],
-                      "title": "marks"
-                    }
-                  },
-                  "required": [
-                    "type",
-                    "attrs",
-                    "marks"
-                  ]
-                },
-                {
-                  "type": "object",
-                  "properties": {
-                    "type": {
-                      "const": "media",
-                      "title": "type"
-                    },
-                    "attrs": {
-                      "type": "object",
-                      "properties": {
-                        "width": {
-                          "type": "number",
-                          "title": "width",
-                          "description": "width defines the display width of the media item in pixels. Must be provided within mediaSingle or the media isn't displayed."
-                        },
-                        "height": {
-                          "type": "number",
-                          "title": "height",
-                          "description": "height defines the display height of the media item in pixels. Must be provided within mediaSingle or the media isn't displayed."
-                        },
-                        "id": {
-                          "type": "string",
-                          "title": "id",
-                          "description": "id is the Media Services ID and is used for querying the media services API to retrieve metadata, such as, filename. Consumers of the document should always fetch fresh metadata using the Media API."
-                        },
-                        "type": {
-                          "const": "external",
-                          "title": "type",
-                          "description": "There are three types.\nHowever, in our service, we have to use \"external\" type only, because we are only considering universal users who do not save images through Media API, but save images through external links."
-                        },
-                        "url": {
-                          "type": "string",
-                          "format": "iri",
-                          "title": "url"
-                        }
-                      },
-                      "required": [
-                        "type",
-                        "url"
-                      ],
-                      "title": "Attributes"
-                    }
-                  },
-                  "required": [
-                    "type",
-                    "attrs"
-                  ]
-                }
-              ]
-            },
-            "minItems": 1,
-            "maxItems": 1,
-            "title": "media\n\nonly single of media node type"
-          }
-        },
-        "required": [
-          "type",
-          "attrs",
-          "content"
-        ],
-        "description": "The mediaSingle node is a container for one media item.\nThis node enables the display of the content in full,\nin contrast to a mediaGroup that is intended for a list of attachments.\nA common use case is to display an image,\nbut it can also be used for videos,\nor other types of content usually renderable by a"
-      },
-      "IJira.ParagraphContentWithoutNoMarks": {
-        "type": "object",
-        "properties": {
-          "type": {
-            "const": "paragraph",
-            "title": "paragraph type"
-          },
-          "attrs": {
-            "$ref": "#/components/schemas/Recordstringnever",
-            "title": "attrs"
-          },
-          "content": {
-            "type": "array",
-            "items": {
-              "oneOf": [
-                {
-                  "$ref": "#/components/schemas/IJira.EmojiNode"
-                },
-                {
-                  "$ref": "#/components/schemas/IJira.HardBreakNode"
-                },
-                {
-                  "$ref": "#/components/schemas/IJira.InlineCardNode"
-                },
-                {
-                  "$ref": "#/components/schemas/IJira.MentionNode"
-                },
-                {
-                  "$ref": "#/components/schemas/StrictOmitIJira.TextContentmarks"
-                }
-              ],
-              "discriminator": {
-                "propertyName": "type",
-                "mapping": {
-                  "emoji": "#/components/schemas/IJira.EmojiNode",
-                  "hardBreak": "#/components/schemas/IJira.HardBreakNode",
-                  "inlineCard": "#/components/schemas/IJira.InlineCardNode",
-                  "mention": "#/components/schemas/IJira.MentionNode",
-                  "text": "#/components/schemas/StrictOmitIJira.TextContentmarks"
-                }
-              }
-            },
-            "title": "content\n\nIf you want to make a new line, there will be an empty array."
-          }
-        },
-        "required": [
-          "type",
-          "content"
-        ],
-        "title": "paragraph type"
-      },
-      "IJira.EmojiNode": {
-        "type": "object",
-        "properties": {
-          "type": {
-            "const": "emoji",
-            "title": "emoji type"
-          },
-          "attrs": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string",
-                "description": "Emoji service ID of the emoji\n\nFor custom emojis by atlasian or user, you may have an ID."
-              },
-              "shortName": {
-                "type": "string",
-                "pattern": "^(:(.*):)$",
-                "title": "icon name\n\nA string exists between a colon and a colon, meaning a name for representing the emoji."
-              },
-              "text": {
-                "type": "string",
-                "title": "emoji icon"
-              }
-            },
-            "required": [
-              "shortName"
-            ],
-            "title": "attributes of emoji node"
-          }
-        },
-        "required": [
-          "type",
-          "attrs"
-        ],
-        "title": "emoji node"
-      },
-      "IJira.HardBreakNode": {
-        "type": "object",
-        "properties": {
-          "type": {
-            "const": "hardBreak",
-            "title": "hardBreak type"
-          },
-          "attrs": {
-            "type": "object",
-            "properties": {
-              "text": {
-                "const": "\n",
-                "title": "text\n\nIt can be only `\\n` text for braking."
-              }
-            },
-            "required": [],
-            "title": "attributes of hard break node"
-          }
-        },
-        "required": [
-          "type"
-        ],
-        "title": "hard break node"
-      },
-      "IJira.InlineCardNode": {
-        "type": "object",
-        "properties": {
-          "type": {
-            "const": "inlineCard",
-            "title": "inline card type"
-          },
-          "attrs": {
-            "type": "object",
-            "properties": {
-              "url": {
-                "type": "string",
-                "format": "iri",
-                "title": "url",
-                "description": "Indicates the address value that the inline card will represent.\nTo allow you to move when you click on the card, you need to put a link in advance."
-              },
-              "data": {
-                "$ref": "#/components/schemas/object",
-                "title": "representation of the link"
-              }
-            },
-            "required": [
-              "url"
-            ],
-            "title": "attributes of inline card node"
-          }
-        },
-        "required": [
-          "type",
-          "attrs"
-        ],
-        "title": "inline card\n\nThe inlineCard node is an Atlassian link card with a type icon and content description derived from the link."
-      },
-      "object": {
-        "type": "object",
-        "properties": {},
-        "required": []
-      },
-      "IJira.MentionNode": {
-        "type": "object",
-        "properties": {
-          "type": {
-            "const": "mention",
-            "title": "mention type"
-          },
-          "attrs": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string",
-                "title": "id\n\nadd any string like as uuid"
-              },
-              "text": {
-                "type": "string",
-                "pattern": "^(@(.*))",
-                "title": "Who is mentioned\n\nIt means a string that connects @ and the user's name"
-              },
-              "accessLevel": {
-                "type": "string",
-                "title": "accessLevel"
-              }
-            },
-            "required": [
-              "text"
-            ],
-            "title": "content of this mention content"
-          }
-        },
-        "required": [
-          "type",
-          "attrs"
-        ],
-        "title": "content with mention"
-      },
-      "StrictOmitIJira.TextContentmarks": {
-        "type": "object",
-        "properties": {
-          "type": {
-            "const": "text",
-            "title": "text type"
-          },
-          "text": {
-            "type": "string",
-            "title": "content of this text content"
-          }
-        },
-        "required": [
-          "type",
-          "text"
-        ]
-      },
-      "IJira.HeadingNode": {
-        "type": "object",
-        "properties": {
-          "type": {
-            "const": "heading",
-            "title": "heading type"
-          },
-          "content": {
-            "type": "array",
-            "items": {
-              "oneOf": [
-                {
-                  "$ref": "#/components/schemas/IJira.EmojiNode"
-                },
-                {
-                  "$ref": "#/components/schemas/IJira.HardBreakNode"
-                },
-                {
-                  "$ref": "#/components/schemas/IJira.InlineCardNode"
-                },
-                {
-                  "$ref": "#/components/schemas/IJira.MentionNode"
-                },
-                {
-                  "$ref": "#/components/schemas/IJira.TextContent"
-                }
-              ],
-              "discriminator": {
-                "propertyName": "type",
-                "mapping": {
-                  "emoji": "#/components/schemas/IJira.EmojiNode",
-                  "hardBreak": "#/components/schemas/IJira.HardBreakNode",
-                  "inlineCard": "#/components/schemas/IJira.InlineCardNode",
-                  "mention": "#/components/schemas/IJira.MentionNode",
-                  "text": "#/components/schemas/IJira.TextContent"
-                }
-              }
-            },
-            "title": "content\n\nHeading node's content can be combined with only inline nodes."
-          },
-          "attrs": {
-            "type": "object",
-            "properties": {
-              "level": {
-                "oneOf": [
-                  {
-                    "const": 1
-                  },
-                  {
-                    "const": 2
-                  },
-                  {
-                    "const": 3
-                  },
-                  {
-                    "const": 4
-                  },
-                  {
-                    "const": 5
-                  },
-                  {
-                    "const": 6
-                  }
-                ],
-                "title": "level represents the depth of the heading following the same convention as HTML: when level is set to 1 it's the equivalent of <h1>",
-                "description": "level represents the depth of the heading following the same convention as HTML: when level is set to 1 it's the equivalent of <h1>."
-              }
-            },
-            "required": [
-              "level"
-            ],
-            "title": "attributes of heading node"
-          }
-        },
-        "required": [
-          "type",
-          "content",
-          "attrs"
-        ],
-        "title": "heading node\n\nIt means h1, h2, h3, h4, h5, h6 node."
-      },
-      "IJira.TextContent": {
-        "type": "object",
-        "properties": {
-          "type": {
-            "const": "text",
-            "title": "text type"
-          },
-          "text": {
-            "type": "string",
-            "title": "content of this text content"
-          },
-          "marks": {
-            "type": "array",
-            "items": {
-              "oneOf": [
-                {
-                  "type": "object",
-                  "properties": {
-                    "type": {
-                      "const": "backgroundColor",
-                      "title": "type"
-                    },
-                    "attrs": {
-                      "type": "object",
-                      "properties": {
-                        "color": {
-                          "type": "string",
-                          "pattern": "^#([0-9A-Fa-f]{6})$",
-                          "title": "color\n\nColor can be expressed using symbols('#') and RGB values."
-                        }
-                      },
-                      "required": [
-                        "color"
-                      ],
-                      "title": "attrs"
-                    }
-                  },
-                  "required": [
-                    "type",
-                    "attrs"
-                  ]
-                },
-                {
-                  "type": "object",
-                  "properties": {
-                    "type": {
-                      "const": "code",
-                      "title": "type"
-                    }
-                  },
-                  "required": [
-                    "type"
-                  ]
-                },
-                {
-                  "type": "object",
-                  "properties": {
-                    "type": {
-                      "const": "em",
-                      "title": "type"
-                    }
-                  },
-                  "required": [
-                    "type"
-                  ]
-                },
-                {
-                  "type": "object",
-                  "properties": {
-                    "type": {
-                      "const": "strike",
-                      "title": "type"
-                    }
-                  },
-                  "required": [
-                    "type"
-                  ]
-                },
-                {
-                  "type": "object",
-                  "properties": {
-                    "type": {
-                      "const": "strong",
-                      "title": "type"
-                    }
-                  },
-                  "required": [
-                    "type"
-                  ]
-                },
-                {
-                  "type": "object",
-                  "properties": {
-                    "type": {
-                      "const": "underline",
-                      "title": "type"
-                    }
-                  },
-                  "required": [
-                    "type"
-                  ]
-                },
-                {
-                  "type": "object",
-                  "properties": {
-                    "type": {
-                      "const": "link",
-                      "title": "type"
-                    },
-                    "attrs": {
-                      "type": "object",
-                      "properties": {
-                        "href": {
-                          "type": "string",
-                          "format": "iri",
-                          "title": "link"
-                        }
-                      },
-                      "required": [
-                        "href"
-                      ],
-                      "title": "attrs"
-                    }
-                  },
-                  "required": [
-                    "type",
-                    "attrs"
-                  ]
-                },
-                {
-                  "type": "object",
-                  "properties": {
-                    "type": {
-                      "const": "subsup",
-                      "title": "type"
-                    },
-                    "attrs": {
-                      "type": "object",
-                      "properties": {
-                        "type": {
-                          "oneOf": [
-                            {
-                              "const": "sub"
-                            },
-                            {
-                              "const": "sup"
-                            }
-                          ],
-                          "title": "type"
-                        }
-                      },
-                      "required": [
-                        "type"
-                      ],
-                      "title": "attrs"
-                    }
-                  },
-                  "required": [
-                    "type",
-                    "attrs"
-                  ]
-                },
-                {
-                  "type": "object",
-                  "properties": {
-                    "type": {
-                      "const": "textColor",
-                      "title": "type"
-                    },
-                    "attrs": {
-                      "type": "object",
-                      "properties": {
-                        "color": {
-                          "type": "string",
-                          "pattern": "^#([0-9A-Fa-f]{6})$",
-                          "title": "color\n\nColor can be expressed using symbols('#') and RGB values."
-                        }
-                      },
-                      "required": [
-                        "color"
-                      ],
-                      "title": "attrs"
-                    }
-                  },
-                  "required": [
-                    "type",
-                    "attrs"
-                  ]
-                }
-              ]
-            },
-            "title": "marks",
-            "description": "It means the emphasis of the markdown format, and it means that there is a string between the backticks."
-          }
-        },
-        "required": [
-          "type",
-          "text"
-        ],
-        "title": "content with only text"
-      },
-      "IJira.PanelNode": {
-        "type": "object",
-        "properties": {
-          "type": {
-            "const": "panel",
-            "title": "type"
-          },
-          "attrs": {
-            "type": "object",
-            "properties": {
-              "panelType": {
-                "oneOf": [
-                  {
-                    "const": "info"
-                  },
-                  {
-                    "const": "error"
-                  },
-                  {
-                    "const": "note"
-                  },
-                  {
-                    "const": "warning"
-                  },
-                  {
-                    "const": "success"
-                  }
-                ],
-                "title": "panelType"
-              }
-            },
-            "required": [
-              "panelType"
-            ],
-            "title": "attrs"
-          },
-          "content": {
-            "type": "array",
-            "items": {
-              "oneOf": [
-                {
-                  "$ref": "#/components/schemas/ListNode"
-                },
-                {
-                  "$ref": "#/components/schemas/IJira.ParagraphContentWithoutNoMarks"
-                },
-                {
-                  "$ref": "#/components/schemas/IJira.HeadingNodeWithoutMarks"
-                }
-              ]
-            },
-            "title": "content"
-          }
-        },
-        "required": [
-          "type",
-          "attrs",
-          "content"
-        ],
-        "description": "The panel node is a container that highlights content."
-      },
-      "IJira.HeadingNodeWithoutMarks": {
-        "type": "object",
-        "properties": {
-          "type": {
-            "const": "heading",
-            "title": "heading type"
-          },
-          "content": {
-            "type": "array",
-            "items": {
-              "oneOf": [
-                {
-                  "$ref": "#/components/schemas/IJira.EmojiNode"
-                },
-                {
-                  "$ref": "#/components/schemas/IJira.HardBreakNode"
-                },
-                {
-                  "$ref": "#/components/schemas/IJira.InlineCardNode"
-                },
-                {
-                  "$ref": "#/components/schemas/IJira.MentionNode"
-                },
-                {
-                  "$ref": "#/components/schemas/StrictOmitIJira.TextContentmarks"
-                }
-              ],
-              "discriminator": {
-                "propertyName": "type",
-                "mapping": {
-                  "emoji": "#/components/schemas/IJira.EmojiNode",
-                  "hardBreak": "#/components/schemas/IJira.HardBreakNode",
-                  "inlineCard": "#/components/schemas/IJira.InlineCardNode",
-                  "mention": "#/components/schemas/IJira.MentionNode",
-                  "text": "#/components/schemas/StrictOmitIJira.TextContentmarks"
-                }
-              }
-            },
-            "title": "content",
-            "description": "Heading node's content can be combined with only inline nodes.\nA property called marks is not available here."
-          },
-          "attrs": {
-            "type": "object",
-            "properties": {
-              "level": {
-                "oneOf": [
-                  {
-                    "const": 1
-                  },
-                  {
-                    "const": 2
-                  },
-                  {
-                    "const": 3
-                  },
-                  {
-                    "const": 4
-                  },
-                  {
-                    "const": 5
-                  },
-                  {
-                    "const": 6
-                  }
-                ],
-                "title": "level\n\nlevel represents the depth of the heading following the same convention as HTML: when level is set to 1 it's the equivalent of <h1>."
-              }
-            },
-            "required": [
-              "level"
-            ],
-            "title": "attributes of heading node"
-          }
-        },
-        "required": [
-          "type",
-          "content",
-          "attrs"
-        ],
-        "title": "heading node without `marks` property"
-      },
-      "IJira.ParagraphNode": {
-        "type": "object",
-        "properties": {
-          "type": {
-            "const": "paragraph",
-            "title": "paragraph type"
-          },
-          "attrs": {
-            "$ref": "#/components/schemas/Recordstringnever",
-            "title": "attrs"
-          },
-          "content": {
-            "type": "array",
-            "items": {
-              "oneOf": [
-                {
-                  "$ref": "#/components/schemas/IJira.EmojiNode"
-                },
-                {
-                  "$ref": "#/components/schemas/IJira.HardBreakNode"
-                },
-                {
-                  "$ref": "#/components/schemas/IJira.InlineCardNode"
-                },
-                {
-                  "$ref": "#/components/schemas/IJira.MentionNode"
-                },
-                {
-                  "$ref": "#/components/schemas/IJira.TextContent"
-                }
-              ],
-              "discriminator": {
-                "propertyName": "type",
-                "mapping": {
-                  "emoji": "#/components/schemas/IJira.EmojiNode",
-                  "hardBreak": "#/components/schemas/IJira.HardBreakNode",
-                  "inlineCard": "#/components/schemas/IJira.InlineCardNode",
-                  "mention": "#/components/schemas/IJira.MentionNode",
-                  "text": "#/components/schemas/IJira.TextContent"
-                }
-              }
-            },
-            "title": "content\n\nIf you want to make a new line, there will be an empty array."
-          }
-        },
-        "required": [
-          "type",
-          "content"
-        ],
-        "title": "paragraph type\nThe paragraph node is a container for a block of formatted text delineated by a carriage return. It's the equivalent of the HTML <p> tag."
-      },
-      "IJira.TableNode": {
-        "type": "object",
-        "properties": {
-          "type": {
-            "const": "table",
-            "title": "type"
-          },
-          "content": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/IJira.TableRowNode"
-            },
-            "title": "content"
-          },
-          "attrs": {
-            "type": "object",
-            "properties": {
-              "isNumberColumnEnabled": {
-                "type": "boolean",
-                "title": "isNumberColumnEnabled",
-                "description": "When isNumberColumnEnabled is set to 'true' the first table column provides numbering for the table rows."
-              },
-              "width": {
-                "type": "number",
-                "minimum": 0,
-                "title": "width",
-                "description": "width sets the length (in pixels) of the table on the page.\nThis value is independent of the table's column width, this allows control of the table's overflow.\nIt supersedes the existing layout attribute and will be used instead of it at runtime.\nIf width is not provided the editor will convert layout to pixels (default=760, wide=960 and full-width=1800).\nAlthough no minimum and maximum width is enforced it is recommended to follow these guidelines:\n\n- Minimum width\n\n- 1 column table = 48px\n- 2 column table = 96px\n- 3 column table = 144px\n- > 3 column table = 144px\n- Maximum width\n- 1800"
-              },
-              "layout": {
-                "oneOf": [
-                  {
-                    "const": "center"
-                  },
-                  {
-                    "const": "align-start"
-                  }
-                ],
-                "title": "layout",
-                "description": "layout determines the alignment of a table in the full page editor, relevant to the line length. Currently only center and left alignment options are supported.\nThe layout values are mapped as follows:\n- 'center' : will align the table to the center of page, its width can be larger than the line length\n- 'align-start' : will align the table left of the line length, its width cannot be larger than the line length"
-              },
-              "displayMode": {
-                "oneOf": [
-                  {
-                    "const": "fixed"
-                  },
-                  {
-                    "const": "default"
-                  }
-                ],
-                "title": "displayMode",
-                "description": "displayMode attribute controls how tables adapt to narrow screens:\nWhen displayMode is set to 'default' or left unset, the table's columns will automatically scale down to accommodate narrow screens, with a maximum reduction of up to 40%.\nWhen displayMode is set to 'fixed', the table's columns will maintain their original width, regardless of screen size."
-              }
-            },
-            "required": [],
-            "title": "attrs"
-          }
-        },
-        "required": [
-          "type",
-          "content"
-        ],
-        "description": "The table node provides a container for the nodes that define a table.\n\nNote: only supported on web and desktop. Mobile rendering support for tables is not available."
-      },
-      "IJira.TableRowNode": {
-        "type": "object",
-        "properties": {
-          "type": {
-            "const": "tableRow",
-            "title": "type"
-          },
-          "content": {
-            "type": "array",
-            "items": {
-              "oneOf": [
-                {
-                  "$ref": "#/components/schemas/IJira.TableHeaderNode"
-                },
-                {
-                  "$ref": "#/components/schemas/IJira.TableCellNode"
-                }
-              ],
-              "discriminator": {
-                "propertyName": "type",
-                "mapping": {
-                  "tableHeader": "#/components/schemas/IJira.TableHeaderNode",
-                  "tableCell": "#/components/schemas/IJira.TableCellNode"
-                }
-              }
-            },
-            "title": "content",
-            "description": "content takes an array of one or more tableHeader or tableCell nodes."
-          }
-        },
-        "required": [
-          "type",
-          "content"
-        ],
-        "title": "TableRowNode",
-        "description": "The tableRow node defines rows within a table and is a container for table heading and table cell nodes.\ntableRow is a child block node of the table node."
-      },
-      "IJira.TableHeaderNode": {
-        "type": "object",
-        "properties": {
-          "type": {
-            "const": "tableHeader",
-            "title": "type"
-          },
-          "content": {
-            "type": "array",
-            "items": {
-              "oneOf": [
-                {
-                  "$ref": "#/components/schemas/IJira.BlockquoteNode"
-                },
-                {
-                  "$ref": "#/components/schemas/ListNode"
-                },
-                {
-                  "$ref": "#/components/schemas/IJira.CodeBlockNode"
-                },
-                {
-                  "$ref": "#/components/schemas/IJira.HeadingNode"
-                },
-                {
-                  "$ref": "#/components/schemas/IJira.PanelNode"
-                },
-                {
-                  "$ref": "#/components/schemas/IJira.ParagraphNode"
-                },
-                {
-                  "$ref": "#/components/schemas/IJira.MediaGroupNode"
-                },
-                {
-                  "$ref": "#/components/schemas/IJira.RuleNode"
-                }
-              ]
-            },
-            "title": "content"
-          },
-          "attrs": {
-            "type": "object",
-            "properties": {
-              "background": {
-                "type": "string",
-                "title": "background",
-                "description": "Short or long hex color code or HTML color name"
-              },
-              "colspan": {
-                "type": "integer",
-                "default": 1,
-                "title": "colspan",
-                "description": "colspan defines the number of columns the cell spans."
-              },
-              "colwidth": {
-                "type": "array",
-                "items": {
-                  "type": "integer"
-                },
-                "minItems": 3,
-                "maxItems": 3,
-                "title": "colwidth",
-                "description": "defines the width of the column or,\nwhere the cell spans columns, the width of the columns it spans in pixels.\nThe length of the array should be equal to the number of spanned columns.\n0 is permitted as an array value if the column size is not fixed,\nfor example, a cell merged across 3 columns where one unfixed column is surrounded by two fixed might be represented as `[120, 0, 120]."
-              },
-              "rowspan": {
-                "type": "integer",
-                "default": 1,
-                "title": "rowspan",
-                "description": "rowspan defines the number of rows a cell spans."
-              }
-            },
-            "required": [],
-            "title": "attrs"
-          }
-        },
-        "required": [
-          "type",
-          "content"
-        ]
-      },
-      "IJira.MediaGroupNode": {
-        "type": "object",
-        "properties": {
-          "type": {
-            "const": "mediaGroup",
-            "title": "type"
-          },
-          "content": {
-            "type": "array",
-            "items": {
-              "oneOf": [
-                {
-                  "type": "object",
-                  "properties": {
-                    "type": {
-                      "const": "media",
-                      "title": "type"
-                    },
-                    "attrs": {
-                      "type": "object",
-                      "properties": {
-                        "width": {
-                          "type": "number",
-                          "title": "width",
-                          "description": "width defines the display width of the media item in pixels. Must be provided within mediaSingle or the media isn't displayed."
-                        },
-                        "height": {
-                          "type": "number",
-                          "title": "height",
-                          "description": "height defines the display height of the media item in pixels. Must be provided within mediaSingle or the media isn't displayed."
-                        },
-                        "id": {
-                          "type": "string",
-                          "title": "id",
-                          "description": "id is the Media Services ID and is used for querying the media services API to retrieve metadata, such as, filename. Consumers of the document should always fetch fresh metadata using the Media API."
-                        },
-                        "type": {
-                          "oneOf": [
-                            {
-                              "const": "link"
-                            },
-                            {
-                              "const": "file"
-                            }
-                          ],
-                          "title": "type",
-                          "description": "There are three types.\nHowever, in our service, we have to use \"external\" type only, because we are only considering universal users who do not save images through Media API, but save images through external links."
-                        }
-                      },
-                      "required": [
-                        "type"
-                      ],
-                      "title": "Attributes"
-                    },
-                    "marks": {
-                      "type": "object",
-                      "properties": {
-                        "type": {
-                          "const": "link",
-                          "title": "type"
-                        },
-                        "attrs": {
-                          "type": "object",
-                          "properties": {
-                            "href": {
-                              "type": "string",
-                              "format": "iri",
-                              "title": "link"
-                            }
-                          },
-                          "required": [
-                            "href"
-                          ],
-                          "title": "attrs"
-                        }
-                      },
-                      "required": [
-                        "type",
-                        "attrs"
-                      ],
-                      "title": "marks"
-                    }
-                  },
-                  "required": [
-                    "type",
-                    "attrs",
-                    "marks"
-                  ]
-                },
-                {
-                  "type": "object",
-                  "properties": {
-                    "type": {
-                      "const": "media",
-                      "title": "type"
-                    },
-                    "attrs": {
-                      "type": "object",
-                      "properties": {
-                        "width": {
-                          "type": "number",
-                          "title": "width",
-                          "description": "width defines the display width of the media item in pixels. Must be provided within mediaSingle or the media isn't displayed."
-                        },
-                        "height": {
-                          "type": "number",
-                          "title": "height",
-                          "description": "height defines the display height of the media item in pixels. Must be provided within mediaSingle or the media isn't displayed."
-                        },
-                        "id": {
-                          "type": "string",
-                          "title": "id",
-                          "description": "id is the Media Services ID and is used for querying the media services API to retrieve metadata, such as, filename. Consumers of the document should always fetch fresh metadata using the Media API."
-                        },
-                        "type": {
-                          "const": "external",
-                          "title": "type",
-                          "description": "There are three types.\nHowever, in our service, we have to use \"external\" type only, because we are only considering universal users who do not save images through Media API, but save images through external links."
-                        },
-                        "url": {
-                          "type": "string",
-                          "format": "iri",
-                          "title": "url"
-                        }
-                      },
-                      "required": [
-                        "type",
-                        "url"
-                      ],
-                      "title": "Attributes"
-                    }
-                  },
-                  "required": [
-                    "type",
-                    "attrs"
-                  ]
-                }
-              ]
-            },
-            "title": "content",
-            "description": "content must contain one or more media nodes."
-          }
-        },
-        "required": [
-          "type",
-          "content"
-        ]
-      },
-      "IJira.RuleNode": {
-        "type": "object",
-        "properties": {
-          "type": {
-            "const": "rule",
-            "title": "type"
-          }
-        },
-        "required": [
-          "type"
-        ],
-        "description": "The rule node represents a divider, it is equivalent to the HTML <hr/> tag."
-      },
-      "IJira.TableCellNode": {
-        "type": "object",
-        "properties": {
-          "type": {
-            "const": "tableCell",
-            "title": "type"
-          },
-          "content": {
-            "type": "array",
-            "items": {
-              "oneOf": [
-                {
-                  "$ref": "#/components/schemas/IJira.BlockquoteNode"
-                },
-                {
-                  "$ref": "#/components/schemas/ListNode"
-                },
-                {
-                  "$ref": "#/components/schemas/IJira.CodeBlockNode"
-                },
-                {
-                  "$ref": "#/components/schemas/IJira.HeadingNode"
-                },
-                {
-                  "$ref": "#/components/schemas/IJira.PanelNode"
-                },
-                {
-                  "$ref": "#/components/schemas/IJira.ParagraphNode"
-                },
-                {
-                  "$ref": "#/components/schemas/IJira.MediaGroupNode"
-                },
-                {
-                  "$ref": "#/components/schemas/IJira.RuleNode"
-                }
-              ]
-            },
-            "title": "content"
-          },
-          "attrs": {
-            "type": "object",
-            "properties": {
-              "background": {
-                "type": "string",
-                "title": "background",
-                "description": "Short or long hex color code or HTML color name"
-              },
-              "colspan": {
-                "type": "integer",
-                "default": 1,
-                "title": "colspan",
-                "description": "colspan defines the number of columns the cell spans."
-              },
-              "colwidth": {
-                "type": "array",
-                "items": {
-                  "type": "integer"
-                },
-                "minItems": 3,
-                "maxItems": 3,
-                "title": "colwidth",
-                "description": "defines the width of the column or,\nwhere the cell spans columns, the width of the columns it spans in pixels.\nThe length of the array should be equal to the number of spanned columns.\n0 is permitted as an array value if the column size is not fixed,\nfor example, a cell merged across 3 columns where one unfixed column is surrounded by two fixed might be represented as `[120, 0, 120]."
-              },
-              "rowspan": {
-                "type": "integer",
-                "default": 1,
-                "title": "rowspan",
-                "description": "rowspan defines the number of rows a cell spans."
-              }
-            },
-            "required": [],
-            "title": "attrs"
-          }
-        },
-        "required": [
-          "type",
-          "content"
+          "updateAuthor",
+          "body"
         ]
       },
       "MyPickIJira.UseractiveaccountIddisplayName": {
@@ -44221,7 +42710,7 @@
             "title": "labels attached to the issue"
           },
           "fields": {
-            "$ref": "#/components/schemas/IJira.DetailedIssueField",
+            "$ref": "#/components/schemas/StrictOmitDetailedIssueFielddescriptioncommentcommentmaxResultsnumbertotalnumberstartAtnumbercommentsanydescriptionany",
             "title": "Details of the issue"
           },
           "id": {
@@ -44239,9 +42728,74 @@
           "key"
         ]
       },
-      "IJira.DetailedIssueField": {
+      "StrictOmitDetailedIssueFielddescriptioncommentcommentmaxResultsnumbertotalnumberstartAtnumbercommentsanydescriptionany": {
         "type": "object",
         "properties": {
+          "summary": {
+            "type": "string",
+            "title": "summary"
+          },
+          "status": {
+            "$ref": "#/components/schemas/MyPickIJira.StatusdescriptionnameidstatusCategoryuntranslatedName",
+            "title": "status"
+          },
+          "parent": {
+            "$ref": "#/components/schemas/IJira.Parent",
+            "title": "parent of this issue"
+          },
+          "assignee": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/IJira.User"
+              }
+            ],
+            "title": "assignee"
+          },
+          "issuetype": {
+            "$ref": "#/components/schemas/MyPickIJira.IssueTypenameid",
+            "title": "issue type"
+          },
+          "reporter": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/IJira.User"
+              }
+            ],
+            "title": "reporter"
+          },
+          "priority": {
+            "$ref": "#/components/schemas/MyPickIJira.Prioritynameid",
+            "title": "priority"
+          },
+          "statuscategorychangedate": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "title": "statuscategorychangedate",
+            "description": "The date and time when the status category of the issue was last changed.\n\nThis property indicates the most recent timestamp when the issue transitioned\nbetween status categories (e.g., from \"To Do\" to \"In Progress\" or from\n\"In Progress\" to \"Done\"). Status categories in Jira typically include:\n- \"To Do\": The issue is pending and not yet started.\n- \"In Progress\": The issue is currently being worked on.\n- \"Done\": The issue has been completed."
+          },
+          "creator": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/IJira.User"
+              }
+            ],
+            "title": "creator"
+          },
           "comment": {
             "type": "object",
             "properties": {
@@ -44260,9 +42814,7 @@
               },
               "comments": {
                 "type": "array",
-                "items": {
-                  "$ref": "#/components/schemas/IJira.Comment"
-                },
+                "items": {},
                 "title": "list of comments"
               }
             },
@@ -44272,265 +42824,17 @@
               "startAt",
               "comments"
             ],
-            "title": "comment infomation"
+            "title": "Comment Infomation and Pagination Metadata"
           },
           "description": {
-            "oneOf": [
-              {
-                "type": "null"
-              },
-              {
-                "type": "object",
-                "properties": {
-                  "content": {
-                    "type": "array",
-                    "items": {
-                      "oneOf": [
-                        {
-                          "$ref": "#/components/schemas/IJira.BlockquoteNode"
-                        },
-                        {
-                          "$ref": "#/components/schemas/ListNode"
-                        },
-                        {
-                          "$ref": "#/components/schemas/IJira.CodeBlockNode"
-                        },
-                        {
-                          "$ref": "#/components/schemas/IJira.HeadingNode"
-                        },
-                        {
-                          "$ref": "#/components/schemas/IJira.MediaSingleNode"
-                        },
-                        {
-                          "$ref": "#/components/schemas/IJira.PanelNode"
-                        },
-                        {
-                          "$ref": "#/components/schemas/IJira.ParagraphNode"
-                        },
-                        {
-                          "$ref": "#/components/schemas/IJira.TableNode"
-                        },
-                        {
-                          "$ref": "#/components/schemas/IJira.MediaGroupNode"
-                        },
-                        {
-                          "$ref": "#/components/schemas/IJira.RuleNode"
-                        }
-                      ]
-                    },
-                    "title": "content"
-                  }
-                },
-                "required": [
-                  "content"
-                ]
-              }
-            ],
-            "title": "description"
-          },
-          "statuscategorychangedate": {
-            "oneOf": [
-              {
-                "type": "null"
-              },
-              {
-                "type": "string"
-              }
-            ],
-            "title": "statuscategorychangedate",
-            "description": "The date and time when the status category of the issue was last changed.\n\nThis property indicates the most recent timestamp when the issue transitioned\nbetween status categories (e.g., from \"To Do\" to \"In Progress\" or from\n\"In Progress\" to \"Done\"). Status categories in Jira typically include:\n- \"To Do\": The issue is pending and not yet started.\n- \"In Progress\": The issue is currently being worked on.\n- \"Done\": The issue has been completed."
-          },
-          "reporter": {
-            "oneOf": [
-              {
-                "type": "null"
-              },
-              {
-                "$ref": "#/components/schemas/IJira.User"
-              }
-            ],
-            "title": "reporter"
-          },
-          "creator": {
-            "oneOf": [
-              {
-                "type": "null"
-              },
-              {
-                "$ref": "#/components/schemas/IJira.User"
-              }
-            ],
-            "title": "creator"
-          },
-          "assignee": {
-            "oneOf": [
-              {
-                "type": "null"
-              },
-              {
-                "$ref": "#/components/schemas/IJira.User"
-              }
-            ],
-            "title": "assignee"
-          },
-          "summary": {
-            "type": "string",
-            "title": "summary"
-          },
-          "issuetype": {
-            "$ref": "#/components/schemas/MyPickIJira.IssueTypenameid",
-            "title": "issue type"
-          },
-          "status": {
-            "$ref": "#/components/schemas/MyPickIJira.StatusdescriptionnameidstatusCategoryuntranslatedName",
-            "title": "status"
-          },
-          "priority": {
-            "$ref": "#/components/schemas/MyPickIJira.Prioritynameid",
-            "title": "priority"
-          },
-          "parent": {
-            "$ref": "#/components/schemas/IJira.Parent",
-            "title": "parent of this issue"
+            "title": "Description of Issue"
           }
         },
         "required": [
-          "comment",
-          "description",
           "status",
-          "priority"
-        ]
-      },
-      "IJira.Comment": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string",
-            "title": "id of comment"
-          },
-          "author": {
-            "$ref": "#/components/schemas/MyPickIJira.UseractiveaccountIddisplayName",
-            "title": "author of this comment"
-          },
-          "updateAuthor": {
-            "$ref": "#/components/schemas/MyPickIJira.UseractiveaccountIddisplayName",
-            "title": "who updates this comment"
-          },
-          "body": {
-            "type": "object",
-            "properties": {
-              "type": {
-                "const": "doc",
-                "title": "type"
-              },
-              "version": {
-                "const": 1,
-                "title": "version"
-              },
-              "content": {
-                "type": "array",
-                "items": {
-                  "oneOf": [
-                    {
-                      "$ref": "#/components/schemas/IJira.BlockquoteNode"
-                    },
-                    {
-                      "$ref": "#/components/schemas/ListNode"
-                    },
-                    {
-                      "$ref": "#/components/schemas/IJira.CodeBlockNode"
-                    },
-                    {
-                      "$ref": "#/components/schemas/IJira.HeadingNode"
-                    },
-                    {
-                      "$ref": "#/components/schemas/IJira.MediaSingleNode"
-                    },
-                    {
-                      "$ref": "#/components/schemas/IJira.PanelNode"
-                    },
-                    {
-                      "$ref": "#/components/schemas/IJira.ParagraphNode"
-                    },
-                    {
-                      "$ref": "#/components/schemas/IJira.TableNode"
-                    },
-                    {
-                      "$ref": "#/components/schemas/IJira.MediaGroupNode"
-                    },
-                    {
-                      "$ref": "#/components/schemas/IJira.RuleNode"
-                    }
-                  ]
-                },
-                "title": "A document in Jira is a combination of several blocks, so a single comment appears in the form of an array",
-                "description": "A document in Jira is a combination of several blocks, so a single comment appears in the form of an array.\nBy combining each element in the array, you can understand the entire comment content."
-              }
-            },
-            "required": [
-              "type",
-              "version",
-              "content"
-            ],
-            "title": "body of comment"
-          },
-          "created": {
-            "type": "string",
-            "title": "created time of this comment"
-          },
-          "updated": {
-            "type": "string",
-            "title": "updated time of this comment"
-          }
-        },
-        "required": [
-          "id",
-          "author",
-          "updateAuthor",
-          "body",
-          "created",
-          "updated"
-        ]
-      },
-      "IJira.User": {
-        "type": "object",
-        "properties": {
-          "accountId": {
-            "type": "string",
-            "title": "id of this user account"
-          },
-          "displayName": {
-            "type": "string",
-            "title": "creator's name"
-          },
-          "active": {
-            "type": "boolean",
-            "title": "Whether is user active"
-          }
-        },
-        "required": [
-          "accountId",
-          "displayName",
-          "active"
-        ]
-      },
-      "MyPickIJira.IssueTypenameid": {
-        "type": "object",
-        "properties": {
-          "name": {
-            "type": "string",
-            "x-wrtn-placeholder": "스토리",
-            "title": "issue type name\n\nIt may be name, bug, story or etc."
-          },
-          "id": {
-            "type": "string",
-            "pattern": "^(0|[1-9]\\d*)$",
-            "title": "issuetype's id"
-          }
-        },
-        "required": [
-          "name",
-          "id"
+          "priority",
+          "comment",
+          "description"
         ]
       },
       "MyPickIJira.StatusdescriptionnameidstatusCategoryuntranslatedName": {
@@ -44580,24 +42884,6 @@
           "statusCategory"
         ]
       },
-      "MyPickIJira.Prioritynameid": {
-        "type": "object",
-        "properties": {
-          "name": {
-            "type": "string",
-            "title": "priority name\n\nIt may be Low, Medium, High."
-          },
-          "id": {
-            "type": "string",
-            "pattern": "([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)",
-            "title": "id"
-          }
-        },
-        "required": [
-          "name",
-          "id"
-        ]
-      },
       "IJira.Parent": {
         "type": "object",
         "properties": {
@@ -44625,6 +42911,65 @@
           "id",
           "key",
           "fields"
+        ]
+      },
+      "IJira.User": {
+        "type": "object",
+        "properties": {
+          "accountId": {
+            "type": "string",
+            "title": "id of this user account"
+          },
+          "displayName": {
+            "type": "string",
+            "title": "creator's name"
+          },
+          "active": {
+            "type": "boolean",
+            "title": "Whether is user active"
+          }
+        },
+        "required": [
+          "accountId",
+          "displayName",
+          "active"
+        ]
+      },
+      "MyPickIJira.IssueTypenameid": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "x-wrtn-placeholder": "스토리",
+            "title": "issue type name\n\nIt may be name, bug, story or etc."
+          },
+          "id": {
+            "type": "string",
+            "pattern": "^(0|[1-9]\\d*)$",
+            "title": "issuetype's id"
+          }
+        },
+        "required": [
+          "name",
+          "id"
+        ]
+      },
+      "MyPickIJira.Prioritynameid": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "title": "priority name\n\nIt may be Low, Medium, High."
+          },
+          "id": {
+            "type": "string",
+            "pattern": "([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)",
+            "title": "id"
+          }
+        },
+        "required": [
+          "name",
+          "id"
         ]
       },
       "IJira.IGetIssueDetailInput": {
@@ -64539,7 +62884,7 @@
                 "const": ""
               },
               {
-                "$ref": "#/components/schemas/__type.o2272"
+                "$ref": "#/components/schemas/__type.o2221"
               }
             ],
             "title": "replies"
@@ -64986,14 +63331,14 @@
           "name"
         ]
       },
-      "__type.o2272": {
+      "__type.o2221": {
         "type": "object",
         "properties": {
           "kind": {
             "const": "Listing"
           },
           "data": {
-            "$ref": "#/components/schemas/__type.o2273"
+            "$ref": "#/components/schemas/__type.o2222"
           }
         },
         "required": [
@@ -65001,7 +63346,7 @@
           "data"
         ]
       },
-      "__type.o2273": {
+      "__type.o2222": {
         "type": "object",
         "properties": {
           "after": {
@@ -65021,7 +63366,7 @@
             "items": {
               "oneOf": [
                 {
-                  "$ref": "#/components/schemas/__type.o2274"
+                  "$ref": "#/components/schemas/__type.o2223"
                 },
                 {
                   "type": "object",
@@ -65095,7 +63440,7 @@
           "before"
         ]
       },
-      "__type.o2274": {
+      "__type.o2223": {
         "type": "object",
         "properties": {
           "kind": {
