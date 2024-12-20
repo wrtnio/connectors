@@ -24,7 +24,7 @@ export class GoogleSlidesController {
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleSlides_full.svg",
   )
   @ApiTags("Google Slide")
-  @core.TypedRoute.Post("presentations/:id/export/hanshow")
+  @core.TypedRoute.Post("presentations/:id/exports/hanshow")
   async hanshow(
     @TypedParam("id") presentationId: string,
     @TypedBody() input: IGoogleSlides.IExportPresentationInput,
@@ -50,7 +50,7 @@ export class GoogleSlidesController {
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleSlides_full.svg",
   )
   @ApiTags("Google Slide")
-  @core.TypedRoute.Post("presentations/:id/export/power-point")
+  @core.TypedRoute.Post("presentations/:id/exports/power-point")
   async powerPoint(
     @TypedParam("id") presentationId: string,
     @TypedBody() input: IGoogleSlides.IExportPresentationInput,
