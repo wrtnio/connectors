@@ -17,7 +17,7 @@
   "info": {
     "title": "RAG",
     "description": "",
-    "version": "0.1.421",
+    "version": "0.1.422",
     "license": {
       "name": "AGPL-3.0-only"
     }
@@ -54,6 +54,12 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "rag",
+          "analyze"
+        ],
+        "x-samchon-controller": "RagController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/RAG_full.svg"
       }
     },
@@ -96,6 +102,12 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "rag",
+          "generate"
+        ],
+        "x-samchon-controller": "RagController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/RAG_full.svg"
       }
     }

@@ -17,7 +17,7 @@
   "info": {
     "title": "프롬프트",
     "description": "",
-    "version": "0.1.421",
+    "version": "0.1.422",
     "license": {
       "name": "AGPL-3.0-only"
     }
@@ -52,6 +52,12 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "prompt",
+          "generate"
+        ],
+        "x-samchon-controller": "PromptController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Prompt_prompt_full.svg"
       }
     }

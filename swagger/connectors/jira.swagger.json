@@ -18,7 +18,7 @@
     "title": "Jira",
     "summary": "Jira로 프로젝트 이슈를 관리해요.",
     "description": "프로젝트에 이슈를 생성하고 담당자를 할당해요. 완료된 이슈가 있다면 상태를 변경할 수도 있고 댓글을 남겨 의견 교류도 가능해요.",
-    "version": "0.1.421",
+    "version": "0.1.422",
     "license": {
       "name": "AGPL-3.0-only"
     }
@@ -50,6 +50,14 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "jira",
+          "issues",
+          "comments",
+          "deleteComment"
+        ],
+        "x-samchon-controller": "JiraController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/JIraCloud_full.svg"
       }
     },
@@ -79,6 +87,15 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "jira",
+          "issues",
+          "comments",
+          "markdown",
+          "updateComment"
+        ],
+        "x-samchon-controller": "JiraController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/JIraCloud_full.svg"
       },
       "post": {
@@ -111,6 +128,15 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "jira",
+          "issues",
+          "comments",
+          "markdown",
+          "createComment"
+        ],
+        "x-samchon-controller": "JiraController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/JIraCloud_full.svg"
       }
     },
@@ -145,6 +171,14 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "jira",
+          "issues",
+          "get_comments",
+          "getComments"
+        ],
+        "x-samchon-controller": "JiraController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/JIraCloud_full.svg"
       }
     },
@@ -178,6 +212,14 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "jira",
+          "issues",
+          "get_transitions",
+          "getTransitions"
+        ],
+        "x-samchon-controller": "JiraController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/JIraCloud_full.svg"
       }
     },
@@ -206,6 +248,14 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "jira",
+          "issues",
+          "asignee",
+          "unassign"
+        ],
+        "x-samchon-controller": "JiraController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/JIraCloud_full.svg"
       },
       "put": {
@@ -233,6 +283,14 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "jira",
+          "issues",
+          "asignee",
+          "assign"
+        ],
+        "x-samchon-controller": "JiraController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/JIraCloud_full.svg"
       }
     },
@@ -262,6 +320,14 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "jira",
+          "issues",
+          "status",
+          "updateIssueStatus"
+        ],
+        "x-samchon-controller": "JiraController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/JIraCloud_full.svg"
       }
     },
@@ -302,6 +368,13 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "jira",
+          "issues",
+          "updateIssue"
+        ],
+        "x-samchon-controller": "JiraController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/JIraCloud_full.svg"
       }
     },
@@ -336,6 +409,14 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "jira",
+          "issues",
+          "markdown",
+          "createIssueByMarkdown"
+        ],
+        "x-samchon-controller": "JiraController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/JIraCloud_full.svg"
       }
     },
@@ -369,6 +450,13 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "jira",
+          "get_issue_detail",
+          "getIssueDetail"
+        ],
+        "x-samchon-controller": "JiraController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/JIraCloud_full.svg"
       }
     },
@@ -403,6 +491,13 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "jira",
+          "get_issues",
+          "getIssues"
+        ],
+        "x-samchon-controller": "JiraController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/JIraCloud_full.svg"
       }
     },
@@ -437,6 +532,13 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "jira",
+          "get_projects",
+          "getProjects"
+        ],
+        "x-samchon-controller": "JiraController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/JIraCloud_full.svg"
       }
     },
@@ -470,6 +572,13 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "jira",
+          "get_issue_labels",
+          "getIssueLabels"
+        ],
+        "x-samchon-controller": "JiraController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/JIraCloud_full.svg"
       }
     },
@@ -503,6 +612,13 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "jira",
+          "get_issue_types",
+          "getIssueTypes"
+        ],
+        "x-samchon-controller": "JiraController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/JIraCloud_full.svg"
       }
     },
@@ -536,6 +652,13 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "jira",
+          "get_issue_statuses",
+          "getIssueStatus"
+        ],
+        "x-samchon-controller": "JiraController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/JIraCloud_full.svg"
       }
     },
@@ -572,6 +695,13 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "jira",
+          "get_issue_priorities",
+          "getIssuePriorities"
+        ],
+        "x-samchon-controller": "JiraController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/JIraCloud_full.svg"
       }
     },
@@ -608,6 +738,14 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "jira",
+          "issues",
+          "get_users_assignable",
+          "getUsersAssignableInIssue"
+        ],
+        "x-samchon-controller": "JiraController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/JIraCloud_full.svg"
       }
     },
@@ -644,6 +782,14 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "jira",
+          "projects",
+          "get_users_assignable",
+          "getUsersAssignableInProject"
+        ],
+        "x-samchon-controller": "JiraController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/JIraCloud_full.svg"
       }
     },
@@ -680,6 +826,13 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "jira",
+          "get_status_categories",
+          "getStatusCategories"
+        ],
+        "x-samchon-controller": "JiraController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/JIraCloud_full.svg"
       }
     }

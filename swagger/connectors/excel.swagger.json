@@ -18,7 +18,7 @@
     "title": "Excel",
     "summary": "엑셀을 이용해서 알아보기 쉽게 데이터를 관리할 수 있어요",
     "description": "엑셀에 시트를 넣거나 데이터를 추가하여 보기 쉽게 데이터를 관리할 수 있어요. 또 기존 파일을 업데이트해서 데이터를 누적해나갈 수도 있어요.",
-    "version": "0.1.421",
+    "version": "0.1.422",
     "license": {
       "name": "AGPL-3.0-only"
     }
@@ -58,6 +58,14 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "excel",
+          "read",
+          "headers",
+          "readHeaders"
+        ],
+        "x-samchon-controller": "ExcelController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/light/excel.svg",
         "x-wrtn-function-select-benchmarks": [
           "엑셀 헤더 읽어줘",
@@ -96,6 +104,13 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "excel",
+          "read",
+          "read"
+        ],
+        "x-samchon-controller": "ExcelController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/light/excel.svg",
         "x-wrtn-function-select-benchmarks": [
           "엑셀 읽어줘"
@@ -133,6 +148,13 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "excel",
+          "worksheet",
+          "worksheetList"
+        ],
+        "x-samchon-controller": "ExcelController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/light/excel.svg",
         "x-wrtn-function-select-benchmarks": [
           "엑셀 시트 읽어줘"
@@ -170,6 +192,14 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "excel",
+          "rows",
+          "upload",
+          "insertRowsByUpload"
+        ],
+        "x-samchon-controller": "ExcelController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/light/excel.svg",
         "x-wrtn-function-select-benchmarks": [
           "엑셀 데이터 추가해줘",
@@ -208,6 +238,13 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "excel",
+          "rows",
+          "insertRows"
+        ],
+        "x-samchon-controller": "ExcelController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/light/excel.svg",
         "x-wrtn-function-select-benchmarks": [
           "엑셀 데이터 추가해줘",
@@ -246,6 +283,12 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "excel",
+          "createSheets"
+        ],
+        "x-samchon-controller": "ExcelController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/light/excel.svg",
         "x-wrtn-function-select-benchmarks": [
           "엑셀 데이터 추가해줘",

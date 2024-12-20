@@ -18,13 +18,13 @@
     "title": "구글 프레젠테이션 제작",
     "summary": "구글 프레젠테이션을 쉽게 만들고 꾸밀 수 있어요.",
     "description": "구글 슬라이드로 프레젠테이션을 만들고, 페이지를 추가하거나 수정할 수 있어요. 텍스트, 이미지, 도형을 추가하고 다양한 효과를 설정할 수 있어요. 슬라이드 전환 효과를 적용하고, 개체의 순서를 조정할 수 있어요. 슬라이드 노트를 작성하여 발표 준비를 할 수 있고, 프레젠테이션의 메타데이터를 수정할 수 있어요. 팀원들과 실시간으로 협업하며 프레젠테이션을 만들 수 있고, 완성된 프레젠테이션을 PDF로 내보낼 수도 있어요.",
-    "version": "0.1.421",
+    "version": "0.1.422",
     "license": {
       "name": "AGPL-3.0-only"
     }
   },
   "paths": {
-    "/connector/google-slides/presentations/{id}/export/hanshow": {
+    "/connector/google-slides/presentations/{id}/exports/hanshow": {
       "post": {
         "summary": "Export presentations to Hanshow files",
         "description": "Export Google Slides presentations to Hanshow format",
@@ -65,10 +65,18 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "google_slides",
+          "presentations",
+          "exports",
+          "hanshow"
+        ],
+        "x-samchon-controller": "GoogleSlidesController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleSlides_full.svg"
       }
     },
-    "/connector/google-slides/presentations/{id}/export/power-point": {
+    "/connector/google-slides/presentations/{id}/exports/power-point": {
       "post": {
         "summary": "Export presentations to PPT files",
         "description": "Export Google Slides presentations to PowerPoint format\n\nA connector that can be used when creating stories or picture books.",
@@ -109,6 +117,15 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "google_slides",
+          "presentations",
+          "exports",
+          "power_point",
+          "powerPoint"
+        ],
+        "x-samchon-controller": "GoogleSlidesController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleSlides_full.svg"
       }
     },
@@ -143,6 +160,13 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "google_slides",
+          "get_presentations",
+          "getPresentation"
+        ],
+        "x-samchon-controller": "GoogleSlidesController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleSlides_full.svg"
       }
     },
@@ -187,6 +211,15 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "google_slides",
+          "presentations",
+          "slides",
+          "quarter_divisions",
+          "appendQuarterDivisionImageSlide"
+        ],
+        "x-samchon-controller": "GoogleSlidesController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleSlides_full.svg"
       }
     },
@@ -231,6 +264,15 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "google_slides",
+          "presentations",
+          "slides",
+          "entires",
+          "appendEntireImageSlide"
+        ],
+        "x-samchon-controller": "GoogleSlidesController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleSlides_full.svg"
       }
     },
@@ -275,6 +317,15 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "google_slides",
+          "presentations",
+          "slides",
+          "landscapes",
+          "appendLandscapeImageSlide"
+        ],
+        "x-samchon-controller": "GoogleSlidesController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleSlides_full.svg"
       }
     },
@@ -319,6 +370,15 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "google_slides",
+          "presentations",
+          "slides",
+          "squares",
+          "appendSquareImageSlide"
+        ],
+        "x-samchon-controller": "GoogleSlidesController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleSlides_full.svg"
       }
     },
@@ -363,6 +423,15 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "google_slides",
+          "presentations",
+          "slides",
+          "verticals",
+          "appendVerticalImageSlide"
+        ],
+        "x-samchon-controller": "GoogleSlidesController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleSlides_full.svg"
       }
     },
@@ -408,6 +477,14 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "google_slides",
+          "presentations",
+          "image_slide",
+          "appendImageSlide"
+        ],
+        "x-samchon-controller": "GoogleSlidesController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleSlides_full.svg"
       }
     },
@@ -442,6 +519,13 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "google_slides",
+          "presentations",
+          "createPresentation"
+        ],
+        "x-samchon-controller": "GoogleSlidesController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleSlides_full.svg"
       }
     },
@@ -475,6 +559,14 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "google_drive",
+          "get",
+          "folders",
+          "folderList"
+        ],
+        "x-samchon-controller": "GoogleDriveController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleDrive_full.svg",
         "x-wrtn-standalone": true,
         "x-wrtn-function-select-benchmarks": [
@@ -512,6 +604,14 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "google_drive",
+          "get",
+          "files",
+          "fileList"
+        ],
+        "x-samchon-controller": "GoogleDriveController",
         "x-wrtn-function-select-benchmarks": [
           "드라이브에 파일 좀 조회해줘",
           "드라이브에 파일 좀 찾아줘"
@@ -550,6 +650,13 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "google_drive",
+          "folder",
+          "createFolder"
+        ],
+        "x-samchon-controller": "GoogleDriveController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleDrive_full.svg",
         "x-wrtn-standalone": true,
         "x-wrtn-function-select-benchmarks": [
@@ -588,6 +695,13 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "google_drive",
+          "file",
+          "createFile"
+        ],
+        "x-samchon-controller": "GoogleDriveController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleDrive_full.svg",
         "x-wrtn-function-select-benchmarks": [
           "드라이브에 파일 좀 생성해줘"
@@ -635,6 +749,13 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "google_drive",
+          "file",
+          "deleteFile"
+        ],
+        "x-samchon-controller": "GoogleDriveController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleDrive_full.svg",
         "x-wrtn-function-select-benchmarks": [
           "드라이브에 파일 좀 삭제해줘"
@@ -682,6 +803,13 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "google_drive",
+          "folder",
+          "deleteFolder"
+        ],
+        "x-samchon-controller": "GoogleDriveController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleDrive_full.svg",
         "x-wrtn-function-select-benchmarks": [
           "드라이브에 폴더 좀 삭제해줘"
@@ -715,6 +843,12 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "google_drive",
+          "permission"
+        ],
+        "x-samchon-controller": "GoogleDriveController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleDrive_full.svg",
         "x-wrtn-function-select-benchmarks": [
           "드라이브 폴더에 접근 권한 좀 설정해줘",
@@ -767,6 +901,14 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "google_drive",
+          "get",
+          "file",
+          "readFile"
+        ],
+        "x-samchon-controller": "GoogleDriveController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleDrive_full.svg",
         "x-wrtn-function-select-benchmarks": [
           "드라이브 파일에 텍스트 좀 읽어줘"

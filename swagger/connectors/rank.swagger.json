@@ -17,7 +17,7 @@
   "info": {
     "title": "조건 정렬",
     "description": "",
-    "version": "0.1.421",
+    "version": "0.1.422",
     "license": {
       "name": "AGPL-3.0-only"
     }
@@ -53,6 +53,11 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "rank"
+        ],
+        "x-samchon-controller": "RankController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Sort_full.svg"
       }
     }

@@ -17,7 +17,7 @@
   "info": {
     "title": "Discord",
     "description": "디스코드로 메세지를 보내요.",
-    "version": "0.1.421",
+    "version": "0.1.422",
     "license": {
       "name": "AGPL-3.0-only"
     }
@@ -53,6 +53,13 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "discord",
+          "create_dm",
+          "createDM"
+        ],
+        "x-samchon-controller": "DiscordController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/discord.svg",
         "x-wrtn-function-select-benchmarks": [
           "DM 채널 만들어줘",
@@ -90,6 +97,13 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "discord",
+          "modify_guild",
+          "modifyGuild"
+        ],
+        "x-samchon-controller": "DiscordController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/discord.svg",
         "x-wrtn-function-select-benchmarks": [
           "길드 수정해줘"
@@ -129,6 +143,13 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "discord",
+          "get_guild_channels",
+          "getGuildChannels"
+        ],
+        "x-samchon-controller": "DiscordController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/discord.svg",
         "x-wrtn-function-select-benchmarks": [
           "길드 채널 조회해줘"
@@ -165,6 +186,13 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "discord",
+          "create_guild_channel",
+          "createGuildChannel"
+        ],
+        "x-samchon-controller": "DiscordController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/discord.svg",
         "x-wrtn-function-select-benchmarks": [
           "길드 채널 생성해줘"
@@ -204,6 +232,13 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "discord",
+          "get_list_guild_members",
+          "getListGuildMembers"
+        ],
+        "x-samchon-controller": "DiscordController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/discord.svg",
         "x-wrtn-function-select-benchmarks": [
           "길드 멤버 조회해줘"
@@ -240,6 +275,13 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "discord",
+          "modify_channel",
+          "modifyChannel"
+        ],
+        "x-samchon-controller": "DiscordController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/discord.svg",
         "x-wrtn-function-select-benchmarks": [
           "디스코드 채널 정보 수정해줘",
@@ -274,6 +316,13 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "discord",
+          "delete_channel",
+          "deleteChannel"
+        ],
+        "x-samchon-controller": "DiscordController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/discord.svg",
         "x-wrtn-function-select-benchmarks": [
           "디스코드 채널 삭제해줘",
@@ -314,6 +363,13 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "discord",
+          "get_pinned_messages",
+          "getPinnedMessages"
+        ],
+        "x-samchon-controller": "DiscordController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/discord.svg",
         "x-wrtn-function-select-benchmarks": [
           "디스코드 메세지 고정해둔 것들 조회해줘",
@@ -347,6 +403,13 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "discord",
+          "pin_message",
+          "pinMessage"
+        ],
+        "x-samchon-controller": "DiscordController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/discord.svg",
         "x-wrtn-function-select-benchmarks": [
           "디스코드 메시지 고정해줘",
@@ -380,6 +443,13 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "discord",
+          "unpin_message",
+          "unpinMessage"
+        ],
+        "x-samchon-controller": "DiscordController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/discord.svg",
         "x-wrtn-function-select-benchmarks": [
           "디스코드 메시지 고정 해제해줘",
@@ -420,6 +490,13 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "discord",
+          "get_channel_message_histories",
+          "getChannelMessageHistories"
+        ],
+        "x-samchon-controller": "DiscordController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/discord.svg",
         "x-wrtn-function-select-benchmarks": [
           "디스코드 메시지 조회해줘",
@@ -457,6 +534,13 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "discord",
+          "create_message",
+          "createMessage"
+        ],
+        "x-samchon-controller": "DiscordController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/discord.svg",
         "x-wrtn-function-select-benchmarks": [
           "디스코드 메시지 보내줘",
@@ -494,6 +578,13 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "discord",
+          "edit_message",
+          "editMessage"
+        ],
+        "x-samchon-controller": "DiscordController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/discord.svg",
         "x-wrtn-function-select-benchmarks": [
           "디스코드 메시지 수정해줘",
@@ -527,6 +618,13 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "discord",
+          "delete_message",
+          "deleteMessage"
+        ],
+        "x-samchon-controller": "DiscordController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/discord.svg",
         "x-wrtn-function-select-benchmarks": [
           "디스코드 메시지 전송 취소해줘",
@@ -564,6 +662,13 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "discord",
+          "bulk_delete_message",
+          "bulkDeleteMessage"
+        ],
+        "x-samchon-controller": "DiscordController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/discord.svg",
         "x-wrtn-function-select-benchmarks": [
           "디스코드 메시지 전송 취소해줘",

@@ -15,7 +15,7 @@
     }
   ],
   "info": {
-    "version": "0.1.421",
+    "version": "0.1.422",
     "title": "@wrtn/connector",
     "description": "wrtn-ecosystem connectors and sdk",
     "license": {
@@ -73,6 +73,14 @@
             "bearer": []
           }
         ],
+        "x-samchon-accessor": [
+          "connector",
+          "articles",
+          "sync",
+          "dev_to",
+          "syncToDevTo"
+        ],
+        "x-samchon-controller": "ArticlesController",
         "x-wrtn-function-select-benchmarks": [
           "dev.to에 동기화해줘"
         ]
@@ -128,6 +136,14 @@
             "bearer": []
           }
         ],
+        "x-samchon-accessor": [
+          "connector",
+          "articles",
+          "sync",
+          "google_docs",
+          "syncToGoogleDocs"
+        ],
+        "x-samchon-controller": "ArticlesController",
         "x-wrtn-function-select-benchmarks": [
           "google docs에 동기화해줘"
         ]
@@ -183,6 +199,14 @@
             "bearer": []
           }
         ],
+        "x-samchon-accessor": [
+          "connector",
+          "articles",
+          "sync",
+          "notion",
+          "syncToNotion"
+        ],
+        "x-samchon-controller": "ArticlesController",
         "x-wrtn-function-select-benchmarks": [
           "노션에 동기화해줘"
         ]
@@ -238,6 +262,14 @@
             "bearer": []
           }
         ],
+        "x-samchon-accessor": [
+          "connector",
+          "articles",
+          "exports",
+          "dev_to",
+          "exportsToDevTo"
+        ],
+        "x-samchon-controller": "ArticlesController",
         "x-wrtn-function-select-benchmarks": [
           "dev.to로 내보내줘"
         ]
@@ -293,6 +325,14 @@
             "bearer": []
           }
         ],
+        "x-samchon-accessor": [
+          "connector",
+          "articles",
+          "exports",
+          "google_docs",
+          "exportsToGoogleDocs"
+        ],
+        "x-samchon-controller": "ArticlesController",
         "x-wrtn-function-select-benchmarks": [
           "google docs로 내보내줘"
         ]
@@ -348,6 +388,14 @@
             "bearer": []
           }
         ],
+        "x-samchon-accessor": [
+          "connector",
+          "articles",
+          "exports",
+          "notion",
+          "exportsToNotion"
+        ],
+        "x-samchon-controller": "ArticlesController",
         "x-wrtn-function-select-benchmarks": [
           "notion으로 내보내줘"
         ]
@@ -391,6 +439,12 @@
             "bearer": []
           }
         ],
+        "x-samchon-accessor": [
+          "connector",
+          "articles",
+          "at"
+        ],
+        "x-samchon-controller": "ArticlesController",
         "x-wrtn-function-select-benchmarks": [
           "전체 내용 글 내용 다 보여줘",
           "글 내용 보여줘"
@@ -430,6 +484,12 @@
             "bearer": []
           }
         ],
+        "x-samchon-accessor": [
+          "connector",
+          "articles",
+          "remove"
+        ],
+        "x-samchon-controller": "ArticlesController",
         "x-wrtn-function-select-benchmarks": [
           "내 글 삭제해줘"
         ]
@@ -482,6 +542,12 @@
             "bearer": []
           }
         ],
+        "x-samchon-accessor": [
+          "connector",
+          "articles",
+          "update"
+        ],
+        "x-samchon-controller": "ArticlesController",
         "x-wrtn-function-select-benchmarks": [
           "내 글 수정해줘"
         ]
@@ -521,6 +587,12 @@
             "bearer": []
           }
         ],
+        "x-samchon-accessor": [
+          "connector",
+          "articles",
+          "index"
+        ],
+        "x-samchon-controller": "ArticlesController",
         "x-wrtn-function-select-benchmarks": [
           "내 글 조회해줘"
         ]
@@ -556,6 +628,12 @@
             "bearer": []
           }
         ],
+        "x-samchon-accessor": [
+          "connector",
+          "articles",
+          "write"
+        ],
+        "x-samchon-controller": "ArticlesController",
         "x-wrtn-function-select-benchmarks": [
           "내 개인 DB에 글 좀 써줘"
         ]
@@ -590,6 +668,13 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "extract",
+          "keyword",
+          "extractKeyword"
+        ],
+        "x-samchon-controller": "KeywordExtractController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/keyword.svg"
       }
     },
@@ -623,6 +708,11 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "rank"
+        ],
+        "x-samchon-controller": "RankController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Sort_full.svg"
       }
     },
@@ -655,6 +745,13 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "marketing_copy",
+          "generate_copy",
+          "generateCopy"
+        ],
+        "x-samchon-controller": "MarketingCopyController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Marketing_full.svg"
       }
     },
@@ -687,6 +784,13 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "marketing_copy",
+          "generate_copy_image",
+          "generateCopyImage"
+        ],
+        "x-samchon-controller": "MarketingCopyController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Marketing_full.svg"
       }
     },
@@ -719,6 +823,12 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "student_report_generator",
+          "generate"
+        ],
+        "x-samchon-controller": "StudentReportGeneratorController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/StudentRecord_full.svg"
       }
     },
@@ -751,6 +861,13 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "student_report_generator",
+          "row",
+          "generateRow"
+        ],
+        "x-samchon-controller": "StudentReportGeneratorController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/StudentRecord_full.svg"
       }
     },
@@ -785,6 +902,12 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "rag",
+          "analyze"
+        ],
+        "x-samchon-controller": "RagController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/RAG_full.svg"
       }
     },
@@ -827,6 +950,12 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "rag",
+          "generate"
+        ],
+        "x-samchon-controller": "RagController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/RAG_full.svg"
       }
     },
@@ -861,6 +990,13 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "hwp",
+          "parse",
+          "parseHwp"
+        ],
+        "x-samchon-controller": "HwpController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/HWP_full.svg"
       }
     },
@@ -898,6 +1034,14 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "excel",
+          "read",
+          "headers",
+          "readHeaders"
+        ],
+        "x-samchon-controller": "ExcelController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/light/excel.svg",
         "x-wrtn-function-select-benchmarks": [
           "엑셀 헤더 읽어줘",
@@ -936,6 +1080,13 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "excel",
+          "read",
+          "read"
+        ],
+        "x-samchon-controller": "ExcelController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/light/excel.svg",
         "x-wrtn-function-select-benchmarks": [
           "엑셀 읽어줘"
@@ -973,6 +1124,13 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "excel",
+          "worksheet",
+          "worksheetList"
+        ],
+        "x-samchon-controller": "ExcelController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/light/excel.svg",
         "x-wrtn-function-select-benchmarks": [
           "엑셀 시트 읽어줘"
@@ -1010,6 +1168,14 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "excel",
+          "rows",
+          "upload",
+          "insertRowsByUpload"
+        ],
+        "x-samchon-controller": "ExcelController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/light/excel.svg",
         "x-wrtn-function-select-benchmarks": [
           "엑셀 데이터 추가해줘",
@@ -1048,6 +1214,13 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "excel",
+          "rows",
+          "insertRows"
+        ],
+        "x-samchon-controller": "ExcelController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/light/excel.svg",
         "x-wrtn-function-select-benchmarks": [
           "엑셀 데이터 추가해줘",
@@ -1086,6 +1259,12 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "excel",
+          "createSheets"
+        ],
+        "x-samchon-controller": "ExcelController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/light/excel.svg",
         "x-wrtn-function-select-benchmarks": [
           "엑셀 데이터 추가해줘",
@@ -1123,7 +1302,14 @@
               }
             }
           }
-        }
+        },
+        "x-samchon-accessor": [
+          "connector",
+          "google_docs",
+          "markdown",
+          "write"
+        ],
+        "x-samchon-controller": "GoogleDocsController"
       }
     },
     "/connector/google-docs/contents": {
@@ -1154,7 +1340,14 @@
               }
             }
           }
-        }
+        },
+        "x-samchon-accessor": [
+          "connector",
+          "google_docs",
+          "contents",
+          "clear"
+        ],
+        "x-samchon-controller": "GoogleDocsController"
       }
     },
     "/connector/google-docs": {
@@ -1188,6 +1381,12 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "google_docs",
+          "createDocs"
+        ],
+        "x-samchon-controller": "GoogleDocsController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Google+Docs_full.svg",
         "x-wrtn-standalone": true
       }
@@ -1219,6 +1418,12 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "google_docs",
+          "permission"
+        ],
+        "x-samchon-controller": "GoogleDocsController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Google+Docs_full.svg"
       }
     },
@@ -1267,6 +1472,13 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "google_docs",
+          "get",
+          "readDocs"
+        ],
+        "x-samchon-controller": "GoogleDocsController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Google+Docs_full.svg"
       }
     },
@@ -1301,6 +1513,13 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "google_docs",
+          "template",
+          "createDocByTemplate"
+        ],
+        "x-samchon-controller": "GoogleDocsController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Google+Docs_full.svg"
       }
     },
@@ -1352,7 +1571,13 @@
               }
             }
           }
-        }
+        },
+        "x-samchon-accessor": [
+          "connector",
+          "google_docs",
+          "update"
+        ],
+        "x-samchon-controller": "GoogleDocsController"
       },
       "delete": {
         "summary": "Delete Google Docs",
@@ -1394,6 +1619,12 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "google_docs",
+          "deleteById"
+        ],
+        "x-samchon-controller": "GoogleDocsController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Google+Docs_full.svg"
       }
     },
@@ -1427,6 +1658,13 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "google_docs",
+          "get_list",
+          "list"
+        ],
+        "x-samchon-controller": "GoogleDocsController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Google+Docs_full.svg",
         "x-wrtn-standalone": true
       }
@@ -1462,6 +1700,12 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "google_docs",
+          "append"
+        ],
+        "x-samchon-controller": "GoogleDocsController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Google+Docs_full.svg"
       }
     },
@@ -1496,6 +1740,12 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "google_sheet",
+          "getHeaders"
+        ],
+        "x-samchon-controller": "GoogleSheetController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleSheet_full.svg",
         "x-wrtn-standalone": true
       }
@@ -1527,6 +1777,13 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "google_sheet",
+          "append",
+          "appendGoogleSheet"
+        ],
+        "x-samchon-controller": "GoogleSheetController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleSheet_full.svg"
       }
     },
@@ -1561,6 +1818,13 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "google_sheet",
+          "create",
+          "createGoogleSheet"
+        ],
+        "x-samchon-controller": "GoogleSheetController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleSheet_full.svg",
         "x-wrtn-standalone": true
       }
@@ -1592,6 +1856,12 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "google_sheet",
+          "permission"
+        ],
+        "x-samchon-controller": "GoogleSheetController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleSheet_full.svg",
         "x-wrtn-standalone": true
       }
@@ -1623,6 +1893,13 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "google_sheet",
+          "header",
+          "writeHeaders"
+        ],
+        "x-samchon-controller": "GoogleSheetController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleSheet_full.svg",
         "x-wrtn-standalone": true
       }
@@ -1658,6 +1935,13 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "google_sheet",
+          "worksheet",
+          "getWorkSheet"
+        ],
+        "x-samchon-controller": "GoogleSheetController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleSheet_full.svg",
         "x-wrtn-standalone": true
       }
@@ -1692,6 +1976,13 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "google_sheet",
+          "get_rows",
+          "readRows"
+        ],
+        "x-samchon-controller": "GoogleSheetController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleSheet_full.svg",
         "x-wrtn-standalone": true
       }
@@ -1729,6 +2020,13 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "google_calendar",
+          "get_list",
+          "readCalenders"
+        ],
+        "x-samchon-controller": "GoogleCalendarController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleCal_full.svg",
         "x-wrtn-standalone": true,
         "x-wrtn-function-select-benchmarks": [
@@ -1767,6 +2065,12 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "google_calendar",
+          "createCalendar"
+        ],
+        "x-samchon-controller": "GoogleCalendarController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleCal_full.svg",
         "x-wrtn-standalone": true,
         "x-wrtn-function-select-benchmarks": [
@@ -1815,6 +2119,12 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "google_calendar",
+          "deleteCalendar"
+        ],
+        "x-samchon-controller": "GoogleCalendarController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleCal_full.svg",
         "x-wrtn-function-select-benchmarks": [
           "구글 캘린더 중 이거 삭제해줘"
@@ -1867,6 +2177,13 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "google_calendar",
+          "get_events",
+          "readEvents"
+        ],
+        "x-samchon-controller": "GoogleCalendarController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleCal_full.svg",
         "x-wrtn-function-select-benchmarks": [
           "캘린더에 등록된 일정 좀 봐줘"
@@ -1915,6 +2232,13 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "google_calendar",
+          "quick_event",
+          "createQuickEvent"
+        ],
+        "x-samchon-controller": "GoogleCalendarController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleCal_full.svg",
         "x-wrtn-function-select-benchmarks": [
           "구글 캘린더에 이벤트 하나 생성해줘"
@@ -1967,6 +2291,13 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "google_calendar",
+          "event",
+          "createEvent"
+        ],
+        "x-samchon-controller": "GoogleCalendarController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleCal_full.svg",
         "x-wrtn-function-select-benchmarks": [
           "구글 캘린더에 이벤트 하나 생성해줘"
@@ -2033,6 +2364,13 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "google_calendar",
+          "event",
+          "updateEvent"
+        ],
+        "x-samchon-controller": "GoogleCalendarController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleCal_full.svg",
         "x-wrtn-function-select-benchmarks": [
           "구글 캘린더에 이벤트 하나 수정해줘"
@@ -2092,6 +2430,13 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "google_calendar",
+          "event",
+          "deleteEvent"
+        ],
+        "x-samchon-controller": "GoogleCalendarController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleCal_full.svg",
         "x-wrtn-function-select-benchmarks": [
           "구글 캘린더에 일정 지워줘"
@@ -2158,6 +2503,14 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "google_calendar",
+          "event",
+          "attendees",
+          "addAttendeesToEvent"
+        ],
+        "x-samchon-controller": "GoogleCalendarController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleCal_full.svg",
         "x-wrtn-function-select-benchmarks": [
           "구글 캘린더에 이벤트 참석자 추가해줘"
@@ -2194,6 +2547,14 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "google_drive",
+          "get",
+          "folders",
+          "folderList"
+        ],
+        "x-samchon-controller": "GoogleDriveController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleDrive_full.svg",
         "x-wrtn-standalone": true,
         "x-wrtn-function-select-benchmarks": [
@@ -2231,6 +2592,14 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "google_drive",
+          "get",
+          "files",
+          "fileList"
+        ],
+        "x-samchon-controller": "GoogleDriveController",
         "x-wrtn-function-select-benchmarks": [
           "드라이브에 파일 좀 조회해줘",
           "드라이브에 파일 좀 찾아줘"
@@ -2269,6 +2638,13 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "google_drive",
+          "folder",
+          "createFolder"
+        ],
+        "x-samchon-controller": "GoogleDriveController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleDrive_full.svg",
         "x-wrtn-standalone": true,
         "x-wrtn-function-select-benchmarks": [
@@ -2307,6 +2683,13 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "google_drive",
+          "file",
+          "createFile"
+        ],
+        "x-samchon-controller": "GoogleDriveController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleDrive_full.svg",
         "x-wrtn-function-select-benchmarks": [
           "드라이브에 파일 좀 생성해줘"
@@ -2354,6 +2737,13 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "google_drive",
+          "file",
+          "deleteFile"
+        ],
+        "x-samchon-controller": "GoogleDriveController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleDrive_full.svg",
         "x-wrtn-function-select-benchmarks": [
           "드라이브에 파일 좀 삭제해줘"
@@ -2401,6 +2791,13 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "google_drive",
+          "folder",
+          "deleteFolder"
+        ],
+        "x-samchon-controller": "GoogleDriveController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleDrive_full.svg",
         "x-wrtn-function-select-benchmarks": [
           "드라이브에 폴더 좀 삭제해줘"
@@ -2434,6 +2831,12 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "google_drive",
+          "permission"
+        ],
+        "x-samchon-controller": "GoogleDriveController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleDrive_full.svg",
         "x-wrtn-function-select-benchmarks": [
           "드라이브 폴더에 접근 권한 좀 설정해줘",
@@ -2486,6 +2889,14 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "google_drive",
+          "get",
+          "file",
+          "readFile"
+        ],
+        "x-samchon-controller": "GoogleDriveController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleDrive_full.svg",
         "x-wrtn-function-select-benchmarks": [
           "드라이브 파일에 텍스트 좀 읽어줘"
@@ -2523,6 +2934,13 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "llm",
+          "selector_llm",
+          "selectorLlm"
+        ],
+        "x-samchon-controller": "LlmController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/LLM_full.svg"
       }
     },
@@ -2557,6 +2975,12 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "gmail",
+          "send"
+        ],
+        "x-samchon-controller": "GmailController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleMail_full.svg",
         "x-wrtn-standalone": true,
         "x-wrtn-function-select-benchmarks": [
@@ -2592,6 +3016,12 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "gmail",
+          "draft"
+        ],
+        "x-samchon-controller": "GmailController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleMail_full.svg",
         "x-wrtn-standalone": true,
         "x-wrtn-function-select-benchmarks": [
@@ -2644,6 +3074,12 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "gmail",
+          "reply"
+        ],
+        "x-samchon-controller": "GmailController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleMail_full.svg",
         "x-wrtn-function-select-benchmarks": [
           "지메일 온 거 답장해줘"
@@ -2696,6 +3132,13 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "gmail",
+          "get",
+          "findEmail"
+        ],
+        "x-samchon-controller": "GmailController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleMail_full.svg",
         "x-wrtn-function-select-benchmarks": [
           "메일 상세 조회해줘"
@@ -2733,6 +3176,13 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "gmail",
+          "read_list",
+          "findEmails"
+        ],
+        "x-samchon-controller": "GmailController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleMail_full.svg",
         "x-wrtn-standalone": true,
         "x-wrtn-function-select-benchmarks": [
@@ -2780,6 +3230,12 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "gmail",
+          "hardDelete"
+        ],
+        "x-samchon-controller": "GmailController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleMail_full.svg",
         "x-wrtn-function-select-benchmarks": [
           "메일 삭제해줘"
@@ -2827,6 +3283,12 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "gmail",
+          "removeMail"
+        ],
+        "x-samchon-controller": "GmailController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleMail_full.svg",
         "x-wrtn-function-select-benchmarks": [
           "메일 삭제해줘"
@@ -2864,6 +3326,13 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "gmail",
+          "label",
+          "createLabel"
+        ],
+        "x-samchon-controller": "GmailController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleMail_full.svg",
         "x-wrtn-standalone": true,
         "x-wrtn-function-select-benchmarks": [
@@ -2913,6 +3382,13 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "gmail",
+          "label",
+          "addLabelToMail"
+        ],
+        "x-samchon-controller": "GmailController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleMail_full.svg",
         "x-wrtn-function-select-benchmarks": [
           "메일에 라벨링해줘"
@@ -2960,6 +3436,13 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "gmail",
+          "label",
+          "removeLabelFromMail"
+        ],
+        "x-samchon-controller": "GmailController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleMail_full.svg",
         "x-wrtn-function-select-benchmarks": [
           "메일에 라벨 제거해줘"
@@ -2992,6 +3475,12 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "gmail",
+          "deleteMailList"
+        ],
+        "x-samchon-controller": "GmailController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleMail_full.svg",
         "x-wrtn-function-select-benchmarks": [
           "메일 삭제해줘"
@@ -3035,6 +3524,13 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "tool",
+          "generate",
+          "generateTool"
+        ],
+        "x-samchon-controller": "ToolController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/_Studio1.0Tool_full.svg"
       }
     },
@@ -3067,6 +3563,14 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "chatbot",
+          "generate",
+          "easy",
+          "generateEasyChatbot"
+        ],
+        "x-samchon-controller": "ChatBotController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/_Studio1.0Chatbot_full.svg"
       }
     },
@@ -3099,6 +3603,14 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "chatbot",
+          "generate",
+          "hard",
+          "generateHardChatbot"
+        ],
+        "x-samchon-controller": "ChatBotController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/_Studio1.0Chatbot_full.svg"
       }
     },
@@ -3133,6 +3645,13 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "figma",
+          "get_files",
+          "readFiles"
+        ],
+        "x-samchon-controller": "FigmaController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Figma_full.svg"
       }
     },
@@ -3167,6 +3686,13 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "figma",
+          "comments",
+          "addComment"
+        ],
+        "x-samchon-controller": "FigmaController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Figma_full.svg"
       }
     },
@@ -3201,6 +3727,13 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "figma",
+          "get_comments",
+          "readComments"
+        ],
+        "x-samchon-controller": "FigmaController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Figma_full.svg"
       }
     },
@@ -3250,6 +3783,14 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "figma",
+          "projects",
+          "get_canvas",
+          "getProjectCanvas"
+        ],
+        "x-samchon-controller": "FigmaController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Figma_full.svg"
       }
     },
@@ -3287,6 +3828,13 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "figma",
+          "get_statistics",
+          "getStatistics"
+        ],
+        "x-samchon-controller": "FigmaController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Figma_full.svg"
       }
     },
@@ -3321,6 +3869,13 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "figma",
+          "get_projects",
+          "getProjects"
+        ],
+        "x-samchon-controller": "FigmaController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Figma_full.svg"
       }
     },
@@ -3355,6 +3910,14 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "sweet_tacker",
+          "get_companies",
+          "recommended",
+          "getRecommendedCompanyList"
+        ],
+        "x-samchon-controller": "SweetTrackerController",
         "x-wrtn-standalone": true,
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/delivery_full.svg"
       }
@@ -3379,6 +3942,13 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "sweet_tacker",
+          "get_companies",
+          "getCompanyList"
+        ],
+        "x-samchon-controller": "SweetTrackerController",
         "x-wrtn-standalone": true,
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/delivery_full.svg"
       }
@@ -3414,6 +3984,13 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "sweet_tacker",
+          "tracking_info",
+          "getTrackingInfo"
+        ],
+        "x-samchon-controller": "SweetTrackerController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/delivery_full.svg"
       }
     },
@@ -3448,6 +4025,13 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "hancell",
+          "sheet",
+          "upsertSheet"
+        ],
+        "x-samchon-controller": "HancellController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Hancel_full.svg"
       }
     },
@@ -3482,6 +4066,12 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "hancell",
+          "read"
+        ],
+        "x-samchon-controller": "HancellController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Hancel_full.svg",
         "x-wrtn-standalone": true
       }
@@ -3517,6 +4107,14 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "kakao_talk",
+          "message",
+          "text",
+          "send"
+        ],
+        "x-samchon-controller": "KakaoTalkController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/kakaoTalk_full.svg"
       }
     },
@@ -3551,6 +4149,14 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "kakao_talk",
+          "memo",
+          "commerce",
+          "commerceMemo"
+        ],
+        "x-samchon-controller": "KakaoTalkController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/kakaoTalk_full.svg",
         "x-wrtn-standalone": true
       }
@@ -3586,6 +4192,14 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "kakao_talk",
+          "memo",
+          "location",
+          "locationMemo"
+        ],
+        "x-samchon-controller": "KakaoTalkController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/kakaoTalk_full.svg",
         "x-wrtn-standalone": true
       }
@@ -3621,6 +4235,14 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "kakao_talk",
+          "memo",
+          "list",
+          "listMemo"
+        ],
+        "x-samchon-controller": "KakaoTalkController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/kakaoTalk_full.svg",
         "x-wrtn-standalone": true
       }
@@ -3656,6 +4278,14 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "kakao_talk",
+          "memo",
+          "feed",
+          "feedMemo"
+        ],
+        "x-samchon-controller": "KakaoTalkController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/kakaoTalk_full.svg",
         "x-wrtn-standalone": true
       }
@@ -3691,6 +4321,14 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "kakao_talk",
+          "memo",
+          "text",
+          "textMemo"
+        ],
+        "x-samchon-controller": "KakaoTalkController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/kakaoTalk_full.svg",
         "x-wrtn-standalone": true
       }
@@ -3726,6 +4364,14 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "kakao_talk",
+          "calendars",
+          "events",
+          "createEvent"
+        ],
+        "x-samchon-controller": "KakaoTalkController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/kakaoTalk_full.svg",
         "x-wrtn-standalone": true
       }
@@ -3761,6 +4407,13 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "kakao_talk",
+          "get_friends",
+          "getFriends"
+        ],
+        "x-samchon-controller": "KakaoTalkController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/kakaoTalk_full.svg",
         "x-wrtn-standalone": true
       }
@@ -3803,6 +4456,13 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "kakao_talk",
+          "get_events",
+          "getEvents"
+        ],
+        "x-samchon-controller": "KakaoTalkController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/kakaoTalk_full.svg",
         "x-wrtn-standalone": true
       }
@@ -3838,6 +4498,13 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "kakao_talk",
+          "get_calendars",
+          "getCalendars"
+        ],
+        "x-samchon-controller": "KakaoTalkController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/kakaoTalk_full.svg",
         "x-wrtn-standalone": true
       }
@@ -3873,6 +4540,12 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "kakao_map",
+          "search"
+        ],
+        "x-samchon-controller": "KakaoMapController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/KakaoMap_full.svg",
         "x-wrtn-standalone": true
       }
@@ -3908,11 +4581,18 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "kakao_navi",
+          "get_future_directions",
+          "getFutureDirections"
+        ],
+        "x-samchon-controller": "KakaoNaviController",
         "x-wrtn-standalone": true,
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/KakaoNavi_full.svg"
       }
     },
-    "/connector/google-slides/presentations/{id}/export/hanshow": {
+    "/connector/google-slides/presentations/{id}/exports/hanshow": {
       "post": {
         "summary": "Export presentations to Hanshow files",
         "description": "Export Google Slides presentations to Hanshow format",
@@ -3953,10 +4633,18 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "google_slides",
+          "presentations",
+          "exports",
+          "hanshow"
+        ],
+        "x-samchon-controller": "GoogleSlidesController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleSlides_full.svg"
       }
     },
-    "/connector/google-slides/presentations/{id}/export/power-point": {
+    "/connector/google-slides/presentations/{id}/exports/power-point": {
       "post": {
         "summary": "Export presentations to PPT files",
         "description": "Export Google Slides presentations to PowerPoint format\n\nA connector that can be used when creating stories or picture books.",
@@ -3997,6 +4685,15 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "google_slides",
+          "presentations",
+          "exports",
+          "power_point",
+          "powerPoint"
+        ],
+        "x-samchon-controller": "GoogleSlidesController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleSlides_full.svg"
       }
     },
@@ -4031,6 +4728,13 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "google_slides",
+          "get_presentations",
+          "getPresentation"
+        ],
+        "x-samchon-controller": "GoogleSlidesController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleSlides_full.svg"
       }
     },
@@ -4075,6 +4779,15 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "google_slides",
+          "presentations",
+          "slides",
+          "quarter_divisions",
+          "appendQuarterDivisionImageSlide"
+        ],
+        "x-samchon-controller": "GoogleSlidesController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleSlides_full.svg"
       }
     },
@@ -4119,6 +4832,15 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "google_slides",
+          "presentations",
+          "slides",
+          "entires",
+          "appendEntireImageSlide"
+        ],
+        "x-samchon-controller": "GoogleSlidesController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleSlides_full.svg"
       }
     },
@@ -4163,6 +4885,15 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "google_slides",
+          "presentations",
+          "slides",
+          "landscapes",
+          "appendLandscapeImageSlide"
+        ],
+        "x-samchon-controller": "GoogleSlidesController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleSlides_full.svg"
       }
     },
@@ -4207,6 +4938,15 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "google_slides",
+          "presentations",
+          "slides",
+          "squares",
+          "appendSquareImageSlide"
+        ],
+        "x-samchon-controller": "GoogleSlidesController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleSlides_full.svg"
       }
     },
@@ -4251,6 +4991,15 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "google_slides",
+          "presentations",
+          "slides",
+          "verticals",
+          "appendVerticalImageSlide"
+        ],
+        "x-samchon-controller": "GoogleSlidesController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleSlides_full.svg"
       }
     },
@@ -4296,6 +5045,14 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "google_slides",
+          "presentations",
+          "image_slide",
+          "appendImageSlide"
+        ],
+        "x-samchon-controller": "GoogleSlidesController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleSlides_full.svg"
       }
     },
@@ -4330,6 +5087,13 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "google_slides",
+          "presentations",
+          "createPresentation"
+        ],
+        "x-samchon-controller": "GoogleSlidesController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleSlides_full.svg"
       }
     },
@@ -4367,6 +5131,13 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "imweb",
+          "get_products",
+          "getProducts"
+        ],
+        "x-samchon-controller": "ImwebController",
         "x-wrtn-standalone": true,
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Imweb_full.svg"
       }
@@ -4401,6 +5172,12 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "open_data",
+          "getAddress"
+        ],
+        "x-samchon-controller": "OpenDataController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/open_data.svg"
       }
     },
@@ -4435,6 +5212,12 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "open_data",
+          "getRTMSDataSvcSHRent"
+        ],
+        "x-samchon-controller": "OpenDataController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/open_data.svg"
       }
     },
@@ -4469,6 +5252,12 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "open_data",
+          "getRTMSDataSvcOffiRent"
+        ],
+        "x-samchon-controller": "OpenDataController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/open_data.svg"
       }
     },
@@ -4503,6 +5292,12 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "open_data",
+          "getRTMSDataSvcAptRent"
+        ],
+        "x-samchon-controller": "OpenDataController",
         "x-wrtn-standalone": true,
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/open_data.svg"
       }
@@ -4538,6 +5333,12 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "open_data",
+          "getLHLeaseInfo"
+        ],
+        "x-samchon-controller": "OpenDataController",
         "x-wrtn-standalone": true,
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/open_data.svg"
       }
@@ -4580,6 +5381,12 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "open_data",
+          "getParkingLot"
+        ],
+        "x-samchon-controller": "OpenDataController",
         "x-wrtn-standalone": true,
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/open_data.svg"
       }
@@ -4615,6 +5422,12 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "open_data",
+          "getBuildingInfo"
+        ],
+        "x-samchon-controller": "OpenDataController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/open_data.svg"
       }
     },
@@ -4649,6 +5462,12 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "open_data",
+          "getStandardRegionCodeList"
+        ],
+        "x-samchon-controller": "OpenDataController",
         "x-wrtn-standalone": true,
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/open_data.svg"
       }
@@ -4691,6 +5510,12 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "open_data",
+          "getStockPriceInfo"
+        ],
+        "x-samchon-controller": "OpenDataController",
         "x-wrtn-standalone": true,
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/open_data.svg"
       }
@@ -4736,6 +5561,12 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "open_data",
+          "getShortTermForecast"
+        ],
+        "x-samchon-controller": "OpenDataController",
         "x-wrtn-standalone": true,
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/open_data.svg"
       }
@@ -4771,6 +5602,12 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "open_data",
+          "getCopyRight"
+        ],
+        "x-samchon-controller": "OpenDataController",
         "x-wrtn-standalone": true,
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/open_data.svg"
       }
@@ -4804,6 +5641,12 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "prompt",
+          "generate"
+        ],
+        "x-samchon-controller": "PromptController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Prompt_prompt_full.svg"
       }
     },
@@ -4836,6 +5679,12 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "story_generator",
+          "generate"
+        ],
+        "x-samchon-controller": "StoryGeneratorController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Marketing_full.svg"
       }
     },
@@ -4868,6 +5717,12 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "story_image_generator",
+          "generateImage"
+        ],
+        "x-samchon-controller": "StoryImageGeneratorController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/image.svg"
       }
     },
@@ -4902,6 +5757,13 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "stable_diffusion_beta",
+          "generate",
+          "generateImage"
+        ],
+        "x-samchon-controller": "StableDiffusionBetaController",
         "x-wrtn-standalone": true,
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/StableDifusion_full.svg"
       }
@@ -4937,6 +5799,13 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "dall_e_3",
+          "generate",
+          "generateImage"
+        ],
+        "x-samchon-controller": "DallE3Controller",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Dall-e3_full.svg",
         "x-wrtn-function-select-benchmarks": [
           "dall-e로 그림 그려줘",
@@ -4978,6 +5847,12 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "google_search",
+          "search"
+        ],
+        "x-samchon-controller": "GoogleSearchController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleSearch_full.svg",
         "x-wrtn-standalone": true,
         "x-wrtn-function-select-benchmarks": [
@@ -5019,6 +5894,13 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "google_search",
+          "wanted",
+          "searchForWanted"
+        ],
+        "x-samchon-controller": "GoogleSearchCareerController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/_wanted_full.svg",
         "x-wrtn-standalone": true,
         "x-wrtn-function-select-benchmarks": [
@@ -5061,6 +5943,13 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "google_search",
+          "incruit",
+          "searchForIncruit"
+        ],
+        "x-samchon-controller": "GoogleSearchCareerController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Incruit_full.svg",
         "x-wrtn-standalone": true,
         "x-wrtn-function-select-benchmarks": [
@@ -5103,6 +5992,13 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "google_search",
+          "saramin",
+          "searchForSaramin"
+        ],
+        "x-samchon-controller": "GoogleSearchCareerController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Saramin_full.svg",
         "x-wrtn-standalone": true,
         "x-wrtn-function-select-benchmarks": [
@@ -5145,6 +6041,13 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "google_search",
+          "jumpit",
+          "searchForJumpit"
+        ],
+        "x-samchon-controller": "GoogleSearchCareerController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/jumpit_full.svg",
         "x-wrtn-standalone": true,
         "x-wrtn-function-select-benchmarks": [
@@ -5187,6 +6090,13 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "google_search",
+          "careerly",
+          "searchForCareerly"
+        ],
+        "x-samchon-controller": "GoogleSearchCareerController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/careerly_full.svg",
         "x-wrtn-standalone": true,
         "x-wrtn-function-select-benchmarks": [
@@ -5229,6 +6139,12 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "google_shopping",
+          "aladine"
+        ],
+        "x-samchon-controller": "GoogleShoppingAladinController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/aladin_full.svg",
         "x-wrtn-standalone": true,
         "x-wrtn-function-select-benchmarks": [
@@ -5270,6 +6186,13 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "google_shopping",
+          "ali_express",
+          "aliExpress"
+        ],
+        "x-samchon-controller": "GoogleShoppingAliexpressController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/AliExpress_full.svg",
         "x-wrtn-standalone": true,
         "x-wrtn-function-select-benchmarks": [
@@ -5311,6 +6234,12 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "google_shopping",
+          "coupang"
+        ],
+        "x-samchon-controller": "GoogleShoppingCoupangController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Coupang_full.svg",
         "x-wrtn-standalone": true,
         "x-wrtn-function-select-benchmarks": [
@@ -5352,6 +6281,13 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "google_shopping",
+          "eql",
+          "hansumEQL"
+        ],
+        "x-samchon-controller": "GoogleShoppingEqlController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/ECL_full.svg",
         "x-wrtn-standalone": true,
         "x-wrtn-function-select-benchmarks": [
@@ -5393,6 +6329,12 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "google_shopping",
+          "iherb"
+        ],
+        "x-samchon-controller": "GoogleShoppingIherbController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/iHerb_full.svg",
         "x-wrtn-standalone": true,
         "x-wrtn-function-select-benchmarks": [
@@ -5434,6 +6376,13 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "google_shopping",
+          "market_kurly",
+          "marketKurly"
+        ],
+        "x-samchon-controller": "GoogleShoppingMarketKurlyController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Kurly_full.svg",
         "x-wrtn-standalone": true,
         "x-wrtn-function-select-benchmarks": [
@@ -5475,6 +6424,12 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "google_shopping",
+          "oco"
+        ],
+        "x-samchon-controller": "GoogleShoppingOcoController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/OCO_full.svg",
         "x-wrtn-standalone": true,
         "x-wrtn-function-select-benchmarks": [
@@ -5516,6 +6471,13 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "google_shopping",
+          "olive_young",
+          "oliveYoung"
+        ],
+        "x-samchon-controller": "GoogleShoppingOliveYoungController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/oliveYoung_full.svg",
         "x-wrtn-standalone": true,
         "x-wrtn-function-select-benchmarks": [
@@ -5557,6 +6519,13 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "google_shopping",
+          "twenty_nine_centimeter",
+          "twentyNineCentimeter"
+        ],
+        "x-samchon-controller": "GoogleShoppingTwentyNineCentimeterController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/29cm_full.svg",
         "x-wrtn-standalone": true,
         "x-wrtn-function-select-benchmarks": [
@@ -5598,6 +6567,12 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "google_shopping",
+          "uniqlo"
+        ],
+        "x-samchon-controller": "GoogleShoppingUniqloController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Uniqlo_full.svg",
         "x-wrtn-standalone": true,
         "x-wrtn-function-select-benchmarks": [
@@ -5639,6 +6614,13 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "google_shopping",
+          "yes_twenty_four",
+          "yes24"
+        ],
+        "x-samchon-controller": "GoogleShoppingYesTwentyFourController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/yes24_full.svg",
         "x-wrtn-standalone": true,
         "x-wrtn-function-select-benchmarks": [
@@ -5681,6 +6663,12 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "google_shopping",
+          "musinsa"
+        ],
+        "x-samchon-controller": "GoogleShoppingMusinsaController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Musinsa_full.svg",
         "x-wrtn-standalone": true,
         "x-wrtn-function-select-benchmarks": [
@@ -5719,6 +6707,13 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "google_ads",
+          "generateKeywordIdeas",
+          "keywordsAndUrl"
+        ],
+        "x-samchon-controller": "GoogleAdsController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/googleAD_full.svg",
         "x-wrtn-standalone": true,
         "x-wrtn-function-select-benchmarks": [
@@ -5758,6 +6753,13 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "google_ads",
+          "generateKeywordIdeas",
+          "keywords"
+        ],
+        "x-samchon-controller": "GoogleAdsController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/googleAD_full.svg",
         "x-wrtn-standalone": true,
         "x-wrtn-function-select-benchmarks": [
@@ -5796,6 +6798,13 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "google_ads",
+          "generateKeywordIdeas",
+          "url"
+        ],
+        "x-samchon-controller": "GoogleAdsController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/googleAD_full.svg",
         "x-wrtn-standalone": true,
         "x-wrtn-function-select-benchmarks": [
@@ -5830,6 +6839,13 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "google_ads",
+          "customerClientLink",
+          "publish"
+        ],
+        "x-samchon-controller": "GoogleAdsController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/googleAD_full.svg",
         "x-wrtn-function-select-benchmarks": [
           "Wrtn 광고 계정에 내 계정 등록하게 링크 좀 줘"
@@ -5870,6 +6886,13 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "google_ads",
+          "get_customers",
+          "getCustomers"
+        ],
+        "x-samchon-controller": "GoogleAdsController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/googleAD_full.svg",
         "x-wrtn-standalone": true,
         "x-wrtn-function-select-benchmarks": [
@@ -5911,6 +6934,13 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "google_ads",
+          "get_campaigns",
+          "getCampaigns"
+        ],
+        "x-samchon-controller": "GoogleAdsController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/googleAD_full.svg",
         "x-wrtn-function-select-benchmarks": [
           "내 구글 광고 캠페인들 보여줘"
@@ -5951,6 +6981,13 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "google_ads",
+          "get_ad_groups",
+          "getAdGroups"
+        ],
+        "x-samchon-controller": "GoogleAdsController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/googleAD_full.svg",
         "x-wrtn-function-select-benchmarks": [
           "내 구글 광고 그룹들 보여줘"
@@ -5991,6 +7028,13 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "google_ads",
+          "get_ads",
+          "getAds"
+        ],
+        "x-samchon-controller": "GoogleAdsController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/googleAD_full.svg",
         "x-wrtn-function-select-benchmarks": [
           "내 구글 광고들 보여줘"
@@ -6031,6 +7075,14 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "google_ads",
+          "ad_groups",
+          "get_metrics",
+          "getMetrics"
+        ],
+        "x-samchon-controller": "GoogleAdsController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/googleAD_full.svg",
         "x-wrtn-function-select-benchmarks": [
           "내 구글 광고 통계 좀 보여줘",
@@ -6073,6 +7125,15 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "google_ads",
+          "campaigns",
+          "ads",
+          "get_keywords",
+          "getKeywords"
+        ],
+        "x-samchon-controller": "GoogleAdsController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/googleAD_full.svg",
         "x-wrtn-function-select-benchmarks": [
           "광고 키워드 목록 좀 보여줄래?"
@@ -6106,6 +7167,15 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "google_ads",
+          "campaigns",
+          "ads",
+          "status",
+          "setOnOff"
+        ],
+        "x-samchon-controller": "GoogleAdsController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/googleAD_full.svg",
         "x-wrtn-function-select-benchmarks": [
           "광고 켜줘",
@@ -6140,6 +7210,15 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "google_ads",
+          "campaigns",
+          "ads",
+          "keywords",
+          "deleteKeywords"
+        ],
+        "x-samchon-controller": "GoogleAdsController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/googleAD_full.svg",
         "x-wrtn-function-select-benchmarks": [
           "광고 키워드 지워줘"
@@ -6180,6 +7259,15 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "google_ads",
+          "campaigns",
+          "ads",
+          "keywords",
+          "addKeywords"
+        ],
+        "x-samchon-controller": "GoogleAdsController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/googleAD_full.svg",
         "x-wrtn-function-select-benchmarks": [
           "광고 키워드 추가해줘"
@@ -6217,6 +7305,15 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "google_ads",
+          "campaigns",
+          "ads",
+          "get_details",
+          "getAdGroupAdDetail"
+        ],
+        "x-samchon-controller": "GoogleAdsController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/googleAD_full.svg",
         "x-wrtn-function-select-benchmarks": [
           "광고 상세 조회해줘"
@@ -6268,6 +7365,14 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "google_ads",
+          "campaigns",
+          "ads",
+          "appendAd"
+        ],
+        "x-samchon-controller": "GoogleAdsController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/googleAD_full.svg",
         "x-wrtn-function-select-benchmarks": [
           "캠페인에 광고 생성해줘",
@@ -6302,6 +7407,13 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "google_ads",
+          "campaigns",
+          "updateCampaign"
+        ],
+        "x-samchon-controller": "GoogleAdsController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/googleAD_full.svg",
         "x-wrtn-function-select-benchmarks": [
           "캠페인 수정해줘"
@@ -6337,6 +7449,13 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "google_ads",
+          "campaigns",
+          "createCampaign"
+        ],
+        "x-samchon-controller": "GoogleAdsController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/googleAD_full.svg",
         "x-wrtn-function-select-benchmarks": [
           "캠페인 생성해줘"
@@ -6374,6 +7493,13 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "google_ads",
+          "search_ads",
+          "createSearchAd"
+        ],
+        "x-samchon-controller": "GoogleAdsController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/googleAD_full.svg",
         "x-wrtn-function-select-benchmarks": [
           "검색 광고 생성해줘"
@@ -6411,6 +7537,13 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "google_ads",
+          "display_ads",
+          "createDisplayAd"
+        ],
+        "x-samchon-controller": "GoogleAdsController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/googleAD_full.svg",
         "x-wrtn-function-select-benchmarks": [
           "디스플레이 광고 생성해줘"
@@ -6448,6 +7581,12 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "arxiv_search",
+          "search"
+        ],
+        "x-samchon-controller": "ArxivSearchController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Arxiv_full.svg",
         "x-wrtn-standalone": true,
         "x-wrtn-function-select-benchmarks": [
@@ -6486,6 +7625,13 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "daum",
+          "blog",
+          "searchBlog"
+        ],
+        "x-samchon-controller": "DaumController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/DaumBlog_full.svg",
         "x-wrtn-function-select-benchmarks": [
           "블로그 검색 해줘",
@@ -6524,6 +7670,13 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "daum",
+          "cafe",
+          "searchCafe"
+        ],
+        "x-samchon-controller": "DaumController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/DaumCafe_full.svg",
         "x-wrtn-function-select-benchmarks": [
           "카페 검색 해줘",
@@ -6562,6 +7715,13 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "naver",
+          "cafe",
+          "cafeList"
+        ],
+        "x-samchon-controller": "NaverController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/NaverCafe_full.svg",
         "x-wrtn-standalone": true
       }
@@ -6597,6 +7757,13 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "naver",
+          "blog",
+          "blogList"
+        ],
+        "x-samchon-controller": "NaverController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/NaverBlog_full.svg",
         "x-wrtn-standalone": true
       }
@@ -6632,6 +7799,13 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "naver",
+          "news",
+          "newsList"
+        ],
+        "x-samchon-controller": "NaverController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/NaverNews_full.svg"
       }
     },
@@ -6669,6 +7843,12 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "youtube_search",
+          "search"
+        ],
+        "x-samchon-controller": "YoutubeSearchController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Youtube_full.svg",
         "x-wrtn-standalone": true
       }
@@ -6706,6 +7886,13 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "youtube_search",
+          "official",
+          "searchVideo"
+        ],
+        "x-samchon-controller": "YoutubeSearchController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Youtube_full.svg"
       }
     },
@@ -6740,6 +7927,12 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "youtube_search",
+          "transcript"
+        ],
+        "x-samchon-controller": "YoutubeSearchController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Youtube_full.svg"
       }
     },
@@ -6777,6 +7970,12 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "google_scholar",
+          "search"
+        ],
+        "x-samchon-controller": "GoogleScholarController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleScholar_full.svg",
         "x-wrtn-standalone": true,
         "x-wrtn-function-select-benchmarks": [
@@ -6815,6 +8014,12 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "csv",
+          "read"
+        ],
+        "x-samchon-controller": "CsvController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/CSV_full.svg",
         "x-wrtn-function-select-benchmarks": [
           "CSV 좀 읽어줘",
@@ -6853,6 +8058,12 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "csv",
+          "write"
+        ],
+        "x-samchon-controller": "CsvController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/CSV_full.svg",
         "x-wrtn-function-select-benchmarks": [
           "CSV 파일 좀 만들어줘"
@@ -6890,6 +8101,13 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "csv",
+          "csv_to_excel",
+          "csvToExcel"
+        ],
+        "x-samchon-controller": "CsvController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/CSV_full.svg",
         "x-wrtn-function-select-benchmarks": [
           "CSV 파일 엑셀로 변환해줘"
@@ -6920,6 +8138,14 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "notion",
+          "page",
+          "block",
+          "deleteBlock"
+        ],
+        "x-samchon-controller": "NotionController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg"
       }
     },
@@ -6953,6 +8179,14 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "notion",
+          "page",
+          "markdown",
+          "appendBlocksByMarkdown"
+        ],
+        "x-samchon-controller": "NotionController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg"
       }
     },
@@ -6982,6 +8216,14 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "notion",
+          "page",
+          "file",
+          "createFile"
+        ],
+        "x-samchon-controller": "NotionController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg"
       }
     },
@@ -7011,6 +8253,14 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "notion",
+          "page",
+          "embed",
+          "createEmbed"
+        ],
+        "x-samchon-controller": "NotionController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg"
       }
     },
@@ -7040,6 +8290,14 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "notion",
+          "page",
+          "bookmark",
+          "createBookmark"
+        ],
+        "x-samchon-controller": "NotionController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg"
       }
     },
@@ -7069,6 +8327,14 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "notion",
+          "page",
+          "image",
+          "createImage"
+        ],
+        "x-samchon-controller": "NotionController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg"
       }
     },
@@ -7098,6 +8364,14 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "notion",
+          "page",
+          "video",
+          "createVideo"
+        ],
+        "x-samchon-controller": "NotionController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg"
       }
     },
@@ -7127,6 +8401,14 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "notion",
+          "page",
+          "pdf",
+          "createPdf"
+        ],
+        "x-samchon-controller": "NotionController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg"
       }
     },
@@ -7157,6 +8439,14 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "notion",
+          "page",
+          "code",
+          "createCode"
+        ],
+        "x-samchon-controller": "NotionController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg"
       }
     },
@@ -7186,6 +8476,14 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "notion",
+          "page",
+          "equation",
+          "createEquation"
+        ],
+        "x-samchon-controller": "NotionController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg"
       }
     },
@@ -7215,6 +8513,14 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "notion",
+          "page",
+          "divider",
+          "createDivider"
+        ],
+        "x-samchon-controller": "NotionController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg"
       }
     },
@@ -7244,6 +8550,14 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "notion",
+          "page",
+          "table_of_contents",
+          "createTableOfContents"
+        ],
+        "x-samchon-controller": "NotionController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg"
       }
     },
@@ -7273,6 +8587,14 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "notion",
+          "page",
+          "link_to_page",
+          "createLinkToPage"
+        ],
+        "x-samchon-controller": "NotionController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg"
       }
     },
@@ -7302,6 +8624,14 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "notion",
+          "page",
+          "toggle",
+          "createToggle"
+        ],
+        "x-samchon-controller": "NotionController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg"
       }
     },
@@ -7336,6 +8666,13 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "notion",
+          "page",
+          "createPage"
+        ],
+        "x-samchon-controller": "NotionController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg"
       }
     },
@@ -7370,6 +8707,15 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "notion",
+          "get",
+          "page",
+          "contents",
+          "readPageContents"
+        ],
+        "x-samchon-controller": "NotionController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg"
       }
     },
@@ -7406,6 +8752,14 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "notion",
+          "get",
+          "page",
+          "readPageList"
+        ],
+        "x-samchon-controller": "NotionController",
         "x-wrtn-standalone": true,
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg"
       }
@@ -7443,6 +8797,14 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "notion",
+          "get",
+          "users",
+          "getUsers"
+        ],
+        "x-samchon-controller": "NotionController",
         "x-wrtn-standalone": true,
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg"
       }
@@ -7480,6 +8842,14 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "notion",
+          "get",
+          "database_info",
+          "getDatabaseListInfo"
+        ],
+        "x-samchon-controller": "NotionController",
         "x-wrtn-standalone": true,
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg"
       }
@@ -7529,6 +8899,14 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "notion",
+          "get",
+          "database_info",
+          "getDatabaseInfo"
+        ],
+        "x-samchon-controller": "NotionController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg"
       }
     },
@@ -7563,6 +8941,13 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "notion",
+          "get_page_by_title",
+          "getPageByTitle"
+        ],
+        "x-samchon-controller": "NotionController",
         "x-wrtn-standalone": true,
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg"
       }
@@ -7615,6 +9000,13 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "notion",
+          "find_item_list",
+          "getDatabaseItemList"
+        ],
+        "x-samchon-controller": "NotionController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg"
       }
     },
@@ -7664,6 +9056,13 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "notion",
+          "find_item",
+          "getDatabaseItem"
+        ],
+        "x-samchon-controller": "NotionController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg"
       }
     },
@@ -7697,6 +9096,13 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "notion",
+          "markdown",
+          "createPageByMarkdown"
+        ],
+        "x-samchon-controller": "NotionController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg"
       }
     },
@@ -7730,6 +9136,14 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "notion",
+          "page",
+          "title",
+          "updatePageTitle"
+        ],
+        "x-samchon-controller": "NotionController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg"
       }
     },
@@ -7763,6 +9177,13 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "notion",
+          "create_gallery_database",
+          "createGalleryDatabase"
+        ],
+        "x-samchon-controller": "NotionController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg"
       }
     },
@@ -7799,6 +9220,13 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "notion",
+          "create_gallery_item",
+          "createGalleryItem"
+        ],
+        "x-samchon-controller": "NotionController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg"
       }
     },
@@ -7832,6 +9260,13 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "notion",
+          "update_page_content",
+          "updatePageContent"
+        ],
+        "x-samchon-controller": "NotionController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg"
       }
     },
@@ -7865,6 +9300,13 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "notion",
+          "create_database",
+          "createDatabase"
+        ],
+        "x-samchon-controller": "NotionController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg"
       }
     },
@@ -7898,6 +9340,13 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "notion",
+          "add_database_property",
+          "addDatabaseProperty"
+        ],
+        "x-samchon-controller": "NotionController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg"
       }
     },
@@ -7931,6 +9380,13 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "notion",
+          "delete_database_property",
+          "deleteDatabaseProperty"
+        ],
+        "x-samchon-controller": "NotionController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg"
       }
     },
@@ -7965,6 +9421,13 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "notion",
+          "add_items_to_database",
+          "addItemsToDatabase"
+        ],
+        "x-samchon-controller": "NotionController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg"
       }
     },
@@ -8002,6 +9465,12 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "google_hotel",
+          "search"
+        ],
+        "x-samchon-controller": "GoogleHotelController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleHotel_full.svg",
         "x-wrtn-standalone": true,
         "x-wrtn-function-select-benchmarks": [
@@ -8043,6 +9512,12 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "airport_information",
+          "search"
+        ],
+        "x-samchon-controller": "AirportInformationController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/AirportInformation_full.svg",
         "x-wrtn-standalone": true,
         "x-wrtn-function-select-benchmarks": [
@@ -8081,6 +9556,13 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "google_flight",
+          "one_way",
+          "oneWay"
+        ],
+        "x-samchon-controller": "GoogleFlightController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleFlight_full.svg",
         "x-wrtn-standalone": true,
         "x-wrtn-function-select-benchmarks": [
@@ -8119,6 +9601,13 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "google_flight",
+          "round_trip",
+          "roundTrip"
+        ],
+        "x-samchon-controller": "GoogleFlightController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleFlight_full.svg",
         "x-wrtn-standalone": true,
         "x-wrtn-function-select-benchmarks": [
@@ -8157,6 +9646,12 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "slack",
+          "vote"
+        ],
+        "x-samchon-controller": "SlackController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Slack_full.svg"
       }
     },
@@ -8186,6 +9681,13 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "slack",
+          "conversation",
+          "mark"
+        ],
+        "x-samchon-controller": "SlackController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Slack_full.svg"
       }
     },
@@ -8218,6 +9720,14 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "slack",
+          "scheduleMessage",
+          "text",
+          "sendScheduleMessage"
+        ],
+        "x-samchon-controller": "SlackController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Slack_full.svg"
       }
     },
@@ -8247,6 +9757,13 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "slack",
+          "scheduleMessage",
+          "deleteScheduleMessage"
+        ],
+        "x-samchon-controller": "SlackController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Slack_full.svg"
       }
     },
@@ -8280,6 +9797,15 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "slack",
+          "postMessage",
+          "text",
+          "myself",
+          "sendTextToMyself"
+        ],
+        "x-samchon-controller": "SlackController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Slack_full.svg"
       }
     },
@@ -8313,6 +9839,14 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "slack",
+          "postMessage",
+          "reply",
+          "sendReply"
+        ],
+        "x-samchon-controller": "SlackController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Slack_full.svg"
       }
     },
@@ -8346,6 +9880,14 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "slack",
+          "postMessage",
+          "text",
+          "sendText"
+        ],
+        "x-samchon-controller": "SlackController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Slack_full.svg"
       }
     },
@@ -8379,6 +9921,13 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "slack",
+          "message",
+          "updateMessage"
+        ],
+        "x-samchon-controller": "SlackController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Slack_full.svg"
       }
     },
@@ -8412,6 +9961,13 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "slack",
+          "get_scheduled_messages",
+          "getScheduledMessages"
+        ],
+        "x-samchon-controller": "SlackController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Slack_full.svg"
       }
     },
@@ -8448,6 +10004,13 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "slack",
+          "get_user_details",
+          "getUserDetails"
+        ],
+        "x-samchon-controller": "SlackController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Slack_full.svg"
       }
     },
@@ -8481,6 +10044,13 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "slack",
+          "get_users",
+          "getUsers"
+        ],
+        "x-samchon-controller": "SlackController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Slack_full.svg"
       }
     },
@@ -8513,6 +10083,13 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "slack",
+          "get_replies",
+          "getReplies"
+        ],
+        "x-samchon-controller": "SlackController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Slack_full.svg"
       }
     },
@@ -8546,6 +10123,13 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "slack",
+          "get_channel_link_histories",
+          "getChannelLinkHistories"
+        ],
+        "x-samchon-controller": "SlackController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Slack_full.svg"
       }
     },
@@ -8579,6 +10163,13 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "slack",
+          "get_channel_histories",
+          "getChannelHistories"
+        ],
+        "x-samchon-controller": "SlackController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Slack_full.svg"
       }
     },
@@ -8615,6 +10206,13 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "slack",
+          "get_private_channels",
+          "getPrivateChannels"
+        ],
+        "x-samchon-controller": "SlackController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Slack_full.svg"
       }
     },
@@ -8651,6 +10249,13 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "slack",
+          "get_public_channels",
+          "getPublicChannels"
+        ],
+        "x-samchon-controller": "SlackController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Slack_full.svg"
       }
     },
@@ -8687,6 +10292,13 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "slack",
+          "get_im_channels",
+          "getImChannels"
+        ],
+        "x-samchon-controller": "SlackController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Slack_full.svg"
       }
     },
@@ -8720,6 +10332,13 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "slack",
+          "get_files",
+          "getFiles"
+        ],
+        "x-samchon-controller": "SlackController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Slack_full.svg"
       }
     },
@@ -8753,6 +10372,13 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "slack",
+          "get_user_groups",
+          "getUserGroups"
+        ],
+        "x-samchon-controller": "SlackController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Slack_full.svg"
       }
     },
@@ -8782,6 +10408,14 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "jira",
+          "issues",
+          "comments",
+          "deleteComment"
+        ],
+        "x-samchon-controller": "JiraController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/JIraCloud_full.svg"
       }
     },
@@ -8811,6 +10445,15 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "jira",
+          "issues",
+          "comments",
+          "markdown",
+          "updateComment"
+        ],
+        "x-samchon-controller": "JiraController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/JIraCloud_full.svg"
       },
       "post": {
@@ -8843,6 +10486,15 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "jira",
+          "issues",
+          "comments",
+          "markdown",
+          "createComment"
+        ],
+        "x-samchon-controller": "JiraController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/JIraCloud_full.svg"
       }
     },
@@ -8877,6 +10529,14 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "jira",
+          "issues",
+          "get_comments",
+          "getComments"
+        ],
+        "x-samchon-controller": "JiraController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/JIraCloud_full.svg"
       }
     },
@@ -8910,6 +10570,14 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "jira",
+          "issues",
+          "get_transitions",
+          "getTransitions"
+        ],
+        "x-samchon-controller": "JiraController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/JIraCloud_full.svg"
       }
     },
@@ -8938,6 +10606,14 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "jira",
+          "issues",
+          "asignee",
+          "unassign"
+        ],
+        "x-samchon-controller": "JiraController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/JIraCloud_full.svg"
       },
       "put": {
@@ -8965,6 +10641,14 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "jira",
+          "issues",
+          "asignee",
+          "assign"
+        ],
+        "x-samchon-controller": "JiraController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/JIraCloud_full.svg"
       }
     },
@@ -8994,6 +10678,14 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "jira",
+          "issues",
+          "status",
+          "updateIssueStatus"
+        ],
+        "x-samchon-controller": "JiraController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/JIraCloud_full.svg"
       }
     },
@@ -9034,6 +10726,13 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "jira",
+          "issues",
+          "updateIssue"
+        ],
+        "x-samchon-controller": "JiraController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/JIraCloud_full.svg"
       }
     },
@@ -9068,6 +10767,14 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "jira",
+          "issues",
+          "markdown",
+          "createIssueByMarkdown"
+        ],
+        "x-samchon-controller": "JiraController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/JIraCloud_full.svg"
       }
     },
@@ -9101,6 +10808,13 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "jira",
+          "get_issue_detail",
+          "getIssueDetail"
+        ],
+        "x-samchon-controller": "JiraController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/JIraCloud_full.svg"
       }
     },
@@ -9135,6 +10849,13 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "jira",
+          "get_issues",
+          "getIssues"
+        ],
+        "x-samchon-controller": "JiraController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/JIraCloud_full.svg"
       }
     },
@@ -9169,6 +10890,13 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "jira",
+          "get_projects",
+          "getProjects"
+        ],
+        "x-samchon-controller": "JiraController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/JIraCloud_full.svg"
       }
     },
@@ -9202,6 +10930,13 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "jira",
+          "get_issue_labels",
+          "getIssueLabels"
+        ],
+        "x-samchon-controller": "JiraController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/JIraCloud_full.svg"
       }
     },
@@ -9235,6 +10970,13 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "jira",
+          "get_issue_types",
+          "getIssueTypes"
+        ],
+        "x-samchon-controller": "JiraController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/JIraCloud_full.svg"
       }
     },
@@ -9268,6 +11010,13 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "jira",
+          "get_issue_statuses",
+          "getIssueStatus"
+        ],
+        "x-samchon-controller": "JiraController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/JIraCloud_full.svg"
       }
     },
@@ -9304,6 +11053,13 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "jira",
+          "get_issue_priorities",
+          "getIssuePriorities"
+        ],
+        "x-samchon-controller": "JiraController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/JIraCloud_full.svg"
       }
     },
@@ -9340,6 +11096,14 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "jira",
+          "issues",
+          "get_users_assignable",
+          "getUsersAssignableInIssue"
+        ],
+        "x-samchon-controller": "JiraController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/JIraCloud_full.svg"
       }
     },
@@ -9376,6 +11140,14 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "jira",
+          "projects",
+          "get_users_assignable",
+          "getUsersAssignableInProject"
+        ],
+        "x-samchon-controller": "JiraController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/JIraCloud_full.svg"
       }
     },
@@ -9412,6 +11184,13 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "jira",
+          "get_status_categories",
+          "getStatusCategories"
+        ],
+        "x-samchon-controller": "JiraController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/JIraCloud_full.svg"
       }
     },
@@ -9449,6 +11228,12 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "google_trend",
+          "daily"
+        ],
+        "x-samchon-controller": "GoogleTrendController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleTrend_full.svg",
         "x-wrtn-standalone": true
       }
@@ -9483,6 +11268,12 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "google_map",
+          "autocomplete"
+        ],
+        "x-samchon-controller": "GoogleMapController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleMap_full.svg"
       }
     },
@@ -9520,6 +11311,12 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "google_map",
+          "review"
+        ],
+        "x-samchon-controller": "GoogleMapController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleMap_full.svg",
         "x-wrtn-standalone": true,
         "x-wrtn-function-select-benchmarks": [
@@ -9559,6 +11356,13 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "google_map",
+          "search_text",
+          "searchText"
+        ],
+        "x-samchon-controller": "GoogleMapController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleMap_full.svg",
         "x-wrtn-function-select-benchmarks": [
           "구글 맵에서 장소 검색 좀 해줘",
@@ -9600,6 +11404,12 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "google_map",
+          "search"
+        ],
+        "x-samchon-controller": "GoogleMapController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleMap_full.svg",
         "x-wrtn-standalone": true,
         "x-wrtn-function-select-benchmarks": [
@@ -9638,6 +11448,14 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "github",
+          "users",
+          "get_received_events",
+          "getReceivedEvents"
+        ],
+        "x-samchon-controller": "GithubController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
         "x-wrtn-function-select-benchmarks": [
           "유저의 최근 이벤트 알려줘",
@@ -9678,6 +11496,14 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "github",
+          "users",
+          "get_pinned_repositories",
+          "getUserPinnedRepositories"
+        ],
+        "x-samchon-controller": "GithubController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
         "x-wrtn-function-select-benchmarks": [
           "유저의 대표 레포지토리들 조회해줘",
@@ -9715,6 +11541,14 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "github",
+          "users",
+          "get_repositories",
+          "getUserRepositories"
+        ],
+        "x-samchon-controller": "GithubController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
         "x-wrtn-function-select-benchmarks": [
           "유저의 레포지토리들 조회해줘",
@@ -9752,6 +11586,15 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "github",
+          "organizations",
+          "users",
+          "get_events",
+          "getUserOrganizationEvents"
+        ],
+        "x-samchon-controller": "GithubController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
         "x-wrtn-function-select-benchmarks": [
           "organization에서 특정 유저 이벤트 조회해줘"
@@ -9788,6 +11631,14 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "github",
+          "organizations",
+          "get_issues",
+          "getOrganizationIssues"
+        ],
+        "x-samchon-controller": "GithubController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
         "x-wrtn-function-select-benchmarks": [
           "organization에 생성되어 있는 이슈 좀 봐줘"
@@ -9824,6 +11675,14 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "github",
+          "organizations",
+          "get_repositories",
+          "getOrganizationRepositories"
+        ],
+        "x-samchon-controller": "GithubController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
         "x-wrtn-function-select-benchmarks": [
           "organization에 생성되어 있는 레포 좀 봐줘"
@@ -9860,6 +11719,14 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "github",
+          "organizations",
+          "get_events",
+          "getOrganizationEvents"
+        ],
+        "x-samchon-controller": "GithubController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
         "x-wrtn-function-select-benchmarks": [
           "organization에서 이벤트 조회해줘"
@@ -9896,6 +11763,14 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "github",
+          "repos",
+          "get_collaborators",
+          "getCollaborators"
+        ],
+        "x-samchon-controller": "GithubController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
         "x-wrtn-function-select-benchmarks": [
           "내 레포 코드 리뷰해줄 사람 찾아줘",
@@ -9929,6 +11804,15 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "github",
+          "repos",
+          "commits",
+          "contents",
+          "deleteFileContents"
+        ],
+        "x-samchon-controller": "GithubController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
         "x-wrtn-function-select-benchmarks": [
           "방금 커밋한 거 취소해줘",
@@ -9964,6 +11848,15 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "github",
+          "repos",
+          "commits",
+          "contents",
+          "updateFileContents"
+        ],
+        "x-samchon-controller": "GithubController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
         "x-wrtn-function-select-benchmarks": [
           "커밋 수정해줘"
@@ -9998,6 +11891,15 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "github",
+          "repos",
+          "commits",
+          "contents",
+          "createFileContents"
+        ],
+        "x-samchon-controller": "GithubController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
         "x-wrtn-function-select-benchmarks": [
           "커밋 추가해줘"
@@ -10051,6 +11953,14 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "github",
+          "repos",
+          "get_folder_structures",
+          "getRepositoryFolderStructures"
+        ],
+        "x-samchon-controller": "GithubController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
         "x-wrtn-function-select-benchmarks": [
           "레포 폴더 구조 조회해줘",
@@ -10137,6 +12047,15 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "github",
+          "repos",
+          "get_contents",
+          "bulk",
+          "getBulkFileContents"
+        ],
+        "x-samchon-controller": "GithubController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
         "x-wrtn-function-select-benchmarks": [
           "유저가 짠 코드 좀 봐줘",
@@ -10220,6 +12139,14 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "github",
+          "repos",
+          "get_contents",
+          "getFileContents"
+        ],
+        "x-samchon-controller": "GithubController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
         "x-wrtn-function-select-benchmarks": [
           "유저가 짠 코드 좀 봐줘",
@@ -10270,6 +12197,14 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "github",
+          "repos",
+          "get_readme",
+          "getReadmeFile"
+        ],
+        "x-samchon-controller": "GithubController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
         "x-wrtn-function-select-benchmarks": [
           "리드미 내용 보고 레포 설명해줘",
@@ -10308,6 +12243,14 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "github",
+          "repos",
+          "get_events",
+          "getRepoEvents"
+        ],
+        "x-samchon-controller": "GithubController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
         "x-wrtn-function-select-benchmarks": [
           "레포 이벤트 조회해줘"
@@ -10344,6 +12287,14 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "github",
+          "networks",
+          "get_events",
+          "getNetworkRepoEvents"
+        ],
+        "x-samchon-controller": "GithubController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
         "x-wrtn-function-select-benchmarks": [
           "레포 포크한 사람들 조회해줘"
@@ -10380,6 +12331,14 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "github",
+          "users",
+          "get_events",
+          "getUserEvents"
+        ],
+        "x-samchon-controller": "GithubController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
         "x-wrtn-function-select-benchmarks": [
           "내 github 이벤트 조회해줘"
@@ -10416,6 +12375,14 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "github",
+          "users",
+          "get_organizations",
+          "getUserOrganizations"
+        ],
+        "x-samchon-controller": "GithubController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
         "x-wrtn-function-select-benchmarks": [
           "Github Organization 조회해줘"
@@ -10452,6 +12419,13 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "github",
+          "get_events",
+          "getEvents"
+        ],
+        "x-samchon-controller": "GithubController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg"
       }
     },
@@ -10485,6 +12459,14 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "github",
+          "repositories",
+          "get_activities",
+          "getRepositoryActivities"
+        ],
+        "x-samchon-controller": "GithubController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
         "x-wrtn-function-select-benchmarks": [
           "레포의 최근 이력 좀 조회해줘"
@@ -10521,6 +12503,14 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "github",
+          "repositories",
+          "pull_requests",
+          "updatePullRequest"
+        ],
+        "x-samchon-controller": "GithubController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
         "x-wrtn-function-select-benchmarks": [
           "PR 수정해줘"
@@ -10555,6 +12545,14 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "github",
+          "repositories",
+          "pull_requests",
+          "createPullRequest"
+        ],
+        "x-samchon-controller": "GithubController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
         "x-wrtn-function-select-benchmarks": [
           "PR 생성해줘",
@@ -10592,6 +12590,15 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "github",
+          "repositories",
+          "pull_requests",
+          "get_comments",
+          "getPullRequestComments"
+        ],
+        "x-samchon-controller": "GithubController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
         "x-wrtn-function-select-benchmarks": [
           "PR 댓글 보여줘",
@@ -10629,6 +12636,15 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "github",
+          "repositories",
+          "pull_requests",
+          "comments",
+          "createPullRequestComments"
+        ],
+        "x-samchon-controller": "GithubController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
         "x-wrtn-function-select-benchmarks": [
           "PR 댓글 좀 달아줘",
@@ -10666,6 +12682,15 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "github",
+          "repositories",
+          "pull_requests",
+          "get_requested_reviewers",
+          "readPullRequestRequestedReviewers"
+        ],
+        "x-samchon-controller": "GithubController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
         "x-wrtn-function-select-benchmarks": [
           "이 PR 리뷰어 누구야?"
@@ -10698,6 +12723,15 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "github",
+          "repositories",
+          "pull_requests",
+          "requested_reviewers",
+          "removeRequestedReviewers"
+        ],
+        "x-samchon-controller": "GithubController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
         "x-wrtn-function-select-benchmarks": [
           "이 PR에 리뷰어 해제해줘"
@@ -10728,6 +12762,15 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "github",
+          "repositories",
+          "pull_requests",
+          "requested_reviewers",
+          "requestReviewers"
+        ],
+        "x-samchon-controller": "GithubController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
         "x-wrtn-function-select-benchmarks": [
           "이 PR에 리뷰어 지정해줘"
@@ -10764,6 +12807,16 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "github",
+          "repositories",
+          "pull_requests",
+          "reviews",
+          "get_comments",
+          "readReviewComments"
+        ],
+        "x-samchon-controller": "GithubController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
         "x-wrtn-function-select-benchmarks": [
           "PR 리뷰에 달린 답글 좀 보여줘"
@@ -10800,6 +12853,15 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "github",
+          "repositories",
+          "pull_requests",
+          "get_reviews",
+          "readReviews"
+        ],
+        "x-samchon-controller": "GithubController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
         "x-wrtn-function-select-benchmarks": [
           "PR 리뷰 조회해줘",
@@ -10837,6 +12899,15 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "github",
+          "repositories",
+          "pull_requests",
+          "reviews",
+          "reviewPullRequest"
+        ],
+        "x-samchon-controller": "GithubController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
         "x-wrtn-function-select-benchmarks": [
           "PR에 리뷰 좀 달아줘"
@@ -10873,6 +12944,15 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "github",
+          "repositories",
+          "pull_requests",
+          "get_files",
+          "readPullRequestFiles"
+        ],
+        "x-samchon-controller": "GithubController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
         "x-wrtn-function-select-benchmarks": [
           "PR 파일 좀 조회해봐"
@@ -10908,6 +12988,15 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "github",
+          "repositories",
+          "pull_requests",
+          "get_commits",
+          "readPullRequestCommits"
+        ],
+        "x-samchon-controller": "GithubController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
         "x-wrtn-function-select-benchmarks": [
           "PR 커밋 목록 가져와봐"
@@ -10991,6 +13080,15 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "github",
+          "repositories",
+          "pull_requests",
+          "get_diff",
+          "readPullRequestDiff"
+        ],
+        "x-samchon-controller": "GithubController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
         "x-wrtn-function-select-benchmarks": [
           "PR의 변경점이 뭐야?"
@@ -11027,6 +13125,15 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "github",
+          "repositories",
+          "pull_requests",
+          "get_detail",
+          "readPullRequestDetail"
+        ],
+        "x-samchon-controller": "GithubController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
         "x-wrtn-function-select-benchmarks": [
           "이 PR에 대해 상세히 알려줘"
@@ -11063,6 +13170,14 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "github",
+          "repositories",
+          "get_pull_requests",
+          "getRepositoryPullRequest"
+        ],
+        "x-samchon-controller": "GithubController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
         "x-wrtn-function-select-benchmarks": [
           "PR 목록 좀 조회해줘"
@@ -11099,6 +13214,15 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "github",
+          "repositories",
+          "issues",
+          "get_detail",
+          "getIssueDetail"
+        ],
+        "x-samchon-controller": "GithubController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
         "x-wrtn-function-select-benchmarks": [
           "레포 이슈 좀 조회해줘"
@@ -11135,6 +13259,15 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "github",
+          "repositories",
+          "issues",
+          "get_comments",
+          "getIssueComments"
+        ],
+        "x-samchon-controller": "GithubController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
         "x-wrtn-function-select-benchmarks": [
           "이 이슈에서 무슨 얘기가 오가는 중이야?"
@@ -11171,6 +13304,15 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "github",
+          "repositories",
+          "issues",
+          "comments",
+          "createIssueComments"
+        ],
+        "x-samchon-controller": "GithubController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
         "x-wrtn-function-select-benchmarks": [
           "이슈에 댓글 달아줘"
@@ -11207,6 +13349,14 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "github",
+          "repositories",
+          "get_issues",
+          "getRepositoryIssues"
+        ],
+        "x-samchon-controller": "GithubController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
         "x-wrtn-function-select-benchmarks": [
           "이 레포 이슈 목록 좀 가져와줘",
@@ -11244,6 +13394,13 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "github",
+          "get_users",
+          "searchUser"
+        ],
+        "x-samchon-controller": "GithubController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
         "x-wrtn-function-select-benchmarks": [
           "Github 유저 검색해줘"
@@ -11280,6 +13437,13 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "github",
+          "get_user_profile",
+          "getUserProfile"
+        ],
+        "x-samchon-controller": "GithubController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
         "x-wrtn-function-select-benchmarks": [
           "Github 유저 상세 보여줘"
@@ -11316,6 +13480,13 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "github",
+          "get_organizations",
+          "getAuthenticatedUserOrganizations"
+        ],
+        "x-samchon-controller": "GithubController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
         "x-wrtn-function-select-benchmarks": [
           "내 Organization 조회해줘"
@@ -11352,6 +13523,13 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "github",
+          "get_branches",
+          "getRepositoryBranches"
+        ],
+        "x-samchon-controller": "GithubController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
         "x-wrtn-function-select-benchmarks": [
           "레포에서 브랜치 좀 조회해줘"
@@ -11388,6 +13566,13 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "github",
+          "branches",
+          "createBranches"
+        ],
+        "x-samchon-controller": "GithubController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
         "x-wrtn-function-select-benchmarks": [
           "브랜치 생성해줘"
@@ -11427,6 +13612,13 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "github",
+          "get_pull_requests_associated_with_a_commit",
+          "getPullRequestAssociatedWithACommit"
+        ],
+        "x-samchon-controller": "GithubController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg"
       }
     },
@@ -11460,6 +13652,13 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "github",
+          "get_commit_heads",
+          "getCommitHeads"
+        ],
+        "x-samchon-controller": "GithubController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg"
       }
     },
@@ -11493,6 +13692,13 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "github",
+          "get_commit",
+          "getCommit"
+        ],
+        "x-samchon-controller": "GithubController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
         "x-wrtn-function-select-benchmarks": [
           "커밋 상세 보여줘"
@@ -11529,6 +13735,13 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "github",
+          "get_commit_diff",
+          "getCommitDiff"
+        ],
+        "x-samchon-controller": "GithubController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
         "x-wrtn-function-select-benchmarks": [
           "커밋 상세 보여줘"
@@ -11565,6 +13778,13 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "github",
+          "get_commit_list",
+          "getCommitList"
+        ],
+        "x-samchon-controller": "GithubController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
         "x-wrtn-function-select-benchmarks": [
           "커밋 목록 보여줘"
@@ -11601,6 +13821,13 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "github",
+          "get_followers",
+          "getFollowers"
+        ],
+        "x-samchon-controller": "GithubController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
         "x-wrtn-function-select-benchmarks": [
           "내 github 팔로워 보여줘"
@@ -11637,6 +13864,13 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "github",
+          "get_followees",
+          "getFollowees"
+        ],
+        "x-samchon-controller": "GithubController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
         "x-wrtn-function-select-benchmarks": [
           "내가 github에서 팔로우한 사람 보여줘"
@@ -11673,6 +13907,13 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "github",
+          "get_labels",
+          "getLabels"
+        ],
+        "x-samchon-controller": "GithubController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
         "x-wrtn-function-select-benchmarks": [
           "issue 라벨 보여줘"
@@ -11709,6 +13950,13 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "github",
+          "issues",
+          "updateIssue"
+        ],
+        "x-samchon-controller": "GithubController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
         "x-wrtn-function-select-benchmarks": [
           "이슈 수정해줘"
@@ -11743,6 +13991,13 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "github",
+          "issues",
+          "createIssue"
+        ],
+        "x-samchon-controller": "GithubController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
         "x-wrtn-function-select-benchmarks": [
           "이슈 생성해줘"
@@ -11779,6 +14034,13 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "discord",
+          "create_dm",
+          "createDM"
+        ],
+        "x-samchon-controller": "DiscordController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/discord.svg",
         "x-wrtn-function-select-benchmarks": [
           "DM 채널 만들어줘",
@@ -11816,6 +14078,13 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "discord",
+          "modify_guild",
+          "modifyGuild"
+        ],
+        "x-samchon-controller": "DiscordController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/discord.svg",
         "x-wrtn-function-select-benchmarks": [
           "길드 수정해줘"
@@ -11855,6 +14124,13 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "discord",
+          "get_guild_channels",
+          "getGuildChannels"
+        ],
+        "x-samchon-controller": "DiscordController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/discord.svg",
         "x-wrtn-function-select-benchmarks": [
           "길드 채널 조회해줘"
@@ -11891,6 +14167,13 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "discord",
+          "create_guild_channel",
+          "createGuildChannel"
+        ],
+        "x-samchon-controller": "DiscordController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/discord.svg",
         "x-wrtn-function-select-benchmarks": [
           "길드 채널 생성해줘"
@@ -11930,6 +14213,13 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "discord",
+          "get_list_guild_members",
+          "getListGuildMembers"
+        ],
+        "x-samchon-controller": "DiscordController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/discord.svg",
         "x-wrtn-function-select-benchmarks": [
           "길드 멤버 조회해줘"
@@ -11966,6 +14256,13 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "discord",
+          "modify_channel",
+          "modifyChannel"
+        ],
+        "x-samchon-controller": "DiscordController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/discord.svg",
         "x-wrtn-function-select-benchmarks": [
           "디스코드 채널 정보 수정해줘",
@@ -12000,6 +14297,13 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "discord",
+          "delete_channel",
+          "deleteChannel"
+        ],
+        "x-samchon-controller": "DiscordController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/discord.svg",
         "x-wrtn-function-select-benchmarks": [
           "디스코드 채널 삭제해줘",
@@ -12040,6 +14344,13 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "discord",
+          "get_pinned_messages",
+          "getPinnedMessages"
+        ],
+        "x-samchon-controller": "DiscordController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/discord.svg",
         "x-wrtn-function-select-benchmarks": [
           "디스코드 메세지 고정해둔 것들 조회해줘",
@@ -12073,6 +14384,13 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "discord",
+          "pin_message",
+          "pinMessage"
+        ],
+        "x-samchon-controller": "DiscordController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/discord.svg",
         "x-wrtn-function-select-benchmarks": [
           "디스코드 메시지 고정해줘",
@@ -12106,6 +14424,13 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "discord",
+          "unpin_message",
+          "unpinMessage"
+        ],
+        "x-samchon-controller": "DiscordController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/discord.svg",
         "x-wrtn-function-select-benchmarks": [
           "디스코드 메시지 고정 해제해줘",
@@ -12146,6 +14471,13 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "discord",
+          "get_channel_message_histories",
+          "getChannelMessageHistories"
+        ],
+        "x-samchon-controller": "DiscordController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/discord.svg",
         "x-wrtn-function-select-benchmarks": [
           "디스코드 메시지 조회해줘",
@@ -12183,6 +14515,13 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "discord",
+          "create_message",
+          "createMessage"
+        ],
+        "x-samchon-controller": "DiscordController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/discord.svg",
         "x-wrtn-function-select-benchmarks": [
           "디스코드 메시지 보내줘",
@@ -12220,6 +14559,13 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "discord",
+          "edit_message",
+          "editMessage"
+        ],
+        "x-samchon-controller": "DiscordController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/discord.svg",
         "x-wrtn-function-select-benchmarks": [
           "디스코드 메시지 수정해줘",
@@ -12253,6 +14599,13 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "discord",
+          "delete_message",
+          "deleteMessage"
+        ],
+        "x-samchon-controller": "DiscordController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/discord.svg",
         "x-wrtn-function-select-benchmarks": [
           "디스코드 메시지 전송 취소해줘",
@@ -12290,6 +14643,13 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "discord",
+          "bulk_delete_message",
+          "bulkDeleteMessage"
+        ],
+        "x-samchon-controller": "DiscordController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/discord.svg",
         "x-wrtn-function-select-benchmarks": [
           "디스코드 메시지 전송 취소해줘",
@@ -12332,6 +14692,13 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "calendly",
+          "scheduling_links",
+          "createSchedulingLink"
+        ],
+        "x-samchon-controller": "CalendlyController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/calendly.svg",
         "x-wrtn-function-select-benchmarks": [
           "calendly 미팅 좀 잡아줘"
@@ -12369,6 +14736,13 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "calendly",
+          "get_event_types",
+          "getEventTypes"
+        ],
+        "x-samchon-controller": "CalendlyController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/calendly.svg"
       }
     },
@@ -12435,6 +14809,15 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "calendly",
+          "events",
+          "invitees",
+          "get_cancel_link",
+          "cancel"
+        ],
+        "x-samchon-controller": "CalendlyController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/calendly.svg",
         "x-wrtn-function-select-benchmarks": [
           "calendly 미팅 좀 취소해줘"
@@ -12483,6 +14866,13 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "calendly",
+          "get_events",
+          "getOneScheduledEvent"
+        ],
+        "x-samchon-controller": "CalendlyController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/calendly.svg",
         "x-wrtn-function-select-benchmarks": [
           "calendly 미팅 정보 좀 조회해줘"
@@ -12520,6 +14910,13 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "calendly",
+          "get_scheduled_events",
+          "getScheduledEvents"
+        ],
+        "x-samchon-controller": "CalendlyController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/calendly.svg",
         "x-wrtn-function-select-benchmarks": [
           "예약된 미팅들 좀 알려줘"
@@ -12578,6 +14975,15 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "calendly",
+          "events",
+          "invitees",
+          "no_show",
+          "checkNoShow"
+        ],
+        "x-samchon-controller": "CalendlyController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/calendly.svg",
         "x-wrtn-function-select-benchmarks": [
           "미팅에 노쇼한 사람 체크 좀 해줘"
@@ -12636,6 +15042,14 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "calendly",
+          "events",
+          "invitees",
+          "getOneInvite"
+        ],
+        "x-samchon-controller": "CalendlyController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/calendly.svg",
         "x-wrtn-function-select-benchmarks": [
           "미팅 참석자 정보 좀 찾아줘"
@@ -12673,6 +15087,14 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "calendly",
+          "events",
+          "get_invitees",
+          "getInvitees"
+        ],
+        "x-samchon-controller": "CalendlyController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/calendly.svg",
         "x-wrtn-function-select-benchmarks": [
           "미팅 참석자 정보 좀 찾아줘"
@@ -12710,6 +15132,13 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "calendly",
+          "one_off_event_types",
+          "createOneOffEventType"
+        ],
+        "x-samchon-controller": "CalendlyController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/calendly.svg",
         "x-wrtn-function-select-benchmarks": [
           "1회성 미팅 초대 링크 좀 줄래?"
@@ -12747,6 +15176,14 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "calendly",
+          "users",
+          "get_me",
+          "getUserInfo"
+        ],
+        "x-samchon-controller": "CalendlyController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/calendly.svg"
       }
     },
@@ -12781,6 +15218,13 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "typeform",
+          "workspace",
+          "createWorkspace"
+        ],
+        "x-samchon-controller": "TypeformController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/typeform.svg"
       }
     },
@@ -12825,6 +15269,13 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "typeform",
+          "workspace",
+          "deleteWorkspace"
+        ],
+        "x-samchon-controller": "TypeformController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/typeform.svg"
       }
     },
@@ -12861,6 +15312,13 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "typeform",
+          "get_workspaces",
+          "getWorkspaces"
+        ],
+        "x-samchon-controller": "TypeformController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/typeform.svg"
       }
     },
@@ -12895,6 +15353,13 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "typeform",
+          "empty_form",
+          "createEmptyForm"
+        ],
+        "x-samchon-controller": "TypeformController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/typeform.svg"
       }
     },
@@ -12931,6 +15396,13 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "typeform",
+          "get_forms",
+          "getForms"
+        ],
+        "x-samchon-controller": "TypeformController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/typeform.svg"
       }
     },
@@ -12965,6 +15437,13 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "typeform",
+          "duplicate_form",
+          "duplicateExistingForm"
+        ],
+        "x-samchon-controller": "TypeformController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/typeform.svg"
       }
     },
@@ -13001,6 +15480,14 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "typeform",
+          "forms",
+          "get_update_form_fields",
+          "getFieldsForUpdateFieldValue"
+        ],
+        "x-samchon-controller": "TypeformController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/typeform.svg"
       }
     },
@@ -13035,6 +15522,13 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "typeform",
+          "form_field_value_update",
+          "updateFormFieldValue"
+        ],
+        "x-samchon-controller": "TypeformController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/typeform.svg"
       }
     },
@@ -13079,6 +15573,13 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "typeform",
+          "forms",
+          "deleteForm"
+        ],
+        "x-samchon-controller": "TypeformController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/typeform.svg"
       }
     },
@@ -13118,7 +15619,14 @@
               }
             }
           }
-        }
+        },
+        "x-samchon-accessor": [
+          "connector",
+          "marp",
+          "convert_to_ppt",
+          "convertToPpt"
+        ],
+        "x-samchon-controller": "MarpController"
       }
     },
     "/connector/crunchbase/get-organization-data": {
@@ -13149,6 +15657,13 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "crunchbase",
+          "get_organization_data",
+          "getOrganizationData"
+        ],
+        "x-samchon-controller": "CrunchbaseController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/crunchbase_full.svg",
         "x-wrtn-function-select-benchmarks": [
           "회사 투자 라운드 좀 알려줘",
@@ -13185,6 +15700,13 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "crunchbase",
+          "auto_complete",
+          "autocomplete"
+        ],
+        "x-samchon-controller": "CrunchbaseController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/crunchbase_full.svg"
       }
     },
@@ -13217,6 +15739,13 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "similarweb",
+          "get_domain_info",
+          "getDomainInfo"
+        ],
+        "x-samchon-controller": "SimilarwebController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/similarweb_full.svg"
       }
     },
@@ -13252,6 +15781,13 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "x",
+          "get_users",
+          "getUsers"
+        ],
+        "x-samchon-controller": "XController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/X_full.svg"
       }
     },
@@ -13287,6 +15823,13 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "x",
+          "get_influencers",
+          "getPreDefinedInfluencers"
+        ],
+        "x-samchon-controller": "XController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/X_full.svg"
       }
     },
@@ -13319,6 +15862,13 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "x",
+          "prepare_summarize",
+          "prepareSummary"
+        ],
+        "x-samchon-controller": "XController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/X_full.svg"
       }
     },
@@ -13351,6 +15901,13 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "x",
+          "summarize",
+          "summarizeTweet"
+        ],
+        "x-samchon-controller": "XController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/X_full.svg"
       }
     },
@@ -13385,6 +15942,13 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "x",
+          "general_search",
+          "generalSearch"
+        ],
+        "x-samchon-controller": "XController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/X_full.svg"
       }
     },
@@ -13416,6 +15980,13 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "reddit",
+          "get_hot_posts",
+          "getHotPosts"
+        ],
+        "x-samchon-controller": "RedditController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/reddit_full.svg"
       }
     },
@@ -13447,6 +16018,13 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "reddit",
+          "get_new_posts",
+          "getNewPosts"
+        ],
+        "x-samchon-controller": "RedditController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/reddit_full.svg"
       }
     },
@@ -13478,6 +16056,13 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "reddit",
+          "get_top_posts",
+          "getTopPosts"
+        ],
+        "x-samchon-controller": "RedditController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/reddit_full.svg"
       }
     },
@@ -13509,6 +16094,13 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "reddit",
+          "get_comments",
+          "getComments"
+        ],
+        "x-samchon-controller": "RedditController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/reddit_full.svg"
       }
     },
@@ -13540,6 +16132,13 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "reddit",
+          "get_user_about",
+          "getUserAbout"
+        ],
+        "x-samchon-controller": "RedditController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/reddit_full.svg"
       }
     },
@@ -13571,6 +16170,13 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "reddit",
+          "get_user_submitted",
+          "getUserSubmitted"
+        ],
+        "x-samchon-controller": "RedditController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/reddit_full.svg"
       }
     },
@@ -13602,6 +16208,13 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "reddit",
+          "get_user_comments",
+          "getUserComments"
+        ],
+        "x-samchon-controller": "RedditController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/reddit_full.svg"
       }
     },
@@ -13633,6 +16246,13 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "reddit",
+          "search_subreddits",
+          "searchSubreddits"
+        ],
+        "x-samchon-controller": "RedditController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/reddit_full.svg"
       }
     },
@@ -13664,6 +16284,13 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "reddit",
+          "get_subreddit_about",
+          "getSubredditAbout"
+        ],
+        "x-samchon-controller": "RedditController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/reddit_full.svg"
       }
     },
@@ -13695,6 +16322,13 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "reddit",
+          "get_popular_subreddits",
+          "getPopularSubreddits"
+        ],
+        "x-samchon-controller": "RedditController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/reddit_full.svg"
       }
     },
@@ -13726,6 +16360,13 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "reddit",
+          "get_best_content",
+          "getBestContent"
+        ],
+        "x-samchon-controller": "RedditController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/reddit_full.svg"
       }
     },
@@ -13757,6 +16398,12 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "innoforest",
+          "unify"
+        ],
+        "x-samchon-controller": "InnoforestController",
         "x-wrtn-function-select-benchmarks": [
           "혁신의 숲에서 회사 정보 좀 찾아줘",
           "회사 투자 라운드 좀 알려줘",
@@ -13792,7 +16439,13 @@
               }
             }
           }
-        }
+        },
+        "x-samchon-accessor": [
+          "connector",
+          "innoforest",
+          "search"
+        ],
+        "x-samchon-controller": "InnoforestController"
       }
     },
     "/connector/innoforest/seed/party/s1/getcorp": {
@@ -13822,7 +16475,16 @@
               }
             }
           }
-        }
+        },
+        "x-samchon-accessor": [
+          "connector",
+          "innoforest",
+          "seed",
+          "party",
+          "s1",
+          "getcorp"
+        ],
+        "x-samchon-controller": "InnoforestController"
       }
     },
     "/connector/innoforest/seed/party/s1/getcorpfinance": {
@@ -13852,7 +16514,16 @@
               }
             }
           }
-        }
+        },
+        "x-samchon-accessor": [
+          "connector",
+          "innoforest",
+          "seed",
+          "party",
+          "s1",
+          "getcorpfinance"
+        ],
+        "x-samchon-controller": "InnoforestController"
       }
     },
     "/connector/innoforest/seed/party/s1/getcorpinvest": {
@@ -13882,7 +16553,16 @@
               }
             }
           }
-        }
+        },
+        "x-samchon-accessor": [
+          "connector",
+          "innoforest",
+          "seed",
+          "party",
+          "s1",
+          "getcorpinvest"
+        ],
+        "x-samchon-controller": "InnoforestController"
       }
     },
     "/connector/innoforest/seed/party/s1/getcorpcommon": {
@@ -13912,7 +16592,16 @@
               }
             }
           }
-        }
+        },
+        "x-samchon-accessor": [
+          "connector",
+          "innoforest",
+          "seed",
+          "party",
+          "s1",
+          "getcorpcommon"
+        ],
+        "x-samchon-controller": "InnoforestController"
       }
     },
     "/connector/innoforest/seed/party/s1/findproduct": {
@@ -13942,7 +16631,16 @@
               }
             }
           }
-        }
+        },
+        "x-samchon-accessor": [
+          "connector",
+          "innoforest",
+          "seed",
+          "party",
+          "s1",
+          "findproduct"
+        ],
+        "x-samchon-controller": "InnoforestController"
       }
     },
     "/connector/innoforest/seed/party/s1/findtraffic": {
@@ -13972,7 +16670,16 @@
               }
             }
           }
-        }
+        },
+        "x-samchon-accessor": [
+          "connector",
+          "innoforest",
+          "seed",
+          "party",
+          "s1",
+          "findtraffic"
+        ],
+        "x-samchon-controller": "InnoforestController"
       }
     },
     "/connector/innoforest/seed/party/s1/findsales": {
@@ -14002,7 +16709,16 @@
               }
             }
           }
-        }
+        },
+        "x-samchon-accessor": [
+          "connector",
+          "innoforest",
+          "seed",
+          "party",
+          "s1",
+          "findsales"
+        ],
+        "x-samchon-controller": "InnoforestController"
       }
     },
     "/connector/innoforest/seed/party/s1/findsalesrebuy": {
@@ -14032,7 +16748,16 @@
               }
             }
           }
-        }
+        },
+        "x-samchon-accessor": [
+          "connector",
+          "innoforest",
+          "seed",
+          "party",
+          "s1",
+          "findsalesrebuy"
+        ],
+        "x-samchon-controller": "InnoforestController"
       }
     },
     "/connector/innoforest/seed/party/s1/findsalesavgbuy": {
@@ -14062,7 +16787,16 @@
               }
             }
           }
-        }
+        },
+        "x-samchon-accessor": [
+          "connector",
+          "innoforest",
+          "seed",
+          "party",
+          "s1",
+          "findsalesavgbuy"
+        ],
+        "x-samchon-controller": "InnoforestController"
       }
     },
     "/connector/innoforest/seed/party/s1/findsalesperson": {
@@ -14092,7 +16826,16 @@
               }
             }
           }
-        }
+        },
+        "x-samchon-accessor": [
+          "connector",
+          "innoforest",
+          "seed",
+          "party",
+          "s1",
+          "findsalesperson"
+        ],
+        "x-samchon-controller": "InnoforestController"
       }
     },
     "/connector/innoforest/seed/party/s1/findsaleshousehold": {
@@ -14122,7 +16865,16 @@
               }
             }
           }
-        }
+        },
+        "x-samchon-accessor": [
+          "connector",
+          "innoforest",
+          "seed",
+          "party",
+          "s1",
+          "findsaleshousehold"
+        ],
+        "x-samchon-controller": "InnoforestController"
       }
     },
     "/connector/innoforest/seed/party/s1/findsalesincome": {
@@ -14152,7 +16904,16 @@
               }
             }
           }
-        }
+        },
+        "x-samchon-accessor": [
+          "connector",
+          "innoforest",
+          "seed",
+          "party",
+          "s1",
+          "findsalesincome"
+        ],
+        "x-samchon-controller": "InnoforestController"
       }
     },
     "/connector/innoforest/seed/party/s1/findinvest": {
@@ -14182,7 +16943,16 @@
               }
             }
           }
-        }
+        },
+        "x-samchon-accessor": [
+          "connector",
+          "innoforest",
+          "seed",
+          "party",
+          "s1",
+          "findinvest"
+        ],
+        "x-samchon-controller": "InnoforestController"
       }
     },
     "/connector/innoforest/seed/party/s1/findpatent": {
@@ -14212,7 +16982,16 @@
               }
             }
           }
-        }
+        },
+        "x-samchon-accessor": [
+          "connector",
+          "innoforest",
+          "seed",
+          "party",
+          "s1",
+          "findpatent"
+        ],
+        "x-samchon-controller": "InnoforestController"
       }
     },
     "/connector/innoforest/seed/party/s1/findpatentword": {
@@ -14242,7 +17021,16 @@
               }
             }
           }
-        }
+        },
+        "x-samchon-accessor": [
+          "connector",
+          "innoforest",
+          "seed",
+          "party",
+          "s1",
+          "findpatentword"
+        ],
+        "x-samchon-controller": "InnoforestController"
       }
     },
     "/connector/innoforest/seed/party/s1/findfinance": {
@@ -14272,7 +17060,16 @@
               }
             }
           }
-        }
+        },
+        "x-samchon-accessor": [
+          "connector",
+          "innoforest",
+          "seed",
+          "party",
+          "s1",
+          "findfinance"
+        ],
+        "x-samchon-controller": "InnoforestController"
       }
     },
     "/connector/innoforest/seed/party/s1/findemployee": {
@@ -14302,7 +17099,16 @@
               }
             }
           }
-        }
+        },
+        "x-samchon-accessor": [
+          "connector",
+          "innoforest",
+          "seed",
+          "party",
+          "s1",
+          "findemployee"
+        ],
+        "x-samchon-controller": "InnoforestController"
       }
     },
     "/connector/innoforest/seed/party/s1/findpress": {
@@ -14332,7 +17138,16 @@
               }
             }
           }
-        }
+        },
+        "x-samchon-accessor": [
+          "connector",
+          "innoforest",
+          "seed",
+          "party",
+          "s1",
+          "findpress"
+        ],
+        "x-samchon-controller": "InnoforestController"
       }
     },
     "/connector/crawler/get-web-content": {
@@ -14364,7 +17179,14 @@
               }
             }
           }
-        }
+        },
+        "x-samchon-accessor": [
+          "connector",
+          "crawler",
+          "get_web_content",
+          "getWebContent"
+        ],
+        "x-samchon-controller": "WebCrawlerController"
       }
     },
     "/connector/google-image": {
@@ -14401,6 +17223,12 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "google_image",
+          "search"
+        ],
+        "x-samchon-controller": "GoogleImageController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleImage_full.svg",
         "x-wrtn-function-select-benchmarks": [
           "구글에서 이미지 좀 검색해줘"

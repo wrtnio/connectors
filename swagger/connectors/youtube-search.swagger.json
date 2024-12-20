@@ -18,7 +18,7 @@
     "title": "유튜브 검색",
     "summary": "유튜브에 원하는 영상을 검색해요",
     "description": "유튜브에 원하는 영상을 검색해요",
-    "version": "0.1.421",
+    "version": "0.1.422",
     "license": {
       "name": "AGPL-3.0-only"
     }
@@ -58,6 +58,12 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "youtube_search",
+          "search"
+        ],
+        "x-samchon-controller": "YoutubeSearchController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Youtube_full.svg",
         "x-wrtn-standalone": true
       }
@@ -95,6 +101,13 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "youtube_search",
+          "official",
+          "searchVideo"
+        ],
+        "x-samchon-controller": "YoutubeSearchController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Youtube_full.svg"
       }
     },
@@ -129,6 +142,12 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "youtube_search",
+          "transcript"
+        ],
+        "x-samchon-controller": "YoutubeSearchController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Youtube_full.svg"
       }
     }

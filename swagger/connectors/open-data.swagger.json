@@ -18,7 +18,7 @@
     "title": "통합 공공정보 조회",
     "summary": "다양한 공공 정보를 한 곳에서 확인해요.",
     "description": "기업 주가, 날씨, 건축물 정보, 캠핑장, 약국, 관광지, 주택 가격 등 다양한 공공 데이터를 조회할 수 있어요. 지역별 상세 날씨 정보를 확인하고, 전국의 캠핑장 현황을 파악할 수 있어요. 주변 약국이나 병원 위치를 찾을 수 있고, 관심 있는 지역의 부동산 시세도 확인할 수 있어요. 또한 교통 정보, 환경 정보, 문화 행사 정보 등 일상생활에 유용한 다양한 정보를 얻을 수 있어 편리한 생활을 할 수 있어요.",
-    "version": "0.1.421",
+    "version": "0.1.422",
     "license": {
       "name": "AGPL-3.0-only"
     }
@@ -54,6 +54,12 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "open_data",
+          "getAddress"
+        ],
+        "x-samchon-controller": "OpenDataController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/open_data.svg"
       }
     },
@@ -88,6 +94,12 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "open_data",
+          "getRTMSDataSvcSHRent"
+        ],
+        "x-samchon-controller": "OpenDataController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/open_data.svg"
       }
     },
@@ -122,6 +134,12 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "open_data",
+          "getRTMSDataSvcOffiRent"
+        ],
+        "x-samchon-controller": "OpenDataController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/open_data.svg"
       }
     },
@@ -156,6 +174,12 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "open_data",
+          "getRTMSDataSvcAptRent"
+        ],
+        "x-samchon-controller": "OpenDataController",
         "x-wrtn-standalone": true,
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/open_data.svg"
       }
@@ -191,6 +215,12 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "open_data",
+          "getLHLeaseInfo"
+        ],
+        "x-samchon-controller": "OpenDataController",
         "x-wrtn-standalone": true,
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/open_data.svg"
       }
@@ -233,6 +263,12 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "open_data",
+          "getParkingLot"
+        ],
+        "x-samchon-controller": "OpenDataController",
         "x-wrtn-standalone": true,
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/open_data.svg"
       }
@@ -268,6 +304,12 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "open_data",
+          "getBuildingInfo"
+        ],
+        "x-samchon-controller": "OpenDataController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/open_data.svg"
       }
     },
@@ -302,6 +344,12 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "open_data",
+          "getStandardRegionCodeList"
+        ],
+        "x-samchon-controller": "OpenDataController",
         "x-wrtn-standalone": true,
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/open_data.svg"
       }
@@ -344,6 +392,12 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "open_data",
+          "getStockPriceInfo"
+        ],
+        "x-samchon-controller": "OpenDataController",
         "x-wrtn-standalone": true,
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/open_data.svg"
       }
@@ -389,6 +443,12 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "open_data",
+          "getShortTermForecast"
+        ],
+        "x-samchon-controller": "OpenDataController",
         "x-wrtn-standalone": true,
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/open_data.svg"
       }
@@ -424,6 +484,12 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "open_data",
+          "getCopyRight"
+        ],
+        "x-samchon-controller": "OpenDataController",
         "x-wrtn-standalone": true,
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/open_data.svg"
       }

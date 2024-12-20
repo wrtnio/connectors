@@ -18,7 +18,7 @@
     "title": "노션 워크스페이스 관리",
     "summary": "노션 으로 작업 공간을 효율적으로 관리해요.",
     "description": "노션 에서 페이지를 만들고, 내용을 추가하고, 데이터베이스를 관리할 수 있어요. 페이지 검색, 데이터베이스 아이템 관리 등 다양한 기능을 활용할 수 있어요. 프로젝트 관리, 노트 작성, 팀 협업, 지식 베이스 구축 등 다양한 목적으로 사용할 수 있어요. 텍스트, 이미지, 표, 리스트 등 다양한 형식의 콘텐츠를 조합하여 풍부한 문서를 만들 수 있고, 팀원들과 실시간으로 공유하고 협업할 수 있어요.",
-    "version": "0.1.421",
+    "version": "0.1.422",
     "license": {
       "name": "AGPL-3.0-only"
     }
@@ -48,6 +48,14 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "notion",
+          "page",
+          "block",
+          "deleteBlock"
+        ],
+        "x-samchon-controller": "NotionController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg"
       }
     },
@@ -81,6 +89,14 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "notion",
+          "page",
+          "markdown",
+          "appendBlocksByMarkdown"
+        ],
+        "x-samchon-controller": "NotionController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg"
       }
     },
@@ -110,6 +126,14 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "notion",
+          "page",
+          "file",
+          "createFile"
+        ],
+        "x-samchon-controller": "NotionController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg"
       }
     },
@@ -139,6 +163,14 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "notion",
+          "page",
+          "embed",
+          "createEmbed"
+        ],
+        "x-samchon-controller": "NotionController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg"
       }
     },
@@ -168,6 +200,14 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "notion",
+          "page",
+          "bookmark",
+          "createBookmark"
+        ],
+        "x-samchon-controller": "NotionController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg"
       }
     },
@@ -197,6 +237,14 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "notion",
+          "page",
+          "image",
+          "createImage"
+        ],
+        "x-samchon-controller": "NotionController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg"
       }
     },
@@ -226,6 +274,14 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "notion",
+          "page",
+          "video",
+          "createVideo"
+        ],
+        "x-samchon-controller": "NotionController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg"
       }
     },
@@ -255,6 +311,14 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "notion",
+          "page",
+          "pdf",
+          "createPdf"
+        ],
+        "x-samchon-controller": "NotionController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg"
       }
     },
@@ -285,6 +349,14 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "notion",
+          "page",
+          "code",
+          "createCode"
+        ],
+        "x-samchon-controller": "NotionController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg"
       }
     },
@@ -314,6 +386,14 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "notion",
+          "page",
+          "equation",
+          "createEquation"
+        ],
+        "x-samchon-controller": "NotionController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg"
       }
     },
@@ -343,6 +423,14 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "notion",
+          "page",
+          "divider",
+          "createDivider"
+        ],
+        "x-samchon-controller": "NotionController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg"
       }
     },
@@ -372,6 +460,14 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "notion",
+          "page",
+          "table_of_contents",
+          "createTableOfContents"
+        ],
+        "x-samchon-controller": "NotionController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg"
       }
     },
@@ -401,6 +497,14 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "notion",
+          "page",
+          "link_to_page",
+          "createLinkToPage"
+        ],
+        "x-samchon-controller": "NotionController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg"
       }
     },
@@ -430,6 +534,14 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "notion",
+          "page",
+          "toggle",
+          "createToggle"
+        ],
+        "x-samchon-controller": "NotionController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg"
       }
     },
@@ -464,6 +576,13 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "notion",
+          "page",
+          "createPage"
+        ],
+        "x-samchon-controller": "NotionController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg"
       }
     },
@@ -498,6 +617,15 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "notion",
+          "get",
+          "page",
+          "contents",
+          "readPageContents"
+        ],
+        "x-samchon-controller": "NotionController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg"
       }
     },
@@ -534,6 +662,14 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "notion",
+          "get",
+          "page",
+          "readPageList"
+        ],
+        "x-samchon-controller": "NotionController",
         "x-wrtn-standalone": true,
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg"
       }
@@ -571,6 +707,14 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "notion",
+          "get",
+          "users",
+          "getUsers"
+        ],
+        "x-samchon-controller": "NotionController",
         "x-wrtn-standalone": true,
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg"
       }
@@ -608,6 +752,14 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "notion",
+          "get",
+          "database_info",
+          "getDatabaseListInfo"
+        ],
+        "x-samchon-controller": "NotionController",
         "x-wrtn-standalone": true,
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg"
       }
@@ -657,6 +809,14 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "notion",
+          "get",
+          "database_info",
+          "getDatabaseInfo"
+        ],
+        "x-samchon-controller": "NotionController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg"
       }
     },
@@ -691,6 +851,13 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "notion",
+          "get_page_by_title",
+          "getPageByTitle"
+        ],
+        "x-samchon-controller": "NotionController",
         "x-wrtn-standalone": true,
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg"
       }
@@ -743,6 +910,13 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "notion",
+          "find_item_list",
+          "getDatabaseItemList"
+        ],
+        "x-samchon-controller": "NotionController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg"
       }
     },
@@ -792,6 +966,13 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "notion",
+          "find_item",
+          "getDatabaseItem"
+        ],
+        "x-samchon-controller": "NotionController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg"
       }
     },
@@ -825,6 +1006,13 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "notion",
+          "markdown",
+          "createPageByMarkdown"
+        ],
+        "x-samchon-controller": "NotionController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg"
       }
     },
@@ -858,6 +1046,14 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "notion",
+          "page",
+          "title",
+          "updatePageTitle"
+        ],
+        "x-samchon-controller": "NotionController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg"
       }
     },
@@ -891,6 +1087,13 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "notion",
+          "create_gallery_database",
+          "createGalleryDatabase"
+        ],
+        "x-samchon-controller": "NotionController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg"
       }
     },
@@ -927,6 +1130,13 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "notion",
+          "create_gallery_item",
+          "createGalleryItem"
+        ],
+        "x-samchon-controller": "NotionController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg"
       }
     },
@@ -960,6 +1170,13 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "notion",
+          "update_page_content",
+          "updatePageContent"
+        ],
+        "x-samchon-controller": "NotionController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg"
       }
     },
@@ -993,6 +1210,13 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "notion",
+          "create_database",
+          "createDatabase"
+        ],
+        "x-samchon-controller": "NotionController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg"
       }
     },
@@ -1026,6 +1250,13 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "notion",
+          "add_database_property",
+          "addDatabaseProperty"
+        ],
+        "x-samchon-controller": "NotionController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg"
       }
     },
@@ -1059,6 +1290,13 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "notion",
+          "delete_database_property",
+          "deleteDatabaseProperty"
+        ],
+        "x-samchon-controller": "NotionController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg"
       }
     },
@@ -1093,6 +1331,13 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "notion",
+          "add_items_to_database",
+          "addItemsToDatabase"
+        ],
+        "x-samchon-controller": "NotionController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg"
       }
     }

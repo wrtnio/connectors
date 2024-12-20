@@ -18,7 +18,7 @@
     "title": "Typeform",
     "summary": "Typeform을 설문 조사를 만들거나 결과를 조회할 수 있어요",
     "description": "",
-    "version": "0.1.421",
+    "version": "0.1.422",
     "license": {
       "name": "AGPL-3.0-only"
     }
@@ -55,6 +55,13 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "typeform",
+          "workspace",
+          "createWorkspace"
+        ],
+        "x-samchon-controller": "TypeformController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/typeform.svg"
       }
     },
@@ -99,6 +106,13 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "typeform",
+          "workspace",
+          "deleteWorkspace"
+        ],
+        "x-samchon-controller": "TypeformController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/typeform.svg"
       }
     },
@@ -135,6 +149,13 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "typeform",
+          "get_workspaces",
+          "getWorkspaces"
+        ],
+        "x-samchon-controller": "TypeformController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/typeform.svg"
       }
     },
@@ -169,6 +190,13 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "typeform",
+          "empty_form",
+          "createEmptyForm"
+        ],
+        "x-samchon-controller": "TypeformController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/typeform.svg"
       }
     },
@@ -205,6 +233,13 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "typeform",
+          "get_forms",
+          "getForms"
+        ],
+        "x-samchon-controller": "TypeformController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/typeform.svg"
       }
     },
@@ -239,6 +274,13 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "typeform",
+          "duplicate_form",
+          "duplicateExistingForm"
+        ],
+        "x-samchon-controller": "TypeformController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/typeform.svg"
       }
     },
@@ -275,6 +317,14 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "typeform",
+          "forms",
+          "get_update_form_fields",
+          "getFieldsForUpdateFieldValue"
+        ],
+        "x-samchon-controller": "TypeformController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/typeform.svg"
       }
     },
@@ -309,6 +359,13 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "typeform",
+          "form_field_value_update",
+          "updateFormFieldValue"
+        ],
+        "x-samchon-controller": "TypeformController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/typeform.svg"
       }
     },
@@ -353,6 +410,13 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "typeform",
+          "forms",
+          "deleteForm"
+        ],
+        "x-samchon-controller": "TypeformController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/typeform.svg"
       }
     }

@@ -18,7 +18,7 @@
     "title": "Calendly",
     "summary": "Calendly에서 고객과의 미팅을 잡을 수 있어요",
     "description": "Calendly에서 미팅을 잡고 고객들을 초대하세요. 쉽고 빠르게 미팅을 관리할 수 있어요.",
-    "version": "0.1.421",
+    "version": "0.1.422",
     "license": {
       "name": "AGPL-3.0-only"
     }
@@ -55,6 +55,13 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "calendly",
+          "scheduling_links",
+          "createSchedulingLink"
+        ],
+        "x-samchon-controller": "CalendlyController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/calendly.svg",
         "x-wrtn-function-select-benchmarks": [
           "calendly 미팅 좀 잡아줘"
@@ -92,6 +99,13 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "calendly",
+          "get_event_types",
+          "getEventTypes"
+        ],
+        "x-samchon-controller": "CalendlyController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/calendly.svg"
       }
     },
@@ -158,6 +172,15 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "calendly",
+          "events",
+          "invitees",
+          "get_cancel_link",
+          "cancel"
+        ],
+        "x-samchon-controller": "CalendlyController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/calendly.svg",
         "x-wrtn-function-select-benchmarks": [
           "calendly 미팅 좀 취소해줘"
@@ -206,6 +229,13 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "calendly",
+          "get_events",
+          "getOneScheduledEvent"
+        ],
+        "x-samchon-controller": "CalendlyController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/calendly.svg",
         "x-wrtn-function-select-benchmarks": [
           "calendly 미팅 정보 좀 조회해줘"
@@ -243,6 +273,13 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "calendly",
+          "get_scheduled_events",
+          "getScheduledEvents"
+        ],
+        "x-samchon-controller": "CalendlyController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/calendly.svg",
         "x-wrtn-function-select-benchmarks": [
           "예약된 미팅들 좀 알려줘"
@@ -301,6 +338,15 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "calendly",
+          "events",
+          "invitees",
+          "no_show",
+          "checkNoShow"
+        ],
+        "x-samchon-controller": "CalendlyController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/calendly.svg",
         "x-wrtn-function-select-benchmarks": [
           "미팅에 노쇼한 사람 체크 좀 해줘"
@@ -359,6 +405,14 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "calendly",
+          "events",
+          "invitees",
+          "getOneInvite"
+        ],
+        "x-samchon-controller": "CalendlyController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/calendly.svg",
         "x-wrtn-function-select-benchmarks": [
           "미팅 참석자 정보 좀 찾아줘"
@@ -396,6 +450,14 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "calendly",
+          "events",
+          "get_invitees",
+          "getInvitees"
+        ],
+        "x-samchon-controller": "CalendlyController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/calendly.svg",
         "x-wrtn-function-select-benchmarks": [
           "미팅 참석자 정보 좀 찾아줘"
@@ -433,6 +495,13 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "calendly",
+          "one_off_event_types",
+          "createOneOffEventType"
+        ],
+        "x-samchon-controller": "CalendlyController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/calendly.svg",
         "x-wrtn-function-select-benchmarks": [
           "1회성 미팅 초대 링크 좀 줄래?"
@@ -470,6 +539,14 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "calendly",
+          "users",
+          "get_me",
+          "getUserInfo"
+        ],
+        "x-samchon-controller": "CalendlyController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/calendly.svg"
       }
     }

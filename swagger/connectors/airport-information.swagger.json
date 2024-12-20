@@ -17,7 +17,7 @@
   "info": {
     "title": "Airport Information",
     "summary": "항공 정보를 조회해요.",
-    "version": "0.1.421",
+    "version": "0.1.422",
     "description": "wrtn-ecosystem connectors and sdk",
     "license": {
       "name": "AGPL-3.0-only"
@@ -58,6 +58,12 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "airport_information",
+          "search"
+        ],
+        "x-samchon-controller": "AirportInformationController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/AirportInformation_full.svg",
         "x-wrtn-standalone": true,
         "x-wrtn-function-select-benchmarks": [

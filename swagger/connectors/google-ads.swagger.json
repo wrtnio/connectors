@@ -18,7 +18,7 @@
     "title": "구글 광고 캠페인 운영",
     "summary": "구글 광고를 쉽게 만들고 관리해요.",
     "description": "키워드 검색을 통한 SEO 전략을 최적화하고, 노출 광고의 효과를 높여 잠재 고객에게 효과적으로 도달할 수 있어요.구글 광고에서 검색 광고, 디스플레이 광고, 동영상 광고 등 다양한 유형의 광고를 만들고 수정할 수 있어요. 이후 광고 상태를 관리하고, 성과를 조회할 수 있어요.",
-    "version": "0.1.421",
+    "version": "0.1.422",
     "license": {
       "name": "AGPL-3.0-only"
     }
@@ -55,6 +55,13 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "google_ads",
+          "generateKeywordIdeas",
+          "keywordsAndUrl"
+        ],
+        "x-samchon-controller": "GoogleAdsController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/googleAD_full.svg",
         "x-wrtn-standalone": true,
         "x-wrtn-function-select-benchmarks": [
@@ -94,6 +101,13 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "google_ads",
+          "generateKeywordIdeas",
+          "keywords"
+        ],
+        "x-samchon-controller": "GoogleAdsController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/googleAD_full.svg",
         "x-wrtn-standalone": true,
         "x-wrtn-function-select-benchmarks": [
@@ -132,6 +146,13 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "google_ads",
+          "generateKeywordIdeas",
+          "url"
+        ],
+        "x-samchon-controller": "GoogleAdsController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/googleAD_full.svg",
         "x-wrtn-standalone": true,
         "x-wrtn-function-select-benchmarks": [
@@ -166,6 +187,13 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "google_ads",
+          "customerClientLink",
+          "publish"
+        ],
+        "x-samchon-controller": "GoogleAdsController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/googleAD_full.svg",
         "x-wrtn-function-select-benchmarks": [
           "Wrtn 광고 계정에 내 계정 등록하게 링크 좀 줘"
@@ -206,6 +234,13 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "google_ads",
+          "get_customers",
+          "getCustomers"
+        ],
+        "x-samchon-controller": "GoogleAdsController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/googleAD_full.svg",
         "x-wrtn-standalone": true,
         "x-wrtn-function-select-benchmarks": [
@@ -247,6 +282,13 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "google_ads",
+          "get_campaigns",
+          "getCampaigns"
+        ],
+        "x-samchon-controller": "GoogleAdsController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/googleAD_full.svg",
         "x-wrtn-function-select-benchmarks": [
           "내 구글 광고 캠페인들 보여줘"
@@ -287,6 +329,13 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "google_ads",
+          "get_ad_groups",
+          "getAdGroups"
+        ],
+        "x-samchon-controller": "GoogleAdsController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/googleAD_full.svg",
         "x-wrtn-function-select-benchmarks": [
           "내 구글 광고 그룹들 보여줘"
@@ -327,6 +376,13 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "google_ads",
+          "get_ads",
+          "getAds"
+        ],
+        "x-samchon-controller": "GoogleAdsController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/googleAD_full.svg",
         "x-wrtn-function-select-benchmarks": [
           "내 구글 광고들 보여줘"
@@ -367,6 +423,14 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "google_ads",
+          "ad_groups",
+          "get_metrics",
+          "getMetrics"
+        ],
+        "x-samchon-controller": "GoogleAdsController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/googleAD_full.svg",
         "x-wrtn-function-select-benchmarks": [
           "내 구글 광고 통계 좀 보여줘",
@@ -409,6 +473,15 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "google_ads",
+          "campaigns",
+          "ads",
+          "get_keywords",
+          "getKeywords"
+        ],
+        "x-samchon-controller": "GoogleAdsController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/googleAD_full.svg",
         "x-wrtn-function-select-benchmarks": [
           "광고 키워드 목록 좀 보여줄래?"
@@ -442,6 +515,15 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "google_ads",
+          "campaigns",
+          "ads",
+          "status",
+          "setOnOff"
+        ],
+        "x-samchon-controller": "GoogleAdsController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/googleAD_full.svg",
         "x-wrtn-function-select-benchmarks": [
           "광고 켜줘",
@@ -476,6 +558,15 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "google_ads",
+          "campaigns",
+          "ads",
+          "keywords",
+          "deleteKeywords"
+        ],
+        "x-samchon-controller": "GoogleAdsController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/googleAD_full.svg",
         "x-wrtn-function-select-benchmarks": [
           "광고 키워드 지워줘"
@@ -516,6 +607,15 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "google_ads",
+          "campaigns",
+          "ads",
+          "keywords",
+          "addKeywords"
+        ],
+        "x-samchon-controller": "GoogleAdsController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/googleAD_full.svg",
         "x-wrtn-function-select-benchmarks": [
           "광고 키워드 추가해줘"
@@ -553,6 +653,15 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "google_ads",
+          "campaigns",
+          "ads",
+          "get_details",
+          "getAdGroupAdDetail"
+        ],
+        "x-samchon-controller": "GoogleAdsController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/googleAD_full.svg",
         "x-wrtn-function-select-benchmarks": [
           "광고 상세 조회해줘"
@@ -604,6 +713,14 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "google_ads",
+          "campaigns",
+          "ads",
+          "appendAd"
+        ],
+        "x-samchon-controller": "GoogleAdsController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/googleAD_full.svg",
         "x-wrtn-function-select-benchmarks": [
           "캠페인에 광고 생성해줘",
@@ -638,6 +755,13 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "google_ads",
+          "campaigns",
+          "updateCampaign"
+        ],
+        "x-samchon-controller": "GoogleAdsController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/googleAD_full.svg",
         "x-wrtn-function-select-benchmarks": [
           "캠페인 수정해줘"
@@ -673,6 +797,13 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "google_ads",
+          "campaigns",
+          "createCampaign"
+        ],
+        "x-samchon-controller": "GoogleAdsController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/googleAD_full.svg",
         "x-wrtn-function-select-benchmarks": [
           "캠페인 생성해줘"
@@ -710,6 +841,13 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "google_ads",
+          "search_ads",
+          "createSearchAd"
+        ],
+        "x-samchon-controller": "GoogleAdsController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/googleAD_full.svg",
         "x-wrtn-function-select-benchmarks": [
           "검색 광고 생성해줘"
@@ -747,6 +885,13 @@
             }
           }
         },
+        "x-samchon-accessor": [
+          "connector",
+          "google_ads",
+          "display_ads",
+          "createDisplayAd"
+        ],
+        "x-samchon-controller": "GoogleAdsController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/googleAD_full.svg",
         "x-wrtn-function-select-benchmarks": [
           "디스플레이 광고 생성해줘"
