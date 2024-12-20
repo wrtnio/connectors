@@ -287,7 +287,7 @@ export class GithubController {
    * The input property, which means the content of a file, changes to base64 inside that connector when written in human-recognizable natural language. So, do not encode any writing into base64.
    *
    * @summary Update File content and commit
-   * @param input
+   * @param input test
    * @returns
    */
   @SelectBenchmark("커밋 수정해줘")

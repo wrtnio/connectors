@@ -152,10 +152,15 @@ export namespace IJira {
     /**
      * @title comments
      */
-    comments: MyPick<
+    comments: (MyPick<
       IJira.Comment,
-      "id" | "author" | "body" | "created" | "updated" | "updateAuthor"
-    >[];
+      "id" | "author" | "created" | "updated" | "updateAuthor"
+    > & {
+      /**
+       * @title Content of This Comments
+       */
+      body: any;
+    })[];
   }
 
   export interface IGetCommentInput
@@ -1230,7 +1235,39 @@ export namespace IJira {
     /**
      * @title Details of the issue
      */
-    fields: DetailedIssueField;
+    fields: StrictOmit<DetailedIssueField, "comment" | "description"> & {
+      /**
+       * @title Comment Infomation and Pagination Metadata
+       */
+      comment: {
+        /**
+         * @title Number of comments viewed at one time
+         */
+        maxResults: number;
+
+        /**
+         * @title Total count of comments
+         */
+        total: number;
+
+        /**
+         * The index of the first item to return in a page of results (page offset).
+         *
+         * @title page offset
+         */
+        startAt: number;
+
+        /**
+         * @title list of comments
+         */
+        comments: any[];
+      };
+
+      /**
+       * @title Description of Issue
+       */
+      description: null | any;
+    };
   }
 
   /**
@@ -1472,7 +1509,7 @@ export namespace IJira {
       /**
        * @title representation of the link
        */
-      data?: object;
+      data?: any;
     };
   };
 
