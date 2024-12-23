@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from "@nestjs/common";
+import { NotFoundException } from "@nestjs/common";
 import * as Excel from "exceljs";
 import { v4 } from "uuid";
 
@@ -7,9 +7,8 @@ import { IExcel } from "@wrtn/connector-api/lib/structures/connector/excel/IExce
 import axios from "axios";
 import { AwsProvider } from "../aws/AwsProvider";
 
-@Injectable()
-export class ExcelProvider {
-  async readSheets(
+export namespace ExcelProvider {
+  export async function readSheets(
     input: IExcel.IGetWorksheetListInput,
   ): Promise<IExcel.IWorksheetListOutput> {
     try {
@@ -34,7 +33,7 @@ export class ExcelProvider {
     }
   }
 
-  getExcelData(input: {
+  export function getExcelData(input: {
     workbook: Excel.Workbook;
     sheetName?: string | null;
   }): IExcel.IReadExcelOutput {
@@ -77,13 +76,15 @@ export class ExcelProvider {
     }
   }
 
-  async readHeaders(input: IExcel.IReadExcelInput): Promise<string[]> {
+  export async function readHeaders(
+    input: IExcel.IReadExcelInput,
+  ): Promise<string[]> {
     const { fileUrl, sheetName } = input;
-    const workbook = await this.getExcelFile({ fileUrl });
-    return this.readExcelHeaders(workbook, sheetName);
+    const workbook = await ExcelProvider.getExcelFile({ fileUrl });
+    return ExcelProvider.readExcelHeaders(workbook, sheetName);
   }
 
-  private readExcelHeaders(
+  export function readExcelHeaders(
     workbook: Excel.Workbook,
     sheetName?: string | null,
   ): string[] {
@@ -99,12 +100,12 @@ export class ExcelProvider {
     return headers;
   }
 
-  async insertRows(
+  export async function insertRows(
     input: IExcel.IInsertExcelRowInput,
   ): Promise<IExcel.IExportExcelFileOutput> {
     try {
       const { sheetName, data, fileUrl } = input;
-      const workbook = await this.getExcelFile({ fileUrl });
+      const workbook = await ExcelProvider.getExcelFile({ fileUrl });
       if (
         typeof sheetName === "string" &&
         workbook.worksheets.every((worksheet) => worksheet.name !== sheetName)
@@ -132,7 +133,10 @@ export class ExcelProvider {
         sheet.addRow(headers);
       } else {
         // 수정인 경우, 하지만 빈 엑셀 파일인 경우
-        const originalData = this.getExcelData({ sheetName, workbook });
+        const originalData = ExcelProvider.getExcelData({
+          sheetName,
+          workbook,
+        });
         if (originalData.data.length === 0) {
           sheet.addRow(headers);
         }
@@ -163,7 +167,9 @@ export class ExcelProvider {
     }
   }
 
-  async getExcelFile(input: { fileUrl?: string }): Promise<Excel.Workbook> {
+  export async function getExcelFile(input: {
+    fileUrl?: string;
+  }): Promise<Excel.Workbook> {
     if (input.fileUrl) {
       const response = await axios.get(input.fileUrl, {
         responseType: "arraybuffer",
@@ -175,7 +181,7 @@ export class ExcelProvider {
     return new Excel.Workbook();
   }
 
-  async createSheets(
+  export async function createSheets(
     input: IExcel.ICreateSheetInput,
   ): Promise<IExcel.IExportExcelFileOutput> {
     const workbook = new Excel.Workbook();
