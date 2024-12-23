@@ -21,7 +21,11 @@ export class SpreadsheetController {
     spreadsheetId: ISpreadsheet["id"],
     @TypedBody() input: ISpreadsheet.IExport.ToExcelToInput,
   ): Promise<ISpreadsheet.IExport.ToExcelToOutput> {
-    return {} as any;
+    return await SpreadsheetProvider.exports(
+      external_user,
+      spreadsheetId,
+      "excel",
+    )(input);
   }
 
   @ExperimentalRoute()

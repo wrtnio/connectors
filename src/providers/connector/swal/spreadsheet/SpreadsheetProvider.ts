@@ -132,26 +132,23 @@ export namespace SpreadsheetProvider {
     external_user: IExternalUser,
     spreadsheetId: ISpreadsheet["id"],
     provider: "excel",
-  ): Promise<ReturnType<typeof exports.excel>>;
-  export async function exports(
+  ): ReturnType<typeof exports.excel>;
+  export function exports(
     external_user: IExternalUser,
     spreadsheetId: ISpreadsheet["id"],
     provider: "hancel",
-  ): Promise<ReturnType<typeof exports.hancel>>;
-  export async function exports(
+  ): ReturnType<typeof exports.hancel>;
+  export function exports(
     external_user: IExternalUser,
     spreadsheetId: ISpreadsheet["id"],
     provider: "google_sheets",
-  ): Promise<ReturnType<typeof exports.google_sheet>>;
-  export async function exports(
+  ): ReturnType<typeof exports.google_sheet>;
+  export function exports(
     external_user: IExternalUser,
     spreadsheetId: ISpreadsheet["id"],
     provider: "excel" | "hancel" | "google_sheets",
   ) {
-    const spreadsheet = await SpreadsheetProvider.at(
-      external_user,
-      spreadsheetId,
-    );
+    const spreadsheet = SpreadsheetProvider.at(external_user, spreadsheetId);
 
     if (provider === "excel") return exports.excel(spreadsheet);
     if (provider === "hancel") return exports.hancel(spreadsheet);
@@ -171,10 +168,11 @@ export namespace SpreadsheetProvider {
       };
 
     export const excel =
-      (spreadsheet: Awaited<ReturnType<typeof SpreadsheetProvider.at>>) =>
+      (spreadsheetFn: ReturnType<typeof SpreadsheetProvider.at>) =>
       async (
         input: ISpreadsheet.IExport.ToExcelToInput,
       ): Promise<ISpreadsheet.IExport.ToExcelToOutput> => {
+        const spreadsheet = await spreadsheetFn;
         const snapshot = spreadsheet.snapshots.find(
           (el) => el.id === input.snapshot.id,
         )!;
@@ -206,12 +204,12 @@ export namespace SpreadsheetProvider {
       };
 
     export const hancel =
-      (spreadsheet: Awaited<ReturnType<typeof SpreadsheetProvider.at>>) => () =>
+      (spreadsheetFn: ReturnType<typeof SpreadsheetProvider.at>) => () =>
         // input: ISpreadsheet.IExport.ToInput,
         {};
 
     export const google_sheet =
-      (spreadsheet: Awaited<ReturnType<typeof SpreadsheetProvider.at>>) => () =>
+      (spreadsheetFn: ReturnType<typeof SpreadsheetProvider.at>) => () =>
         // input: ISpreadsheet.IExport.ToInput,
         {};
   }
