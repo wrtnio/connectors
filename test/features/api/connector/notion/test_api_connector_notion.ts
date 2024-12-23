@@ -194,14 +194,16 @@ import { ConnectorGlobal } from "../../../../../src/ConnectorGlobal";
 export const test_api_connector_notion_create_page = async (
   connection: CApi.IConnection,
 ) => {
-  const page = await CApi.functional.connector.notion.page.createPage(
-    connection,
-    {
-      parentPageId: "804989a1bb91410db6539034b212ebf5",
-      title: randomUUID(),
-      secretKey: ConnectorGlobal.env.NOTION_TEST_SECRET,
-    },
-  );
+  const page =
+    await CApi.functional.connector.notion.markdown.createPageByMarkdown(
+      connection,
+      {
+        parentPageId: "804989a1bb91410db6539034b212ebf5",
+        title: randomUUID(),
+        secretKey: ConnectorGlobal.env.NOTION_TEST_SECRET,
+        markdown: `# Hello, World!`,
+      },
+    );
 
   await CApi.functional.connector.notion.page.file.createFile(connection, {
     file: {
@@ -427,14 +429,16 @@ export const test_api_connector_notion_create_page = async (
 export const test_api_connector_notion_create_toggle_with_children = async (
   connection: CApi.IConnection,
 ) => {
-  const page = await CApi.functional.connector.notion.page.createPage(
-    connection,
-    {
-      parentPageId: "350633865fff4049a38a2ae7e9a04407",
-      secretKey: ConnectorGlobal.env.NOTION_TEST_SECRET,
-      title: "TEST",
-    },
-  );
+  const page =
+    await CApi.functional.connector.notion.markdown.createPageByMarkdown(
+      connection,
+      {
+        parentPageId: "350633865fff4049a38a2ae7e9a04407",
+        secretKey: ConnectorGlobal.env.NOTION_TEST_SECRET,
+        title: "TEST",
+        markdown: `# Hello, World!`,
+      },
+    );
 
   await CApi.functional.connector.notion.page.toggle.createToggle(connection, {
     toggle: {

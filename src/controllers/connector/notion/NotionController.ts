@@ -385,31 +385,31 @@ export class NotionController {
     return retry(() => NotionProvider.createToggle(input))();
   }
 
-  /**
-   * Create a Notion page
-   *
-   * Since a parent ID is required, when a user gives you a link to the page,
-   * you should take out the ID from it and use it, or first look up the list of pages accessible to the user.
-   * Since Notion prioritizes accessible pages during authentication, creating pages must be sub-pages within the page, which means that there must be a parent page.
-   * Because this feature only creates pages and does not create content, we recommend that you call additional content creation connectors if you want to create content.
-   *
-   * user might want a really long, detailed report,
-   * in which case it is better to write the details for each table of contents and call 'POST /connector/notion/page/markdown' multiple times rather than just one call of this connector.
-   *
-   * @summary Create empty page
-   * @param input Information needed to create the page
-   * @returns Unique ID of the generated page
-   */
-  @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg",
-  )
-  @ApiTags("Notion")
-  @core.TypedRoute.Post("/page")
-  async createPage(
-    @core.TypedBody() input: INotion.ICreatePageInput,
-  ): Promise<INotion.ICreatePageOutput> {
-    return retry(() => NotionProvider.createPage(input))();
-  }
+  // /**
+  //  * Create a Notion page
+  //  *
+  //  * Since a parent ID is required, when a user gives you a link to the page,
+  //  * you should take out the ID from it and use it, or first look up the list of pages accessible to the user.
+  //  * Since Notion prioritizes accessible pages during authentication, creating pages must be sub-pages within the page, which means that there must be a parent page.
+  //  * Because this feature only creates pages and does not create content, we recommend that you call additional content creation connectors if you want to create content.
+  //  *
+  //  * user might want a really long, detailed report,
+  //  * in which case it is better to write the details for each table of contents and call 'POST /connector/notion/page/markdown' multiple times rather than just one call of this connector.
+  //  *
+  //  * @summary Create empty page
+  //  * @param input Information needed to create the page
+  //  * @returns Unique ID of the generated page
+  //  */
+  // @RouteIcon(
+  //   "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg",
+  // )
+  // @ApiTags("Notion")
+  // @core.TypedRoute.Post("/page")
+  // async createPage(
+  //   @core.TypedBody() input: INotion.ICreatePageInput,
+  // ): Promise<INotion.ICreatePageOutput> {
+  //   return retry(() => NotionProvider.createPage(input))();
+  // }
 
   /**
    * Read the contents of a Notion page.
