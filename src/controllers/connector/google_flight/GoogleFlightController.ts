@@ -1,6 +1,6 @@
 import core from "@nestia/core";
 import { Controller } from "@nestjs/common";
-import { RouteIcon, Standalone } from "@wrtnio/decorators";
+import { RouteIcon, SelectBenchmark, Standalone } from "@wrtnio/decorators";
 
 import { ApiTags } from "@nestjs/swagger";
 import { IGoogleFlight } from "@wrtn/connector-api/lib/structures/connector/google_flight/IGoogleFlight";
@@ -18,6 +18,7 @@ export class GoogleFlightController {
    * @param input Conditions required to search for flights
    * @returns Search results for one-way flights
    */
+  @SelectBenchmark("항공권 조회해줘")
   @Standalone()
   @core.TypedRoute.Post("/one-way")
   @RouteIcon(
@@ -38,6 +39,8 @@ export class GoogleFlightController {
    * @param input The conditions required to search for flights
    * @returns The results of the round-trip flight search
    */
+  @SelectBenchmark("항공권 조회해줘")
+  @SelectBenchmark("왕복 항공권 조회해줘")
   @Standalone()
   @core.TypedRoute.Post("/round-trip")
   @RouteIcon(

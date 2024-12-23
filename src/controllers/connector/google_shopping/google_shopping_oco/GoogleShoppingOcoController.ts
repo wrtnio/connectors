@@ -1,6 +1,6 @@
 import core from "@nestia/core";
 import { Controller } from "@nestjs/common";
-import { RouteIcon, Standalone } from "@wrtnio/decorators";
+import { RouteIcon, SelectBenchmark, Standalone } from "@wrtnio/decorators";
 
 import { ApiTags } from "@nestjs/swagger";
 import { IGoogleShopping } from "@wrtn/connector-api/lib/structures/connector/google_shopping/IGoogleShopping";
@@ -17,11 +17,14 @@ export class GoogleShoppingOcoController {
    * Search for products in OCO
    *
    * Oco is one of the Korean companies and is a brand that advocates a brand editing shop.
+   * Only one keyword should be requested per request.
+   * For example, If you use "shirts" and "pants" as keywords, you must make two requests, each with separate keywords.
    *
    * @summary OCO search
    * @param input Search conditions
    * @returns Search results
    */
+  @SelectBenchmark("OCO에서 상품 좀 찾아줘")
   @Standalone()
   @core.TypedRoute.Post("oco")
   @RouteIcon(

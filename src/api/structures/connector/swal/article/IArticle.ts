@@ -93,7 +93,7 @@ export namespace IArticle {
         /**
          * @title Dev.to API Key for synchronization
          */
-        secretKey: string & SecretKey<"dev.to", []>;
+        secretKey: string & SecretKey<"dev_to", []>;
       };
     }
 
@@ -171,12 +171,12 @@ export namespace IArticle {
        */
       dev_to: {
         /**
-         * @title Created Google Docs File ID
+         * @title Created dev.to Article ID
          */
         id: string;
 
         /**
-         * @title Title of Created Google Docs File
+         * @title Title of Created dev.to Article
          */
         title: string;
 
@@ -188,11 +188,11 @@ export namespace IArticle {
     }
 
     /**
-     * @title Conditions and secret keys for exporting to Google Docs
+     * @title Conditions and secret keys for exporting to dev.to
      */
     export interface ToDevToInput extends SnapshotInput {
       /**
-       * @title Google Docs Secret Key and information to create file
+       * @title dev.to Secret Key and information to create file
        */
       dev_to: StrictOmit<IDevTo.ICreateInput, "article">;
     }
@@ -309,17 +309,23 @@ export namespace IArticle {
         /**
          * @title Format of article
          */
-        format: IArticle.ISnapshot["format"];
+        format?: IArticle.ISnapshot["format"];
 
         /**
          * This property is not a complete match, but a feature
-         * that allows you to search for a title that contains that character.
+         * that allows user to search for a title that contains that character.
          * This property should be undefined unless the user wants to see his or her writing
          * and only wants to find a title that contains a particular text.
          *
+         * If user want to search for something that contains a specific title,
+         * user can put the keyword user want in it.
+         * You must put keywords that must be included.
+         * If user don't have anything to search for,
+         * user can put in or not empty characters.
+         *
          * @title Title of article
          */
-        title: IArticle.ISnapshot["title"];
+        title?: IArticle.ISnapshot["title"];
       };
     }
 

@@ -4,7 +4,7 @@ import { Controller } from "@nestjs/common";
 import { IGoogleAds } from "@wrtn/connector-api/lib/structures/connector/google_ads/IGoogleAds";
 
 import { ApiTags } from "@nestjs/swagger";
-import { RouteIcon, Standalone } from "@wrtnio/decorators";
+import { RouteIcon, SelectBenchmark, Standalone } from "@wrtnio/decorators";
 import { GoogleAdsProvider } from "../../../providers/connector/google_ads/GoogleAdsProvider";
 import { retry } from "../../../utils/retry";
 
@@ -29,6 +29,8 @@ export class GoogleAdsController {
    * @param input Object containing URL
    * @returns List of recommended keywords, competition index and index, and unit price information for each keyword
    */
+  @SelectBenchmark("URL 기반으로 광고 키워드 아이디어 좀 줘")
+  @SelectBenchmark("키워드 기반으로 광고 키워드 아이디어 좀 줘")
   @Standalone()
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/googleAD_full.svg",
@@ -66,6 +68,7 @@ export class GoogleAdsController {
    * @param input Object containing URL
    * @returns List of recommended keywords, competition index and index, and unit price information for each keyword
    */
+  @SelectBenchmark("키워드 기반으로 광고 키워드 아이디어 좀 줘")
   @Standalone()
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/googleAD_full.svg",
@@ -103,6 +106,7 @@ export class GoogleAdsController {
    * @param input Object containing the URL
    * @returns List of recommended keywords, competition index and index, and unit price information for each keyword
    */
+  @SelectBenchmark("URL 기반으로 광고 키워드 아이디어 좀 줘")
   @Standalone()
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/googleAD_full.svg",
@@ -124,7 +128,7 @@ export class GoogleAdsController {
   }
 
   /**
-   * Designate Rutten as the advertising account manager of the user
+   * Designate Wrtn as the advertising account manager of the user
    *
    * To call the Google Ads API for a specific Google account, you must own the advertising account or be registered as an administrator.
    * This connector is a connector that sends a kind of invitation to all of the user's Google advertising accounts to register the `Wrtn` advertising account as the customer's administrator.
@@ -137,9 +141,10 @@ export class GoogleAdsController {
    *
    * Before calling the function, we need to ask the user for his `customerId`, so we need to suggest a connector that can check `customerId`.
    *
-   * @summary Register Rutten as an administrator
+   * @summary Register Wrtn as an administrator
    * @param input Customer information
    */
+  @SelectBenchmark("Wrtn 광고 계정에 내 계정 등록하게 링크 좀 줘")
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/googleAD_full.svg",
   )
@@ -168,6 +173,7 @@ export class GoogleAdsController {
    * @param input Customer information
    * @returns List of ad accounts
    */
+  @SelectBenchmark("내 구글 광고 계정 좀 보여줘")
   @Standalone()
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/googleAD_full.svg",
@@ -196,6 +202,7 @@ export class GoogleAdsController {
    * @param input Customer information
    * @returns List of campaigns
    */
+  @SelectBenchmark("내 구글 광고 캠페인들 보여줘")
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/googleAD_full.svg",
   )
@@ -224,6 +231,7 @@ export class GoogleAdsController {
    * @summary Search for a list of ad groups. @param input Ad group list query condition
    * @returns Ad group list
    */
+  @SelectBenchmark("내 구글 광고 그룹들 보여줘")
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/googleAD_full.svg",
   )
@@ -262,6 +270,7 @@ export class GoogleAdsController {
    * @param input Condition for retrieving the ad list
    * @returns Ad list
    */
+  @SelectBenchmark("내 구글 광고들 보여줘")
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/googleAD_full.svg",
   )
@@ -294,6 +303,9 @@ export class GoogleAdsController {
    * @param input Ad metrics query conditions
    * @returns List of metrics
    */
+  @SelectBenchmark("광고 성과 좀 보여줘")
+  @SelectBenchmark("내 구글 광고 지표 좀 보여줘")
+  @SelectBenchmark("내 구글 광고 통계 좀 보여줘")
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/googleAD_full.svg",
   )
@@ -329,6 +341,7 @@ export class GoogleAdsController {
    * @param input Add keyword condition
    * @returns List of keywords
    */
+  @SelectBenchmark("광고 키워드 목록 좀 보여줄래?")
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/googleAD_full.svg",
   )
@@ -365,6 +378,8 @@ export class GoogleAdsController {
    * @summary Change the status of the ad
    * @param input The status of the ad to be changed
    */
+  @SelectBenchmark("광고 꺼줘")
+  @SelectBenchmark("광고 켜줘")
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/googleAD_full.svg",
   )
@@ -392,6 +407,7 @@ export class GoogleAdsController {
    * @param input Keyword deletion condition
    * @returns
    */
+  @SelectBenchmark("광고 키워드 지워줘")
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/googleAD_full.svg",
   )
@@ -418,6 +434,7 @@ export class GoogleAdsController {
    * @param input Condition for adding keywords
    * @returns Name of the added keyword resource
    */
+  @SelectBenchmark("광고 키워드 추가해줘")
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/googleAD_full.svg",
   )
@@ -447,6 +464,7 @@ export class GoogleAdsController {
    * @param input Conditions for viewing ad details
    * @returns Ad details
    */
+  @SelectBenchmark("광고 상세 조회해줘")
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/googleAD_full.svg",
   )
@@ -480,6 +498,8 @@ export class GoogleAdsController {
    * @param input Ad creation conditions
    * @returns Generated ad information
    */
+  @SelectBenchmark("캠페인 광고 생성해줘")
+  @SelectBenchmark("캠페인에 광고 생성해줘")
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/googleAD_full.svg",
   )
@@ -514,6 +534,7 @@ export class GoogleAdsController {
    * @summary Modify the campaign
    * @param input Campaign modification conditions
    */
+  @SelectBenchmark("캠페인 수정해줘")
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/googleAD_full.svg",
   )
@@ -548,6 +569,7 @@ export class GoogleAdsController {
    * @param input Campaign creation conditions
    * @returns Created campaign information
    */
+  @SelectBenchmark("캠페인 생성해줘")
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/googleAD_full.svg",
   )
@@ -595,6 +617,7 @@ export class GoogleAdsController {
    * @param input Conditions for creating ads from campaigns all at once
    * @returns Information from created campaigns to ads
    */
+  @SelectBenchmark("검색 광고 생성해줘")
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/googleAD_full.svg",
   )
@@ -657,6 +680,7 @@ export class GoogleAdsController {
    * @param input Conditions for creating ads from campaigns at once
    * @returns Information from created campaigns to ads
    */
+  @SelectBenchmark("디스플레이 광고 생성해줘")
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/googleAD_full.svg",
   )

@@ -21,7 +21,6 @@ export class MarketingCopyGeneratorProvider {
   constructor(
     private openAIProvider: OpenAIProvider,
     private httpService: HttpService,
-    private awsProvider: AwsProvider,
   ) {}
 
   async generateCopy(
@@ -80,7 +79,7 @@ The reference content (content from which the keyword was extracted) is the foll
     const data = await firstValueFrom(
       this.httpService.get(response.url, { responseType: "arraybuffer" }),
     );
-    const imageUrl = await this.awsProvider.uploadObject({
+    const imageUrl = await AwsProvider.uploadObject({
       key: `connector/generate-marketing-copy/${v4()}`,
       data: data.data,
       contentType: "image/png",

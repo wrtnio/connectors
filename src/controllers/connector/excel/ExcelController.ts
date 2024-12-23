@@ -1,6 +1,6 @@
 import core from "@nestia/core";
 import { Controller } from "@nestjs/common";
-import { RouteIcon } from "@wrtnio/decorators";
+import { RouteIcon, SelectBenchmark } from "@wrtnio/decorators";
 
 import { IExcel } from "@wrtn/connector-api/lib/structures/connector/excel/IExcel";
 
@@ -15,8 +15,10 @@ export class ExcelController {
    * Based on the input file information, the headers of the corresponding Excel file are retrieved
    *
    * @summary Get the headers in the Excel file
-   * @param {string[]} input
+   * @param input File information to read
    */
+  @SelectBenchmark("엑셀 읽어줘")
+  @SelectBenchmark("엑셀 헤더 읽어줘")
   @core.TypedRoute.Post("read/headers")
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/light/excel.svg",
@@ -34,6 +36,7 @@ export class ExcelController {
    * @summary Get the contents of the Excel file
    * @param input Information on the Excel file to get the contents
    */
+  @SelectBenchmark("엑셀 읽어줘")
   @core.TypedRoute.Post("read")
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/light/excel.svg",
@@ -54,6 +57,7 @@ export class ExcelController {
    * @param input The url of the Excel file from which to get the list of worksheets
    * @returns A list of Excel worksheets.
    */
+  @SelectBenchmark("엑셀 시트 읽어줘")
   @core.TypedRoute.Post("worksheet")
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/light/excel.svg",
@@ -82,6 +86,8 @@ export class ExcelController {
    * @summary Create Excel and add data by uploading Excel files
    * @param input Information for adding new data to Excel files
    */
+  @SelectBenchmark("엑셀 데이터 올려줘")
+  @SelectBenchmark("엑셀 데이터 추가해줘")
   @core.TypedRoute.Post("rows/upload")
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/light/excel.svg",
@@ -112,6 +118,8 @@ export class ExcelController {
    * @summary 엑셀 파일 링크를 가지고 액셀 생성 및 데이터 추가
    * @param input 엑셀 파일에 새로운 데이터를 추가 하기 위한 정보
    */
+  @SelectBenchmark("엑셀 데이터 올려줘")
+  @SelectBenchmark("엑셀 데이터 추가해줘")
   @core.TypedRoute.Post("rows")
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/light/excel.svg",
@@ -134,6 +142,10 @@ export class ExcelController {
    *
    * @summary Add Excel files and sheet
    */
+  @SelectBenchmark("엑셀 생성해줘")
+  @SelectBenchmark("엑셀 파일 만들어줘")
+  @SelectBenchmark("엑셀 데이터 올려줘")
+  @SelectBenchmark("엑셀 데이터 추가해줘")
   @core.TypedRoute.Post()
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/light/excel.svg",

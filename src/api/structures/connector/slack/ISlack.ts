@@ -339,7 +339,7 @@ export namespace ISlack {
    */
   export type IGetUserDetailOutput = StrictOmit<
     IGetUserOutput,
-    "name" | "deleted" | "profile_image"
+    "name" | "deleted" | "profile_image" | "slack_team_id"
   >;
 
   /**
@@ -356,6 +356,23 @@ export namespace ISlack {
      * @title User ID
      */
     id: ISlack.User["id"];
+
+    /**
+     * @title slack_team_id
+     */
+    slack_team_id: string;
+
+    /**
+     * If a user wants to send a DM message to another user,
+     * they need to find a channel in im channels that matches their username.
+     * And call the message sending connector.
+     * However, since the purpose of looking up a user is usually to get information about the user or to send a message to the user,
+     * this specification is extended to provide the DM channel (= IM channel) ID of the two users in this property when looking up a user.
+     * If this value is 'null', then the user's im_channel_id was not found.
+     *
+     * @title im_channel_id
+     */
+    im_channel_id: string | null;
 
     /**
      * This is the name of the user,
@@ -529,6 +546,11 @@ export namespace ISlack {
             path: "/connector/slack/get-im-channels";
             jmesPath: "[].{value:id, label:name || '개인 채널'}";
           }>
+        | Prerequisite<{
+            method: "post";
+            path: "/connector/slack/get-users";
+            jmesPath: "users[].{ value: im_channel_id, label: display_name }";
+          }>
       );
 
     /**
@@ -574,6 +596,8 @@ export namespace ISlack {
 
   export interface ICommonPaginationOutput {
     /**
+     * Cursor for pagination
+     *
      * If the following data exist, the cursor value exists.
      * If you want to see the next data from these data,
      * you can pass this value to the next request condition, `cursor`.
@@ -592,11 +616,11 @@ export namespace ISlack {
     replies: ChannelHistory[];
 
     /**
-     * @title members
-     *
      * This is a list of people who participated in the conversation in this conversation list.
+     *
+     * @title members
      */
-    members: MyPick<IGetUserOutput, "id" | "display_name">[];
+    members: MyPick<IGetUserOutput, "id" | "display_name" | "im_channel_id">[];
 
     /**
      * @title usergroups
@@ -647,6 +671,11 @@ export namespace ISlack {
      * @title username of the person who made this message
      */
     username: User["name"] | null;
+
+    /**
+     * @title user profile image
+     */
+    user_profile: (string & tags.Format<"iri">) | null;
   }
 
   export interface IGetChannelLinkHistoryOutput
@@ -665,7 +694,7 @@ export namespace ISlack {
      *
      * This is a list of people who participated in the conversation in this conversation list.
      */
-    members: MyPick<IGetUserOutput, "id" | "display_name">[];
+    members: MyPick<IGetUserOutput, "id" | "display_name" | "im_channel_id">[];
 
     /**
      * @title usergroups
@@ -706,7 +735,7 @@ export namespace ISlack {
      *
      * This is a list of people who participated in the conversation in this conversation list.
      */
-    members: MyPick<IGetUserOutput, "id" | "display_name">[];
+    members: MyPick<IGetUserOutput, "id" | "display_name" | "im_channel_id">[];
 
     /**
      * @title usergroups
@@ -868,6 +897,11 @@ export namespace ISlack {
      * @title channel owner's id
      */
     user: User["id"];
+
+    /**
+     * @title channel owner's team id
+     */
+    context_team_id: string;
 
     /**
      * @title username

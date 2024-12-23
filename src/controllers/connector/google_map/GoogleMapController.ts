@@ -1,6 +1,6 @@
 import core, { TypedBody } from "@nestia/core";
 import { Controller } from "@nestjs/common";
-import { RouteIcon, Standalone } from "@wrtnio/decorators";
+import { RouteIcon, SelectBenchmark, Standalone } from "@wrtnio/decorators";
 
 import { ApiTags } from "@nestjs/swagger";
 import { IGoogleMap } from "@wrtn/connector-api/lib/structures/connector/google_map/IGoogleMap";
@@ -38,6 +38,8 @@ export class GoogleMapController {
    * @param input Unique id of the restaurant
    * @returns Restaurant review search results
    */
+  @SelectBenchmark("식당 리뷰 좀 보고 알려줘")
+  @SelectBenchmark("구글 맵에서 식당 리뷰 좀 봐줘")
   @Standalone()
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleMap_full.svg",
@@ -60,6 +62,8 @@ export class GoogleMapController {
    * @param input Keyword
    * @returns
    */
+  @SelectBenchmark("구글 맵에서 카페 좀 찾아줘")
+  @SelectBenchmark("구글 맵에서 장소 검색 좀 해줘")
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleMap_full.svg",
   )
@@ -74,12 +78,11 @@ export class GoogleMapController {
   /**
    * Search for restaurants using Google Maps
    *
-   *
-   *
    * @summary Google Map restaurant search
    * @param input Search term to search for restaurants
    * @returns Restaurant search results
    */
+  @SelectBenchmark("구글 맵에서 식당 좀 찾아줘")
   @Standalone()
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleMap_full.svg",

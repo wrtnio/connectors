@@ -1,6 +1,6 @@
 import core from "@nestia/core";
 import { Controller } from "@nestjs/common";
-import { RouteIcon } from "@wrtnio/decorators";
+import { RouteIcon, SelectBenchmark } from "@wrtnio/decorators";
 
 import { IDaum } from "@wrtn/connector-api/lib/structures/connector/daum/IDaum";
 
@@ -16,6 +16,8 @@ export class DaumController {
    * @summary Search the following blog
    * @param input Conditions for searching the following blog
    */
+  @SelectBenchmark("다음 블로그 검색 해줘")
+  @SelectBenchmark("블로그 검색 해줘")
   @core.TypedRoute.Post("blog")
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/DaumBlog_full.svg",
@@ -33,6 +35,8 @@ export class DaumController {
    * @summary Search for the following cafe
    * @param input Conditions for searching the following cafe
    */
+  @SelectBenchmark("다음 카페 검색 해줘")
+  @SelectBenchmark("카페 검색 해줘")
   @core.TypedRoute.Post("cafe")
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/DaumCafe_full.svg",

@@ -12,7 +12,7 @@ export const test_api_connector_google_slides_export_presentation_power_point =
 
     const presentationId = presentation.presentationId;
     const res =
-      await CApi.functional.connector.google_slides.presentations.$export.power_point.powerPoint(
+      await CApi.functional.connector.google_slides.presentations.exports.power_point.powerPoint(
         connection,
         presentationId as string,
         {
@@ -30,7 +30,7 @@ export const test_api_connector_google_slides_export_presentation_hanshow =
 
     const presentationId = presentation.presentationId; // 테스트 용 파일
     const res =
-      await CApi.functional.connector.google_slides.presentations.$export.hanshow(
+      await CApi.functional.connector.google_slides.presentations.exports.hanshow(
         connection,
         presentationId as string,
         {

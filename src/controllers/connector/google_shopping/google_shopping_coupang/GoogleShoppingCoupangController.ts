@@ -1,6 +1,6 @@
 import core from "@nestia/core";
 import { Controller } from "@nestjs/common";
-import { RouteIcon, Standalone } from "@wrtnio/decorators";
+import { RouteIcon, SelectBenchmark, Standalone } from "@wrtnio/decorators";
 
 import { ApiTags } from "@nestjs/swagger";
 import { IGoogleShopping } from "@wrtn/connector-api/lib/structures/connector/google_shopping/IGoogleShopping";
@@ -15,11 +15,14 @@ export class GoogleShoppingCoupangController {
 
   /**
    * Search for products on Coupang
+   * Only one keyword should be requested per request.
+   * For example, If you use "phone" and "cup" as keywords, you must make two requests, each with separate keywords.
    *
    * @summary Coupang Search
    * @param input Search conditions
    * @returns Search results
    */
+  @SelectBenchmark("쿠팡에서 상품 좀 찾아줘")
   @Standalone()
   @core.TypedRoute.Post("coupang")
   @RouteIcon(

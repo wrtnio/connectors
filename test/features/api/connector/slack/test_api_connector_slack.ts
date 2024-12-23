@@ -68,6 +68,12 @@ export const test_api_connector_slack_get_channel_histories = async (
   typia.assert(messages);
   assert(typeof messages.usergroups.length === "number");
   assert(typeof messages.channel.name === "string");
+  assert(
+    messages.messages.every(
+      (el) => typeof el.user_profile === "string" || el.user_profile === null,
+    ),
+  );
+  assert(messages.members.every((el) => typeof el.im_channel_id === "string"));
 
   return messages;
 };
@@ -375,6 +381,9 @@ export const test_api_connector_slack_get_users = async (
   );
 
   typia.assert(res);
+  assert(res.users.every((el) => typeof el.im_channel_id === "string"));
+  assert(res.users.every((el) => typeof el.slack_team_id === "string"));
+
   return res.users;
 };
 
@@ -393,6 +402,12 @@ export const test_api_connector_slack_reply = async (
       ts: history.ts as any,
       secretKey: ConnectorGlobal.env.SLACK_TEST_SECRET,
     },
+  );
+
+  assert(
+    before.replies.every(
+      (el) => typeof el.user_profile === "string" || el.user_profile === null,
+    ),
   );
 
   typia.assert(before);
@@ -417,6 +432,7 @@ export const test_api_connector_slack_reply = async (
   );
 
   typia.assert(after);
+  assert(after.members.every((el) => typeof el.im_channel_id === "string"));
 
   if (before.replies.length + 1 !== after.replies.length) {
     throw new Error("Reply가 추가되지 않은 것으로 추정되는 상태");
@@ -444,7 +460,14 @@ export const test_api_connector_slack_get_channel_link_histories = async (
     );
 
   assert(res.messages.length > 0);
+  assert(res.members.every((el) => typeof el.im_channel_id === "string"));
   typia.assert(res);
+
+  assert(
+    res.messages.every(
+      (el) => typeof el.user_profile === "string" || el.user_profile === null,
+    ),
+  );
 };
 
 export const test_api_connector_slack_get_user_details = async (
@@ -466,6 +489,7 @@ export const test_api_connector_slack_get_user_details = async (
         },
       );
     typia.assert(detail);
+    assert(detail.every((el) => typeof el.im_channel_id === "string"));
   }
 };
 
@@ -483,6 +507,7 @@ export const test_api_connector_slack_get_one_user_detail = async (
 
   typia.assert(detail);
   assert(detail.length === 1);
+  assert(detail.every((el) => typeof el.im_channel_id === "string"));
 };
 
 export const test_api_connector_slack_get_files = async (

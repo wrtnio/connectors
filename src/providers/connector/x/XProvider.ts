@@ -8,20 +8,18 @@ import {
 
 import { IX } from "@wrtn/connector-api/lib/structures/connector/x/IX";
 
-import { ConnectorGlobal } from "../../../ConnectorGlobal";
-import { OAuthSecretProvider } from "../../internal/oauth_secret/OAuthSecretProvider";
 import axios, { AxiosError } from "axios";
-import { AwsProvider } from "../aws/AwsProvider";
-import { RagProvider } from "../rag/RagProvider";
 import typia, { tags } from "typia";
 import { v4 } from "uuid";
+import { ConnectorGlobal } from "../../../ConnectorGlobal";
 import { retry } from "../../../utils/retry";
+import { OAuthSecretProvider } from "../../internal/oauth_secret/OAuthSecretProvider";
+import { AwsProvider } from "../aws/AwsProvider";
+import { RagProvider } from "../rag/RagProvider";
 @Injectable()
 export class XProvider {
-  constructor(
-    private awsProvider: AwsProvider,
-    private readonly ragProvider: RagProvider,
-  ) {}
+  constructor(private readonly ragProvider: RagProvider) {}
+
   private readonly logger = new Logger("XProvider");
 
   async getUsers(input: IX.IUserInput): Promise<IX.IUserOutput[]> {
@@ -365,7 +363,7 @@ export class XProvider {
         fileContent += `</tweet>\n`;
         fileContent += `</tweets>\n`;
 
-        const fileUrl = await this.awsProvider.uploadObject({
+        const fileUrl = await AwsProvider.uploadObject({
           key: `tweets/${fileName}`,
           data: Buffer.from(fileContent, "utf-8"),
           contentType: "text/plain; charset=utf-8",

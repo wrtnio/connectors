@@ -2,7 +2,7 @@ import core from "@nestia/core";
 import { Controller } from "@nestjs/common";
 import { ApiTags } from "@nestjs/swagger";
 import { IGoogleSearch } from "@wrtn/connector-api/lib/structures/connector/google_search/IGoogleSearch";
-import { RouteIcon, Standalone } from "@wrtnio/decorators";
+import { RouteIcon, SelectBenchmark, Standalone } from "@wrtnio/decorators";
 import { GoogleSearchProvider } from "../../../providers/connector/google_search/GoogleSearchProvider";
 import { retry } from "../../../utils/retry";
 
@@ -16,6 +16,8 @@ export class GoogleSearchCareerController {
    * @param input Search conditions
    * @returns Wanted job posting search results
    */
+  @SelectBenchmark("채용 공고 좀 찾아줘")
+  @SelectBenchmark("원티드에서 채용 공고 좀 찾아줘")
   @Standalone()
   @core.TypedRoute.Post("wanted")
   @RouteIcon(
@@ -35,6 +37,8 @@ export class GoogleSearchCareerController {
    * @param input Search conditions
    * @returns Search results for Incruit job postings
    */
+  @SelectBenchmark("채용 공고 좀 찾아줘")
+  @SelectBenchmark("인크루트에서 채용 공고 좀 찾아줘")
   @Standalone()
   @core.TypedRoute.Post("incruit")
   @RouteIcon(
@@ -54,6 +58,8 @@ export class GoogleSearchCareerController {
    * @param input Search criteria
    * @returns Search for Saramin job postings results
    */
+  @SelectBenchmark("채용 공고 좀 찾아줘")
+  @SelectBenchmark("사람인에서 채용 공고 좀 찾아줘")
   @Standalone()
   @core.TypedRoute.Post("saramin")
   @RouteIcon(
@@ -73,6 +79,8 @@ export class GoogleSearchCareerController {
    * @param input Search conditions
    * @returns Jumpfit job posting search results
    */
+  @SelectBenchmark("채용 공고 좀 찾아줘")
+  @SelectBenchmark("사람인에서 채용 공고 좀 찾아줘")
   @Standalone()
   @core.TypedRoute.Post("jumpit")
   @RouteIcon(
@@ -92,6 +100,8 @@ export class GoogleSearchCareerController {
    * @param input Search conditions
    * @returns Careerly Post Search Results
    */
+  @SelectBenchmark("채용 공고 좀 찾아줘")
+  @SelectBenchmark("커리어리에서 채용 공고 좀 찾아줘")
   @Standalone()
   @core.TypedRoute.Post("careerly")
   @RouteIcon(

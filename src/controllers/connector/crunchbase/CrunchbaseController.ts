@@ -1,7 +1,7 @@
 import { TypedBody, TypedRoute } from "@nestia/core";
 import { Controller } from "@nestjs/common";
 import { ICrunchbase } from "@wrtn/connector-api/lib/structures/connector/crunchbase/ICrunchbase";
-import { RouteIcon } from "@wrtnio/decorators";
+import { RouteIcon, SelectBenchmark } from "@wrtnio/decorators";
 import { CrunchbaseProvider } from "../../../providers/connector/crunchbase/CrunchbaseProvider";
 import { retry } from "../../../utils/retry";
 
@@ -17,6 +17,9 @@ export class CrunchbaseController {
    *
    * @summary Get Organization Data from crunchbase
    */
+  @SelectBenchmark("회사 정보 좀 찾아줘")
+  @SelectBenchmark("스타트업 정보 좀 찾아줘")
+  @SelectBenchmark("회사 투자 라운드 좀 알려줘")
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/crunchbase_full.svg",
   )

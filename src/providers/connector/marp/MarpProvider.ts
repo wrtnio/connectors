@@ -9,7 +9,6 @@ import { AwsProvider } from "../aws/AwsProvider";
 
 @Injectable()
 export class MarpProvider {
-  constructor(private readonly awsProvider: AwsProvider) {}
   /**
    * Converts Marp markdown to a PPT and uploads to S3.
    *
@@ -36,7 +35,7 @@ export class MarpProvider {
       execSync(command, { stdio: "ignore" });
 
       const data = await fs.readFile(pptFilePath);
-      const uploaded = await this.awsProvider.uploadObject({
+      const uploaded = await AwsProvider.uploadObject({
         contentType: "text/html; charset=UTF-8",
         data: data,
         key: `connector/marp/${uuid}.html`,

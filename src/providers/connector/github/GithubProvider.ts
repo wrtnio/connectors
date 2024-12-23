@@ -19,10 +19,7 @@ import { RagProvider } from "../rag/RagProvider";
 
 @Injectable()
 export class GithubProvider {
-  constructor(
-    private readonly awsProvider: AwsProvider,
-    private readonly ragProvider: RagProvider,
-  ) {}
+  constructor(private readonly ragProvider: RagProvider) {}
 
   async getUserOrganizations(
     input: IGithub.IGetUserOrganizationInput,
@@ -164,7 +161,7 @@ export class GithubProvider {
   ) {
     const stringified = files.map(({ path, content }) => ({ path, content }));
     const buffer = Buffer.from(JSON.stringify(stringified), "utf-8");
-    const link = await this.awsProvider.uploadObject({
+    const link = await AwsProvider.uploadObject({
       contentType: "text/plain; charset=utf-8;",
       data: buffer,
       key,

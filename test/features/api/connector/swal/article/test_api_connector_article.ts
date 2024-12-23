@@ -223,6 +223,53 @@ export const test_api_connector_article_index = async (
   typia.assert(articles.pagination.pages === 0);
 };
 
+export const test_api_connector_article_index_with_searching_title = async (
+  connection: CApi.IConnection,
+) => {
+  const created = await test_api_connector_article_write(connection);
+  const title = created.snapshots[created.snapshots.length - 1].title;
+
+  const articles = await CApi.functional.connector.articles.index(
+    connectionWithSameUser(connection),
+    {
+      limit: 100,
+      page: 1,
+      search: {
+        snapshot: {
+          title: title,
+        },
+      },
+      sort: [],
+    },
+  );
+
+  typia.assertEquals(articles);
+  typia.assert(articles.data.length === 1);
+};
+
+export const test_api_connector_article_index_with_searching_part_of_title =
+  async (connection: CApi.IConnection) => {
+    const created = await test_api_connector_article_write(connection);
+    const title = created.snapshots[created.snapshots.length - 1].title;
+
+    const articles = await CApi.functional.connector.articles.index(
+      connectionWithSameUser(connection),
+      {
+        limit: 100,
+        page: 1,
+        search: {
+          snapshot: {
+            title: title.slice(0, parseInt(String(title.length / 2))),
+          },
+        },
+        sort: [],
+      },
+    );
+
+    typia.assertEquals(articles);
+    typia.assert(articles.data.length === 1);
+  };
+
 export const test_api_connector_article_write_and_index = async (
   connection: CApi.IConnection,
 ) => {

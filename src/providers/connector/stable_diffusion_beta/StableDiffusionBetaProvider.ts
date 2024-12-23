@@ -14,7 +14,6 @@ import { AwsProvider } from "../aws/AwsProvider";
 
 @Injectable()
 export class StableDiffusionBetaProvider {
-  constructor(private awsProvider: AwsProvider) {}
   async generateImage(
     input: IStableDiffusionBeta.IRequest,
   ): Promise<IStableDiffusionBeta.IResponse> {
@@ -41,7 +40,7 @@ export class StableDiffusionBetaProvider {
     try {
       const imgUrl = await Promise.all(
         img.map(async (img) => {
-          return await this.awsProvider.uploadObject({
+          return await AwsProvider.uploadObject({
             key: `connector/generate-image-node/sdxl-beta/${v4()}`,
             data: img,
             contentType: "image/png",

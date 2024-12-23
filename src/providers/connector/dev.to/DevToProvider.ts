@@ -1,5 +1,6 @@
 import { IDevTo } from "@wrtn/connector-api/lib/structures/connector/dev.to/IDevTo";
 import axios, { AxiosError } from "axios";
+import { OAuthSecretProvider } from "../../internal/oauth_secret/OAuthSecretProvider";
 
 export namespace DevToProvider {
   export const create = async (
@@ -7,6 +8,8 @@ export namespace DevToProvider {
   ): Promise<IDevTo.ICreateOutput> => {
     const url = `https://dev.to/api/articles`;
 
+    const secret = await OAuthSecretProvider.getSecretValue(input.secretKey);
+    const api_key = JSON.parse(secret).key;
     const res = await axios.post(
       url,
       {
@@ -21,7 +24,7 @@ export namespace DevToProvider {
       },
       {
         headers: {
-          api_key: input.secretKey,
+          api_key: api_key,
         },
       },
     );
@@ -34,6 +37,8 @@ export namespace DevToProvider {
     async (input: IDevTo.IUpdateInput): Promise<IDevTo.IUpdateOutput> => {
       const url = `https://dev.to/api/articles/${article_id}`;
 
+      const secret = await OAuthSecretProvider.getSecretValue(input.secretKey);
+      const api_key = JSON.parse(secret).key;
       try {
         const res = await axios.put(
           url,
@@ -52,7 +57,7 @@ export namespace DevToProvider {
           },
           {
             headers: {
-              api_key: input.secretKey,
+              api_key: api_key,
             },
           },
         );
