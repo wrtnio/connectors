@@ -124,30 +124,10 @@ export namespace ExcelProvider {
         throw new NotFoundException("Not existing sheet");
       }
 
-      const headers = Object.keys(
-        data.reduce((acc, cur) => ({ ...acc, ...cur })),
-      );
-
-      if (!fileUrl) {
-        // 수정이 아닌 경우에만 저장하게끔 수정
-        sheet.addRow(headers);
-      } else {
-        // 수정인 경우, 하지만 빈 엑셀 파일인 경우
-        const originalData = ExcelProvider.getExcelData({
-          sheetName,
-          workbook,
-        });
-        if (originalData.data.length === 0) {
-          sheet.addRow(headers);
-        }
-      }
-
-      data.forEach((rowData: Record<string, any>) => {
-        const data: string[] = [];
-        headers.forEach((header: string) => {
-          data.push(rowData[header] ?? "");
-        });
-        sheet.addRow(data);
+      data.forEach((data) => {
+        const column = ExcelProvider.columnNumberToLetter(data.column);
+        const position = `${column}${data.row}`; // A1, A2, ... 와 같은 형식
+        sheet.getCell(position).value = data.snapshot.value;
       });
 
       const modifiedBuffer = await workbook.xlsx.writeBuffer();
@@ -158,9 +138,7 @@ export namespace ExcelProvider {
         contentType:
           "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
       });
-      return {
-        fileUrl: url,
-      };
+      return { fileUrl: url };
     } catch (error) {
       console.error(JSON.stringify(error));
       throw error;

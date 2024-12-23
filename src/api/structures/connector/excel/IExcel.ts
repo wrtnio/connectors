@@ -1,6 +1,7 @@
 import { Placeholder } from "@wrtnio/decorators";
 import { tags } from "typia";
 import { ContentMediaType } from "typia/lib/tags/ContentMediaType";
+import { ISpreadsheetCell } from "../swal/spreadsheet/ISpreadsheetCell";
 
 export namespace IExcel {
   /**
@@ -134,7 +135,7 @@ export namespace IExcel {
      *
      * @title Excel row data to add
      */
-    data: Record<string, any>[];
+    data: ISpreadsheetCell.ICreate[];
   }
 
   export interface ICreateSheetInput {
