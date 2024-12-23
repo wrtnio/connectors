@@ -200,4 +200,14 @@ export namespace ExcelProvider {
       fileUrl: fileUrl,
     };
   }
+
+  export function columnNumberToLetter(column: number): string {
+    let letter = "";
+    while (column > 0) {
+      const remainder = (column - 1) % 26;
+      letter = String.fromCharCode(65 + remainder) + letter;
+      column = Math.floor((column - 1) / 26);
+    }
+    return letter;
+  }
 }
