@@ -108,9 +108,9 @@ export namespace IExcel {
       ContentMediaType<"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet">;
 
     /**
-     * An array of objects where the key is the header name and the value is the value of the corresponding row
+     * The type of data and coordinates of each row and column
      *
-     * @title Excel row data to add
+     * @title Cell informations
      */
     data: ISpreadsheetCell.ICreate[];
   }
@@ -131,9 +131,9 @@ export namespace IExcel {
     fileUrl?: string & tags.Format<"iri">;
 
     /**
-     * An array of objects where the key is the header name and the value is the value of the corresponding row
+     * The type of data and coordinates of each row and column
      *
-     * @title Excel row data to add
+     * @title Cell informations
      */
     data: ISpreadsheetCell.ICreate[];
   }

@@ -9,7 +9,7 @@ export namespace ISpreadsheetCell {
        * For example, date, datetime, bool, text an so on.
        * If you want add new type, please discuss within our team.
        */
-      type: string; // text
+      type: "text"; // text
 
       /**
        * If the value of the final cell is in the erased form, null.
