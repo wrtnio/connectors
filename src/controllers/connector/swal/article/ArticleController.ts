@@ -111,7 +111,7 @@ export class ArticleController {
    * The exported text is recorded by creating a
    * {@link IArticleExport bbs_article_exports} object based on the snapshot.
    * You can upgrade and downgrade the version using
-   * the 'POST /connector/articles/:id/exports/sync/dev_to' connector in the future.
+   * the 'POST /connector/swal/articles/:id/exports/sync/dev_to' connector in the future.
    * Also, it doesn't matter if you export the same version of the text multiple times.
    *
    * Because each export generates a new text,
@@ -143,7 +143,7 @@ export class ArticleController {
    * The exported text is recorded by creating a
    * {@link IArticleExport bbs_article_exports} object based on the snapshot.
    * You can upgrade and downgrade the version using
-   * the 'POST /connector/articles/:id/exports/sync/google_docs' connector in the future.
+   * the 'POST /connector/swal/articles/:id/exports/sync/google_docs' connector in the future.
    * Also, it doesn't matter if you export the same version of the text multiple times.
    *
    * Because each export generates a new text,
@@ -179,7 +179,7 @@ export class ArticleController {
    * The exported text is recorded by creating a
    * {@link IArticleExport bbs_article_exports} object based on the snapshot.
    * You can upgrade and downgrade the version using
-   * the 'POST /connector/articles/:id/exports/sync/notion' connector in the future.
+   * the 'POST /connector/swal/articles/:id/exports/sync/notion' connector in the future.
    * Also, it doesn't matter if you export the same version of the text multiple times.
    *
    * Because each export generates a new text,
@@ -306,7 +306,7 @@ export class ArticleController {
    * please look up the details.
    * Here, we only show the content of the text up to 100 characters, so if you want to see the latter, you need to look up the details.
    * You can view all the snapshots of this article if you want to look at them in detail.
-   * The detailed lookup connector is 'PATCH connector/articles/:id'.
+   * The detailed lookup connector is 'PATCH connector/swal/articles/:id'.
    *
    * @summary List up all summarized articles
    * @param input Request info of pagination and searching options.

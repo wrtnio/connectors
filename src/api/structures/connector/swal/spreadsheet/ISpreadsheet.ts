@@ -6,13 +6,13 @@ import { ISpreadsheetCell } from "./ISpreadsheetCell";
 import { ISpreadsheetExport } from "./ISpreadsheetExport";
 
 export namespace ISpreadsheet {
-  export namespace IExport {
+  export namespace ISync {
     /**
      * @title Spreadsheet information
      */
     export interface SnapshotOutput {
       /**
-       * @title article information
+       * @title spreadsheet information
        */
       spreadsheet: ISpreadsheet;
     }
@@ -93,6 +93,54 @@ export namespace ISpreadsheet {
      */
     export type ToExcelToInput = SnapshotInput;
   }
+
+  export namespace IExport {
+    export interface SnapshotOutput {
+      /**
+       * @title Exporting infomation
+       */
+      spreadsheet_exports: StrictOmit<ISpreadsheetExport, "deleted_at">;
+    }
+
+    export interface SnapshotInput {
+      /**
+       * @title snapshot information to export
+       */
+      snapshot: {
+        /**
+         * @title Snapshot ID of the spreadsheet you want to export to another service
+         */
+        id: string &
+          Prerequisite<{
+            method: "patch";
+            path: "/connector/swal/spreadsheets/:id";
+            jmesPath: "data[].{ value: id, label: ['created_at ', created_at].join(':', @) }";
+          }>;
+      };
+    }
+
+    export interface ToExcelToOutput extends IExport.SnapshotOutput {
+      excel: {
+        /**
+         * @title Created excel spreadsheet ID
+         */
+        id: string;
+
+        /**
+         * @title Title of Created excel spreadsheet
+         */
+        title: string;
+
+        /**
+         * @title File URL
+         */
+        link: string;
+      };
+    }
+
+    export type ToExcelToInput = IExport.SnapshotInput;
+  }
+
   export namespace IRequest {
     /**
      * If an attribute exists,

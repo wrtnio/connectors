@@ -138,7 +138,7 @@ export namespace SpreadsheetProvider {
   }
 
   export namespace exports {
-    export const excel = (
+    export const excel = async (
       external_user: IExternalUser,
       spreadsheetId: ISpreadsheet["id"],
       input: ISpreadsheet.IExport.ToExcelToInput,

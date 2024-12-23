@@ -41,7 +41,7 @@ export namespace IArticle {
         from: IArticle.ISnapshot["id"] &
           Prerequisite<{
             method: "patch";
-            path: "/connector/articles/:id";
+            path: "/connector/swal/articles/:id";
             jmesPath: "snapshot[].{ value: id, label: ['created_at ', created_at].join(':', @) }";
           }>;
 
@@ -51,7 +51,7 @@ export namespace IArticle {
         to: IArticle.ISnapshot["id"] &
           Prerequisite<{
             method: "patch";
-            path: "/connector/articles/:id";
+            path: "/connector/swal/articles/:id";
             jmesPath: "snapshot[].{ value: id, label: ['created_at ', created_at].join(':', @) }";
           }>;
 
@@ -148,6 +148,7 @@ export namespace IArticle {
        */
       article_snapshot_exports: StrictOmit<IArticleExport, "deleted_at">;
     }
+
     export interface SnapshotInput {
       /**
        * @title snapshot information to export
@@ -159,7 +160,7 @@ export namespace IArticle {
         id: string &
           Prerequisite<{
             method: "patch";
-            path: "/connector/articles/:id";
+            path: "/connector/swal/articles/:id";
             jmesPath: "snapshot[].{ value: id, label: ['created_at ', created_at].join(':', @) }";
           }>;
       };
