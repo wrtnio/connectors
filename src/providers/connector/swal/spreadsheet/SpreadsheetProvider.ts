@@ -4,10 +4,11 @@ import { Prisma } from "@prisma/client";
 import { IExternalUser } from "@wrtn/connector-api/lib/structures/common/IExternalUser";
 import { IPage } from "@wrtn/connector-api/lib/structures/common/IPage";
 import { ISpreadsheet } from "@wrtn/connector-api/lib/structures/connector/swal/spreadsheet/ISpreadsheet";
+import { ISpreadsheetCell } from "@wrtn/connector-api/lib/structures/connector/swal/spreadsheet/ISpreadsheetCell";
 import { MyPick } from "@wrtn/connector-api/lib/structures/types/MyPick";
 import { StrictOmit } from "@wrtn/connector-api/lib/structures/types/strictOmit";
 import { randomUUID } from "node:crypto";
-import { tags } from "typia";
+import typia, { tags } from "typia";
 import { ConnectorGlobal } from "../../../../ConnectorGlobal";
 import { PaginationUtil } from "../../../../utils/PaginationUtil";
 import { ExcelProvider } from "../../excel/ExcelProvider";
@@ -177,11 +178,12 @@ export namespace SpreadsheetProvider {
           (el) => el.id === input.snapshot.id,
         )!;
 
+        const title = snapshot?.title.slice(0, 31);
         const excelFile = await ExcelProvider.insertRows({
-          sheetName: snapshot?.title,
-          data: spreadsheet.spreadsheet_cells.filter(
-            (cell) => cell.snapshot.value !== null,
-          ),
+          sheetName: title,
+          data: spreadsheet.spreadsheet_cells.filter((cell) => {
+            return typia.is<ISpreadsheetCell.ICreate>(cell);
+          }),
         });
 
         const spreadsheet_exports = await SpreadsheetProvider.exports.common(
@@ -197,7 +199,7 @@ export namespace SpreadsheetProvider {
           excel: {
             id: excelFile.fileId,
             link: excelFile.fileUrl,
-            title: snapshot?.title,
+            title: title,
           },
           spreadsheet_exports,
         };

@@ -1,4 +1,5 @@
 import { tags } from "typia";
+import { MyPick } from "../../../types/MyPick";
 
 export namespace ISpreadsheetCell {
   export namespace ISnapshot {
@@ -18,10 +19,11 @@ export namespace ISpreadsheetCell {
        *
        * @title value
        */
-      value: string | null;
+      value: string;
     }
   }
-  export interface ISnapshot extends ISpreadsheetCell.ISnapshot.ICreate {
+  export interface ISnapshot
+    extends Pick<ISpreadsheetCell.ISnapshot.ICreate, "type"> {
     /**
      * @title Primary Key
      */
@@ -31,6 +33,15 @@ export namespace ISpreadsheetCell {
      * @title Creation time of spreadsheet cell snapshot
      */
     created_at: string & tags.Format<"date-time">;
+
+    /**
+     * If the value of the final cell is in the erased form, null.
+     * A null value will be stored only when the value of this cell disappears after modification, and other than that, null can never be entered.
+     * This is to indicate that the value has been explicitly deleted to prevent the cell value of the previous snapshot from being exposed when a cell is soft-delete.
+     *
+     * @title value
+     */
+    value: string | null;
   }
 
   export interface ICreate {
@@ -51,11 +62,12 @@ export namespace ISpreadsheetCell {
     /**
      * @title Last Snapshot
      */
-    snapshot: ISpreadsheetCell.ISnapshot.ICreate;
+    snapshot: MyPick<ISpreadsheetCell.ISnapshot.ICreate, "type" | "value">;
   }
 }
 
-export interface ISpreadsheetCell extends ISpreadsheetCell.ICreate {
+export interface ISpreadsheetCell
+  extends MyPick<ISpreadsheetCell.ICreate, "column" | "row"> {
   /**
    * @title Primary Key
    */
@@ -70,4 +82,9 @@ export interface ISpreadsheetCell extends ISpreadsheetCell.ICreate {
    * @title Creation time of spreadsheet cell
    */
   created_at: string & tags.Format<"date-time">;
+
+  /**
+   * @title Last Snapshot
+   */
+  snapshot: MyPick<ISpreadsheetCell.ISnapshot, "type" | "value">;
 }

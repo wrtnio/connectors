@@ -47,7 +47,7 @@ export namespace SpreadsheetCellProvider {
     >(
       input: Input,
       snapshotFactory: (
-        input: Input["snapshot"],
+        input: ISpreadsheetCell.ISnapshot.ICreate,
         created_at: CreatedAt,
       ) => ISpreadsheetCell.ISnapshot,
       created_at: CreatedAt,

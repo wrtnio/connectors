@@ -145,7 +145,7 @@ export namespace IExcel {
      *
      * @title Excel sheet name
      */
-    sheetName?: (string & Placeholder<"Sheet1">) | null;
+    sheetName?: (string & tags.MaxLength<31> & Placeholder<"Sheet1">) | null;
   }
 
   /**

@@ -33,7 +33,7 @@ export namespace SpreadsheetCellSnapshotProvider {
   export const collect = (
     input: ISpreadsheetCell.ISnapshot.ICreate,
     created_at: string & tags.Format<"date-time">,
-  ) => {
+  ): ISpreadsheetCell.ISnapshot => {
     return {
       id: randomUUID(),
       type: input.type,

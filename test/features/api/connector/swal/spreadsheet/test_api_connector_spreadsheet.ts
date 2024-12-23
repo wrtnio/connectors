@@ -105,4 +105,29 @@ export const test_api_connector_swal_spreadsheets_create_with_cell_and_at =
     typia.assertEquals(spreadsheet);
 
     assert(cellsToCreate.length === spreadsheet.total_cell_count);
+    return spreadsheet;
   };
+
+export const test_api_connector_swal_spreadsheets_exports_1 = async (
+  _connection: CApi.IConnection,
+) => {
+  const connection = connectionWithSameUser(_connection);
+
+  const sheet =
+    await test_api_connector_swal_spreadsheets_create_with_cell_and_at(
+      connection,
+    );
+
+  const exported =
+    await CApi.functional.connector.swal.spreadsheets.exports.excel.exportsToExcel(
+      connection,
+      sheet.id,
+      {
+        snapshot: {
+          id: sheet.snapshots[0].id as string,
+        },
+      },
+    );
+
+  typia.assertEquals(exported);
+};
