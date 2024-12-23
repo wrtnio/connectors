@@ -112,7 +112,7 @@ export namespace IExcel {
      *
      * @title Excel row data to add
      */
-    data: Record<string, any>[];
+    data: ISpreadsheetCell.ICreate[];
   }
 
   /**

@@ -4,6 +4,7 @@ import { v4 } from "uuid";
 
 import { IExcel } from "@wrtn/connector-api/lib/structures/connector/excel/IExcel";
 
+import { ISpreadsheetCell } from "@wrtn/connector-api/lib/structures/connector/swal/spreadsheet/ISpreadsheetCell";
 import axios from "axios";
 import { AwsProvider } from "../aws/AwsProvider";
 
@@ -187,5 +188,50 @@ export namespace ExcelProvider {
       column = Math.floor((column - 1) / 26);
     }
     return letter;
+  }
+
+  /**
+   * 모든 행이 누락된 열이 없다고 가정한, 테스트 용 transformer 함수
+   * @param input 모든 행이 누락된 열이 없다고 가정한, 즉 직사각형 형태의 시트를 의미한다.
+   * @returns
+   */
+  export function transform(
+    input: Record<string, string | number>[],
+  ): ISpreadsheetCell.ICreate[] {
+    if (input.length === 0) {
+      return [];
+    }
+
+    const keys = Object.keys(input[0]).map(
+      (value, columnIndex): ISpreadsheetCell.ICreate => {
+        return {
+          row: 1,
+          column: columnIndex + 1,
+          snapshot: {
+            type: "text",
+            value: String(value),
+          },
+        };
+      },
+    );
+
+    const values = input.flatMap(
+      (data, rowIndex): ISpreadsheetCell.ICreate[] => {
+        return Object.values(data).map(
+          (value, columnIndex): ISpreadsheetCell.ICreate => {
+            return {
+              row: rowIndex + 1 + 1,
+              column: columnIndex + 1,
+              snapshot: {
+                type: "text",
+                value: String(value),
+              },
+            };
+          },
+        );
+      },
+    );
+
+    return [...keys, ...values];
   }
 }

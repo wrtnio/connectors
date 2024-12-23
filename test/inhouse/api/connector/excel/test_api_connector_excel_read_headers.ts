@@ -1,5 +1,6 @@
 import CApi from "@wrtn/connector-api/lib/index";
 import assert from "assert";
+import { ExcelProvider } from "../../../../../src/providers/connector/excel/ExcelProvider";
 
 export const test_api_connector_excel_read_headers = async (
   connection: CApi.IConnection,
@@ -8,14 +9,14 @@ export const test_api_connector_excel_read_headers = async (
     connection,
     {
       sheetName: "TEST",
-      data: [
+      data: ExcelProvider.transform([
         {
           이름: "홍길동",
           나이: 25,
           직업: "엔지니어",
           이메일: "hong@example.com",
         },
-      ],
+      ]),
     },
   );
 
