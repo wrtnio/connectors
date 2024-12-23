@@ -229,7 +229,7 @@ export const test_api_connector_article_index_with_searching_title = async (
   const created = await test_api_connector_article_write(connection);
   const title = created.snapshots[created.snapshots.length - 1].title;
 
-  const articles = await CApi.functional.connector.articles.index(
+  const articles = await CApi.functional.connector.swal.articles.index(
     connectionWithSameUser(connection),
     {
       limit: 100,
@@ -252,7 +252,7 @@ export const test_api_connector_article_index_with_searching_part_of_title =
     const created = await test_api_connector_article_write(connection);
     const title = created.snapshots[created.snapshots.length - 1].title;
 
-    const articles = await CApi.functional.connector.articles.index(
+    const articles = await CApi.functional.connector.swal.articles.index(
       connectionWithSameUser(connection),
       {
         limit: 100,
