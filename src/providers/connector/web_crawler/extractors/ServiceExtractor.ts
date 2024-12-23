@@ -1,6 +1,9 @@
 import { IWebCrawler } from "@wrtn/connector-api/lib/structures/connector/web_crawler/IWebCrawler";
 import { YoutubeCrawlerProvider } from "../services/YoutubeCrawlerProvider";
 import { OliveyoungCrawlerProvider } from "../services/OliveyoungCrawlerProvider";
+import { NaverBrandStoreCrawlerProvider } from "../services/NaverBrandStoreCrawlerProvider";
+import { NaverShoppingCrawlerProvider } from "../services/NaverShoppingCrawlerProvider";
+import { NaverSmartStoreCrawlerProvider } from "../services/NaverSmartStoreCrawlerProvider";
 
 export namespace ServiceExtractor {
   export const getServiceCrawl = async (
@@ -16,8 +19,19 @@ export namespace ServiceExtractor {
       return OliveyoungCrawlerProvider.crawl(request);
     }
 
-    // Extract naver store service
+    // Extract naver brand store service
     if (request.url.includes("brand.naver.com")) {
+      return NaverBrandStoreCrawlerProvider.crawl(request);
+    }
+
+    // Extract naver shopping service
+    if (request.url.includes("shopping.naver.com")) {
+      return NaverShoppingCrawlerProvider.crawl(request);
+    }
+
+    // Extract naver brand store service
+    if (request.url.includes("smartstore.naver.com")) {
+      return NaverSmartStoreCrawlerProvider.crawl(request);
     }
 
     // Extract ohou service≠

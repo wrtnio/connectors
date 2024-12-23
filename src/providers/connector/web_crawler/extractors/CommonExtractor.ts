@@ -208,6 +208,8 @@ export namespace CommonExtractor {
 
     if (
       url.includes("https://brand.naver.com") ||
+      url.includes("https://shopping.naver.com") ||
+      url.includes("https://smartstore.naver.com") ||
       url.includes("https://www.coupang.com")
     ) {
       return {

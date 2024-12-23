@@ -20,7 +20,7 @@ export namespace YoutubeCrawlerProvider {
       { ...request, wait_for: "ytd-comment-view-model" },
       `[
         { "click": "#expand-sizer, #expand, tp-yt-paper-button.button" },
-        { "wait": 500 },
+        { "wait": 500 }
       ]`,
     );
 
