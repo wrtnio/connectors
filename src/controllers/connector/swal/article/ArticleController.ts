@@ -342,6 +342,7 @@ export class ArticleController {
    * Ask the user to confirm.
    *
    * @sumamry Write Article
+   * @param input Article Information to Create
    */
   @SelectBenchmark("내 개인 DB에 글 좀 써줘")
   @core.TypedRoute.Post()
