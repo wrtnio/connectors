@@ -139,7 +139,7 @@ export namespace ExcelProvider {
         contentType:
           "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
       });
-      return { fileUrl: url };
+      return { fileId: key, fileUrl: url };
     } catch (error) {
       console.error(JSON.stringify(error));
       throw error;
@@ -175,9 +175,7 @@ export namespace ExcelProvider {
         "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
     });
 
-    return {
-      fileUrl: fileUrl,
-    };
+    return { fileId: key, fileUrl };
   }
 
   export function columnNumberToLetter(column: number): string {

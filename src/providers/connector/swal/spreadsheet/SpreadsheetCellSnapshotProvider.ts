@@ -12,7 +12,7 @@ export namespace SpreadsheetCellSnapshotProvider {
     ): ISpreadsheetCell.ISnapshot => {
       return {
         id: input.id,
-        type: input.type,
+        type: input.type as any,
         value: input.value,
         created_at: input.created_at.toISOString(),
       };

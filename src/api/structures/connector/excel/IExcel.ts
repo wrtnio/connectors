@@ -153,6 +153,11 @@ export namespace IExcel {
    */
   export interface IExportExcelFileOutput {
     /**
+     * @title S3 path of file
+     */
+    fileId: string;
+
+    /**
      * @title Generated Excel file url
      */
     fileUrl: string &

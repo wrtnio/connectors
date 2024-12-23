@@ -1,10 +1,16 @@
 import { tags } from "typia";
+import { MyPick } from "../../../types/MyPick";
 import { StrictOmit } from "../../../types/strictOmit";
 
 export namespace ISpreadsheetExport {
   export type ISummary = StrictOmit<
     ISpreadsheetExport,
     "spreadsheet_snapshot_id" | "deleted_at"
+  >;
+
+  export type ICreate = MyPick<
+    ISpreadsheetExport,
+    "provider" | "created_at" | "uid" | "url"
   >;
 }
 
@@ -26,7 +32,7 @@ export interface ISpreadsheetExport {
    *
    * @title provider name
    */
-  provider: "notion" | "google_docs" | (string & {});
+  provider: "excel" | "hancel" | "google_sheets" | (string & {});
 
   /**
    * @title Unique spreadsheet ID in external service

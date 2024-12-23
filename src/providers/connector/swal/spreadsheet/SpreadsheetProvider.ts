@@ -10,8 +10,10 @@ import { randomUUID } from "node:crypto";
 import { tags } from "typia";
 import { ConnectorGlobal } from "../../../../ConnectorGlobal";
 import { PaginationUtil } from "../../../../utils/PaginationUtil";
+import { ExcelProvider } from "../../excel/ExcelProvider";
 import { SpreadsheetCellProvider } from "./SpreadsheetCellProvider";
 import { SpreadsheetCellSnapshotProvider } from "./SpreadsheetCellSnapshotProvider";
+import { SpreadSheetExportProvider } from "./SpreadSheetExportProvider";
 import { SpreadsheetFormatProvider } from "./SpreadsheetFormatProvider";
 import { SpreadsheetSnapshotProvider } from "./SpreadsheetSnapshotProvider";
 
@@ -99,11 +101,11 @@ export namespace SpreadsheetProvider {
 
   export function sync(provider: "excel"): typeof sync.excel;
   export function sync(provider: "hancel"): typeof sync.hancel;
-  export function sync(provider: "google_sheet"): typeof sync.google_sheet;
-  export function sync(provider: "excel" | "hancel" | "google_sheet") {
+  export function sync(provider: "google_sheets"): typeof sync.google_sheet;
+  export function sync(provider: "excel" | "hancel" | "google_sheets") {
     if (provider === "excel") return sync.excel;
     if (provider === "hancel") return sync.hancel;
-    if (provider === "google_sheet") return sync.google_sheet;
+    if (provider === "google_sheets") return sync.google_sheet;
   }
 
   export namespace sync {
@@ -126,37 +128,92 @@ export namespace SpreadsheetProvider {
     ) => {};
   }
 
-  export function exports(provider: "excel"): typeof exports.excel;
-  export function exports(provider: "hancel"): typeof exports.hancel;
   export function exports(
-    provider: "google_sheet",
-  ): typeof exports.google_sheet;
-  export function exports(provider: "excel" | "hancel" | "google_sheet") {
-    if (provider === "excel") return exports.excel;
-    if (provider === "hancel") return exports.hancel;
-    if (provider === "google_sheet") return exports.google_sheet;
+    external_user: IExternalUser,
+    spreadsheetId: ISpreadsheet["id"],
+    provider: "excel",
+  ): Promise<ReturnType<typeof exports.excel>>;
+  export async function exports(
+    external_user: IExternalUser,
+    spreadsheetId: ISpreadsheet["id"],
+    provider: "hancel",
+  ): Promise<ReturnType<typeof exports.hancel>>;
+  export async function exports(
+    external_user: IExternalUser,
+    spreadsheetId: ISpreadsheet["id"],
+    provider: "google_sheets",
+  ): Promise<ReturnType<typeof exports.google_sheet>>;
+  export async function exports(
+    external_user: IExternalUser,
+    spreadsheetId: ISpreadsheet["id"],
+    provider: "excel" | "hancel" | "google_sheets",
+  ) {
+    const spreadsheet = await SpreadsheetProvider.at(
+      external_user,
+      spreadsheetId,
+    );
+
+    if (provider === "excel") return exports.excel(spreadsheet);
+    if (provider === "hancel") return exports.hancel(spreadsheet);
+    if (provider === "google_sheets") return exports.google_sheet(spreadsheet);
   }
 
   export namespace exports {
-    export const excel = async (
-      external_user: IExternalUser,
-      spreadsheetId: ISpreadsheet["id"],
-      input: ISpreadsheet.IExport.ToExcelToInput,
-    ): Promise<ISpreadsheet.IExport.ToExcelToOutput> => {
-      return {} as any;
-    };
+    export const common =
+      (snapshot: ISpreadsheet.ISnapshot) =>
+      async (input: {
+        provider: "excel" | "hancel" | "google_sheets";
+        uid: string;
+        url: string;
+        created_at: string & tags.Format<"date-time">;
+      }) => {
+        return SpreadSheetExportProvider.create(snapshot, input);
+      };
 
-    export const hancel = (
-      external_user: IExternalUser,
-      spreadsheetId: ISpreadsheet["id"],
-      // input: ISpreadsheet.IExport.ToInput,
-    ) => {};
+    export const excel =
+      (spreadsheet: Awaited<ReturnType<typeof SpreadsheetProvider.at>>) =>
+      async (
+        input: ISpreadsheet.IExport.ToExcelToInput,
+      ): Promise<ISpreadsheet.IExport.ToExcelToOutput> => {
+        const snapshot = spreadsheet.snapshots.find(
+          (el) => el.id === input.snapshot.id,
+        )!;
 
-    export const google_sheet = (
-      external_user: IExternalUser,
-      spreadsheetId: ISpreadsheet["id"],
-      // input: ISpreadsheet.IExport.ToInput,
-    ) => {};
+        const excelFile = await ExcelProvider.insertRows({
+          sheetName: snapshot?.title,
+          data: spreadsheet.spreadsheet_cells.filter(
+            (cell) => cell.snapshot.value !== null,
+          ),
+        });
+
+        const spreadsheet_exports = await SpreadsheetProvider.exports.common(
+          snapshot,
+        )({
+          provider: "excel",
+          uid: excelFile.fileId,
+          url: excelFile.fileUrl,
+          created_at: new Date().toISOString(),
+        });
+
+        return {
+          excel: {
+            id: excelFile.fileId,
+            link: excelFile.fileUrl,
+            title: snapshot?.title,
+          },
+          spreadsheet_exports,
+        };
+      };
+
+    export const hancel =
+      (spreadsheet: Awaited<ReturnType<typeof SpreadsheetProvider.at>>) => () =>
+        // input: ISpreadsheet.IExport.ToInput,
+        {};
+
+    export const google_sheet =
+      (spreadsheet: Awaited<ReturnType<typeof SpreadsheetProvider.at>>) => () =>
+        // input: ISpreadsheet.IExport.ToInput,
+        {};
   }
 
   export const create =
