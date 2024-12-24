@@ -6,14 +6,16 @@ import { ConnectorGlobal } from "../../../../../src/ConnectorGlobal";
 export const test_api_connector_notion_update_page_title = async (
   connection: CApi.IConnection,
 ) => {
-  const pageToUpdate = await CApi.functional.connector.notion.page.createPage(
-    connection,
-    {
-      parentPageId: "804989a1bb91410db6539034b212ebf5",
-      title: randomUUID(),
-      secretKey: ConnectorGlobal.env.NOTION_TEST_SECRET,
-    },
-  );
+  const pageToUpdate =
+    await CApi.functional.connector.notion.markdown.createPageByMarkdown(
+      connection,
+      {
+        parentPageId: "804989a1bb91410db6539034b212ebf5",
+        title: randomUUID(),
+        secretKey: ConnectorGlobal.env.NOTION_TEST_SECRET,
+        markdown: ``,
+      },
+    );
 
   const title_to_update = randomUUID();
   const res = await CApi.functional.connector.notion.page.title.updatePageTitle(

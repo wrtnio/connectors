@@ -215,7 +215,7 @@ export namespace NotionProvider {
     }
   }
 
-  export async function createPage(
+  async function createPage(
     input: INotion.ICreatePageInput,
   ): Promise<INotion.ICreatePageOutput> {
     try {
