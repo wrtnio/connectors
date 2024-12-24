@@ -4,6 +4,7 @@ import { ISpreadsheetCell } from "@wrtn/connector-api/lib/structures/connector/s
 import assert from "assert";
 import { randomUUID } from "crypto";
 import typia, { tags } from "typia";
+import { ConnectorGlobal } from "../../../../../../src/ConnectorGlobal";
 
 const password = randomUUID();
 const uid = randomUUID();
@@ -108,7 +109,7 @@ export const test_api_connector_swal_spreadsheets_create_with_cell_and_at =
     return spreadsheet;
   };
 
-export const test_api_connector_swal_spreadsheets_exports_1 = async (
+export const test_api_connector_swal_spreadsheets_exports_2 = async (
   _connection: CApi.IConnection,
 ) => {
   const connection = connectionWithSameUser(_connection);
@@ -119,12 +120,15 @@ export const test_api_connector_swal_spreadsheets_exports_1 = async (
     );
 
   const exported =
-    await CApi.functional.connector.swal.spreadsheets.exports.excel.exportsToExcel(
+    await CApi.functional.connector.swal.spreadsheets.exports.google_sheets.exportsToGoogleSheets(
       connection,
       sheet.id,
       {
         snapshot: {
           id: sheet.snapshots[0].id as string,
+        },
+        google_sheets: {
+          secret: ConnectorGlobal.env.GOOGLE_TEST_SECRET,
         },
       },
     );

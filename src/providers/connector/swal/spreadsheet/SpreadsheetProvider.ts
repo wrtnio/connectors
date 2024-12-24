@@ -228,16 +228,12 @@ export namespace SpreadsheetProvider {
             secretKey: input.google_sheets.secret,
           });
 
-          await GoogleSheetProvider.appendToSheet({
-            spreadSheetId: google_sheet.spreadsheetId,
+          const is = typia.createIs<ISpreadsheetCell.ICreate>();
+          await GoogleSheetProvider.insertCells({
             secretKey: input.google_sheets.secret,
-            /**
-             * @TODO 적절한 값으로 대치할 것
-             */
-            range: "A1:Z:27", // 일시적인 값 할당
-            values: spreadsheet.spreadsheet_cells.map((cell) => {
-              const column = ExcelProvider.columnNumberToLetter(cell.column);
-              return [column, cell.row, cell.snapshot.value];
+            spreadsheetId: google_sheet.spreadsheetId,
+            cells: spreadsheet.spreadsheet_cells.filter((cell) => {
+              return is(cell);
             }),
           });
 

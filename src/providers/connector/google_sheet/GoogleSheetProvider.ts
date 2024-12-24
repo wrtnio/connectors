@@ -7,6 +7,8 @@ import { google } from "googleapis";
 
 import { IGoogleSheet } from "@wrtn/connector-api/lib/structures/connector/google_sheet/IGoogleSheet";
 
+import { ISpreadsheet } from "@wrtn/connector-api/lib/structures/connector/swal/spreadsheet/ISpreadsheet";
+import { ISpreadsheetCell } from "@wrtn/connector-api/lib/structures/connector/swal/spreadsheet/ISpreadsheetCell";
 import { GoogleProvider } from "../../internal/google/GoogleProvider";
 import { OAuthSecretProvider } from "../../internal/oauth_secret/OAuthSecretProvider";
 
@@ -52,6 +54,51 @@ export namespace GoogleSheetProvider {
     }
   }
 
+  export async function insertCells(input: {
+    secretKey: ISpreadsheet.IExport.ToGoogleSheetsToInput["google_sheets"]["secret"];
+    spreadsheetId: string;
+    cells: ISpreadsheetCell.ICreate[];
+  }) {
+    const token = await OAuthSecretProvider.getSecretValue(input.secretKey);
+    const accessToken = await GoogleProvider.refreshAccessToken(token);
+    const authClient = new google.auth.OAuth2();
+    authClient.setCredentials({ access_token: accessToken });
+
+    await google
+      .sheets({ version: "v4", auth: authClient })
+      .spreadsheets.batchUpdate({
+        spreadsheetId: input.spreadsheetId,
+        requestBody: {
+          requests: input.cells.map((cell) => {
+            return {
+              updateCells: {
+                range: {
+                  /**
+                   * @todo 시트 아이디를 지정할 수 있게 하기
+                   */
+                  sheetId: 0, // 0번째 시트를 의미
+                  startRowIndex: cell.row - 1,
+                  startColumnIndex: cell.column - 1,
+                  endRowIndex: cell.row,
+                  endColumnIndex: cell.column,
+                },
+                rows: [
+                  {
+                    values: [
+                      {
+                        userEnteredValue: { stringValue: cell.snapshot.value },
+                      },
+                    ],
+                  },
+                ],
+                fields: "*",
+              },
+            };
+          }),
+        },
+      });
+  }
+
   /**
    * Append To Sheet
    */
@@ -59,7 +106,7 @@ export namespace GoogleSheetProvider {
     input: IGoogleSheet.IAppendToSheetInput,
   ): Promise<void> {
     try {
-      const { values, secretKey, spreadSheetId, range } = input;
+      const { values, secretKey, spreadSheetId } = input;
       const token = await OAuthSecretProvider.getSecretValue(secretKey);
       const accessToken = await GoogleProvider.refreshAccessToken(token);
       const authClient = new google.auth.OAuth2();
@@ -67,8 +114,8 @@ export namespace GoogleSheetProvider {
       authClient.setCredentials({ access_token: accessToken });
       const sheets = google.sheets({ version: "v4", auth: authClient });
       await sheets.spreadsheets.values.append({
+        ...(input.range && { range: input.range }),
         spreadsheetId: spreadSheetId,
-        range: range,
         valueInputOption: "RAW",
         requestBody: {
           values: values,

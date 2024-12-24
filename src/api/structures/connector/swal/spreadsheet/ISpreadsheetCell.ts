@@ -50,14 +50,14 @@ export namespace ISpreadsheetCell {
      *
      * @title Column Number
      */
-    column: number & tags.Type<"uint32"> & tags.Minimum<1>;
+    column: number & tags.Type<"uint32"> & tags.Minimum<1> & tags.Maximum<26>; // google_sheets limit allow less than 26
 
     /**
      * It counts from 1
      *
      * @title Row Number
      */
-    row: number & tags.Type<"uint32"> & tags.Minimum<1>;
+    row: number & tags.Type<"uint32"> & tags.Minimum<1> & tags.Maximum<1000>; // google_sheets limit allow less than 1000
 
     /**
      * @title Last Snapshot
