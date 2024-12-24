@@ -6,8 +6,6 @@ import { GoogleProvider } from "../../../../providers/internal/google/GoogleProv
 
 @Controller("internal/google")
 export class GoogleController {
-  constructor(private readonly googleProvider: GoogleProvider) {}
-
   /**
    * Request to reissue Google access token
    *
@@ -15,8 +13,7 @@ export class GoogleController {
    */
   @core.TypedRoute.Get()
   async refreshAccessToken() {
-    return await this.googleProvider.refreshAccessToken(
-      ConnectorGlobal.env.GOOGLE_TEST_SECRET,
-    );
+    const secret = ConnectorGlobal.env.GOOGLE_TEST_SECRET;
+    return await GoogleProvider.refreshAccessToken(secret);
   }
 }

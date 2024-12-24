@@ -5,7 +5,6 @@ import { IPage } from "@wrtn/connector-api/lib/structures/common/IPage";
 import { IArticle } from "@wrtn/connector-api/lib/structures/connector/swal/article/IArticle";
 import { ConnectorGlobal } from "../../../../ConnectorGlobal";
 import { PaginationUtil } from "../../../../utils/PaginationUtil";
-import { GoogleProvider } from "../../../internal/google/GoogleProvider";
 import { DevToProvider } from "../../dev.to/DevToProvider";
 import { GoogleDocsProvider } from "../../google_docs/GoogleDocsProvider";
 import { NotionProvider } from "../../notion/NotionProvider";
@@ -18,8 +17,6 @@ import { BbsArticleSnapshotProvider } from "./BbsArticleSnapshotProvider";
  * 이렇게 분리한 까닭은 {@link IArticle} 타입이 본디 목적이 하위 타입, 즉 base로서 정의된 것이기에 추후 기능 확장이 될 여지가 남아있기 때문이다.
  */
 export namespace DocumentProvider {
-  const GoogleDocs = new GoogleDocsProvider(new GoogleProvider());
-
   export function sync(provider: "dev_to"): typeof sync.dev_to;
   export function sync(provider: "google_docs"): typeof sync.google_docs;
   export function sync(provider: "notion"): typeof sync.notion;
@@ -125,7 +122,7 @@ export namespace DocumentProvider {
             (el) => el.id === input.snapshot.to,
           )!;
 
-          await GoogleDocs.update(pageId, {
+          await GoogleDocsProvider.update(pageId, {
             secretKey,
             title: snapshot.title,
             contents: snapshot.body,
@@ -265,7 +262,7 @@ export namespace DocumentProvider {
       const { snapshots } = await DocumentProvider.at(external_user, articleId);
       const snapshot = snapshots.find(({ id }) => id === input.snapshot.id)!;
 
-      const { googleDocs } = await GoogleDocs.write({
+      const { googleDocs } = await GoogleDocsProvider.write({
         name: snapshot.title,
         markdown: snapshot.body,
         folderId: input.google_docs.folderId,
