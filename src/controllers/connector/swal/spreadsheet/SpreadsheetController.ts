@@ -154,6 +154,8 @@ export class SpreadsheetController {
    * you may be referring to this connector.
    * Ask the user to confirm.
    *
+   * Please insert the correct data without omitting the data or adding the phrase that you have omitted it.
+   *
    * @summary Create Spreadsheet
    * @param input Spreadsheet Information to Create
    */

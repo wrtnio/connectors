@@ -248,6 +248,9 @@ export namespace ISpreadsheet {
       ISpreadsheet,
       "external_user_id" | "snapshots" | "deleted_at"
     > {
+    mv_last: {
+      snapshot: ISpreadsheet.ISnapshot;
+    };
     /**
      * It is the summarized cell content, and only up to 100 are searched.
      * You can check the whole thing by searching in detail.
@@ -316,16 +319,6 @@ export interface ISpreadsheet<
    * @title External User ID
    */
   external_user_id: string & tags.Format<"uuid">;
-
-  /**
-   * @title Title of Sheet
-   */
-  title: string;
-
-  /**
-   * @title Description of Sheet
-   */
-  description: string | null;
 
   /**
    * @title cells

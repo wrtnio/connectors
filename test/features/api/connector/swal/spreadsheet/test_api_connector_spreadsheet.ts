@@ -64,7 +64,13 @@ export const test_api_connector_swal_spreadsheets_create_spreadsheet = async (
   typia.assertEquals(res);
 
   const list = await test_api_connector_swal_spreadsheets_index(connection);
-  assert(list.data.some((el) => el.title === uuid && el.description === uuid));
+  assert(
+    list.data.some(
+      (el) =>
+        el.mv_last.snapshot.title === uuid &&
+        el.mv_last.snapshot.description === uuid,
+    ),
+  );
 };
 
 export const test_api_connector_swal_spreadsheets_at = async (

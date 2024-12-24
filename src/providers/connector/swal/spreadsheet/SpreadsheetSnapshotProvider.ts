@@ -68,6 +68,7 @@ export namespace SpreadsheetSnapshotProvider {
           spreadsheet_exports: {
             select: {
               id: true,
+              spreadsheet_snapshot_id: true,
               uid: true,
               url: true,
               created_at: true,

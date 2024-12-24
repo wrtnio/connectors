@@ -24,12 +24,22 @@ export namespace SpreadsheetProvider {
     export const transform = (
       input: Prisma.spreadsheetsGetPayload<ReturnType<typeof summary.select>>,
     ): ISpreadsheet.ISummary => {
+      const last_snapshot = input.mv_last?.snapshot!;
       return {
         id: input.id,
-        title: input.title,
-        description: input.description,
         total_cell_count: input.spreadsheet_cells.length,
         created_at: input.created_at.toISOString(),
+        mv_last: {
+          snapshot: {
+            id: last_snapshot.id,
+            created_at: last_snapshot.created_at.toISOString(),
+            spreadsheet_exports: last_snapshot.spreadsheet_exports.map((el) =>
+              SpreadSheetExportProvider.json.transform(el),
+            ),
+            title: last_snapshot.title,
+            description: last_snapshot.description,
+          },
+        },
         spreadsheet_cells: input.spreadsheet_cells
           .map((cell) => {
             return SpreadsheetCellProvider.summary.transform(cell);
@@ -43,8 +53,6 @@ export namespace SpreadsheetProvider {
         select: {
           id: true,
           external_user_id: true,
-          title: true,
-          description: true,
           created_at: true,
           spreadsheet_cells: SpreadsheetCellProvider.summary.select(),
           mv_last: {
@@ -65,8 +73,6 @@ export namespace SpreadsheetProvider {
       return {
         id: input.id,
         external_user_id: input.external_user_id,
-        title: input.title,
-        description: input.description,
         total_cell_count: input.spreadsheet_cells.length,
         created_at: input.created_at.toISOString(),
         snapshots: input.snapshots.map((snapshot) => {
@@ -84,10 +90,7 @@ export namespace SpreadsheetProvider {
         select: {
           id: true,
           external_user_id: true,
-          title: true,
-          description: true,
           created_at: true,
-          password: true,
           spreadsheet_cells: SpreadsheetCellProvider.summary.select(),
           mv_last: {
             select: {
@@ -312,8 +315,6 @@ export namespace SpreadsheetProvider {
       return {
         id: randomUUID(),
         external_user_id: external_user.id,
-        title: input.title,
-        description: input.description,
         password: external_user.password,
         created_at,
         snapshots: {
@@ -361,7 +362,18 @@ export namespace SpreadsheetProvider {
       throw new ForbiddenException("This spreadsheet is not yours.");
     }
 
-    if (spreadsheet.password !== external_user.password) {
+    const { password } =
+      await ConnectorGlobal.prisma.spreadsheets.findFirstOrThrow({
+        select: {
+          id: true,
+          password: true,
+        },
+        where: {
+          id: spreadsheetId,
+        },
+      });
+
+    if (password !== external_user.password) {
       throw new ForbiddenException("This spreadsheet is not yours.");
     }
 
