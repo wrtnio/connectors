@@ -1,4 +1,4 @@
-import { Injectable, InternalServerErrorException } from "@nestjs/common";
+import { InternalServerErrorException } from "@nestjs/common";
 import {
   GoogleSpreadsheet,
   GoogleSpreadsheetWorksheet,
@@ -10,12 +10,11 @@ import { IGoogleSheet } from "@wrtn/connector-api/lib/structures/connector/googl
 import { GoogleProvider } from "../../internal/google/GoogleProvider";
 import { OAuthSecretProvider } from "../../internal/oauth_secret/OAuthSecretProvider";
 
-@Injectable()
-export class GoogleSheetProvider {
+export namespace GoogleSheetProvider {
   /**
    * Create Google Sheet
    */
-  async createSpreadsheet(
+  export async function createSpreadsheet(
     input: IGoogleSheet.ICreateGoogleSheetInput,
   ): Promise<IGoogleSheet.ICreateGoogleSheetOutput> {
     try {
@@ -56,7 +55,9 @@ export class GoogleSheetProvider {
   /**
    * Append To Sheet
    */
-  async appendToSheet(input: IGoogleSheet.IAppendToSheetInput): Promise<void> {
+  export async function appendToSheet(
+    input: IGoogleSheet.IAppendToSheetInput,
+  ): Promise<void> {
     try {
       const { values, secretKey, spreadSheetId, range } = input;
       const token = await OAuthSecretProvider.getSecretValue(secretKey);
@@ -83,12 +84,12 @@ export class GoogleSheetProvider {
    * Read Google Sheet Headers
    * @param input Google Sheet Url and index number(default 0)
    */
-  async readHeaders(
+  export async function readHeaders(
     input: IGoogleSheet.IReadGoogleSheetHeadersInput,
   ): Promise<IGoogleSheet.IReadGoogleSheetOutput> {
     try {
       const { url, index = 0, secretKey } = input;
-      const id = this.getSpreadSheetId(url);
+      const id = GoogleSheetProvider.getSpreadSheetId(url);
       const token = await OAuthSecretProvider.getSecretValue(secretKey);
       const accessToken = await GoogleProvider.refreshAccessToken(token);
       const authClient = new google.auth.OAuth2();
@@ -117,9 +118,11 @@ export class GoogleSheetProvider {
    * Add Permission to Google Sheet
    * @param input Google Sheet Url and Permission List including email and role
    */
-  async permission(input: IGoogleSheet.IPermissionInput): Promise<void> {
+  export async function permission(
+    input: IGoogleSheet.IPermissionInput,
+  ): Promise<void> {
     const { url, permissions, secretKey } = input;
-    const id = this.getSpreadSheetId(url);
+    const id = GoogleSheetProvider.getSpreadSheetId(url);
     const token = await OAuthSecretProvider.getSecretValue(secretKey);
     const accessToken = await GoogleProvider.refreshAccessToken(token);
     const authClient = new google.auth.OAuth2();
@@ -146,7 +149,7 @@ export class GoogleSheetProvider {
    * Add new Headers to Google Sheet
    * @param input Google Sheet Url and new Header Names
    */
-  async writeHeaders(
+  export async function writeHeaders(
     input: IGoogleSheet.IWriteGoogleSheetHeadersInput,
   ): Promise<void> {
     try {
@@ -157,7 +160,10 @@ export class GoogleSheetProvider {
 
       authClient.setCredentials({ access_token: accessToken });
 
-      const doc = new GoogleSpreadsheet(this.getSpreadSheetId(url), authClient);
+      const doc = new GoogleSpreadsheet(
+        GoogleSheetProvider.getSpreadSheetId(url),
+        authClient,
+      );
       await doc.loadInfo();
       const sheet = doc.sheetsByIndex[index];
 
@@ -180,12 +186,12 @@ export class GoogleSheetProvider {
     }
   }
 
-  async getWorkSheet(
+  export async function getWorkSheet(
     input: IGoogleSheet.IGetWorkSheetInput,
   ): Promise<IGoogleSheet.IGetWorkSheetOutput> {
     try {
       const { url, secretKey } = input;
-      const id = this.getSpreadSheetId(url);
+      const id = GoogleSheetProvider.getSpreadSheetId(url);
       const token = await OAuthSecretProvider.getSecretValue(secretKey);
       const accessToken = await GoogleProvider.refreshAccessToken(token);
       const authClient = new google.auth.OAuth2();
@@ -205,12 +211,12 @@ export class GoogleSheetProvider {
     }
   }
 
-  async readRows(
+  export async function readRows(
     input: IGoogleSheet.IReadGoogleSheetRowsInput,
   ): Promise<IGoogleSheet.IReadGoogleSheetRowsOutput> {
     try {
       const { url, workSheetTitle, secretKey } = input;
-      const id = this.getSpreadSheetId(url);
+      const id = GoogleSheetProvider.getSpreadSheetId(url);
       const token = await OAuthSecretProvider.getSecretValue(secretKey);
       const accessToken = await GoogleProvider.refreshAccessToken(token);
       const authClient = new google.auth.OAuth2();
@@ -243,7 +249,7 @@ export class GoogleSheetProvider {
    * @param url Google Sheet Url
    * @private
    */
-  getSpreadSheetId(url: string): string {
+  export function getSpreadSheetId(url: string): string {
     const match = url.match(/\/d\/(.+?)\/edit/);
     return match ? match[1] : "";
   }
