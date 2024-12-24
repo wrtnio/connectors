@@ -10,6 +10,41 @@ import { SpreadsheetProvider } from "../../../../providers/connector/swal/spread
 @Controller("connector/swal/spreadsheets")
 export class SpreadsheetController {
   /**
+   * Export the spreadsheet to GoogleSheets
+   *
+   * The exported spreadsheet is recorded by creating a
+   * {@link ISpreadsheetExport bbs_spreadsheet_exports} object based on the snapshot.
+   * You can upgrade and downgrade the version using
+   * the 'POST /connector/swal/spreadsheets/:id/exports/sync/google-sheets' connector in the future.
+   * Also, it doesn't matter if you export the same version of the spreadsheet multiple times.
+   *
+   * Because each export generates a new file,
+   * you must use the `sync` connector if you want to change the version of an already exported file.
+   *
+   * @summary Exports specified spreadsheet to GoogleSheets
+   * @param spreadsheetId Target spreadsheet's {@link ISpreadsheet.id}, Not snapshot ID
+   * @param input GoogleSheets export configuration and snapshot information to export
+   * @returns Spreadsheet Information and GoogleSheets export details
+   */
+  @core.TypedRoute.Post(":id/exports/google-sheets")
+  async exportsToGoogleSheets(
+    @ExternalUser() external_user: IExternalUser,
+    @Prerequisite({
+      neighbor: () => SpreadsheetController.prototype.index,
+      jmesPath: "data[].{ value: id, label: snapshot.title }",
+    })
+    @TypedParam("id")
+    spreadsheetId: ISpreadsheet["id"],
+    @TypedBody() input: ISpreadsheet.IExport.ToGoogleSheetsToInput,
+  ): Promise<ISpreadsheet.IExport.ToGoogleSheetsToOutput> {
+    return await SpreadsheetProvider.exports(
+      external_user,
+      spreadsheetId,
+      "excel",
+    )(input);
+  }
+
+  /**
    * Export the spreadsheet to Excel
    *
    * The exported spreadsheet is recorded by creating a
