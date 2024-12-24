@@ -40,7 +40,7 @@ export class SpreadsheetController {
     return await SpreadsheetProvider.exports(
       external_user,
       spreadsheetId,
-      "excel",
+      "google_sheets",
     )(input);
   }
 

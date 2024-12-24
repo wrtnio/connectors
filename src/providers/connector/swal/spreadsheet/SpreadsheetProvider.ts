@@ -213,7 +213,9 @@ export namespace SpreadsheetProvider {
 
     export const google_sheets =
       (spreadsheetFn: ReturnType<typeof SpreadsheetProvider.at>) =>
-      async (input: ISpreadsheet.IExport.ToGoogleSheetsToInput) =>
+      async (
+        input: ISpreadsheet.IExport.ToGoogleSheetsToInput,
+      ): Promise<ISpreadsheet.IExport.ToGoogleSheetsToOutput> =>
         // input: ISpreadsheet.IExport.ToInput,
         {
           const spreadsheet = await spreadsheetFn;
@@ -238,6 +240,24 @@ export namespace SpreadsheetProvider {
               return [column, cell.row, cell.snapshot.value];
             }),
           });
+
+          const spreadsheet_exports = await SpreadsheetProvider.exports.common(
+            snapshot,
+          )({
+            provider: "excel",
+            uid: google_sheet.spreadsheetId,
+            url: google_sheet.spreadsheetUrl,
+            created_at: new Date().toISOString(),
+          });
+
+          return {
+            google_sheets: {
+              title: snapshot.title,
+              id: google_sheet.spreadsheetId,
+              link: google_sheet.spreadsheetUrl,
+            },
+            spreadsheet_exports,
+          };
         };
   }
 
