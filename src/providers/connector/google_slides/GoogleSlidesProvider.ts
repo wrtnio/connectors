@@ -1,4 +1,3 @@
-import { Injectable } from "@nestjs/common";
 import axios from "axios";
 import { v4 } from "uuid";
 
@@ -14,12 +13,10 @@ import { OAuthSecretProvider } from "../../internal/oauth_secret/OAuthSecretProv
 import { AwsProvider } from "../aws/AwsProvider";
 import { GoogleDriveProvider } from "../google_drive/GoogleDriveProvider";
 
-@Injectable()
-export class GoogleSlidesProvider {
-  private readonly uploadPrefix: string = "google-slides-connector";
-  constructor(private readonly googleDriveProvider: GoogleDriveProvider) {}
+export namespace GoogleSlidesProvider {
+  export const uploadPrefix: string = "google-slides-connector";
 
-  async createHanshow(
+  export async function createHanshow(
     presentationId: string,
     input: IGoogleSlides.IExportPresentationInput,
   ): Promise<IGoogleSlides.IExportHanshowOutput> {
@@ -39,7 +36,7 @@ export class GoogleSlidesProvider {
       const hanshow = await AwsProvider.uploadObject({
         contentType: mimeType,
         data: res.data,
-        key: `${this.uploadPrefix}/${v4()}.show`,
+        key: `${GoogleSlidesProvider.uploadPrefix}/${v4()}.show`,
       });
       return { hanshow };
     } catch (err) {
@@ -48,7 +45,7 @@ export class GoogleSlidesProvider {
     }
   }
 
-  async createPowerPoint(
+  export async function createPowerPoint(
     presentationId: string,
     input: IGoogleSlides.IExportPresentationInput,
   ): Promise<IGoogleSlides.IExportPresentationOutput> {
@@ -68,7 +65,7 @@ export class GoogleSlidesProvider {
       const powerPoint = await AwsProvider.uploadObject({
         contentType: mimeType,
         data: res.data,
-        key: `${this.uploadPrefix}/${v4()}.pptx`,
+        key: `${GoogleSlidesProvider.uploadPrefix}/${v4()}.pptx`,
       });
       return { powerPoint };
     } catch (err) {
@@ -77,7 +74,7 @@ export class GoogleSlidesProvider {
     }
   }
 
-  async getPresentation(
+  export async function getPresentation(
     input: IGoogleSlides.IGetPresentationInput,
   ): Promise<IGoogleSlides.ISimplePresentationIdOutput> {
     try {
@@ -113,7 +110,7 @@ export class GoogleSlidesProvider {
    * @param input
    * @returns
    */
-  async transformUrl(
+  export async function transformUrl(
     input: IGoogleSlides.AppendSlideInput,
   ): Promise<IGoogleSlides.AppendSlideInput> {
     // if there are s3 buckets urls, get presigned url
@@ -161,23 +158,26 @@ export class GoogleSlidesProvider {
     return input;
   }
 
-  async appendImageSlide(
+  export async function appendImageSlide(
     presentationId: string,
     input: IGoogleSlides.AppendSlideInput,
   ): Promise<IGoogleSlides.ISimplePresentationIdOutput> {
     try {
-      input = await this.transformUrl(input);
+      input = await GoogleSlidesProvider.transformUrl(input);
       const { secretKey } = input;
 
-      const presentation = await this.getPresentation({
+      const presentation = await GoogleSlidesProvider.getPresentation({
         presentationId,
         secretKey,
       });
 
-      const size = this.getSize(presentation);
-      const body = this.createSlide(input, size);
+      const size = GoogleSlidesProvider.getSize(presentation);
+      const body = GoogleSlidesProvider.createSlide(input, size);
 
-      await this.appendSlide(presentationId, { body, secretKey });
+      await GoogleSlidesProvider.appendSlide(presentationId, {
+        body,
+        secretKey,
+      });
 
       return {
         presentationId: presentation.presentationId,
@@ -190,7 +190,7 @@ export class GoogleSlidesProvider {
     }
   }
 
-  async appendSlidesByType(
+  export async function appendSlidesByType(
     presentationId: string,
     type: "QuarterDivision" | "Entire" | "Landscape" | "Square" | "Vertical",
     input:
@@ -201,21 +201,21 @@ export class GoogleSlidesProvider {
       | IGoogleSlides.AppendSquareSlideInput,
   ): Promise<IGoogleSlides.ISimplePresentationIdOutput> {
     const { templates, secretKey } = input;
-    const presentation = await this.getPresentation({
+    const presentation = await GoogleSlidesProvider.getPresentation({
       presentationId,
       secretKey,
     });
 
-    const size = this.getSize(presentation);
+    const size = GoogleSlidesProvider.getSize(presentation);
     const typed = { templates: templates.map((el) => ({ ...el, type })) };
-    const body = this.createSlide(typed as any, size);
+    const body = GoogleSlidesProvider.createSlide(typed as any, size);
 
-    await this.appendSlide(presentationId, { body, secretKey });
+    await GoogleSlidesProvider.appendSlide(presentationId, { body, secretKey });
 
     return presentation;
   }
 
-  async createPresentation(
+  export async function createPresentation(
     input: IGoogleSlides.ICreatePresentationInput,
   ): Promise<IGoogleSlides.ISimplePresentationIdOutput> {
     try {
@@ -245,7 +245,7 @@ export class GoogleSlidesProvider {
     }
   }
 
-  private createQuarterDivisionImageSlide(
+  export function createQuarterDivisionImageSlide(
     templates: IGoogleSlides.Template.QuarterDivision[],
     presentationSize: {
       height: number; // heigh와 width의 크기가 같다.
@@ -615,7 +615,7 @@ export class GoogleSlidesProvider {
     });
   }
 
-  private createEntireImageSlide(
+  export function createEntireImageSlide(
     templates: IGoogleSlides.Template.Entire[],
     presentationSize: {
       height: number; // heigh와 width의 크기가 같다.
@@ -654,7 +654,7 @@ export class GoogleSlidesProvider {
     });
   }
 
-  private createLandscapeImageSlide(
+  export function createLandscapeImageSlide(
     templates: IGoogleSlides.Template.Landscape[],
     presentationSize: {
       height: number; // heigh와 width의 크기가 같다.
@@ -742,7 +742,7 @@ export class GoogleSlidesProvider {
     });
   }
 
-  private createVerticalImageSlide(
+  export function createVerticalImageSlide(
     templates: IGoogleSlides.Template.Vertical[],
     presentationSize: {
       height: number; // heigh와 width의 크기가 같다.
@@ -830,7 +830,7 @@ export class GoogleSlidesProvider {
     });
   }
 
-  private createSqaureImageSlide(
+  export function createSqaureImageSlide(
     templates: IGoogleSlides.Template.Square[],
     presentationSize: {
       height: number; // heigh와 width의 크기가 같다.
@@ -916,7 +916,7 @@ export class GoogleSlidesProvider {
     });
   }
 
-  private getSize(presentation: IGoogleSlides.Presentation) {
+  export function getSize(presentation: IGoogleSlides.Presentation) {
     const height = presentation.pageSize?.height?.magnitude as number;
     const unit = presentation.pageSize?.height?.unit;
     const width = presentation.pageSize?.width?.magnitude as number;
@@ -924,7 +924,7 @@ export class GoogleSlidesProvider {
     return { height, width, unit };
   }
 
-  private createSlide(
+  export function createSlide(
     input: Pick<IGoogleSlides.AppendSlideInput, "templates">,
     size: {
       height: number;
@@ -936,15 +936,30 @@ export class GoogleSlidesProvider {
       requests: input.templates
         .flatMap((template): IGoogleSlides.BatchUpdateInput[] => {
           if (template.type === "Vertical") {
-            return this.createVerticalImageSlide([template], size);
+            return GoogleSlidesProvider.createVerticalImageSlide(
+              [template],
+              size,
+            );
           } else if (template.type === "Square") {
-            return this.createSqaureImageSlide([template], size);
+            return GoogleSlidesProvider.createSqaureImageSlide(
+              [template],
+              size,
+            );
           } else if (template.type === "Landscape") {
-            return this.createLandscapeImageSlide([template], size);
+            return GoogleSlidesProvider.createLandscapeImageSlide(
+              [template],
+              size,
+            );
           } else if (template.type === "Entire") {
-            return this.createEntireImageSlide([template], size);
+            return GoogleSlidesProvider.createEntireImageSlide(
+              [template],
+              size,
+            );
           } else if (template.type === "QuarterDivision") {
-            return this.createQuarterDivisionImageSlide([template], size);
+            return GoogleSlidesProvider.createQuarterDivisionImageSlide(
+              [template],
+              size,
+            );
           }
 
           return null!;
@@ -955,7 +970,7 @@ export class GoogleSlidesProvider {
     return body;
   }
 
-  private async appendSlide(
+  export async function appendSlide(
     presentationId: string,
     input: {
       body: Pick<IGoogleSlides.IUpdatePresentationInput, "requests">;
@@ -971,14 +986,14 @@ export class GoogleSlidesProvider {
 
     const name = "connector/google-slides";
 
-    let googleSlideFolderId = await this.googleDriveProvider.getFolderByName({
+    let googleSlideFolderId = await GoogleDriveProvider.getFolderByName({
       name: name,
       secretKey: input.secretKey,
     });
 
     if (googleSlideFolderId === null) {
       googleSlideFolderId = (
-        await this.googleDriveProvider.createFolder({
+        await GoogleDriveProvider.createFolder({
           name,
           secretKey: input.secretKey,
         })
