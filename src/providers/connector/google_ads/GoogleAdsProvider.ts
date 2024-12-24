@@ -12,13 +12,10 @@ import { TypedSplit } from "../../../utils/TypedSplit";
 import { GoogleProvider } from "../../internal/google/GoogleProvider";
 import { ImageProvider } from "../../internal/ImageProvider";
 import { OAuthSecretProvider } from "../../internal/oauth_secret/OAuthSecretProvider";
-import { IOAuthSecret } from "../../internal/oauth_secret/structures/IOAuthSecret";
 
 @Injectable()
 export class GoogleAdsProvider {
   private readonly baseUrl = "https://googleads.googleapis.com/v17";
-
-  constructor(private readonly googleProvider: GoogleProvider) {}
 
   /**
    * 유저의 시크릿 키와 유저가 사용하고자 하는 광고 계정이 유효한지 검사합니다.
@@ -865,17 +862,11 @@ export class GoogleAdsProvider {
   ): Promise<IGoogleAds.IGetlistAccessibleCustomersOutput> {
     const url = `${this.baseUrl}/customers:listAccessibleCustomers`;
     const developerToken = (await this.getHeaders())["developer-token"];
-    const secretValue = await OAuthSecretProvider.getSecretValue(
+    const refreshToken = await OAuthSecretProvider.getSecretValue(
       input.secretKey,
     );
-    const refreshToken =
-      typeof secretValue === "string"
-        ? secretValue
-        : (secretValue as IOAuthSecret.ISecretValue).value;
 
-    const accessToken =
-      await this.googleProvider.refreshAccessToken(refreshToken);
-
+    const accessToken = await GoogleProvider.refreshAccessToken(refreshToken);
     const res = await axios.get(url, {
       headers: {
         Authorization: `Bearer ${accessToken}`,
@@ -991,7 +982,7 @@ export class GoogleAdsProvider {
 
   private async getHeaders() {
     const secret = ConnectorGlobal.env.GOOGLE_ADS_PARENT_SECRET; // refresh token of parent account.
-    const accessToken = await this.googleProvider.refreshAccessToken(secret);
+    const accessToken = await GoogleProvider.refreshAccessToken(secret);
 
     return {
       "Content-Type": "application/json",

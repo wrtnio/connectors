@@ -12,13 +12,11 @@ import { IOAuthSecret } from "../../internal/oauth_secret/structures/IOAuthSecre
 
 @Injectable()
 export class GoogleDriveProvider {
-  constructor(private readonly googleProvider: GoogleProvider) {}
-
   async folderList(
     input: IGoogleDrive.ISecret,
   ): Promise<IGoogleDrive.IFolderListGoogleDriveOutput> {
-    const token = await this.getToken(input.secretKey);
-    const accessToken = await this.googleProvider.refreshAccessToken(token);
+    const token = await OAuthSecretProvider.getSecretValue(input.secretKey);
+    const accessToken = await GoogleProvider.refreshAccessToken(token);
     const authClient = new google.auth.OAuth2();
 
     authClient.setCredentials({ access_token: accessToken });
@@ -44,8 +42,8 @@ export class GoogleDriveProvider {
   async getFolderByName(
     input: { name: string } & IGoogleDrive.ISecret,
   ): Promise<string | null> {
-    const token = await this.getToken(input.secretKey);
-    const accessToken = await this.googleProvider.refreshAccessToken(token);
+    const token = await OAuthSecretProvider.getSecretValue(input.secretKey);
+    const accessToken = await GoogleProvider.refreshAccessToken(token);
     const authClient = new google.auth.OAuth2();
 
     authClient.setCredentials({ access_token: accessToken });
@@ -67,9 +65,9 @@ export class GoogleDriveProvider {
     input: IGoogleDrive.IFileListGoogleDriveInput,
   ): Promise<IGoogleDrive.IFileListGoogleDriveOutput> {
     const { folderId } = input;
-    const token = await this.getToken(input.secretKey);
+    const token = await OAuthSecretProvider.getSecretValue(input.secretKey);
     const authClient = new google.auth.OAuth2();
-    const accessToken = await this.googleProvider.refreshAccessToken(token);
+    const accessToken = await GoogleProvider.refreshAccessToken(token);
     authClient.setCredentials({
       access_token: accessToken,
     });
@@ -100,8 +98,8 @@ export class GoogleDriveProvider {
     input: IGoogleDrive.ICreateFolderGoogleDriveInput,
   ): Promise<IGoogleDrive.ICreateFolderGoogleDriveOutput> {
     const { name } = input;
-    const token = await this.getToken(input.secretKey);
-    const accessToken = await this.googleProvider.refreshAccessToken(token);
+    const token = await OAuthSecretProvider.getSecretValue(input.secretKey);
+    const accessToken = await GoogleProvider.refreshAccessToken(token);
     const authClient = new google.auth.OAuth2();
 
     authClient.setCredentials({ access_token: accessToken });
@@ -122,8 +120,8 @@ export class GoogleDriveProvider {
   }
 
   async deleteFolder(id: string, input: IGoogleDrive.ISecret): Promise<void> {
-    const token = await this.getToken(input.secretKey);
-    const accessToken = await this.googleProvider.refreshAccessToken(token);
+    const token = await OAuthSecretProvider.getSecretValue(input.secretKey);
+    const accessToken = await GoogleProvider.refreshAccessToken(token);
     const authClient = new google.auth.OAuth2();
 
     authClient.setCredentials({ access_token: accessToken });
@@ -142,8 +140,8 @@ export class GoogleDriveProvider {
     input: IGoogleDrive.ICreateFileGoogleDriveInput,
   ): Promise<IGoogleDrive.ICreateFileGoogleDriveOutput> {
     const { name, folderIds, content } = input;
-    const token = await this.getToken(input.secretKey);
-    const accessToken = await this.googleProvider.refreshAccessToken(token);
+    const token = await OAuthSecretProvider.getSecretValue(input.secretKey);
+    const accessToken = await GoogleProvider.refreshAccessToken(token);
     const authClient = new google.auth.OAuth2();
 
     authClient.setCredentials({ access_token: accessToken });
@@ -172,8 +170,8 @@ export class GoogleDriveProvider {
     const { data: arrayBuffer } = await axios.get(fileUrl, {
       responseType: "arraybuffer",
     });
-    const token = await this.getToken(input.secretKey);
-    const accessToken = await this.googleProvider.refreshAccessToken(token);
+    const token = await OAuthSecretProvider.getSecretValue(input.secretKey);
+    const accessToken = await GoogleProvider.refreshAccessToken(token);
     const authClient = new google.auth.OAuth2();
 
     const mimeType = mime.lookup(fileUrl);
@@ -203,8 +201,8 @@ export class GoogleDriveProvider {
   }
 
   async deleteFile(id: string, input: IGoogleDrive.ISecret): Promise<void> {
-    const token = await this.getToken(input.secretKey);
-    const accessToken = await this.googleProvider.refreshAccessToken(token);
+    const token = await OAuthSecretProvider.getSecretValue(input.secretKey);
+    const accessToken = await GoogleProvider.refreshAccessToken(token);
     const authClient = new google.auth.OAuth2();
 
     authClient.setCredentials({ access_token: accessToken });
@@ -225,8 +223,8 @@ export class GoogleDriveProvider {
       );
     }
 
-    const token = await this.getToken(input.secretKey);
-    const accessToken = await this.googleProvider.refreshAccessToken(token);
+    const token = await OAuthSecretProvider.getSecretValue(input.secretKey);
+    const accessToken = await GoogleProvider.refreshAccessToken(token);
     const authClient = new google.auth.OAuth2();
 
     authClient.setCredentials({ access_token: accessToken });
@@ -255,8 +253,8 @@ export class GoogleDriveProvider {
     fileId: string,
     input: IGoogleDrive.ISecret,
   ): Promise<IGoogleDrive.IGetFileOutput> {
-    const token = await this.getToken(input.secretKey);
-    const accessToken = await this.googleProvider.refreshAccessToken(token);
+    const token = await OAuthSecretProvider.getSecretValue(input.secretKey);
+    const accessToken = await GoogleProvider.refreshAccessToken(token);
 
     try {
       const res = await axios.get(

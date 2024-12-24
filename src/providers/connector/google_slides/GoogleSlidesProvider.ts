@@ -8,19 +8,16 @@ import { IGoogleSlides } from "@wrtn/connector-api/lib/structures/connector/goog
 
 import typia from "typia";
 import { imageExtensions } from "../../../utils/constants/extensions";
+
 import { GoogleProvider } from "../../internal/google/GoogleProvider";
 import { OAuthSecretProvider } from "../../internal/oauth_secret/OAuthSecretProvider";
-import { IOAuthSecret } from "../../internal/oauth_secret/structures/IOAuthSecret";
 import { AwsProvider } from "../aws/AwsProvider";
 import { GoogleDriveProvider } from "../google_drive/GoogleDriveProvider";
 
 @Injectable()
 export class GoogleSlidesProvider {
   private readonly uploadPrefix: string = "google-slides-connector";
-  constructor(
-    private readonly googleDriveProvider: GoogleDriveProvider,
-    private readonly googleProvider: GoogleProvider,
-  ) {}
+  constructor(private readonly googleDriveProvider: GoogleDriveProvider) {}
 
   async createHanshow(
     presentationId: string,
@@ -28,7 +25,7 @@ export class GoogleSlidesProvider {
   ): Promise<IGoogleSlides.IExportHanshowOutput> {
     try {
       const token = await OAuthSecretProvider.getSecretValue(input.secretKey);
-      const accessToken = await this.googleProvider.refreshAccessToken(token);
+      const accessToken = await GoogleProvider.refreshAccessToken(token);
 
       const mimeType = `application/vnd.openxmlformats-officedocument.presentationml.presentation`;
       const url = `https://www.googleapis.com/drive/v3/files/${presentationId}/export?mimeType=${mimeType}`;
@@ -57,7 +54,7 @@ export class GoogleSlidesProvider {
   ): Promise<IGoogleSlides.IExportPresentationOutput> {
     try {
       const token = await OAuthSecretProvider.getSecretValue(input.secretKey);
-      const accessToken = await this.googleProvider.refreshAccessToken(token);
+      const accessToken = await GoogleProvider.refreshAccessToken(token);
 
       const mimeType = `application/vnd.openxmlformats-officedocument.presentationml.presentation`;
       const url = `https://www.googleapis.com/drive/v3/files/${presentationId}/export?mimeType=${mimeType}`;
@@ -85,8 +82,8 @@ export class GoogleSlidesProvider {
   ): Promise<IGoogleSlides.ISimplePresentationIdOutput> {
     try {
       const { secretKey, presentationId } = input;
-      const token = await this.getToken(secretKey);
-      const accessToken = await this.googleProvider.refreshAccessToken(token);
+      const token = await OAuthSecretProvider.getSecretValue(secretKey);
+      const accessToken = await GoogleProvider.refreshAccessToken(token);
 
       const res = await axios.get(
         `https://slides.googleapis.com/v1/presentations/${presentationId}`,
@@ -224,7 +221,7 @@ export class GoogleSlidesProvider {
     try {
       const token = await OAuthSecretProvider.getSecretValue(input.secretKey);
 
-      const accessToken = await this.googleProvider.refreshAccessToken(token);
+      const accessToken = await GoogleProvider.refreshAccessToken(token);
 
       const res = await axios.post(
         "https://slides.googleapis.com/v1/presentations",
@@ -246,15 +243,6 @@ export class GoogleSlidesProvider {
       console.error(JSON.stringify(error));
       throw error;
     }
-  }
-
-  private async getToken(secretValue: string): Promise<string> {
-    const secret = await OAuthSecretProvider.getSecretValue(secretValue);
-    const token =
-      typeof secret === "string"
-        ? secret
-        : (secret as IOAuthSecret.ISecretValue).value;
-    return token;
   }
 
   private createQuarterDivisionImageSlide(
@@ -974,8 +962,8 @@ export class GoogleSlidesProvider {
       secretKey: string;
     },
   ): Promise<void> {
-    const token = await this.getToken(input.secretKey);
-    const accessToken = await this.googleProvider.refreshAccessToken(token);
+    const token = await OAuthSecretProvider.getSecretValue(input.secretKey);
+    const accessToken = await GoogleProvider.refreshAccessToken(token);
 
     const is = typia.createIs<{
       createImage: IGoogleSlides.CreateImageRequest;

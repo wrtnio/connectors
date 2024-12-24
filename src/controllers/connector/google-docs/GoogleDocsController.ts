@@ -15,8 +15,6 @@ import { retry } from "../../../utils/retry";
 
 @Controller("connector/google-docs")
 export class GoogleDocsController {
-  constructor(private readonly googleDocsProvider: GoogleDocsProvider) {}
-
   /**
    * Generate Google Docs By markdown format string
    *
@@ -31,7 +29,7 @@ export class GoogleDocsController {
   async write(
     @core.TypedBody() input: IGoogleDocs.IRequest,
   ): Promise<IGoogleDocs.IResponse> {
-    return retry(() => this.googleDocsProvider.write(input))();
+    return retry(() => GoogleDocsProvider.write(input))();
   }
 
   /**
@@ -47,7 +45,7 @@ export class GoogleDocsController {
   async clear(
     @TypedBody() input: IGoogleDocs.IClearInput,
   ): Promise<IGoogleDocs.IClearOutput> {
-    return retry(() => this.googleDocsProvider.clear(input))();
+    return retry(() => GoogleDocsProvider.clear(input))();
   }
 
   /**
@@ -74,7 +72,7 @@ export class GoogleDocsController {
   async createDocs(
     @core.TypedBody() input: IGoogleDocs.ICreateGoogleDocsInput,
   ): Promise<IGoogleDocs.ICreateEmptyFileOutput> {
-    return retry(() => this.googleDocsProvider.createDocs(input))();
+    return retry(() => GoogleDocsProvider.createDocs(input))();
   }
 
   /**
@@ -91,7 +89,7 @@ export class GoogleDocsController {
   async permission(
     @core.TypedBody() input: IGoogleDocs.IPermissionGoogleDocsInput,
   ): Promise<void> {
-    return retry(() => this.googleDocsProvider.permission(input))();
+    return retry(() => GoogleDocsProvider.permission(input))();
   }
 
   /**
@@ -121,7 +119,7 @@ export class GoogleDocsController {
     @core.TypedBody()
     input: IGoogleDocs.ISecret,
   ): Promise<IGoogleDocs.IReadGoogleDocsOutput> {
-    return retry(() => this.googleDocsProvider.readDocs(id, input))();
+    return retry(() => GoogleDocsProvider.readDocs(id, input))();
   }
 
   /**
@@ -139,7 +137,7 @@ export class GoogleDocsController {
   async createDocByTemplate(
     @core.TypedBody() input: IGoogleDocs.ICreateDocByTemplateInput,
   ): Promise<IGoogleDocs.ICreateDocByTemplateOutput> {
-    return retry(() => this.googleDocsProvider.createDocByTemplate(input))();
+    return retry(() => GoogleDocsProvider.createDocByTemplate(input))();
   }
 
   /**
@@ -162,7 +160,7 @@ export class GoogleDocsController {
     file_id: string,
     @TypedBody() input: IGoogleDocs.IUpdateInput,
   ): Promise<IGoogleDocs.IUpdateOutput> {
-    return this.googleDocsProvider.update(file_id, input);
+    return GoogleDocsProvider.update(file_id, input);
   }
 
   /**
@@ -190,7 +188,7 @@ export class GoogleDocsController {
     @core.TypedBody()
     input: IGoogleDocs.ISecret,
   ): Promise<void> {
-    return retry(() => this.googleDocsProvider.deleteById(id, input))();
+    return retry(() => GoogleDocsProvider.deleteById(id, input))();
   }
 
   /**
@@ -209,7 +207,7 @@ export class GoogleDocsController {
     @core.TypedBody()
     input: IGoogleDocs.ISecret,
   ): Promise<IGoogleDocs.IListGoogleDocsOutput> {
-    return retry(() => this.googleDocsProvider.list(input))();
+    return retry(() => GoogleDocsProvider.list(input))();
   }
 
   /**
@@ -233,6 +231,6 @@ export class GoogleDocsController {
   async append(
     @TypedBody() input: IGoogleDocs.IAppendTextGoogleDocsInput,
   ): Promise<IGoogleDocs.ICreateGoogleDocsOutput> {
-    return this.googleDocsProvider.append(input);
+    return GoogleDocsProvider.append(input);
   }
 }
