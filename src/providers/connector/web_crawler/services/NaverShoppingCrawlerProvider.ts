@@ -47,7 +47,8 @@ export namespace NaverShoppingCrawlerProvider {
           text: formatReviewText(review),
           images: review.images.map((image) => ({
             classNames: ["review-image"],
-            ...image,
+            url: image.url,
+            alt: image.alt,
           })),
         })),
         classNames: ["review-page"],

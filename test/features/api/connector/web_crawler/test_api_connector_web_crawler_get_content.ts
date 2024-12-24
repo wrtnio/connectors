@@ -14,8 +14,14 @@ export const test_api_connector_web_crawler_get_content = async (
   const ALADIN = "https://www.aladin.co.kr/shop/wproduct.aspx?ItemId=243943792";
   const ALIEXPRESS =
     "https://ko.aliexpress.com/item/1005006838602057.html?spm=a2g0o.tm1000010823.d0.1.231511b5b0zJDl&pvid=aaf918ca-6785-47f0-bfc0-804f94c71423&pdp_ext_f=%7B%22ship_from%22:%22CN%22,%22sku_id%22:%2212000038468714588%22%7D&scm=1007.51228.386262.0&scm-url=1007.51228.386262.0&scm_id=1007.51228.386262.0&pdp_npi=4%40dis%21KRW%21%E2%82%A9%2050%2C962%21%E2%82%A9%2037%2C707%21%21%21251.61%21186.16%21%402141115b17337163412444621e3ed2%2112000038468714588%21gdf%21KR%21%21X&channel=bigSave&aecmd=true&_gl=1*cv9zel*_gcl_au*MTMxMTg1MjkyMy4xNzMzNzE2MzM3*_ga*MjExMzkwNDgxNS4xNzMzNzE2MzM3*_ga_VED1YSGNC7*MTczMzcxNjMzNy4xLjEuMTczMzcxNjM0NC41My4wLjA.";
-  const NAVERSTORE =
+  const NAVER_BRAND =
     "https://brand.naver.com/stena/products/9205111057?site_preference=device&NaPm=ct%3Dm4gknwh2%7Cci%3Dshopn%7Ctr%3Dnshfd%7Chk%3D9ff83a29ff768da277fcf5a1fde48206e7c5524d%7Ctrx%3Dundefined";
+
+  const NAVER_SHOPPING =
+    "https://shopping.naver.com/window-products/style/3419592860?NaPm=ct%3Dm4s65f5k%7Cci%3D8b2926a6578e72f7787388729d0079e4af66902e%7Ctr%3Dnshbst%7Csn%3D305225%7Cic%3D%7Chk%3Dbeb90982d55e3e9549c5f79a74470739b0599bfa";
+
+  const NAVER_SMARTSTORE =
+    "https://smartstore.naver.com/notebookland21/products/9682296264?NaPm=ct%3Dm4s6n6tc%7Cci%3Da6fc00e257692cb337366bbdaae929cc1c3e252b%7Ctr%3Dnshbst%7Csn%3D177895%7Cic%3D%7Chk%3Dc3d637056ae5d342f4ff3d840cd3011a9c9cf8b6";
 
   const OLIVE =
     "https://www.oliveyoung.co.kr/store/goods/getGoodsDetail.do?goodsNo=A000000204767&dispCatNo=90000010001&trackingCd=Home_Recommand&t_page=%ED%99%88&t_click=%EC%9D%B4%EC%83%81%ED%92%88%EC%96%B4%EB%95%8C%EC%9A%94_%EC%83%81%ED%92%88%EC%83%81%EC%84%B8&t_number=2";
@@ -49,7 +55,9 @@ export const test_api_connector_web_crawler_get_content = async (
   // await execute(CUPANG, "CUPANG");
   // await execute(ALADIN, "ALADIN");
   // await execute(ALIEXPRESS, "ALIEXPRESS");
-  // await execute(NAVERSTORE, "NAVERSTORE");
-  await execute(OLIVE, "OLIVE");
+  // await execute(NAVER_BRAND, "NAVERBRAND");
+  // await execute(NAVER_SHOPPING, "NAVERSHOPPING");
+  await execute(NAVER_SMARTSTORE, "NAVERSMARTSTORE");
+  // await execute(OLIVE, "OLIVE");
   // await execute(YOUTUBE, "YOUTUBE");
 };

@@ -174,7 +174,8 @@ export namespace NaverBrandStoreCrawlerProvider {
             text: text,
             images: review.images.map((image) => ({
               classNames: ["review-image"],
-              ...image,
+              url: image.url,
+              alt: image.alt,
             })),
           };
         }),
