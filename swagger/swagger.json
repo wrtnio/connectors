@@ -15,7 +15,7 @@
     }
   ],
   "info": {
-    "version": "0.1.424",
+    "version": "0.1.426",
     "title": "@wrtn/connector",
     "description": "wrtn-ecosystem connectors and sdk",
     "license": {
@@ -8633,47 +8633,6 @@
           "page",
           "toggle",
           "createToggle"
-        ],
-        "x-samchon-controller": "NotionController",
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg"
-      }
-    },
-    "/connector/notion/page": {
-      "post": {
-        "summary": "Create empty page",
-        "description": "Create a Notion page\n\nSince a parent ID is required, when a user gives you a link to the page,\nyou should take out the ID from it and use it, or first look up the list of pages accessible to the user.\nSince Notion prioritizes accessible pages during authentication, creating pages must be sub-pages within the page, which means that there must be a parent page.\nBecause this feature only creates pages and does not create content, we recommend that you call additional content creation connectors if you want to create content.\n\nuser might want a really long, detailed report,\nin which case it is better to write the details for each table of contents and call 'POST /connector/notion/page/markdown' multiple times rather than just one call of this connector.",
-        "tags": [
-          "Notion"
-        ],
-        "parameters": [],
-        "requestBody": {
-          "description": "Information needed to create the page",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/INotion.ICreatePageInput"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "201": {
-            "description": "Unique ID of the generated page",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/INotion.ICreatePageOutput"
-                }
-              }
-            }
-          }
-        },
-        "x-samchon-accessor": [
-          "connector",
-          "notion",
-          "page",
-          "createPage"
         ],
         "x-samchon-controller": "NotionController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg"
@@ -36080,52 +36039,6 @@
           "rich_text",
           "children"
         ]
-      },
-      "INotion.ICreatePageInput": {
-        "type": "object",
-        "properties": {
-          "parentPageId": {
-            "oneOf": [
-              {
-                "type": "string",
-                "x-wrtn-prerequisite": {
-                  "method": "post",
-                  "path": "/connector/notion/get/page",
-                  "jmesPath": "[].{value:pageId, label:title}"
-                },
-                "x-wrtn-placeholder": "부모 페이지를 선택하세요."
-              },
-              {
-                "type": "string",
-                "x-wrtn-prerequisite": {
-                  "method": "post",
-                  "path": "/connector/notion/page",
-                  "jmesPath": "[].{value:id, label:id}"
-                },
-                "x-wrtn-placeholder": "부모 페이지를 선택하세요."
-              }
-            ],
-            "title": "parentPageId"
-          },
-          "title": {
-            "type": "string",
-            "x-wrtn-placeholder": "테스트 페이지.",
-            "title": "Page title",
-            "description": "New page title to be created"
-          },
-          "secretKey": {
-            "type": "string",
-            "x-wrtn-secret-key": "notion",
-            "title": "Select authentication information",
-            "description": "secret key."
-          }
-        },
-        "required": [
-          "parentPageId",
-          "title",
-          "secretKey"
-        ],
-        "title": "Conditions required to create a page"
       },
       "INotion.IReadPageContentOutput": {
         "type": "object",

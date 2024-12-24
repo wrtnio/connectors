@@ -18,7 +18,7 @@
     "title": "노션 워크스페이스 관리",
     "summary": "노션 으로 작업 공간을 효율적으로 관리해요.",
     "description": "노션 에서 페이지를 만들고, 내용을 추가하고, 데이터베이스를 관리할 수 있어요. 페이지 검색, 데이터베이스 아이템 관리 등 다양한 기능을 활용할 수 있어요. 프로젝트 관리, 노트 작성, 팀 협업, 지식 베이스 구축 등 다양한 목적으로 사용할 수 있어요. 텍스트, 이미지, 표, 리스트 등 다양한 형식의 콘텐츠를 조합하여 풍부한 문서를 만들 수 있고, 팀원들과 실시간으로 공유하고 협업할 수 있어요.",
-    "version": "0.1.424",
+    "version": "0.1.426",
     "license": {
       "name": "AGPL-3.0-only"
     }
@@ -540,47 +540,6 @@
           "page",
           "toggle",
           "createToggle"
-        ],
-        "x-samchon-controller": "NotionController",
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg"
-      }
-    },
-    "/connector/notion/page": {
-      "post": {
-        "summary": "Create empty page",
-        "description": "Create a Notion page\n\nSince a parent ID is required, when a user gives you a link to the page,\nyou should take out the ID from it and use it, or first look up the list of pages accessible to the user.\nSince Notion prioritizes accessible pages during authentication, creating pages must be sub-pages within the page, which means that there must be a parent page.\nBecause this feature only creates pages and does not create content, we recommend that you call additional content creation connectors if you want to create content.\n\nuser might want a really long, detailed report,\nin which case it is better to write the details for each table of contents and call 'POST /connector/notion/page/markdown' multiple times rather than just one call of this connector.",
-        "tags": [
-          "Notion"
-        ],
-        "parameters": [],
-        "requestBody": {
-          "description": "Information needed to create the page",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/INotion.ICreatePageInput"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "201": {
-            "description": "Unique ID of the generated page",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/INotion.ICreatePageOutput"
-                }
-              }
-            }
-          }
-        },
-        "x-samchon-accessor": [
-          "connector",
-          "notion",
-          "page",
-          "createPage"
         ],
         "x-samchon-controller": "NotionController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg"
@@ -3237,77 +3196,6 @@
           "children"
         ]
       },
-      "INotion.ICreatePageOutput": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string",
-            "title": "page id",
-            "description": "Unique id of the generated page"
-          },
-          "title": {
-            "type": "string",
-            "title": "tilte\n\nTitle of the document you just created"
-          },
-          "link": {
-            "type": "string",
-            "format": "iri",
-            "title": "page link"
-          }
-        },
-        "required": [
-          "id",
-          "title",
-          "link"
-        ],
-        "title": "Page creation result"
-      },
-      "INotion.ICreatePageInput": {
-        "type": "object",
-        "properties": {
-          "parentPageId": {
-            "oneOf": [
-              {
-                "type": "string",
-                "x-wrtn-prerequisite": {
-                  "method": "post",
-                  "path": "/connector/notion/get/page",
-                  "jmesPath": "[].{value:pageId, label:title}"
-                },
-                "x-wrtn-placeholder": "부모 페이지를 선택하세요."
-              },
-              {
-                "type": "string",
-                "x-wrtn-prerequisite": {
-                  "method": "post",
-                  "path": "/connector/notion/page",
-                  "jmesPath": "[].{value:id, label:id}"
-                },
-                "x-wrtn-placeholder": "부모 페이지를 선택하세요."
-              }
-            ],
-            "title": "parentPageId"
-          },
-          "title": {
-            "type": "string",
-            "x-wrtn-placeholder": "테스트 페이지.",
-            "title": "Page title",
-            "description": "New page title to be created"
-          },
-          "secretKey": {
-            "type": "string",
-            "x-wrtn-secret-key": "notion",
-            "title": "Select authentication information",
-            "description": "secret key."
-          }
-        },
-        "required": [
-          "parentPageId",
-          "title",
-          "secretKey"
-        ],
-        "title": "Conditions required to create a page"
-      },
       "INotion.IReadPageContentOutput": {
         "type": "object",
         "properties": {
@@ -5404,6 +5292,31 @@
         ],
         "title": "Information needed to find an item in the database",
         "additionalProperties": {}
+      },
+      "INotion.ICreatePageOutput": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "page id",
+            "description": "Unique id of the generated page"
+          },
+          "title": {
+            "type": "string",
+            "title": "tilte\n\nTitle of the document you just created"
+          },
+          "link": {
+            "type": "string",
+            "format": "iri",
+            "title": "page link"
+          }
+        },
+        "required": [
+          "id",
+          "title",
+          "link"
+        ],
+        "title": "Page creation result"
       },
       "INotion.ICreatePageByMarkdownInput": {
         "type": "object",
