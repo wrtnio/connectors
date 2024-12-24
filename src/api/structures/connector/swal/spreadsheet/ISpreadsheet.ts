@@ -1,4 +1,4 @@
-import { Prerequisite } from "@wrtnio/decorators";
+import { Prerequisite, SecretKey } from "@wrtnio/decorators";
 import { tags } from "typia";
 import { IPage } from "../../../common/IPage";
 import { StrictOmit } from "../../../types/strictOmit";
@@ -139,6 +139,38 @@ export namespace ISpreadsheet {
     }
 
     export type ToExcelToInput = IExport.SnapshotInput;
+
+    export interface ToGoogleSheetsToOutput extends IExport.SnapshotOutput {
+      google_sheets: {
+        /**
+         * @title Created google sheets spreadsheet ID
+         */
+        id: string;
+
+        /**
+         * @title Title of Created google sheets spreadsheet
+         */
+        title: string;
+
+        /**
+         * @title File URL
+         */
+        link: string;
+      };
+    }
+
+    export interface ToGoogleSheetsToInput extends IExport.SnapshotInput {
+      google_sheets: {
+        secret: string &
+          SecretKey<
+            "google",
+            [
+              "https://www.googleapis.com/auth/spreadsheets",
+              "https://www.googleapis.com/auth/drive.file",
+            ]
+          >;
+      };
+    }
   }
 
   export namespace IRequest {

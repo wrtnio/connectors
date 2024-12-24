@@ -12,6 +12,7 @@ import typia, { tags } from "typia";
 import { ConnectorGlobal } from "../../../../ConnectorGlobal";
 import { PaginationUtil } from "../../../../utils/PaginationUtil";
 import { ExcelProvider } from "../../excel/ExcelProvider";
+import { GoogleSheetProvider } from "../../google_sheet/GoogleSheetProvider";
 import { SpreadsheetCellProvider } from "./SpreadsheetCellProvider";
 import { SpreadsheetCellSnapshotProvider } from "./SpreadsheetCellSnapshotProvider";
 import { SpreadSheetExportProvider } from "./SpreadSheetExportProvider";
@@ -102,11 +103,11 @@ export namespace SpreadsheetProvider {
 
   export function sync(provider: "excel"): typeof sync.excel;
   export function sync(provider: "hancel"): typeof sync.hancel;
-  export function sync(provider: "google_sheets"): typeof sync.google_sheet;
+  export function sync(provider: "google_sheets"): typeof sync.google_sheets;
   export function sync(provider: "excel" | "hancel" | "google_sheets") {
     if (provider === "excel") return sync.excel;
     if (provider === "hancel") return sync.hancel;
-    if (provider === "google_sheets") return sync.google_sheet;
+    if (provider === "google_sheets") return sync.google_sheets;
   }
 
   export namespace sync {
@@ -122,7 +123,7 @@ export namespace SpreadsheetProvider {
       // input: ISpreadsheet.ISync.ToInput,
     ) => {};
 
-    export const google_sheet = (
+    export const google_sheets = (
       external_user: IExternalUser,
       spreadsheetId: ISpreadsheet["id"],
       // input: ISpreadsheet.ISync.ToInput,
@@ -143,7 +144,7 @@ export namespace SpreadsheetProvider {
     external_user: IExternalUser,
     spreadsheetId: ISpreadsheet["id"],
     provider: "google_sheets",
-  ): ReturnType<typeof exports.google_sheet>;
+  ): ReturnType<typeof exports.google_sheets>;
   export function exports(
     external_user: IExternalUser,
     spreadsheetId: ISpreadsheet["id"],
@@ -153,7 +154,7 @@ export namespace SpreadsheetProvider {
 
     if (provider === "excel") return exports.excel(spreadsheet);
     if (provider === "hancel") return exports.hancel(spreadsheet);
-    if (provider === "google_sheets") return exports.google_sheet(spreadsheet);
+    if (provider === "google_sheets") return exports.google_sheets(spreadsheet);
   }
 
   export namespace exports {
@@ -206,14 +207,25 @@ export namespace SpreadsheetProvider {
       };
 
     export const hancel =
-      (spreadsheetFn: ReturnType<typeof SpreadsheetProvider.at>) => () =>
+      (spreadsheetFn: ReturnType<typeof SpreadsheetProvider.at>) => async () =>
         // input: ISpreadsheet.IExport.ToInput,
         {};
 
-    export const google_sheet =
-      (spreadsheetFn: ReturnType<typeof SpreadsheetProvider.at>) => () =>
+    export const google_sheets =
+      (spreadsheetFn: ReturnType<typeof SpreadsheetProvider.at>) =>
+      async (input: ISpreadsheet.IExport.ToGoogleSheetsToInput) =>
         // input: ISpreadsheet.IExport.ToInput,
-        {};
+        {
+          const spreadsheet = await spreadsheetFn;
+          const snapshot = spreadsheet.snapshots.find(
+            (el) => el.id === input.snapshot.id,
+          )!;
+
+          await GoogleSheetProvider.createSpreadsheet({
+            title: snapshot.title,
+            secretKey: input.google_sheets.secret,
+          });
+        };
   }
 
   export const create =
