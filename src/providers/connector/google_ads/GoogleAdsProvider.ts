@@ -1,4 +1,3 @@
-import { Injectable } from "@nestjs/common";
 import { IGoogleAds } from "@wrtn/connector-api/lib/structures/connector/google_ads/IGoogleAds";
 import axios, { AxiosError } from "axios";
 import { randomUUID } from "crypto";
@@ -12,13 +11,9 @@ import { TypedSplit } from "../../../utils/TypedSplit";
 import { GoogleProvider } from "../../internal/google/GoogleProvider";
 import { ImageProvider } from "../../internal/ImageProvider";
 import { OAuthSecretProvider } from "../../internal/oauth_secret/OAuthSecretProvider";
-import { IOAuthSecret } from "../../internal/oauth_secret/structures/IOAuthSecret";
 
-@Injectable()
-export class GoogleAdsProvider {
-  private readonly baseUrl = "https://googleads.googleapis.com/v17";
-
-  constructor(private readonly googleProvider: GoogleProvider) {}
+export namespace GoogleAdsProvider {
+  export const baseUrl = "https://googleads.googleapis.com/v17";
 
   /**
    * 유저의 시크릿 키와 유저가 사용하고자 하는 광고 계정이 유효한지 검사합니다.
@@ -27,10 +22,10 @@ export class GoogleAdsProvider {
    * @param input
    * @returns
    */
-  async getTargetCustomerId(
+  export async function getTargetCustomerId(
     input: IGoogleAds.ISecret,
   ): Promise<IGoogleAds.Customer["id"]> {
-    const customers = await this.getCustomers(input);
+    const customers = await GoogleAdsProvider.getCustomers(input);
     let customerId: string | null = input.customerId ?? null;
     if (input.customerId) {
       if (!customers.map((el) => el.id).includes(input.customerId)) {
@@ -53,11 +48,13 @@ export class GoogleAdsProvider {
     return customerId;
   }
 
-  async publish(input: IGoogleAds.ISecret): Promise<void> {
+  export async function publish(input: IGoogleAds.ISecret): Promise<void> {
     try {
-      const customers = await this.listAccessibleCustomers(input);
+      const customers = await GoogleAdsProvider.listAccessibleCustomers(input);
       for await (const resourceName of customers.resourceNames) {
-        await this.createClientLink({ resourceName: resourceName });
+        await GoogleAdsProvider.createClientLink({
+          resourceName: resourceName,
+        });
       }
     } catch (err) {
       console.error(
@@ -73,20 +70,20 @@ export class GoogleAdsProvider {
    * @param input 조회하고 싶은 URL을 받는다.
    * @returns
    */
-  async generateKeywordIdeas(
+  export async function generateKeywordIdeas(
     input:
       | IGoogleAds.IGenerateKeywordIdeaByURLInput
       | IGoogleAds.IGenerateKeywordIdeaByKeywordsInput
       | IGoogleAds.IGenerateKeywordIdeaByKeywordsAndUrlInput,
   ): Promise<IGoogleAds.IGenerateKeywordIdeaOutput> {
     try {
-      const headers = await this.getHeaders();
-      const endPoint = `${this.baseUrl}/customers/${input.customerId}:generateKeywordIdeas`;
+      const headers = await GoogleAdsProvider.getHeaders();
+      const endPoint = `${GoogleAdsProvider.baseUrl}/customers/${input.customerId}:generateKeywordIdeas`;
 
       const res = await axios.post(
         endPoint,
         {
-          ...this.getGenerateKeywordSeed(input),
+          ...GoogleAdsProvider.getGenerateKeywordSeed(input),
           includeAdultKeywords: false, // 성인 키워드 제외
           language: "languageConstants/1012" as const, // 한국어를 의미
           geoTargetConstants: ["geoTargetConstants/2410"], // 대한민국이라는 지리적 제한을 의미
@@ -107,12 +104,12 @@ export class GoogleAdsProvider {
     }
   }
 
-  async createCampaignBudget(
+  export async function createCampaignBudget(
     input: IGoogleAds.ICreateCampaignBudgetInput,
   ): Promise<IGoogleAds.CampaignBudget["resourceName"]> {
     try {
-      const headers = await this.getHeaders();
-      const url = `${this.baseUrl}/customers/${input.customerId}/campaignBudgets:mutate`;
+      const headers = await GoogleAdsProvider.getHeaders();
+      const url = `${GoogleAdsProvider.baseUrl}/customers/${input.customerId}/campaignBudgets:mutate`;
       const res = await axios.post(
         url,
         {
@@ -139,14 +136,14 @@ export class GoogleAdsProvider {
     }
   }
 
-  async createAdGroup(
+  export async function createAdGroup(
     input: Omit<IGoogleAds.ICreateAdGroupInput, "campaignResourceName"> & {
       campaignResourceName: string;
     },
   ): Promise<IGoogleAds.AdGroup["resourceName"]> {
     try {
-      const url = `${this.baseUrl}/customers/${input.customerId}/adGroups:mutate`;
-      const headers = await this.getHeaders();
+      const url = `${GoogleAdsProvider.baseUrl}/customers/${input.customerId}/adGroups:mutate`;
+      const headers = await GoogleAdsProvider.getHeaders();
       const res = await axios.post(
         url,
         {
@@ -179,7 +176,7 @@ export class GoogleAdsProvider {
   /**
    * 광고 소재 수정 전에 원래의 전체 형태를 조회하기 위한 용도
    */
-  async getAdGroupAdDetail(
+  export async function getAdGroupAdDetail(
     input: Omit<IGoogleAds.IGetAdGroupAdDetailInput, "customerId"> & {
       customerId: string;
     },
@@ -201,7 +198,7 @@ export class GoogleAdsProvider {
     FROM ad_group_ad
     WHERE ad_group_ad.resource_name = '${input.adGroupAdResourceName}'` as const;
 
-    const res = await this.searchStream(input.customerId, query);
+    const res = await GoogleAdsProvider.searchStream(input.customerId, query);
     const adGroupAd = res.results[0].adGroupAd;
 
     const detail =
@@ -214,10 +211,10 @@ export class GoogleAdsProvider {
     };
   }
 
-  async updateAd(input: IGoogleAds.ISetOnOffInput) {
+  export async function updateAd(input: IGoogleAds.ISetOnOffInput) {
     try {
-      const headers = await this.getHeaders();
-      const url = `${this.baseUrl}/customers/${input.customerId}/adGroupAds:mutate`;
+      const headers = await GoogleAdsProvider.getHeaders();
+      const url = `${GoogleAdsProvider.baseUrl}/customers/${input.customerId}/adGroupAds:mutate`;
 
       await axios.post(
         url,
@@ -242,7 +239,7 @@ export class GoogleAdsProvider {
     }
   }
 
-  async createAd(
+  export async function createAd(
     input: Omit<
       IGoogleAds.ICreateAdGroupAdInputCommon,
       "campaignResourceName"
@@ -251,11 +248,14 @@ export class GoogleAdsProvider {
     },
   ): Promise<IGoogleAds.IGetAdGroupsOutputResult> {
     try {
-      const adGroupResourceName = await this.createAdGroup(input);
-      const headers = await this.getHeaders();
-      const url = `${this.baseUrl}/customers/${input.customerId}/adGroupAds:mutate`;
+      const adGroupResourceName = await GoogleAdsProvider.createAdGroup(input);
+      const headers = await GoogleAdsProvider.getHeaders();
+      const url = `${GoogleAdsProvider.baseUrl}/customers/${input.customerId}/adGroupAds:mutate`;
       if (input.keywords.length) {
-        await this.createAdGroupCriteria(adGroupResourceName, input); // Google Ads Keywords 생성
+        await GoogleAdsProvider.createAdGroupCriteria(
+          adGroupResourceName,
+          input,
+        ); // Google Ads Keywords 생성
       }
 
       if (input.type === "SEARCH_STANDARD") {
@@ -300,28 +300,31 @@ export class GoogleAdsProvider {
                     descriptions: asserted.descriptions.map((text) => ({
                       text,
                     })),
-                    marketing_images: await this.createAssets({
+                    marketing_images: await GoogleAdsProvider.createAssets({
                       cusotmerId: asserted.customerId,
                       images: await Promise.all(
                         asserted.landscapeImages.map((el) =>
-                          this.cropImage(el, 1.91),
+                          GoogleAdsProvider.cropImage(el, 1.91),
                         ),
                       ),
                     }),
-                    square_marketing_images: await this.createAssets({
-                      cusotmerId: asserted.customerId,
-                      images: await Promise.all(
-                        asserted.squareImages.map((el) =>
-                          this.cropImage(el, 1),
+                    square_marketing_images:
+                      await GoogleAdsProvider.createAssets({
+                        cusotmerId: asserted.customerId,
+                        images: await Promise.all(
+                          asserted.squareImages.map((el) =>
+                            GoogleAdsProvider.cropImage(el, 1),
+                          ),
                         ),
-                      ),
-                    }),
+                      }),
                     business_name: asserted.businessName,
                     youtube_videos: [],
-                    square_logo_images: await this.createAssets({
+                    square_logo_images: await GoogleAdsProvider.createAssets({
                       cusotmerId: asserted.customerId,
                       images: await Promise.all(
-                        asserted.logoImages.map((el) => this.cropImage(el, 1)),
+                        asserted.logoImages.map((el) =>
+                          GoogleAdsProvider.cropImage(el, 1),
+                        ),
                       ),
                     }),
                   },
@@ -336,7 +339,7 @@ export class GoogleAdsProvider {
         );
       }
 
-      const [result] = await this.getAdGroupDetails({
+      const [result] = await GoogleAdsProvider.getAdGroupDetails({
         ...input,
         adGroupResourceName,
       });
@@ -352,7 +355,7 @@ export class GoogleAdsProvider {
     }
   }
 
-  async cropImage(
+  export async function cropImage(
     image: string &
       typia.tags.Format<"uri"> &
       typia.tags.ContentMediaType<"image/*">,
@@ -365,13 +368,13 @@ export class GoogleAdsProvider {
     return cropped.toString("base64");
   }
 
-  async createAssets(input: {
+  export async function createAssets(input: {
     cusotmerId: string;
     images: string[]; // base64 encoded images
   }): Promise<{ asset: string }[]> {
     try {
-      const url = `${this.baseUrl}/customers/${input.cusotmerId}/assets:mutate`;
-      const headers = await this.getHeaders();
+      const url = `${GoogleAdsProvider.baseUrl}/customers/${input.cusotmerId}/assets:mutate`;
+      const headers = await GoogleAdsProvider.getHeaders();
       const res = await axios.post(
         url,
         {
@@ -405,7 +408,7 @@ export class GoogleAdsProvider {
     }
   }
 
-  async updateCampaign(
+  export async function updateCampaign(
     input: Omit<IGoogleAds.IUpdateCampaignInput, "secretKey"> & {
       customerId: string;
     },
@@ -413,16 +416,16 @@ export class GoogleAdsProvider {
     try {
       const { customerId, campaignResourceName, campaignBudget, ...rest } =
         input;
-      const url = `${this.baseUrl}/customers/${customerId}/campaigns:mutate`;
-      const headers = await this.getHeaders();
+      const url = `${GoogleAdsProvider.baseUrl}/customers/${customerId}/campaigns:mutate`;
+      const headers = await GoogleAdsProvider.getHeaders();
 
-      const [campaign] = await this.getCampaigns(
+      const [campaign] = await GoogleAdsProvider.getCampaigns(
         input,
         input.campaignResourceName,
       );
 
       if (campaignBudget) {
-        await this.updateCampaignBudget(
+        await GoogleAdsProvider.updateCampaignBudget(
           input.customerId,
           campaign.campaignBudget.resourceName,
           campaignBudget,
@@ -455,14 +458,14 @@ export class GoogleAdsProvider {
     }
   }
 
-  private async updateCampaignBudget(
+  export async function updateCampaignBudget(
     customerId: IGoogleAds.CustomerClient["id"],
     campaignBudgetResourceName: IGoogleAds.CampaignBudget["resourceName"],
     campaignBudget: number, // 한국 돈 단위
   ) {
     try {
-      const url = `${this.baseUrl}/customers/${customerId}/campaignBudgets:mutate`;
-      const headers = await this.getHeaders();
+      const url = `${GoogleAdsProvider.baseUrl}/customers/${customerId}/campaignBudgets:mutate`;
+      const headers = await GoogleAdsProvider.getHeaders();
 
       await axios.post(
         url,
@@ -485,15 +488,16 @@ export class GoogleAdsProvider {
     }
   }
 
-  async createCampaign(
+  export async function createCampaign(
     input: Omit<IGoogleAds.ICreateCampaignInput, "secretKey"> & {
       customerId: string;
     },
   ): Promise<IGoogleAds.ICreateCampaignsOutput> {
     try {
-      const url = `${this.baseUrl}/customers/${input.customerId}/campaigns:mutate`;
-      const headers = await this.getHeaders();
-      const campaignBudgetResourceName = await this.createCampaignBudget(input);
+      const url = `${GoogleAdsProvider.baseUrl}/customers/${input.customerId}/campaigns:mutate`;
+      const headers = await GoogleAdsProvider.getHeaders();
+      const campaignBudgetResourceName =
+        await GoogleAdsProvider.createCampaignBudget(input);
       const res = await axios.post(
         url,
         {
@@ -521,7 +525,10 @@ export class GoogleAdsProvider {
       );
 
       const createdResourceName = res.data.results[0].resourceName;
-      const [campaign] = await this.getCampaigns(input, createdResourceName);
+      const [campaign] = await GoogleAdsProvider.getCampaigns(
+        input,
+        createdResourceName,
+      );
       return campaign;
     } catch (err) {
       console.error(
@@ -531,7 +538,7 @@ export class GoogleAdsProvider {
     }
   }
 
-  private async getAdGroups(
+  export async function getAdGroups(
     input: Omit<IGoogleAds.IGetAdGroupInput, "secretKey" | "customerId"> & {
       customerId: string;
     },
@@ -553,7 +560,10 @@ export class GoogleAdsProvider {
             ${input.campaignId ? `AND campaign.id = '${input.campaignId}'` : ""}
             ${input.adGroupResourceName ? `AND ad_group.resource_name = '${input.adGroupResourceName}'` : ""}` as const;
 
-      const adGroup = await this.searchStream(input.customerId, query);
+      const adGroup = await GoogleAdsProvider.searchStream(
+        input.customerId,
+        query,
+      );
       return adGroup;
     } catch (err) {
       console.error(
@@ -563,12 +573,12 @@ export class GoogleAdsProvider {
     }
   }
 
-  async deleteKeywords(
+  export async function deleteKeywords(
     input: IGoogleAds.IDeleteAdGroupCriteriaInput,
   ): Promise<void> {
     try {
-      const url = `${this.baseUrl}/customers/${input.customerId}/adGroupCriteria:mutate`;
-      const headers = await this.getHeaders();
+      const url = `${GoogleAdsProvider.baseUrl}/customers/${input.customerId}/adGroupCriteria:mutate`;
+      const headers = await GoogleAdsProvider.getHeaders();
       await axios.post(
         url,
         {
@@ -588,7 +598,7 @@ export class GoogleAdsProvider {
     }
   }
 
-  async getKeywords(input: {
+  export async function getKeywords(input: {
     customerId: string;
     adGroupResourceName: string;
   }): Promise<IGoogleAds.IGetKeywordsOutput> {
@@ -603,7 +613,10 @@ export class GoogleAdsProvider {
     FROM ad_group_criterion
       WHERE ad_group_criterion.type = "KEYWORD" AND ad_group.resource_name = '${input.adGroupResourceName}' AND ad_group_criterion.status != "REMOVED"` as const;
 
-    const keywords = await this.searchStream(input.customerId, query);
+    const keywords = await GoogleAdsProvider.searchStream(
+      input.customerId,
+      query,
+    );
     return keywords.results.map((el) => {
       return {
         ...el,
@@ -615,7 +628,9 @@ export class GoogleAdsProvider {
     });
   }
 
-  async getMetrics(input: Required<IGoogleAds.IGetMetricInput>) {
+  export async function getMetrics(
+    input: Required<IGoogleAds.IGetMetricInput>,
+  ) {
     const query = `
     SELECT
       metrics.average_page_views, 
@@ -633,11 +648,14 @@ export class GoogleAdsProvider {
     WHERE
       segments.date = '${input.date}'` as const;
 
-    const response = await this.searchStream(input.customerId, query);
+    const response = await GoogleAdsProvider.searchStream(
+      input.customerId,
+      query,
+    );
     return response.results;
   }
 
-  async getAdGroupAds(input: {
+  export async function getAdGroupAds(input: {
     customerId: string;
     adGroupResourceName?: string;
   }): Promise<IGoogleAds.IGetAdGroupAdOutput> {
@@ -654,7 +672,7 @@ export class GoogleAdsProvider {
     ` as const;
 
     const customerId = input.customerId;
-    const response = await this.searchStream(customerId, query);
+    const response = await GoogleAdsProvider.searchStream(customerId, query);
 
     return response.results.map((el) => el.adGroupAd);
   }
@@ -667,23 +685,23 @@ export class GoogleAdsProvider {
    * @param input
    * @returns
    */
-  async getAdGroupDetails(
+  export async function getAdGroupDetails(
     input: Omit<IGoogleAds.IGetAdGroupInput, "secretKey" | "customerId"> & {
       customerId: string;
     },
   ): Promise<IGoogleAds.IGetAdGroupOutput> {
     try {
-      const adGroupsResult = await this.getAdGroups(input);
+      const adGroupsResult = await GoogleAdsProvider.getAdGroups(input);
 
       const response = [];
       for await (const { campaign, adGroup } of adGroupsResult.results) {
         const adGroupResourceName = adGroup.resourceName;
-        const adGroupAds = await this.getAdGroupAds({
+        const adGroupAds = await GoogleAdsProvider.getAdGroupAds({
           ...input,
           adGroupResourceName,
         });
 
-        const adGroupCriterions = await this.getKeywords({
+        const adGroupCriterions = await GoogleAdsProvider.getKeywords({
           customerId: input.customerId,
           adGroupResourceName,
         });
@@ -713,13 +731,13 @@ export class GoogleAdsProvider {
    * `adGroupCriteria`를 생성한다.
    * 여기에는 구글 광고 키워드가 포함된다.
    */
-  async createAdGroupCriteria(
+  export async function createAdGroupCriteria(
     adGroupResourceName: IGoogleAds.AdGroup["resourceName"],
     input: IGoogleAds.ICreateKeywordInput,
   ): Promise<IGoogleAds.ICreateAdGroupCriteriaOutput> {
     try {
-      const url = `${this.baseUrl}/customers/${input.customerId}/adGroupCriteria:mutate`;
-      const headers = await this.getHeaders();
+      const url = `${GoogleAdsProvider.baseUrl}/customers/${input.customerId}/adGroupCriteria:mutate`;
+      const headers = await GoogleAdsProvider.getHeaders();
       const res = await axios.post(
         url,
         {
@@ -756,7 +774,7 @@ export class GoogleAdsProvider {
     }
   }
 
-  async getCampaigns(
+  export async function getCampaigns(
     input: Omit<IGoogleAds.IGetCampaignsInput, "secretKey" | "customerId"> & {
       customerId: string;
     },
@@ -777,7 +795,7 @@ export class GoogleAdsProvider {
         FROM campaign
           WHERE campaign.status != 'REMOVED' ${resourceName ? ` AND campaign.resource_name = "${resourceName}"` : ""}` as const;
 
-      const res = await this.searchStream(input.customerId, query);
+      const res = await GoogleAdsProvider.searchStream(input.customerId, query);
       return res.results ?? [];
     } catch (err) {
       console.error(
@@ -795,13 +813,13 @@ export class GoogleAdsProvider {
    * @param validateOnly
    * @returns
    */
-  async createClientLink(input: {
+  export async function createClientLink(input: {
     resourceName: IGoogleAds.Customer["resourceName"];
   }): Promise<void> {
     try {
       const parentId = ConnectorGlobal.env.GOOGLE_ADS_ACCOUNT_ID;
-      const url = `${this.baseUrl}/customers/${parentId}/customerClientLinks:mutate`;
-      const headers = await this.getHeaders();
+      const url = `${GoogleAdsProvider.baseUrl}/customers/${parentId}/customerClientLinks:mutate`;
+      const headers = await GoogleAdsProvider.getHeaders();
       await axios.post(
         url,
         {
@@ -827,16 +845,16 @@ export class GoogleAdsProvider {
   /**
    * 해당 토큰의 주인이 우리에게 등록된 customer clients를 가지고 있는지 체크한다.
    */
-  async getCustomers(
+  export async function getCustomers(
     input: IGoogleAds.IGetCustomerInput,
   ): Promise<IGoogleAds.CustomerClient[]> {
     try {
-      const customers = await this.listAccessibleCustomers(input);
+      const customers = await GoogleAdsProvider.listAccessibleCustomers(input);
 
       /**
        * Wrtn에 등록된 클라이언트 중 customers에 포함된 것만 남겨야 한다.
        */
-      const customerClients = await this.getCustomerClient();
+      const customerClients = await GoogleAdsProvider.getCustomerClient();
       const res = customerClients.results
         .filter((el) => el.customerClient.currencyCode === "KRW") // 한국 돈으로 광고하는 경우만 허용한다.
         .filter((el) =>
@@ -860,22 +878,18 @@ export class GoogleAdsProvider {
    * @param input 고객의 시크릿 값
    * @returns
    */
-  private async listAccessibleCustomers(
+  export async function listAccessibleCustomers(
     input: IGoogleAds.IGetCustomerInput,
   ): Promise<IGoogleAds.IGetlistAccessibleCustomersOutput> {
-    const url = `${this.baseUrl}/customers:listAccessibleCustomers`;
-    const developerToken = (await this.getHeaders())["developer-token"];
-    const secretValue = await OAuthSecretProvider.getSecretValue(
+    const url = `${GoogleAdsProvider.baseUrl}/customers:listAccessibleCustomers`;
+    const developerToken = (await GoogleAdsProvider.getHeaders())[
+      "developer-token"
+    ];
+    const refreshToken = await OAuthSecretProvider.getSecretValue(
       input.secretKey,
     );
-    const refreshToken =
-      typeof secretValue === "string"
-        ? secretValue
-        : (secretValue as IOAuthSecret.ISecretValue).value;
 
-    const accessToken =
-      await this.googleProvider.refreshAccessToken(refreshToken);
-
+    const accessToken = await GoogleProvider.refreshAccessToken(refreshToken);
     const res = await axios.get(url, {
       headers: {
         Authorization: `Bearer ${accessToken}`,
@@ -895,10 +909,10 @@ export class GoogleAdsProvider {
    * @param descriptive_name customer에 부여하는 유니크한 이름 (구글에서는 유니크하지 않을 수 있다.)
    * @returns
    */
-  async createAccount(descriptive_name: string) {
-    const headers = await this.getHeaders();
+  export async function createAccount(descriptive_name: string) {
+    const headers = await GoogleAdsProvider.getHeaders();
     const parentId = ConnectorGlobal.env.GOOGLE_ADS_ACCOUNT_ID;
-    const endPoint = `${this.baseUrl}/customers/${parentId}/:createCustomerClient`;
+    const endPoint = `${GoogleAdsProvider.baseUrl}/customers/${parentId}/:createCustomerClient`;
     const res = await axios.post(
       endPoint,
       {
@@ -920,7 +934,7 @@ export class GoogleAdsProvider {
     return res.data;
   }
 
-  private getGenerateKeywordSeed(
+  export function getGenerateKeywordSeed(
     input:
       | IGoogleAds.IGenerateKeywordIdeaByURLInput
       | IGoogleAds.IGenerateKeywordIdeaByKeywordsInput
@@ -951,14 +965,14 @@ export class GoogleAdsProvider {
     }
   }
 
-  private async searchStream<T extends string>(
+  export async function searchStream<T extends string>(
     customerId: string,
     query: T,
   ): Promise<{ results: Camelize<StringToDeepObject<SelectedColumns<T>>>[] }> {
     try {
-      const headers = await this.getHeaders();
+      const headers = await GoogleAdsProvider.getHeaders();
       const res = await axios.post(
-        `${this.baseUrl}/customers/${customerId}/googleAds:search`,
+        `${GoogleAdsProvider.baseUrl}/customers/${customerId}/googleAds:search`,
         {
           query,
         },
@@ -979,9 +993,9 @@ export class GoogleAdsProvider {
   /**
    * Wrtn 내에 등록된 고객의 수를 파악하거나 고객의 리소스 네임을 조회하는 함수
    */
-  private async getCustomerClient() {
+  export async function getCustomerClient() {
     const parentId = ConnectorGlobal.env.GOOGLE_ADS_ACCOUNT_ID;
-    const res = await this.searchStream(
+    const res = await GoogleAdsProvider.searchStream(
       parentId,
       `SELECT customer_client.resource_name, customer_client.id, customer_client.descriptive_name, customer_client.currency_code FROM customer_client`,
     );
@@ -989,9 +1003,9 @@ export class GoogleAdsProvider {
     return res;
   }
 
-  private async getHeaders() {
+  export async function getHeaders() {
     const secret = ConnectorGlobal.env.GOOGLE_ADS_PARENT_SECRET; // refresh token of parent account.
-    const accessToken = await this.googleProvider.refreshAccessToken(secret);
+    const accessToken = await GoogleProvider.refreshAccessToken(secret);
 
     return {
       "Content-Type": "application/json",

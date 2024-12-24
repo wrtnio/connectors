@@ -15,7 +15,6 @@ import { retry } from "../../../utils/retry";
 
 @Controller("connector/gmail")
 export class GmailController {
-  constructor(private readonly gmailProvider: GmailProvider) {}
   /**
    * Sending mail
    *
@@ -44,7 +43,7 @@ export class GmailController {
   async send(
     @core.TypedBody() input: IGmail.ICreateMailInput,
   ): Promise<IGmail.ISendMailOutput> {
-    return retry(() => this.gmailProvider.sendEmail(input))();
+    return retry(() => GmailProvider.sendEmail(input))();
   }
 
   /**
@@ -71,7 +70,7 @@ export class GmailController {
   @ApiTags("Gmail")
   @core.TypedRoute.Post("draft")
   async draft(@core.TypedBody() input: IGmail.ICreateMailInput): Promise<void> {
-    return retry(() => this.gmailProvider.createDraft(input))();
+    return retry(() => GmailProvider.createDraft(input))();
   }
 
   /**
@@ -107,7 +106,7 @@ export class GmailController {
     @core.TypedBody()
     input: IGmail.IReplyInput,
   ): Promise<IGmail.ISendMailOutput> {
-    return retry(() => this.gmailProvider.reply(id, input))();
+    return retry(() => GmailProvider.reply(id, input))();
   }
 
   /**
@@ -139,7 +138,7 @@ export class GmailController {
     @core.TypedBody()
     input: IGmail.ISecret,
   ): Promise<IGmail.IFindGmailOutput> {
-    return retry(() => this.gmailProvider.findEmail(id, input))();
+    return retry(() => GmailProvider.findEmail(id, input))();
   }
 
   /**
@@ -161,7 +160,7 @@ export class GmailController {
   async findEmails(
     @core.TypedBody() input: IGmail.IFindEmailListInput,
   ): Promise<IGmail.IFindGmailListOutput> {
-    return retry(() => this.gmailProvider.findEmails(input))();
+    return retry(() => GmailProvider.findEmails(input))();
   }
 
   /**
@@ -200,7 +199,7 @@ export class GmailController {
     @core.TypedBody()
     input: IGmail.ISecret,
   ): Promise<void> {
-    return retry(() => this.gmailProvider.hardDelete(id, input))();
+    return retry(() => GmailProvider.hardDelete(id, input))();
   }
 
   /**
@@ -231,7 +230,7 @@ export class GmailController {
     @core.TypedBody()
     input: IGmail.ISecret,
   ): Promise<void> {
-    return retry(() => this.gmailProvider.removeEmail(id, input))();
+    return retry(() => GmailProvider.removeEmail(id, input))();
   }
 
   /**
@@ -253,7 +252,7 @@ export class GmailController {
   async createLabel(
     @core.TypedBody() input: IGmail.ILabelInput,
   ): Promise<IGmail.ILabelOutput> {
-    return retry(() => this.gmailProvider.createLabel(input))();
+    return retry(() => GmailProvider.createLabel(input))();
   }
 
   /**
@@ -284,7 +283,7 @@ export class GmailController {
     mailId: string,
     @core.TypedBody() input: IGmail.IMailLabelOperationInput,
   ): Promise<void> {
-    return retry(() => this.gmailProvider.addLabelToMail(mailId, input))();
+    return retry(() => GmailProvider.addLabelToMail(mailId, input))();
   }
 
   /**
@@ -315,7 +314,7 @@ export class GmailController {
     mailId: string,
     @core.TypedBody() input: IGmail.IMailLabelOperationInput,
   ): Promise<void> {
-    return retry(() => this.gmailProvider.removeLabelFromMail(mailId, input))();
+    return retry(() => GmailProvider.removeLabelFromMail(mailId, input))();
   }
 
   /**
@@ -340,6 +339,6 @@ export class GmailController {
   async deleteMailList(
     @core.TypedBody() input: IGmail.IDeleteMailListInput,
   ): Promise<void> {
-    return retry(() => this.gmailProvider.deleteMailList(input))();
+    return retry(() => GmailProvider.deleteMailList(input))();
   }
 }

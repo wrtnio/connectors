@@ -10,7 +10,6 @@ import { retry } from "../../../utils/retry";
 
 @Controller("connector/google-sheet")
 export class GoogleSheetController {
-  constructor(private readonly googleSheetProvider: GoogleSheetProvider) {}
   /**
    * Get the header information of a Google Sheet
    *
@@ -27,7 +26,7 @@ export class GoogleSheetController {
   async getHeaders(
     @core.TypedBody() input: IGoogleSheet.IReadGoogleSheetHeadersInput,
   ): Promise<IGoogleSheet.IReadGoogleSheetOutput> {
-    return retry(() => this.googleSheetProvider.readHeaders(input))();
+    return retry(() => GoogleSheetProvider.readHeaders(input))();
   }
 
   /**
@@ -45,7 +44,7 @@ export class GoogleSheetController {
   async appendGoogleSheet(
     @core.TypedBody() input: IGoogleSheet.IAppendToSheetInput,
   ): Promise<void> {
-    return retry(() => this.googleSheetProvider.appendToSheet(input))();
+    return retry(() => GoogleSheetProvider.appendToSheet(input))();
   }
 
   /**
@@ -66,7 +65,7 @@ export class GoogleSheetController {
   async createGoogleSheet(
     @core.TypedBody() input: IGoogleSheet.ICreateGoogleSheetInput,
   ): Promise<IGoogleSheet.ICreateGoogleSheetOutput> {
-    return retry(() => this.googleSheetProvider.createSpreadsheet(input))();
+    return retry(() => GoogleSheetProvider.createSpreadsheet(input))();
   }
 
   /**
@@ -84,7 +83,7 @@ export class GoogleSheetController {
   async permission(
     @core.TypedBody() input: IGoogleSheet.IPermissionInput,
   ): Promise<void> {
-    return retry(() => this.googleSheetProvider.permission(input))();
+    return retry(() => GoogleSheetProvider.permission(input))();
   }
 
   /**
@@ -102,7 +101,7 @@ export class GoogleSheetController {
   async writeHeaders(
     @core.TypedBody() input: IGoogleSheet.IWriteGoogleSheetHeadersInput,
   ): Promise<void> {
-    return retry(() => this.googleSheetProvider.writeHeaders(input))();
+    return retry(() => GoogleSheetProvider.writeHeaders(input))();
   }
 
   /**
@@ -120,7 +119,7 @@ export class GoogleSheetController {
   async getWorkSheet(
     @core.TypedBody() input: IGoogleSheet.IGetWorkSheetInput,
   ): Promise<IGoogleSheet.IGetWorkSheetOutput> {
-    return retry(() => this.googleSheetProvider.getWorkSheet(input))();
+    return retry(() => GoogleSheetProvider.getWorkSheet(input))();
   }
 
   /**
@@ -139,6 +138,6 @@ export class GoogleSheetController {
   async readRows(
     @core.TypedBody() input: IGoogleSheet.IReadGoogleSheetRowsInput,
   ): Promise<IGoogleSheet.IReadGoogleSheetRowsOutput> {
-    return retry(() => this.googleSheetProvider.readRows(input))();
+    return retry(() => GoogleSheetProvider.readRows(input))();
   }
 }

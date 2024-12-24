@@ -4,9 +4,7 @@ import axios from "axios";
 import { randomUUID } from "crypto";
 import typia from "typia";
 import { ConnectorGlobal } from "../../../../../src/ConnectorGlobal";
-import { GoogleDriveProvider } from "../../../../../src/providers/connector/google_drive/GoogleDriveProvider";
 import { GoogleSlidesProvider } from "../../../../../src/providers/connector/google_slides/GoogleSlidesProvider";
-import { GoogleProvider } from "../../../../../src/providers/internal/google/GoogleProvider";
 
 export const test_api_connector_google_slides_append_image_slide_by_type =
   async (connection: CApi.IConnection) => {
@@ -94,9 +92,7 @@ export const test_api_connector_google_slides_append_image_slide_by_type =
 
 export const test_api_connector_google_slides_fail_case_of_quarter_division_by_depcreated_connector =
   async () => {
-    const googleProvider = new GoogleProvider();
-    const googleDriveProvider = new GoogleDriveProvider(googleProvider);
-    const gs = new GoogleSlidesProvider(googleDriveProvider, googleProvider);
+    const gs = GoogleSlidesProvider;
 
     const response = await gs.transformUrl({
       secretKey: ConnectorGlobal.env.GOOGLE_TEST_SECRET,
@@ -139,9 +135,7 @@ export const test_api_connector_google_slides_fail_case_of_quarter_division_by_d
 
 export const test_api_connector_google_slides_fail_case_of_quarter_division_by_depcreated_connector_2 =
   async () => {
-    const googleProvider = new GoogleProvider();
-    const googleDriveProvider = new GoogleDriveProvider(googleProvider);
-    const gs = new GoogleSlidesProvider(googleDriveProvider, googleProvider);
+    const gs = GoogleSlidesProvider;
 
     const response = await gs.transformUrl({
       secretKey: ConnectorGlobal.env.GOOGLE_TEST_SECRET,

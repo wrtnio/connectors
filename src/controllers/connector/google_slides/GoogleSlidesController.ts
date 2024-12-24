@@ -10,8 +10,6 @@ import { retry } from "../../../utils/retry";
 
 @Controller("connector/google-slides")
 export class GoogleSlidesController {
-  constructor(private readonly googleSlideProvider: GoogleSlidesProvider) {}
-
   /**
    * Export Google Slides presentations to Hanshow format
    *
@@ -30,7 +28,7 @@ export class GoogleSlidesController {
     @TypedBody() input: IGoogleSlides.IExportPresentationInput,
   ): Promise<IGoogleSlides.IExportHanshowOutput> {
     return retry(() =>
-      this.googleSlideProvider.createHanshow(presentationId, {
+      GoogleSlidesProvider.createHanshow(presentationId, {
         secretKey: input.secretKey,
       }),
     )();
@@ -56,7 +54,7 @@ export class GoogleSlidesController {
     @TypedBody() input: IGoogleSlides.IExportPresentationInput,
   ): Promise<IGoogleSlides.IExportPresentationOutput> {
     return retry(() =>
-      this.googleSlideProvider.createPowerPoint(presentationId, {
+      GoogleSlidesProvider.createPowerPoint(presentationId, {
         secretKey: input.secretKey,
       }),
     )();
@@ -77,7 +75,7 @@ export class GoogleSlidesController {
   async getPresentation(
     @TypedBody() input: IGoogleSlides.IGetPresentationInput,
   ): Promise<IGoogleSlides.ISimplePresentationIdOutput> {
-    return retry(() => this.googleSlideProvider.getPresentation(input))();
+    return retry(() => GoogleSlidesProvider.getPresentation(input))();
   }
 
   /**
@@ -105,11 +103,7 @@ export class GoogleSlidesController {
     @TypedBody() input: IGoogleSlides.AppendQuarterDivisionSlideInput,
   ): Promise<IGoogleSlides.ISimplePresentationIdOutput> {
     const type = "QuarterDivision" as const;
-    return this.googleSlideProvider.appendSlidesByType(
-      presentationId,
-      type,
-      input,
-    );
+    return GoogleSlidesProvider.appendSlidesByType(presentationId, type, input);
   }
 
   /**
@@ -137,11 +131,7 @@ export class GoogleSlidesController {
     @TypedBody() input: IGoogleSlides.AppendEntireSlideInput,
   ): Promise<IGoogleSlides.ISimplePresentationIdOutput> {
     const type = "Entire" as const;
-    return this.googleSlideProvider.appendSlidesByType(
-      presentationId,
-      type,
-      input,
-    );
+    return GoogleSlidesProvider.appendSlidesByType(presentationId, type, input);
   }
 
   /**
@@ -170,11 +160,7 @@ export class GoogleSlidesController {
     @TypedBody() input: IGoogleSlides.AppendLandscapeSlideInput,
   ): Promise<IGoogleSlides.ISimplePresentationIdOutput> {
     const type = "Landscape" as const;
-    return this.googleSlideProvider.appendSlidesByType(
-      presentationId,
-      type,
-      input,
-    );
+    return GoogleSlidesProvider.appendSlidesByType(presentationId, type, input);
   }
 
   /**
@@ -202,11 +188,7 @@ export class GoogleSlidesController {
     @TypedBody() input: IGoogleSlides.AppendSquareSlideInput,
   ): Promise<IGoogleSlides.ISimplePresentationIdOutput> {
     const type = "Square" as const;
-    return this.googleSlideProvider.appendSlidesByType(
-      presentationId,
-      type,
-      input,
-    );
+    return GoogleSlidesProvider.appendSlidesByType(presentationId, type, input);
   }
 
   /**
@@ -235,11 +217,7 @@ export class GoogleSlidesController {
     @TypedBody() input: IGoogleSlides.AppendVerticalSlideInput,
   ): Promise<IGoogleSlides.ISimplePresentationIdOutput> {
     const type = "Vertical" as const;
-    return this.googleSlideProvider.appendSlidesByType(
-      presentationId,
-      type,
-      input,
-    );
+    return GoogleSlidesProvider.appendSlidesByType(presentationId, type, input);
   }
 
   /**
@@ -272,7 +250,7 @@ export class GoogleSlidesController {
     @TypedBody() input: IGoogleSlides.AppendSlideInput,
   ): Promise<IGoogleSlides.ISimplePresentationIdOutput> {
     return retry(() =>
-      this.googleSlideProvider.appendImageSlide(presentationId, input),
+      GoogleSlidesProvider.appendImageSlide(presentationId, input),
     )();
   }
 
@@ -296,6 +274,6 @@ export class GoogleSlidesController {
   async createPresentation(
     @TypedBody() input: IGoogleSlides.ICreatePresentationInput,
   ): Promise<IGoogleSlides.ISimplePresentationIdOutput> {
-    return retry(() => this.googleSlideProvider.createPresentation(input))();
+    return retry(() => GoogleSlidesProvider.createPresentation(input))();
   }
 }
