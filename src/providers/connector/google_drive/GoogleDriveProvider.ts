@@ -1,4 +1,4 @@
-import { BadRequestException, Injectable } from "@nestjs/common";
+import { BadRequestException } from "@nestjs/common";
 import { google } from "googleapis";
 import * as stream from "stream";
 
@@ -8,11 +8,9 @@ import axios from "axios";
 import mime from "mime-types";
 import { GoogleProvider } from "../../internal/google/GoogleProvider";
 import { OAuthSecretProvider } from "../../internal/oauth_secret/OAuthSecretProvider";
-import { IOAuthSecret } from "../../internal/oauth_secret/structures/IOAuthSecret";
 
-@Injectable()
-export class GoogleDriveProvider {
-  async folderList(
+export namespace GoogleDriveProvider {
+  export async function folderList(
     input: IGoogleDrive.ISecret,
   ): Promise<IGoogleDrive.IFolderListGoogleDriveOutput> {
     const token = await OAuthSecretProvider.getSecretValue(input.secretKey);
@@ -39,7 +37,7 @@ export class GoogleDriveProvider {
     return { data: output };
   }
 
-  async getFolderByName(
+  export async function getFolderByName(
     input: { name: string } & IGoogleDrive.ISecret,
   ): Promise<string | null> {
     const token = await OAuthSecretProvider.getSecretValue(input.secretKey);
@@ -61,7 +59,7 @@ export class GoogleDriveProvider {
     }
   }
 
-  async fileList(
+  export async function fileList(
     input: IGoogleDrive.IFileListGoogleDriveInput,
   ): Promise<IGoogleDrive.IFileListGoogleDriveOutput> {
     const { folderId } = input;
@@ -94,7 +92,7 @@ export class GoogleDriveProvider {
     return { data: output };
   }
 
-  async createFolder(
+  export async function createFolder(
     input: IGoogleDrive.ICreateFolderGoogleDriveInput,
   ): Promise<IGoogleDrive.ICreateFolderGoogleDriveOutput> {
     const { name } = input;
@@ -119,7 +117,10 @@ export class GoogleDriveProvider {
     return { id };
   }
 
-  async deleteFolder(id: string, input: IGoogleDrive.ISecret): Promise<void> {
+  export async function deleteFolder(
+    id: string,
+    input: IGoogleDrive.ISecret,
+  ): Promise<void> {
     const token = await OAuthSecretProvider.getSecretValue(input.secretKey);
     const accessToken = await GoogleProvider.refreshAccessToken(token);
     const authClient = new google.auth.OAuth2();
@@ -136,7 +137,7 @@ export class GoogleDriveProvider {
    * @param input
    * @returns
    */
-  async createFile(
+  export async function createFile(
     input: IGoogleDrive.ICreateFileGoogleDriveInput,
   ): Promise<IGoogleDrive.ICreateFileGoogleDriveOutput> {
     const { name, folderIds, content } = input;
@@ -163,7 +164,7 @@ export class GoogleDriveProvider {
     return { id };
   }
 
-  async uploadFile(
+  export async function uploadFile(
     input: IGoogleDrive.IUploadFileInput,
   ): Promise<IGoogleDrive.ICreateFileGoogleDriveOutput> {
     const { name, folderIds, fileUrl } = input;
@@ -200,7 +201,10 @@ export class GoogleDriveProvider {
     return { id };
   }
 
-  async deleteFile(id: string, input: IGoogleDrive.ISecret): Promise<void> {
+  export async function deleteFile(
+    id: string,
+    input: IGoogleDrive.ISecret,
+  ): Promise<void> {
     const token = await OAuthSecretProvider.getSecretValue(input.secretKey);
     const accessToken = await GoogleProvider.refreshAccessToken(token);
     const authClient = new google.auth.OAuth2();
@@ -213,7 +217,7 @@ export class GoogleDriveProvider {
     });
   }
 
-  async permission(
+  export async function permission(
     input: IGoogleDrive.IPermissionGoogleDriveInput,
   ): Promise<void> {
     const { fileId, folderId, permissions } = input;
@@ -249,7 +253,7 @@ export class GoogleDriveProvider {
     }
   }
 
-  async getFile(
+  export async function getFile(
     fileId: string,
     input: IGoogleDrive.ISecret,
   ): Promise<IGoogleDrive.IGetFileOutput> {
@@ -271,14 +275,5 @@ export class GoogleDriveProvider {
       console.error(JSON.stringify((err as any)?.response.data));
       throw err;
     }
-  }
-
-  private async getToken(secretValue: string): Promise<string> {
-    const secret = await OAuthSecretProvider.getSecretValue(secretValue);
-    const token =
-      typeof secret === "string"
-        ? secret
-        : (secret as IOAuthSecret.ISecretValue).value;
-    return token;
   }
 }

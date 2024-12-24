@@ -14,8 +14,6 @@ import { GoogleDriveProvider } from "../../../providers/connector/google_drive/G
 
 @Controller("connector/google-drive")
 export class GoogleDriveController {
-  constructor(private readonly googleDriveProvider: GoogleDriveProvider) {}
-
   /**
    * Get a list of folders in Google Drive
    *
@@ -34,7 +32,7 @@ export class GoogleDriveController {
     @core.TypedBody()
     input: IGoogleDrive.ISecret,
   ): Promise<IGoogleDrive.IFolderListGoogleDriveOutput> {
-    return await this.googleDriveProvider.folderList(input);
+    return await GoogleDriveProvider.folderList(input);
   }
 
   /**
@@ -54,7 +52,7 @@ export class GoogleDriveController {
   async fileList(
     @core.TypedBody() input: IGoogleDrive.IFileListGoogleDriveInput,
   ): Promise<IGoogleDrive.IFileListGoogleDriveOutput> {
-    return await this.googleDriveProvider.fileList(input);
+    return await GoogleDriveProvider.fileList(input);
   }
 
   /**
@@ -75,7 +73,7 @@ export class GoogleDriveController {
   async createFolder(
     @core.TypedBody() input: IGoogleDrive.ICreateFolderGoogleDriveInput,
   ): Promise<IGoogleDrive.ICreateFolderGoogleDriveOutput> {
-    return await this.googleDriveProvider.createFolder(input);
+    return await GoogleDriveProvider.createFolder(input);
   }
 
   /**
@@ -94,7 +92,7 @@ export class GoogleDriveController {
   async createFile(
     @core.TypedBody() input: IGoogleDrive.IUploadFileInput,
   ): Promise<IGoogleDrive.ICreateFileGoogleDriveOutput> {
-    return await this.googleDriveProvider.uploadFile(input);
+    return await GoogleDriveProvider.uploadFile(input);
   }
 
   /**
@@ -123,7 +121,7 @@ export class GoogleDriveController {
     @core.TypedBody()
     input: IGoogleDrive.ISecret,
   ): Promise<void> {
-    return await this.googleDriveProvider.deleteFile(id, input);
+    return await GoogleDriveProvider.deleteFile(id, input);
   }
 
   /**
@@ -152,7 +150,7 @@ export class GoogleDriveController {
     @core.TypedBody()
     input: IGoogleDrive.ISecret,
   ): Promise<void> {
-    return await this.googleDriveProvider.deleteFolder(id, input);
+    return await GoogleDriveProvider.deleteFolder(id, input);
   }
 
   /**
@@ -171,7 +169,7 @@ export class GoogleDriveController {
   async permission(
     @core.TypedBody() input: IGoogleDrive.IPermissionGoogleDriveInput,
   ): Promise<void> {
-    return await this.googleDriveProvider.permission(input);
+    return await GoogleDriveProvider.permission(input);
   }
 
   /**
@@ -201,6 +199,6 @@ export class GoogleDriveController {
     @core.TypedBody()
     input: IGoogleDrive.ISecret,
   ): Promise<IGoogleDrive.IGetFileOutput> {
-    return await this.googleDriveProvider.getFile(id, input);
+    return await GoogleDriveProvider.getFile(id, input);
   }
 }
