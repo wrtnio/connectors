@@ -27171,29 +27171,29 @@
             "items": {
               "oneOf": [
                 {
-                  "$ref": "#/components/schemas/IGoogleSlides.Template.Vertical"
-                },
-                {
-                  "$ref": "#/components/schemas/IGoogleSlides.Template.Square"
-                },
-                {
-                  "$ref": "#/components/schemas/IGoogleSlides.Template.Landscape"
+                  "$ref": "#/components/schemas/IGoogleSlides.Template.QuarterDivision"
                 },
                 {
                   "$ref": "#/components/schemas/IGoogleSlides.Template.Entire"
                 },
                 {
-                  "$ref": "#/components/schemas/IGoogleSlides.Template.QuarterDivision"
+                  "$ref": "#/components/schemas/IGoogleSlides.Template.Landscape"
+                },
+                {
+                  "$ref": "#/components/schemas/IGoogleSlides.Template.Square"
+                },
+                {
+                  "$ref": "#/components/schemas/IGoogleSlides.Template.Vertical"
                 }
               ],
               "discriminator": {
                 "propertyName": "type",
                 "mapping": {
-                  "Vertical": "#/components/schemas/IGoogleSlides.Template.Vertical",
-                  "Square": "#/components/schemas/IGoogleSlides.Template.Square",
-                  "Landscape": "#/components/schemas/IGoogleSlides.Template.Landscape",
+                  "QuarterDivision": "#/components/schemas/IGoogleSlides.Template.QuarterDivision",
                   "Entire": "#/components/schemas/IGoogleSlides.Template.Entire",
-                  "QuarterDivision": "#/components/schemas/IGoogleSlides.Template.QuarterDivision"
+                  "Landscape": "#/components/schemas/IGoogleSlides.Template.Landscape",
+                  "Square": "#/components/schemas/IGoogleSlides.Template.Square",
+                  "Vertical": "#/components/schemas/IGoogleSlides.Template.Vertical"
                 }
               }
             },
@@ -27215,138 +27215,6 @@
           "secretKey"
         ],
         "title": "Request DTO for pasting slides"
-      },
-      "IGoogleSlides.Template.Vertical": {
-        "type": "object",
-        "properties": {
-          "type": {
-            "const": "Vertical",
-            "title": "The type of the template\n\ntype must be \"Vertical\""
-          },
-          "contents": {
-            "type": "object",
-            "properties": {
-              "url": {
-                "type": "string",
-                "format": "iri",
-                "title": "URL of the image",
-                "description": "If there is a problem with the image, the message below may appear.\nYou must insert only existing images, and if the image is too small, you can spit out errors, so insert an image of the appropriate size or create it yourself to insert the image.\nThe first error below is when the image does not exist, and the second is when the size or format of the image is not valid. The image must be in jpg, jpeg, and png formats.\n\n1. The provided image was not found.\n2. There was a problem retrieving the image. The provided image should be publicly accessible, within size limit, and in supported formats."
-              },
-              "text": {
-                "$ref": "#/components/schemas/IGoogleSlides.InsertText",
-                "title": "Text corresponding to the image"
-              }
-            },
-            "required": [
-              "url",
-              "text"
-            ],
-            "title": "Contents of the slide"
-          }
-        },
-        "required": [
-          "type",
-          "contents"
-        ],
-        "title": "vertical"
-      },
-      "IGoogleSlides.Template.Square": {
-        "type": "object",
-        "properties": {
-          "type": {
-            "const": "Square",
-            "title": "The type of the template\n\ntype must be \"Square\"."
-          },
-          "contents": {
-            "type": "object",
-            "properties": {
-              "url": {
-                "type": "string",
-                "format": "iri",
-                "title": "URL of the image",
-                "description": "If there is a problem with the image, the message below may appear.\nYou must insert only existing images, and if the image is too small, you can spit out errors, so insert an image of the appropriate size or create it yourself to insert the image.\nThe first error below is when the image does not exist, and the second is when the size or format of the image is not valid. The image must be in jpg, jpeg, and png formats.\n\n1. The provided image was not found.\n2. There was a problem retrieving the image. The provided image should be publicly accessible, within size limit, and in supported formats."
-              },
-              "text": {
-                "$ref": "#/components/schemas/IGoogleSlides.InsertText",
-                "title": "Text corresponding to the image"
-              }
-            },
-            "required": [
-              "url",
-              "text"
-            ],
-            "title": "Contents of the slide"
-          }
-        },
-        "required": [
-          "type",
-          "contents"
-        ],
-        "title": "Square",
-        "description": "When creating a story or picture book, please use only squares."
-      },
-      "IGoogleSlides.Template.Landscape": {
-        "type": "object",
-        "properties": {
-          "type": {
-            "const": "Landscape",
-            "title": "The type of the template\n\ntype must be \"Landscape\"."
-          },
-          "contents": {
-            "type": "object",
-            "properties": {
-              "url": {
-                "type": "string",
-                "format": "iri",
-                "title": "URL of the image",
-                "description": "If there is a problem with the image, the message below may appear.\nYou must insert only existing images, and if the image is too small, you can spit out errors, so insert an image of the appropriate size or create it yourself to insert the image.\nThe first error below is when the image does not exist, and the second is when the size or format of the image is not valid. The image must be in jpg, jpeg, and png formats.\n\n1. The provided image was not found.\n2. There was a problem retrieving the image. The provided image should be publicly accessible, within size limit, and in supported formats."
-              },
-              "text": {
-                "$ref": "#/components/schemas/IGoogleSlides.InsertText",
-                "title": "Text corresponding to the image"
-              }
-            },
-            "required": [
-              "url",
-              "text"
-            ],
-            "title": "Contents of the slide"
-          }
-        },
-        "required": [
-          "type",
-          "contents"
-        ],
-        "title": "Horizontal"
-      },
-      "IGoogleSlides.Template.Entire": {
-        "type": "object",
-        "properties": {
-          "type": {
-            "const": "Entire",
-            "title": "The type of the template\n\ntype must be \"Entire\"."
-          },
-          "contents": {
-            "type": "object",
-            "properties": {
-              "url": {
-                "type": "string",
-                "format": "iri",
-                "title": "URL of the image",
-                "description": "If there is a problem with the image, the message below may appear.\nYou must insert only existing images, and if the image is too small, you can spit out errors, so insert an image of the appropriate size or create it yourself to insert the image.\nThe first error below is when the image does not exist, and the second is when the size or format of the image is not valid. The image must be in jpg, jpeg, and png formats.\n\n1. The provided image was not found.\n2. There was a problem retrieving the image. The provided image should be publicly accessible, within size limit, and in supported formats."
-              }
-            },
-            "required": [
-              "url"
-            ],
-            "title": "Contents of the slide"
-          }
-        },
-        "required": [
-          "type",
-          "contents"
-        ],
-        "title": "View all Horizontal (16:9)"
       },
       "IGoogleSlides.Template.QuarterDivision": {
         "type": "object",
@@ -27387,6 +27255,138 @@
           "contents"
         ],
         "title": "4-part square (cut cartoon type)"
+      },
+      "IGoogleSlides.Template.Entire": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "const": "Entire",
+            "title": "The type of the template\n\ntype must be \"Entire\"."
+          },
+          "contents": {
+            "type": "object",
+            "properties": {
+              "url": {
+                "type": "string",
+                "format": "iri",
+                "title": "URL of the image",
+                "description": "If there is a problem with the image, the message below may appear.\nYou must insert only existing images, and if the image is too small, you can spit out errors, so insert an image of the appropriate size or create it yourself to insert the image.\nThe first error below is when the image does not exist, and the second is when the size or format of the image is not valid. The image must be in jpg, jpeg, and png formats.\n\n1. The provided image was not found.\n2. There was a problem retrieving the image. The provided image should be publicly accessible, within size limit, and in supported formats."
+              }
+            },
+            "required": [
+              "url"
+            ],
+            "title": "Contents of the slide"
+          }
+        },
+        "required": [
+          "type",
+          "contents"
+        ],
+        "title": "View all Horizontal (16:9)"
+      },
+      "IGoogleSlides.Template.Landscape": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "const": "Landscape",
+            "title": "The type of the template\n\ntype must be \"Landscape\"."
+          },
+          "contents": {
+            "type": "object",
+            "properties": {
+              "url": {
+                "type": "string",
+                "format": "iri",
+                "title": "URL of the image",
+                "description": "If there is a problem with the image, the message below may appear.\nYou must insert only existing images, and if the image is too small, you can spit out errors, so insert an image of the appropriate size or create it yourself to insert the image.\nThe first error below is when the image does not exist, and the second is when the size or format of the image is not valid. The image must be in jpg, jpeg, and png formats.\n\n1. The provided image was not found.\n2. There was a problem retrieving the image. The provided image should be publicly accessible, within size limit, and in supported formats."
+              },
+              "text": {
+                "$ref": "#/components/schemas/IGoogleSlides.InsertText",
+                "title": "Text corresponding to the image"
+              }
+            },
+            "required": [
+              "url",
+              "text"
+            ],
+            "title": "Contents of the slide"
+          }
+        },
+        "required": [
+          "type",
+          "contents"
+        ],
+        "title": "Horizontal"
+      },
+      "IGoogleSlides.Template.Square": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "const": "Square",
+            "title": "The type of the template\n\ntype must be \"Square\"."
+          },
+          "contents": {
+            "type": "object",
+            "properties": {
+              "url": {
+                "type": "string",
+                "format": "iri",
+                "title": "URL of the image",
+                "description": "If there is a problem with the image, the message below may appear.\nYou must insert only existing images, and if the image is too small, you can spit out errors, so insert an image of the appropriate size or create it yourself to insert the image.\nThe first error below is when the image does not exist, and the second is when the size or format of the image is not valid. The image must be in jpg, jpeg, and png formats.\n\n1. The provided image was not found.\n2. There was a problem retrieving the image. The provided image should be publicly accessible, within size limit, and in supported formats."
+              },
+              "text": {
+                "$ref": "#/components/schemas/IGoogleSlides.InsertText",
+                "title": "Text corresponding to the image"
+              }
+            },
+            "required": [
+              "url",
+              "text"
+            ],
+            "title": "Contents of the slide"
+          }
+        },
+        "required": [
+          "type",
+          "contents"
+        ],
+        "title": "Square",
+        "description": "When creating a story or picture book, please use only squares."
+      },
+      "IGoogleSlides.Template.Vertical": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "const": "Vertical",
+            "title": "The type of the template\n\ntype must be \"Vertical\""
+          },
+          "contents": {
+            "type": "object",
+            "properties": {
+              "url": {
+                "type": "string",
+                "format": "iri",
+                "title": "URL of the image",
+                "description": "If there is a problem with the image, the message below may appear.\nYou must insert only existing images, and if the image is too small, you can spit out errors, so insert an image of the appropriate size or create it yourself to insert the image.\nThe first error below is when the image does not exist, and the second is when the size or format of the image is not valid. The image must be in jpg, jpeg, and png formats.\n\n1. The provided image was not found.\n2. There was a problem retrieving the image. The provided image should be publicly accessible, within size limit, and in supported formats."
+              },
+              "text": {
+                "$ref": "#/components/schemas/IGoogleSlides.InsertText",
+                "title": "Text corresponding to the image"
+              }
+            },
+            "required": [
+              "url",
+              "text"
+            ],
+            "title": "Contents of the slide"
+          }
+        },
+        "required": [
+          "type",
+          "contents"
+        ],
+        "title": "vertical"
       },
       "IGoogleSlides.ICreatePresentationInput": {
         "type": "object",
@@ -32753,16 +32753,17 @@
       "StrictOmitIGoogleAds.ICreateAdGroupSearchAdInputtypecustomerIdcampaignResourceName": {
         "type": "object",
         "properties": {
-          "descriptions": {
+          "keywords": {
             "type": "array",
             "items": {
-              "type": "string",
-              "minLength": 1,
-              "maxLength": 90
+              "type": "string"
             },
-            "minItems": 1,
-            "maxItems": 4,
-            "title": "Description List"
+            "title": "Keyword to generate"
+          },
+          "finalUrl": {
+            "type": "string",
+            "format": "iri",
+            "title": "Homepage that is the target of the advertisement"
           },
           "headlines": {
             "type": "array",
@@ -32775,24 +32776,23 @@
             "maxItems": 15,
             "title": "title list"
           },
-          "finalUrl": {
-            "type": "string",
-            "format": "iri",
-            "title": "Homepage that is the target of the advertisement"
-          },
-          "keywords": {
+          "descriptions": {
             "type": "array",
             "items": {
-              "type": "string"
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 90
             },
-            "title": "Keyword to generate"
+            "minItems": 1,
+            "maxItems": 4,
+            "title": "Description List"
           }
         },
         "required": [
-          "descriptions",
-          "headlines",
+          "keywords",
           "finalUrl",
-          "keywords"
+          "headlines",
+          "descriptions"
         ]
       },
       "StrictOmitIGoogleAds.ICreateCampaignInputsecretKeycustomerId": {
@@ -32878,16 +32878,17 @@
       "StrictOmitIGoogleAds.ICreateAdGroupDisplayAdInputtypecustomerIdcampaignResourceName": {
         "type": "object",
         "properties": {
-          "descriptions": {
+          "keywords": {
             "type": "array",
             "items": {
-              "type": "string",
-              "minLength": 1,
-              "maxLength": 90
+              "type": "string"
             },
-            "minItems": 1,
-            "maxItems": 5,
-            "title": "Description List"
+            "title": "Keyword to generate"
+          },
+          "finalUrl": {
+            "type": "string",
+            "format": "iri",
+            "title": "Homepage that is the target of the advertisement"
           },
           "headlines": {
             "type": "array",
@@ -32900,17 +32901,16 @@
             "maxItems": 5,
             "title": "List of short titles"
           },
-          "finalUrl": {
-            "type": "string",
-            "format": "iri",
-            "title": "Homepage that is the target of the advertisement"
-          },
-          "keywords": {
+          "descriptions": {
             "type": "array",
             "items": {
-              "type": "string"
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 90
             },
-            "title": "Keyword to generate"
+            "minItems": 1,
+            "maxItems": 5,
+            "title": "Description List"
           },
           "longHeadline": {
             "type": "string",
@@ -32962,10 +32962,10 @@
           }
         },
         "required": [
-          "descriptions",
-          "headlines",
-          "finalUrl",
           "keywords",
+          "finalUrl",
+          "headlines",
+          "descriptions",
           "longHeadline",
           "businessName",
           "landscapeImages",

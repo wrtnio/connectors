@@ -2885,16 +2885,17 @@
       "StrictOmitIGoogleAds.ICreateAdGroupSearchAdInputtypecustomerIdcampaignResourceName": {
         "type": "object",
         "properties": {
-          "descriptions": {
+          "keywords": {
             "type": "array",
             "items": {
-              "type": "string",
-              "minLength": 1,
-              "maxLength": 90
+              "type": "string"
             },
-            "minItems": 1,
-            "maxItems": 4,
-            "title": "Description List"
+            "title": "Keyword to generate"
+          },
+          "finalUrl": {
+            "type": "string",
+            "format": "iri",
+            "title": "Homepage that is the target of the advertisement"
           },
           "headlines": {
             "type": "array",
@@ -2907,24 +2908,23 @@
             "maxItems": 15,
             "title": "title list"
           },
-          "finalUrl": {
-            "type": "string",
-            "format": "iri",
-            "title": "Homepage that is the target of the advertisement"
-          },
-          "keywords": {
+          "descriptions": {
             "type": "array",
             "items": {
-              "type": "string"
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 90
             },
-            "title": "Keyword to generate"
+            "minItems": 1,
+            "maxItems": 4,
+            "title": "Description List"
           }
         },
         "required": [
-          "descriptions",
-          "headlines",
+          "keywords",
           "finalUrl",
-          "keywords"
+          "headlines",
+          "descriptions"
         ]
       },
       "StrictOmitIGoogleAds.ICreateCampaignInputsecretKeycustomerId": {
@@ -3010,16 +3010,17 @@
       "StrictOmitIGoogleAds.ICreateAdGroupDisplayAdInputtypecustomerIdcampaignResourceName": {
         "type": "object",
         "properties": {
-          "descriptions": {
+          "keywords": {
             "type": "array",
             "items": {
-              "type": "string",
-              "minLength": 1,
-              "maxLength": 90
+              "type": "string"
             },
-            "minItems": 1,
-            "maxItems": 5,
-            "title": "Description List"
+            "title": "Keyword to generate"
+          },
+          "finalUrl": {
+            "type": "string",
+            "format": "iri",
+            "title": "Homepage that is the target of the advertisement"
           },
           "headlines": {
             "type": "array",
@@ -3032,17 +3033,16 @@
             "maxItems": 5,
             "title": "List of short titles"
           },
-          "finalUrl": {
-            "type": "string",
-            "format": "iri",
-            "title": "Homepage that is the target of the advertisement"
-          },
-          "keywords": {
+          "descriptions": {
             "type": "array",
             "items": {
-              "type": "string"
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 90
             },
-            "title": "Keyword to generate"
+            "minItems": 1,
+            "maxItems": 5,
+            "title": "Description List"
           },
           "longHeadline": {
             "type": "string",
@@ -3094,10 +3094,10 @@
           }
         },
         "required": [
-          "descriptions",
-          "headlines",
-          "finalUrl",
           "keywords",
+          "finalUrl",
+          "headlines",
+          "descriptions",
           "longHeadline",
           "businessName",
           "landscapeImages",

@@ -528,392 +528,6 @@
         "x-samchon-controller": "GoogleSlidesController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleSlides_full.svg"
       }
-    },
-    "/connector/google-drive/get/folders": {
-      "post": {
-        "summary": "Get a list of Google Drive folders",
-        "description": "Get a list of folders in Google Drive",
-        "tags": [
-          "Google Drive"
-        ],
-        "parameters": [],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/IGoogleDrive.ISecret"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "201": {
-            "description": "A list of Google Drive folders",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/IGoogleDrive.IFolderListGoogleDriveOutput"
-                }
-              }
-            }
-          }
-        },
-        "x-samchon-accessor": [
-          "connector",
-          "google_drive",
-          "get",
-          "folders",
-          "folderList"
-        ],
-        "x-samchon-controller": "GoogleDriveController",
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleDrive_full.svg",
-        "x-wrtn-standalone": true,
-        "x-wrtn-function-select-benchmarks": [
-          "구글 드라이브에 폴더 목록 좀 봐줘"
-        ]
-      }
-    },
-    "/connector/google-drive/get/files": {
-      "post": {
-        "summary": "Get a list of Google Drive files",
-        "description": "Get a list of files in Google Drive",
-        "tags": [
-          "Google Drive"
-        ],
-        "parameters": [],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/IGoogleDrive.IFileListGoogleDriveInput"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "201": {
-            "description": "A list of Google Drive files",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/IGoogleDrive.IFileListGoogleDriveOutput"
-                }
-              }
-            }
-          }
-        },
-        "x-samchon-accessor": [
-          "connector",
-          "google_drive",
-          "get",
-          "files",
-          "fileList"
-        ],
-        "x-samchon-controller": "GoogleDriveController",
-        "x-wrtn-function-select-benchmarks": [
-          "드라이브에 파일 좀 조회해줘",
-          "드라이브에 파일 좀 찾아줘"
-        ],
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleDrive_full.svg"
-      }
-    },
-    "/connector/google-drive/folder": {
-      "post": {
-        "summary": "Create a Google Drive folder",
-        "description": "Create a new folder in Google Drive",
-        "tags": [
-          "Google Drive"
-        ],
-        "parameters": [],
-        "requestBody": {
-          "description": "The name of the folder to be created",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/IGoogleDrive.ICreateFolderGoogleDriveInput"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "201": {
-            "description": "The unique ID of the created folder",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/IGoogleDrive.ICreateFolderGoogleDriveOutput"
-                }
-              }
-            }
-          }
-        },
-        "x-samchon-accessor": [
-          "connector",
-          "google_drive",
-          "folder",
-          "createFolder"
-        ],
-        "x-samchon-controller": "GoogleDriveController",
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleDrive_full.svg",
-        "x-wrtn-standalone": true,
-        "x-wrtn-function-select-benchmarks": [
-          "드라이브에 폴더 좀 생성해줘"
-        ]
-      }
-    },
-    "/connector/google-drive/file": {
-      "post": {
-        "summary": "Create a Google Drive file",
-        "description": "Create a new file in Google Drive",
-        "tags": [
-          "Google Drive"
-        ],
-        "parameters": [],
-        "requestBody": {
-          "description": "The name of the file to be created and the unique ID of the folder where the file will be created",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/IGoogleDrive.IUploadFileInput"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "201": {
-            "description": "The unique ID of the created file",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/IGoogleDrive.ICreateFileGoogleDriveOutput"
-                }
-              }
-            }
-          }
-        },
-        "x-samchon-accessor": [
-          "connector",
-          "google_drive",
-          "file",
-          "createFile"
-        ],
-        "x-samchon-controller": "GoogleDriveController",
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleDrive_full.svg",
-        "x-wrtn-function-select-benchmarks": [
-          "드라이브에 파일 좀 생성해줘"
-        ]
-      }
-    },
-    "/connector/google-drive/file/{id}": {
-      "delete": {
-        "summary": "Delete a Google Drive file",
-        "description": "Delete a file in Google Drive",
-        "tags": [
-          "Google Drive"
-        ],
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "schema": {
-              "type": "string",
-              "x-wrtn-prerequisite": {
-                "method": "post",
-                "path": "/connector/google-drive/get/files",
-                "jmesPath": "data[].{value: id || '', label: name || ''}"
-              }
-            },
-            "required": true,
-            "description": " The unique ID of the file to be deleted"
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/IGoogleDrive.ISecret"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "200": {
-            "description": "",
-            "content": {
-              "application/json": {}
-            }
-          }
-        },
-        "x-samchon-accessor": [
-          "connector",
-          "google_drive",
-          "file",
-          "deleteFile"
-        ],
-        "x-samchon-controller": "GoogleDriveController",
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleDrive_full.svg",
-        "x-wrtn-function-select-benchmarks": [
-          "드라이브에 파일 좀 삭제해줘"
-        ]
-      }
-    },
-    "/connector/google-drive/folder/{id}": {
-      "delete": {
-        "summary": "Delete a Google Drive folder",
-        "description": "Delete a folder in Google Drive",
-        "tags": [
-          "Google Drive"
-        ],
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "schema": {
-              "type": "string",
-              "x-wrtn-prerequisite": {
-                "method": "post",
-                "path": "/connector/google-drive/get/folders",
-                "jmesPath": "data[].{value: id || '', label: name || ''}"
-              }
-            },
-            "required": true,
-            "description": " The unique ID of the folder to be deleted"
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/IGoogleDrive.ISecret"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "200": {
-            "description": "",
-            "content": {
-              "application/json": {}
-            }
-          }
-        },
-        "x-samchon-accessor": [
-          "connector",
-          "google_drive",
-          "folder",
-          "deleteFolder"
-        ],
-        "x-samchon-controller": "GoogleDriveController",
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleDrive_full.svg",
-        "x-wrtn-function-select-benchmarks": [
-          "드라이브에 폴더 좀 삭제해줘"
-        ]
-      }
-    },
-    "/connector/google-drive/permission": {
-      "post": {
-        "summary": "Grant Google Drive permission",
-        "description": "Grants permission to access a file or folder",
-        "tags": [
-          "Google Drive"
-        ],
-        "parameters": [],
-        "requestBody": {
-          "description": "Information for granting permission",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/IGoogleDrive.IPermissionGoogleDriveInput"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "201": {
-            "description": "",
-            "content": {
-              "application/json": {}
-            }
-          }
-        },
-        "x-samchon-accessor": [
-          "connector",
-          "google_drive",
-          "permission"
-        ],
-        "x-samchon-controller": "GoogleDriveController",
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleDrive_full.svg",
-        "x-wrtn-function-select-benchmarks": [
-          "드라이브 폴더에 접근 권한 좀 설정해줘",
-          "드라이브 파일에 접근 권한 좀 설정해줘"
-        ]
-      }
-    },
-    "/connector/google-drive/get/file/{id}": {
-      "post": {
-        "summary": "Read text from a Google Drive file",
-        "description": "Read text from a file",
-        "tags": [
-          "Google Drive"
-        ],
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "schema": {
-              "type": "string",
-              "x-wrtn-prerequisite": {
-                "method": "post",
-                "path": "/connector/google-drive/get/files",
-                "jmesPath": "data[].{value: id || '', label: name || ''}"
-              }
-            },
-            "required": true,
-            "description": " Unique ID of the file"
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/IGoogleDrive.ISecret"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "201": {
-            "description": "The text content of the file",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/IGoogleDrive.IGetFileOutput"
-                }
-              }
-            }
-          }
-        },
-        "x-samchon-accessor": [
-          "connector",
-          "google_drive",
-          "get",
-          "file",
-          "readFile"
-        ],
-        "x-samchon-controller": "GoogleDriveController",
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleDrive_full.svg",
-        "x-wrtn-function-select-benchmarks": [
-          "드라이브 파일에 텍스트 좀 읽어줘"
-        ]
-      }
     }
   },
   "components": {
@@ -1373,29 +987,29 @@
             "items": {
               "oneOf": [
                 {
-                  "$ref": "#/components/schemas/IGoogleSlides.Template.Vertical"
-                },
-                {
-                  "$ref": "#/components/schemas/IGoogleSlides.Template.Square"
-                },
-                {
-                  "$ref": "#/components/schemas/IGoogleSlides.Template.Landscape"
+                  "$ref": "#/components/schemas/IGoogleSlides.Template.QuarterDivision"
                 },
                 {
                   "$ref": "#/components/schemas/IGoogleSlides.Template.Entire"
                 },
                 {
-                  "$ref": "#/components/schemas/IGoogleSlides.Template.QuarterDivision"
+                  "$ref": "#/components/schemas/IGoogleSlides.Template.Landscape"
+                },
+                {
+                  "$ref": "#/components/schemas/IGoogleSlides.Template.Square"
+                },
+                {
+                  "$ref": "#/components/schemas/IGoogleSlides.Template.Vertical"
                 }
               ],
               "discriminator": {
                 "propertyName": "type",
                 "mapping": {
-                  "Vertical": "#/components/schemas/IGoogleSlides.Template.Vertical",
-                  "Square": "#/components/schemas/IGoogleSlides.Template.Square",
-                  "Landscape": "#/components/schemas/IGoogleSlides.Template.Landscape",
+                  "QuarterDivision": "#/components/schemas/IGoogleSlides.Template.QuarterDivision",
                   "Entire": "#/components/schemas/IGoogleSlides.Template.Entire",
-                  "QuarterDivision": "#/components/schemas/IGoogleSlides.Template.QuarterDivision"
+                  "Landscape": "#/components/schemas/IGoogleSlides.Template.Landscape",
+                  "Square": "#/components/schemas/IGoogleSlides.Template.Square",
+                  "Vertical": "#/components/schemas/IGoogleSlides.Template.Vertical"
                 }
               }
             },
@@ -1417,138 +1031,6 @@
           "secretKey"
         ],
         "title": "Request DTO for pasting slides"
-      },
-      "IGoogleSlides.Template.Vertical": {
-        "type": "object",
-        "properties": {
-          "type": {
-            "const": "Vertical",
-            "title": "The type of the template\n\ntype must be \"Vertical\""
-          },
-          "contents": {
-            "type": "object",
-            "properties": {
-              "url": {
-                "type": "string",
-                "format": "iri",
-                "title": "URL of the image",
-                "description": "If there is a problem with the image, the message below may appear.\nYou must insert only existing images, and if the image is too small, you can spit out errors, so insert an image of the appropriate size or create it yourself to insert the image.\nThe first error below is when the image does not exist, and the second is when the size or format of the image is not valid. The image must be in jpg, jpeg, and png formats.\n\n1. The provided image was not found.\n2. There was a problem retrieving the image. The provided image should be publicly accessible, within size limit, and in supported formats."
-              },
-              "text": {
-                "$ref": "#/components/schemas/IGoogleSlides.InsertText",
-                "title": "Text corresponding to the image"
-              }
-            },
-            "required": [
-              "url",
-              "text"
-            ],
-            "title": "Contents of the slide"
-          }
-        },
-        "required": [
-          "type",
-          "contents"
-        ],
-        "title": "vertical"
-      },
-      "IGoogleSlides.Template.Square": {
-        "type": "object",
-        "properties": {
-          "type": {
-            "const": "Square",
-            "title": "The type of the template\n\ntype must be \"Square\"."
-          },
-          "contents": {
-            "type": "object",
-            "properties": {
-              "url": {
-                "type": "string",
-                "format": "iri",
-                "title": "URL of the image",
-                "description": "If there is a problem with the image, the message below may appear.\nYou must insert only existing images, and if the image is too small, you can spit out errors, so insert an image of the appropriate size or create it yourself to insert the image.\nThe first error below is when the image does not exist, and the second is when the size or format of the image is not valid. The image must be in jpg, jpeg, and png formats.\n\n1. The provided image was not found.\n2. There was a problem retrieving the image. The provided image should be publicly accessible, within size limit, and in supported formats."
-              },
-              "text": {
-                "$ref": "#/components/schemas/IGoogleSlides.InsertText",
-                "title": "Text corresponding to the image"
-              }
-            },
-            "required": [
-              "url",
-              "text"
-            ],
-            "title": "Contents of the slide"
-          }
-        },
-        "required": [
-          "type",
-          "contents"
-        ],
-        "title": "Square",
-        "description": "When creating a story or picture book, please use only squares."
-      },
-      "IGoogleSlides.Template.Landscape": {
-        "type": "object",
-        "properties": {
-          "type": {
-            "const": "Landscape",
-            "title": "The type of the template\n\ntype must be \"Landscape\"."
-          },
-          "contents": {
-            "type": "object",
-            "properties": {
-              "url": {
-                "type": "string",
-                "format": "iri",
-                "title": "URL of the image",
-                "description": "If there is a problem with the image, the message below may appear.\nYou must insert only existing images, and if the image is too small, you can spit out errors, so insert an image of the appropriate size or create it yourself to insert the image.\nThe first error below is when the image does not exist, and the second is when the size or format of the image is not valid. The image must be in jpg, jpeg, and png formats.\n\n1. The provided image was not found.\n2. There was a problem retrieving the image. The provided image should be publicly accessible, within size limit, and in supported formats."
-              },
-              "text": {
-                "$ref": "#/components/schemas/IGoogleSlides.InsertText",
-                "title": "Text corresponding to the image"
-              }
-            },
-            "required": [
-              "url",
-              "text"
-            ],
-            "title": "Contents of the slide"
-          }
-        },
-        "required": [
-          "type",
-          "contents"
-        ],
-        "title": "Horizontal"
-      },
-      "IGoogleSlides.Template.Entire": {
-        "type": "object",
-        "properties": {
-          "type": {
-            "const": "Entire",
-            "title": "The type of the template\n\ntype must be \"Entire\"."
-          },
-          "contents": {
-            "type": "object",
-            "properties": {
-              "url": {
-                "type": "string",
-                "format": "iri",
-                "title": "URL of the image",
-                "description": "If there is a problem with the image, the message below may appear.\nYou must insert only existing images, and if the image is too small, you can spit out errors, so insert an image of the appropriate size or create it yourself to insert the image.\nThe first error below is when the image does not exist, and the second is when the size or format of the image is not valid. The image must be in jpg, jpeg, and png formats.\n\n1. The provided image was not found.\n2. There was a problem retrieving the image. The provided image should be publicly accessible, within size limit, and in supported formats."
-              }
-            },
-            "required": [
-              "url"
-            ],
-            "title": "Contents of the slide"
-          }
-        },
-        "required": [
-          "type",
-          "contents"
-        ],
-        "title": "View all Horizontal (16:9)"
       },
       "IGoogleSlides.Template.QuarterDivision": {
         "type": "object",
@@ -1590,6 +1072,138 @@
         ],
         "title": "4-part square (cut cartoon type)"
       },
+      "IGoogleSlides.Template.Entire": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "const": "Entire",
+            "title": "The type of the template\n\ntype must be \"Entire\"."
+          },
+          "contents": {
+            "type": "object",
+            "properties": {
+              "url": {
+                "type": "string",
+                "format": "iri",
+                "title": "URL of the image",
+                "description": "If there is a problem with the image, the message below may appear.\nYou must insert only existing images, and if the image is too small, you can spit out errors, so insert an image of the appropriate size or create it yourself to insert the image.\nThe first error below is when the image does not exist, and the second is when the size or format of the image is not valid. The image must be in jpg, jpeg, and png formats.\n\n1. The provided image was not found.\n2. There was a problem retrieving the image. The provided image should be publicly accessible, within size limit, and in supported formats."
+              }
+            },
+            "required": [
+              "url"
+            ],
+            "title": "Contents of the slide"
+          }
+        },
+        "required": [
+          "type",
+          "contents"
+        ],
+        "title": "View all Horizontal (16:9)"
+      },
+      "IGoogleSlides.Template.Landscape": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "const": "Landscape",
+            "title": "The type of the template\n\ntype must be \"Landscape\"."
+          },
+          "contents": {
+            "type": "object",
+            "properties": {
+              "url": {
+                "type": "string",
+                "format": "iri",
+                "title": "URL of the image",
+                "description": "If there is a problem with the image, the message below may appear.\nYou must insert only existing images, and if the image is too small, you can spit out errors, so insert an image of the appropriate size or create it yourself to insert the image.\nThe first error below is when the image does not exist, and the second is when the size or format of the image is not valid. The image must be in jpg, jpeg, and png formats.\n\n1. The provided image was not found.\n2. There was a problem retrieving the image. The provided image should be publicly accessible, within size limit, and in supported formats."
+              },
+              "text": {
+                "$ref": "#/components/schemas/IGoogleSlides.InsertText",
+                "title": "Text corresponding to the image"
+              }
+            },
+            "required": [
+              "url",
+              "text"
+            ],
+            "title": "Contents of the slide"
+          }
+        },
+        "required": [
+          "type",
+          "contents"
+        ],
+        "title": "Horizontal"
+      },
+      "IGoogleSlides.Template.Square": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "const": "Square",
+            "title": "The type of the template\n\ntype must be \"Square\"."
+          },
+          "contents": {
+            "type": "object",
+            "properties": {
+              "url": {
+                "type": "string",
+                "format": "iri",
+                "title": "URL of the image",
+                "description": "If there is a problem with the image, the message below may appear.\nYou must insert only existing images, and if the image is too small, you can spit out errors, so insert an image of the appropriate size or create it yourself to insert the image.\nThe first error below is when the image does not exist, and the second is when the size or format of the image is not valid. The image must be in jpg, jpeg, and png formats.\n\n1. The provided image was not found.\n2. There was a problem retrieving the image. The provided image should be publicly accessible, within size limit, and in supported formats."
+              },
+              "text": {
+                "$ref": "#/components/schemas/IGoogleSlides.InsertText",
+                "title": "Text corresponding to the image"
+              }
+            },
+            "required": [
+              "url",
+              "text"
+            ],
+            "title": "Contents of the slide"
+          }
+        },
+        "required": [
+          "type",
+          "contents"
+        ],
+        "title": "Square",
+        "description": "When creating a story or picture book, please use only squares."
+      },
+      "IGoogleSlides.Template.Vertical": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "const": "Vertical",
+            "title": "The type of the template\n\ntype must be \"Vertical\""
+          },
+          "contents": {
+            "type": "object",
+            "properties": {
+              "url": {
+                "type": "string",
+                "format": "iri",
+                "title": "URL of the image",
+                "description": "If there is a problem with the image, the message below may appear.\nYou must insert only existing images, and if the image is too small, you can spit out errors, so insert an image of the appropriate size or create it yourself to insert the image.\nThe first error below is when the image does not exist, and the second is when the size or format of the image is not valid. The image must be in jpg, jpeg, and png formats.\n\n1. The provided image was not found.\n2. There was a problem retrieving the image. The provided image should be publicly accessible, within size limit, and in supported formats."
+              },
+              "text": {
+                "$ref": "#/components/schemas/IGoogleSlides.InsertText",
+                "title": "Text corresponding to the image"
+              }
+            },
+            "required": [
+              "url",
+              "text"
+            ],
+            "title": "Contents of the slide"
+          }
+        },
+        "required": [
+          "type",
+          "contents"
+        ],
+        "title": "vertical"
+      },
       "IGoogleSlides.ICreatePresentationInput": {
         "type": "object",
         "properties": {
@@ -1618,711 +1232,12 @@
           "secretKey"
         ],
         "title": "Request DTO for generating a presentation in Google Slides"
-      },
-      "IGoogleDrive.IFolderListGoogleDriveOutput": {
-        "type": "object",
-        "properties": {
-          "data": {
-            "type": "array",
-            "items": {
-              "type": "object",
-              "properties": {
-                "id": {
-                  "oneOf": [
-                    {
-                      "type": "null"
-                    },
-                    {
-                      "type": "string"
-                    }
-                  ],
-                  "title": "Google drive folder id",
-                  "description": "Google drive folder id."
-                },
-                "name": {
-                  "oneOf": [
-                    {
-                      "type": "null"
-                    },
-                    {
-                      "type": "string"
-                    }
-                  ],
-                  "title": "Google drive folder name",
-                  "description": "Google drive folder name."
-                }
-              },
-              "required": []
-            },
-            "title": "Google Drive Folder Data",
-            "description": "List of folder data in Google Drive."
-          }
-        },
-        "required": [
-          "data"
-        ],
-        "title": "Folder list information in Google Drive"
-      },
-      "IGoogleDrive.ISecret": {
-        "type": "object",
-        "properties": {
-          "secretKey": {
-            "type": "string",
-            "x-wrtn-secret-key": "google",
-            "x-wrtn-secret-scopes": [
-              "https://www.googleapis.com/auth/drive.file"
-            ],
-            "title": "Select authentication information",
-            "description": "secret key."
-          }
-        },
-        "required": [
-          "secretKey"
-        ],
-        "title": "Authentication Information"
-      },
-      "IGoogleDrive.IFileListGoogleDriveOutput": {
-        "type": "object",
-        "properties": {
-          "data": {
-            "type": "array",
-            "items": {
-              "type": "object",
-              "properties": {
-                "id": {
-                  "oneOf": [
-                    {
-                      "type": "null"
-                    },
-                    {
-                      "type": "string"
-                    }
-                  ],
-                  "title": "Google drive file id",
-                  "description": "Google drive file id."
-                },
-                "name": {
-                  "oneOf": [
-                    {
-                      "type": "null"
-                    },
-                    {
-                      "type": "string"
-                    }
-                  ],
-                  "title": "Google drive file name",
-                  "description": "The name of the Google drive file."
-                },
-                "webContentLink": {
-                  "oneOf": [
-                    {
-                      "type": "null"
-                    },
-                    {
-                      "type": "string",
-                      "format": "iri"
-                    }
-                  ],
-                  "title": "webContentLink"
-                }
-              },
-              "required": []
-            },
-            "title": "Google Drive File Data",
-            "description": "List of file data in Google Drive."
-          }
-        },
-        "required": [
-          "data"
-        ],
-        "title": "File list information in Google Drive"
-      },
-      "IGoogleDrive.IFileListGoogleDriveInput": {
-        "type": "object",
-        "properties": {
-          "folderId": {
-            "type": "string",
-            "x-wrtn-prerequisite": {
-              "method": "post",
-              "path": "/connector/google-drive/get/folders",
-              "jmesPath": "data[].{value:id, label:name}"
-            },
-            "title": "Google Drive Folder",
-            "description": "Folder to load files from"
-          },
-          "secretKey": {
-            "type": "string",
-            "x-wrtn-secret-key": "google",
-            "x-wrtn-secret-scopes": [
-              "https://www.googleapis.com/auth/drive.file"
-            ],
-            "title": "Select authentication information",
-            "description": "secret key."
-          }
-        },
-        "required": [
-          "secretKey"
-        ],
-        "title": "Information for loading a list of files in Google Drive"
-      },
-      "IGoogleDrive.ICreateFolderGoogleDriveOutput": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string",
-            "title": "Generated drive id",
-            "description": "Generated drive folder id."
-          }
-        },
-        "required": [
-          "id"
-        ],
-        "title": "Google Drive Folder Creation Results"
-      },
-      "IGoogleDrive.ICreateFolderGoogleDriveInput": {
-        "type": "object",
-        "properties": {
-          "name": {
-            "type": "string",
-            "title": "Google drive folder name",
-            "description": "Drive folder name to be created."
-          },
-          "secretKey": {
-            "type": "string",
-            "x-wrtn-secret-key": "google",
-            "x-wrtn-secret-scopes": [
-              "https://www.googleapis.com/auth/drive.file"
-            ],
-            "title": "Select authentication information",
-            "description": "secret key."
-          }
-        },
-        "required": [
-          "name",
-          "secretKey"
-        ],
-        "title": "Information required to create a Google Drive folder"
-      },
-      "IGoogleDrive.ICreateFileGoogleDriveOutput": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string",
-            "title": "Generated drive file id",
-            "description": "Generated drive file id."
-          }
-        },
-        "required": [
-          "id"
-        ],
-        "title": "Result of creating a file in Google Drive"
-      },
-      "IGoogleDrive.IUploadFileInput": {
-        "type": "object",
-        "properties": {
-          "name": {
-            "type": "string",
-            "title": "Google drive file name",
-            "description": "File name to be created in drive."
-          },
-          "folderIds": {
-            "type": "array",
-            "items": {
-              "type": "string",
-              "x-wrtn-prerequisite": {
-                "method": "post",
-                "path": "/connector/google-drive/get/folders",
-                "jmesPath": "data[].{value:id, label:name}"
-              }
-            },
-            "minItems": 1,
-            "title": "Google drive folder ids",
-            "description": "A list of folder ids that will contain the files to be created in the drive."
-          },
-          "fileUrl": {
-            "type": "string",
-            "format": "iri",
-            "title": "fileToUpload"
-          },
-          "secretKey": {
-            "type": "string",
-            "x-wrtn-secret-key": "google",
-            "x-wrtn-secret-scopes": [
-              "https://www.googleapis.com/auth/drive.file"
-            ],
-            "title": "Select authentication information",
-            "description": "secret key."
-          }
-        },
-        "required": [
-          "name",
-          "folderIds",
-          "fileUrl",
-          "secretKey"
-        ],
-        "title": "Information required to create a file in Google Drive"
-      },
-      "IGoogleDrive.IPermissionGoogleDriveInput": {
-        "type": "object",
-        "properties": {
-          "fileId": {
-            "type": "string",
-            "x-wrtn-prerequisite": {
-              "method": "post",
-              "path": "/connector/google-drive/get/files",
-              "jmesPath": "data[].{value:id, label:name}"
-            },
-            "title": "Google drive file id",
-            "description": "The drive file id to grant access to."
-          },
-          "folderId": {
-            "type": "string",
-            "x-wrtn-prerequisite": {
-              "method": "post",
-              "path": "/connector/google-drive/get/folders",
-              "jmesPath": "data[].{value:id, label:name}"
-            },
-            "title": "Google drive folder id",
-            "description": "Drive folder id to grant access to."
-          },
-          "permissions": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/IGoogleDrive.IPermission"
-            },
-            "title": "Here is a list of emails to make accessible and permissions to grant",
-            "description": "Here is a list of emails to make accessible and permissions to grant."
-          },
-          "secretKey": {
-            "type": "string",
-            "x-wrtn-secret-key": "google",
-            "x-wrtn-secret-scopes": [
-              "https://www.googleapis.com/auth/drive.file"
-            ],
-            "title": "Select authentication information",
-            "description": "secret key."
-          }
-        },
-        "required": [
-          "permissions",
-          "secretKey"
-        ],
-        "title": "Information required for Google Drive access permission"
-      },
-      "IGoogleDrive.IPermission": {
-        "type": "object",
-        "properties": {
-          "email": {
-            "type": "string",
-            "format": "email",
-            "title": "The email address of the user to whom you wish to grant access",
-            "description": "The email address of the user to whom you wish to grant access to Google Drive.\nRequired only when the type is a user type."
-          },
-          "role": {
-            "oneOf": [
-              {
-                "const": "owner"
-              },
-              {
-                "const": "writer"
-              },
-              {
-                "const": "commenter"
-              },
-              {
-                "const": "reader"
-              },
-              {
-                "const": "organizer"
-              },
-              {
-                "const": "fileOrganizer"
-              }
-            ],
-            "title": "The permission to grant",
-            "description": "The type of permission to grant.\n\nowner: Grants owner permissions. Users with this permission can delete files or folders or grant permissions to other users.\norganizer: Grants operator permissions for the drive. Users with this permission can manage the organization of the drive.\nfileOrganizer: Grants operator permissions for files on the drive. Users with this permission can add or delete files.\nwriter: Grants write permissions. Users with this permission can modify or delete files.\ncommenter: Grants comment permissions. Users with this permission can read and comment on files.\nreader: Grants read permissions. Users with this permission can read files.\n\nThere are only six possible values: \"owner\", \"organizer\", \"fileOrganizer\", \"writer\", \"commenter\", \"reader\"."
-          },
-          "type": {
-            "oneOf": [
-              {
-                "const": "user"
-              },
-              {
-                "const": "group"
-              },
-              {
-                "const": "domain"
-              },
-              {
-                "const": "anyone"
-              }
-            ],
-            "title": "The type of permission to grant",
-            "description": "The type of permission to grant.\n\nuser - a specific user, in this case you must specify the email address of the user to grant the permission to in the emailAddress field.\ngroup - a specific group, in this case you must specify the email address of the group to grant the permission to in the emailAddress field.\ndomain - a specific domain, in this case you must specify the domain to grant the permission to in the domain field.\nanyone - all users\n\nThere are only four possible values: \"user\", \"group\", \"domain\", \"anyone\"."
-          }
-        },
-        "required": [
-          "role",
-          "type"
-        ],
-        "title": "Access Rights Information"
-      },
-      "IGoogleDrive.IGetFileOutput": {
-        "type": "object",
-        "properties": {
-          "userPermission": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string",
-                "title": "id"
-              },
-              "type": {
-                "oneOf": [
-                  {
-                    "const": "user"
-                  },
-                  {
-                    "const": "group"
-                  },
-                  {
-                    "const": "domain"
-                  },
-                  {
-                    "const": "anyone"
-                  }
-                ],
-                "title": "type"
-              },
-              "role": {
-                "oneOf": [
-                  {
-                    "const": "owner"
-                  },
-                  {
-                    "const": "writer"
-                  },
-                  {
-                    "const": "commenter"
-                  },
-                  {
-                    "const": "reader"
-                  },
-                  {
-                    "const": "organizer"
-                  },
-                  {
-                    "const": "fileOrganizer"
-                  }
-                ],
-                "title": "role"
-              },
-              "pendingOwner": {
-                "type": "boolean",
-                "title": "pendingOwner"
-              }
-            },
-            "required": [
-              "id",
-              "type",
-              "role",
-              "pendingOwner"
-            ],
-            "title": "userPermission"
-          },
-          "fileExtension": {
-            "type": "string",
-            "title": "fileExtension"
-          },
-          "ownerNames": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            },
-            "title": "ownerNames"
-          },
-          "lastModifyingUserName": {
-            "type": "string",
-            "title": "lastModifyingUserName"
-          },
-          "editable": {
-            "type": "boolean",
-            "title": "editable"
-          },
-          "writersCanShare": {
-            "type": "boolean",
-            "title": "writersCanShare"
-          },
-          "mimeType": {
-            "type": "string",
-            "title": "mimeType"
-          },
-          "parents": {
-            "type": "array",
-            "items": {
-              "type": "object",
-              "properties": {
-                "id": {
-                  "type": "string",
-                  "title": "id: string;"
-                },
-                "isRoot": {
-                  "type": "boolean",
-                  "title": "isRoot"
-                }
-              },
-              "required": [
-                "id",
-                "isRoot"
-              ]
-            },
-            "title": "parents"
-          },
-          "thumbnailLink": {
-            "type": "string",
-            "format": "iri",
-            "title": "thumbnailLink"
-          },
-          "appDataContents": {
-            "type": "boolean",
-            "title": "appDataContents"
-          },
-          "shared": {
-            "type": "boolean",
-            "title": "shared"
-          },
-          "lastModifyingUser": {
-            "$ref": "#/components/schemas/IGoogleDrive.User",
-            "title": "lastModifyingUser"
-          },
-          "owners": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/IGoogleDrive.User"
-            },
-            "title": "owners"
-          },
-          "copyable": {
-            "type": "boolean",
-            "title": "copyable"
-          },
-          "alternateLink": {
-            "type": "string",
-            "format": "iri",
-            "title": "alternateLink\nA link to view the file in Google Drive's preview mode."
-          },
-          "embedLink": {
-            "type": "string",
-            "format": "iri",
-            "title": "embedLink\nA link to embed the file in a webpage via an iframe."
-          },
-          "webContentLink": {
-            "oneOf": [
-              {
-                "type": "null"
-              },
-              {
-                "type": "string",
-                "format": "iri"
-              }
-            ],
-            "title": "webContentLink\nA link to directly access or download the file content."
-          },
-          "fileSize": {
-            "type": "string",
-            "title": "fileSize"
-          },
-          "copyRequiresWriterPermission": {
-            "type": "boolean",
-            "title": "copyRequiresWriterPermission"
-          },
-          "spaces": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            },
-            "title": "spaces"
-          },
-          "id": {
-            "type": "string",
-            "title": "id"
-          },
-          "title": {
-            "type": "string",
-            "title": "title(filename)"
-          },
-          "labels": {
-            "type": "object",
-            "properties": {
-              "viewed": {
-                "type": "boolean",
-                "title": "viewed"
-              },
-              "restricted": {
-                "type": "boolean",
-                "title": "restricted"
-              },
-              "starred": {
-                "type": "boolean",
-                "title": "starred"
-              },
-              "hidden": {
-                "type": "boolean",
-                "title": "hidden"
-              },
-              "trashed": {
-                "type": "boolean",
-                "title": "trashed"
-              }
-            },
-            "required": [
-              "viewed",
-              "restricted",
-              "starred",
-              "hidden",
-              "trashed"
-            ],
-            "title": "labels"
-          },
-          "explicitlyTrashed": {
-            "type": "boolean",
-            "title": "explicitlyTrashed"
-          },
-          "createdDate": {
-            "type": "string",
-            "format": "date-time",
-            "title": "createdDate"
-          },
-          "modifiedDate": {
-            "type": "string",
-            "format": "date-time",
-            "title": "modifiedDate"
-          },
-          "modifiedByMeDate": {
-            "type": "string",
-            "format": "date-time",
-            "title": "modifiedByMeDate"
-          },
-          "lastViewedByMeDate": {
-            "type": "string",
-            "format": "date-time",
-            "title": "lastViewedByMeDate"
-          },
-          "markedViewedByMeDate": {
-            "type": "string",
-            "format": "date-time",
-            "title": "markedViewedByMeDate"
-          },
-          "quotaBytesUsed": {
-            "type": "string",
-            "title": "quotaBytesUsed"
-          },
-          "version": {
-            "type": "string",
-            "title": "version"
-          },
-          "originalFilename": {
-            "type": "string",
-            "title": "originalFilename"
-          },
-          "capabilities": {
-            "type": "object",
-            "properties": {
-              "canEdit": {
-                "type": "boolean",
-                "title": "canEdit"
-              },
-              "canCopy": {
-                "type": "boolean",
-                "title": "canCopy"
-              }
-            },
-            "required": [
-              "canEdit",
-              "canCopy"
-            ],
-            "title": "capabilities"
-          }
-        },
-        "required": [
-          "userPermission",
-          "ownerNames",
-          "lastModifyingUserName",
-          "editable",
-          "writersCanShare",
-          "mimeType",
-          "parents",
-          "appDataContents",
-          "shared",
-          "lastModifyingUser",
-          "owners",
-          "copyable",
-          "alternateLink",
-          "embedLink",
-          "copyRequiresWriterPermission",
-          "spaces",
-          "id",
-          "title",
-          "labels",
-          "explicitlyTrashed",
-          "createdDate",
-          "modifiedDate",
-          "quotaBytesUsed",
-          "version",
-          "capabilities"
-        ]
-      },
-      "IGoogleDrive.User": {
-        "type": "object",
-        "properties": {
-          "displayName": {
-            "type": "string",
-            "title": "displayName"
-          },
-          "isAuthenticatedUser": {
-            "type": "boolean",
-            "title": "isAuthenticatedUser"
-          },
-          "permissionId": {
-            "type": "string",
-            "title": "permissionId"
-          },
-          "emailAddress": {
-            "type": "string",
-            "format": "email",
-            "title": "emailAddress"
-          },
-          "picture": {
-            "type": "object",
-            "properties": {
-              "url": {
-                "type": "string",
-                "format": "iri",
-                "title": "url"
-              }
-            },
-            "required": [
-              "url"
-            ],
-            "title": "picture"
-          }
-        },
-        "required": [
-          "displayName",
-          "isAuthenticatedUser",
-          "permissionId",
-          "emailAddress",
-          "picture"
-        ]
       }
     }
   },
   "tags": [
     {
       "name": "Google Slide"
-    },
-    {
-      "name": "Google Drive"
     }
   ],
   "x-samchon-emended": true
