@@ -14,6 +14,7 @@ export namespace ISlack {
       "channels:history",
       "users.profile:read",
       "im:read",
+      "im:history",
       "groups:history",
       "groups:read",
       "chat:write",
