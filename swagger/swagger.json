@@ -15,7 +15,7 @@
     }
   ],
   "info": {
-    "version": "0.1.427",
+    "version": "0.1.428",
     "title": "@wrtn/connector",
     "description": "wrtn-ecosystem connectors and sdk",
     "license": {
@@ -23,7 +23,7 @@
     }
   },
   "paths": {
-    "/connector/articles/{id}/sync/dev-to": {
+    "/connector/swal/articles/{id}/sync/dev-to": {
       "post": {
         "summary": "Syncronize article version",
         "description": "upgrade or downgrade version of exported dev.to\n\nSynchronize on a snapshot basis,\nsuch as upgrading or downgrading the version of a document exported to DevTo.\nIf user specify the id of the snapshot in the names from and to among the internal properties,\nfind the exported text from `from` and start synchronizing to the version of `to`.\nIf user want to revert to the past version of the snapshot,\nuser can put the current version in 'from' and the past version in 'to'.",
@@ -37,7 +37,7 @@
               "format": "uuid",
               "x-wrtn-prerequisite": {
                 "method": "patch",
-                "path": "/connector/articles",
+                "path": "/connector/swal/articles",
                 "jmesPath": "data[].{ value: id, label: snapshot.title }"
               }
             },
@@ -75,18 +75,19 @@
         ],
         "x-samchon-accessor": [
           "connector",
+          "swal",
           "articles",
           "sync",
           "dev_to",
           "syncToDevTo"
         ],
-        "x-samchon-controller": "ArticlesController",
+        "x-samchon-controller": "ArticleController",
         "x-wrtn-function-select-benchmarks": [
           "dev.to에 동기화해줘"
         ]
       }
     },
-    "/connector/articles/{id}/sync/google-docs": {
+    "/connector/swal/articles/{id}/sync/google-docs": {
       "post": {
         "summary": "Syncronize article version",
         "description": "upgrade or downgrade version of exported google docs file\n\nSynchronize on a snapshot basis,\nsuch as upgrading or downgrading the version of a document exported to GoogleDocs.\nIf user specify the id of the snapshot in the names from and to among the internal properties,\nfind the exported text from `from` and start synchronizing to the version of `to`.\nIf user want to revert to the past version of the snapshot,\nuser can put the current version in 'from' and the past version in 'to'.",
@@ -100,7 +101,7 @@
               "format": "uuid",
               "x-wrtn-prerequisite": {
                 "method": "patch",
-                "path": "/connector/articles",
+                "path": "/connector/swal/articles",
                 "jmesPath": "data[].{ value: id, label: snapshot.title }"
               }
             },
@@ -138,18 +139,19 @@
         ],
         "x-samchon-accessor": [
           "connector",
+          "swal",
           "articles",
           "sync",
           "google_docs",
           "syncToGoogleDocs"
         ],
-        "x-samchon-controller": "ArticlesController",
+        "x-samchon-controller": "ArticleController",
         "x-wrtn-function-select-benchmarks": [
           "google docs에 동기화해줘"
         ]
       }
     },
-    "/connector/articles/{id}/sync/notion": {
+    "/connector/swal/articles/{id}/sync/notion": {
       "post": {
         "summary": "Syncronize article version",
         "description": "upgrade or downgrade version of exported notion page\n\nSynchronize on a snapshot basis,\nsuch as upgrading or downgrading the version of a document exported to Notion.\nIf user specify the id of the snapshot in the names from and to among the internal properties,\nfind the exported text from `from` and start synchronizing to the version of `to`.\nIf user want to revert to the past version of the snapshot,\nuser can put the current version in 'from' and the past version in 'to'.",
@@ -163,7 +165,7 @@
               "format": "uuid",
               "x-wrtn-prerequisite": {
                 "method": "patch",
-                "path": "/connector/articles",
+                "path": "/connector/swal/articles",
                 "jmesPath": "data[].{ value: id, label: snapshot.title }"
               }
             },
@@ -201,21 +203,22 @@
         ],
         "x-samchon-accessor": [
           "connector",
+          "swal",
           "articles",
           "sync",
           "notion",
           "syncToNotion"
         ],
-        "x-samchon-controller": "ArticlesController",
+        "x-samchon-controller": "ArticleController",
         "x-wrtn-function-select-benchmarks": [
           "노션에 동기화해줘"
         ]
       }
     },
-    "/connector/articles/{id}/exports/dev-to": {
+    "/connector/swal/articles/{id}/exports/dev-to": {
       "post": {
         "summary": "Exports specified article to dev_to",
-        "description": "Export the text to Dev.to\n\nThe exported text is recorded by creating a\n{@link IArticleExport bbs_article_exports} object based on the snapshot.\nYou can upgrade and downgrade the version using\nthe 'POST /connector/articles/:id/exports/sync/dev_to' connector in the future.\nAlso, it doesn't matter if you export the same version of the text multiple times.\n\nBecause each export generates a new text,\nyou must use the `sync` connector if you want to change the version of an already exported text.",
+        "description": "Export the text to Dev.to\n\nThe exported text is recorded by creating a\n{@link IArticleExport bbs_article_exports} object based on the snapshot.\nYou can upgrade and downgrade the version using\nthe 'POST /connector/swal/articles/:id/exports/sync/dev_to' connector in the future.\nAlso, it doesn't matter if you export the same version of the text multiple times.\n\nBecause each export generates a new text,\nyou must use the `sync` connector if you want to change the version of an already exported text.",
         "tags": [],
         "parameters": [
           {
@@ -226,7 +229,7 @@
               "format": "uuid",
               "x-wrtn-prerequisite": {
                 "method": "patch",
-                "path": "/connector/articles",
+                "path": "/connector/swal/articles",
                 "jmesPath": "data[].{ value: id, label: snapshot.title }"
               }
             },
@@ -264,21 +267,22 @@
         ],
         "x-samchon-accessor": [
           "connector",
+          "swal",
           "articles",
           "exports",
           "dev_to",
           "exportsToDevTo"
         ],
-        "x-samchon-controller": "ArticlesController",
+        "x-samchon-controller": "ArticleController",
         "x-wrtn-function-select-benchmarks": [
           "dev.to로 내보내줘"
         ]
       }
     },
-    "/connector/articles/{id}/exports/google-docs": {
+    "/connector/swal/articles/{id}/exports/google-docs": {
       "post": {
         "summary": "Exports specified article to google_docs",
-        "description": "Export the text to GoogleDocs\n\nThe exported text is recorded by creating a\n{@link IArticleExport bbs_article_exports} object based on the snapshot.\nYou can upgrade and downgrade the version using\nthe 'POST /connector/articles/:id/exports/sync/google_docs' connector in the future.\nAlso, it doesn't matter if you export the same version of the text multiple times.\n\nBecause each export generates a new text,\nyou must use the `sync` connector if you want to change the version of an already exported text.",
+        "description": "Export the text to GoogleDocs\n\nThe exported text is recorded by creating a\n{@link IArticleExport bbs_article_exports} object based on the snapshot.\nYou can upgrade and downgrade the version using\nthe 'POST /connector/swal/articles/:id/exports/sync/google_docs' connector in the future.\nAlso, it doesn't matter if you export the same version of the text multiple times.\n\nBecause each export generates a new text,\nyou must use the `sync` connector if you want to change the version of an already exported text.",
         "tags": [],
         "parameters": [
           {
@@ -289,7 +293,7 @@
               "format": "uuid",
               "x-wrtn-prerequisite": {
                 "method": "patch",
-                "path": "/connector/articles",
+                "path": "/connector/swal/articles",
                 "jmesPath": "data[].{ value: id, label: snapshot.title }"
               }
             },
@@ -327,21 +331,22 @@
         ],
         "x-samchon-accessor": [
           "connector",
+          "swal",
           "articles",
           "exports",
           "google_docs",
           "exportsToGoogleDocs"
         ],
-        "x-samchon-controller": "ArticlesController",
+        "x-samchon-controller": "ArticleController",
         "x-wrtn-function-select-benchmarks": [
           "google docs로 내보내줘"
         ]
       }
     },
-    "/connector/articles/{id}/exports/notion": {
+    "/connector/swal/articles/{id}/exports/notion": {
       "post": {
         "summary": "Exports specified article to notion",
-        "description": "Export the text to Notion\n\nThe exported text is recorded by creating a\n{@link IArticleExport bbs_article_exports} object based on the snapshot.\nYou can upgrade and downgrade the version using\nthe 'POST /connector/articles/:id/exports/sync/notion' connector in the future.\nAlso, it doesn't matter if you export the same version of the text multiple times.\n\nBecause each export generates a new text,\nyou must use the `sync` connector if you want to change the version of an already exported text.",
+        "description": "Export the text to Notion\n\nThe exported text is recorded by creating a\n{@link IArticleExport bbs_article_exports} object based on the snapshot.\nYou can upgrade and downgrade the version using\nthe 'POST /connector/swal/articles/:id/exports/sync/notion' connector in the future.\nAlso, it doesn't matter if you export the same version of the text multiple times.\n\nBecause each export generates a new text,\nyou must use the `sync` connector if you want to change the version of an already exported text.",
         "tags": [],
         "parameters": [
           {
@@ -352,7 +357,7 @@
               "format": "uuid",
               "x-wrtn-prerequisite": {
                 "method": "patch",
-                "path": "/connector/articles",
+                "path": "/connector/swal/articles",
                 "jmesPath": "data[].{ value: id, label: snapshot.title }"
               }
             },
@@ -390,18 +395,19 @@
         ],
         "x-samchon-accessor": [
           "connector",
+          "swal",
           "articles",
           "exports",
           "notion",
           "exportsToNotion"
         ],
-        "x-samchon-controller": "ArticlesController",
+        "x-samchon-controller": "ArticleController",
         "x-wrtn-function-select-benchmarks": [
           "notion으로 내보내줘"
         ]
       }
     },
-    "/connector/articles/{id}": {
+    "/connector/swal/articles/{id}": {
       "patch": {
         "description": "Read an entire contents of article with its every snapshots\n\nAll text content that is not omitted is shown here, so you can also see how the text has been modified at once.\nThis connector reads an article with its every snapshots {@link IArticle.ISnapshot snapshots}\nThis detail contains the entire content created for each version of the document,\nas well as the connection information to the external services from which it was exported.",
         "tags": [],
@@ -414,7 +420,7 @@
               "format": "uuid",
               "x-wrtn-prerequisite": {
                 "method": "patch",
-                "path": "/connector/articles",
+                "path": "/connector/swal/articles",
                 "jmesPath": "data[].{ value: id, label: snapshot.title }"
               }
             },
@@ -441,10 +447,11 @@
         ],
         "x-samchon-accessor": [
           "connector",
+          "swal",
           "articles",
           "at"
         ],
-        "x-samchon-controller": "ArticlesController",
+        "x-samchon-controller": "ArticleController",
         "x-wrtn-function-select-benchmarks": [
           "전체 내용 글 내용 다 보여줘",
           "글 내용 보여줘"
@@ -463,7 +470,7 @@
               "format": "uuid",
               "x-wrtn-prerequisite": {
                 "method": "patch",
-                "path": "/connector/articles",
+                "path": "/connector/swal/articles",
                 "jmesPath": "data[].{ value: id, label: snapshot.title }"
               }
             },
@@ -486,10 +493,11 @@
         ],
         "x-samchon-accessor": [
           "connector",
+          "swal",
           "articles",
           "remove"
         ],
-        "x-samchon-controller": "ArticlesController",
+        "x-samchon-controller": "ArticleController",
         "x-wrtn-function-select-benchmarks": [
           "내 글 삭제해줘"
         ]
@@ -507,7 +515,7 @@
               "format": "uuid",
               "x-wrtn-prerequisite": {
                 "method": "patch",
-                "path": "/connector/articles",
+                "path": "/connector/swal/articles",
                 "jmesPath": "data[].{ value: id, label: snapshot.title }"
               }
             },
@@ -544,19 +552,20 @@
         ],
         "x-samchon-accessor": [
           "connector",
+          "swal",
           "articles",
           "update"
         ],
-        "x-samchon-controller": "ArticlesController",
+        "x-samchon-controller": "ArticleController",
         "x-wrtn-function-select-benchmarks": [
           "내 글 수정해줘"
         ]
       }
     },
-    "/connector/articles": {
+    "/connector/swal/articles": {
       "patch": {
         "summary": "List up all summarized articles",
-        "description": "List up all summarized articles with pagination and searching options\n\nBecause it is a call to a text stored in the connector server's own DB,\nit may be appropriate to call this connector if the user asks to call the text without saying the service name.\nIt is recommended that you first ask the user for the service name.\nIf you are asked to look up the text under the names of `Swal`, `Wrtn Technologies`, `Wrtn`, `user own DB`, `user DB`, etc., you should call this connector.\n\nA list of pageed articles will appear.\nThe article contains abbreviated body content, so you can infer what you have from the title and body.\n\nIf you want to see the full text instead of the omitted text,\nor if you want to see the history of this article being exported to Notion or other services,\nplease look up the details.\nHere, we only show the content of the text up to 100 characters, so if you want to see the latter, you need to look up the details.\nYou can view all the snapshots of this article if you want to look at them in detail.\nThe detailed lookup connector is 'PATCH connector/articles/:id'.",
+        "description": "List up all summarized articles with pagination and searching options\n\nBecause it is looking at the user's individual writing, user cannot inquire other than your own writing.\nBecause it is a call to a text stored in the connector server's own DB,\nit may be appropriate to call this connector if the user asks to call the text without saying the service name.\nIt is recommended that you first ask the user for the service name.\nIf you are asked to look up the text under the names of `Swal`, `Wrtn Technologies`, `Wrtn`, `user own DB`, `user DB`, etc., you should call this connector.\n\nA list of pageed articles will appear.\nThe article contains abbreviated body content, so you can infer what you have from the title and body.\n\nIf you want to see the full text instead of the omitted text,\nor if you want to see the history of this article being exported to Notion or other services,\nplease look up the details.\nHere, we only show the content of the text up to 100 characters, so if you want to see the latter, you need to look up the details.\nYou can view all the snapshots of this article if you want to look at them in detail.\nThe detailed lookup connector is 'PATCH connector/swal/articles/:id'.",
         "tags": [],
         "parameters": [],
         "requestBody": {
@@ -589,10 +598,11 @@
         ],
         "x-samchon-accessor": [
           "connector",
+          "swal",
           "articles",
           "index"
         ],
-        "x-samchon-controller": "ArticlesController",
+        "x-samchon-controller": "ArticleController",
         "x-wrtn-function-select-benchmarks": [
           "내 글 조회해줘"
         ]
@@ -602,6 +612,7 @@
         "tags": [],
         "parameters": [],
         "requestBody": {
+          "description": "Article Information to Create",
           "content": {
             "application/json": {
               "schema": {
@@ -630,13 +641,324 @@
         ],
         "x-samchon-accessor": [
           "connector",
+          "swal",
           "articles",
           "write"
         ],
-        "x-samchon-controller": "ArticlesController",
+        "x-samchon-controller": "ArticleController",
         "x-wrtn-function-select-benchmarks": [
           "내 개인 DB에 글 좀 써줘"
         ]
+      }
+    },
+    "/connector/swal/spreadsheets/{id}/exports/google-sheets": {
+      "post": {
+        "summary": "Exports specified spreadsheet to GoogleSheets",
+        "description": "Export the spreadsheet to GoogleSheets\n\nThe exported spreadsheet is recorded by creating a\n{@link ISpreadsheetExport bbs_spreadsheet_exports} object based on the snapshot.\nYou can upgrade and downgrade the version using\nthe 'POST /connector/swal/spreadsheets/:id/exports/sync/google-sheets' connector in the future.\nAlso, it doesn't matter if you export the same version of the spreadsheet multiple times.\n\nBecause each export generates a new file,\nyou must use the `sync` connector if you want to change the version of an already exported file.",
+        "tags": [],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "x-wrtn-prerequisite": {
+                "method": "patch",
+                "path": "/connector/swal/spreadsheets",
+                "jmesPath": "data[].{ value: id, label: snapshot.title }"
+              }
+            },
+            "required": true,
+            "description": " Target spreadsheet's {@link ISpreadsheet.id }, Not snapshot ID"
+          }
+        ],
+        "requestBody": {
+          "description": "GoogleSheets export configuration and snapshot information to export",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ISpreadsheet.IExport.ToGoogleSheetsToInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Spreadsheet Information and GoogleSheets export details",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ISpreadsheet.IExport.ToGoogleSheetsToOutput"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "x-samchon-accessor": [
+          "connector",
+          "swal",
+          "spreadsheets",
+          "exports",
+          "google_sheets",
+          "exportsToGoogleSheets"
+        ],
+        "x-samchon-controller": "SpreadsheetController",
+        "x-samchon-human": true
+      }
+    },
+    "/connector/swal/spreadsheets/{id}/exports/excel": {
+      "post": {
+        "summary": "Exports specified spreadsheet to Excel",
+        "description": "Export the spreadsheet to Excel\n\nThe exported spreadsheet is recorded by creating a\n{@link ISpreadsheetExport bbs_spreadsheet_exports} object based on the snapshot.\nYou can upgrade and downgrade the version using\nthe 'POST /connector/swal/spreadsheets/:id/exports/sync/excel' connector in the future.\nAlso, it doesn't matter if you export the same version of the spreadsheet multiple times.\n\nBecause each export generates a new file,\nyou must use the `sync` connector if you want to change the version of an already exported file.",
+        "tags": [],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "schema": {
+              "type": "string",
+              "format": "uuid",
+              "x-wrtn-prerequisite": {
+                "method": "patch",
+                "path": "/connector/swal/spreadsheets",
+                "jmesPath": "data[].{ value: id, label: snapshot.title }"
+              }
+            },
+            "required": true,
+            "description": " Target spreadsheet's {@link ISpreadsheet.id }, Not snapshot ID"
+          }
+        ],
+        "requestBody": {
+          "description": "Excel export configuration and snapshot information to export",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ISpreadsheet.IExport.SnapshotInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Spreadsheet Information and Excel export details",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ISpreadsheet.IExport.ToExcelToOutput"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "x-samchon-accessor": [
+          "connector",
+          "swal",
+          "spreadsheets",
+          "exports",
+          "excel",
+          "exportsToExcel"
+        ],
+        "x-samchon-controller": "SpreadsheetController",
+        "x-samchon-human": true
+      }
+    },
+    "/connector/swal/spreadsheets/{id}": {
+      "patch": {
+        "summary": "Read individual detailed spreadsheet including full data",
+        "description": "Read an entire contents of spreadsheet with its every snapshot\n\nAll data content that is not omitted is shown here, so you can also see how the spreadsheet has been modified over time.\nThis connector reads a spreadsheet with its every snapshot {@link ISpreadsheet.ISnapshot snapshots}.\nThis detailed view contains the full data created for each version of the spreadsheet,\nas well as the connection information to the external services to which it was exported.\n\nBy examining the snapshots, you can track changes made to the spreadsheet, compare versions, and understand its history.\nIf the user is interested in a specific version of the spreadsheet or wants to check its export history to external services like Google Sheets or Excel,\nthis connector is the correct choice.",
+        "tags": [],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "required": true,
+            "description": " Target spreadsheet's {@link ISpreadsheet.id }, Not snapshot ID"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Spreadsheet Information",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ISpreadsheetISpreadsheet.ISnapshot"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "x-samchon-accessor": [
+          "connector",
+          "swal",
+          "spreadsheets",
+          "at"
+        ],
+        "x-samchon-controller": "SpreadsheetController",
+        "x-samchon-human": true
+      }
+    },
+    "/connector/swal/spreadsheets/{id}/cells": {
+      "post": {
+        "summary": "Insert or update cells in a spreadsheet (snapshot-based structure)",
+        "description": "Insert or update cells in a spreadsheet\n\nThis connector allows adding or updating cells in an existing spreadsheet.\nThe spreadsheet is identified by its {@link ISpreadsheet.id}, and the input should include\nthe cell data to be inserted or updated.\n\nSpreadsheets in the system are managed as snapshots, meaning each update creates a new snapshot\nto preserve version history. Cells, like other spreadsheet components, are part of this snapshot\nstructure. This allows tracking changes to the spreadsheet over time and facilitates rollbacks or\ncomparisons between versions.\n\nWhen updating the spreadsheet, it modifies only the provided cells, leaving other\ncells unchanged. This is particularly useful for partial updates without altering the\nexisting structure or data in the spreadsheet.\n\nIf you want to create a new spreadsheet entirely, please use the `POST /connector/swal/spreadsheets` connector instead.",
+        "tags": [],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "required": true,
+            "description": " Target spreadsheet's {@link ISpreadsheet.id }"
+          }
+        ],
+        "requestBody": {
+          "description": "Contains the cells to be inserted or updated",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/RequiredPickISpreadsheet.ICreatecells"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Updated spreadsheet data after modifying the cells",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ISpreadsheetISpreadsheet.ISnapshot"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "x-samchon-accessor": [
+          "connector",
+          "swal",
+          "spreadsheets",
+          "cells",
+          "insertCells"
+        ],
+        "x-samchon-controller": "SpreadsheetController",
+        "x-samchon-human": true
+      }
+    },
+    "/connector/swal/spreadsheets": {
+      "patch": {
+        "summary": "List up all summarized spreadsheets",
+        "description": "List up all summarized spreadsheets with pagination and searching options\n\nBecause it is looking at the user's individual spreadsheets, the user cannot inquire about spreadsheets other than their own.\nBecause it is a call to data stored in the connector server's own DB,\nit may be appropriate to call this connector if the user asks to call the data without saying the service name.\nIt is recommended that you first ask the user for the service name.\nIf you are asked to look up the spreadsheets under the names of `Swal`, `Wrtn Technologies`, `Wrtn`, `user own DB`, `user DB`, etc., you should call this connector.\n\nA list of paged spreadsheets will appear.\nThe spreadsheet contains abbreviated data previews, so you can infer its contents from the title and preview.\n\nIf you want to see the full data instead of the abbreviated preview,\nor if you want to see the history of this spreadsheet being exported to Google Sheets or other services,\nplease look up the details.\nHere, we only show a preview of the data up to 100 cells, so if you want to see the latter, you need to look up the details.\nYou can view all the snapshots of this spreadsheet if you want to look at them in detail.\nThe detailed lookup connector is 'PATCH connector/swal/spreadsheets/:id'.",
+        "tags": [],
+        "parameters": [],
+        "requestBody": {
+          "description": "Request info of pagination and searching options.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ISpreadsheet.IRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Paginated summarized spreadsheets.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IPageISpreadsheet.ISummary"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "x-samchon-accessor": [
+          "connector",
+          "swal",
+          "spreadsheets",
+          "index"
+        ],
+        "x-samchon-controller": "SpreadsheetController",
+        "x-samchon-human": true
+      },
+      "post": {
+        "summary": "Create Spreadsheet",
+        "description": "Create Spreadsheet in User Database\n\nSpreadsheets are managed in a snapshot-based structure, enabling rollback at any time.\nWhen a spreadsheet is created, the system automatically generates the first snapshot.\nThe most recent snapshot reflects the current state of the spreadsheet.\nBy editing the spreadsheet or exporting it to external services, you can track which version—i.e., which snapshot—was exported and synchronize it using foreign keys.\nThis system is designed to efficiently handle any spreadsheet-like documents, such as those from Google Sheets, Excel, or Airtable.\nUsing a structured data format as the standard for writing and versioning, it identifies changes through a diff algorithm whenever edits are made.\nThis allows you to compare previous and current versions, track changes, and synchronize updates across services.\nAs these APIs store data exclusively in the Wrtn Technologies Ecosystem Team's database without relying on external APIs,\nthis setup serves as an ideal starting point for creating and managing spreadsheets efficiently with robust version control.\n\nIf the user asked to edit the spreadsheet, it would most likely not be this connector.\nThere is a separate connector for the update, so please use it.\n\nIf the user asks you to create a spreadsheet without any service names,\nyou may be referring to this connector.\nAsk the user to confirm.\n\nPlease insert the correct data without omitting the data or adding the phrase that you have omitted it.",
+        "tags": [],
+        "parameters": [],
+        "requestBody": {
+          "description": "Spreadsheet Information to Create",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ISpreadsheet.ICreate"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ISpreadsheetISpreadsheet.ISnapshot"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "x-samchon-accessor": [
+          "connector",
+          "swal",
+          "spreadsheets",
+          "create"
+        ],
+        "x-samchon-controller": "SpreadsheetController",
+        "x-samchon-human": true
       }
     },
     "/connector/extract/keyword": {
@@ -17389,7 +17711,7 @@
           "provider": {
             "type": "string",
             "title": "provider name",
-            "description": "It means the name of the service from which the post was exported,\nand if the service name is motion,\nit means that the same post is posted in the corresponding url of the provider service."
+            "description": "It means the name of the service from which the article was exported,\nand if the service name is motion,\nit means that the same article is posted in the corresponding url of the provider service."
           },
           "uid": {
             "oneOf": [
@@ -17469,7 +17791,7 @@
                 "format": "uuid",
                 "x-wrtn-prerequisite": {
                   "method": "patch",
-                  "path": "/connector/articles/:id",
+                  "path": "/connector/swal/articles/:id",
                   "jmesPath": "snapshot[].{ value: id, label: ['created_at ', created_at].join(':', @) }"
                 },
                 "title": "ID of the snapshot to be previously synchronized",
@@ -17480,7 +17802,7 @@
                 "format": "uuid",
                 "x-wrtn-prerequisite": {
                   "method": "patch",
-                  "path": "/connector/articles/:id",
+                  "path": "/connector/swal/articles/:id",
                   "jmesPath": "snapshot[].{ value: id, label: ['created_at ', created_at].join(':', @) }"
                 },
                 "title": "The ID of the snapshot that will be after synchronization"
@@ -17561,7 +17883,7 @@
                 "format": "uuid",
                 "x-wrtn-prerequisite": {
                   "method": "patch",
-                  "path": "/connector/articles/:id",
+                  "path": "/connector/swal/articles/:id",
                   "jmesPath": "snapshot[].{ value: id, label: ['created_at ', created_at].join(':', @) }"
                 },
                 "title": "ID of the snapshot to be previously synchronized",
@@ -17572,7 +17894,7 @@
                 "format": "uuid",
                 "x-wrtn-prerequisite": {
                   "method": "patch",
-                  "path": "/connector/articles/:id",
+                  "path": "/connector/swal/articles/:id",
                   "jmesPath": "snapshot[].{ value: id, label: ['created_at ', created_at].join(':', @) }"
                 },
                 "title": "The ID of the snapshot that will be after synchronization"
@@ -17650,7 +17972,7 @@
                 "format": "uuid",
                 "x-wrtn-prerequisite": {
                   "method": "patch",
-                  "path": "/connector/articles/:id",
+                  "path": "/connector/swal/articles/:id",
                   "jmesPath": "snapshot[].{ value: id, label: ['created_at ', created_at].join(':', @) }"
                 },
                 "title": "ID of the snapshot to be previously synchronized",
@@ -17661,7 +17983,7 @@
                 "format": "uuid",
                 "x-wrtn-prerequisite": {
                   "method": "patch",
-                  "path": "/connector/articles/:id",
+                  "path": "/connector/swal/articles/:id",
                   "jmesPath": "snapshot[].{ value: id, label: ['created_at ', created_at].join(':', @) }"
                 },
                 "title": "The ID of the snapshot that will be after synchronization"
@@ -17738,7 +18060,7 @@
           "provider": {
             "type": "string",
             "title": "provider name",
-            "description": "It means the name of the service from which the post was exported,\nand if the service name is motion,\nit means that the same post is posted in the corresponding url of the provider service."
+            "description": "It means the name of the service from which the article was exported,\nand if the service name is motion,\nit means that the same article is posted in the corresponding url of the provider service."
           },
           "url": {
             "oneOf": [
@@ -17803,7 +18125,7 @@
                 "type": "string",
                 "x-wrtn-prerequisite": {
                   "method": "patch",
-                  "path": "/connector/articles/:id",
+                  "path": "/connector/swal/articles/:id",
                   "jmesPath": "snapshot[].{ value: id, label: ['created_at ', created_at].join(':', @) }"
                 },
                 "title": "Snapshot ID of the article you want to export to another service"
@@ -17886,7 +18208,7 @@
                 "type": "string",
                 "x-wrtn-prerequisite": {
                   "method": "patch",
-                  "path": "/connector/articles/:id",
+                  "path": "/connector/swal/articles/:id",
                   "jmesPath": "snapshot[].{ value: id, label: ['created_at ', created_at].join(':', @) }"
                 },
                 "title": "Snapshot ID of the article you want to export to another service"
@@ -18022,7 +18344,7 @@
                 "type": "string",
                 "x-wrtn-prerequisite": {
                   "method": "patch",
-                  "path": "/connector/articles/:id",
+                  "path": "/connector/swal/articles/:id",
                   "jmesPath": "snapshot[].{ value: id, label: ['created_at ', created_at].join(':', @) }"
                 },
                 "title": "Snapshot ID of the article you want to export to another service"
@@ -18321,14 +18643,746 @@
               "title": {
                 "type": "string",
                 "title": "Title of article",
-                "description": "If you want to search for something that contains a specific title,\nyou can put the keyword you want in it.\nYou must put keywords that must be included.\nIf you don't have anything to search for,\nyou can put in or not empty characters."
+                "description": "This property is not a complete match, but a feature\nthat allows user to search for a title that contains that character.\nThis property should be undefined unless the user wants to see his or her writing\nand only wants to find a title that contains a particular text.\n\nIf user want to search for something that contains a specific title,\nuser can put the keyword user want in it.\nYou must put keywords that must be included.\nIf user don't have anything to search for,\nuser can put in or not empty characters."
               }
             },
             "required": [],
             "title": "Last Snapshot"
           }
         },
-        "required": []
+        "required": [],
+        "title": "Search Conditions",
+        "description": "If an attribute exists,\nit returns only the result of 'AND' calculations of all the attributes.\nFor example, if the format is 'md' and 'title' is 'swal',\nit will only look up the case where it is marked down and 'swal' is included in the title."
+      },
+      "ISpreadsheet.IExport.ToGoogleSheetsToOutput": {
+        "type": "object",
+        "properties": {
+          "google_sheets": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "title": "Created google sheets spreadsheet ID"
+              },
+              "title": {
+                "type": "string",
+                "title": "Title of Created google sheets spreadsheet"
+              },
+              "link": {
+                "type": "string",
+                "title": "File URL"
+              }
+            },
+            "required": [
+              "id",
+              "title",
+              "link"
+            ]
+          },
+          "spreadsheet_exports": {
+            "$ref": "#/components/schemas/StrictOmitISpreadsheetExportdeleted_at",
+            "title": "Exporting infomation"
+          }
+        },
+        "required": [
+          "google_sheets",
+          "spreadsheet_exports"
+        ]
+      },
+      "StrictOmitISpreadsheetExportdeleted_at": {
+        "type": "object",
+        "properties": {
+          "provider": {
+            "type": "string",
+            "title": "provider name",
+            "description": "It means the name of the service from which the post was exported,\nand if the service name is motion,\nit means that the same post is posted in the corresponding url of the provider service."
+          },
+          "url": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string",
+                "format": "iri"
+              }
+            ],
+            "title": "URL",
+            "description": "This is a redirect link that allows you to locate the exported spreadsheet,\nwhich is stored at export time."
+          },
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Primary Key"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Creation time of {@link ISpreadsheetExport}"
+          },
+          "uid": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "title": "Unique spreadsheet ID in external service"
+          },
+          "spreadsheet_snapshot_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Snapshot ID"
+          }
+        },
+        "required": [
+          "provider",
+          "url",
+          "id",
+          "created_at",
+          "uid",
+          "spreadsheet_snapshot_id"
+        ]
+      },
+      "ISpreadsheet.IExport.ToGoogleSheetsToInput": {
+        "type": "object",
+        "properties": {
+          "google_sheets": {
+            "type": "object",
+            "properties": {
+              "secret": {
+                "type": "string",
+                "x-wrtn-secret-key": "google",
+                "x-wrtn-secret-scopes": [
+                  "https://www.googleapis.com/auth/spreadsheets",
+                  "https://www.googleapis.com/auth/drive.file"
+                ]
+              }
+            },
+            "required": [
+              "secret"
+            ]
+          },
+          "snapshot": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "x-wrtn-prerequisite": {
+                  "method": "patch",
+                  "path": "/connector/swal/spreadsheets/:id",
+                  "jmesPath": "data[].{ value: id, label: ['created_at ', created_at].join(':', @) }"
+                },
+                "title": "Snapshot ID of the spreadsheet you want to export to another service"
+              }
+            },
+            "required": [
+              "id"
+            ],
+            "title": "snapshot information to export"
+          }
+        },
+        "required": [
+          "google_sheets",
+          "snapshot"
+        ]
+      },
+      "ISpreadsheet.IExport.ToExcelToOutput": {
+        "type": "object",
+        "properties": {
+          "excel": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "title": "Created excel spreadsheet ID"
+              },
+              "title": {
+                "type": "string",
+                "title": "Title of Created excel spreadsheet"
+              },
+              "link": {
+                "type": "string",
+                "title": "File URL"
+              }
+            },
+            "required": [
+              "id",
+              "title",
+              "link"
+            ]
+          },
+          "spreadsheet_exports": {
+            "$ref": "#/components/schemas/StrictOmitISpreadsheetExportdeleted_at",
+            "title": "Exporting infomation"
+          }
+        },
+        "required": [
+          "excel",
+          "spreadsheet_exports"
+        ]
+      },
+      "ISpreadsheet.IExport.SnapshotInput": {
+        "type": "object",
+        "properties": {
+          "snapshot": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "x-wrtn-prerequisite": {
+                  "method": "patch",
+                  "path": "/connector/swal/spreadsheets/:id",
+                  "jmesPath": "data[].{ value: id, label: ['created_at ', created_at].join(':', @) }"
+                },
+                "title": "Snapshot ID of the spreadsheet you want to export to another service"
+              }
+            },
+            "required": [
+              "id"
+            ],
+            "title": "snapshot information to export"
+          }
+        },
+        "required": [
+          "snapshot"
+        ]
+      },
+      "ISpreadsheetISpreadsheet.ISnapshot": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Primary Key"
+          },
+          "external_user_id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "External User ID"
+          },
+          "spreadsheet_cells": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/StrictOmitISpreadsheetCellspreadsheet_id"
+            },
+            "title": "cells"
+          },
+          "snapshots": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ISpreadsheet.ISnapshot"
+            },
+            "minItems": 1,
+            "title": "List of snapshot contents",
+            "description": "It is created for the first time when an spreadsheet is created, and is\naccumulated every time the spreadsheet is modified."
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Creation time of spreadsheet",
+            "description": "The most recent snapshot made is the higher version,\nand in fact, this time value can serve as the version."
+          },
+          "deleted_at": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string",
+                "format": "date-time"
+              }
+            ],
+            "title": "Deletion time of spreadsheet"
+          },
+          "total_cell_count": {
+            "type": "integer",
+            "title": "Total count of cells"
+          }
+        },
+        "required": [
+          "id",
+          "external_user_id",
+          "spreadsheet_cells",
+          "snapshots",
+          "created_at",
+          "deleted_at",
+          "total_cell_count"
+        ]
+      },
+      "StrictOmitISpreadsheetCellspreadsheet_id": {
+        "type": "object",
+        "properties": {
+          "spreadsheet_cell_snapshots": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/MyPickISpreadsheetCell.ISnapshotvalueidcreated_attype"
+            },
+            "title": "Snapshots",
+            "description": "All Snapshot of Cell"
+          },
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Primary Key"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Creation time of spreadsheet cell"
+          },
+          "column": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 26,
+            "title": "Column Number",
+            "description": "It counts from 1"
+          },
+          "row": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 1000,
+            "title": "Row Number",
+            "description": "It counts from 1"
+          },
+          "mv_last": {
+            "type": "object",
+            "properties": {
+              "snapshot": {
+                "$ref": "#/components/schemas/MyPickISpreadsheetCell.ISnapshotvaluecreated_attype"
+              }
+            },
+            "required": [
+              "snapshot"
+            ],
+            "title": "Last Snapshot"
+          }
+        },
+        "required": [
+          "spreadsheet_cell_snapshots",
+          "id",
+          "created_at",
+          "column",
+          "row",
+          "mv_last"
+        ]
+      },
+      "MyPickISpreadsheetCell.ISnapshotvalueidcreated_attype": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "title": "value",
+            "description": "If the value of the final cell is in the erased form, null.\nA null value will be stored only when the value of this cell disappears after modification, and other than that, null can never be entered.\nThis is to indicate that the value has been explicitly deleted to prevent the cell value of the previous snapshot from being exposed when a cell is soft-delete."
+          },
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Primary Key"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Creation time of spreadsheet cell snapshot"
+          },
+          "type": {
+            "const": "text",
+            "title": "Format type of this cell\n\nFor example, date, datetime, bool, text an so on.\nIf you want add new type, please discuss within our team."
+          }
+        },
+        "required": [
+          "value",
+          "id",
+          "created_at",
+          "type"
+        ]
+      },
+      "MyPickISpreadsheetCell.ISnapshotvaluecreated_attype": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "title": "value",
+            "description": "If the value of the final cell is in the erased form, null.\nA null value will be stored only when the value of this cell disappears after modification, and other than that, null can never be entered.\nThis is to indicate that the value has been explicitly deleted to prevent the cell value of the previous snapshot from being exposed when a cell is soft-delete."
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Creation time of spreadsheet cell snapshot"
+          },
+          "type": {
+            "const": "text",
+            "title": "Format type of this cell\n\nFor example, date, datetime, bool, text an so on.\nIf you want add new type, please discuss within our team."
+          }
+        },
+        "required": [
+          "value",
+          "created_at",
+          "type"
+        ]
+      },
+      "ISpreadsheet.ISnapshot": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Primary Key"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Creation time of snapshot record",
+            "description": "In other words, creation time or update time or spreadsheet"
+          },
+          "spreadsheet_exports": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ISpreadsheetExport.ISummary"
+            },
+            "title": "History of this snapshot being exported",
+            "description": "If it has been exported,\nthe location of the export will be recorded in the properties."
+          },
+          "title": {
+            "type": "string",
+            "title": "title"
+          },
+          "description": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "title": "description",
+            "description": "If user want to export this sheet to an external service,\nthe description may not be exposed depending on the service user want to export.\nHowever, because it may be difficult to find out what this sheet was intended by looking at the title alone,\nan explanatory property is placed."
+          }
+        },
+        "required": [
+          "id",
+          "created_at",
+          "spreadsheet_exports",
+          "title"
+        ]
+      },
+      "ISpreadsheetExport.ISummary": {
+        "type": "object",
+        "properties": {
+          "provider": {
+            "type": "string",
+            "title": "provider name",
+            "description": "It means the name of the service from which the post was exported,\nand if the service name is motion,\nit means that the same post is posted in the corresponding url of the provider service."
+          },
+          "url": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string",
+                "format": "iri"
+              }
+            ],
+            "title": "URL",
+            "description": "This is a redirect link that allows you to locate the exported spreadsheet,\nwhich is stored at export time."
+          },
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Primary Key"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Creation time of {@link ISpreadsheetExport}"
+          },
+          "uid": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "title": "Unique spreadsheet ID in external service"
+          }
+        },
+        "required": [
+          "provider",
+          "url",
+          "id",
+          "created_at",
+          "uid"
+        ]
+      },
+      "RequiredPickISpreadsheet.ICreatecells": {
+        "type": "object",
+        "properties": {
+          "cells": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ISpreadsheetCell.ICreate"
+            },
+            "title": "cells"
+          }
+        },
+        "required": [
+          "cells"
+        ],
+        "description": "Make all properties in T required"
+      },
+      "ISpreadsheetCell.ICreate": {
+        "type": "object",
+        "properties": {
+          "column": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 26,
+            "title": "Column Number",
+            "description": "It counts from 1"
+          },
+          "row": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 1000,
+            "title": "Row Number",
+            "description": "It counts from 1"
+          },
+          "snapshot": {
+            "$ref": "#/components/schemas/MyPickISpreadsheetCell.ISnapshot.ICreatevaluetype",
+            "title": "Last Snapshot"
+          }
+        },
+        "required": [
+          "column",
+          "row",
+          "snapshot"
+        ]
+      },
+      "MyPickISpreadsheetCell.ISnapshot.ICreatevaluetype": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "string",
+            "title": "value",
+            "description": "If the value of the final cell is in the erased form, null.\nA null value will be stored only when the value of this cell disappears after modification, and other than that, null can never be entered.\nThis is to indicate that the value has been explicitly deleted to prevent the cell value of the previous snapshot from being exposed when a cell is soft-delete."
+          },
+          "type": {
+            "const": "text",
+            "title": "Format type of this cell\n\nFor example, date, datetime, bool, text an so on.\nIf you want add new type, please discuss within our team."
+          }
+        },
+        "required": [
+          "value",
+          "type"
+        ]
+      },
+      "IPageISpreadsheet.ISummary": {
+        "type": "object",
+        "properties": {
+          "pagination": {
+            "$ref": "#/components/schemas/IPage.IPagination",
+            "description": "Page information"
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ISpreadsheet.ISummary"
+            },
+            "description": "List of records"
+          }
+        },
+        "required": [
+          "pagination",
+          "data"
+        ],
+        "description": "A page\n\nCollection of records with pagination indformation"
+      },
+      "ISpreadsheet.ISummary": {
+        "type": "object",
+        "properties": {
+          "mv_last": {
+            "type": "object",
+            "properties": {
+              "snapshot": {
+                "$ref": "#/components/schemas/ISpreadsheet.ISnapshot"
+              }
+            },
+            "required": [
+              "snapshot"
+            ]
+          },
+          "spreadsheet_cells": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/StrictOmitISpreadsheetCellspreadsheet_id"
+            },
+            "minItems": 0,
+            "maxItems": 100,
+            "title": "Summarized Cell Contents",
+            "description": "It is the summarized cell content, and only up to 100 are searched.\nYou can check the whole thing by searching in detail."
+          },
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "title": "Primary Key"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Creation time of spreadsheet",
+            "description": "The most recent snapshot made is the higher version,\nand in fact, this time value can serve as the version."
+          },
+          "total_cell_count": {
+            "type": "integer",
+            "title": "Total count of cells"
+          }
+        },
+        "required": [
+          "mv_last",
+          "spreadsheet_cells",
+          "id",
+          "created_at",
+          "total_cell_count"
+        ]
+      },
+      "ISpreadsheet.IRequest": {
+        "type": "object",
+        "properties": {
+          "search": {
+            "$ref": "#/components/schemas/ISpreadsheet.IRequest.ISearch",
+            "title": "Search"
+          },
+          "sort": {
+            "type": "array",
+            "items": {
+              "oneOf": [
+                {
+                  "const": "-created_at"
+                },
+                {
+                  "const": "-snapshot.created_at"
+                },
+                {
+                  "const": "-snapshot.title"
+                },
+                {
+                  "const": "+created_at"
+                },
+                {
+                  "const": "+snapshot.created_at"
+                },
+                {
+                  "const": "+snapshot.title"
+                }
+              ]
+            },
+            "title": "Sort"
+          },
+          "page": {
+            "type": "integer",
+            "title": "Page number",
+            "description": "Page number."
+          },
+          "limit": {
+            "type": "integer",
+            "title": "Limitation of records per a page",
+            "description": "Limitation of records per a page."
+          }
+        },
+        "required": [],
+        "title": "Request"
+      },
+      "ISpreadsheet.IRequest.ISearch": {
+        "type": "object",
+        "properties": {
+          "ids": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "title": "Spreadsheet IDs",
+            "description": "Spreadsheet IDs, not Spreadsheet Snapshot ID\nIt is Spreadsheet's ID, Not Spreadsheet Snapshot ID and {@link ISpreadsheetExport spreadsheet_exports} ID."
+          },
+          "snapshot": {
+            "type": "object",
+            "properties": {
+              "title": {
+                "type": "string",
+                "title": "Title of spreadsheet",
+                "description": "This property is not a complete match, but a feature\nthat allows you to search for a title that contains that character."
+              },
+              "description": {
+                "type": "string",
+                "title": "Description of spreadsheet",
+                "description": "This property is not a complete match, but a feature\nthat allows you to search for a title that contains that character."
+              },
+              "minimum_cell_count": {
+                "type": "integer",
+                "title": "minimum count of cells",
+                "description": "It means the number of cells you wish to have at least.\nYou can adjust this value when you want to look up a lot of written sheets."
+              }
+            },
+            "required": [],
+            "title": "Last Snapshot"
+          }
+        },
+        "required": [
+          "snapshot"
+        ],
+        "title": "Search Conditions",
+        "description": "If an attribute exists,\nit returns only the result of 'AND' calculations of all the attributes."
+      },
+      "ISpreadsheet.ICreate": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "title": "title"
+          },
+          "description": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "title": "description",
+            "description": "If user want to export this sheet to an external service,\nthe description may not be exposed depending on the service user want to export.\nHowever, because it may be difficult to find out what this sheet was intended by looking at the title alone,\nan explanatory property is placed."
+          },
+          "cells": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ISpreadsheetCell.ICreate"
+            },
+            "title": "cells"
+          }
+        },
+        "required": [
+          "title"
+        ]
       },
       "IKeywordExtraction.IExtractKeywordOutput": {
         "type": "object",
@@ -19028,6 +20082,10 @@
       "IExcel.IExportExcelFileOutput": {
         "type": "object",
         "properties": {
+          "fileId": {
+            "type": "string",
+            "title": "S3 path of file"
+          },
           "fileUrl": {
             "type": "string",
             "format": "uri",
@@ -19036,6 +20094,7 @@
           }
         },
         "required": [
+          "fileId",
           "fileUrl"
         ],
         "title": "Excel row addition result"
@@ -19053,10 +20112,10 @@
           "data": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/Recordstringany"
+              "$ref": "#/components/schemas/ISpreadsheetCell.ICreate"
             },
-            "title": "Excel row data to add",
-            "description": "An array of objects where the key is the header name and the value is the value of the corresponding row"
+            "title": "Cell informations",
+            "description": "The type of data and coordinates of each row and column"
           },
           "sheetName": {
             "oneOf": [
@@ -19065,6 +20124,7 @@
               },
               {
                 "type": "string",
+                "maxLength": 31,
                 "x-wrtn-placeholder": "Sheet1"
               }
             ],
@@ -19076,13 +20136,6 @@
           "data"
         ],
         "title": "Information for adding data"
-      },
-      "Recordstringany": {
-        "type": "object",
-        "properties": {},
-        "required": [],
-        "description": "Construct a type with a set of properties K of type T",
-        "additionalProperties": {}
       },
       "IExcel.IInsertExcelRowInput": {
         "type": "object",
@@ -19096,10 +20149,10 @@
           "data": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/Recordstringany"
+              "$ref": "#/components/schemas/ISpreadsheetCell.ICreate"
             },
-            "title": "Excel row data to add",
-            "description": "An array of objects where the key is the header name and the value is the value of the corresponding row"
+            "title": "Cell informations",
+            "description": "The type of data and coordinates of each row and column"
           },
           "sheetName": {
             "oneOf": [
@@ -19108,6 +20161,7 @@
               },
               {
                 "type": "string",
+                "maxLength": 31,
                 "x-wrtn-placeholder": "Sheet1"
               }
             ],
@@ -19130,6 +20184,7 @@
               },
               {
                 "type": "string",
+                "maxLength": 31,
                 "x-wrtn-placeholder": "Sheet1"
               }
             ],
@@ -19398,10 +20453,10 @@
           "type": {
             "oneOf": [
               {
-                "const": "user"
+                "const": "group"
               },
               {
-                "const": "group"
+                "const": "user"
               },
               {
                 "const": "domain"
@@ -19780,7 +20835,6 @@
         },
         "required": [
           "spreadSheetId",
-          "range",
           "values",
           "secretKey"
         ]
@@ -21293,10 +22347,10 @@
           "type": {
             "oneOf": [
               {
-                "const": "user"
+                "const": "group"
               },
               {
-                "const": "group"
+                "const": "user"
               },
               {
                 "const": "domain"
@@ -21328,10 +22382,10 @@
               "type": {
                 "oneOf": [
                   {
-                    "const": "user"
+                    "const": "group"
                   },
                   {
-                    "const": "group"
+                    "const": "user"
                   },
                   {
                     "const": "domain"
@@ -34876,16 +35930,16 @@
                     "const": "c"
                   },
                   {
-                    "const": "html"
-                  },
-                  {
-                    "const": "markdown"
-                  },
-                  {
                     "const": "json"
                   },
                   {
                     "const": "diff"
+                  },
+                  {
+                    "const": "html"
+                  },
+                  {
+                    "const": "markdown"
                   },
                   {
                     "const": "r"
@@ -36892,13 +37946,13 @@
               "function": {
                 "oneOf": [
                   {
-                    "const": "range"
-                  },
-                  {
                     "const": "date_range"
                   },
                   {
                     "const": "count"
+                  },
+                  {
+                    "const": "range"
                   },
                   {
                     "const": "average"
@@ -37386,19 +38440,19 @@
                 "const": "user"
               },
               {
+                "const": "page"
+              },
+              {
                 "const": "list"
               },
               {
-                "const": "block"
-              },
-              {
-                "const": "page"
+                "const": "comment"
               },
               {
                 "const": "database"
               },
               {
-                "const": "comment"
+                "const": "block"
               },
               {
                 "const": "property_item"
@@ -37437,19 +38491,19 @@
                     "const": "user"
                   },
                   {
+                    "const": "page"
+                  },
+                  {
                     "const": "list"
                   },
                   {
-                    "const": "block"
-                  },
-                  {
-                    "const": "page"
+                    "const": "comment"
                   },
                   {
                     "const": "database"
                   },
                   {
-                    "const": "comment"
+                    "const": "block"
                   },
                   {
                     "const": "property_item"
@@ -37480,19 +38534,19 @@
                     "const": "user"
                   },
                   {
+                    "const": "page"
+                  },
+                  {
                     "const": "list"
                   },
                   {
-                    "const": "block"
-                  },
-                  {
-                    "const": "page"
+                    "const": "comment"
                   },
                   {
                     "const": "database"
                   },
                   {
-                    "const": "comment"
+                    "const": "block"
                   },
                   {
                     "const": "property_item"
@@ -37890,19 +38944,19 @@
                 "const": "user"
               },
               {
+                "const": "page"
+              },
+              {
                 "const": "list"
               },
               {
-                "const": "block"
-              },
-              {
-                "const": "page"
+                "const": "comment"
               },
               {
                 "const": "database"
               },
               {
-                "const": "comment"
+                "const": "block"
               },
               {
                 "const": "property_item"
@@ -37930,19 +38984,19 @@
                     "const": "user"
                   },
                   {
+                    "const": "page"
+                  },
+                  {
                     "const": "list"
                   },
                   {
-                    "const": "block"
-                  },
-                  {
-                    "const": "page"
+                    "const": "comment"
                   },
                   {
                     "const": "database"
                   },
                   {
-                    "const": "comment"
+                    "const": "block"
                   },
                   {
                     "const": "property_item"
@@ -37973,19 +39027,19 @@
                     "const": "user"
                   },
                   {
+                    "const": "page"
+                  },
+                  {
                     "const": "list"
                   },
                   {
-                    "const": "block"
-                  },
-                  {
-                    "const": "page"
+                    "const": "comment"
                   },
                   {
                     "const": "database"
                   },
                   {
-                    "const": "comment"
+                    "const": "block"
                   },
                   {
                     "const": "property_item"
@@ -40131,11 +41185,6 @@
             "x-wrtn-placeholder": "1234567890.123456",
             "title": "when the user scheduled the message"
           },
-          "channel": {
-            "type": "string",
-            "pattern": "^((C(.*))|(D(.*))|(G(.*)))",
-            "title": "channel id"
-          },
           "text": {
             "type": "string",
             "title": "message contents",
@@ -40149,6 +41198,11 @@
             "title": "Attachments",
             "description": "Attachement contains all types of files and can sometimes be an external link.\nIt is not the type that can be confirmed because the internal properties can vary depending on the type of block it is making up."
           },
+          "channel": {
+            "type": "string",
+            "pattern": "^((C(.*))|(D(.*))|(G(.*)))",
+            "title": "channel id"
+          },
           "id": {
             "type": "string",
             "title": "id of scheduled message"
@@ -40161,8 +41215,8 @@
         "required": [
           "post_at",
           "date_created",
-          "channel",
           "text",
+          "channel",
           "id",
           "post_at_date"
         ]
@@ -40210,7 +41264,7 @@
             "maximum": 1000,
             "x-wrtn-placeholder": "200",
             "title": "limit",
-            "description": "Indicates the number of data to look up at at once.\nIf not entered, use 100 as the default.\nThis should never be null. If you don't have a value, don't forward properties.\n\nIn reality, the value can be from 1 to 1000, so the recommendation is a number over 200.\nIf there is a user's request and there is a section that is cumbersome to page, you can enter 200.\n\nSince it is burdensome for users to inquire too many conversation details, it is recommended to page 100 to 200 conversation details at a time if more data is needed.\nAlternatively, it is also helpful to get a date to inquire from the user."
+            "description": "Indicates the number of data to look up at at once.\nIf not entered, use 100 as the default.\nThis should never be null. If you don't have a value, don't forward properties.\n\nIn reality, the value can be from 1 to 1000, so the recommendation is a number over 200.\nIf there is a user's request and there is a section that is cumbersome to page, you can enter 200.\n\nSince it is burdensome for users to inquire too many conversation details,\nit is recommended to page 100 to 200 conversation details at a time if more data is needed.\nAlternatively, it is also helpful to get a date to inquire from the user."
           },
           "cursor": {
             "type": "string",
@@ -40495,7 +41549,7 @@
             "maximum": 1000,
             "x-wrtn-placeholder": "200",
             "title": "limit",
-            "description": "Indicates the number of data to look up at at once.\nIf not entered, use 100 as the default.\nThis should never be null. If you don't have a value, don't forward properties.\n\nIn reality, the value can be from 1 to 1000, so the recommendation is a number over 200.\nIf there is a user's request and there is a section that is cumbersome to page, you can enter 200.\n\nSince it is burdensome for users to inquire too many conversation details, it is recommended to page 100 to 200 conversation details at a time if more data is needed.\nAlternatively, it is also helpful to get a date to inquire from the user."
+            "description": "Indicates the number of data to look up at at once.\nIf not entered, use 100 as the default.\nThis should never be null. If you don't have a value, don't forward properties.\n\nIn reality, the value can be from 1 to 1000, so the recommendation is a number over 200.\nIf there is a user's request and there is a section that is cumbersome to page, you can enter 200.\n\nSince it is burdensome for users to inquire too many conversation details,\nit is recommended to page 100 to 200 conversation details at a time if more data is needed.\nAlternatively, it is also helpful to get a date to inquire from the user."
           },
           "cursor": {
             "type": "string",
@@ -40605,10 +41659,10 @@
             "title": "shortcut link",
             "description": "Link to view the conversation history immediately.\nWe can provide you with a shortcut link if user want, but you don't have to expose it to them in normal times."
           },
-          "channel": {
+          "text": {
             "type": "string",
-            "pattern": "^((C(.*))|(D(.*))|(G(.*)))",
-            "title": "channel id"
+            "title": "message contents",
+            "description": "When users occasionally call others, they can be called in the form of '@USERNAME', which is called a tag.\nIn the conversation history, the link and code box are abbreviated to <LINK/> and <CODE/>, respectively.\nFor users, it is replaced by a user name, Like <@USERNAME>.\n<@USERNAME> is about calling someone else, and it's not the name of the person who started the conversation, so be careful.\nif you want to find who started this conversation, check 'user' property."
           },
           "user": {
             "oneOf": [
@@ -40621,10 +41675,10 @@
             ],
             "title": "ID of the person who made this message\n\nIf not a user, message does not have an ID."
           },
-          "text": {
+          "channel": {
             "type": "string",
-            "title": "message contents",
-            "description": "When users occasionally call others, they can be called in the form of '@USERNAME', which is called a tag.\nIn the conversation history, the link and code box are abbreviated to <LINK/> and <CODE/>, respectively.\nFor users, it is replaced by a user name, Like <@USERNAME>.\n<@USERNAME> is about calling someone else, and it's not the name of the person who started the conversation, so be careful.\nif you want to find who started this conversation, check 'user' property."
+            "pattern": "^((C(.*))|(D(.*))|(G(.*)))",
+            "title": "channel id"
           },
           "ts": {
             "type": "string",
@@ -40659,9 +41713,9 @@
           "username",
           "user_profile",
           "link",
-          "channel",
-          "user",
           "text",
+          "user",
+          "channel",
           "ts",
           "reply_count",
           "reply_users_count",
@@ -40959,7 +42013,7 @@
             "maximum": 1000,
             "x-wrtn-placeholder": "200",
             "title": "limit",
-            "description": "Indicates the number of data to look up at at once.\nIf not entered, use 100 as the default.\nThis should never be null. If you don't have a value, don't forward properties.\n\nIn reality, the value can be from 1 to 1000, so the recommendation is a number over 200.\nIf there is a user's request and there is a section that is cumbersome to page, you can enter 200.\n\nSince it is burdensome for users to inquire too many conversation details, it is recommended to page 100 to 200 conversation details at a time if more data is needed.\nAlternatively, it is also helpful to get a date to inquire from the user."
+            "description": "Indicates the number of data to look up at at once.\nIf not entered, use 100 as the default.\nThis should never be null. If you don't have a value, don't forward properties.\n\nIn reality, the value can be from 1 to 1000, so the recommendation is a number over 200.\nIf there is a user's request and there is a section that is cumbersome to page, you can enter 200.\n\nSince it is burdensome for users to inquire too many conversation details,\nit is recommended to page 100 to 200 conversation details at a time if more data is needed.\nAlternatively, it is also helpful to get a date to inquire from the user."
           },
           "cursor": {
             "type": "string",
@@ -41127,7 +42181,7 @@
             "maximum": 1000,
             "x-wrtn-placeholder": "200",
             "title": "limit",
-            "description": "Indicates the number of data to look up at at once.\nIf not entered, use 100 as the default.\nThis should never be null. If you don't have a value, don't forward properties.\n\nIn reality, the value can be from 1 to 1000, so the recommendation is a number over 200.\nIf there is a user's request and there is a section that is cumbersome to page, you can enter 200.\n\nSince it is burdensome for users to inquire too many conversation details, it is recommended to page 100 to 200 conversation details at a time if more data is needed.\nAlternatively, it is also helpful to get a date to inquire from the user."
+            "description": "Indicates the number of data to look up at at once.\nIf not entered, use 100 as the default.\nThis should never be null. If you don't have a value, don't forward properties.\n\nIn reality, the value can be from 1 to 1000, so the recommendation is a number over 200.\nIf there is a user's request and there is a section that is cumbersome to page, you can enter 200.\n\nSince it is burdensome for users to inquire too many conversation details,\nit is recommended to page 100 to 200 conversation details at a time if more data is needed.\nAlternatively, it is also helpful to get a date to inquire from the user."
           },
           "cursor": {
             "type": "string",
@@ -41579,7 +42633,7 @@
             "maximum": 1000,
             "x-wrtn-placeholder": "200",
             "title": "limit",
-            "description": "Indicates the number of data to look up at at once.\nIf not entered, use 100 as the default.\nThis should never be null. If you don't have a value, don't forward properties.\n\nIn reality, the value can be from 1 to 1000, so the recommendation is a number over 200.\nIf there is a user's request and there is a section that is cumbersome to page, you can enter 200.\n\nSince it is burdensome for users to inquire too many conversation details, it is recommended to page 100 to 200 conversation details at a time if more data is needed.\nAlternatively, it is also helpful to get a date to inquire from the user."
+            "description": "Indicates the number of data to look up at at once.\nIf not entered, use 100 as the default.\nThis should never be null. If you don't have a value, don't forward properties.\n\nIn reality, the value can be from 1 to 1000, so the recommendation is a number over 200.\nIf there is a user's request and there is a section that is cumbersome to page, you can enter 200.\n\nSince it is burdensome for users to inquire too many conversation details,\nit is recommended to page 100 to 200 conversation details at a time if more data is needed.\nAlternatively, it is also helpful to get a date to inquire from the user."
           }
         },
         "required": [
@@ -42668,10 +43722,6 @@
             "$ref": "#/components/schemas/MyPickIJira.StatusdescriptionnameidstatusCategoryuntranslatedName",
             "title": "status"
           },
-          "parent": {
-            "$ref": "#/components/schemas/IJira.Parent",
-            "title": "parent of this issue"
-          },
           "assignee": {
             "oneOf": [
               {
@@ -42701,6 +43751,10 @@
           "priority": {
             "$ref": "#/components/schemas/MyPickIJira.Prioritynameid",
             "title": "priority"
+          },
+          "parent": {
+            "$ref": "#/components/schemas/IJira.Parent",
+            "title": "parent of this issue"
           },
           "statuscategorychangedate": {
             "oneOf": [
@@ -42813,35 +43867,6 @@
           "statusCategory"
         ]
       },
-      "IJira.Parent": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string",
-            "title": "The ID of the parent issue"
-          },
-          "key": {
-            "type": "string",
-            "title": "The key of the parent issue"
-          },
-          "fields": {
-            "type": "object",
-            "properties": {
-              "summary": {
-                "type": "string",
-                "title": "summary"
-              }
-            },
-            "required": [],
-            "title": "fields"
-          }
-        },
-        "required": [
-          "id",
-          "key",
-          "fields"
-        ]
-      },
       "IJira.User": {
         "type": "object",
         "properties": {
@@ -42899,6 +43924,35 @@
         "required": [
           "name",
           "id"
+        ]
+      },
+      "IJira.Parent": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "The ID of the parent issue"
+          },
+          "key": {
+            "type": "string",
+            "title": "The key of the parent issue"
+          },
+          "fields": {
+            "type": "object",
+            "properties": {
+              "summary": {
+                "type": "string",
+                "title": "summary"
+              }
+            },
+            "required": [],
+            "title": "fields"
+          }
+        },
+        "required": [
+          "id",
+          "key",
+          "fields"
         ]
       },
       "IJira.IGetIssueDetailInput": {
@@ -46035,10 +47089,10 @@
           "direction": {
             "oneOf": [
               {
-                "const": "asc"
+                "const": "desc"
               },
               {
-                "const": "desc"
+                "const": "asc"
               }
             ],
             "title": "direction",
@@ -46180,10 +47234,10 @@
           "direction": {
             "oneOf": [
               {
-                "const": "asc"
+                "const": "desc"
               },
               {
-                "const": "desc"
+                "const": "asc"
               }
             ],
             "title": "direction",
@@ -47792,10 +48846,10 @@
           "direction": {
             "oneOf": [
               {
-                "const": "asc"
+                "const": "desc"
               },
               {
-                "const": "desc"
+                "const": "asc"
               }
             ],
             "title": "direction",
@@ -47971,10 +49025,6 @@
             "type": "string",
             "title": "title\n\nThe title of the new pull request. Required unless issue is specified."
           },
-          "body": {
-            "type": "string",
-            "title": "body\n\nThe contents of the pull request."
-          },
           "secretKey": {
             "type": "string",
             "x-wrtn-secret-key": "github",
@@ -47992,6 +49042,10 @@
           "repo": {
             "type": "string",
             "title": "repository name\n\nThe owner's name and the repository's name can be combined to form '${owner}/${repo}' and can be a unique path name for a single repository."
+          },
+          "body": {
+            "type": "string",
+            "title": "body\n\nThe contents of the pull request."
           },
           "head_repo": {
             "type": "string",
@@ -48218,6 +49272,10 @@
             "format": "date-time",
             "title": "created_at"
           },
+          "user": {
+            "$ref": "#/components/schemas/MyPickIGithub.Useridtypeloginhtml_urlavatar_url",
+            "title": "user"
+          },
           "body": {
             "type": "string",
             "title": "body"
@@ -48226,10 +49284,6 @@
             "type": "string",
             "format": "date-time",
             "title": "updated_at"
-          },
-          "user": {
-            "$ref": "#/components/schemas/MyPickIGithub.Useridtypeloginhtml_urlavatar_url",
-            "title": "user"
           }
         },
         "required": [
@@ -48237,8 +49291,8 @@
           "author_association",
           "id",
           "created_at",
-          "updated_at",
-          "user"
+          "user",
+          "updated_at"
         ]
       },
       "IGithub.IGetPullRequestCommentsInput": {
@@ -49129,13 +50183,13 @@
             "type": "string",
             "title": "start_side"
           },
-          "body": {
-            "type": "string",
-            "title": "body"
-          },
           "path": {
             "type": "string",
             "title": "path"
+          },
+          "body": {
+            "type": "string",
+            "title": "body"
           },
           "position": {
             "oneOf": [
@@ -51131,10 +52185,10 @@
           "order": {
             "oneOf": [
               {
-                "const": "asc"
+                "const": "desc"
               },
               {
-                "const": "desc"
+                "const": "asc"
               }
             ],
             "title": "order",
@@ -52018,6 +53072,10 @@
             "format": "date-time",
             "title": "created_at"
           },
+          "user": {
+            "$ref": "#/components/schemas/MyPickIGithub.Useridtypelogin",
+            "title": "user"
+          },
           "body": {
             "oneOf": [
               {
@@ -52029,15 +53087,6 @@
             ],
             "title": "body",
             "description": "Contents of the issue\n\nYou can also render this content because it is in a markdown format."
-          },
-          "updated_at": {
-            "type": "string",
-            "format": "date-time",
-            "title": "updated_at"
-          },
-          "user": {
-            "$ref": "#/components/schemas/MyPickIGithub.Useridtypelogin",
-            "title": "user"
           },
           "state": {
             "type": "string",
@@ -52122,6 +53171,11 @@
           "draft": {
             "type": "boolean",
             "title": "draft\n\nIndicates whether or not the pull request is a draft."
+          },
+          "updated_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "updated_at"
           },
           "milestone": {
             "oneOf": [
@@ -52249,11 +53303,11 @@
           "head",
           "id",
           "created_at",
-          "updated_at",
           "user",
           "state",
           "labels",
           "html_url",
+          "updated_at",
           "milestone",
           "author_association",
           "requested_reviewers",
@@ -52755,10 +53809,10 @@
           "order": {
             "oneOf": [
               {
-                "const": "asc"
+                "const": "desc"
               },
               {
-                "const": "desc"
+                "const": "asc"
               }
             ],
             "title": "order",
@@ -52896,10 +53950,10 @@
           "order": {
             "oneOf": [
               {
-                "const": "asc"
+                "const": "desc"
               },
               {
-                "const": "desc"
+                "const": "asc"
               }
             ],
             "title": "order",
@@ -53006,10 +54060,10 @@
           "order": {
             "oneOf": [
               {
-                "const": "asc"
+                "const": "desc"
               },
               {
-                "const": "desc"
+                "const": "asc"
               }
             ],
             "title": "order",
@@ -53197,11 +54251,6 @@
             "type": "string",
             "title": "tite of this issue"
           },
-          "body": {
-            "type": "string",
-            "title": "body of this issue",
-            "description": "It can be markdown format\nIf you provide text in utf-8 format, which can be recognized by a person, in markdown format, it will be written as it is."
-          },
           "secretKey": {
             "type": "string",
             "x-wrtn-secret-key": "github",
@@ -53218,6 +54267,11 @@
           "repo": {
             "type": "string",
             "title": "The name of the repository"
+          },
+          "body": {
+            "type": "string",
+            "title": "body of this issue",
+            "description": "It can be markdown format\nIf you provide text in utf-8 format, which can be recognized by a person, in markdown format, it will be written as it is."
           },
           "labels": {
             "type": "array",
@@ -61492,14 +62546,6 @@
             "type": "string",
             "title": "ID of the post"
           },
-          "domain": {
-            "type": "string",
-            "title": "Domain of the post"
-          },
-          "archived": {
-            "type": "boolean",
-            "title": "Whether the post is archived"
-          },
           "view_count": {
             "oneOf": [
               {
@@ -61531,6 +62577,10 @@
             "type": "boolean",
             "title": "Whether the post is locked"
           },
+          "domain": {
+            "type": "string",
+            "title": "Domain of the post"
+          },
           "score": {
             "type": "number",
             "title": "Score of the post"
@@ -61556,6 +62606,10 @@
               }
             ],
             "title": "Media information"
+          },
+          "archived": {
+            "type": "boolean",
+            "title": "Whether the post is archived"
           },
           "subreddit": {
             "type": "string",
@@ -62813,7 +63867,7 @@
                 "const": ""
               },
               {
-                "$ref": "#/components/schemas/__type.o2221"
+                "$ref": "#/components/schemas/__type.o2185"
               }
             ],
             "title": "replies"
@@ -62887,10 +63941,6 @@
             "type": "string",
             "title": "The name of the post"
           },
-          "archived": {
-            "type": "boolean",
-            "title": "Whether the post is archived"
-          },
           "created": {
             "type": "number",
             "title": "Creation time"
@@ -62906,6 +63956,10 @@
           "score": {
             "type": "number",
             "title": "Score of the post"
+          },
+          "archived": {
+            "type": "boolean",
+            "title": "Whether the post is archived"
           },
           "subreddit": {
             "type": "string",
@@ -63260,14 +64314,14 @@
           "name"
         ]
       },
-      "__type.o2221": {
+      "__type.o2185": {
         "type": "object",
         "properties": {
           "kind": {
             "const": "Listing"
           },
           "data": {
-            "$ref": "#/components/schemas/__type.o2222"
+            "$ref": "#/components/schemas/__type.o2186"
           }
         },
         "required": [
@@ -63275,7 +64329,7 @@
           "data"
         ]
       },
-      "__type.o2222": {
+      "__type.o2186": {
         "type": "object",
         "properties": {
           "after": {
@@ -63295,7 +64349,7 @@
             "items": {
               "oneOf": [
                 {
-                  "$ref": "#/components/schemas/__type.o2223"
+                  "$ref": "#/components/schemas/__type.o2187"
                 },
                 {
                   "type": "object",
@@ -63369,7 +64423,7 @@
           "before"
         ]
       },
-      "__type.o2223": {
+      "__type.o2187": {
         "type": "object",
         "properties": {
           "kind": {

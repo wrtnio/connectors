@@ -18,7 +18,7 @@
     "title": "Excel",
     "summary": "엑셀을 이용해서 알아보기 쉽게 데이터를 관리할 수 있어요",
     "description": "엑셀에 시트를 넣거나 데이터를 추가하여 보기 쉽게 데이터를 관리할 수 있어요. 또 기존 파일을 업데이트해서 데이터를 누적해나갈 수도 있어요.",
-    "version": "0.1.427",
+    "version": "0.1.428",
     "license": {
       "name": "AGPL-3.0-only"
     }
@@ -412,6 +412,10 @@
       "IExcel.IExportExcelFileOutput": {
         "type": "object",
         "properties": {
+          "fileId": {
+            "type": "string",
+            "title": "S3 path of file"
+          },
           "fileUrl": {
             "type": "string",
             "format": "uri",
@@ -420,6 +424,7 @@
           }
         },
         "required": [
+          "fileId",
           "fileUrl"
         ],
         "title": "Excel row addition result"
@@ -437,10 +442,10 @@
           "data": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/Recordstringany"
+              "$ref": "#/components/schemas/ISpreadsheetCell.ICreate"
             },
-            "title": "Excel row data to add",
-            "description": "An array of objects where the key is the header name and the value is the value of the corresponding row"
+            "title": "Cell informations",
+            "description": "The type of data and coordinates of each row and column"
           },
           "sheetName": {
             "oneOf": [
@@ -449,6 +454,7 @@
               },
               {
                 "type": "string",
+                "maxLength": 31,
                 "x-wrtn-placeholder": "Sheet1"
               }
             ],
@@ -461,12 +467,51 @@
         ],
         "title": "Information for adding data"
       },
-      "Recordstringany": {
+      "ISpreadsheetCell.ICreate": {
         "type": "object",
-        "properties": {},
-        "required": [],
-        "description": "Construct a type with a set of properties K of type T",
-        "additionalProperties": {}
+        "properties": {
+          "column": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 26,
+            "title": "Column Number",
+            "description": "It counts from 1"
+          },
+          "row": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 1000,
+            "title": "Row Number",
+            "description": "It counts from 1"
+          },
+          "snapshot": {
+            "$ref": "#/components/schemas/MyPickISpreadsheetCell.ISnapshot.ICreatevaluetype",
+            "title": "Last Snapshot"
+          }
+        },
+        "required": [
+          "column",
+          "row",
+          "snapshot"
+        ]
+      },
+      "MyPickISpreadsheetCell.ISnapshot.ICreatevaluetype": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "string",
+            "title": "value",
+            "description": "If the value of the final cell is in the erased form, null.\nA null value will be stored only when the value of this cell disappears after modification, and other than that, null can never be entered.\nThis is to indicate that the value has been explicitly deleted to prevent the cell value of the previous snapshot from being exposed when a cell is soft-delete."
+          },
+          "type": {
+            "const": "text",
+            "title": "Format type of this cell\n\nFor example, date, datetime, bool, text an so on.\nIf you want add new type, please discuss within our team."
+          }
+        },
+        "required": [
+          "value",
+          "type"
+        ]
       },
       "IExcel.IInsertExcelRowInput": {
         "type": "object",
@@ -480,10 +525,10 @@
           "data": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/Recordstringany"
+              "$ref": "#/components/schemas/ISpreadsheetCell.ICreate"
             },
-            "title": "Excel row data to add",
-            "description": "An array of objects where the key is the header name and the value is the value of the corresponding row"
+            "title": "Cell informations",
+            "description": "The type of data and coordinates of each row and column"
           },
           "sheetName": {
             "oneOf": [
@@ -492,6 +537,7 @@
               },
               {
                 "type": "string",
+                "maxLength": 31,
                 "x-wrtn-placeholder": "Sheet1"
               }
             ],
@@ -514,6 +560,7 @@
               },
               {
                 "type": "string",
+                "maxLength": 31,
                 "x-wrtn-placeholder": "Sheet1"
               }
             ],
