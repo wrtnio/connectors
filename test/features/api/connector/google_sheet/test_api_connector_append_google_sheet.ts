@@ -9,13 +9,12 @@ import { test_api_connector_create_google_sheet } from "./test_api_connector_cre
 export const test_api_connector_append_google_sheet = async (
   connection: CApi.IConnection,
 ): Promise<void> => {
-  const spreadSheetId = (
+  const spreadsheetId = (
     await test_api_connector_create_google_sheet(connection)
   ).spreadsheetId;
   const input: IGoogleSheet.IAppendToSheetInput = {
     secretKey: ConnectorGlobal.env.GOOGLE_TEST_SECRET,
-    spreadSheetId,
-    range: "A1:A3",
+    spreadSheetId: spreadsheetId,
     values: [["test1"], ["test2"], ["test3"]],
   };
   const result =

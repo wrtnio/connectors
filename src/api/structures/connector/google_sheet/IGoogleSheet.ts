@@ -337,19 +337,10 @@ export namespace IGoogleSheet {
       }>;
 
     /**
-     * This is the range to add.
-     *
-     * Please enter in A1 notation format.
-     *
-     * @title Range to add
-     */
-    range?: string;
-
-    /**
      * These are the values to add.
      *
      * @title These are the values to add
      */
-    values: any[][];
+    values: Array<Array<string | number | boolean>>;
   }
 }
