@@ -354,9 +354,12 @@ export namespace SpreadsheetProvider {
             last_snapshot?.type !== cell.snapshot.type ||
             last_snapshot?.value !== cell.snapshot.value
           ) {
-            await SpreadsheetCellSnapshotProvider.create(alreadyCreatedCell.id)(
-              cell.snapshot,
-              created_at,
+            const snapshot = await SpreadsheetCellSnapshotProvider.create(
+              alreadyCreatedCell.id,
+            )(cell.snapshot, created_at);
+
+            await SpreadsheetCellProvider.connect(alreadyCreatedCell.id)(
+              snapshot.id,
             );
           }
         } else {

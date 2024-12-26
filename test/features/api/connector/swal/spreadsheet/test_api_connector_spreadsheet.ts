@@ -142,7 +142,7 @@ export const test_api_connector_swal_spreadsheets_exports_2 = async (
   typia.assertEquals(exported);
 };
 
-export const test_api_connector_swal_spreadsheets_update = async (
+export const test_api_connector_swal_spreadsheets_update_1 = async (
   _connection: CApi.IConnection,
 ) => {
   const connection = connectionWithSameUser(_connection);
@@ -166,4 +166,48 @@ export const test_api_connector_swal_spreadsheets_update = async (
     );
 
   typia.assertEquals(res);
+};
+
+export const test_api_connector_swal_spreadsheets_update_2 = async (
+  _connection: CApi.IConnection,
+) => {
+  const connection = connectionWithSameUser(_connection);
+  const sheet =
+    await test_api_connector_swal_spreadsheets_create_with_cell_and_at(
+      connection,
+    );
+
+  const target = sheet.spreadsheet_cells.at(0)!;
+  const newValue = randomUUID();
+  const res =
+    await CApi.functional.connector.swal.spreadsheets.cells.insertCells(
+      connection,
+      sheet.id,
+      {
+        cells: [
+          {
+            column: target.column,
+            row: target.row,
+            snapshot: {
+              type: "text",
+              value: newValue,
+            },
+          },
+        ],
+      },
+    );
+
+  typia.assertEquals(res);
+
+  const refetched = await CApi.functional.connector.swal.spreadsheets.at(
+    connection,
+    sheet.id,
+  );
+
+  const updatedCell = refetched.spreadsheet_cells.find(
+    (el) => el.row === target.row && el.column === target.column,
+  );
+
+  assert(updatedCell !== undefined);
+  assert(updatedCell.mv_last.snapshot.value === newValue);
 };

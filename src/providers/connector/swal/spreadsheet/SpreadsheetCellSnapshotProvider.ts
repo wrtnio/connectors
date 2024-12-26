@@ -55,12 +55,6 @@ export namespace SpreadsheetCellSnapshotProvider {
         data: {
           spreadsheet_cell_id: spreadsheet_cell_id,
           ...data,
-          mv_last: {
-            connect: {
-              spreadsheet_cell_id: spreadsheet_cell_id,
-              spreadsheet_cell_snapshot_id: data.id,
-            },
-          },
         },
       });
     };

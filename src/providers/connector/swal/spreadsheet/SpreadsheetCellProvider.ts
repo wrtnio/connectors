@@ -89,17 +89,29 @@ export namespace SpreadsheetCellProvider {
     });
   }
 
+  export const connect =
+    (cell_id: ISpreadsheetCell["id"]) =>
+    async (snapshot_id: ISpreadsheetCell.ISnapshot["id"]) => {
+      await ConnectorGlobal.prisma.spreadsheet_cell_last_snapshots.upsert({
+        create: {
+          spreadsheet_cell_id: cell_id,
+          spreadsheet_cell_snapshot_id: snapshot_id,
+        },
+        update: {
+          spreadsheet_cell_snapshot_id: snapshot_id,
+        },
+        where: {
+          spreadsheet_cell_id: cell_id,
+        },
+      });
+    };
+
   export const create =
     (spreadsheet_id: ISpreadsheet["id"]) =>
     async (
       cell: ISpreadsheetCell.ICreate,
       created_at: string & tags.Format<"date-time">,
     ) => {
-      const snapshot = SpreadsheetCellSnapshotProvider.collect(
-        cell.snapshot,
-        created_at,
-      );
-
       return await ConnectorGlobal.prisma.spreadsheet_cells.create({
         data: {
           spreadsheet_id: spreadsheet_id,
@@ -109,11 +121,6 @@ export namespace SpreadsheetCellProvider {
             created_at,
           ),
           created_at,
-          mv_last: {
-            connect: {
-              spreadsheet_cell_snapshot_id: snapshot.id,
-            },
-          },
         },
       });
     };
