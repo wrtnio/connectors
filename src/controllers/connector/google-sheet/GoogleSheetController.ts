@@ -43,7 +43,7 @@ export class GoogleSheetController {
   @core.TypedRoute.Post("append")
   async appendGoogleSheet(
     @core.TypedBody() input: IGoogleSheet.IAppendToSheetInput,
-  ): Promise<void> {
+  ): Promise<IGoogleSheet.ICreateGoogleSheetOutput> {
     return retry(() => GoogleSheetProvider.appendToSheet(input))();
   }
 

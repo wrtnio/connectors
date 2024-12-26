@@ -9,6 +9,7 @@ import { IGoogleSheet } from "@wrtn/connector-api/lib/structures/connector/googl
 
 import { ISpreadsheet } from "@wrtn/connector-api/lib/structures/connector/swal/spreadsheet/ISpreadsheet";
 import { ISpreadsheetCell } from "@wrtn/connector-api/lib/structures/connector/swal/spreadsheet/ISpreadsheetCell";
+import { AxiosError } from "axios";
 import { GoogleProvider } from "../../internal/google/GoogleProvider";
 import { OAuthSecretProvider } from "../../internal/oauth_secret/OAuthSecretProvider";
 
@@ -104,7 +105,7 @@ export namespace GoogleSheetProvider {
    */
   export async function appendToSheet(
     input: IGoogleSheet.IAppendToSheetInput,
-  ): Promise<void> {
+  ): Promise<IGoogleSheet.ICreateGoogleSheetOutput> {
     try {
       const { values, secretKey, spreadSheetId } = input;
       const token = await OAuthSecretProvider.getSecretValue(secretKey);
@@ -113,16 +114,29 @@ export namespace GoogleSheetProvider {
 
       authClient.setCredentials({ access_token: accessToken });
       const sheets = google.sheets({ version: "v4", auth: authClient });
-      await sheets.spreadsheets.values.append({
-        ...(input.range && { range: input.range }),
+
+      const res = await sheets.spreadsheets.values.append({
         spreadsheetId: spreadSheetId,
         valueInputOption: "RAW",
         requestBody: {
           values: values,
         },
+        range: "A1:Z1000",
       });
+
+      const spreadsheetId = res.data.spreadsheetId;
+      if (!spreadsheetId) {
+        throw new Error("Error to append rows.");
+      }
+
+      const spreadsheetUrl = `https://docs.google.com/spreadsheets/d/${spreadsheetId}`;
+      return { spreadsheetId: spreadsheetId, spreadsheetUrl };
     } catch (error) {
-      console.error(JSON.stringify(error));
+      if (error instanceof AxiosError) {
+        console.log(JSON.stringify(error.response?.data));
+      } else {
+        console.error(JSON.stringify(error));
+      }
       throw error;
     }
   }
