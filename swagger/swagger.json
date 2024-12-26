@@ -15,7 +15,7 @@
     }
   ],
   "info": {
-    "version": "0.1.428",
+    "version": "0.1.429",
     "title": "@wrtn/connector",
     "description": "wrtn-ecosystem connectors and sdk",
     "license": {
@@ -2098,7 +2098,11 @@
           "201": {
             "description": "",
             "content": {
-              "application/json": {}
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IGoogleSheet.ICreateGoogleSheetOutput"
+                }
+              }
             }
           }
         },
@@ -20795,6 +20799,26 @@
         ],
         "title": "Information needed to read Google Sheet header"
       },
+      "IGoogleSheet.ICreateGoogleSheetOutput": {
+        "type": "object",
+        "properties": {
+          "spreadsheetId": {
+            "type": "string",
+            "title": "Sheet ID",
+            "description": "The ID of the generated Google Spreadsheet."
+          },
+          "spreadsheetUrl": {
+            "type": "string",
+            "title": "Sheet URL",
+            "description": "The URL of the generated Google Spreadsheet."
+          }
+        },
+        "required": [
+          "spreadsheetId",
+          "spreadsheetUrl"
+        ],
+        "title": "Google Spreadsheet Creation Results"
+      },
       "IGoogleSheet.IAppendToSheetInput": {
         "type": "object",
         "properties": {
@@ -20808,16 +20832,23 @@
             "title": "The sheet to add",
             "description": "This is the sheet to which you want to add content."
           },
-          "range": {
-            "type": "string",
-            "title": "Range to add",
-            "description": "This is the range to add.\n\nPlease enter in A1 notation format."
-          },
           "values": {
             "type": "array",
             "items": {
               "type": "array",
-              "items": {}
+              "items": {
+                "oneOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "number"
+                  },
+                  {
+                    "type": "boolean"
+                  }
+                ]
+              }
             },
             "title": "These are the values to add",
             "description": "These are the values to add."
@@ -20838,26 +20869,6 @@
           "values",
           "secretKey"
         ]
-      },
-      "IGoogleSheet.ICreateGoogleSheetOutput": {
-        "type": "object",
-        "properties": {
-          "spreadsheetId": {
-            "type": "string",
-            "title": "Sheet ID",
-            "description": "The ID of the generated Google Spreadsheet."
-          },
-          "spreadsheetUrl": {
-            "type": "string",
-            "title": "Sheet URL",
-            "description": "The URL of the generated Google Spreadsheet."
-          }
-        },
-        "required": [
-          "spreadsheetId",
-          "spreadsheetUrl"
-        ],
-        "title": "Google Spreadsheet Creation Results"
       },
       "IGoogleSheet.ICreateGoogleSheetInput": {
         "type": "object",
