@@ -103,13 +103,42 @@ export class SpreadsheetController {
     return SpreadsheetProvider.at(external_user, spreadsheetId);
   }
 
+  /**
+   * Insert or update cells in a spreadsheet
+   *
+   * This connector allows adding or updating cells in an existing spreadsheet.
+   * The spreadsheet is identified by its {@link ISpreadsheet.id}, and the input should include
+   * the cell data to be inserted or updated.
+   *
+   * Spreadsheets in the system are managed as snapshots, meaning each update creates a new snapshot
+   * to preserve version history. Cells, like other spreadsheet components, are part of this snapshot
+   * structure. This allows tracking changes to the spreadsheet over time and facilitates rollbacks or
+   * comparisons between versions.
+   *
+   * When updating the spreadsheet, it modifies only the provided cells, leaving other
+   * cells unchanged. This is particularly useful for partial updates without altering the
+   * existing structure or data in the spreadsheet.
+   *
+   * If you want to create a new spreadsheet entirely, please use the `POST /connector/swal/spreadsheets` connector instead.
+   *
+   * @summary Insert or update cells in a spreadsheet (snapshot-based structure)
+   * @param spreadsheetId Target spreadsheet's {@link ISpreadsheet.id}
+   * @param input Contains the cells to be inserted or updated
+   * @returns Updated spreadsheet data after modifying the cells
+   */
   @core.TypedRoute.Post(":id/cells")
   async insertCells(
     @ExternalUser() external_user: IExternalUser,
     @TypedParam("id") spreadsheetId: ISpreadsheet["id"],
     @TypedBody() input: Required<Pick<ISpreadsheet.ICreate, "cells">>,
-  ) {
-    return SpreadsheetProvider.update(external_user, spreadsheetId, input);
+  ): Promise<ISpreadsheet> {
+    const response = await SpreadsheetProvider.insertCells(
+      external_user,
+      spreadsheetId,
+      input,
+    );
+
+    return response;
   }
 
   /**

@@ -14,19 +14,26 @@ export namespace SpreadsheetCellProvider {
         ReturnType<typeof summary.select>
       >,
     ): StrictOmit<ISpreadsheetCell, "spreadsheet_id"> => {
-      const snapshot = input.mv_last?.snapshot!;
       return {
         id: input.id,
         column: input.column,
         row: input.row,
         created_at: input.created_at.toISOString(),
         mv_last: {
-          snapshot: SpreadsheetCellSnapshotProvider.summary.transform(snapshot),
+          snapshot: SpreadsheetCellSnapshotProvider.summary.transform(
+            input.mv_last?.snapshot!,
+          ),
         },
+        spreadsheet_cell_snapshots: input.spreadsheet_cell_snapshots.map(
+          (snapshot) => {
+            return SpreadsheetCellSnapshotProvider.summary.transform(snapshot);
+          },
+        ),
       };
     };
 
     export const select = () => {
+      const snapshot_select = SpreadsheetCellSnapshotProvider.summary.select();
       return {
         select: {
           id: true,
@@ -35,9 +42,10 @@ export namespace SpreadsheetCellProvider {
           created_at: true,
           mv_last: {
             select: {
-              snapshot: SpreadsheetCellSnapshotProvider.summary.select(),
+              snapshot: snapshot_select,
             },
           },
+          spreadsheet_cell_snapshots: snapshot_select,
         },
       } satisfies Prisma.spreadsheet_cellsFindManyArgs;
     };

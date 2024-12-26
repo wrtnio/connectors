@@ -91,6 +91,19 @@ export interface ISpreadsheetCell
    * @title Last Snapshot
    */
   mv_last: {
-    snapshot: MyPick<ISpreadsheetCell.ISnapshot, "type" | "value">;
+    snapshot: MyPick<
+      ISpreadsheetCell.ISnapshot,
+      "type" | "value" | "created_at"
+    >;
   };
+
+  /**
+   * All Snapshot of Cell
+   *
+   * @title Snapshots
+   */
+  spreadsheet_cell_snapshots: MyPick<
+    ISpreadsheetCell.ISnapshot,
+    "id" | "type" | "value" | "created_at"
+  >[];
 }

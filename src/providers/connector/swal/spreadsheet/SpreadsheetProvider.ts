@@ -4,11 +4,10 @@ import { Prisma } from "@prisma/client";
 import { IExternalUser } from "@wrtn/connector-api/lib/structures/common/IExternalUser";
 import { IPage } from "@wrtn/connector-api/lib/structures/common/IPage";
 import { ISpreadsheet } from "@wrtn/connector-api/lib/structures/connector/swal/spreadsheet/ISpreadsheet";
-import { ISpreadsheetCell } from "@wrtn/connector-api/lib/structures/connector/swal/spreadsheet/ISpreadsheetCell";
 import { MyPick } from "@wrtn/connector-api/lib/structures/types/MyPick";
 import { StrictOmit } from "@wrtn/connector-api/lib/structures/types/strictOmit";
 import { randomUUID } from "node:crypto";
-import typia, { tags } from "typia";
+import { tags } from "typia";
 import { ConnectorGlobal } from "../../../../ConnectorGlobal";
 import { PaginationUtil } from "../../../../utils/PaginationUtil";
 import { ExcelProvider } from "../../excel/ExcelProvider";
@@ -185,9 +184,22 @@ export namespace SpreadsheetProvider {
         const title = snapshot?.title.slice(0, 31);
         const excelFile = await ExcelProvider.insertRows({
           sheetName: title,
-          data: spreadsheet.spreadsheet_cells.filter((cell) => {
-            return typia.is<ISpreadsheetCell.ICreate>(cell);
-          }),
+          data: spreadsheet.spreadsheet_cells
+            .map((cell) => {
+              const target = cell.spreadsheet_cell_snapshots.find(
+                (el) => el.created_at === snapshot.created_at,
+              )!;
+
+              return {
+                column: cell.column,
+                row: cell.row,
+                snapshot: {
+                  type: target.type,
+                  value: target.value as string, // null 처리를 해줄 것
+                },
+              };
+            })
+            .filter((cell) => cell.snapshot.value !== null),
         });
 
         const spreadsheet_exports = await SpreadsheetProvider.exports.common(
@@ -231,13 +243,25 @@ export namespace SpreadsheetProvider {
             secretKey: input.google_sheets.secret,
           });
 
-          const is = typia.createIs<ISpreadsheetCell.ICreate>();
           await GoogleSheetProvider.insertCells({
             secretKey: input.google_sheets.secret,
             spreadsheetId: google_sheet.spreadsheetId,
-            cells: spreadsheet.spreadsheet_cells.filter((cell) => {
-              return is(cell);
-            }),
+            cells: spreadsheet.spreadsheet_cells
+              .map((cell) => {
+                const target = cell.spreadsheet_cell_snapshots.find(
+                  (el) => el.created_at === snapshot.created_at,
+                )!;
+
+                return {
+                  column: cell.column,
+                  row: cell.row,
+                  snapshot: {
+                    type: target.type,
+                    value: target.value as string, // null 처리를 해줄 것
+                  },
+                };
+              })
+              .filter((cell) => cell.snapshot.value !== null),
           });
 
           const spreadsheet_exports = await SpreadsheetProvider.exports.common(
@@ -330,11 +354,36 @@ export namespace SpreadsheetProvider {
       } satisfies Prisma.spreadsheetsCreateInput;
     };
 
-  export const update = async (
+  export const update =
+    (
+      spreadsheetId: ISpreadsheet["id"],
+      created_at: string & tags.Format<"date-time">,
+    ) =>
+    async (input: Pick<ISpreadsheet.ICreate, "title" | "description">) => {
+      const data = SpreadsheetSnapshotProvider.collect(input, created_at);
+      const snapshot =
+        await ConnectorGlobal.prisma.spreadsheet_snapshots.create({
+          ...SpreadsheetSnapshotProvider.json.select(),
+          data: data,
+        });
+
+      await ConnectorGlobal.prisma.spreadsheet_last_snapshot.update({
+        data: {
+          spreadsheet_snapshot_id: data.id,
+        },
+        where: {
+          spreadsheet_id: spreadsheetId,
+        },
+      });
+
+      return snapshot;
+    };
+
+  export const insertCells = async (
     external_user: IExternalUser,
     spreadsheetId: ISpreadsheet["id"],
     input: Required<Pick<ISpreadsheet.ICreate, "cells">>,
-  ) => {
+  ): Promise<ISpreadsheet> => {
     const spreadsheet = await SpreadsheetProvider.at(
       external_user,
       spreadsheetId,
@@ -370,6 +419,8 @@ export namespace SpreadsheetProvider {
         }
       }),
     );
+
+    return await SpreadsheetProvider.at(external_user, spreadsheetId);
   };
 
   export const remove = async (
