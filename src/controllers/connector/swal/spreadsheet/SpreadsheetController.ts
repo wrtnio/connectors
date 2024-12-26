@@ -1,4 +1,4 @@
-import core, { TypedBody, TypedParam } from "@nestia/core";
+import core, { HumanRoute, TypedBody, TypedParam } from "@nestia/core";
 import { Controller } from "@nestjs/common";
 import { IExternalUser } from "@wrtn/connector-api/lib/structures/common/IExternalUser";
 import { IPage } from "@wrtn/connector-api/lib/structures/common/IPage";
@@ -26,6 +26,7 @@ export class SpreadsheetController {
    * @param input GoogleSheets export configuration and snapshot information to export
    * @returns Spreadsheet Information and GoogleSheets export details
    */
+  @HumanRoute()
   @core.TypedRoute.Post(":id/exports/google-sheets")
   async exportsToGoogleSheets(
     @ExternalUser() external_user: IExternalUser,
@@ -61,6 +62,7 @@ export class SpreadsheetController {
    * @param input Excel export configuration and snapshot information to export
    * @returns Spreadsheet Information and Excel export details
    */
+  @HumanRoute()
   @core.TypedRoute.Post(":id/exports/excel")
   async exportsToExcel(
     @ExternalUser() external_user: IExternalUser,
@@ -95,6 +97,7 @@ export class SpreadsheetController {
    * @param spreadsheetId Target spreadsheet's {@link ISpreadsheet.id}, Not snapshot ID
    * @returns Spreadsheet Information
    */
+  @HumanRoute()
   @core.TypedRoute.Patch(":id")
   async at(
     @ExternalUser() external_user: IExternalUser,
@@ -126,6 +129,7 @@ export class SpreadsheetController {
    * @param input Contains the cells to be inserted or updated
    * @returns Updated spreadsheet data after modifying the cells
    */
+  @HumanRoute()
   @core.TypedRoute.Post(":id/cells")
   async insertCells(
     @ExternalUser() external_user: IExternalUser,
@@ -164,6 +168,7 @@ export class SpreadsheetController {
    * @param input Request info of pagination and searching options.
    * @returns Paginated summarized spreadsheets.
    */
+  @HumanRoute()
   @core.TypedRoute.Patch()
   async index(
     @ExternalUser() external_user: IExternalUser,
@@ -197,6 +202,7 @@ export class SpreadsheetController {
    * @summary Create Spreadsheet
    * @param input Spreadsheet Information to Create
    */
+  @HumanRoute()
   @core.TypedRoute.Post()
   async create(
     @ExternalUser() external_user: IExternalUser,
