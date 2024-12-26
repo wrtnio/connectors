@@ -10,7 +10,6 @@ import { retry } from "../../../utils/retry";
 
 @Controller("connector/excel")
 export class ExcelController {
-  constructor(private readonly excelProvider: ExcelProvider) {}
   /**
    * Based on the input file information, the headers of the corresponding Excel file are retrieved
    *
@@ -27,7 +26,7 @@ export class ExcelController {
   async readHeaders(
     @core.TypedBody() input: IExcel.IReadExcelInput,
   ): Promise<string[]> {
-    return retry(() => this.excelProvider.readHeaders(input))();
+    return retry(() => ExcelProvider.readHeaders(input))();
   }
 
   /**
@@ -45,9 +44,9 @@ export class ExcelController {
   async read(
     @core.TypedBody() input: IExcel.IReadExcelInput,
   ): Promise<IExcel.IReadExcelOutput> {
-    const workbook = await this.excelProvider.getExcelFile(input);
+    const workbook = await ExcelProvider.getExcelFile(input);
     const option = { workbook, sheetName: input.sheetName };
-    return retry(() => this.excelProvider.getExcelData(option))();
+    return retry(() => ExcelProvider.getExcelData(option))();
   }
 
   /**
@@ -66,7 +65,7 @@ export class ExcelController {
   async worksheetList(
     @core.TypedBody() input: IExcel.IGetWorksheetListInput,
   ): Promise<IExcel.IWorksheetListOutput> {
-    return retry(() => this.excelProvider.readSheets(input))();
+    return retry(() => ExcelProvider.readSheets(input))();
   }
 
   /**
@@ -96,7 +95,7 @@ export class ExcelController {
   async insertRowsByUpload(
     @core.TypedBody() input: IExcel.IInsertExcelRowByUploadInput,
   ): Promise<IExcel.IExportExcelFileOutput> {
-    return this.excelProvider.insertRows(input);
+    return ExcelProvider.insertRows(input);
   }
 
   /**
@@ -128,7 +127,7 @@ export class ExcelController {
   async insertRows(
     @core.TypedBody() input: IExcel.IInsertExcelRowInput,
   ): Promise<IExcel.IExportExcelFileOutput> {
-    return this.excelProvider.insertRows(input);
+    return ExcelProvider.insertRows(input);
   }
 
   /**
@@ -154,6 +153,6 @@ export class ExcelController {
   async createSheets(
     @core.TypedBody() input: IExcel.ICreateSheetInput,
   ): Promise<IExcel.IExportExcelFileOutput> {
-    return retry(() => this.excelProvider.createSheets(input))();
+    return retry(() => ExcelProvider.createSheets(input))();
   }
 }

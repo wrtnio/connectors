@@ -1,9 +1,8 @@
 import { Module } from "@nestjs/common";
-import { LoggerModule } from "nestjs-pino";
 
+import { LoggerModule } from "nestjs-pino";
 import { AISearchModule } from "./ai_search/AISearchModule";
 import { AirportInformationModule } from "./airport_information/AirportInformationModule";
-import { ArticlesModule } from "./articles/ArticlesModule";
 import { ArxivSearchModule } from "./arxiv_search/ArxivSearchModule";
 import { AwsModule } from "./aws/AwsModule";
 import { CalendlyModule } from "./calendly/CalendlyModule";
@@ -25,6 +24,7 @@ import { GoogleCalendarModule } from "./google_calendar/GoogleCalendarModule";
 import { GoogleDriveModule } from "./google_drive/GoogleDriveModule";
 import { GoogleFlightModule } from "./google_flight/GoogleFlightModule";
 import { GoogleHotelModule } from "./google_hotel/GoogleHotelModule";
+import { GoogleImageModule } from "./google_image/GoogleImageModule";
 import { GoogleMapModule } from "./google_map/GoogleMapModule";
 import { GoogleScholarModule } from "./google_scholar/GoolgeScholarModule";
 import { GoogleSearchModule } from "./google_search/GoogleSearchModule";
@@ -70,6 +70,8 @@ import { StableDiffusionBetaModule } from "./stable_diffustion_beta/StableDiffus
 import { StoryGeneratorModule } from "./story_generator/StoryGeneratorModule";
 import { StoryImageGeneratorModule } from "./story_image_generator/StoryImageGeneratorModule";
 import { StudentReportGeneratorModule } from "./student_report_generator/StudentReportGeneratorModule";
+import { ArticleModule } from "./swal/article/ArticleModule";
+import { SpreadsheetModule } from "./swal/spreadsheet/SpreadsheetModule";
 import { SweetTackerModule } from "./sweet_tracker/SweetTrackerModule";
 import { ToolModule } from "./tool/ToolModule";
 import { TypeformModule } from "./typeform/TypeformModule";
@@ -77,13 +79,13 @@ import { WebCrawlerModule } from "./web_crawler/WebCrawlerModule";
 import { XModule } from "./x/XModule";
 import { YoutubeSearchModule } from "./youtube_search/YoutubeSearchModule";
 import { ZoomModule } from "./zoom/ZoomModule";
-import { GoogleImageModule } from "./google_image/GoogleImageModule";
 
 @Module({
   // connectors that require DI of some sort shall be declared as modules
   // the rest can be simply imported as controllers
   imports: [
-    ArticlesModule,
+    ArticleModule,
+    SpreadsheetModule,
     KeywordExtractModule,
     RankModule,
     MarketingCopyModule,

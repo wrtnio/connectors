@@ -1,10 +1,11 @@
-import typia, { random } from "typia";
+import typia from "typia";
 
 import CApi from "@wrtn/connector-api/lib/index";
 import { IExcel } from "@wrtn/connector-api/lib/structures/connector/excel/IExcel";
 
 import { deepStrictEqual } from "assert";
 import { ConnectorGlobal } from "../../../../../src/ConnectorGlobal";
+import { ExcelProvider } from "../../../../../src/providers/connector/excel/ExcelProvider";
 
 export const test_api_connector_excel_create_file_witnout_sheet_name = async (
   connection: CApi.IConnection,
@@ -34,15 +35,64 @@ export const test_api_connector_excel_insert_rows_without_file_url = async (
    * insert rows
    */
   const data = {
-    Identifier: random<string>(),
-    "First name": random<string>(),
-    "Last name": random<string>(),
+    Identifier: typia.random<string>(),
+    "First name": typia.random<string>(),
+    "Last name": typia.random<string>(),
   };
 
   const res = await CApi.functional.connector.excel.rows.insertRows(
     connection,
     {
-      data: [data],
+      data: [
+        {
+          row: 1,
+          column: 1,
+          snapshot: {
+            type: "text",
+            value: "Identifier",
+          },
+        },
+        {
+          row: 1,
+          column: 2,
+          snapshot: {
+            type: "text",
+            value: "First name",
+          },
+        },
+        {
+          row: 1,
+          column: 3,
+          snapshot: {
+            type: "text",
+            value: "Last name",
+          },
+        },
+        {
+          row: 2,
+          column: 1,
+          snapshot: {
+            type: "text",
+            value: typia.random<string>(),
+          },
+        },
+        {
+          row: 2,
+          column: 2,
+          snapshot: {
+            type: "text",
+            value: typia.random<string>(),
+          },
+        },
+        {
+          row: 2,
+          column: 3,
+          snapshot: {
+            type: "text",
+            value: typia.random<string>(),
+          },
+        },
+      ],
     },
   );
 
@@ -59,17 +109,60 @@ export const test_api_connector_excel_insert_rows_with_file_url = async (
   /**
    * insert rows
    */
-  const data = {
-    Identifier: random<string>(),
-    "First name": random<string>(),
-    "Last name": random<string>(),
-  };
-
   const res = await CApi.functional.connector.excel.rows.insertRows(
     connection,
     {
       fileUrl: file.fileUrl,
-      data: [data],
+      data: [
+        {
+          row: 1,
+          column: 1,
+          snapshot: {
+            type: "text",
+            value: "Identifier",
+          },
+        },
+        {
+          row: 1,
+          column: 2,
+          snapshot: {
+            type: "text",
+            value: "First name",
+          },
+        },
+        {
+          row: 1,
+          column: 3,
+          snapshot: {
+            type: "text",
+            value: "Last name",
+          },
+        },
+        {
+          row: 2,
+          column: 1,
+          snapshot: {
+            type: "text",
+            value: typia.random<string>(),
+          },
+        },
+        {
+          row: 2,
+          column: 2,
+          snapshot: {
+            type: "text",
+            value: typia.random<string>(),
+          },
+        },
+        {
+          row: 2,
+          column: 3,
+          snapshot: {
+            type: "text",
+            value: typia.random<string>(),
+          },
+        },
+      ],
     },
   );
 
@@ -98,7 +191,72 @@ export const test_api_connector_excel_insert_row_fail_case_1 = async (
     {
       fileUrl: file.fileUrl,
       sheetName: "TEST",
-      data,
+      data: [
+        {
+          row: 1,
+          column: 1,
+          snapshot: {
+            type: "text",
+            value: "이름",
+          },
+        },
+        {
+          row: 1,
+          column: 2,
+          snapshot: {
+            type: "text",
+            value: "나이",
+          },
+        },
+        {
+          row: 1,
+          column: 3,
+          snapshot: {
+            type: "text",
+            value: "직업",
+          },
+        },
+        {
+          row: 1,
+          column: 4,
+          snapshot: {
+            type: "text",
+            value: "이메일",
+          },
+        },
+        {
+          row: 2,
+          column: 1,
+          snapshot: {
+            type: "text",
+            value: "홍길동",
+          },
+        },
+        {
+          row: 2,
+          column: 2,
+          snapshot: {
+            type: "text",
+            value: "25",
+          },
+        },
+        {
+          row: 2,
+          column: 3,
+          snapshot: {
+            type: "text",
+            value: "엔지니어",
+          },
+        },
+        {
+          row: 2,
+          column: 4,
+          snapshot: {
+            type: "text",
+            value: "hong@example.com",
+          },
+        },
+      ],
     },
   );
 
@@ -113,7 +271,7 @@ export const test_api_connector_excel_insert_row_fail_case_2 = async (
     connection,
     {
       sheetName: "Sheet1",
-      data: [
+      data: ExcelProvider.transform([
         {
           AirlineName: "Air Mock",
           FlightNumber: "AM1234",
@@ -149,7 +307,7 @@ export const test_api_connector_excel_insert_row_fail_case_2 = async (
           ArrivalTime: "20:45",
           Status: "On Time",
         },
-      ],
+      ]),
     },
   );
 
@@ -166,11 +324,84 @@ export const test_api_connector_excel_insert_row_fail_case_3 = async (
       sheetName: "Sheet1",
       data: [
         {
-          AirlineName: "Air Mock",
-          FlightNumber: "AM1234",
-          DepartureTime: "08:00",
-          ArrivalTime: "10:00",
-          Status: "On Time",
+          row: 1,
+          column: 1,
+          snapshot: {
+            type: "text",
+            value: "AirlineName",
+          },
+        },
+        {
+          row: 1,
+          column: 2,
+          snapshot: {
+            type: "text",
+            value: "FlightNumber",
+          },
+        },
+        {
+          row: 1,
+          column: 3,
+          snapshot: {
+            type: "text",
+            value: "DepartureTime",
+          },
+        },
+        {
+          row: 1,
+          column: 4,
+          snapshot: {
+            type: "text",
+            value: "ArrivalTime",
+          },
+        },
+        {
+          row: 1,
+          column: 5,
+          snapshot: {
+            type: "text",
+            value: "Status",
+          },
+        },
+        {
+          row: 2,
+          column: 1,
+          snapshot: {
+            type: "text",
+            value: "Air Mock",
+          },
+        },
+        {
+          row: 2,
+          column: 2,
+          snapshot: {
+            type: "text",
+            value: "AM1234",
+          },
+        },
+        {
+          row: 2,
+          column: 3,
+          snapshot: {
+            type: "text",
+            value: "08:00",
+          },
+        },
+        {
+          row: 2,
+          column: 4,
+          snapshot: {
+            type: "text",
+            value: "10:00",
+          },
+        },
+        {
+          row: 2,
+          column: 5,
+          snapshot: {
+            type: "text",
+            value: "On Time",
+          },
         },
       ],
     },
@@ -183,11 +414,44 @@ export const test_api_connector_excel_insert_row_fail_case_3 = async (
       sheetName: "Sheet1",
       data: [
         {
-          AirlineName: "Sky High",
-          FlightNumber: "SH5678",
-          DepartureTime: "09:30",
-          ArrivalTime: "11:30",
-          Status: "Delayed",
+          row: 3,
+          column: 1,
+          snapshot: {
+            type: "text",
+            value: "Sky High",
+          },
+        },
+        {
+          row: 3,
+          column: 2,
+          snapshot: {
+            type: "text",
+            value: "SH5678",
+          },
+        },
+        {
+          row: 3,
+          column: 3,
+          snapshot: {
+            type: "text",
+            value: "09:30",
+          },
+        },
+        {
+          row: 3,
+          column: 4,
+          snapshot: {
+            type: "text",
+            value: "11:30",
+          },
+        },
+        {
+          row: 3,
+          column: 5,
+          snapshot: {
+            type: "text",
+            value: "Delayed",
+          },
         },
       ],
     },
@@ -235,21 +499,19 @@ export const test_api_connector_excel_insert_row_to_empty_excel_file = async (
     sheetName: "TEST",
   });
 
-  const data = [
-    {
-      이름: "홍길동",
-      나이: 25,
-      직업: "엔지니어",
-      이메일: "hong@example.com",
-    },
-  ];
-
   const res = await CApi.functional.connector.excel.rows.insertRows(
     connection,
     {
       fileUrl: file.fileUrl,
       sheetName: "TEST",
-      data,
+      data: ExcelProvider.transform([
+        {
+          이름: "홍길동",
+          나이: 25,
+          직업: "엔지니어",
+          이메일: "hong@example.com",
+        },
+      ]),
     },
   );
 
@@ -280,13 +542,15 @@ export const test_api_connector_excel = async (
   /**
    * insert rows
    */
-  const data = {
-    Identifier: random<string>(),
-    "First name": random<string>(),
-    "Last name": random<string>(),
-  };
+
   const insertRowsInput: IExcel.IInsertExcelRowInput = {
-    data: [data],
+    data: ExcelProvider.transform([
+      {
+        Identifier: typia.random<string>(),
+        "First name": typia.random<string>(),
+        "Last name": typia.random<string>(),
+      },
+    ]),
   };
   const insertRowsOutput =
     await CApi.functional.connector.excel.rows.insertRows(

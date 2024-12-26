@@ -343,7 +343,7 @@ export namespace IGoogleSheet {
      *
      * @title Range to add
      */
-    range: string;
+    range?: string;
 
     /**
      * These are the values to add.

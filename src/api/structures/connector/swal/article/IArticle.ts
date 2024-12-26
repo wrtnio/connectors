@@ -1,10 +1,10 @@
 import { Prerequisite, SecretKey } from "@wrtnio/decorators";
 import { tags } from "typia";
-import { IPage } from "../../common/IPage";
-import { StrictOmit } from "../../types/strictOmit";
-import { IDevTo } from "../dev.to/IDevTo";
-import { IGoogleDocs } from "../google_docs/IGoogleDocs";
-import { INotion } from "../notion/INotion";
+import { IPage } from "../../../common/IPage";
+import { StrictOmit } from "../../../types/strictOmit";
+import { IDevTo } from "../../dev.to/IDevTo";
+import { IGoogleDocs } from "../../google_docs/IGoogleDocs";
+import { INotion } from "../../notion/INotion";
 import { IArticleExport } from "./IArticleExport";
 import { IAttachmentFile } from "./IAttachmentFile";
 
@@ -41,7 +41,7 @@ export namespace IArticle {
         from: IArticle.ISnapshot["id"] &
           Prerequisite<{
             method: "patch";
-            path: "/connector/articles/:id";
+            path: "/connector/swal/articles/:id";
             jmesPath: "snapshot[].{ value: id, label: ['created_at ', created_at].join(':', @) }";
           }>;
 
@@ -51,7 +51,7 @@ export namespace IArticle {
         to: IArticle.ISnapshot["id"] &
           Prerequisite<{
             method: "patch";
-            path: "/connector/articles/:id";
+            path: "/connector/swal/articles/:id";
             jmesPath: "snapshot[].{ value: id, label: ['created_at ', created_at].join(':', @) }";
           }>;
 
@@ -148,6 +148,7 @@ export namespace IArticle {
        */
       article_snapshot_exports: StrictOmit<IArticleExport, "deleted_at">;
     }
+
     export interface SnapshotInput {
       /**
        * @title snapshot information to export
@@ -159,7 +160,7 @@ export namespace IArticle {
         id: string &
           Prerequisite<{
             method: "patch";
-            path: "/connector/articles/:id";
+            path: "/connector/swal/articles/:id";
             jmesPath: "snapshot[].{ value: id, label: ['created_at ', created_at].join(':', @) }";
           }>;
       };
@@ -284,6 +285,14 @@ export namespace IArticle {
   }
 
   export namespace IRequest {
+    /**
+     * If an attribute exists,
+     * it returns only the result of 'AND' calculations of all the attributes.
+     * For example, if the format is 'md' and 'title' is 'swal',
+     * it will only look up the case where it is marked down and 'swal' is included in the title.
+     *
+     * @title Search Conditions
+     */
     export interface ISearch {
       /**
        * Article IDs, not Article Snapshot ID
@@ -304,11 +313,16 @@ export namespace IArticle {
         format?: IArticle.ISnapshot["format"];
 
         /**
-         * If you want to search for something that contains a specific title,
-         * you can put the keyword you want in it.
+         * This property is not a complete match, but a feature
+         * that allows user to search for a title that contains that character.
+         * This property should be undefined unless the user wants to see his or her writing
+         * and only wants to find a title that contains a particular text.
+         *
+         * If user want to search for something that contains a specific title,
+         * user can put the keyword user want in it.
          * You must put keywords that must be included.
-         * If you don't have anything to search for,
-         * you can put in or not empty characters.
+         * If user don't have anything to search for,
+         * user can put in or not empty characters.
          *
          * @title Title of article
          */

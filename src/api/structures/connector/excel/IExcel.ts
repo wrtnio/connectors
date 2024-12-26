@@ -1,6 +1,7 @@
 import { Placeholder } from "@wrtnio/decorators";
 import { tags } from "typia";
 import { ContentMediaType } from "typia/lib/tags/ContentMediaType";
+import { ISpreadsheetCell } from "../swal/spreadsheet/ISpreadsheetCell";
 
 export namespace IExcel {
   /**
@@ -107,11 +108,11 @@ export namespace IExcel {
       ContentMediaType<"application/vnd.openxmlformats-officedocument.spreadsheetml.sheet">;
 
     /**
-     * An array of objects where the key is the header name and the value is the value of the corresponding row
+     * The type of data and coordinates of each row and column
      *
-     * @title Excel row data to add
+     * @title Cell informations
      */
-    data: Record<string, any>[];
+    data: ISpreadsheetCell.ICreate[];
   }
 
   /**
@@ -130,11 +131,11 @@ export namespace IExcel {
     fileUrl?: string & tags.Format<"iri">;
 
     /**
-     * An array of objects where the key is the header name and the value is the value of the corresponding row
+     * The type of data and coordinates of each row and column
      *
-     * @title Excel row data to add
+     * @title Cell informations
      */
-    data: Record<string, any>[];
+    data: ISpreadsheetCell.ICreate[];
   }
 
   export interface ICreateSheetInput {
@@ -144,13 +145,18 @@ export namespace IExcel {
      *
      * @title Excel sheet name
      */
-    sheetName?: (string & Placeholder<"Sheet1">) | null;
+    sheetName?: (string & tags.MaxLength<31> & Placeholder<"Sheet1">) | null;
   }
 
   /**
    * @title Excel row addition result
    */
   export interface IExportExcelFileOutput {
+    /**
+     * @title S3 path of file
+     */
+    fileId: string;
+
     /**
      * @title Generated Excel file url
      */

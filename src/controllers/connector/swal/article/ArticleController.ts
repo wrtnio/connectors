@@ -2,15 +2,15 @@ import core, { TypedBody, TypedParam } from "@nestia/core";
 import { Controller } from "@nestjs/common";
 import { IExternalUser } from "@wrtn/connector-api/lib/structures/common/IExternalUser";
 import { IPage } from "@wrtn/connector-api/lib/structures/common/IPage";
-import { IArticle } from "@wrtn/connector-api/lib/structures/connector/articles/IArticle";
-import { IArticleExport } from "@wrtn/connector-api/lib/structures/connector/articles/IArticleExport";
+import { IArticle } from "@wrtn/connector-api/lib/structures/connector/swal/article/IArticle";
+import { IArticleExport } from "@wrtn/connector-api/lib/structures/connector/swal/article/IArticleExport";
 import { StrictOmit } from "@wrtn/connector-api/lib/structures/types/strictOmit";
 import { Prerequisite, SelectBenchmark } from "@wrtnio/decorators";
-import { ExternalUser } from "../../../decorators/ExternalUser";
-import { DocumentProvider } from "../../../providers/connector/article/DocumentProvider";
+import { ExternalUser } from "../../../../decorators/ExternalUser";
+import { DocumentProvider } from "../../../../providers/connector/swal/article/DocumentProvider";
 
-@Controller("connector/articles")
-export class ArticlesController {
+@Controller("connector/swal/articles")
+export class ArticleController {
   /**
    * upgrade or downgrade version of exported dev.to
    *
@@ -31,7 +31,7 @@ export class ArticlesController {
   async syncToDevTo(
     @ExternalUser() external_user: IExternalUser,
     @Prerequisite({
-      neighbor: () => ArticlesController.prototype.index,
+      neighbor: () => ArticleController.prototype.index,
       jmesPath: "data[].{ value: id, label: snapshot.title }",
     })
     @TypedParam("id")
@@ -61,7 +61,7 @@ export class ArticlesController {
   async syncToGoogleDocs(
     @ExternalUser() external_user: IExternalUser,
     @Prerequisite({
-      neighbor: () => ArticlesController.prototype.index,
+      neighbor: () => ArticleController.prototype.index,
       jmesPath: "data[].{ value: id, label: snapshot.title }",
     })
     @TypedParam("id")
@@ -95,7 +95,7 @@ export class ArticlesController {
   async syncToNotion(
     @ExternalUser() external_user: IExternalUser,
     @Prerequisite({
-      neighbor: () => ArticlesController.prototype.index,
+      neighbor: () => ArticleController.prototype.index,
       jmesPath: "data[].{ value: id, label: snapshot.title }",
     })
     @TypedParam("id")
@@ -111,7 +111,7 @@ export class ArticlesController {
    * The exported text is recorded by creating a
    * {@link IArticleExport bbs_article_exports} object based on the snapshot.
    * You can upgrade and downgrade the version using
-   * the 'POST /connector/articles/:id/exports/sync/dev_to' connector in the future.
+   * the 'POST /connector/swal/articles/:id/exports/sync/dev_to' connector in the future.
    * Also, it doesn't matter if you export the same version of the text multiple times.
    *
    * Because each export generates a new text,
@@ -127,7 +127,7 @@ export class ArticlesController {
   async exportsToDevTo(
     @ExternalUser() external_user: IExternalUser,
     @Prerequisite({
-      neighbor: () => ArticlesController.prototype.index,
+      neighbor: () => ArticleController.prototype.index,
       jmesPath: "data[].{ value: id, label: snapshot.title }",
     })
     @TypedParam("id")
@@ -143,7 +143,7 @@ export class ArticlesController {
    * The exported text is recorded by creating a
    * {@link IArticleExport bbs_article_exports} object based on the snapshot.
    * You can upgrade and downgrade the version using
-   * the 'POST /connector/articles/:id/exports/sync/google_docs' connector in the future.
+   * the 'POST /connector/swal/articles/:id/exports/sync/google_docs' connector in the future.
    * Also, it doesn't matter if you export the same version of the text multiple times.
    *
    * Because each export generates a new text,
@@ -159,7 +159,7 @@ export class ArticlesController {
   async exportsToGoogleDocs(
     @ExternalUser() external_user: IExternalUser,
     @Prerequisite({
-      neighbor: () => ArticlesController.prototype.index,
+      neighbor: () => ArticleController.prototype.index,
       jmesPath: "data[].{ value: id, label: snapshot.title }",
     })
     @TypedParam("id")
@@ -179,7 +179,7 @@ export class ArticlesController {
    * The exported text is recorded by creating a
    * {@link IArticleExport bbs_article_exports} object based on the snapshot.
    * You can upgrade and downgrade the version using
-   * the 'POST /connector/articles/:id/exports/sync/notion' connector in the future.
+   * the 'POST /connector/swal/articles/:id/exports/sync/notion' connector in the future.
    * Also, it doesn't matter if you export the same version of the text multiple times.
    *
    * Because each export generates a new text,
@@ -195,7 +195,7 @@ export class ArticlesController {
   async exportsToNotion(
     @ExternalUser() external_user: IExternalUser,
     @Prerequisite({
-      neighbor: () => ArticlesController.prototype.index,
+      neighbor: () => ArticleController.prototype.index,
       jmesPath: "data[].{ value: id, label: snapshot.title }",
     })
     @TypedParam("id")
@@ -223,7 +223,7 @@ export class ArticlesController {
   async at(
     @ExternalUser() external_user: IExternalUser,
     @Prerequisite({
-      neighbor: () => ArticlesController.prototype.index,
+      neighbor: () => ArticleController.prototype.index,
       jmesPath: "data[].{ value: id, label: snapshot.title }",
     })
     @TypedParam("id")
@@ -250,7 +250,7 @@ export class ArticlesController {
      * @title Article ID to remove
      */
     @Prerequisite({
-      neighbor: () => ArticlesController.prototype.index,
+      neighbor: () => ArticleController.prototype.index,
       jmesPath: "data[].{ value: id, label: snapshot.title }",
     })
     @TypedParam("id")
@@ -279,7 +279,7 @@ export class ArticlesController {
      * @title Article ID to update
      */
     @Prerequisite({
-      neighbor: () => ArticlesController.prototype.index,
+      neighbor: () => ArticleController.prototype.index,
       jmesPath: "data[].{ value: id, label: snapshot.title }",
     })
     @TypedParam("id")
@@ -292,6 +292,7 @@ export class ArticlesController {
   /**
    * List up all summarized articles with pagination and searching options
    *
+   * Because it is looking at the user's individual writing, user cannot inquire other than your own writing.
    * Because it is a call to a text stored in the connector server's own DB,
    * it may be appropriate to call this connector if the user asks to call the text without saying the service name.
    * It is recommended that you first ask the user for the service name.
@@ -305,7 +306,7 @@ export class ArticlesController {
    * please look up the details.
    * Here, we only show the content of the text up to 100 characters, so if you want to see the latter, you need to look up the details.
    * You can view all the snapshots of this article if you want to look at them in detail.
-   * The detailed lookup connector is 'PATCH connector/articles/:id'.
+   * The detailed lookup connector is 'PATCH connector/swal/articles/:id'.
    *
    * @summary List up all summarized articles
    * @param input Request info of pagination and searching options.
@@ -341,6 +342,7 @@ export class ArticlesController {
    * Ask the user to confirm.
    *
    * @sumamry Write Article
+   * @param input Article Information to Create
    */
   @SelectBenchmark("내 개인 DB에 글 좀 써줘")
   @core.TypedRoute.Post()
