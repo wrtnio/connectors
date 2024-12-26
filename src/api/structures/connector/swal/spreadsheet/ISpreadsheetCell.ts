@@ -64,6 +64,10 @@ export namespace ISpreadsheetCell {
      */
     snapshot: MyPick<ISpreadsheetCell.ISnapshot.ICreate, "type" | "value">;
   }
+
+  export type IAt =
+    | MyPick<ISpreadsheetCell, "id">
+    | MyPick<ISpreadsheetCell, "spreadsheet_id" | "column" | "row">;
 }
 
 export interface ISpreadsheetCell
@@ -86,5 +90,7 @@ export interface ISpreadsheetCell
   /**
    * @title Last Snapshot
    */
-  snapshot: MyPick<ISpreadsheetCell.ISnapshot, "type" | "value">;
+  mv_last: {
+    snapshot: MyPick<ISpreadsheetCell.ISnapshot, "type" | "value">;
+  };
 }

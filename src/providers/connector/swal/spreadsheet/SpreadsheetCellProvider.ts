@@ -1,8 +1,10 @@
 import { Prisma } from "@prisma/client";
+import { ISpreadsheet } from "@wrtn/connector-api/lib/structures/connector/swal/spreadsheet/ISpreadsheet";
 import { ISpreadsheetCell } from "@wrtn/connector-api/lib/structures/connector/swal/spreadsheet/ISpreadsheetCell";
 import { StrictOmit } from "@wrtn/connector-api/lib/structures/types/strictOmit";
 import { randomUUID } from "node:crypto";
 import { tags } from "typia";
+import { ConnectorGlobal } from "../../../../ConnectorGlobal";
 import { SpreadsheetCellSnapshotProvider } from "./SpreadsheetCellSnapshotProvider";
 
 export namespace SpreadsheetCellProvider {
@@ -18,7 +20,9 @@ export namespace SpreadsheetCellProvider {
         column: input.column,
         row: input.row,
         created_at: input.created_at.toISOString(),
-        snapshot: SpreadsheetCellSnapshotProvider.summary.transform(snapshot),
+        mv_last: {
+          snapshot: SpreadsheetCellSnapshotProvider.summary.transform(snapshot),
+        },
       };
     };
 
@@ -69,5 +73,48 @@ export namespace SpreadsheetCellProvider {
           },
         },
       } satisfies Prisma.spreadsheet_cellsCreateWithoutSpreadsheetInput;
+    };
+
+  export async function at(input: ISpreadsheetCell.IAt) {
+    return await ConnectorGlobal.prisma.spreadsheet_cells.findFirst({
+      ...SpreadsheetCellProvider.summary.select(),
+      where: {
+        ...("id" in input === true && { id: input.id }),
+        ...("id" in input === false && {
+          spreadsheet_id: input.spreadsheet_id,
+          column: input.column,
+          row: input.row,
+        }),
+      },
+    });
+  }
+
+  export const create =
+    (spreadsheet_id: ISpreadsheet["id"]) =>
+    async (
+      cell: ISpreadsheetCell.ICreate,
+      created_at: string & tags.Format<"date-time">,
+    ) => {
+      const snapshot = SpreadsheetCellSnapshotProvider.collect(
+        cell.snapshot,
+        created_at,
+      );
+
+      return await ConnectorGlobal.prisma.spreadsheet_cells.create({
+        data: {
+          spreadsheet_id: spreadsheet_id,
+          ...SpreadsheetCellProvider.collect()(
+            cell,
+            SpreadsheetCellSnapshotProvider.collect,
+            created_at,
+          ),
+          created_at,
+          mv_last: {
+            connect: {
+              spreadsheet_cell_snapshot_id: snapshot.id,
+            },
+          },
+        },
+      });
     };
 }

@@ -332,9 +332,42 @@ export namespace SpreadsheetProvider {
 
   export const update = async (
     external_user: IExternalUser,
-    spreadsheetId: any,
-    input: any,
-  ) => {};
+    spreadsheetId: ISpreadsheet["id"],
+    input: Required<Pick<ISpreadsheet.ICreate, "cells">>,
+  ) => {
+    const spreadsheet = await SpreadsheetProvider.at(
+      external_user,
+      spreadsheetId,
+    );
+
+    const created_at = new Date().toISOString();
+    await Promise.all(
+      input.cells?.map(async (cell) => {
+        const alreadyCreatedCell = await SpreadsheetCellProvider.at({
+          ...cell,
+          spreadsheet_id: spreadsheet.id,
+        });
+
+        if (alreadyCreatedCell) {
+          const last_snapshot = alreadyCreatedCell?.mv_last?.snapshot;
+          if (
+            last_snapshot?.type !== cell.snapshot.type ||
+            last_snapshot?.value !== cell.snapshot.value
+          ) {
+            await SpreadsheetCellSnapshotProvider.create(alreadyCreatedCell.id)(
+              cell.snapshot,
+              created_at,
+            );
+          }
+        } else {
+          await SpreadsheetCellProvider.create(spreadsheet.id)(
+            cell,
+            created_at,
+          );
+        }
+      }),
+    );
+  };
 
   export const remove = async (
     external_user: IExternalUser,
@@ -342,6 +375,14 @@ export namespace SpreadsheetProvider {
     input: any,
   ) => {};
 
+  /**
+   * 스프레드시트의 상세를 조회한다.
+   * 단, 여기서는 항상 최신 상태를 기준으로 조회한다.
+   *
+   * @param external_user
+   * @param spreadsheetId
+   * @returns
+   */
   export const at = async (
     external_user: IExternalUser,
     spreadsheetId: ISpreadsheet["id"],

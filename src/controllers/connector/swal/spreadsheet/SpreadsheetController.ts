@@ -103,6 +103,15 @@ export class SpreadsheetController {
     return SpreadsheetProvider.at(external_user, spreadsheetId);
   }
 
+  @core.TypedRoute.Post(":id/cells")
+  async insertCells(
+    @ExternalUser() external_user: IExternalUser,
+    @TypedParam("id") spreadsheetId: ISpreadsheet["id"],
+    @TypedBody() input: Required<Pick<ISpreadsheet.ICreate, "cells">>,
+  ) {
+    return SpreadsheetProvider.update(external_user, spreadsheetId, input);
+  }
+
   /**
    * List up all summarized spreadsheets with pagination and searching options
    *

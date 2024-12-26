@@ -2,6 +2,7 @@ import { Prisma } from "@prisma/client";
 import { ISpreadsheetCell } from "@wrtn/connector-api/lib/structures/connector/swal/spreadsheet/ISpreadsheetCell";
 import { randomUUID } from "crypto";
 import { tags } from "typia";
+import { ConnectorGlobal } from "../../../../ConnectorGlobal";
 
 export namespace SpreadsheetCellSnapshotProvider {
   export namespace summary {
@@ -41,4 +42,26 @@ export namespace SpreadsheetCellSnapshotProvider {
       created_at,
     } satisfies Prisma.spreadsheet_cell_snapshotsCreateWithoutSpreadsheet_cellInput;
   };
+
+  export const create =
+    (spreadsheet_cell_id: ISpreadsheetCell["id"]) =>
+    async (
+      input: ISpreadsheetCell.ISnapshot.ICreate,
+      created_at: string & tags.Format<"date-time">,
+    ) => {
+      const data = SpreadsheetCellSnapshotProvider.collect(input, created_at);
+      return await ConnectorGlobal.prisma.spreadsheet_cell_snapshots.create({
+        ...SpreadsheetCellSnapshotProvider.summary.select(),
+        data: {
+          spreadsheet_cell_id: spreadsheet_cell_id,
+          ...data,
+          mv_last: {
+            connect: {
+              spreadsheet_cell_id: spreadsheet_cell_id,
+              spreadsheet_cell_snapshot_id: data.id,
+            },
+          },
+        },
+      });
+    };
 }

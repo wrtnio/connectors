@@ -141,3 +141,29 @@ export const test_api_connector_swal_spreadsheets_exports_2 = async (
 
   typia.assertEquals(exported);
 };
+
+export const test_api_connector_swal_spreadsheets_update = async (
+  _connection: CApi.IConnection,
+) => {
+  const connection = connectionWithSameUser(_connection);
+
+  const sheet =
+    await test_api_connector_swal_spreadsheets_create_with_cell_and_at(
+      connection,
+    );
+
+  const cellsToCreate = typia.random<
+    ISpreadsheetCell.ICreate[] & tags.MinItems<1>
+  >();
+
+  const res =
+    await CApi.functional.connector.swal.spreadsheets.cells.insertCells(
+      connection,
+      sheet.id,
+      {
+        cells: cellsToCreate,
+      },
+    );
+
+  typia.assertEquals(res);
+};
