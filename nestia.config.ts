@@ -615,14 +615,6 @@ const NESTIA_CONFIG: sdk.INestiaConfig[] = [
     output: "packages/api/connectors/youtube-search.swagger.json",
   }),
   swagger({
-    module: ZoomModule,
-    info: {
-      title: "Zoom",
-      description: "",
-    },
-    output: "packages/api/connectors/zoom.swagger.json",
-  }),
-  swagger({
     module: SlackModule,
     info: {
       title: "Slack",
