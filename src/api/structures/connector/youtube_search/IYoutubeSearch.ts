@@ -391,6 +391,7 @@ export namespace IYoutubeSearch {
 
     /**
      * Indicates that video search results should only include resources created on or after the specified time.
+     * This value must follow RFC3339 format, for example: 1970-01-01T00:00:00Z.
      *
      * @title Published after
      */
@@ -398,6 +399,7 @@ export namespace IYoutubeSearch {
 
     /**
      * Indicates that video search results should only include resources created before the specified time.
+     * This value must follow RFC3339 format, for example: 1970-01-01T00:00:00Z.
      *
      * @title Published before
      */
