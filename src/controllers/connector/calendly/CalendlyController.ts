@@ -44,7 +44,7 @@ export class CalendlyController {
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/calendly.svg",
   )
   @ApiTags("Calendly")
-  @core.TypedRoute.Post("get-event-types")
+  @core.TypedRoute.Patch("get-event-types")
   async getEventTypes(
     @TypedBody() input: ICalendly.IGetEventTypeInput,
   ): Promise<ICalendly.IGetEventTypeOutput> {
@@ -108,7 +108,7 @@ export class CalendlyController {
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/calendly.svg",
   )
   @ApiTags("Calendly")
-  @core.TypedRoute.Post("get-events/:eventId")
+  @core.TypedRoute.Patch("get-events/:eventId")
   async getOneScheduledEvent(
     @TypedParam("eventId") eventId: ICalendly.Event["uuid"],
     @TypedBody() input: ICalendly.IGetOneScheduledEventInput,
@@ -134,7 +134,7 @@ export class CalendlyController {
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/calendly.svg",
   )
   @ApiTags("Calendly")
-  @core.TypedRoute.Post("get-scheduled-events")
+  @core.TypedRoute.Patch("get-scheduled-events")
   async getScheduledEvents(
     @TypedBody() input: ICalendly.IGetScheduledEventInput,
   ): Promise<ICalendly.IGetScheduledEventOutput> {
@@ -188,7 +188,7 @@ export class CalendlyController {
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/calendly.svg",
   )
   @ApiTags("Calendly")
-  @core.TypedRoute.Post("events/:eventId/invitees/:inviteeId")
+  @core.TypedRoute.Patch("events/:eventId/invitees/:inviteeId")
   async getOneInvite(
     @TypedParam("eventId") eventId: ICalendly.Event["uuid"],
     @TypedParam("inviteeId") inviteeId: ICalendly.Invitee["uuid"],
@@ -216,7 +216,7 @@ export class CalendlyController {
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/calendly.svg",
   )
   @ApiTags("Calendly")
-  @core.TypedRoute.Post("events/get-invitees")
+  @core.TypedRoute.Patch("events/get-invitees")
   async getInvitees(
     @TypedBody() input: ICalendly.IGetScheduledEventInviteeInput,
   ): Promise<ICalendly.IGetScheduledEventInviteeOutput> {
@@ -259,7 +259,7 @@ export class CalendlyController {
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/calendly.svg",
   )
   @ApiTags("Calendly")
-  @core.TypedRoute.Post("users/get-me")
+  @core.TypedRoute.Patch("users/get-me")
   async getUserInfo(
     @TypedBody() input: ICalendly.IGetUserInfoInput,
   ): Promise<ICalendly.IGetUserInfoOutput> {

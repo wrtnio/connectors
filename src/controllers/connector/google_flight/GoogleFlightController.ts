@@ -20,7 +20,7 @@ export class GoogleFlightController {
    */
   @SelectBenchmark("항공권 조회해줘")
   @Standalone()
-  @core.TypedRoute.Post("/one-way")
+  @core.TypedRoute.Patch("/one-way")
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleFlight_full.svg",
   )
@@ -42,7 +42,7 @@ export class GoogleFlightController {
   @SelectBenchmark("항공권 조회해줘")
   @SelectBenchmark("왕복 항공권 조회해줘")
   @Standalone()
-  @core.TypedRoute.Post("/round-trip")
+  @core.TypedRoute.Patch("/round-trip")
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleFlight_full.svg",
   )

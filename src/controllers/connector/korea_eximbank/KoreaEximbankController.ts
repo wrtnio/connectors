@@ -21,7 +21,7 @@ export class KoreaEximbankController {
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/ExchangeRate_full.svg",
   )
   @ApiTags("Korea Eximbank")
-  @core.TypedRoute.Get("exchange")
+  @core.TypedRoute.Patch("exchange")
   async getExchange(): Promise<IKoreaEximbank.IGetExchangeOutput> {
     return retry(() => KoreaEximbankProvider.getExchange())();
   }

@@ -25,7 +25,7 @@ export class GoogleShoppingAladinController {
    */
   @SelectBenchmark("도서 좀 검색해줘")
   @Standalone()
-  @core.TypedRoute.Post("aladine")
+  @core.TypedRoute.Patch("aladine")
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/aladin_full.svg",
   )

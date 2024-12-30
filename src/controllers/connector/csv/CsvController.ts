@@ -24,7 +24,7 @@ export class CsvController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/CSV_full.svg",
   )
-  @core.TypedRoute.Post("read")
+  @core.TypedRoute.Patch("read")
   @ApiTags("CSV")
   async read(
     @core.TypedBody() input: ICsv.IReadInput,

@@ -19,7 +19,7 @@ export class GoogleScholarController {
    */
   @SelectBenchmark("논문 좀 찾아줘")
   @Standalone()
-  @core.TypedRoute.Post()
+  @core.TypedRoute.Patch()
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleScholar_full.svg",
   )

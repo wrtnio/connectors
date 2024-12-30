@@ -228,7 +228,7 @@ export class SlackController {
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Slack_full.svg",
   )
   @ApiTags("Slack")
-  @TypedRoute.Post("get-scheduled-messages")
+  @TypedRoute.Patch("get-scheduled-messages")
   async getScheduledMessages(
     @TypedBody() input: ISlack.IGetScheduledMessageListInput,
   ): Promise<ISlack.IGetScheduledMessageListOutput> {
@@ -250,7 +250,7 @@ export class SlackController {
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Slack_full.svg",
   )
   @ApiTags("Slack")
-  @TypedRoute.Post("get-user-details")
+  @TypedRoute.Patch("get-user-details")
   async getUserDetails(
     @TypedBody() input: ISlack.IGetUserDetailInput,
   ): Promise<ISlack.IGetUserDetailOutput[]> {
@@ -280,7 +280,7 @@ export class SlackController {
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Slack_full.svg",
   )
   @ApiTags("Slack")
-  @TypedRoute.Post("get-users")
+  @TypedRoute.Patch("get-users")
   async getUsers(
     @TypedBody() input: ISlack.IGetUserListInput,
   ): Promise<ISlack.IGetUserListOutput> {
@@ -302,7 +302,7 @@ export class SlackController {
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Slack_full.svg",
   )
   @ApiTags("Slack")
-  @TypedRoute.Post("get-replies")
+  @TypedRoute.Patch("get-replies")
   async getReplies(
     @TypedBody() input: ISlack.IGetReplyInput,
   ): Promise<ISlack.IGetReplyOutput> {
@@ -338,7 +338,7 @@ export class SlackController {
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Slack_full.svg",
   )
   @ApiTags("Slack")
-  @TypedRoute.Post("get-channel-link-histories")
+  @TypedRoute.Patch("get-channel-link-histories")
   async getChannelLinkHistories(
     @TypedBody() input: ISlack.IGetChannelHistoryInput,
   ): Promise<ISlack.IGetChannelLinkHistoryOutput> {
@@ -374,7 +374,7 @@ export class SlackController {
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Slack_full.svg",
   )
   @ApiTags("Slack")
-  @TypedRoute.Post("get-channel-histories")
+  @TypedRoute.Patch("get-channel-histories")
   async getChannelHistories(
     @TypedBody() input: ISlack.IGetChannelHistoryInput,
   ): Promise<ISlack.IGetChannelHistoryOutput> {
@@ -399,7 +399,7 @@ export class SlackController {
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Slack_full.svg",
   )
   @ApiTags("Slack")
-  @TypedRoute.Post("get-private-channels")
+  @TypedRoute.Patch("get-private-channels")
   async getPrivateChannels(
     @TypedBody() input: ISlack.IGetChannelInput,
   ): Promise<ISlack.IGetPrivateChannelOutput["channels"]> {
@@ -423,7 +423,7 @@ export class SlackController {
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Slack_full.svg",
   )
   @ApiTags("Slack")
-  @TypedRoute.Post("get-public-channels")
+  @TypedRoute.Patch("get-public-channels")
   async getPublicChannels(
     @TypedBody() input: ISlack.IGetChannelInput,
   ): Promise<ISlack.IGetPublicChannelOutput["channels"]> {
@@ -449,7 +449,7 @@ export class SlackController {
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Slack_full.svg",
   )
   @ApiTags("Slack")
-  @TypedRoute.Post("get-im-channels")
+  @TypedRoute.Patch("get-im-channels")
   async getImChannels(
     @TypedBody() input: ISlack.IGetChannelInput,
   ): Promise<ISlack.IGetImChannelOutput["channels"]> {
@@ -469,7 +469,7 @@ export class SlackController {
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Slack_full.svg",
   )
   @ApiTags("Slack")
-  @TypedRoute.Post("get-files")
+  @TypedRoute.Patch("get-files")
   async getFiles(
     @TypedBody() input: ISlack.IGetFileInput,
   ): Promise<ISlack.IGetFileOutput> {
@@ -490,7 +490,7 @@ export class SlackController {
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Slack_full.svg",
   )
   @ApiTags("Slack")
-  @TypedRoute.Post("get-user-groups")
+  @TypedRoute.Patch("get-user-groups")
   async getUserGroups(
     @TypedBody() input: ISlack.IGetUserGroupInput,
   ): Promise<ISlack.IGetUserGroupOutput> {

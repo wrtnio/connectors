@@ -97,7 +97,7 @@ export class JiraController {
     `https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/JIraCloud_full.svg`,
   )
   @ApiTags("Jira")
-  @core.TypedRoute.Post("issues/get-comments")
+  @core.TypedRoute.Patch("issues/get-comments")
   async getComments(
     @TypedBody() input: IJira.IGetCommentInput,
   ): Promise<IJira.IGetCommentOutput> {
@@ -123,7 +123,7 @@ export class JiraController {
     `https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/JIraCloud_full.svg`,
   )
   @ApiTags("Jira")
-  @core.TypedRoute.Post("issues/get-transitions")
+  @core.TypedRoute.Patch("issues/get-transitions")
   async getTransitions(
     @TypedBody() input: IJira.IGetTransitionInput,
   ): Promise<IJira.IGetTransitionOutput> {
@@ -288,7 +288,7 @@ export class JiraController {
     `https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/JIraCloud_full.svg`,
   )
   @ApiTags("Jira")
-  @core.TypedRoute.Post("get-issue-detail")
+  @core.TypedRoute.Patch("get-issue-detail")
   async getIssueDetail(
     @TypedBody() input: IJira.IGetIssueDetailInput,
   ): Promise<IJira.IGetIssueDetailOutput> {
@@ -312,7 +312,7 @@ export class JiraController {
     `https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/JIraCloud_full.svg`,
   )
   @ApiTags("Jira")
-  @core.TypedRoute.Post("get-issues")
+  @core.TypedRoute.Patch("get-issues")
   async getIssues(
     @TypedBody()
     input: IJira.IGetIssueInputByBasicAuth,
@@ -340,7 +340,7 @@ export class JiraController {
     `https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/JIraCloud_full.svg`,
   )
   @ApiTags("Jira")
-  @core.TypedRoute.Post("get-projects")
+  @core.TypedRoute.Patch("get-projects")
   async getProjects(
     @TypedBody()
     input: IJira.IGetProjectInputByBasicAuth,
@@ -363,7 +363,7 @@ export class JiraController {
     `https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/JIraCloud_full.svg`,
   )
   @ApiTags("Jira")
-  @core.TypedRoute.Post("get-issue-labels")
+  @core.TypedRoute.Patch("get-issue-labels")
   async getIssueLabels(
     @TypedBody() input: IJira.IGetIssueLabelInput,
   ): Promise<IJira.IGetIssueLabelOutput> {
@@ -390,7 +390,7 @@ export class JiraController {
     `https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/JIraCloud_full.svg`,
   )
   @ApiTags("Jira")
-  @core.TypedRoute.Post("get-issue-types")
+  @core.TypedRoute.Patch("get-issue-types")
   async getIssueTypes(
     @TypedBody() input: IJira.IGetIssueTypeInput,
   ): Promise<IJira.IGetIssueTypeOutput> {
@@ -412,7 +412,7 @@ export class JiraController {
     `https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/JIraCloud_full.svg`,
   )
   @ApiTags("Jira")
-  @core.TypedRoute.Post("get-issue-statuses")
+  @core.TypedRoute.Patch("get-issue-statuses")
   async getIssueStatus(
     @TypedBody() input: IJira.IGetIssueStatusInput,
   ): Promise<IJira.IGetIssueStatusOutput> {
@@ -437,7 +437,7 @@ export class JiraController {
     `https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/JIraCloud_full.svg`,
   )
   @ApiTags("Jira")
-  @core.TypedRoute.Post("get-issue-priorities")
+  @core.TypedRoute.Patch("get-issue-priorities")
   async getIssuePriorities(
     @TypedBody() input: IJira.IGetIssuePriorityInput,
   ): Promise<IJira.IGetIssuePriorityOutput> {
@@ -459,7 +459,7 @@ export class JiraController {
     `https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/JIraCloud_full.svg`,
   )
   @ApiTags("Jira")
-  @core.TypedRoute.Post("issues/get-users-assignable")
+  @core.TypedRoute.Patch("issues/get-users-assignable")
   async getUsersAssignableInIssue(
     @TypedBody() input: IJira.IGetIssueAssignableInput,
   ): Promise<IJira.IGetIssueAssignableOutput> {
@@ -484,7 +484,7 @@ export class JiraController {
     `https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/JIraCloud_full.svg`,
   )
   @ApiTags("Jira")
-  @core.TypedRoute.Post("projects/get-users-assignable")
+  @core.TypedRoute.Patch("projects/get-users-assignable")
   async getUsersAssignableInProject(
     @TypedBody() input: IJira.IGetProjectAssignableInput,
   ): Promise<IJira.IGetProjectAssignableOutput> {
@@ -509,7 +509,7 @@ export class JiraController {
     `https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/JIraCloud_full.svg`,
   )
   @ApiTags("Jira")
-  @core.TypedRoute.Post("get-status-categories")
+  @core.TypedRoute.Patch("get-status-categories")
   async getStatusCategories(
     @TypedBody() input: IJira.IGetStatusCategoryInput,
   ): Promise<IJira.IGetStatusCategoryOutput> {

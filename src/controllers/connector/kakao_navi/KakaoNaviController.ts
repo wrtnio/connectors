@@ -22,7 +22,7 @@ export class KakaoNaviController {
   )
   @ApiTags("Kakao Navi")
   @Standalone()
-  @core.TypedRoute.Post("get-future-directions")
+  @core.TypedRoute.Patch("get-future-directions")
   async getFutureDirections(
     @TypedBody() input: IKakaoNavi.IGetFutureDirectionsInput,
   ): Promise<IKakaoNavi.IGetFutureDirectionsOutput> {

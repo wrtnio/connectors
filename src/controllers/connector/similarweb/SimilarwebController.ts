@@ -23,7 +23,7 @@ export class SimilarwebController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/similarweb_full.svg",
   )
-  @TypedRoute.Post("get-domain-info")
+  @TypedRoute.Patch("get-domain-info")
   async getDomainInfo(
     @TypedBody() input: ISimilarweb.IGetDomainInfoInput,
   ): Promise<ISimilarweb.IGetDomainInfoOutput> {

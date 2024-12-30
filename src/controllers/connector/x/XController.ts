@@ -20,7 +20,7 @@ export class XController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/X_full.svg",
   )
-  @core.TypedRoute.Post("/get-users")
+  @core.TypedRoute.Patch("/get-users")
   async getUsers(
     @core.TypedBody() input: IX.IUserInput,
   ): Promise<IX.IUserOutput[]> {
@@ -38,7 +38,7 @@ export class XController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/X_full.svg",
   )
-  @core.TypedRoute.Post("/get-influencers")
+  @core.TypedRoute.Patch("/get-influencers")
   async getPreDefinedInfluencers(
     @core.TypedBody() input: IX.ISecret,
   ): Promise<IX.IUserOutput[]> {
@@ -118,7 +118,7 @@ export class XController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/X_full.svg",
   )
-  @core.TypedRoute.Post("/general-search")
+  @core.TypedRoute.Patch("/general-search")
   async generalSearch(
     @core.TypedBody() input: IX.IGeneralSearchRequest,
   ): Promise<IX.IGeneralSearchResponse[]> {

@@ -71,7 +71,7 @@ export class GoogleSlidesController {
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleSlides_full.svg",
   )
   @ApiTags("Google Slide")
-  @core.TypedRoute.Post("get-presentations")
+  @core.TypedRoute.Patch("get-presentations")
   async getPresentation(
     @TypedBody() input: IGoogleSlides.IGetPresentationInput,
   ): Promise<IGoogleSlides.ISimplePresentationIdOutput> {

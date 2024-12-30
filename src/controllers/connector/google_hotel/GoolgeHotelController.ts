@@ -22,7 +22,7 @@ export class GoogleHotelController {
    */
   @SelectBenchmark("호텔 좀 찾아줘")
   @Standalone()
-  @core.TypedRoute.Post("")
+  @core.TypedRoute.Patch("")
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleHotel_full.svg",
   )

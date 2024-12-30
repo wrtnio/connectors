@@ -123,7 +123,7 @@ export class GmailController {
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleMail_full.svg",
   )
   @ApiTags("Gmail")
-  @core.TypedRoute.Post("get/:id")
+  @core.TypedRoute.Patch("get/:id")
   async findEmail(
     /**
      * @title Email to retrieve
@@ -156,7 +156,7 @@ export class GmailController {
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleMail_full.svg",
   )
   @ApiTags("Gmail")
-  @core.TypedRoute.Post("read-list")
+  @core.TypedRoute.Patch("read-list")
   async findEmails(
     @core.TypedBody() input: IGmail.IFindEmailListInput,
   ): Promise<IGmail.IFindGmailListOutput> {

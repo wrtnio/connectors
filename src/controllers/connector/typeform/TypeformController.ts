@@ -68,7 +68,7 @@ export class TypeformController {
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/typeform.svg",
   )
   @ApiTags("Typeform")
-  @core.TypedRoute.Post("/get-workspaces")
+  @core.TypedRoute.Patch("/get-workspaces")
   async getWorkspaces(
     @core.TypedBody() input: ITypeform.ISecret,
   ): Promise<ITypeform.IFindWorkspaceOutput[]> {
@@ -103,7 +103,7 @@ export class TypeformController {
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/typeform.svg",
   )
   @ApiTags("Typeform")
-  @core.TypedRoute.Post("/get-forms")
+  @core.TypedRoute.Patch("/get-forms")
   async getForms(
     @core.TypedBody() input: ITypeform.ISecret,
   ): Promise<ITypeform.IFindFormOutput[]> {
@@ -138,7 +138,7 @@ export class TypeformController {
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/typeform.svg",
   )
   @ApiTags("Typeform")
-  @core.TypedRoute.Post("/forms/get-update-form-fields")
+  @core.TypedRoute.Patch("/forms/get-update-form-fields")
   async getFieldsForUpdateFieldValue(
     @core.TypedBody() input: ITypeform.IGetFieldForUpdateFieldValueInput,
   ): Promise<ITypeform.IFieldInfoForUpdateFieldValueOutput[]> {

@@ -23,7 +23,7 @@ export class FigmaController {
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Figma_full.svg",
   )
   @ApiTags("Figma")
-  @core.TypedRoute.Post("get-files")
+  @core.TypedRoute.Patch("get-files")
   async readFiles(
     @core.TypedBody() input: IFigma.IReadFileInput,
   ): Promise<IFigma.IReadFileOutput> {
@@ -59,7 +59,7 @@ export class FigmaController {
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Figma_full.svg",
   )
   @ApiTags("Figma")
-  @core.TypedRoute.Post("get-comments")
+  @core.TypedRoute.Patch("get-comments")
   async readComments(
     @core.TypedBody() input: IFigma.IReadCommentInput,
   ): Promise<IFigma.IReadCommentOutput> {
@@ -82,7 +82,7 @@ export class FigmaController {
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Figma_full.svg",
   )
   @ApiTags("Figma")
-  @core.TypedRoute.Post("projects/:id/get-canvas")
+  @core.TypedRoute.Patch("projects/:id/get-canvas")
   async getProjectCanvas(
     @Prerequisite({
       neighbor: () => FigmaController.prototype.getProjects,
@@ -107,7 +107,7 @@ export class FigmaController {
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Figma_full.svg",
   )
   @ApiTags("Figma")
-  @core.TypedRoute.Post("get-statistics")
+  @core.TypedRoute.Patch("get-statistics")
   async getStatistics(
     @TypedBody()
     input: IFigma.IGetProjectStatisticsInput,
@@ -132,7 +132,7 @@ export class FigmaController {
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Figma_full.svg",
   )
   @ApiTags("Figma")
-  @core.TypedRoute.Post("get-projects")
+  @core.TypedRoute.Patch("get-projects")
   async getProjects(
     @core.TypedBody() input: IFigma.IGetProjectInput,
   ): Promise<IFigma.IGetProejctOutput> {

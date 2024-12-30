@@ -51,7 +51,7 @@ export class GithubController {
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
   )
   @ApiTags("Github")
-  @core.TypedRoute.Post("users/get-received-events")
+  @core.TypedRoute.Patch("users/get-received-events")
   async getReceivedEvents(
     @TypedBody() input: IGithub.IGetReceivedEventInput,
   ): Promise<IGithub.IGetEventOutput> {
@@ -75,7 +75,7 @@ export class GithubController {
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
   )
   @ApiTags("Github")
-  @core.TypedRoute.Post("users/get-pinned-repositories")
+  @core.TypedRoute.Patch("users/get-pinned-repositories")
   async getUserPinnedRepositories(
     @TypedBody() input: IGithub.IGetUserPinnedRepositoryInput,
   ): Promise<IGithub.IGetUserPinnedRepositoryOutput> {
@@ -98,7 +98,7 @@ export class GithubController {
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
   )
   @ApiTags("Github")
-  @core.TypedRoute.Post("users/get-repositories")
+  @core.TypedRoute.Patch("users/get-repositories")
   async getUserRepositories(
     @TypedBody() input: IGithub.IGetUserRepositoryInput,
   ): Promise<IGithub.IGetUserRepositoryOutput> {
@@ -124,7 +124,7 @@ export class GithubController {
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
   )
   @ApiTags("Github")
-  @core.TypedRoute.Post("organizations/users/get-events")
+  @core.TypedRoute.Patch("organizations/users/get-events")
   async getUserOrganizationEvents(
     @TypedBody() input: IGithub.IGetOrganizationUserEventInput,
   ): Promise<IGithub.IGetEventOutput> {
@@ -150,7 +150,7 @@ export class GithubController {
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
   )
   @ApiTags("Github")
-  @core.TypedRoute.Post("organizations/get-issues")
+  @core.TypedRoute.Patch("organizations/get-issues")
   async getOrganizationIssues(
     @TypedBody() input: IGithub.IGetOrganizationAuthenticationUserIssueInput,
   ): Promise<IGithub.IGetOrganizationAuthenticationUserIssueOutput> {
@@ -172,7 +172,7 @@ export class GithubController {
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
   )
   @ApiTags("Github")
-  @core.TypedRoute.Post("organizations/get-repositories")
+  @core.TypedRoute.Patch("organizations/get-repositories")
   async getOrganizationRepositories(
     @TypedBody() input: IGithub.IGetOrganizationEventInput,
   ): Promise<IGithub.IGetOrganizationRepositoryOutput> {
@@ -201,7 +201,7 @@ export class GithubController {
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
   )
   @ApiTags("Github")
-  @core.TypedRoute.Post("organizations/get-events")
+  @core.TypedRoute.Patch("organizations/get-events")
   async getOrganizationEvents(
     @TypedBody() input: IGithub.IGetOrganizationEventInput,
   ): Promise<IGithub.IGetEventOutput> {
@@ -230,7 +230,7 @@ export class GithubController {
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
   )
   @ApiTags("Github")
-  @core.TypedRoute.Post("repos/get-collaborators")
+  @core.TypedRoute.Patch("repos/get-collaborators")
   async getCollaborators(
     @TypedBody() input: IGithub.IGetCollaboratorInput,
   ): Promise<IGithub.IGetCollaboratorOutput> {
@@ -357,7 +357,7 @@ export class GithubController {
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
   )
   @ApiTags("Github")
-  @core.TypedRoute.Post("repos/get-folder-structures")
+  @core.TypedRoute.Patch("repos/get-folder-structures")
   async getRepositoryFolderStructures(
     @TypedBody() input: IGithub.IGetRepositoryFolderStructureInput,
   ): Promise<IGithub.IGetRepositoryFolderStructureOutput> {
@@ -392,7 +392,7 @@ export class GithubController {
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
   )
   @ApiTags("Github")
-  @core.TypedRoute.Post("repos/get-contents/bulk")
+  @core.TypedRoute.Patch("repos/get-contents/bulk")
   async getBulkFileContents(
     @TypedBody() input: IGithub.IGetBulkFileContentInput,
   ): Promise<IGithub.IGetBulkFileContentOutput> {
@@ -420,7 +420,7 @@ export class GithubController {
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
   )
   @ApiTags("Github")
-  @core.TypedRoute.Post("repos/get-contents")
+  @core.TypedRoute.Patch("repos/get-contents")
   async getFileContents(
     @TypedBody() input: IGithub.IGetFileContentInput,
   ): Promise<IGithub.IGetFileContentOutput> {
@@ -444,7 +444,7 @@ export class GithubController {
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
   )
   @ApiTags("Github")
-  @core.TypedRoute.Post("repos/get-readme")
+  @core.TypedRoute.Patch("repos/get-readme")
   async getReadmeFile(
     @TypedBody() input: IGithub.IGetReadmeFileContentInput,
   ): Promise<IGithub.IGetReadmeFileContentOutput> {
@@ -465,7 +465,7 @@ export class GithubController {
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
   )
   @ApiTags("Github")
-  @core.TypedRoute.Post("repos/get-events")
+  @core.TypedRoute.Patch("repos/get-events")
   async getRepoEvents(
     @TypedBody() input: IGithub.IGetRepoEventInput,
   ): Promise<IGithub.IGetEventOutput> {
@@ -494,7 +494,7 @@ export class GithubController {
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
   )
   @ApiTags("Github")
-  @core.TypedRoute.Post("networks/get-events")
+  @core.TypedRoute.Patch("networks/get-events")
   async getNetworkRepoEvents(
     @TypedBody() input: IGithub.IGetRepoEventInput,
   ): Promise<IGithub.IGetEventOutput> {
@@ -525,7 +525,7 @@ export class GithubController {
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
   )
   @ApiTags("Github")
-  @core.TypedRoute.Post("users/get-events")
+  @core.TypedRoute.Patch("users/get-events")
   async getUserEvents(
     @TypedBody() input: IGithub.IGetUserEventInput,
   ): Promise<IGithub.IGetEventOutput> {
@@ -548,7 +548,7 @@ export class GithubController {
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
   )
   @ApiTags("Github")
-  @core.TypedRoute.Post("users/get-organizations")
+  @core.TypedRoute.Patch("users/get-organizations")
   async getUserOrganizations(
     @TypedBody() input: IGithub.IGetUserOrganizationInput,
   ): Promise<IGithub.IGetUserOrganizationOutput> {
@@ -571,7 +571,7 @@ export class GithubController {
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
   )
   @ApiTags("Github")
-  @core.TypedRoute.Post("get-events")
+  @core.TypedRoute.Patch("get-events")
   async getEvents(
     @TypedBody() input: IGithub.IGetEventInput,
   ): Promise<IGithub.IGetEventOutput> {
@@ -597,7 +597,7 @@ export class GithubController {
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
   )
   @ApiTags("Github")
-  @core.TypedRoute.Post("repositories/get-activities")
+  @core.TypedRoute.Patch("repositories/get-activities")
   async getRepositoryActivities(
     @TypedBody() input: IGithub.IGetRepositoryActivityInput,
   ): Promise<IGithub.IGetRepositoryActivityOutput> {
@@ -676,7 +676,7 @@ export class GithubController {
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
   )
   @ApiTags("Github")
-  @core.TypedRoute.Post("repositories/pull-requests/get-comments")
+  @core.TypedRoute.Patch("repositories/pull-requests/get-comments")
   async getPullRequestComments(
     @TypedBody() input: IGithub.IGetPullRequestCommentsInput,
   ): Promise<IGithub.IGetIssueCommentsOutput> {
@@ -724,7 +724,7 @@ export class GithubController {
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
   )
   @ApiTags("Github")
-  @core.TypedRoute.Post("repositories/pull-requests/get-requested-reviewers")
+  @core.TypedRoute.Patch("repositories/pull-requests/get-requested-reviewers")
   async readPullRequestRequestedReviewers(
     @TypedBody() input: IGithub.IReadPullRequestDetailInput,
   ): Promise<IGithub.IReadPullRequestRequestedReviewerOutput> {
@@ -789,7 +789,7 @@ export class GithubController {
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
   )
   @ApiTags("Github")
-  @core.TypedRoute.Post("repositories/pull-requests/reviews/get-comments")
+  @core.TypedRoute.Patch("repositories/pull-requests/reviews/get-comments")
   async readReviewComments(
     @TypedBody() input: IGithub.IGetReviewCommentInput,
   ): Promise<IGithub.IGetReviewCommentOutput> {
@@ -814,7 +814,7 @@ export class GithubController {
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
   )
   @ApiTags("Github")
-  @core.TypedRoute.Post("repositories/pull-requests/get-reviews")
+  @core.TypedRoute.Patch("repositories/pull-requests/get-reviews")
   async readReviews(
     @TypedBody() input: IGithub.IReadPullRequestReviewInput,
   ): Promise<IGithub.IReadPullRequestReviewOutput> {
@@ -861,7 +861,7 @@ export class GithubController {
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
   )
   @ApiTags("Github")
-  @core.TypedRoute.Post("repositories/pull-requests/get-files")
+  @core.TypedRoute.Patch("repositories/pull-requests/get-files")
   async readPullRequestFiles(
     @TypedBody() input: IGithub.IReadPullRequestFileInput,
   ): Promise<IGithub.IReadPullRequestFileOutput> {
@@ -885,7 +885,7 @@ export class GithubController {
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
   )
   @ApiTags("Github")
-  @core.TypedRoute.Post("repositories/pull-requests/get-commits")
+  @core.TypedRoute.Patch("repositories/pull-requests/get-commits")
   async readPullRequestCommits(
     @TypedBody() input: IGithub.IReadPullRequestCommitInput,
   ): Promise<IGithub.IReadPullRequestCommitOutput> {
@@ -914,7 +914,7 @@ export class GithubController {
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
   )
   @ApiTags("Github")
-  @core.TypedRoute.Post("repositories/pull-requests/get-diff")
+  @core.TypedRoute.Patch("repositories/pull-requests/get-diff")
   async readPullRequestDiff(
     @TypedBody() input: IGithub.IReadPullRequestDetailInput,
   ): Promise<IGithub.IReadPullRequestDiffOutput> {
@@ -939,7 +939,7 @@ export class GithubController {
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
   )
   @ApiTags("Github")
-  @core.TypedRoute.Post("repositories/pull-requests/get-detail")
+  @core.TypedRoute.Patch("repositories/pull-requests/get-detail")
   async readPullRequestDetail(
     @TypedBody() input: IGithub.IReadPullRequestDetailInput,
   ): Promise<IGithub.IReadPullRequestDetailOutput> {
@@ -963,7 +963,7 @@ export class GithubController {
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
   )
   @ApiTags("Github")
-  @core.TypedRoute.Post("repositories/get-pull-requests")
+  @core.TypedRoute.Patch("repositories/get-pull-requests")
   async getRepositoryPullRequest(
     @TypedBody() input: IGithub.IFetchRepositoryPullRequestInput,
   ): Promise<IGithub.IFetchRepositoryPullRequestOutput> {
@@ -985,7 +985,7 @@ export class GithubController {
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
   )
   @ApiTags("Github")
-  @core.TypedRoute.Post("repositories/issues/get-detail")
+  @core.TypedRoute.Patch("repositories/issues/get-detail")
   async getIssueDetail(
     @TypedBody() input: IGithub.IGetIssueDetailInput,
   ): Promise<IGithub.IGetIssueDetailOutput> {
@@ -1008,7 +1008,7 @@ export class GithubController {
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
   )
   @ApiTags("Github")
-  @core.TypedRoute.Post("repositories/issues/get-comments")
+  @core.TypedRoute.Patch("repositories/issues/get-comments")
   async getIssueComments(
     @TypedBody() input: IGithub.IGetIssueCommentsInput,
   ): Promise<IGithub.IGetIssueCommentsOutput> {
@@ -1060,7 +1060,7 @@ export class GithubController {
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
   )
   @ApiTags("Github")
-  @core.TypedRoute.Post("repositories/get-issues")
+  @core.TypedRoute.Patch("repositories/get-issues")
   async getRepositoryIssues(
     @TypedBody() input: IGithub.IFetchRepositoryInput,
   ): Promise<IGithub.IFetchRepositoryOutput> {
@@ -1079,7 +1079,7 @@ export class GithubController {
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
   )
   @ApiTags("Github")
-  @core.TypedRoute.Post("get-users")
+  @core.TypedRoute.Patch("get-users")
   async searchUser(
     @TypedBody() input: IGithub.ISearchUserInput,
   ): Promise<IGithub.ISearchUserOutput> {
@@ -1098,7 +1098,7 @@ export class GithubController {
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
   )
   @ApiTags("Github")
-  @core.TypedRoute.Post("get-user-profile")
+  @core.TypedRoute.Patch("get-user-profile")
   async getUserProfile(
     @TypedBody() input: IGithub.IGetUserProfileInput,
   ): Promise<IGithub.IGetUserProfileOutput> {
@@ -1122,7 +1122,7 @@ export class GithubController {
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
   )
   @ApiTags("Github")
-  @core.TypedRoute.Post("get-organizations")
+  @core.TypedRoute.Patch("get-organizations")
   async getAuthenticatedUserOrganizations(
     @TypedBody() input: IGithub.IGetAuthenticatedUserOrganizationInput,
   ): Promise<IGithub.IGetAuthenticatedUserOrganizationOutput> {
@@ -1147,7 +1147,7 @@ export class GithubController {
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
   )
   @ApiTags("Github")
-  @core.TypedRoute.Post("get-branches")
+  @core.TypedRoute.Patch("get-branches")
   async getRepositoryBranches(
     @TypedBody() input: IGithub.IGetBranchInput,
   ): Promise<IGithub.IGetBranchOutput> {
@@ -1191,7 +1191,7 @@ export class GithubController {
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
   )
   @ApiTags("Github")
-  @core.TypedRoute.Post("get-pull-requests-associated-with-a-commit")
+  @core.TypedRoute.Patch("get-pull-requests-associated-with-a-commit")
   async getPullRequestAssociatedWithACommit(
     @TypedBody() input: IGithub.IGetPullRequestInput,
   ): Promise<IGithub.IGetPullRequestOutput> {
@@ -1212,7 +1212,7 @@ export class GithubController {
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
   )
   @ApiTags("Github")
-  @core.TypedRoute.Post("get-commit-heads")
+  @core.TypedRoute.Patch("get-commit-heads")
   async getCommitHeads(
     @TypedBody() input: IGithub.IGetCommitHeadInput,
   ): Promise<IGithub.IGetCommitHeadOutput> {
@@ -1233,7 +1233,7 @@ export class GithubController {
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
   )
   @ApiTags("Github")
-  @core.TypedRoute.Post("get-commit")
+  @core.TypedRoute.Patch("get-commit")
   async getCommit(
     @TypedBody() input: IGithub.IGetCommitInput,
   ): Promise<IGithub.IGetCommitOutput> {
@@ -1254,7 +1254,7 @@ export class GithubController {
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
   )
   @ApiTags("Github")
-  @core.TypedRoute.Post("get-commit-diff")
+  @core.TypedRoute.Patch("get-commit-diff")
   async getCommitDiff(
     @TypedBody() input: IGithub.IGetCommitInput,
   ): Promise<string> {
@@ -1276,7 +1276,7 @@ export class GithubController {
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
   )
   @ApiTags("Github")
-  @core.TypedRoute.Post("get-commit-list")
+  @core.TypedRoute.Patch("get-commit-list")
   async getCommitList(
     @TypedBody() input: IGithub.IGetCommitListInput,
   ): Promise<IGithub.IGetCommitListOutput> {
@@ -1298,7 +1298,7 @@ export class GithubController {
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
   )
   @ApiTags("Github")
-  @core.TypedRoute.Post("get-followers")
+  @core.TypedRoute.Patch("get-followers")
   async getFollowers(
     @TypedBody() input: IGithub.IGetFollowerInput,
   ): Promise<IGithub.IGetFollowerOutput> {
@@ -1320,7 +1320,7 @@ export class GithubController {
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
   )
   @ApiTags("Github")
-  @core.TypedRoute.Post("get-followees")
+  @core.TypedRoute.Patch("get-followees")
   async getFollowees(
     @TypedBody() input: IGithub.IGetFolloweeInput,
   ): Promise<IGithub.IGetFolloweeOutput> {
@@ -1344,7 +1344,7 @@ export class GithubController {
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
   )
   @ApiTags("Github")
-  @core.TypedRoute.Post("get-labels")
+  @core.TypedRoute.Patch("get-labels")
   async getLabels(
     @TypedBody() input: IGithub.IGetLabelInput,
   ): Promise<IGithub.IGetLabelOutput> {
@@ -1370,7 +1370,7 @@ export class GithubController {
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
   )
   @ApiTags("Github")
-  @core.TypedRoute.Patch("issues")
+  @core.TypedRoute.Put("issues")
   async updateIssue(
     @TypedBody() input: IGithub.IUpdateIssueInput,
   ): Promise<IGithub.IUpdateIssueOutput> {

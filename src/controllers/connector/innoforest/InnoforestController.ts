@@ -24,7 +24,7 @@ export class InnoforestController {
   @SelectBenchmark("스타트업 정보 좀 찾아줘")
   @SelectBenchmark("회사 투자 라운드 좀 알려줘")
   @SelectBenchmark("혁신의 숲에서 회사 정보 좀 찾아줘")
-  @TypedRoute.Post("unify")
+  @TypedRoute.Patch("unify")
   async unify(
     @TypedBody() input: IInnoforest.IUnifyInput,
   ): Promise<IInnoforest.IUnifyOutput> {
@@ -106,7 +106,7 @@ export class InnoforestController {
    *
    * @summary Search for company identifiers from Innoforest
    */
-  @TypedRoute.Post("search")
+  @TypedRoute.Patch("search")
   async search(
     @TypedBody() input: IInnoforest.ISearchInput,
   ): Promise<IInnoforest.ISearchOutput> {
@@ -144,7 +144,7 @@ export class InnoforestController {
    *
    * @summary Retrieve startup overview from Innoforest
    */
-  @TypedRoute.Post("seed/party/s1/getcorp")
+  @TypedRoute.Patch("seed/party/s1/getcorp")
   async getcorp(
     @TypedBody() input: IInnoforest.IGetcorpInput,
   ): Promise<IInnoforest.IGetcorpOutput> {
@@ -159,7 +159,7 @@ export class InnoforestController {
    *
    * @summary Retrieve startup overview - financial summary from Innoforest
    */
-  @TypedRoute.Post("seed/party/s1/getcorpfinance")
+  @TypedRoute.Patch("seed/party/s1/getcorpfinance")
   async getcorpfinance(
     @TypedBody() input: IInnoforest.IGetcorpfinanceInput,
   ): Promise<IInnoforest.IGetcorpfinanceOutput> {
@@ -189,7 +189,7 @@ export class InnoforestController {
    *
    * @summary Retrieve startup overview - general summary from Innoforest
    */
-  @TypedRoute.Post("seed/party/s1/getcorpcommon")
+  @TypedRoute.Patch("seed/party/s1/getcorpcommon")
   async getcorpcommon(
     @TypedBody() input: IInnoforest.IGetcorpcommonInput,
   ): Promise<IInnoforest.IGetcorpcommonOutput> {
@@ -204,7 +204,7 @@ export class InnoforestController {
    *
    * @summary Retrieve product information from Innoforest
    */
-  @TypedRoute.Post("seed/party/s1/findproduct")
+  @TypedRoute.Patch("seed/party/s1/findproduct")
   async findproduct(
     @TypedBody() input: IInnoforest.IFindproductInput,
   ): Promise<IInnoforest.IFindproductOutput> {
@@ -219,7 +219,7 @@ export class InnoforestController {
    *
    * @summary Retrieve traffic data from Innoforest
    */
-  @TypedRoute.Post("seed/party/s1/findtraffic")
+  @TypedRoute.Patch("seed/party/s1/findtraffic")
   async findtraffic(
     @TypedBody() input: IInnoforest.IFindtrafficInput,
   ): Promise<IInnoforest.IFindtrafficOutput> {
@@ -234,7 +234,7 @@ export class InnoforestController {
    *
    * @summary Retrieve sales data from Innoforest
    */
-  @TypedRoute.Post("seed/party/s1/findsales")
+  @TypedRoute.Patch("seed/party/s1/findsales")
   async findsales(
     @TypedBody() input: IInnoforest.IFindsalesInput,
   ): Promise<IInnoforest.IFindsalesOutput> {
@@ -249,7 +249,7 @@ export class InnoforestController {
    *
    * @summary Retrieve repeat purchase rate data from Innoforest
    */
-  @TypedRoute.Post("seed/party/s1/findsalesrebuy")
+  @TypedRoute.Patch("seed/party/s1/findsalesrebuy")
   async findsalesrebuy(
     @TypedBody() input: IInnoforest.IFindsalesrebuyInput,
   ): Promise<IInnoforest.IFindsalesrebuyOutput> {
@@ -264,7 +264,7 @@ export class InnoforestController {
    *
    * @summary Retrieve average purchase amount data from Innoforest
    */
-  @TypedRoute.Post("seed/party/s1/findsalesavgbuy")
+  @TypedRoute.Patch("seed/party/s1/findsalesavgbuy")
   async findsalesavgbuy(
     @TypedBody() input: IInnoforest.IFindsalesavgbuyInput,
   ): Promise<IInnoforest.IFindsalesavgbuyOutput> {
@@ -279,7 +279,7 @@ export class InnoforestController {
    *
    * @summary Retrieve sales-related personnel data from Innoforest
    */
-  @TypedRoute.Post("seed/party/s1/findsalesperson")
+  @TypedRoute.Patch("seed/party/s1/findsalesperson")
   async findsalesperson(
     @TypedBody() input: IInnoforest.IFindsalespersonInput,
   ): Promise<IInnoforest.IFindsalespersonOutput> {
@@ -294,7 +294,7 @@ export class InnoforestController {
    *
    * @summary Retrieve household-related sales data from Innoforest
    */
-  @TypedRoute.Post("seed/party/s1/findsaleshousehold")
+  @TypedRoute.Patch("seed/party/s1/findsaleshousehold")
   async findsaleshousehold(
     @TypedBody() input: IInnoforest.IFindsaleshouseholdInput,
   ): Promise<IInnoforest.IFindsaleshouseholdOutput> {
@@ -309,7 +309,7 @@ export class InnoforestController {
    *
    * @summary Retrieve income-related sales data from Innoforest
    */
-  @TypedRoute.Post("seed/party/s1/findsalesincome")
+  @TypedRoute.Patch("seed/party/s1/findsalesincome")
   async findsalesincome(
     @TypedBody() input: IInnoforest.IFindsalesincomeInput,
   ): Promise<IInnoforest.IFindsalesincomeOutput> {
@@ -324,7 +324,7 @@ export class InnoforestController {
    *
    * @summary Retrieve investment data from Innoforest
    */
-  @TypedRoute.Post("seed/party/s1/findinvest")
+  @TypedRoute.Patch("seed/party/s1/findinvest")
   async findinvest(
     @TypedBody() input: IInnoforest.IFindinvestInput,
   ): Promise<IInnoforest.IFindinvestOutput> {
@@ -339,7 +339,7 @@ export class InnoforestController {
    *
    * @summary Retrieve patent data from Innoforest
    */
-  @TypedRoute.Post("seed/party/s1/findpatent")
+  @TypedRoute.Patch("seed/party/s1/findpatent")
   async findpatent(
     @TypedBody() input: IInnoforest.IFindpatentInput,
   ): Promise<IInnoforest.IFindpatentOutput> {
@@ -354,7 +354,7 @@ export class InnoforestController {
    *
    * @summary Retrieve patent keyword data from Innoforest
    */
-  @TypedRoute.Post("seed/party/s1/findpatentword")
+  @TypedRoute.Patch("seed/party/s1/findpatentword")
   async findpatentword(
     @TypedBody() input: IInnoforest.IFindpatentwordInput,
   ): Promise<IInnoforest.IFindpatentwordOutput> {
@@ -369,7 +369,7 @@ export class InnoforestController {
    *
    * @summary Retrieve financial data from Innoforest
    */
-  @TypedRoute.Post("seed/party/s1/findfinance")
+  @TypedRoute.Patch("seed/party/s1/findfinance")
   async findfinance(
     @TypedBody() input: IInnoforest.IFindfinanceInput,
   ): Promise<IInnoforest.IFindfinanceOutput> {
@@ -384,7 +384,7 @@ export class InnoforestController {
    *
    * @summary Retrieve employee data from Innoforest
    */
-  @TypedRoute.Post("seed/party/s1/findemployee")
+  @TypedRoute.Patch("seed/party/s1/findemployee")
   async findemployee(
     @TypedBody() input: IInnoforest.IFindemployeeInput,
   ): Promise<IInnoforest.IFindemployeeOutput> {
@@ -399,7 +399,7 @@ export class InnoforestController {
    *
    * @summary Retrieve press-related data from Innoforest
    */
-  @TypedRoute.Post("seed/party/s1/findpress")
+  @TypedRoute.Patch("seed/party/s1/findpress")
   async findpress(
     @TypedBody() input: IInnoforest.IFindpressInput,
   ): Promise<IInnoforest.IFindpressOutput> {

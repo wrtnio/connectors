@@ -27,7 +27,7 @@ export class GoogleDriveController {
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleDrive_full.svg",
   )
   @ApiTags("Google Drive")
-  @core.TypedRoute.Post("get/folders")
+  @core.TypedRoute.Patch("get/folders")
   async folderList(
     @core.TypedBody()
     input: IGoogleDrive.ISecret,
@@ -48,7 +48,7 @@ export class GoogleDriveController {
   @SelectBenchmark("드라이브에 파일 좀 찾아줘")
   @SelectBenchmark("드라이브에 파일 좀 조회해줘")
   @ApiTags("Google Drive")
-  @core.TypedRoute.Post("get/files")
+  @core.TypedRoute.Patch("get/files")
   async fileList(
     @core.TypedBody() input: IGoogleDrive.IFileListGoogleDriveInput,
   ): Promise<IGoogleDrive.IFileListGoogleDriveOutput> {
@@ -184,7 +184,7 @@ export class GoogleDriveController {
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleDrive_full.svg",
   )
   @ApiTags("Google Drive")
-  @core.TypedRoute.Post("get/file/:id")
+  @core.TypedRoute.Patch("get/file/:id")
   async readFile(
     /**
      * @title File to read

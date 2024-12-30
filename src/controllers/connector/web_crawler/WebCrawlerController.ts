@@ -23,7 +23,7 @@ export class WebCrawlerController {
    * @summary Get HTML content from the URL
    */
   @ApiTags("Web Crawler")
-  @core.TypedRoute.Post("get-web-content")
+  @core.TypedRoute.Patch("get-web-content")
   async getWebContent(
     @core.TypedBody() input: IWebCrawler.IRequest,
   ): Promise<IWebCrawler.IResponse> {

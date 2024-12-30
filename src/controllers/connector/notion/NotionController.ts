@@ -425,7 +425,7 @@ export class NotionController {
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg",
   )
   @ApiTags("Notion")
-  @core.TypedRoute.Post("/get/page/contents")
+  @core.TypedRoute.Patch("/get/page/contents")
   async readPageContents(
     @core.TypedBody() input: INotion.IReadPageContentInput,
   ): Promise<INotion.IReadPageContentOutput> {
@@ -443,7 +443,7 @@ export class NotionController {
   )
   @ApiTags("Notion")
   @Standalone()
-  @core.TypedRoute.Post("/get/page")
+  @core.TypedRoute.Patch("/get/page")
   async readPageList(
     @core.TypedBody() input: INotion.ISecret,
   ): Promise<INotion.IReadPageOutput[]> {
@@ -461,7 +461,7 @@ export class NotionController {
   )
   @ApiTags("Notion")
   @Standalone()
-  @core.TypedRoute.Post("get/users")
+  @core.TypedRoute.Patch("get/users")
   async getUsers(
     @core.TypedBody() input: INotion.ISecret,
   ): Promise<INotion.IUserOutput[]> {
@@ -479,7 +479,7 @@ export class NotionController {
   )
   @ApiTags("Notion")
   @Standalone()
-  @core.TypedRoute.Post("get/database-info")
+  @core.TypedRoute.Patch("get/database-info")
   async getDatabaseListInfo(
     @core.TypedBody() input: INotion.ISecret,
   ): Promise<INotion.IDatabaseInfo[]> {
@@ -497,7 +497,7 @@ export class NotionController {
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg",
   )
   @ApiTags("Notion")
-  @core.TypedRoute.Post("get/database-info/:databaseId")
+  @core.TypedRoute.Patch("get/database-info/:databaseId")
   async getDatabaseInfo(
     @core.TypedBody() input: INotion.ISecret,
     /**
@@ -557,7 +557,7 @@ export class NotionController {
   //   "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg",
   // )
   // @ApiTags("Notion")
-  // @core.TypedRoute.Patch("/database-item/:databaseId")
+  // @core.TypedRoute.Put("/database-item/:databaseId")
   // async updateDatabaseItem(
   //   @core.TypedBody() input: INotion.IUpdateDatabaseItemInput,
   //   /**
@@ -586,7 +586,7 @@ export class NotionController {
   )
   @ApiTags("Notion")
   @Standalone()
-  @core.TypedRoute.Post("/get-page-by-title")
+  @core.TypedRoute.Patch("/get-page-by-title")
   async getPageByTitle(
     @core.TypedBody() input: INotion.IFindPageOrDatabaseItemInput,
   ): Promise<INotion.IFindPageByTitleOutput> {
@@ -604,7 +604,7 @@ export class NotionController {
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg",
   )
   @ApiTags("Notion")
-  @core.TypedRoute.Post("/find-item-list/:databaseId")
+  @core.TypedRoute.Patch("/find-item-list/:databaseId")
   async getDatabaseItemList(
     @core.TypedBody() input: INotion.ISecret,
     /**
@@ -636,7 +636,7 @@ export class NotionController {
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Notion_full.svg",
   )
   @ApiTags("Notion")
-  @core.TypedRoute.Post("/find-item/:databaseId")
+  @core.TypedRoute.Patch("/find-item/:databaseId")
   async getDatabaseItem(
     @core.TypedBody() input: INotion.IFindDatabaseItemInput,
     /**

@@ -26,7 +26,7 @@ export class GoogleShoppingTwentyNineCentimeterController {
    */
   @SelectBenchmark("29cm에서 상품 좀 찾아줘")
   @Standalone()
-  @core.TypedRoute.Post("twenty-nine-centimeter")
+  @core.TypedRoute.Patch("twenty-nine-centimeter")
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/29cm_full.svg",
   )

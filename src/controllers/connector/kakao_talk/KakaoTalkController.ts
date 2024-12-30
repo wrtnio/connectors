@@ -185,7 +185,7 @@ export class KakaoTalkController {
     `https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/kakaoTalk_full.svg`,
   )
   @ApiTags("KakaoTalk")
-  @core.TypedRoute.Post("get-friends")
+  @core.TypedRoute.Patch("get-friends")
   async getFriends(
     @TypedBody() input: IKakaoTalk.IGetFriendsInput,
   ): Promise<IKakaoTalk.IGetFriendsOutput> {
@@ -213,7 +213,7 @@ export class KakaoTalkController {
     `https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/kakaoTalk_full.svg`,
   )
   @ApiTags("KakaoTalk")
-  @core.TypedRoute.Post("get-events")
+  @core.TypedRoute.Patch("get-events")
   async getEvents(
     @TypedBody() input: IKakaoTalk.IGetEventInput,
   ): Promise<IKakaoTalk.IGetEventOutput> {
@@ -238,7 +238,7 @@ export class KakaoTalkController {
     `https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/kakaoTalk_full.svg`,
   )
   @ApiTags("KakaoTalk")
-  @core.TypedRoute.Post("get-calendars")
+  @core.TypedRoute.Patch("get-calendars")
   async getCalendars(
     @TypedBody() input: ICommon.ISecret<"kakao", ["talk_calendar"]>,
   ): Promise<IKakaoTalk.IGetCalendarOutput> {

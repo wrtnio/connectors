@@ -26,7 +26,7 @@ export class GoogleShoppingYesTwentyFourController {
   @SelectBenchmark("도서 검색 좀 해줘")
   @SelectBenchmark("yes24에서 상품 좀 찾아줘")
   @Standalone()
-  @core.TypedRoute.Post("yes-twenty-four")
+  @core.TypedRoute.Patch("yes-twenty-four")
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/yes24_full.svg",
   )

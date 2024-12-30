@@ -104,7 +104,7 @@ export class GoogleDocsController {
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Google+Docs_full.svg",
   )
   @ApiTags("Google Docs")
-  @core.TypedRoute.Post("get/:id")
+  @core.TypedRoute.Patch("get/:id")
   async readDocs(
     /**
      * @title Docs file to import
@@ -202,7 +202,7 @@ export class GoogleDocsController {
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Google+Docs_full.svg",
   )
   @ApiTags("Google Docs")
-  @core.TypedRoute.Post("get-list")
+  @core.TypedRoute.Patch("get-list")
   async list(
     @core.TypedBody()
     input: IGoogleDocs.ISecret,

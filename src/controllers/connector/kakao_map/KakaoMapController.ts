@@ -25,7 +25,7 @@ export class KakaoMapController {
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/KakaoMap_full.svg",
   )
   @ApiTags("Kakao Map")
-  @TypedRoute.Post("search")
+  @TypedRoute.Patch("search")
   async search(
     @TypedBody()
     input: IKakaoMap.SearchByKeywordInput,

@@ -57,7 +57,7 @@ export class DiscordController {
    * @returns List of channels
    */
   @SelectBenchmark("길드 채널 조회해줘")
-  @core.TypedRoute.Post("get-guild-channels")
+  @core.TypedRoute.Patch("get-guild-channels")
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/discord.svg",
   )
@@ -95,7 +95,7 @@ export class DiscordController {
    * @returns List of server members
    */
   @SelectBenchmark("길드 멤버 조회해줘")
-  @core.TypedRoute.Post("get-list-guild-members")
+  @core.TypedRoute.Patch("get-list-guild-members")
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/discord.svg",
   )
@@ -178,7 +178,7 @@ export class DiscordController {
    */
   @SelectBenchmark("핀꽂은 메세지만 조회해줘")
   @SelectBenchmark("디스코드 메세지 고정해둔 것들 조회해줘")
-  @core.TypedRoute.Post("get-pinned-messages")
+  @core.TypedRoute.Patch("get-pinned-messages")
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/discord.svg",
   )
@@ -238,7 +238,7 @@ export class DiscordController {
    */
   @SelectBenchmark("메시지 조회해줘")
   @SelectBenchmark("디스코드 메시지 조회해줘")
-  @core.TypedRoute.Post("get-channel-message-histories")
+  @core.TypedRoute.Patch("get-channel-message-histories")
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/discord.svg",
   )

@@ -25,7 +25,7 @@ export class GoogleShoppingOliveYoungController {
    */
   @SelectBenchmark("올리브영에서 상품 좀 찾아줘")
   @Standalone()
-  @core.TypedRoute.Post("olive-young")
+  @core.TypedRoute.Patch("olive-young")
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/oliveYoung_full.svg",
   )

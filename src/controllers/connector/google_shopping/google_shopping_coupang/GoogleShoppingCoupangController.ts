@@ -24,7 +24,7 @@ export class GoogleShoppingCoupangController {
    */
   @SelectBenchmark("쿠팡에서 상품 좀 찾아줘")
   @Standalone()
-  @core.TypedRoute.Post("coupang")
+  @core.TypedRoute.Patch("coupang")
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Coupang_full.svg",
   )
