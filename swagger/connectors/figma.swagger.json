@@ -18,14 +18,14 @@
     "title": "피그마 디자인 협업 플랫폼",
     "summary": "피그마 파일을 쉽게 관리하고 협업할 수 있어요.",
     "description": "피그마 파일에 접근하고, 댓글을 가져오거나 추가할 수 있어요. 디자인 작업과 팀 협업을 효율적으로 진행할 수 있어요. 프로젝트의 진행 상황을 확인하고, 팀원들의 피드백을 실시간으로 주고받을 수 있어요. 디자인 에셋을 관리하고, 버전 히스토리를 추적할 수 있어요. UI/UX 디자인, 프로토타이핑, 그래픽 디자인 등 다양한 디자인 작업을 수행하고 관리할 수 있어요.",
-    "version": "0.1.430",
+    "version": "0.1.431",
     "license": {
       "name": "AGPL-3.0-only"
     }
   },
   "paths": {
     "/connector/figma/get-files": {
-      "post": {
+      "patch": {
         "summary": "Import Figma files",
         "description": "Import Figma files",
         "tags": [
@@ -44,7 +44,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "List of Figma files",
             "content": {
               "application/json": {
@@ -107,7 +107,7 @@
       }
     },
     "/connector/figma/get-comments": {
-      "post": {
+      "patch": {
         "summary": "Get Figma comments",
         "description": "Get Figma comments",
         "tags": [
@@ -126,7 +126,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "List of Figma comments",
             "content": {
               "application/json": {
@@ -148,7 +148,7 @@
       }
     },
     "/connector/figma/projects/{id}/get-canvas": {
-      "post": {
+      "patch": {
         "summary": "Search for canvases within a team",
         "description": "Get all canvases of a specific project\n\nCanvases are Figma files managed by a specific team.\n\nThis connector allows users to see which canvases are managed within their Figma team, along with their canvas names and thumbnail links.",
         "tags": [
@@ -161,7 +161,7 @@
             "schema": {
               "type": "string",
               "x-wrtn-prerequisite": {
-                "method": "post",
+                "method": "patch",
                 "path": "/connector/figma/get-projects",
                 "jmesPath": "proejcts[].{value:id, label:name}"
               }
@@ -182,7 +182,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "All files in the project",
             "content": {
               "application/json": {
@@ -205,7 +205,7 @@
       }
     },
     "/connector/figma/get-statistics": {
-      "post": {
+      "patch": {
         "summary": "Retrieve team-level Figma statistics",
         "description": "Retrieve team-level statistics",
         "tags": [
@@ -224,7 +224,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "Results of team-level statistics retrieval",
             "content": {
               "application/json": {
@@ -249,7 +249,7 @@
       }
     },
     "/connector/figma/get-projects": {
-      "post": {
+      "patch": {
         "summary": "Search for projects within a team",
         "description": "Search for projects within a team\n\nAs an argument, it should receive teamId, which is the team ID, and can be found by looking at the URL path of figma.\nWhen accessing the link `https://www.figma.com/files/team`, a number is automatically added after the `team` keyword, which is the team ID.\nA user can belong to multiple teams, so if you do not want to automate the search for these projects, you need to get a different team ID.",
         "tags": [
@@ -268,7 +268,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "Project list",
             "content": {
               "application/json": {

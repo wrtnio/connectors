@@ -18,14 +18,14 @@
     "title": "Github",
     "summary": "Github에서 코드를 읽고 분석하고 작성해요",
     "description": "Github에서 유저나 코드를 조회하고 분석할 수 있어요. 직접 코드를 작성하고 커밋하고 PR을 날리거나, 또 코멘트를 남겨줄 수도 있습니다.",
-    "version": "0.1.430",
+    "version": "0.1.431",
     "license": {
       "name": "AGPL-3.0-only"
     }
   },
   "paths": {
     "/connector/github/users/get-received-events": {
-      "post": {
+      "patch": {
         "summary": "List events received by the authenticated user",
         "description": "List events received by the authenticated user\n\nThese are events that you've received by watching repositories and following users.\nIf you are authenticated as the given user, you will see private events. Otherwise, you'll only see public events.\nIn this case, the \"received\" event includes the repository that the user is interested in or the activity of the user who is following,\nfor example, if the user has pushed to the repository, or if an issue has been created from the repository that the user is interested in.",
         "tags": [
@@ -44,7 +44,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "Received Event of user",
             "content": {
               "application/json": {
@@ -71,7 +71,7 @@
       }
     },
     "/connector/github/users/get-pinned-repositories": {
-      "post": {
+      "patch": {
         "summary": "Inquire the user's pinned repository names",
         "description": "Inquire the user's pinned repositories\n\nInquire up to 6 repositories where the user has pinned.\nHere, only the name of the repository is searched, so if necessary, find detailed information about the repository by pageing the user's repository list.\nPlacing a pin in a repository is most likely a repository that users are most confident in.",
         "tags": [
@@ -89,7 +89,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "repositories",
             "content": {
               "application/json": {
@@ -119,7 +119,7 @@
       }
     },
     "/connector/github/users/get-repositories": {
-      "post": {
+      "patch": {
         "summary": "Inquire the user's repositories",
         "description": "Inquire the user's repositories\n\nSince it contains only the simplest information of the repository here, there is no way to know the lead me of the repository or detailed information.\nIt is recommended to use additional connectors to explore because other connectors have the ability to read leads or internal files in the repository.",
         "tags": [
@@ -137,7 +137,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "repositories",
             "content": {
               "application/json": {
@@ -164,7 +164,7 @@
       }
     },
     "/connector/github/organizations/users/get-events": {
-      "post": {
+      "patch": {
         "summary": "Lists organization events for the authenticated user",
         "description": "Lists organization events for the authenticated user\n\nThis API endpoint retrieves events that have occurred within the organizations\nthe authenticated user is a member of. It includes activities such as issues,\npull requests, commits, and other actions taken within the organization's repositories.\n\nThe events cover all repositories within the organization that the user has access to,\nmaking it useful for tracking the organization's activity or monitoring the progress\nof projects that the user is involved in within the team.",
         "tags": [
@@ -182,7 +182,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "A list of events from the organizations the authenticated user is a member of.",
             "content": {
               "application/json": {
@@ -209,7 +209,7 @@
       }
     },
     "/connector/github/organizations/get-issues": {
-      "post": {
+      "patch": {
         "summary": "List organization issues assigned to the authenticated user",
         "description": "List organization issues assigned to the authenticated user\n\nSimilar to the 'get-issues' connector, it is suitable for inquiring only about issues assigned within a specific organization.\nNaturally, the user will have to be a member of that organization.\n\nHere, the result value can be inquired together with PR because PR on GitHub is essentially an issue-like object.\nIf you want to see the issue separately, you should use a connector that looks up the issue in the repo, not the organization.",
         "tags": [
@@ -227,7 +227,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "",
             "content": {
               "application/json": {
@@ -253,7 +253,7 @@
       }
     },
     "/connector/github/organizations/get-repositories": {
-      "post": {
+      "patch": {
         "summary": "List organization repositories",
         "description": "List organization repositories\n\nThis endpoint allows you to list all repositories that belong to a specified organization on GitHub.\nIt's useful for viewing all the repositories under an organization’s account, including both public and private repositories, depending on your access level.",
         "tags": [
@@ -271,7 +271,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "",
             "content": {
               "application/json": {
@@ -297,7 +297,7 @@
       }
     },
     "/connector/github/organizations/get-events": {
-      "post": {
+      "patch": {
         "summary": "List public organization events.",
         "description": "List public organization events\n\nIf you are authenticated as the given user, you will see your private events. Otherwise, you'll only see public events.\n\nThis API endpoint retrieves a stream of public events that have occurred\nwithin a specified organization. These events include activities such as\nrepository creation, issues, pull requests, and other actions taken by members\nof the organization across all its public repositories.\n\nThis is useful for monitoring the public activity within an organization,\nproviding insights into how the organization is managing its projects,\nthe work being done by its members, and the overall public engagement with\nits repositories.",
         "tags": [
@@ -315,7 +315,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "",
             "content": {
               "application/json": {
@@ -341,7 +341,7 @@
       }
     },
     "/connector/github/repos/get-collaborators": {
-      "post": {
+      "patch": {
         "summary": "List repository collaborators",
         "description": "List repository collaborators\n\nFor organization-owned repositories, the list of collaborators includes outside collaborators,\norganization members that are direct collaborators, organization members with access through team memberships,\norganization members with access through default organization permissions, and organization owners.\nOrganization members with write, maintain, or admin privileges on the organization-owned repository can use this endpoint.\nTeam members will include the members of child teams.\n\nYou can refer to it before specifying a person in charge of the issue or a reviewer for PR.",
         "tags": [
@@ -359,7 +359,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "",
             "content": {
               "application/json": {
@@ -515,7 +515,7 @@
       }
     },
     "/connector/github/repos/get-folder-structures": {
-      "post": {
+      "patch": {
         "summary": "Review Repository Folder Structure",
         "description": "Review Repository Folder Structure\n\nIt allows you to know the overall folder structure by traversing files in the repository.\nThis feature is intended to navigate like a DFS based on folders.\nIf this function is so vast that you cannot see the entire folder, you can pass the `path` again to inquire.\nThe `path` delivered is treated like a Root folder and continues the navigation from this folder.\nThis feature is designed to navigate to the inside two more times, up to steps 0, 1 at a time, based on the root folder.\n\nIf you want to know the details of the file, it is recommended to use the get-contents connector.",
         "tags": [
@@ -533,7 +533,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "",
             "content": {
               "application/json": {
@@ -577,7 +577,7 @@
       }
     },
     "/connector/github/repos/get-contents/bulk": {
-      "post": {
+      "patch": {
         "summary": "Look up repository files(bulk)",
         "description": "Look up repository files(bulk)\n\nIf the file you want to inquire is a folder, internal files are provided in an array,\nand if it is a file, it inquires about the encoding method of the file and the body content of the file.\nSince there may be countless files and folders in the github repository, there may be many files that exceed the rate limit.\nIn this case, you can try to solve this problem by sequentially finding the folders one by one using the corresponding connector.\nYou can pass multiple file paths to view multiple files at the same time.\nThere is no limit to the number of files.\n\nThis is suitable for viewing files on specific branches, but if the user is for the purpose of viewing details of code reviews or PR, it is recommended to use a different connector.\nThere are connectors that view the list of files changed in PR, or see the changes.",
         "tags": [
@@ -595,7 +595,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "",
             "content": {
               "application/json": {
@@ -672,7 +672,7 @@
       }
     },
     "/connector/github/repos/get-contents": {
-      "post": {
+      "patch": {
         "summary": "Look up repository files",
         "description": "Look up repository files\n\nIf the file you want to inquire is a folder, internal files are provided in an array,\nand if it is a file, it inquires about the encoding method of the file and the body content of the file.\nSince there may be countless files and folders in the github repository, there may be many files that exceed the rate limit.\nIn this case, you can try to solve this problem by sequentially finding the folders one by one using the corresponding connector.\n\nThis is suitable for viewing files on specific branches, but if the user is for the purpose of viewing details of code reviews or PR, it is recommended to use a different connector.\nThere are connectors that view the list of files changed in PR, or see the changes.",
         "tags": [
@@ -690,7 +690,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "",
             "content": {
               "application/json": {
@@ -763,7 +763,7 @@
       }
     },
     "/connector/github/repos/get-readme": {
-      "post": {
+      "patch": {
         "summary": "Read the README file",
         "description": "Read the README file in the repository\n\nREADME is one of the initial settings of the project and usually records a description of this repository,\nso it's useful if you want to see a rough description of the repository.",
         "tags": [
@@ -781,7 +781,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "",
             "content": {
               "application/json": {
@@ -822,7 +822,7 @@
       }
     },
     "/connector/github/repos/get-events": {
-      "post": {
+      "patch": {
         "summary": "List events for the authenticated user",
         "description": "List events for the authenticated user\n\nIf you are authenticated as the given user, you will see your private events. Otherwise, you'll only see public events.\nYou can check all events surrounding the repository, such as who inquired and who forked.\nIt is used in conjunction with a connector that inquires the activity details and is suitable for checking how active the repository is.",
         "tags": [
@@ -840,7 +840,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "",
             "content": {
               "application/json": {
@@ -866,7 +866,7 @@
       }
     },
     "/connector/github/networks/get-events": {
-      "post": {
+      "patch": {
         "summary": "List public events for a network of repositories",
         "description": "Fetches events across all forks of a specified repository.\n\nThis API endpoint provides a stream of events that occur in any fork\nof the specified repository. It includes actions such as commits,\npull requests, issues, and other activity happening in the forked\nrepositories.\n\nUse this endpoint when you need to monitor the activity not just\nin the original repository, but also in all of its forks. This can\nbe particularly useful for understanding the broader impact or\nactivity surrounding a popular project that has been forked multiple\ntimes.",
         "tags": [
@@ -884,7 +884,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "",
             "content": {
               "application/json": {
@@ -910,7 +910,7 @@
       }
     },
     "/connector/github/users/get-events": {
-      "post": {
+      "patch": {
         "summary": "List events for the authenticated user.",
         "description": "List events for the authenticated user\n\nThis API endpoint retrieves a stream of events related to the authenticated user,\nincluding activities such as issues, pull requests, commits, and repository actions\nthat the user has participated in or been mentioned in. The events reflect the user's\ninteractions across all repositories they have access to, both public and private (if\nthe user has appropriate permissions).\n\nThis is useful for tracking a user's activity on GitHub, allowing you to see a\npersonalized feed of their involvement in various projects and interactions with\nother users.\n\nIf you are authenticated as the given user, you will see your private events. Otherwise, you'll only see public events.\nIt looks up users' public events. Username should be your own nickname because you can usually only see your own events.",
         "tags": [
@@ -928,7 +928,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "",
             "content": {
               "application/json": {
@@ -954,7 +954,7 @@
       }
     },
     "/connector/github/users/get-organizations": {
-      "post": {
+      "patch": {
         "summary": "List organizations for a user",
         "description": "List organizations for a user\n\nLook up the user's organization list, but since you can't look up the user's private organization here,\nyou can't really conclude that there isn't an empty array.",
         "tags": [
@@ -972,7 +972,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "",
             "content": {
               "application/json": {
@@ -998,7 +998,7 @@
       }
     },
     "/connector/github/get-events": {
-      "post": {
+      "patch": {
         "summary": "List public events.",
         "description": "List public events\n\nThis API is not built to serve real-time use cases. Depending on the time of day, event latency can be anywhere from 30s to 6h.\nWhen I look up the events, they may not be of much value to the user because they are events that occurred on github.\n\nIt's looking up public events, and it's looking at events that occur on github regardless of the specific user.\nTherefore, it may not be of much use unless it is a special case.\nIf you want to get your information, it would be more advantageous to use the 'user/get-events' connector.",
         "tags": [
@@ -1016,7 +1016,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "",
             "content": {
               "application/json": {
@@ -1038,7 +1038,7 @@
       }
     },
     "/connector/github/repositories/get-activities": {
-      "post": {
+      "patch": {
         "summary": "Get Repository' activities",
         "description": "Get repository activities\n\nYou can use it to see how active your contribution is to the repository\nbecause it looks up all the activities that have occurred in the repository.\n\nThe types of activities that can be viewed here are as follows, and you can also find out by which user it was operated.\npush, force_push, branch_creation, branch_deletion, pr_merge, merge_queue_merge",
         "tags": [
@@ -1056,7 +1056,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "",
             "content": {
               "application/json": {
@@ -1169,7 +1169,7 @@
       }
     },
     "/connector/github/repositories/pull-requests/get-comments": {
-      "post": {
+      "patch": {
         "summary": "List pull request comments",
         "description": "List pull request comments\n\nYou can use the REST API to list comments on issues and pull requests. Every pull request is an issue, but not every issue is a pull request.\nIn any case, you can also view comments with the number on pull request.\nIssue comments are ordered by ascending ID.\n\nThis is actually the same as connector POST '/connector/github/repositories/issues/get-comments'.\nComments and reviews on PR are separate, you can only see comments on this connector.",
         "tags": [
@@ -1187,7 +1187,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "",
             "content": {
               "application/json": {
@@ -1261,7 +1261,7 @@
       }
     },
     "/connector/github/repositories/pull-requests/get-requested-reviewers": {
-      "post": {
+      "patch": {
         "summary": "Get all requested reviewers for a pull request",
         "description": "Get all requested reviewers\n\nGets the users or teams whose review is requested for a pull request.\nOnce a requested reviewer submits a review, they are no longer considered a requested reviewer.\nTheir review will instead be returned by the List reviews for a pull request operation.\n\nThe requested_reviewers are the ones who have been asked to review, but not yet.\nSo when you see someone who has reviewed a PR, if that person is someone who has already finished a review, he/she will be part of the reviewers, not the requested_reviewers.\nTherefore, when you look at a reviewer, you should look at it separately between someone who has not yet reviewed it and one person who has reviewed it, which you should also call other features to see together.\nRefer to connector `:post /connector/github/repositories/pull-requests/get-reviews`.",
         "tags": [
@@ -1279,7 +1279,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "",
             "content": {
               "application/json": {
@@ -1386,7 +1386,7 @@
       }
     },
     "/connector/github/repositories/pull-requests/reviews/get-comments": {
-      "post": {
+      "patch": {
         "summary": "List comments for a pull request review",
         "description": "List comments for a pull request review\n\nLists comments for a specific pull request review.",
         "tags": [
@@ -1404,7 +1404,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "",
             "content": {
               "application/json": {
@@ -1432,7 +1432,7 @@
       }
     },
     "/connector/github/repositories/pull-requests/get-reviews": {
-      "post": {
+      "patch": {
         "summary": "List reviews for a pull request",
         "description": "List reviews for a pull request\n\nPull Request Reviews are groups of pull request review comments on a pull request, grouped together with a state and optional body comment.\nLists all reviews for a specified pull request. The list of reviews returns in chronological order.\nSince github distinguishes requested_reviewers from those who have already completed the review,\nif you want to see a review for any PR, you should look up both of these connectors.",
         "tags": [
@@ -1450,7 +1450,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "",
             "content": {
               "application/json": {
@@ -1523,7 +1523,7 @@
       }
     },
     "/connector/github/repositories/pull-requests/get-files": {
-      "post": {
+      "patch": {
         "summary": "List pull requests files",
         "description": "List pull requests files\n\nThis is useful to see what files are contained in that PR.\nEach file's patch contains the entire format of the file.\nHowever, if you want to know the changes, you should look up diff, which is implemented with a different connector, so you'd better refer to it.\n\nIf the user wants to see each PR unit, this connector will be suitable.",
         "tags": [
@@ -1541,7 +1541,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "",
             "content": {
               "application/json": {
@@ -1568,7 +1568,7 @@
       }
     },
     "/connector/github/repositories/pull-requests/get-commits": {
-      "post": {
+      "patch": {
         "description": "List commits on a pull request\n\nLists a maximum of 250 commits for a pull request.\nTo receive a complete commit list for pull requests with more than 250 commits, use the List commits endpoint.\n\nIf the user wants to see each PR unit, this connector will be suitable.",
         "tags": [
           "Github"
@@ -1585,7 +1585,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "",
             "content": {
               "application/json": {
@@ -1612,7 +1612,7 @@
       }
     },
     "/connector/github/repositories/pull-requests/get-diff": {
-      "post": {
+      "patch": {
         "summary": "Get a diff of pull request",
         "description": "Get a diff of pull-request info\n\nThis is the same as PR's ability to query files,\nbut the format that this function returns is a string, which is more suitable for identifying changes to each file than viewing each file object,\nand in github, this is called the application/vnd.github.diff format.\nThis helps you see at a glance what codes have disappeared and been added in a form suitable for code review.\n\nIf the user wants to see each PR unit, this connector will be suitable.\n\nIf there are too many changes, the connector can export a 406 error.\nIn this case, it may be difficult to determine each change, but it is recommended to use the List pull requests connector.",
         "tags": [
@@ -1630,7 +1630,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "",
             "content": {
               "application/json": {
@@ -1704,7 +1704,7 @@
       }
     },
     "/connector/github/repositories/pull-requests/get-detail": {
-      "post": {
+      "patch": {
         "summary": "Get a pull request",
         "description": "Get a deatiled pull-request info\n\nYou can view detailed PR information using the PR number.\nHere, you can see the branch to be merged and the information on the branch it points to, and you can see information such as the status of the PR, the time of each state, and the person who created the PR.\nHowever, it should be used with other connectors because it provides information close to the header of PR and does not provide information about each file or commit of PR.\n\nIf the user wants to see each PR unit, this connector will be suitable.",
         "tags": [
@@ -1722,7 +1722,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "",
             "content": {
               "application/json": {
@@ -1749,7 +1749,7 @@
       }
     },
     "/connector/github/repositories/get-pull-requests": {
-      "post": {
+      "patch": {
         "summary": "Get Repository' pull request",
         "description": "List repository pull requests\n\nQuery pool requests to specific repositories.\nHere, you can filter issues and see only pool requests, and you can sort them by creation and inquiry dates, or filter by open or closed status.\nThe content of the body is omitted, so if you want to see it, you should use the detailed lookup connector.\nIf the user wants to see the body property, '/connector/github/repositories/pull-requests/get-detail' connector must be called.",
         "tags": [
@@ -1767,7 +1767,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "",
             "content": {
               "application/json": {
@@ -1793,7 +1793,7 @@
       }
     },
     "/connector/github/repositories/issues/get-detail": {
-      "post": {
+      "patch": {
         "summary": "Get a issue",
         "description": "Get a deatiled issue info\n\nUnlike the body omitted from the issue list inquiry, it is suitable for viewing details as it can inquire all the contents.\nHowever, this connector alone cannot see all the comments or timelines inside, and other connectors must be used.",
         "tags": [
@@ -1811,7 +1811,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "",
             "content": {
               "application/json": {
@@ -1838,7 +1838,7 @@
       }
     },
     "/connector/github/repositories/issues/get-comments": {
-      "post": {
+      "patch": {
         "summary": "List issue comments",
         "description": "List issue comments\n\nYou can use the REST API to list comments on issues and pull requests. Every pull request is an issue, but not every issue is a pull request.\nIn any case, you can also view comments with the number on pull request.\nIssue comments are ordered by ascending ID.",
         "tags": [
@@ -1856,7 +1856,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "",
             "content": {
               "application/json": {
@@ -1928,7 +1928,7 @@
       }
     },
     "/connector/github/repositories/get-issues": {
-      "post": {
+      "patch": {
         "summary": "List repository issues",
         "description": "List repository issues\n\nList issues in a repository.\nThis connector is perfect if you want to see the issue of the repository because it can be viewed without being authenticated.\nInformation on the issue comes out, but only 10 people and labels attached to the issue are provided.\nTherefore, if you want more detailed information, it's a good idea to look at it with a connector that looks at the details of the issue.\nWhen looking up an issue, you can view open and closed issues and sort them by creation time, correction time, comment count, and reaction count.\nFor more information, you should check the properties part of the request type.\n\nThe content of the body is omitted, so if you want to see it, you should use the detailed lookup connector.\nIf the user wants to see the body property, '/connector/github/repositories/issues/get-detail' connector must be called.",
         "tags": [
@@ -1946,7 +1946,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "",
             "content": {
               "application/json": {
@@ -1973,7 +1973,7 @@
       }
     },
     "/connector/github/get-users": {
-      "post": {
+      "patch": {
         "summary": "Search for users by keyword in github",
         "description": "Search for users by keyword in github",
         "tags": [
@@ -1991,7 +1991,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "list of user",
             "content": {
               "application/json": {
@@ -2016,7 +2016,7 @@
       }
     },
     "/connector/github/get-user-profile": {
-      "post": {
+      "patch": {
         "summary": "Look up the user's detailed profile",
         "description": "Look up the user's detailed profile",
         "tags": [
@@ -2034,7 +2034,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "detailed profile",
             "content": {
               "application/json": {
@@ -2059,7 +2059,7 @@
       }
     },
     "/connector/github/get-organizations": {
-      "post": {
+      "patch": {
         "summary": "List organizations for the authenticated user",
         "description": "List organizations for the authenticated user\n\nInquire the user's repository.\nHere, the user is an authenticated user, which means a user of that token.\nIf a user does not select an organization at login or ask the organization's admin to link it,\nthe resource might not be viewed even if the token scope has permissions.",
         "tags": [
@@ -2077,7 +2077,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "",
             "content": {
               "application/json": {
@@ -2102,7 +2102,7 @@
       }
     },
     "/connector/github/get-branches": {
-      "post": {
+      "patch": {
         "summary": "Inquire the user's branch",
         "description": "Inquire the user's branch\n\nYou can look up a list of branches in a specific repository.\nBecause it says what the last commit is, and when and to whom it was made,\nyou can see which of the branches is the latest and managed.\n\nYou shouldn't call the main branch arbitrarily because there may be people who use the master branch.",
         "tags": [
@@ -2120,7 +2120,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "",
             "content": {
               "application/json": {
@@ -2188,7 +2188,7 @@
       }
     },
     "/connector/github/get-pull-requests-associated-with-a-commit": {
-      "post": {
+      "patch": {
         "summary": "get pull requests associated with a commit",
         "description": "List pull requests associated with a commit\n\nFetches the pull requests (PRs) associated with a specific commit in a GitHub repository.\nThis API endpoint retrieves a list of pull requests that include the specified commit.\nThis can be useful for tracking where and how a particular change was merged into a branch.",
         "tags": [
@@ -2206,7 +2206,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "pull requests associated with a commit",
             "content": {
               "application/json": {
@@ -2231,7 +2231,7 @@
       }
     },
     "/connector/github/get-commit-heads": {
-      "post": {
+      "patch": {
         "summary": "Lists all branches that contain the HEAD commit",
         "description": "Lists all branches that contain the HEAD commit of a GitHub repository.\n\nThis function utilizes the GitHub API to retrieve a list of branches where the current\nHEAD commit (the latest commit on the checked-out branch) is included. This is useful for\ndetermining which branches contain the most recent changes.",
         "tags": [
@@ -2249,7 +2249,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "A promise that resolves to an array of branch names that include the specified commit.",
             "content": {
               "application/json": {
@@ -2271,7 +2271,7 @@
       }
     },
     "/connector/github/get-commit": {
-      "post": {
+      "patch": {
         "summary": "Inquire the commit details of the user",
         "description": "Inquire the commit details of the user\nIt contains all the history of how the file changed, so you can see the details of a single commit node.\nIf you do not deliver ref, look up based on default_branch.",
         "tags": [
@@ -2289,7 +2289,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "detailed commit history",
             "content": {
               "application/json": {
@@ -2314,7 +2314,7 @@
       }
     },
     "/connector/github/get-commit-diff": {
-      "post": {
+      "patch": {
         "summary": "Inquire the commit diff of the user",
         "description": "Inquire the commit diff of the user\ndiff is Github's own content type specification that allows you to identify changes per commit on the Github homepage.\nIf you do not deliver ref, look up based on default_branch.",
         "tags": [
@@ -2332,7 +2332,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "commit diff",
             "content": {
               "application/json": {
@@ -2357,7 +2357,7 @@
       }
     },
     "/connector/github/get-commit-list": {
-      "post": {
+      "patch": {
         "summary": "Look up the list of commitments for a specific repo, a specific branch",
         "description": "Look up the list of commitments for a specific repo, a specific branch\n\nThis function can be used in general because it sees the commit list in units of branches, but if the user wants to see it in units of PR, it is better to use another connector.\nIf the user specifies to view in PR units, use other connectors because there are connectors for viewing files, commit lists, and changes in PR units elsewhere.",
         "tags": [
@@ -2375,7 +2375,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "list of commit",
             "content": {
               "application/json": {
@@ -2400,7 +2400,7 @@
       }
     },
     "/connector/github/get-followers": {
-      "post": {
+      "patch": {
         "summary": "Inquire the followers of the user",
         "description": "Inquire the followers of the user\n\nThis value can be viewed by about 100 people at a time because it is a page-nated result.\nIf you have someone you're looking for, it's important to keep looking for the next page, even if you haven't found the value on the first page.",
         "tags": [
@@ -2418,7 +2418,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "",
             "content": {
               "application/json": {
@@ -2443,7 +2443,7 @@
       }
     },
     "/connector/github/get-followees": {
-      "post": {
+      "patch": {
         "summary": "Inquire the followees of the user",
         "description": "Inquire the followees of the user\n\nThis value can be viewed by about 100 people at a time because it is a page-nated result.\nIf you have someone you're looking for, it's important to keep looking for the next page, even if you haven't found the value on the first page.",
         "tags": [
@@ -2461,7 +2461,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "",
             "content": {
               "application/json": {
@@ -2486,7 +2486,7 @@
       }
     },
     "/connector/github/get-labels": {
-      "post": {
+      "patch": {
         "summary": "List labels for a repository",
         "description": "List labels for a repository\n\nView a list of issues created and used in that repository.\nEach issue will only have labels that are already registered in this repository.\nOf course, it doesn't necessarily mean that you have to use only the labels here when creating issues,\nbut it would be beneficial to assign them by referring to the labels here.",
         "tags": [
@@ -2504,7 +2504,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "",
             "content": {
               "application/json": {
@@ -2529,7 +2529,7 @@
       }
     },
     "/connector/github/issues": {
-      "patch": {
+      "put": {
         "summary": "Update an issue",
         "description": "Update an issue in the repository\n\nUpdate an issue, where you can enter labels and assignes together.\nThe information you must enter is who will create the issue in the owner's repository and under what title.\nThe information in the text should follow the markdown grammar allowed by github.\n\nIn some cases, if you are not the owner of this repository, you may not be able to make any marking on issues such as labels, assignees, milestones, etc.\nIt can also be used to close or reopen issues.",
         "tags": [

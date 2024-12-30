@@ -18,14 +18,14 @@
     "title": "마켓컬리 상품 검색",
     "summary": "마켓컬리 쇼핑몰의 상품을 한 번에 검색해요.",
     "description": "마켓컬리 쇼핑몰의 상품을 검색할 수 있어요. 원하는 상품의 가격을 비교할 수 있고, 최저가 정보도 쉽게 확인할 수 있어요. 카테고리별 검색 옵션을 사용할 수 있어요. 이를 통해 효율적인 쇼핑은 물론, 시장 조사나 가격 동향 분석 등에도 활용할 수 있어요.",
-    "version": "0.1.430",
+    "version": "0.1.431",
     "license": {
       "name": "AGPL-3.0-only"
     }
   },
   "paths": {
     "/connector/google-shopping/market-kurly": {
-      "post": {
+      "patch": {
         "summary": "Market Kurly Search",
         "description": "Search for products on Market Kurly\nMarket Kurly is a service where you can purchase groceries.\nOnly one keyword should be requested per request.\nFor example, If you use \"apple\" and \"potato\" as keywords, you must make two requests, each with separate keywords.",
         "tags": [
@@ -44,7 +44,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "Search results",
             "content": {
               "application/json": {

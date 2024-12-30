@@ -18,7 +18,7 @@
     "title": "구글 광고 캠페인 운영",
     "summary": "구글 광고를 쉽게 만들고 관리해요.",
     "description": "키워드 검색을 통한 SEO 전략을 최적화하고, 노출 광고의 효과를 높여 잠재 고객에게 효과적으로 도달할 수 있어요.구글 광고에서 검색 광고, 디스플레이 광고, 동영상 광고 등 다양한 유형의 광고를 만들고 수정할 수 있어요. 이후 광고 상태를 관리하고, 성과를 조회할 수 있어요.",
-    "version": "0.1.430",
+    "version": "0.1.431",
     "license": {
       "name": "AGPL-3.0-only"
     }
@@ -201,7 +201,7 @@
       }
     },
     "/connector/google-ads/get-customers": {
-      "post": {
+      "patch": {
         "summary": "Get ad account",
         "description": "Get the customer's advertising account\n\nUsing the user's access token, search for the user's advertising account, i.e., `customer`, among the accounts where `Wrtn` is an administrator.\nEven if the user has an advertising account, if `Wrtn` is not an administrator, it will not be listed.\nTherefore, if `Wrtn` has never been registered as an administrator, you must call the `POST connector/google-ads/customerClientLink` connector.\n\nIn addition, this connector filters out advertising accounts that do not use the Korean currency unit `KRW`.\nThe reason for this is to prevent mistakes from occurring in other campaign budget modification or ad status change connectors in the future.\nWhen creating ads through the Google Ads connector, human errors may occur in budget settings depending on the currency unit of each account.\nFor example, if you register a budget for an account with a currency unit of `USD` as an account with a currency unit of `KRW`, a budget difference of the exchange rate may occur.\n\nBefore calling the function, we need to ask the user for his `customerId`, so we need to suggest a connector that can check `customerId`.",
         "tags": [
@@ -220,7 +220,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "List of ad accounts",
             "content": {
               "application/json": {
@@ -249,7 +249,7 @@
       }
     },
     "/connector/google-ads/get-campaigns": {
-      "post": {
+      "patch": {
         "summary": "Search for a list of campaigns",
         "description": "Get a list of campaigns for a Google customer account\n\nPass `customerId` to the user and search for campaigns in the customer's advertising account.\nIf `customerId` is not passed, `Wrtn` will automatically select only one advertising account that the user can access.\nA campaign corresponds to `campaign` among Google resources and is in charge of advertising channels, budgets, and the start and end dates of advertising execution.\nA channel refers to Google advertising products such as responsive search ads (=responsive search ads) and responsive display ads (=responsive display ads).\nIf a campaign is a search ad, there are only search ads in the ad group and ads.\nA user can use this connector to search for their campaigns and the status of the campaigns, and create ad groups for the desired campaigns, etc., for subsequent actions.\n\nBefore calling the function, you should ask the user for `customerId`, so you should suggest a connector that can check `customerId`.",
         "tags": [
@@ -268,7 +268,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "List of campaigns",
             "content": {
               "application/json": {
@@ -296,7 +296,7 @@
       }
     },
     "/connector/google-ads/get-ad-groups": {
-      "post": {
+      "patch": {
         "summary": "Search for a list of ad groups.",
         "description": "Get a list of ad groups in a Google customer account\n\nPass `customerId` to the user and search for ad groups (=adGroup) in the customer ad account.\nIf `customerId` is not passed, it will automatically select only one ad account that `Wrtn` can access from the user.\nIf `campaignId` is also passed, it will search only the child ad groups of the campaign.\nAd groups are the area in charge of targeting and are also the parents of ads (ads).\nThe result of this connector contains simple information about the campaign that is the parent of the ad group, information about the ad group,\na list of ads belonging to the ad group, their current status, and simple information.\nIt also contains information about keywords connected to the ad group.\n\nBefore calling the function, you should ask the user for `customerId`, so you should suggest a connector that can check `customerId`.",
         "tags": [
@@ -315,7 +315,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "Ad group list",
             "content": {
               "application/json": {
@@ -343,7 +343,7 @@
       }
     },
     "/connector/google-ads/get-ads": {
-      "post": {
+      "patch": {
         "summary": "Retrieves a list of campaign ads",
         "description": "Get the list of ads from the Google customer account\n\nPass the `customerId` to the user and search for the ads (=ad) in the customer's ad account.\nIf `customerId` is not passed, it will be automatically selected only if there is only one ad account accessible to `Wrtn` from the user.\nAn ad is a node at the end of a tree structure consisting of campaigns, ad groups, and ads, and is a section in charge of materials,\nand is also a unit exposed to end users.\nIf the resource name of an ad group (=adGroup) is passed as an argument, only the ads belonging to that ad group will be searched.\nThe purpose of this connector is to determine whether the user's ad is currently running or not.\nIn the case of `Wrtn` managers, campaigns and ad groups are not changed to `PAUSED` status unless the user directly changes the campaign and ad group status in the Google Ads dashboard.\nTherefore, in general, if the ad status is `ENABLED`, the ad is running, and if it is `PAUSED`, the ad is stopped. Again, the `Wrtn` connector does not change the status of a campaign or ad group.\n\nThis function can also be used to check whether an ad is being properly executed in addition to viewing the ad.\n\nEach ad has an evaluation history for ad review and policy, which exists as a property called `PolicySummary`.\n\nThis property contains whether the ad has been approved, and the `APPROVED` status means that Google has approved the review and determined it is eligible.\n\nYou can change the ad status in `PATCH connector/google-ads/campaigns/ads/status`.\n\nBefore calling the function, you should ask the user for their `customerId`, so you should suggest a connector that can check their `customerId`.",
         "tags": [
@@ -362,7 +362,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "Ad list",
             "content": {
               "application/json": {
@@ -390,7 +390,7 @@
       }
     },
     "/connector/google-ads/ad-groups/get-metrics": {
-      "post": {
+      "patch": {
         "summary": "Get the performance (metrics) of the ad group",
         "description": "View metrics per Google customer account ad\n\nPass `customerId` to the user and view statistical metrics for the customer ad group.\nIf `customerId` is not passed, `Wrtn` will automatically select only one ad account that the user can access.\nUsers can view ad metrics for a specific date through this connector,\nand these metrics include impressions, clicks, video views, views based on video playback range, and average page count.\nYou can also check simple information about the searched content, such as the resource name of the ad group.\nIn addition, `costMicros` information is provided, which is the advertising expenditure in micro units and means the amount actually executed.\nIf this figure is `1,000,000`, if the currency unit is `KRW`, 1 won was used.\nThis figure is the actual amount used, unlike the campaign budget, and according to Google policy, advertising costs may be slightly more than the budget. Also, the total spend of the ad group in the campaign must be equal to the total spend of the campaign.\n\nThis connector allows the user to check whether their ads are being executed efficiently in terms of cost and performance.\n\nBefore calling the function, you should ask the user for `customerId`, so you should suggest a connector that can check `customerId`.",
         "tags": [
@@ -409,7 +409,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "List of metrics",
             "content": {
               "application/json": {
@@ -440,7 +440,7 @@
       }
     },
     "/connector/google-ads/campaigns/ads/get-keywords": {
-      "post": {
+      "patch": {
         "summary": "Add keywords to the ad",
         "description": "Add search keywords to ads in Google customer accounts\n\nStrictly speaking, add ad keywords to ad groups (=adGroup).\n\nFor convenience, this connector receives the resource name of the ad, finds the parent ad group of the ad, and then inserts the keyword.\nThe result value of this connector helps users check whether all keywords have been added properly by re-checking them after adding the keyword.\nHowever, not all keywords added are used in ads.\nKeywords are reviewed by Google and used for targeting, and at this time, keywords may be excluded from ad keywords due to inappropriate reviews.\nHowever, since ads will work properly if there are other keywords, it is advantageous to register various keywords so that users can be attracted.\n\nThere are also recommended connectors for keywords.\n\nThis connector receives an ad account as an argument from the user as authentication for the customer account, but this is also optional.\n\nIf `customerId` is not passed, it is automatically selected only if `Wrtn` has only one ad account accessible to the user.\n\nBefore calling the function, we need to ask the user for `customerId`, so we need to suggest a connector that can check `customerId`.",
         "tags": [
@@ -459,7 +459,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "List of keywords",
             "content": {
               "application/json": {
@@ -489,7 +489,7 @@
       }
     },
     "/connector/google-ads/campaigns/ads/status": {
-      "patch": {
+      "put": {
         "summary": "Change the status of the ad",
         "description": "Change the ad status of a Google customer account\n\nChange the ad status by receiving the ID of the ad account and the resource name of the ad in the ad group (=`adGroupAd```ResourceName`).\n\nIf `customerId` is not passed, it is automatically selected only if there is only one ad account that `Wrtn` can access from the user.\n\nThe ad status supported by this connector is `ENABLED` and `PAUSED`, which means the execution and suspension of the ad, respectively.\nSince the `Wrtn` manager account only changes the status of the ad without changing the status of the campaign and ad group,\nunless the user changes the status of the campaign and ad group directly in the Google Ads dashboard, the ad status means whether or not spending occurs.\nIf the user wants to change the status of the ad group, instead of changing the status of the ad group, query the ad group and change the status of all ads in the ad group.\nIf the user wants to change the status of the campaign, instead of changing the status of the campaign, query the campaign and change the status of all ads in the campaign. However, if you change the status of a campaign, you must go down the campaign and ad group in the Google Ads ad structure and terminate all ads.\n\nAlso, our connector does not support deleting ads.\n\nIf there is a user who wants to delete a campaign, ad group, or ad, we recommend changing all child ads of the corresponding node to the `PAUSED` status.\n\nSince deleting an ad means losing the means to check previous performance and indicators, it is advantageous to terminate the ad instead of deleting it for future ad re-execution.\n\nBefore calling the function, you must ask the user for `customerId`, so you must suggest a connector that can check `customerId`.",
         "tags": [
@@ -623,7 +623,7 @@
       }
     },
     "/connector/google-ads/campaigns/ads/get-details": {
-      "post": {
+      "patch": {
         "summary": "View ad details",
         "description": "View ad details\n\nDepending on the campaign, it is either a responsive search ad or a responsive display ad.\n\nIf `customerId` is not passed, it will be automatically selected only if the user has only one ad account that `Wrtn` can access.\n\nBefore calling the function, you should ask the user for `customerId`, so you should suggest a connector that can check `customerId`.",
         "tags": [
@@ -642,7 +642,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "Ad details",
             "content": {
               "application/json": {
@@ -729,7 +729,7 @@
       }
     },
     "/connector/google-ads/campaigns": {
-      "patch": {
+      "put": {
         "summary": "Modify the campaign",
         "description": "Edit an ad campaign for your Google customer account\n\nEdit a campaign.\nThe only things you can edit in a campaign are the campaign name, budget, and end date.\nThe campaign name is a value for people to recognize and has no effect on the ad, so you can specify it as you like.\nFor the budget, you can enter the budget you want to advertise in Korean Won (KRW), and in this case, the daily ad spending will be formed above and below the budget.\nIn some cases, you may spend more than the budget, or if the ad optimization is not done, you may spend less than the budget.\nThe last end date can be used as a scheduled end date because the ad will not end and will continue to run if it is not specified.\nHowever, if you do not delete the end date that you have already specified, the ad may not be executed even if you turn it on later.\nIf you want to turn on the ad for a campaign that has ended, you must also change the campaign's scheduled end date.\n\nIf you do not pass `customerId`, it will be automatically selected only if there is only one ad account that `Wrtn` can access from the user.\n\nBefore calling the function, we need to ask the user for `customerId`, so we need to suggest a connector that can check `customerId`.\n\nOriginally, there is no amount limit, but in case of an emergency, we currently limit the function to 100,000 won per campaign.",
         "tags": [

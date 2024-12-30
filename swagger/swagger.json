@@ -15,7 +15,7 @@
     }
   ],
   "info": {
-    "version": "0.1.430",
+    "version": "0.1.431",
     "title": "@wrtn/connector",
     "description": "wrtn-ecosystem connectors and sdk",
     "license": {
@@ -1323,7 +1323,7 @@
       }
     },
     "/connector/excel/read/headers": {
-      "post": {
+      "patch": {
         "summary": "Get the headers in the Excel file",
         "description": "Based on the input file information, the headers of the corresponding Excel file are retrieved",
         "tags": [
@@ -1342,7 +1342,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "",
             "content": {
               "application/json": {
@@ -1372,7 +1372,7 @@
       }
     },
     "/connector/excel/read": {
-      "post": {
+      "patch": {
         "summary": "Get the contents of the Excel file",
         "description": "Get the contents of the corresponding Excel file based on the input file information",
         "tags": [
@@ -1391,7 +1391,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "",
             "content": {
               "application/json": {
@@ -1416,7 +1416,7 @@
       }
     },
     "/connector/excel/worksheet": {
-      "post": {
+      "patch": {
         "summary": "Get a list of Excel worksheets",
         "description": "Get a list of Excel worksheets that exist in the input file url",
         "tags": [
@@ -1435,7 +1435,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "A list of Excel worksheets.",
             "content": {
               "application/json": {
@@ -1752,7 +1752,7 @@
       }
     },
     "/connector/google-docs/get/{id}": {
-      "post": {
+      "patch": {
         "summary": "Read Google Docs",
         "description": "Read the contents of Google Docs",
         "tags": [
@@ -1765,7 +1765,7 @@
             "schema": {
               "type": "string",
               "x-wrtn-prerequisite": {
-                "method": "post",
+                "method": "patch",
                 "path": "/connector/google-docs/get-list",
                 "jmesPath": "[].{value: id, label: title || ''}"
               }
@@ -1785,7 +1785,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "Google Docs contents",
             "content": {
               "application/json": {
@@ -1857,7 +1857,7 @@
             "schema": {
               "type": "string",
               "x-wrtn-prerequisite": {
-                "method": "post",
+                "method": "patch",
                 "path": "/connector/google-docs/get-list",
                 "jmesPath": "[].{value: id, label: title || ''}"
               }
@@ -1916,7 +1916,7 @@
             "schema": {
               "type": "string",
               "x-wrtn-prerequisite": {
-                "method": "post",
+                "method": "patch",
                 "path": "/connector/google-docs/get-list",
                 "jmesPath": "[].{value: id, label: title || ''}"
               }
@@ -1953,7 +1953,7 @@
       }
     },
     "/connector/google-docs/get-list": {
-      "post": {
+      "patch": {
         "summary": "Get a list of Google Docs",
         "description": "Get a list of Google Docs",
         "tags": [
@@ -1971,7 +1971,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "a list of Google Docs",
             "content": {
               "application/json": {
@@ -2035,7 +2035,7 @@
       }
     },
     "/connector/google-sheet": {
-      "post": {
+      "patch": {
         "summary": "Get the header information of a Google Sheet",
         "description": "Get the header information of a Google Sheet",
         "tags": [
@@ -2054,7 +2054,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "Google Sheet header information",
             "content": {
               "application/json": {
@@ -2234,7 +2234,7 @@
       }
     },
     "/connector/google-sheet/worksheet": {
-      "post": {
+      "patch": {
         "summary": "Get a list of Google Sheets Worksheets",
         "description": "Get a list of Google Worksheets",
         "tags": [
@@ -2253,7 +2253,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "",
             "content": {
               "application/json": {
@@ -2276,7 +2276,7 @@
       }
     },
     "/connector/google-sheet/get-rows": {
-      "post": {
+      "patch": {
         "summary": "Get Row information from Google Sheets",
         "description": "Get Row information from Google Sheets",
         "tags": [
@@ -2294,7 +2294,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "Row information from Google Sheets",
             "content": {
               "application/json": {
@@ -2317,7 +2317,7 @@
       }
     },
     "/connector/google-calendar/get-list": {
-      "post": {
+      "patch": {
         "summary": "Get a list of Google Calendars",
         "description": "Get a list of Google Calendars",
         "tags": [
@@ -2335,7 +2335,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "A list of Google Calendars",
             "content": {
               "application/json": {
@@ -2421,7 +2421,7 @@
             "schema": {
               "type": "string",
               "x-wrtn-prerequisite": {
-                "method": "post",
+                "method": "patch",
                 "path": "/connector/google-calendar/get-list",
                 "jmesPath": "[].{value:id, label:summary || ''}"
               }
@@ -2461,7 +2461,7 @@
       }
     },
     "/connector/google-calendar/{calendarId}/get-events": {
-      "post": {
+      "patch": {
         "summary": "Get a list of Google Calendar events",
         "description": "Get a list of events in Google Calendar",
         "tags": [
@@ -2474,7 +2474,7 @@
             "schema": {
               "type": "string",
               "x-wrtn-prerequisite": {
-                "method": "post",
+                "method": "patch",
                 "path": "/connector/google-calendar/get-list",
                 "jmesPath": "[].{value:id, label:summary || ''}"
               }
@@ -2495,7 +2495,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "A list of Google Calendar events",
             "content": {
               "application/json": {
@@ -2533,7 +2533,7 @@
             "schema": {
               "type": "string",
               "x-wrtn-prerequisite": {
-                "method": "post",
+                "method": "patch",
                 "path": "/connector/google-calendar/get-list",
                 "jmesPath": "[].{value:id, label:summary || ''}"
               }
@@ -2588,7 +2588,7 @@
             "schema": {
               "type": "string",
               "x-wrtn-prerequisite": {
-                "method": "post",
+                "method": "patch",
                 "path": "/connector/google-calendar/get-list",
                 "jmesPath": "[].{value:id, label:summary || ''}"
               }
@@ -2647,7 +2647,7 @@
             "schema": {
               "type": "string",
               "x-wrtn-prerequisite": {
-                "method": "post",
+                "method": "patch",
                 "path": "/connector/google-calendar/get-list",
                 "jmesPath": "[].{value:id, label:summary || ''}"
               }
@@ -2661,7 +2661,7 @@
             "schema": {
               "type": "string",
               "x-wrtn-prerequisite": {
-                "method": "post",
+                "method": "patch",
                 "path": "/connector/google-calendar/{calendarId}/get-events",
                 "jmesPath": "[].{value: id, label: title || ''}"
               }
@@ -2718,7 +2718,7 @@
             "schema": {
               "type": "string",
               "x-wrtn-prerequisite": {
-                "method": "post",
+                "method": "patch",
                 "path": "/connector/google-calendar/get-list",
                 "jmesPath": "[].{value:id, label:summary || ''}"
               }
@@ -2732,7 +2732,7 @@
             "schema": {
               "type": "string",
               "x-wrtn-prerequisite": {
-                "method": "post",
+                "method": "patch",
                 "path": "/connector/google-calendar/{calendarId}/get-events",
                 "jmesPath": "[].{value: id, label: title || ''}"
               }
@@ -2786,7 +2786,7 @@
             "schema": {
               "type": "string",
               "x-wrtn-prerequisite": {
-                "method": "post",
+                "method": "patch",
                 "path": "/connector/google-calendar/get-list",
                 "jmesPath": "[].{value:id, label:summary || ''}"
               }
@@ -2800,7 +2800,7 @@
             "schema": {
               "type": "string",
               "x-wrtn-prerequisite": {
-                "method": "post",
+                "method": "patch",
                 "path": "/connector/google-calendar/{calendarId}/get-events",
                 "jmesPath": "[].{value: id, label: title || ''}"
               }
@@ -2847,7 +2847,7 @@
       }
     },
     "/connector/google-drive/get/folders": {
-      "post": {
+      "patch": {
         "summary": "Get a list of Google Drive folders",
         "description": "Get a list of folders in Google Drive",
         "tags": [
@@ -2865,7 +2865,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "A list of Google Drive folders",
             "content": {
               "application/json": {
@@ -2892,7 +2892,7 @@
       }
     },
     "/connector/google-drive/get/files": {
-      "post": {
+      "patch": {
         "summary": "Get a list of Google Drive files",
         "description": "Get a list of files in Google Drive",
         "tags": [
@@ -2910,7 +2910,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "A list of Google Drive files",
             "content": {
               "application/json": {
@@ -3039,7 +3039,7 @@
             "schema": {
               "type": "string",
               "x-wrtn-prerequisite": {
-                "method": "post",
+                "method": "patch",
                 "path": "/connector/google-drive/get/files",
                 "jmesPath": "data[].{value: id || '', label: name || ''}"
               }
@@ -3093,7 +3093,7 @@
             "schema": {
               "type": "string",
               "x-wrtn-prerequisite": {
-                "method": "post",
+                "method": "patch",
                 "path": "/connector/google-drive/get/folders",
                 "jmesPath": "data[].{value: id || '', label: name || ''}"
               }
@@ -3174,7 +3174,7 @@
       }
     },
     "/connector/google-drive/get/file/{id}": {
-      "post": {
+      "patch": {
         "summary": "Read text from a Google Drive file",
         "description": "Read text from a file",
         "tags": [
@@ -3187,7 +3187,7 @@
             "schema": {
               "type": "string",
               "x-wrtn-prerequisite": {
-                "method": "post",
+                "method": "patch",
                 "path": "/connector/google-drive/get/files",
                 "jmesPath": "data[].{value: id || '', label: name || ''}"
               }
@@ -3207,7 +3207,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "The text content of the file",
             "content": {
               "application/json": {
@@ -3372,7 +3372,7 @@
             "schema": {
               "type": "string",
               "x-wrtn-prerequisite": {
-                "method": "post",
+                "method": "patch",
                 "path": "/connector/gmail/read-list",
                 "jmesPath": "data[].{value: id, label: subject || ''}"
               }
@@ -3416,7 +3416,7 @@
       }
     },
     "/connector/gmail/get/{id}": {
-      "post": {
+      "patch": {
         "summary": "Get GMAIL information",
         "description": "Get information about a mail\n\nGmail is a free web-based email service provided by Google.",
         "tags": [
@@ -3429,7 +3429,7 @@
             "schema": {
               "type": "string",
               "x-wrtn-prerequisite": {
-                "method": "post",
+                "method": "patch",
                 "path": "/connector/gmail/read-list",
                 "jmesPath": "data[].{value: id, label: subject || ''}"
               }
@@ -3450,7 +3450,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "Information about the email.",
             "content": {
               "application/json": {
@@ -3475,7 +3475,7 @@
       }
     },
     "/connector/gmail/read-list": {
-      "post": {
+      "patch": {
         "summary": "Get GMAIL list",
         "description": "Get mailing list\n\nGmail is a free web-based email service provided by Google.",
         "tags": [
@@ -3494,7 +3494,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "Mailing list",
             "content": {
               "application/json": {
@@ -3533,7 +3533,7 @@
             "schema": {
               "type": "string",
               "x-wrtn-prerequisite": {
-                "method": "post",
+                "method": "patch",
                 "path": "/connector/gmail/read-list",
                 "jmesPath": "data[].{value: id, label: subject || ''}"
               }
@@ -3585,7 +3585,7 @@
             "schema": {
               "type": "string",
               "x-wrtn-prerequisite": {
-                "method": "post",
+                "method": "patch",
                 "path": "/connector/gmail/read-list",
                 "jmesPath": "data[].{value: id, label: subject || ''}"
               }
@@ -3683,7 +3683,7 @@
             "schema": {
               "type": "string",
               "x-wrtn-prerequisite": {
-                "method": "post",
+                "method": "patch",
                 "path": "/connector/gmail/read-list",
                 "jmesPath": "data[].{value: id, label: subject || ''}"
               }
@@ -3736,7 +3736,7 @@
             "schema": {
               "type": "string",
               "x-wrtn-prerequisite": {
-                "method": "post",
+                "method": "patch",
                 "path": "/connector/gmail/read-list",
                 "jmesPath": "data[].{value: id, label: subject || ''}"
               }
@@ -3944,7 +3944,7 @@
       }
     },
     "/connector/figma/get-files": {
-      "post": {
+      "patch": {
         "summary": "Import Figma files",
         "description": "Import Figma files",
         "tags": [
@@ -3963,7 +3963,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "List of Figma files",
             "content": {
               "application/json": {
@@ -4026,7 +4026,7 @@
       }
     },
     "/connector/figma/get-comments": {
-      "post": {
+      "patch": {
         "summary": "Get Figma comments",
         "description": "Get Figma comments",
         "tags": [
@@ -4045,7 +4045,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "List of Figma comments",
             "content": {
               "application/json": {
@@ -4067,7 +4067,7 @@
       }
     },
     "/connector/figma/projects/{id}/get-canvas": {
-      "post": {
+      "patch": {
         "summary": "Search for canvases within a team",
         "description": "Get all canvases of a specific project\n\nCanvases are Figma files managed by a specific team.\n\nThis connector allows users to see which canvases are managed within their Figma team, along with their canvas names and thumbnail links.",
         "tags": [
@@ -4080,7 +4080,7 @@
             "schema": {
               "type": "string",
               "x-wrtn-prerequisite": {
-                "method": "post",
+                "method": "patch",
                 "path": "/connector/figma/get-projects",
                 "jmesPath": "proejcts[].{value:id, label:name}"
               }
@@ -4101,7 +4101,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "All files in the project",
             "content": {
               "application/json": {
@@ -4124,7 +4124,7 @@
       }
     },
     "/connector/figma/get-statistics": {
-      "post": {
+      "patch": {
         "summary": "Retrieve team-level Figma statistics",
         "description": "Retrieve team-level statistics",
         "tags": [
@@ -4143,7 +4143,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "Results of team-level statistics retrieval",
             "content": {
               "application/json": {
@@ -4168,7 +4168,7 @@
       }
     },
     "/connector/figma/get-projects": {
-      "post": {
+      "patch": {
         "summary": "Search for projects within a team",
         "description": "Search for projects within a team\n\nAs an argument, it should receive teamId, which is the team ID, and can be found by looking at the URL path of figma.\nWhen accessing the link `https://www.figma.com/files/team`, a number is automatically added after the `team` keyword, which is the team ID.\nA user can belong to multiple teams, so if you do not want to automate the search for these projects, you need to get a different team ID.",
         "tags": [
@@ -4187,7 +4187,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "Project list",
             "content": {
               "application/json": {
@@ -4209,7 +4209,7 @@
       }
     },
     "/connector/sweet-tacker/get-companies/recommended": {
-      "post": {
+      "patch": {
         "summary": "Search for a list of couriers matching the invoice number",
         "description": "Search for a list of couriers matching the invoice number\n\nA courier code is essential to search for an invoice.\nTherefore, if a user knows the invoice number but does not know which courier will deliver his or her parcel, he or she cannot search for the invoice.\nTo solve this problem, this connector provides a function that infers the courier matching the invoice number.\nHowever, even if this function is called, multiple couriers that may be couriers may appear, so it is impossible to know which company will transport this parcel.\n\nOf course, if there is only one target in the list, the probability that it will be that courier is almost 100%.",
         "tags": [
@@ -4228,7 +4228,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "List of couriers",
             "content": {
               "application/json": {
@@ -4252,7 +4252,7 @@
       }
     },
     "/connector/sweet-tacker/get-companies": {
-      "post": {
+      "patch": {
         "summary": "Search for courier list",
         "description": "Search for the courier list\n\nSearch for all domestic and international courier companies in Korea.\nWhen searching for delivery through the invoice number later, you will need the courier code, so you must search for the courier list first.\nAfter searching for the courier list, find your courier and provide the courier code when searching for the invoice.",
         "tags": [
@@ -4260,7 +4260,7 @@
         ],
         "parameters": [],
         "responses": {
-          "201": {
+          "200": {
             "description": "List of couriers",
             "content": {
               "application/json": {
@@ -4283,7 +4283,7 @@
       }
     },
     "/connector/sweet-tacker/tracking-info": {
-      "post": {
+      "patch": {
         "summary": "Invoice search",
         "description": "Search for the invoice number\n\nTo search for an invoice, you need the courier code in addition to the invoice number you want to search for.\nIf you know which courier will transport your package, you can search for the courier and get the courier code from the courier whose name matches the courier code.\nIf you know the invoice number but do not know the courier code, you can use 'Search for a list of couriers matching the invoice number' to infer the courier that will transport your package.\nWhen you search for a package, you can find out the current location and time of the package, as well as who is transporting the package.\nIn some cases, there may be a phone number, but it is not absolute.\nIn addition, in cases where the product is delivered directly by an commerce company such as Coupang, there are cases where you cannot search even if you have the invoice number.",
         "tags": [
@@ -4302,7 +4302,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "The movement path of the package",
             "content": {
               "application/json": {
@@ -4365,7 +4365,7 @@
       }
     },
     "/connector/hancell/read": {
-      "post": {
+      "patch": {
         "summary": "Read a Hansel file",
         "description": "Read a Hansel file",
         "tags": [
@@ -4384,7 +4384,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "Hansel file information",
             "content": {
               "application/json": {
@@ -4706,7 +4706,7 @@
       }
     },
     "/connector/kakao-talk/get-friends": {
-      "post": {
+      "patch": {
         "summary": "Retrieve the list of friends on KakaoTalk(카카오톡)",
         "description": "Retrieves the list of friends on KakaoTalk(카카오톡)\n\nKakaoTalk(카카오톡) is a mobile messenger application in South Korea, which also provides various additional services.\nWhen looking up your friends, only those who linked Kakao Talk in studio-pro will be searched, so you may not be able to check the target.\nIn this case, it might be better to send a message by email or other means.",
         "tags": [
@@ -4725,7 +4725,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "Retrieved friend list",
             "content": {
               "application/json": {
@@ -4748,7 +4748,7 @@
       }
     },
     "/connector/kakao-talk/get-events": {
-      "post": {
+      "patch": {
         "summary": "Retrieve KakaoTalk(카카오톡) calendar events",
         "description": "Retrieves KakaoTalk(카카오톡) calendar events.\n\nThe user needs to provide the calendar ID as an input parameter.\nIf no calendar is provided, it defaults to retrieving the user's own calendar.\nTherefore, this feature can be used even if no calendar ID is specified.\n\nThe conditions for retrieving events include specifying the period for which events are to be fetched.\nThis connector is designed to view data for either a week or a month.\n\nKakaoTalk(카카오톡) is a mobile messaging application in South Korea, and it also provides additional services.",
         "tags": [
@@ -4774,7 +4774,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "DTO containing event information.",
             "content": {
               "application/json": {
@@ -4797,7 +4797,7 @@
       }
     },
     "/connector/kakao-talk/get-calendars": {
-      "post": {
+      "patch": {
         "summary": "Retrieve KakaoTalk(카카오톡) calendar lists",
         "description": "Retrieves all KakaoTalk(카카오톡) calendar lists\n\nThere are two types of calendars: your primary calendars and calendars you are subscribed to.\nAll Kakao users have their own personal calendars, so there will be at least one calendar.\nThe primary calendar has an ID of `primary`, which is the user's own calendar.\n\nKakaoTalk(카카오톡) is a mobile messenger application from South Korea that also provides additional services.",
         "tags": [
@@ -4816,7 +4816,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "Calendar list object.",
             "content": {
               "application/json": {
@@ -4839,7 +4839,7 @@
       }
     },
     "/connector/kakao-map/search": {
-      "post": {
+      "patch": {
         "summary": "Kakao Map Search",
         "description": "Search with Kakao Map\n\nIn addition to the place name company, category, and phone number,\nit also provides lot number and road name addresses in the Korean address system.\nIt can be used with public data or other address-based connectors.",
         "tags": [
@@ -4858,7 +4858,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "Search result",
             "content": {
               "application/json": {
@@ -4880,7 +4880,7 @@
       }
     },
     "/connector/kakao-navi/get-future-directions": {
-      "post": {
+      "patch": {
         "summary": "Kakao Navi Directions",
         "description": "Finding directions with Kakao Navi",
         "tags": [
@@ -4899,7 +4899,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "Directions results",
             "content": {
               "application/json": {
@@ -5027,7 +5027,7 @@
       }
     },
     "/connector/google-slides/get-presentations": {
-      "post": {
+      "patch": {
         "summary": "Retrieve a Google Slides presentation",
         "description": "Retrieve a Google Slides presentation",
         "tags": [
@@ -5046,7 +5046,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "Retrieve presentation information DTO",
             "content": {
               "application/json": {
@@ -5427,7 +5427,7 @@
       }
     },
     "/connector/imweb/get-products": {
-      "post": {
+      "patch": {
         "summary": "Get my sales product from `Imweb`",
         "description": "Look up the sales product\n\nThe `Imweb` seller uses the seller's authentication key and secret to import his or her product.\n`Imweb` is a Korean webbuilder site that offers a similar experience to the service called Wix.\nIf a commerce site is opened using `Imweb`,\nsellers can register the items they are selling,\nwhich is only available to sellers who open `Imweb` pages and is intended to bring up their products.\nSellers must provide their API keys and secrets to import `Imweb` products.",
         "tags": [
@@ -5446,7 +5446,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "the seller's own goods",
             "content": {
               "application/json": {
@@ -5472,7 +5472,7 @@
       }
     },
     "/connector/open-data/getAddress": {
-      "post": {
+      "patch": {
         "summary": "Search for the address system of the Republic of Korea",
         "description": "Search for the address system of the Republic of Korea\n\n- If you enter a postal address, you can convert it to a street address and a road name address.",
         "tags": [
@@ -5490,7 +5490,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "",
             "content": {
               "application/json": {
@@ -5511,7 +5511,7 @@
       }
     },
     "/connector/open-data/getRTMSDataSvcSHRent": {
-      "post": {
+      "patch": {
         "summary": "Retrieve multi-family lease and rental information",
         "description": "[Ministry of Land, Infrastructure and Transport] Retrieves information on single-family homes and multi-family homes for lease or rent\n\nThis Connect is based on data obtained from public data portals in Korea.\nIf you talk about a specific organization here, it is an organization in Korea, and information or deducible facts that data or statistics point to can also be limited to Korea.\n\nYou need to look up the city, county, and district code first. (POST /connector/open-data/getStandardRegionCodeList connector)\nA connector that looks up the distirct code already exists, so call the preceding connector.\n\nSince this is Korean public data, most searches may have to be done in Korean.\nPlease be aware of this.",
         "tags": [
@@ -5530,7 +5530,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "Information on leases and rents",
             "content": {
               "application/json": {
@@ -5551,7 +5551,7 @@
       }
     },
     "/connector/open-data/getRTMSDataSvcOffiRent": {
-      "post": {
+      "patch": {
         "summary": "Retrieve officetel lease and rental information",
         "description": "[Ministry of Land, Infrastructure and Transport] Retrieves officetel lease and rent information\n\nThis Connect is based on data obtained from public data portals in Korea.\nIf you talk about a specific organization here, it is an organization in Korea, and information or deducible facts that data or statistics point to can also be limited to Korea.\n\nYou need to look up the city, county, and district code first. (POST /connector/open-data/getStandardRegionCodeList connector)\nA connector that looks up the distirct code already exists, so call the preceding connector.\n\nSince this is Korean public data, most searches may have to be done in Korean.\nPlease be aware of this.",
         "tags": [
@@ -5570,7 +5570,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "Information on leases and rents",
             "content": {
               "application/json": {
@@ -5591,7 +5591,7 @@
       }
     },
     "/connector/open-data/getRTMSDataSvcAptRent": {
-      "post": {
+      "patch": {
         "summary": "Retrieve apartment lease and rental information",
         "description": "[Ministry of Land, Infrastructure and Transport] Retrieves apartment lease and rent information\n\nThis Connect is based on data obtained from public data portals in Korea.\nIf you talk about a specific organization here, it is an organization in Korea, and information or deducible facts that data or statistics point to can also be limited to Korea.\n\nYou need to look up the city, county, and district code first. (POST /connector/open-data/getStandardRegionCodeList connector)\nA connector that looks up the distirct code already exists, so call the preceding connector.\n\nSince this is Korean public data, most searches may have to be done in Korean.\nPlease be aware of this.",
         "tags": [
@@ -5610,7 +5610,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "Information on leases and rents",
             "content": {
               "application/json": {
@@ -5632,7 +5632,7 @@
       }
     },
     "/connector/open-data/getLHLeaseInfo": {
-      "post": {
+      "patch": {
         "summary": "Retrieve LH rental housing information",
         "description": "[Korea Land and Housing Corporation] Retrieves information on LH rental housing complexes\n\nThis Connect is based on data obtained from public data portals in Korea.\nIf you talk about a specific organization here, it is an organization in Korea, and information or deducible facts that data or statistics point to can also be limited to Korea.\n\nSince this is Korean public data, most searches may have to be done in Korean.\nThe types of houses you can choose from here are one of the following: '국민임대','공공임대','영구임대','행복주택','장기전세','매입임대','전세임대'.\nIn addition, you can inquire by city, county, and region(=시도군)\n\nIn the Korean urban system, inquiries can only be made at the level of '특별시', '광역시', '자치시', '자치도', '도', so if you want to see it in more detail, you should ask the user for pagenation.",
         "tags": [
@@ -5651,7 +5651,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "LH rental housing information",
             "content": {
               "application/json": {
@@ -5673,7 +5673,7 @@
       }
     },
     "/connector/open-data/getParkingLot": {
-      "post": {
+      "patch": {
         "summary": "Retrieve parking lot information",
         "description": "[National Information Society Agency] Retrieves parking lot information\n\nThis Connect is based on data obtained from public data portals in Korea.\nIf you talk about a specific organization here, it is an organization in Korea, and information or deducible facts that data or statistics point to can also be limited to Korea.\nIf you don't know the exact road name(도로명주소) or lot number address(지번주소), you can't search it.\nLook up other public data connectors first or use map connectors to look up the correct address. (ex. kakao-map connector)\n\nSince this is Korean public data, most searches may have to be done in Korean.\nPlease be aware of this.",
         "tags": [
@@ -5699,7 +5699,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "Parking lot information",
             "content": {
               "application/json": {
@@ -5721,7 +5721,7 @@
       }
     },
     "/connector/open-data/getBuildingInfo": {
-      "post": {
+      "patch": {
         "summary": "Retrieve building registration information",
         "description": "[Ministry of Land, Infrastructure and Transport] Retrieves building registration information\n\nThis Connect is based on data obtained from public data portals in Korea.\nIf you talk about a specific organization here, it is an organization in Korea, and information or deducible facts that data or statistics point to can also be limited to Korea.\n\nYou need to look up the city, county, and district code first. (POST /connector/open-data/getStandardRegionCodeList connector)\nA connector that looks up the distirct code already exists, so call the preceding connector.\n\nSince this is Korean public data, most searches may have to be done in Korean.\nPlease be aware of this.",
         "tags": [
@@ -5740,7 +5740,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "Building information",
             "content": {
               "application/json": {
@@ -5761,7 +5761,7 @@
       }
     },
     "/connector/open-data/getStandardRegionCodeList": {
-      "post": {
+      "patch": {
         "summary": "Retrieve administrative standard codes",
         "description": "[Ministry of the Interior and Safety] Retrieves administrative standard codes for domestic regions\n\nThis Connect is based on data obtained from public data portals in Korea.\nIf you talk about a specific organization here, it is an organization in Korea, and information or deducible facts that data or statistics point to can also be limited to Korea.\nPublic data operating in a specific area-based class, such as building ledger information or building lease on a deposit basis information,\nmay all need to know the legal building code and the city, county, and district code (법정동 코드, 시군구 코드를 의미한다.).\nIn this case, this connector call must be preceded.\n\nSince this is Korean public data, most searches may have to be done in Korean.\nPlease be aware of this.\n\nFor the search, you should use the exact name that means the administrative district, just like the \"서울특별시\", not \"서울\".",
         "tags": [
@@ -5780,7 +5780,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "Region codes",
             "content": {
               "application/json": {
@@ -5802,7 +5802,7 @@
       }
     },
     "/connector/open-data/getStockPriceInfo": {
-      "post": {
+      "patch": {
         "summary": "Retrieve market capitalization and stock information",
         "description": "[Financial Services Commission] Retrieves market capitalization and stock information\n\nThis Connect is based on data obtained from public data portals in Korea.\nIf you talk about a specific organization here, it is an organization in Korea, and information or deducible facts that data or statistics point to can also be limited to Korea.\n\nSince this is Korean public data, most searches may have to be done in Korean. for example \"삼성전자\".\nAlso, since this is based on the closing of the stock market, you can only look up from about two months ago (9 days ago) to yesterday from today's date.",
         "tags": [
@@ -5828,7 +5828,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "Market capitalization and stock information",
             "content": {
               "application/json": {
@@ -5850,7 +5850,7 @@
       }
     },
     "/connector/open-data/getShortTermForecast": {
-      "post": {
+      "patch": {
         "summary": "Retrieve today's weather from the Korea Meteorological Administration",
         "description": "[Korea Meteorological Administration] Retrieves today's weather information\n\nLatitude and longitude coordinates are required for querying.\nWhen provided, the latitude and longitude will be used to get current weather data based on the 00 minute mark of each hour for that region.\nThe output will be converted from grid coordinates to latitude and longitude, and provide weather-related information such as current weather, wind direction, and wind speed for the region.\nThe currently provided information includes:\n\n- POP: Probability of Precipitation\n- PTY: Precipitation Type\n- PCP: Precipitation Amount in the Last Hour\n- REH: Humidity\n- SNO: Snowfall in the Last Hour\n- SKY: Sky Condition\n- TMP: Temperature in the Last Hour\n- TMN: Daily Minimum Temperature\n- TMX: Daily Maximum Temperature\n- UUU: Wind Speed (East-West Component)\n- VVV: Wind Speed (North-South Component)\n- WAV: Wave Height\n- VEC: Wind Direction\n- WSD: Wind Speed\n- T1H: Temperature\n- RN1: Precipitation Amount in the Last Hour\n- VEC: Wind Direction\n- T1H: Temperature\n\nThis Connect is based on data obtained from public data portals in Korea.\nIf you talk about a specific organization here, it is an organization in Korea, and information or deducible facts that data or statistics point to can also be limited to Korea.\n\nThere are two types in request body.\nOne is 'latitude_and_longitude' and the other is 'grid_coordinates'.\nThis function uses grid coordinate values to express Korean geographical conditions inside,\nso grid coordinates must be entered.\nHowever, grid coordinates also allow for latitude values because it is difficult for users to know their local coordinates. In this case,\nyou must deliver the values of nx and ny together with the values of 'latitude_and_longitude'.\nIf the latitude hardness value is delivered,\nit is converted to grid coordinate value from the inside and used.\n\nSince this is Korean public data, most searches may have to be done in Korean.\nPlease be aware of this.",
         "tags": [
@@ -5869,7 +5869,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "Weather information for the specified region",
             "content": {
               "application/json": {
@@ -6143,7 +6143,7 @@
       }
     },
     "/connector/google-search": {
-      "post": {
+      "patch": {
         "summary": "Google search",
         "description": "Search Google for the search term you entered",
         "tags": [
@@ -6162,7 +6162,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "Google search results",
             "content": {
               "application/json": {
@@ -6190,7 +6190,7 @@
       }
     },
     "/connector/google-search/wanted": {
-      "post": {
+      "patch": {
         "summary": "Wanted job posting search",
         "description": "Search for job postings on Wanted",
         "tags": [
@@ -6209,7 +6209,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "Wanted job posting search results",
             "content": {
               "application/json": {
@@ -6239,7 +6239,7 @@
       }
     },
     "/connector/google-search/incruit": {
-      "post": {
+      "patch": {
         "summary": "Search Incruit job postings",
         "description": "Search for job postings on Incruit",
         "tags": [
@@ -6258,7 +6258,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "Search results for Incruit job postings",
             "content": {
               "application/json": {
@@ -6288,7 +6288,7 @@
       }
     },
     "/connector/google-search/saramin": {
-      "post": {
+      "patch": {
         "summary": "Search for Saramin job postings",
         "description": "Search for job postings in Saramin",
         "tags": [
@@ -6307,7 +6307,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "Search for Saramin job postings results",
             "content": {
               "application/json": {
@@ -6337,7 +6337,7 @@
       }
     },
     "/connector/google-search/jumpit": {
-      "post": {
+      "patch": {
         "summary": "Jumpfit job posting search",
         "description": "Search for job postings on Jumpfit",
         "tags": [
@@ -6356,7 +6356,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "Jumpfit job posting search results",
             "content": {
               "application/json": {
@@ -6386,7 +6386,7 @@
       }
     },
     "/connector/google-search/careerly": {
-      "post": {
+      "patch": {
         "summary": "Careerly Search",
         "description": "Search for posts in Careerly",
         "tags": [
@@ -6405,7 +6405,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "Careerly Post Search Results",
             "content": {
               "application/json": {
@@ -6435,7 +6435,7 @@
       }
     },
     "/connector/google-shopping/aladine": {
-      "post": {
+      "patch": {
         "summary": "Aladdin Search",
         "description": "Search for products in Aladdin\nAladdin is a service that allows you to purchase used books.\nOnly one keyword should be requested per request.\nFor example, If you use \"novel book\" and \"fairy tale book\" as keywords, you must make two requests, each with separate keywords.",
         "tags": [
@@ -6454,7 +6454,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "Search results",
             "content": {
               "application/json": {
@@ -6482,7 +6482,7 @@
       }
     },
     "/connector/google-shopping/ali-express": {
-      "post": {
+      "patch": {
         "summary": "Search for AliExpress",
         "description": "Search for products on AliExpress\n Only one keyword should be requested per request.\nFor example, If you use \"phone\" and \"cup\" as keywords, you must make two requests, each with separate keywords.",
         "tags": [
@@ -6501,7 +6501,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "Search results",
             "content": {
               "application/json": {
@@ -6530,7 +6530,7 @@
       }
     },
     "/connector/google-shopping/coupang": {
-      "post": {
+      "patch": {
         "summary": "Coupang Search",
         "description": "Search for products on Coupang\nOnly one keyword should be requested per request.\nFor example, If you use \"phone\" and \"cup\" as keywords, you must make two requests, each with separate keywords.",
         "tags": [
@@ -6549,7 +6549,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "Search results",
             "content": {
               "application/json": {
@@ -6577,7 +6577,7 @@
       }
     },
     "/connector/google-shopping/eql": {
-      "post": {
+      "patch": {
         "summary": "EQL search",
         "description": "Search for products in EQL\nEQL is a service that allows you to purchase clothes or shoes.\nOnly one keyword should be requested per request.\nFor example, If you use \"shirts\" and \"pants\" as keywords, you must make two requests, each with separate keywords.",
         "tags": [
@@ -6596,7 +6596,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "search results",
             "content": {
               "application/json": {
@@ -6625,7 +6625,7 @@
       }
     },
     "/connector/google-shopping/iherb": {
-      "post": {
+      "patch": {
         "summary": "iHerb Search",
         "description": "Search for products on iHerb\niHerb is a service that allows you to purchase Nutritional supplement.\nOnly one keyword should be requested per request.\nFor example, If you use \"vitamin\" and \"calcium\" as keywords, you must make two requests, each with separate keywords.",
         "tags": [
@@ -6644,7 +6644,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "Search results",
             "content": {
               "application/json": {
@@ -6672,7 +6672,7 @@
       }
     },
     "/connector/google-shopping/market-kurly": {
-      "post": {
+      "patch": {
         "summary": "Market Kurly Search",
         "description": "Search for products on Market Kurly\nMarket Kurly is a service where you can purchase groceries.\nOnly one keyword should be requested per request.\nFor example, If you use \"apple\" and \"potato\" as keywords, you must make two requests, each with separate keywords.",
         "tags": [
@@ -6691,7 +6691,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "Search results",
             "content": {
               "application/json": {
@@ -6720,7 +6720,7 @@
       }
     },
     "/connector/google-shopping/oco": {
-      "post": {
+      "patch": {
         "summary": "OCO search",
         "description": "Search for products in OCO\n\nOco is one of the Korean companies and is a brand that advocates a brand editing shop.\nOnly one keyword should be requested per request.\nFor example, If you use \"shirts\" and \"pants\" as keywords, you must make two requests, each with separate keywords.",
         "tags": [
@@ -6739,7 +6739,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "Search results",
             "content": {
               "application/json": {
@@ -6767,7 +6767,7 @@
       }
     },
     "/connector/google-shopping/olive-young": {
-      "post": {
+      "patch": {
         "summary": "Olive Young Search",
         "description": "Search for products at Olive Young\nOlive Young is a service that allows you to purchase cosmetics.\nOnly one keyword should be requested per request.\nFor example, If you use \"sun block\" and \"serum\" as keywords, you must make two requests, each with separate keywords.",
         "tags": [
@@ -6786,7 +6786,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "Search results",
             "content": {
               "application/json": {
@@ -6815,7 +6815,7 @@
       }
     },
     "/connector/google-shopping/twenty-nine-centimeter": {
-      "post": {
+      "patch": {
         "summary": "29cm search",
         "description": "Search for products from 29cm\n29cm is a service that allows you to purchase clothes or shoes.\nOnly one keyword should be requested per request.\nFor example, If you use \"shirts\" and \"pants\" as keywords, you must make two requests, each with separate keywords.",
         "tags": [
@@ -6834,7 +6834,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "search result",
             "content": {
               "application/json": {
@@ -6863,7 +6863,7 @@
       }
     },
     "/connector/google-shopping/uniqlo": {
-      "post": {
+      "patch": {
         "summary": "Uniqlo Search",
         "description": "Search for products in Uniqlo\nUniqlo is a service that allows you to purchase clothes or shoes.\nOnly one keyword should be requested per request.\nFor example, If you use \"shirts\" and \"pants\" as keywords, you must make two requests, each with separate keywords.",
         "tags": [
@@ -6882,7 +6882,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "Search results",
             "content": {
               "application/json": {
@@ -6910,7 +6910,7 @@
       }
     },
     "/connector/google-shopping/yes-twenty-four": {
-      "post": {
+      "patch": {
         "summary": "yes24 search",
         "description": "Search for products on yes24\nyes24 is a service that allows you to purchase books.\nOnly one keyword should be requested per request.\nFor example, If you use \"novel book\" and \"fairy tale book\" as keywords, you must make two requests, each with separate keywords.",
         "tags": [
@@ -6929,7 +6929,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "search results",
             "content": {
               "application/json": {
@@ -6959,7 +6959,7 @@
       }
     },
     "/connector/google-shopping/musinsa": {
-      "post": {
+      "patch": {
         "summary": "Musinsa Search",
         "description": "Search for products in Musinsa\nMusinsa is a service that allows you to purchase clothes or shoes.\nOnly one keyword should be requested per request.\nFor example, If you use \"shirts\" and \"pants\" as keywords, you must make two requests, each with separate keywords.",
         "tags": [
@@ -6978,7 +6978,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "Search results",
             "content": {
               "application/json": {
@@ -7182,7 +7182,7 @@
       }
     },
     "/connector/google-ads/get-customers": {
-      "post": {
+      "patch": {
         "summary": "Get ad account",
         "description": "Get the customer's advertising account\n\nUsing the user's access token, search for the user's advertising account, i.e., `customer`, among the accounts where `Wrtn` is an administrator.\nEven if the user has an advertising account, if `Wrtn` is not an administrator, it will not be listed.\nTherefore, if `Wrtn` has never been registered as an administrator, you must call the `POST connector/google-ads/customerClientLink` connector.\n\nIn addition, this connector filters out advertising accounts that do not use the Korean currency unit `KRW`.\nThe reason for this is to prevent mistakes from occurring in other campaign budget modification or ad status change connectors in the future.\nWhen creating ads through the Google Ads connector, human errors may occur in budget settings depending on the currency unit of each account.\nFor example, if you register a budget for an account with a currency unit of `USD` as an account with a currency unit of `KRW`, a budget difference of the exchange rate may occur.\n\nBefore calling the function, we need to ask the user for his `customerId`, so we need to suggest a connector that can check `customerId`.",
         "tags": [
@@ -7201,7 +7201,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "List of ad accounts",
             "content": {
               "application/json": {
@@ -7230,7 +7230,7 @@
       }
     },
     "/connector/google-ads/get-campaigns": {
-      "post": {
+      "patch": {
         "summary": "Search for a list of campaigns",
         "description": "Get a list of campaigns for a Google customer account\n\nPass `customerId` to the user and search for campaigns in the customer's advertising account.\nIf `customerId` is not passed, `Wrtn` will automatically select only one advertising account that the user can access.\nA campaign corresponds to `campaign` among Google resources and is in charge of advertising channels, budgets, and the start and end dates of advertising execution.\nA channel refers to Google advertising products such as responsive search ads (=responsive search ads) and responsive display ads (=responsive display ads).\nIf a campaign is a search ad, there are only search ads in the ad group and ads.\nA user can use this connector to search for their campaigns and the status of the campaigns, and create ad groups for the desired campaigns, etc., for subsequent actions.\n\nBefore calling the function, you should ask the user for `customerId`, so you should suggest a connector that can check `customerId`.",
         "tags": [
@@ -7249,7 +7249,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "List of campaigns",
             "content": {
               "application/json": {
@@ -7277,7 +7277,7 @@
       }
     },
     "/connector/google-ads/get-ad-groups": {
-      "post": {
+      "patch": {
         "summary": "Search for a list of ad groups.",
         "description": "Get a list of ad groups in a Google customer account\n\nPass `customerId` to the user and search for ad groups (=adGroup) in the customer ad account.\nIf `customerId` is not passed, it will automatically select only one ad account that `Wrtn` can access from the user.\nIf `campaignId` is also passed, it will search only the child ad groups of the campaign.\nAd groups are the area in charge of targeting and are also the parents of ads (ads).\nThe result of this connector contains simple information about the campaign that is the parent of the ad group, information about the ad group,\na list of ads belonging to the ad group, their current status, and simple information.\nIt also contains information about keywords connected to the ad group.\n\nBefore calling the function, you should ask the user for `customerId`, so you should suggest a connector that can check `customerId`.",
         "tags": [
@@ -7296,7 +7296,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "Ad group list",
             "content": {
               "application/json": {
@@ -7324,7 +7324,7 @@
       }
     },
     "/connector/google-ads/get-ads": {
-      "post": {
+      "patch": {
         "summary": "Retrieves a list of campaign ads",
         "description": "Get the list of ads from the Google customer account\n\nPass the `customerId` to the user and search for the ads (=ad) in the customer's ad account.\nIf `customerId` is not passed, it will be automatically selected only if there is only one ad account accessible to `Wrtn` from the user.\nAn ad is a node at the end of a tree structure consisting of campaigns, ad groups, and ads, and is a section in charge of materials,\nand is also a unit exposed to end users.\nIf the resource name of an ad group (=adGroup) is passed as an argument, only the ads belonging to that ad group will be searched.\nThe purpose of this connector is to determine whether the user's ad is currently running or not.\nIn the case of `Wrtn` managers, campaigns and ad groups are not changed to `PAUSED` status unless the user directly changes the campaign and ad group status in the Google Ads dashboard.\nTherefore, in general, if the ad status is `ENABLED`, the ad is running, and if it is `PAUSED`, the ad is stopped. Again, the `Wrtn` connector does not change the status of a campaign or ad group.\n\nThis function can also be used to check whether an ad is being properly executed in addition to viewing the ad.\n\nEach ad has an evaluation history for ad review and policy, which exists as a property called `PolicySummary`.\n\nThis property contains whether the ad has been approved, and the `APPROVED` status means that Google has approved the review and determined it is eligible.\n\nYou can change the ad status in `PATCH connector/google-ads/campaigns/ads/status`.\n\nBefore calling the function, you should ask the user for their `customerId`, so you should suggest a connector that can check their `customerId`.",
         "tags": [
@@ -7343,7 +7343,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "Ad list",
             "content": {
               "application/json": {
@@ -7371,7 +7371,7 @@
       }
     },
     "/connector/google-ads/ad-groups/get-metrics": {
-      "post": {
+      "patch": {
         "summary": "Get the performance (metrics) of the ad group",
         "description": "View metrics per Google customer account ad\n\nPass `customerId` to the user and view statistical metrics for the customer ad group.\nIf `customerId` is not passed, `Wrtn` will automatically select only one ad account that the user can access.\nUsers can view ad metrics for a specific date through this connector,\nand these metrics include impressions, clicks, video views, views based on video playback range, and average page count.\nYou can also check simple information about the searched content, such as the resource name of the ad group.\nIn addition, `costMicros` information is provided, which is the advertising expenditure in micro units and means the amount actually executed.\nIf this figure is `1,000,000`, if the currency unit is `KRW`, 1 won was used.\nThis figure is the actual amount used, unlike the campaign budget, and according to Google policy, advertising costs may be slightly more than the budget. Also, the total spend of the ad group in the campaign must be equal to the total spend of the campaign.\n\nThis connector allows the user to check whether their ads are being executed efficiently in terms of cost and performance.\n\nBefore calling the function, you should ask the user for `customerId`, so you should suggest a connector that can check `customerId`.",
         "tags": [
@@ -7390,7 +7390,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "List of metrics",
             "content": {
               "application/json": {
@@ -7421,7 +7421,7 @@
       }
     },
     "/connector/google-ads/campaigns/ads/get-keywords": {
-      "post": {
+      "patch": {
         "summary": "Add keywords to the ad",
         "description": "Add search keywords to ads in Google customer accounts\n\nStrictly speaking, add ad keywords to ad groups (=adGroup).\n\nFor convenience, this connector receives the resource name of the ad, finds the parent ad group of the ad, and then inserts the keyword.\nThe result value of this connector helps users check whether all keywords have been added properly by re-checking them after adding the keyword.\nHowever, not all keywords added are used in ads.\nKeywords are reviewed by Google and used for targeting, and at this time, keywords may be excluded from ad keywords due to inappropriate reviews.\nHowever, since ads will work properly if there are other keywords, it is advantageous to register various keywords so that users can be attracted.\n\nThere are also recommended connectors for keywords.\n\nThis connector receives an ad account as an argument from the user as authentication for the customer account, but this is also optional.\n\nIf `customerId` is not passed, it is automatically selected only if `Wrtn` has only one ad account accessible to the user.\n\nBefore calling the function, we need to ask the user for `customerId`, so we need to suggest a connector that can check `customerId`.",
         "tags": [
@@ -7440,7 +7440,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "List of keywords",
             "content": {
               "application/json": {
@@ -7470,7 +7470,7 @@
       }
     },
     "/connector/google-ads/campaigns/ads/status": {
-      "patch": {
+      "put": {
         "summary": "Change the status of the ad",
         "description": "Change the ad status of a Google customer account\n\nChange the ad status by receiving the ID of the ad account and the resource name of the ad in the ad group (=`adGroupAd```ResourceName`).\n\nIf `customerId` is not passed, it is automatically selected only if there is only one ad account that `Wrtn` can access from the user.\n\nThe ad status supported by this connector is `ENABLED` and `PAUSED`, which means the execution and suspension of the ad, respectively.\nSince the `Wrtn` manager account only changes the status of the ad without changing the status of the campaign and ad group,\nunless the user changes the status of the campaign and ad group directly in the Google Ads dashboard, the ad status means whether or not spending occurs.\nIf the user wants to change the status of the ad group, instead of changing the status of the ad group, query the ad group and change the status of all ads in the ad group.\nIf the user wants to change the status of the campaign, instead of changing the status of the campaign, query the campaign and change the status of all ads in the campaign. However, if you change the status of a campaign, you must go down the campaign and ad group in the Google Ads ad structure and terminate all ads.\n\nAlso, our connector does not support deleting ads.\n\nIf there is a user who wants to delete a campaign, ad group, or ad, we recommend changing all child ads of the corresponding node to the `PAUSED` status.\n\nSince deleting an ad means losing the means to check previous performance and indicators, it is advantageous to terminate the ad instead of deleting it for future ad re-execution.\n\nBefore calling the function, you must ask the user for `customerId`, so you must suggest a connector that can check `customerId`.",
         "tags": [
@@ -7604,7 +7604,7 @@
       }
     },
     "/connector/google-ads/campaigns/ads/get-details": {
-      "post": {
+      "patch": {
         "summary": "View ad details",
         "description": "View ad details\n\nDepending on the campaign, it is either a responsive search ad or a responsive display ad.\n\nIf `customerId` is not passed, it will be automatically selected only if the user has only one ad account that `Wrtn` can access.\n\nBefore calling the function, you should ask the user for `customerId`, so you should suggest a connector that can check `customerId`.",
         "tags": [
@@ -7623,7 +7623,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "Ad details",
             "content": {
               "application/json": {
@@ -7710,7 +7710,7 @@
       }
     },
     "/connector/google-ads/campaigns": {
-      "patch": {
+      "put": {
         "summary": "Modify the campaign",
         "description": "Edit an ad campaign for your Google customer account\n\nEdit a campaign.\nThe only things you can edit in a campaign are the campaign name, budget, and end date.\nThe campaign name is a value for people to recognize and has no effect on the ad, so you can specify it as you like.\nFor the budget, you can enter the budget you want to advertise in Korean Won (KRW), and in this case, the daily ad spending will be formed above and below the budget.\nIn some cases, you may spend more than the budget, or if the ad optimization is not done, you may spend less than the budget.\nThe last end date can be used as a scheduled end date because the ad will not end and will continue to run if it is not specified.\nHowever, if you do not delete the end date that you have already specified, the ad may not be executed even if you turn it on later.\nIf you want to turn on the ad for a campaign that has ended, you must also change the campaign's scheduled end date.\n\nIf you do not pass `customerId`, it will be automatically selected only if there is only one ad account that `Wrtn` can access from the user.\n\nBefore calling the function, we need to ask the user for `customerId`, so we need to suggest a connector that can check `customerId`.\n\nOriginally, there is no amount limit, but in case of an emergency, we currently limit the function to 100,000 won per campaign.",
         "tags": [
@@ -7880,7 +7880,7 @@
       }
     },
     "/connector/arxiv-search": {
-      "post": {
+      "patch": {
         "summary": "Archive Paper Search",
         "description": "Searches the archive for papers based on the search criteria you entered",
         "tags": [
@@ -7899,7 +7899,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "A list of papers found in the archive based on the search criteria.",
             "content": {
               "application/json": {
@@ -7924,7 +7924,7 @@
       }
     },
     "/connector/daum/blog": {
-      "post": {
+      "patch": {
         "summary": "Search the following blog",
         "description": "Search the following blog content",
         "tags": [
@@ -7943,7 +7943,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "",
             "content": {
               "application/json": {
@@ -7969,7 +7969,7 @@
       }
     },
     "/connector/daum/cafe": {
-      "post": {
+      "patch": {
         "summary": "Search for the following cafe",
         "description": "Search for the following cafe content",
         "tags": [
@@ -7988,7 +7988,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "",
             "content": {
               "application/json": {
@@ -8014,7 +8014,7 @@
       }
     },
     "/connector/naver/cafe": {
-      "post": {
+      "patch": {
         "summary": "Naver Cafe search",
         "description": "Search Naver Cafe contents",
         "tags": [
@@ -8033,7 +8033,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "",
             "content": {
               "application/json": {
@@ -8056,7 +8056,7 @@
       }
     },
     "/connector/naver/blog": {
-      "post": {
+      "patch": {
         "summary": "Naver blog search",
         "description": "Search Naver blog content",
         "tags": [
@@ -8075,7 +8075,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "",
             "content": {
               "application/json": {
@@ -8098,7 +8098,7 @@
       }
     },
     "/connector/naver/news": {
-      "post": {
+      "patch": {
         "summary": "Search Naver News",
         "description": "Search Naver News",
         "tags": [
@@ -8117,7 +8117,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "",
             "content": {
               "application/json": {
@@ -8139,7 +8139,7 @@
       }
     },
     "/connector/youtube-search/official": {
-      "post": {
+      "patch": {
         "summary": "YouTube video search",
         "description": "Get YouTube video search results\n\nThis function use the official YouTube API to search for videos.\n\nIf you want users to use the official YouTube API, use this function.\n\nIf you think you need to call an endpoint that retrieves YouTube video captions without explicitly specifying that you want to use the official YouTube API, call this endpoint.\nFor example, in a scenario like \"Get the content of the Galaxy Watch 7 review videos. Then, organize the user reviews of the product into pros and cons based on the content and organize which comments were made by whom. Please write the comments as they were made.\",\nyou need to retrieve the video content and the YouTuber's comments. This can be figured out from the YouTube video transcriptions, so you can see that you need to call an endpoint that retrieves YouTube video transcriptions. In this case, you should call this endpoint.\n\nThe search results have the video title and link.\n\nIf most users are going to use this feature, they probably want to watch the video, so it's better to provide a URL.\n\nIn order to filter the period that the user wants, you should use the response field \"published_date\".\n\nFor example, if the user wants to retrieve only this year's videos, you should exclude videos that were uploaded in a period that the user does not want, such as \"1 year ago\" or \"2 years ago\" with a published_date.\n\nIt's great to use with the /transcript endpoint when summarizing videos, analyzing content, extracting keywords, etc.\n\nExtract the URL from the YouTube video information obtained from the execution result of the corresponding function and use it as the input of the /transcript endpoint.\n\nBased on the transcripts obtained from the execution result of the /transcript endpoint, perform tasks such as summarizing videos, analyzing content, and extracting keywords.\n\nExample Use Cases:\nProduct Reviews: Extract product names, pros, cons, and recommendations from air purifier review videos.\nTutorials: Create text-based tutorials or step-by-step guides from instructional videos.",
         "tags": [
@@ -8157,7 +8157,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "",
             "content": {
               "application/json": {
@@ -8182,7 +8182,7 @@
       }
     },
     "/connector/youtube-search/transcript": {
-      "post": {
+      "patch": {
         "summary": "Get Youtube video transcripts",
         "description": "Extracts YouTube Video Transcripts\n\nThis function retrieves the text transcript of a YouTube video.\n\nIt's essential for tasks like video summarization, content analysis, and keyword extraction.\n\nBy analyzing the transcript, you can identify key points, main topics, and sentiment expressed in the video.\n\nExample Use Cases:\nProduct Reviews: Extract product names, pros, cons, and recommendations from air purifier review videos.\nTutorials: Create text-based tutorials or step-by-step guides from instructional videos.",
         "tags": [
@@ -8201,7 +8201,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "transcripts of video",
             "content": {
               "application/json": {
@@ -8222,7 +8222,7 @@
       }
     },
     "/connector/google-scholar": {
-      "post": {
+      "patch": {
         "summary": "Search Google Scholar paper list",
         "description": "Get a list of papers in Google Scholar",
         "tags": [
@@ -8241,7 +8241,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "Google Scholar paper list",
             "content": {
               "application/json": {
@@ -8269,7 +8269,7 @@
       }
     },
     "/connector/csv/read": {
-      "post": {
+      "patch": {
         "summary": "Read CSV file",
         "description": "Read CSV file contents",
         "tags": [
@@ -8288,7 +8288,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "CSV file contents.",
             "content": {
               "application/json": {
@@ -8921,7 +8921,7 @@
       }
     },
     "/connector/notion/get/page/contents": {
-      "post": {
+      "patch": {
         "summary": "Read the contents of a Notion page",
         "description": "Read the contents of a Notion page.\nReads the contents of a Notion page in Markdown format.\n\nRead Notion page contents",
         "tags": [
@@ -8940,7 +8940,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "",
             "content": {
               "application/json": {
@@ -8964,7 +8964,7 @@
       }
     },
     "/connector/notion/get/page": {
-      "post": {
+      "patch": {
         "summary": "Retrieve a list of pages",
         "description": "Retrieve a list of all pages in your Notion workspace",
         "tags": [
@@ -8982,7 +8982,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "Page information",
             "content": {
               "application/json": {
@@ -9009,7 +9009,7 @@
       }
     },
     "/connector/notion/get/users": {
-      "post": {
+      "patch": {
         "summary": "Retrieve the list of users",
         "description": "Retrieve the list of users in the workspace",
         "tags": [
@@ -9027,7 +9027,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "User information",
             "content": {
               "application/json": {
@@ -9054,7 +9054,7 @@
       }
     },
     "/connector/notion/get/database-info": {
-      "post": {
+      "patch": {
         "summary": "Query the database list",
         "description": "Query the database list to create items in the database",
         "tags": [
@@ -9072,7 +9072,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "A list of database information",
             "content": {
               "application/json": {
@@ -9099,7 +9099,7 @@
       }
     },
     "/connector/notion/get/database-info/{databaseId}": {
-      "post": {
+      "patch": {
         "summary": "Retrieves database information",
         "description": "Retrieves database information to create items in the database",
         "tags": [
@@ -9112,7 +9112,7 @@
             "schema": {
               "type": "string",
               "x-wrtn-prerequisite": {
-                "method": "post",
+                "method": "patch",
                 "path": "/connector/notion/get/database-info",
                 "jmesPath": "[].{value:id, label:title || ''}"
               }
@@ -9132,7 +9132,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "Database information",
             "content": {
               "application/json": {
@@ -9155,7 +9155,7 @@
       }
     },
     "/connector/notion/get-page-by-title": {
-      "post": {
+      "patch": {
         "summary": "Search for pages by title",
         "description": "Search for pages by title",
         "tags": [
@@ -9174,7 +9174,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "Searched page information",
             "content": {
               "application/json": {
@@ -9197,7 +9197,7 @@
       }
     },
     "/connector/notion/find-item-list/{databaseId}": {
-      "post": {
+      "patch": {
         "summary": "Retrieve a list of database items",
         "description": "Retrieve a list of items that exist in a table database",
         "tags": [
@@ -9210,7 +9210,7 @@
             "schema": {
               "type": "string",
               "x-wrtn-prerequisite": {
-                "method": "post",
+                "method": "patch",
                 "path": "/connector/notion/get/database-info",
                 "jmesPath": "[].{value:id, label:title || ''}"
               }
@@ -9230,7 +9230,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "List of retrieved database items",
             "content": {
               "application/json": {
@@ -9255,7 +9255,7 @@
       }
     },
     "/connector/notion/find-item/{databaseId}": {
-      "post": {
+      "patch": {
         "summary": "Retrieval of database items",
         "description": "Retrieves an item that exists in a table database",
         "tags": [
@@ -9268,7 +9268,7 @@
             "schema": {
               "type": "string",
               "x-wrtn-prerequisite": {
-                "method": "post",
+                "method": "patch",
                 "path": "/connector/notion/get/database-info",
                 "jmesPath": "[].{value:id, label:title || ''}"
               }
@@ -9289,7 +9289,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "Information on retrieved database items",
             "content": {
               "application/json": {
@@ -9676,7 +9676,7 @@
       }
     },
     "/connector/google-hotel": {
-      "post": {
+      "patch": {
         "summary": "Google Hotels Search",
         "description": "Search for accommodations using Google Hotels service\nOnly one keyword should be requested per request.\nFor example, if you need to enter Seoul and Tokyo as keywords, you should make two requests with one word, \"Seoul\" and \"Tokyo\", not \"Seoul, Tokyo\".",
         "tags": [
@@ -9695,7 +9695,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "Google Hotels Search Results",
             "content": {
               "application/json": {
@@ -9723,7 +9723,7 @@
       }
     },
     "/connector/airport-information/search": {
-      "post": {
+      "patch": {
         "summary": "Search for airport information",
         "description": "Search for airport information using the entered search term.\nOnly one item should be requested per request.\nThis connector only processes one search term at a time, so if you want to search for multiple terms, you will need to call this connector separately for each search term.",
         "tags": [
@@ -9742,7 +9742,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "Search results for airport information",
             "content": {
               "application/json": {
@@ -9770,7 +9770,7 @@
       }
     },
     "/connector/google-flight/one-way": {
-      "post": {
+      "patch": {
         "summary": "Search for one-way flights",
         "description": "Search for one-way flights",
         "tags": [
@@ -9789,7 +9789,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "Search results for one-way flights",
             "content": {
               "application/json": {
@@ -9815,7 +9815,7 @@
       }
     },
     "/connector/google-flight/round-trip": {
-      "post": {
+      "patch": {
         "summary": "Search for round-trip flights",
         "description": "Search for round-trip flights",
         "tags": [
@@ -9834,7 +9834,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "The results of the round-trip flight search",
             "content": {
               "application/json": {
@@ -10176,7 +10176,7 @@
       }
     },
     "/connector/slack/get-scheduled-messages": {
-      "post": {
+      "patch": {
         "summary": "Get a list of scheduled messages",
         "description": "Get a list of scheduled messages\n\nLook up the messages you booked.\nYou can use `post_at` and `post_at_date` to find out when the message will be sent.\nIf you want to clear the message, use the `id` value in the scheduled message.\n\nIf a user wants to send a reservation message to himself,\nhe or she should look up both the user and the 'im' channel, then find the 'im' channel with his or her user ID and send it to that channel.\nWhat is on the 'im' channel includes not only the user's own channel, but also all the channels that can send and receive direct messages for each user.",
         "tags": [
@@ -10194,7 +10194,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "",
             "content": {
               "application/json": {
@@ -10216,7 +10216,7 @@
       }
     },
     "/connector/slack/get-user-details": {
-      "post": {
+      "patch": {
         "summary": "Inquire user details",
         "description": "Inquire user details\n\nInquire the user's detailed profile to acquire information such as phone number, email, and position.\nIt cannot be verified if the user has not filled in.\nThis function receives the user's ID in an array and inquires at once.",
         "tags": [
@@ -10234,7 +10234,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "",
             "content": {
               "application/json": {
@@ -10259,7 +10259,7 @@
       }
     },
     "/connector/slack/get-users": {
-      "post": {
+      "patch": {
         "summary": "Look up the list of users",
         "description": "Look up the list of users.\n\nUsers include bots and refer to all users in the team who are looking up.\nHere, you can look up the user's ID and name, the name the user wanted to display, the profile image, and whether the user has been deleted.\nIf you look up the user here, you can send a message to your colleagues on a specific direct channel, such as an `im` ( = channel type. )\n\nThis connector is essential because the `im` channel query only shows the user's ID and does not know who the direct channel is talking to.\n\nThe user has a separate display name.\nA display name is a name that the user has chosen to show.\nTherefore, it would be best to use this name as a courtesy.\n\nIt can look up Slack users, but it can look up the entire user through pagenation.\nThere could be hundreds of people in the company, so you'll have to look at multiple pages.",
         "tags": [
@@ -10277,7 +10277,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "Users",
             "content": {
               "application/json": {
@@ -10299,7 +10299,7 @@
       }
     },
     "/connector/slack/get-replies": {
-      "post": {
+      "patch": {
         "description": "Inquire the inside of the thread in History\n\nIf you have inquired the history of a channel,\nyou can use the 'ts' values of its history elements to query the internal thread for each history again.\nEach channel history has a number of replies, so if this number is more than 1, it is worth looking up.\n'Reply' is basically no different from the 'Message'(=Channel History).",
         "tags": [
           "Slack"
@@ -10316,7 +10316,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "Replies",
             "content": {
               "application/json": {
@@ -10338,7 +10338,7 @@
       }
     },
     "/connector/slack/get-channel-link-histories": {
-      "post": {
+      "patch": {
         "summary": "get links from channel histories",
         "description": "get channel links from channel histories\n\nLook up conversations that have been made in and out of the channel.\n\nThe 'channel' received as a factor means the channel's ID and is a character string that begins with a capital 'C', 'D' and so on.\nTherefore, if the user does not hand over the ID when looking for the conversation history of the channel,\nit is prioritized to find the channel ID.\nUsually, users don't know their channel ID.\nTherefore, most users will ask for a channel by its name or with only the keywords they remember.\nTherefore, unless it's an unknown string and begins with a 'C' or 'D' uppercase letter, look for the channel first.\n\nWhen you look up a conversation,\nyou can search only after a specific time or before a specific time in order to look up the time zone of the conversation you want to search for.\n\nMessages without links are removed, leaving only messages with links.\nThis is because it only leaves messages with links as connectors to find links in conversations.\nLinks are arranged in links properties.\n\nIf you want to filter by date, prioritize using the datetime format.",
         "tags": [
@@ -10356,7 +10356,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "",
             "content": {
               "application/json": {
@@ -10378,7 +10378,7 @@
       }
     },
     "/connector/slack/get-channel-histories": {
-      "post": {
+      "patch": {
         "summary": "get channel histories",
         "description": "get channel histories\n\nLook up conversations that have been made in and out of the channel.\n\nThe 'channel' received as a factor means the channel's ID and is a character string that begins with a capital 'C', 'D' and so on.\nTherefore, if the user does not hand over the ID when looking for the conversation history of the channel,\nit is prioritized to find the channel ID.\nUsually, users don't know their channel ID.\nTherefore, most users will ask for a channel by its name or with only the keywords they remember.\nTherefore, unless it's an unknown string and begins with a 'C' or 'D' uppercase letter, look for the channel first.\n\nWhen you look up a conversation,\nyou can search only after a specific time or before a specific time in order to look up the time zone of the conversation you want to search for.\n\nIn the conversation history, the link and code box are abbreviated to <LINK/> and <CODE/>, respectively.\nFor users, it is replaced by a user name, Like <@USERNAME>.\n<@USERNAME> is about calling someone else, and it's not the name of the person who started the conversation, so be careful.\n\nIf you want to filter by date, prioritize using the datetime format.",
         "tags": [
@@ -10396,7 +10396,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "channel histories",
             "content": {
               "application/json": {
@@ -10418,7 +10418,7 @@
       }
     },
     "/connector/slack/get-private-channels": {
-      "post": {
+      "patch": {
         "summary": "get private channels",
         "description": "get private channels\n\nView channels.\nThis connector will only look up its own `private` channel.\nThe channel ID is required to look up the conversation history within the channel later.\n`private` channel is a locked channel that can only be viewed by those invited to the channel.\n\nIf you can't find the channel ID by name, it might be because it's on the next page, not because you don't have a channel.",
         "tags": [
@@ -10436,7 +10436,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "private channels",
             "content": {
               "application/json": {
@@ -10461,7 +10461,7 @@
       }
     },
     "/connector/slack/get-public-channels": {
-      "post": {
+      "patch": {
         "summary": "get public channels",
         "description": "get public channels\n\nView channels.\nThis connector will only look up its own `public` channel.\nThe channel ID is required to look up the conversation history within the channel later.\nThe `public` channel is anyone's accessible.\nThis does not require an invitation process, and users can join the channel themselves if necessary.",
         "tags": [
@@ -10479,7 +10479,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "public channels",
             "content": {
               "application/json": {
@@ -10504,7 +10504,7 @@
       }
     },
     "/connector/slack/get-im-channels": {
-      "post": {
+      "patch": {
         "summary": "get im channels",
         "description": "get im channels\n\nView channels.\nThis connector will only look up its own `im` channel.\nThe channel ID is required to look up the conversation history within the channel later.\n`im` channel is a conversation that takes place in one's profile and refers to a personal channel that can only be viewed by oneself.\nUsers also use chat as storage or notepad, such as storing files and images here.\n\nTo send a 1:1 message to other users, you must first look up the `im` channel.",
         "tags": [
@@ -10522,7 +10522,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "im channels",
             "content": {
               "application/json": {
@@ -10547,7 +10547,7 @@
       }
     },
     "/connector/slack/get-files": {
-      "post": {
+      "patch": {
         "summary": "get files in workspace",
         "description": "get files in workspace\n\nYou can look up Slack workspace and channels, or all files sent from users.\nIt is pagenation and can filter by file type, and also provides thumbnail links, download links, and original message links.",
         "tags": [
@@ -10565,7 +10565,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "",
             "content": {
               "application/json": {
@@ -10587,7 +10587,7 @@
       }
     },
     "/connector/slack/get-user-groups": {
-      "post": {
+      "patch": {
         "summary": "Get usergroups in workspace",
         "description": "get user groups in workspace\n\nLook up user groups. This can be used to call all specific groups by tagging.\nHowever, it is difficult to know if it is an appropriate user group other than 'handle' because all internal users come out with IDs.\nIf you want to see a list of users, use the User Inquiry connector together.\nIf you want to see the user's nickname or name that corresponds to the user's ID, refer to the User Inquiry connector.",
         "tags": [
@@ -10605,7 +10605,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "",
             "content": {
               "application/json": {
@@ -10743,7 +10743,7 @@
       }
     },
     "/connector/jira/issues/get-comments": {
-      "post": {
+      "patch": {
         "summary": "get comments by issue id or key",
         "description": "Get comments by issue id or key\n\nThis connector uses the issue's key or ID value to query the comments written on the issue.\nComments are also visible when looking up issues,\nbut not all comments inside are visible,\nso user have to use this connector to look up them in pagination.",
         "tags": [
@@ -10762,7 +10762,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "comments of this issue",
             "content": {
               "application/json": {
@@ -10785,7 +10785,7 @@
       }
     },
     "/connector/jira/issues/get-transitions": {
-      "post": {
+      "patch": {
         "summary": "Inquire the transition of an issue",
         "description": "Inquire the transition of an issue, which is an edge on a workflow that allows you to change the status of an issue\nIf the person who designed the workflow for the project defined three states that could be moved from the current state, there would be three edges.\nIn Jira, just because there is a status that can be viewed in a project or issue does not mean that you can change the status unconditionally.\nWhen designing an edge, for example, you can also design an issue in the 'backoff' state to go through the 'in progress' state once.\nIn this case, you need to move two edges to turn the backoff issue into 'done'.",
         "tags": [
@@ -10803,7 +10803,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "",
             "content": {
               "application/json": {
@@ -11023,7 +11023,7 @@
       }
     },
     "/connector/jira/get-issue-detail": {
-      "post": {
+      "patch": {
         "summary": "get detailed Issue Information",
         "description": "Get detailed issue information\n\nProvides more accurate and detailed information, including the title and body of the issue\n\nIt can be used to look up the issue list first, or if you already know the key or ID of the issue.\nIf you do not know the key or ID, it is recommended to use the issue inquiry connector first.",
         "tags": [
@@ -11041,7 +11041,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "Detailed Issue Information",
             "content": {
               "application/json": {
@@ -11063,7 +11063,7 @@
       }
     },
     "/connector/jira/get-issues": {
-      "post": {
+      "patch": {
         "summary": "Find The Jira issues.",
         "description": "Find Jira issues\n\nIn order to inquire about any issues within the project, you must first inquire about the project and find out the key of the project.",
         "tags": [
@@ -11082,7 +11082,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "paginated list of issues visible to the user",
             "content": {
               "application/json": {
@@ -11104,7 +11104,7 @@
       }
     },
     "/connector/jira/get-projects": {
-      "post": {
+      "patch": {
         "summary": "Find the Jira projects.",
         "description": "Find the Jira projects\n\nThe Jira project has a unique key and can then be used to query issues with the key.\nReturns a paginated list of projects visible to the user.\n\nIn order to inquire about any issues within the project, you must first inquire about the project and find out the key of the project.",
         "tags": [
@@ -11123,7 +11123,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "paginated list of projects visible to the user",
             "content": {
               "application/json": {
@@ -11145,7 +11145,7 @@
       }
     },
     "/connector/jira/get-issue-labels": {
-      "post": {
+      "patch": {
         "summary": "Find issue labels",
         "description": "Find issue labels",
         "tags": [
@@ -11163,7 +11163,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "paginated list of labels",
             "content": {
               "application/json": {
@@ -11185,7 +11185,7 @@
       }
     },
     "/connector/jira/get-issue-types": {
-      "post": {
+      "patch": {
         "summary": "Find issue types",
         "description": "Find issue types\n\nIn order for the user to inquire about the issue type, the ID of the project is required.\nIf the user mentioned the key or name of the project,\nit is necessary to first inquire the project and get the correct project ID.\nThe ID of the project is a numeric character type.",
         "tags": [
@@ -11203,7 +11203,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "issue types",
             "content": {
               "application/json": {
@@ -11225,7 +11225,7 @@
       }
     },
     "/connector/jira/get-issue-statuses": {
-      "post": {
+      "patch": {
         "summary": "Find issue statuses",
         "description": "Find issue statuses for searching issue",
         "tags": [
@@ -11243,7 +11243,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "issue statuses",
             "content": {
               "application/json": {
@@ -11265,7 +11265,7 @@
       }
     },
     "/connector/jira/get-issue-priorities": {
-      "post": {
+      "patch": {
         "summary": "Inquire the priority levels that can be assigned to the issue.",
         "description": "There are five priorities: 'Highest', 'High', 'Medium', 'Low', and 'Lowest'.\nTherefore, it can be used as an enum value without requesting this API,\nand this API is already deprecated on the Jira REST API document.\nHowever, for projects that can already be specified by creating a priority level, this connector is added just in case.",
         "tags": [
@@ -11283,7 +11283,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "issue priorities",
             "content": {
               "application/json": {
@@ -11308,7 +11308,7 @@
       }
     },
     "/connector/jira/issues/get-users-assignable": {
-      "post": {
+      "patch": {
         "summary": "Find assignable users in issue",
         "description": "Find a person within the issue who can be assigned as assignee.",
         "tags": [
@@ -11326,7 +11326,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "assignable users",
             "content": {
               "application/json": {
@@ -11352,7 +11352,7 @@
       }
     },
     "/connector/jira/projects/get-users-assignable": {
-      "post": {
+      "patch": {
         "summary": "Find assignable users in project",
         "description": "Find a person within the project who can be assigned as assignee.",
         "tags": [
@@ -11370,7 +11370,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "assignable users",
             "content": {
               "application/json": {
@@ -11396,7 +11396,7 @@
       }
     },
     "/connector/jira/get-status-categories": {
-      "post": {
+      "patch": {
         "summary": "get status categories",
         "description": "Get status categories",
         "tags": [
@@ -11414,7 +11414,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "",
             "content": {
               "application/json": {
@@ -11439,7 +11439,7 @@
       }
     },
     "/connector/google-trend/daily": {
-      "post": {
+      "patch": {
         "summary": "Google Trends Daily Search",
         "description": "Get daily search results from Google Trends",
         "tags": [
@@ -11458,7 +11458,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "Daily Trends Search Results",
             "content": {
               "application/json": {
@@ -11483,7 +11483,7 @@
       }
     },
     "/connector/google-map/autocomplete": {
-      "post": {
+      "patch": {
         "summary": "Returns predictions for the given input in Google Maps",
         "description": "recommendations for automatic completion or location through a search word or a latitude coordinate value to be used with the search word.\n\nSince it is a text auto-completion, this feature allows you to find better search keywords.\nHowever, since there is a separate connector for searching the surrounding geography, it is recommended to use that connector if you want to find a place that is not a keyword.\nIt is recommended that you use this connector to narrow down the search keyword before writing the place search connector.",
         "tags": [
@@ -11501,7 +11501,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "",
             "content": {
               "application/json": {
@@ -11522,7 +11522,7 @@
       }
     },
     "/connector/google-map/review": {
-      "post": {
+      "patch": {
         "summary": "Search Google Map restaurant reviews",
         "description": "Search for restaurant reviews selected from Google Maps",
         "tags": [
@@ -11541,7 +11541,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "Restaurant review search results",
             "content": {
               "application/json": {
@@ -11570,7 +11570,7 @@
       }
     },
     "/connector/google-map/search-text": {
-      "post": {
+      "patch": {
         "summary": "Search by text in Google Maps",
         "description": "General search functionality on Google Maps\n\nIf possible, it is recommended to use POST/connector/google-map/search-text connector rather than this.\nHere, it is difficult to conduct additional search after providing information to users because only restaurants are searched using the Serp API and the response parameter does not provide a Google Map link.",
         "tags": [
@@ -11589,7 +11589,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "",
             "content": {
               "application/json": {
@@ -11615,7 +11615,7 @@
       }
     },
     "/connector/google-map": {
-      "post": {
+      "patch": {
         "summary": "Google Map restaurant search",
         "description": "Search for restaurants using Google Maps",
         "tags": [
@@ -11634,7 +11634,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "Restaurant search results",
             "content": {
               "application/json": {
@@ -11662,7 +11662,7 @@
       }
     },
     "/connector/github/users/get-received-events": {
-      "post": {
+      "patch": {
         "summary": "List events received by the authenticated user",
         "description": "List events received by the authenticated user\n\nThese are events that you've received by watching repositories and following users.\nIf you are authenticated as the given user, you will see private events. Otherwise, you'll only see public events.\nIn this case, the \"received\" event includes the repository that the user is interested in or the activity of the user who is following,\nfor example, if the user has pushed to the repository, or if an issue has been created from the repository that the user is interested in.",
         "tags": [
@@ -11681,7 +11681,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "Received Event of user",
             "content": {
               "application/json": {
@@ -11708,7 +11708,7 @@
       }
     },
     "/connector/github/users/get-pinned-repositories": {
-      "post": {
+      "patch": {
         "summary": "Inquire the user's pinned repository names",
         "description": "Inquire the user's pinned repositories\n\nInquire up to 6 repositories where the user has pinned.\nHere, only the name of the repository is searched, so if necessary, find detailed information about the repository by pageing the user's repository list.\nPlacing a pin in a repository is most likely a repository that users are most confident in.",
         "tags": [
@@ -11726,7 +11726,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "repositories",
             "content": {
               "application/json": {
@@ -11756,7 +11756,7 @@
       }
     },
     "/connector/github/users/get-repositories": {
-      "post": {
+      "patch": {
         "summary": "Inquire the user's repositories",
         "description": "Inquire the user's repositories\n\nSince it contains only the simplest information of the repository here, there is no way to know the lead me of the repository or detailed information.\nIt is recommended to use additional connectors to explore because other connectors have the ability to read leads or internal files in the repository.",
         "tags": [
@@ -11774,7 +11774,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "repositories",
             "content": {
               "application/json": {
@@ -11801,7 +11801,7 @@
       }
     },
     "/connector/github/organizations/users/get-events": {
-      "post": {
+      "patch": {
         "summary": "Lists organization events for the authenticated user",
         "description": "Lists organization events for the authenticated user\n\nThis API endpoint retrieves events that have occurred within the organizations\nthe authenticated user is a member of. It includes activities such as issues,\npull requests, commits, and other actions taken within the organization's repositories.\n\nThe events cover all repositories within the organization that the user has access to,\nmaking it useful for tracking the organization's activity or monitoring the progress\nof projects that the user is involved in within the team.",
         "tags": [
@@ -11819,7 +11819,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "A list of events from the organizations the authenticated user is a member of.",
             "content": {
               "application/json": {
@@ -11846,7 +11846,7 @@
       }
     },
     "/connector/github/organizations/get-issues": {
-      "post": {
+      "patch": {
         "summary": "List organization issues assigned to the authenticated user",
         "description": "List organization issues assigned to the authenticated user\n\nSimilar to the 'get-issues' connector, it is suitable for inquiring only about issues assigned within a specific organization.\nNaturally, the user will have to be a member of that organization.\n\nHere, the result value can be inquired together with PR because PR on GitHub is essentially an issue-like object.\nIf you want to see the issue separately, you should use a connector that looks up the issue in the repo, not the organization.",
         "tags": [
@@ -11864,7 +11864,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "",
             "content": {
               "application/json": {
@@ -11890,7 +11890,7 @@
       }
     },
     "/connector/github/organizations/get-repositories": {
-      "post": {
+      "patch": {
         "summary": "List organization repositories",
         "description": "List organization repositories\n\nThis endpoint allows you to list all repositories that belong to a specified organization on GitHub.\nIt's useful for viewing all the repositories under an organization’s account, including both public and private repositories, depending on your access level.",
         "tags": [
@@ -11908,7 +11908,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "",
             "content": {
               "application/json": {
@@ -11934,7 +11934,7 @@
       }
     },
     "/connector/github/organizations/get-events": {
-      "post": {
+      "patch": {
         "summary": "List public organization events.",
         "description": "List public organization events\n\nIf you are authenticated as the given user, you will see your private events. Otherwise, you'll only see public events.\n\nThis API endpoint retrieves a stream of public events that have occurred\nwithin a specified organization. These events include activities such as\nrepository creation, issues, pull requests, and other actions taken by members\nof the organization across all its public repositories.\n\nThis is useful for monitoring the public activity within an organization,\nproviding insights into how the organization is managing its projects,\nthe work being done by its members, and the overall public engagement with\nits repositories.",
         "tags": [
@@ -11952,7 +11952,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "",
             "content": {
               "application/json": {
@@ -11978,7 +11978,7 @@
       }
     },
     "/connector/github/repos/get-collaborators": {
-      "post": {
+      "patch": {
         "summary": "List repository collaborators",
         "description": "List repository collaborators\n\nFor organization-owned repositories, the list of collaborators includes outside collaborators,\norganization members that are direct collaborators, organization members with access through team memberships,\norganization members with access through default organization permissions, and organization owners.\nOrganization members with write, maintain, or admin privileges on the organization-owned repository can use this endpoint.\nTeam members will include the members of child teams.\n\nYou can refer to it before specifying a person in charge of the issue or a reviewer for PR.",
         "tags": [
@@ -11996,7 +11996,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "",
             "content": {
               "application/json": {
@@ -12152,7 +12152,7 @@
       }
     },
     "/connector/github/repos/get-folder-structures": {
-      "post": {
+      "patch": {
         "summary": "Review Repository Folder Structure",
         "description": "Review Repository Folder Structure\n\nIt allows you to know the overall folder structure by traversing files in the repository.\nThis feature is intended to navigate like a DFS based on folders.\nIf this function is so vast that you cannot see the entire folder, you can pass the `path` again to inquire.\nThe `path` delivered is treated like a Root folder and continues the navigation from this folder.\nThis feature is designed to navigate to the inside two more times, up to steps 0, 1 at a time, based on the root folder.\n\nIf you want to know the details of the file, it is recommended to use the get-contents connector.",
         "tags": [
@@ -12170,7 +12170,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "",
             "content": {
               "application/json": {
@@ -12214,7 +12214,7 @@
       }
     },
     "/connector/github/repos/get-contents/bulk": {
-      "post": {
+      "patch": {
         "summary": "Look up repository files(bulk)",
         "description": "Look up repository files(bulk)\n\nIf the file you want to inquire is a folder, internal files are provided in an array,\nand if it is a file, it inquires about the encoding method of the file and the body content of the file.\nSince there may be countless files and folders in the github repository, there may be many files that exceed the rate limit.\nIn this case, you can try to solve this problem by sequentially finding the folders one by one using the corresponding connector.\nYou can pass multiple file paths to view multiple files at the same time.\nThere is no limit to the number of files.\n\nThis is suitable for viewing files on specific branches, but if the user is for the purpose of viewing details of code reviews or PR, it is recommended to use a different connector.\nThere are connectors that view the list of files changed in PR, or see the changes.",
         "tags": [
@@ -12232,7 +12232,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "",
             "content": {
               "application/json": {
@@ -12309,7 +12309,7 @@
       }
     },
     "/connector/github/repos/get-contents": {
-      "post": {
+      "patch": {
         "summary": "Look up repository files",
         "description": "Look up repository files\n\nIf the file you want to inquire is a folder, internal files are provided in an array,\nand if it is a file, it inquires about the encoding method of the file and the body content of the file.\nSince there may be countless files and folders in the github repository, there may be many files that exceed the rate limit.\nIn this case, you can try to solve this problem by sequentially finding the folders one by one using the corresponding connector.\n\nThis is suitable for viewing files on specific branches, but if the user is for the purpose of viewing details of code reviews or PR, it is recommended to use a different connector.\nThere are connectors that view the list of files changed in PR, or see the changes.",
         "tags": [
@@ -12327,7 +12327,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "",
             "content": {
               "application/json": {
@@ -12400,7 +12400,7 @@
       }
     },
     "/connector/github/repos/get-readme": {
-      "post": {
+      "patch": {
         "summary": "Read the README file",
         "description": "Read the README file in the repository\n\nREADME is one of the initial settings of the project and usually records a description of this repository,\nso it's useful if you want to see a rough description of the repository.",
         "tags": [
@@ -12418,7 +12418,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "",
             "content": {
               "application/json": {
@@ -12459,7 +12459,7 @@
       }
     },
     "/connector/github/repos/get-events": {
-      "post": {
+      "patch": {
         "summary": "List events for the authenticated user",
         "description": "List events for the authenticated user\n\nIf you are authenticated as the given user, you will see your private events. Otherwise, you'll only see public events.\nYou can check all events surrounding the repository, such as who inquired and who forked.\nIt is used in conjunction with a connector that inquires the activity details and is suitable for checking how active the repository is.",
         "tags": [
@@ -12477,7 +12477,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "",
             "content": {
               "application/json": {
@@ -12503,7 +12503,7 @@
       }
     },
     "/connector/github/networks/get-events": {
-      "post": {
+      "patch": {
         "summary": "List public events for a network of repositories",
         "description": "Fetches events across all forks of a specified repository.\n\nThis API endpoint provides a stream of events that occur in any fork\nof the specified repository. It includes actions such as commits,\npull requests, issues, and other activity happening in the forked\nrepositories.\n\nUse this endpoint when you need to monitor the activity not just\nin the original repository, but also in all of its forks. This can\nbe particularly useful for understanding the broader impact or\nactivity surrounding a popular project that has been forked multiple\ntimes.",
         "tags": [
@@ -12521,7 +12521,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "",
             "content": {
               "application/json": {
@@ -12547,7 +12547,7 @@
       }
     },
     "/connector/github/users/get-events": {
-      "post": {
+      "patch": {
         "summary": "List events for the authenticated user.",
         "description": "List events for the authenticated user\n\nThis API endpoint retrieves a stream of events related to the authenticated user,\nincluding activities such as issues, pull requests, commits, and repository actions\nthat the user has participated in or been mentioned in. The events reflect the user's\ninteractions across all repositories they have access to, both public and private (if\nthe user has appropriate permissions).\n\nThis is useful for tracking a user's activity on GitHub, allowing you to see a\npersonalized feed of their involvement in various projects and interactions with\nother users.\n\nIf you are authenticated as the given user, you will see your private events. Otherwise, you'll only see public events.\nIt looks up users' public events. Username should be your own nickname because you can usually only see your own events.",
         "tags": [
@@ -12565,7 +12565,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "",
             "content": {
               "application/json": {
@@ -12591,7 +12591,7 @@
       }
     },
     "/connector/github/users/get-organizations": {
-      "post": {
+      "patch": {
         "summary": "List organizations for a user",
         "description": "List organizations for a user\n\nLook up the user's organization list, but since you can't look up the user's private organization here,\nyou can't really conclude that there isn't an empty array.",
         "tags": [
@@ -12609,7 +12609,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "",
             "content": {
               "application/json": {
@@ -12635,7 +12635,7 @@
       }
     },
     "/connector/github/get-events": {
-      "post": {
+      "patch": {
         "summary": "List public events.",
         "description": "List public events\n\nThis API is not built to serve real-time use cases. Depending on the time of day, event latency can be anywhere from 30s to 6h.\nWhen I look up the events, they may not be of much value to the user because they are events that occurred on github.\n\nIt's looking up public events, and it's looking at events that occur on github regardless of the specific user.\nTherefore, it may not be of much use unless it is a special case.\nIf you want to get your information, it would be more advantageous to use the 'user/get-events' connector.",
         "tags": [
@@ -12653,7 +12653,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "",
             "content": {
               "application/json": {
@@ -12675,7 +12675,7 @@
       }
     },
     "/connector/github/repositories/get-activities": {
-      "post": {
+      "patch": {
         "summary": "Get Repository' activities",
         "description": "Get repository activities\n\nYou can use it to see how active your contribution is to the repository\nbecause it looks up all the activities that have occurred in the repository.\n\nThe types of activities that can be viewed here are as follows, and you can also find out by which user it was operated.\npush, force_push, branch_creation, branch_deletion, pr_merge, merge_queue_merge",
         "tags": [
@@ -12693,7 +12693,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "",
             "content": {
               "application/json": {
@@ -12806,7 +12806,7 @@
       }
     },
     "/connector/github/repositories/pull-requests/get-comments": {
-      "post": {
+      "patch": {
         "summary": "List pull request comments",
         "description": "List pull request comments\n\nYou can use the REST API to list comments on issues and pull requests. Every pull request is an issue, but not every issue is a pull request.\nIn any case, you can also view comments with the number on pull request.\nIssue comments are ordered by ascending ID.\n\nThis is actually the same as connector POST '/connector/github/repositories/issues/get-comments'.\nComments and reviews on PR are separate, you can only see comments on this connector.",
         "tags": [
@@ -12824,7 +12824,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "",
             "content": {
               "application/json": {
@@ -12898,7 +12898,7 @@
       }
     },
     "/connector/github/repositories/pull-requests/get-requested-reviewers": {
-      "post": {
+      "patch": {
         "summary": "Get all requested reviewers for a pull request",
         "description": "Get all requested reviewers\n\nGets the users or teams whose review is requested for a pull request.\nOnce a requested reviewer submits a review, they are no longer considered a requested reviewer.\nTheir review will instead be returned by the List reviews for a pull request operation.\n\nThe requested_reviewers are the ones who have been asked to review, but not yet.\nSo when you see someone who has reviewed a PR, if that person is someone who has already finished a review, he/she will be part of the reviewers, not the requested_reviewers.\nTherefore, when you look at a reviewer, you should look at it separately between someone who has not yet reviewed it and one person who has reviewed it, which you should also call other features to see together.\nRefer to connector `:post /connector/github/repositories/pull-requests/get-reviews`.",
         "tags": [
@@ -12916,7 +12916,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "",
             "content": {
               "application/json": {
@@ -13023,7 +13023,7 @@
       }
     },
     "/connector/github/repositories/pull-requests/reviews/get-comments": {
-      "post": {
+      "patch": {
         "summary": "List comments for a pull request review",
         "description": "List comments for a pull request review\n\nLists comments for a specific pull request review.",
         "tags": [
@@ -13041,7 +13041,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "",
             "content": {
               "application/json": {
@@ -13069,7 +13069,7 @@
       }
     },
     "/connector/github/repositories/pull-requests/get-reviews": {
-      "post": {
+      "patch": {
         "summary": "List reviews for a pull request",
         "description": "List reviews for a pull request\n\nPull Request Reviews are groups of pull request review comments on a pull request, grouped together with a state and optional body comment.\nLists all reviews for a specified pull request. The list of reviews returns in chronological order.\nSince github distinguishes requested_reviewers from those who have already completed the review,\nif you want to see a review for any PR, you should look up both of these connectors.",
         "tags": [
@@ -13087,7 +13087,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "",
             "content": {
               "application/json": {
@@ -13160,7 +13160,7 @@
       }
     },
     "/connector/github/repositories/pull-requests/get-files": {
-      "post": {
+      "patch": {
         "summary": "List pull requests files",
         "description": "List pull requests files\n\nThis is useful to see what files are contained in that PR.\nEach file's patch contains the entire format of the file.\nHowever, if you want to know the changes, you should look up diff, which is implemented with a different connector, so you'd better refer to it.\n\nIf the user wants to see each PR unit, this connector will be suitable.",
         "tags": [
@@ -13178,7 +13178,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "",
             "content": {
               "application/json": {
@@ -13205,7 +13205,7 @@
       }
     },
     "/connector/github/repositories/pull-requests/get-commits": {
-      "post": {
+      "patch": {
         "description": "List commits on a pull request\n\nLists a maximum of 250 commits for a pull request.\nTo receive a complete commit list for pull requests with more than 250 commits, use the List commits endpoint.\n\nIf the user wants to see each PR unit, this connector will be suitable.",
         "tags": [
           "Github"
@@ -13222,7 +13222,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "",
             "content": {
               "application/json": {
@@ -13249,7 +13249,7 @@
       }
     },
     "/connector/github/repositories/pull-requests/get-diff": {
-      "post": {
+      "patch": {
         "summary": "Get a diff of pull request",
         "description": "Get a diff of pull-request info\n\nThis is the same as PR's ability to query files,\nbut the format that this function returns is a string, which is more suitable for identifying changes to each file than viewing each file object,\nand in github, this is called the application/vnd.github.diff format.\nThis helps you see at a glance what codes have disappeared and been added in a form suitable for code review.\n\nIf the user wants to see each PR unit, this connector will be suitable.\n\nIf there are too many changes, the connector can export a 406 error.\nIn this case, it may be difficult to determine each change, but it is recommended to use the List pull requests connector.",
         "tags": [
@@ -13267,7 +13267,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "",
             "content": {
               "application/json": {
@@ -13341,7 +13341,7 @@
       }
     },
     "/connector/github/repositories/pull-requests/get-detail": {
-      "post": {
+      "patch": {
         "summary": "Get a pull request",
         "description": "Get a deatiled pull-request info\n\nYou can view detailed PR information using the PR number.\nHere, you can see the branch to be merged and the information on the branch it points to, and you can see information such as the status of the PR, the time of each state, and the person who created the PR.\nHowever, it should be used with other connectors because it provides information close to the header of PR and does not provide information about each file or commit of PR.\n\nIf the user wants to see each PR unit, this connector will be suitable.",
         "tags": [
@@ -13359,7 +13359,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "",
             "content": {
               "application/json": {
@@ -13386,7 +13386,7 @@
       }
     },
     "/connector/github/repositories/get-pull-requests": {
-      "post": {
+      "patch": {
         "summary": "Get Repository' pull request",
         "description": "List repository pull requests\n\nQuery pool requests to specific repositories.\nHere, you can filter issues and see only pool requests, and you can sort them by creation and inquiry dates, or filter by open or closed status.\nThe content of the body is omitted, so if you want to see it, you should use the detailed lookup connector.\nIf the user wants to see the body property, '/connector/github/repositories/pull-requests/get-detail' connector must be called.",
         "tags": [
@@ -13404,7 +13404,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "",
             "content": {
               "application/json": {
@@ -13430,7 +13430,7 @@
       }
     },
     "/connector/github/repositories/issues/get-detail": {
-      "post": {
+      "patch": {
         "summary": "Get a issue",
         "description": "Get a deatiled issue info\n\nUnlike the body omitted from the issue list inquiry, it is suitable for viewing details as it can inquire all the contents.\nHowever, this connector alone cannot see all the comments or timelines inside, and other connectors must be used.",
         "tags": [
@@ -13448,7 +13448,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "",
             "content": {
               "application/json": {
@@ -13475,7 +13475,7 @@
       }
     },
     "/connector/github/repositories/issues/get-comments": {
-      "post": {
+      "patch": {
         "summary": "List issue comments",
         "description": "List issue comments\n\nYou can use the REST API to list comments on issues and pull requests. Every pull request is an issue, but not every issue is a pull request.\nIn any case, you can also view comments with the number on pull request.\nIssue comments are ordered by ascending ID.",
         "tags": [
@@ -13493,7 +13493,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "",
             "content": {
               "application/json": {
@@ -13565,7 +13565,7 @@
       }
     },
     "/connector/github/repositories/get-issues": {
-      "post": {
+      "patch": {
         "summary": "List repository issues",
         "description": "List repository issues\n\nList issues in a repository.\nThis connector is perfect if you want to see the issue of the repository because it can be viewed without being authenticated.\nInformation on the issue comes out, but only 10 people and labels attached to the issue are provided.\nTherefore, if you want more detailed information, it's a good idea to look at it with a connector that looks at the details of the issue.\nWhen looking up an issue, you can view open and closed issues and sort them by creation time, correction time, comment count, and reaction count.\nFor more information, you should check the properties part of the request type.\n\nThe content of the body is omitted, so if you want to see it, you should use the detailed lookup connector.\nIf the user wants to see the body property, '/connector/github/repositories/issues/get-detail' connector must be called.",
         "tags": [
@@ -13583,7 +13583,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "",
             "content": {
               "application/json": {
@@ -13610,7 +13610,7 @@
       }
     },
     "/connector/github/get-users": {
-      "post": {
+      "patch": {
         "summary": "Search for users by keyword in github",
         "description": "Search for users by keyword in github",
         "tags": [
@@ -13628,7 +13628,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "list of user",
             "content": {
               "application/json": {
@@ -13653,7 +13653,7 @@
       }
     },
     "/connector/github/get-user-profile": {
-      "post": {
+      "patch": {
         "summary": "Look up the user's detailed profile",
         "description": "Look up the user's detailed profile",
         "tags": [
@@ -13671,7 +13671,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "detailed profile",
             "content": {
               "application/json": {
@@ -13696,7 +13696,7 @@
       }
     },
     "/connector/github/get-organizations": {
-      "post": {
+      "patch": {
         "summary": "List organizations for the authenticated user",
         "description": "List organizations for the authenticated user\n\nInquire the user's repository.\nHere, the user is an authenticated user, which means a user of that token.\nIf a user does not select an organization at login or ask the organization's admin to link it,\nthe resource might not be viewed even if the token scope has permissions.",
         "tags": [
@@ -13714,7 +13714,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "",
             "content": {
               "application/json": {
@@ -13739,7 +13739,7 @@
       }
     },
     "/connector/github/get-branches": {
-      "post": {
+      "patch": {
         "summary": "Inquire the user's branch",
         "description": "Inquire the user's branch\n\nYou can look up a list of branches in a specific repository.\nBecause it says what the last commit is, and when and to whom it was made,\nyou can see which of the branches is the latest and managed.\n\nYou shouldn't call the main branch arbitrarily because there may be people who use the master branch.",
         "tags": [
@@ -13757,7 +13757,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "",
             "content": {
               "application/json": {
@@ -13825,7 +13825,7 @@
       }
     },
     "/connector/github/get-pull-requests-associated-with-a-commit": {
-      "post": {
+      "patch": {
         "summary": "get pull requests associated with a commit",
         "description": "List pull requests associated with a commit\n\nFetches the pull requests (PRs) associated with a specific commit in a GitHub repository.\nThis API endpoint retrieves a list of pull requests that include the specified commit.\nThis can be useful for tracking where and how a particular change was merged into a branch.",
         "tags": [
@@ -13843,7 +13843,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "pull requests associated with a commit",
             "content": {
               "application/json": {
@@ -13868,7 +13868,7 @@
       }
     },
     "/connector/github/get-commit-heads": {
-      "post": {
+      "patch": {
         "summary": "Lists all branches that contain the HEAD commit",
         "description": "Lists all branches that contain the HEAD commit of a GitHub repository.\n\nThis function utilizes the GitHub API to retrieve a list of branches where the current\nHEAD commit (the latest commit on the checked-out branch) is included. This is useful for\ndetermining which branches contain the most recent changes.",
         "tags": [
@@ -13886,7 +13886,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "A promise that resolves to an array of branch names that include the specified commit.",
             "content": {
               "application/json": {
@@ -13908,7 +13908,7 @@
       }
     },
     "/connector/github/get-commit": {
-      "post": {
+      "patch": {
         "summary": "Inquire the commit details of the user",
         "description": "Inquire the commit details of the user\nIt contains all the history of how the file changed, so you can see the details of a single commit node.\nIf you do not deliver ref, look up based on default_branch.",
         "tags": [
@@ -13926,7 +13926,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "detailed commit history",
             "content": {
               "application/json": {
@@ -13951,7 +13951,7 @@
       }
     },
     "/connector/github/get-commit-diff": {
-      "post": {
+      "patch": {
         "summary": "Inquire the commit diff of the user",
         "description": "Inquire the commit diff of the user\ndiff is Github's own content type specification that allows you to identify changes per commit on the Github homepage.\nIf you do not deliver ref, look up based on default_branch.",
         "tags": [
@@ -13969,7 +13969,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "commit diff",
             "content": {
               "application/json": {
@@ -13994,7 +13994,7 @@
       }
     },
     "/connector/github/get-commit-list": {
-      "post": {
+      "patch": {
         "summary": "Look up the list of commitments for a specific repo, a specific branch",
         "description": "Look up the list of commitments for a specific repo, a specific branch\n\nThis function can be used in general because it sees the commit list in units of branches, but if the user wants to see it in units of PR, it is better to use another connector.\nIf the user specifies to view in PR units, use other connectors because there are connectors for viewing files, commit lists, and changes in PR units elsewhere.",
         "tags": [
@@ -14012,7 +14012,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "list of commit",
             "content": {
               "application/json": {
@@ -14037,7 +14037,7 @@
       }
     },
     "/connector/github/get-followers": {
-      "post": {
+      "patch": {
         "summary": "Inquire the followers of the user",
         "description": "Inquire the followers of the user\n\nThis value can be viewed by about 100 people at a time because it is a page-nated result.\nIf you have someone you're looking for, it's important to keep looking for the next page, even if you haven't found the value on the first page.",
         "tags": [
@@ -14055,7 +14055,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "",
             "content": {
               "application/json": {
@@ -14080,7 +14080,7 @@
       }
     },
     "/connector/github/get-followees": {
-      "post": {
+      "patch": {
         "summary": "Inquire the followees of the user",
         "description": "Inquire the followees of the user\n\nThis value can be viewed by about 100 people at a time because it is a page-nated result.\nIf you have someone you're looking for, it's important to keep looking for the next page, even if you haven't found the value on the first page.",
         "tags": [
@@ -14098,7 +14098,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "",
             "content": {
               "application/json": {
@@ -14123,7 +14123,7 @@
       }
     },
     "/connector/github/get-labels": {
-      "post": {
+      "patch": {
         "summary": "List labels for a repository",
         "description": "List labels for a repository\n\nView a list of issues created and used in that repository.\nEach issue will only have labels that are already registered in this repository.\nOf course, it doesn't necessarily mean that you have to use only the labels here when creating issues,\nbut it would be beneficial to assign them by referring to the labels here.",
         "tags": [
@@ -14141,7 +14141,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "",
             "content": {
               "application/json": {
@@ -14166,7 +14166,7 @@
       }
     },
     "/connector/github/issues": {
-      "patch": {
+      "put": {
         "summary": "Update an issue",
         "description": "Update an issue in the repository\n\nUpdate an issue, where you can enter labels and assignes together.\nThe information you must enter is who will create the issue in the owner's repository and under what title.\nThe information in the text should follow the markdown grammar allowed by github.\n\nIn some cases, if you are not the owner of this repository, you may not be able to make any marking on issues such as labels, assignees, milestones, etc.\nIt can also be used to close or reopen issues.",
         "tags": [
@@ -14337,7 +14337,7 @@
       }
     },
     "/connector/discord/get-guild-channels": {
-      "post": {
+      "patch": {
         "summary": "Get a list of channels",
         "description": "Get a list of channels on the server",
         "tags": [
@@ -14355,7 +14355,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "List of channels",
             "content": {
               "application/json": {
@@ -14426,7 +14426,7 @@
       }
     },
     "/connector/discord/get-list-guild-members": {
-      "post": {
+      "patch": {
         "summary": "Get a list of members",
         "description": "Get a list of members on the server",
         "tags": [
@@ -14444,7 +14444,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "List of server members",
             "content": {
               "application/json": {
@@ -14557,7 +14557,7 @@
       }
     },
     "/connector/discord/get-pinned-messages": {
-      "post": {
+      "patch": {
         "summary": "Get a list of pinned messages",
         "description": "Get a list of pinned messages in a channel",
         "tags": [
@@ -14575,7 +14575,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "a list of pinned messages",
             "content": {
               "application/json": {
@@ -14684,7 +14684,7 @@
       }
     },
     "/connector/discord/get-channel-message-histories": {
-      "post": {
+      "patch": {
         "summary": "Get a list of messages",
         "description": "Get the messages that exist in the channel",
         "tags": [
@@ -14702,7 +14702,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "List of messages",
             "content": {
               "application/json": {
@@ -14951,7 +14951,7 @@
       }
     },
     "/connector/calendly/get-event-types": {
-      "post": {
+      "patch": {
         "summary": "List all event types",
         "description": "Retrieves the event types available for the user or organization.\n\nThis is useful to show what types of meetings can be scheduled, such as one-on-one meetings, group meetings, etc.",
         "tags": [
@@ -14970,7 +14970,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "The list of event types.",
             "content": {
               "application/json": {
@@ -15005,7 +15005,7 @@
             "schema": {
               "type": "string",
               "x-wrtn-prerequisite": {
-                "method": "post",
+                "method": "patch",
                 "path": "/connector/calendly/get-scheduled-events",
                 "jmesPath": "collection[].{value:uuid, label:name}"
               }
@@ -15020,7 +15020,7 @@
             "schema": {
               "type": "string",
               "x-wrtn-prerequisite": {
-                "method": "post",
+                "method": "patch",
                 "path": "/connector/calendly/get-scheduled-events",
                 "jmesPath": "collection[].{value:uuid, label:name}"
               }
@@ -15070,7 +15070,7 @@
       }
     },
     "/connector/calendly/get-events/{eventId}": {
-      "post": {
+      "patch": {
         "summary": "Get details of a scheduled event",
         "description": "Fetches the detailed information of a specific scheduled event by its UUID.\n\nThis includes information such as the event's date, time, participants, and any notes or agenda items.",
         "tags": [
@@ -15100,7 +15100,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "The detailed information of the scheduled event.",
             "content": {
               "application/json": {
@@ -15125,7 +15125,7 @@
       }
     },
     "/connector/calendly/get-scheduled-events": {
-      "post": {
+      "patch": {
         "summary": "Get all scheduled events",
         "description": "Retrieves all scheduled events within a given time period or based on certain criteria.\n\nThis can help users manage their calendar by viewing all upcoming events.",
         "tags": [
@@ -15144,7 +15144,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "The list of scheduled events.",
             "content": {
               "application/json": {
@@ -15236,7 +15236,7 @@
       }
     },
     "/connector/calendly/events/{eventId}/invitees/{inviteeId}": {
-      "post": {
+      "patch": {
         "summary": "Get invitee details",
         "description": "Retrieves the details of a specific invitee for a scheduled event.\n\nThis includes information such as the invitee's name, email, and any notes or preferences they have provided.",
         "tags": [
@@ -15276,7 +15276,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "The details of the invitee.",
             "content": {
               "application/json": {
@@ -15302,7 +15302,7 @@
       }
     },
     "/connector/calendly/events/get-invitees": {
-      "post": {
+      "patch": {
         "summary": "Get all invitees for a scheduled event",
         "description": "Retrieves the list of invitees for a scheduled event.\n\nThis can be used to see who is expected to attend and manage communications with them.",
         "tags": [
@@ -15321,7 +15321,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "The list of invitees for the event.",
             "content": {
               "application/json": {
@@ -15391,7 +15391,7 @@
       }
     },
     "/connector/calendly/users/get-me": {
-      "post": {
+      "patch": {
         "summary": "Get authenticated user details",
         "description": "Retrieves the details of the authenticated user.\n\nThis is useful for confirming user information during event creation and ensuring that the correct user is associated with the events.",
         "tags": [
@@ -15410,7 +15410,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "The authenticated user's details.",
             "content": {
               "application/json": {
@@ -15487,7 +15487,7 @@
             "schema": {
               "type": "string",
               "x-wrtn-prerequisite": {
-                "method": "post",
+                "method": "patch",
                 "path": "/connector/typeform/get-workspaces",
                 "jmesPath": "[].{value:workspace_id, label:name || '워크스페이스 이름'}"
               }
@@ -15525,7 +15525,7 @@
       }
     },
     "/connector/typeform/get-workspaces": {
-      "post": {
+      "patch": {
         "summary": "Get Typeform workspace information",
         "description": "Get workspace information",
         "tags": [
@@ -15543,7 +15543,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "Workspace ID, Title, URL",
             "content": {
               "application/json": {
@@ -15609,7 +15609,7 @@
       }
     },
     "/connector/typeform/get-forms": {
-      "post": {
+      "patch": {
         "summary": "Get a list of Typeform forms",
         "description": "Get a list of forms that exist in the workspace",
         "tags": [
@@ -15627,7 +15627,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "form ID, title",
             "content": {
               "application/json": {
@@ -15693,7 +15693,7 @@
       }
     },
     "/connector/typeform/forms/get-update-form-fields": {
-      "post": {
+      "patch": {
         "summary": "Get the field information of the form to update Typeform",
         "description": "Get the field information of the form to update the options of the ranking, dropdown, and multiple choice questions",
         "tags": [
@@ -15711,7 +15711,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "The field ID and field name of the form",
             "content": {
               "application/json": {
@@ -15791,7 +15791,7 @@
             "schema": {
               "type": "string",
               "x-wrtn-prerequisite": {
-                "method": "post",
+                "method": "patch",
                 "path": "/connector/typeform/get-forms",
                 "jmesPath": "[].{value:formId, label:name || '폼 이름'}"
               }
@@ -15875,7 +15875,7 @@
       }
     },
     "/connector/crunchbase/get-organization-data": {
-      "post": {
+      "patch": {
         "summary": "Get Organization Data from crunchbase",
         "description": "Inquire corporate information\n\nA company's information includes a brief introduction to the company and on-mark rankings, industry groups, social media, websites, funding information including funding amounts and rounds, contacts, similar services, and competitors.\nIn addition to that, the company can acquire all the overall information, including the number of articles and employees mentioned, and the list of founders.",
         "tags": [],
@@ -15891,7 +15891,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "",
             "content": {
               "application/json": {
@@ -15918,7 +15918,7 @@
       }
     },
     "/connector/crunchbase/auto-complete": {
-      "post": {
+      "patch": {
         "summary": "Search for company name and auto-completion",
         "description": "Search for company name and auto-completion\n\nSearch and auto-completion capabilities to get unique identifiers for querying accurate company names and company information.\nUse your natural language search to explore if you have a similar company name.\nA company called 'Wrtn Technologies(뤼튼 테크놀로지스)' can search with a unique identifier called 'wrtn-technologies'.\nIf the person attempting to search for the 'Wrtn Technologies(뤼튼 테크놀로지스)' fails to call this connector, the above 'wrtn-technologies' may be used as is.",
         "tags": [],
@@ -15934,7 +15934,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "",
             "content": {
               "application/json": {
@@ -15956,7 +15956,7 @@
       }
     },
     "/connector/similarweb/get-domain-info": {
-      "post": {
+      "patch": {
         "summary": "Get Domain Info from similarweb",
         "description": "Retrieves domain information using the Similarweb API\n\nYou can get all the traffic and various indicators for that domain.\nInformation available includes site name and description, traffic by country of access, visit/inflow information, inflow information by period, and ranking by global, country, and category.\nIn general, it can be used for investors' company analysis. In addition, it is also useful for marketers because the top keywords and Cpc values for each user can be known in advance.",
         "tags": [],
@@ -15973,7 +15973,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "A promise that resolves to the domain information output, including status and detailed data.",
             "content": {
               "application/json": {
@@ -15995,7 +15995,7 @@
       }
     },
     "/connector/x/get-users": {
-      "post": {
+      "patch": {
         "summary": "Get User Information",
         "description": "Get User Information by username",
         "tags": [],
@@ -16012,7 +16012,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "user information",
             "content": {
               "application/json": {
@@ -16037,7 +16037,7 @@
       }
     },
     "/connector/x/get-influencers": {
-      "post": {
+      "patch": {
         "summary": "Get information on celebrities.",
         "description": "Get X user information of celebrities. Useful for understanding trends in various fields such as world affairs and IT.",
         "tags": [],
@@ -16054,7 +16054,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "user information",
             "content": {
               "application/json": {
@@ -16157,7 +16157,7 @@
       }
     },
     "/connector/x/general-search": {
-      "post": {
+      "patch": {
         "summary": "General Search Tweets",
         "description": "Search for tweets based on search query requested by the user.\n\nYou need to analyze the user's request and retrieve tweets through natural language queries (search terms).\n\nFor example, when a user requests \"Search for books that are trending on Twitter these days,\" the query (search term) should be natural language, not a keyword, such as \"trending books.\"",
         "tags": [],
@@ -16173,7 +16173,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "",
             "content": {
               "application/json": {
@@ -16198,7 +16198,7 @@
       }
     },
     "/connector/reddit/get-hot-posts": {
-      "post": {
+      "patch": {
         "summary": "Get hot posts from Reddit",
         "description": "Retrieves hot posts from Reddit.\n\nThis API fetches the most popular posts currently trending on Reddit.\nThe input requires a subreddit name and optional parameters for filtering.\nThe output provides a list of hot posts with details such as title, author, and score.",
         "tags": [],
@@ -16214,7 +16214,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "",
             "content": {
               "application/json": {
@@ -16236,7 +16236,7 @@
       }
     },
     "/connector/reddit/get-new-posts": {
-      "post": {
+      "patch": {
         "summary": "Get new posts from Reddit",
         "description": "Retrieves new posts from Reddit.\n\nThis API fetches the latest posts from a specified subreddit.\nThe input requires a subreddit name and optional parameters for pagination.\nThe output provides a list of new posts with details such as title, author, and timestamp.",
         "tags": [],
@@ -16252,7 +16252,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "",
             "content": {
               "application/json": {
@@ -16274,7 +16274,7 @@
       }
     },
     "/connector/reddit/get-top-posts": {
-      "post": {
+      "patch": {
         "summary": "Get top posts from Reddit",
         "description": "Retrieves top posts from Reddit.\n\nThis API fetches the highest-rated posts from a specified subreddit over a given time period.\nThe input requires a subreddit name and a time filter (e.g., day, week, month).\nThe output provides a list of top posts with details such as title, author, and score.",
         "tags": [],
@@ -16290,7 +16290,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "",
             "content": {
               "application/json": {
@@ -16312,7 +16312,7 @@
       }
     },
     "/connector/reddit/get-comments": {
-      "post": {
+      "patch": {
         "summary": "Get comments from a Reddit post",
         "description": "Retrieves comments from a Reddit post.\n\nThis API fetches comments for a specific Reddit post.\nThe input requires the post ID and subreddit name.\nThe output provides a list of comments with details such as author, content, and score.",
         "tags": [],
@@ -16328,7 +16328,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "",
             "content": {
               "application/json": {
@@ -16350,7 +16350,7 @@
       }
     },
     "/connector/reddit/get-user-about": {
-      "post": {
+      "patch": {
         "summary": "Get information about a Reddit user",
         "description": "Retrieves information about a Reddit user.\n\nThis API fetches profile information for a specified Reddit user.\nThe input requires the username.\nThe output provides user details such as karma, account age, and recent activity.",
         "tags": [],
@@ -16366,7 +16366,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "",
             "content": {
               "application/json": {
@@ -16388,7 +16388,7 @@
       }
     },
     "/connector/reddit/get-user-submitted": {
-      "post": {
+      "patch": {
         "summary": "Get posts submitted by a Reddit user",
         "description": "Retrieves posts submitted by a Reddit user.\n\nThis API fetches posts submitted by a specified Reddit user.\nThe input requires the username.\nThe output provides a list of submitted posts with details such as title, subreddit, and score.",
         "tags": [],
@@ -16404,7 +16404,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "",
             "content": {
               "application/json": {
@@ -16426,7 +16426,7 @@
       }
     },
     "/connector/reddit/get-user-comments": {
-      "post": {
+      "patch": {
         "summary": "Get comments made by a Reddit user",
         "description": "Retrieves comments made by a Reddit user.\n\nThis API fetches comments made by a specified Reddit user.\nThe input requires the username.\nThe output provides a list of comments with details such as content, subreddit, and score.",
         "tags": [],
@@ -16442,7 +16442,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "",
             "content": {
               "application/json": {
@@ -16464,7 +16464,7 @@
       }
     },
     "/connector/reddit/search-subreddits": {
-      "post": {
+      "patch": {
         "summary": "Search for subreddits on Reddit",
         "description": "Searches for subreddits on Reddit.\n\nThis API allows searching for subreddits based on a query string.\nThe input requires a search query.\nThe output provides a list of subreddits matching the query with details such as name and subscriber count.",
         "tags": [],
@@ -16480,7 +16480,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "",
             "content": {
               "application/json": {
@@ -16502,7 +16502,7 @@
       }
     },
     "/connector/reddit/get-subreddit-about": {
-      "post": {
+      "patch": {
         "summary": "Get information about a subreddit",
         "description": "Retrieves information about a subreddit.\n\nThis API fetches detailed information about a specified subreddit.\nThe input requires the subreddit name.\nThe output provides details such as description, subscriber count, and rules.",
         "tags": [],
@@ -16518,7 +16518,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "",
             "content": {
               "application/json": {
@@ -16540,7 +16540,7 @@
       }
     },
     "/connector/reddit/get-popular-subreddits": {
-      "post": {
+      "patch": {
         "summary": "Get popular subreddits",
         "description": "Retrieves popular subreddits.\n\nThis API fetches a list of currently popular subreddits.\nThe output provides details such as subreddit name and subscriber count.",
         "tags": [],
@@ -16556,7 +16556,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "",
             "content": {
               "application/json": {
@@ -16578,7 +16578,7 @@
       }
     },
     "/connector/reddit/get-best-content": {
-      "post": {
+      "patch": {
         "summary": "Get the best content from Reddit",
         "description": "Retrieves the best content from Reddit.\n\nThis API fetches the best-rated content from Reddit.\nThe output provides a list of top-rated posts with details such as title, author, and score.",
         "tags": [],
@@ -16594,7 +16594,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "",
             "content": {
               "application/json": {
@@ -16616,7 +16616,7 @@
       }
     },
     "/connector/innoforest/unify": {
-      "post": {
+      "patch": {
         "summary": "Retrieve all company data from Innoforest",
         "description": "Retrieve all company data from Innoforest\n\nInnoforest is a platform providing growth data of various startups.\nThis endpoint consolidates data provided by other connectors from Innoforest into a single response.\nIf the user requests a large amount of information, using this connector is advantageous.\nThis includes the following properties:\n\n- corp, corpfinance, corpinvest, corpcommon, product, traffic, sales, salesrebuy, salesavgbuy, salesperson, saleshousehold, salesincome, invest, patent, patentword, finance, employee, press",
         "tags": [],
@@ -16632,7 +16632,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "",
             "content": {
               "application/json": {
@@ -16658,7 +16658,7 @@
       }
     },
     "/connector/innoforest/search": {
-      "post": {
+      "patch": {
         "summary": "Search for company identifiers from Innoforest",
         "description": "Search for company identifiers from Innoforest\n\nInnoforest is a platform providing growth data of various startups.\nIt's recommended to use `POST /connector/innoforest/unify` to provide all information to users at once.\n\nRetrieve the identifiers of companies currently available for query in Innoforest, which can be used for further searches.\n\n- Bucketplace (Today's House): 1198691245\n- Always (Revbit): 1798102225\n- Twelve Labs: 8458601667\n- Riiid: 1068706394\n- CLASS101: 4578100277",
         "tags": [],
@@ -16674,7 +16674,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "",
             "content": {
               "application/json": {
@@ -16694,7 +16694,7 @@
       }
     },
     "/connector/innoforest/seed/party/s1/getcorp": {
-      "post": {
+      "patch": {
         "summary": "Retrieve startup overview from Innoforest",
         "description": "Retrieve startup overview from Innoforest\n\nInnoforest is a platform providing growth data of various startups.\nIt's recommended to use `POST /connector/innoforest/unify` to provide all information to users at once.",
         "tags": [],
@@ -16710,7 +16710,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "",
             "content": {
               "application/json": {
@@ -16733,7 +16733,7 @@
       }
     },
     "/connector/innoforest/seed/party/s1/getcorpfinance": {
-      "post": {
+      "patch": {
         "summary": "Retrieve startup overview - financial summary from Innoforest",
         "description": "Retrieve startup overview - financial summary from Innoforest\n\nInnoforest is a platform providing growth data of various startups.\nIt's recommended to use `POST /connector/innoforest/unify` to provide all information to users at once.",
         "tags": [],
@@ -16749,7 +16749,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "",
             "content": {
               "application/json": {
@@ -16811,7 +16811,7 @@
       }
     },
     "/connector/innoforest/seed/party/s1/getcorpcommon": {
-      "post": {
+      "patch": {
         "summary": "Retrieve startup overview - general summary from Innoforest",
         "description": "Retrieve startup overview - general summary from Innoforest\n\nInnoforest is a platform providing growth data of various startups.\nIt's recommended to use `POST /connector/innoforest/unify` to provide all information to users at once.",
         "tags": [],
@@ -16827,7 +16827,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "",
             "content": {
               "application/json": {
@@ -16850,7 +16850,7 @@
       }
     },
     "/connector/innoforest/seed/party/s1/findproduct": {
-      "post": {
+      "patch": {
         "summary": "Retrieve product information from Innoforest",
         "description": "Retrieve product information from Innoforest\n\nInnoforest is a platform providing growth data of various startups.\nIt's recommended to use `POST /connector/innoforest/unify` to provide all information to users at once.",
         "tags": [],
@@ -16866,7 +16866,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "",
             "content": {
               "application/json": {
@@ -16889,7 +16889,7 @@
       }
     },
     "/connector/innoforest/seed/party/s1/findtraffic": {
-      "post": {
+      "patch": {
         "summary": "Retrieve traffic data from Innoforest",
         "description": "Retrieve traffic data from Innoforest\n\nInnoforest is a platform providing growth data of various startups.\nIt's recommended to use `POST /connector/innoforest/unify` to provide all information to users at once.",
         "tags": [],
@@ -16905,7 +16905,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "",
             "content": {
               "application/json": {
@@ -16928,7 +16928,7 @@
       }
     },
     "/connector/innoforest/seed/party/s1/findsales": {
-      "post": {
+      "patch": {
         "summary": "Retrieve sales data from Innoforest",
         "description": "Retrieve sales data from Innoforest\n\nInnoforest is a platform providing growth data of various startups.\nIt's recommended to use `POST /connector/innoforest/unify` to provide all information to users at once.",
         "tags": [],
@@ -16944,7 +16944,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "",
             "content": {
               "application/json": {
@@ -16967,7 +16967,7 @@
       }
     },
     "/connector/innoforest/seed/party/s1/findsalesrebuy": {
-      "post": {
+      "patch": {
         "summary": "Retrieve repeat purchase rate data from Innoforest",
         "description": "Retrieve repeat purchase rate data from Innoforest\n\nInnoforest is a platform providing growth data of various startups.\nIt's recommended to use `POST /connector/innoforest/unify` to provide all information to users at once.",
         "tags": [],
@@ -16983,7 +16983,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "",
             "content": {
               "application/json": {
@@ -17006,7 +17006,7 @@
       }
     },
     "/connector/innoforest/seed/party/s1/findsalesavgbuy": {
-      "post": {
+      "patch": {
         "summary": "Retrieve average purchase amount data from Innoforest",
         "description": "Retrieve average purchase amount data from Innoforest\n\nInnoforest is a platform providing growth data of various startups.\nIt's recommended to use `POST /connector/innoforest/unify` to provide all information to users at once.",
         "tags": [],
@@ -17022,7 +17022,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "",
             "content": {
               "application/json": {
@@ -17045,7 +17045,7 @@
       }
     },
     "/connector/innoforest/seed/party/s1/findsalesperson": {
-      "post": {
+      "patch": {
         "summary": "Retrieve sales-related personnel data from Innoforest",
         "description": "Retrieve sales-related personnel data from Innoforest\n\nInnoforest is a platform providing growth data of various startups.\nIt's recommended to use `POST /connector/innoforest/unify` to provide all information to users at once.",
         "tags": [],
@@ -17061,7 +17061,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "",
             "content": {
               "application/json": {
@@ -17084,7 +17084,7 @@
       }
     },
     "/connector/innoforest/seed/party/s1/findsaleshousehold": {
-      "post": {
+      "patch": {
         "summary": "Retrieve household-related sales data from Innoforest",
         "description": "Retrieve household-related sales data from Innoforest\n\nInnoforest is a platform providing growth data of various startups.\nIt's recommended to use `POST /connector/innoforest/unify` to provide all information to users at once.",
         "tags": [],
@@ -17100,7 +17100,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "",
             "content": {
               "application/json": {
@@ -17123,7 +17123,7 @@
       }
     },
     "/connector/innoforest/seed/party/s1/findsalesincome": {
-      "post": {
+      "patch": {
         "summary": "Retrieve income-related sales data from Innoforest",
         "description": "Retrieve income-related sales data from Innoforest\n\nInnoforest is a platform providing growth data of various startups.\nIt's recommended to use `POST /connector/innoforest/unify` to provide all information to users at once.",
         "tags": [],
@@ -17139,7 +17139,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "",
             "content": {
               "application/json": {
@@ -17162,7 +17162,7 @@
       }
     },
     "/connector/innoforest/seed/party/s1/findinvest": {
-      "post": {
+      "patch": {
         "summary": "Retrieve investment data from Innoforest",
         "description": "Retrieve investment data from Innoforest\n\nInnoforest is a platform providing growth data of various startups.\nIt's recommended to use `POST /connector/innoforest/unify` to provide all information to users at once.",
         "tags": [],
@@ -17178,7 +17178,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "",
             "content": {
               "application/json": {
@@ -17201,7 +17201,7 @@
       }
     },
     "/connector/innoforest/seed/party/s1/findpatent": {
-      "post": {
+      "patch": {
         "summary": "Retrieve patent data from Innoforest",
         "description": "Retrieve patent data from Innoforest\n\nInnoforest is a platform providing growth data of various startups.\nIt's recommended to use `POST /connector/innoforest/unify` to provide all information to users at once.",
         "tags": [],
@@ -17217,7 +17217,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "",
             "content": {
               "application/json": {
@@ -17240,7 +17240,7 @@
       }
     },
     "/connector/innoforest/seed/party/s1/findpatentword": {
-      "post": {
+      "patch": {
         "summary": "Retrieve patent keyword data from Innoforest",
         "description": "Retrieve patent keyword data from Innoforest\n\nInnoforest is a platform providing growth data of various startups.\nIt's recommended to use `POST /connector/innoforest/unify` to provide all information to users at once.",
         "tags": [],
@@ -17256,7 +17256,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "",
             "content": {
               "application/json": {
@@ -17279,7 +17279,7 @@
       }
     },
     "/connector/innoforest/seed/party/s1/findfinance": {
-      "post": {
+      "patch": {
         "summary": "Retrieve financial data from Innoforest",
         "description": "Retrieve financial data from Innoforest\n\nInnoforest is a platform providing growth data of various startups.\nIt's recommended to use `POST /connector/innoforest/unify` to provide all information to users at once.",
         "tags": [],
@@ -17295,7 +17295,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "",
             "content": {
               "application/json": {
@@ -17318,7 +17318,7 @@
       }
     },
     "/connector/innoforest/seed/party/s1/findemployee": {
-      "post": {
+      "patch": {
         "summary": "Retrieve employee data from Innoforest",
         "description": "Retrieve employee data from Innoforest\n\nInnoforest is a platform providing growth data of various startups.\nIt's recommended to use `POST /connector/innoforest/unify` to provide all information to users at once.",
         "tags": [],
@@ -17334,7 +17334,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "",
             "content": {
               "application/json": {
@@ -17357,7 +17357,7 @@
       }
     },
     "/connector/innoforest/seed/party/s1/findpress": {
-      "post": {
+      "patch": {
         "summary": "Retrieve press-related data from Innoforest",
         "description": "Retrieve press-related data from Innoforest\n\nInnoforest is a platform providing growth data of various startups.\nIt's recommended to use `POST /connector/innoforest/unify` to provide all information to users at once.",
         "tags": [],
@@ -17373,7 +17373,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "",
             "content": {
               "application/json": {
@@ -17396,7 +17396,7 @@
       }
     },
     "/connector/crawler/get-web-content": {
-      "post": {
+      "patch": {
         "summary": "Get HTML content from the URL",
         "description": "Get HTML content from the URL\n\nThis API accepts a URL as input and returns the HTML content of the body of the corresponding web page.\nIt fetches only the <body> element, excluding the head and other parts of the HTML structure, providing developers\nwith a streamlined way to access the main content of a web page for further processing or analysis.\n\nThe API includes a \"Wait For Selector\" option, allowing it to wait for a specific CSS selector\nto be present in the DOM before returning the content.\nThis is useful for ensuring that dynamic elements or data are fully loaded.",
         "tags": [
@@ -17414,7 +17414,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "",
             "content": {
               "application/json": {
@@ -17435,7 +17435,7 @@
       }
     },
     "/connector/google-image": {
-      "post": {
+      "patch": {
         "summary": "Search Google Image",
         "description": "Search Google for images based on the search terms you enter",
         "tags": [
@@ -17454,7 +17454,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "Image search results",
             "content": {
               "application/json": {

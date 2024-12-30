@@ -18,7 +18,7 @@
     "title": "Calendly",
     "summary": "Calendly에서 고객과의 미팅을 잡을 수 있어요",
     "description": "Calendly에서 미팅을 잡고 고객들을 초대하세요. 쉽고 빠르게 미팅을 관리할 수 있어요.",
-    "version": "0.1.430",
+    "version": "0.1.431",
     "license": {
       "name": "AGPL-3.0-only"
     }
@@ -69,7 +69,7 @@
       }
     },
     "/connector/calendly/get-event-types": {
-      "post": {
+      "patch": {
         "summary": "List all event types",
         "description": "Retrieves the event types available for the user or organization.\n\nThis is useful to show what types of meetings can be scheduled, such as one-on-one meetings, group meetings, etc.",
         "tags": [
@@ -88,7 +88,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "The list of event types.",
             "content": {
               "application/json": {
@@ -123,7 +123,7 @@
             "schema": {
               "type": "string",
               "x-wrtn-prerequisite": {
-                "method": "post",
+                "method": "patch",
                 "path": "/connector/calendly/get-scheduled-events",
                 "jmesPath": "collection[].{value:uuid, label:name}"
               }
@@ -138,7 +138,7 @@
             "schema": {
               "type": "string",
               "x-wrtn-prerequisite": {
-                "method": "post",
+                "method": "patch",
                 "path": "/connector/calendly/get-scheduled-events",
                 "jmesPath": "collection[].{value:uuid, label:name}"
               }
@@ -188,7 +188,7 @@
       }
     },
     "/connector/calendly/get-events/{eventId}": {
-      "post": {
+      "patch": {
         "summary": "Get details of a scheduled event",
         "description": "Fetches the detailed information of a specific scheduled event by its UUID.\n\nThis includes information such as the event's date, time, participants, and any notes or agenda items.",
         "tags": [
@@ -218,7 +218,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "The detailed information of the scheduled event.",
             "content": {
               "application/json": {
@@ -243,7 +243,7 @@
       }
     },
     "/connector/calendly/get-scheduled-events": {
-      "post": {
+      "patch": {
         "summary": "Get all scheduled events",
         "description": "Retrieves all scheduled events within a given time period or based on certain criteria.\n\nThis can help users manage their calendar by viewing all upcoming events.",
         "tags": [
@@ -262,7 +262,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "The list of scheduled events.",
             "content": {
               "application/json": {
@@ -354,7 +354,7 @@
       }
     },
     "/connector/calendly/events/{eventId}/invitees/{inviteeId}": {
-      "post": {
+      "patch": {
         "summary": "Get invitee details",
         "description": "Retrieves the details of a specific invitee for a scheduled event.\n\nThis includes information such as the invitee's name, email, and any notes or preferences they have provided.",
         "tags": [
@@ -394,7 +394,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "The details of the invitee.",
             "content": {
               "application/json": {
@@ -420,7 +420,7 @@
       }
     },
     "/connector/calendly/events/get-invitees": {
-      "post": {
+      "patch": {
         "summary": "Get all invitees for a scheduled event",
         "description": "Retrieves the list of invitees for a scheduled event.\n\nThis can be used to see who is expected to attend and manage communications with them.",
         "tags": [
@@ -439,7 +439,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "The list of invitees for the event.",
             "content": {
               "application/json": {
@@ -509,7 +509,7 @@
       }
     },
     "/connector/calendly/users/get-me": {
-      "post": {
+      "patch": {
         "summary": "Get authenticated user details",
         "description": "Retrieves the details of the authenticated user.\n\nThis is useful for confirming user information during event creation and ensuring that the correct user is associated with the events.",
         "tags": [
@@ -528,7 +528,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "The authenticated user's details.",
             "content": {
               "application/json": {

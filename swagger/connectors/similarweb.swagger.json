@@ -18,14 +18,14 @@
     "title": "Similarweb",
     "summary": "Similarweb을 이용해서 특정 사이트의 정보를 가져올 수 있어요",
     "description": "웹 사이트의 월별 트래픽이나 홈페이지의 관리 주체가 누구인지 등 자세한 정보를 조회할 수 있어요",
-    "version": "0.1.430",
+    "version": "0.1.431",
     "license": {
       "name": "AGPL-3.0-only"
     }
   },
   "paths": {
     "/connector/similarweb/get-domain-info": {
-      "post": {
+      "patch": {
         "summary": "Get Domain Info from similarweb",
         "description": "Retrieves domain information using the Similarweb API\n\nYou can get all the traffic and various indicators for that domain.\nInformation available includes site name and description, traffic by country of access, visit/inflow information, inflow information by period, and ranking by global, country, and category.\nIn general, it can be used for investors' company analysis. In addition, it is also useful for marketers because the top keywords and Cpc values for each user can be known in advance.",
         "tags": [],
@@ -42,7 +42,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "A promise that resolves to the domain information output, including status and detailed data.",
             "content": {
               "application/json": {

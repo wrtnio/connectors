@@ -18,14 +18,14 @@
     "title": "통합 택배 추적기",
     "summary": "택배 정보를 쉽게 확인할 수 있어요.",
     "description": "택배사를 조회하고, 송장번호에 맞는 택배사를 추천받을 수 있어요. 송장 조회로 택배 배송 상태를 실시간으로 확인할 수 있어요. 여러 택배사의 배송 정보를 한 번에 관리할 수 있고, 배송 알림을 설정할 수도 있어요. 개인 사용자는 물론 온라인 쇼핑몰 운영자나 물류 관리자들이 효율적으로 배송 상황을 추적하고 관리할 수 있어요.",
-    "version": "0.1.430",
+    "version": "0.1.431",
     "license": {
       "name": "AGPL-3.0-only"
     }
   },
   "paths": {
     "/connector/sweet-tacker/get-companies/recommended": {
-      "post": {
+      "patch": {
         "summary": "Search for a list of couriers matching the invoice number",
         "description": "Search for a list of couriers matching the invoice number\n\nA courier code is essential to search for an invoice.\nTherefore, if a user knows the invoice number but does not know which courier will deliver his or her parcel, he or she cannot search for the invoice.\nTo solve this problem, this connector provides a function that infers the courier matching the invoice number.\nHowever, even if this function is called, multiple couriers that may be couriers may appear, so it is impossible to know which company will transport this parcel.\n\nOf course, if there is only one target in the list, the probability that it will be that courier is almost 100%.",
         "tags": [
@@ -44,7 +44,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "List of couriers",
             "content": {
               "application/json": {
@@ -68,7 +68,7 @@
       }
     },
     "/connector/sweet-tacker/get-companies": {
-      "post": {
+      "patch": {
         "summary": "Search for courier list",
         "description": "Search for the courier list\n\nSearch for all domestic and international courier companies in Korea.\nWhen searching for delivery through the invoice number later, you will need the courier code, so you must search for the courier list first.\nAfter searching for the courier list, find your courier and provide the courier code when searching for the invoice.",
         "tags": [
@@ -76,7 +76,7 @@
         ],
         "parameters": [],
         "responses": {
-          "201": {
+          "200": {
             "description": "List of couriers",
             "content": {
               "application/json": {
@@ -99,7 +99,7 @@
       }
     },
     "/connector/sweet-tacker/tracking-info": {
-      "post": {
+      "patch": {
         "summary": "Invoice search",
         "description": "Search for the invoice number\n\nTo search for an invoice, you need the courier code in addition to the invoice number you want to search for.\nIf you know which courier will transport your package, you can search for the courier and get the courier code from the courier whose name matches the courier code.\nIf you know the invoice number but do not know the courier code, you can use 'Search for a list of couriers matching the invoice number' to infer the courier that will transport your package.\nWhen you search for a package, you can find out the current location and time of the package, as well as who is transporting the package.\nIn some cases, there may be a phone number, but it is not absolute.\nIn addition, in cases where the product is delivered directly by an commerce company such as Coupang, there are cases where you cannot search even if you have the invoice number.",
         "tags": [
@@ -118,7 +118,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "The movement path of the package",
             "content": {
               "application/json": {

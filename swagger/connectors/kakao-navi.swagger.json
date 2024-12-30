@@ -18,14 +18,14 @@
     "title": "카카오 내비게이션 경로 안내",
     "summary": "카카오 내비로 빠른 길을 찾아요.",
     "description": "카카오 내비게이션을 통해 교통 정보를 조회하고 길찾기를 할 수 있어요. 출발지와 도착지를 설정하면 최적의 경로를 제안받을 수 있어요.",
-    "version": "0.1.430",
+    "version": "0.1.431",
     "license": {
       "name": "AGPL-3.0-only"
     }
   },
   "paths": {
     "/connector/kakao-navi/get-future-directions": {
-      "post": {
+      "patch": {
         "summary": "Kakao Navi Directions",
         "description": "Finding directions with Kakao Navi",
         "tags": [
@@ -44,7 +44,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "Directions results",
             "content": {
               "application/json": {

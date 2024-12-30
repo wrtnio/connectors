@@ -18,7 +18,7 @@
     "title": "Jira",
     "summary": "Jira로 프로젝트 이슈를 관리해요.",
     "description": "프로젝트에 이슈를 생성하고 담당자를 할당해요. 완료된 이슈가 있다면 상태를 변경할 수도 있고 댓글을 남겨 의견 교류도 가능해요.",
-    "version": "0.1.430",
+    "version": "0.1.431",
     "license": {
       "name": "AGPL-3.0-only"
     }
@@ -141,7 +141,7 @@
       }
     },
     "/connector/jira/issues/get-comments": {
-      "post": {
+      "patch": {
         "summary": "get comments by issue id or key",
         "description": "Get comments by issue id or key\n\nThis connector uses the issue's key or ID value to query the comments written on the issue.\nComments are also visible when looking up issues,\nbut not all comments inside are visible,\nso user have to use this connector to look up them in pagination.",
         "tags": [
@@ -160,7 +160,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "comments of this issue",
             "content": {
               "application/json": {
@@ -183,7 +183,7 @@
       }
     },
     "/connector/jira/issues/get-transitions": {
-      "post": {
+      "patch": {
         "summary": "Inquire the transition of an issue",
         "description": "Inquire the transition of an issue, which is an edge on a workflow that allows you to change the status of an issue\nIf the person who designed the workflow for the project defined three states that could be moved from the current state, there would be three edges.\nIn Jira, just because there is a status that can be viewed in a project or issue does not mean that you can change the status unconditionally.\nWhen designing an edge, for example, you can also design an issue in the 'backoff' state to go through the 'in progress' state once.\nIn this case, you need to move two edges to turn the backoff issue into 'done'.",
         "tags": [
@@ -201,7 +201,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "",
             "content": {
               "application/json": {
@@ -421,7 +421,7 @@
       }
     },
     "/connector/jira/get-issue-detail": {
-      "post": {
+      "patch": {
         "summary": "get detailed Issue Information",
         "description": "Get detailed issue information\n\nProvides more accurate and detailed information, including the title and body of the issue\n\nIt can be used to look up the issue list first, or if you already know the key or ID of the issue.\nIf you do not know the key or ID, it is recommended to use the issue inquiry connector first.",
         "tags": [
@@ -439,7 +439,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "Detailed Issue Information",
             "content": {
               "application/json": {
@@ -461,7 +461,7 @@
       }
     },
     "/connector/jira/get-issues": {
-      "post": {
+      "patch": {
         "summary": "Find The Jira issues.",
         "description": "Find Jira issues\n\nIn order to inquire about any issues within the project, you must first inquire about the project and find out the key of the project.",
         "tags": [
@@ -480,7 +480,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "paginated list of issues visible to the user",
             "content": {
               "application/json": {
@@ -502,7 +502,7 @@
       }
     },
     "/connector/jira/get-projects": {
-      "post": {
+      "patch": {
         "summary": "Find the Jira projects.",
         "description": "Find the Jira projects\n\nThe Jira project has a unique key and can then be used to query issues with the key.\nReturns a paginated list of projects visible to the user.\n\nIn order to inquire about any issues within the project, you must first inquire about the project and find out the key of the project.",
         "tags": [
@@ -521,7 +521,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "paginated list of projects visible to the user",
             "content": {
               "application/json": {
@@ -543,7 +543,7 @@
       }
     },
     "/connector/jira/get-issue-labels": {
-      "post": {
+      "patch": {
         "summary": "Find issue labels",
         "description": "Find issue labels",
         "tags": [
@@ -561,7 +561,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "paginated list of labels",
             "content": {
               "application/json": {
@@ -583,7 +583,7 @@
       }
     },
     "/connector/jira/get-issue-types": {
-      "post": {
+      "patch": {
         "summary": "Find issue types",
         "description": "Find issue types\n\nIn order for the user to inquire about the issue type, the ID of the project is required.\nIf the user mentioned the key or name of the project,\nit is necessary to first inquire the project and get the correct project ID.\nThe ID of the project is a numeric character type.",
         "tags": [
@@ -601,7 +601,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "issue types",
             "content": {
               "application/json": {
@@ -623,7 +623,7 @@
       }
     },
     "/connector/jira/get-issue-statuses": {
-      "post": {
+      "patch": {
         "summary": "Find issue statuses",
         "description": "Find issue statuses for searching issue",
         "tags": [
@@ -641,7 +641,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "issue statuses",
             "content": {
               "application/json": {
@@ -663,7 +663,7 @@
       }
     },
     "/connector/jira/get-issue-priorities": {
-      "post": {
+      "patch": {
         "summary": "Inquire the priority levels that can be assigned to the issue.",
         "description": "There are five priorities: 'Highest', 'High', 'Medium', 'Low', and 'Lowest'.\nTherefore, it can be used as an enum value without requesting this API,\nand this API is already deprecated on the Jira REST API document.\nHowever, for projects that can already be specified by creating a priority level, this connector is added just in case.",
         "tags": [
@@ -681,7 +681,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "issue priorities",
             "content": {
               "application/json": {
@@ -706,7 +706,7 @@
       }
     },
     "/connector/jira/issues/get-users-assignable": {
-      "post": {
+      "patch": {
         "summary": "Find assignable users in issue",
         "description": "Find a person within the issue who can be assigned as assignee.",
         "tags": [
@@ -724,7 +724,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "assignable users",
             "content": {
               "application/json": {
@@ -750,7 +750,7 @@
       }
     },
     "/connector/jira/projects/get-users-assignable": {
-      "post": {
+      "patch": {
         "summary": "Find assignable users in project",
         "description": "Find a person within the project who can be assigned as assignee.",
         "tags": [
@@ -768,7 +768,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "assignable users",
             "content": {
               "application/json": {
@@ -794,7 +794,7 @@
       }
     },
     "/connector/jira/get-status-categories": {
-      "post": {
+      "patch": {
         "summary": "get status categories",
         "description": "Get status categories",
         "tags": [
@@ -812,7 +812,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "",
             "content": {
               "application/json": {

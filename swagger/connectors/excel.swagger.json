@@ -18,14 +18,14 @@
     "title": "Excel",
     "summary": "엑셀을 이용해서 알아보기 쉽게 데이터를 관리할 수 있어요",
     "description": "엑셀에 시트를 넣거나 데이터를 추가하여 보기 쉽게 데이터를 관리할 수 있어요. 또 기존 파일을 업데이트해서 데이터를 누적해나갈 수도 있어요.",
-    "version": "0.1.430",
+    "version": "0.1.431",
     "license": {
       "name": "AGPL-3.0-only"
     }
   },
   "paths": {
     "/connector/excel/read/headers": {
-      "post": {
+      "patch": {
         "summary": "Get the headers in the Excel file",
         "description": "Based on the input file information, the headers of the corresponding Excel file are retrieved",
         "tags": [
@@ -44,7 +44,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "",
             "content": {
               "application/json": {
@@ -74,7 +74,7 @@
       }
     },
     "/connector/excel/read": {
-      "post": {
+      "patch": {
         "summary": "Get the contents of the Excel file",
         "description": "Get the contents of the corresponding Excel file based on the input file information",
         "tags": [
@@ -93,7 +93,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "",
             "content": {
               "application/json": {
@@ -118,7 +118,7 @@
       }
     },
     "/connector/excel/worksheet": {
-      "post": {
+      "patch": {
         "summary": "Get a list of Excel worksheets",
         "description": "Get a list of Excel worksheets that exist in the input file url",
         "tags": [
@@ -137,7 +137,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "A list of Excel worksheets.",
             "content": {
               "application/json": {

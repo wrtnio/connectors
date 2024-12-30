@@ -18,7 +18,7 @@
     "title": "Gmail",
     "summary": "Gmail로 메일을 관리해요",
     "description": "메일을 보내거나 초안을 작성할 수 있어요. 필요하다면 파일도 첨부해 보낼 수 있어요",
-    "version": "0.1.430",
+    "version": "0.1.431",
     "license": {
       "name": "AGPL-3.0-only"
     }
@@ -123,7 +123,7 @@
             "schema": {
               "type": "string",
               "x-wrtn-prerequisite": {
-                "method": "post",
+                "method": "patch",
                 "path": "/connector/gmail/read-list",
                 "jmesPath": "data[].{value: id, label: subject || ''}"
               }
@@ -167,7 +167,7 @@
       }
     },
     "/connector/gmail/get/{id}": {
-      "post": {
+      "patch": {
         "summary": "Get GMAIL information",
         "description": "Get information about a mail\n\nGmail is a free web-based email service provided by Google.",
         "tags": [
@@ -180,7 +180,7 @@
             "schema": {
               "type": "string",
               "x-wrtn-prerequisite": {
-                "method": "post",
+                "method": "patch",
                 "path": "/connector/gmail/read-list",
                 "jmesPath": "data[].{value: id, label: subject || ''}"
               }
@@ -201,7 +201,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "Information about the email.",
             "content": {
               "application/json": {
@@ -226,7 +226,7 @@
       }
     },
     "/connector/gmail/read-list": {
-      "post": {
+      "patch": {
         "summary": "Get GMAIL list",
         "description": "Get mailing list\n\nGmail is a free web-based email service provided by Google.",
         "tags": [
@@ -245,7 +245,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "Mailing list",
             "content": {
               "application/json": {
@@ -284,7 +284,7 @@
             "schema": {
               "type": "string",
               "x-wrtn-prerequisite": {
-                "method": "post",
+                "method": "patch",
                 "path": "/connector/gmail/read-list",
                 "jmesPath": "data[].{value: id, label: subject || ''}"
               }
@@ -336,7 +336,7 @@
             "schema": {
               "type": "string",
               "x-wrtn-prerequisite": {
-                "method": "post",
+                "method": "patch",
                 "path": "/connector/gmail/read-list",
                 "jmesPath": "data[].{value: id, label: subject || ''}"
               }
@@ -434,7 +434,7 @@
             "schema": {
               "type": "string",
               "x-wrtn-prerequisite": {
-                "method": "post",
+                "method": "patch",
                 "path": "/connector/gmail/read-list",
                 "jmesPath": "data[].{value: id, label: subject || ''}"
               }
@@ -487,7 +487,7 @@
             "schema": {
               "type": "string",
               "x-wrtn-prerequisite": {
-                "method": "post",
+                "method": "patch",
                 "path": "/connector/gmail/read-list",
                 "jmesPath": "data[].{value: id, label: subject || ''}"
               }

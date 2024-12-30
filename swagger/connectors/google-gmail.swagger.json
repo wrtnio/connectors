@@ -18,7 +18,7 @@
     "title": "구글 이메일 서비스 관리",
     "summary": "지메일로 이메일을 편리하게 관리해요.",
     "description": "지메일을 통해 메일을 보내고, 초안을 만들고, 답장을 할 수 있어요. 메일 정보를 가져오고, 삭제하고, 라벨을 관리할 수 있어요. 대량의 이메일을 자동으로 처리하거나, 특정 조건에 따라 이메일을 분류하고 정리할 수 있어요. 개인 사용자부터 비즈니스 사용자까지 효율적인 이메일 관리와 커뮤니케이션을 할 수 있어요.",
-    "version": "0.1.430",
+    "version": "0.1.431",
     "license": {
       "name": "AGPL-3.0-only"
     }
@@ -123,7 +123,7 @@
             "schema": {
               "type": "string",
               "x-wrtn-prerequisite": {
-                "method": "post",
+                "method": "patch",
                 "path": "/connector/gmail/read-list",
                 "jmesPath": "data[].{value: id, label: subject || ''}"
               }
@@ -167,7 +167,7 @@
       }
     },
     "/connector/gmail/get/{id}": {
-      "post": {
+      "patch": {
         "summary": "Get GMAIL information",
         "description": "Get information about a mail\n\nGmail is a free web-based email service provided by Google.",
         "tags": [
@@ -180,7 +180,7 @@
             "schema": {
               "type": "string",
               "x-wrtn-prerequisite": {
-                "method": "post",
+                "method": "patch",
                 "path": "/connector/gmail/read-list",
                 "jmesPath": "data[].{value: id, label: subject || ''}"
               }
@@ -201,7 +201,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "Information about the email.",
             "content": {
               "application/json": {
@@ -226,7 +226,7 @@
       }
     },
     "/connector/gmail/read-list": {
-      "post": {
+      "patch": {
         "summary": "Get GMAIL list",
         "description": "Get mailing list\n\nGmail is a free web-based email service provided by Google.",
         "tags": [
@@ -245,7 +245,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "Mailing list",
             "content": {
               "application/json": {
@@ -284,7 +284,7 @@
             "schema": {
               "type": "string",
               "x-wrtn-prerequisite": {
-                "method": "post",
+                "method": "patch",
                 "path": "/connector/gmail/read-list",
                 "jmesPath": "data[].{value: id, label: subject || ''}"
               }
@@ -336,7 +336,7 @@
             "schema": {
               "type": "string",
               "x-wrtn-prerequisite": {
-                "method": "post",
+                "method": "patch",
                 "path": "/connector/gmail/read-list",
                 "jmesPath": "data[].{value: id, label: subject || ''}"
               }
@@ -434,7 +434,7 @@
             "schema": {
               "type": "string",
               "x-wrtn-prerequisite": {
-                "method": "post",
+                "method": "patch",
                 "path": "/connector/gmail/read-list",
                 "jmesPath": "data[].{value: id, label: subject || ''}"
               }
@@ -487,7 +487,7 @@
             "schema": {
               "type": "string",
               "x-wrtn-prerequisite": {
-                "method": "post",
+                "method": "patch",
                 "path": "/connector/gmail/read-list",
                 "jmesPath": "data[].{value: id, label: subject || ''}"
               }

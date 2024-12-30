@@ -18,7 +18,7 @@
     "title": "카카오톡 메시징 및 일정 관리",
     "summary": "카카오톡으로 메시지를 보내고 일정을 관리해요.",
     "description": "카카오톡으로 다양한 유형의 메시지를 보내고, 캘린더를 조회하고 일정을 추가할 수 있어요. 친구 목록도 조회할 수 있어요. 텍스트 메시지는 물론 이미지, 링크, 위치 정보 등을 포함한 다양한 형태의 메시지를 전송할 수 있어요. 개인 캘린더와 채널 캘린더를 관리하여 효율적인 일정 관리가 가능해요. 친구나 그룹채팅방에 일정을 공유하고, 알림을 설정할 수 있어 중요한 약속을 잊지 않을 수 있어요.",
-    "version": "0.1.430",
+    "version": "0.1.431",
     "license": {
       "name": "AGPL-3.0-only"
     }
@@ -325,7 +325,7 @@
       }
     },
     "/connector/kakao-talk/get-friends": {
-      "post": {
+      "patch": {
         "summary": "Retrieve the list of friends on KakaoTalk(카카오톡)",
         "description": "Retrieves the list of friends on KakaoTalk(카카오톡)\n\nKakaoTalk(카카오톡) is a mobile messenger application in South Korea, which also provides various additional services.\nWhen looking up your friends, only those who linked Kakao Talk in studio-pro will be searched, so you may not be able to check the target.\nIn this case, it might be better to send a message by email or other means.",
         "tags": [
@@ -344,7 +344,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "Retrieved friend list",
             "content": {
               "application/json": {
@@ -367,7 +367,7 @@
       }
     },
     "/connector/kakao-talk/get-events": {
-      "post": {
+      "patch": {
         "summary": "Retrieve KakaoTalk(카카오톡) calendar events",
         "description": "Retrieves KakaoTalk(카카오톡) calendar events.\n\nThe user needs to provide the calendar ID as an input parameter.\nIf no calendar is provided, it defaults to retrieving the user's own calendar.\nTherefore, this feature can be used even if no calendar ID is specified.\n\nThe conditions for retrieving events include specifying the period for which events are to be fetched.\nThis connector is designed to view data for either a week or a month.\n\nKakaoTalk(카카오톡) is a mobile messaging application in South Korea, and it also provides additional services.",
         "tags": [
@@ -393,7 +393,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "DTO containing event information.",
             "content": {
               "application/json": {
@@ -416,7 +416,7 @@
       }
     },
     "/connector/kakao-talk/get-calendars": {
-      "post": {
+      "patch": {
         "summary": "Retrieve KakaoTalk(카카오톡) calendar lists",
         "description": "Retrieves all KakaoTalk(카카오톡) calendar lists\n\nThere are two types of calendars: your primary calendars and calendars you are subscribed to.\nAll Kakao users have their own personal calendars, so there will be at least one calendar.\nThe primary calendar has an ID of `primary`, which is the user's own calendar.\n\nKakaoTalk(카카오톡) is a mobile messenger application from South Korea that also provides additional services.",
         "tags": [
@@ -435,7 +435,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "Calendar list object.",
             "content": {
               "application/json": {

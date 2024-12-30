@@ -18,14 +18,14 @@
     "title": "Google Map",
     "summary": "구글맵으로 원하는 장소를 찾아요.",
     "description": "구글맵으로 식당이나 원하는 장소를 검색하고 리뷰를 미리 확인해볼 수 있어요.",
-    "version": "0.1.430",
+    "version": "0.1.431",
     "license": {
       "name": "AGPL-3.0-only"
     }
   },
   "paths": {
     "/connector/google-map/autocomplete": {
-      "post": {
+      "patch": {
         "summary": "Returns predictions for the given input in Google Maps",
         "description": "recommendations for automatic completion or location through a search word or a latitude coordinate value to be used with the search word.\n\nSince it is a text auto-completion, this feature allows you to find better search keywords.\nHowever, since there is a separate connector for searching the surrounding geography, it is recommended to use that connector if you want to find a place that is not a keyword.\nIt is recommended that you use this connector to narrow down the search keyword before writing the place search connector.",
         "tags": [
@@ -43,7 +43,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "",
             "content": {
               "application/json": {
@@ -64,7 +64,7 @@
       }
     },
     "/connector/google-map/review": {
-      "post": {
+      "patch": {
         "summary": "Search Google Map restaurant reviews",
         "description": "Search for restaurant reviews selected from Google Maps",
         "tags": [
@@ -83,7 +83,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "Restaurant review search results",
             "content": {
               "application/json": {
@@ -112,7 +112,7 @@
       }
     },
     "/connector/google-map/search-text": {
-      "post": {
+      "patch": {
         "summary": "Search by text in Google Maps",
         "description": "General search functionality on Google Maps\n\nIf possible, it is recommended to use POST/connector/google-map/search-text connector rather than this.\nHere, it is difficult to conduct additional search after providing information to users because only restaurants are searched using the Serp API and the response parameter does not provide a Google Map link.",
         "tags": [
@@ -131,7 +131,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "",
             "content": {
               "application/json": {
@@ -157,7 +157,7 @@
       }
     },
     "/connector/google-map": {
-      "post": {
+      "patch": {
         "summary": "Google Map restaurant search",
         "description": "Search for restaurants using Google Maps",
         "tags": [
@@ -176,7 +176,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "Restaurant search results",
             "content": {
               "application/json": {

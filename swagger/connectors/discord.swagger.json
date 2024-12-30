@@ -17,7 +17,7 @@
   "info": {
     "title": "Discord",
     "description": "디스코드로 메세지를 보내요.",
-    "version": "0.1.430",
+    "version": "0.1.431",
     "license": {
       "name": "AGPL-3.0-only"
     }
@@ -111,7 +111,7 @@
       }
     },
     "/connector/discord/get-guild-channels": {
-      "post": {
+      "patch": {
         "summary": "Get a list of channels",
         "description": "Get a list of channels on the server",
         "tags": [
@@ -129,7 +129,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "List of channels",
             "content": {
               "application/json": {
@@ -200,7 +200,7 @@
       }
     },
     "/connector/discord/get-list-guild-members": {
-      "post": {
+      "patch": {
         "summary": "Get a list of members",
         "description": "Get a list of members on the server",
         "tags": [
@@ -218,7 +218,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "List of server members",
             "content": {
               "application/json": {
@@ -331,7 +331,7 @@
       }
     },
     "/connector/discord/get-pinned-messages": {
-      "post": {
+      "patch": {
         "summary": "Get a list of pinned messages",
         "description": "Get a list of pinned messages in a channel",
         "tags": [
@@ -349,7 +349,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "a list of pinned messages",
             "content": {
               "application/json": {
@@ -458,7 +458,7 @@
       }
     },
     "/connector/discord/get-channel-message-histories": {
-      "post": {
+      "patch": {
         "summary": "Get a list of messages",
         "description": "Get the messages that exist in the channel",
         "tags": [
@@ -476,7 +476,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "List of messages",
             "content": {
               "application/json": {

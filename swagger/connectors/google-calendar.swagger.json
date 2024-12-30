@@ -18,14 +18,14 @@
     "title": "구글 일정 관리자",
     "summary": "구글 캘린더로 일정을 손쉽게 관리해요.",
     "description": "구글 캘린더를 통해 개인 및 팀의 일정을 효과적으로 관리할 수 있어요. 캘린더 목록을 가져오고, 새로운 캘린더를 만들거나 불필요한 캘린더를 삭제할 수 있어요. 특정 캘린더의 이벤트 목록을 조회하고, 새로운 이벤트를 빠르게 추가할 수 있어요. 기존 이벤트를 수정하거나 삭제할 수도 있고, 이벤트에 참석자를 추가할 수도 있어요. 이를 통해 개인 일정 관리는 물론, 팀 미팅 조율, 프로젝트 일정 관리, 중요 기념일 알림 등 다양한 목적으로 활용할 수 있어요. 여러 기기 간 동기화가 자동으로 이루어져 언제 어디서든 일정을 확인하고 관리할 수 있어요.",
-    "version": "0.1.430",
+    "version": "0.1.431",
     "license": {
       "name": "AGPL-3.0-only"
     }
   },
   "paths": {
     "/connector/google-calendar/get-list": {
-      "post": {
+      "patch": {
         "summary": "Get a list of Google Calendars",
         "description": "Get a list of Google Calendars",
         "tags": [
@@ -43,7 +43,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "A list of Google Calendars",
             "content": {
               "application/json": {
@@ -129,7 +129,7 @@
             "schema": {
               "type": "string",
               "x-wrtn-prerequisite": {
-                "method": "post",
+                "method": "patch",
                 "path": "/connector/google-calendar/get-list",
                 "jmesPath": "[].{value:id, label:summary || ''}"
               }
@@ -169,7 +169,7 @@
       }
     },
     "/connector/google-calendar/{calendarId}/get-events": {
-      "post": {
+      "patch": {
         "summary": "Get a list of Google Calendar events",
         "description": "Get a list of events in Google Calendar",
         "tags": [
@@ -182,7 +182,7 @@
             "schema": {
               "type": "string",
               "x-wrtn-prerequisite": {
-                "method": "post",
+                "method": "patch",
                 "path": "/connector/google-calendar/get-list",
                 "jmesPath": "[].{value:id, label:summary || ''}"
               }
@@ -203,7 +203,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "A list of Google Calendar events",
             "content": {
               "application/json": {
@@ -241,7 +241,7 @@
             "schema": {
               "type": "string",
               "x-wrtn-prerequisite": {
-                "method": "post",
+                "method": "patch",
                 "path": "/connector/google-calendar/get-list",
                 "jmesPath": "[].{value:id, label:summary || ''}"
               }
@@ -296,7 +296,7 @@
             "schema": {
               "type": "string",
               "x-wrtn-prerequisite": {
-                "method": "post",
+                "method": "patch",
                 "path": "/connector/google-calendar/get-list",
                 "jmesPath": "[].{value:id, label:summary || ''}"
               }
@@ -355,7 +355,7 @@
             "schema": {
               "type": "string",
               "x-wrtn-prerequisite": {
-                "method": "post",
+                "method": "patch",
                 "path": "/connector/google-calendar/get-list",
                 "jmesPath": "[].{value:id, label:summary || ''}"
               }
@@ -369,7 +369,7 @@
             "schema": {
               "type": "string",
               "x-wrtn-prerequisite": {
-                "method": "post",
+                "method": "patch",
                 "path": "/connector/google-calendar/{calendarId}/get-events",
                 "jmesPath": "[].{value: id, label: title || ''}"
               }
@@ -426,7 +426,7 @@
             "schema": {
               "type": "string",
               "x-wrtn-prerequisite": {
-                "method": "post",
+                "method": "patch",
                 "path": "/connector/google-calendar/get-list",
                 "jmesPath": "[].{value:id, label:summary || ''}"
               }
@@ -440,7 +440,7 @@
             "schema": {
               "type": "string",
               "x-wrtn-prerequisite": {
-                "method": "post",
+                "method": "patch",
                 "path": "/connector/google-calendar/{calendarId}/get-events",
                 "jmesPath": "[].{value: id, label: title || ''}"
               }
@@ -494,7 +494,7 @@
             "schema": {
               "type": "string",
               "x-wrtn-prerequisite": {
-                "method": "post",
+                "method": "patch",
                 "path": "/connector/google-calendar/get-list",
                 "jmesPath": "[].{value:id, label:summary || ''}"
               }
@@ -508,7 +508,7 @@
             "schema": {
               "type": "string",
               "x-wrtn-prerequisite": {
-                "method": "post",
+                "method": "patch",
                 "path": "/connector/google-calendar/{calendarId}/get-events",
                 "jmesPath": "[].{value: id, label: title || ''}"
               }

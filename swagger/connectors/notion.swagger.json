@@ -18,7 +18,7 @@
     "title": "노션 워크스페이스 관리",
     "summary": "노션 으로 작업 공간을 효율적으로 관리해요.",
     "description": "노션 에서 페이지를 만들고, 내용을 추가하고, 데이터베이스를 관리할 수 있어요. 페이지 검색, 데이터베이스 아이템 관리 등 다양한 기능을 활용할 수 있어요. 프로젝트 관리, 노트 작성, 팀 협업, 지식 베이스 구축 등 다양한 목적으로 사용할 수 있어요. 텍스트, 이미지, 표, 리스트 등 다양한 형식의 콘텐츠를 조합하여 풍부한 문서를 만들 수 있고, 팀원들과 실시간으로 공유하고 협업할 수 있어요.",
-    "version": "0.1.430",
+    "version": "0.1.431",
     "license": {
       "name": "AGPL-3.0-only"
     }
@@ -546,7 +546,7 @@
       }
     },
     "/connector/notion/get/page/contents": {
-      "post": {
+      "patch": {
         "summary": "Read the contents of a Notion page",
         "description": "Read the contents of a Notion page.\nReads the contents of a Notion page in Markdown format.\n\nRead Notion page contents",
         "tags": [
@@ -565,7 +565,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "",
             "content": {
               "application/json": {
@@ -589,7 +589,7 @@
       }
     },
     "/connector/notion/get/page": {
-      "post": {
+      "patch": {
         "summary": "Retrieve a list of pages",
         "description": "Retrieve a list of all pages in your Notion workspace",
         "tags": [
@@ -607,7 +607,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "Page information",
             "content": {
               "application/json": {
@@ -634,7 +634,7 @@
       }
     },
     "/connector/notion/get/users": {
-      "post": {
+      "patch": {
         "summary": "Retrieve the list of users",
         "description": "Retrieve the list of users in the workspace",
         "tags": [
@@ -652,7 +652,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "User information",
             "content": {
               "application/json": {
@@ -679,7 +679,7 @@
       }
     },
     "/connector/notion/get/database-info": {
-      "post": {
+      "patch": {
         "summary": "Query the database list",
         "description": "Query the database list to create items in the database",
         "tags": [
@@ -697,7 +697,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "A list of database information",
             "content": {
               "application/json": {
@@ -724,7 +724,7 @@
       }
     },
     "/connector/notion/get/database-info/{databaseId}": {
-      "post": {
+      "patch": {
         "summary": "Retrieves database information",
         "description": "Retrieves database information to create items in the database",
         "tags": [
@@ -737,7 +737,7 @@
             "schema": {
               "type": "string",
               "x-wrtn-prerequisite": {
-                "method": "post",
+                "method": "patch",
                 "path": "/connector/notion/get/database-info",
                 "jmesPath": "[].{value:id, label:title || ''}"
               }
@@ -757,7 +757,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "Database information",
             "content": {
               "application/json": {
@@ -780,7 +780,7 @@
       }
     },
     "/connector/notion/get-page-by-title": {
-      "post": {
+      "patch": {
         "summary": "Search for pages by title",
         "description": "Search for pages by title",
         "tags": [
@@ -799,7 +799,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "Searched page information",
             "content": {
               "application/json": {
@@ -822,7 +822,7 @@
       }
     },
     "/connector/notion/find-item-list/{databaseId}": {
-      "post": {
+      "patch": {
         "summary": "Retrieve a list of database items",
         "description": "Retrieve a list of items that exist in a table database",
         "tags": [
@@ -835,7 +835,7 @@
             "schema": {
               "type": "string",
               "x-wrtn-prerequisite": {
-                "method": "post",
+                "method": "patch",
                 "path": "/connector/notion/get/database-info",
                 "jmesPath": "[].{value:id, label:title || ''}"
               }
@@ -855,7 +855,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "List of retrieved database items",
             "content": {
               "application/json": {
@@ -880,7 +880,7 @@
       }
     },
     "/connector/notion/find-item/{databaseId}": {
-      "post": {
+      "patch": {
         "summary": "Retrieval of database items",
         "description": "Retrieves an item that exists in a table database",
         "tags": [
@@ -893,7 +893,7 @@
             "schema": {
               "type": "string",
               "x-wrtn-prerequisite": {
-                "method": "post",
+                "method": "patch",
                 "path": "/connector/notion/get/database-info",
                 "jmesPath": "[].{value:id, label:title || ''}"
               }
@@ -914,7 +914,7 @@
           "required": true
         },
         "responses": {
-          "201": {
+          "200": {
             "description": "Information on retrieved database items",
             "content": {
               "application/json": {
