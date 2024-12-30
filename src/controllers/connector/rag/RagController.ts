@@ -38,7 +38,7 @@ export class RagController {
    * @internal
    */
   @ApiTags("RAG")
-  @core.TypedRoute.Get("/:jobId/status")
+  @core.TypedRoute.Patch("/:jobId/status")
   async getStatus(
     @core.TypedParam("jobId") jobId: string,
   ): Promise<IRag.IStatusOutput> {

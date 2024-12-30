@@ -25,7 +25,7 @@ export class AirportInformationController {
    */
   @SelectBenchmark("공항 찾아줘")
   @Standalone()
-  @core.TypedRoute.Post("search")
+  @core.TypedRoute.Patch("search")
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/AirportInformation_full.svg",
   )

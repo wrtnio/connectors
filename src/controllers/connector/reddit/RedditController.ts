@@ -20,7 +20,7 @@ export class RedditController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/reddit_full.svg",
   )
-  @TypedRoute.Post("get-hot-posts")
+  @TypedRoute.Patch("get-hot-posts")
   async getHotPosts(
     @TypedBody() input: IReddit.IGetHotPostsInput,
   ): Promise<IReddit.IGetHotPostsOutput> {
@@ -39,7 +39,7 @@ export class RedditController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/reddit_full.svg",
   )
-  @TypedRoute.Post("get-new-posts")
+  @TypedRoute.Patch("get-new-posts")
   async getNewPosts(
     @TypedBody() input: IReddit.IGetNewPostsInput,
   ): Promise<IReddit.IGetNewPostsOutput> {
@@ -58,7 +58,7 @@ export class RedditController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/reddit_full.svg",
   )
-  @TypedRoute.Post("get-top-posts")
+  @TypedRoute.Patch("get-top-posts")
   async getTopPosts(
     @TypedBody() input: IReddit.IGetTopPostsInput,
   ): Promise<IReddit.IGetTopPostsOutput> {
@@ -77,7 +77,7 @@ export class RedditController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/reddit_full.svg",
   )
-  @TypedRoute.Post("get-comments")
+  @TypedRoute.Patch("get-comments")
   async getComments(
     @TypedBody() input: IReddit.IGetCommentsInput,
   ): Promise<IReddit.IGetArticleAndCommentsOutput> {
@@ -98,7 +98,7 @@ export class RedditController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/reddit_full.svg",
   )
-  @TypedRoute.Post("get-user-about")
+  @TypedRoute.Patch("get-user-about")
   async getUserAbout(
     @TypedBody() input: IReddit.IGetUserAboutInput,
   ): Promise<IReddit.IGetUserAboutOutput> {
@@ -117,7 +117,7 @@ export class RedditController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/reddit_full.svg",
   )
-  @TypedRoute.Post("get-user-submitted")
+  @TypedRoute.Patch("get-user-submitted")
   async getUserSubmitted(
     @TypedBody() input: IReddit.IGetUserSubmittedInput,
   ): Promise<IReddit.IGetUserSubmittedOutput> {
@@ -136,7 +136,7 @@ export class RedditController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/reddit_full.svg",
   )
-  @TypedRoute.Post("get-user-comments")
+  @TypedRoute.Patch("get-user-comments")
   async getUserComments(
     @TypedBody() input: IReddit.IGetUserCommentsInput,
   ): Promise<IReddit.IFlattenCommentsOutput> {
@@ -156,7 +156,7 @@ export class RedditController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/reddit_full.svg",
   )
-  @TypedRoute.Post("search-subreddits")
+  @TypedRoute.Patch("search-subreddits")
   async searchSubreddits(
     @TypedBody() input: IReddit.ISearchSubredditsInput,
   ): Promise<IReddit.ISearchSubredditsOutput> {
@@ -175,7 +175,7 @@ export class RedditController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/reddit_full.svg",
   )
-  @TypedRoute.Post("get-subreddit-about")
+  @TypedRoute.Patch("get-subreddit-about")
   async getSubredditAbout(
     @TypedBody() input: IReddit.IGetSubredditAboutInput,
   ): Promise<IReddit.IGetSubredditAboutOutput> {
@@ -193,7 +193,7 @@ export class RedditController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/reddit_full.svg",
   )
-  @TypedRoute.Post("get-popular-subreddits")
+  @TypedRoute.Patch("get-popular-subreddits")
   async getPopularSubreddits(
     @TypedBody() input: IReddit.IGetPopularSubredditsInput,
   ): Promise<IReddit.IGetPopularSubredditsOutput> {
@@ -211,7 +211,7 @@ export class RedditController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/reddit_full.svg",
   )
-  @TypedRoute.Post("get-best-content")
+  @TypedRoute.Patch("get-best-content")
   async getBestContent(
     @TypedBody() input: IReddit.IGetBestContentInput,
   ): Promise<IReddit.IGetBestContentOutput> {

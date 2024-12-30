@@ -22,7 +22,7 @@ export class GoogleSheetController {
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleSheet_full.svg",
   )
   @ApiTags("Google Sheet")
-  @core.TypedRoute.Post()
+  @core.TypedRoute.Patch()
   async getHeaders(
     @core.TypedBody() input: IGoogleSheet.IReadGoogleSheetHeadersInput,
   ): Promise<IGoogleSheet.IReadGoogleSheetOutput> {
@@ -115,7 +115,7 @@ export class GoogleSheetController {
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleSheet_full.svg",
   )
   @ApiTags("Google Sheet")
-  @core.TypedRoute.Post("/worksheet")
+  @core.TypedRoute.Patch("/worksheet")
   async getWorkSheet(
     @core.TypedBody() input: IGoogleSheet.IGetWorkSheetInput,
   ): Promise<IGoogleSheet.IGetWorkSheetOutput> {
@@ -134,7 +134,7 @@ export class GoogleSheetController {
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleSheet_full.svg",
   )
   @ApiTags("Google Sheet")
-  @core.TypedRoute.Post("/get-rows")
+  @core.TypedRoute.Patch("/get-rows")
   async readRows(
     @core.TypedBody() input: IGoogleSheet.IReadGoogleSheetRowsInput,
   ): Promise<IGoogleSheet.IReadGoogleSheetRowsOutput> {

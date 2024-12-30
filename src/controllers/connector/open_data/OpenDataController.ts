@@ -31,7 +31,7 @@ export class OpenDataController {
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/open_data.svg",
   )
   @ApiTags("Open Data")
-  @TypedRoute.Post("getAddress")
+  @TypedRoute.Patch("getAddress")
   async getAddress(
     @TypedBody() input: IMSIT.IGetAddressInput,
   ): Promise<IMSIT.IGetAddressOutput> {
@@ -58,7 +58,7 @@ export class OpenDataController {
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/open_data.svg",
   )
   @ApiTags("Open Data")
-  @TypedRoute.Post("getRTMSDataSvcSHRent")
+  @TypedRoute.Patch("getRTMSDataSvcSHRent")
   async getRTMSDataSvcSHRent(
     @TypedBody() input: IMOLIT.IgetRTMSDataSvcSHRentInput,
   ): Promise<IMOLIT.IgetRTMSDataSvcSHRentOutput> {
@@ -85,7 +85,7 @@ export class OpenDataController {
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/open_data.svg",
   )
   @ApiTags("Open Data")
-  @TypedRoute.Post("getRTMSDataSvcOffiRent")
+  @TypedRoute.Patch("getRTMSDataSvcOffiRent")
   async getRTMSDataSvcOffiRent(
     @TypedBody() input: IMOLIT.IGetRTMSDataSvcOffiRentInput,
   ): Promise<IMOLIT.IGetRTMSDataSvcOffiRentOutput> {
@@ -113,7 +113,7 @@ export class OpenDataController {
   )
   @ApiTags("Open Data")
   @Standalone()
-  @TypedRoute.Post("getRTMSDataSvcAptRent")
+  @TypedRoute.Patch("getRTMSDataSvcAptRent")
   async getRTMSDataSvcAptRent(
     @TypedBody() input: IMOLIT.IGetRTMSDataSvcAptRentInput,
   ): Promise<IMOLIT.IGetRTMSDataSvcAptRentOutput> {
@@ -141,7 +141,7 @@ export class OpenDataController {
   )
   @ApiTags("Open Data")
   @Standalone()
-  @TypedRoute.Post("getLHLeaseInfo")
+  @TypedRoute.Patch("getLHLeaseInfo")
   async getLHLeaseInfo(
     @TypedBody() input: ILH.IGetLHLeaseInfoInput,
   ): Promise<ILH.IGetLHLeaseInfoOutput> {
@@ -168,7 +168,7 @@ export class OpenDataController {
   )
   @ApiTags("Open Data")
   @Standalone()
-  @TypedRoute.Post("getParkingLot")
+  @TypedRoute.Patch("getParkingLot")
   async getParkingLot(
     @TypedBody() input: INIA.IGetParkingLotInput,
   ): Promise<INIA.IGetParkingLotOutput> {
@@ -195,7 +195,7 @@ export class OpenDataController {
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/open_data.svg",
   )
   @ApiTags("Open Data")
-  @TypedRoute.Post("getBuildingInfo")
+  @TypedRoute.Patch("getBuildingInfo")
   async getBuildingInfo(
     @TypedBody() input: IMOLIT.GetBuildingInfoInput,
   ): Promise<IMOLIT.GetBuildingInfoOutput> {
@@ -235,7 +235,7 @@ export class OpenDataController {
   )
   @ApiTags("Open Data")
   @Standalone()
-  @TypedRoute.Post("getStandardRegionCodeList")
+  @TypedRoute.Patch("getStandardRegionCodeList")
   async getStandardRegionCodeList(
     @TypedBody()
     input: IOpenData.MinistryOfTheInteriorAndSafety.IGetStandardRegionCodeListInput,
@@ -261,7 +261,7 @@ export class OpenDataController {
   )
   @ApiTags("Open Data")
   @Standalone()
-  @TypedRoute.Post("getStockPriceInfo")
+  @TypedRoute.Patch("getStockPriceInfo")
   async getStockPriceInfo(
     @TypedBody()
     input: IOpenData.FinancialServicesCommission.IGetStockPriceInfoInput,
@@ -320,7 +320,7 @@ export class OpenDataController {
   )
   @ApiTags("Open Data")
   @Standalone()
-  @TypedRoute.Post("getShortTermForecast")
+  @TypedRoute.Patch("getShortTermForecast")
   async getShortTermForecast(
     @TypedBody()
     input: IKoreaMeteorologicalAdministration.IGetVillageForecastInformationInput,

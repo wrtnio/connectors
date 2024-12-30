@@ -21,7 +21,7 @@ export class GoogleSearchController {
    */
   @SelectBenchmark("구글 검색 좀 해줘")
   @Standalone()
-  @core.TypedRoute.Post("")
+  @core.TypedRoute.Patch("")
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleSearch_full.svg",
   )

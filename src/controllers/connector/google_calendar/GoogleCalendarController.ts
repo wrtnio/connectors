@@ -28,7 +28,7 @@ export class GoogleCalendarController {
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleCal_full.svg",
   )
   @ApiTags("Google Calendar")
-  @core.TypedRoute.Post("get-list")
+  @core.TypedRoute.Patch("get-list")
   async readCalenders(
     @core.TypedBody()
     input: IGoogleCalendar.ISecret,
@@ -100,7 +100,7 @@ export class GoogleCalendarController {
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleCal_full.svg",
   )
   @ApiTags("Google Calendar")
-  @core.TypedRoute.Post("/:calendarId/get-events")
+  @core.TypedRoute.Patch("/:calendarId/get-events")
   async readEvents(
     /**
      * @title Calendar to retrieve event list

@@ -37,7 +37,7 @@ export class YoutubeSearchController {
   //  * @returns List of YouTube video search results
   //  */
   // @Standalone()
-  // @core.TypedRoute.Post()
+  // @core.TypedRoute.Patch()
   // @RouteIcon(
   //   "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Youtube_full.svg",
   // )
@@ -81,7 +81,7 @@ export class YoutubeSearchController {
    * @param input
    * @returns
    */
-  @core.TypedRoute.Post("/official")
+  @core.TypedRoute.Patch("/official")
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Youtube_full.svg",
   )
@@ -109,7 +109,7 @@ export class YoutubeSearchController {
    * @param input video url
    * @returns transcripts of video
    */
-  @core.TypedRoute.Post("/transcript")
+  @core.TypedRoute.Patch("/transcript")
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Youtube_full.svg",
   )

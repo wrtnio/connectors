@@ -25,7 +25,7 @@ export class GoogleShoppingMarketKurlyController {
    */
   @SelectBenchmark("마켓컬리에서 상품 좀 찾아줘")
   @Standalone()
-  @core.TypedRoute.Post("market-kurly")
+  @core.TypedRoute.Patch("market-kurly")
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Kurly_full.svg",
   )

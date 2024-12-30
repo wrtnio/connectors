@@ -24,7 +24,7 @@ export class GoogleMapController {
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleMap_full.svg",
   )
   @ApiTags("Google Map")
-  @core.TypedRoute.Post("autocomplete")
+  @core.TypedRoute.Patch("autocomplete")
   async autocomplete(
     @core.TypedBody() input: IGoogleMap.IAutocompleteInput,
   ): Promise<IGoogleMap.IAutocompleteOutput> {
@@ -44,7 +44,7 @@ export class GoogleMapController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleMap_full.svg",
   )
-  @core.TypedRoute.Post("review")
+  @core.TypedRoute.Patch("review")
   @ApiTags("Google Map")
   async review(
     @core.TypedBody() input: IGoogleMap.IReviewRequest,
@@ -67,7 +67,7 @@ export class GoogleMapController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleMap_full.svg",
   )
-  @core.TypedRoute.Post("search-text")
+  @core.TypedRoute.Patch("search-text")
   @ApiTags("Google Map")
   async searchText(
     @TypedBody() input: IGoogleMap.ISearchTextInput,
@@ -87,7 +87,7 @@ export class GoogleMapController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleMap_full.svg",
   )
-  @core.TypedRoute.Post()
+  @core.TypedRoute.Patch()
   @ApiTags("Google Map")
   async search(
     @core.TypedBody() input: IGoogleMap.IRequest,

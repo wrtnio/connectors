@@ -30,7 +30,7 @@ export class SweetTrackerController {
   )
   @ApiTags("SweetTracker")
   @Standalone()
-  @core.TypedRoute.Post("get-companies/recommended")
+  @core.TypedRoute.Patch("get-companies/recommended")
   async getRecommendedCompanyList(
     @TypedBody() input: ISweetTracker.IGetRecommendedCompanyListInput,
   ): Promise<ISweetTracker.IGetRecommendedCompanyListOutput> {
@@ -52,7 +52,7 @@ export class SweetTrackerController {
   )
   @ApiTags("SweetTracker")
   @Standalone()
-  @core.TypedRoute.Post("get-companies")
+  @core.TypedRoute.Patch("get-companies")
   async getCompanyList(): Promise<ISweetTracker.IGetCompanyListOutput> {
     return retry(() => SweetTrackerProvider.getCompanyList())();
   }
@@ -75,7 +75,7 @@ export class SweetTrackerController {
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/delivery_full.svg",
   )
   @ApiTags("SweetTracker")
-  @core.TypedRoute.Post("tracking-info")
+  @core.TypedRoute.Patch("tracking-info")
   async getTrackingInfo(
     @TypedBody() input: ISweetTracker.IGetTrackingInfoInput,
   ): Promise<ISweetTracker.IGetTrackingInfoOutput> {

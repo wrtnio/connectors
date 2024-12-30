@@ -25,7 +25,7 @@ export class GoogleShoppingEqlController {
    */
   @SelectBenchmark("EQL에서 상품 좀 찾아줘")
   @Standalone()
-  @core.TypedRoute.Post("eql")
+  @core.TypedRoute.Patch("eql")
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/ECL_full.svg",
   )

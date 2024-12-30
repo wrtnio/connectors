@@ -18,7 +18,7 @@ export class ExcelController {
    */
   @SelectBenchmark("엑셀 읽어줘")
   @SelectBenchmark("엑셀 헤더 읽어줘")
-  @core.TypedRoute.Post("read/headers")
+  @core.TypedRoute.Patch("read/headers")
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/light/excel.svg",
   )
@@ -36,7 +36,7 @@ export class ExcelController {
    * @param input Information on the Excel file to get the contents
    */
   @SelectBenchmark("엑셀 읽어줘")
-  @core.TypedRoute.Post("read")
+  @core.TypedRoute.Patch("read")
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/light/excel.svg",
   )
@@ -57,7 +57,7 @@ export class ExcelController {
    * @returns A list of Excel worksheets.
    */
   @SelectBenchmark("엑셀 시트 읽어줘")
-  @core.TypedRoute.Post("worksheet")
+  @core.TypedRoute.Patch("worksheet")
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/light/excel.svg",
   )

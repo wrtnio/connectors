@@ -43,7 +43,7 @@ export class HancellController {
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Hancel_full.svg",
   )
   @ApiTags("Hancel")
-  @core.TypedRoute.Post("read")
+  @core.TypedRoute.Patch("read")
   async read(
     @TypedBody() input: IHancell.IReadHancellInput,
   ): Promise<IHancell.IReadHancellOutput> {

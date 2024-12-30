@@ -25,7 +25,7 @@ export class GoogleShoppingUniqloController {
    */
   @SelectBenchmark("유니클로에서 상품 좀 찾아줘")
   @Standalone()
-  @core.TypedRoute.Post("uniqlo")
+  @core.TypedRoute.Patch("uniqlo")
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Uniqlo_full.svg",
   )

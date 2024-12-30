@@ -17,7 +17,7 @@ export class NaverController {
    * @param input Conditions for Naver Cafe search
    */
   @Standalone()
-  @core.TypedRoute.Post("/cafe")
+  @core.TypedRoute.Patch("/cafe")
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/NaverCafe_full.svg",
   )
@@ -35,7 +35,7 @@ export class NaverController {
    * @param input Conditions for Naver blog search
    */
   @Standalone()
-  @core.TypedRoute.Post("/blog")
+  @core.TypedRoute.Patch("/blog")
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/NaverBlog_full.svg",
   )
@@ -53,7 +53,7 @@ export class NaverController {
    * @param input Conditions for searching Naver News
    * @returns
    */
-  @core.TypedRoute.Post("/news")
+  @core.TypedRoute.Patch("/news")
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/NaverNews_full.svg",
   )

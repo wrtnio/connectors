@@ -23,7 +23,7 @@ export class CrunchbaseController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/crunchbase_full.svg",
   )
-  @TypedRoute.Post("get-organization-data")
+  @TypedRoute.Patch("get-organization-data")
   async getOrganizationData(
     @TypedBody() input: ICrunchbase.IGetOrganizationDataInput,
   ): Promise<ICrunchbase.CrunchbaseResponse> {
@@ -46,7 +46,7 @@ export class CrunchbaseController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/crunchbase_full.svg",
   )
-  @TypedRoute.Post("auto-complete")
+  @TypedRoute.Patch("auto-complete")
   async autocomplete(
     @TypedBody() input: ICrunchbase.IAutocompleteInput,
   ): Promise<ICrunchbase.IAutocompleteOutput> {

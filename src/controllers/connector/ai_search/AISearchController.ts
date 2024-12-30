@@ -18,7 +18,7 @@ export class AISearchController {
    * @returns
    */
   @ApiTags("AI Search")
-  @core.TypedRoute.Post("")
+  @core.TypedRoute.Patch("")
   // @RouteIcon(
   //   "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleMap_full.svg",
   // )

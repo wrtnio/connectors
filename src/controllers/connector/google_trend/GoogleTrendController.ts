@@ -19,7 +19,7 @@ export class GoogleTrendController {
    * @returns Daily Trends Search Results
    */
   @Standalone()
-  @core.TypedRoute.Post("daily")
+  @core.TypedRoute.Patch("daily")
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleTrend_full.svg",
   )

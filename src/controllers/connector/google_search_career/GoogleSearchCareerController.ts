@@ -19,7 +19,7 @@ export class GoogleSearchCareerController {
   @SelectBenchmark("채용 공고 좀 찾아줘")
   @SelectBenchmark("원티드에서 채용 공고 좀 찾아줘")
   @Standalone()
-  @core.TypedRoute.Post("wanted")
+  @core.TypedRoute.Patch("wanted")
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/_wanted_full.svg",
   )
@@ -40,7 +40,7 @@ export class GoogleSearchCareerController {
   @SelectBenchmark("채용 공고 좀 찾아줘")
   @SelectBenchmark("인크루트에서 채용 공고 좀 찾아줘")
   @Standalone()
-  @core.TypedRoute.Post("incruit")
+  @core.TypedRoute.Patch("incruit")
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Incruit_full.svg",
   )
@@ -61,7 +61,7 @@ export class GoogleSearchCareerController {
   @SelectBenchmark("채용 공고 좀 찾아줘")
   @SelectBenchmark("사람인에서 채용 공고 좀 찾아줘")
   @Standalone()
-  @core.TypedRoute.Post("saramin")
+  @core.TypedRoute.Patch("saramin")
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Saramin_full.svg",
   )
@@ -82,7 +82,7 @@ export class GoogleSearchCareerController {
   @SelectBenchmark("채용 공고 좀 찾아줘")
   @SelectBenchmark("사람인에서 채용 공고 좀 찾아줘")
   @Standalone()
-  @core.TypedRoute.Post("jumpit")
+  @core.TypedRoute.Patch("jumpit")
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/jumpit_full.svg",
   )
@@ -103,7 +103,7 @@ export class GoogleSearchCareerController {
   @SelectBenchmark("채용 공고 좀 찾아줘")
   @SelectBenchmark("커리어리에서 채용 공고 좀 찾아줘")
   @Standalone()
-  @core.TypedRoute.Post("careerly")
+  @core.TypedRoute.Patch("careerly")
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/careerly_full.svg",
   )

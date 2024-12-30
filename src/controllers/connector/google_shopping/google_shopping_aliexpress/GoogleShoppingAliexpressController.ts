@@ -24,7 +24,7 @@ export class GoogleShoppingAliexpressController {
    */
   @SelectBenchmark("알리 익스프레스에서 상품 좀 찾아줘")
   @Standalone()
-  @core.TypedRoute.Post("ali-express")
+  @core.TypedRoute.Patch("ali-express")
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/AliExpress_full.svg",
   )

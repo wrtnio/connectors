@@ -24,7 +24,7 @@ export class GoogleShoppingMusinsaController {
    */
   @SelectBenchmark("무신사에서 상품 좀 찾아줘")
   @Standalone()
-  @core.TypedRoute.Post("musinsa")
+  @core.TypedRoute.Patch("musinsa")
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Musinsa_full.svg",
   )

@@ -29,7 +29,7 @@ export class ImwebController {
   )
   @ApiTags("Imweb")
   @Standalone()
-  @core.TypedRoute.Post("get-products")
+  @core.TypedRoute.Patch("get-products")
   async getProducts(
     @TypedBody() input: IImweb.IGetProductInput,
   ): Promise<IImweb.Product[]> {

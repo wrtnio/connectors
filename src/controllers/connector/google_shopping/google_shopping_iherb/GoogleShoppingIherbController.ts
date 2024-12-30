@@ -24,7 +24,7 @@ export class GoogleShoppingIherbController {
    */
   @SelectBenchmark("iherb에서 상품 좀 찾아줘")
   @Standalone()
-  @core.TypedRoute.Post("iherb")
+  @core.TypedRoute.Patch("iherb")
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/iHerb_full.svg",
   )

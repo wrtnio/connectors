@@ -19,7 +19,7 @@ export class GoogleImageController {
    * @returns Image search results
    */
   @SelectBenchmark("구글에서 이미지 좀 검색해줘")
-  @core.TypedRoute.Post("")
+  @core.TypedRoute.Patch("")
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleImage_full.svg",
   )

@@ -178,7 +178,7 @@ export class GoogleAdsController {
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/googleAD_full.svg",
   )
   @ApiTags("Google Ads")
-  @core.TypedRoute.Post("get-customers")
+  @core.TypedRoute.Patch("get-customers")
   async getCustomers(
     @TypedBody() input: IGoogleAds.IGetCustomerInput,
   ): Promise<IGoogleAds.IGetCustomerOutput> {
@@ -206,7 +206,7 @@ export class GoogleAdsController {
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/googleAD_full.svg",
   )
   @ApiTags("Google Ads")
-  @core.TypedRoute.Post("get-campaigns")
+  @core.TypedRoute.Patch("get-campaigns")
   async getCampaigns(
     @TypedBody() input: IGoogleAds.IGetCampaignsInput,
   ): Promise<IGoogleAds.IGetCampaignsOutput> {
@@ -235,7 +235,7 @@ export class GoogleAdsController {
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/googleAD_full.svg",
   )
   @ApiTags("Google Ads")
-  @core.TypedRoute.Post("get-ad-groups")
+  @core.TypedRoute.Patch("get-ad-groups")
   async getAdGroups(
     @TypedBody() input: IGoogleAds.IGetAdGroupInput,
   ): Promise<IGoogleAds.IGetAdGroupOutput> {
@@ -274,7 +274,7 @@ export class GoogleAdsController {
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/googleAD_full.svg",
   )
   @ApiTags("Google Ads")
-  @core.TypedRoute.Post("get-ads")
+  @core.TypedRoute.Patch("get-ads")
   async getAds(
     @TypedBody() input: IGoogleAds.IGetAdGroupAdInput,
   ): Promise<IGoogleAds.IGetAdGroupAdOutput> {
@@ -309,7 +309,7 @@ export class GoogleAdsController {
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/googleAD_full.svg",
   )
   @ApiTags("Google Ads")
-  @core.TypedRoute.Post("ad-groups/get-metrics")
+  @core.TypedRoute.Patch("ad-groups/get-metrics")
   async getMetrics(
     @TypedBody() input: IGoogleAds.IGetMetricInput,
   ): Promise<IGoogleAds.IGetMetricOutputResult[]> {
@@ -345,7 +345,7 @@ export class GoogleAdsController {
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/googleAD_full.svg",
   )
   @ApiTags("Google Ads")
-  @core.TypedRoute.Post("campaigns/ads/get-keywords")
+  @core.TypedRoute.Patch("campaigns/ads/get-keywords")
   async getKeywords(
     @TypedBody() input: IGoogleAds.IGetKeywordsInput,
   ): Promise<IGoogleAds.IGetKeywordsOutput> {
@@ -383,7 +383,7 @@ export class GoogleAdsController {
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/googleAD_full.svg",
   )
   @ApiTags("Google Ads")
-  @core.TypedRoute.Patch("campaigns/ads/status")
+  @core.TypedRoute.Put("campaigns/ads/status")
   async setOnOff(@TypedBody() input: IGoogleAds.ISetOnOffInput): Promise<void> {
     const customerId = await GoogleAdsProvider.getTargetCustomerId(input);
     return GoogleAdsProvider.updateAd({ ...input, customerId });
@@ -468,7 +468,7 @@ export class GoogleAdsController {
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/googleAD_full.svg",
   )
   @ApiTags("Google Ads")
-  @core.TypedRoute.Post("campaigns/ads/get-details")
+  @core.TypedRoute.Patch("campaigns/ads/get-details")
   async getAdGroupAdDetail(
     @TypedBody() input: IGoogleAds.IGetAdGroupAdDetailInput,
   ): Promise<IGoogleAds.IGetAdGroupAdDetailOutput> {
@@ -538,7 +538,7 @@ export class GoogleAdsController {
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/googleAD_full.svg",
   )
   @ApiTags("Google Ads")
-  @core.TypedRoute.Patch("campaigns")
+  @core.TypedRoute.Put("campaigns")
   async updateCampaign(
     @TypedBody() input: IGoogleAds.IUpdateCampaignInput,
   ): Promise<void> {
