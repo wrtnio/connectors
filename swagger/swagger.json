@@ -15,7 +15,7 @@
     }
   ],
   "info": {
-    "version": "0.1.431",
+    "version": "0.1.432",
     "title": "@wrtn/connector",
     "description": "wrtn-ecosystem connectors and sdk",
     "license": {
@@ -10621,6 +10621,82 @@
           "slack",
           "get_user_groups",
           "getUserGroups"
+        ],
+        "x-samchon-controller": "SlackController",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Slack_full.svg"
+      }
+    },
+    "/connector/slack/me": {
+      "patch": {
+        "summary": "Get Requester's Information",
+        "description": "Get Requester's Information\n\nYou can use that function to get requester's information.\nIf you want to get information about requester, call this function.\nThen you can use that information wherever you need requester's information.",
+        "tags": [
+          "Slack"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ISlack.ISecret"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ISlack.IGetMyInfoOutput"
+                }
+              }
+            }
+          }
+        },
+        "x-samchon-accessor": [
+          "connector",
+          "slack",
+          "me",
+          "getMyInfo"
+        ],
+        "x-samchon-controller": "SlackController",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Slack_full.svg"
+      }
+    },
+    "/connector/slack/messages": {
+      "delete": {
+        "summary": "Delete Messages",
+        "description": "Delete Messages\n\nYou must strictly distinguish between the requester's information and other's information. Always verify whether the information being requested pertains to the requester or someone else.\nBefore you call this function, you must call the function that gets requester's information.\nYou must only use requester's information to delete messages.\nYou must strictly filter the messages you delete to only those that match the requester's `User ID`\nYou must look through all the messages and only delete the ones that match the requester's user id.\nDon't read one message and stop working on it because it has a different user id of requester.\nTo delete messages,\nYou need the timestamps of the messages you wrote that you want to delete and channel id.",
+        "tags": [
+          "Slack"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ISlack.IDeleteMessageInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {}
+            }
+          }
+        },
+        "x-samchon-accessor": [
+          "connector",
+          "slack",
+          "messages",
+          "deleteMessage"
         ],
         "x-samchon-controller": "SlackController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Slack_full.svg"
@@ -41037,7 +41113,7 @@
               }
             ],
             "title": "next_cursor",
-            "description": "Cursor for pagination\n\nIf the following data exist, the cursor value exists.\nIf you want to see the next data from these data,\nyou can pass this value to the next request condition, `cursor`."
+            "description": "Cursor for pagination\n\nIf the following data exist, the cursor value exists.\nIf you want to see the next data from these data,\nyou can pass this value to the next request condition, `cursor`.\nIf this property is not null, It was not over to find data."
           }
         },
         "required": [
@@ -41143,7 +41219,7 @@
           "cursor": {
             "type": "string",
             "title": "cursor",
-            "description": "If you pass the cursor value received from the previous inquiry, you can inquire from the data after the cursor.\nIf you don't put a value, it will be recognized as the first page.\nThis should never be null. If you don't have a value, don't forward properties."
+            "description": "If you pass the next_cursor or cursor value received from the previous inquiry, you can get additional data from the data.\nIf the next_cursor is not null, you can retrieve additional data.\nIf you don't put a value, it will be recognized as the first page.\nThis should never be null. If you don't have a value, don't forward properties."
           }
         },
         "required": [
@@ -41291,7 +41367,7 @@
               }
             ],
             "title": "next_cursor",
-            "description": "Cursor for pagination\n\nIf the following data exist, the cursor value exists.\nIf you want to see the next data from these data,\nyou can pass this value to the next request condition, `cursor`."
+            "description": "Cursor for pagination\n\nIf the following data exist, the cursor value exists.\nIf you want to see the next data from these data,\nyou can pass this value to the next request condition, `cursor`.\nIf this property is not null, It was not over to find data."
           }
         },
         "required": [
@@ -41428,7 +41504,7 @@
           "cursor": {
             "type": "string",
             "title": "cursor",
-            "description": "If you pass the cursor value received from the previous inquiry, you can inquire from the data after the cursor.\nIf you don't put a value, it will be recognized as the first page.\nThis should never be null. If you don't have a value, don't forward properties."
+            "description": "If you pass the next_cursor or cursor value received from the previous inquiry, you can get additional data from the data.\nIf the next_cursor is not null, you can retrieve additional data.\nIf you don't put a value, it will be recognized as the first page.\nThis should never be null. If you don't have a value, don't forward properties."
           }
         },
         "required": [
@@ -41490,7 +41566,7 @@
               }
             ],
             "title": "next_cursor",
-            "description": "Cursor for pagination\n\nIf the following data exist, the cursor value exists.\nIf you want to see the next data from these data,\nyou can pass this value to the next request condition, `cursor`."
+            "description": "Cursor for pagination\n\nIf the following data exist, the cursor value exists.\nIf you want to see the next data from these data,\nyou can pass this value to the next request condition, `cursor`.\nIf this property is not null, It was not over to find data."
           }
         },
         "required": [
@@ -41892,7 +41968,7 @@
           "cursor": {
             "type": "string",
             "title": "cursor",
-            "description": "If you pass the cursor value received from the previous inquiry, you can inquire from the data after the cursor.\nIf you don't put a value, it will be recognized as the first page.\nThis should never be null. If you don't have a value, don't forward properties."
+            "description": "If you pass the next_cursor or cursor value received from the previous inquiry, you can get additional data from the data.\nIf the next_cursor is not null, you can retrieve additional data.\nIf you don't put a value, it will be recognized as the first page.\nThis should never be null. If you don't have a value, don't forward properties."
           }
         },
         "required": [
@@ -41955,7 +42031,7 @@
               }
             ],
             "title": "next_cursor",
-            "description": "Cursor for pagination\n\nIf the following data exist, the cursor value exists.\nIf you want to see the next data from these data,\nyou can pass this value to the next request condition, `cursor`."
+            "description": "Cursor for pagination\n\nIf the following data exist, the cursor value exists.\nIf you want to see the next data from these data,\nyou can pass this value to the next request condition, `cursor`.\nIf this property is not null, It was not over to find data."
           }
         },
         "required": [
@@ -42060,7 +42136,7 @@
           "cursor": {
             "type": "string",
             "title": "cursor",
-            "description": "If you pass the cursor value received from the previous inquiry, you can inquire from the data after the cursor.\nIf you don't put a value, it will be recognized as the first page.\nThis should never be null. If you don't have a value, don't forward properties."
+            "description": "If you pass the next_cursor or cursor value received from the previous inquiry, you can get additional data from the data.\nIf the next_cursor is not null, you can retrieve additional data.\nIf you don't put a value, it will be recognized as the first page.\nThis should never be null. If you don't have a value, don't forward properties."
           }
         },
         "required": [
@@ -42122,7 +42198,7 @@
               }
             ],
             "title": "next_cursor",
-            "description": "Cursor for pagination\n\nIf the following data exist, the cursor value exists.\nIf you want to see the next data from these data,\nyou can pass this value to the next request condition, `cursor`."
+            "description": "Cursor for pagination\n\nIf the following data exist, the cursor value exists.\nIf you want to see the next data from these data,\nyou can pass this value to the next request condition, `cursor`.\nIf this property is not null, It was not over to find data."
           }
         },
         "required": [
@@ -42559,6 +42635,108 @@
           }
         },
         "required": [
+          "secretKey"
+        ]
+      },
+      "ISlack.IGetMyInfoOutput": {
+        "type": "object",
+        "properties": {
+          "user": {
+            "type": "object",
+            "properties": {
+              "user_id": {
+                "type": "string",
+                "title": "User ID",
+                "description": "Request's User ID.\nThis is identifier of requester from others."
+              },
+              "team_id": {
+                "type": "string",
+                "title": "Team ID"
+              },
+              "team": {
+                "type": "string",
+                "title": "Team Name"
+              },
+              "name": {
+                "type": "string",
+                "title": "User Name",
+                "description": "Requester's User Name.\nBut, This is not unique. so This can't be used as an identifier."
+              }
+            },
+            "required": [
+              "user_id",
+              "team_id",
+              "team",
+              "name"
+            ],
+            "title": "user"
+          }
+        },
+        "required": [
+          "user"
+        ]
+      },
+      "ISlack.IDeleteMessageInput": {
+        "type": "object",
+        "properties": {
+          "messages": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "channel": {
+                  "type": "string",
+                  "title": "Channel ID"
+                },
+                "user_id": {
+                  "type": "string",
+                  "x-wrtn-prerequisite": {
+                    "method": "patch",
+                    "path": "connector/slack/me",
+                    "jmesPath": "user.{value: id, label: name}"
+                  },
+                  "title": "User ID",
+                  "description": "User ID the of message.\nThis property is for checking log.\nyou can use only the `user_id` of messages matched requester's `user_id`"
+                },
+                "ts": {
+                  "type": "string",
+                  "x-wrtn-placeholder": "1405894322.002768",
+                  "title": "timestamp",
+                  "description": "for example, `1721804246.083609`.\nThis is the time value expression method used by Slack.\nYou must put the ts of the message sent by requester not others.\nyou can use only the `ts` of messages matched requester's `user_id`"
+                }
+              },
+              "required": [
+                "channel",
+                "user_id",
+                "ts"
+              ]
+            },
+            "title": "Message Info List",
+            "description": "Even if the user wants to delete \"all\" or \"every\" messages, you can delete only requester's messages."
+          },
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "slack",
+            "x-wrtn-secret-scopes": [
+              "channels:read",
+              "channels:history",
+              "users.profile:read",
+              "im:read",
+              "im:history",
+              "groups:history",
+              "groups:read",
+              "chat:write",
+              "users:read",
+              "files:read",
+              "usergroups:read",
+              "team:read"
+            ],
+            "title": "Select authentication information",
+            "description": "secret key."
+          }
+        },
+        "required": [
+          "messages",
           "secretKey"
         ]
       },
