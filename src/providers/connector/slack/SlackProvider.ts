@@ -1322,7 +1322,7 @@ export class SlackProvider {
     };
 
     for (const message of rest.messages) {
-      await fetch(message);
+      await retry(() => fetch(message))();
     }
 
     return;
