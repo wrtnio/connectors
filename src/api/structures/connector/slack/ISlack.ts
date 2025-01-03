@@ -586,7 +586,8 @@ export namespace ISlack {
       Placeholder<"200">;
 
     /**
-     * If you pass the cursor value received from the previous inquiry, you can inquire from the data after the cursor.
+     * If you pass the next_cursor or cursor value received from the previous inquiry, you can get additional data from the data.
+     * If the next_cursor is not null, you can retrieve additional data.
      * If you don't put a value, it will be recognized as the first page.
      * This should never be null. If you don't have a value, don't forward properties.
      *
@@ -602,6 +603,7 @@ export namespace ISlack {
      * If the following data exist, the cursor value exists.
      * If you want to see the next data from these data,
      * you can pass this value to the next request condition, `cursor`.
+     * If this property is not null, It was not over to find data.
      *
      * @title next_cursor
      */
@@ -1667,4 +1669,75 @@ export namespace ISlack {
   }
 
   export type IGetUserGroupInput = ISlack.ISecret;
+
+  export interface IGetMyInfoOutput {
+    /**
+     * @title user
+     */
+    user: {
+      /**
+       * Request's User ID.
+       * This is identifier of requester from others.
+       *
+       * @title User ID
+       */
+      user_id: string;
+
+      /**
+       * @title Team ID
+       */
+      team_id: string;
+
+      /**
+       * @title Team Name
+       */
+      team: string;
+
+      /**
+       * Requester's User Name.
+       * But, This is not unique. so This can't be used as an identifier.
+       *
+       * @title User Name
+       */
+      name: string;
+    };
+  }
+
+  export interface IDeleteMessageInput extends ISlack.ISecret {
+    /**
+     * Even if the user wants to delete "all" or "every" messages, you can delete only requester's messages.
+     *
+     * @title Message Info List
+     */
+    messages: {
+      /**
+       * @title Channel ID
+       */
+      channel: string;
+
+      /**
+       * User ID the of message.
+       * This property is for checking log.
+       * you can use only the `user_id` of messages matched requester's `user_id`
+       *
+       * @title User ID
+       */
+      user_id: string &
+        Prerequisite<{
+          method: "patch";
+          path: "connector/slack/me";
+          jmesPath: "user.{value: id, label: name}";
+        }>;
+
+      /**
+       * for example, `1721804246.083609`.
+       * This is the time value expression method used by Slack.
+       * You must put the ts of the message sent by requester not others.
+       * you can use only the `ts` of messages matched requester's `user_id`
+       *
+       * @title timestamp
+       */
+      ts: string & Placeholder<"1405894322.002768">;
+    }[];
+  }
 }

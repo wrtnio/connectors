@@ -666,6 +666,12 @@ export class SlackProvider {
         }),
       ]);
 
+    if (!res.data.ok) {
+      throw new Error(
+        `error: ${res.data.error}${res.data.needed ? `, needed: ${res.data.needed}` : {}}`,
+      );
+    }
+
     const link_count = 0;
     const next_cursor = res.data.response_metadata?.next_cursor;
     const messages: ISlack.ChannelHistory[] = res.data.messages.map(
@@ -1236,5 +1242,89 @@ export class SlackProvider {
     } catch (err) {
       console.error(JSON.stringify(err));
     }
+  }
+
+  async getMyInfo(input: ISlack.ISecret): Promise<ISlack.IGetMyInfoOutput> {
+    const { secretKey } = input;
+    const token = await this.getToken(secretKey);
+
+    const url = `https://slack.com/api/auth.test`;
+
+    try {
+      const res = await axios.post(
+        url,
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json; charset=utf-8",
+          },
+        },
+      );
+
+      const auth: {
+        team: string;
+        team_id: string;
+        user: string;
+        user_id: string;
+      } = res.data;
+
+      if (!res.data.ok) {
+        throw new Error(res.data.error ?? "Get Info does not work.");
+      }
+
+      return {
+        user: {
+          name: auth.user,
+          user_id: auth.user_id,
+          team: auth.team,
+          team_id: auth.team_id,
+        },
+      };
+    } catch (err) {
+      console.error(JSON.stringify(err));
+      throw err;
+    }
+  }
+
+  async deleteMessage(input: ISlack.IDeleteMessageInput): Promise<void> {
+    const { secretKey, ...rest } = input;
+    const token = await this.getToken(secretKey);
+
+    const url = `https://slack.com/api/chat.delete`;
+
+    const fetch = async (
+      message: ISlack.IDeleteMessageInput["messages"][0],
+    ) => {
+      try {
+        const res = await axios.post(
+          url,
+          {
+            channel: message.channel,
+            ts: message.ts,
+            as_user: true,
+          },
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+              "Content-Type": "application/json; charset=utf-8;",
+            },
+          },
+        );
+
+        if (!res.data.ok) {
+          throw new Error(res.data.error ?? "Deleting message does not work.");
+        }
+      } catch (err) {
+        console.error(JSON.stringify(err));
+        throw err;
+      }
+    };
+
+    for (const message of rest.messages) {
+      await retry(() => fetch(message))();
+    }
+
+    return;
   }
 }

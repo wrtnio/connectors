@@ -547,3 +547,64 @@ export const test_api_connector_slack_get_image_and_pdf_files = async (
     typia.assert(files);
   }
 };
+
+export const test_api_connector_slack_get_my_info = async (
+  connection: CApi.IConnection,
+) => {
+  const user = await CApi.functional.connector.slack.me.getMyInfo(connection, {
+    secretKey: ConnectorGlobal.env.SLACK_TEST_SECRET,
+  });
+
+  typia.assert(user);
+
+  return user;
+};
+
+export const test_api_connector_slack_delete_messages = async (
+  connection: CApi.IConnection,
+) => {
+  const user = await test_api_connector_slack_get_my_info(connection);
+
+  const userId = user.user.user_id;
+
+  // 1. send message to public channel
+  await test_api_connector_slack_send_text_message_to_public(connection);
+
+  // 2. get public channel histories and filter my messages.
+  const histories =
+    await test_api_connector_slack_get_channel_histories(connection);
+
+  const deletingMessage = histories.messages.filter((message) => {
+    if (message.user === userId) {
+      return true;
+    }
+    return false;
+  })[0];
+
+  // 3. delete one message.
+  await CApi.functional.connector.slack.messages.deleteMessage(connection, {
+    messages: [
+      {
+        channel: deletingMessage.channel,
+        ts: deletingMessage.ts as any,
+        user_id: userId,
+      },
+    ],
+    secretKey: ConnectorGlobal.env.SLACK_TEST_SECRET,
+  });
+
+  // 4. get public channel histories and filter my messages.
+  const afterHistories =
+    await test_api_connector_slack_get_channel_histories(connection);
+
+  const filteredMessages = afterHistories.messages.filter((message) => {
+    if (message.ts === deletingMessage.ts) {
+      true;
+    }
+    return false;
+  });
+
+  if (filteredMessages.length !== 0) {
+    throw Error("Fail to delete slack messsage.");
+  }
+};

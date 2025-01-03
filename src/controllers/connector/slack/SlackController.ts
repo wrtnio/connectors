@@ -496,4 +496,49 @@ export class SlackController {
   ): Promise<ISlack.IGetUserGroupOutput> {
     return retry(() => this.slackProvider.getUserGroups(input))();
   }
+
+  /**
+   * Get Requester's Information
+   *
+   * You can use that function to get requester's information.
+   * If you want to get information about requester, call this function.
+   * Then you can use that information wherever you need requester's information.
+   *
+   * @summary Get Requester's Information
+   */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Slack_full.svg",
+  )
+  @ApiTags("Slack")
+  @TypedRoute.Patch("me")
+  async getMyInfo(
+    @TypedBody() input: ISlack.ISecret,
+  ): Promise<ISlack.IGetMyInfoOutput> {
+    return retry(() => this.slackProvider.getMyInfo(input))();
+  }
+
+  /**
+   * Delete Messages
+   *
+   * You must strictly distinguish between the requester's information and other's information. Always verify whether the information being requested pertains to the requester or someone else.
+   * Before you call this function, you must call the function that gets requester's information.
+   * You must only use requester's information to delete messages.
+   * You must strictly filter the messages you delete to only those that match the requester's `User ID`
+   * You must look through all the messages and only delete the ones that match the requester's user id.
+   * Don't read one message and stop working on it because it has a different user id of requester.
+   * To delete messages,
+   * You need the timestamps of the messages you wrote that you want to delete and channel id.
+   *
+   * @summary Delete Messages
+   */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Slack_full.svg",
+  )
+  @ApiTags("Slack")
+  @TypedRoute.Delete("messages")
+  async deleteMessage(
+    @TypedBody() input: ISlack.IDeleteMessageInput,
+  ): Promise<void> {
+    return retry(() => this.slackProvider.deleteMessage(input))();
+  }
 }
