@@ -10,10 +10,10 @@ import { IChatGptService } from "../structures/IChatGptService";
 import { INestiaChatEvent } from "../structures/INestiaChatEvent";
 import { INestiaChatPrompt } from "../structures/INestiaChatPrompt";
 import { INestiaChatTextPrompt } from "../structures/INestiaChatTextPrompt";
+import { __IChatFunctionReference } from "../structures/internal/__IChatFunctionReference";
 import { __IChatSelectionApplication } from "../structures/internal/__IChatSelectionApplication";
 import { ChatGptHistoryDecoder } from "./ChatGptHistoryDecoder";
 import { MapUtil } from "@wrtn/connector-api/lib/utils/MapUtil";
-import { __IChatFunctionReference } from "../structures/internal/__IChatFunctionReference";
 
 export namespace ChatGptFunctionSelector {
   export interface IProps {
@@ -24,6 +24,8 @@ export namespace ChatGptFunctionSelector {
     dispatch: (event: INestiaChatEvent) => void;
     content: string;
     completion?: { value: OpenAI.ChatCompletion };
+    divide?: IHttpLlmFunction<"chatgpt">[][];
+    eliticism?: boolean;
   }
   export interface IStackItem {
     function: IHttpLlmFunction<"chatgpt">;
@@ -32,6 +34,57 @@ export namespace ChatGptFunctionSelector {
 
   export const execute = async (
     props: IProps,
+  ): Promise<INestiaChatTextPrompt[]> => {
+    if (props.divide === undefined)
+      return step(props, props.application.functions);
+
+    const stacks: Map<string, IStackItem>[] = props.divide.map(() => new Map());
+    const events: INestiaChatEvent[] = [];
+    const prompts: INestiaChatTextPrompt[][] = await Promise.all(
+      props.divide.map((candidates, i) =>
+        step(
+          {
+            ...props,
+            stack: stacks[i]!,
+            dispatch: (e) => events.push(e),
+          },
+          candidates,
+        ),
+      ),
+    );
+    if (stacks.every((s) => s.size === 0)) return prompts[0]!;
+    else if (props.eliticism === true)
+      return step(
+        props,
+        stacks.map((s) => Array.from(s.values()).map((s) => s.function)).flat(),
+      );
+
+    for (const e of events)
+      if (e.type === "select")
+        selectFunction({
+          application: props.application,
+          stack: props.stack,
+          dispatch: props.dispatch,
+          reference: {
+            name: e.function.name,
+            reason: "reselect",
+          },
+        });
+      else if (e.type === "cancel")
+        cancelFunction({
+          stack: props.stack,
+          dispatch: props.dispatch,
+          reference: {
+            name: e.function.name,
+            reason: "reselect",
+          },
+        });
+    return [];
+  };
+
+  const step = async (
+    props: IProps,
+    candidates: IHttpLlmFunction<"chatgpt">[],
   ): Promise<INestiaChatTextPrompt[]> => {
     //----
     // EXECUTE CHATGPT API
@@ -68,7 +121,7 @@ export namespace ChatGptFunctionSelector {
               role: "tool",
               tool_call_id: "getApiFunctions",
               content: JSON.stringify(
-                props.application.functions.map((func) => ({
+                candidates.map((func) => ({
                   name: func.name,
                   description: func.description,
                 })),

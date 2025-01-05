@@ -36,7 +36,22 @@ export class FunctionSelectBenchmarkExecutor {
     keyword: string,
   ): Promise<IFunctionSelectBenchmarkResult> {
     const events: Array<IFunctionSelectBenchmarkEvent> = await Promise.all(
-      ArrayUtil.repeat(this.options.repeat)(() => this.divide(func, keyword)),
+      ArrayUtil.repeat(this.options.repeat)(async () => {
+        await Promise.all(
+          ArrayUtil.repeat(this.functions_.length)(() =>
+            this.semaphore.acquire(),
+          ),
+        );
+        try {
+          return await this.step(func, keyword);
+        } finally {
+          await Promise.all(
+            ArrayUtil.repeat(this.functions_.length)(() =>
+              this.semaphore.release(),
+            ),
+          );
+        }
+      }),
     );
     return {
       function: func,
@@ -47,31 +62,7 @@ export class FunctionSelectBenchmarkExecutor {
     };
   }
 
-  private async divide(
-    target: IHttpLlmFunction<"chatgpt">,
-    keyword: string,
-  ): Promise<IFunctionSelectBenchmarkEvent> {
-    const events: Array<IFunctionSelectBenchmarkEvent> = await Promise.all(
-      this.functions_.map(async (row) => {
-        try {
-          await this.semaphore.acquire();
-          return await this.step(row, target, keyword);
-        } finally {
-          await this.semaphore.release();
-        }
-      }),
-    );
-    const success: IFunctionSelectBenchmarkEvent | undefined = events.filter(
-      (event) => event.kind === "success",
-    )[0];
-    const failure: IFunctionSelectBenchmarkEvent | undefined = events.filter(
-      (event) => event.kind === "failure",
-    )[0];
-    return success ?? failure ?? events[0];
-  }
-
   private async step(
-    row: IHttpLlmFunction<"chatgpt">[],
     target: IHttpLlmFunction<"chatgpt">,
     keyword: string,
   ): Promise<IFunctionSelectBenchmarkEvent> {
@@ -81,10 +72,7 @@ export class FunctionSelectBenchmarkExecutor {
 
     try {
       await ChatGptFunctionSelector.execute({
-        application: {
-          ...this.application,
-          functions: row,
-        },
+        application: this.application,
         service: {
           api: new OpenAI({
             apiKey: "something",
@@ -107,6 +95,8 @@ export class FunctionSelectBenchmarkExecutor {
           if (event.type === "select") candidates.push(event.function);
         },
         completion,
+        divide: this.functions_,
+        eliticism: false,
       });
 
       const completed_at: Date = new Date();
