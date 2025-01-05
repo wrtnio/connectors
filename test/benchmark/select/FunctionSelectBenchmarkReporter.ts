@@ -126,7 +126,7 @@ export namespace FunctionSelectBenchmarkReporter {
             started_at: event.started_at,
             completed_at: event.completed_at,
             elapsed: event.completed_at.getTime() - event.started_at.getTime(),
-            completions: event.kind !== "error" ? event.completions : undefined,
+            completion: event.kind !== "error" ? event.completion : undefined,
             error:
               event.kind === "error"
                 ? ErrorUtil.toJSON(event.error)
