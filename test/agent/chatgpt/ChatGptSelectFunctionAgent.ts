@@ -160,7 +160,7 @@ export namespace ChatGptSelectFunctionAgent {
         },
         props.service.options,
       );
-    if (props.completions) props.completions.push(completion);
+    if (props.completions !== undefined) props.completions.push(completion);
 
     //----
     // VALIDATION
