@@ -6,7 +6,7 @@ import { IFunctionSelectBenchmarkEvent } from "./IFunctionSelectBenchmarkEvent";
 import { ConnectorGlobal } from "../../../src/ConnectorGlobal";
 import { IFunctionSelectBenchmarkOptions } from "./IFunctionSelectBenchmarkOptions";
 import { IPointer, ranges, Semaphore } from "tstl";
-import { ChatGptFunctionSelector } from "../../agent/chatgpt/ChatGptFunctionSelector";
+import { ChatGptSelectFunctionAgent } from "../../agent/chatgpt/ChatGptSelectFunctionAgent";
 
 export class FunctionSelectBenchmarkExecutor {
   private functions_: IHttpLlmFunction<"chatgpt">[][];
@@ -67,11 +67,11 @@ export class FunctionSelectBenchmarkExecutor {
     keyword: string,
   ): Promise<IFunctionSelectBenchmarkEvent> {
     const candidates: IHttpLlmFunction<"chatgpt">[] = [];
-    const completion: IPointer<OpenAI.ChatCompletion> = { value: null! };
+    const completions: OpenAI.ChatCompletion[] = [];
     const started_at: Date = new Date();
 
     try {
-      await ChatGptFunctionSelector.execute({
+      await ChatGptSelectFunctionAgent.execute({
         application: this.application,
         service: {
           api: new OpenAI({
@@ -89,12 +89,13 @@ export class FunctionSelectBenchmarkExecutor {
           },
         },
         histories: [],
-        stack: new Map(),
+        stack: [],
         content: keyword,
-        dispatch: (event) => {
+        dispatch: async (event) => {
           if (event.type === "select") candidates.push(event.function);
         },
-        completion,
+        retry: 3,
+        completions,
         divide: this.functions_,
         eliticism: false,
       });
@@ -103,7 +104,7 @@ export class FunctionSelectBenchmarkExecutor {
       if (candidates.some((c) => c.name === target.name))
         return {
           kind: "success",
-          completion: completion.value,
+          completions,
           started_at,
           completed_at,
         };
@@ -111,7 +112,7 @@ export class FunctionSelectBenchmarkExecutor {
         return {
           kind: "failure",
           found: candidates,
-          completion: completion.value,
+          completions,
           started_at,
           completed_at,
         };

@@ -112,25 +112,20 @@ const main = async (): Promise<void> => {
   });
   agent.on("initialize", () => console.log(chalk.greenBright("Initialized")));
   agent.on("select", (e) =>
-    console.log(chalk.cyanBright("select"), e.function.name),
+    console.log(chalk.cyanBright("selected"), e.function.name, e.reason),
+  );
+  agent.on("call", (e) =>
+    console.log(chalk.blueBright("call"), e.function.name),
+  );
+  agent.on("complete", (e) =>
+    console.log(
+      chalk.greenBright("completed"),
+      e.function.name,
+      e.response.status,
+    ),
   );
   agent.on("cancel", (e) =>
-    console.log(chalk.redBright("cancel"), e.function.name),
-  );
-  agent.on("call", (e) => {
-    if (!!e.function.separated?.human)
-      e.arguments = HttpLlm.mergeParameters({
-        function: e.function,
-        llm: e.arguments ?? {},
-        human: fillArgument(
-          e.function.separated.human.$defs,
-          e.function.separated.human,
-        ),
-      });
-    console.log(chalk.blueBright("call"), e.function.name);
-  });
-  agent.on("complete", (e) =>
-    console.log(chalk.greenBright("complete"), e.function.name),
+    console.log(chalk.redBright("canceled"), e.function.name, e.reason),
   );
 
   // START CONVERSATION
@@ -142,6 +137,13 @@ const main = async (): Promise<void> => {
     for (const h of histories)
       if (h.kind === "text")
         trace(chalk.yellow("Text"), chalk.blueBright(h.role), "\n\n", h.text);
+      else if (h.kind === "describe")
+        trace(
+          chalk.whiteBright("Describe"),
+          chalk.blueBright("agent"),
+          "\n\n",
+          h.text,
+        );
   }
 };
 main().catch((error) => {

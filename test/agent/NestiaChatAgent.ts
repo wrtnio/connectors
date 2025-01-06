@@ -34,5 +34,9 @@ export namespace NestiaChatAgent {
     service: IChatGptService;
     histories?: INestiaChatPrompt[];
     connection: IHttpConnection;
+    config?: Partial<IConfig>;
+  }
+  export interface IConfig {
+    capacity?: number;
   }
 }

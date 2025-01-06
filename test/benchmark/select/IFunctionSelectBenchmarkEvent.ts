@@ -7,11 +7,11 @@ export type IFunctionSelectBenchmarkEvent =
   | IFunctionSelectBenchmarkEvent.IError;
 export namespace IFunctionSelectBenchmarkEvent {
   export interface ISuccess extends IEventBase<"success"> {
-    completion: OpenAI.ChatCompletion;
+    completions: OpenAI.ChatCompletion[];
   }
   export interface IFailure extends IEventBase<"failure"> {
     found: IHttpLlmFunction<"chatgpt">[];
-    completion: OpenAI.ChatCompletion;
+    completions: OpenAI.ChatCompletion[];
   }
   export interface IError extends IEventBase<"error"> {
     error: unknown;
