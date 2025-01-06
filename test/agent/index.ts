@@ -4,6 +4,7 @@ import {
   IChatGptSchema,
   IHttpLlmApplication,
   OpenApi,
+  OpenApiTypeChecker,
   OpenApiV3,
   OpenApiV3_1,
   SwaggerV2,
@@ -30,15 +31,17 @@ const fillArgument = (
   schema: IChatGptSchema,
 ): any => {
   trace("FILL ARGUMENT", JSON.stringify(schema, null, 2));
-  if (ChatGptTypeChecker.isString(schema))
+  if (OpenApiTypeChecker.isString(schema))
     if (schema.description?.includes("@contentMediaType") !== undefined)
       return "https://namu.wiki/w/%EB%A6%B4%ED%8C%8C";
-    else if (schema.description?.includes("@x-wrtn-secret-key google")) {
+    else if (schema["x-wrtn-secret-key"] === "google")
       return ConnectorGlobal.env.GOOGLE_TEST_SECRET;
-    } else if (schema.description?.includes("@x-wrtn-secret-key notion"))
+    else if (schema["x-wrtn-secret-key"] === "notion")
       return ConnectorGlobal.env.NOTION_TEST_SECRET;
-    else if (schema.description?.includes("x-wrtn-secret-key slack"))
+    else if (schema["x-wrtn-secret-key"] === "slack")
       return ConnectorGlobal.env.SLACK_TEST_SECRET;
+    else if (schema["x-wrtn-secret-key"] === "github")
+      return ConnectorGlobal.env.G_GITHUB_TEST_SECRET;
     else return "Hello word";
   else if (ChatGptTypeChecker.isNumber(schema)) return 123;
   else if (ChatGptTypeChecker.isBoolean(schema)) return true;
