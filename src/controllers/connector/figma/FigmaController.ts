@@ -1,4 +1,4 @@
-import core, { TypedBody, TypedParam } from "@nestia/core";
+import core, { HumanRoute, TypedBody, TypedParam } from "@nestia/core";
 import { Controller } from "@nestjs/common";
 import { Prerequisite, RouteIcon, Standalone } from "@wrtnio/decorators";
 
@@ -18,10 +18,13 @@ export class FigmaController {
    * @summary Import Figma files
    * @param input Conditional values for importing files
    * @returns List of Figma files
+   *
+   * @internal
    */
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Figma_full.svg",
   )
+  @HumanRoute()
   @ApiTags("Figma")
   @core.TypedRoute.Patch("get-files")
   async readFiles(
@@ -36,10 +39,13 @@ export class FigmaController {
    * @summary Write a comment within the canvas
    * @param input Condition value for writing a comment
    * @returns Information about the comment just written
+   *
+   * @internal
    */
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Figma_full.svg",
   )
+  @HumanRoute()
   @ApiTags("Figma")
   @core.TypedRoute.Post("comments")
   async addComment(
@@ -54,10 +60,13 @@ export class FigmaController {
    * @summary Get Figma comments
    * @returns List of Figma comments
    * @param input Condition value to get comments
+   *
+   * @internal
    */
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Figma_full.svg",
   )
+  @HumanRoute()
   @ApiTags("Figma")
   @core.TypedRoute.Patch("get-comments")
   async readComments(
@@ -77,10 +86,13 @@ export class FigmaController {
    * @param projectId The ID of the project to search
    * @param input Search conditions for projects
    * @returns All files in the project
+   *
+   * @internal
    */
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Figma_full.svg",
   )
+  @HumanRoute()
   @ApiTags("Figma")
   @core.TypedRoute.Patch("projects/:id/get-canvas")
   async getProjectCanvas(
@@ -102,10 +114,13 @@ export class FigmaController {
    * @summary Retrieve team-level Figma statistics
    * @param input Conditions for retrieving team-level statistics
    * @returns Results of team-level statistics retrieval
+   *
+   * @internal
    */
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Figma_full.svg",
   )
+  @HumanRoute()
   @ApiTags("Figma")
   @core.TypedRoute.Patch("get-statistics")
   async getStatistics(
@@ -127,10 +142,13 @@ export class FigmaController {
    * @param input Project search conditions
    *
    * @returns Project list
+   *
+   * @internal
    */
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Figma_full.svg",
   )
+  @HumanRoute()
   @ApiTags("Figma")
   @core.TypedRoute.Patch("get-projects")
   async getProjects(

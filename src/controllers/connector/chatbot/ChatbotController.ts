@@ -1,4 +1,4 @@
-import core from "@nestia/core";
+import core, { HumanRoute } from "@nestia/core";
 import { Controller } from "@nestjs/common";
 
 import { IChatbot } from "@wrtn/connector-api/lib/structures/connector/chatbot/IChatbot";
@@ -21,10 +21,12 @@ export class ChatBotController {
    * @summary Use Easy difficulty chatbot
    * @param input Information for using a chatbot built with Easy difficulty
    * @returns The chatbot's response
+   * @internal
    */
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/_Studio1.0Chatbot_full.svg",
   )
+  @HumanRoute()
   @core.TypedRoute.Post("generate/easy")
   async generateEasyChatbot(
     @core.TypedBody() input: IChatbot.IChatbotEasyGenerateInput,
@@ -42,10 +44,12 @@ export class ChatBotController {
    * @summary Use a chatbot with the Hard difficulty level
    * @param input Information for using a chatbot built with the Hard difficulty level
    * @returns The chatbot's response
+   * @internal
    */
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/_Studio1.0Chatbot_full.svg",
   )
+  @HumanRoute()
   @core.TypedRoute.Post("generate/hard")
   async generateHardChatbot(
     @core.TypedBody() input: IChatbot.IChatBotHardGenerateInput,

@@ -1,4 +1,4 @@
-import core from "@nestia/core";
+import core, { HumanRoute } from "@nestia/core";
 import { Controller } from "@nestjs/common";
 import { RouteIcon, Standalone } from "@wrtnio/decorators";
 
@@ -16,6 +16,7 @@ export class KoreaEximbankController {
    *
    * @internal
    */
+  @HumanRoute()
   @Standalone()
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/ExchangeRate_full.svg",

@@ -1,4 +1,4 @@
-import core from "@nestia/core";
+import core, { HumanRoute } from "@nestia/core";
 import { Controller } from "@nestjs/common";
 import { RouteIcon, Standalone } from "@wrtnio/decorators";
 
@@ -19,10 +19,13 @@ export class StableDiffusionBetaController {
    * @summary Stable diffusion image generator node
    * @param input Information for image generation
    * @returns URL of the generated image
+   *
+   * @internal
    */
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/StableDifusion_full.svg",
   )
+  @HumanRoute()
   @ApiTags("Stable Diffusion")
   @Standalone()
   @core.TypedRoute.Post("/generate")

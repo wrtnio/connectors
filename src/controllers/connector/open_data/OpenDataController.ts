@@ -1,4 +1,4 @@
-import core, { TypedBody, TypedRoute } from "@nestia/core";
+import core, { HumanRoute, TypedBody, TypedRoute } from "@nestia/core";
 import { Controller } from "@nestjs/common";
 import { RouteIcon, Standalone } from "@wrtnio/decorators";
 
@@ -26,7 +26,10 @@ export class OpenDataController {
    * @summary Search for the address system of the Republic of Korea
    * @param input
    * @returns
+   *
+   * @internal
    */
+  @HumanRoute()
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/open_data.svg",
   )
@@ -53,7 +56,9 @@ export class OpenDataController {
    * @summary Retrieve multi-family lease and rental information
    * @param input Query conditions
    * @returns Information on leases and rents
+   * @internal
    */
+  @HumanRoute()
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/open_data.svg",
   )
@@ -80,7 +85,10 @@ export class OpenDataController {
    * @summary Retrieve officetel lease and rental information
    * @param input Query conditions
    * @returns Information on leases and rents
+   *
+   * @internal
    */
+  @HumanRoute()
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/open_data.svg",
   )
@@ -107,7 +115,10 @@ export class OpenDataController {
    * @summary Retrieve apartment lease and rental information
    * @param input Query conditions
    * @returns Information on leases and rents
+   *
+   * @internal
    */
+  @HumanRoute()
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/open_data.svg",
   )
@@ -135,7 +146,10 @@ export class OpenDataController {
    * @summary Retrieve LH rental housing information
    * @param input Conditions for querying rental housing
    * @returns LH rental housing information
+   *
+   * @internal
    */
+  @HumanRoute()
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/open_data.svg",
   )
@@ -162,7 +176,10 @@ export class OpenDataController {
    * @summary Retrieve parking lot information
    * @param input Conditions for querying parking lots
    * @returns Parking lot information
+   *
+   * @internal
    */
+  @HumanRoute()
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/open_data.svg",
   )
@@ -190,7 +207,10 @@ export class OpenDataController {
    * @summary Retrieve building registration information
    * @param input Conditions for querying building information
    * @returns Building information
+   *
+   * @internal
    */
+  @HumanRoute()
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/open_data.svg",
   )
@@ -229,7 +249,10 @@ export class OpenDataController {
    * @summary Retrieve administrative standard codes
    * @param input Conditions for querying regions
    * @returns Region codes
+   *
+   * @internal
    */
+  @HumanRoute()
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/open_data.svg",
   )
@@ -255,7 +278,10 @@ export class OpenDataController {
    * @summary Retrieve market capitalization and stock information
    * @param input Conditions for querying market capitalization
    * @returns Market capitalization and stock information
+   *
+   * @internal
    */
+  @HumanRoute()
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/open_data.svg",
   )
@@ -314,7 +340,10 @@ export class OpenDataController {
    * @summary Retrieve today's weather from the Korea Meteorological Administration
    * @param input DTO for weather query location
    * @returns Weather information for the specified region
+   *
+   * @internal
    */
+  @HumanRoute()
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/open_data.svg",
   )
@@ -342,7 +371,10 @@ export class OpenDataController {
    * @summary [Copyright Registration Information Service (New)]
    * @param input Conditions for querying copyright
    * @returns Copyright information
+   *
+   * @internal
    */
+  @HumanRoute()
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/open_data.svg",
   )

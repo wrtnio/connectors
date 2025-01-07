@@ -1,4 +1,4 @@
-import core, { TypedBody } from "@nestia/core";
+import core, { HumanRoute, TypedBody } from "@nestia/core";
 import { Controller } from "@nestjs/common";
 import { RouteIcon, Standalone } from "@wrtnio/decorators";
 
@@ -24,7 +24,10 @@ export class SweetTrackerController {
    * @summary Search for a list of couriers matching the invoice number
    * @returns List of couriers
    * @param input Conditions for courier search
+   *
+   * @internal
    */
+  @HumanRoute()
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/delivery_full.svg",
   )
@@ -46,7 +49,10 @@ export class SweetTrackerController {
    *
    * @summary Search for courier list
    * @returns List of couriers
+   *
+   * @internal
    */
+  @HumanRoute()
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/delivery_full.svg",
   )
@@ -70,7 +76,10 @@ export class SweetTrackerController {
    * @summary Invoice search
    * @param input Conditions for searching the invoice number
    * @returns The movement path of the package
+   *
+   * @internal
    */
+  @HumanRoute()
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/delivery_full.svg",
   )

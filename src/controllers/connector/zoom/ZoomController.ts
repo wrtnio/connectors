@@ -1,4 +1,4 @@
-import core from "@nestia/core";
+import core, { HumanRoute } from "@nestia/core";
 import { Controller } from "@nestjs/common";
 import { RouteIcon, Standalone } from "@wrtnio/decorators";
 
@@ -18,6 +18,7 @@ export class ZoomController {
    * @param input DTO of the user information and conditions for creating a meeting
    * @internal
    */
+  @HumanRoute()
   @Standalone()
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Zoom_full.svg",

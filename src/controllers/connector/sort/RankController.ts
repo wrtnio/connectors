@@ -1,4 +1,4 @@
-import core from "@nestia/core";
+import core, { HumanRoute } from "@nestia/core";
 import { Controller } from "@nestjs/common";
 
 import { IRanker } from "@wrtn/connector-api/lib/structures/connector/sort/IRanker";
@@ -19,7 +19,10 @@ export class RankController {
    * @param input Candidate information to sort
    *
    * @returns Array of indices of sorted candidates
+   *
+   * @internal
    */
+  @HumanRoute()
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Sort_full.svg",
   )

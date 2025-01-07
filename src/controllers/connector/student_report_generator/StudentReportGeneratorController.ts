@@ -1,4 +1,4 @@
-import core from "@nestia/core";
+import core, { HumanRoute } from "@nestia/core";
 import { Controller } from "@nestjs/common";
 
 import { RouteIcon } from "@wrtnio/decorators";
@@ -25,7 +25,10 @@ export class StudentReportGeneratorController {
    * @summary Create a student life record
    * @param input Information for creating a student life record
    * @returns The created student life record
+   *
+   * @internal
    */
+  @HumanRoute()
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/StudentRecord_full.svg",
   )
@@ -42,7 +45,10 @@ export class StudentReportGeneratorController {
    * @summary Create a student life record
    * @param input Information for creating a student life record
    * @returns The created student life record
+   *
+   * @internal
    */
+  @HumanRoute()
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/StudentRecord_full.svg",
   )

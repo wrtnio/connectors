@@ -5,6 +5,7 @@ import { ApiTags } from "@nestjs/swagger";
 import { IAISearch } from "@wrtn/connector-api/lib/structures/connector/ai_search/IAISearch";
 import { AISearchProvider } from "../../../providers/connector/ai_search/AISearchProvider";
 import { retry } from "../../../utils/retry";
+import { HumanRoute } from "@wrtnio/decorators";
 
 @Controller("connector/ai-search")
 export class AISearchController {
@@ -16,7 +17,10 @@ export class AISearchController {
    * @hidden
    * @param input Conditions required for search
    * @returns
+   *
+   * @internal
    */
+  @HumanRoute()
   @ApiTags("AI Search")
   @core.TypedRoute.Patch("")
   // @RouteIcon(

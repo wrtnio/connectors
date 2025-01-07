@@ -1,4 +1,4 @@
-import core, { TypedBody } from "@nestia/core";
+import core, { HumanRoute, TypedBody } from "@nestia/core";
 import { Controller } from "@nestjs/common";
 import { RouteIcon, Standalone } from "@wrtnio/decorators";
 
@@ -23,10 +23,13 @@ export class ImwebController {
    * @summary Get my sales product from `Imweb`
    * @param input key and secret
    * @returns the seller's own goods
+   *
+   * @internal
    */
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Imweb_full.svg",
   )
+  @HumanRoute()
   @ApiTags("Imweb")
   @Standalone()
   @core.TypedRoute.Patch("get-products")
@@ -47,6 +50,7 @@ export class ImwebController {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Imweb_full.svg",
   )
+  @HumanRoute()
   @ApiTags("Imweb")
   @core.TypedRoute.Post("auth")
   async authorization(
