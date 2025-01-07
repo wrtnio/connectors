@@ -9,12 +9,14 @@ import { MathUtil } from "../../../src/utils/MathUtil";
 import { IFunctionSelectBenchmarkEvent } from "./IFunctionSelectBenchmarkEvent";
 import { ArrayUtil } from "@nestia/e2e";
 import { ErrorUtil } from "../../../src/utils/ErrorUtil";
+import { INestiaChatTokenUsage } from "@nestia/agent";
 
 export namespace FunctionSelectBenchmarkReporter {
   export interface IProps {
     application: IHttpLlmApplication<"chatgpt">;
     options: IFunctionSelectBenchmarkOptions;
     results: IFunctionSelectBenchmarkResult[];
+    usage: INestiaChatTokenUsage;
   }
 
   export const report = async (props: IProps): Promise<void> => {
@@ -58,6 +60,18 @@ export namespace FunctionSelectBenchmarkReporter {
       `    - Success: ${props.results.map((r) => r.success).reduce((a, b) => a + b, 0)}`,
       `    - Failure: ${props.results.map((r) => r.count - r.success).reduce((a, b) => a + b, 0)}`,
       `    - Average Time: ${MathUtil.round(average).toLocaleString()} ms`,
+      `  - Token Usage:`,
+      `    - Total: ${props.usage.total.toLocaleString()}`,
+      `    - Prompt:`,
+      `      - Total: ${props.usage.prompt.total.toLocaleString()}`,
+      `      - Audio: ${props.usage.prompt.audio.toLocaleString()}`,
+      `      - Cached: ${props.usage.prompt.cached.toLocaleString()}`,
+      `    - Completion:`,
+      `      - Total: ${props.usage.completion.total.toLocaleString()}`,
+      `      - Accepted Prediction: ${props.usage.completion.accepted_prediction.toLocaleString()}`,
+      `      - Audio: ${props.usage.completion.audio.toLocaleString()}`,
+      `      - Reasoning: ${props.usage.completion.reasoning.toLocaleString()}`,
+      `      - Rejected Prediction: ${props.usage.completion.rejected_prediction.toLocaleString()}`,
     ].join("\n");
 
     const table: string = [

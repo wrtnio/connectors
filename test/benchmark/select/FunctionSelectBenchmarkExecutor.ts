@@ -1,3 +1,4 @@
+import { INestiaChatTokenUsage } from "@nestia/agent";
 import { ArrayUtil } from "@nestia/e2e";
 import { ChatGptSelectFunctionAgent } from "@nestia/agent/lib/chatgpt/ChatGptSelectFunctionAgent";
 import { IHttpLlmApplication, IHttpLlmFunction } from "@samchon/openapi";
@@ -11,25 +12,42 @@ import { ConnectorGlobal } from "../../../src/ConnectorGlobal";
 
 export class FunctionSelectBenchmarkExecutor {
   private functions_: IHttpLlmFunction<"chatgpt">[][];
+  private usage_: INestiaChatTokenUsage;
 
   public constructor(
     private readonly application: IHttpLlmApplication<"chatgpt">,
     private readonly options: IFunctionSelectBenchmarkOptions,
     private readonly semaphore: Semaphore,
   ) {
-    const count: number = Math.ceil(
-      application.functions.length / options.capacity,
-    );
-    const capacity: number =
-      count * options.capacity >= application.functions.length
-        ? options.capacity
-        : options.capacity + 1;
-    const entireFunctions: IHttpLlmFunction<"chatgpt">[] =
-      application.functions.slice();
-    ranges.shuffle(entireFunctions);
-    this.functions_ = ArrayUtil.repeat(count)(() =>
-      entireFunctions.splice(0, capacity),
-    );
+    if (application.functions.length <= options.capacity)
+      this.functions_ = [application.functions];
+    else {
+      const size: number = Math.ceil(
+        application.functions.length / options.capacity,
+      );
+      const capacity: number = Math.ceil(application.functions.length / size);
+      const entireFunctions: IHttpLlmFunction<"chatgpt">[] =
+        application.functions.slice();
+      ranges.shuffle(entireFunctions);
+      this.functions_ = ArrayUtil.repeat(size)(() =>
+        entireFunctions.splice(0, capacity),
+      );
+    }
+    this.usage_ = {
+      total: 0,
+      prompt: {
+        total: 0,
+        audio: 0,
+        cached: 0,
+      },
+      completion: {
+        total: 0,
+        accepted_prediction: 0,
+        audio: 0,
+        reasoning: 0,
+        rejected_prediction: 0,
+      },
+    };
   }
 
   public async execute(
@@ -90,9 +108,10 @@ export class FunctionSelectBenchmarkExecutor {
         divide: this.functions_,
         config: {
           retry: 3,
-          eliticism: false,
+          eliticism: true,
           locale: "ko-KR",
         },
+        usage: this.usage_,
       });
 
       const completed_at: Date = new Date();
@@ -120,9 +139,8 @@ export class FunctionSelectBenchmarkExecutor {
       };
     }
   }
-}
 
-interface IStepResult {
-  functions: IHttpLlmFunction<"chatgpt">[];
-  completion: OpenAI.ChatCompletion;
+  public getUsage(): INestiaChatTokenUsage {
+    return this.usage_;
+  }
 }
