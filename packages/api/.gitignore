@@ -1,6 +1,7 @@
 lib/
 node_modules/
 
+application.json
 migrate.json
 openai-positional.json
 openai-keyword.json

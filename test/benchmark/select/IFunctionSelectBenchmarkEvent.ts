@@ -10,7 +10,7 @@ export namespace IFunctionSelectBenchmarkEvent {
     completions: OpenAI.ChatCompletion[];
   }
   export interface IFailure extends IEventBase<"failure"> {
-    found: null | IHttpLlmFunction<"chatgpt">;
+    found: IHttpLlmFunction<"chatgpt">[];
     completions: OpenAI.ChatCompletion[];
   }
   export interface IError extends IEventBase<"error"> {

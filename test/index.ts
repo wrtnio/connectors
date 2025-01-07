@@ -8,6 +8,7 @@ import { ConnectorConfiguration } from "../src/ConnectorConfiguration";
 import { ArgumentParser } from "./helpers/ArgumentParser";
 import { OpenAIMock } from "./helpers/OpenAIMock";
 import { FakeS3Server } from "./servers/FakeS3Server";
+
 interface IOptions {
   include?: string[];
   exclude?: string[];
