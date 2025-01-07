@@ -135,6 +135,7 @@ const main = async (): Promise<void> => {
     application,
     options,
     results,
+    usage: executor.getUsage(),
   });
 };
 main().catch((error) => {
