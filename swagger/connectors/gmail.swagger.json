@@ -18,7 +18,7 @@
     "title": "Gmail",
     "summary": "Gmail로 메일을 관리해요",
     "description": "메일을 보내거나 초안을 작성할 수 있어요. 필요하다면 파일도 첨부해 보낼 수 있어요",
-    "version": "0.1.432",
+    "version": "0.1.433",
     "license": {
       "name": "AGPL-3.0-only"
     }
@@ -318,7 +318,7 @@
         "x-samchon-controller": "GmailController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleMail_full.svg",
         "x-wrtn-function-select-benchmarks": [
-          "메일 삭제해줘"
+          "Gmail에서 메일 하나만 삭제해줘"
         ]
       }
     },

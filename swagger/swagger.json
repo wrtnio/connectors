@@ -15,7 +15,7 @@
     }
   ],
   "info": {
-    "version": "0.1.432",
+    "version": "0.1.433",
     "title": "@wrtn/connector",
     "description": "wrtn-ecosystem connectors and sdk",
     "license": {
@@ -453,7 +453,6 @@
         ],
         "x-samchon-controller": "ArticleController",
         "x-wrtn-function-select-benchmarks": [
-          "전체 내용 글 내용 다 보여줘",
           "글 내용 보여줘"
         ]
       },
@@ -1366,8 +1365,7 @@
         "x-samchon-controller": "ExcelController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/light/excel.svg",
         "x-wrtn-function-select-benchmarks": [
-          "엑셀 헤더 읽어줘",
-          "엑셀 읽어줘"
+          "엑셀 헤더 읽어줘"
         ]
       }
     },
@@ -1453,10 +1451,7 @@
           "worksheetList"
         ],
         "x-samchon-controller": "ExcelController",
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/light/excel.svg",
-        "x-wrtn-function-select-benchmarks": [
-          "엑셀 시트 읽어줘"
-        ]
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/light/excel.svg"
       }
     },
     "/connector/excel/rows/upload": {
@@ -1500,7 +1495,6 @@
         "x-samchon-controller": "ExcelController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/light/excel.svg",
         "x-wrtn-function-select-benchmarks": [
-          "엑셀 데이터 추가해줘",
           "엑셀 데이터 올려줘"
         ]
       }
@@ -1545,8 +1539,7 @@
         "x-samchon-controller": "ExcelController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/light/excel.svg",
         "x-wrtn-function-select-benchmarks": [
-          "엑셀 데이터 추가해줘",
-          "엑셀 데이터 올려줘"
+          "엑셀 데이터 추가해줘"
         ]
       }
     },
@@ -1589,8 +1582,6 @@
         "x-samchon-controller": "ExcelController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/light/excel.svg",
         "x-wrtn-function-select-benchmarks": [
-          "엑셀 데이터 추가해줘",
-          "엑셀 데이터 올려줘",
           "엑셀 파일 만들어줘",
           "엑셀 생성해줘"
         ]
@@ -2515,7 +2506,7 @@
         "x-samchon-controller": "GoogleCalendarController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleCal_full.svg",
         "x-wrtn-function-select-benchmarks": [
-          "캘린더에 등록된 일정 좀 봐줘"
+          "내 구글 캘린더에 등록된 일정 좀 봐줘"
         ]
       }
     },
@@ -2570,7 +2561,7 @@
         "x-samchon-controller": "GoogleCalendarController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleCal_full.svg",
         "x-wrtn-function-select-benchmarks": [
-          "구글 캘린더에 이벤트 하나 생성해줘"
+          "구글 캘린더에 퀵 이벤트 하나 생성해줘"
         ]
       }
     },
@@ -3567,7 +3558,7 @@
         "x-samchon-controller": "GmailController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleMail_full.svg",
         "x-wrtn-function-select-benchmarks": [
-          "메일 삭제해줘"
+          "Gmail에서 메일 하나만 삭제해줘"
         ]
       }
     },
@@ -6137,8 +6128,7 @@
         "x-samchon-controller": "DallE3Controller",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Dall-e3_full.svg",
         "x-wrtn-function-select-benchmarks": [
-          "dall-e로 그림 그려줘",
-          "그림 그려줘"
+          "dall-e로 그림 그려줘"
         ]
       }
     },
@@ -6233,8 +6223,7 @@
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/_wanted_full.svg",
         "x-wrtn-standalone": true,
         "x-wrtn-function-select-benchmarks": [
-          "원티드에서 채용 공고 좀 찾아줘",
-          "채용 공고 좀 찾아줘"
+          "원티드에서 채용 공고 좀 찾아줘"
         ]
       }
     },
@@ -6282,8 +6271,7 @@
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Incruit_full.svg",
         "x-wrtn-standalone": true,
         "x-wrtn-function-select-benchmarks": [
-          "인크루트에서 채용 공고 좀 찾아줘",
-          "채용 공고 좀 찾아줘"
+          "인크루트에서 채용 공고 좀 찾아줘"
         ]
       }
     },
@@ -6331,8 +6319,7 @@
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Saramin_full.svg",
         "x-wrtn-standalone": true,
         "x-wrtn-function-select-benchmarks": [
-          "사람인에서 채용 공고 좀 찾아줘",
-          "채용 공고 좀 찾아줘"
+          "사람인에서 채용 공고 좀 찾아줘"
         ]
       }
     },
@@ -6380,8 +6367,7 @@
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/jumpit_full.svg",
         "x-wrtn-standalone": true,
         "x-wrtn-function-select-benchmarks": [
-          "사람인에서 채용 공고 좀 찾아줘",
-          "채용 공고 좀 찾아줘"
+          "점핏에서 채용 공고 좀 찾아줘"
         ]
       }
     },
@@ -6429,8 +6415,7 @@
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/careerly_full.svg",
         "x-wrtn-standalone": true,
         "x-wrtn-function-select-benchmarks": [
-          "커리어리에서 채용 공고 좀 찾아줘",
-          "채용 공고 좀 찾아줘"
+          "커리어리에서 채용 공고 좀 찾아줘"
         ]
       }
     },
@@ -6477,7 +6462,7 @@
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/aladin_full.svg",
         "x-wrtn-standalone": true,
         "x-wrtn-function-select-benchmarks": [
-          "도서 좀 검색해줘"
+          "알라딘에서 도서 좀 검색해줘"
         ]
       }
     },
@@ -6953,8 +6938,7 @@
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/yes24_full.svg",
         "x-wrtn-standalone": true,
         "x-wrtn-function-select-benchmarks": [
-          "yes24에서 상품 좀 찾아줘",
-          "도서 검색 좀 해줘"
+          "yes24에서 상품 좀 찾아줘"
         ]
       }
     },
@@ -7046,8 +7030,7 @@
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/googleAD_full.svg",
         "x-wrtn-standalone": true,
         "x-wrtn-function-select-benchmarks": [
-          "키워드 기반으로 광고 키워드 아이디어 좀 줘",
-          "URL 기반으로 광고 키워드 아이디어 좀 줘"
+          "URL과 키워드 정보를 모두 이용해서 구글 광고 키워드 좀 줘"
         ]
       }
     },
@@ -7366,7 +7349,7 @@
         "x-samchon-controller": "GoogleAdsController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/googleAD_full.svg",
         "x-wrtn-function-select-benchmarks": [
-          "내 구글 광고들 보여줘"
+          "내 구글 캠페인 내부에 있는 광고 그룹, 광고 목록을 보여줘"
         ]
       }
     },
@@ -7465,7 +7448,7 @@
         "x-samchon-controller": "GoogleAdsController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/googleAD_full.svg",
         "x-wrtn-function-select-benchmarks": [
-          "광고 키워드 목록 좀 보여줄래?"
+          "내가 등록한 구글 광고 키워드 목록 좀 보여줄래?"
         ]
       }
     },
@@ -7507,8 +7490,8 @@
         "x-samchon-controller": "GoogleAdsController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/googleAD_full.svg",
         "x-wrtn-function-select-benchmarks": [
-          "광고 켜줘",
-          "광고 꺼줘"
+          "구글 광고 켜줘",
+          "구글 광고 꺼줘"
         ]
       }
     },
@@ -7550,7 +7533,7 @@
         "x-samchon-controller": "GoogleAdsController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/googleAD_full.svg",
         "x-wrtn-function-select-benchmarks": [
-          "광고 키워드 지워줘"
+          "구글 광고 키워드 지워줘"
         ]
       },
       "post": {
@@ -7599,7 +7582,7 @@
         "x-samchon-controller": "GoogleAdsController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/googleAD_full.svg",
         "x-wrtn-function-select-benchmarks": [
-          "광고 키워드 추가해줘"
+          "구글 광고 키워드 추가해줘"
         ]
       }
     },
@@ -7645,7 +7628,7 @@
         "x-samchon-controller": "GoogleAdsController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/googleAD_full.svg",
         "x-wrtn-function-select-benchmarks": [
-          "광고 상세 조회해줘"
+          "구글 광고 상세 조회해줘"
         ]
       }
     },
@@ -7919,7 +7902,7 @@
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Arxiv_full.svg",
         "x-wrtn-standalone": true,
         "x-wrtn-function-select-benchmarks": [
-          "논문 찾아줘"
+          "Arxiv에서 논문 찾아줘"
         ]
       }
     },
@@ -7963,7 +7946,6 @@
         "x-samchon-controller": "DaumController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/DaumBlog_full.svg",
         "x-wrtn-function-select-benchmarks": [
-          "블로그 검색 해줘",
           "다음 블로그 검색 해줘"
         ]
       }
@@ -8008,7 +7990,6 @@
         "x-samchon-controller": "DaumController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/DaumCafe_full.svg",
         "x-wrtn-function-select-benchmarks": [
-          "카페 검색 해줘",
           "다음 카페 검색 해줘"
         ]
       }
@@ -8264,7 +8245,7 @@
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleScholar_full.svg",
         "x-wrtn-standalone": true,
         "x-wrtn-function-select-benchmarks": [
-          "논문 좀 찾아줘"
+          "google scholar에서 논문 좀 찾아줘"
         ]
       }
     },
@@ -9810,7 +9791,7 @@
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleFlight_full.svg",
         "x-wrtn-standalone": true,
         "x-wrtn-function-select-benchmarks": [
-          "항공권 조회해줘"
+          "구글에서 편도 항공권 조회해줘"
         ]
       }
     },
@@ -9855,8 +9836,7 @@
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleFlight_full.svg",
         "x-wrtn-standalone": true,
         "x-wrtn-function-select-benchmarks": [
-          "왕복 항공권 조회해줘",
-          "항공권 조회해줘"
+          "구글에서 왕복 항공권 조회해줘"
         ]
       }
     },
@@ -11685,8 +11665,7 @@
         "x-samchon-controller": "GoogleMapController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleMap_full.svg",
         "x-wrtn-function-select-benchmarks": [
-          "구글 맵에서 장소 검색 좀 해줘",
-          "구글 맵에서 카페 좀 찾아줘"
+          "구글 맵에서 \"강남\" 이라는 키워드로 장소 검색 좀 해줘"
         ]
       }
     },
@@ -11778,8 +11757,7 @@
         "x-samchon-controller": "GithubController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
         "x-wrtn-function-select-benchmarks": [
-          "유저의 최근 이벤트 알려줘",
-          "유저가 받은 이벤트 알려줘"
+          "Github에서 유저의 최근 이벤트 알려줘"
         ]
       }
     },
@@ -11826,8 +11804,8 @@
         "x-samchon-controller": "GithubController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
         "x-wrtn-function-select-benchmarks": [
-          "유저의 대표 레포지토리들 조회해줘",
-          "유저가 핀 꽂은 레포들 알려줘"
+          "Github에서 유저의 대표 레포지토리들 조회해줘",
+          "Github에서 유저가 핀 꽂은 레포들 알려줘"
         ]
       }
     },
@@ -11871,8 +11849,8 @@
         "x-samchon-controller": "GithubController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
         "x-wrtn-function-select-benchmarks": [
-          "유저의 레포지토리들 조회해줘",
-          "유저 레포들 알려줘"
+          "Github에서 유저의 레포지토리들 조회해줘",
+          "Github에서 유저 레포들 알려줘"
         ]
       }
     },
@@ -11917,7 +11895,7 @@
         "x-samchon-controller": "GithubController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
         "x-wrtn-function-select-benchmarks": [
-          "organization에서 특정 유저 이벤트 조회해줘"
+          "Github에서 organization에서 특정 유저 이벤트 조회해줘"
         ]
       }
     },
@@ -11961,7 +11939,7 @@
         "x-samchon-controller": "GithubController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
         "x-wrtn-function-select-benchmarks": [
-          "organization에 생성되어 있는 이슈 좀 봐줘"
+          "Github에서 organization에 생성되어 있는 이슈 좀 봐줘"
         ]
       }
     },
@@ -12005,7 +11983,7 @@
         "x-samchon-controller": "GithubController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
         "x-wrtn-function-select-benchmarks": [
-          "organization에 생성되어 있는 레포 좀 봐줘"
+          "Github에서 organization에 생성되어 있는 레포 좀 봐줘"
         ]
       }
     },
@@ -12049,7 +12027,7 @@
         "x-samchon-controller": "GithubController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
         "x-wrtn-function-select-benchmarks": [
-          "organization에서 이벤트 조회해줘"
+          "Github에서 organization에서 이벤트 조회해줘"
         ]
       }
     },
@@ -12093,8 +12071,8 @@
         "x-samchon-controller": "GithubController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
         "x-wrtn-function-select-benchmarks": [
-          "내 레포 코드 리뷰해줄 사람 찾아줘",
-          "레포 콜라보레이터 조회해줘"
+          "Github에서 내 레포 코드 리뷰해줄 사람 찾아줘",
+          "Github에서 레포 콜라보레이터 조회해줘"
         ]
       }
     },
@@ -12135,8 +12113,8 @@
         "x-samchon-controller": "GithubController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
         "x-wrtn-function-select-benchmarks": [
-          "방금 커밋한 거 취소해줘",
-          "커밋된 파일 삭제해줘"
+          "Github에서 방금 커밋한 거 취소해줘",
+          "Github에서 커밋된 파일 삭제해줘"
         ]
       },
       "put": {
@@ -12180,7 +12158,7 @@
         "x-samchon-controller": "GithubController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
         "x-wrtn-function-select-benchmarks": [
-          "커밋 수정해줘"
+          "Github에서 커밋 수정해줘"
         ]
       },
       "post": {
@@ -12223,7 +12201,8 @@
         "x-samchon-controller": "GithubController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
         "x-wrtn-function-select-benchmarks": [
-          "커밋 추가해줘"
+          "Github에서 커밋해줘",
+          "Github에서 커밋 추가해줘"
         ]
       }
     },
@@ -12284,8 +12263,8 @@
         "x-samchon-controller": "GithubController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
         "x-wrtn-function-select-benchmarks": [
-          "레포 폴더 구조 조회해줘",
-          "레포 폴더 구조 봐줘"
+          "Github에서 레포 폴더 구조 조회해줘",
+          "Github에서 레포 폴더 구조 봐줘"
         ]
       }
     },
@@ -12379,8 +12358,8 @@
         "x-samchon-controller": "GithubController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
         "x-wrtn-function-select-benchmarks": [
-          "유저가 짠 코드 좀 봐줘",
-          "레포 코드 좀 봐줘"
+          "Github에서 여러 개 읽어서 한 번에 유저가 짠 코드 좀 봐줘",
+          "Github에서 여러 개 읽어서 한 번에 레포 코드 좀 봐줘"
         ]
       }
     },
@@ -12470,8 +12449,8 @@
         "x-samchon-controller": "GithubController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
         "x-wrtn-function-select-benchmarks": [
-          "유저가 짠 코드 좀 봐줘",
-          "레포 코드 좀 봐줘"
+          "Github에서 딱 파일 1개만 읽어서 유저가 짠 코드 좀 봐줘",
+          "Github에서 딱 파일 1개만 읽어서 레포 코드 좀 봐줘"
         ]
       }
     },
@@ -12528,9 +12507,8 @@
         "x-samchon-controller": "GithubController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
         "x-wrtn-function-select-benchmarks": [
-          "리드미 내용 보고 레포 설명해줘",
-          "레포지토리에 대해 설명해봐",
-          "리드미 읽어줘"
+          "Github에서 리드미 내용 보고 레포 설명해줘",
+          "Github에서 리드미 읽어줘"
         ]
       }
     },
@@ -12574,7 +12552,7 @@
         "x-samchon-controller": "GithubController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
         "x-wrtn-function-select-benchmarks": [
-          "레포 이벤트 조회해줘"
+          "Github에서 레포 이벤트 조회해줘"
         ]
       }
     },
@@ -12618,7 +12596,7 @@
         "x-samchon-controller": "GithubController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
         "x-wrtn-function-select-benchmarks": [
-          "레포 포크한 사람들 조회해줘"
+          "Github에서 레포 포크한 사람들 조회해줘"
         ]
       }
     },
@@ -12662,7 +12640,7 @@
         "x-samchon-controller": "GithubController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
         "x-wrtn-function-select-benchmarks": [
-          "내 github 이벤트 조회해줘"
+          "Github에서 내 개인 계정의 이벤트 조회해줘"
         ]
       }
     },
@@ -12706,7 +12684,7 @@
         "x-samchon-controller": "GithubController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
         "x-wrtn-function-select-benchmarks": [
-          "Github Organization 조회해줘"
+          "Github에서 이 유저가 속한 Organization 조회해줘"
         ]
       }
     },
@@ -12790,7 +12768,7 @@
         "x-samchon-controller": "GithubController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
         "x-wrtn-function-select-benchmarks": [
-          "레포의 최근 이력 좀 조회해줘"
+          "Github에서 레포의 최근 이력 좀 조회해줘"
         ]
       }
     },
@@ -12834,7 +12812,7 @@
         "x-samchon-controller": "GithubController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
         "x-wrtn-function-select-benchmarks": [
-          "PR 수정해줘"
+          "Github에서 PR 수정해줘"
         ]
       },
       "post": {
@@ -12876,8 +12854,8 @@
         "x-samchon-controller": "GithubController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
         "x-wrtn-function-select-benchmarks": [
-          "PR 생성해줘",
-          "PR 보내줘"
+          "Github에서 PR 생성해줘",
+          "Github에서 PR 보내줘"
         ]
       }
     },
@@ -12922,8 +12900,8 @@
         "x-samchon-controller": "GithubController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
         "x-wrtn-function-select-benchmarks": [
-          "PR 댓글 보여줘",
-          "PR 댓글 봐줘"
+          "Github에서 PR 댓글 보여줘",
+          "Github에서 PR 댓글 봐줘"
         ]
       }
     },
@@ -12968,8 +12946,8 @@
         "x-samchon-controller": "GithubController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
         "x-wrtn-function-select-benchmarks": [
-          "PR 댓글 좀 달아줘",
-          "PR 댓글 생성해줘"
+          "Github에서 PR 댓글 좀 달아줘",
+          "Github에서 PR 댓글 생성해줘"
         ]
       }
     },
@@ -13014,7 +12992,7 @@
         "x-samchon-controller": "GithubController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
         "x-wrtn-function-select-benchmarks": [
-          "이 PR 리뷰어 누구야?"
+          "Github에서 이 PR 리뷰어 누구야?"
         ]
       }
     },
@@ -13055,7 +13033,7 @@
         "x-samchon-controller": "GithubController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
         "x-wrtn-function-select-benchmarks": [
-          "이 PR에 리뷰어 해제해줘"
+          "Github에서 이 PR에 리뷰어 해제해줘"
         ]
       },
       "post": {
@@ -13094,7 +13072,7 @@
         "x-samchon-controller": "GithubController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
         "x-wrtn-function-select-benchmarks": [
-          "이 PR에 리뷰어 지정해줘"
+          "Github에서 이 PR에 리뷰어 지정해줘"
         ]
       }
     },
@@ -13140,7 +13118,7 @@
         "x-samchon-controller": "GithubController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
         "x-wrtn-function-select-benchmarks": [
-          "PR 리뷰에 달린 답글 좀 보여줘"
+          "Github에서 PR 리뷰에 달린 답글 좀 보여줘"
         ]
       }
     },
@@ -13185,8 +13163,8 @@
         "x-samchon-controller": "GithubController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
         "x-wrtn-function-select-benchmarks": [
-          "PR 리뷰 조회해줘",
-          "PR에 리뷰 있어?"
+          "Github에서 PR 리뷰 조회해줘",
+          "Github에서 PR에 리뷰 있어?"
         ]
       }
     },
@@ -13231,7 +13209,7 @@
         "x-samchon-controller": "GithubController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
         "x-wrtn-function-select-benchmarks": [
-          "PR에 리뷰 좀 달아줘"
+          "Github에서 PR에 리뷰 좀 달아줘"
         ]
       }
     },
@@ -13276,7 +13254,7 @@
         "x-samchon-controller": "GithubController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
         "x-wrtn-function-select-benchmarks": [
-          "PR 파일 좀 조회해봐"
+          "Github에서 PR 파일 좀 조회해봐"
         ]
       }
     },
@@ -13320,7 +13298,7 @@
         "x-samchon-controller": "GithubController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
         "x-wrtn-function-select-benchmarks": [
-          "PR 커밋 목록 가져와봐"
+          "Github에서 PR 커밋 목록 가져와봐"
         ]
       }
     },
@@ -13412,7 +13390,7 @@
         "x-samchon-controller": "GithubController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
         "x-wrtn-function-select-benchmarks": [
-          "PR의 변경점이 뭐야?"
+          "Github에서 PR의 변경점이 뭐야?"
         ]
       }
     },
@@ -13457,7 +13435,7 @@
         "x-samchon-controller": "GithubController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
         "x-wrtn-function-select-benchmarks": [
-          "이 PR에 대해 상세히 알려줘"
+          "Github에서 이 PR에 대해 상세히 알려줘"
         ]
       }
     },
@@ -13501,7 +13479,7 @@
         "x-samchon-controller": "GithubController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
         "x-wrtn-function-select-benchmarks": [
-          "PR 목록 좀 조회해줘"
+          "Github에서 PR 목록 좀 조회해줘"
         ]
       }
     },
@@ -13546,7 +13524,7 @@
         "x-samchon-controller": "GithubController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
         "x-wrtn-function-select-benchmarks": [
-          "레포 이슈 좀 조회해줘"
+          "Github에서 레포 이슈 상세 내용을 조회해줘"
         ]
       }
     },
@@ -13591,7 +13569,7 @@
         "x-samchon-controller": "GithubController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
         "x-wrtn-function-select-benchmarks": [
-          "이 이슈에서 무슨 얘기가 오가는 중이야?"
+          "Github 레포 이슈에 달린 댓글을 조회해줘"
         ]
       }
     },
@@ -13636,7 +13614,7 @@
         "x-samchon-controller": "GithubController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
         "x-wrtn-function-select-benchmarks": [
-          "이슈에 댓글 달아줘"
+          "Github, 이 레포 이슈에 댓글 달아줘"
         ]
       }
     },
@@ -13680,8 +13658,8 @@
         "x-samchon-controller": "GithubController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
         "x-wrtn-function-select-benchmarks": [
-          "이 레포 이슈 목록 좀 가져와줘",
-          "레포에서 이슈 좀 찾아줄래?"
+          "Github에서 이 레포 이슈 목록 좀 가져와줘",
+          "Github에서 레포에서 이슈 좀 찾아줄래?"
         ]
       }
     },
@@ -13724,7 +13702,7 @@
         "x-samchon-controller": "GithubController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
         "x-wrtn-function-select-benchmarks": [
-          "Github 유저 검색해줘"
+          "Github에서 Github 유저 검색해줘"
         ]
       }
     },
@@ -13767,7 +13745,7 @@
         "x-samchon-controller": "GithubController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
         "x-wrtn-function-select-benchmarks": [
-          "Github 유저 상세 보여줘"
+          "Github에서 Github 유저 상세 보여줘"
         ]
       }
     },
@@ -13810,7 +13788,7 @@
         "x-samchon-controller": "GithubController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
         "x-wrtn-function-select-benchmarks": [
-          "내 Organization 조회해줘"
+          "Github에서 내 Organization 조회해줘"
         ]
       }
     },
@@ -13853,7 +13831,7 @@
         "x-samchon-controller": "GithubController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
         "x-wrtn-function-select-benchmarks": [
-          "레포에서 브랜치 좀 조회해줘"
+          "Github에서 레포에서 브랜치 좀 조회해줘"
         ]
       }
     },
@@ -13896,7 +13874,7 @@
         "x-samchon-controller": "GithubController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
         "x-wrtn-function-select-benchmarks": [
-          "브랜치 생성해줘"
+          "Github에서 브랜치 생성해줘"
         ]
       }
     },
@@ -14022,7 +14000,7 @@
         "x-samchon-controller": "GithubController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
         "x-wrtn-function-select-benchmarks": [
-          "커밋 상세 보여줘"
+          "Github에서 커밋 상세 보여줘"
         ]
       }
     },
@@ -14065,7 +14043,7 @@
         "x-samchon-controller": "GithubController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
         "x-wrtn-function-select-benchmarks": [
-          "커밋 상세 보여줘"
+          "Github에서 커밋 상세 보여주되 달라진 diff를 알려줘"
         ]
       }
     },
@@ -14108,7 +14086,7 @@
         "x-samchon-controller": "GithubController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
         "x-wrtn-function-select-benchmarks": [
-          "커밋 목록 보여줘"
+          "Github에서 커밋 목록 보여줘"
         ]
       }
     },
@@ -14151,7 +14129,7 @@
         "x-samchon-controller": "GithubController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
         "x-wrtn-function-select-benchmarks": [
-          "내 github 팔로워 보여줘"
+          "Github에서 내 github 팔로워 보여줘"
         ]
       }
     },
@@ -14194,7 +14172,7 @@
         "x-samchon-controller": "GithubController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
         "x-wrtn-function-select-benchmarks": [
-          "내가 github에서 팔로우한 사람 보여줘"
+          "Github에서 내가 github에서 팔로우한 사람 보여줘"
         ]
       }
     },
@@ -14237,7 +14215,7 @@
         "x-samchon-controller": "GithubController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
         "x-wrtn-function-select-benchmarks": [
-          "issue 라벨 보여줘"
+          "Github에서 이 레포에 사용 가능한 issue 라벨 보여줘"
         ]
       }
     },
@@ -14280,7 +14258,7 @@
         "x-samchon-controller": "GithubController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
         "x-wrtn-function-select-benchmarks": [
-          "이슈 수정해줘"
+          "Github에서 이슈 수정해줘"
         ]
       },
       "post": {
@@ -14321,7 +14299,7 @@
         "x-samchon-controller": "GithubController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
         "x-wrtn-function-select-benchmarks": [
-          "이슈 생성해줘"
+          "Github에서 이슈 생성해줘"
         ]
       }
     },
@@ -14364,7 +14342,6 @@
         "x-samchon-controller": "DiscordController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/discord.svg",
         "x-wrtn-function-select-benchmarks": [
-          "DM 채널 만들어줘",
           "디스코드 DM 채널 만들어줘"
         ]
       }
@@ -14408,7 +14385,7 @@
         "x-samchon-controller": "DiscordController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/discord.svg",
         "x-wrtn-function-select-benchmarks": [
-          "길드 수정해줘"
+          "디스코드 길드 수정해줘"
         ]
       }
     },
@@ -14454,7 +14431,7 @@
         "x-samchon-controller": "DiscordController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/discord.svg",
         "x-wrtn-function-select-benchmarks": [
-          "길드 채널 조회해줘"
+          "디스코드 길드 채널 조회해줘"
         ]
       }
     },
@@ -14497,7 +14474,7 @@
         "x-samchon-controller": "DiscordController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/discord.svg",
         "x-wrtn-function-select-benchmarks": [
-          "길드 채널 생성해줘"
+          "디스코드 길드 채널 생성해줘"
         ]
       }
     },
@@ -14543,7 +14520,7 @@
         "x-samchon-controller": "DiscordController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/discord.svg",
         "x-wrtn-function-select-benchmarks": [
-          "길드 멤버 조회해줘"
+          "디스코드 길드 멤버 조회해줘"
         ]
       }
     },
@@ -14587,8 +14564,7 @@
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/discord.svg",
         "x-wrtn-function-select-benchmarks": [
           "디스코드 채널 정보 수정해줘",
-          "채널 정보 수정해줘",
-          "채널 수정해줘"
+          "디스코드 채널 수정해줘"
         ]
       }
     },
@@ -14627,8 +14603,7 @@
         "x-samchon-controller": "DiscordController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/discord.svg",
         "x-wrtn-function-select-benchmarks": [
-          "디스코드 채널 삭제해줘",
-          "채널 삭제해줘"
+          "디스코드 채널 삭제해줘"
         ]
       }
     },
@@ -14675,7 +14650,7 @@
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/discord.svg",
         "x-wrtn-function-select-benchmarks": [
           "디스코드 메세지 고정해둔 것들 조회해줘",
-          "핀꽂은 메세지만 조회해줘"
+          "디스코드 핀꽂은 메세지만 조회해줘"
         ]
       }
     },
@@ -14714,8 +14689,7 @@
         "x-samchon-controller": "DiscordController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/discord.svg",
         "x-wrtn-function-select-benchmarks": [
-          "디스코드 메시지 고정해줘",
-          "메시지 고정해줘"
+          "디스코드 메시지 고정해줘"
         ]
       }
     },
@@ -14754,8 +14728,7 @@
         "x-samchon-controller": "DiscordController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/discord.svg",
         "x-wrtn-function-select-benchmarks": [
-          "디스코드 메시지 고정 해제해줘",
-          "메시지 고정 해제해줘"
+          "디스코드 메시지 고정 해제해줘"
         ]
       }
     },
@@ -14801,8 +14774,7 @@
         "x-samchon-controller": "DiscordController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/discord.svg",
         "x-wrtn-function-select-benchmarks": [
-          "디스코드 메시지 조회해줘",
-          "메시지 조회해줘"
+          "디스코드 메시지 조회해줘"
         ]
       }
     },
@@ -14845,8 +14817,7 @@
         "x-samchon-controller": "DiscordController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/discord.svg",
         "x-wrtn-function-select-benchmarks": [
-          "디스코드 메시지 보내줘",
-          "메시지 보내줘"
+          "디스코드 메시지 보내줘"
         ]
       }
     },
@@ -14889,8 +14860,7 @@
         "x-samchon-controller": "DiscordController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/discord.svg",
         "x-wrtn-function-select-benchmarks": [
-          "디스코드 메시지 수정해줘",
-          "메시지 수정해줘"
+          "디스코드 메시지 수정해줘"
         ]
       }
     },
@@ -14931,10 +14901,7 @@
         "x-wrtn-function-select-benchmarks": [
           "디스코드 메시지 전송 취소해줘",
           "디스코드 메시지 취소해줘",
-          "디스코드 메시지 삭제해줘",
-          "메시지 전송 취소해줘",
-          "메시지 취소해줘",
-          "메시지 삭제해줘"
+          "디스코드 메시지 삭제해줘"
         ]
       }
     },
@@ -14975,10 +14942,7 @@
         "x-wrtn-function-select-benchmarks": [
           "디스코드 메시지 전송 취소해줘",
           "디스코드 메시지 취소해줘",
-          "디스코드 메시지 삭제해줘",
-          "메시지 전송 취소해줘",
-          "메시지 취소해줘",
-          "메시지 삭제해줘"
+          "디스코드 메시지 삭제해줘"
         ]
       }
     },
@@ -15240,7 +15204,7 @@
         "x-samchon-controller": "CalendlyController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/calendly.svg",
         "x-wrtn-function-select-benchmarks": [
-          "예약된 미팅들 좀 알려줘"
+          "내 calendly에서 예약된 미팅들 좀 알려줘"
         ]
       }
     },
@@ -15307,7 +15271,7 @@
         "x-samchon-controller": "CalendlyController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/calendly.svg",
         "x-wrtn-function-select-benchmarks": [
-          "미팅에 노쇼한 사람 체크 좀 해줘"
+          "내 calendly에서 미팅에 노쇼한 사람 체크 좀 해줘"
         ]
       }
     },
@@ -15373,7 +15337,7 @@
         "x-samchon-controller": "CalendlyController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/calendly.svg",
         "x-wrtn-function-select-benchmarks": [
-          "미팅 참석자 정보 좀 찾아줘"
+          "내 calendly에서 미팅 참석자 정보 좀 찾아줘"
         ]
       }
     },
@@ -15418,7 +15382,7 @@
         "x-samchon-controller": "CalendlyController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/calendly.svg",
         "x-wrtn-function-select-benchmarks": [
-          "미팅 참석자 정보 좀 찾아줘"
+          "내 calendly에서 미팅 참석자 정보 좀 찾아줘"
         ]
       }
     },
@@ -15462,7 +15426,7 @@
         "x-samchon-controller": "CalendlyController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/calendly.svg",
         "x-wrtn-function-select-benchmarks": [
-          "1회성 미팅 초대 링크 좀 줄래?"
+          "내 calendly에서 1회성 미팅 초대 링크 좀 줄래?"
         ]
       }
     },
@@ -15987,9 +15951,9 @@
         "x-samchon-controller": "CrunchbaseController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/crunchbase_full.svg",
         "x-wrtn-function-select-benchmarks": [
-          "회사 투자 라운드 좀 알려줘",
-          "스타트업 정보 좀 찾아줘",
-          "회사 정보 좀 찾아줘"
+          "Crunchbase에서 회사 투자 라운드 좀 알려줘",
+          "Crunchbase에서 스타트업 정보 좀 찾아줘",
+          "Crunchbase에서 회사 정보 좀 찾아줘"
         ]
       }
     },
@@ -16726,10 +16690,10 @@
         ],
         "x-samchon-controller": "InnoforestController",
         "x-wrtn-function-select-benchmarks": [
-          "혁신의 숲에서 회사 정보 좀 찾아줘",
-          "회사 투자 라운드 좀 알려줘",
-          "스타트업 정보 좀 찾아줘",
-          "회사 정보 좀 찾아줘"
+          "혁신의숲에서 회사 정보 좀 찾아줘",
+          "혁신의숲에서 회사 투자 라운드 좀 알려줘",
+          "혁신의숲에서 스타트업 정보 좀 찾아줘",
+          "혁신의숲에서 회사 정보 좀 찾아줘"
         ]
       }
     },

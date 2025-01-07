@@ -18,7 +18,7 @@
     "title": "Excel",
     "summary": "엑셀을 이용해서 알아보기 쉽게 데이터를 관리할 수 있어요",
     "description": "엑셀에 시트를 넣거나 데이터를 추가하여 보기 쉽게 데이터를 관리할 수 있어요. 또 기존 파일을 업데이트해서 데이터를 누적해나갈 수도 있어요.",
-    "version": "0.1.432",
+    "version": "0.1.433",
     "license": {
       "name": "AGPL-3.0-only"
     }
@@ -68,8 +68,7 @@
         "x-samchon-controller": "ExcelController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/light/excel.svg",
         "x-wrtn-function-select-benchmarks": [
-          "엑셀 헤더 읽어줘",
-          "엑셀 읽어줘"
+          "엑셀 헤더 읽어줘"
         ]
       }
     },
@@ -155,10 +154,7 @@
           "worksheetList"
         ],
         "x-samchon-controller": "ExcelController",
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/light/excel.svg",
-        "x-wrtn-function-select-benchmarks": [
-          "엑셀 시트 읽어줘"
-        ]
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/light/excel.svg"
       }
     },
     "/connector/excel/rows/upload": {
@@ -202,7 +198,6 @@
         "x-samchon-controller": "ExcelController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/light/excel.svg",
         "x-wrtn-function-select-benchmarks": [
-          "엑셀 데이터 추가해줘",
           "엑셀 데이터 올려줘"
         ]
       }
@@ -247,8 +242,7 @@
         "x-samchon-controller": "ExcelController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/light/excel.svg",
         "x-wrtn-function-select-benchmarks": [
-          "엑셀 데이터 추가해줘",
-          "엑셀 데이터 올려줘"
+          "엑셀 데이터 추가해줘"
         ]
       }
     },
@@ -291,8 +285,6 @@
         "x-samchon-controller": "ExcelController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/light/excel.svg",
         "x-wrtn-function-select-benchmarks": [
-          "엑셀 데이터 추가해줘",
-          "엑셀 데이터 올려줘",
           "엑셀 파일 만들어줘",
           "엑셀 생성해줘"
         ]
