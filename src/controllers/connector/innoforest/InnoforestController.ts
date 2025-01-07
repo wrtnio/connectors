@@ -20,10 +20,10 @@ export class InnoforestController {
    *
    * @summary Retrieve all company data from Innoforest
    */
-  @SelectBenchmark("회사 정보 좀 찾아줘")
-  @SelectBenchmark("스타트업 정보 좀 찾아줘")
-  @SelectBenchmark("회사 투자 라운드 좀 알려줘")
-  @SelectBenchmark("혁신의 숲에서 회사 정보 좀 찾아줘")
+  @SelectBenchmark("혁신의숲에서 회사 정보 좀 찾아줘")
+  @SelectBenchmark("혁신의숲에서 스타트업 정보 좀 찾아줘")
+  @SelectBenchmark("혁신의숲에서 회사 투자 라운드 좀 알려줘")
+  @SelectBenchmark("혁신의숲에서 회사 정보 좀 찾아줘")
   @TypedRoute.Patch("unify")
   async unify(
     @TypedBody() input: IInnoforest.IUnifyInput,

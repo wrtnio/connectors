@@ -45,8 +45,7 @@ export class GithubController {
    * @param input Information for Getting Received Event
    * @returns Received Event of user
    */
-  @SelectBenchmark("유저가 받은 이벤트 알려줘")
-  @SelectBenchmark("유저의 최근 이벤트 알려줘")
+  @SelectBenchmark("Github에서 유저의 최근 이벤트 알려줘")
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
   )
@@ -69,8 +68,8 @@ export class GithubController {
    * @param input
    * @returns repositories
    */
-  @SelectBenchmark("유저가 핀 꽂은 레포들 알려줘")
-  @SelectBenchmark("유저의 대표 레포지토리들 조회해줘")
+  @SelectBenchmark("Github에서 유저가 핀 꽂은 레포들 알려줘")
+  @SelectBenchmark("Github에서 유저의 대표 레포지토리들 조회해줘")
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
   )
@@ -92,8 +91,8 @@ export class GithubController {
    * @param input
    * @returns repositories
    */
-  @SelectBenchmark("유저 레포들 알려줘")
-  @SelectBenchmark("유저의 레포지토리들 조회해줘")
+  @SelectBenchmark("Github에서 유저 레포들 알려줘")
+  @SelectBenchmark("Github에서 유저의 레포지토리들 조회해줘")
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
   )
@@ -119,7 +118,7 @@ export class GithubController {
    * @summary Lists organization events for the authenticated user
    * @returns A list of events from the organizations the authenticated user is a member of.
    */
-  @SelectBenchmark("organization에서 특정 유저 이벤트 조회해줘")
+  @SelectBenchmark("Github에서 organization에서 특정 유저 이벤트 조회해줘")
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
   )
@@ -145,7 +144,7 @@ export class GithubController {
    * @param input
    * @returns
    */
-  @SelectBenchmark("organization에 생성되어 있는 이슈 좀 봐줘")
+  @SelectBenchmark("Github에서 organization에 생성되어 있는 이슈 좀 봐줘")
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
   )
@@ -167,7 +166,7 @@ export class GithubController {
    * @param input
    * @returns
    */
-  @SelectBenchmark("organization에 생성되어 있는 레포 좀 봐줘")
+  @SelectBenchmark("Github에서 organization에 생성되어 있는 레포 좀 봐줘")
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
   )
@@ -196,7 +195,7 @@ export class GithubController {
    *
    * @summary List public organization events.
    */
-  @SelectBenchmark("organization에서 이벤트 조회해줘")
+  @SelectBenchmark("Github에서 organization에서 이벤트 조회해줘")
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
   )
@@ -224,8 +223,8 @@ export class GithubController {
    * @param input
    * @returns
    */
-  @SelectBenchmark("레포 콜라보레이터 조회해줘")
-  @SelectBenchmark("내 레포 코드 리뷰해줄 사람 찾아줘")
+  @SelectBenchmark("Github에서 레포 콜라보레이터 조회해줘")
+  @SelectBenchmark("Github에서 내 레포 코드 리뷰해줄 사람 찾아줘")
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
   )
@@ -253,8 +252,8 @@ export class GithubController {
    * @param input
    * @returns
    */
-  @SelectBenchmark("커밋된 파일 삭제해줘")
-  @SelectBenchmark("방금 커밋한 거 취소해줘")
+  @SelectBenchmark("Github에서 커밋된 파일 삭제해줘")
+  @SelectBenchmark("Github에서 방금 커밋한 거 취소해줘")
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
   )
@@ -290,7 +289,7 @@ export class GithubController {
    * @param input test
    * @returns
    */
-  @SelectBenchmark("커밋 수정해줘")
+  @SelectBenchmark("Github에서 커밋 수정해줘")
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
   )
@@ -323,7 +322,8 @@ export class GithubController {
    * @param input
    * @returns
    */
-  @SelectBenchmark("커밋 추가해줘")
+  @SelectBenchmark("Github에서 커밋 추가해줘")
+  @SelectBenchmark("Github에서 커밋해줘")
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
   )
@@ -351,8 +351,8 @@ export class GithubController {
    * @param input
    * @returns
    */
-  @SelectBenchmark("레포 폴더 구조 봐줘")
-  @SelectBenchmark("레포 폴더 구조 조회해줘")
+  @SelectBenchmark("Github에서 레포 폴더 구조 봐줘")
+  @SelectBenchmark("Github에서 레포 폴더 구조 조회해줘")
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
   )
@@ -386,8 +386,8 @@ export class GithubController {
    * @param input
    * @returns
    */
-  @SelectBenchmark("레포 코드 좀 봐줘")
-  @SelectBenchmark("유저가 짠 코드 좀 봐줘")
+  @SelectBenchmark("Github에서 여러 개 읽어서 한 번에 레포 코드 좀 봐줘")
+  @SelectBenchmark("Github에서 여러 개 읽어서 한 번에 유저가 짠 코드 좀 봐줘")
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
   )
@@ -414,8 +414,8 @@ export class GithubController {
    * @param input
    * @returns
    */
-  @SelectBenchmark("레포 코드 좀 봐줘")
-  @SelectBenchmark("유저가 짠 코드 좀 봐줘")
+  @SelectBenchmark("Github에서 딱 파일 1개만 읽어서 레포 코드 좀 봐줘")
+  @SelectBenchmark("Github에서 딱 파일 1개만 읽어서 유저가 짠 코드 좀 봐줘")
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
   )
@@ -437,9 +437,8 @@ export class GithubController {
    * @param input
    * @returns
    */
-  @SelectBenchmark("리드미 읽어줘")
-  @SelectBenchmark("레포지토리에 대해 설명해봐")
-  @SelectBenchmark("리드미 내용 보고 레포 설명해줘")
+  @SelectBenchmark("Github에서 리드미 읽어줘")
+  @SelectBenchmark("Github에서 리드미 내용 보고 레포 설명해줘")
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
   )
@@ -460,7 +459,7 @@ export class GithubController {
    *
    * @summary List events for the authenticated user
    */
-  @SelectBenchmark("레포 이벤트 조회해줘")
+  @SelectBenchmark("Github에서 레포 이벤트 조회해줘")
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
   )
@@ -489,7 +488,7 @@ export class GithubController {
    *
    * @summary List public events for a network of repositories
    */
-  @SelectBenchmark("레포 포크한 사람들 조회해줘")
+  @SelectBenchmark("Github에서 레포 포크한 사람들 조회해줘")
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
   )
@@ -520,7 +519,7 @@ export class GithubController {
    *
    * @summary List events for the authenticated user.
    */
-  @SelectBenchmark("내 github 이벤트 조회해줘")
+  @SelectBenchmark("Github에서 내 개인 계정의 이벤트 조회해줘")
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
   )
@@ -543,7 +542,7 @@ export class GithubController {
    * @param input
    * @returns
    */
-  @SelectBenchmark("Github Organization 조회해줘")
+  @SelectBenchmark("Github에서 이 유저가 속한 Organization 조회해줘")
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
   )
@@ -592,7 +591,7 @@ export class GithubController {
    * @param input
    * @returns
    */
-  @SelectBenchmark("레포의 최근 이력 좀 조회해줘")
+  @SelectBenchmark("Github에서 레포의 최근 이력 좀 조회해줘")
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
   )
@@ -614,7 +613,7 @@ export class GithubController {
    * @param input Update pull request
    * @returns
    */
-  @SelectBenchmark("PR 수정해줘")
+  @SelectBenchmark("Github에서 PR 수정해줘")
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
   )
@@ -643,8 +642,8 @@ export class GithubController {
    * @param input Create pull request
    * @returns
    */
-  @SelectBenchmark("PR 보내줘")
-  @SelectBenchmark("PR 생성해줘")
+  @SelectBenchmark("Github에서 PR 보내줘")
+  @SelectBenchmark("Github에서 PR 생성해줘")
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
   )
@@ -670,8 +669,8 @@ export class GithubController {
    * @param input
    * @returns
    */
-  @SelectBenchmark("PR 댓글 봐줘")
-  @SelectBenchmark("PR 댓글 보여줘")
+  @SelectBenchmark("Github에서 PR 댓글 봐줘")
+  @SelectBenchmark("Github에서 PR 댓글 보여줘")
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
   )
@@ -690,8 +689,8 @@ export class GithubController {
    * @param input
    * @returns
    */
-  @SelectBenchmark("PR 댓글 생성해줘")
-  @SelectBenchmark("PR 댓글 좀 달아줘")
+  @SelectBenchmark("Github에서 PR 댓글 생성해줘")
+  @SelectBenchmark("Github에서 PR 댓글 좀 달아줘")
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
   )
@@ -719,7 +718,7 @@ export class GithubController {
    * @param input
    * @returns
    */
-  @SelectBenchmark("이 PR 리뷰어 누구야?")
+  @SelectBenchmark("Github에서 이 PR 리뷰어 누구야?")
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
   )
@@ -741,7 +740,7 @@ export class GithubController {
    * @param input
    * @returns
    */
-  @SelectBenchmark("이 PR에 리뷰어 해제해줘")
+  @SelectBenchmark("Github에서 이 PR에 리뷰어 해제해줘")
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
   )
@@ -763,7 +762,7 @@ export class GithubController {
    * @param input
    * @returns
    */
-  @SelectBenchmark("이 PR에 리뷰어 지정해줘")
+  @SelectBenchmark("Github에서 이 PR에 리뷰어 지정해줘")
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
   )
@@ -784,7 +783,7 @@ export class GithubController {
    * @param input
    * @returns
    */
-  @SelectBenchmark("PR 리뷰에 달린 답글 좀 보여줘")
+  @SelectBenchmark("Github에서 PR 리뷰에 달린 답글 좀 보여줘")
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
   )
@@ -808,8 +807,8 @@ export class GithubController {
    * @param input
    * @returns
    */
-  @SelectBenchmark("PR에 리뷰 있어?")
-  @SelectBenchmark("PR 리뷰 조회해줘")
+  @SelectBenchmark("Github에서 PR에 리뷰 있어?")
+  @SelectBenchmark("Github에서 PR 리뷰 조회해줘")
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
   )
@@ -831,7 +830,7 @@ export class GithubController {
    * @param input
    * @returns
    */
-  @SelectBenchmark("PR에 리뷰 좀 달아줘")
+  @SelectBenchmark("Github에서 PR에 리뷰 좀 달아줘")
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
   )
@@ -856,7 +855,7 @@ export class GithubController {
    * @param input
    * @returns
    */
-  @SelectBenchmark("PR 파일 좀 조회해봐")
+  @SelectBenchmark("Github에서 PR 파일 좀 조회해봐")
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
   )
@@ -880,7 +879,7 @@ export class GithubController {
    * @param input
    * @returns
    */
-  @SelectBenchmark("PR 커밋 목록 가져와봐")
+  @SelectBenchmark("Github에서 PR 커밋 목록 가져와봐")
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
   )
@@ -909,7 +908,7 @@ export class GithubController {
    * @param input
    * @returns
    */
-  @SelectBenchmark("PR의 변경점이 뭐야?")
+  @SelectBenchmark("Github에서 PR의 변경점이 뭐야?")
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
   )
@@ -934,7 +933,7 @@ export class GithubController {
    * @param input
    * @returns
    */
-  @SelectBenchmark("이 PR에 대해 상세히 알려줘")
+  @SelectBenchmark("Github에서 이 PR에 대해 상세히 알려줘")
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
   )
@@ -958,7 +957,7 @@ export class GithubController {
    * @param input
    * @returns
    */
-  @SelectBenchmark("PR 목록 좀 조회해줘")
+  @SelectBenchmark("Github에서 PR 목록 좀 조회해줘")
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
   )
@@ -980,7 +979,7 @@ export class GithubController {
    * @param input
    * @returns
    */
-  @SelectBenchmark("레포 이슈 좀 조회해줘")
+  @SelectBenchmark("Github에서 레포 이슈 상세 내용을 조회해줘")
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
   )
@@ -1003,7 +1002,7 @@ export class GithubController {
    * @param input
    * @returns
    */
-  @SelectBenchmark("이 이슈에서 무슨 얘기가 오가는 중이야?")
+  @SelectBenchmark("Github 레포 이슈에 달린 댓글을 조회해줘")
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
   )
@@ -1025,7 +1024,7 @@ export class GithubController {
    * @param input
    * @returns
    */
-  @SelectBenchmark("이슈에 댓글 달아줘")
+  @SelectBenchmark("Github, 이 레포 이슈에 댓글 달아줘")
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
   )
@@ -1054,8 +1053,8 @@ export class GithubController {
    * @param input
    * @returns
    */
-  @SelectBenchmark("레포에서 이슈 좀 찾아줄래?")
-  @SelectBenchmark("이 레포 이슈 목록 좀 가져와줘")
+  @SelectBenchmark("Github에서 레포에서 이슈 좀 찾아줄래?")
+  @SelectBenchmark("Github에서 이 레포 이슈 목록 좀 가져와줘")
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
   )
@@ -1074,7 +1073,7 @@ export class GithubController {
    * @param input
    * @returns list of user
    */
-  @SelectBenchmark("Github 유저 검색해줘")
+  @SelectBenchmark("Github에서 Github 유저 검색해줘")
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
   )
@@ -1093,7 +1092,7 @@ export class GithubController {
    * @param input
    * @returns detailed profile
    */
-  @SelectBenchmark("Github 유저 상세 보여줘")
+  @SelectBenchmark("Github에서 Github 유저 상세 보여줘")
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
   )
@@ -1117,7 +1116,7 @@ export class GithubController {
    * @param input
    * @returns
    */
-  @SelectBenchmark("내 Organization 조회해줘")
+  @SelectBenchmark("Github에서 내 Organization 조회해줘")
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
   )
@@ -1142,7 +1141,7 @@ export class GithubController {
    * @param input
    * @returns
    */
-  @SelectBenchmark("레포에서 브랜치 좀 조회해줘")
+  @SelectBenchmark("Github에서 레포에서 브랜치 좀 조회해줘")
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
   )
@@ -1165,7 +1164,7 @@ export class GithubController {
    * @param input
    * @returns
    */
-  @SelectBenchmark("브랜치 생성해줘")
+  @SelectBenchmark("Github에서 브랜치 생성해줘")
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
   )
@@ -1228,7 +1227,7 @@ export class GithubController {
    * @param input
    * @returns detailed commit history
    */
-  @SelectBenchmark("커밋 상세 보여줘")
+  @SelectBenchmark("Github에서 커밋 상세 보여줘")
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
   )
@@ -1249,7 +1248,7 @@ export class GithubController {
    * @param input
    * @returns commit diff
    */
-  @SelectBenchmark("커밋 상세 보여줘")
+  @SelectBenchmark("Github에서 커밋 상세 보여주되 달라진 diff를 알려줘")
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
   )
@@ -1271,7 +1270,7 @@ export class GithubController {
    * @param input
    * @returns list of commit
    */
-  @SelectBenchmark("커밋 목록 보여줘")
+  @SelectBenchmark("Github에서 커밋 목록 보여줘")
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
   )
@@ -1293,7 +1292,7 @@ export class GithubController {
    * @param input
    * @returns
    */
-  @SelectBenchmark("내 github 팔로워 보여줘")
+  @SelectBenchmark("Github에서 내 github 팔로워 보여줘")
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
   )
@@ -1315,7 +1314,7 @@ export class GithubController {
    * @param input
    * @returns
    */
-  @SelectBenchmark("내가 github에서 팔로우한 사람 보여줘")
+  @SelectBenchmark("Github에서 내가 github에서 팔로우한 사람 보여줘")
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
   )
@@ -1339,7 +1338,7 @@ export class GithubController {
    * @param input
    * @returns
    */
-  @SelectBenchmark("issue 라벨 보여줘")
+  @SelectBenchmark("Github에서 이 레포에 사용 가능한 issue 라벨 보여줘")
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
   )
@@ -1365,7 +1364,7 @@ export class GithubController {
    * @param input
    * @returns
    */
-  @SelectBenchmark("이슈 수정해줘")
+  @SelectBenchmark("Github에서 이슈 수정해줘")
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
   )
@@ -1392,7 +1391,7 @@ export class GithubController {
    * @param input
    * @returns
    */
-  @SelectBenchmark("이슈 생성해줘")
+  @SelectBenchmark("Github에서 이슈 생성해줘")
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
   )

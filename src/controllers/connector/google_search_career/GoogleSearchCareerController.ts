@@ -16,7 +16,6 @@ export class GoogleSearchCareerController {
    * @param input Search conditions
    * @returns Wanted job posting search results
    */
-  @SelectBenchmark("채용 공고 좀 찾아줘")
   @SelectBenchmark("원티드에서 채용 공고 좀 찾아줘")
   @Standalone()
   @core.TypedRoute.Patch("wanted")
@@ -37,7 +36,6 @@ export class GoogleSearchCareerController {
    * @param input Search conditions
    * @returns Search results for Incruit job postings
    */
-  @SelectBenchmark("채용 공고 좀 찾아줘")
   @SelectBenchmark("인크루트에서 채용 공고 좀 찾아줘")
   @Standalone()
   @core.TypedRoute.Patch("incruit")
@@ -58,7 +56,6 @@ export class GoogleSearchCareerController {
    * @param input Search criteria
    * @returns Search for Saramin job postings results
    */
-  @SelectBenchmark("채용 공고 좀 찾아줘")
   @SelectBenchmark("사람인에서 채용 공고 좀 찾아줘")
   @Standalone()
   @core.TypedRoute.Patch("saramin")
@@ -79,8 +76,7 @@ export class GoogleSearchCareerController {
    * @param input Search conditions
    * @returns Jumpfit job posting search results
    */
-  @SelectBenchmark("채용 공고 좀 찾아줘")
-  @SelectBenchmark("사람인에서 채용 공고 좀 찾아줘")
+  @SelectBenchmark("점핏에서 채용 공고 좀 찾아줘")
   @Standalone()
   @core.TypedRoute.Patch("jumpit")
   @RouteIcon(
@@ -100,7 +96,6 @@ export class GoogleSearchCareerController {
    * @param input Search conditions
    * @returns Careerly Post Search Results
    */
-  @SelectBenchmark("채용 공고 좀 찾아줘")
   @SelectBenchmark("커리어리에서 채용 공고 좀 찾아줘")
   @Standalone()
   @core.TypedRoute.Patch("careerly")

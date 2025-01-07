@@ -17,7 +17,7 @@ export class GoogleScholarController {
    * @param input Google Scholar paper search criteria
    * @returns Google Scholar paper list
    */
-  @SelectBenchmark("논문 좀 찾아줘")
+  @SelectBenchmark("google scholar에서 논문 좀 찾아줘")
   @Standalone()
   @core.TypedRoute.Patch()
   @RouteIcon(

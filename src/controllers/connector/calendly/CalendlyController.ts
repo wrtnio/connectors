@@ -129,7 +129,7 @@ export class CalendlyController {
    * @param input The input to filter scheduled events.
    * @returns The list of scheduled events.
    */
-  @SelectBenchmark("예약된 미팅들 좀 알려줘")
+  @SelectBenchmark("내 calendly에서 예약된 미팅들 좀 알려줘")
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/calendly.svg",
   )
@@ -153,7 +153,7 @@ export class CalendlyController {
    * @param input Additional input for no-show marking.
    * @returns The result of the no-show marking.
    */
-  @SelectBenchmark("미팅에 노쇼한 사람 체크 좀 해줘")
+  @SelectBenchmark("내 calendly에서 미팅에 노쇼한 사람 체크 좀 해줘")
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/calendly.svg",
   )
@@ -183,7 +183,7 @@ export class CalendlyController {
    * @param input Additional input for invitee retrieval.
    * @returns The details of the invitee.
    */
-  @SelectBenchmark("미팅 참석자 정보 좀 찾아줘")
+  @SelectBenchmark("내 calendly에서 미팅 참석자 정보 좀 찾아줘")
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/calendly.svg",
   )
@@ -211,7 +211,7 @@ export class CalendlyController {
    * @param input The input to filter invitees.
    * @returns The list of invitees for the event.
    */
-  @SelectBenchmark("미팅 참석자 정보 좀 찾아줘")
+  @SelectBenchmark("내 calendly에서 미팅 참석자 정보 좀 찾아줘")
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/calendly.svg",
   )
@@ -233,7 +233,7 @@ export class CalendlyController {
    * @param input The details needed to create a one-off event type.
    * @returns The created one-off event type details.
    */
-  @SelectBenchmark("1회성 미팅 초대 링크 좀 줄래?")
+  @SelectBenchmark("내 calendly에서 1회성 미팅 초대 링크 좀 줄래?")
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/calendly.svg",
   )

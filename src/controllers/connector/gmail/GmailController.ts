@@ -179,7 +179,7 @@ export class GmailController {
    * @param input
    * @returns
    */
-  @SelectBenchmark("메일 삭제해줘")
+  @SelectBenchmark("Gmail에서 메일 하나만 삭제해줘")
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleMail_full.svg",
   )
