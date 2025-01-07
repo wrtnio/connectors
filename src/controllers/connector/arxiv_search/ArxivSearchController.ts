@@ -17,7 +17,7 @@ export class ArxivSearchController {
    * @param input Archive Paper Search Criteria
    * @returns A list of papers found in the archive based on the search criteria.
    */
-  @SelectBenchmark("논문 찾아줘")
+  @SelectBenchmark("Arxiv에서 논문 찾아줘")
   @Standalone()
   @core.TypedRoute.Patch()
   @RouteIcon(

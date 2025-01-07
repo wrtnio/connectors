@@ -23,7 +23,7 @@ export class GoogleShoppingAladinController {
    * @param input Search conditions
    * @returns Search results
    */
-  @SelectBenchmark("도서 좀 검색해줘")
+  @SelectBenchmark("알라딘에서 도서 좀 검색해줘")
   @Standalone()
   @core.TypedRoute.Patch("aladine")
   @RouteIcon(

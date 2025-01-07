@@ -17,7 +17,6 @@ export class DaumController {
    * @param input Conditions for searching the following blog
    */
   @SelectBenchmark("다음 블로그 검색 해줘")
-  @SelectBenchmark("블로그 검색 해줘")
   @core.TypedRoute.Patch("blog")
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/DaumBlog_full.svg",
@@ -36,7 +35,6 @@ export class DaumController {
    * @param input Conditions for searching the following cafe
    */
   @SelectBenchmark("다음 카페 검색 해줘")
-  @SelectBenchmark("카페 검색 해줘")
   @core.TypedRoute.Patch("cafe")
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/DaumCafe_full.svg",

@@ -95,7 +95,7 @@ export class GoogleCalendarController {
    * @param input Condition to get the list of events
    * @returns A list of Google Calendar events
    */
-  @SelectBenchmark("캘린더에 등록된 일정 좀 봐줘")
+  @SelectBenchmark("내 구글 캘린더에 등록된 일정 좀 봐줘")
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleCal_full.svg",
   )
@@ -124,7 +124,7 @@ export class GoogleCalendarController {
    * @param calendarId Unique ID of the calendar to add the event to
    * @param input Unique ID of the calendar to add the event to, and the event name
    */
-  @SelectBenchmark("구글 캘린더에 이벤트 하나 생성해줘")
+  @SelectBenchmark("구글 캘린더에 퀵 이벤트 하나 생성해줘")
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleCal_full.svg",
   )

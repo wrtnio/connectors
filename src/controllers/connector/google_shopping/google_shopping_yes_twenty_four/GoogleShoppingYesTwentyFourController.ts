@@ -23,7 +23,6 @@ export class GoogleShoppingYesTwentyFourController {
    * @param input search conditions
    * @returns search results
    */
-  @SelectBenchmark("도서 검색 좀 해줘")
   @SelectBenchmark("yes24에서 상품 좀 찾아줘")
   @Standalone()
   @core.TypedRoute.Patch("yes-twenty-four")

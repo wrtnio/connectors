@@ -218,7 +218,6 @@ export class ArticleController {
    * @returns Article Infomation
    */
   @SelectBenchmark("글 내용 보여줘")
-  @SelectBenchmark("전체 내용 글 내용 다 보여줘")
   @core.TypedRoute.Patch(":id")
   async at(
     @ExternalUser() external_user: IExternalUser,

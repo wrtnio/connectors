@@ -18,7 +18,6 @@ export class DallE3Controller {
    * @param input Information for image generation
    * @returns URL of the generated image
    */
-  @SelectBenchmark("그림 그려줘")
   @SelectBenchmark("dall-e로 그림 그려줘")
   @core.TypedRoute.Post("/generate")
   @RouteIcon(

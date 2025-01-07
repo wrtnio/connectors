@@ -18,7 +18,7 @@ export class GoogleFlightController {
    * @param input Conditions required to search for flights
    * @returns Search results for one-way flights
    */
-  @SelectBenchmark("항공권 조회해줘")
+  @SelectBenchmark("구글에서 편도 항공권 조회해줘")
   @Standalone()
   @core.TypedRoute.Patch("/one-way")
   @RouteIcon(
@@ -39,8 +39,7 @@ export class GoogleFlightController {
    * @param input The conditions required to search for flights
    * @returns The results of the round-trip flight search
    */
-  @SelectBenchmark("항공권 조회해줘")
-  @SelectBenchmark("왕복 항공권 조회해줘")
+  @SelectBenchmark("구글에서 왕복 항공권 조회해줘")
   @Standalone()
   @core.TypedRoute.Patch("/round-trip")
   @RouteIcon(

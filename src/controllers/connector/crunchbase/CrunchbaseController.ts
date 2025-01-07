@@ -17,9 +17,9 @@ export class CrunchbaseController {
    *
    * @summary Get Organization Data from crunchbase
    */
-  @SelectBenchmark("회사 정보 좀 찾아줘")
-  @SelectBenchmark("스타트업 정보 좀 찾아줘")
-  @SelectBenchmark("회사 투자 라운드 좀 알려줘")
+  @SelectBenchmark("Crunchbase에서 회사 정보 좀 찾아줘")
+  @SelectBenchmark("Crunchbase에서 스타트업 정보 좀 찾아줘")
+  @SelectBenchmark("Crunchbase에서 회사 투자 라운드 좀 알려줘")
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/crunchbase_full.svg",
   )

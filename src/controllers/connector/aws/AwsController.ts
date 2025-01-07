@@ -15,7 +15,7 @@ export class AwsController {
    * @summary Generate File Upload URL
    * @internal
    */
-  @SelectBenchmark("파일 업로드해줘")
+  @SelectBenchmark("AWS에 파일 업로드해줘")
   @core.TypedRoute.Get("/file/upload-url")
   //@TODO 식별자를 입력받아서 bucket folder를 구분지어야 함.
   async getUploadUrl(

@@ -62,8 +62,7 @@ export class GoogleMapController {
    * @param input Keyword
    * @returns
    */
-  @SelectBenchmark("구글 맵에서 카페 좀 찾아줘")
-  @SelectBenchmark("구글 맵에서 장소 검색 좀 해줘")
+  @SelectBenchmark('구글 맵에서 "강남" 이라는 키워드로 장소 검색 좀 해줘')
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleMap_full.svg",
   )

@@ -28,8 +28,7 @@ export class GoogleAdsController {
    * @param input Object containing URL
    * @returns List of recommended keywords, competition index and index, and unit price information for each keyword
    */
-  @SelectBenchmark("URL 기반으로 광고 키워드 아이디어 좀 줘")
-  @SelectBenchmark("키워드 기반으로 광고 키워드 아이디어 좀 줘")
+  @SelectBenchmark("URL과 키워드 정보를 모두 이용해서 구글 광고 키워드 좀 줘")
   @Standalone()
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/googleAD_full.svg",
@@ -269,7 +268,7 @@ export class GoogleAdsController {
    * @param input Condition for retrieving the ad list
    * @returns Ad list
    */
-  @SelectBenchmark("내 구글 광고들 보여줘")
+  @SelectBenchmark("내 구글 캠페인 내부에 있는 광고 그룹, 광고 목록을 보여줘")
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/googleAD_full.svg",
   )
@@ -340,7 +339,7 @@ export class GoogleAdsController {
    * @param input Add keyword condition
    * @returns List of keywords
    */
-  @SelectBenchmark("광고 키워드 목록 좀 보여줄래?")
+  @SelectBenchmark("내가 등록한 구글 광고 키워드 목록 좀 보여줄래?")
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/googleAD_full.svg",
   )
@@ -377,8 +376,8 @@ export class GoogleAdsController {
    * @summary Change the status of the ad
    * @param input The status of the ad to be changed
    */
-  @SelectBenchmark("광고 꺼줘")
-  @SelectBenchmark("광고 켜줘")
+  @SelectBenchmark("구글 광고 꺼줘")
+  @SelectBenchmark("구글 광고 켜줘")
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/googleAD_full.svg",
   )
@@ -406,7 +405,7 @@ export class GoogleAdsController {
    * @param input Keyword deletion condition
    * @returns
    */
-  @SelectBenchmark("광고 키워드 지워줘")
+  @SelectBenchmark("구글 광고 키워드 지워줘")
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/googleAD_full.svg",
   )
@@ -433,7 +432,7 @@ export class GoogleAdsController {
    * @param input Condition for adding keywords
    * @returns Name of the added keyword resource
    */
-  @SelectBenchmark("광고 키워드 추가해줘")
+  @SelectBenchmark("구글 광고 키워드 추가해줘")
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/googleAD_full.svg",
   )
@@ -463,7 +462,7 @@ export class GoogleAdsController {
    * @param input Conditions for viewing ad details
    * @returns Ad details
    */
-  @SelectBenchmark("광고 상세 조회해줘")
+  @SelectBenchmark("구글 광고 상세 조회해줘")
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/googleAD_full.svg",
   )
