@@ -1,4 +1,4 @@
-import core, { TypedBody } from "@nestia/core";
+import core, { HumanRoute, TypedBody } from "@nestia/core";
 import { Controller } from "@nestjs/common";
 import { RouteIcon, Standalone } from "@wrtnio/decorators";
 
@@ -16,7 +16,10 @@ export class KakaoNaviController {
    * @summary Kakao Navi Directions
    * @param input Request conditions
    * @returns Directions results
+   *
+   * @internal
    */
+  @HumanRoute()
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/KakaoNavi_full.svg",
   )

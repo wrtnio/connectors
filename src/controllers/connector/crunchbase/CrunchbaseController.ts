@@ -1,4 +1,4 @@
-import { TypedBody, TypedRoute } from "@nestia/core";
+import { HumanRoute, TypedBody, TypedRoute } from "@nestia/core";
 import { Controller } from "@nestjs/common";
 import { ICrunchbase } from "@wrtn/connector-api/lib/structures/connector/crunchbase/ICrunchbase";
 import { RouteIcon, SelectBenchmark } from "@wrtnio/decorators";
@@ -16,10 +16,13 @@ export class CrunchbaseController {
    * In addition to that, the company can acquire all the overall information, including the number of articles and employees mentioned, and the list of founders.
    *
    * @summary Get Organization Data from crunchbase
+   *
+   * @internal
    */
   @SelectBenchmark("Crunchbase에서 회사 정보 좀 찾아줘")
   @SelectBenchmark("Crunchbase에서 스타트업 정보 좀 찾아줘")
   @SelectBenchmark("Crunchbase에서 회사 투자 라운드 좀 알려줘")
+  @HumanRoute()
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/crunchbase_full.svg",
   )
@@ -42,10 +45,13 @@ export class CrunchbaseController {
    * If the person attempting to search for the 'Wrtn Technologies(뤼튼 테크놀로지스)' fails to call this connector, the above 'wrtn-technologies' may be used as is.
    *
    * @summary Search for company name and auto-completion
+   *
+   * @internal
    */
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/crunchbase_full.svg",
   )
+  @HumanRoute()
   @TypedRoute.Patch("auto-complete")
   async autocomplete(
     @TypedBody() input: ICrunchbase.IAutocompleteInput,

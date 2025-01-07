@@ -1,4 +1,4 @@
-import { TypedBody, TypedRoute } from "@nestia/core";
+import { HumanRoute, TypedBody, TypedRoute } from "@nestia/core";
 import { Controller } from "@nestjs/common";
 import { IInnoforest } from "@wrtn/connector-api/lib/structures/connector/innoforest/IInnoforest";
 import { SelectBenchmark } from "@wrtnio/decorators";
@@ -19,11 +19,14 @@ export class InnoforestController {
    * - corp, corpfinance, corpinvest, corpcommon, product, traffic, sales, salesrebuy, salesavgbuy, salesperson, saleshousehold, salesincome, invest, patent, patentword, finance, employee, press
    *
    * @summary Retrieve all company data from Innoforest
+   *
+   * @internal
    */
   @SelectBenchmark("혁신의숲에서 회사 정보 좀 찾아줘")
   @SelectBenchmark("혁신의숲에서 스타트업 정보 좀 찾아줘")
   @SelectBenchmark("혁신의숲에서 회사 투자 라운드 좀 알려줘")
   @SelectBenchmark("혁신의숲에서 회사 정보 좀 찾아줘")
+  @HumanRoute()
   @TypedRoute.Patch("unify")
   async unify(
     @TypedBody() input: IInnoforest.IUnifyInput,
@@ -105,7 +108,10 @@ export class InnoforestController {
    * - CLASS101: 4578100277
    *
    * @summary Search for company identifiers from Innoforest
+   *
+   * @internal
    */
+  @HumanRoute()
   @TypedRoute.Patch("search")
   async search(
     @TypedBody() input: IInnoforest.ISearchInput,
@@ -143,7 +149,10 @@ export class InnoforestController {
    * It's recommended to use `POST /connector/innoforest/unify` to provide all information to users at once.
    *
    * @summary Retrieve startup overview from Innoforest
+   *
+   * @internal
    */
+  @HumanRoute()
   @TypedRoute.Patch("seed/party/s1/getcorp")
   async getcorp(
     @TypedBody() input: IInnoforest.IGetcorpInput,
@@ -158,7 +167,10 @@ export class InnoforestController {
    * It's recommended to use `POST /connector/innoforest/unify` to provide all information to users at once.
    *
    * @summary Retrieve startup overview - financial summary from Innoforest
+   *
+   * @internal
    */
+  @HumanRoute()
   @TypedRoute.Patch("seed/party/s1/getcorpfinance")
   async getcorpfinance(
     @TypedBody() input: IInnoforest.IGetcorpfinanceInput,
@@ -173,7 +185,10 @@ export class InnoforestController {
    * It's recommended to use `POST /connector/innoforest/unify` to provide all information to users at once.
    *
    * @summary Retrieve startup overview - investment summary from Innoforest
+   *
+   * @internal
    */
+  @HumanRoute()
   @TypedRoute.Post("seed/party/s1/getcorpinvest")
   async getcorpinvest(
     @TypedBody() input: IInnoforest.IGetcorpinvestInput,
@@ -188,7 +203,10 @@ export class InnoforestController {
    * It's recommended to use `POST /connector/innoforest/unify` to provide all information to users at once.
    *
    * @summary Retrieve startup overview - general summary from Innoforest
+   *
+   * @internal
    */
+  @HumanRoute()
   @TypedRoute.Patch("seed/party/s1/getcorpcommon")
   async getcorpcommon(
     @TypedBody() input: IInnoforest.IGetcorpcommonInput,
@@ -203,7 +221,10 @@ export class InnoforestController {
    * It's recommended to use `POST /connector/innoforest/unify` to provide all information to users at once.
    *
    * @summary Retrieve product information from Innoforest
+   *
+   * @internal
    */
+  @HumanRoute()
   @TypedRoute.Patch("seed/party/s1/findproduct")
   async findproduct(
     @TypedBody() input: IInnoforest.IFindproductInput,
@@ -218,7 +239,10 @@ export class InnoforestController {
    * It's recommended to use `POST /connector/innoforest/unify` to provide all information to users at once.
    *
    * @summary Retrieve traffic data from Innoforest
+   *
+   * @internal
    */
+  @HumanRoute()
   @TypedRoute.Patch("seed/party/s1/findtraffic")
   async findtraffic(
     @TypedBody() input: IInnoforest.IFindtrafficInput,
@@ -233,7 +257,10 @@ export class InnoforestController {
    * It's recommended to use `POST /connector/innoforest/unify` to provide all information to users at once.
    *
    * @summary Retrieve sales data from Innoforest
+   *
+   * @internal
    */
+  @HumanRoute()
   @TypedRoute.Patch("seed/party/s1/findsales")
   async findsales(
     @TypedBody() input: IInnoforest.IFindsalesInput,
@@ -248,7 +275,10 @@ export class InnoforestController {
    * It's recommended to use `POST /connector/innoforest/unify` to provide all information to users at once.
    *
    * @summary Retrieve repeat purchase rate data from Innoforest
+   *
+   * @internal
    */
+  @HumanRoute()
   @TypedRoute.Patch("seed/party/s1/findsalesrebuy")
   async findsalesrebuy(
     @TypedBody() input: IInnoforest.IFindsalesrebuyInput,
@@ -263,7 +293,10 @@ export class InnoforestController {
    * It's recommended to use `POST /connector/innoforest/unify` to provide all information to users at once.
    *
    * @summary Retrieve average purchase amount data from Innoforest
+   *
+   * @internal
    */
+  @HumanRoute()
   @TypedRoute.Patch("seed/party/s1/findsalesavgbuy")
   async findsalesavgbuy(
     @TypedBody() input: IInnoforest.IFindsalesavgbuyInput,
@@ -278,7 +311,10 @@ export class InnoforestController {
    * It's recommended to use `POST /connector/innoforest/unify` to provide all information to users at once.
    *
    * @summary Retrieve sales-related personnel data from Innoforest
+   *
+   * @internal
    */
+  @HumanRoute()
   @TypedRoute.Patch("seed/party/s1/findsalesperson")
   async findsalesperson(
     @TypedBody() input: IInnoforest.IFindsalespersonInput,
@@ -293,7 +329,10 @@ export class InnoforestController {
    * It's recommended to use `POST /connector/innoforest/unify` to provide all information to users at once.
    *
    * @summary Retrieve household-related sales data from Innoforest
+   *
+   * @internal
    */
+  @HumanRoute()
   @TypedRoute.Patch("seed/party/s1/findsaleshousehold")
   async findsaleshousehold(
     @TypedBody() input: IInnoforest.IFindsaleshouseholdInput,
@@ -308,7 +347,10 @@ export class InnoforestController {
    * It's recommended to use `POST /connector/innoforest/unify` to provide all information to users at once.
    *
    * @summary Retrieve income-related sales data from Innoforest
+   *
+   * @internal
    */
+  @HumanRoute()
   @TypedRoute.Patch("seed/party/s1/findsalesincome")
   async findsalesincome(
     @TypedBody() input: IInnoforest.IFindsalesincomeInput,
@@ -323,7 +365,10 @@ export class InnoforestController {
    * It's recommended to use `POST /connector/innoforest/unify` to provide all information to users at once.
    *
    * @summary Retrieve investment data from Innoforest
+   *
+   * @internal
    */
+  @HumanRoute()
   @TypedRoute.Patch("seed/party/s1/findinvest")
   async findinvest(
     @TypedBody() input: IInnoforest.IFindinvestInput,
@@ -338,7 +383,10 @@ export class InnoforestController {
    * It's recommended to use `POST /connector/innoforest/unify` to provide all information to users at once.
    *
    * @summary Retrieve patent data from Innoforest
+   *
+   * @internal
    */
+  @HumanRoute()
   @TypedRoute.Patch("seed/party/s1/findpatent")
   async findpatent(
     @TypedBody() input: IInnoforest.IFindpatentInput,
@@ -353,7 +401,10 @@ export class InnoforestController {
    * It's recommended to use `POST /connector/innoforest/unify` to provide all information to users at once.
    *
    * @summary Retrieve patent keyword data from Innoforest
+   *
+   * @internal
    */
+  @HumanRoute()
   @TypedRoute.Patch("seed/party/s1/findpatentword")
   async findpatentword(
     @TypedBody() input: IInnoforest.IFindpatentwordInput,
@@ -368,7 +419,10 @@ export class InnoforestController {
    * It's recommended to use `POST /connector/innoforest/unify` to provide all information to users at once.
    *
    * @summary Retrieve financial data from Innoforest
+   *
+   * @internal
    */
+  @HumanRoute()
   @TypedRoute.Patch("seed/party/s1/findfinance")
   async findfinance(
     @TypedBody() input: IInnoforest.IFindfinanceInput,
@@ -383,7 +437,10 @@ export class InnoforestController {
    * It's recommended to use `POST /connector/innoforest/unify` to provide all information to users at once.
    *
    * @summary Retrieve employee data from Innoforest
+   *
+   * @internal
    */
+  @HumanRoute()
   @TypedRoute.Patch("seed/party/s1/findemployee")
   async findemployee(
     @TypedBody() input: IInnoforest.IFindemployeeInput,
@@ -398,7 +455,10 @@ export class InnoforestController {
    * It's recommended to use `POST /connector/innoforest/unify` to provide all information to users at once.
    *
    * @summary Retrieve press-related data from Innoforest
+   *
+   * @internal
    */
+  @HumanRoute()
   @TypedRoute.Patch("seed/party/s1/findpress")
   async findpress(
     @TypedBody() input: IInnoforest.IFindpressInput,

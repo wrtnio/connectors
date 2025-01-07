@@ -1,4 +1,4 @@
-import { TypedBody, TypedRoute } from "@nestia/core";
+import { HumanRoute, TypedBody, TypedRoute } from "@nestia/core";
 import { Controller } from "@nestjs/common";
 import { ISimilarweb } from "@wrtn/connector-api/lib/structures/connector/similarweb/ISimilarweb";
 import { RouteIcon } from "@wrtnio/decorators";
@@ -19,7 +19,10 @@ export class SimilarwebController {
    * @summary Get Domain Info from similarweb
    * @param input - The input parameters containing the domain name to retrieve information for.
    * @returns A promise that resolves to the domain information output, including status and detailed data.
+   *
+   * @internal
    */
+  @HumanRoute()
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/similarweb_full.svg",
   )

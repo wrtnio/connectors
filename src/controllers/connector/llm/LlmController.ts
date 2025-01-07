@@ -1,4 +1,4 @@
-import core from "@nestia/core";
+import core, { HumanRoute } from "@nestia/core";
 import { Controller } from "@nestjs/common";
 
 import {
@@ -20,7 +20,10 @@ export class LlmController {
    * @param body Input for candidate selection
    * @returns Array of selected candidate indices
    * @tag Llm selection Extract selection
+   *
+   * @internal
    */
+  @HumanRoute()
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/LLM_full.svg",
   )

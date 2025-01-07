@@ -1,4 +1,4 @@
-import { TypedBody, TypedRoute } from "@nestia/core";
+import { HumanRoute, TypedBody, TypedRoute } from "@nestia/core";
 import { Controller } from "@nestjs/common";
 
 import { retry } from "../../../utils/retry";
@@ -12,6 +12,7 @@ export class ShortLinkController {
   /**
    * @internal
    */
+  @HumanRoute()
   @TypedRoute.Post("create")
   async createShortLink(
     @TypedBody() input: IShortLink.IRequest,

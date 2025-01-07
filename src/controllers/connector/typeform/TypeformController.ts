@@ -1,4 +1,4 @@
-import core from "@nestia/core";
+import core, { HumanRoute } from "@nestia/core";
 import { Controller } from "@nestjs/common";
 
 import { ITypeform } from "@wrtn/connector-api/lib/structures/connector/typeform/ITypeform";
@@ -17,7 +17,10 @@ export class TypeformController {
    * @summary Create a Typeform workspace
    * @param input Title of the workspace to create
    * @returns The created workspace ID, title, and URL
+   *
+   * @internal
    */
+  @HumanRoute()
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/typeform.svg",
   )
@@ -34,7 +37,10 @@ export class TypeformController {
    *
    * @summary Delete a Typeform workspace
    * @param workspaceId The workspace ID to delete
+   *
+   * @internal
    */
+  @HumanRoute()
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/typeform.svg",
   )
@@ -63,7 +69,10 @@ export class TypeformController {
    *
    * @summary Get Typeform workspace information
    * @returns Workspace ID, Title, URL
+   *
+   * @internal
    */
+  @HumanRoute()
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/typeform.svg",
   )
@@ -81,7 +90,10 @@ export class TypeformController {
    * @summary Typeform Create an empty form
    * @param input The title of the form to be created
    * @returns The ID, title, and type of the generated form
+   *
+   * @internal
    */
+  @HumanRoute()
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/typeform.svg",
   )
@@ -98,7 +110,10 @@ export class TypeformController {
    *
    * @summary Get a list of Typeform forms
    * @returns form ID, title
+   *
+   * @internal
    */
+  @HumanRoute()
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/typeform.svg",
   )
@@ -116,7 +131,10 @@ export class TypeformController {
    * @summary Copy a Typeform form
    * @param input The name of the form to copy and create
    * @returns The generated form ID, title, and type
+   *
+   * @internal
    */
+  @HumanRoute()
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/typeform.svg",
   )
@@ -133,7 +151,10 @@ export class TypeformController {
    *
    * @summary Get the field information of the form to update Typeform
    * @returns The field ID and field name of the form
+   *
+   * @internal
    */
+  @HumanRoute()
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/typeform.svg",
   )
@@ -152,7 +173,10 @@ export class TypeformController {
    *
    * @summary Updates Typeform form field options
    * @param input The name of the form field to update and the value to update
+   *
+   * @internal
    */
+  @HumanRoute()
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/typeform.svg",
   )
@@ -169,7 +193,10 @@ export class TypeformController {
    *
    * @summary Delete a typeform form
    * @param formId The ID of the form to delete
+   *
+   * @internal
    */
+  @HumanRoute()
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/typeform.svg",
   )

@@ -1,4 +1,4 @@
-import core from "@nestia/core";
+import core, { HumanRoute } from "@nestia/core";
 import { Controller } from "@nestjs/common";
 
 import { ITool } from "@wrtn/connector-api/lib/structures/connector/tool/ITool";
@@ -20,7 +20,10 @@ export class ToolController {
    * @summary Use tool
    * @param id
    * @param input
+   *
+   * @internal
    */
+  @HumanRoute()
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/_Studio1.0Tool_full.svg",
   )

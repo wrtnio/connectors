@@ -1,4 +1,4 @@
-import core from "@nestia/core";
+import core, { HumanRoute } from "@nestia/core";
 import { Controller } from "@nestjs/common";
 
 import { IKeywordExtraction } from "@wrtn/connector-api/lib/structures/connector/extract/IKeywordExtractor";
@@ -19,7 +19,10 @@ export class KeywordExtractController {
    * @summary Keyword extraction
    * @param input Input for keyword extraction
    * @returns Extracted keywords
+   *
+   * @internal
    */
+  @HumanRoute()
   @core.TypedRoute.Post()
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/keyword.svg",

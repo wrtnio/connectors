@@ -1,4 +1,4 @@
-import core from "@nestia/core";
+import core, { HumanRoute } from "@nestia/core";
 import { Controller } from "@nestjs/common";
 
 import { IAws } from "@wrtn/connector-api/lib/structures/connector/aws/IAws";
@@ -16,6 +16,7 @@ export class AwsController {
    * @internal
    */
   @SelectBenchmark("AWS에 파일 업로드해줘")
+  @HumanRoute()
   @core.TypedRoute.Get("/file/upload-url")
   //@TODO 식별자를 입력받아서 bucket folder를 구분지어야 함.
   async getUploadUrl(

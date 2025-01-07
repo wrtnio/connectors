@@ -1,4 +1,4 @@
-import core from "@nestia/core";
+import core, { HumanRoute } from "@nestia/core";
 import { Controller } from "@nestjs/common";
 
 import {
@@ -21,7 +21,10 @@ export class StoryImageGeneratorController {
    * @summary Generate story image
    * @param input Input for image generation
    * @returns Generated image
+   *
+   * @internal
    */
+  @HumanRoute()
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/image.svg",
   )

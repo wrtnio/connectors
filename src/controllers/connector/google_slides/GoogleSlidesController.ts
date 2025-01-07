@@ -1,4 +1,4 @@
-import core, { TypedBody, TypedParam } from "@nestia/core";
+import core, { HumanRoute, TypedBody, TypedParam } from "@nestia/core";
 import { Controller } from "@nestjs/common";
 
 import { IGoogleSlides } from "@wrtn/connector-api/lib/structures/connector/google_slides/IGoogleSlides";
@@ -17,10 +17,13 @@ export class GoogleSlidesController {
    * @param presentationId Presentation ID to convert
    * @param input Authentication information
    * @returns Link to download Hanshow files
+   *
+   * @internal
    */
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleSlides_full.svg",
   )
+  @HumanRoute()
   @ApiTags("Google Slide")
   @core.TypedRoute.Post("presentations/:id/exports/hanshow")
   async hanshow(
@@ -43,10 +46,13 @@ export class GoogleSlidesController {
    * @param presentationId Presentation ID to convert
    * @param input Authentication information
    * @returns Link to download PowerPoint files
+   *
+   * @internal
    */
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleSlides_full.svg",
   )
+  @HumanRoute()
   @ApiTags("Google Slide")
   @core.TypedRoute.Post("presentations/:id/exports/power-point")
   async powerPoint(
@@ -66,10 +72,13 @@ export class GoogleSlidesController {
    * @summary Retrieve a Google Slides presentation
    * @param input Condition DTO for retrieving a presentation
    * @returns Retrieve presentation information DTO
+   *
+   * @internal
    */
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleSlides_full.svg",
   )
+  @HumanRoute()
   @ApiTags("Google Slide")
   @core.TypedRoute.Patch("get-presentations")
   async getPresentation(
@@ -92,10 +101,13 @@ export class GoogleSlidesController {
    * @param presentationId Presentation id to add slides to
    * @param input Template to add
    * @returns
+   *
+   * @internal
    */
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleSlides_full.svg",
   )
+  @HumanRoute()
   @ApiTags("Google Slide")
   @core.TypedRoute.Put("presentations/:id/slides/quarter-divisions")
   async appendQuarterDivisionImageSlide(
@@ -120,10 +132,13 @@ export class GoogleSlidesController {
    * @param presentationId Presentation id to add slides to
    * @param input Template to add
    * @returns
+   *
+   * @internal
    */
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleSlides_full.svg",
   )
+  @HumanRoute()
   @ApiTags("Google Slide")
   @core.TypedRoute.Put("presentations/:id/slides/entires")
   async appendEntireImageSlide(
@@ -149,10 +164,13 @@ export class GoogleSlidesController {
    * @param presentationId Presentation id to add slides to
    * @param input Template to add
    * @returns
+   *
+   * @internal
    */
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleSlides_full.svg",
   )
+  @HumanRoute()
   @ApiTags("Google Slide")
   @core.TypedRoute.Put("presentations/:id/slides/landscapes")
   async appendLandscapeImageSlide(
@@ -177,10 +195,13 @@ export class GoogleSlidesController {
    * @param presentationId Presentation id to add slides to
    * @param input Template to add
    * @returns
+   *
+   * @internal
    */
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleSlides_full.svg",
   )
+  @HumanRoute()
   @ApiTags("Google Slide")
   @core.TypedRoute.Put("presentations/:id/slides/squares")
   async appendSquareImageSlide(
@@ -206,10 +227,13 @@ export class GoogleSlidesController {
    * @param presentationId Presentation id to add slides to
    * @param input Template to add
    * @returns
+   *
+   * @internal
    */
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleSlides_full.svg",
   )
+  @HumanRoute()
   @ApiTags("Google Slide")
   @core.TypedRoute.Put("presentations/:id/slides/verticals")
   async appendVerticalImageSlide(
@@ -239,10 +263,13 @@ export class GoogleSlidesController {
    * @param presentationId Presentation id to add slides to
    * @param input Template to add
    * @returns
+   *
+   * @internal
    */
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleSlides_full.svg",
   )
+  @HumanRoute()
   @ApiTags("Google Slide")
   @core.TypedRoute.Put("presentations/:id/image-slide")
   async appendImageSlide(
@@ -265,10 +292,13 @@ export class GoogleSlidesController {
    * @summary Create a Google Slides presentation
    * @param input Condition DTO for creating a presentation
    * @returns Generated presentation information DTO
+   *
+   * @internal
    */
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleSlides_full.svg",
   )
+  @HumanRoute()
   @ApiTags("Google Slide")
   @core.TypedRoute.Post("presentations")
   async createPresentation(

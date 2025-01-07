@@ -1,4 +1,4 @@
-import core from "@nestia/core";
+import core, { HumanRoute } from "@nestia/core";
 import { Controller } from "@nestjs/common";
 import { RouteIcon, Standalone } from "@wrtnio/decorators";
 
@@ -17,8 +17,11 @@ export class GoogleTrendController {
    * @summary Google Trends Daily Search
    * @param input Search date
    * @returns Daily Trends Search Results
+   *
+   * @internal
    */
   @Standalone()
+  @HumanRoute()
   @core.TypedRoute.Patch("daily")
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleTrend_full.svg",

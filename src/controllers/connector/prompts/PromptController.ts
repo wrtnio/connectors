@@ -1,4 +1,4 @@
-import core from "@nestia/core";
+import core, { HumanRoute } from "@nestia/core";
 import { Controller } from "@nestjs/common";
 import { RouteIcon } from "@wrtnio/decorators";
 
@@ -15,7 +15,10 @@ export class PromptController {
    * @summary prompt node
    * @param input user's prompt
    * @returns response via prompt
+   *
+   * @internal
    */
+  @HumanRoute()
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Prompt_prompt_full.svg",
   )
