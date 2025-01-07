@@ -1,3 +1,4 @@
+import { INestiaChatPrompt, NestiaChatAgent } from "@nestia/agent";
 import {
   ChatGptTypeChecker,
   HttpLlm,
@@ -9,16 +10,15 @@ import {
   OpenApiV3_1,
   SwaggerV2,
 } from "@samchon/openapi";
+import "@wrtnio/schema";
 import chalk from "chalk";
 import fs from "fs";
 import OpenAI from "openai";
 import typia from "typia";
+
 import { ConnectorConfiguration } from "../../src/ConnectorConfiguration";
-import { NestiaChatAgent } from "./NestiaChatAgent";
 import { ConnectorGlobal } from "../../src/ConnectorGlobal";
 import { ConsoleScanner } from "../helpers/ConsoleScanner";
-import { INestiaChatPrompt } from "./structures/INestiaChatPrompt";
-import "@wrtnio/schema";
 
 const trace = (...args: any[]): void => {
   console.log("----------------------------------------------");

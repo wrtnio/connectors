@@ -1,12 +1,13 @@
-import { IHttpLlmApplication, IHttpLlmFunction } from "@samchon/openapi";
-import { IFunctionSelectBenchmarkResult } from "./IFunctionSelectBenchmarkResult";
 import { ArrayUtil } from "@nestia/e2e";
+import { ChatGptSelectFunctionAgent } from "@nestia/agent/lib/chatgpt/ChatGptSelectFunctionAgent";
+import { IHttpLlmApplication, IHttpLlmFunction } from "@samchon/openapi";
 import OpenAI from "openai";
+import { ranges, Semaphore } from "tstl";
+
 import { IFunctionSelectBenchmarkEvent } from "./IFunctionSelectBenchmarkEvent";
-import { ConnectorGlobal } from "../../../src/ConnectorGlobal";
 import { IFunctionSelectBenchmarkOptions } from "./IFunctionSelectBenchmarkOptions";
-import { IPointer, ranges, Semaphore } from "tstl";
-import { ChatGptSelectFunctionAgent } from "../../agent/chatgpt/ChatGptSelectFunctionAgent";
+import { IFunctionSelectBenchmarkResult } from "./IFunctionSelectBenchmarkResult";
+import { ConnectorGlobal } from "../../../src/ConnectorGlobal";
 
 export class FunctionSelectBenchmarkExecutor {
   private functions_: IHttpLlmFunction<"chatgpt">[][];
@@ -75,18 +76,9 @@ export class FunctionSelectBenchmarkExecutor {
         application: this.application,
         service: {
           api: new OpenAI({
-            apiKey: "something",
-            baseURL: ConnectorGlobal.env.HAMLET_URL,
+            apiKey: ConnectorGlobal.env.OPENAI_API_KEY,
           }),
           model: "gpt-4o",
-          options: {
-            path: `/v2/openai/deployments/gpt-4o/chat/completions`,
-            headers: {
-              [ConnectorGlobal.env.HAMLET_HEADER_KEY_NAME]: [
-                ConnectorGlobal.env.HAMLET_HEADER_KEY_VALUE,
-              ],
-            } as any,
-          },
         },
         histories: [],
         stack: [],
@@ -94,10 +86,13 @@ export class FunctionSelectBenchmarkExecutor {
         dispatch: async (event) => {
           if (event.type === "select") candidates.push(event.function);
         },
-        retry: 3,
         completions,
         divide: this.functions_,
-        eliticism: false,
+        config: {
+          retry: 3,
+          eliticism: false,
+          locale: "ko-KR",
+        },
       });
 
       const completed_at: Date = new Date();
