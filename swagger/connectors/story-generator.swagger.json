@@ -17,125 +17,14 @@
   "info": {
     "title": "스토리 생성",
     "description": "",
-    "version": "0.1.433",
+    "version": "0.1.435",
     "license": {
       "name": "AGPL-3.0-only"
     }
   },
-  "paths": {
-    "/connector/story-generator": {
-      "post": {
-        "summary": "Create a story",
-        "description": "Create a story based on user input\n\nThis connector can be used when creating a chatbot workflow for creating picture books or stories.\nPlease use it in conjunction with the Story Image Generation connector.\nPlease create an image based on the story created using the connector/story-image-generator connector.\nPlease export the created story and image using Google Slides.\nPlease export the created story and image using the connector/google-slides/presentations connector to Google Slides.",
-        "tags": [],
-        "parameters": [],
-        "requestBody": {
-          "description": "Input for creating a story",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/IStoryGeneratorRequest"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "201": {
-            "description": "The generated story or a request for additional information",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/IStoryGeneratorResponse"
-                }
-              }
-            }
-          }
-        },
-        "x-samchon-accessor": [
-          "connector",
-          "story_generator",
-          "generate"
-        ],
-        "x-samchon-controller": "StoryGeneratorController",
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Marketing_full.svg"
-      }
-    }
-  },
+  "paths": {},
   "components": {
-    "schemas": {
-      "IStoryGeneratorResponse": {
-        "type": "object",
-        "properties": {
-          "done": {
-            "type": "boolean",
-            "title": "Whether the story has reached a natural conclusion and is ready to be outputted",
-            "description": "Whether the story has reached a natural conclusion and is ready to be outputted."
-          },
-          "messageToUser": {
-            "type": "string",
-            "title": "When there is not enough information to create the next story line, prompt the user for more information",
-            "description": "When there is not enough information to create the next story line, prompt the user for more information."
-          },
-          "storyLine": {
-            "type": "string",
-            "title": "If the next story line can be generated, provide it here",
-            "description": "If the next story line can be generated, provide it here.\nOnly generate the story when you have a good idea of what the user wants.\nWhen the user is not sure, you can suggest stories but ask the user first before generating the story line."
-          },
-          "title": {
-            "type": "string",
-            "title": "If the entire story has been generated, provide the title here",
-            "description": "If the entire story has been generated, provide the title here."
-          }
-        },
-        "required": [
-          "done"
-        ],
-        "description": "When there is not enough information to create the next story line, prompt the user for more information."
-      },
-      "IStoryGeneratorRequest": {
-        "type": "object",
-        "properties": {
-          "query": {
-            "type": "string",
-            "title": "query"
-          },
-          "chatHistory": {
-            "type": "array",
-            "items": {
-              "type": "object",
-              "properties": {
-                "role": {
-                  "type": "string",
-                  "title": "role"
-                },
-                "content": {
-                  "type": "string",
-                  "title": "content"
-                }
-              },
-              "required": [
-                "role",
-                "content"
-              ]
-            },
-            "title": "chatHistory"
-          },
-          "previousStories": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            },
-            "title": "previousStories"
-          }
-        },
-        "required": [
-          "query",
-          "chatHistory",
-          "previousStories"
-        ]
-      }
-    }
+    "schemas": {}
   },
   "tags": [],
   "x-samchon-emended": true

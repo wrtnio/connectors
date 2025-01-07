@@ -17,104 +17,15 @@
   "info": {
     "title": "LLM",
     "description": "",
-    "version": "0.1.433",
+    "version": "0.1.435",
     "license": {
       "name": "AGPL-3.0-only"
     }
   },
-  "paths": {
-    "/connector/llm/selector-llm": {
-      "post": {
-        "summary": "Select condition",
-        "description": "Select a candidate that satisfies the conditions from the given candidates",
-        "tags": [
-          "Llm"
-        ],
-        "parameters": [],
-        "requestBody": {
-          "description": "Input for candidate selection",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/ISelectorLlmRequest"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "201": {
-            "description": "Array of selected candidate indices",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ISelectorLlmResponse"
-                }
-              }
-            }
-          }
-        },
-        "x-samchon-accessor": [
-          "connector",
-          "llm",
-          "selector_llm",
-          "selectorLlm"
-        ],
-        "x-samchon-controller": "LlmController",
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/LLM_full.svg"
-      }
-    }
-  },
+  "paths": {},
   "components": {
-    "schemas": {
-      "ISelectorLlmResponse": {
-        "type": "object",
-        "properties": {
-          "selection": {
-            "type": "array",
-            "items": {
-              "type": "number"
-            },
-            "title": "Selected candidate index information",
-            "description": "Here is a list of indexes for the selected candidates."
-          }
-        },
-        "required": [
-          "selection"
-        ]
-      },
-      "ISelectorLlmRequest": {
-        "type": "object",
-        "properties": {
-          "candidates": {
-            "type": "array",
-            "items": {},
-            "title": "Choices",
-            "description": "Here is a list of candidates for selection."
-          },
-          "num_select": {
-            "type": "number",
-            "title": "Number of selections",
-            "description": "The number of candidates to select."
-          },
-          "context": {
-            "title": "Considerations",
-            "description": "Here are some things to consider when choosing a candidate."
-          }
-        },
-        "required": [
-          "candidates",
-          "num_select",
-          "context"
-        ]
-      }
-    }
+    "schemas": {}
   },
-  "tags": [
-    {
-      "name": "Llm",
-      "description": "selection Extract selection"
-    }
-  ],
+  "tags": [],
   "x-samchon-emended": true
 }

@@ -17,116 +17,16 @@
   "info": {
     "title": "Google Trend",
     "summary": "오늘의 트렌드를 검색해봐요",
-    "version": "0.1.433",
+    "version": "0.1.435",
     "description": "wrtn-ecosystem connectors and sdk",
     "license": {
       "name": "AGPL-3.0-only"
     }
   },
-  "paths": {
-    "/connector/google-trend/daily": {
-      "patch": {
-        "summary": "Google Trends Daily Search",
-        "description": "Get daily search results from Google Trends",
-        "tags": [
-          "Google Trends"
-        ],
-        "parameters": [],
-        "requestBody": {
-          "description": "Search date",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/IGoogleTrend.IRequest"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "200": {
-            "description": "Daily Trends Search Results",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/IGoogleTrend.IResponse"
-                  }
-                }
-              }
-            }
-          }
-        },
-        "x-samchon-accessor": [
-          "connector",
-          "google_trend",
-          "daily"
-        ],
-        "x-samchon-controller": "GoogleTrendController",
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleTrend_full.svg",
-        "x-wrtn-standalone": true
-      }
-    }
-  },
+  "paths": {},
   "components": {
-    "schemas": {
-      "IGoogleTrend.IResponse": {
-        "type": "object",
-        "properties": {
-          "date": {
-            "type": "string",
-            "title": "날짜",
-            "description": "트렌드 조회 날짜입니다."
-          },
-          "query": {
-            "type": "string",
-            "title": "검색어",
-            "description": "데일리 트렌드로 조회된 검색어입니다."
-          },
-          "related_queries": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            },
-            "title": "연관 검색어",
-            "description": "데일리 트렌드로 조회된 검색어와 연관된 검색어 목록입니다."
-          },
-          "traffic": {
-            "type": "string",
-            "title": "트래픽 수",
-            "description": "해당 키워드가 검색된 트래픽 수입니다."
-          }
-        },
-        "required": [
-          "date",
-          "query",
-          "related_queries",
-          "traffic"
-        ],
-        "title": "구글 데일리 트렌드 조회 결과",
-        "description": "데일리 트렌드 조회 결과입니다."
-      },
-      "IGoogleTrend.IRequest": {
-        "type": "object",
-        "properties": {
-          "date": {
-            "type": "string",
-            "format": "date",
-            "title": "날짜",
-            "description": "데일리 트렌드를 조회할 날짜 입니다.\n\n입력되지 않으면 오늘 날짜를 기준으로 조회합니다.\nyear-month-day 형식의 date 타입 문자열을 제공해주어야 한다."
-          }
-        },
-        "required": [],
-        "title": "구글 데일리 트렌드 조회를 위한 정보",
-        "description": "입력한 날짜의 트렌드를 조회합니다.\n\n입력하지 않으면 오늘 날짜를 기준으로 조회합니다.\n\n날짜 형식은 \"20241231\" 형식입니다."
-      }
-    }
+    "schemas": {}
   },
-  "tags": [
-    {
-      "name": "Google Trends"
-    }
-  ],
+  "tags": [],
   "x-samchon-emended": true
 }

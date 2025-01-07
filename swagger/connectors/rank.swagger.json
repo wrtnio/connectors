@@ -17,102 +17,14 @@
   "info": {
     "title": "조건 정렬",
     "description": "",
-    "version": "0.1.433",
+    "version": "0.1.435",
     "license": {
       "name": "AGPL-3.0-only"
     }
   },
-  "paths": {
-    "/connector/rank/rank": {
-      "post": {
-        "summary": "Sort by condition",
-        "description": "Sorts the given array of items in order of highest score",
-        "deprecated": true,
-        "tags": [],
-        "parameters": [],
-        "requestBody": {
-          "description": "Candidate information to sort",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/IRanker.IRankInput"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "201": {
-            "description": "Array of indices of sorted candidates",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/IRanker.IRankOutput"
-                }
-              }
-            }
-          }
-        },
-        "x-samchon-accessor": [
-          "connector",
-          "rank"
-        ],
-        "x-samchon-controller": "RankController",
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Sort_full.svg"
-      }
-    }
-  },
+  "paths": {},
   "components": {
-    "schemas": {
-      "IRanker.IRankOutput": {
-        "type": "object",
-        "properties": {
-          "rankedIndices": {
-            "type": "array",
-            "items": {
-              "type": "number"
-            },
-            "title": "Array of indexes of sorted items",
-            "description": "Array of indexes of sorted items"
-          }
-        },
-        "required": [
-          "rankedIndices"
-        ],
-        "title": "Sorted results"
-      },
-      "IRanker.IRankInput": {
-        "type": "object",
-        "properties": {
-          "items": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/IRanker.IScoredItem"
-            },
-            "title": "List of items",
-            "description": "List of items to sort"
-          }
-        },
-        "required": [
-          "items"
-        ],
-        "title": "Input for sorting"
-      },
-      "IRanker.IScoredItem": {
-        "type": "object",
-        "properties": {
-          "score": {
-            "type": "number",
-            "title": "Score",
-            "description": "Item Score"
-          }
-        },
-        "required": [
-          "score"
-        ],
-        "title": "Items to sort"
-      }
-    }
+    "schemas": {}
   },
   "tags": [],
   "x-samchon-emended": true
