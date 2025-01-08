@@ -1,7 +1,6 @@
 import { IConnection } from "@nestia/fetcher";
 import {
   IChatGptService,
-  INestiaChatFunctionSelection,
   INestiaChatPrompt,
   INestiaChatTokenUsage,
   NestiaChatAgent,
@@ -9,6 +8,7 @@ import {
 import { IHttpLlmApplication, IHttpLlmFunction } from "@samchon/openapi";
 import { IFunctionCallBenchmarkResult } from "../structures/IFunctionCallBenchmarkResult";
 import { IFunctionCallBenchmarkScenario } from "../structures/IFunctionCallBenchmarkScenario";
+import { IFunctionCallBenchmarkExpected } from "../structures/IFunctionCallBenchmarkExpected";
 
 export namespace FunctionCallBenchmarkExecutor {
   export interface IProps {
@@ -41,18 +41,20 @@ export namespace FunctionCallBenchmarkExecutor {
         scenario: props.scenario,
         histories,
         usage,
-        select: predicateSelect({
+        select: predicateIncludeFunction({
           application: props.application,
-          scenario: props.scenario,
-          selections: histories
+          expected: props.scenario.expected,
+          functionList: histories
             .filter((h) => h.kind === "select")
             .map((h) => h.functions)
             .flat(),
+          strict: false,
         }),
-        execute: predicateExecute({
+        execute: predicateIncludeFunction({
           application: props.application,
-          scenario: props.scenario,
-          histories: histories.filter((h) => h.kind === "execute"),
+          expected: props.scenario.expected,
+          functionList: histories.filter((h) => h.kind === "execute"),
+          strict: false,
         }),
         error: null,
         started_at,
@@ -72,36 +74,54 @@ export namespace FunctionCallBenchmarkExecutor {
     }
   };
 
-  const predicateSelect = (props: {
+  const predicateIncludeFunction = (props: {
     application: IHttpLlmApplication<"chatgpt">;
-    scenario: IFunctionCallBenchmarkScenario;
-    selections: INestiaChatFunctionSelection[];
+    expected: IFunctionCallBenchmarkExpected;
+    functionList: { function: IHttpLlmFunction<"chatgpt"> }[];
+    strict: boolean;
   }): boolean => {
-    if (props.scenario.expected.type === "standalone") {
-      // you can find function schema like below
-      const target: IHttpLlmFunction<"chatgpt"> | undefined = getFunction({
+    const call = (
+      expected: IFunctionCallBenchmarkExpected,
+      overrideHistories?: { function: IHttpLlmFunction<"chatgpt"> }[],
+    ) =>
+      predicateIncludeFunction({
         application: props.application,
-        function: props.scenario.expected.function,
+        functionList: overrideHistories ?? props.functionList,
+        expected,
+        strict: props.strict,
       });
-      return props.selections.some((s) => s.function === target);
-    }
-    return true;
-  };
 
-  const predicateExecute = (props: {
-    application: IHttpLlmApplication<"chatgpt">;
-    scenario: IFunctionCallBenchmarkScenario;
-    histories: INestiaChatPrompt.IExecute[];
-  }): boolean => {
-    if (props.scenario.expected.type === "standalone") {
-      // you can find function schema like below
-      const target: IHttpLlmFunction<"chatgpt"> | undefined = getFunction({
-        application: props.application,
-        function: props.scenario.expected.function,
-      });
-      return props.histories.some((h) => h.function === target);
+    switch (props.expected.type) {
+      case "standalone":
+        const target: IHttpLlmFunction<"chatgpt"> | undefined = getFunction({
+          application: props.application,
+          function: props.expected.function,
+        });
+        return props.functionList.some(({ function: func }) => func === target);
+      case "allOf":
+        return props.expected.allOf.every((expected) => call(expected));
+      case "anyOf":
+        return props.expected.anyOf.some((expected) => call(expected));
+      case "array":
+        const targetIterator = props.expected.items[Symbol.iterator]();
+        let targeted = targetIterator.next();
+
+        for (const history of props.functionList) {
+          if (targeted.done) {
+            return true;
+          }
+
+          if (call(targeted.value, [history])) {
+            targeted = targetIterator.next();
+            continue;
+          }
+
+          if (props.strict) {
+            return false;
+          }
+        }
+        return true;
     }
-    return true;
   };
 
   const getFunction = (props: {
