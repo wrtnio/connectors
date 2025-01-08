@@ -5,6 +5,7 @@
   "description": "wrtn-ecosystem connectors and sdk",
   "main": "lib/index.js",
   "scripts": {
+    "benchmark:call": "node bin/test/benchmark/call",
     "benchmark:select": "node bin/test/benchmark/select",
     "test": "cross-env NODE_ENV=test node bin/test",
     "test:inhouse": "cross-env NODE_ENV=test node bin/test/inhouse.js",

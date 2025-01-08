@@ -1,0 +1,1087 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>ERD.md</title>
+<meta http-equiv="Content-type" content="text/html;charset=UTF-8">
+
+<style>
+/* https://github.com/microsoft/vscode/blob/master/extensions/markdown-language-features/media/markdown.css */
+/*---------------------------------------------------------------------------------------------
+ *  Copyright (c) Microsoft Corporation. All rights reserved.
+ *  Licensed under the MIT License. See License.txt in the project root for license information.
+ *--------------------------------------------------------------------------------------------*/
+
+body {
+	font-family: var(--vscode-markdown-font-family, -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif);
+	font-size: var(--vscode-markdown-font-size, 14px);
+	padding: 0 26px;
+	line-height: var(--vscode-markdown-line-height, 22px);
+	word-wrap: break-word;
+}
+
+#code-csp-warning {
+	position: fixed;
+	top: 0;
+	right: 0;
+	color: white;
+	margin: 16px;
+	text-align: center;
+	font-size: 12px;
+	font-family: sans-serif;
+	background-color:#444444;
+	cursor: pointer;
+	padding: 6px;
+	box-shadow: 1px 1px 1px rgba(0,0,0,.25);
+}
+
+#code-csp-warning:hover {
+	text-decoration: none;
+	background-color:#007acc;
+	box-shadow: 2px 2px 2px rgba(0,0,0,.25);
+}
+
+body.scrollBeyondLastLine {
+	margin-bottom: calc(100vh - 22px);
+}
+
+body.showEditorSelection .code-line {
+	position: relative;
+}
+
+body.showEditorSelection .code-active-line:before,
+body.showEditorSelection .code-line:hover:before {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: -12px;
+	height: 100%;
+}
+
+body.showEditorSelection li.code-active-line:before,
+body.showEditorSelection li.code-line:hover:before {
+	left: -30px;
+}
+
+.vscode-light.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.15);
+}
+
+.vscode-light.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(0, 0, 0, 0.40);
+}
+
+.vscode-light.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-dark.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.4);
+}
+
+.vscode-dark.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 255, 255, 0.60);
+}
+
+.vscode-dark.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+.vscode-high-contrast.showEditorSelection .code-active-line:before {
+	border-left: 3px solid rgba(255, 160, 0, 0.7);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line:hover:before {
+	border-left: 3px solid rgba(255, 160, 0, 1);
+}
+
+.vscode-high-contrast.showEditorSelection .code-line .code-line:hover:before {
+	border-left: none;
+}
+
+img {
+	max-width: 100%;
+	max-height: 100%;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a:focus,
+input:focus,
+select:focus,
+textarea:focus {
+	outline: 1px solid -webkit-focus-ring-color;
+	outline-offset: -1px;
+}
+
+hr {
+	border: 0;
+	height: 2px;
+	border-bottom: 2px solid;
+}
+
+h1 {
+	padding-bottom: 0.3em;
+	line-height: 1.2;
+	border-bottom-width: 1px;
+	border-bottom-style: solid;
+}
+
+h1, h2, h3 {
+	font-weight: normal;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+table > thead > tr > th {
+	text-align: left;
+	border-bottom: 1px solid;
+}
+
+table > thead > tr > th,
+table > thead > tr > td,
+table > tbody > tr > th,
+table > tbody > tr > td {
+	padding: 5px 10px;
+}
+
+table > tbody > tr + tr > td {
+	border-top: 1px solid;
+}
+
+blockquote {
+	margin: 0 7px 0 5px;
+	padding: 0 16px 0 10px;
+	border-left-width: 5px;
+	border-left-style: solid;
+}
+
+code {
+	font-family: Menlo, Monaco, Consolas, "Droid Sans Mono", "Courier New", monospace, "Droid Sans Fallback";
+	font-size: 1em;
+	line-height: 1.357em;
+}
+
+body.wordWrap pre {
+	white-space: pre-wrap;
+}
+
+pre:not(.hljs),
+pre.hljs code > div {
+	padding: 16px;
+	border-radius: 3px;
+	overflow: auto;
+}
+
+pre code {
+	color: var(--vscode-editor-foreground);
+	tab-size: 4;
+}
+
+/** Theming */
+
+.vscode-light pre {
+	background-color: rgba(220, 220, 220, 0.4);
+}
+
+.vscode-dark pre {
+	background-color: rgba(10, 10, 10, 0.4);
+}
+
+.vscode-high-contrast pre {
+	background-color: rgb(0, 0, 0);
+}
+
+.vscode-high-contrast h1 {
+	border-color: rgb(0, 0, 0);
+}
+
+.vscode-light table > thead > tr > th {
+	border-color: rgba(0, 0, 0, 0.69);
+}
+
+.vscode-dark table > thead > tr > th {
+	border-color: rgba(255, 255, 255, 0.69);
+}
+
+.vscode-light h1,
+.vscode-light hr,
+.vscode-light table > tbody > tr + tr > td {
+	border-color: rgba(0, 0, 0, 0.18);
+}
+
+.vscode-dark h1,
+.vscode-dark hr,
+.vscode-dark table > tbody > tr + tr > td {
+	border-color: rgba(255, 255, 255, 0.18);
+}
+
+</style>
+
+<style>
+/* Tomorrow Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+
+/* Tomorrow Comment */
+.hljs-comment,
+.hljs-quote {
+	color: #8e908c;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-template-variable,
+.hljs-tag,
+.hljs-name,
+.hljs-selector-id,
+.hljs-selector-class,
+.hljs-regexp,
+.hljs-deletion {
+	color: #c82829;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-literal,
+.hljs-type,
+.hljs-params,
+.hljs-meta,
+.hljs-link {
+	color: #f5871f;
+}
+
+/* Tomorrow Yellow */
+.hljs-attribute {
+	color: #eab700;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition {
+	color: #718c00;
+}
+
+/* Tomorrow Blue */
+.hljs-title,
+.hljs-section {
+	color: #4271ae;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.hljs-selector-tag {
+	color: #8959a8;
+}
+
+.hljs {
+	display: block;
+	overflow-x: auto;
+	color: #4d4d4c;
+	padding: 0.5em;
+}
+
+.hljs-emphasis {
+	font-style: italic;
+}
+
+.hljs-strong {
+	font-weight: bold;
+}
+</style>
+
+<style>
+/*
+ * Markdown PDF CSS
+ */
+
+ body {
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe WPC", "Segoe UI", "Ubuntu", "Droid Sans", sans-serif, "Meiryo";
+	padding: 0 12px;
+}
+
+pre {
+	background-color: #f8f8f8;
+	border: 1px solid #cccccc;
+	border-radius: 3px;
+	overflow-x: auto;
+	white-space: pre-wrap;
+	overflow-wrap: break-word;
+}
+
+pre:not(.hljs) {
+	padding: 23px;
+	line-height: 19px;
+}
+
+blockquote {
+	background: rgba(127, 127, 127, 0.1);
+	border-color: rgba(0, 122, 204, 0.5);
+}
+
+.emoji {
+	height: 1.4em;
+}
+
+code {
+	font-size: 14px;
+	line-height: 19px;
+}
+
+/* for inline code */
+:not(pre):not(.hljs) > code {
+	color: #C9AE75; /* Change the old color so it seems less like an error */
+	font-size: inherit;
+}
+
+/* Page Break : use <div class="page"/> to insert page break
+-------------------------------------------------------- */
+.page {
+	page-break-after: always;
+}
+
+</style>
+
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+</head>
+<body>
+  <script>
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: document.body.classList.contains('vscode-dark') || document.body.classList.contains('vscode-high-contrast')
+          ? 'dark'
+          : 'default'
+    });
+  </script>
+<h1 id="prisma-markdown">Prisma Markdown</h1>
+<blockquote>
+<p>Generated by <a href="https://github.com/samchon/prisma-markdown"><code>prisma-markdown</code></a></p>
+</blockquote>
+<ul>
+<li><a href="#actors">Actors</a></li>
+<li><a href="#systematic">Systematic</a></li>
+<li><a href="#airportinformations">AirportInformations</a></li>
+<li><a href="#articles">Articles</a></li>
+<li><a href="#crunchbase">Crunchbase</a></li>
+<li><a href="#spreadsheets">Spreadsheets</a></li>
+<li><a href="#similarweb">Similarweb</a></li>
+<li><a href="#x">X</a></li>
+<li><a href="#salecontents">SaleContents</a></li>
+<li><a href="#audits">Audits</a></li>
+<li><a href="#inquiries">Inquiries</a></li>
+<li><a href="#issues">Issues</a></li>
+<li><a href="#default">default</a></li>
+</ul>
+<h2 id="actors">Actors</h2>
+<pre><code class="language-mermaid"><div class="mermaid">erDiagram
+"external_users" {
+  String id PK
+  String channel_id FK
+  String application
+  String uid
+  String password
+  DateTime created_at
+}
+</div></code></pre>
+<h3 id="externalusers"><code>external_users</code></h3>
+<p>External user information.</p>
+<p>An entity for when this system is linked to an external service and
+their users are accepted as customers of this service.</p>
+<p>And <code>password</code> is a password issued to the user by the external service system
+(so-called user permanent authentication token), and is never an actual user
+password. However, it is used to determine whether a customer who entered the
+same <code>application</code> and <code>uid</code> as the current external system user is
+a correct external system user or a violation.</p>
+<p>In addition, additional information received from external services can be
+recorded in the <code>data</code> field in JSON format.</p>
+<p><strong>Properties</strong></p>
+<ul>
+<li><code>id</code>:</li>
+<li><code>channel_id</code>: <a href="#channels">channels.id</a> of the affiliated channel</li>
+<li><code>application</code>
+<blockquote>
+<p>The identifier code of the external service.</p>
+<p>It is most likely the same as <a href="#channels">channels.code</a>.</p>
+</blockquote>
+</li>
+<li><code>uid</code>: An identifier key for that user in an external service.</li>
+<li><code>password</code>
+<blockquote>
+<p>System password for external service users.</p>
+<p>This is a password issued by the external service to the user,
+and is never the actual user password. However, it is used to determine
+whether a customer who entered the same <code>application</code> and <code>code</code> as the
+current external system user is considered a valid external system user
+or a violation.</p>
+</blockquote>
+</li>
+<li><code>created_at</code>: Record creation date and time (first external user authentication date and time)</li>
+</ul>
+<h2 id="systematic">Systematic</h2>
+<pre><code class="language-mermaid"><div class="mermaid">erDiagram
+"channels" {
+  String id PK
+  String code UK
+  DateTime created_at
+  DateTime updated_at
+  DateTime deleted_at "nullable"
+}
+</div></code></pre>
+<h3 id="channels"><code>channels</code></h3>
+<p>channel information.</p>
+<p><strong>Properties</strong></p>
+<ul>
+<li><code>id</code>:</li>
+<li><code>code</code>: Identifier code.</li>
+<li><code>created_at</code>: The date and time the record was created.</li>
+<li><code>updated_at</code>: Date and time of record edit.</li>
+<li><code>deleted_at</code>: Date and time of record deletion.</li>
+</ul>
+<h2 id="airportinformations">AirportInformations</h2>
+<pre><code class="language-mermaid"><div class="mermaid">erDiagram
+"airport_informations" {
+  String id PK
+  String en_airport_name
+  String en_city_name
+  String ko_airport_name
+  String kr_country_name
+  String kr_city_name
+  String airport_code
+  DateTime created_at
+}
+</div></code></pre>
+<h3 id="airportinformations"><code>airport_informations</code></h3>
+<p>Airport information from around the world.</p>
+<p><strong>Properties</strong></p>
+<ul>
+<li><code>id</code>: Primary Key.</li>
+<li><code>en_airport_name</code>: Airport Name in English.</li>
+<li><code>en_city_name</code>: City Name in English.</li>
+<li><code>ko_airport_name</code>: Airport Name in Korean.</li>
+<li><code>kr_country_name</code>: Country Name in Korean.</li>
+<li><code>kr_city_name</code>: City Name in Korean.</li>
+<li><code>airport_code</code>: Airport Code.</li>
+<li><code>created_at</code>: The date and time the record was created.</li>
+</ul>
+<h2 id="articles">Articles</h2>
+<pre><code class="language-mermaid"><div class="mermaid">erDiagram
+"attachment_files" {
+  String id PK
+  String name
+  String extension "nullable"
+  String url
+  DateTime created_at
+}
+"bbs_articles" {
+  String id PK
+  String external_user_id FK
+  String password
+  String type
+  DateTime created_at
+  DateTime deleted_at "nullable"
+}
+"bbs_article_snapshots" {
+  String id PK
+  String bbs_article_id FK
+  String format
+  String title
+  String body
+  DateTime created_at
+}
+"bbs_article_snapshot_files" {
+  String id PK
+  String bbs_article_snapshot_id FK
+  String attachment_file_id FK
+  Int sequence
+}
+"bbs_article_comments" {
+  String id PK
+  String bbs_article_id FK
+  String parent_id FK "nullable"
+  String type
+  DateTime created_at
+  DateTime deleted_at "nullable"
+}
+"bbs_article_comment_snapshots" {
+  String id PK
+  String bbs_article_comment_id FK
+  String format
+  String body
+  DateTime created_at
+}
+"bbs_article_comment_snapshot_files" {
+  String id PK
+  String bbs_article_comment_snapshot_id FK
+  String attachment_file_id FK
+  Int sequence
+}
+"bbs_article_exports" {
+  String id PK
+  String provider_id FK "nullable"
+  String bbs_article_snapshot_id FK
+  String provider
+  String uid "nullable"
+  String url "nullable"
+  DateTime created_at
+  DateTime deleted_at "nullable"
+}
+"provider" {
+  String id PK
+  String name UK
+  DateTime created_at
+}
+"bbs_article_snapshots" }|--|| "bbs_articles" : article
+"bbs_article_snapshot_files" }o--|| "bbs_article_snapshots" : snapshot
+"bbs_article_snapshot_files" }o--|| "attachment_files" : file
+"bbs_article_comments" }o--|| "bbs_articles" : article
+"bbs_article_comments" }o--o| "bbs_article_comments" : parent
+"bbs_article_comment_snapshots" }|--|| "bbs_article_comments" : comment
+"bbs_article_comment_snapshot_files" }o--|| "bbs_article_comment_snapshots" : snapshot
+"bbs_article_comment_snapshot_files" }o--|| "attachment_files" : file
+"bbs_article_exports" }o--|| "bbs_article_snapshots" : snapshot
+"bbs_article_exports" }o--o| "provider" : bbs_article_provider
+</div></code></pre>
+<h3 id="attachmentfiles"><code>attachment_files</code></h3>
+<p>Attachments.</p>
+<p>Attachment entities used everywhere in this DB.</p>
+<p><strong>Properties</strong></p>
+<ul>
+<li><code>id</code>:</li>
+<li><code>name</code>: File name, excluding extension.</li>
+<li><code>extension</code>: Extension.</li>
+<li><code>url</code>: URL path to the file.</li>
+<li><code>created_at</code>: The date and time the record was created.</li>
+</ul>
+<h3 id="bbsarticles"><code>bbs_articles</code></h3>
+<p>Article entity.</p>
+<p><code>bbs_articles</code> is a entity for all types of articles existing
+in the current exchange system, and literally embodies individual articles
+on the bulletin board.</p>
+<p>And elements such as titles and texts that must exist in articles do not exist
+in this <code>bbs_articles</code>, but exist in a 1:N relationship in the lower entity,
+<a href="#bbs_article_snapshots">bbs_article_snapshots</a>, because a new snapshot record is issued every time
+an article is modified.</p>
+<p>And disputes can arise through articles or comments on them, and in this case,
+articles are designed in this structure to prevent manipulation of the situation
+by modifying existing articles.</p>
+<p>To prevent so-called 'undercutting', keeping evidence and preventing fraud.</p>
+<p><strong>Properties</strong></p>
+<ul>
+<li><code>id</code>:</li>
+<li><code>external_user_id</code>: External User ID</li>
+<li><code>password</code>
+<blockquote>
+<p>System Password</p>
+<p>This is a randomly issued password for encryption by
+this system, and has absolutely nothing to do with the user.</p>
+</blockquote>
+</li>
+<li><code>type</code>: The type of subtype.</li>
+<li><code>created_at</code>: The date and time the article was created.</li>
+<li><code>deleted_at</code>: Date and time of article deletion.</li>
+</ul>
+<h3 id="bbsarticlesnapshots"><code>bbs_article_snapshots</code></h3>
+<p>Article Snapshots</p>
+<p><code>bbs_article_snapshots</code> is a snapshot entity that contains the content of
+an article. As explained in <a href="#bbs_articles">bbs_articles</a>, the content is separated
+from the article record to prevent undercutting.</p>
+<p><strong>Properties</strong></p>
+<ul>
+<li><code>id</code>: Primary Key.</li>
+<li><code>bbs_article_id</code>: <a href="#bbs_articles">bbs_articles.id</a> of the attached article</li>
+<li><code>format</code>
+<blockquote>
+<p>Format of the body.</p>
+<p>Similar meanings of extensions: html, md, txt, etc.</p>
+</blockquote>
+</li>
+<li><code>title</code>: Title of the article</li>
+<li><code>body</code>: Article body content</li>
+<li><code>created_at</code>
+<blockquote>
+<p>Record creation date.</p>
+<p>When the article was first created or edited.</p>
+</blockquote>
+</li>
+</ul>
+<h3 id="bbsarticlesnapshotfiles"><code>bbs_article_snapshot_files</code></h3>
+<p>Attachment files of article snapshots.</p>
+<p><code>bbs_article_snapshot_files</code> is an entity that visualizes attachment files
+of article snapshots.</p>
+<p><code>bbs_article_snapshot_files</code> is a typical pair relationship table that
+resolves the M: N relationship between <a href="#bbs_article_snapshots">bbs_article_snapshots</a> and
+<a href="#attachment_files">attachment_files</a>. And to ensure the order of attachment files, it has
+an additional property, <a href="#bbs_article_snapshot_files">bbs_article_snapshot_files.sequence</a>.</p>
+<p>This is a pattern that we will continue to see in the future, so let's get
+used to it in advance.</p>
+<p><strong>Properties</strong></p>
+<ul>
+<li><code>id</code>:</li>
+<li><code>bbs_article_snapshot_id</code>: <a href="#bbs_article_snapshots">bbs_article_snapshots.id</a> of the attributed article snapshot</li>
+<li><code>attachment_file_id</code>: <a href="#attachment_files">attachment_files.id</a></li>
+<li><code>sequence</code>: The order in which attachments are placed in the article snapshot.</li>
+</ul>
+<h3 id="bbsarticlecomments"><code>bbs_article_comments</code></h3>
+<p>Comments written on an article.</p>
+<p><code>bbs_article_comments</code> is an entity that visualizes comments written on an article.</p>
+<p>And this comment, as in the relationship between <a href="#bbs_articles">bbs_articles</a>
+and <a href="#bbs_article_snapshots">bbs_article_snapshots</a>, is stored in the subordinate
+<a href="#bbs_article_comment_snapshots">bbs_article_comment_snapshots</a> for evidentialism, and a new snapshot
+record is issued whenever a comment is modified.</p>
+<p>In addition, the relationship between replies is expressed through the
+<a href="#bbs_article_comments">bbs_article_comments.parent_id</a> property.</p>
+<p><strong>Properties</strong></p>
+<ul>
+<li><code>id</code>:</li>
+<li><code>bbs_article_id</code>: <a href="#bbs_articles">bbs_articles.id</a> of the attached article.</li>
+<li><code>parent_id</code>
+<blockquote>
+<p>The ID of the parent comment.</p>
+<p>Used when writing a reply.</p>
+</blockquote>
+</li>
+<li><code>type</code>: The type of subtype.</li>
+<li><code>created_at</code>: Comment creation date and time.</li>
+<li><code>deleted_at</code>: Comment deletion date and time.</li>
+</ul>
+<h3 id="bbsarticlecommentsnapshots"><code>bbs_article_comment_snapshots</code></h3>
+<p>Comment snapshots.</p>
+<p><code>bbs_article_comment_snapshots</code> is a snapshot entity that contains
+the main content of the comment.</p>
+<p>As explained in <a href="#bbs_article_comments">bbs_article_comments</a> above, to prevent undercutting.</p>
+<p><strong>Properties</strong></p>
+<ul>
+<li><code>id</code>:</li>
+<li><code>bbs_article_comment_id</code>: <a href="#bbs_article_comments">bbs_article_comments.id</a> of the comment on the attached article.</li>
+<li><code>format</code>
+<blockquote>
+<p>Format of the body.</p>
+<p>Similar meanings of extensions: html, md, txt, etc.</p>
+</blockquote>
+</li>
+<li><code>body</code>: Comment body.</li>
+<li><code>created_at</code>: Record creation date and time (when the comment was first created or edited)</li>
+</ul>
+<h3 id="bbsarticlecommentsnapshotfiles"><code>bbs_article_comment_snapshot_files</code></h3>
+<p>Attachments to comment snapshots.</p>
+<p><a href="#bbs_article_comment_snapshots">bbs_article_comment_snapshots</a> <a href="#attachment_files">attachment_files</a></p>
+<p>M: N relationship resolution.</p>
+<p><strong>Properties</strong></p>
+<ul>
+<li><code>id</code>:</li>
+<li><code>bbs_article_comment_snapshot_id</code>: <a href="#bbs_article_comment_snapshots">bbs_article_comment_snapshots.id</a> of the attributed comment snapshot</li>
+<li><code>attachment_file_id</code>: <a href="#attachment_files">attachment_files.id</a></li>
+<li><code>sequence</code>
+<blockquote>
+<p>Batch order.</p>
+<p>The order in which the files attached to the comment snapshot are placed.</p>
+</blockquote>
+</li>
+</ul>
+<h3 id="bbsarticleexports"><code>bbs_article_exports</code></h3>
+<p><strong>Properties</strong></p>
+<ul>
+<li><code>id</code>:</li>
+<li><code>provider_id</code>:</li>
+<li><code>bbs_article_snapshot_id</code>: <a href="#bbs_article_snapshots">bbs_article_snapshots.id</a> of the attributed article snapshot</li>
+<li><code>provider</code>
+<blockquote>
+<p>Meaning of the name of the external service</p>
+<p>For example, google_docs, notion</p>
+</blockquote>
+</li>
+<li><code>uid</code>: Unique ID of this exported document</li>
+<li><code>url</code>: URL path to the reference</li>
+<li><code>created_at</code>: The date and time the record was created.</li>
+<li><code>deleted_at</code>: Date and time of article deletion.</li>
+</ul>
+<h3 id="provider"><code>provider</code></h3>
+<p><strong>Properties</strong></p>
+<ul>
+<li><code>id</code>: Provider's unique ID</li>
+<li><code>name</code>: name of provider, for example, 'notion', 'google_docs', 'excel', 'google_sheets'</li>
+<li><code>created_at</code>: The date and time the record was created.</li>
+</ul>
+<h2 id="crunchbase">Crunchbase</h2>
+<pre><code class="language-mermaid"><div class="mermaid">erDiagram
+"crunchbase" {
+  String id PK
+  String organization_identifier
+  String version
+  Json data
+  DateTime created_at
+}
+</div></code></pre>
+<h3 id="crunchbase"><code>crunchbase</code></h3>
+<p>Get company information using the Crunchbase Rapid API.</p>
+<p><strong>Properties</strong></p>
+<ul>
+<li><code>id</code>: Primary Key.</li>
+<li><code>organization_identifier</code>: Organization Identifier.</li>
+<li><code>version</code>
+<blockquote>
+<p>Api Version.</p>
+<p>Rapid API Version.
+We store the API version at the time of record created, as changes to the API version may affect the API.</p>
+</blockquote>
+</li>
+<li><code>data</code>
+<blockquote>
+<p>Response Data</p>
+<p>The data returned by the API.
+Since the format of the response data depends on an external API and it is difficult to determine the type, it is saved as JSON type.</p>
+</blockquote>
+</li>
+<li><code>created_at</code>: The date and time the record was created.</li>
+</ul>
+<h2 id="spreadsheets">Spreadsheets</h2>
+<pre><code class="language-mermaid"><div class="mermaid">erDiagram
+"provider" {
+  String id PK
+  String name UK
+  DateTime created_at
+}
+"spreadsheets" {
+  String id PK
+  String external_user_id
+  String password
+  DateTime created_at
+  DateTime deleted_at "nullable"
+}
+"spreadsheet_snapshots" {
+  String id PK
+  String spreadsheet_id FK "nullable"
+  String title
+  String description "nullable"
+  DateTime created_at
+}
+"spreadsheet_cells" {
+  String id PK
+  String spreadsheet_id FK
+  Int column
+  Int row
+  DateTime created_at
+}
+"spreadsheet_cell_snapshots" {
+  String id PK
+  String spreadsheet_cell_id FK
+  String type
+  String value "nullable"
+  DateTime created_at
+}
+"spreadsheet_formats" {
+  String id PK
+  String spreadsheet_id FK
+  String font_name
+  Decimal font_size
+  String background_color
+  String text_alignment
+  DateTime created_at
+  DateTime deleted_at "nullable"
+}
+"spreadsheet_ranges" {
+  String id PK
+  String spreadsheet_format_id FK
+  Int start_row
+  Int end_row
+  Int start_column
+  Int end_column
+  DateTime created_at
+}
+"spreadsheet_exports" {
+  String id PK
+  String provider_id FK
+  String uid "nullable"
+  String url "nullable"
+  String spreadsheet_snapshot_id FK
+  DateTime created_at
+  DateTime deleted_at "nullable"
+}
+"spreadsheet_snapshots" }|--o| "spreadsheets" : spreadsheets
+"spreadsheet_cells" }o--|| "spreadsheets" : spreadsheet
+"spreadsheet_cell_snapshots" }o--|| "spreadsheet_cells" : spreadsheet_cell
+"spreadsheet_formats" }o--|| "spreadsheets" : spreadsheet
+"spreadsheet_ranges" }o--|| "spreadsheet_formats" : spreadsheet_format
+"spreadsheet_exports" }o--|| "spreadsheet_snapshots" : snapshot
+"spreadsheet_exports" }o--|| "provider" : spreadsheet_provider
+</div></code></pre>
+<h3 id="provider"><code>provider</code></h3>
+<p><strong>Properties</strong></p>
+<ul>
+<li><code>id</code>: Provider's unique ID</li>
+<li><code>name</code>: name of provider, for example, 'notion', 'google_docs', 'excel', 'google_sheets'</li>
+<li><code>created_at</code>: The date and time the record was created.</li>
+</ul>
+<h3 id="spreadsheets"><code>spreadsheets</code></h3>
+<p><strong>Properties</strong></p>
+<ul>
+<li><code>id</code>:</li>
+<li><code>external_user_id</code>: External User ID</li>
+<li><code>password</code>
+<blockquote>
+<p>System Password</p>
+<p>This is a randomly issued password for encryption by
+this system, and has absolutely nothing to do with the user.</p>
+</blockquote>
+</li>
+<li><code>created_at</code>: The date and time the spreadsheet was created.</li>
+<li><code>deleted_at</code>: The date and time the spreadsheet was deleted.</li>
+</ul>
+<h3 id="spreadsheetsnapshots"><code>spreadsheet_snapshots</code></h3>
+<p><strong>Properties</strong></p>
+<ul>
+<li><code>id</code>:</li>
+<li><code>spreadsheet_id</code>:</li>
+<li><code>title</code>: Title of this spreadsheet</li>
+<li><code>description</code>: Description of this spreadsheet, but it is optional.</li>
+<li><code>created_at</code>: The date and time the spreadsheet_snapshot was created.</li>
+</ul>
+<h3 id="spreadsheetcells"><code>spreadsheet_cells</code></h3>
+<p>cells of spreadsheet</p>
+<p><strong>Properties</strong></p>
+<ul>
+<li><code>id</code>: Primary Key.</li>
+<li><code>spreadsheet_id</code>:</li>
+<li><code>column</code>
+<blockquote>
+<p>Column Number</p>
+<p>It counts from 1.</p>
+</blockquote>
+</li>
+<li><code>row</code>
+<blockquote>
+<p>Row Number</p>
+<p>It counts from 1.</p>
+</blockquote>
+</li>
+<li><code>created_at</code>: The date and time the spreadsheet_cells was created.</li>
+</ul>
+<h3 id="spreadsheetcellsnapshots"><code>spreadsheet_cell_snapshots</code></h3>
+<p>spreadsheet cell snapshots</p>
+<p><strong>Properties</strong></p>
+<ul>
+<li><code>id</code>: Primary Key.</li>
+<li><code>spreadsheet_cell_id</code>:</li>
+<li><code>type</code>
+<blockquote>
+<p>Format type of this cell</p>
+<p>For example, date, datetime, bool, text an so on.
+If you want add new type, please discuss within our team.</p>
+</blockquote>
+</li>
+<li><code>value</code>
+<blockquote>
+<p>value</p>
+<p>If the value of the final cell is in the erased form, null.
+A null value will be stored only when the value of this cell disappears after modification, and other than that, null can never be entered.
+This is to indicate that the value has been explicitly deleted to prevent the cell value of the previous snapshot from being exposed when a cell is soft-delete.</p>
+</blockquote>
+</li>
+<li><code>created_at</code>: The date and time the spreadsheet_cell_snapshot was created.</li>
+</ul>
+<h3 id="spreadsheetformats"><code>spreadsheet_formats</code></h3>
+<p>Spreadsheet format means '서식' in Korean.</p>
+<p>The columns here are not final and will continue to be added in the future.
+This will probably be the table with the most columns in the Spreadsheets group.</p>
+<p><strong>Properties</strong></p>
+<ul>
+<li><code>id</code>:</li>
+<li><code>spreadsheet_id</code>:</li>
+<li><code>font_name</code>: Name of Font</li>
+<li><code>font_size</code>:</li>
+<li><code>background_color</code>
+<blockquote>
+<p>Backround color</p>
+<p>To ensure mutual compatibility, be sure to enter color values ​​and do not enter natural language names.
+For example, '#FFFFFF'</p>
+</blockquote>
+</li>
+<li><code>text_alignment</code>
+<blockquote>
+<p>This means text alignment (Horizontal alignment).</p>
+<p>For example, 'left', 'right', 'center'</p>
+</blockquote>
+</li>
+<li><code>created_at</code>: The date and time the spreadsheet_format was created.</li>
+<li><code>deleted_at</code>: The date and time the spreadsheet_format was created.</li>
+</ul>
+<h3 id="spreadsheetranges"><code>spreadsheet_ranges</code></h3>
+<p><strong>Properties</strong></p>
+<ul>
+<li><code>id</code>:</li>
+<li><code>spreadsheet_format_id</code>:</li>
+<li><code>start_row</code>: This refers to the starting row value of the point where the format will be applied.</li>
+<li><code>end_row</code>: This refers to the ending row value of the point where the format will be applied.</li>
+<li><code>start_column</code>: This refers to the starting column value of the point where the format will be applied.</li>
+<li><code>end_column</code>: This refers to the ending column value of the point where the format will be applied.</li>
+<li><code>created_at</code>: The date and time the spreadsheet_ranges was created.</li>
+</ul>
+<h3 id="spreadsheetexports"><code>spreadsheet_exports</code></h3>
+<p><strong>Properties</strong></p>
+<ul>
+<li><code>id</code>:</li>
+<li><code>provider_id</code>:</li>
+<li><code>uid</code>: Unique ID of this exported document</li>
+<li><code>url</code>: URL path to the reference</li>
+<li><code>spreadsheet_snapshot_id</code>: <a href="#spreadsheet_snapshots">spreadsheet_snapshots.id</a> of the attributed article snapshot</li>
+<li><code>created_at</code>: The date and time the record was created.</li>
+<li><code>deleted_at</code>: Date and time of article deletion.</li>
+</ul>
+<h2 id="similarweb">Similarweb</h2>
+<pre><code class="language-mermaid"><div class="mermaid">erDiagram
+"similarweb" {
+  String id PK
+  String domain UK
+  String version
+  Json data
+  DateTime created_at
+}
+</div></code></pre>
+<h3 id="similarweb"><code>similarweb</code></h3>
+<p>Get information using the Similarweb Rapid API.</p>
+<p><strong>Properties</strong></p>
+<ul>
+<li><code>id</code>: Primary Key.</li>
+<li><code>domain</code>: The domain of the company website.</li>
+<li><code>version</code>
+<blockquote>
+<p>Api Version.</p>
+<p>Rapid API Version.
+We store the API version at the time of record created, as changes to the API version may affect the API.</p>
+</blockquote>
+</li>
+<li><code>data</code>
+<blockquote>
+<p>Response Data</p>
+<p>The data returned by the API.
+Since the format of the response data depends on an external API and it is difficult to determine the type, it is saved as JSON type.</p>
+</blockquote>
+</li>
+<li><code>created_at</code>: The date and time the record was created.</li>
+</ul>
+<h2 id="x">X</h2>
+<pre><code class="language-mermaid"><div class="mermaid">erDiagram
+"x_users" {
+  String id PK
+  String tweet_user_id UK
+  String name
+  String userName UK
+  DateTime created_at
+}
+"x_tweet" {
+  String id PK
+  String tweet_id UK
+  String x_user_id FK
+  String text
+  String link
+  String type
+  String referred_user_name "nullable"
+  String referred_tweet_link "nullable"
+  String referred_tweet_text "nullable"
+  DateTime created_at
+}
+"x_tweet" }o--|| "x_users" : user
+</div></code></pre>
+<h3 id="xusers"><code>x_users</code></h3>
+<p>The user information of X.</p>
+<p><strong>Properties</strong></p>
+<ul>
+<li><code>id</code>: Primary Key.</li>
+<li><code>tweet_user_id</code>: Unique ID of the user in X.</li>
+<li><code>name</code>: Original name of the user.</li>
+<li><code>userName</code>: Username used like a nickname in X.</li>
+<li><code>created_at</code>: The date and time the record was created.</li>
+</ul>
+<h3 id="xtweet"><code>x_tweet</code></h3>
+<p>The tweet information of X.</p>
+<p><strong>Properties</strong></p>
+<ul>
+<li><code>id</code>: Primary Key.</li>
+<li><code>tweet_id</code>: Unique Id of the tweet in X.</li>
+<li><code>x_user_id</code>: Unique user ID of the user who posted the tweet.</li>
+<li><code>text</code>: The text of the tweet.</li>
+<li><code>link</code>: The URL of the tweet.</li>
+<li><code>type</code>: The type of the tweet.</li>
+<li><code>referred_user_name</code>: Author name of the tweet you quoted or retweeted.</li>
+<li><code>referred_tweet_link</code>: Link to the tweet you quoted or retweeted.</li>
+<li><code>referred_tweet_text</code>: Text of the tweet you quoted or retweeted.</li>
+<li><code>created_at</code>: The date and time the record was created.</li>
+</ul>
+<h2 id="default">default</h2>
+<pre><code class="language-mermaid"><div class="mermaid">erDiagram
+"slack_team" {
+  String id PK
+  String external_team_id
+}
+"slack_users" {
+  String id PK
+  String slack_team_id FK
+  String external_user_id UK
+  String status_text "nullable"
+}
+"slack_user_snapshots" {
+  String id PK
+  String slack_user_id FK
+  Json fields
+  String display_name "nullable"
+  String real_name "nullable"
+  Boolean deleted
+  String profile_image "nullable"
+  DateTime snapshot_at
+}
+"slack_last_snapshots" {
+  String slack_user_id FK
+  String slack_user_snapshot_id FK
+}
+"slack_users" }o--|| "slack_team" : slack_team
+"slack_user_snapshots" }o--|| "slack_users" : slack_user
+"slack_last_snapshots" |o--|| "slack_users" : slack_user
+"slack_last_snapshots" |o--|| "slack_user_snapshots" : slack_user_snapshot
+</div></code></pre>
+<h3 id="slackteam"><code>slack_team</code></h3>
+<p><strong>Properties</strong></p>
+<ul>
+<li><code>id</code>: Unique ID of the team in Studio-Pro</li>
+<li><code>external_team_id</code>: Unique ID of the team in Slack</li>
+</ul>
+<h3 id="slackusers"><code>slack_users</code></h3>
+<p><strong>Properties</strong></p>
+<ul>
+<li><code>id</code>: Unique ID of the user in Studio-Pro</li>
+<li><code>slack_team_id</code>:</li>
+<li><code>external_user_id</code>: Unique ID of the user in Slack</li>
+<li><code>status_text</code>: 유저의 상태 값</li>
+</ul>
+<h3 id="slackusersnapshots"><code>slack_user_snapshots</code></h3>
+<p><strong>Properties</strong></p>
+<ul>
+<li><code>id</code>:</li>
+<li><code>slack_user_id</code>: slack_users.id를 의미한다.</li>
+<li><code>fields</code>: 슬랙 내에서 <code>Record&lt;string, string&gt;</code> 형태로 관리되는 여러 정보들</li>
+<li><code>display_name</code>:</li>
+<li><code>real_name</code>:</li>
+<li><code>deleted</code>:</li>
+<li><code>profile_image</code>:</li>
+<li><code>snapshot_at</code>: 마지막으로 조회한 시간을 의미하며, 데이터가 유효하다고 믿을 수 있는 마지막 시간을 의미</li>
+</ul>
+<h3 id="slacklastsnapshots"><code>slack_last_snapshots</code></h3>
+<p><strong>Properties</strong></p>
+<ul>
+<li><code>slack_user_id</code>:</li>
+<li><code>slack_user_snapshot_id</code>:</li>
+</ul>
+
+</body>
+</html>
