@@ -1,5 +1,5 @@
-import ConnectorApi from "@wrtnio/connector-api";
-
+import { GoogleFlightController } from "../../../../../src/controllers/connector/google_flight/GoogleFlightController";
+import { GoogleHotelController } from "../../../../../src/controllers/connector/google_hotel/GoolgeHotelController";
 import { IFunctionCallBenchmarkScenario } from "../../structures/IFunctionCallBenchmarkScenario";
 
 export const scenario_airline_and_hotel_to_email =
@@ -8,23 +8,23 @@ export const scenario_airline_and_hotel_to_email =
     prompt: `
     2025.1.1 일에 한국 인천공항에서 일본 나리타공항으로 가는 가장 싼 항공권을 검색해주고, 
     그 날 묵을 숙소를 추천해서 메일로 보내줘`,
-    operations: [
-      {
-        type: "union",
-        elements: [
-          ConnectorApi.functional.connector.google_flight.one_way.oneWay,
-          ConnectorApi.functional.connector.google_flight.round_trip.roundTrip,
-        ].map((func) => ({
+    expected: {
+      type: "array",
+      items: [
+        {
+          type: "anyOf",
+          anyOf: [
+            GoogleFlightController.prototype.oneWay,
+            GoogleFlightController.prototype.roundTrip,
+          ].map((func) => ({
+            type: "standalone",
+            function: func,
+          })),
+        },
+        {
           type: "standalone",
-          function: func,
-          required: true,
-        })),
-        required: true,
-      },
-      {
-        type: "standalone",
-        function: ConnectorApi.functional.connector.google_hotel.search,
-        required: true,
-      },
-    ],
+          function: GoogleHotelController.prototype.search,
+        },
+      ],
+    },
   });

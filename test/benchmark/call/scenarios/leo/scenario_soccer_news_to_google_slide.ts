@@ -15,7 +15,7 @@ export const scenario_soccer_news_to_google_slide =
           type: "standalone",
           function: NaverController.prototype.newsList,
         },
-        ...scenario_google_slide_operations(),
+        ...scenario_google_slide_operations().items,
       ],
     },
   });

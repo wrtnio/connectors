@@ -11,5 +11,5 @@ export const scenario_novel_to_google_slide =
     
     각 페이지는 삽화가 필요하니까 너가 이미지를 생성해.
   `,
-    operations: [...scenario_google_slide_operations()],
+    expected: scenario_google_slide_operations(),
   });

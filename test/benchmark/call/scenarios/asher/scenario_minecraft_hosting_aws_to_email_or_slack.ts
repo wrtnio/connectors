@@ -1,6 +1,8 @@
-import ConnectorApi from "@wrtnio/connector-api";
-
 import { IFunctionCallBenchmarkScenario } from "../../structures/IFunctionCallBenchmarkScenario";
+import { GoogleSearchController } from "../../../../../src/controllers/connector/google_search/GoogleSearchController";
+import { YoutubeSearchController } from "../../../../../src/controllers/connector/youtube_search/YoutubeSearchController";
+import { GmailController } from "../../../../../src/controllers/connector/gmail/GmailController";
+import { SlackController } from "../../../../../src/controllers/connector/slack/SlackController";
 
 export const scenario_minecraft_hosting_aws_to_email_or_slack =
   (): IFunctionCallBenchmarkScenario => ({
@@ -17,32 +19,30 @@ export const scenario_minecraft_hosting_aws_to_email_or_slack =
     마인크래프트 서버를 포트포워딩 하여 외부 사용자에게 열어줄 수 있는 
     영상을 포함하여 slack DM 으로 나 자신에게 보내줘
   `,
-    operations: [
-      {
-        type: "union",
-        elements: [
-          ConnectorApi.functional.connector.google_search.search,
-          ConnectorApi.functional.connector.youtube_search.search,
-        ].map((func) => ({
-          type: "standalone",
-          function: func,
-          required: true,
-        })),
-        required: true,
-      },
-      {
-        type: "union",
-        elements: [
-          ConnectorApi.functional.connector.gmail.send,
-          ConnectorApi.functional.connector.slack.postMessage.text.myself
-            .sendTextToMyself,
-          ConnectorApi.functional.connector.slack.postMessage.text.sendText,
-        ].map((func) => ({
-          type: "standalone",
-          function: func,
-          required: true,
-        })),
-        required: true,
-      },
-    ],
+    expected: {
+      type: "array",
+      items: [
+        {
+          type: "anyOf",
+          anyOf: [
+            GoogleSearchController.prototype.search,
+            YoutubeSearchController.prototype.searchVideo,
+          ].map((func) => ({
+            type: "standalone",
+            function: func,
+          })),
+        },
+        {
+          type: "anyOf",
+          anyOf: [
+            GmailController.prototype.send,
+            SlackController.prototype.sendTextToMyself,
+            SlackController.prototype.sendText,
+          ].map((func) => ({
+            type: "standalone",
+            function: func,
+          })),
+        },
+      ],
+    },
   });

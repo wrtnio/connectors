@@ -9,24 +9,44 @@ import { IHttpLlmApplication, IHttpLlmFunction } from "@samchon/openapi";
 import { IFunctionCallBenchmarkResult } from "../structures/IFunctionCallBenchmarkResult";
 import { IFunctionCallBenchmarkScenario } from "../structures/IFunctionCallBenchmarkScenario";
 import { IFunctionCallBenchmarkExpected } from "../structures/IFunctionCallBenchmarkExpected";
+import { IFunctionCallBenchmarkOptions } from "../structures/IFunctionCallBenchmarkOptions";
+import { Semaphore } from "tstl";
 
 export namespace FunctionCallBenchmarkExecutor {
   export interface IProps {
-    service: IChatGptService;
     application: IHttpLlmApplication<"chatgpt">;
+    service: IChatGptService;
     connection: IConnection;
+    options: IFunctionCallBenchmarkOptions;
+    semaphore: Semaphore;
     scenario: IFunctionCallBenchmarkScenario;
+    location: string;
   }
 
   export const execute = async (
     props: IProps,
-  ): Promise<IFunctionCallBenchmarkResult> => {
+  ): Promise<IFunctionCallBenchmarkResult> => ({
+    location: props.location,
+    scenario: props.scenario,
+    trials: await Promise.all(
+      new Array(props.options.count).fill(0).map(async () => {
+        await props.semaphore.acquire();
+        const tr: IFunctionCallBenchmarkResult.ITrial = await process(props);
+        await props.semaphore.release();
+        return tr;
+      }),
+    ),
+  });
+
+  export const process = async (
+    props: IProps,
+  ): Promise<IFunctionCallBenchmarkResult.ITrial> => {
     const agent: NestiaChatAgent = new NestiaChatAgent({
       application: props.application,
       service: props.service,
       connection: props.connection,
       config: {
-        capacity: 100,
+        capacity: props.options.capacity,
         eliticism: true,
       },
     });
@@ -38,7 +58,6 @@ export namespace FunctionCallBenchmarkExecutor {
       );
       const usage: INestiaChatTokenUsage = agent.getTokenUsage();
       return {
-        scenario: props.scenario,
         histories,
         usage,
         select: predicateIncludeFunction({
@@ -62,7 +81,6 @@ export namespace FunctionCallBenchmarkExecutor {
       };
     } catch (error) {
       return {
-        scenario: props.scenario,
         histories: [],
         usage: agent.getTokenUsage(),
         select: false,
@@ -70,7 +88,7 @@ export namespace FunctionCallBenchmarkExecutor {
         error: error as Error,
         started_at,
         completed_at: new Date(),
-      } satisfies IFunctionCallBenchmarkResult;
+      };
     }
   };
 

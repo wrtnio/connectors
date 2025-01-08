@@ -1,5 +1,7 @@
-import ConnectorApi from "@wrtnio/connector-api";
-
+import { GoogleCalendarController } from "../../../../../src/controllers/connector/google_calendar/GoogleCalendarController";
+import { GoogleMapController } from "../../../../../src/controllers/connector/google_map/GoogleMapController";
+import { GoogleSearchController } from "../../../../../src/controllers/connector/google_search/GoogleSearchController";
+import { KakaoMapController } from "../../../../../src/controllers/connector/kakao_map/KakaoMapController";
 import { IFunctionCallBenchmarkScenario } from "../../structures/IFunctionCallBenchmarkScenario";
 
 export const scenario_meat_restaurant_to_calender =
@@ -11,25 +13,24 @@ export const scenario_meat_restaurant_to_calender =
       
       캘린더 제목은 "강남역 소고기 식당 회식"으로 해주고,
       식사 시간은 2 시간으로 해 줘.`,
-    operations: [
-      {
-        type: "union",
-        elements: [
-          ConnectorApi.functional.connector.google_search.search,
-          ConnectorApi.functional.connector.google_map.search,
-          ConnectorApi.functional.connector.kakao_map.search,
-        ].map((func) => ({
+    expected: {
+      type: "array",
+      items: [
+        {
+          type: "anyOf",
+          anyOf: [
+            GoogleSearchController.prototype.search,
+            GoogleMapController.prototype.search,
+            KakaoMapController.prototype.search,
+          ].map((func) => ({
+            type: "standalone",
+            function: func,
+          })),
+        },
+        {
           type: "standalone",
-          function: func,
-          required: true,
-        })),
-        required: true,
-      },
-      {
-        type: "standalone",
-        function:
-          ConnectorApi.functional.connector.google_calendar.event.createEvent,
-        required: true,
-      },
-    ],
+          function: GoogleCalendarController.prototype.createEvent,
+        },
+      ],
+    },
   });

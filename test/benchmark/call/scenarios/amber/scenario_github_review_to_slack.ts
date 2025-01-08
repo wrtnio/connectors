@@ -1,4 +1,5 @@
 import { GithubController } from "../../../../../src/controllers/connector/github/GithubController";
+import { SlackController } from "../../../../../src/controllers/connector/slack/SlackController";
 import { IFunctionCallBenchmarkScenario } from "../../structures/IFunctionCallBenchmarkScenario";
 
 export const scenario_github_review_to_slack =
@@ -9,7 +10,7 @@ export const scenario_github_review_to_slack =
     를 분석해서 코드의 개선점이나, 앞으로 공부해야 할 지식들을 정리해서 
     슬랙 디엠으로 보내줘`,
     expected: {
-      type: "sequential",
+      type: "allOf",
       allOf: [
         {
           type: "anyOf",
@@ -23,24 +24,18 @@ export const scenario_github_review_to_slack =
         },
         {
           type: "standalone",
-          function:
-            ConnectorApi.functional.connector.slack.get_im_channels
-              .getImChannels,
+          function: SlackController.prototype.getImChannels,
         },
         {
           type: "anyOf",
           anyOf: [
             {
               type: "standalone",
-              function:
-                ConnectorApi.functional.connector.slack.postMessage.text.myself
-                  .sendTextToMyself,
+              function: SlackController.prototype.sendTextToMyself,
             },
             {
               type: "standalone",
-              function:
-                ConnectorApi.functional.connector.slack.postMessage.text
-                  .sendText,
+              function: SlackController.prototype.sendText,
             },
           ],
         },
