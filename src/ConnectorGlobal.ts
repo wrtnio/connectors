@@ -198,6 +198,8 @@ export namespace ConnectorGlobal {
     // IMWEB
     IMWEB_TEST_API_KEY: string;
     IMWEB_TEST_API_SECRET: string;
+    IMWEB_CLIENT_ID: string;
+    IMWEB_CLIENT_SECRET: string;
 
     // RAPIDAPI
     RAPIDAPI_KEY: string;
