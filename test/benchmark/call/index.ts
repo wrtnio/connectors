@@ -1,6 +1,13 @@
 import { IChatGptService } from "@nestia/agent";
 import { IConnection } from "@nestia/fetcher";
-import { HttpLlm, IHttpLlmApplication } from "@samchon/openapi";
+import { INestApplication } from "@nestjs/common";
+import { NestContainer } from "@nestjs/core";
+import { Module } from "@nestjs/core/injector/module";
+import {
+  HttpLlm,
+  IHttpLlmApplication,
+  OpenApiTypeChecker,
+} from "@samchon/openapi";
 import { ISwagger } from "@wrtnio/schema";
 import chalk from "chalk";
 import cp from "child_process";
@@ -23,7 +30,7 @@ import { IFunctionCallBenchmarkResult } from "./structures/IFunctionCallBenchmar
 import { FunctionCallBenchmarkReporter } from "./executors/FunctionCallBenchmarkReporter";
 
 const SCENARIO_LOCATION = path.resolve(
-  `${ConnectorConfiguration.ROOT}/test/benchmark/call/scenarios`,
+  `${ConnectorConfiguration.ROOT}/bin/test/benchmark/call/scenarios`,
 );
 const SWAGGER_LOCATION = `${ConnectorConfiguration.ROOT}/packages/api/swagger.json`;
 
@@ -64,6 +71,10 @@ const getOptions = () =>
         "Count of executions per scenario (default 10)",
         10,
       );
+      options.semaphore ??= await prompt.number("semaphore")(
+        "Semaphore size (default 100)",
+        100,
+      );
       options.capacity ??= await prompt.number("capacity")(
         "Capacity count per agent (divide and conquer, default 100)",
         100,
@@ -81,73 +92,118 @@ const getOptions = () =>
     });
   });
 
-const collectScenarios = async (
-  application: IHttpLlmApplication<"chatgpt">,
-  options: IOptions,
-  directory: string,
-): Promise<IScenario[]> => {
+const getControllers = (app: INestApplication): Map<Function, Function> => {
+  const container: NestContainer = (app as any).container as NestContainer;
+  const modules: Module[] = [...container.getModules().values()].filter(
+    (m) => !!m.controllers.size,
+  );
+  const dict: Map<Function, Function> = new Map();
+  for (const m of modules)
+    for (const controller of m.controllers.keys()) {
+      if (typeof controller === "function") {
+        for (const key of Object.getOwnPropertyNames(controller.prototype)) {
+          if (typeof controller.prototype[key] === "function") {
+            dict.set(controller.prototype[key], controller);
+          }
+        }
+      }
+    }
+  return dict;
+};
+
+const collectScenarios = async (props: {
+  application: IHttpLlmApplication<"chatgpt">;
+  operations: Map<Function, Function>;
+  options: IOptions;
+  location: string;
+}): Promise<IScenario[]> => {
   const collection: IScenario[] = [];
-  for (const file of await fs.promises.readdir(directory)) {
-    const location: string = `${directory}/${file}`;
-    const stat: fs.Stats = await fs.promises.lstat(location);
-    if (stat.isDirectory()) {
+  for (const file of await fs.promises.readdir(props.location)) {
+    const next: string = path.resolve(`${props.location}/${file}`);
+    const stat: fs.Stats = await fs.promises.lstat(next);
+    if (stat.isDirectory())
       collection.push(
-        ...(await collectScenarios(application, options, location)),
+        ...(await collectScenarios({
+          application: props.application,
+          operations: props.operations,
+          options: props.options,
+          location: next,
+        })),
       );
-    } else if (file.endsWith(".js")) {
-      const modulo = await import(location);
+    else if (file.endsWith(".js")) {
+      const modulo = await import(next);
       for (const [key, value] of Object.entries(modulo)) {
         if (typeof value !== "function") continue;
         else if (
-          !!options.include?.length &&
-          options.include.every((o) => key.includes(o) === false)
+          !!props.options.include?.length &&
+          props.options.include.every((o) => key.includes(o) === false)
         )
           continue;
         else if (
-          !!options.exclude?.length &&
-          options.exclude.some((o) => key.includes(o) === true)
+          !!props.options.exclude?.length &&
+          props.options.exclude.some((o) => key.includes(o) === true)
         )
           continue;
         const scenario: IFunctionCallBenchmarkScenario = value();
         if (
           typia.is<IFunctionCallBenchmarkScenario>(scenario) &&
-          isExistingFunction(application, scenario.expected)
-        )
+          isExistingFunction({
+            application: props.application,
+            operations: props.operations,
+            expected: scenario.expected,
+          })
+        ) {
+          const local: string = next
+            .substring(
+              SCENARIO_LOCATION.length + path.sep.length,
+              next.length - 3,
+            )
+            .split(path.sep)
+            .join("/");
           collection.push({
             ...scenario,
-            location: path.resolve(
-              location.replace(SCENARIO_LOCATION + path.sep, ""),
-            ),
+            location: local.substring(0, local.length - 3),
           });
+        }
       }
     }
   }
   return collection;
 };
 
-const isExistingFunction = (
-  application: IHttpLlmApplication<"chatgpt">,
-  expected: IFunctionCallBenchmarkExpected,
-): boolean => {
-  if (expected.type === "standalone")
-    return application.functions.some(
+const isExistingFunction = (props: {
+  application: IHttpLlmApplication<"chatgpt">;
+  operations: Map<Function, Function>;
+  expected: IFunctionCallBenchmarkExpected;
+}): boolean => {
+  if (props.expected.type === "standalone") {
+    const target: Function = props.expected.function;
+    return props.application.functions.some(
       (func) =>
         func.operation()["x-samchon-controller"] ===
-          expected.function.prototype.constructor.name &&
-        func.operation()["x-samchon-accessor"]?.at(-1) ===
-          expected.function.name,
+          props.operations.get(target)?.name &&
+        func.operation()["x-samchon-accessor"]?.at(-1) === target.name,
     );
-  else if (expected.type === "allOf")
-    return expected.allOf.every((expected) =>
-      isExistingFunction(application, expected),
+  } else if (props.expected.type === "allOf")
+    return props.expected.allOf.every((expected) =>
+      isExistingFunction({
+        ...props,
+        expected,
+      }),
     );
-  else if (expected.type === "anyOf")
-    return expected.anyOf.every((expected) =>
-      isExistingFunction(application, expected),
+  else if (props.expected.type === "anyOf")
+    return props.expected.anyOf.every((expected) =>
+      isExistingFunction({
+        ...props,
+        expected,
+      }),
     );
-  else if (expected.type === "array")
-    return expected.items.every((expected) =>
-      isExistingFunction(application, expected),
+  else if (props.expected.type === "array")
+    return props.expected.items.every((expected) =>
+      isExistingFunction({
+        ...props,
+        expected,
+      }),
     );
   else return false;
 };
@@ -167,6 +223,12 @@ const main = async (): Promise<void> => {
     document: typia.json.assertParse<ISwagger>(
       await fs.promises.readFile(SWAGGER_LOCATION, "utf8"),
     ),
+    options: {
+      reference: true,
+      separate: (schema) =>
+        OpenApiTypeChecker.isString(schema) &&
+        schema["x-wrtn-secret-key"] !== undefined,
+    },
   });
   application.functions = application.functions.filter(
     (f) => f.operation()["x-wrtn-experimental"] !== true,
@@ -177,54 +239,64 @@ const main = async (): Promise<void> => {
   const backend: ConnectorBackend = new ConnectorBackend();
   await backend.open();
 
-  // DO BENCHMARK
-  const semaphore: Semaphore = new Semaphore(options.semaphore);
-  const scenarios: IScenario[] = await collectScenarios(
-    application,
-    options,
-    `${ConnectorConfiguration.ROOT}/test/benchmark/call/scenarios`,
+  // CLIENT ASSETS
+  const operations: Map<Function, Function> = getControllers(
+    backend["application_"]!,
   );
+  const semaphore: Semaphore = new Semaphore(options.semaphore);
+  const scenarios: IScenario[] = await collectScenarios({
+    application,
+    operations,
+    options,
+    location: SCENARIO_LOCATION,
+  });
   const service: IChatGptService = {
     api: new OpenAI({
       apiKey: ConnectorGlobal.env.OPENAI_API_KEY,
     }),
-    model: "gpt-4o",
+    model: options.model,
   };
   const connection: IConnection = {
     host: `http://127.0.0.1:${ConnectorConfiguration.API_PORT()}`,
   };
+  console.log("Number of scenarios:", scenarios.length);
 
-  const results: IFunctionCallBenchmarkResult[] = await Promise.all(
-    scenarios.map(async (s) => {
-      const start: number = Date.now();
-      const res: IFunctionCallBenchmarkResult =
-        await FunctionCallBenchmarkExecutor.execute({
-          service,
-          application,
-          connection,
-          options,
-          semaphore,
-          scenario: s,
-          location: s.location,
-        });
-      console.log(
-        chalk.greenBright(s.title),
-        "-",
-        chalk.yellowBright(
-          res.trials.filter((t) => t.execute).length.toLocaleString(),
-        ),
-        "of",
-        chalk.yellowBright(options.count.toLocaleString()),
-        (Date.now() - start).toLocaleString(),
-        "ms",
-      );
-      return res;
-    }),
-  );
-  await FunctionCallBenchmarkReporter.execute({
-    options,
-    results,
-  });
+  // DO BENCHMARK
+  if (scenarios.length === 0) console.log("No scenario exists");
+  else {
+    const results: IFunctionCallBenchmarkResult[] = await Promise.all(
+      scenarios.map(async (s) => {
+        const start: number = Date.now();
+        const res: IFunctionCallBenchmarkResult =
+          await FunctionCallBenchmarkExecutor.execute({
+            service,
+            application,
+            operations,
+            connection,
+            options,
+            semaphore,
+            scenario: s,
+            location: s.location,
+          });
+        console.log(
+          chalk.greenBright(s.title),
+          "-",
+          chalk.yellowBright(
+            res.trials.filter((t) => t.execute).length.toLocaleString(),
+          ),
+          "of",
+          chalk.yellowBright(options.count.toLocaleString()),
+          (Date.now() - start).toLocaleString(),
+          "ms",
+        );
+        return res;
+      }),
+    );
+    await FunctionCallBenchmarkReporter.execute({
+      options,
+      results,
+    });
+  }
 
   // TERMINATE
   await storage.close();

@@ -48,6 +48,6 @@ export namespace IFunctionCallBenchmarkExpected {
    */
   export interface IStandalone {
     type: "standalone";
-    function: Function;
+    function(...args: any[]): Promise<any>;
   }
 }

@@ -37,7 +37,7 @@ export namespace FunctionCallBenchmarkReporter {
       `    - Trial: ${everything.length}`,
       `    - Success: ${everything.filter((e) => e.execute).length}`,
       `    - Failure: ${everything.filter((e) => !e.execute).length}`,
-      `    - Average Time: ${everything.map((e) => (e.completed_at.getTime() - e.started_at.getTime()) / everything.length).toLocaleString()} ms`,
+      `    - Average Time: ${(everything.map((e) => e.completed_at.getTime() - e.started_at.getTime()).reduce((a, b) => a + b, 0) / everything.length).toLocaleString()} ms`,
       `  - Token Usage ($${price.total.toLocaleString()}):`,
       `    - Total: ${usage.total.toLocaleString()}`,
       `    - Prompt ($${price.prompt.toLocaleString()}):`,
@@ -56,10 +56,10 @@ export namespace FunctionCallBenchmarkReporter {
       "-------|-------:|-------------:|-------------:",
       ...props.results.map((r) => {
         return [
-          `[${r.location}](./${r.location}/README.md)`,
+          `[${r.scenario.title}](./${r.location}/README.md)`,
           [
-            ...new Array(r.trials.filter((t) => t.execute)).join("■"),
-            ...new Array(r.trials.filter((t) => !t.execute)).join("□"),
+            ...new Array(r.trials.filter((t) => t.execute).length).fill("■"),
+            ...new Array(r.trials.filter((t) => !t.execute).length).fill("□"),
           ].join(""),
           ...[true, false].map(
             (success) =>
@@ -79,6 +79,7 @@ export namespace FunctionCallBenchmarkReporter {
     const index: string = path.resolve(`${LOCATION}/README.md`);
     console.log(`Report has been written to ${JSON.stringify(index)}`);
     await fs.promises.writeFile(index, content.join("\n"), "utf8");
+    await Promise.all(props.results.map(reportResult));
   };
 
   const reportResult = async (
@@ -112,10 +113,19 @@ export namespace FunctionCallBenchmarkReporter {
           (i + 1).toLocaleString(),
           t.execute ? "success" : "failure",
           "$" + OpenAIPriceComputer.get(t.usage).total.toLocaleString(),
-          `[./${i + 1}.json](./${i + 1}.json)`,
+          `[./${i + 1}.md](./${i + 1}.md)`,
         ].join(" | ");
       }),
     ];
+
+    await fs.promises.mkdir(path.resolve(`${LOCATION}/${result.location}`), {
+      recursive: true,
+    });
+    await fs.promises.writeFile(
+      path.resolve(`${LOCATION}/${result.location}/README.md`),
+      content.join("\n"),
+      "utf8",
+    );
     await Promise.all(
       result.trials.map((t, i) =>
         reportTrial(
@@ -124,11 +134,6 @@ export namespace FunctionCallBenchmarkReporter {
           t,
         ),
       ),
-    );
-    await fs.promises.writeFile(
-      path.resolve(`${LOCATION}/${result.location}/README.md`),
-      content.join("\n"),
-      "utf8",
     );
   };
 
@@ -213,23 +218,40 @@ export namespace FunctionCallBenchmarkReporter {
   const aggregateUsages = (
     usages: INestiaChatTokenUsage[],
   ): INestiaChatTokenUsage =>
-    usages.reduce((a, b) => ({
-      total: a.total + b.total,
-      prompt: {
-        total: a.prompt.total + b.prompt.total,
-        audio: a.prompt.audio + b.prompt.audio,
-        cached: a.prompt.cached + b.prompt.cached,
+    usages.reduce(
+      (a, b) => ({
+        total: a.total + b.total,
+        prompt: {
+          total: a.prompt.total + b.prompt.total,
+          audio: a.prompt.audio + b.prompt.audio,
+          cached: a.prompt.cached + b.prompt.cached,
+        },
+        completion: {
+          total: a.completion.total + b.completion.total,
+          accepted_prediction:
+            a.completion.accepted_prediction + b.completion.accepted_prediction,
+          audio: a.completion.audio + b.completion.audio,
+          reasoning: a.completion.reasoning + b.completion.reasoning,
+          rejected_prediction:
+            a.completion.rejected_prediction + b.completion.rejected_prediction,
+        },
+      }),
+      {
+        total: 0,
+        prompt: {
+          total: 0,
+          audio: 0,
+          cached: 0,
+        },
+        completion: {
+          total: 0,
+          accepted_prediction: 0,
+          audio: 0,
+          reasoning: 0,
+          rejected_prediction: 0,
+        },
       },
-      completion: {
-        total: a.completion.total + b.completion.total,
-        accepted_prediction:
-          a.completion.accepted_prediction + b.completion.accepted_prediction,
-        audio: a.completion.audio + b.completion.audio,
-        reasoning: a.completion.reasoning + b.completion.reasoning,
-        rejected_prediction:
-          a.completion.rejected_prediction + b.completion.rejected_prediction,
-      },
-    }));
+    );
 
   const prepare = async (): Promise<void> => {
     const root: string = `${ConnectorConfiguration.ROOT}/docs/benchmarks/call`;
