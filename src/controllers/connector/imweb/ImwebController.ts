@@ -1,6 +1,6 @@
 import core, { TypedBody } from "@nestia/core";
 import { Controller } from "@nestjs/common";
-import { RouteIcon, Standalone } from "@wrtnio/decorators";
+import { RouteIcon } from "@wrtnio/decorators";
 
 import { IImweb } from "@wrtn/connector-api/lib/structures/connector/imweb/IImweb";
 
@@ -8,50 +8,71 @@ import { ApiTags } from "@nestjs/swagger";
 import { ImwebProvider } from "../../../providers/connector/imweb/ImwebProvider";
 import { retry } from "../../../utils/retry";
 
+import { IShoppingSale } from "@wrtn/connector-api/lib/structures/shoppings/sales/IShoppingSale";
+import { tags } from "typia";
+
 @Controller("connector/imweb")
 export class ImwebController {
   /**
-   * Look up the sales product
+   * [Imweb] Get a sale info.
    *
-   * The `Imweb` seller uses the seller's authentication key and secret to import his or her product.
-   * `Imweb` is a Korean webbuilder site that offers a similar experience to the service called Wix.
-   * If a commerce site is opened using `Imweb`,
-   * sellers can register the items they are selling,
-   * which is only available to sellers who open `Imweb` pages and is intended to bring up their products.
-   * Sellers must provide their API keys and secrets to import `Imweb` products.
+   * Get a {@link IShoppingSale sale} with detailed information.
    *
-   * @summary Get my sales product from `Imweb`
-   * @param input key and secret
-   * @returns the seller's own goods
+   * If you're a {@link IShoppingSeller seller}, you can only access to the
+   * your own {@link IShoppingSale sale}. Otherwise you're a
+   * {@link IShoppingCustomer customer}, you can access to only the operating
+   * sales in the market. You can't access to the unopened, closed, or suspended
+   * sales.
+   *
+   * @param id Target sale's {@link IShoppingSale.id}
+   * @returns Detailed sale information
+   * @tag Sale
+   *
+   * @author Samchon
+   */
+  @core.TypedRoute.Patch("customers/sales/:id")
+  public async at(
+    @core.TypedParam("id") id: string & tags.Format<"uuid">,
+    @core.TypedBody() input: {},
+  ): Promise<IShoppingSale> {
+    const response = {} as IShoppingSale;
+    return response;
+  }
+
+  /**
+   * [Imweb] List up every summarized sales.
+   *
+   * List up every {@link IShoppingSale.ISummary summarized sales}.
+   *
+   * As you can see, returned sales are summarized, not detailed. If you want
+   * to get the detailed information of a sale, use {@link at} function for
+   * each sale.
+   *
+   * For reference, if you're a {@link IShoppingSeller seller}, you can only
+   * access to the your own {@link IShoppingSale sale}s. Otherwise you're a
+   * {@link IShoppingCustomer customer}, you can see only the operating
+   * sales in the market. Instead, you can't see the unopened, closed, or
+   * suspended sales.
+   *
+   * By the way, if you want, you can limit the result by configuring
+   * {@link IShoppingSale.IRequest.search search condition} in the request
+   * body. Also, it is possible to customize sequence order of records by
+   * configuring {@link IShoppingSale.IRequest.sort sort condition}.
+   *
+   * @param input Request info of pagination, searching and sorting
+   * @returns Paginated sales with summarized information
+   * @tag Sale
+   *
+   * @author Samchon
    */
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Imweb_full.svg",
   )
   @ApiTags("Imweb")
-  @Standalone()
-  @core.TypedRoute.Patch("get-products")
+  @core.TypedRoute.Patch("customers/sales")
   async getProducts(
     @TypedBody() input: IImweb.IGetProductInput,
   ): Promise<IImweb.Product[]> {
     return retry(() => ImwebProvider.getProducts(input))();
-  }
-
-  /**
-   * Issue Aimweb Access Token
-   *
-   * @internal
-   *
-   * @param input Request DTO for access token issuance.
-   * @returns Response DTO containing access token.
-   */
-  @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Imweb_full.svg",
-  )
-  @ApiTags("Imweb")
-  @core.TypedRoute.Post("auth")
-  async authorization(
-    @TypedBody() input: IImweb.Credential,
-  ): Promise<IImweb.IGetAccessTokenOutput> {
-    return retry(() => ImwebProvider.getAccessToken(input))();
   }
 }
