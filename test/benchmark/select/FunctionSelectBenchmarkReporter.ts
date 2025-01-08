@@ -47,6 +47,14 @@ export namespace FunctionSelectBenchmarkReporter {
             .reduce((a, b) => a + b, 0),
         )
         .reduce((a, b) => a + b, 0) / trial;
+
+    const inputPrice: number =
+      (props.usage.prompt.total - props.usage.prompt.cached) *
+        (2.5 / 1_000_000) +
+      props.usage.prompt.cached * (1.25 / 1_000_000);
+    const outputPrice: number =
+      props.usage.completion.total * (10.0 / 1_000_000);
+
     const summary: string = [
       "# LLM Function Selection Benchmark",
       "## Summary",
@@ -60,13 +68,13 @@ export namespace FunctionSelectBenchmarkReporter {
       `    - Success: ${props.results.map((r) => r.success).reduce((a, b) => a + b, 0)}`,
       `    - Failure: ${props.results.map((r) => r.count - r.success).reduce((a, b) => a + b, 0)}`,
       `    - Average Time: ${MathUtil.round(average).toLocaleString()} ms`,
-      `  - Token Usage:`,
+      `  - Token Usage ($${(inputPrice + outputPrice).toLocaleString()}):`,
       `    - Total: ${props.usage.total.toLocaleString()}`,
-      `    - Prompt:`,
+      `    - Prompt ($${inputPrice.toLocaleString()}):`,
       `      - Total: ${props.usage.prompt.total.toLocaleString()}`,
       `      - Audio: ${props.usage.prompt.audio.toLocaleString()}`,
       `      - Cached: ${props.usage.prompt.cached.toLocaleString()}`,
-      `    - Completion:`,
+      `    - Completion ($${outputPrice.toLocaleString()}):`,
       `      - Total: ${props.usage.completion.total.toLocaleString()}`,
       `      - Accepted Prediction: ${props.usage.completion.accepted_prediction.toLocaleString()}`,
       `      - Audio: ${props.usage.completion.audio.toLocaleString()}`,

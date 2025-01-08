@@ -95,18 +95,9 @@ const main = async (): Promise<void> => {
   const agent: NestiaChatAgent = new NestiaChatAgent({
     service: {
       api: new OpenAI({
-        apiKey: "something",
-        baseURL: ConnectorGlobal.env.HAMLET_URL,
+        baseURL: ConnectorGlobal.env.OPENAI_API_KEY,
       }),
       model: "gpt-4o",
-      options: {
-        path: `/v2/openai/deployments/gpt-4o/chat/completions`,
-        headers: {
-          [ConnectorGlobal.env.HAMLET_HEADER_KEY_NAME]: [
-            ConnectorGlobal.env.HAMLET_HEADER_KEY_VALUE,
-          ],
-        } as any,
-      },
     },
     connection: {
       host: `http://127.0.0.1:${ConnectorConfiguration.API_PORT()}`,
