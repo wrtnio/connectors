@@ -1,5 +1,5 @@
-import { IShoppingChannel } from "../systematic/IShoppingChannel";
-import { IShoppingChannelCategory } from "../systematic/IShoppingChannelCategory";
+import { IShoppingChannel } from "./systematic/IShoppingChannel";
+import { IShoppingChannelCategory } from "./systematic/IShoppingChannelCategory";
 
 /**
  * Target channel (and categories) of sale to sell.

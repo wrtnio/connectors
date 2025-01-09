@@ -1,76 +1,199 @@
+import { DeepStrictOmit } from "@kakasoo/deep-strict-types";
 import { tags } from "typia";
 import { ContentMediaType } from "typia/lib/tags";
+import { IPage } from "../../common/IPage";
+import { IShoppingSale } from "../../shoppings/sales/IShoppingSale";
+import { ICommon } from "../common/ISecretValue";
 
 export namespace IImweb {
-  export interface ResponseForm {
-    /**
-     * @title Summary message for the response
-     */
-    msg: tags.Constant<"SUCCESS", { title: "성공" }>;
-
-    /**
-     * @title Status code
-     */
-    code: 200;
-
-    /**
-     * @title Number of requests used by this key
-     */
-    request_count: number;
-
-    /**
-     * @title Version of the API currently in use
-     */
-    version: `${number}`;
+  export interface IRefreshOutput {
+    statusCode: 200;
+    data: {
+      accessToken: string;
+      refreshToken: string;
+      scope: string[];
+    };
   }
+
+  export interface IRefreshInput {
+    refreshToken: string;
+  }
+
+  export type ISecret = ICommon.ISecret<
+    "imweb",
+    [
+      "site-info:read",
+      "member-info:read",
+      "promotion:read",
+      "community:read",
+      "product:read",
+      "order:read",
+      "payment:read",
+    ]
+  >;
+
+  /**
+   * @title Response Format of Imweb
+   */
+  export interface ResponseForm<T> {
+    /**
+     * @title Status Code
+     */
+    code: number;
+
+    /**
+     * @title Response Data
+     */
+    data: T;
+  }
+
+  /**
+   * @title Response Format of Imweb
+   */
+  export interface ResponseSummaryForm<T> {
+    /**
+     * @title Status Code
+     */
+    code: number;
+
+    /**
+     * @title Response Data
+     */
+    data: [
+      {
+        totalCount: number;
+        totalPage: number;
+        currentPage: number;
+        pageSize: number;
+        list: T[];
+      },
+    ];
+  }
+
+  export interface IUnitCode {
+    /**
+     * On Imweb, even one site can have multiple unit codes if
+     * it is a multilingual site. For example, when a shopping
+     * mall has an English site for Americans and a Korean site
+     * for Koreans, two unit codes exist in one site code.
+     *
+     * These unit codes exist for different price and shipping
+     * costs policies in each country in commerce, so they are
+     * more than just for distinguishing between user languages.
+     *
+     * @title Unit Code
+     */
+    unitCode: string;
+  }
+
+  export type IResponse = IPage<IImweb.ProductInfomation>;
+
+  export type ProductInfomation = DeepStrictOmit<
+    IShoppingSale.ISummary,
+    | "channels"
+    | "closed_at"
+    | "content.id"
+    | "snapshot_id"
+    | "suspended_at"
+    | "section"
+    | "tags"
+  >;
 
   /**
    * @title Product Inquiry Request
    */
-  export interface IGetProductInput extends IImweb.Credential {
+  export interface IGetProductInput
+    extends IImweb.IUnitCode,
+      IImweb.ISecret,
+      Required<IPage.IRequest> {
     /**
      * You can deliver the value when you want to inquire based on the sales status of the product.
      * You can select 'sale', 'soldout', 'nosale'.
      *
      * @title the sales status of a product
      */
-    prod_status?: IImweb.ProductStatus;
+    prodStatus?: IImweb.ProductStatus;
+
+    /**
+     * There are normal, digital, and subscription types,
+     * which mean general commerce products, digital gift
+     * certificates, and subscription products.
+     * If not, it means the whole product.
+     *
+     * @title Product Type
+     */
+    prodType?: IImweb.ProductType;
 
     /**
      * You can also search with the product's category code,
-     * but this code is randomly determined by `Imweb`, so it's currently unavailable.
      * If you don't know the exact category code, it's better not to use it.
      *
      * @title product category code
      */
     category?: string;
+
+    /**
+     * This refers to the case of selling with a specific sales
+     * period. It will usually be used when selling a limited
+     * product or when operating a seasonal system.
+     *
+     * @title Use of the sales period
+     */
+    usePreSale?: IImweb.YN;
+
+    /**
+     *  Indicates the range of dates when you want to search
+     * for a product by the time it was added. Here, specify
+     * the type of date range (gte/lte: one date, between: two dates)
+     *
+     * @title a product by the time it was added
+     */
+    productAddTimeType?: IImweb.Range;
+
+    /**
+     * @title Time when the product was added
+     */
+    productAddTime?: Array<string & tags.Format<"date-time">> &
+      tags.MinItems<1> &
+      tags.MaxItems<2>;
+
+    /**
+     *  Indicates the range of dates when you want to search
+     * for a product by the time it was edited. Here, specify
+     * the type of date range (gte/lte: one date, between: two dates)
+     *
+     * @title a product by the time it was edited
+     */
+    productEditTimeType?: IImweb.Range;
+
+    /**
+     * @title Time when the product was added
+     */
+    productEditTime?: Array<string & tags.Format<"date-time">> &
+      tags.MinItems<1> &
+      tags.MaxItems<2>;
   }
 
   /**
    * @title Product inquiry results
    */
-  export interface IGetProductOutput extends ResponseForm {
-    /**
-     * @title Product info
-     */
-    data: {
-      /**
-       * @title Product list
-       */
-      list: IImweb.Product[];
-    };
+  export type IGetProductOutput = ResponseSummaryForm<IImweb.ProductSummary>;
+
+  export interface Product extends ProductSummary {
+    simpleContent: string;
+    preSaleStartDate: null | (string & tags.Format<"date-time">);
+    preSaleEndDate: null | (string & tags.Format<"date-time">);
   }
 
-  export interface Product {
+  export interface ProductSummary {
     /**
      * @title Product number
      */
-    no: number;
+    prodNo: number;
 
-    /**
-     * @title Status of product
-     */
-    prod_status: IImweb.ProductStatus;
+    siteCode: string;
+    unitCode: string;
+    prodCode: string;
 
     /**
      * @title Category codes
@@ -78,26 +201,45 @@ export namespace IImweb {
     categories: string[];
 
     /**
-     * @title Custom product code
-     */
-    custom_prod_code: string | null;
-
-    /**
      * @title Name of product
      */
     name: string;
 
     /**
-     * @title File code of product images
+     * @title Price
      */
-    images: string[];
+    price: number;
+
+    /**
+     * To provide an experience as if the product was discounted,
+     * the seller can also set the original price of the product differently from the actual price it sells.
+     * This is a common sales promotion strategy in commerce.
+     *
+     * @title The price before the discount
+     */
+    priceOrg?: number;
+
+    /**
+     * @title Whether taxes are included or not
+     */
+    priceTax: boolean;
+
+    /**
+     * @title Status of product
+     */
+    prodStatus: IImweb.ProductStatus;
+
+    /**
+     * @title Custom product code
+     */
+    customProdCode: string | null;
 
     /**
      * @title File urls
      *
      * Can't call it right away because it's not a completed URL.
      */
-    image_url: (string & tags.Format<"iri"> & ContentMediaType<"image/*">)[];
+    productImages: (string & ContentMediaType<"image/*">)[];
 
     /**
      * @title Detailed description
@@ -109,7 +251,7 @@ export namespace IImweb {
      *
      * @title Simple description of product's content
      */
-    simple_content: string;
+    simpleContent: string;
 
     /**
      * Pure string except html tag
@@ -150,40 +292,6 @@ export namespace IImweb {
      * @title Whether the sales period is set or not
      */
     use_pre_sale: boolean;
-
-    /**
-     * @title Timestamp for sale
-     */
-    pre_sale_start_date?: number;
-
-    /**
-     * @title Timestamp is the end of the sale period
-     */
-    pre_sale_end_date?: number;
-
-    /**
-     * @title Price
-     */
-    price: number;
-
-    /**
-     * To provide an experience as if the product was discounted,
-     * the seller can also set the original price of the product differently from the actual price it sells.
-     * This is a common sales promotion strategy in commerce.
-     *
-     * @title The price before the discount
-     */
-    price_org?: number;
-
-    /**
-     * @title Whether taxes are included or not
-     */
-    price_tax: boolean;
-
-    /**
-     * @title Whether or not there is no price
-     */
-    price_none: boolean;
 
     /**
      * @title Set up a reserve
@@ -263,18 +371,44 @@ export namespace IImweb {
     /**
      * @title Product Add Time Timestamp
      */
-    add_time: number;
+    addTime: string & tags.Format<"date-time">;
 
     /**
      * @title Product Last Edit Time Timestamp
      */
-    edit_time: number;
+    editTime: string & tags.Format<"date-time">;
   }
 
+  /**
+   * @title Range
+   */
+  export type Range =
+    | tags.Constant<"GTE", { title: "greater than or Equal" }>
+    | tags.Constant<"LTE", { title: "less than or Equal" }>
+    | tags.Constant<"BETWEEN", { title: "between specified periods" }>;
+
+  /**
+   * @title Boolean
+   */
+  export type YN =
+    | tags.Constant<"Y", { title: "TRUE" }>
+    | tags.Constant<"N", { title: "FALSE" }>;
+
+  /**
+   * @title Type Of Product
+   */
+  export type ProductType =
+    | tags.Constant<"normal", { title: "general commerce products" }>
+    | tags.Constant<"digital", { title: "digital gift certificates" }>
+    | tags.Constant<"subscribe", { title: "subscription products" }>;
+
+  /**
+   * @title Status of Product
+   */
   export type ProductStatus =
-    | tags.Constant<"sale", { title: "판매중" }>
-    | tags.Constant<"soldout", { title: "품절" }>
-    | tags.Constant<"nosale", { title: "숨김" }>;
+    | tags.Constant<"sale", { title: "sale" }>
+    | tags.Constant<"soldout", { title: "soldout" }>
+    | tags.Constant<"nosale", { title: "hidden products" }>;
 
   export namespace ProdTypeData {
     export interface DigitalData {
@@ -500,28 +634,6 @@ export namespace IImweb {
      * @title Minor Purchase Restriction
      */
     adult: boolean;
-  }
-
-  /**
-   * An API Key and Secret Key must be issued first to use the Rest API.
-   * These keys are generated on a site-by-site basis.
-   *
-   * @title Imweb Access Token Request DTO
-   */
-  export interface Credential {
-    /**
-     * @title API Key
-     *
-     * This can be found in the configuration settings on the `Imweb`.
-     */
-    key: string;
-
-    /**
-     * @title API Secret Key
-     *
-     * This can be found in the configuration settings on the `Imweb`.
-     */
-    secret: string;
   }
 
   /**

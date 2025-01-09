@@ -1,7 +1,7 @@
 import { tags } from "typia";
 
 import { IPage } from "../../common/IPage";
-import { IShoppingCustomer } from "../actors/IShoppingCustomer";
+// import { IShoppingCustomer } from "../actors/IShoppingCustomer";
 import { IShoppingCoupon } from "./IShoppingCoupon";
 
 /**
@@ -27,7 +27,7 @@ export interface IShoppingCouponTicket {
   /**
    * Customer who've taken the coupon ticket.
    */
-  customer: IShoppingCustomer;
+  // customer: IShoppingCustomer;
 
   /**
    * Target coupon.

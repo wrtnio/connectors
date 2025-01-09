@@ -1,12 +1,12 @@
 import { tags } from "typia";
 
 import { IPage } from "../../common/IPage";
-import { IShoppingCitizen } from "../actors/IShoppingCitizen";
+// import { IShoppingCitizen } from "../actors/IShoppingCitizen";
 import { IShoppingDeposit } from "./IShoppingDeposit";
 
 export interface IShoppingDepositHistory {
   id: string & tags.Format<"uuid">;
-  citizen: IShoppingCitizen;
+  // citizen: IShoppingCitizen;
   deposit: IShoppingDeposit;
   source_id: string & tags.Format<"uuid">;
   value: number;

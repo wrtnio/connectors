@@ -1,8 +1,6 @@
 import { tags } from "typia";
 
 import { IPage } from "../../common/IPage";
-import { IShoppingAdministrator } from "../actors/IShoppingAdministrator";
-import { IShoppingSeller } from "../actors/IShoppingSeller";
 import { IShoppingCouponCriteria } from "./IShoppingCouponCriteria";
 import { IShoppingCouponDiscount } from "./IShoppingCouponDiscount";
 import { IShoppingCouponInventory } from "./IShoppingCouponInventory";
@@ -50,7 +48,7 @@ export interface IShoppingCoupon {
   /**
    * Designer who've made the coupon.
    */
-  designer: IShoppingAdministrator | IShoppingSeller;
+  // designer: IShoppingAdministrator | IShoppingSeller;
 
   /**
    * Inventory information.

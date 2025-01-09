@@ -1,6 +1,5 @@
 import { tags } from "typia";
-
-import { IShoppingSection } from "../systematic/IShoppingSection";
+import { IShoppingSection } from "../sales/systematic/IShoppingSection";
 import { IShoppingCouponCriteriaBase } from "./IShoppingCouponCriteriaBase";
 
 /**

@@ -57,7 +57,5 @@ export namespace IShoppingSaleContent {
     title: string;
     format: IShoppingSaleContent.Type;
     body: string;
-    files: IAttachmentFile.ICreate[];
-    thumbnails: IAttachmentFile.ICreate[];
   }
 }

@@ -1,12 +1,12 @@
 import { tags } from "typia";
 
 import { IPage } from "../../common/IPage";
-import { IShoppingCustomer } from "../actors/IShoppingCustomer";
+// import { IShoppingCustomer } from "../actors/IShoppingCustomer";
 import { IShoppingDepositChargePublish } from "./IShoppingDepositChargePublish";
 
 export interface IShoppingDepositCharge extends IShoppingDepositCharge.ICreate {
   id: string & tags.Format<"uuid">;
-  customer: IShoppingCustomer;
+  // customer: IShoppingCustomer;
   publish: null | IShoppingDepositChargePublish;
   created_at: string & tags.Format<"date-time">;
 }

@@ -1,7 +1,7 @@
 import { tags } from "typia";
 
 import { IPage } from "../../common/IPage";
-import { IShoppingSeller } from "../actors/IShoppingSeller";
+// import { IShoppingSeller } from "../actors/IShoppingSeller";
 import { IShoppingDeliveryJourney } from "./IShoppingDeliveryJourney";
 import { IShoppingDeliveryPiece } from "./IShoppingDeliveryPiece";
 import { IShoppingDeliveryShipper } from "./IShoppingDeliveryShipper";
@@ -33,11 +33,6 @@ export interface IShoppingDelivery {
    * Primary Key.
    */
   id: string & tags.Format<"uuid">;
-
-  /**
-   * Seller who've delivered the goods.
-   */
-  seller: IShoppingSeller;
 
   /**
    * List of journeys of the delivery.

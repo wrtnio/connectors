@@ -1,7 +1,5 @@
 import { tags } from "typia";
 
-import { IShoppingSeller } from "../actors/IShoppingSeller";
-import { IShoppingSection } from "../systematic/IShoppingSection";
 import { IShoppingSale } from "./IShoppingSale";
 import { IShoppingSaleChannel } from "./IShoppingSaleChannel";
 import { IShoppingSaleContent } from "./IShoppingSaleContent";
@@ -42,11 +40,11 @@ import { IShoppingSaleUnit } from "./IShoppingSaleUnit";
  *
  * @author Samchon
  */
-export interface IShoppingSaleSnapshot
-  extends IShoppingSaleSnapshot.IBase<
-    IShoppingSaleContent,
-    IShoppingSaleUnit
-  > {}
+export type IShoppingSaleSnapshot = IShoppingSaleSnapshot.IBase<
+  IShoppingSaleContent,
+  IShoppingSaleUnit
+>;
+
 export namespace IShoppingSaleSnapshot {
   /**
    * Invert information of the sale snapshot, in the perspective of commodity.
@@ -62,17 +60,7 @@ export namespace IShoppingSaleSnapshot {
    */
   export interface IInvert
     extends IBase<IShoppingSaleContent.IInvert, IShoppingSaleUnit.IInvert>,
-      IShoppingSale.ITimestamps {
-    /**
-     * Belonged section's information.
-     */
-    section: IShoppingSection;
-
-    /**
-     * Seller who've registered the sale.
-     */
-    seller: IShoppingSeller.IInvert;
-  }
+      IShoppingSale.ITimestamps {}
 
   /**
    * Summarized information of the sale snapshot.

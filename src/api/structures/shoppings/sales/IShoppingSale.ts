@@ -1,11 +1,10 @@
 import { tags } from "typia";
 
 import { IPage } from "../../common/IPage";
-import { IShoppingSeller } from "../actors/IShoppingSeller";
 import { IShoppingPrice } from "../base/IShoppingPrice";
-import { IShoppingSection } from "../systematic/IShoppingSection";
 import { IShoppingSaleSnapshot } from "./IShoppingSaleSnapshot";
-import { IShoppingSaleReview } from "./inquiries/IShoppingSaleReview";
+
+import { IShoppingSection } from "./systematic/IShoppingSection";
 
 /**
  * Seller sales products.
@@ -33,11 +32,6 @@ export interface IShoppingSale
    * Belonged section.
    */
   section: IShoppingSection;
-
-  /**
-   * Seller who has registered the sale.
-   */
-  seller: IShoppingSeller.IInvert;
 }
 export namespace IShoppingSale {
   /**
@@ -121,16 +115,14 @@ export namespace IShoppingSale {
       content?: null | string;
       title_or_content?: null | string;
       price?: null | IShoppingPrice.ISearch;
-      review?: null | IShoppingSaleReview.IInvertSearch;
+      // review?: null | IShoppingSaleReview.IInvertSearch;
       section_codes?: null | string[];
       channel_codes?: null | string[];
       channel_category_ids?: null | string[];
       tags?: null | string[];
-      seller?: null | IShoppingSeller.IRequest.ISearch;
     }
 
     export type SortableColumns =
-      | IShoppingSeller.IRequest.SortableColumns
       | "goods.publish_count"
       | "goods.payments.real"
       | "reviews.average"
@@ -156,11 +148,6 @@ export namespace IShoppingSale {
      * Belonged section.
      */
     section: IShoppingSection;
-
-    /**
-     * Seller who has registered the sale.
-     */
-    seller: IShoppingSeller.IInvert;
   }
 
   /**

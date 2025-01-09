@@ -33,7 +33,6 @@ export class ImwebController {
   @core.TypedRoute.Patch("customers/sales/:id")
   public async at(
     @core.TypedParam("id") id: string & tags.Format<"uuid">,
-    @core.TypedBody() input: {},
   ): Promise<IShoppingSale> {
     const response = {} as IShoppingSale;
     return response;
@@ -72,7 +71,7 @@ export class ImwebController {
   @core.TypedRoute.Patch("customers/sales")
   async getProducts(
     @TypedBody() input: IImweb.IGetProductInput,
-  ): Promise<IImweb.Product[]> {
-    return retry(() => ImwebProvider.getProducts(input))();
+  ): Promise<IImweb.IResponse> {
+    return retry(() => ImwebProvider.index(input))();
   }
 }

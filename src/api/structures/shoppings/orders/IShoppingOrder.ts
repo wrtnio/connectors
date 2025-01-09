@@ -1,7 +1,7 @@
 import { tags } from "typia";
 
 import { IPage } from "../../common/IPage";
-import { IShoppingCustomer } from "../actors/IShoppingCustomer";
+// import { IShoppingCustomer } from "../actors/IShoppingCustomer";
 import { IShoppingSale } from "../sales/IShoppingSale";
 import { IShoppingOrderGood } from "./IShoppingOrderGood";
 import { IShoppingOrderPrice } from "./IShoppingOrderPrice";
@@ -46,7 +46,7 @@ export interface IShoppingOrder {
   /**
    * Customer who've applied for the order.
    */
-  customer: IShoppingCustomer;
+  // customer: IShoppingCustomer;
 
   /**
    * List of goods in the order.
@@ -108,7 +108,7 @@ export namespace IShoppingOrder {
     /**
      * Customer who've applied for the order.
      */
-    customer: IShoppingCustomer;
+    // customer: IShoppingCustomer;
 
     /**
      * List of goods in the order.

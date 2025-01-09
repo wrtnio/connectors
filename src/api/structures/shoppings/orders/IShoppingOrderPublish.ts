@@ -1,6 +1,5 @@
 import { tags } from "typia";
 
-import { IShoppingAddress } from "../actors/IShoppingAddress";
 import { IShoppingDelivery } from "./IShoppingDelivery";
 
 /**
@@ -69,7 +68,7 @@ export namespace IShoppingOrderPublish {
     /**
      * Address where the {@link IShoppingOrderGood goods} to be delivered.
      */
-    address: IShoppingAddress;
+    // address: IShoppingAddress;
   }
 
   /**
@@ -79,7 +78,7 @@ export namespace IShoppingOrderPublish {
     /**
      * Address to receive.
      */
-    address: IShoppingAddress.ICreate;
+    // address: IShoppingAddress.ICreate;
 
     /**
      * Payment identifier from the payment vendor service.

@@ -1,6 +1,5 @@
 import { tags } from "typia";
 
-import { IShoppingSeller } from "../actors/IShoppingSeller";
 import { IShoppingCouponCriteriaBase } from "./IShoppingCouponCriteriaBase";
 
 /**
@@ -16,13 +15,9 @@ import { IShoppingCouponCriteriaBase } from "./IShoppingCouponCriteriaBase";
  *
  * @author Samchon
  */
-export interface IShoppingCouponSellerCriteria
-  extends IShoppingCouponCriteriaBase<"seller"> {
-  /**
-   * Target sellers to include or exclude.
-   */
-  sellers: IShoppingSeller[] & tags.MinItems<1>;
-}
+export type IShoppingCouponSellerCriteria =
+  IShoppingCouponCriteriaBase<"seller">;
+
 export namespace IShoppingCouponSellerCriteria {
   /**
    * Creation information of the seller criteria.
