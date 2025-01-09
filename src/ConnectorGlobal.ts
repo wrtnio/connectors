@@ -10,6 +10,7 @@ import { IAws } from "./api/structures/connector/aws/IAws";
 
 export class ConnectorGlobal {
   public static readonly prisma: PrismaClient = new PrismaClient();
+  public static testing: boolean = false;
 
   /**
    * 테스트 환경에서 사용하기 위해 만든 것으로, 평소에는 사용하지 않는다.

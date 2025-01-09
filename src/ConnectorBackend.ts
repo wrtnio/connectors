@@ -12,6 +12,7 @@ import {
   IMAGE_OPEN_AI_INJECT_IDENTIFIER,
   OPEN_AI_INJECT_IDENTIFIER,
 } from "./providers/open_ai/constants";
+import { ConnectorGlobal } from "./ConnectorGlobal";
 
 export class ConnectorBackend {
   private application_?: INestApplication;
@@ -38,13 +39,14 @@ export class ConnectorBackend {
     } else {
       this.application_ = await NestFactory.create(
         StudioModule,
-        //{ logger: false },
-        { bufferLogs: true },
+        ConnectorGlobal.testing === true
+          ? { logger: false }
+          : { bufferLogs: true },
       );
     }
     this.application_.enableCors();
 
-    if (!openAIMock) {
+    if (!openAIMock && ConnectorGlobal.testing === false) {
       // minimal setup for logging errors for easier development
       // TODO: will need to control what gets logged later
       // https://docs.nestjs.com/exception-filters#inheritance

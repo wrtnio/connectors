@@ -10,6 +10,7 @@ import { IFunctionSelectBenchmarkEvent } from "./IFunctionSelectBenchmarkEvent";
 import { ArrayUtil } from "@nestia/e2e";
 import { ErrorUtil } from "../../../src/utils/ErrorUtil";
 import { INestiaChatTokenUsage } from "@nestia/agent";
+import { OpenAIPriceComputer } from "../../helpers/OpenAIPriceComputer";
 
 export namespace FunctionSelectBenchmarkReporter {
   export interface IProps {
@@ -47,6 +48,10 @@ export namespace FunctionSelectBenchmarkReporter {
             .reduce((a, b) => a + b, 0),
         )
         .reduce((a, b) => a + b, 0) / trial;
+
+    const price: OpenAIPriceComputer.IOutput = OpenAIPriceComputer.get(
+      props.usage,
+    );
     const summary: string = [
       "# LLM Function Selection Benchmark",
       "## Summary",
@@ -60,13 +65,13 @@ export namespace FunctionSelectBenchmarkReporter {
       `    - Success: ${props.results.map((r) => r.success).reduce((a, b) => a + b, 0)}`,
       `    - Failure: ${props.results.map((r) => r.count - r.success).reduce((a, b) => a + b, 0)}`,
       `    - Average Time: ${MathUtil.round(average).toLocaleString()} ms`,
-      `  - Token Usage:`,
+      `  - Token Usage ($${price.total.toLocaleString()}):`,
       `    - Total: ${props.usage.total.toLocaleString()}`,
-      `    - Prompt:`,
+      `    - Prompt ($${price.prompt.toLocaleString()}):`,
       `      - Total: ${props.usage.prompt.total.toLocaleString()}`,
       `      - Audio: ${props.usage.prompt.audio.toLocaleString()}`,
       `      - Cached: ${props.usage.prompt.cached.toLocaleString()}`,
-      `    - Completion:`,
+      `    - Completion ($${price.completion.toLocaleString()}):`,
       `      - Total: ${props.usage.completion.total.toLocaleString()}`,
       `      - Accepted Prediction: ${props.usage.completion.accepted_prediction.toLocaleString()}`,
       `      - Audio: ${props.usage.completion.audio.toLocaleString()}`,

@@ -16,6 +16,8 @@ import { FunctionSelectBenchmarkReporter } from "./FunctionSelectBenchmarkReport
 import { IFunctionSelectBenchmarkOptions } from "./IFunctionSelectBenchmarkOptions";
 import { MathUtil } from "../../../src/utils/MathUtil";
 import { Semaphore } from "tstl";
+import OpenAI from "openai";
+import { ConnectorGlobal } from "../../../src/ConnectorGlobal";
 
 interface IOptions extends IFunctionSelectBenchmarkOptions {
   swagger: boolean;
@@ -95,7 +97,17 @@ const main = async (): Promise<void> => {
   // DO BENCHMARK
   const semaphore: Semaphore = new Semaphore(options.semaphore);
   const executor: FunctionSelectBenchmarkExecutor =
-    new FunctionSelectBenchmarkExecutor(application, options, semaphore);
+    new FunctionSelectBenchmarkExecutor(
+      {
+        api: new OpenAI({
+          apiKey: ConnectorGlobal.env.OPENAI_API_KEY,
+        }),
+        model: "gpt-4o",
+      },
+      application,
+      options,
+      semaphore,
+    );
   const results: IFunctionSelectBenchmarkResult[] = await Promise.all(
     candidates
       .map((func) =>

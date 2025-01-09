@@ -1,4 +1,4 @@
-import { INestiaChatTokenUsage } from "@nestia/agent";
+import { IChatGptService, INestiaChatTokenUsage } from "@nestia/agent";
 import { ArrayUtil } from "@nestia/e2e";
 import { ChatGptSelectFunctionAgent } from "@nestia/agent/lib/chatgpt/ChatGptSelectFunctionAgent";
 import { IHttpLlmApplication, IHttpLlmFunction } from "@samchon/openapi";
@@ -8,13 +8,13 @@ import { ranges, Semaphore } from "tstl";
 import { IFunctionSelectBenchmarkEvent } from "./IFunctionSelectBenchmarkEvent";
 import { IFunctionSelectBenchmarkOptions } from "./IFunctionSelectBenchmarkOptions";
 import { IFunctionSelectBenchmarkResult } from "./IFunctionSelectBenchmarkResult";
-import { ConnectorGlobal } from "../../../src/ConnectorGlobal";
 
 export class FunctionSelectBenchmarkExecutor {
   private functions_: IHttpLlmFunction<"chatgpt">[][];
   private usage_: INestiaChatTokenUsage;
 
   public constructor(
+    private readonly service: IChatGptService,
     private readonly application: IHttpLlmApplication<"chatgpt">,
     private readonly options: IFunctionSelectBenchmarkOptions,
     private readonly semaphore: Semaphore,
@@ -92,12 +92,7 @@ export class FunctionSelectBenchmarkExecutor {
     try {
       await ChatGptSelectFunctionAgent.execute({
         application: this.application,
-        service: {
-          api: new OpenAI({
-            apiKey: ConnectorGlobal.env.OPENAI_API_KEY,
-          }),
-          model: "gpt-4o",
-        },
+        service: this.service,
         histories: [],
         stack: [],
         content: keyword,
