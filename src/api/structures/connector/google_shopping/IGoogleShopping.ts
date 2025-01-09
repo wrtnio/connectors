@@ -13,6 +13,17 @@ export namespace IGoogleShopping {
     keyword: string;
 
     /**
+     * Choose which language you want to use as your search term.
+     *
+     * You can only pass a single BCP 47 language identifier.
+     *
+     * ex) You want to setting korean language, you can pass "ko".
+     *
+     * @title Language Setting
+     */
+    lang: string;
+
+    /**
      * Set the number of search results.
      *
      * @title Number of search results
@@ -64,5 +75,10 @@ export namespace IGoogleShopping {
      * @title Product Image
      */
     thumbnail: string & tags.Format<"iri"> & tags.ContentMediaType<"image/*">;
+
+    /**
+     * @title Product Rating
+     */
+    rating?: number & tags.Type<"float">;
   }
 }

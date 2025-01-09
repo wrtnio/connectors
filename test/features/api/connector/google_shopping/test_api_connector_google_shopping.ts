@@ -8,6 +8,7 @@ export const test_api_connector_google_shopping = async (
   const musinsa_result =
     await CApi.functional.connector.google_shopping.musinsa(connection, {
       keyword: "니트",
+      lang: "ko",
       max_results: 100,
     });
   typia.assert(musinsa_result);
@@ -17,6 +18,7 @@ export const test_api_connector_google_shopping = async (
       connection,
       {
         keyword: "데님",
+        lang: "ko",
         max_results: 10,
       },
     );
@@ -26,6 +28,7 @@ export const test_api_connector_google_shopping = async (
     connection,
     {
       keyword: "볼캡",
+      lang: "ko",
       max_results: 10,
     },
   );
@@ -33,6 +36,7 @@ export const test_api_connector_google_shopping = async (
 
   const oco = await CApi.functional.connector.google_shopping.oco(connection, {
     keyword: "더비슈즈",
+    lang: "ko",
     max_results: 10,
   });
   typia.assert(oco);
@@ -41,6 +45,7 @@ export const test_api_connector_google_shopping = async (
     connection,
     {
       keyword: "셔츠",
+      lang: "ko",
       max_results: 10,
     },
   );
@@ -55,6 +60,7 @@ export const test_api_connector_google_shopping = async (
     connection,
     {
       keyword: "휴지",
+      lang: "ko",
       max_results: 10,
     },
   );
@@ -65,6 +71,7 @@ export const test_api_connector_google_shopping = async (
       connection,
       {
         keyword: "사과",
+        lang: "ko",
         max_results: 10,
       },
     );
@@ -74,6 +81,7 @@ export const test_api_connector_google_shopping = async (
     connection,
     {
       keyword: "비타민",
+      lang: "ko",
       max_results: 10,
     },
   );
@@ -84,6 +92,7 @@ export const test_api_connector_google_shopping = async (
       connection,
       {
         keyword: "키보드",
+        lang: "ko",
         max_results: 10,
       },
     );
@@ -94,6 +103,7 @@ export const test_api_connector_google_shopping = async (
       connection,
       {
         keyword: "선크림",
+        lang: "ko",
         max_results: 10,
       },
     );
@@ -104,6 +114,7 @@ export const test_api_connector_google_shopping = async (
       connection,
       {
         keyword: "타입스크립트",
+        lang: "ko",
         max_results: 10,
       },
     );
@@ -113,8 +124,38 @@ export const test_api_connector_google_shopping = async (
     connection,
     {
       keyword: "도커",
+      lang: "ko",
       max_results: 10,
     },
   );
   typia.assert(aladine);
+
+  const amazon = await CApi.functional.connector.google_shopping.amazon(
+    connection,
+    {
+      keyword: "macbook",
+      lang: "en",
+      max_results: 10,
+    },
+  );
+
+  const ebay = await CApi.functional.connector.google_shopping.ebay(
+    connection,
+    {
+      keyword: "macbook",
+      lang: "en",
+      max_results: 10,
+    },
+  );
+  typia.assert(ebay);
+
+  const walmart = await CApi.functional.connector.google_shopping.walmart(
+    connection,
+    {
+      keyword: "macbook",
+      lang: "en",
+      max_results: 10,
+    },
+  );
+  typia.assert(walmart);
 };
