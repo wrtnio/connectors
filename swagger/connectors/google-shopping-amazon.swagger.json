@@ -15,25 +15,25 @@
     }
   ],
   "info": {
-    "title": "Iherb 상품 검색",
-    "summary": "Iherb 쇼핑몰의 상품을 한 번에 검색해요.",
-    "description": "Iherb 쇼핑몰의 상품을 검색할 수 있어요. 원하는 상품의 가격을 비교할 수 있고, 최저가 정보도 쉽게 확인할 수 있어요. 카테고리별 검색 옵션을 사용할 수 있어요. 이를 통해 효율적인 쇼핑은 물론, 시장 조사나 가격 동향 분석 등에도 활용할 수 있어요.",
+    "title": "Amazon 상품 검색",
+    "summary": "Amazon 쇼핑몰의 상품을 한 번에 검색해요.",
+    "description": "Amazon 쇼핑몰의 상품을 검색할 수 있어요. 원하는 상품의 가격을 비교할 수 있고, 최저가 정보도 쉽게 확인할 수 있어요. 카테고리별 검색 옵션을 사용할 수 있어요. 이를 통해 효율적인 쇼핑은 물론, 시장 조사나 가격 동향 분석 등에도 활용할 수 있어요.",
     "version": "0.1.439",
     "license": {
       "name": "AGPL-3.0-only"
     }
   },
   "paths": {
-    "/connector/google-shopping/iherb": {
+    "/connector/google-shopping/amazon": {
       "patch": {
-        "summary": "iHerb Search",
-        "description": "Search for products on iHerb\niHerb is a service that allows you to purchase Nutritional supplement.",
+        "summary": "Search for Amazon",
+        "description": "Search for products on Amazon",
         "tags": [
-          "iHerb"
+          "Amazon"
         ],
         "parameters": [],
         "requestBody": {
-          "description": "Search conditions",
+          "description": "Search criteria",
           "content": {
             "application/json": {
               "schema": {
@@ -61,14 +61,11 @@
         "x-samchon-accessor": [
           "connector",
           "google_shopping",
-          "iherb"
+          "amazon"
         ],
-        "x-samchon-controller": "GoogleShoppingIherbController",
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/iHerb_full.svg",
-        "x-wrtn-standalone": true,
-        "x-wrtn-function-select-benchmarks": [
-          "iherb에서 상품 좀 찾아줘"
-        ]
+        "x-samchon-controller": "GoogleShoppingAmazonController",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Amazon_full.svg",
+        "x-wrtn-standalone": true
       }
     }
   },
@@ -155,7 +152,7 @@
   },
   "tags": [
     {
-      "name": "iHerb"
+      "name": "Amazon"
     }
   ],
   "x-samchon-emended": true

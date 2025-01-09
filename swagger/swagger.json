@@ -15,7 +15,7 @@
     }
   ],
   "info": {
-    "version": "0.1.438",
+    "version": "0.1.439",
     "title": "@wrtn/connector",
     "description": "wrtn-ecosystem connectors and sdk",
     "license": {
@@ -4069,7 +4069,7 @@
     "/connector/google-shopping/aladine": {
       "patch": {
         "summary": "Aladdin Search",
-        "description": "Search for products in Aladdin\nAladdin is a service that allows you to purchase used books.\nOnly one keyword should be requested per request.\nFor example, If you use \"novel book\" and \"fairy tale book\" as keywords, you must make two requests, each with separate keywords.",
+        "description": "Search for products in Aladdin\nAladdin is a service that allows you to purchase used books.",
         "tags": [
           "Aladin"
         ],
@@ -4116,7 +4116,7 @@
     "/connector/google-shopping/ali-express": {
       "patch": {
         "summary": "Search for AliExpress",
-        "description": "Search for products on AliExpress\n Only one keyword should be requested per request.\nFor example, If you use \"phone\" and \"cup\" as keywords, you must make two requests, each with separate keywords.",
+        "description": "Search for products on AliExpress",
         "tags": [
           "AliExpress"
         ],
@@ -4164,7 +4164,7 @@
     "/connector/google-shopping/coupang": {
       "patch": {
         "summary": "Coupang Search",
-        "description": "Search for products on Coupang\nOnly one keyword should be requested per request.\nFor example, If you use \"phone\" and \"cup\" as keywords, you must make two requests, each with separate keywords.",
+        "description": "Search for products on Coupang",
         "tags": [
           "Coupang"
         ],
@@ -4211,7 +4211,7 @@
     "/connector/google-shopping/eql": {
       "patch": {
         "summary": "EQL search",
-        "description": "Search for products in EQL\nEQL is a service that allows you to purchase clothes or shoes.\nOnly one keyword should be requested per request.\nFor example, If you use \"shirts\" and \"pants\" as keywords, you must make two requests, each with separate keywords.",
+        "description": "Search for products in EQL\nEQL is a service that allows you to purchase clothes or shoes.",
         "tags": [
           "EQL"
         ],
@@ -4259,7 +4259,7 @@
     "/connector/google-shopping/iherb": {
       "patch": {
         "summary": "iHerb Search",
-        "description": "Search for products on iHerb\niHerb is a service that allows you to purchase Nutritional supplement.\nOnly one keyword should be requested per request.\nFor example, If you use \"vitamin\" and \"calcium\" as keywords, you must make two requests, each with separate keywords.",
+        "description": "Search for products on iHerb\niHerb is a service that allows you to purchase Nutritional supplement.",
         "tags": [
           "iHerb"
         ],
@@ -4306,7 +4306,7 @@
     "/connector/google-shopping/market-kurly": {
       "patch": {
         "summary": "Market Kurly Search",
-        "description": "Search for products on Market Kurly\nMarket Kurly is a service where you can purchase groceries.\nOnly one keyword should be requested per request.\nFor example, If you use \"apple\" and \"potato\" as keywords, you must make two requests, each with separate keywords.",
+        "description": "Search for products on Market Kurly\nMarket Kurly is a service where you can purchase groceries.",
         "tags": [
           "Market Kurly"
         ],
@@ -4354,7 +4354,7 @@
     "/connector/google-shopping/oco": {
       "patch": {
         "summary": "OCO search",
-        "description": "Search for products in OCO\n\nOco is one of the Korean companies and is a brand that advocates a brand editing shop.\nOnly one keyword should be requested per request.\nFor example, If you use \"shirts\" and \"pants\" as keywords, you must make two requests, each with separate keywords.",
+        "description": "Search for products in OCO\n\nOco is one of the Korean companies and is a brand that advocates a brand editing shop.",
         "tags": [
           "OCO"
         ],
@@ -4401,7 +4401,7 @@
     "/connector/google-shopping/olive-young": {
       "patch": {
         "summary": "Olive Young Search",
-        "description": "Search for products at Olive Young\nOlive Young is a service that allows you to purchase cosmetics.\nOnly one keyword should be requested per request.\nFor example, If you use \"sun block\" and \"serum\" as keywords, you must make two requests, each with separate keywords.",
+        "description": "Search for products at Olive Young\nOlive Young is a service that allows you to purchase cosmetics.",
         "tags": [
           "Olive Young"
         ],
@@ -4449,7 +4449,7 @@
     "/connector/google-shopping/twenty-nine-centimeter": {
       "patch": {
         "summary": "29cm search",
-        "description": "Search for products from 29cm\n29cm is a service that allows you to purchase clothes or shoes.\nOnly one keyword should be requested per request.\nFor example, If you use \"shirts\" and \"pants\" as keywords, you must make two requests, each with separate keywords.",
+        "description": "Search for products from 29cm\n29cm is a service that allows you to purchase clothes or shoes.",
         "tags": [
           "29CM"
         ],
@@ -4497,7 +4497,7 @@
     "/connector/google-shopping/uniqlo": {
       "patch": {
         "summary": "Uniqlo Search",
-        "description": "Search for products in Uniqlo\nUniqlo is a service that allows you to purchase clothes or shoes.\nOnly one keyword should be requested per request.\nFor example, If you use \"shirts\" and \"pants\" as keywords, you must make two requests, each with separate keywords.",
+        "description": "Search for products in Uniqlo\nUniqlo is a service that allows you to purchase clothes or shoes.",
         "tags": [
           "Uniqlo"
         ],
@@ -4544,7 +4544,7 @@
     "/connector/google-shopping/yes-twenty-four": {
       "patch": {
         "summary": "yes24 search",
-        "description": "Search for products on yes24\nyes24 is a service that allows you to purchase books.\nOnly one keyword should be requested per request.\nFor example, If you use \"novel book\" and \"fairy tale book\" as keywords, you must make two requests, each with separate keywords.",
+        "description": "Search for products on yes24\nyes24 is a service that allows you to purchase books.",
         "tags": [
           "yes24"
         ],
@@ -4592,7 +4592,7 @@
     "/connector/google-shopping/musinsa": {
       "patch": {
         "summary": "Musinsa Search",
-        "description": "Search for products in Musinsa\nMusinsa is a service that allows you to purchase clothes or shoes.\nOnly one keyword should be requested per request.\nFor example, If you use \"shirts\" and \"pants\" as keywords, you must make two requests, each with separate keywords.",
+        "description": "Search for products in Musinsa\nMusinsa is a service that allows you to purchase clothes or shoes.",
         "tags": [
           "Musinsa"
         ],
@@ -4634,6 +4634,138 @@
         "x-wrtn-function-select-benchmarks": [
           "무신사에서 상품 좀 찾아줘"
         ]
+      }
+    },
+    "/connector/google-shopping/amazon": {
+      "patch": {
+        "summary": "Search for Amazon",
+        "description": "Search for products on Amazon",
+        "tags": [
+          "Amazon"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "description": "Search criteria",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IGoogleShopping.IRequestStandAlone"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Search results",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/IGoogleShopping.IResponse"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-samchon-accessor": [
+          "connector",
+          "google_shopping",
+          "amazon"
+        ],
+        "x-samchon-controller": "GoogleShoppingAmazonController",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Amazon_full.svg",
+        "x-wrtn-standalone": true
+      }
+    },
+    "/connector/google-shopping/ebay": {
+      "patch": {
+        "summary": "Search for Ebay",
+        "description": "Search for products on Ebay",
+        "tags": [
+          "Ebay"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "description": "Search criteria",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IGoogleShopping.IRequestStandAlone"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Search results",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/IGoogleShopping.IResponse"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-samchon-accessor": [
+          "connector",
+          "google_shopping",
+          "ebay"
+        ],
+        "x-samchon-controller": "GoogleShoppingEbayController",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Ebay_full.svg",
+        "x-wrtn-standalone": true
+      }
+    },
+    "/connector/google-shopping/walmart": {
+      "patch": {
+        "summary": "Search for Walmart",
+        "description": "Search for products on Walmart",
+        "tags": [
+          "Walmart"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "description": "Search criteria",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IGoogleShopping.IRequestStandAlone"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Search results",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/IGoogleShopping.IResponse"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-samchon-accessor": [
+          "connector",
+          "google_shopping",
+          "walmart"
+        ],
+        "x-samchon-controller": "GoogleShoppingWalmartController",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Walmart_full.svg",
+        "x-wrtn-standalone": true
       }
     },
     "/connector/arxiv-search": {
@@ -17862,6 +17994,10 @@
             "format": "iri",
             "contentMediaType": "image/*",
             "title": "Product Image"
+          },
+          "rating": {
+            "type": "number",
+            "title": "Product Rating"
           }
         },
         "required": [
@@ -17880,6 +18016,11 @@
             "title": "Search term",
             "description": "Enter the keyword you want to search for."
           },
+          "lang": {
+            "type": "string",
+            "title": "Language Setting",
+            "description": "Choose which language you want to use as your search term.\n\nYou can only pass a single BCP 47 language identifier.\n\nex) You want to setting korean language, you can pass \"ko\"."
+          },
           "max_results": {
             "type": "integer",
             "title": "Number of search results",
@@ -17888,6 +18029,7 @@
         },
         "required": [
           "keyword",
+          "lang",
           "max_results"
         ],
         "title": "Product search conditions"
@@ -44116,6 +44258,15 @@
     },
     {
       "name": "Musinsa"
+    },
+    {
+      "name": "Amazon"
+    },
+    {
+      "name": "Ebay"
+    },
+    {
+      "name": "Walmart"
     },
     {
       "name": "Arxiv"

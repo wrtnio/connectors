@@ -18,7 +18,7 @@
     "title": "알라딘 상품 검색",
     "summary": "알라딘 쇼핑몰의 상품을 한 번에 검색해요.",
     "description": "알라딘 쇼핑몰의 상품을 검색할 수 있어요. 원하는 상품의 가격, 을 비교할 수 있고, 최저가 정보도 쉽게 확인할 수 있어요. 카테고리별 검색 옵션을 사용할 수 있어요. 이를 통해 효율적인 쇼핑은 물론, 시장 조사나 가격 동향 분석 등에도 활용할 수 있어요.",
-    "version": "0.1.438",
+    "version": "0.1.439",
     "license": {
       "name": "AGPL-3.0-only"
     }
@@ -27,7 +27,7 @@
     "/connector/google-shopping/aladine": {
       "patch": {
         "summary": "Aladdin Search",
-        "description": "Search for products in Aladdin\nAladdin is a service that allows you to purchase used books.\nOnly one keyword should be requested per request.\nFor example, If you use \"novel book\" and \"fairy tale book\" as keywords, you must make two requests, each with separate keywords.",
+        "description": "Search for products in Aladdin\nAladdin is a service that allows you to purchase used books.",
         "tags": [
           "Aladin"
         ],
@@ -111,6 +111,10 @@
             "format": "iri",
             "contentMediaType": "image/*",
             "title": "Product Image"
+          },
+          "rating": {
+            "type": "number",
+            "title": "Product Rating"
           }
         },
         "required": [
@@ -129,6 +133,11 @@
             "title": "Search term",
             "description": "Enter the keyword you want to search for."
           },
+          "lang": {
+            "type": "string",
+            "title": "Language Setting",
+            "description": "Choose which language you want to use as your search term.\n\nYou can only pass a single BCP 47 language identifier.\n\nex) You want to setting korean language, you can pass \"ko\"."
+          },
           "max_results": {
             "type": "integer",
             "title": "Number of search results",
@@ -137,6 +146,7 @@
         },
         "required": [
           "keyword",
+          "lang",
           "max_results"
         ],
         "title": "Product search conditions"
