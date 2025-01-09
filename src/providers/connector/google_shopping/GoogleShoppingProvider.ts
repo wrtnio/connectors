@@ -27,16 +27,17 @@ export class GoogleShoppingProvider {
       const output: IGoogleShopping.IResponse[] = [];
 
       while (output.length < input.max_results) {
-        const num = Math.min(
-          input.max_results - output.length,
-          maxResultPerPage,
-        );
+        // const num = Math.min(
+        //   input.max_results - output.length,
+        //   maxResultPerPage,
+        // );
         const res = await getJson({
           ...defaultParams,
           tbs: tbs,
           q: input.keyword,
           start: start,
-          num: num,
+          // num: num,
+          num: 5,
         });
         const results = res["shopping_results"];
 
