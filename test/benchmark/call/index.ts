@@ -37,6 +37,7 @@ const SWAGGER_LOCATION = `${ConnectorConfiguration.ROOT}/packages/api/swagger.js
 interface IOptions extends IFunctionCallBenchmarkOptions {
   swagger: boolean;
   semaphore: number;
+  server: "local" | "dev";
 }
 
 interface IScenario extends IFunctionCallBenchmarkScenario {
@@ -45,49 +46,81 @@ interface IScenario extends IFunctionCallBenchmarkScenario {
 
 const getOptions = () =>
   ArgumentParser.parse<IOptions>(async (command, prompt, action) => {
+    command.option("--server <string>", "server address");
     command.option("--swagger <true|false>", "Build swagger document");
     command.option("--model <string>", "target model");
     command.option("--count <number>", "count of executions per scenario");
     command.option("--capacity <number>", "dividing count");
     command.option("--semaphore <number>", "semaphore size");
     command.option("--retry <number>", "retry count yielding 'keep going'");
+    command.option("--timeout <number>", "timeout for each execution");
     command.option("--include <string...>", "include feature files");
     command.option("--exclude <string...>", "exclude feature files");
 
     return action(async (options) => {
-      if (fs.existsSync(SWAGGER_LOCATION) === false) options.swagger = true;
-      else {
-        if (typeof options.swagger === "string")
-          options.swagger = options.swagger === "true";
-        options.swagger ??= await prompt.boolean("swagger")(
-          "Build swagger document",
-        );
-      }
+      // SERVER
+      options.server ??= (await prompt.select("server")("Server address")([
+        "local",
+        "dev",
+      ])) as "local" | "dev";
+
+      // SWAGGER
+      if (options.server === "local")
+        if (fs.existsSync(SWAGGER_LOCATION) === false) options.swagger = true;
+        else {
+          if (typeof options.swagger === "string")
+            options.swagger = options.swagger === "true";
+          options.swagger ??= await prompt.boolean("swagger")(
+            "Build swagger document",
+          );
+        }
+
+      // TARGET MODEL
       options.model ??= (await prompt.select("model")("Select model")([
         "gpt-4o",
         "gpt-4o-mini",
       ])) as "gpt-4o" | "gpt-4o-mini";
+
+      // COUNT
+      if (typeof options.count === "string")
+        options.count = Number(options.count);
       options.count ??= await prompt.number("count")(
         "Count of executions per scenario (default 10)",
         10,
       );
+
+      // SEMAPHORE
+      if (typeof options.semaphore === "string")
+        options.semaphore = Number(options.semaphore);
       options.semaphore ??= await prompt.number("semaphore")(
         "Semaphore size (default 100)",
         100,
       );
+
+      // CAPACITY
+      if (typeof options.capacity === "string")
+        options.capacity = Number(options.capacity);
       options.capacity ??= await prompt.number("capacity")(
         "Capacity count per agent (divide and conquer, default 100)",
         100,
       );
+
+      // RETRY
+      if (typeof options.retry === "string")
+        options.retry = Number(options.retry);
       options.retry ??= await prompt.number("retry")(
         "Retry count yielding 'keep going' (default 3)",
         3,
       );
+
+      // TIMEOUT
+      if (typeof options.timeout === "string")
+        options.timeout = Number(options.timeout);
       options.timeout ??= await prompt.number("timeout")(
-        "Timeout in seconds (default 180)",
+        "Timeout for each execution (default 180s)",
         180,
       );
-      options.timeout *= 1_000;
+
       return options as IOptions;
     });
   });
@@ -152,19 +185,17 @@ const collectScenarios = async (props: {
             operations: props.operations,
             expected: scenario.expected,
           })
-        ) {
-          const local: string = next
-            .substring(
-              SCENARIO_LOCATION.length + path.sep.length,
-              next.length - 3,
-            )
-            .split(path.sep)
-            .join("/");
+        )
           collection.push({
             ...scenario,
-            location: local.substring(0, local.length - 3),
+            location: next
+              .substring(
+                SCENARIO_LOCATION.length + path.sep.length,
+                next.length - 3,
+              )
+              .split(path.sep)
+              .join("/"),
           });
-        }
       }
     }
   }
@@ -216,12 +247,17 @@ const main = async (): Promise<void> => {
       cwd: ConnectorConfiguration.ROOT,
       stdio: "inherit",
     });
+  ConnectorGlobal.testing = true;
 
   // COMPOSE LLM APPLICATION SCHEMA
   const application: IHttpLlmApplication<"chatgpt"> = HttpLlm.application({
     model: "chatgpt",
     document: typia.json.assertParse<ISwagger>(
-      await fs.promises.readFile(SWAGGER_LOCATION, "utf8"),
+      options.server === "local"
+        ? await fs.promises.readFile(SWAGGER_LOCATION, "utf8")
+        : await fetch(
+            "https://wrtnio.github.io/connectors/swagger/swagger.json",
+          ).then((r) => r.text()),
     ),
     options: {
       reference: true,
@@ -257,9 +293,17 @@ const main = async (): Promise<void> => {
     model: options.model,
   };
   const connection: IConnection = {
-    host: `http://127.0.0.1:${ConnectorConfiguration.API_PORT()}`,
+    host:
+      options.server === "local"
+        ? `http://127.0.0.1:${ConnectorConfiguration.API_PORT()}`
+        : "https://studio-connector-poc.dev.wrtn.club",
   };
-  console.log("Number of scenarios:", scenarios.length);
+  console.log("Number of scenarios: #" + scenarios.length.toLocaleString());
+
+  if (options.server !== "local") {
+    await storage.close();
+    await backend.close();
+  }
 
   // DO BENCHMARK
   if (scenarios.length === 0) console.log("No scenario exists");
@@ -278,12 +322,20 @@ const main = async (): Promise<void> => {
             scenario: s,
             location: s.location,
           });
+        const success: number = res.trials.filter((t) => t.execute).length;
+        const ratio: number = success / res.trials.length;
         console.log(
-          chalk.greenBright(s.title),
+          (success === 0
+            ? chalk.redBright
+            : ratio < 0.25
+              ? chalk.magentaBright
+              : ratio < 0.5
+                ? chalk.hex("#ff6600")
+                : ratio < 0.75
+                  ? chalk.cyanBright
+                  : chalk.greenBright)(s.title),
           "-",
-          chalk.yellowBright(
-            res.trials.filter((t) => t.execute).length.toLocaleString(),
-          ),
+          chalk.yellowBright(success.toLocaleString()),
           "of",
           chalk.yellowBright(options.count.toLocaleString()),
           (Date.now() - start).toLocaleString(),
@@ -298,9 +350,11 @@ const main = async (): Promise<void> => {
     });
   }
 
-  // TERMINATE
-  await storage.close();
-  await backend.close();
+  // TERMINATE LOCAL SERVER
+  if (options.server === "local") {
+    await storage.close();
+    await backend.close();
+  }
 };
 main().catch((error) => {
   console.log(error);

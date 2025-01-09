@@ -163,27 +163,58 @@ export namespace FunctionCallBenchmarkReporter {
       `      - Rejected Prediction: ${trial.usage.completion.rejected_prediction.toLocaleString()}`,
       `  - Time: ${(trial.completed_at.getTime() - trial.started_at.getTime()).toLocaleString()} ms`,
       ``,
+      `## Function Calls`,
+      `### Selections`,
+      ...trial.histories
+        .filter((h) => h.kind === "select")
+        .map((h) => h.functions)
+        .flat()
+        .map(
+          (r) =>
+            `  - \`${r.function.method.toUpperCase()} ${r.function.path}\`: ${r.reason}`,
+        ),
+      "",
+      `### Completions`,
+      ...trial.histories
+        .filter((h) => h.kind === "execute")
+        .map((h) => [
+          `  - \`${h.function.method.toUpperCase()} ${h.function.path}\`: ${h.response.status}`,
+        ])
+        .flat(),
       `## History`,
       ...trial.histories
         .map((h) => {
           if (h.kind === "text") return [`### Text (${h.role})`, h.text, ""];
-          else if (h.kind === "describe") return [`### Describe`, h.text, ""];
-          else if (h.kind === "execute")
+          else if (h.kind === "describe")
             return [
-              `### Execute`,
-              `  - endpoint: ${h.function.method} ${h.function.path}`,
-              `  - description: ${h.function.description}`,
-              `  - status: ${h.response.status}`,
-              ``,
-              "#### Arguments",
-              "```json",
-              JSON.stringify(h.arguments, null, 2),
-              "```",
+              `### Describe`,
+              h.text,
               "",
-              "#### Response",
-              "```json",
-              JSON.stringify(h.response, null, 2),
-              "```",
+              ...h.executions
+                .map((e) => [
+                  `#### \`${e.function.method.toUpperCase()} ${e.function.path}\``,
+                  `Status: ${e.response.status}`,
+                  "",
+                  `<details>`,
+                  `  <summary> Arguments </summary>`,
+                  ``,
+                  "```json",
+                  JSON.stringify(e.arguments, null, 2),
+                  "```",
+                  ``,
+                  `</details>`,
+                  "",
+                  `<details>`,
+                  `  <summary> Response </summary>`,
+                  "",
+                  "```json",
+                  JSON.stringify(e.response, null, 2),
+                  "```",
+                  "",
+                  `</details>`,
+                  "",
+                ])
+                .flat(),
               "",
             ];
           else if (h.kind === "select")
@@ -191,7 +222,7 @@ export namespace FunctionCallBenchmarkReporter {
               `### Select`,
               ...h.functions.map(
                 (f) =>
-                  `  - ${f.function.method} ${f.function.path}: ${f.reason}`,
+                  `  - \`${f.function.method.toUpperCase()} ${f.function.path}\`: ${f.reason}`,
               ),
               "",
             ];
@@ -200,7 +231,7 @@ export namespace FunctionCallBenchmarkReporter {
               `### Cancel`,
               ...h.functions.map(
                 (f) =>
-                  `  - ${f.function.method} ${f.function.path}: ${f.reason}`,
+                  `  - \`${f.function.method.toUpperCase()} ${f.function.path}\`: ${f.reason}`,
               ),
               "",
             ];

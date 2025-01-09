@@ -34,22 +34,26 @@ export namespace FunctionCallBenchmarkExecutor {
 
   export const execute = async (
     props: IProps,
-  ): Promise<IFunctionCallBenchmarkResult> => ({
-    location: props.location,
-    scenario: props.scenario,
-    trials: await Promise.all(
-      new Array(props.options.count).fill(0).map(async () => {
+  ): Promise<IFunctionCallBenchmarkResult> => {
+    const trials: IFunctionCallBenchmarkResult.ITrial[] = await Promise.all(
+      new Array(props.options.count).fill(0).map(async (_x, i) => {
         await props.semaphore.acquire();
         const tr: IFunctionCallBenchmarkResult.ITrial = await process(props);
         await props.semaphore.release();
         return tr;
       }),
-    ),
-  });
+    );
+    return {
+      location: props.location,
+      scenario: props.scenario,
+      trials,
+    };
+  };
 
   export const process = async (
     props: IProps,
   ): Promise<IFunctionCallBenchmarkResult.ITrial> => {
+    const started_at: Date = new Date();
     const agent: NestiaChatAgent = new NestiaChatAgent({
       application: props.application,
       service: props.service,
@@ -57,26 +61,49 @@ export namespace FunctionCallBenchmarkExecutor {
       config: {
         capacity: props.options.capacity,
         eliticism: true,
+        locale: "ko-KR",
       },
     });
-    agent.on("call", (event) => {
-      if (event.function.separated?.human)
-        event.arguments = HttpLlm.mergeParameters({
-          function: event.function,
-          llm: event.arguments ?? null,
-          human: fillArgument(
-            event.function.separated.human.$defs,
-            event.function.separated.human,
-          ),
-        });
-    });
-
-    const started_at: Date = new Date();
     try {
-      const histories: INestiaChatPrompt[] = await agent.conversate(
-        props.scenario.prompt,
-      );
+      agent.on("call", (event) => {
+        if (event.function.separated?.human) {
+          event.arguments = HttpLlm.mergeParameters({
+            function: event.function,
+            llm: event.arguments ?? {},
+            human: fillArgument(
+              event.function.separated.human.$defs,
+              event.function.separated.human,
+            ),
+          });
+        }
+      });
+      const success = (): boolean =>
+        predicateIncludeFunction({
+          application: props.application,
+          operations: props.operations,
+          expected: props.scenario.expected,
+          functionList: agent
+            .getHistories()
+            .filter((h) => h.kind === "execute"),
+          strict: false,
+        });
+
+      await agent.conversate(props.scenario.prompt);
+      if (
+        success() === false &&
+        Date.now() - started_at.getTime() < props.options.timeout * 1_000
+      ) {
+        for (let i: number = 0; i < props.options.retry; ++i) {
+          await agent.conversate(
+            "아무튼 진행해, 더 이상 물어보지 말고 너 스스로의 판단으로 그대로 가면 된다.",
+          );
+          if (success() === true) break;
+        }
+      }
+
+      const histories: INestiaChatPrompt[] = agent.getHistories();
       const usage: INestiaChatTokenUsage = agent.getTokenUsage();
+
       return {
         histories,
         usage,
@@ -187,16 +214,10 @@ const fillArgument = (
   schema: IChatGptSchema,
 ): any => {
   if (OpenApiTypeChecker.isString(schema))
-    if (schema.description?.includes("@contentMediaType") !== undefined)
+    if (schema.description?.includes("@contentMediaType") === true)
       return "https://namu.wiki/w/%EB%A6%B4%ED%8C%8C";
-    else if (schema["x-wrtn-secret-key"] === "google")
-      return ConnectorGlobal.env.GOOGLE_TEST_SECRET;
-    else if (schema["x-wrtn-secret-key"] === "notion")
-      return ConnectorGlobal.env.NOTION_TEST_SECRET;
-    else if (schema["x-wrtn-secret-key"] === "slack")
-      return ConnectorGlobal.env.SLACK_TEST_SECRET;
-    else if (schema["x-wrtn-secret-key"] === "github")
-      return ConnectorGlobal.env.G_GITHUB_TEST_SECRET;
+    else if (schema["x-wrtn-secret-key"] !== undefined)
+      return secrets()[schema["x-wrtn-secret-key"]] ?? "invalid";
     else return "Hello word";
   else if (ChatGptTypeChecker.isNumber(schema)) return 123;
   else if (ChatGptTypeChecker.isBoolean(schema)) return true;
@@ -214,3 +235,23 @@ const fillArgument = (
   }
   throw new Error("Invalid schema");
 };
+
+const secrets = (): Record<string, string> => ({
+  // calendly: parsed.CALENDLY_TEST_SECRET, // disposable
+  daum: ConnectorGlobal.env.DAUM_API_KEY,
+  github: ConnectorGlobal.env.G_GITHUB_TEST_SECRET,
+  google: ConnectorGlobal.env.GOOGLE_TEST_SECRET,
+  naver: ConnectorGlobal.env.NAVER_CLIENT_SECRET,
+  notion: ConnectorGlobal.env.NOTION_TEST_SECRET,
+  openData: ConnectorGlobal.env.OPEN_DATA_API_KEY,
+  serp: ConnectorGlobal.env.SERP_API_KEY,
+  slack: ConnectorGlobal.env.SLACK_TEST_SECRET,
+  // typeform: ConnectorGlobal.env.TYPEFORM_PERSONAL_ACCESS_KEY, // disposable
+  figma: ConnectorGlobal.env.FIGMA_CLIENT_SECRET,
+  zoom: ConnectorGlobal.env.ZOOM_TEST_REFRESH_TOKEN,
+  sweetTracker: ConnectorGlobal.env.TEST_SWEET_TRACKER_KEY,
+  googleAds: ConnectorGlobal.env.GOOGLE_ADS_PARENT_SECRET,
+  jira: ConnectorGlobal.env.JIRA_TEST_SECRET,
+  kakao: ConnectorGlobal.env.KAKAO_TALK_TEST_REFRESH_TOKEN,
+  exim: ConnectorGlobal.env.KOREA_EXIM_BANK_API_KEY,
+});

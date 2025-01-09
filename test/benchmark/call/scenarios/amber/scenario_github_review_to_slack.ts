@@ -23,10 +23,6 @@ export const scenario_github_review_to_slack =
           })),
         },
         {
-          type: "standalone",
-          function: SlackController.prototype.getImChannels,
-        },
-        {
           type: "anyOf",
           anyOf: [
             {

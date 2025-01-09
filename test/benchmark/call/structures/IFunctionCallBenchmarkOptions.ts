@@ -5,8 +5,8 @@ export interface IFunctionCallBenchmarkOptions {
   model: OpenAI.ChatModel;
   count: number;
   retry: number;
-  timeout: number;
   capacity: number;
+  timeout: number;
   include?: string[];
   exclude?: string[];
 }
