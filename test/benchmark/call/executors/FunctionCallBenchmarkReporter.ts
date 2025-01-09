@@ -35,8 +35,12 @@ export namespace FunctionCallBenchmarkReporter {
       `    - \`exclude\`: ${(props.options.exclude ?? []).join(", ")}`,
       `  - Aggregation:`,
       `    - Trial: ${everything.length}`,
-      `    - Success: ${everything.filter((e) => e.execute).length}`,
-      `    - Failure: ${everything.filter((e) => !e.execute).length}`,
+      `    - Select:`,
+      `      - Success: ${everything.filter((e) => e.select).length}`,
+      `      - Failure: ${everything.filter((e) => !e.select).length}`,
+      `    - Execute:`,
+      `      - Success: ${everything.filter((e) => e.execute).length}`,
+      `      - Failure: ${everything.filter((e) => !e.execute).length}`,
       `    - Average Time: ${(everything.map((e) => e.completed_at.getTime() - e.started_at.getTime()).reduce((a, b) => a + b, 0) / everything.length).toLocaleString()} ms`,
       `  - Token Usage ($${price.total.toLocaleString()}):`,
       `    - Total: ${usage.total.toLocaleString()}`,
@@ -52,11 +56,15 @@ export namespace FunctionCallBenchmarkReporter {
       `      - Rejected Prediction: ${usage.completion.rejected_prediction.toLocaleString()}`,
       "",
       "## Scenarios",
-      " title | status | success cost | failure cost ",
-      "-------|-------:|-------------:|-------------:",
+      " title | select | execute | success cost | failure cost ",
+      "-------|-------:|--------:|-------------:|-------------:",
       ...props.results.map((r) => {
         return [
           `[${r.scenario.title}](./${r.location}/README.md)`,
+          [
+            ...new Array(r.trials.filter((t) => t.select).length).fill("■"),
+            ...new Array(r.trials.filter((t) => !t.select).length).fill("□"),
+          ].join(""),
           [
             ...new Array(r.trials.filter((t) => t.execute).length).fill("■"),
             ...new Array(r.trials.filter((t) => !t.execute).length).fill("□"),
@@ -95,8 +103,12 @@ export namespace FunctionCallBenchmarkReporter {
       result.scenario.prompt,
       ``,
       `## Summary`,
-      `  - Success: ${result.trials.filter((t) => t.execute).length}`,
-      `  - Failure: ${result.trials.filter((t) => !t.execute).length}`,
+      `  - Select:`,
+      `    - Success: ${result.trials.filter((t) => t.select).length}`,
+      `    - Failure: ${result.trials.filter((t) => !t.select).length}`,
+      `  - Execute:`,
+      `    - Success: ${result.trials.filter((t) => t.execute).length}`,
+      `    - Failure: ${result.trials.filter((t) => !t.execute).length}`,
       `  - Success Cost: $${price.total.toLocaleString()}`,
       `  - Failure Cost: $${price.total.toLocaleString()}`,
       `  - Average Time: ${
@@ -106,14 +118,16 @@ export namespace FunctionCallBenchmarkReporter {
       } ms`,
       "",
       `## Trials`,
-      " index | status | cost | file ",
-      "-------|-------:|-----:|------",
+      " index | select | execute | cost | file ",
+      "-------|-------:|--------:|-----:|------",
       ...result.trials.map((t, i) => {
+        const file: string = `./${i + 1}.${t.select ? "success" : "failure"}.${t.execute ? "success" : "failure"}.md`;
         return [
           (i + 1).toLocaleString(),
+          t.select ? "success" : "failure",
           t.execute ? "success" : "failure",
           "$" + OpenAIPriceComputer.get(t.usage).total.toLocaleString(),
-          `[./${i + 1}.md](./${i + 1}.md)`,
+          `[${file}](${file})`,
         ].join(" | ");
       }),
     ];
@@ -129,7 +143,7 @@ export namespace FunctionCallBenchmarkReporter {
     await Promise.all(
       result.trials.map((t, i) =>
         reportTrial(
-          `${LOCATION}/${result.location}/${i + 1}.${t.execute ? "success" : "failure"}.md`,
+          `${LOCATION}/${result.location}/${i + 1}.${t.select ? "success" : "failure"}.${t.execute ? "success" : "failure"}.md`,
           result.scenario,
           t,
         ),
@@ -181,6 +195,7 @@ export namespace FunctionCallBenchmarkReporter {
           `  - \`${h.function.method.toUpperCase()} ${h.function.path}\`: ${h.response.status}`,
         ])
         .flat(),
+      "",
       `## History`,
       ...trial.histories
         .map((h) => {

@@ -52,7 +52,6 @@ const getOptions = () =>
     command.option("--count <number>", "count of executions per scenario");
     command.option("--capacity <number>", "dividing count");
     command.option("--semaphore <number>", "semaphore size");
-    command.option("--retry <number>", "retry count yielding 'keep going'");
     command.option("--timeout <number>", "timeout for each execution");
     command.option("--include <string...>", "include feature files");
     command.option("--exclude <string...>", "exclude feature files");
@@ -60,9 +59,9 @@ const getOptions = () =>
     return action(async (options) => {
       // SERVER
       options.server ??= (await prompt.select("server")("Server address")([
-        "local",
         "dev",
-      ])) as "local" | "dev";
+        "local",
+      ])) as "dev" | "local";
 
       // SWAGGER
       if (options.server === "local")
@@ -103,14 +102,6 @@ const getOptions = () =>
       options.capacity ??= await prompt.number("capacity")(
         "Capacity count per agent (divide and conquer, default 100)",
         100,
-      );
-
-      // RETRY
-      if (typeof options.retry === "string")
-        options.retry = Number(options.retry);
-      options.retry ??= await prompt.number("retry")(
-        "Retry count yielding 'keep going' (default 3)",
-        3,
       );
 
       // TIMEOUT
@@ -328,9 +319,9 @@ const main = async (): Promise<void> => {
           (success === 0
             ? chalk.redBright
             : ratio < 0.25
-              ? chalk.magentaBright
+              ? chalk.hex("#ff6600")
               : ratio < 0.5
-                ? chalk.hex("#ff6600")
+                ? chalk.yellowBright
                 : ratio < 0.75
                   ? chalk.cyanBright
                   : chalk.greenBright)(s.title),

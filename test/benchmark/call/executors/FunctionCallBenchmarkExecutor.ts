@@ -19,6 +19,7 @@ import { IFunctionCallBenchmarkExpected } from "../structures/IFunctionCallBench
 import { IFunctionCallBenchmarkOptions } from "../structures/IFunctionCallBenchmarkOptions";
 import { Semaphore } from "tstl";
 import { ConnectorGlobal } from "../../../../src/ConnectorGlobal";
+import { FunctionCallBenchmarkPredicator } from "./FunctionCallBenchmarkPredicator";
 
 export namespace FunctionCallBenchmarkExecutor {
   export interface IProps {
@@ -77,8 +78,11 @@ export namespace FunctionCallBenchmarkExecutor {
           });
         }
       });
-      const success = (): boolean =>
-        predicateIncludeFunction({
+
+      await agent.conversate(props.scenario.prompt);
+      while (
+        (Date.now() - started_at.getTime()) / 1000 < props.options.timeout &&
+        FunctionCallBenchmarkPredicator.success({
           application: props.application,
           operations: props.operations,
           expected: props.scenario.expected,
@@ -86,20 +90,15 @@ export namespace FunctionCallBenchmarkExecutor {
             .getHistories()
             .filter((h) => h.kind === "execute"),
           strict: false,
-        });
-
-      await agent.conversate(props.scenario.prompt);
-      if (
-        success() === false &&
-        Date.now() - started_at.getTime() < props.options.timeout * 1_000
-      ) {
-        for (let i: number = 0; i < props.options.retry; ++i) {
-          await agent.conversate(
-            "아무튼 진행해, 더 이상 물어보지 말고 너 스스로의 판단으로 그대로 가면 된다.",
-          );
-          if (success() === true) break;
-        }
-      }
+        }) === false &&
+        (await FunctionCallBenchmarkPredicator.isNext({
+          service: props.service,
+          history: agent.getHistories().at(-1) ?? null,
+        })) === true
+      )
+        await agent.conversate(
+          "진행해줘, 그리고 더 이상 나한테 물어보지 말고 너 스스로의 판단으로 나아가줘.",
+        );
 
       const histories: INestiaChatPrompt[] = agent.getHistories();
       const usage: INestiaChatTokenUsage = agent.getTokenUsage();
@@ -107,7 +106,7 @@ export namespace FunctionCallBenchmarkExecutor {
       return {
         histories,
         usage,
-        select: predicateIncludeFunction({
+        select: FunctionCallBenchmarkPredicator.success({
           application: props.application,
           operations: props.operations,
           expected: props.scenario.expected,
@@ -117,7 +116,7 @@ export namespace FunctionCallBenchmarkExecutor {
             .flat(),
           strict: false,
         }),
-        execute: predicateIncludeFunction({
+        execute: FunctionCallBenchmarkPredicator.success({
           application: props.application,
           operations: props.operations,
           expected: props.scenario.expected,
@@ -139,73 +138,6 @@ export namespace FunctionCallBenchmarkExecutor {
         completed_at: new Date(),
       };
     }
-  };
-
-  const predicateIncludeFunction = (props: {
-    application: IHttpLlmApplication<"chatgpt">;
-    operations: Map<Function, Function>;
-    expected: IFunctionCallBenchmarkExpected;
-    functionList: { function: IHttpLlmFunction<"chatgpt"> }[];
-    strict: boolean;
-  }): boolean => {
-    const call = (
-      expected: IFunctionCallBenchmarkExpected,
-      overrideHistories?: { function: IHttpLlmFunction<"chatgpt"> }[],
-    ) =>
-      predicateIncludeFunction({
-        application: props.application,
-        operations: props.operations,
-        functionList: overrideHistories ?? props.functionList,
-        expected,
-        strict: props.strict,
-      });
-
-    switch (props.expected.type) {
-      case "standalone":
-        const target: IHttpLlmFunction<"chatgpt"> | undefined = getFunction({
-          application: props.application,
-          operations: props.operations,
-          function: props.expected.function,
-        });
-        return props.functionList.some(({ function: func }) => func === target);
-      case "allOf":
-        return props.expected.allOf.every((expected) => call(expected));
-      case "anyOf":
-        return props.expected.anyOf.some((expected) => call(expected));
-      case "array":
-        const targetIterator = props.expected.items[Symbol.iterator]();
-        let targeted = targetIterator.next();
-
-        for (const history of props.functionList) {
-          if (targeted.done) {
-            return true;
-          }
-
-          if (call(targeted.value, [history])) {
-            targeted = targetIterator.next();
-            continue;
-          }
-
-          if (props.strict) {
-            return false;
-          }
-        }
-        return true;
-    }
-  };
-
-  const getFunction = (props: {
-    application: IHttpLlmApplication<"chatgpt">;
-    operations: Map<Function, Function>;
-    function: Function;
-  }): IHttpLlmFunction<"chatgpt"> | undefined => {
-    return props.application.functions.find(
-      (func) =>
-        func.operation()["x-samchon-accessor"]?.at(-1) ===
-          props.function.name &&
-        func.operation()["x-samchon-controller"] ===
-          props.operations.get(props.function)?.name,
-    );
   };
 }
 
