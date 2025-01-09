@@ -5,7 +5,9 @@ import { IFunctionCallBenchmarkScenario } from "../../structures/IFunctionCallBe
 export const scenario_date_fall_musinsa_to_kakaotalk =
   (): IFunctionCallBenchmarkScenario => ({
     title: "데이트룩 추천",
-    prompt: `데이트 할 때 입기 좋은 가을 옷을 무신사에서 찾은 다음, 내 카카오톡 메시지로 보내줘`,
+    prompt: `
+데이트 할 때 입기 좋은 가을 옷을 무신사에서 찾은 다음, 
+내 카카오톡 메시지로 보내줘`,
     expected: {
       type: "allOf",
       allOf: [

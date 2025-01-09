@@ -92,8 +92,8 @@ const getOptions = () =>
       if (typeof options.semaphore === "string")
         options.semaphore = Number(options.semaphore);
       options.semaphore ??= await prompt.number("semaphore")(
-        "Semaphore size (default 1,000)",
-        1000,
+        "Semaphore size (default 100)",
+        100,
       );
 
       // CAPACITY
@@ -319,9 +319,9 @@ const main = async (): Promise<void> => {
           (success === 0
             ? chalk.redBright
             : ratio < 0.25
-              ? chalk.magentaBright
+              ? chalk.hex("#ff6600")
               : ratio < 0.5
-                ? chalk.hex("#ff6600")
+                ? chalk.yellowBright
                 : ratio < 0.75
                   ? chalk.cyanBright
                   : chalk.greenBright)(s.title),
