@@ -113,6 +113,14 @@ export namespace ImwebProvider {
     const secretKey = input.secretKey;
     const refreshToken = await OAuthSecretProvider.getSecretValue(secretKey);
     const response = await ImwebProvider.refresh({ refreshToken });
+    const newRefreshToken = response.data.refreshToken;
+    await OAuthSecretProvider.updateSecretValue(input.secretKey, {
+      value: newRefreshToken,
+    });
+
+    if (process.env.NODE_ENV === "test") {
+      await ConnectorGlobal.write({ IMWEB_TEST_API_SECRET: newRefreshToken });
+    }
 
     return response;
   }
