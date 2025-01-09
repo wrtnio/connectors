@@ -8,29 +8,27 @@ import { GoogleShoppingProvider } from "../../../../providers/connector/google_s
 import { retry } from "../../../../utils/retry";
 
 @Controller("connector/google-shopping")
-export class GoogleShoppingYesTwentyFourController {
+export class GoogleShoppingWalmartController {
   constructor(
     private readonly googleShoppingProvider: GoogleShoppingProvider,
   ) {}
 
   /**
-   * Search for products on yes24
-   * yes24 is a service that allows you to purchase books.
+   * Search for products on Walmart
    *
-   * @summary yes24 search
-   * @param input search conditions
-   * @returns search results
+   * @summary Search for Walmart
+   * @param input Search criteria
+   * @returns Search results
    */
-  @SelectBenchmark("yes24에서 상품 좀 찾아줘")
   @Standalone()
-  @core.TypedRoute.Patch("yes-twenty-four")
+  @core.TypedRoute.Patch("walmart")
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/yes24_full.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Walmart_full.svg",
   )
-  @ApiTags("yes24")
-  async yes24(
+  @ApiTags("Walmart")
+  async walmart(
     @core.TypedBody() input: IGoogleShopping.IRequestStandAlone,
   ): Promise<IGoogleShopping.IResponse[]> {
-    return retry(() => this.googleShoppingProvider.yes24(input))();
+    return retry(() => this.googleShoppingProvider.walmart(input))();
   }
 }

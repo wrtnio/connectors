@@ -65,6 +65,9 @@ import { SweetTackerModule } from "./src/controllers/connector/sweet_tracker/Swe
 import { TypeformModule } from "./src/controllers/connector/typeform/TypeformModule";
 import { YoutubeSearchModule } from "./src/controllers/connector/youtube_search/YoutubeSearchModule";
 import { ZoomModule } from "./src/controllers/connector/zoom/ZoomModule";
+import { GoogleShoppingAmazonModule } from "./src/controllers/connector/google_shopping/google_shopping_amazon/GoogleShoppingAmazonModule";
+import { GoogleShoppingEbayModule } from "./src/controllers/connector/google_shopping/google_shopping_ebay/GoogleShoppingEbayModule";
+import { GoogleShoppingWalmartModule } from "./src/controllers/connector/google_shopping/google_shopping_walmart/GoogleShoppingWalmartModule";
 
 const swagger = (props: {
   module: Function;
@@ -402,6 +405,36 @@ const NESTIA_CONFIG: sdk.INestiaConfig[] = [
     },
     output:
       "packages/api/connectors/google-shopping-yes-twenty-four.swagger.json",
+  }),
+  swagger({
+    module: GoogleShoppingAmazonModule,
+    info: {
+      title: "Amazon 상품 검색",
+      summary: "Amazon 쇼핑몰의 상품을 한 번에 검색해요.",
+      description:
+        "Amazon 쇼핑몰의 상품을 검색할 수 있어요. 원하는 상품의 가격을 비교할 수 있고, 최저가 정보도 쉽게 확인할 수 있어요. 카테고리별 검색 옵션을 사용할 수 있어요. 이를 통해 효율적인 쇼핑은 물론, 시장 조사나 가격 동향 분석 등에도 활용할 수 있어요.",
+    },
+    output: "packages/api/connectors/google-shopping-amazon.swagger.json",
+  }),
+  swagger({
+    module: GoogleShoppingEbayModule,
+    info: {
+      title: "Ebay 상품 검색",
+      summary: "Ebay 쇼핑몰의 상품을 한 번에 검색해요.",
+      description:
+        "Ebay 쇼핑몰의 상품을 검색할 수 있어요. 원하는 상품의 가격을 비교할 수 있고, 최저가 정보도 쉽게 확인할 수 있어요. 카테고리별 검색 옵션을 사용할 수 있어요. 이를 통해 효율적인 쇼핑은 물론, 시장 조사나 가격 동향 분석 등에도 활용할 수 있어요.",
+    },
+    output: "packages/api/connectors/google-shopping-ebay.swagger.json",
+  }),
+  swagger({
+    module: GoogleShoppingWalmartModule,
+    info: {
+      title: "Walmart 상품 검색",
+      summary: "Walmart 쇼핑몰의 상품을 한 번에 검색해요.",
+      description:
+        "Walmart 쇼핑몰의 상품을 검색할 수 있어요. 원하는 상품의 가격을 비교할 수 있고, 최저가 정보도 쉽게 확인할 수 있어요. 카테고리별 검색 옵션을 사용할 수 있어요. 이를 통해 효율적인 쇼핑은 물론, 시장 조사나 가격 동향 분석 등에도 활용할 수 있어요.",
+    },
+    output: "packages/api/connectors/google-shopping-walmart.swagger.json",
   }),
   swagger({
     module: GoogleSlidesModule,

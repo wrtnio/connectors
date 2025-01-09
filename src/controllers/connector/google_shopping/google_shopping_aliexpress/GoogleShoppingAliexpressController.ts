@@ -15,8 +15,6 @@ export class GoogleShoppingAliexpressController {
 
   /**
    * Search for products on AliExpress
-   *  Only one keyword should be requested per request.
-   * For example, If you use "phone" and "cup" as keywords, you must make two requests, each with separate keywords.
    *
    * @summary Search for AliExpress
    * @param input Search criteria

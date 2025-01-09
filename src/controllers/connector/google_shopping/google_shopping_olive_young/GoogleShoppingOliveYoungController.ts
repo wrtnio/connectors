@@ -16,8 +16,6 @@ export class GoogleShoppingOliveYoungController {
   /**
    * Search for products at Olive Young
    * Olive Young is a service that allows you to purchase cosmetics.
-   * Only one keyword should be requested per request.
-   * For example, If you use "sun block" and "serum" as keywords, you must make two requests, each with separate keywords.
    *
    * @summary Olive Young Search
    * @param input Search conditions

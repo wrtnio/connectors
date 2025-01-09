@@ -16,8 +16,6 @@ export class GoogleShoppingAladinController {
   /**
    * Search for products in Aladdin
    * Aladdin is a service that allows you to purchase used books.
-   * Only one keyword should be requested per request.
-   * For example, If you use "novel book" and "fairy tale book" as keywords, you must make two requests, each with separate keywords.
    *
    * @summary Aladdin Search
    * @param input Search conditions
