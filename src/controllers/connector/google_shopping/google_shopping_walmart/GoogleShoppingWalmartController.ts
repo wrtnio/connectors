@@ -15,8 +15,6 @@ export class GoogleShoppingWalmartController {
 
   /**
    * Search for products on Walmart
-   *  Only one keyword should be requested per request.
-   * For example, If you use "phone" and "cup" as keywords, you must make two requests, each with separate keywords.
    *
    * @summary Search for Walmart
    * @param input Search criteria

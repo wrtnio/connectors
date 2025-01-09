@@ -15,8 +15,6 @@ export class GoogleShoppingCoupangController {
 
   /**
    * Search for products on Coupang
-   * Only one keyword should be requested per request.
-   * For example, If you use "phone" and "cup" as keywords, you must make two requests, each with separate keywords.
    *
    * @summary Coupang Search
    * @param input Search conditions

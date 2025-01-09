@@ -16,8 +16,7 @@ export class GoogleShoppingIherbController {
   /**
    * Search for products on iHerb
    * iHerb is a service that allows you to purchase Nutritional supplement.
-   * Only one keyword should be requested per request.
-   * For example, If you use "vitamin" and "calcium" as keywords, you must make two requests, each with separate keywords.
+   *
    * @summary iHerb Search
    * @param input Search conditions
    * @returns Search results
