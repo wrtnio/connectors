@@ -77,7 +77,7 @@ export namespace IShoppingSaleSnapshot {
     /**
      * Primary Key of Sale.
      */
-    id: string;
+    id: string | number;
 
     /**
      * Primary Key of Snapshot.

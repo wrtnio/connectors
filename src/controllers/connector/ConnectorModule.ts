@@ -84,6 +84,7 @@ import { ZoomModule } from "./zoom/ZoomModule";
   // connectors that require DI of some sort shall be declared as modules
   // the rest can be simply imported as controllers
   imports: [
+    ImwebModule,
     ArticleModule,
     SpreadsheetModule,
     KeywordExtractModule,
@@ -112,7 +113,6 @@ import { ZoomModule } from "./zoom/ZoomModule";
     KakaoMapModule,
     KakaoNaviModule,
     GoogleSlidesModule,
-    ImwebModule,
     OpenDataModule,
     PromptModule,
     KoreaEximbankModule,

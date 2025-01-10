@@ -8,7 +8,6 @@ import { ApiTags } from "@nestjs/swagger";
 import { ImwebProvider } from "../../../providers/connector/imweb/ImwebProvider";
 
 import { IShoppingSale } from "@wrtn/connector-api/lib/structures/shoppings/sales/IShoppingSale";
-import { tags } from "typia";
 
 @Controller("connector/imweb")
 export class ImwebController {
@@ -23,18 +22,18 @@ export class ImwebController {
    * sales in the market. You can't access to the unopened, closed, or suspended
    * sales.
    *
-   * @param id Target sale's {@link IShoppingSale.id}
+   * @param product_no Target sale's {@link IImweb.ProductSummary.prodNo}
    * @returns Detailed sale information
    * @tag Sale
    *
    * @author Samchon
    */
-  @core.TypedRoute.Patch("customers/sales/:id")
+  @core.TypedRoute.Patch("customers/sales/:product_no")
   public async at(
-    @core.TypedParam("id") id: string & tags.Format<"uuid">,
-  ): Promise<IShoppingSale> {
-    const response = {} as IShoppingSale;
-    return response;
+    @core.TypedParam("product_no") product_no: string,
+    @core.TypedBody() input: IImweb.IAt,
+  ): Promise<IImweb.Sale> {
+    return await ImwebProvider.at(product_no)(input);
   }
 
   /**

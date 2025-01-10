@@ -3,6 +3,7 @@ import { tags } from "typia";
 import { ContentMediaType } from "typia/lib/tags";
 import { IPage } from "../../common/IPage";
 import { IShoppingSale } from "../../shoppings/sales/IShoppingSale";
+import { StrictOmit } from "../../types/strictOmit";
 import { ICommon } from "../common/ISecretValue";
 
 export namespace IImweb {
@@ -10,7 +11,11 @@ export namespace IImweb {
     product_no: number;
   }
 
-  export interface IGetProductDetailInput extends IUnitCode, IAccessToken {
+  export interface IAt
+    extends StrictOmit<IImweb.IGetProductDetailInput, "product_no">,
+      IImweb.ISecret {}
+
+  export interface IGetProductDetailInput extends IUnitCode {
     product_no: number;
   }
 
@@ -100,7 +105,7 @@ export namespace IImweb {
     unitCode: string;
   }
 
-  export type IResponse = IPage<IImweb.ProductInfomation>;
+  export type IResponse = IPage<IImweb.SaleSummary>;
 
   export interface ProductOption {
     optionDetailCode: string;
@@ -125,7 +130,20 @@ export namespace IImweb {
     }>;
   }
 
-  export type ProductInfomation = DeepStrictOmit<
+  // eslint-disable-next-line @typescript-eslint/no-empty-interface
+  export interface Sale
+    extends DeepStrictOmit<
+      IShoppingSale,
+      | "closed_at"
+      | "content.id"
+      | "content.files"
+      | "snapshot_id"
+      | "suspended_at"
+      | "section"
+      | "units[*].stocks"
+    > {}
+
+  export type SaleSummary = DeepStrictOmit<
     IShoppingSale.ISummary,
     | "channels"
     | "closed_at"
@@ -133,7 +151,6 @@ export namespace IImweb {
     | "snapshot_id"
     | "suspended_at"
     | "section"
-    | "tags"
   >;
 
   /**
@@ -303,28 +320,21 @@ export namespace IImweb {
     simpleContent: string;
 
     /**
-     * Pure string except html tag
-     *
-     * @title Simple description of product's content
-     */
-    simple_content_plain: string;
-
-    /**
      * @title Whether or not mobile details are used
      */
-    use_mobile_prod_content: boolean;
+    useMobileProdContent: boolean;
 
     /**
      * @title Description of mobile details
      */
-    mobile_content?: string;
+    mobileContent?: string;
 
     /**
      * @title Setting the sales method
      *
      * It will be 'normal', 'digital' and 'subscribe' product.
      */
-    prod_type:
+    prodType:
       | tags.Constant<"normal", { title: "일반 상품" }>
       | tags.Constant<"digital", { title: "디지털 상품" }>
       | tags.Constant<"subscribe", { title: "회원그룹 이용권" }>;
@@ -332,7 +342,7 @@ export namespace IImweb {
     /**
      * @title Sales method data
      */
-    prod_type_data?: (
+    prodTypeData?: (
       | IImweb.ProdTypeData.DigitalData
       | IImweb.ProdTypeData.SubscribeData
     )[];
@@ -340,7 +350,7 @@ export namespace IImweb {
     /**
      * @title Whether the sales period is set or not
      */
-    use_pre_sale: boolean;
+    usePreSale: boolean;
 
     /**
      * @title Set up a reserve
@@ -350,11 +360,16 @@ export namespace IImweb {
     /**
      * @title Set Discount Usage
      */
-    product_discount_options: (
+    productDiscountOptions: (
       | tags.Constant<"coupon", { title: "Coupon" }>
       | tags.Constant<"point", { title: "Points" }>
       | tags.Constant<"shopping_group_dc", { title: "Shopping Group Discount" }>
     )[];
+
+    isBadgeBest: IImweb.YN;
+    isBadgeNew: IImweb.YN;
+    isBadgeMd: IImweb.YN;
+    isBadgeHot: IImweb.YN;
 
     /**
      * @title Product Weight
@@ -382,11 +397,6 @@ export namespace IImweb {
     brand: string;
 
     /**
-     * @title Badge Information
-     */
-    badge: IImweb.ProdBadgeData;
-
-    /**
      * @title External Integration Information
      */
     sync: IImweb.ProdSyncData;
@@ -406,16 +416,9 @@ export namespace IImweb {
     /**
      * @title Existence of Product Options
      */
-    is_exist_options:
+    isExistOptions:
       | tags.Constant<"Y", { title: "Options Exist" }>
       | tags.Constant<"N", { title: "Single Product" }>;
-
-    /**
-     * @title Combination Option for Product
-     */
-    is_mix:
-      | tags.Constant<"Y", { title: "Combination Option" }>
-      | tags.Constant<"N", { title: "Single Option" }>;
 
     /**
      * @title Product Add Time Timestamp

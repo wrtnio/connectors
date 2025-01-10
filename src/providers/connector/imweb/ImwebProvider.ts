@@ -1,4 +1,5 @@
 import { DeepStrictOmit } from "@kakasoo/deep-strict-types";
+import { IPage } from "@wrtn/connector-api/lib/structures/common/IPage";
 import { IImweb } from "@wrtn/connector-api/lib/structures/connector/imweb/IImweb";
 import { IShoppingPrice } from "@wrtn/connector-api/lib/structures/shoppings/base/IShoppingPrice";
 import { IShoppingSalePriceRange } from "@wrtn/connector-api/lib/structures/shoppings/sales/IShoppingSalePriceRange";
@@ -130,10 +131,62 @@ export namespace ImwebProvider {
     })(options);
   }
 
+  export const at =
+    (product_no: string) =>
+    async (
+      input: IImweb.IAt,
+      imweb_test_secret?: string,
+    ): Promise<IImweb.Sale> => {
+      let accessToken = imweb_test_secret;
+      if (!accessToken) {
+        const authorization = await ImwebProvider.getAccessToken(input);
+        accessToken = authorization.data.accessToken;
+      }
+
+      const productDetail = await API.getProductDetail({
+        product_no: Number(product_no),
+        accessToken,
+        unitCode: input.unitCode,
+      });
+
+      if (typia.is<IImweb.Error>(productDetail)) {
+        throw productDetail;
+      }
+
+      const units = await ImwebProvider.getUnits({
+        productDetail: productDetail,
+        unitCode: input.unitCode,
+        accessToken,
+      });
+
+      return {
+        id: productDetail.prodCode,
+        channels: [],
+        content: {
+          title: productDetail.simpleContent,
+          body: productDetail.content,
+          format: "txt",
+          thumbnails: [],
+        },
+        created_at: productDetail.addTime,
+        latest: true,
+        opened_at: productDetail.preSaleStartDate,
+        paused_at: productDetail.preSaleEndDate,
+        units: units,
+        updated_at: productDetail.editTime,
+        tags: [
+          ...(productDetail.isBadgeBest ? ["best"] : []),
+          ...(productDetail.isBadgeNew ? ["new"] : []),
+          ...(productDetail.isBadgeMd ? ["md_pick"] : []),
+          ...(productDetail.isBadgeHot ? ["hot"] : []),
+        ],
+      };
+    };
+
   export async function index(
     input: StrictOmit<IImweb.IGetProductInput, "prodStatus">,
     imweb_test_secret?: string,
-  ): Promise<IImweb.IResponse> {
+  ): Promise<IPage<IImweb.SaleSummary>> {
     let accessToken = imweb_test_secret;
     if (!accessToken) {
       const authorization = await ImwebProvider.getAccessToken(input);
@@ -155,7 +208,7 @@ export namespace ImwebProvider {
       },
       data: await Promise.all(
         response.list.map(
-          async (imweb_product): Promise<IImweb.ProductInfomation> => {
+          async (imweb_product): Promise<IImweb.SaleSummary> => {
             const productDetailOrError = await API.getProductDetail({
               product_no: imweb_product.prodNo,
               unitCode: input.unitCode,
@@ -173,7 +226,7 @@ export namespace ImwebProvider {
             });
 
             return {
-              id: imweb_product.prodCode,
+              id: imweb_product.prodNo,
               content: {
                 thumbnails: imweb_product.productImages
                   .filter((image) => is<string & tags.Format<"iri">>(image))
@@ -196,6 +249,12 @@ export namespace ImwebProvider {
               },
               units: units,
               updated_at: imweb_product.editTime,
+              tags: [
+                ...(productDetailOrError.isBadgeBest ? ["best"] : []),
+                ...(productDetailOrError.isBadgeNew ? ["new"] : []),
+                ...(productDetailOrError.isBadgeMd ? ["md_pick"] : []),
+                ...(productDetailOrError.isBadgeHot ? ["hot"] : []),
+              ],
             };
           },
         ),
@@ -271,9 +330,9 @@ export namespace ImwebProvider {
     }
 
     export async function getProductDetail(
-      input: IImweb.IGetProductDetailInput,
+      input: IImweb.IGetProductDetailInput & IImweb.IAccessToken,
     ): Promise<IImweb.Product | IImweb.Error> {
-      const url = `${BASE_URL}/products/${input.product_no}?unitCode=${input.unitCode}`;
+      const url = `${BASE_URL}/products/${input.product_no}?unitCode=${input.unitCode}&page=1&limit=100`;
       return axios
         .get<IImweb.ResponseForm<IImweb.Product>>(url, {
           headers: {
@@ -289,7 +348,7 @@ export namespace ImwebProvider {
     ): Promise<IImweb.ProductOption[]> {
       const { accessToken, ...rest } = input;
       const queryParameter = createQueryParameter(typia.assert(rest));
-      const url = `${BASE_URL}/products/${input.product_no}/option-details?${queryParameter}`;
+      const url = `${BASE_URL}/products/${input.product_no}/option-details?${queryParameter}&page=1&limit=100`;
       type ResponseType = IImweb.ResponseForm<IImweb.ProductOption[]>;
       return await axios
         .get<ResponseType>(url, {
