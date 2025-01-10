@@ -15,8 +15,8 @@ export const scenario_ginseng_naver_blog_to_excel =
 
 그리고 이걸 엑셀 파일에 정리해줘`,
     expected: {
-      type: "allOf",
-      allOf: [
+      type: "array",
+      items: [
         {
           type: "standalone",
           function: NaverController.prototype.blogList,

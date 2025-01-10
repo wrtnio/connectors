@@ -1,26 +1,18 @@
 import { GithubController } from "../../../../../src/controllers/connector/github/GithubController";
+import { GmailController } from "../../../../../src/controllers/connector/gmail/GmailController";
 import { SlackController } from "../../../../../src/controllers/connector/slack/SlackController";
 import { IFunctionCallBenchmarkScenario } from "../../structures/IFunctionCallBenchmarkScenario";
 
-export const scenario_github_review_to_slack =
+export const scenario_demo_github_agent_3 =
   (): IFunctionCallBenchmarkScenario => ({
-    title: "GitHub PR 리뷰 및 Slack DM",
-    prompt: `
-내 깃허브 리포지토리 (https://github.com/DSMJung/cheajib-webview) 
-를 분석해서 코드의 개선점이나, 앞으로 공부해야 할 지식들을 정리해서 
-나 자신에게 Slack DM 보내줘`,
+    title: "Github 에이전트",
+    prompt: `방금 올린 프로젝트를 보고 개선 해야 할 점을 이슈로 등록하고 slack으로 우리팀 채널에 전파해줘.`,
     expected: {
       type: "array",
       items: [
         {
-          type: "anyOf",
-          anyOf: [
-            GithubController.prototype.getReadmeFile,
-            GithubController.prototype.getRepositoryFolderStructures,
-          ].map((func) => ({
-            type: "standalone",
-            function: func,
-          })),
+          type: "standalone",
+          function: GithubController.prototype.readPullRequestDetail,
         },
         {
           type: "anyOf",
