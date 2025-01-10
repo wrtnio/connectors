@@ -107,6 +107,22 @@ export async function test_api_connector_github_get_repo_folder_structures(
   typia.assert(res);
 }
 
+export async function test_api_connector_github_get_repo_folder_structures_2(
+  connection: CApi.IConnection,
+) {
+  const res =
+    await CApi.functional.connector.github.repos.get_folder_structures.getRepositoryFolderStructures(
+      connection,
+      {
+        owner: "DSMJung",
+        repo: "cheajib-webview",
+        secretKey: ConnectorGlobal.env.G_GITHUB_TEST_SECRET,
+      },
+    );
+
+  typia.assert(res);
+}
+
 export async function test_api_connector_github_get_repo_get_contents_bulk(
   connection: CApi.IConnection,
 ) {

@@ -77,7 +77,7 @@ export namespace IShoppingSaleSnapshot {
     /**
      * Primary Key of Sale.
      */
-    id: string & tags.Format<"uuid">;
+    id: string;
 
     /**
      * Primary Key of Snapshot.

@@ -60,7 +60,7 @@ export namespace IShoppingSaleUnit {
     /**
      * Primary Key.
      */
-    id: string & tags.Format<"uuid">;
+    id: string | null;
 
     /**
      * Representative name of the unit.

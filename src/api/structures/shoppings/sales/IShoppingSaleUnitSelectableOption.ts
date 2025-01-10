@@ -42,7 +42,7 @@ export namespace IShoppingSaleUnitSelectableOption {
     /**
      * Primary Key.
      */
-    id: string & tags.Format<"uuid">;
+    id: string;
 
     /**
      * Discriminant for the type of selectable option.

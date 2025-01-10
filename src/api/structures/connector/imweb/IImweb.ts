@@ -6,6 +6,14 @@ import { IShoppingSale } from "../../shoppings/sales/IShoppingSale";
 import { ICommon } from "../common/ISecretValue";
 
 export namespace IImweb {
+  export interface Error {
+    statusCode: 400 | 401 | 402 | 403 | 404 | 500;
+    error: {
+      errorCode: string;
+      message: string;
+    };
+  }
+
   export interface IRefreshOutput {
     statusCode: 200;
     data: {
@@ -59,15 +67,13 @@ export namespace IImweb {
     /**
      * @title Response Data
      */
-    data: [
-      {
-        totalCount: number;
-        totalPage: number;
-        currentPage: number;
-        pageSize: number;
-        list: T[];
-      },
-    ];
+    data: {
+      totalCount: number;
+      totalPage: number;
+      currentPage: number;
+      pageSize: number;
+      list: T[];
+    };
   }
 
   export interface IUnitCode {
@@ -87,6 +93,29 @@ export namespace IImweb {
   }
 
   export type IResponse = IPage<IImweb.ProductInfomation>;
+
+  export interface ProductOption {
+    optionDetailCode: string;
+    isRequire: IImweb.YN;
+    isCombine: IImweb.YN;
+    price: number;
+    stock: number;
+    stockSku: string;
+    status:
+      | tags.Constant<"SALE", { title: "판매중" }>
+      | tags.Constant<"SOLDOUT", { title: "품절" }>
+      | tags.Constant<"HIDDEN", { title: "숨김" }>;
+    optionDetailInfoList: Array<{
+      optionCode: string;
+      name: string;
+      optionValue: {
+        optionValueCode: string;
+        optionValueName: string;
+        color: string;
+        imageUrl: string;
+      };
+    }>;
+  }
 
   export type ProductInfomation = DeepStrictOmit<
     IShoppingSale.ISummary,

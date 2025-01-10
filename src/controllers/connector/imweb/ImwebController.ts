@@ -6,7 +6,6 @@ import { IImweb } from "@wrtn/connector-api/lib/structures/connector/imweb/IImwe
 
 import { ApiTags } from "@nestjs/swagger";
 import { ImwebProvider } from "../../../providers/connector/imweb/ImwebProvider";
-import { retry } from "../../../utils/retry";
 
 import { IShoppingSale } from "@wrtn/connector-api/lib/structures/shoppings/sales/IShoppingSale";
 import { tags } from "typia";
@@ -72,6 +71,6 @@ export class ImwebController {
   async getProducts(
     @TypedBody() input: IImweb.IGetProductInput,
   ): Promise<IImweb.IResponse> {
-    return retry(() => ImwebProvider.index(input))();
+    return ImwebProvider.index(input);
   }
 }
