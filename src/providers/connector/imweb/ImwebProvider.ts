@@ -10,28 +10,29 @@ import { OAuthSecretProvider } from "../../internal/oauth_secret/OAuthSecretProv
 import { OptionProvider } from "./OptionProvider";
 
 export namespace ImwebProvider {
+  export namespace transform {}
+
   export async function getProducts(
-    input: IImweb.IGetProductInput & { accessToken: string },
+    input: StrictOmit<IImweb.IGetProductInput, "secretKey"> & {
+      /**
+       * 기존의 키를 재사용하여 리프레시로 인한 만료를 막는다.
+       *
+       * @title AccessToken
+       */
+      accessToken: string;
+    },
   ) {
-    const queryParameter = createQueryParameter({
-      page: input.page,
-      limit: input.limit,
-      unitCode: input.unitCode,
-      prodType: input.prodType,
-      productAddTime: input.productAddTime,
-      productEditTime: input.productEditTime,
-      productEditTimeType: input.productEditTimeType,
-      usePreSale: input.usePreSale,
-    });
+    const { accessToken, ...rest } = input;
+    const queryParameter = createQueryParameter(typia.assert(rest));
 
     const url = `https://openapi.imweb.me/products?${queryParameter}`;
-    const { data: response } = await axios.get<IImweb.IGetProductOutput>(url, {
-      headers: {
-        Authorization: `Bearer ${input.accessToken}`,
-      },
-    });
-
-    return response.data;
+    return await axios
+      .get<IImweb.IGetProductOutput>(url, {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      })
+      .then((res) => res.data.data);
   }
 
   export async function getProductDetail(input: {
@@ -176,12 +177,8 @@ export namespace ImwebProvider {
               },
               created_at: imweb_product.addTime,
               latest: true,
-              opened_at: typia.is<IImweb.Error>(productDetailOrError)
-                ? null
-                : productDetailOrError.preSaleStartDate,
-              paused_at: typia.is<IImweb.Error>(productDetailOrError)
-                ? null
-                : productDetailOrError.preSaleEndDate,
+              opened_at: productDetailOrError.preSaleStartDate,
+              paused_at: productDetailOrError.preSaleEndDate,
               price_range: {
                 highest: units.reduce((maxUnit, currentUnit) =>
                   currentUnit.price_range.highest.real >
