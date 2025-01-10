@@ -5,9 +5,9 @@ import path from "path";
 import { ConnectorConfiguration } from "../../../../src/ConnectorConfiguration";
 import { IFunctionCallBenchmarkResult } from "../structures/IFunctionCallBenchmarkResult";
 import { IFunctionCallBenchmarkOptions } from "../structures/IFunctionCallBenchmarkOptions";
-import { INestiaChatTokenUsage } from "@nestia/agent";
 import { OpenAIPriceComputer } from "../../../helpers/OpenAIPriceComputer";
 import { IFunctionCallBenchmarkScenario } from "../structures/IFunctionCallBenchmarkScenario";
+import { INestiaAgentTokenUsage } from "@nestia/agent";
 
 export namespace FunctionCallBenchmarkReporter {
   export interface IProps {
@@ -21,7 +21,7 @@ export namespace FunctionCallBenchmarkReporter {
     const everything: IFunctionCallBenchmarkResult.ITrial[] = props.results
       .map((r) => r.trials)
       .flat();
-    const usage: INestiaChatTokenUsage = aggregateUsages(
+    const usage: INestiaAgentTokenUsage = aggregateUsages(
       everything.map((t) => t.usage),
     );
     const price: OpenAIPriceComputer.IOutput = OpenAIPriceComputer.get(usage);
@@ -93,7 +93,7 @@ export namespace FunctionCallBenchmarkReporter {
   const reportResult = async (
     result: IFunctionCallBenchmarkResult,
   ): Promise<void> => {
-    const usage: INestiaChatTokenUsage = aggregateUsages(
+    const usage: INestiaAgentTokenUsage = aggregateUsages(
       result.trials.map((t) => t.usage),
     );
     const price: OpenAIPriceComputer.IOutput = OpenAIPriceComputer.get(usage);
@@ -180,9 +180,10 @@ export namespace FunctionCallBenchmarkReporter {
       `## Function Calls`,
       `### Selections`,
       ...trial.histories
-        .filter((h) => h.kind === "select")
-        .map((h) => h.functions)
+        .filter((h) => h.type === "select")
+        .map((h) => h.operations)
         .flat()
+        .filter((o) => o.protocol === "http")
         .map(
           (r) =>
             `  - \`${r.function.method.toUpperCase()} ${r.function.path}\`: ${r.reason}`,
@@ -190,25 +191,27 @@ export namespace FunctionCallBenchmarkReporter {
       "",
       `### Completions`,
       ...trial.histories
-        .filter((h) => h.kind === "execute")
+        .filter((h) => h.type === "execute")
+        .filter((h) => h.protocol === "http")
         .map((h) => [
-          `  - \`${h.function.method.toUpperCase()} ${h.function.path}\`: ${h.response.status}`,
+          `  - \`${h.function.method.toUpperCase()} ${h.function.path}\`: ${h.value.status}`,
         ])
         .flat(),
       "",
       `## History`,
       ...trial.histories
         .map((h) => {
-          if (h.kind === "text") return [`### Text (${h.role})`, h.text, ""];
-          else if (h.kind === "describe")
+          if (h.type === "text") return [`### Text (${h.role})`, h.text, ""];
+          else if (h.type === "describe")
             return [
               `### Describe`,
               h.text,
               "",
               ...h.executions
+                .filter((e) => e.protocol === "http")
                 .map((e) => [
                   `#### \`${e.function.method.toUpperCase()} ${e.function.path}\``,
-                  `Status: ${e.response.status}`,
+                  `Status: ${e.value.status}`,
                   "",
                   `<details>`,
                   `  <summary> Arguments </summary>`,
@@ -223,7 +226,7 @@ export namespace FunctionCallBenchmarkReporter {
                   `  <summary> Response </summary>`,
                   "",
                   "```json",
-                  JSON.stringify(e.response, null, 2),
+                  JSON.stringify(e.value, null, 2),
                   "```",
                   "",
                   `</details>`,
@@ -232,22 +235,26 @@ export namespace FunctionCallBenchmarkReporter {
                 .flat(),
               "",
             ];
-          else if (h.kind === "select")
+          else if (h.type === "select")
             return [
               `### Select`,
-              ...h.functions.map(
-                (f) =>
-                  `  - \`${f.function.method.toUpperCase()} ${f.function.path}\`: ${f.reason}`,
-              ),
+              ...h.operations
+                .filter((o) => o.protocol === "http")
+                .map(
+                  (o) =>
+                    `  - \`${o.function.method.toUpperCase()} ${o.function.path}\`: ${o.reason}`,
+                ),
               "",
             ];
-          else if (h.kind === "cancel")
+          else if (h.type === "cancel")
             return [
               `### Cancel`,
-              ...h.functions.map(
-                (f) =>
-                  `  - \`${f.function.method.toUpperCase()} ${f.function.path}\`: ${f.reason}`,
-              ),
+              ...h.operations
+                .filter((o) => o.protocol === "http")
+                .map(
+                  (o) =>
+                    `  - \`${o.function.method.toUpperCase()} ${o.function.path}\`: ${o.reason}`,
+                ),
               "",
             ];
           return [];
@@ -262,8 +269,8 @@ export namespace FunctionCallBenchmarkReporter {
   };
 
   const aggregateUsages = (
-    usages: INestiaChatTokenUsage[],
-  ): INestiaChatTokenUsage =>
+    usages: INestiaAgentTokenUsage[],
+  ): INestiaAgentTokenUsage =>
     usages.reduce(
       (a, b) => ({
         total: a.total + b.total,

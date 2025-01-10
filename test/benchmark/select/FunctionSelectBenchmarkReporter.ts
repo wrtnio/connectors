@@ -9,15 +9,15 @@ import { MathUtil } from "../../../src/utils/MathUtil";
 import { IFunctionSelectBenchmarkEvent } from "./IFunctionSelectBenchmarkEvent";
 import { ArrayUtil } from "@nestia/e2e";
 import { ErrorUtil } from "../../../src/utils/ErrorUtil";
-import { INestiaChatTokenUsage } from "@nestia/agent";
 import { OpenAIPriceComputer } from "../../helpers/OpenAIPriceComputer";
+import { INestiaAgentTokenUsage } from "@nestia/agent";
 
 export namespace FunctionSelectBenchmarkReporter {
   export interface IProps {
     application: IHttpLlmApplication<"chatgpt">;
     options: IFunctionSelectBenchmarkOptions;
     results: IFunctionSelectBenchmarkResult[];
-    usage: INestiaChatTokenUsage;
+    usage: INestiaAgentTokenUsage;
   }
 
   export const report = async (props: IProps): Promise<void> => {
