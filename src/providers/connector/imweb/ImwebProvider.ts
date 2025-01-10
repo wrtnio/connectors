@@ -1,5 +1,6 @@
 import { DeepStrictOmit } from "@kakasoo/deep-strict-types";
 import { IImweb } from "@wrtn/connector-api/lib/structures/connector/imweb/IImweb";
+import { IShoppingPrice } from "@wrtn/connector-api/lib/structures/shoppings/base/IShoppingPrice";
 import { IShoppingSaleUnit } from "@wrtn/connector-api/lib/structures/shoppings/sales/IShoppingSaleUnit";
 import { StrictOmit } from "@wrtn/connector-api/lib/structures/types/strictOmit";
 import axios, { AxiosError } from "axios";
@@ -10,22 +11,48 @@ import { OAuthSecretProvider } from "../../internal/oauth_secret/OAuthSecretProv
 import { OptionProvider } from "./OptionProvider";
 
 export namespace ImwebProvider {
+  const BASE_URL = "https://openapi.imweb.me" as const;
+
   export namespace transform {}
 
+  export namespace select {
+    export const getUnit =
+      (type: "maximum" | "minimum") =>
+      (
+        units: Pick<IShoppingSaleUnit.ISummary, "price_range">[],
+      ): IShoppingPrice => {
+        if (type === "maximum") {
+          return units.reduce((maxUnit, currentUnit) =>
+            currentUnit.price_range.highest.real >
+            maxUnit.price_range.highest.real
+              ? currentUnit
+              : maxUnit,
+          ).price_range.highest;
+        } else {
+          return units.reduce((minUnit, currentUnit) =>
+            currentUnit.price_range.lowest.real <
+            minUnit.price_range.lowest.real
+              ? currentUnit
+              : minUnit,
+          ).price_range.lowest;
+        }
+      };
+  }
+
+  /**
+   * getting products as format of imweb_product
+   *
+   * @param input query parameter of getting products as format of imweb_product
+   * @returns format of imweb_product
+   */
   export async function getProducts(
-    input: StrictOmit<IImweb.IGetProductInput, "secretKey"> & {
-      /**
-       * 기존의 키를 재사용하여 리프레시로 인한 만료를 막는다.
-       *
-       * @title AccessToken
-       */
-      accessToken: string;
-    },
+    input: StrictOmit<IImweb.IGetProductInput, "secretKey"> &
+      IImweb.IAccessToken,
   ) {
     const { accessToken, ...rest } = input;
     const queryParameter = createQueryParameter(typia.assert(rest));
 
-    const url = `https://openapi.imweb.me/products?${queryParameter}`;
+    const url = `${BASE_URL}/products?${queryParameter}`;
     return await axios
       .get<IImweb.IGetProductOutput>(url, {
         headers: {
@@ -40,7 +67,7 @@ export namespace ImwebProvider {
     unitCode: string;
     accessToken: string;
   }): Promise<IImweb.Product | IImweb.Error> {
-    const url = `https://openapi.imweb.me/products/${input.product_no}?unitCode=${input.unitCode}`;
+    const url = `${BASE_URL}/products/${input.product_no}?unitCode=${input.unitCode}`;
     return axios
       .get<IImweb.ResponseForm<IImweb.Product>>(url, {
         headers: {
@@ -48,15 +75,7 @@ export namespace ImwebProvider {
         },
       })
       .then((res) => res.data.data)
-      .catch((err) => {
-        if (err instanceof AxiosError) {
-          if (typia.is<IImweb.Error>(err.response?.data)) {
-            return err.response.data;
-          }
-        }
-
-        throw err;
-      });
+      .catch(ImwebProvider.returnOrThrowError);
   }
 
   export async function getUnits(input: {
@@ -71,7 +90,7 @@ export namespace ImwebProvider {
         Pick<IShoppingSaleUnit.ISummary, "price_range">
     >
   > {
-    const url = `https://openapi.imweb.me/products/${input.productDetail.prodNo}/option-details?page=${input.page}&limit=${input.limit}&unitCode=${input.unitCode}`;
+    const url = `${BASE_URL}/products/${input.productDetail.prodNo}/option-details?page=${input.page}&limit=${input.limit}&unitCode=${input.unitCode}`;
     type ResponseType = IImweb.ResponseForm<IImweb.ProductOption[]>;
     const { data: options } = await axios
       .get<ResponseType>(url, {
@@ -128,20 +147,20 @@ export namespace ImwebProvider {
     }
 
     // 상품 조회
-    const imweb_products = await ImwebProvider.getProducts({
+    const response = await ImwebProvider.getProducts({
       ...input,
       accessToken,
     });
 
     return {
       pagination: {
-        current: imweb_products.currentPage,
-        limit: imweb_products.pageSize,
-        pages: imweb_products.totalPage,
-        records: imweb_products.totalCount,
+        current: response.currentPage,
+        limit: response.pageSize,
+        pages: response.totalPage,
+        records: response.totalCount,
       },
       data: await Promise.all(
-        imweb_products.list.map(
+        response.list.map(
           async (imweb_product): Promise<IImweb.ProductInfomation> => {
             const productDetailOrError = await ImwebProvider.getProductDetail({
               product_no: imweb_product.prodNo,
@@ -180,18 +199,8 @@ export namespace ImwebProvider {
               opened_at: productDetailOrError.preSaleStartDate,
               paused_at: productDetailOrError.preSaleEndDate,
               price_range: {
-                highest: units.reduce((maxUnit, currentUnit) =>
-                  currentUnit.price_range.highest.real >
-                  maxUnit.price_range.highest.real
-                    ? currentUnit
-                    : maxUnit,
-                ).price_range.highest,
-                lowest: units.reduce((minUnit, currentUnit) =>
-                  currentUnit.price_range.lowest.real <
-                  minUnit.price_range.lowest.real
-                    ? currentUnit
-                    : minUnit,
-                ).price_range.lowest,
+                highest: ImwebProvider.select.getUnit("maximum")(units),
+                lowest: ImwebProvider.select.getUnit("minimum")(units),
               },
               units: units,
               updated_at: imweb_product.editTime,
@@ -228,7 +237,7 @@ export namespace ImwebProvider {
   export async function refresh(
     input: IImweb.IRefreshInput,
   ): Promise<IImweb.IRefreshOutput | IImweb.Error> {
-    const url = `https://openapi.imweb.me/oauth2/token`;
+    const url = `${BASE_URL}/oauth2/token`;
     return axios
       .post<IImweb.IRefreshOutput>(
         url,
@@ -245,14 +254,16 @@ export namespace ImwebProvider {
         },
       )
       .then((res) => res.data)
-      .catch((err) => {
-        if (err instanceof AxiosError) {
-          if (typia.is<IImweb.Error>(err.response?.data)) {
-            return err.response.data;
-          }
-        }
+      .catch(ImwebProvider.returnOrThrowError);
+  }
 
-        throw err;
-      });
+  export function returnOrThrowError(err: unknown) {
+    if (err instanceof AxiosError) {
+      if (typia.is<IImweb.Error>(err.response?.data)) {
+        return err.response.data;
+      }
+    }
+
+    throw err;
   }
 }

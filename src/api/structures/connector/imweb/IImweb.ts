@@ -132,6 +132,11 @@ export namespace IImweb {
    * @title AccessToken
    */
   export interface IAccessToken {
+    /**
+     * 기존의 키를 재사용하여 리프레시로 인한 만료를 막는다.
+     *
+     * @title AccessToken
+     */
     accessToken: string;
   }
 
