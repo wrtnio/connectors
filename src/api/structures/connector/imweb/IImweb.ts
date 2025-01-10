@@ -129,6 +129,13 @@ export namespace IImweb {
   >;
 
   /**
+   * @title AccessToken
+   */
+  export interface IAccessToken {
+    accessToken: string;
+  }
+
+  /**
    * @title Product Inquiry Request
    */
   export interface IGetProductInput
