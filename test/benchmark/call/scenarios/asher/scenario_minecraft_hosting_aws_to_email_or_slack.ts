@@ -26,7 +26,7 @@ studio-test-2024@wrtn.io 로 보내주거나
           type: "anyOf",
           anyOf: [
             GoogleSearchController.prototype.search,
-            YoutubeSearchController.prototype.searchVideo,
+            YoutubeSearchController.prototype.search,
           ].map((func) => ({
             type: "standalone",
             function: func,
