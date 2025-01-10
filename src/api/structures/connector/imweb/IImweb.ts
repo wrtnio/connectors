@@ -6,6 +6,14 @@ import { IShoppingSale } from "../../shoppings/sales/IShoppingSale";
 import { ICommon } from "../common/ISecretValue";
 
 export namespace IImweb {
+  export interface IGetOptionDetailInput extends IUnitCode, IAccessToken {
+    product_no: number;
+  }
+
+  export interface IGetProductDetailInput extends IUnitCode, IAccessToken {
+    product_no: number;
+  }
+
   export interface Error {
     statusCode: 400 | 401 | 402 | 403 | 404 | 500;
     error: {
