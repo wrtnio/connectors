@@ -36,13 +36,11 @@ export class GoogleShoppingProvider {
           start: start,
           num: 5,
         });
-        console.log("RES", res);
         const results = res["shopping_results"];
 
         if (!results || results.length === 0) {
           return [];
         }
-        console.log("RESULTS", results);
         for (const result of results) {
           if (output.length === input.max_results) {
             break;

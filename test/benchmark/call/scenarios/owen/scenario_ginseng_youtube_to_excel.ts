@@ -15,7 +15,7 @@ export const scenario_ginseng_youtube_to_excel =
       items: [
         {
           type: "standalone",
-          function: YoutubeSearchController.prototype.searchVideo,
+          function: YoutubeSearchController.prototype.search,
         },
         {
           type: "anyOf",
