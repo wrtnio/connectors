@@ -1,9 +1,8 @@
 import { DeepStrictOmit } from "@kakasoo/deep-strict-types";
+import { IShoppingSale } from "@samchon/shopping-api/lib/structures/shoppings/sales/IShoppingSale";
 import { tags } from "typia";
 import { ContentMediaType } from "typia/lib/tags";
 import { IPage } from "../../common/IPage";
-import { IShoppingSale } from "../../shoppings/sales/IShoppingSale";
-import { StrictOmit } from "../../types/strictOmit";
 import { ICommon } from "../common/ISecretValue";
 
 export namespace IImweb {
@@ -11,11 +10,7 @@ export namespace IImweb {
     product_no: number;
   }
 
-  export interface IAt
-    extends StrictOmit<IImweb.IGetProductDetailInput, "product_no">,
-      IImweb.ISecret {}
-
-  export interface IGetProductDetailInput extends IUnitCode {
+  export interface IGetProductDetailInput {
     product_no: number;
   }
 
@@ -134,24 +129,42 @@ export namespace IImweb {
   export interface Sale
     extends DeepStrictOmit<
       IShoppingSale,
+      | "seller"
       | "closed_at"
-      | "content.id"
-      | "content.files"
       | "snapshot_id"
       | "suspended_at"
       | "section"
       | "units[*].stocks"
     > {}
 
-  export type SaleSummary = DeepStrictOmit<
-    IShoppingSale.ISummary,
-    | "channels"
-    | "closed_at"
-    | "content.id"
-    | "snapshot_id"
-    | "suspended_at"
-    | "section"
-  >;
+  export interface SaleSummary
+    extends DeepStrictOmit<
+      IShoppingSale.ISummary,
+      | "seller.customer"
+      | "seller.member"
+      | "seller.created_at"
+      | "seller.citizen.id"
+      | "seller.citizen.created_at"
+      | "closed_at"
+      | "content.id"
+      | "snapshot_id"
+      | "suspended_at"
+      | "section"
+      | "content.thumbnails[*].created_at"
+      | "channels[*].created_at"
+      | "channels[*].categories[*].created_at"
+    > {
+    /**
+     * @title Product Number
+     */
+    product_no: number;
+  }
+
+  export interface Category {
+    categoryCode: string;
+    name: string;
+    children: Category[];
+  }
 
   /**
    * @title AccessToken
@@ -169,8 +182,7 @@ export namespace IImweb {
    * @title Product Inquiry Request
    */
   export interface IGetProductInput
-    extends IImweb.IUnitCode,
-      IImweb.ISecret,
+    extends IImweb.ISecret,
       Required<IPage.IRequest> {
     /**
      * You can deliver the value when you want to inquire based on the sales status of the product.
@@ -249,6 +261,11 @@ export namespace IImweb {
     simpleContent: string;
     preSaleStartDate: null | (string & tags.Format<"date-time">);
     preSaleEndDate: null | (string & tags.Format<"date-time">);
+
+    /**
+     * @title Category Codes
+     */
+    categories: string[];
   }
 
   export interface ProductSummary {

@@ -1,18 +1,21 @@
 import { DeepStrictOmit } from "@kakasoo/deep-strict-types";
+import { IShoppingPrice } from "@samchon/shopping-api/lib/structures/shoppings/base/IShoppingPrice";
+import { IShoppingSalePriceRange } from "@samchon/shopping-api/lib/structures/shoppings/sales/IShoppingSalePriceRange";
+import { IShoppingSaleUnit } from "@samchon/shopping-api/lib/structures/shoppings/sales/IShoppingSaleUnit";
 import { IPage } from "@wrtn/connector-api/lib/structures/common/IPage";
 import { IImweb } from "@wrtn/connector-api/lib/structures/connector/imweb/IImweb";
-import { IShoppingPrice } from "@wrtn/connector-api/lib/structures/shoppings/base/IShoppingPrice";
-import { IShoppingSalePriceRange } from "@wrtn/connector-api/lib/structures/shoppings/sales/IShoppingSalePriceRange";
-import { IShoppingSaleUnit } from "@wrtn/connector-api/lib/structures/shoppings/sales/IShoppingSaleUnit";
 import { StrictOmit } from "@wrtn/connector-api/lib/structures/types/strictOmit";
 import axios, { AxiosError } from "axios";
 import typia, { is, tags } from "typia";
+import { v5 } from "uuid";
 import { ConnectorGlobal } from "../../../ConnectorGlobal";
 import { createQueryParameter } from "../../../utils/CreateQueryParameter";
 import { OAuthSecretProvider } from "../../internal/oauth_secret/OAuthSecretProvider";
 
 export namespace ImwebProvider {
   const BASE_URL = "https://openapi.imweb.me" as const;
+  const NAMESPACE = "6ba7b810-9dad-11d1-80b4-00c04fd430c8" as const;
+  const NULL = v5("null" as const, NAMESPACE);
 
   export namespace transform {
     export const toIShoppingSaleUnitSummary =
@@ -106,7 +109,7 @@ export namespace ImwebProvider {
     if (options.length === 0) {
       return [
         {
-          id: null,
+          id: NULL,
           name: input.productDetail.name,
           options: [],
           price_range: {
@@ -131,22 +134,32 @@ export namespace ImwebProvider {
     })(options);
   }
 
+  export async function getDefaultUnit(input: IImweb.IAccessToken) {
+    const site = await API.getSite(input);
+    const units = await Promise.all(
+      site.unitList.map(async (unit) => {
+        return await API.getUnit({
+          unitCode: unit.unitCode,
+          accessToken: input.accessToken,
+        });
+      }),
+    );
+
+    const defaultUnit = units.find((el) => el.isDefault === true) ?? units[0];
+    return { unit: defaultUnit, site };
+  }
+
   export const at =
     (product_no: string) =>
-    async (
-      input: IImweb.IAt,
-      imweb_test_secret?: string,
-    ): Promise<IImweb.Sale> => {
-      let accessToken = imweb_test_secret;
-      if (!accessToken) {
-        const authorization = await ImwebProvider.getAccessToken(input);
-        accessToken = authorization.data.accessToken;
-      }
+    async (input: IImweb.ISecret): Promise<IImweb.Sale> => {
+      const authorization = await ImwebProvider.getAccessToken(input);
+      const accessToken = authorization.data.accessToken;
+      const imweb_unit = await ImwebProvider.getDefaultUnit({ accessToken });
 
       const productDetail = await API.getProductDetail({
         product_no: Number(product_no),
         accessToken,
-        unitCode: input.unitCode,
+        unitCode: imweb_unit.unit.unitCode,
       });
 
       if (typia.is<IImweb.Error>(productDetail)) {
@@ -155,18 +168,20 @@ export namespace ImwebProvider {
 
       const units = await ImwebProvider.getUnits({
         productDetail: productDetail,
-        unitCode: input.unitCode,
+        unitCode: imweb_unit.unit.unitCode,
         accessToken,
       });
 
       return {
-        id: productDetail.prodCode,
+        id: v5(productDetail.prodCode, NAMESPACE),
         channels: [],
         content: {
-          title: productDetail.simpleContent,
-          body: productDetail.content,
+          id: NULL,
+          title: productDetail.simpleContent ?? "",
+          body: productDetail.content ?? "",
           format: "txt",
           thumbnails: [],
+          files: [],
         },
         created_at: productDetail.addTime,
         latest: true,
@@ -185,18 +200,21 @@ export namespace ImwebProvider {
 
   export async function index(
     input: StrictOmit<IImweb.IGetProductInput, "prodStatus">,
-    imweb_test_secret?: string,
   ): Promise<IPage<IImweb.SaleSummary>> {
-    let accessToken = imweb_test_secret;
-    if (!accessToken) {
-      const authorization = await ImwebProvider.getAccessToken(input);
-      accessToken = authorization.data.accessToken;
-    }
+    const authorization = await ImwebProvider.getAccessToken(input);
+    const accessToken = authorization.data.accessToken;
+
+    const site = await getDefaultUnit({ accessToken });
+    const categories = await API.getCategories({
+      accessToken,
+      unitCode: site.unit.unitCode,
+    });
 
     // 상품 조회
     const response = await API.getProducts({
       ...input,
       accessToken,
+      unitCode: site.unit.unitCode,
     });
 
     return {
@@ -211,7 +229,7 @@ export namespace ImwebProvider {
           async (imweb_product): Promise<IImweb.SaleSummary> => {
             const productDetailOrError = await API.getProductDetail({
               product_no: imweb_product.prodNo,
-              unitCode: input.unitCode,
+              unitCode: site.unit.unitCode,
               accessToken,
             });
 
@@ -221,19 +239,51 @@ export namespace ImwebProvider {
 
             const units = await ImwebProvider.getUnits({
               productDetail: productDetailOrError,
-              unitCode: input.unitCode,
+              unitCode: site.unit.unitCode,
               accessToken,
             });
 
             return {
-              id: imweb_product.prodNo,
+              id: v5(imweb_product.prodNo.toString(), NAMESPACE),
+              product_no: imweb_product.prodNo,
+              seller: {
+                id: v5(site.site.siteCode, NAMESPACE),
+                type: "seller",
+                citizen: {
+                  mobile: site.unit.phone,
+                  name: site.unit.presidentName,
+                },
+              },
+              channels: [
+                {
+                  id: v5(site.unit.unitCode, NAMESPACE),
+                  code: site.unit.unitCode,
+                  name: site.unit.companyName,
+                  categories: categories
+                    .filter((el) =>
+                      productDetailOrError.categories.includes(el.categoryCode),
+                    )
+                    .map((el) => {
+                      return {
+                        id: v5(el.categoryCode, NAMESPACE),
+                        code: el.categoryCode,
+                        name: el.name,
+                        parent_id: null,
+                        parent: null,
+                      };
+                    }),
+                },
+              ],
               content: {
                 thumbnails: imweb_product.productImages
                   .filter((image) => is<string & tags.Format<"iri">>(image))
                   .map((image) => {
+                    const splited = image.split("/");
+                    const filename = splited[splited.length - 1];
                     return {
-                      name: null,
-                      extension: null,
+                      id: v5(filename.split(".")[0], NAMESPACE),
+                      name: filename,
+                      extension: filename.split(".")[1],
                       url: image,
                     };
                   }),
@@ -317,7 +367,8 @@ export namespace ImwebProvider {
      */
     export async function getProducts(
       input: StrictOmit<IImweb.IGetProductInput, "secretKey"> &
-        IImweb.IAccessToken,
+        IImweb.IAccessToken &
+        IImweb.IUnitCode,
     ) {
       const { accessToken, ...rest } = input;
       const queryParameter = createQueryParameter(typia.assert(rest));
@@ -330,7 +381,9 @@ export namespace ImwebProvider {
     }
 
     export async function getProductDetail(
-      input: IImweb.IGetProductDetailInput & IImweb.IAccessToken,
+      input: IImweb.IGetProductDetailInput &
+        IImweb.IAccessToken &
+        IImweb.IUnitCode,
     ): Promise<IImweb.Product | IImweb.Error> {
       const url = `${BASE_URL}/products/${input.product_no}?unitCode=${input.unitCode}&page=1&limit=100`;
       return axios
@@ -341,6 +394,62 @@ export namespace ImwebProvider {
         })
         .then((res) => res.data.data)
         .catch(API.returnOrThrowError);
+    }
+
+    export async function getCategories(
+      input: IImweb.IAccessToken & IImweb.IUnitCode,
+    ): Promise<IImweb.Category[]> {
+      const { accessToken } = input;
+      const url = `${BASE_URL}/products/shop-categories?unitCode=${input.unitCode}`;
+      return await axios
+        .get<IImweb.ResponseForm<IImweb.Category[]>>(url, {
+          headers: { Authorization: `Bearer ${accessToken}` },
+        })
+        .then((res) => res.data.data)
+        .catch((err) => {
+          console.log(
+            JSON.stringify(ImwebProvider.API.returnOrThrowError(err)),
+          );
+          return [];
+        });
+    }
+
+    export async function getSite(input: IImweb.IAccessToken) {
+      const { accessToken } = input;
+      const url = `${BASE_URL}/site-info`;
+      return await axios
+        .get<
+          IImweb.ResponseForm<{
+            siteCode: string;
+            unitList: { unitCode: string; name: string }[];
+          }>
+        >(url, {
+          headers: { Authorization: `Bearer ${accessToken}` },
+        })
+        .then((res) => res.data.data);
+    }
+
+    export async function getUnit(
+      input: IImweb.IUnitCode & IImweb.IAccessToken,
+    ) {
+      const { accessToken } = input;
+      const url = `${BASE_URL}/site-info/unit/${input.unitCode}`;
+      return await axios
+        .get<
+          IImweb.ResponseForm<{
+            unitCode: string;
+            name: string;
+            isDefault: boolean;
+            companyName: string;
+            presidentName: string;
+            companyRegistrationNo: string;
+            phone: string;
+            email: string;
+          }>
+        >(url, {
+          headers: { Authorization: `Bearer ${accessToken}` },
+        })
+        .then((res) => res.data.data);
     }
 
     export async function getOptionDetails(

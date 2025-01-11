@@ -5,9 +5,8 @@ import { RouteIcon } from "@wrtnio/decorators";
 import { IImweb } from "@wrtn/connector-api/lib/structures/connector/imweb/IImweb";
 
 import { ApiTags } from "@nestjs/swagger";
+import { IShoppingSale } from "@samchon/shopping-api/lib/structures/shoppings/sales/IShoppingSale";
 import { ImwebProvider } from "../../../providers/connector/imweb/ImwebProvider";
-
-import { IShoppingSale } from "@wrtn/connector-api/lib/structures/shoppings/sales/IShoppingSale";
 
 @Controller("connector/imweb")
 export class ImwebController {
@@ -31,7 +30,7 @@ export class ImwebController {
   @core.TypedRoute.Patch("customers/sales/:product_no")
   public async at(
     @core.TypedParam("product_no") product_no: string,
-    @core.TypedBody() input: IImweb.IAt,
+    @core.TypedBody() input: IImweb.ISecret,
   ): Promise<IImweb.Sale> {
     return await ImwebProvider.at(product_no)(input);
   }
