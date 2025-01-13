@@ -3,7 +3,7 @@ import { IFunctionCallBenchmarkScenario } from "../../structures/IFunctionCallBe
 
 export const scenario_demo_github_agent_1 =
   (): IFunctionCallBenchmarkScenario => ({
-    title: "Github 에이전트",
+    title: "Github 에이전트 1",
     prompt: `
 오늘 올린 프로젝트 PR을 보고 코드 리뷰해서 댓글 달아줘.`,
     expected: {

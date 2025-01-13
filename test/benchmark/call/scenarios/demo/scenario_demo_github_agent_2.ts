@@ -5,7 +5,7 @@ import { IFunctionCallBenchmarkScenario } from "../../structures/IFunctionCallBe
 
 export const scenario_demo_github_agent_2 =
   (): IFunctionCallBenchmarkScenario => ({
-    title: "Github 에이전트",
+    title: "Github 에이전트 2",
     prompt: `
     github에서 pin된 repository를 읽고 분석해서 개발자 이력서를 작성해줘.`,
     expected: {

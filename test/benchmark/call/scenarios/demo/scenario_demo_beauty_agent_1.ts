@@ -6,7 +6,7 @@ import { IFunctionCallBenchmarkScenario } from "../../structures/IFunctionCallBe
 
 export const scenario_demo_beauty_agent =
   (): IFunctionCallBenchmarkScenario => ({
-    title: "뷰티 에이전트",
+    title: "뷰티 에이전트 1",
     prompt: `
 요즘 여드름이 나서 걱정이야, 여드름에 잘 맞는 폼클렌징 추천해줘.
 

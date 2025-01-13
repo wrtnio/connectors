@@ -2,20 +2,20 @@ import { GithubController } from "../../../../../src/controllers/connector/githu
 import { JiraController } from "../../../../../src/controllers/connector/jira/JiraController";
 import { IFunctionCallBenchmarkScenario } from "../../structures/IFunctionCallBenchmarkScenario";
 
-export const scenario_demo_github_agent_3 =
+export const scenario_demo_github_agent_4 =
   (): IFunctionCallBenchmarkScenario => ({
-    title: "Github 에이전트 3",
-    prompt: `지라에 내 앞으로 등록된 이슈들을 깃허브에 이슈로 등록해줘.`,
+    title: "Github 에이전트 5",
+    prompt: `깃허브 이슈 등록한거 지라에도 등록해줘`,
     expected: {
       type: "array",
       items: [
         {
           type: "standalone",
-          function: JiraController.prototype.getIssues,
+          function: GithubController.prototype.getRepositoryIssues,
         },
         {
           type: "standalone",
-          function: GithubController.prototype.createIssue,
+          function: JiraController.prototype.createIssueByMarkdown,
         },
       ],
     },
