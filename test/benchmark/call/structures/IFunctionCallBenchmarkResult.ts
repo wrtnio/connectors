@@ -1,4 +1,8 @@
-import { INestiaAgentPrompt, INestiaAgentTokenUsage } from "@nestia/agent";
+import {
+  INestiaAgentEvent,
+  INestiaAgentPrompt,
+  INestiaAgentTokenUsage,
+} from "@nestia/agent";
 import { IFunctionCallBenchmarkScenario } from "./IFunctionCallBenchmarkScenario";
 
 export interface IFunctionCallBenchmarkResult {
@@ -9,6 +13,7 @@ export interface IFunctionCallBenchmarkResult {
 export namespace IFunctionCallBenchmarkResult {
   export interface ITrial {
     histories: INestiaAgentPrompt[];
+    responses: INestiaAgentEvent.IResponse[];
     usage: INestiaAgentTokenUsage;
     select: boolean;
     execute: boolean;
