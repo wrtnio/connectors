@@ -4,6 +4,7 @@ import { IShoppingSaleUnit } from "@samchon/shopping-api/lib/structures/shopping
 import { tags } from "typia";
 import { ContentMediaType } from "typia/lib/tags";
 import { IPage } from "../../common/IPage";
+import { StrictOmit } from "../../types/strictOmit";
 import { ICommon } from "../common/ISecretValue";
 
 export namespace IImweb {
@@ -54,7 +55,7 @@ export namespace IImweb {
       /**
        * @title Product Number
        */
-      product_no: number;
+      productNo: number;
     }
   }
 
@@ -107,7 +108,7 @@ export namespace IImweb {
        *
        * @title Product Number
        */
-      product_no: number;
+      productNo: number;
     }
 
     /**
@@ -225,9 +226,7 @@ export namespace IImweb {
   /**
    * @title Condition of getting cateogires
    */
-  export interface IGetCategoryInput
-    extends IImweb.Common.IAccessToken,
-      IImweb.Common.IUnitCode {}
+  export type IGetCategoryInput = IImweb.Common.IAccessToken;
 
   export interface IRefreshOutput {
     /**
@@ -842,8 +841,16 @@ export namespace IImweb {
   /**
    * @title Product inquiry results
    */
-  export type IGetProductOutput =
+  export type IGetProductListOutput =
     IImweb.Common.ResponseSummaryForm<IImweb.ProductSummary>;
+
+  /**
+   * @title Condition of Product inquiry
+   */
+  export interface IGetProductListInput
+    extends StrictOmit<IImweb.IGetProductInput, "secretKey">,
+      IImweb.Common.IAccessToken,
+      IImweb.Common.IUnitCode {}
 
   /**
    * @title Imweb Token Issuance Request Response DTO

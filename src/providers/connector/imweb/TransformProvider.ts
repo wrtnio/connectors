@@ -8,12 +8,46 @@ export namespace TransformProivder {
     return v5(value ?? ("null" as const), NAMESPACE);
   };
 
+  export const toTags = (
+    input: Pick<
+      IImweb.Product,
+      "isBadgeBest" | "isBadgeHot" | "isBadgeMd" | "isBadgeNew"
+    >,
+  ) => {
+    return [
+      ...(input.isBadgeBest ? ["best"] : []),
+      ...(input.isBadgeNew ? ["new"] : []),
+      ...(input.isBadgeMd ? ["md_pick"] : []),
+      ...(input.isBadgeHot ? ["hot"] : []),
+    ];
+  };
+
   export const toIShoppingSaleUnitSummary =
-    (product: { price: number }) =>
+    (product: { name: string; price: number }) =>
     (
       options: IImweb.ProductOption[],
     ): Array<IImweb.ShoppingBackend.ImwebSaleUnitSummary> => {
-      if (options.every((el) => el.isCombine === "Y")) {
+      if (options.length === 0) {
+        return [
+          {
+            id: TransformProivder.toUUID(null),
+            name: product.name,
+            options: [],
+            price_range: {
+              highest: {
+                nominal: product.price,
+                real: product.price,
+              },
+              lowest: {
+                nominal: product.price,
+                real: product.price,
+              },
+            },
+            primary: true,
+            required: true,
+          },
+        ];
+      } else if (options.every((el) => el.isCombine === "Y")) {
         /**
          * 아임웹에서의 조합형 옵션을 의미한다.
          */

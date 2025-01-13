@@ -21,7 +21,7 @@ export class ImwebController {
    * sales in the market. You can't access to the unopened, closed, or suspended
    * sales.
    *
-   * @param product_no Target sale's {@link IImweb.ProductSummary.prodNo}
+   * @param productNo Target sale's {@link IImweb.ProductSummary.prodNo}
    * @returns Detailed sale information
    * @tag Sale
    *
@@ -31,12 +31,12 @@ export class ImwebController {
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Imweb_full.svg",
   )
   @ApiTags("Imweb")
-  @core.TypedRoute.Patch("customers/sales/:product_no")
+  @core.TypedRoute.Patch("customers/sales/:productNo")
   public async at(
-    @core.TypedParam("product_no") product_no: string,
+    @core.TypedParam("productNo") productNo: string,
     @core.TypedBody() input: IImweb.ISecret,
   ): Promise<IImweb.ShoppingBackend.Sale> {
-    return await ImwebProvider.at(product_no)(input);
+    return await ImwebProvider.at(productNo)(input);
   }
 
   /**

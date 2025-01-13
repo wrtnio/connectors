@@ -11,7 +11,7 @@ export namespace ImwebProvider {
   export namespace Select {
     export function getUnit(type: "maximum" | "minimum") {
       return function (
-        units: Awaited<ReturnType<typeof ImwebProvider.getUnits>>,
+        units: Awaited<ReturnType<ReturnType<typeof ImwebProvider.getUnits>>>,
       ): IShoppingPrice {
         if (type === "maximum") {
           return units
@@ -26,42 +26,24 @@ export namespace ImwebProvider {
     }
   }
 
-  export async function getUnits(input: {
-    productDetail: Pick<IImweb.Product, "prodNo" | "name" | "price">;
-    unitCode: string;
-    accessToken: string;
-  }): Promise<Array<IImweb.ShoppingBackend.ImwebSaleUnitSummary>> {
-    const options = await APIProivder.getOptionDetails({
-      product_no: input.productDetail.prodNo,
-      ...input,
-    });
+  export function getUnits(unitCode: string) {
+    return async function (input: {
+      productDetail: Pick<IImweb.Product, "prodNo" | "name" | "price">;
 
-    if (options.length === 0) {
-      return [
-        {
-          id: TransformProivder.toUUID(null),
-          name: input.productDetail.name,
-          options: [],
-          price_range: {
-            highest: {
-              nominal: input.productDetail.price,
-              real: input.productDetail.price,
-            },
-            lowest: {
-              nominal: input.productDetail.price,
-              real: input.productDetail.price,
-            },
-          },
-          primary: true,
-          required: true,
-        },
-      ];
-    }
+      accessToken: string;
+    }): Promise<Array<IImweb.ShoppingBackend.ImwebSaleUnitSummary>> {
+      const { productDetail } = input;
+      const options = await APIProivder.getOptionDetails({
+        productNo: productDetail.prodNo,
+        accessToken: input.accessToken,
+        unitCode: unitCode,
+      });
 
-    // Transform product type to shopping backend format
-    return TransformProivder.toIShoppingSaleUnitSummary({
-      price: input.productDetail.price,
-    })(options);
+      // Transform product type to shopping backend format
+      return TransformProivder.toIShoppingSaleUnitSummary(productDetail)(
+        options,
+      );
+    };
   }
 
   export async function getDefaultUnit(input: IImweb.Common.IAccessToken) {
@@ -80,26 +62,25 @@ export namespace ImwebProvider {
   }
 
   export const at =
-    (product_no: string) =>
+    (productNo: string) =>
     async (input: IImweb.ISecret): Promise<IImweb.ShoppingBackend.Sale> => {
       const authorization = await ImwebProvider.getAccessToken(input);
-      const accessToken = authorization.data.accessToken;
-      const imweb_unit = await ImwebProvider.getDefaultUnit({ accessToken });
+      const imweb_unit = await ImwebProvider.getDefaultUnit(authorization);
 
+      const unitCode = imweb_unit.unit.unitCode;
       const productDetail = await APIProivder.getProductDetail({
-        product_no: Number(product_no),
-        accessToken,
-        unitCode: imweb_unit.unit.unitCode,
+        productNo: Number(productNo),
+        accessToken: authorization.accessToken,
+        unitCode,
       });
 
       if (typia.is<IImweb.Common.IError>(productDetail)) {
         throw productDetail;
       }
 
-      const units = await ImwebProvider.getUnits({
+      const units = await ImwebProvider.getUnits(unitCode)({
         productDetail: productDetail,
-        unitCode: imweb_unit.unit.unitCode,
-        accessToken,
+        accessToken: authorization.accessToken,
       });
 
       return {
@@ -119,12 +100,7 @@ export namespace ImwebProvider {
         paused_at: productDetail.preSaleEndDate,
         units: units,
         updated_at: productDetail.editTime,
-        tags: [
-          ...(productDetail.isBadgeBest ? ["best"] : []),
-          ...(productDetail.isBadgeNew ? ["new"] : []),
-          ...(productDetail.isBadgeMd ? ["md_pick"] : []),
-          ...(productDetail.isBadgeHot ? ["hot"] : []),
-        ],
+        tags: TransformProivder.toTags(productDetail),
       };
     };
 
@@ -132,19 +108,15 @@ export namespace ImwebProvider {
     input: IImweb.IGetProductInput,
   ): Promise<IPage<IImweb.ShoppingBackend.SaleSummary>> {
     const authorization = await ImwebProvider.getAccessToken(input);
-    const accessToken = authorization.data.accessToken;
+    const site = await ImwebProvider.getDefaultUnit(authorization);
+    const unitCode = site.unit.unitCode;
 
-    const site = await getDefaultUnit({ accessToken });
-    const categories = await APIProivder.getCategories({
-      accessToken,
-      unitCode: site.unit.unitCode,
-    });
+    const categories = await APIProivder.getCategories(unitCode)(authorization);
 
     // 상품 조회
-    const response = await APIProivder.getProducts({
+    const response = await APIProivder.getProducts(unitCode)({
       ...input,
-      accessToken,
-      unitCode: site.unit.unitCode,
+      ...authorization,
     });
 
     return {
@@ -160,24 +132,23 @@ export namespace ImwebProvider {
             imweb_product,
           ): Promise<IImweb.ShoppingBackend.SaleSummary> => {
             const productDetailOrError = await APIProivder.getProductDetail({
-              product_no: imweb_product.prodNo,
-              unitCode: site.unit.unitCode,
-              accessToken,
+              productNo: imweb_product.prodNo,
+              unitCode,
+              accessToken: authorization.accessToken,
             });
 
             if (typia.is<IImweb.Common.IError>(productDetailOrError)) {
               throw productDetailOrError;
             }
 
-            const units = await ImwebProvider.getUnits({
+            const units = await ImwebProvider.getUnits(unitCode)({
               productDetail: productDetailOrError,
-              unitCode: site.unit.unitCode,
-              accessToken,
+              accessToken: authorization.accessToken,
             });
 
             return {
               id: TransformProivder.toUUID(imweb_product.prodNo.toString()),
-              product_no: imweb_product.prodNo,
+              productNo: imweb_product.prodNo,
               seller: {
                 id: TransformProivder.toUUID(site.site.siteCode),
                 type: "seller",
@@ -188,8 +159,8 @@ export namespace ImwebProvider {
               },
               channels: [
                 {
-                  id: TransformProivder.toUUID(site.unit.unitCode),
-                  code: site.unit.unitCode,
+                  id: TransformProivder.toUUID(unitCode),
+                  code: unitCode,
                   name: site.unit.companyName,
                   categories: (categories instanceof Array ? categories : [])
                     .filter((el) =>
@@ -231,12 +202,7 @@ export namespace ImwebProvider {
               },
               units: units,
               updated_at: imweb_product.editTime,
-              tags: [
-                ...(productDetailOrError.isBadgeBest ? ["best"] : []),
-                ...(productDetailOrError.isBadgeNew ? ["new"] : []),
-                ...(productDetailOrError.isBadgeMd ? ["md_pick"] : []),
-                ...(productDetailOrError.isBadgeHot ? ["hot"] : []),
-              ],
+              tags: TransformProivder.toTags(productDetailOrError),
             };
           },
         ),
@@ -244,7 +210,9 @@ export namespace ImwebProvider {
     };
   }
 
-  export async function getAccessToken(input: { secretKey: string }) {
+  export async function getAccessToken(
+    input: IImweb.ISecret,
+  ): Promise<IImweb.IRefreshOutput["data"]> {
     const secretKey = input.secretKey;
     const refreshToken = await OAuthSecretProvider.getSecretValue(secretKey);
     const response = await APIProivder.refresh({ refreshToken });
@@ -255,7 +223,7 @@ export namespace ImwebProvider {
     const newRefreshToken = response.data.refreshToken;
 
     if (typia.is<string & tags.Format<"uuid">>(secretKey)) {
-      await OAuthSecretProvider.updateSecretValue(input.secretKey, {
+      await OAuthSecretProvider.updateSecretValue(secretKey, {
         value: newRefreshToken,
       });
     }
@@ -264,6 +232,6 @@ export namespace ImwebProvider {
       await ConnectorGlobal.write({ IMWEB_TEST_API_SECRET: newRefreshToken });
     }
 
-    return response;
+    return response.data;
   }
 }

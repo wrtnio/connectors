@@ -1,5 +1,4 @@
 import { IImweb } from "@wrtn/connector-api/lib/structures/connector/imweb/IImweb";
-import { StrictOmit } from "@wrtn/connector-api/lib/structures/types/strictOmit";
 import axios, { AxiosError } from "axios";
 import typia from "typia";
 import { ConnectorGlobal } from "../../../ConnectorGlobal";
@@ -37,25 +36,26 @@ export namespace APIProivder {
    * @param input query parameter of getting products as format of imweb_product
    * @returns format of imweb_product
    */
-  export async function getProducts(
-    input: StrictOmit<IImweb.IGetProductInput, "secretKey"> &
-      IImweb.Common.IAccessToken &
-      IImweb.Common.IUnitCode,
-  ) {
-    const { accessToken, search } = input;
-    const queryParameter = createQueryParameter(typia.assert(search));
-    const url = `${BASE_URL}/products?${queryParameter}`;
-    return await axios
-      .get<IImweb.IGetProductOutput>(url, {
-        headers: { Authorization: `Bearer ${accessToken}` },
-      })
-      .then((res) => res.data.data);
+  export function getProducts(unitCode: string) {
+    return async function (
+      input: Omit<IImweb.IGetProductListInput, "unitCode">,
+    ) {
+      const { accessToken, search, page, limit } = input;
+      const query = createQueryParameter({ ...search, page, limit, unitCode });
+
+      const url = `${BASE_URL}/products?${query}`;
+      return await axios
+        .get<IImweb.IGetProductListOutput>(url, {
+          headers: { Authorization: `Bearer ${accessToken}` },
+        })
+        .then((res) => res.data.data);
+    };
   }
 
   export async function getProductDetail(
     input: IImweb.IGetProductDetailInput,
   ): Promise<IImweb.Product | IImweb.Common.IError> {
-    const url = `${BASE_URL}/products/${input.product_no}?unitCode=${input.unitCode}&page=1&limit=100`;
+    const url = `${BASE_URL}/products/${input.productNo}?unitCode=${input.unitCode}&page=1&limit=100`;
     return axios
       .get<IImweb.IGetProductDetailOutput>(url, {
         headers: {
@@ -66,17 +66,19 @@ export namespace APIProivder {
       .catch(returnOrThrowError);
   }
 
-  export async function getCategories(
-    input: IImweb.IGetCategoryInput,
-  ): Promise<IImweb.Category[] | IImweb.Common.IError> {
-    const { accessToken } = input;
-    const url = `${BASE_URL}/products/shop-categories?unitCode=${input.unitCode}`;
-    return await axios
-      .get<IImweb.IGetCategoryOutput>(url, {
-        headers: { Authorization: `Bearer ${accessToken}` },
-      })
-      .then((res) => res.data.data)
-      .catch(returnOrThrowError);
+  export function getCategories(unitCode: string) {
+    return async function (
+      input: IImweb.IGetCategoryInput,
+    ): Promise<IImweb.Category[] | IImweb.Common.IError> {
+      const { accessToken } = input;
+      const url = `${BASE_URL}/products/shop-categories?unitCode=${unitCode}`;
+      return await axios
+        .get<IImweb.IGetCategoryOutput>(url, {
+          headers: { Authorization: `Bearer ${accessToken}` },
+        })
+        .then((res) => res.data.data)
+        .catch(returnOrThrowError);
+    };
   }
 
   export async function getSite(input: IImweb.Common.IAccessToken) {
@@ -108,8 +110,8 @@ export namespace APIProivder {
     input: IImweb.IGetOptionDetailInput,
   ): Promise<IImweb.ProductOption[]> {
     const { accessToken, ...rest } = input;
-    const queryParameter = createQueryParameter(typia.assert(rest));
-    const url = `${BASE_URL}/products/${input.product_no}/option-details?${queryParameter}&page=1&limit=100`;
+    const query = createQueryParameter(typia.assert(rest));
+    const url = `${BASE_URL}/products/${input.productNo}/option-details?${query}&page=1&limit=100`;
     return await axios
       .get<IImweb.IGetOptionDetailOutput>(url, {
         headers: {
