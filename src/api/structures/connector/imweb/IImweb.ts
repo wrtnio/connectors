@@ -798,4 +798,11 @@ export namespace IImweb {
      */
     email?: string;
   }
+
+  /**
+   * @title Condition of getting unit list
+   */
+  export interface IGetUnitInput
+    extends IImweb.Common.IUnitCode,
+      IImweb.Common.IAccessToken {}
 }

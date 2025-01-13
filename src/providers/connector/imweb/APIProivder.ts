@@ -99,9 +99,7 @@ export namespace APIProivder {
       .then((res) => res.data.data);
   }
 
-  export async function getUnit(
-    input: IImweb.Common.IUnitCode & IImweb.Common.IAccessToken,
-  ) {
+  export async function getUnit(input: IImweb.IGetUnitInput) {
     const { accessToken } = input;
     const url = `${BASE_URL}/site-info/unit/${input.unitCode}`;
     return await axios
