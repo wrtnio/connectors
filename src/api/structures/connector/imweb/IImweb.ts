@@ -63,6 +63,9 @@ export namespace IImweb {
       product_no: number;
     }
 
+    /**
+     * @title IUnitCode
+     */
     export interface IUnitCode {
       /**
        * On Imweb, even one site can have multiple unit codes if
@@ -91,17 +94,50 @@ export namespace IImweb {
        */
       accessToken: string;
     }
+
+    /**
+     * @title Response Format of Imweb
+     */
+    export interface ResponseForm<T> {
+      /**
+       * @title Status Code
+       */
+      code: number;
+
+      /**
+       * @title Response Data
+       */
+      data: T;
+    }
+
+    /**
+     * @title Response Format of Imweb
+     */
+    export interface ResponseSummaryForm<T> {
+      /**
+       * @title Status Code
+       */
+      code: number;
+
+      /**
+       * @title Response Data
+       */
+      data: {
+        totalCount: number;
+        totalPage: number;
+        currentPage: number;
+        pageSize: number;
+        list: T[];
+      };
+    }
   }
 
   export interface IGetOptionDetailInput
     extends IImweb.Common.IUnitCode,
-      IImweb.Common.IAccessToken {
-    product_no: number;
-  }
+      IImweb.Common.IProductNumber,
+      IImweb.Common.IAccessToken {}
 
-  export interface IGetProductDetailInput {
-    product_no: number;
-  }
+  export type IGetProductDetailInput = IImweb.Common.IProductNumber;
 
   export interface Error {
     statusCode: 400 | 401 | 402 | 403 | 404 | 500;
@@ -136,42 +172,6 @@ export namespace IImweb {
       "payment:read",
     ]
   >;
-
-  /**
-   * @title Response Format of Imweb
-   */
-  export interface ResponseForm<T> {
-    /**
-     * @title Status Code
-     */
-    code: number;
-
-    /**
-     * @title Response Data
-     */
-    data: T;
-  }
-
-  /**
-   * @title Response Format of Imweb
-   */
-  export interface ResponseSummaryForm<T> {
-    /**
-     * @title Status Code
-     */
-    code: number;
-
-    /**
-     * @title Response Data
-     */
-    data: {
-      totalCount: number;
-      totalPage: number;
-      currentPage: number;
-      pageSize: number;
-      list: T[];
-    };
-  }
 
   export type IResponse = IPage<IImweb.ShoppingBackend.SaleSummary>;
 
@@ -283,7 +283,8 @@ export namespace IImweb {
   /**
    * @title Product inquiry results
    */
-  export type IGetProductOutput = ResponseSummaryForm<IImweb.ProductSummary>;
+  export type IGetProductOutput =
+    IImweb.Common.ResponseSummaryForm<IImweb.ProductSummary>;
 
   export interface Product extends ProductSummary {
     simpleContent: string;
@@ -756,5 +757,45 @@ export namespace IImweb {
      * @title Access Token
      */
     access_token: string;
+  }
+
+  /**
+   * @title Response of getting unit list
+   */
+  export interface IGetUnitOutput extends IImweb.Common.IUnitCode {
+    /**
+     * @title Unit Name
+     */
+    name: string;
+
+    /**
+     * @title Whether this unit is the default
+     */
+    isDefault: boolean;
+
+    /**
+     * @title Company and business name
+     */
+    companyName: string;
+
+    /**
+     * @title President name
+     */
+    presidentName: string;
+
+    /**
+     * @title Company registration number
+     */
+    companyRegistrationNo: string;
+
+    /**
+     * @title Registration phone number
+     */
+    phone?: string;
+
+    /**
+     * @title Registration email address
+     */
+    email?: string;
   }
 }

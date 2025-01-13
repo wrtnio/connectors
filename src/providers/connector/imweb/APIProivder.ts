@@ -59,7 +59,7 @@ export namespace APIProivder {
   ): Promise<IImweb.Product | IImweb.Error> {
     const url = `${BASE_URL}/products/${input.product_no}?unitCode=${input.unitCode}&page=1&limit=100`;
     return axios
-      .get<IImweb.ResponseForm<IImweb.Product>>(url, {
+      .get<IImweb.Common.ResponseForm<IImweb.Product>>(url, {
         headers: {
           Authorization: `Bearer ${input.accessToken}`,
         },
@@ -74,7 +74,7 @@ export namespace APIProivder {
     const { accessToken } = input;
     const url = `${BASE_URL}/products/shop-categories?unitCode=${input.unitCode}`;
     return await axios
-      .get<IImweb.ResponseForm<IImweb.Category[]>>(url, {
+      .get<IImweb.Common.ResponseForm<IImweb.Category[]>>(url, {
         headers: { Authorization: `Bearer ${accessToken}` },
       })
       .then((res) => res.data.data)
@@ -89,7 +89,7 @@ export namespace APIProivder {
     const url = `${BASE_URL}/site-info`;
     return await axios
       .get<
-        IImweb.ResponseForm<{
+        IImweb.Common.ResponseForm<{
           siteCode: string;
           unitList: { unitCode: string; name: string }[];
         }>
@@ -105,18 +105,7 @@ export namespace APIProivder {
     const { accessToken } = input;
     const url = `${BASE_URL}/site-info/unit/${input.unitCode}`;
     return await axios
-      .get<
-        IImweb.ResponseForm<{
-          unitCode: string;
-          name: string;
-          isDefault: boolean;
-          companyName: string;
-          presidentName: string;
-          companyRegistrationNo: string;
-          phone?: string;
-          email?: string;
-        }>
-      >(url, {
+      .get<IImweb.Common.ResponseForm<IImweb.IGetUnitOutput>>(url, {
         headers: { Authorization: `Bearer ${accessToken}` },
       })
       .then((res) => res.data.data);
@@ -128,7 +117,9 @@ export namespace APIProivder {
     const { accessToken, ...rest } = input;
     const queryParameter = createQueryParameter(typia.assert(rest));
     const url = `${BASE_URL}/products/${input.product_no}/option-details?${queryParameter}&page=1&limit=100`;
-    type ResponseType = IImweb.ResponseForm<{ list: IImweb.ProductOption[] }>;
+    type ResponseType = IImweb.Common.ResponseForm<{
+      list: IImweb.ProductOption[];
+    }>;
     return await axios
       .get<ResponseType>(url, {
         headers: {
