@@ -18,7 +18,7 @@
     "title": "Slack",
     "summary": "슬랙에서 대화 내용을 가져오거나 메시지를 보낼 수 있어요.",
     "description": "슬랙에서 우리 멤버들이 어떤 주제를 가지고 논의를 하는지 확인해요. 우리 워크스페이스에 있는 유저 그룹이나 동료의 프로필을 확인할 수도 있고, 동료에게 말을 걸 수도 있고, 채널에 메세지를 보내고, 또 답글을 달 수도 있어요.",
-    "version": "0.1.441",
+    "version": "0.1.442",
     "license": {
       "name": "AGPL-3.0-only"
     }
@@ -504,7 +504,7 @@
     "/connector/slack/get-channel-link-histories": {
       "patch": {
         "summary": "get links from channel histories",
-        "description": "get channel links from channel histories\n\nLook up conversations that have been made in and out of the channel.\n\nThe 'channel' received as a factor means the channel's ID and is a character string that begins with a capital 'C', 'D' and so on.\nTherefore, if the user does not hand over the ID when looking for the conversation history of the channel,\nit is prioritized to find the channel ID.\nUsually, users don't know their channel ID.\nTherefore, most users will ask for a channel by its name or with only the keywords they remember.\nTherefore, unless it's an unknown string and begins with a 'C' or 'D' uppercase letter, look for the channel first.\n\nWhen you look up a conversation,\nyou can search only after a specific time or before a specific time in order to look up the time zone of the conversation you want to search for.\n\nMessages without links are removed, leaving only messages with links.\nThis is because it only leaves messages with links as connectors to find links in conversations.\nLinks are arranged in links properties.\n\nIf you want to filter by date, prioritize using the datetime format.",
+        "description": "Get Channel Links from Channel Histories\n\nRetrieves conversations in and out of channels.\nA channel ID starts with 'C' or 'D' (uppercase). If no ID is provided, search by channel name or keywords.\nUsers often don’t know channel IDs, so prioritize finding the channel unless the input starts with 'C' or 'D'.\nSearch conversations within specific timeframes using datetime formats.\nFilters out messages without links, retaining only those with links in the links property.\nThis ensures efficient link extraction from conversation histories.",
         "tags": [
           "Slack"
         ],
@@ -544,7 +544,7 @@
     "/connector/slack/get-channel-histories": {
       "patch": {
         "summary": "get channel histories",
-        "description": "get channel histories\n\nLook up conversations that have been made in and out of the channel.\n\nThe 'channel' received as a factor means the channel's ID and is a character string that begins with a capital 'C', 'D' and so on.\nTherefore, if the user does not hand over the ID when looking for the conversation history of the channel,\nit is prioritized to find the channel ID.\nUsually, users don't know their channel ID.\nTherefore, most users will ask for a channel by its name or with only the keywords they remember.\nTherefore, unless it's an unknown string and begins with a 'C' or 'D' uppercase letter, look for the channel first.\n\nWhen you look up a conversation,\nyou can search only after a specific time or before a specific time in order to look up the time zone of the conversation you want to search for.\n\nIn the conversation history, the link and code box are abbreviated to <LINK/> and <CODE/>, respectively.\nFor users, it is replaced by a user name, Like <@USERNAME>.\n<@USERNAME> is about calling someone else, and it's not the name of the person who started the conversation, so be careful.\n\nIf you want to filter by date, prioritize using the datetime format.",
+        "description": "Get Channel Histories\n\nRetrieves conversations in and out of channels.\nChannel IDs start with 'C' or 'D' (uppercase). If no ID is provided, search by channel name or keywords.\nUsers typically don’t know channel IDs, so prioritize finding the channel unless the input starts with 'C' or 'D'.\nSearch conversations within specific timeframes using datetime formats.\nIn history, links and code boxes are shown as <LINK/> and <CODE/>. Mentions appear as <@USERNAME>, but this indicates a mention, not the conversation starter.\nFilters by date should prioritize the datetime format for accuracy.",
         "tags": [
           "Slack"
         ],

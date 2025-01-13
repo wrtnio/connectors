@@ -18,7 +18,7 @@
     "title": "Excel",
     "summary": "엑셀을 이용해서 알아보기 쉽게 데이터를 관리할 수 있어요",
     "description": "엑셀에 시트를 넣거나 데이터를 추가하여 보기 쉽게 데이터를 관리할 수 있어요. 또 기존 파일을 업데이트해서 데이터를 누적해나갈 수도 있어요.",
-    "version": "0.1.441",
+    "version": "0.1.442",
     "license": {
       "name": "AGPL-3.0-only"
     }
@@ -205,7 +205,7 @@
     "/connector/excel/rows": {
       "post": {
         "summary": "엑셀 파일 링크를 가지고 액셀 생성 및 데이터 추가",
-        "description": "Add data to the Excel file with an Excel file link\n\nWhen adding data to Excel, sheet creation precedes if it is a sheet that does not exist yet.\nTherefore, this feature can also be used for sheet creation.\nIf you want to create a sheet only and create an empty file without any data,\nyou just need to specify the name of the sheet without any data.\n\nWhen adding rows to an already existing sheet,\nit is supposed to be added to the lower line, so it is recommended to check the data before adding it.\nIf you provide fileUrl, you can modify it after you work on it. After modification, the file will be issued as a new link.\n\nA connector that allows you to update a file without uploading it if you know the link to the file in the previous utterance, or if you receive a file link in the utterance from the user.\n\nSince a link to the Excel file generated immediately after the Excel file is generated, calling this connector is more advantageous in terms of user experience than adding data through upload.",
+        "description": "Add data to the Excel file with an Excel file link\n\nIf the sheet doesn’t exist, it will be created, allowing both sheet creation and data addition.\nTo create an empty sheet, specify only the sheet name without data.\nRows added to an existing sheet will appear on the next line; verify data before adding.\nIf you provide a file URL, modifications are saved, and a new link is issued.\nThis connector updates Excel files directly via file links, improving user experience over uploading files.\nA link is generated immediately after file creation, making data management more efficient.",
         "tags": [
           "Excel"
         ],

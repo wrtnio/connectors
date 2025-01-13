@@ -18,7 +18,7 @@
     "title": "Github",
     "summary": "Github에서 코드를 읽고 분석하고 작성해요",
     "description": "Github에서 유저나 코드를 조회하고 분석할 수 있어요. 직접 코드를 작성하고 커밋하고 PR을 날리거나, 또 코멘트를 남겨줄 수도 있습니다.",
-    "version": "0.1.441",
+    "version": "0.1.442",
     "license": {
       "name": "AGPL-3.0-only"
     }
@@ -427,7 +427,7 @@
       },
       "put": {
         "summary": "Update File content and commit",
-        "description": "Update file content in github repository\n\nUpdating file content is the same as creating a single commit.\nCommit is a hash that must be created in github to save changes, such as uploading, modifying, deleting, and so on.\n\nAs the sha value of the file to be modified, a conflict may occur if it is not the latest sha value among the sha values of the file.\nIt's safe when you look up a list of files through API to check sha and put in a value, or want to re-modify the sha value of a file you just created.\n\nIf you modify a file, it's not like appending the code to the file, it's like overwriting the file.\nGenerally, if a user says he wants to modify it, it means that he wants to add the code to a specific file or refact it,\nso it's right to check the existing code and then change some of the contents to the original to reflect it.\nIn addition, it is recommended to receive confirmation from the user every time about the content and then modify or add it.\n\nIf the user directly asks you to add, modify, or delete a file for a specific PR or specific branch, this connector should be considered.\nMany repositories are working on commit conventions. Before committing, it's a good idea to look up the commit-list to see how you leave the commit message.\n\nThe input property, which means the content of a file, changes to base64 inside that connector when written in human-recognizable natural language. So, do not encode any writing into base64.",
+        "description": "Update file content in github repository\n\nUpdating a file creates a single commit. Commits are hashes for saving changes like uploads, modifications, or deletions.\nEnsure the latest sha value is used to avoid conflicts. Check sha via API or from recently created files.\nModifying a file overwrites it, not appends to it. Verify existing code and make partial changes if needed.\nConfirm content with the user before adding or modifying files.\nFor specific PRs or branches, use this connector. Check commit conventions and commit-list for proper messaging.\nFile content is automatically encoded to base64 by the connector; do not pre-encode manually.",
         "tags": [
           "Github"
         ],
@@ -471,7 +471,7 @@
       },
       "post": {
         "summary": "Create File content and commit",
-        "description": "Create file content in github repository\n\nIf the file already exists in the same path, you should use the modification API and this connector is only responsible for generation.\nCreating file content is the same as creating a single commit.\nCommit is a hash that must be created in github to save changes, such as uploading, modifying, deleting, and so on.\n\nIf someone says they want to add a file to the repo it's like they want to commit.\nHowever, in this case, you should check which branch you want to add the file to, and you should not create it in the default branch if you do not specify the branch.\nUsers value branches that reflect their commitments.\nIn addition, it is recommended to receive confirmation from the user every time about the content and then modify or add it.\n\nIf the user directly asks you to add, modify, or delete a file for a specific PR or specific branch, this connector should be considered.\n\nThe input property, which means the content of a file, changes to base64 inside that connector when written in human-recognizable natural language. So, do not encode any writing into base64.",
+        "description": "Create file content in github repository\n\nThis connector handles file creation only. Use the modification API for existing files.\nCreating a file is equivalent to a single commit, with commits required for changes like uploads or deletions.\nWhen adding a file, confirm the target branch. Avoid default branches unless specified.\nUsers value branches reflecting their work; always confirm file content before adding or modifying.\nFor requests involving a specific PR or branch, use this connector.\nFile content input is encoded to base64 within the connector. Do not pre-encode content manually.",
         "tags": [
           "Github"
         ],
