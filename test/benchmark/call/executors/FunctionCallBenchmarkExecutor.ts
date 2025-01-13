@@ -1,5 +1,6 @@
 import { IConnection } from "@nestia/fetcher";
 import {
+  INestiaAgentEvent,
   INestiaAgentPrompt,
   INestiaAgentProvider,
   INestiaAgentTokenUsage,
@@ -14,7 +15,6 @@ import {
 } from "@samchon/openapi";
 import { IFunctionCallBenchmarkResult } from "../structures/IFunctionCallBenchmarkResult";
 import { IFunctionCallBenchmarkScenario } from "../structures/IFunctionCallBenchmarkScenario";
-import { IFunctionCallBenchmarkExpected } from "../structures/IFunctionCallBenchmarkExpected";
 import { IFunctionCallBenchmarkOptions } from "../structures/IFunctionCallBenchmarkOptions";
 import { Semaphore } from "tstl";
 import { ConnectorGlobal } from "../../../../src/ConnectorGlobal";
@@ -54,6 +54,8 @@ export namespace FunctionCallBenchmarkExecutor {
     props: IProps,
   ): Promise<IFunctionCallBenchmarkResult.ITrial> => {
     const started_at: Date = new Date();
+    const responses: INestiaAgentEvent.IResponse[] = [];
+
     const agent: NestiaAgent = new NestiaAgent({
       controllers: [
         {
@@ -83,6 +85,9 @@ export namespace FunctionCallBenchmarkExecutor {
           });
         }
       });
+      agent.on("response", async (r) => {
+        responses.push(r);
+      });
 
       await agent.conversate(props.scenario.prompt);
       while (
@@ -111,6 +116,7 @@ export namespace FunctionCallBenchmarkExecutor {
 
       return {
         histories,
+        responses,
         usage,
         select: FunctionCallBenchmarkPredicator.success({
           application: props.application,
@@ -139,6 +145,7 @@ export namespace FunctionCallBenchmarkExecutor {
     } catch (error) {
       return {
         histories: [],
+        responses,
         usage: agent.getTokenUsage(),
         select: false,
         execute: false,

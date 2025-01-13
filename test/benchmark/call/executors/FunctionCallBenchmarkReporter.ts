@@ -142,44 +142,46 @@ export namespace FunctionCallBenchmarkReporter {
     );
     await Promise.all(
       result.trials.map((t, i) =>
-        reportTrial(
-          `${LOCATION}/${result.location}/${i + 1}.${t.select ? "success" : "failure"}.${t.execute ? "success" : "failure"}.md`,
-          result.scenario,
-          t,
-        ),
+        reportTrial({
+          directory: `${LOCATION}/${result.location}`,
+          fileName: `${i + 1}.${t.select ? "success" : "failure"}.${t.execute ? "success" : "failure"}`,
+          scenario: result.scenario,
+          trial: t,
+        }),
       ),
     );
   };
 
-  const reportTrial = async (
-    location: string,
-    scenario: IFunctionCallBenchmarkScenario,
-    trial: IFunctionCallBenchmarkResult.ITrial,
-  ): Promise<void> => {
-    const price = OpenAIPriceComputer.get(trial.usage);
+  const reportTrial = async (p: {
+    directory: string;
+    fileName: string;
+    scenario: IFunctionCallBenchmarkScenario;
+    trial: IFunctionCallBenchmarkResult.ITrial;
+  }): Promise<void> => {
+    const price = OpenAIPriceComputer.get(p.trial.usage);
     const content: string[] = [
-      `# ${scenario.title}`,
+      `# ${p.scenario.title}`,
       `## Prompt`,
-      scenario.prompt,
+      p.scenario.prompt,
       ``,
       `## Summary`,
-      `  - Status: ${trial.execute ? "success" : "failure"}`,
+      `  - Status: ${p.trial.execute ? "success" : "failure"}`,
       `  - Token Usage: $${price.total.toLocaleString()}`,
       `    - Prompt: $${price.prompt.toLocaleString()}`,
-      `      - Total: ${trial.usage.prompt.total.toLocaleString()}`,
-      `      - Audio: ${trial.usage.prompt.audio.toLocaleString()}`,
-      `      - Cached: ${trial.usage.prompt.cached.toLocaleString()}`,
+      `      - Total: ${p.trial.usage.prompt.total.toLocaleString()}`,
+      `      - Audio: ${p.trial.usage.prompt.audio.toLocaleString()}`,
+      `      - Cached: ${p.trial.usage.prompt.cached.toLocaleString()}`,
       `    - Completion: $${price.completion.toLocaleString()}`,
-      `      - Total: ${trial.usage.completion.total.toLocaleString()}`,
-      `      - Accepted Prediction: ${trial.usage.completion.accepted_prediction.toLocaleString()}`,
-      `      - Audio: ${trial.usage.completion.audio.toLocaleString()}`,
-      `      - Reasoning: ${trial.usage.completion.reasoning.toLocaleString()}`,
-      `      - Rejected Prediction: ${trial.usage.completion.rejected_prediction.toLocaleString()}`,
-      `  - Time: ${(trial.completed_at.getTime() - trial.started_at.getTime()).toLocaleString()} ms`,
+      `      - Total: ${p.trial.usage.completion.total.toLocaleString()}`,
+      `      - Accepted Prediction: ${p.trial.usage.completion.accepted_prediction.toLocaleString()}`,
+      `      - Audio: ${p.trial.usage.completion.audio.toLocaleString()}`,
+      `      - Reasoning: ${p.trial.usage.completion.reasoning.toLocaleString()}`,
+      `      - Rejected Prediction: ${p.trial.usage.completion.rejected_prediction.toLocaleString()}`,
+      `  - Time: ${(p.trial.completed_at.getTime() - p.trial.started_at.getTime()).toLocaleString()} ms`,
       ``,
       `## Function Calls`,
       `### Selections`,
-      ...trial.histories
+      ...p.trial.histories
         .filter((h) => h.type === "select")
         .map((h) => h.operations)
         .flat()
@@ -190,7 +192,7 @@ export namespace FunctionCallBenchmarkReporter {
         ),
       "",
       `### Completions`,
-      ...trial.histories
+      ...p.trial.histories
         .filter((h) => h.type === "execute")
         .filter((h) => h.protocol === "http")
         .map((h) => [
@@ -199,7 +201,7 @@ export namespace FunctionCallBenchmarkReporter {
         .flat(),
       "",
       `## History`,
-      ...trial.histories
+      ...p.trial.histories
         .map((h) => {
           if (h.type === "text") return [`### Text (${h.role})`, h.text, ""];
           else if (h.type === "describe")
@@ -261,8 +263,20 @@ export namespace FunctionCallBenchmarkReporter {
         })
         .flat(),
     ];
+    try {
+      await fs.promises.mkdir(`${p.directory}/responses`);
+    } catch {}
+    await Promise.all(
+      p.trial.responses.map((r, i) =>
+        fs.promises.writeFile(
+          `${p.directory}/responses/${p.fileName}.response.${i}.json`,
+          JSON.stringify(r, null, 2),
+          "utf8",
+        ),
+      ),
+    );
     await fs.promises.writeFile(
-      path.resolve(location),
+      `${path.resolve(`${p.directory}/${p.fileName}`)}.md`,
       content.join("\n"),
       "utf8",
     );
