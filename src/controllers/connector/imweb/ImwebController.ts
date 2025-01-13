@@ -27,6 +27,10 @@ export class ImwebController {
    *
    * @author Samchon
    */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Imweb_full.svg",
+  )
+  @ApiTags("Imweb")
   @core.TypedRoute.Patch("customers/sales/:product_no")
   public async at(
     @core.TypedParam("product_no") product_no: string,
