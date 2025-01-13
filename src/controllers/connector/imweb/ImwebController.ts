@@ -35,7 +35,7 @@ export class ImwebController {
   public async at(
     @core.TypedParam("product_no") product_no: string,
     @core.TypedBody() input: IImweb.ISecret,
-  ): Promise<IImweb.Sale> {
+  ): Promise<IImweb.ShoppingBackend.Sale> {
     return await ImwebProvider.at(product_no)(input);
   }
 

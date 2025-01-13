@@ -39,8 +39,8 @@ export namespace APIProivder {
    */
   export async function getProducts(
     input: StrictOmit<IImweb.IGetProductInput, "secretKey"> &
-      IImweb.IAccessToken &
-      IImweb.IUnitCode,
+      IImweb.Common.IAccessToken &
+      IImweb.Common.IUnitCode,
   ) {
     const { accessToken, search } = input;
     const queryParameter = createQueryParameter(typia.assert(search));
@@ -54,8 +54,8 @@ export namespace APIProivder {
 
   export async function getProductDetail(
     input: IImweb.IGetProductDetailInput &
-      IImweb.IAccessToken &
-      IImweb.IUnitCode,
+      IImweb.Common.IAccessToken &
+      IImweb.Common.IUnitCode,
   ): Promise<IImweb.Product | IImweb.Error> {
     const url = `${BASE_URL}/products/${input.product_no}?unitCode=${input.unitCode}&page=1&limit=100`;
     return axios
@@ -69,7 +69,7 @@ export namespace APIProivder {
   }
 
   export async function getCategories(
-    input: IImweb.IAccessToken & IImweb.IUnitCode,
+    input: IImweb.Common.IAccessToken & IImweb.Common.IUnitCode,
   ): Promise<IImweb.Category[]> {
     const { accessToken } = input;
     const url = `${BASE_URL}/products/shop-categories?unitCode=${input.unitCode}`;
@@ -84,7 +84,7 @@ export namespace APIProivder {
       });
   }
 
-  export async function getSite(input: IImweb.IAccessToken) {
+  export async function getSite(input: IImweb.Common.IAccessToken) {
     const { accessToken } = input;
     const url = `${BASE_URL}/site-info`;
     return await axios
@@ -99,7 +99,9 @@ export namespace APIProivder {
       .then((res) => res.data.data);
   }
 
-  export async function getUnit(input: IImweb.IUnitCode & IImweb.IAccessToken) {
+  export async function getUnit(
+    input: IImweb.Common.IUnitCode & IImweb.Common.IAccessToken,
+  ) {
     const { accessToken } = input;
     const url = `${BASE_URL}/site-info/unit/${input.unitCode}`;
     return await axios

@@ -76,7 +76,7 @@ export namespace ImwebProvider {
     })(options);
   }
 
-  export async function getDefaultUnit(input: IImweb.IAccessToken) {
+  export async function getDefaultUnit(input: IImweb.Common.IAccessToken) {
     const site = await APIProivder.getSite(input);
     const units = await Promise.all(
       site.unitList.map(async (unit) => {

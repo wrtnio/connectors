@@ -58,7 +58,44 @@ export namespace IImweb {
     }
   }
 
-  export interface IGetOptionDetailInput extends IUnitCode, IAccessToken {
+  export namespace Common {
+    export interface IProductNumber {
+      product_no: number;
+    }
+
+    export interface IUnitCode {
+      /**
+       * On Imweb, even one site can have multiple unit codes if
+       * it is a multilingual site. For example, when a shopping
+       * mall has an English site for Americans and a Korean site
+       * for Koreans, two unit codes exist in one site code.
+       *
+       * These unit codes exist for different price and shipping
+       * costs policies in each country in commerce, so they are
+       * more than just for distinguishing between user languages.
+       *
+       * @title Unit Code
+       */
+      unitCode: string;
+    }
+
+    /**
+     * @title AccessToken
+     */
+    export interface IAccessToken {
+      /**
+       * On Imweb, the existing access token also expires on refresh.
+       * Therefore, this key cannot be guaranteed to be used unconditionally.
+       *
+       * @title AccessToken
+       */
+      accessToken: string;
+    }
+  }
+
+  export interface IGetOptionDetailInput
+    extends IImweb.Common.IUnitCode,
+      IImweb.Common.IAccessToken {
     product_no: number;
   }
 
@@ -136,23 +173,7 @@ export namespace IImweb {
     };
   }
 
-  export interface IUnitCode {
-    /**
-     * On Imweb, even one site can have multiple unit codes if
-     * it is a multilingual site. For example, when a shopping
-     * mall has an English site for Americans and a Korean site
-     * for Koreans, two unit codes exist in one site code.
-     *
-     * These unit codes exist for different price and shipping
-     * costs policies in each country in commerce, so they are
-     * more than just for distinguishing between user languages.
-     *
-     * @title Unit Code
-     */
-    unitCode: string;
-  }
-
-  export type IResponse = IPage<IImweb.SaleSummary>;
+  export type IResponse = IPage<IImweb.ShoppingBackend.SaleSummary>;
 
   export interface ProductOption {
     optionDetailCode: string;
@@ -181,18 +202,6 @@ export namespace IImweb {
     categoryCode: string;
     name: string;
     children: Category[];
-  }
-
-  /**
-   * @title AccessToken
-   */
-  export interface IAccessToken {
-    /**
-     * 기존의 키를 재사용하여 리프레시로 인한 만료를 막는다.
-     *
-     * @title AccessToken
-     */
-    accessToken: string;
   }
 
   /**
