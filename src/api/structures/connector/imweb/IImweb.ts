@@ -14,6 +14,48 @@ export namespace IImweb {
     export interface ImwebSaleUnitSummary
       extends DeepStrictOmit<IShoppingSaleUnit, "stocks">,
         Pick<IShoppingSaleUnit.ISummary, "price_range"> {}
+
+    /**
+     * It is a type used by samchon/shoping-backend and refers to a product.
+     * Here, in order to apply the Imweb product according to the type defined by samchon,
+     * different types are Omit and defined.
+     *
+     * @title Sale
+     */
+    // eslint-disable-next-line @typescript-eslint/no-empty-interface
+    export interface Sale
+      extends DeepStrictOmit<
+        IShoppingSale,
+        | "seller"
+        | "closed_at"
+        | "snapshot_id"
+        | "suspended_at"
+        | "section"
+        | "units[*].stocks"
+      > {}
+
+    export interface SaleSummary
+      extends DeepStrictOmit<
+        IShoppingSale.ISummary,
+        | "seller.customer"
+        | "seller.member"
+        | "seller.created_at"
+        | "seller.citizen.id"
+        | "seller.citizen.created_at"
+        | "closed_at"
+        | "content.id"
+        | "snapshot_id"
+        | "suspended_at"
+        | "section"
+        | "content.thumbnails[*].created_at"
+        | "channels[*].created_at"
+        | "channels[*].categories[*].created_at"
+      > {
+      /**
+       * @title Product Number
+       */
+      product_no: number;
+    }
   }
 
   export interface IGetOptionDetailInput extends IUnitCode, IAccessToken {
@@ -133,41 +175,6 @@ export namespace IImweb {
         imageUrl: string;
       };
     }>;
-  }
-
-  // eslint-disable-next-line @typescript-eslint/no-empty-interface
-  export interface Sale
-    extends DeepStrictOmit<
-      IShoppingSale,
-      | "seller"
-      | "closed_at"
-      | "snapshot_id"
-      | "suspended_at"
-      | "section"
-      | "units[*].stocks"
-    > {}
-
-  export interface SaleSummary
-    extends DeepStrictOmit<
-      IShoppingSale.ISummary,
-      | "seller.customer"
-      | "seller.member"
-      | "seller.created_at"
-      | "seller.citizen.id"
-      | "seller.citizen.created_at"
-      | "closed_at"
-      | "content.id"
-      | "snapshot_id"
-      | "suspended_at"
-      | "section"
-      | "content.thumbnails[*].created_at"
-      | "channels[*].created_at"
-      | "channels[*].categories[*].created_at"
-    > {
-    /**
-     * @title Product Number
-     */
-    product_no: number;
   }
 
   export interface Category {

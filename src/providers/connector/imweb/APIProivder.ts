@@ -4,7 +4,6 @@ import axios, { AxiosError } from "axios";
 import typia from "typia";
 import { ConnectorGlobal } from "../../../ConnectorGlobal";
 import { createQueryParameter } from "../../../utils/CreateQueryParameter";
-import { ImwebProvider } from "./ImwebProvider";
 
 export namespace APIProivder {
   const BASE_URL = "https://openapi.imweb.me" as const;
@@ -29,7 +28,7 @@ export namespace APIProivder {
         },
       )
       .then((res) => res.data)
-      .catch(API.returnOrThrowError);
+      .catch(returnOrThrowError);
   }
 
   /**
@@ -66,7 +65,7 @@ export namespace APIProivder {
         },
       })
       .then((res) => res.data.data)
-      .catch(API.returnOrThrowError);
+      .catch(returnOrThrowError);
   }
 
   export async function getCategories(
@@ -80,7 +79,7 @@ export namespace APIProivder {
       })
       .then((res) => res.data.data)
       .catch((err) => {
-        console.log(JSON.stringify(ImwebProvider.API.returnOrThrowError(err)));
+        console.log(JSON.stringify(returnOrThrowError(err)));
         return [];
       });
   }

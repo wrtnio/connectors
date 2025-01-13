@@ -93,7 +93,7 @@ export namespace ImwebProvider {
 
   export const at =
     (product_no: string) =>
-    async (input: IImweb.ISecret): Promise<IImweb.Sale> => {
+    async (input: IImweb.ISecret): Promise<IImweb.ShoppingBackend.Sale> => {
       const authorization = await ImwebProvider.getAccessToken(input);
       const accessToken = authorization.data.accessToken;
       const imweb_unit = await ImwebProvider.getDefaultUnit({ accessToken });
@@ -142,7 +142,7 @@ export namespace ImwebProvider {
 
   export async function index(
     input: IImweb.IGetProductInput,
-  ): Promise<IPage<IImweb.SaleSummary>> {
+  ): Promise<IPage<IImweb.ShoppingBackend.SaleSummary>> {
     const authorization = await ImwebProvider.getAccessToken(input);
     const accessToken = authorization.data.accessToken;
 
@@ -168,7 +168,9 @@ export namespace ImwebProvider {
       },
       data: await Promise.all(
         response.list.map(
-          async (imweb_product): Promise<IImweb.SaleSummary> => {
+          async (
+            imweb_product,
+          ): Promise<IImweb.ShoppingBackend.SaleSummary> => {
             const productDetailOrError = await APIProivder.getProductDetail({
               product_no: imweb_product.prodNo,
               unitCode: site.unit.unitCode,
