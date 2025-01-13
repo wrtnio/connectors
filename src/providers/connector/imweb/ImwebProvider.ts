@@ -4,71 +4,13 @@ import { IShoppingSalePriceRange } from "@samchon/shopping-api/lib/structures/sh
 import { IShoppingSaleUnit } from "@samchon/shopping-api/lib/structures/shoppings/sales/IShoppingSaleUnit";
 import { IPage } from "@wrtn/connector-api/lib/structures/common/IPage";
 import { IImweb } from "@wrtn/connector-api/lib/structures/connector/imweb/IImweb";
-import { StrictOmit } from "@wrtn/connector-api/lib/structures/types/strictOmit";
-import axios, { AxiosError } from "axios";
 import typia, { is, tags } from "typia";
-import { v5 } from "uuid";
 import { ConnectorGlobal } from "../../../ConnectorGlobal";
-import { createQueryParameter } from "../../../utils/CreateQueryParameter";
 import { OAuthSecretProvider } from "../../internal/oauth_secret/OAuthSecretProvider";
+import { APIProivder } from "./APIProivder";
+import { TransformProivder } from "./TransformProvider";
 
 export namespace ImwebProvider {
-  const BASE_URL = "https://openapi.imweb.me" as const;
-  const NAMESPACE = "6ba7b810-9dad-11d1-80b4-00c04fd430c8" as const;
-  const NULL = v5("null" as const, NAMESPACE);
-
-  export namespace transform {
-    export const toIShoppingSaleUnitSummary =
-      (product: { price: number }) =>
-      (
-        options: IImweb.ProductOption[],
-      ): Array<
-        DeepStrictOmit<IShoppingSaleUnit, "stocks"> &
-          Pick<IShoppingSaleUnit.ISummary, "price_range">
-      > => {
-        if (options.every((el) => el.isCombine === "Y")) {
-          // 조합형 옵션의 경우를 의미한다.
-          return options.map((unit) => {
-            return {
-              id: unit.optionDetailCode,
-              name: unit.optionDetailInfoList
-                .map((el) => `${el.name}:${el.optionValue.optionValueName}`)
-                .join("/"),
-              primary: true,
-              required: unit.isRequire === "Y" ? true : false,
-              options: unit.optionDetailInfoList.map((option) => {
-                return {
-                  id: option.optionCode,
-                  name: option.name,
-                  variable: false,
-                  type: "string",
-                  candidates: [
-                    {
-                      id: option.optionValue.optionValueCode,
-                      name: option.optionValue.optionValueName,
-                    },
-                  ],
-                };
-              }),
-              price_range: {
-                highest: {
-                  nominal: product.price + unit.price,
-                  real: product.price + unit.price,
-                },
-                lowest: {
-                  nominal: product.price + unit.price,
-                  real: product.price + unit.price,
-                },
-              },
-            };
-          });
-        } else {
-          // 비조합형 옵션의 경우
-          throw new Error("비조합형 옵션의 경우");
-        }
-      };
-  }
-
   export namespace select {
     export const getUnit =
       (type: "maximum" | "minimum") =>
@@ -101,7 +43,7 @@ export namespace ImwebProvider {
         Pick<IShoppingSaleUnit.ISummary, "price_range">
     >
   > {
-    const options = await API.getOptionDetails({
+    const options = await APIProivder.getOptionDetails({
       product_no: input.productDetail.prodNo,
       ...input,
     });
@@ -109,7 +51,7 @@ export namespace ImwebProvider {
     if (options.length === 0) {
       return [
         {
-          id: NULL,
+          id: TransformProivder.toUUID(null),
           name: input.productDetail.name,
           options: [],
           price_range: {
@@ -129,16 +71,16 @@ export namespace ImwebProvider {
     }
 
     // Transform product type to shopping backend format
-    return transform.toIShoppingSaleUnitSummary({
+    return TransformProivder.toIShoppingSaleUnitSummary({
       price: input.productDetail.price,
     })(options);
   }
 
   export async function getDefaultUnit(input: IImweb.IAccessToken) {
-    const site = await API.getSite(input);
+    const site = await APIProivder.getSite(input);
     const units = await Promise.all(
       site.unitList.map(async (unit) => {
-        return await API.getUnit({
+        return await APIProivder.getUnit({
           unitCode: unit.unitCode,
           accessToken: input.accessToken,
         });
@@ -156,7 +98,7 @@ export namespace ImwebProvider {
       const accessToken = authorization.data.accessToken;
       const imweb_unit = await ImwebProvider.getDefaultUnit({ accessToken });
 
-      const productDetail = await API.getProductDetail({
+      const productDetail = await APIProivder.getProductDetail({
         product_no: Number(product_no),
         accessToken,
         unitCode: imweb_unit.unit.unitCode,
@@ -173,10 +115,10 @@ export namespace ImwebProvider {
       });
 
       return {
-        id: v5(productDetail.prodCode, NAMESPACE),
+        id: TransformProivder.toUUID(productDetail.prodCode),
         channels: [],
         content: {
-          id: NULL,
+          id: TransformProivder.toUUID(null),
           title: productDetail.simpleContent ?? "",
           body: productDetail.content ?? "",
           format: "txt",
@@ -199,19 +141,19 @@ export namespace ImwebProvider {
     };
 
   export async function index(
-    input: StrictOmit<IImweb.IGetProductInput, "prodStatus">,
+    input: IImweb.IGetProductInput,
   ): Promise<IPage<IImweb.SaleSummary>> {
     const authorization = await ImwebProvider.getAccessToken(input);
     const accessToken = authorization.data.accessToken;
 
     const site = await getDefaultUnit({ accessToken });
-    const categories = await API.getCategories({
+    const categories = await APIProivder.getCategories({
       accessToken,
       unitCode: site.unit.unitCode,
     });
 
     // 상품 조회
-    const response = await API.getProducts({
+    const response = await APIProivder.getProducts({
       ...input,
       accessToken,
       unitCode: site.unit.unitCode,
@@ -227,7 +169,7 @@ export namespace ImwebProvider {
       data: await Promise.all(
         response.list.map(
           async (imweb_product): Promise<IImweb.SaleSummary> => {
-            const productDetailOrError = await API.getProductDetail({
+            const productDetailOrError = await APIProivder.getProductDetail({
               product_no: imweb_product.prodNo,
               unitCode: site.unit.unitCode,
               accessToken,
@@ -244,19 +186,19 @@ export namespace ImwebProvider {
             });
 
             return {
-              id: v5(imweb_product.prodNo.toString(), NAMESPACE),
+              id: TransformProivder.toUUID(imweb_product.prodNo.toString()),
               product_no: imweb_product.prodNo,
               seller: {
-                id: v5(site.site.siteCode, NAMESPACE),
+                id: TransformProivder.toUUID(site.site.siteCode),
                 type: "seller",
                 citizen: {
-                  mobile: site.unit.phone,
+                  mobile: site.unit.phone ?? "",
                   name: site.unit.presidentName,
                 },
               },
               channels: [
                 {
-                  id: v5(site.unit.unitCode, NAMESPACE),
+                  id: TransformProivder.toUUID(site.unit.unitCode),
                   code: site.unit.unitCode,
                   name: site.unit.companyName,
                   categories: categories
@@ -265,7 +207,7 @@ export namespace ImwebProvider {
                     )
                     .map((el) => {
                       return {
-                        id: v5(el.categoryCode, NAMESPACE),
+                        id: TransformProivder.toUUID(el.categoryCode),
                         code: el.categoryCode,
                         name: el.name,
                         parent_id: null,
@@ -281,7 +223,7 @@ export namespace ImwebProvider {
                     const splited = image.split("/");
                     const filename = splited[splited.length - 1];
                     return {
-                      id: v5(filename.split(".")[0], NAMESPACE),
+                      id: TransformProivder.toUUID(filename.split(".")[0]),
                       name: filename,
                       extension: filename.split(".")[1],
                       url: image,
@@ -315,7 +257,7 @@ export namespace ImwebProvider {
   export async function getAccessToken(input: { secretKey: string }) {
     const secretKey = input.secretKey;
     const refreshToken = await OAuthSecretProvider.getSecretValue(secretKey);
-    const response = await API.refresh({ refreshToken });
+    const response = await APIProivder.refresh({ refreshToken });
     if (response.statusCode !== 200) {
       throw response;
     }
@@ -333,161 +275,5 @@ export namespace ImwebProvider {
     }
 
     return response;
-  }
-
-  export namespace API {
-    export async function refresh(
-      input: IImweb.IRefreshInput,
-    ): Promise<IImweb.IRefreshOutput | IImweb.Error> {
-      const url = `${BASE_URL}/oauth2/token`;
-      return axios
-        .post<IImweb.IRefreshOutput>(
-          url,
-          {
-            clientId: ConnectorGlobal.env.IMWEB_CLIENT_ID,
-            clientSecret: ConnectorGlobal.env.IMWEB_CLIENT_SECRET,
-            refreshToken: input.refreshToken,
-            grantType: "refresh_token",
-          },
-          {
-            headers: {
-              "Content-Type": "application/x-www-form-urlencoded",
-            },
-          },
-        )
-        .then((res) => res.data)
-        .catch(API.returnOrThrowError);
-    }
-
-    /**
-     * getting products as format of imweb_product
-     *
-     * @param input query parameter of getting products as format of imweb_product
-     * @returns format of imweb_product
-     */
-    export async function getProducts(
-      input: StrictOmit<IImweb.IGetProductInput, "secretKey"> &
-        IImweb.IAccessToken &
-        IImweb.IUnitCode,
-    ) {
-      const { accessToken, ...rest } = input;
-      const queryParameter = createQueryParameter(typia.assert(rest));
-      const url = `${BASE_URL}/products?${queryParameter}`;
-      return await axios
-        .get<IImweb.IGetProductOutput>(url, {
-          headers: { Authorization: `Bearer ${accessToken}` },
-        })
-        .then((res) => res.data.data);
-    }
-
-    export async function getProductDetail(
-      input: IImweb.IGetProductDetailInput &
-        IImweb.IAccessToken &
-        IImweb.IUnitCode,
-    ): Promise<IImweb.Product | IImweb.Error> {
-      const url = `${BASE_URL}/products/${input.product_no}?unitCode=${input.unitCode}&page=1&limit=100`;
-      return axios
-        .get<IImweb.ResponseForm<IImweb.Product>>(url, {
-          headers: {
-            Authorization: `Bearer ${input.accessToken}`,
-          },
-        })
-        .then((res) => res.data.data)
-        .catch(API.returnOrThrowError);
-    }
-
-    export async function getCategories(
-      input: IImweb.IAccessToken & IImweb.IUnitCode,
-    ): Promise<IImweb.Category[]> {
-      const { accessToken } = input;
-      const url = `${BASE_URL}/products/shop-categories?unitCode=${input.unitCode}`;
-      return await axios
-        .get<IImweb.ResponseForm<IImweb.Category[]>>(url, {
-          headers: { Authorization: `Bearer ${accessToken}` },
-        })
-        .then((res) => res.data.data)
-        .catch((err) => {
-          console.log(
-            JSON.stringify(ImwebProvider.API.returnOrThrowError(err)),
-          );
-          return [];
-        });
-    }
-
-    export async function getSite(input: IImweb.IAccessToken) {
-      const { accessToken } = input;
-      const url = `${BASE_URL}/site-info`;
-      return await axios
-        .get<
-          IImweb.ResponseForm<{
-            siteCode: string;
-            unitList: { unitCode: string; name: string }[];
-          }>
-        >(url, {
-          headers: { Authorization: `Bearer ${accessToken}` },
-        })
-        .then((res) => res.data.data);
-    }
-
-    export async function getUnit(
-      input: IImweb.IUnitCode & IImweb.IAccessToken,
-    ) {
-      const { accessToken } = input;
-      const url = `${BASE_URL}/site-info/unit/${input.unitCode}`;
-      return await axios
-        .get<
-          IImweb.ResponseForm<{
-            unitCode: string;
-            name: string;
-            isDefault: boolean;
-            companyName: string;
-            presidentName: string;
-            companyRegistrationNo: string;
-            phone: string;
-            email: string;
-          }>
-        >(url, {
-          headers: { Authorization: `Bearer ${accessToken}` },
-        })
-        .then((res) => res.data.data);
-    }
-
-    export async function getOptionDetails(
-      input: IImweb.IGetOptionDetailInput,
-    ): Promise<IImweb.ProductOption[]> {
-      const { accessToken, ...rest } = input;
-      const queryParameter = createQueryParameter(typia.assert(rest));
-      const url = `${BASE_URL}/products/${input.product_no}/option-details?${queryParameter}&page=1&limit=100`;
-      type ResponseType = IImweb.ResponseForm<IImweb.ProductOption[]>;
-      return await axios
-        .get<ResponseType>(url, {
-          headers: {
-            Authorization: `Bearer ${accessToken}`,
-          },
-        })
-        .then((res) => res.data.data)
-        .catch((err) => {
-          if (err instanceof AxiosError) {
-            if (typia.is<IImweb.Error>(err.response?.data)) {
-              if (err.response.data.error.errorCode === ("30019" as const)) {
-                // 원래부터 옵션이 없는 경우는, 상품이 곧 유닛이자 옵션인 경우를 의미한다.
-                return [];
-              }
-            }
-          }
-
-          throw err;
-        });
-    }
-
-    export function returnOrThrowError(err: unknown) {
-      if (err instanceof AxiosError) {
-        if (typia.is<IImweb.Error>(err.response?.data)) {
-          return err.response.data;
-        }
-      }
-
-      throw err;
-    }
   }
 }

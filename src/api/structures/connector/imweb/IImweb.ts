@@ -1,11 +1,21 @@
 import { DeepStrictOmit } from "@kakasoo/deep-strict-types";
 import { IShoppingSale } from "@samchon/shopping-api/lib/structures/shoppings/sales/IShoppingSale";
+import { IShoppingSaleUnit } from "@samchon/shopping-api/lib/structures/shoppings/sales/IShoppingSaleUnit";
 import { tags } from "typia";
 import { ContentMediaType } from "typia/lib/tags";
 import { IPage } from "../../common/IPage";
 import { ICommon } from "../common/ISecretValue";
 
 export namespace IImweb {
+  export namespace ShoppingBackend {
+    /**
+     * @title
+     */
+    export interface ImwebSaleUnitSummary
+      extends DeepStrictOmit<IShoppingSaleUnit, "stocks">,
+        Pick<IShoppingSaleUnit.ISummary, "price_range"> {}
+  }
+
   export interface IGetOptionDetailInput extends IUnitCode, IAccessToken {
     product_no: number;
   }
@@ -184,72 +194,74 @@ export namespace IImweb {
   export interface IGetProductInput
     extends IImweb.ISecret,
       Required<IPage.IRequest> {
-    /**
-     * You can deliver the value when you want to inquire based on the sales status of the product.
-     * You can select 'sale', 'soldout', 'nosale'.
-     *
-     * @title the sales status of a product
-     */
-    prodStatus?: IImweb.ProductStatus;
+    search: {
+      /**
+       * You can deliver the value when you want to inquire based on the sales status of the product.
+       * You can select 'sale', 'soldout', 'nosale'.
+       *
+       * @title the sales status of a product
+       */
+      prodStatus?: IImweb.ProductStatus;
 
-    /**
-     * There are normal, digital, and subscription types,
-     * which mean general commerce products, digital gift
-     * certificates, and subscription products.
-     * If not, it means the whole product.
-     *
-     * @title Product Type
-     */
-    prodType?: IImweb.ProductType;
+      /**
+       * There are normal, digital, and subscription types,
+       * which mean general commerce products, digital gift
+       * certificates, and subscription products.
+       * If not, it means the whole product.
+       *
+       * @title Product Type
+       */
+      prodType?: IImweb.ProductType;
 
-    /**
-     * You can also search with the product's category code,
-     * If you don't know the exact category code, it's better not to use it.
-     *
-     * @title product category code
-     */
-    category?: string;
+      /**
+       * You can also search with the product's category code,
+       * If you don't know the exact category code, it's better not to use it.
+       *
+       * @title product category code
+       */
+      category?: string;
 
-    /**
-     * This refers to the case of selling with a specific sales
-     * period. It will usually be used when selling a limited
-     * product or when operating a seasonal system.
-     *
-     * @title Use of the sales period
-     */
-    usePreSale?: IImweb.YN;
+      /**
+       * This refers to the case of selling with a specific sales
+       * period. It will usually be used when selling a limited
+       * product or when operating a seasonal system.
+       *
+       * @title Use of the sales period
+       */
+      usePreSale?: IImweb.YN;
 
-    /**
-     *  Indicates the range of dates when you want to search
-     * for a product by the time it was added. Here, specify
-     * the type of date range (gte/lte: one date, between: two dates)
-     *
-     * @title a product by the time it was added
-     */
-    productAddTimeType?: IImweb.Range;
+      /**
+       *  Indicates the range of dates when you want to search
+       * for a product by the time it was added. Here, specify
+       * the type of date range (gte/lte: one date, between: two dates)
+       *
+       * @title a product by the time it was added
+       */
+      productAddTimeType?: IImweb.Range;
 
-    /**
-     * @title Time when the product was added
-     */
-    productAddTime?: Array<string & tags.Format<"date-time">> &
-      tags.MinItems<1> &
-      tags.MaxItems<2>;
+      /**
+       * @title Time when the product was added
+       */
+      productAddTime?: Array<string & tags.Format<"date-time">> &
+        tags.MinItems<1> &
+        tags.MaxItems<2>;
 
-    /**
-     *  Indicates the range of dates when you want to search
-     * for a product by the time it was edited. Here, specify
-     * the type of date range (gte/lte: one date, between: two dates)
-     *
-     * @title a product by the time it was edited
-     */
-    productEditTimeType?: IImweb.Range;
+      /**
+       *  Indicates the range of dates when you want to search
+       * for a product by the time it was edited. Here, specify
+       * the type of date range (gte/lte: one date, between: two dates)
+       *
+       * @title a product by the time it was edited
+       */
+      productEditTimeType?: IImweb.Range;
 
-    /**
-     * @title Time when the product was added
-     */
-    productEditTime?: Array<string & tags.Format<"date-time">> &
-      tags.MinItems<1> &
-      tags.MaxItems<2>;
+      /**
+       * @title Time when the product was added
+       */
+      productEditTime?: Array<string & tags.Format<"date-time">> &
+        tags.MinItems<1> &
+        tags.MaxItems<2>;
+    };
   }
 
   /**
