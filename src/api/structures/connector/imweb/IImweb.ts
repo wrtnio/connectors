@@ -13,7 +13,7 @@ export namespace IImweb {
      * @title
      */
     export interface ImwebSaleUnitSummary
-      extends DeepStrictOmit<IShoppingSaleUnit, "stocks">,
+      extends DeepStrictOmit<IShoppingSaleUnit, "stocks[*].inventory">,
         Pick<IShoppingSaleUnit.ISummary, "price_range"> {}
 
     /**
@@ -32,7 +32,8 @@ export namespace IImweb {
         | "snapshot_id"
         | "suspended_at"
         | "section"
-        | "units[*].stocks"
+        | "content.thumbnails[*].created_at"
+        | "units[*].stocks[*].inventory"
       > {}
 
     export interface SaleSummary
@@ -318,11 +319,6 @@ export namespace IImweb {
     simpleContent: string;
     preSaleStartDate: null | (string & tags.Format<"date-time">);
     preSaleEndDate: null | (string & tags.Format<"date-time">);
-
-    /**
-     * @title Category Codes
-     */
-    categories: string[];
   }
 
   export interface ProductSummary {
@@ -765,10 +761,22 @@ export namespace IImweb {
   /**
    * @title Product Inquiry Request
    */
-  export interface IGetProductInput
-    extends IImweb.ISecret,
-      Required<IPage.IRequest> {
-    search: {
+  export interface IGetProductInput extends IImweb.ISecret {
+    /**
+     * Page number.
+     *
+     * @title Page
+     */
+    page?: number & tags.Type<"uint32"> & tags.Minimum<1> & tags.Default<1>;
+
+    /**
+     * Limitation of records per a page.
+     *
+     * @title Limit
+     */
+    limit?: number & tags.Type<"uint32"> & tags.Maximum<100> & tags.Default<10>;
+
+    search?: {
       /**
        * You can deliver the value when you want to inquire based on the sales status of the product.
        * You can select 'sale', 'soldout', 'nosale'.

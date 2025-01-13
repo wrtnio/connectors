@@ -1,7 +1,7 @@
 import { IShoppingPrice } from "@samchon/shopping-api/lib/structures/shoppings/base/IShoppingPrice";
 import { IPage } from "@wrtn/connector-api/lib/structures/common/IPage";
 import { IImweb } from "@wrtn/connector-api/lib/structures/connector/imweb/IImweb";
-import typia, { is, tags } from "typia";
+import typia, { tags } from "typia";
 import { ConnectorGlobal } from "../../../ConnectorGlobal";
 import { OAuthSecretProvider } from "../../internal/oauth_secret/OAuthSecretProvider";
 import { APIProivder } from "./APIProivder";
@@ -28,21 +28,18 @@ export namespace ImwebProvider {
 
   export function getUnits(unitCode: string) {
     return async function (input: {
-      productDetail: Pick<IImweb.Product, "prodNo" | "name" | "price">;
-
+      detail: Pick<IImweb.Product, "prodNo" | "name" | "price">;
       accessToken: string;
     }): Promise<Array<IImweb.ShoppingBackend.ImwebSaleUnitSummary>> {
-      const { productDetail } = input;
+      const { detail } = input;
       const options = await APIProivder.getOptionDetails({
-        productNo: productDetail.prodNo,
+        productNo: detail.prodNo,
         accessToken: input.accessToken,
         unitCode: unitCode,
       });
 
       // Transform product type to shopping backend format
-      return TransformProivder.toIShoppingSaleUnitSummary(productDetail)(
-        options,
-      );
+      return TransformProivder.toIShoppingSaleUnitSummary(detail)(options);
     };
   }
 
@@ -68,39 +65,41 @@ export namespace ImwebProvider {
       const imweb_unit = await ImwebProvider.getDefaultUnit(authorization);
 
       const unitCode = imweb_unit.unit.unitCode;
-      const productDetail = await APIProivder.getProductDetail({
+      const detail = await APIProivder.getProductDetail({
         productNo: Number(productNo),
         accessToken: authorization.accessToken,
         unitCode,
       });
 
-      if (typia.is<IImweb.Common.IError>(productDetail)) {
-        throw productDetail;
+      if (typia.is<IImweb.Common.IError>(detail)) {
+        throw detail;
       }
 
       const units = await ImwebProvider.getUnits(unitCode)({
-        productDetail: productDetail,
+        detail: detail,
         accessToken: authorization.accessToken,
       });
 
       return {
-        id: TransformProivder.toUUID(productDetail.prodCode),
+        id: TransformProivder.toUUID(detail.prodCode),
         channels: [],
         content: {
           id: TransformProivder.toUUID(null),
-          title: productDetail.simpleContent ?? "",
-          body: productDetail.content ?? "",
+          title: detail.simpleContent ?? "",
+          body: detail.content ?? "",
           format: "txt",
-          thumbnails: [],
+          thumbnails: detail.productImages.map((imageUrl) =>
+            TransformProivder.toImage(imageUrl),
+          ),
           files: [],
         },
-        created_at: productDetail.addTime,
+        created_at: detail.addTime,
         latest: true,
-        opened_at: productDetail.preSaleStartDate,
-        paused_at: productDetail.preSaleEndDate,
+        opened_at: detail.preSaleStartDate,
+        paused_at: detail.preSaleEndDate,
         units: units,
-        updated_at: productDetail.editTime,
-        tags: TransformProivder.toTags(productDetail),
+        updated_at: detail.editTime,
+        tags: TransformProivder.toTags(detail),
       };
     };
 
@@ -119,6 +118,27 @@ export namespace ImwebProvider {
       ...authorization,
     });
 
+    const fetched = await Promise.all(
+      response.list.map(async (product) => {
+        const detail = await APIProivder.getProductDetail({
+          productNo: product.prodNo,
+          unitCode,
+          accessToken: authorization.accessToken,
+        });
+
+        if (isError(detail)) {
+          throw detail;
+        }
+
+        const units = await ImwebProvider.getUnits(unitCode)({
+          detail: detail,
+          accessToken: authorization.accessToken,
+        });
+
+        return { product, detail, units };
+      }),
+    );
+
     return {
       pagination: {
         current: response.currentPage,
@@ -126,87 +146,12 @@ export namespace ImwebProvider {
         pages: response.totalPage,
         records: response.totalCount,
       },
-      data: await Promise.all(
-        response.list.map(
-          async (
-            imweb_product,
-          ): Promise<IImweb.ShoppingBackend.SaleSummary> => {
-            const productDetailOrError = await APIProivder.getProductDetail({
-              productNo: imweb_product.prodNo,
-              unitCode,
-              accessToken: authorization.accessToken,
-            });
-
-            if (typia.is<IImweb.Common.IError>(productDetailOrError)) {
-              throw productDetailOrError;
-            }
-
-            const units = await ImwebProvider.getUnits(unitCode)({
-              productDetail: productDetailOrError,
-              accessToken: authorization.accessToken,
-            });
-
-            return {
-              id: TransformProivder.toUUID(imweb_product.prodNo.toString()),
-              productNo: imweb_product.prodNo,
-              seller: {
-                id: TransformProivder.toUUID(site.site.siteCode),
-                type: "seller",
-                citizen: {
-                  mobile: site.unit.phone ?? "",
-                  name: site.unit.presidentName,
-                },
-              },
-              channels: [
-                {
-                  id: TransformProivder.toUUID(unitCode),
-                  code: unitCode,
-                  name: site.unit.companyName,
-                  categories: (categories instanceof Array ? categories : [])
-                    .filter((el) =>
-                      productDetailOrError.categories.includes(el.categoryCode),
-                    )
-                    .map((el) => {
-                      return {
-                        id: TransformProivder.toUUID(el.categoryCode),
-                        code: el.categoryCode,
-                        name: el.name,
-                        parent_id: null,
-                        parent: null,
-                      };
-                    }),
-                },
-              ],
-              content: {
-                thumbnails: imweb_product.productImages
-                  .filter((image) => is<string & tags.Format<"iri">>(image))
-                  .map((image) => {
-                    const splited = image.split("/");
-                    const filename = splited[splited.length - 1];
-                    return {
-                      id: TransformProivder.toUUID(filename.split(".")[0]),
-                      name: filename,
-                      extension: filename.split(".")[1],
-                      url: image,
-                    };
-                  }),
-                title: imweb_product.name,
-              },
-              created_at: imweb_product.addTime,
-              latest: true,
-              opened_at: productDetailOrError.preSaleStartDate,
-              paused_at: productDetailOrError.preSaleEndDate,
-              price_range: {
-                highest: ImwebProvider.Select.getUnit("maximum")(units),
-                lowest: ImwebProvider.Select.getUnit("minimum")(units),
-              },
-              units: units,
-              updated_at: imweb_product.editTime,
-              tags: TransformProivder.toTags(productDetailOrError),
-            };
-          },
-        ),
-      ),
+      data: fetched.map((input): IImweb.ShoppingBackend.SaleSummary => {
+        return TransformProivder.toSaleSummary(site)({
+          ...input,
+          categories: isError(categories) ? [] : categories,
+        });
+      }),
     };
   }
 
@@ -234,4 +179,6 @@ export namespace ImwebProvider {
 
     return response.data;
   }
+
+  export const isError = typia.createIs<IImweb.Common.IError>();
 }
