@@ -1,4 +1,4 @@
-import { IChatGptService } from "@nestia/agent";
+import { INestiaAgentProvider } from "@nestia/agent";
 import { IConnection } from "@nestia/fetcher";
 import { INestApplication } from "@nestjs/common";
 import { NestContainer } from "@nestjs/core";
@@ -277,7 +277,8 @@ const main = async (): Promise<void> => {
     options,
     location: SCENARIO_LOCATION,
   });
-  const service: IChatGptService = {
+  const provider: INestiaAgentProvider = {
+    type: "chatgpt",
     api: new OpenAI({
       apiKey: ConnectorGlobal.env.OPENAI_API_KEY,
     }),
@@ -304,7 +305,7 @@ const main = async (): Promise<void> => {
         const start: number = Date.now();
         const res: IFunctionCallBenchmarkResult =
           await FunctionCallBenchmarkExecutor.execute({
-            service,
+            provider: provider,
             application,
             operations,
             connection,
