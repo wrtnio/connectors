@@ -104,7 +104,7 @@ export namespace ImwebProvider {
         unitCode: imweb_unit.unit.unitCode,
       });
 
-      if (typia.is<IImweb.Error>(productDetail)) {
+      if (typia.is<IImweb.Common.IError>(productDetail)) {
         throw productDetail;
       }
 
@@ -177,7 +177,7 @@ export namespace ImwebProvider {
               accessToken,
             });
 
-            if (typia.is<IImweb.Error>(productDetailOrError)) {
+            if (typia.is<IImweb.Common.IError>(productDetailOrError)) {
               throw productDetailOrError;
             }
 

@@ -59,7 +59,54 @@ export namespace IImweb {
   }
 
   export namespace Common {
+    /**
+     * @title IError
+     */
+    export interface IError {
+      /**
+       * It means an error that can be spat out on the I'm Web.
+       *
+       * @title Error status code
+       */
+      statusCode: 400 | 401 | 402 | 403 | 404 | 500;
+
+      /**
+       * @title Error Object
+       */
+      error: {
+        /**
+         * This is an error that can be spit out by Imweb.
+         * It specifies a code that is not related to the HTTP status code to distinguish more detailed errors.
+         *
+         * @title Error custom code
+         */
+        errorCode: string;
+
+        /**
+         * It refers to a detailed message that fits a custom error code.
+         *
+         * @title Error message
+         */
+        message: string;
+      };
+    }
+
+    /**
+     * @title IProductNumber
+     */
     export interface IProductNumber {
+      /**
+       * On the Imweb, the number exists separately from the code value in the product.
+       * This number counts the product from 1 for the same unit and starts
+       * from 1 for the other unit or site again. The smaller the number,
+       * the more recently created product, and if a deleted product exists,
+       * there may be an empty number.
+       *
+       * Since most product search and APIs operate by using the number
+       * rather than the product code, you have to inquire the product and deliver the value.
+       *
+       * @title Product Number
+       */
       product_no: number;
     }
 
@@ -132,20 +179,29 @@ export namespace IImweb {
     }
   }
 
+  /**
+   * @title Response of getting option details
+   */
+  export type IGetOptionDetailOutput = IImweb.Common.ResponseForm<{
+    /**
+     * @title Product Option Detail List
+     */
+    list: IImweb.ProductOption[];
+  }>;
+
+  /**
+   * Input condition to look up the details of the option.
+   * The details of this option refer to the `option-details` resources defined on the Imweb,
+   * and the option or option details may not exist in Sale.
+   *
+   * @title Condition of getting option details
+   */
   export interface IGetOptionDetailInput
     extends IImweb.Common.IUnitCode,
       IImweb.Common.IProductNumber,
       IImweb.Common.IAccessToken {}
 
   export type IGetProductDetailInput = IImweb.Common.IProductNumber;
-
-  export interface Error {
-    statusCode: 400 | 401 | 402 | 403 | 404 | 500;
-    error: {
-      errorCode: string;
-      message: string;
-    };
-  }
 
   export interface IRefreshOutput {
     statusCode: 200;

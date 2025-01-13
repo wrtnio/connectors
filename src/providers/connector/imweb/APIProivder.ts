@@ -10,7 +10,7 @@ export namespace APIProivder {
 
   export async function refresh(
     input: IImweb.IRefreshInput,
-  ): Promise<IImweb.IRefreshOutput | IImweb.Error> {
+  ): Promise<IImweb.IRefreshOutput | IImweb.Common.IError> {
     const url = `${BASE_URL}/oauth2/token`;
     return axios
       .post<IImweb.IRefreshOutput>(
@@ -56,7 +56,7 @@ export namespace APIProivder {
     input: IImweb.IGetProductDetailInput &
       IImweb.Common.IAccessToken &
       IImweb.Common.IUnitCode,
-  ): Promise<IImweb.Product | IImweb.Error> {
+  ): Promise<IImweb.Product | IImweb.Common.IError> {
     const url = `${BASE_URL}/products/${input.product_no}?unitCode=${input.unitCode}&page=1&limit=100`;
     return axios
       .get<IImweb.Common.ResponseForm<IImweb.Product>>(url, {
@@ -115,11 +115,8 @@ export namespace APIProivder {
     const { accessToken, ...rest } = input;
     const queryParameter = createQueryParameter(typia.assert(rest));
     const url = `${BASE_URL}/products/${input.product_no}/option-details?${queryParameter}&page=1&limit=100`;
-    type ResponseType = IImweb.Common.ResponseForm<{
-      list: IImweb.ProductOption[];
-    }>;
     return await axios
-      .get<ResponseType>(url, {
+      .get<IImweb.IGetOptionDetailOutput>(url, {
         headers: {
           Authorization: `Bearer ${accessToken}`,
         },
@@ -127,7 +124,7 @@ export namespace APIProivder {
       .then((res) => res.data.data.list)
       .catch((err) => {
         if (err instanceof AxiosError) {
-          if (typia.is<IImweb.Error>(err.response?.data)) {
+          if (typia.is<IImweb.Common.IError>(err.response?.data)) {
             if (err.response.data.error.errorCode === ("30019" as const)) {
               // 원래부터 옵션이 없는 경우는, 상품이 곧 유닛이자 옵션인 경우를 의미한다.
               console.log(JSON.stringify(err.response.data.error));
@@ -142,7 +139,7 @@ export namespace APIProivder {
 
   export function returnOrThrowError(err: unknown) {
     if (err instanceof AxiosError) {
-      if (typia.is<IImweb.Error>(err.response?.data)) {
+      if (typia.is<IImweb.Common.IError>(err.response?.data)) {
         return err.response.data;
       }
     }
