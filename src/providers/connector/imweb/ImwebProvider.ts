@@ -1,7 +1,4 @@
-import { DeepStrictOmit } from "@kakasoo/deep-strict-types";
 import { IShoppingPrice } from "@samchon/shopping-api/lib/structures/shoppings/base/IShoppingPrice";
-import { IShoppingSalePriceRange } from "@samchon/shopping-api/lib/structures/shoppings/sales/IShoppingSalePriceRange";
-import { IShoppingSaleUnit } from "@samchon/shopping-api/lib/structures/shoppings/sales/IShoppingSaleUnit";
 import { IPage } from "@wrtn/connector-api/lib/structures/common/IPage";
 import { IImweb } from "@wrtn/connector-api/lib/structures/connector/imweb/IImweb";
 import typia, { is, tags } from "typia";
@@ -11,38 +8,29 @@ import { APIProivder } from "./APIProivder";
 import { TransformProivder } from "./TransformProvider";
 
 export namespace ImwebProvider {
-  export namespace select {
-    export const getUnit =
-      (type: "maximum" | "minimum") =>
-      (units: { price_range: IShoppingSalePriceRange }[]): IShoppingPrice => {
+  export namespace Select {
+    export function getUnit(type: "maximum" | "minimum") {
+      return function (
+        units: Awaited<ReturnType<typeof ImwebProvider.getUnits>>,
+      ): IShoppingPrice {
         if (type === "maximum") {
-          return units.reduce((maxUnit, currentUnit) =>
-            currentUnit.price_range.highest.real >
-            maxUnit.price_range.highest.real
-              ? currentUnit
-              : maxUnit,
-          ).price_range.highest;
+          return units
+            .map((unit) => unit.price_range.highest)
+            .reduce((acc, cur) => (cur.real > acc.real ? cur : acc));
         } else {
-          return units.reduce((minUnit, currentUnit) =>
-            currentUnit.price_range.lowest.real <
-            minUnit.price_range.lowest.real
-              ? currentUnit
-              : minUnit,
-          ).price_range.lowest;
+          return units
+            .map((unit) => unit.price_range.lowest)
+            .reduce((acc, cur) => (cur.real < acc.real ? cur : acc));
         }
       };
+    }
   }
 
   export async function getUnits(input: {
     productDetail: Pick<IImweb.Product, "prodNo" | "name" | "price">;
     unitCode: string;
     accessToken: string;
-  }): Promise<
-    Array<
-      DeepStrictOmit<IShoppingSaleUnit, "stocks"> &
-        Pick<IShoppingSaleUnit.ISummary, "price_range">
-    >
-  > {
+  }): Promise<Array<IImweb.ShoppingBackend.ImwebSaleUnitSummary>> {
     const options = await APIProivder.getOptionDetails({
       product_no: input.productDetail.prodNo,
       ...input,
@@ -203,7 +191,7 @@ export namespace ImwebProvider {
                   id: TransformProivder.toUUID(site.unit.unitCode),
                   code: site.unit.unitCode,
                   name: site.unit.companyName,
-                  categories: categories
+                  categories: (categories instanceof Array ? categories : [])
                     .filter((el) =>
                       productDetailOrError.categories.includes(el.categoryCode),
                     )
@@ -238,8 +226,8 @@ export namespace ImwebProvider {
               opened_at: productDetailOrError.preSaleStartDate,
               paused_at: productDetailOrError.preSaleEndDate,
               price_range: {
-                highest: ImwebProvider.select.getUnit("maximum")(units),
-                lowest: ImwebProvider.select.getUnit("minimum")(units),
+                highest: ImwebProvider.Select.getUnit("maximum")(units),
+                lowest: ImwebProvider.Select.getUnit("minimum")(units),
               },
               units: units,
               updated_at: imweb_product.editTime,

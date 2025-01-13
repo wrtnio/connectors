@@ -201,18 +201,73 @@ export namespace IImweb {
       IImweb.Common.IProductNumber,
       IImweb.Common.IAccessToken {}
 
-  export type IGetProductDetailInput = IImweb.Common.IProductNumber;
+  /**
+   * @title Response of getting detailed product information
+   */
+  export type IGetProductDetailOutput =
+    IImweb.Common.ResponseForm<IImweb.Product>;
+
+  /**
+   * @title Condition of getting detailed product information
+   */
+  export interface IGetProductDetailInput
+    extends IImweb.Common.IProductNumber,
+      IImweb.Common.IAccessToken,
+      IImweb.Common.IUnitCode {}
+
+  /**
+   * @title Response of getting categories
+   */
+  export type IGetCategoryOutput = IImweb.Common.ResponseForm<
+    IImweb.Category[]
+  >;
+
+  /**
+   * @title Condition of getting cateogires
+   */
+  export interface IGetCategoryInput
+    extends IImweb.Common.IAccessToken,
+      IImweb.Common.IUnitCode {}
 
   export interface IRefreshOutput {
+    /**
+     * It must be 200, OK.
+     *
+     * @title Status code
+     */
     statusCode: 200;
     data: {
+      /**
+       * @title access token of authenticated site in Imweb OAuth app
+       */
       accessToken: string;
+
+      /**
+       * It is a refresh token issued by an application
+       * registered on the Imweb site, and the token is
+       * valid only for the authenticated site.
+       *
+       * @title refresh token of imweb website
+       */
       refreshToken: string;
+
+      /**
+       * The scope list that specifies the API that can be called on the Imweb
+       *
+       * @title scope
+       */
       scope: string[];
     };
   }
 
   export interface IRefreshInput {
+    /**
+     * It is a refresh token issued by an application
+     * registered on the Imweb site, and the token is
+     * valid only for the authenticated site.
+     *
+     * @title refresh token of imweb website
+     */
     refreshToken: string;
   }
 
@@ -259,88 +314,6 @@ export namespace IImweb {
     name: string;
     children: Category[];
   }
-
-  /**
-   * @title Product Inquiry Request
-   */
-  export interface IGetProductInput
-    extends IImweb.ISecret,
-      Required<IPage.IRequest> {
-    search: {
-      /**
-       * You can deliver the value when you want to inquire based on the sales status of the product.
-       * You can select 'sale', 'soldout', 'nosale'.
-       *
-       * @title the sales status of a product
-       */
-      prodStatus?: IImweb.ProductStatus;
-
-      /**
-       * There are normal, digital, and subscription types,
-       * which mean general commerce products, digital gift
-       * certificates, and subscription products.
-       * If not, it means the whole product.
-       *
-       * @title Product Type
-       */
-      prodType?: IImweb.ProductType;
-
-      /**
-       * You can also search with the product's category code,
-       * If you don't know the exact category code, it's better not to use it.
-       *
-       * @title product category code
-       */
-      category?: string;
-
-      /**
-       * This refers to the case of selling with a specific sales
-       * period. It will usually be used when selling a limited
-       * product or when operating a seasonal system.
-       *
-       * @title Use of the sales period
-       */
-      usePreSale?: IImweb.YN;
-
-      /**
-       *  Indicates the range of dates when you want to search
-       * for a product by the time it was added. Here, specify
-       * the type of date range (gte/lte: one date, between: two dates)
-       *
-       * @title a product by the time it was added
-       */
-      productAddTimeType?: IImweb.Range;
-
-      /**
-       * @title Time when the product was added
-       */
-      productAddTime?: Array<string & tags.Format<"date-time">> &
-        tags.MinItems<1> &
-        tags.MaxItems<2>;
-
-      /**
-       *  Indicates the range of dates when you want to search
-       * for a product by the time it was edited. Here, specify
-       * the type of date range (gte/lte: one date, between: two dates)
-       *
-       * @title a product by the time it was edited
-       */
-      productEditTimeType?: IImweb.Range;
-
-      /**
-       * @title Time when the product was added
-       */
-      productEditTime?: Array<string & tags.Format<"date-time">> &
-        tags.MinItems<1> &
-        tags.MaxItems<2>;
-    };
-  }
-
-  /**
-   * @title Product inquiry results
-   */
-  export type IGetProductOutput =
-    IImweb.Common.ResponseSummaryForm<IImweb.ProductSummary>;
 
   export interface Product extends ProductSummary {
     simpleContent: string;
@@ -789,6 +762,88 @@ export namespace IImweb {
      */
     adult: boolean;
   }
+
+  /**
+   * @title Product Inquiry Request
+   */
+  export interface IGetProductInput
+    extends IImweb.ISecret,
+      Required<IPage.IRequest> {
+    search: {
+      /**
+       * You can deliver the value when you want to inquire based on the sales status of the product.
+       * You can select 'sale', 'soldout', 'nosale'.
+       *
+       * @title the sales status of a product
+       */
+      prodStatus?: IImweb.ProductStatus;
+
+      /**
+       * There are normal, digital, and subscription types,
+       * which mean general commerce products, digital gift
+       * certificates, and subscription products.
+       * If not, it means the whole product.
+       *
+       * @title Product Type
+       */
+      prodType?: IImweb.ProductType;
+
+      /**
+       * You can also search with the product's category code,
+       * If you don't know the exact category code, it's better not to use it.
+       *
+       * @title product category code
+       */
+      category?: string;
+
+      /**
+       * This refers to the case of selling with a specific sales
+       * period. It will usually be used when selling a limited
+       * product or when operating a seasonal system.
+       *
+       * @title Use of the sales period
+       */
+      usePreSale?: IImweb.YN;
+
+      /**
+       *  Indicates the range of dates when you want to search
+       * for a product by the time it was added. Here, specify
+       * the type of date range (gte/lte: one date, between: two dates)
+       *
+       * @title a product by the time it was added
+       */
+      productAddTimeType?: IImweb.Range;
+
+      /**
+       * @title Time when the product was added
+       */
+      productAddTime?: Array<string & tags.Format<"date-time">> &
+        tags.MinItems<1> &
+        tags.MaxItems<2>;
+
+      /**
+       *  Indicates the range of dates when you want to search
+       * for a product by the time it was edited. Here, specify
+       * the type of date range (gte/lte: one date, between: two dates)
+       *
+       * @title a product by the time it was edited
+       */
+      productEditTimeType?: IImweb.Range;
+
+      /**
+       * @title Time when the product was added
+       */
+      productEditTime?: Array<string & tags.Format<"date-time">> &
+        tags.MinItems<1> &
+        tags.MaxItems<2>;
+    };
+  }
+
+  /**
+   * @title Product inquiry results
+   */
+  export type IGetProductOutput =
+    IImweb.Common.ResponseSummaryForm<IImweb.ProductSummary>;
 
   /**
    * @title Imweb Token Issuance Request Response DTO

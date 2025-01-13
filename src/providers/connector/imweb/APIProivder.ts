@@ -53,13 +53,11 @@ export namespace APIProivder {
   }
 
   export async function getProductDetail(
-    input: IImweb.IGetProductDetailInput &
-      IImweb.Common.IAccessToken &
-      IImweb.Common.IUnitCode,
+    input: IImweb.IGetProductDetailInput,
   ): Promise<IImweb.Product | IImweb.Common.IError> {
     const url = `${BASE_URL}/products/${input.product_no}?unitCode=${input.unitCode}&page=1&limit=100`;
     return axios
-      .get<IImweb.Common.ResponseForm<IImweb.Product>>(url, {
+      .get<IImweb.IGetProductDetailOutput>(url, {
         headers: {
           Authorization: `Bearer ${input.accessToken}`,
         },
@@ -69,19 +67,16 @@ export namespace APIProivder {
   }
 
   export async function getCategories(
-    input: IImweb.Common.IAccessToken & IImweb.Common.IUnitCode,
-  ): Promise<IImweb.Category[]> {
+    input: IImweb.IGetCategoryInput,
+  ): Promise<IImweb.Category[] | IImweb.Common.IError> {
     const { accessToken } = input;
     const url = `${BASE_URL}/products/shop-categories?unitCode=${input.unitCode}`;
     return await axios
-      .get<IImweb.Common.ResponseForm<IImweb.Category[]>>(url, {
+      .get<IImweb.IGetCategoryOutput>(url, {
         headers: { Authorization: `Bearer ${accessToken}` },
       })
       .then((res) => res.data.data)
-      .catch((err) => {
-        console.log(JSON.stringify(returnOrThrowError(err)));
-        return [];
-      });
+      .catch(returnOrThrowError);
   }
 
   export async function getSite(input: IImweb.Common.IAccessToken) {
