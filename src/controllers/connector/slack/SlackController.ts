@@ -310,25 +310,14 @@ export class SlackController {
   }
 
   /**
-   * get channel links from channel histories
+   * Get Channel Links from Channel Histories
    *
-   * Look up conversations that have been made in and out of the channel.
-   *
-   * The 'channel' received as a factor means the channel's ID and is a character string that begins with a capital 'C', 'D' and so on.
-   * Therefore, if the user does not hand over the ID when looking for the conversation history of the channel,
-   * it is prioritized to find the channel ID.
-   * Usually, users don't know their channel ID.
-   * Therefore, most users will ask for a channel by its name or with only the keywords they remember.
-   * Therefore, unless it's an unknown string and begins with a 'C' or 'D' uppercase letter, look for the channel first.
-   *
-   * When you look up a conversation,
-   * you can search only after a specific time or before a specific time in order to look up the time zone of the conversation you want to search for.
-   *
-   * Messages without links are removed, leaving only messages with links.
-   * This is because it only leaves messages with links as connectors to find links in conversations.
-   * Links are arranged in links properties.
-   *
-   * If you want to filter by date, prioritize using the datetime format.
+   * Retrieves conversations in and out of channels.
+   * A channel ID starts with 'C' or 'D' (uppercase). If no ID is provided, search by channel name or keywords.
+   * Users often don’t know channel IDs, so prioritize finding the channel unless the input starts with 'C' or 'D'.
+   * Search conversations within specific timeframes using datetime formats.
+   * Filters out messages without links, retaining only those with links in the links property.
+   * This ensures efficient link extraction from conversation histories.
    *
    * @summary get links from channel histories
    * @param input
@@ -346,25 +335,14 @@ export class SlackController {
   }
 
   /**
-   * get channel histories
+   * Get Channel Histories
    *
-   * Look up conversations that have been made in and out of the channel.
-   *
-   * The 'channel' received as a factor means the channel's ID and is a character string that begins with a capital 'C', 'D' and so on.
-   * Therefore, if the user does not hand over the ID when looking for the conversation history of the channel,
-   * it is prioritized to find the channel ID.
-   * Usually, users don't know their channel ID.
-   * Therefore, most users will ask for a channel by its name or with only the keywords they remember.
-   * Therefore, unless it's an unknown string and begins with a 'C' or 'D' uppercase letter, look for the channel first.
-   *
-   * When you look up a conversation,
-   * you can search only after a specific time or before a specific time in order to look up the time zone of the conversation you want to search for.
-   *
-   * In the conversation history, the link and code box are abbreviated to <LINK/> and <CODE/>, respectively.
-   * For users, it is replaced by a user name, Like <@USERNAME>.
-   * <@USERNAME> is about calling someone else, and it's not the name of the person who started the conversation, so be careful.
-   *
-   * If you want to filter by date, prioritize using the datetime format.
+   * Retrieves conversations in and out of channels.
+   * Channel IDs start with 'C' or 'D' (uppercase). If no ID is provided, search by channel name or keywords.
+   * Users typically don’t know channel IDs, so prioritize finding the channel unless the input starts with 'C' or 'D'.
+   * Search conversations within specific timeframes using datetime formats.
+   * In history, links and code boxes are shown as <LINK/> and <CODE/>. Mentions appear as <@USERNAME>, but this indicates a mention, not the conversation starter.
+   * Filters by date should prioritize the datetime format for accuracy.
    *
    * @summary get channel histories
    * @param input
