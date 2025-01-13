@@ -3,10 +3,10 @@ import { GoogleShoppingIherbController } from "../../../../../src/controllers/co
 import { GoogleShoppingOliveYoungController } from "../../../../../src/controllers/connector/google_shopping/google_shopping_olive_young/GoogleShoppingOliveYoungController";
 import { IFunctionCallBenchmarkScenario } from "../../structures/IFunctionCallBenchmarkScenario";
 
-export const scenario_demo_beauty_agent =
+export const scenario_demo_beauty_recommend_health_supplements =
   (): IFunctionCallBenchmarkScenario => ({
-    title: "뷰티 에이전트 3",
-    prompt: `요즘 머리가 자주 빠져. (iHerb에서) 탈모 완화에 도움 되는 샴푸를 추천해줘. 
+    title: "피로회복 건강보조제 추천 및 효과 분석 에이전트",
+    prompt: `요즘 몸이 쉽게 피곤해져. (iHerb에서) 피로 회복에 좋은 건강 보조제를 추천해줘.
     추천해준 제품들의 주요 성분이 어떤 효과가 있는지 알려줘.`,
     expected: {
       type: "array",
