@@ -14,23 +14,14 @@ export class YoutubeSearchController {
   /**
    * Get YouTube video search results
    *
-   * The search results have the video title and link.
-   *
-   * If most users are going to use this feature, they probably want to watch the video, so it's better to provide a URL.
-   *
-   * In order to filter the period that the user wants, you should use the response field "published_date".
-   *
-   * For example, if the user wants to retrieve only this year's videos, you should exclude videos that were uploaded in a period that the user does not want, such as "1 year ago" or "2 years ago" with a published_date.
-   *
-   * It's great to use with the /transcript endpoint when summarizing videos, analyzing content, extracting keywords, etc.
-   *
-   * Extract the URL from the YouTube video information obtained from the execution result of the corresponding function and use it as the input of the /transcript endpoint.
-   *
-   * Based on the transcripts obtained from the execution result of the /transcript endpoint, perform tasks such as summarizing videos, analyzing content, and extracting keywords.
-   *
+   * Results include video titles and URLs, as most users likely want to watch the videos.
+   * Use the published_date field to filter videos by the desired period (e.g., exclude "1 year ago").
+   * Ideal for summarizing, analyzing, or extracting keywords using the /transcript endpoint.
+   * Extract URLs from video data and input them into the /transcript endpoint.
+   * Use the transcripts for tasks like summarization, content analysis, or keyword extraction.
    * Example Use Cases:
-   * Product Reviews: Extract product names, pros, cons, and recommendations from air purifier review videos.
-   * Tutorials: Create text-based tutorials or step-by-step guides from instructional videos.
+   *  Product Reviews: Extract details (e.g., product names, pros, cons) from review videos.
+   *  Tutorials: Create text-based guides or step-by-step instructions from instructional videos.
    *
    * @summary YouTube video search
    * @param input Conditions for YouTube video search

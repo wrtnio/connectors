@@ -98,18 +98,12 @@ export class ExcelController {
   /**
    * Add data to the Excel file with an Excel file link
    *
-   * When adding data to Excel, sheet creation precedes if it is a sheet that does not exist yet.
-   * Therefore, this feature can also be used for sheet creation.
-   * If you want to create a sheet only and create an empty file without any data,
-   * you just need to specify the name of the sheet without any data.
-   *
-   * When adding rows to an already existing sheet,
-   * it is supposed to be added to the lower line, so it is recommended to check the data before adding it.
-   * If you provide fileUrl, you can modify it after you work on it. After modification, the file will be issued as a new link.
-   *
-   * A connector that allows you to update a file without uploading it if you know the link to the file in the previous utterance, or if you receive a file link in the utterance from the user.
-   *
-   * Since a link to the Excel file generated immediately after the Excel file is generated, calling this connector is more advantageous in terms of user experience than adding data through upload.
+   * If the sheet doesn’t exist, it will be created, allowing both sheet creation and data addition.
+   * To create an empty sheet, specify only the sheet name without data.
+   * Rows added to an existing sheet will appear on the next line; verify data before adding.
+   * If you provide a file URL, modifications are saved, and a new link is issued.
+   * This connector updates Excel files directly via file links, improving user experience over uploading files.
+   * A link is generated immediately after file creation, making data management more efficient.
    *
    * @summary 엑셀 파일 링크를 가지고 액셀 생성 및 데이터 추가
    * @param input 엑셀 파일에 새로운 데이터를 추가 하기 위한 정보

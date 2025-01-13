@@ -229,26 +229,14 @@ export class JiraController {
   }
 
   /**
-   * Create an issue by markdown
+   * Create an Issue with Markdown
    *
-   * Issue type, project, and summary are essential properties.
-   * If you don't know the issue type or priority type's id for generating the issue, you can look it up through other connectors.
-   *
-   * In order to write the body of an issue, you must create the body as if you were assembling several blocks.
-   * There are pre-designated content types, so please check this type information carefully.
-   *
-   * To prioritize, make sure that the project manager has set it up so that the project can be prioritized.
-   * Depending on the project settings, it may not be possible to prioritize issues.
-   * If there is an error when creating an issue, I recommend that you remove the priority and recreate it.
-   * Even if a user wants to assign Assignees, they will need to check if Assignees exists.
-   * A user cannot assign a user to Assignees that does not exist.
-   * Assignees cannot be guaranteed to be the same nickname or ID as Slack or any other service name.
-   * Be sure to check how the name is defined within the Jira service.
-   * The issue type, project ID, and key are all the same.
-   * If the error continues, first create a basic issue type using only the project key, ID, and text content,
-   * and then try updating the person in charge or priorities one by one.
-   * That way, you can create an issue and suggest that users check the issue with a link.
-   * The content of the proposal will include asking you to check whether assignee or priorities are really allocable attributes.
+   * Required: issue type, project, and summary. Use other connectors to find IDs for issue or priority types if unknown.
+   * Write the body using predefined content blocks. Check content type guidelines carefully.
+   * Prioritization depends on project settings. If prioritization fails, remove priority and retry.
+   * Assignees must exist in the system and may differ from names in other services (e.g., Slack). Verify names within Jira.
+   * For errors, create a basic issue using the project key, ID, and text, then update assignee or priority incrementally.
+   * Provide a link for users to verify the created issue and confirm allocable attributes like assignees and priorities.
    *
    * @summary create issue by markdown in jira
    * @param input issue information to create

@@ -269,21 +269,12 @@ export class GithubController {
   /**
    * Update file content in github repository
    *
-   * Updating file content is the same as creating a single commit.
-   * Commit is a hash that must be created in github to save changes, such as uploading, modifying, deleting, and so on.
-   *
-   * As the sha value of the file to be modified, a conflict may occur if it is not the latest sha value among the sha values of the file.
-   * It's safe when you look up a list of files through API to check sha and put in a value, or want to re-modify the sha value of a file you just created.
-   *
-   * If you modify a file, it's not like appending the code to the file, it's like overwriting the file.
-   * Generally, if a user says he wants to modify it, it means that he wants to add the code to a specific file or refact it,
-   * so it's right to check the existing code and then change some of the contents to the original to reflect it.
-   * In addition, it is recommended to receive confirmation from the user every time about the content and then modify or add it.
-   *
-   * If the user directly asks you to add, modify, or delete a file for a specific PR or specific branch, this connector should be considered.
-   * Many repositories are working on commit conventions. Before committing, it's a good idea to look up the commit-list to see how you leave the commit message.
-   *
-   * The input property, which means the content of a file, changes to base64 inside that connector when written in human-recognizable natural language. So, do not encode any writing into base64.
+   * Updating a file creates a single commit. Commits are hashes for saving changes like uploads, modifications, or deletions.
+   * Ensure the latest sha value is used to avoid conflicts. Check sha via API or from recently created files.
+   * Modifying a file overwrites it, not appends to it. Verify existing code and make partial changes if needed.
+   * Confirm content with the user before adding or modifying files.
+   * For specific PRs or branches, use this connector. Check commit conventions and commit-list for proper messaging.
+   * File content is automatically encoded to base64 by the connector; do not pre-encode manually.
    *
    * @summary Update File content and commit
    * @param input test
@@ -305,18 +296,12 @@ export class GithubController {
   /**
    * Create file content in github repository
    *
-   * If the file already exists in the same path, you should use the modification API and this connector is only responsible for generation.
-   * Creating file content is the same as creating a single commit.
-   * Commit is a hash that must be created in github to save changes, such as uploading, modifying, deleting, and so on.
-   *
-   * If someone says they want to add a file to the repo it's like they want to commit.
-   * However, in this case, you should check which branch you want to add the file to, and you should not create it in the default branch if you do not specify the branch.
-   * Users value branches that reflect their commitments.
-   * In addition, it is recommended to receive confirmation from the user every time about the content and then modify or add it.
-   *
-   * If the user directly asks you to add, modify, or delete a file for a specific PR or specific branch, this connector should be considered.
-   *
-   * The input property, which means the content of a file, changes to base64 inside that connector when written in human-recognizable natural language. So, do not encode any writing into base64.
+   * This connector handles file creation only. Use the modification API for existing files.
+   * Creating a file is equivalent to a single commit, with commits required for changes like uploads or deletions.
+   * When adding a file, confirm the target branch. Avoid default branches unless specified.
+   * Users value branches reflecting their work; always confirm file content before adding or modifying.
+   * For requests involving a specific PR or branch, use this connector.
+   * File content input is encoded to base64 within the connector. Do not pre-encode content manually.
    *
    * @summary Create File content and commit
    * @param input
