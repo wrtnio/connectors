@@ -1,20 +1,19 @@
-import { GoogleSearchController } from "../../../../../src/controllers/connector/google_search/GoogleSearchController";
+import { GmailController } from "../../../../../src/controllers/connector/gmail/GmailController";
 import { GoogleShoppingIherbController } from "../../../../../src/controllers/connector/google_shopping/google_shopping_iherb/GoogleShoppingIherbController";
 import { GoogleShoppingOliveYoungController } from "../../../../../src/controllers/connector/google_shopping/google_shopping_olive_young/GoogleShoppingOliveYoungController";
+import { YoutubeSearchController } from "../../../../../src/controllers/connector/youtube_search/YoutubeSearchController";
 import { IFunctionCallBenchmarkScenario } from "../../structures/IFunctionCallBenchmarkScenario";
 
-export const scenario_demo_beauty_agent =
+export const scenario_demo_beauty_recommend_foam =
   (): IFunctionCallBenchmarkScenario => ({
-    title: "뷰티 에이전트 2",
-    prompt: `요즘 몸이 쉽게 피곤해져. (iHerb에서) 피로 회복에 좋은 건강 보조제를 추천해줘.
-    추천해준 제품들의 주요 성분이 어떤 효과가 있는지 알려줘.`,
+    title: "여드름 폼클렌징 추천 및 리뷰 검색 후 메일 전송 에이전트",
+    prompt: `
+요즘 여드름이 나서 걱정이야, 여드름에 잘 맞는 폼클렌징 추천해줘.
+추천해준 제품 유튜브에서 영상으로 찾아줘.
+제품 리스트와 후기들을 내 이메일로 보내줘.`,
     expected: {
       type: "array",
       items: [
-        {
-          type: "standalone",
-          function: GoogleSearchController.prototype.search,
-        },
         {
           type: "anyOf",
           anyOf: [
@@ -27,7 +26,11 @@ export const scenario_demo_beauty_agent =
         },
         {
           type: "standalone",
-          function: GoogleSearchController.prototype.search,
+          function: YoutubeSearchController.prototype.search,
+        },
+        {
+          type: "standalone",
+          function: GmailController.prototype.send,
         },
       ],
     },

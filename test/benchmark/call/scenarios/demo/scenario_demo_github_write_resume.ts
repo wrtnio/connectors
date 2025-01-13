@@ -3,9 +3,9 @@ import { GoogleDocsController } from "../../../../../src/controllers/connector/g
 import { NotionController } from "../../../../../src/controllers/connector/notion/NotionController";
 import { IFunctionCallBenchmarkScenario } from "../../structures/IFunctionCallBenchmarkScenario";
 
-export const scenario_demo_github_agent_2 =
+export const scenario_demo_github_write_resume =
   (): IFunctionCallBenchmarkScenario => ({
-    title: "Github 에이전트 2",
+    title: "Github Repository 기반 개발자 이력서 작성 에이전트",
     prompt: `
     github에서 pin된 repository를 읽고 분석해서 개발자 이력서를 작성해줘.`,
     expected: {

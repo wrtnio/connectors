@@ -1,18 +1,14 @@
-import { GmailController } from "../../../../../src/controllers/connector/gmail/GmailController";
+import { GoogleSearchController } from "../../../../../src/controllers/connector/google_search/GoogleSearchController";
 import { GoogleShoppingIherbController } from "../../../../../src/controllers/connector/google_shopping/google_shopping_iherb/GoogleShoppingIherbController";
 import { GoogleShoppingOliveYoungController } from "../../../../../src/controllers/connector/google_shopping/google_shopping_olive_young/GoogleShoppingOliveYoungController";
 import { YoutubeSearchController } from "../../../../../src/controllers/connector/youtube_search/YoutubeSearchController";
 import { IFunctionCallBenchmarkScenario } from "../../structures/IFunctionCallBenchmarkScenario";
 
-export const scenario_demo_beauty_agent =
+export const scenario_demo_beauty_recommend_antioxidant =
   (): IFunctionCallBenchmarkScenario => ({
-    title: "뷰티 에이전트 1",
-    prompt: `
-요즘 여드름이 나서 걱정이야, 여드름에 잘 맞는 폼클렌징 추천해줘.
-
-추천해준 제품 유튜브에서 영상으로 찾아줘.
-
-제품 리스트와 후기들을 내 이메일로 보내줘.`,
+    title: "항산화제 제품 추천 및 효과 분석 에이전트",
+    prompt: `iHerb에서 가장 인기 있는 항산화제를 알려주고, 관련 영상 리뷰를 보여줘.
+      추천해준 제품들의 주요 성분이 어떤 효과가 있는지 알려줘.`,
     expected: {
       type: "array",
       items: [
@@ -32,7 +28,7 @@ export const scenario_demo_beauty_agent =
         },
         {
           type: "standalone",
-          function: GmailController.prototype.send,
+          function: GoogleSearchController.prototype.search,
         },
       ],
     },

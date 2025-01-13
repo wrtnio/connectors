@@ -1,21 +1,21 @@
 import { GithubController } from "../../../../../src/controllers/connector/github/GithubController";
-import { SlackController } from "../../../../../src/controllers/connector/slack/SlackController";
 import { IFunctionCallBenchmarkScenario } from "../../structures/IFunctionCallBenchmarkScenario";
 
-export const scenario_demo_github_agent_4 =
+export const scenario_demo_github_pull_request_review =
   (): IFunctionCallBenchmarkScenario => ({
-    title: "Github 에이전트 6",
-    prompt: `깃허브 이슈 등록한거 슬랙으로 팀 채널에 알려줘`,
+    title: "Github PR 리뷰 에이전트",
+    prompt: `
+오늘 올린 프로젝트 PR을 보고 코드 리뷰해서 댓글 달아줘.`,
     expected: {
       type: "array",
       items: [
         {
           type: "standalone",
-          function: GithubController.prototype.getRepositoryIssues,
+          function: GithubController.prototype.getRepositoryPullRequest,
         },
         {
           type: "standalone",
-          function: SlackController.prototype.sendText,
+          function: GithubController.prototype.reviewPullRequest,
         },
       ],
     },
