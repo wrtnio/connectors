@@ -10,8 +10,8 @@ export const scenario_github_review_to_slack =
 를 분석해서 코드의 개선점이나, 앞으로 공부해야 할 지식들을 정리해서 
 나 자신에게 Slack DM 보내줘`,
     expected: {
-      type: "allOf",
-      allOf: [
+      type: "array",
+      items: [
         {
           type: "anyOf",
           anyOf: [

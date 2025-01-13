@@ -1,9 +1,7 @@
 import { IFunctionCallBenchmarkScenario } from "../../structures/IFunctionCallBenchmarkScenario";
 import { GoogleScholarController } from "../../../../../src/controllers/connector/google_scholar/GoogleScholarController";
-import { GoogleSearchController } from "../../../../../src/controllers/connector/google_search/GoogleSearchController";
-import { NaverController } from "../../../../../src/controllers/connector/naver/NaverController";
-import { ExcelController } from "../../../../../src/controllers/connector/excel/ExcelController";
 import { GoogleSheetController } from "../../../../../src/controllers/connector/google-sheet/GoogleSheetController";
+import { ArxivSearchController } from "../../../../../src/controllers/connector/arxiv_search/ArxivSearchController";
 
 export const scenario_ai_hci_to_google_sheet =
   (): IFunctionCallBenchmarkScenario => ({
@@ -21,22 +19,19 @@ AI 분야의 주요한 HCI 논문 읽어야 하는 것 30개 정리해서
           type: "anyOf",
           anyOf: [
             GoogleScholarController.prototype.search,
-            GoogleSearchController.prototype.search,
-            NaverController.prototype.newsList,
+            ArxivSearchController.prototype.search,
           ].map((func) => ({
             type: "standalone",
             function: func,
           })),
         },
         {
-          type: "anyOf",
-          anyOf: [
-            ExcelController.prototype.createSheets,
-            GoogleSheetController.prototype.createGoogleSheet,
-          ].map((func) => ({
-            type: "standalone",
-            function: func,
-          })),
+          type: "standalone",
+          function: GoogleSheetController.prototype.createGoogleSheet,
+        },
+        {
+          type: "standalone",
+          function: GoogleSheetController.prototype.appendGoogleSheet,
         },
       ],
     },

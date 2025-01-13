@@ -17,6 +17,16 @@ export const scenario_github_readme = (): IFunctionCallBenchmarkScenario => ({
           function: func,
         })),
       },
+      {
+        type: "anyOf",
+        anyOf: [
+          GithubController.prototype.getBulkFileContents,
+          GithubController.prototype.getFileContents,
+        ].map((func) => ({
+          type: "standalone",
+          function: func,
+        })),
+      },
     ],
   },
 });

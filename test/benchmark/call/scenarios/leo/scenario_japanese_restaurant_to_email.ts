@@ -1,5 +1,6 @@
 import { GmailController } from "../../../../../src/controllers/connector/gmail/GmailController";
 import { GoogleMapController } from "../../../../../src/controllers/connector/google_map/GoogleMapController";
+import { GoogleSearchController } from "../../../../../src/controllers/connector/google_search/GoogleSearchController";
 import { IFunctionCallBenchmarkScenario } from "../../structures/IFunctionCallBenchmarkScenario";
 
 export const scenario_japanese_restaurant_to_email =
@@ -12,8 +13,18 @@ export const scenario_japanese_restaurant_to_email =
       type: "array",
       items: [
         {
+          type: "anyOf",
+          anyOf: [
+            GoogleMapController.prototype.search,
+            GoogleSearchController.prototype.search,
+          ].map((func) => ({
+            type: "standalone",
+            function: func,
+          })),
+        },
+        {
           type: "standalone",
-          function: GoogleMapController.prototype.search,
+          function: GoogleMapController.prototype.review,
         },
         {
           type: "standalone",

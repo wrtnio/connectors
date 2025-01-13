@@ -1,3 +1,4 @@
+import { GmailController } from "../../../../../src/controllers/connector/gmail/GmailController";
 import { GoogleFlightController } from "../../../../../src/controllers/connector/google_flight/GoogleFlightController";
 import { GoogleHotelController } from "../../../../../src/controllers/connector/google_hotel/GoolgeHotelController";
 import { IFunctionCallBenchmarkScenario } from "../../structures/IFunctionCallBenchmarkScenario";
@@ -25,6 +26,10 @@ export const scenario_airline_and_hotel_to_email =
         {
           type: "standalone",
           function: GoogleHotelController.prototype.search,
+        },
+        {
+          type: "standalone",
+          function: GmailController.prototype.send,
         },
       ],
     },
