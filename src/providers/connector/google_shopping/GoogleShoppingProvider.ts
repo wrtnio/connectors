@@ -8,14 +8,18 @@ const defaultParams = {
   engine: "google_shopping",
   api_key: ConnectorGlobal.env.SERP_API_KEY,
   google_domain: "google.com",
+  location_requested: "South Korea",
+  location_used: "South Korea",
   device: "desktop",
+  hl: "ko",
+  gl: "kr",
 };
 
 @Injectable()
 export class GoogleShoppingProvider {
   async getGoogleShoppingResults(
     input: IGoogleShopping.IRequestStandAlone,
-    tbs?: string,
+    tbs: string,
   ): Promise<IGoogleShopping.IResponse[]> {
     try {
       const maxResultPerPage = 60;
@@ -29,11 +33,10 @@ export class GoogleShoppingProvider {
         // );
         const res = await getJson({
           ...defaultParams,
-          hl: input.lang,
-          gl: input.lang === "ko" ? "kr" : input.lang === "en" ? "us" : "jp",
           tbs: tbs,
           q: input.keyword,
           start: start,
+          // num: num,
           num: 5,
         });
         const results = res["shopping_results"];
@@ -237,35 +240,5 @@ export class GoogleShoppingProvider {
     input: IGoogleShopping.IRequestStandAlone,
   ): Promise<IGoogleShopping.IResponse[]> {
     return this.getGoogleShoppingResults(input, "mr:1,merchagg:m139753761");
-  }
-
-  async ebay(
-    input: IGoogleShopping.IRequestStandAlone,
-  ): Promise<IGoogleShopping.IResponse[]> {
-    const modifiedInput: IGoogleShopping.IRequestStandAlone = {
-      ...input,
-      keyword: `eBay+${input.keyword}`,
-    };
-    return this.getGoogleShoppingResults(modifiedInput);
-  }
-
-  async amazon(
-    input: IGoogleShopping.IRequestStandAlone,
-  ): Promise<IGoogleShopping.IResponse[]> {
-    const modifiedInput: IGoogleShopping.IRequestStandAlone = {
-      ...input,
-      keyword: `amazon+${input.keyword}`,
-    };
-    return this.getGoogleShoppingResults(modifiedInput);
-  }
-
-  async walmart(
-    input: IGoogleShopping.IRequestStandAlone,
-  ): Promise<IGoogleShopping.IResponse[]> {
-    const modifiedInput: IGoogleShopping.IRequestStandAlone = {
-      ...input,
-      keyword: `Walmart+${input.keyword}`,
-    };
-    return this.getGoogleShoppingResults(modifiedInput);
   }
 }

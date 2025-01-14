@@ -130,32 +130,32 @@ export const test_api_connector_google_shopping = async (
   );
   typia.assert(aladine);
 
-  const amazon = await CApi.functional.connector.google_shopping.amazon(
-    connection,
-    {
-      keyword: "macbook",
-      lang: "en",
-      max_results: 10,
-    },
-  );
+  // const amazon = await CApi.functional.connector.google_shopping.amazon(
+  //   connection,
+  //   {
+  //     keyword: "macbook",
+  //     lang: "en",
+  //     max_results: 10,
+  //   },
+  // );
 
-  const ebay = await CApi.functional.connector.google_shopping.ebay(
-    connection,
-    {
-      keyword: "macbook",
-      lang: "en",
-      max_results: 10,
-    },
-  );
-  typia.assert(ebay);
+  // const ebay = await CApi.functional.connector.google_shopping.ebay(
+  //   connection,
+  //   {
+  //     keyword: "macbook",
+  //     lang: "en",
+  //     max_results: 10,
+  //   },
+  // );
+  // typia.assert(ebay);
 
-  const walmart = await CApi.functional.connector.google_shopping.walmart(
-    connection,
-    {
-      keyword: "macbook",
-      lang: "en",
-      max_results: 10,
-    },
-  );
-  typia.assert(walmart);
+  // const walmart = await CApi.functional.connector.google_shopping.walmart(
+  //   connection,
+  //   {
+  //     keyword: "macbook",
+  //     lang: "en",
+  //     max_results: 10,
+  //   },
+  // );
+  // typia.assert(walmart);
 };

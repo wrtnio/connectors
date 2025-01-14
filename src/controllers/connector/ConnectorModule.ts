@@ -79,9 +79,9 @@ import { WebCrawlerModule } from "./web_crawler/WebCrawlerModule";
 import { XModule } from "./x/XModule";
 import { YoutubeSearchModule } from "./youtube_search/YoutubeSearchModule";
 import { ZoomModule } from "./zoom/ZoomModule";
-import { GoogleShoppingAmazonModule } from "./google_shopping/google_shopping_amazon/GoogleShoppingAmazonModule";
-import { GoogleShoppingEbayModule } from "./google_shopping/google_shopping_ebay/GoogleShoppingEbayModule";
-import { GoogleShoppingWalmartModule } from "./google_shopping/google_shopping_walmart/GoogleShoppingWalmartModule";
+// import { GoogleShoppingAmazonModule } from "./google_shopping/google_shopping_amazon/GoogleShoppingAmazonModule";
+// import { GoogleShoppingEbayModule } from "./google_shopping/google_shopping_ebay/GoogleShoppingEbayModule";
+// import { GoogleShoppingWalmartModule } from "./google_shopping/google_shopping_walmart/GoogleShoppingWalmartModule";
 
 @Module({
   // connectors that require DI of some sort shall be declared as modules
@@ -137,9 +137,9 @@ import { GoogleShoppingWalmartModule } from "./google_shopping/google_shopping_w
     GoogleShoppingUniqloModule,
     GoogleShoppingYesTwentyFourModule,
     GoogleShoppingMusinsaModule,
-    GoogleShoppingAmazonModule,
-    GoogleShoppingEbayModule,
-    GoogleShoppingWalmartModule,
+    // GoogleShoppingAmazonModule,
+    // GoogleShoppingEbayModule,
+    // GoogleShoppingWalmartModule,
     GoogleAdsModule,
     ArxivSearchModule,
     DaumModule,
