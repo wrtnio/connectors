@@ -71,15 +71,16 @@ const NESTIA_CONFIG: sdk.INestiaConfig[] = [
     distribute: "packages/api",
     simulate: true,
   },
-  ...moduleNames.map((module: any) =>
-    swagger({
+  ...moduleNames.map((module: any) => {
+    const title = toKebabCase(module.name);
+    return swagger({
       module,
       info: {
-        title: "",
+        title: title,
       },
-      output: `packages/api/connectors/${toKebabCase(module.name)}.swagger.json`,
-    }),
-  ),
+      output: `packages/api/connectors/${title}.swagger.json`,
+    });
+  }),
 ];
 
 export default NESTIA_CONFIG;
