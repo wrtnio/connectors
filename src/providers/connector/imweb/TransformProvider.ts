@@ -1,5 +1,7 @@
 import { IAttachmentFile } from "@samchon/shopping-api/lib/structures/common/IAttachmentFile";
 import { IShoppingSaleSnapshot } from "@samchon/shopping-api/lib/structures/shoppings/sales/IShoppingSaleSnapshot";
+import { IShoppingSaleUnitDescriptiveOption } from "@samchon/shopping-api/lib/structures/shoppings/sales/IShoppingSaleUnitDescriptiveOption";
+import { IShoppingSaleUnitSelectableOption } from "@samchon/shopping-api/lib/structures/shoppings/sales/IShoppingSaleUnitSelectableOption";
 import { IShoppingChannelCategory } from "@samchon/shopping-api/lib/structures/shoppings/systematic/IShoppingChannelCategory";
 import { IImweb } from "@wrtn/connector-api/lib/structures/connector/imweb/IImweb";
 import { StrictOmit } from "@wrtn/connector-api/lib/structures/types/strictOmit";
@@ -109,7 +111,81 @@ export namespace TransformProivder {
       };
     };
 
-  export const toIShoppingSaleUnitSummary =
+  export const toStockChoices = (unit: IImweb.ProductOption) => {
+    return unit.optionDetailInfoList.map((option) => {
+      return {
+        raw: `${option.optionCode}-${option.optionValue.optionValueCode}`,
+        id: TransformProivder.toUUID(
+          `${option.optionCode}-${option.optionValue.optionValueCode}`,
+        ),
+        candidate_id: TransformProivder.toUUID(
+          option.optionValue.optionValueCode,
+        ),
+        option_id: TransformProivder.toUUID(option.optionCode),
+      };
+    });
+  };
+
+  export const toSaleUnitOptions = (
+    unit: IImweb.ProductOption,
+  ):
+    | IShoppingSaleUnitSelectableOption[]
+    | IShoppingSaleUnitDescriptiveOption[] => {
+    return unit.optionDetailInfoList.map((option) => {
+      return {
+        id: TransformProivder.toUUID(option.optionCode),
+        name: option.name,
+        variable: false,
+        type: "string",
+        candidates: [
+          {
+            id: TransformProivder.toUUID(option.optionValue.optionValueCode),
+            name: option.optionValue.optionValueName,
+          },
+        ],
+      };
+    });
+  };
+
+  export const toSaleUnit = (
+    unit: IImweb.ProductOption,
+  ): IImweb.ShoppingBackend.ImwebSaleUnitSummary => {
+    const choices = TransformProivder.toStockChoices(unit);
+    const name = unit.optionDetailInfoList
+      .map((option) => `${option.name}:${option.optionValue.optionValueName}`)
+      .join("/"); // 아임웹에서 상품 옵션의 이름 표기를 위와 같은 형식으로 한다.
+
+    return {
+      id: TransformProivder.toUUID(unit.optionDetailCode),
+      name,
+      primary: true,
+      required: unit.isRequire === "Y" ? true : false,
+      options: TransformProivder.toSaleUnitOptions(unit),
+      stocks: [
+        {
+          id: TransformProivder.toUUID(choices.map((el) => el.raw).join("/")),
+          choices,
+          name,
+          price: {
+            nominal: unit.price,
+            real: unit.price,
+          },
+        },
+      ],
+      price_range: {
+        highest: {
+          nominal: unit.price,
+          real: unit.price,
+        },
+        lowest: {
+          nominal: unit.price,
+          real: unit.price,
+        },
+      },
+    };
+  };
+
+  export const toSaleUnits =
     <Product extends { name: string; price: number }>(product: Product) =>
     (
       options: IImweb.ProductOption[],
@@ -151,74 +227,12 @@ export namespace TransformProivder {
          */
         return options
           .filter((el) => el.isRequire === "Y")
-          .map((unit) => {
-            return {
-              id: TransformProivder.toUUID(unit.optionDetailCode),
-              name: unit.optionDetailInfoList
-                .map(
-                  (option) =>
-                    `${option.name}:${option.optionValue.optionValueName}`,
-                )
-                .join("/"), // 아임웹에서 상품 옵션의 이름 표기를 위와 같은 형식으로 한다.
-              primary: true,
-              required: unit.isRequire === "Y" ? true : false,
-              options: unit.optionDetailInfoList.map((option) => {
-                return {
-                  id: TransformProivder.toUUID(option.optionCode),
-                  name: option.name,
-                  variable: false,
-                  type: "string",
-                  candidates: [
-                    {
-                      id: TransformProivder.toUUID(
-                        option.optionValue.optionValueCode,
-                      ),
-                      name: option.optionValue.optionValueName,
-                    },
-                  ],
-                };
-              }),
-              stocks: [
-                {
-                  id: TransformProivder.toUUID(null),
-                  choices: unit.optionDetailInfoList.map((option) => {
-                    return {
-                      id: TransformProivder.toUUID(
-                        `${option.optionCode}-${option.optionValue.optionValueCode}`,
-                      ),
-                      candidate_id: TransformProivder.toUUID(
-                        option.optionValue.optionValueCode,
-                      ),
-                      option_id: TransformProivder.toUUID(option.optionCode),
-                    };
-                  }),
-                  name: unit.optionDetailInfoList
-                    .map(
-                      (option) =>
-                        `${option.name}:${option.optionValue.optionValueName}`,
-                    )
-                    .join("/"),
-                  price: {
-                    nominal: unit.price,
-                    real: unit.price,
-                  },
-                },
-              ],
-              price_range: {
-                highest: {
-                  nominal: unit.price,
-                  real: unit.price,
-                },
-                lowest: {
-                  nominal: unit.price,
-                  real: unit.price,
-                },
-              },
-            };
-          });
+          .map((unit) => TransformProivder.toSaleUnit(unit));
       } else {
         // 비조합형 옵션의 경우
-        throw new Error("비조합형 옵션의 경우");
+        return options
+          .filter((option) => option.isRequire === "Y")
+          .map((unit) => TransformProivder.toSaleUnit(unit));
       }
     };
 }

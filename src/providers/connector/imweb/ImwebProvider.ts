@@ -39,7 +39,7 @@ export namespace ImwebProvider {
       });
 
       // Transform product type to shopping backend format
-      return TransformProivder.toIShoppingSaleUnitSummary(detail)(options);
+      return TransformProivder.toSaleUnits(detail)(options);
     };
   }
 
