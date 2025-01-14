@@ -15,7 +15,7 @@
     }
   ],
   "info": {
-    "version": "0.1.442",
+    "version": "0.1.443",
     "title": "@wrtn/connector",
     "description": "wrtn-ecosystem connectors and sdk",
     "license": {
@@ -4634,138 +4634,6 @@
         "x-wrtn-function-select-benchmarks": [
           "무신사에서 상품 좀 찾아줘"
         ]
-      }
-    },
-    "/connector/google-shopping/amazon": {
-      "patch": {
-        "summary": "Search for Amazon",
-        "description": "Search for products on Amazon",
-        "tags": [
-          "Amazon"
-        ],
-        "parameters": [],
-        "requestBody": {
-          "description": "Search criteria",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/IGoogleShopping.IRequestStandAlone"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "200": {
-            "description": "Search results",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/IGoogleShopping.IResponse"
-                  }
-                }
-              }
-            }
-          }
-        },
-        "x-samchon-accessor": [
-          "connector",
-          "google_shopping",
-          "amazon"
-        ],
-        "x-samchon-controller": "GoogleShoppingAmazonController",
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Amazon_full.svg",
-        "x-wrtn-standalone": true
-      }
-    },
-    "/connector/google-shopping/ebay": {
-      "patch": {
-        "summary": "Search for Ebay",
-        "description": "Search for products on Ebay",
-        "tags": [
-          "Ebay"
-        ],
-        "parameters": [],
-        "requestBody": {
-          "description": "Search criteria",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/IGoogleShopping.IRequestStandAlone"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "200": {
-            "description": "Search results",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/IGoogleShopping.IResponse"
-                  }
-                }
-              }
-            }
-          }
-        },
-        "x-samchon-accessor": [
-          "connector",
-          "google_shopping",
-          "ebay"
-        ],
-        "x-samchon-controller": "GoogleShoppingEbayController",
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Ebay_full.svg",
-        "x-wrtn-standalone": true
-      }
-    },
-    "/connector/google-shopping/walmart": {
-      "patch": {
-        "summary": "Search for Walmart",
-        "description": "Search for products on Walmart",
-        "tags": [
-          "Walmart"
-        ],
-        "parameters": [],
-        "requestBody": {
-          "description": "Search criteria",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/IGoogleShopping.IRequestStandAlone"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "200": {
-            "description": "Search results",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/IGoogleShopping.IResponse"
-                  }
-                }
-              }
-            }
-          }
-        },
-        "x-samchon-accessor": [
-          "connector",
-          "google_shopping",
-          "walmart"
-        ],
-        "x-samchon-controller": "GoogleShoppingWalmartController",
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Walmart_full.svg",
-        "x-wrtn-standalone": true
       }
     },
     "/connector/arxiv-search": {
@@ -44258,15 +44126,6 @@
     },
     {
       "name": "Musinsa"
-    },
-    {
-      "name": "Amazon"
-    },
-    {
-      "name": "Ebay"
-    },
-    {
-      "name": "Walmart"
     },
     {
       "name": "Arxiv"
