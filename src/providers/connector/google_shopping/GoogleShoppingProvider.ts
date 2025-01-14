@@ -47,7 +47,7 @@ export class GoogleShoppingProvider {
           }
           const data = {
             title: result.title,
-            link: result.product_link,
+            link: result.link,
             price: result.price,
             source: result?.source,
             deliveryCost: result?.delivery,
