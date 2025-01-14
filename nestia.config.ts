@@ -48,23 +48,16 @@ import { KakaoMapModule } from "./src/controllers/connector/kakao_map/KakaoMapMo
 import { KakaoNaviModule } from "./src/controllers/connector/kakao_navi/KakaoNaviModule";
 import { KakaoTalkModule } from "./src/controllers/connector/kakao_talk/KakaoTalkModule";
 import { KoreaEximbankModule } from "./src/controllers/connector/korea_eximbank/KoreaEximbankModule";
-import { LlmModule } from "./src/controllers/connector/llm/LlmModule";
-import { MarketingCopyModule } from "./src/controllers/connector/marketing/MarketingCopyModule";
 import { NaverModule } from "./src/controllers/connector/naver/NaverModule";
 import { NotionModule } from "./src/controllers/connector/notion/NotionModule";
 import { OpenDataModule } from "./src/controllers/connector/open_data/OpenDataModule";
 import { PromptModule } from "./src/controllers/connector/prompts/PromptModule";
 import { RagModule } from "./src/controllers/connector/rag/RagModule";
-import { SimilarwebModule } from "./src/controllers/connector/similarweb/SimilarwebModule";
 import { SlackModule } from "./src/controllers/connector/slack/SlackModule";
-import { RankModule } from "./src/controllers/connector/sort/RankModule";
 import { StableDiffusionBetaModule } from "./src/controllers/connector/stable_diffustion_beta/StableDiffusionBetaModule";
-import { StoryGeneratorModule } from "./src/controllers/connector/story_generator/StoryGeneratorModule";
-import { StudentReportGeneratorModule } from "./src/controllers/connector/student_report_generator/StudentReportGeneratorModule";
 import { SweetTackerModule } from "./src/controllers/connector/sweet_tracker/SweetTrackerModule";
 import { TypeformModule } from "./src/controllers/connector/typeform/TypeformModule";
 import { YoutubeSearchModule } from "./src/controllers/connector/youtube_search/YoutubeSearchModule";
-import { ZoomModule } from "./src/controllers/connector/zoom/ZoomModule";
 import { GoogleShoppingAmazonModule } from "./src/controllers/connector/google_shopping/google_shopping_amazon/GoogleShoppingAmazonModule";
 import { GoogleShoppingEbayModule } from "./src/controllers/connector/google_shopping/google_shopping_ebay/GoogleShoppingEbayModule";
 import { GoogleShoppingWalmartModule } from "./src/controllers/connector/google_shopping/google_shopping_walmart/GoogleShoppingWalmartModule";
@@ -184,6 +177,16 @@ const NESTIA_CONFIG: sdk.INestiaConfig[] = [
     output: "packages/api/connectors/google-ads.swagger.json",
   }),
   swagger({
+    module: GmailModule,
+    info: {
+      title: "Gmail",
+      summary: "Gmail로 메일을 관리해요",
+      description:
+        "메일을 보내거나 초안을 작성할 수 있어요. 필요하다면 파일도 첨부해 보낼 수 있어요",
+    },
+    output: "packages/api/connectors/gmail.swagger.json",
+  }),
+  swagger({
     module: GoogleCalendarModule,
     info: {
       title: "구글 일정 관리자",
@@ -222,16 +225,6 @@ const NESTIA_CONFIG: sdk.INestiaConfig[] = [
         "출발지와 목적지, 날짜를 입력하면 다양한 항공편을 검색할 수 있어요. 직항/경유, 항공사, 가격 범위 등으로 검색 결과를 필터링할 수 있고, 가격, 소요 시간, 편의성 등을 기준으로 정렬할 수 있어요. 왕복 항공편 검색도 가능하며, 여러 날짜의 가격을 한눈에 비교할 수 있어요.",
     },
     output: "packages/api/connectors/google-flight.swagger.json",
-  }),
-  swagger({
-    module: GmailModule,
-    info: {
-      title: "구글 이메일 서비스 관리",
-      summary: "지메일로 이메일을 편리하게 관리해요.",
-      description:
-        "지메일을 통해 메일을 보내고, 초안을 만들고, 답장을 할 수 있어요. 메일 정보를 가져오고, 삭제하고, 라벨을 관리할 수 있어요. 대량의 이메일을 자동으로 처리하거나, 특정 조건에 따라 이메일을 분류하고 정리할 수 있어요. 개인 사용자부터 비즈니스 사용자까지 효율적인 이메일 관리와 커뮤니케이션을 할 수 있어요.",
-    },
-    output: "packages/api/connectors/google-gmail.swagger.json",
   }),
   swagger({
     module: GoogleHotelModule,
@@ -515,14 +508,6 @@ const NESTIA_CONFIG: sdk.INestiaConfig[] = [
     output: "packages/api/connectors/kakao-talk.swagger.json",
   }),
   swagger({
-    module: KeywordExtractModule,
-    info: {
-      title: "키워드 추출",
-      description: "",
-    },
-    output: "packages/api/connectors/keyword-extract.swagger.json",
-  }),
-  swagger({
     module: KoreaEximbankModule,
     info: {
       title: "실시간 환율 정보 제공",
@@ -531,22 +516,6 @@ const NESTIA_CONFIG: sdk.INestiaConfig[] = [
         "한국수출입은행의 API를 통해 실시간 환율 정보를 조회할 수 있어요. 주요 통화의 현재 환율은 물론, 과거 특정 날짜의 환율도 확인할 수 있어요. 환율 동향을 분석하고, 특정 기간의 평균 환율을 계산할 수도 있어요. 이를 통해 국제 거래나 여행 계획에 필요한 정보를 쉽게 얻을 수 있고, 환율 변동에 따른 리스크를 관리하는 데 도움을 받을 수 있어요.",
     },
     output: "packages/api/connectors/korea-eximbank.swagger.json",
-  }),
-  swagger({
-    module: LlmModule,
-    info: {
-      title: "LLM",
-      description: "",
-    },
-    output: "packages/api/connectors/llm.swagger.json",
-  }),
-  swagger({
-    module: MarketingCopyModule,
-    info: {
-      title: "마케팅 카피",
-      description: "마케팅 카피를 생성할 수 있어요",
-    },
-    output: "packages/api/connectors/marketing-copy.swagger.json",
   }),
   swagger({
     module: NaverModule,
@@ -595,14 +564,6 @@ const NESTIA_CONFIG: sdk.INestiaConfig[] = [
     output: "packages/api/connectors/rag.swagger.json",
   }),
   swagger({
-    module: RankModule,
-    info: {
-      title: "조건 정렬",
-      description: "",
-    },
-    output: "packages/api/connectors/rank.swagger.json",
-  }),
-  swagger({
     module: StableDiffusionBetaModule,
     info: {
       title: "Stable Diffusion 이미지 생성",
@@ -611,22 +572,6 @@ const NESTIA_CONFIG: sdk.INestiaConfig[] = [
         "텍스트 프롬프트를 입력하면 AI가 그에 맞는 이미지를 생성해줘요. 원하는 스타일, 분위기, 구체적인 요소들을 자세히 설명하면 그에 맞는 이미지를 만들 수 있어요. 생성된 이미지의 크기, 품질, 생성 속도 등을 조절할 수 있고, 여러 장의 이미지를 한 번에 생성할 수도 있어요. 디자인 아이디어 얻기, 콘텐츠 제작, 아트워크 생성 등 다양한 창작 활동에 활용할 수 있어요.",
     },
     output: "packages/api/connectors/stable-diffusion.swagger.json",
-  }),
-  swagger({
-    module: StoryGeneratorModule,
-    info: {
-      title: "스토리 생성",
-      description: "",
-    },
-    output: "packages/api/connectors/story-generator.swagger.json",
-  }),
-  swagger({
-    module: StudentReportGeneratorModule,
-    info: {
-      title: "내파일 기반 생활기록부 일괄 작성",
-      description: "",
-    },
-    output: "packages/api/connectors/student-report.swagger.json",
   }),
   swagger({
     module: SweetTackerModule,
@@ -704,16 +649,6 @@ const NESTIA_CONFIG: sdk.INestiaConfig[] = [
     output: "packages/api/connectors/github.swagger.json",
   }),
   swagger({
-    module: GithubModule,
-    info: {
-      title: "Crunchbase",
-      summary: "Crunchbase에서 기업 정보를 가져올 수 있어요",
-      description:
-        "전세계 기업의 펀딩 라운드나 투자, 재무 정보 등 자세한 내역을 확인할 수 있어요",
-    },
-    output: "packages/api/connectors/crunchbase.swagger.json",
-  }),
-  swagger({
     module: ExcelModule,
     info: {
       title: "Excel",
@@ -722,26 +657,6 @@ const NESTIA_CONFIG: sdk.INestiaConfig[] = [
         "엑셀에 시트를 넣거나 데이터를 추가하여 보기 쉽게 데이터를 관리할 수 있어요. 또 기존 파일을 업데이트해서 데이터를 누적해나갈 수도 있어요.",
     },
     output: "packages/api/connectors/excel.swagger.json",
-  }),
-  swagger({
-    module: GmailModule,
-    info: {
-      title: "Gmail",
-      summary: "Gmail로 메일을 관리해요",
-      description:
-        "메일을 보내거나 초안을 작성할 수 있어요. 필요하다면 파일도 첨부해 보낼 수 있어요",
-    },
-    output: "packages/api/connectors/gmail.swagger.json",
-  }),
-  swagger({
-    module: SimilarwebModule,
-    info: {
-      title: "Similarweb",
-      summary: "Similarweb을 이용해서 특정 사이트의 정보를 가져올 수 있어요",
-      description:
-        "웹 사이트의 월별 트래픽이나 홈페이지의 관리 주체가 누구인지 등 자세한 정보를 조회할 수 있어요",
-    },
-    output: "packages/api/connectors/similarweb.swagger.json",
   }),
   swagger({
     module: TypeformModule,
