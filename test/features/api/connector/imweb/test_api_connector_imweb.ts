@@ -34,7 +34,7 @@ export const test_api_connector_imweb_index = async (
   }
 };
 
-export const test_api_connector_imweb_at = async (
+export const test_api_connector_imweb_at_product_no_3 = async (
   connection: CApi.IConnection,
 ) => {
   await ConnectorGlobal.reload();

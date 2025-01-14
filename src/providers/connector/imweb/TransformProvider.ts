@@ -149,71 +149,73 @@ export namespace TransformProivder {
         /**
          * 아임웹에서의 조합형 옵션을 의미한다.
          */
-        return options.map((unit) => {
-          return {
-            id: TransformProivder.toUUID(unit.optionDetailCode),
-            name: unit.optionDetailInfoList
-              .map(
-                (option) =>
-                  `${option.name}:${option.optionValue.optionValueName}`,
-              )
-              .join("/"), // 아임웹에서 상품 옵션의 이름 표기를 위와 같은 형식으로 한다.
-            primary: true,
-            required: unit.isRequire === "Y" ? true : false,
-            options: unit.optionDetailInfoList.map((option) => {
-              return {
-                id: TransformProivder.toUUID(option.optionCode),
-                name: option.name,
-                variable: false,
-                type: "string",
-                candidates: [
-                  {
-                    id: TransformProivder.toUUID(
-                      option.optionValue.optionValueCode,
-                    ),
-                    name: option.optionValue.optionValueName,
+        return options
+          .filter((el) => el.isRequire === "Y")
+          .map((unit) => {
+            return {
+              id: TransformProivder.toUUID(unit.optionDetailCode),
+              name: unit.optionDetailInfoList
+                .map(
+                  (option) =>
+                    `${option.name}:${option.optionValue.optionValueName}`,
+                )
+                .join("/"), // 아임웹에서 상품 옵션의 이름 표기를 위와 같은 형식으로 한다.
+              primary: true,
+              required: unit.isRequire === "Y" ? true : false,
+              options: unit.optionDetailInfoList.map((option) => {
+                return {
+                  id: TransformProivder.toUUID(option.optionCode),
+                  name: option.name,
+                  variable: false,
+                  type: "string",
+                  candidates: [
+                    {
+                      id: TransformProivder.toUUID(
+                        option.optionValue.optionValueCode,
+                      ),
+                      name: option.optionValue.optionValueName,
+                    },
+                  ],
+                };
+              }),
+              stocks: [
+                {
+                  id: TransformProivder.toUUID(null),
+                  choices: unit.optionDetailInfoList.map((option) => {
+                    return {
+                      id: TransformProivder.toUUID(
+                        `${option.optionCode}-${option.optionValue.optionValueCode}`,
+                      ),
+                      candidate_id: TransformProivder.toUUID(
+                        option.optionValue.optionValueCode,
+                      ),
+                      option_id: TransformProivder.toUUID(option.optionCode),
+                    };
+                  }),
+                  name: unit.optionDetailInfoList
+                    .map(
+                      (option) =>
+                        `${option.name}:${option.optionValue.optionValueName}`,
+                    )
+                    .join("/"),
+                  price: {
+                    nominal: unit.price,
+                    real: unit.price,
                   },
-                ],
-              };
-            }),
-            stocks: [
-              {
-                id: TransformProivder.toUUID(null),
-                choices: unit.optionDetailInfoList.map((option) => {
-                  return {
-                    id: TransformProivder.toUUID(
-                      `${option.optionCode}-${option.optionValue.optionValueCode}`,
-                    ),
-                    candidate_id: TransformProivder.toUUID(
-                      option.optionValue.optionValueCode,
-                    ),
-                    option_id: TransformProivder.toUUID(option.optionCode),
-                  };
-                }),
-                name: unit.optionDetailInfoList
-                  .map(
-                    (option) =>
-                      `${option.name}:${option.optionValue.optionValueName}`,
-                  )
-                  .join("/"),
-                price: {
+                },
+              ],
+              price_range: {
+                highest: {
+                  nominal: unit.price,
+                  real: unit.price,
+                },
+                lowest: {
                   nominal: unit.price,
                   real: unit.price,
                 },
               },
-            ],
-            price_range: {
-              highest: {
-                nominal: unit.price,
-                real: unit.price,
-              },
-              lowest: {
-                nominal: unit.price,
-                real: unit.price,
-              },
-            },
-          };
-        });
+            };
+          });
       } else {
         // 비조합형 옵션의 경우
         throw new Error("비조합형 옵션의 경우");
