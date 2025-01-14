@@ -10,7 +10,7 @@ import { ICommon } from "../common/ISecretValue";
 export namespace IImweb {
   export namespace ShoppingBackend {
     /**
-     * @title
+     * @title Sale Unit Summary
      */
     export interface ImwebSaleUnitSummary
       extends DeepStrictOmit<IShoppingSaleUnit, "stocks[*].inventory">,
@@ -26,38 +26,38 @@ export namespace IImweb {
     // eslint-disable-next-line @typescript-eslint/no-empty-interface
     export interface Sale
       extends DeepStrictOmit<
-        IShoppingSale,
-        | "seller"
-        | "closed_at"
-        | "snapshot_id"
-        | "suspended_at"
-        | "section"
-        | "content.thumbnails[*].created_at"
-        | "units[*].stocks[*].inventory"
-      > {}
+          IShoppingSale,
+          | "seller"
+          | "closed_at"
+          | "snapshot_id"
+          | "suspended_at"
+          | "section"
+          | "content.thumbnails[*].created_at"
+          | "units[*].stocks[*].inventory"
+        >,
+        IImweb.Common.IProductNumber {}
 
+    /**
+     * @title Summary of Sale
+     */
     export interface SaleSummary
       extends DeepStrictOmit<
-        IShoppingSale.ISummary,
-        | "seller.customer"
-        | "seller.member"
-        | "seller.created_at"
-        | "seller.citizen.id"
-        | "seller.citizen.created_at"
-        | "closed_at"
-        | "content.id"
-        | "snapshot_id"
-        | "suspended_at"
-        | "section"
-        | "content.thumbnails[*].created_at"
-        | "channels[*].created_at"
-        | "channels[*].categories[*].created_at"
-      > {
-      /**
-       * @title Product Number
-       */
-      productNo: number;
-    }
+          IShoppingSale.ISummary,
+          | "seller.customer"
+          | "seller.member"
+          | "seller.created_at"
+          | "seller.citizen.id"
+          | "seller.citizen.created_at"
+          | "closed_at"
+          | "content.id"
+          | "snapshot_id"
+          | "suspended_at"
+          | "section"
+          | "content.thumbnails[*].created_at"
+          | "channels[*].created_at"
+          | "channels[*].categories[*].created_at"
+        >,
+        IImweb.Common.IProductNumber {}
   }
 
   export namespace Common {
@@ -931,4 +931,103 @@ export namespace IImweb {
   export interface IGetUnitInput
     extends IImweb.Common.IUnitCode,
       IImweb.Common.IAccessToken {}
+
+  export type IGetReviewOutput = IImweb.Common.ResponseSummaryForm<{
+    reviewNo: number;
+    type: "shopping" | "booking";
+    channel: "imweb" | "npay" | "talkpay" | "vreview" | "crema";
+    reviewCode: string;
+    siteCode: string;
+    unitCode: string;
+    prodNo: number;
+
+    /**
+     * @title Member Code
+     */
+    memberCode: string;
+
+    /**
+     * @title Reviewer name or nickname
+     */
+    nick: string;
+
+    /**
+     * @title Review subject
+     */
+    subject: string;
+
+    /**
+     * @title Review content body
+     */
+    body: string;
+
+    /**
+     * @title Review Image URL
+     */
+    img?: string;
+
+    /**
+     * @title whether this review is secret
+     */
+    secret: IImweb.YN;
+
+    /**
+     * @title whether this review is hidden
+     */
+    isHide: IImweb.YN;
+
+    /**
+     * @title Review Views
+     */
+    readCnt: number;
+
+    /**
+     * @title Option name of the product purchased by the reviewer
+     */
+    prodOption: string;
+  }>;
+
+  export interface IGetReviewInput
+    extends IImweb.Common.IProductNumber,
+      IImweb.Common.IAccessToken {
+    /**
+     * Page number.
+     *
+     * @title Page
+     */
+    page?: number & tags.Type<"uint32"> & tags.Minimum<1> & tags.Default<1>;
+
+    /**
+     * Limitation of records per a page.
+     *
+     * @title Limit
+     */
+    limit?: number & tags.Type<"uint32"> & tags.Maximum<100> & tags.Default<10>;
+
+    /**
+     * @title Rating
+     */
+    rating?: 1 | 2 | 3 | 4 | 5;
+
+    /**
+     * @title Whether this review obtain photos
+     */
+    isPhoto?: IImweb.YN;
+
+    /**
+     *  Indicates the range of dates when you want to search
+     * for a review by the time it was added. Here, specify
+     * the type of date range (gte/lte: one date, between: two dates)
+     *
+     * @title a review by the time it was added
+     */
+    reviewCreateTimeType?: IImweb.Range;
+
+    /**
+     * @title Time when the review was added
+     */
+    reviewCreateTime?: Array<string & tags.Format<"date-time">> &
+      tags.MinItems<1> &
+      tags.MaxItems<2>;
+  }
 }

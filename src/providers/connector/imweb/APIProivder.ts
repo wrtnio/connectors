@@ -30,6 +30,17 @@ export namespace APIProivder {
       .catch(returnOrThrowError);
   }
 
+  export async function getReviews(input: IImweb.IGetReviewInput) {
+    const { accessToken, ...rest } = input;
+    const query = createQueryParameter(rest);
+    const url = `${BASE_URL}/community/qna?${query}`;
+    return await axios
+      .get<IImweb.IGetReviewOutput>(url, {
+        headers: { Authorization: `Bearer ${accessToken}` },
+      })
+      .then((res) => res.data.data);
+  }
+
   /**
    * getting products as format of imweb_product
    *

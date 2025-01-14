@@ -7,9 +7,9 @@ import { is, tags } from "typia";
 import { v5 } from "uuid";
 import { ImwebProvider } from "./ImwebProvider";
 
-export namespace TransformProivder {
-  const NAMESPACE = TransformProivder.toUUID("IMWEB");
+const NAMESPACE = "6ba7b810-9dad-11d1-80b4-00c04fd430c8" as const;
 
+export namespace TransformProivder {
   export const toImage = (
     url: string,
   ): StrictOmit<IAttachmentFile, "created_at"> => {

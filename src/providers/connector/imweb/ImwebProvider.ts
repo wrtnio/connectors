@@ -82,6 +82,7 @@ export namespace ImwebProvider {
 
       return {
         id: TransformProivder.toUUID(detail.prodCode),
+        productNo: Number(productNo),
         channels: [],
         content: {
           id: TransformProivder.toUUID(null),
