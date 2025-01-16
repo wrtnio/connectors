@@ -15,9 +15,9 @@
     }
   ],
   "info": {
-    "title": "RAG",
-    "description": "",
-    "version": "0.1.443",
+    "title": "rag",
+    "version": "0.1.444",
+    "description": "wrtn-ecosystem connectors and sdk",
     "license": {
       "name": "AGPL-3.0-only"
     }

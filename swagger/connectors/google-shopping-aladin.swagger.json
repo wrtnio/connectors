@@ -1,0 +1,161 @@
+{
+  "openapi": "3.1.0",
+  "servers": [
+    {
+      "url": "https://studio-connector-api.wrtn.ai",
+      "description": "Production Server"
+    },
+    {
+      "url": "https://studio-connector-poc.dev.wrtn.club",
+      "description": "Develop Server"
+    },
+    {
+      "url": "http://localhost:3003",
+      "description": "Local Server"
+    }
+  ],
+  "info": {
+    "title": "google-shopping-aladin",
+    "version": "0.1.444",
+    "description": "wrtn-ecosystem connectors and sdk",
+    "license": {
+      "name": "AGPL-3.0-only"
+    }
+  },
+  "paths": {
+    "/connector/google-shopping/aladine": {
+      "patch": {
+        "summary": "Aladdin Search",
+        "description": "Search for products in Aladdin\nAladdin is a service that allows you to purchase used books.",
+        "tags": [
+          "Aladin"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "description": "Search conditions",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IGoogleShopping.IRequestStandAlone"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Search results",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/IGoogleShopping.IResponse"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-samchon-accessor": [
+          "connector",
+          "google_shopping",
+          "aladine"
+        ],
+        "x-samchon-controller": "GoogleShoppingAladinController",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/aladin_full.svg",
+        "x-wrtn-standalone": true,
+        "x-wrtn-function-select-benchmarks": [
+          "알라딘에서 도서 좀 검색해줘"
+        ]
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "IGoogleShopping.IResponse": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "title": "Product name"
+          },
+          "link": {
+            "oneOf": [
+              {
+                "const": "#"
+              },
+              {
+                "type": "string",
+                "format": "iri"
+              }
+            ],
+            "title": "Product Link"
+          },
+          "price": {
+            "type": "string",
+            "title": "Product Price",
+            "description": "₩57,600 Format"
+          },
+          "source": {
+            "type": "string",
+            "title": "Product Source"
+          },
+          "deliveryCost": {
+            "type": "string",
+            "title": "Shipping fee"
+          },
+          "thumbnail": {
+            "type": "string",
+            "format": "iri",
+            "contentMediaType": "image/*",
+            "title": "Product Image"
+          },
+          "rating": {
+            "type": "number",
+            "title": "Product Rating"
+          }
+        },
+        "required": [
+          "title",
+          "link",
+          "price",
+          "thumbnail"
+        ],
+        "title": "Product search results"
+      },
+      "IGoogleShopping.IRequestStandAlone": {
+        "type": "object",
+        "properties": {
+          "keyword": {
+            "type": "string",
+            "title": "Search term",
+            "description": "Enter the keyword you want to search for."
+          },
+          "lang": {
+            "type": "string",
+            "title": "Language Setting",
+            "description": "Choose which language you want to use as your search term.\n\nYou can only pass a single BCP 47 language identifier.\n\nex) You want to setting korean language, you can pass \"ko\"."
+          },
+          "max_results": {
+            "type": "integer",
+            "title": "Number of search results",
+            "description": "Set the number of search results."
+          }
+        },
+        "required": [
+          "keyword",
+          "lang",
+          "max_results"
+        ],
+        "title": "Product search conditions"
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "Aladin"
+    }
+  ],
+  "x-samchon-emended": true
+}

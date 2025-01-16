@@ -15,21 +15,20 @@
     }
   ],
   "info": {
-    "title": "알라딘 상품 검색",
-    "summary": "알라딘 쇼핑몰의 상품을 한 번에 검색해요.",
-    "description": "알라딘 쇼핑몰의 상품을 검색할 수 있어요. 원하는 상품의 가격, 을 비교할 수 있고, 최저가 정보도 쉽게 확인할 수 있어요. 카테고리별 검색 옵션을 사용할 수 있어요. 이를 통해 효율적인 쇼핑은 물론, 시장 조사나 가격 동향 분석 등에도 활용할 수 있어요.",
-    "version": "0.1.443",
+    "title": "google-shopping-market-kurly",
+    "version": "0.1.444",
+    "description": "wrtn-ecosystem connectors and sdk",
     "license": {
       "name": "AGPL-3.0-only"
     }
   },
   "paths": {
-    "/connector/google-shopping/aladine": {
+    "/connector/google-shopping/market-kurly": {
       "patch": {
-        "summary": "Aladdin Search",
-        "description": "Search for products in Aladdin\nAladdin is a service that allows you to purchase used books.",
+        "summary": "Market Kurly Search",
+        "description": "Search for products on Market Kurly\nMarket Kurly is a service where you can purchase groceries.",
         "tags": [
-          "Aladin"
+          "Market Kurly"
         ],
         "parameters": [],
         "requestBody": {
@@ -61,13 +60,14 @@
         "x-samchon-accessor": [
           "connector",
           "google_shopping",
-          "aladine"
+          "market_kurly",
+          "marketKurly"
         ],
-        "x-samchon-controller": "GoogleShoppingAladinController",
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/aladin_full.svg",
+        "x-samchon-controller": "GoogleShoppingMarketKurlyController",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Kurly_full.svg",
         "x-wrtn-standalone": true,
         "x-wrtn-function-select-benchmarks": [
-          "알라딘에서 도서 좀 검색해줘"
+          "마켓컬리에서 상품 좀 찾아줘"
         ]
       }
     }
@@ -155,7 +155,7 @@
   },
   "tags": [
     {
-      "name": "Aladin"
+      "name": "Market Kurly"
     }
   ],
   "x-samchon-emended": true

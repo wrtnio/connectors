@@ -1,0 +1,647 @@
+{
+  "openapi": "3.1.0",
+  "servers": [
+    {
+      "url": "https://studio-connector-api.wrtn.ai",
+      "description": "Production Server"
+    },
+    {
+      "url": "https://studio-connector-poc.dev.wrtn.club",
+      "description": "Develop Server"
+    },
+    {
+      "url": "http://localhost:3003",
+      "description": "Local Server"
+    }
+  ],
+  "info": {
+    "title": "x",
+    "version": "0.1.444",
+    "description": "wrtn-ecosystem connectors and sdk",
+    "license": {
+      "name": "AGPL-3.0-only"
+    }
+  },
+  "paths": {
+    "/connector/x/get-users": {
+      "patch": {
+        "summary": "Get User Information",
+        "description": "Get User Information by username",
+        "tags": [],
+        "parameters": [],
+        "requestBody": {
+          "description": "username",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IX.IUserInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "user information",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/IX.IUserOutput"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-samchon-accessor": [
+          "connector",
+          "x",
+          "get_users",
+          "getUsers"
+        ],
+        "x-samchon-controller": "XController",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/X_full.svg"
+      }
+    },
+    "/connector/x/get-influencers": {
+      "patch": {
+        "summary": "Get information on celebrities.",
+        "description": "Get X user information of celebrities. Useful for understanding trends in various fields such as world affairs and IT.",
+        "tags": [],
+        "parameters": [],
+        "requestBody": {
+          "description": "username",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IX.ISecret"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "user information",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/IX.IUserOutput"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-samchon-accessor": [
+          "connector",
+          "x",
+          "get_influencers",
+          "getPreDefinedInfluencers"
+        ],
+        "x-samchon-controller": "XController",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/X_full.svg"
+      }
+    },
+    "/connector/x/prepare-summarize": {
+      "post": {
+        "summary": "Prepare Tweet Summary",
+        "description": "Fetches and indexes the tweets of given users requested.\n\nBefore executing fetches and indexes the tweets, you must call the /get-users or /get-influencers endpoint to get user information.\n\nYou should put as many users as you want to fetch tweets from.\n\nThis endpoint is designed to handle multiple users efficiently.\n\nIt already get information from multiple user's, you must not make multiple requests to this endpoint to fetch tweets from multiple users. you must use the results from a single request.\n\nFor example, if you are fetch tweets from multiple users and have a summary request, you must use the results from only one request to summarize the tweets for each user.\n\nYou must use the /summarize endpoint to proceed with the summary after fetching the tweet, do not allow this endpoint to be used just for summarization.",
+        "tags": [],
+        "parameters": [],
+        "requestBody": {
+          "description": "user information, secretKey, query",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IX.IPrePareSummarizeTweetInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IX.IPrePareSummarizeTweetOutput"
+                }
+              }
+            }
+          }
+        },
+        "x-samchon-accessor": [
+          "connector",
+          "x",
+          "prepare_summarize",
+          "prepareSummary"
+        ],
+        "x-samchon-controller": "XController",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/X_full.svg"
+      }
+    },
+    "/connector/x/summarize": {
+      "post": {
+        "summary": "Tweet Summary",
+        "description": "Summarizes the tweets of those requested them.\n\nNote that this endpoint is intended to be used for a single keyword or subject.\n\nIf you need to summarize multiple keywords or subjects, you must make multiple requests for each keyword or subject no exceptions.\n\nFor example, if you want to summarize tweets about \"Elon Musk\" and \"AI\", make two requests, one for \"Elon Musk\" and one for \"AI\".\n\nYou must assume that the results may contain irrelevant tweets against the query. You must filter the results based on the query. Do your best to cherry-pick the relevant tweets only.\n\nAny tweet that are not relevant to the query must be ignored, even if that tweet is related to the user request, not the query.",
+        "tags": [],
+        "parameters": [],
+        "requestBody": {
+          "description": "user information, secretKey, query",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IX.ISummarizeTweetInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IX.IGetChunkDocumentOutput"
+                }
+              }
+            }
+          }
+        },
+        "x-samchon-accessor": [
+          "connector",
+          "x",
+          "summarize",
+          "summarizeTweet"
+        ],
+        "x-samchon-controller": "XController",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/X_full.svg"
+      }
+    },
+    "/connector/x/general-search": {
+      "patch": {
+        "summary": "General Search Tweets",
+        "description": "Search for tweets based on search query requested by the user.\n\nYou need to analyze the user's request and retrieve tweets through natural language queries (search terms).\n\nFor example, when a user requests \"Search for books that are trending on Twitter these days,\" the query (search term) should be natural language, not a keyword, such as \"trending books.\"",
+        "tags": [],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IX.IGeneralSearchRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/IX.IGeneralSearchResponse"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-samchon-accessor": [
+          "connector",
+          "x",
+          "general_search",
+          "generalSearch"
+        ],
+        "x-samchon-controller": "XController",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/X_full.svg"
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "IX.IUserOutput": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "User ID",
+            "description": "The unique id of the user"
+          },
+          "name": {
+            "type": "string",
+            "title": "name",
+            "description": "The display name of the user"
+          },
+          "userName": {
+            "type": "string",
+            "title": "user name",
+            "description": "The user name of user"
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "userName"
+        ],
+        "title": "User Information data"
+      },
+      "IX.IUserInput": {
+        "type": "object",
+        "properties": {
+          "userName": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "minItems": 1,
+            "title": "Twitter user name",
+            "description": "User name for search"
+          },
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "x",
+            "x-wrtn-secret-scopes": [
+              "tweet.read",
+              "tweet.write",
+              "users.read",
+              "follows.read",
+              "list.read"
+            ],
+            "title": "Select authentication information",
+            "description": "secret key."
+          }
+        },
+        "required": [
+          "userName",
+          "secretKey"
+        ],
+        "title": "User Search Condition"
+      },
+      "IX.ISecret": {
+        "type": "object",
+        "properties": {
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "x",
+            "x-wrtn-secret-scopes": [
+              "tweet.read",
+              "tweet.write",
+              "users.read",
+              "follows.read",
+              "list.read"
+            ],
+            "title": "Select authentication information",
+            "description": "secret key."
+          }
+        },
+        "required": [
+          "secretKey"
+        ]
+      },
+      "IX.IPrePareSummarizeTweetOutput": {
+        "type": "object",
+        "properties": {
+          "chatId": {
+            "type": "string",
+            "title": "chat id",
+            "description": "Chat id required for RAG generation results.\nReturns the chat id for the analyzed file to generate chat results for the file analyzed by RAG.\nThe same chat id is required to analyze multiple files and generate results for multiple files in the same chat."
+          }
+        },
+        "required": [
+          "chatId"
+        ],
+        "title": "Prepare Summarize tweet results"
+      },
+      "IX.IPrePareSummarizeTweetInput": {
+        "type": "object",
+        "properties": {
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "x",
+            "x-wrtn-secret-scopes": [
+              "tweet.read",
+              "tweet.write",
+              "users.read",
+              "follows.read",
+              "list.read"
+            ],
+            "title": "Select authentication information",
+            "description": "secret key."
+          },
+          "user": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "x-wrtn-prerequisite": {
+                    "method": "post",
+                    "path": "/connector/x/get-users",
+                    "jmesPath": "[].{value:id, label:userName}"
+                  },
+                  "title": "user id",
+                  "description": "The unique id of the user for search user tweet time line"
+                },
+                "name": {
+                  "type": "string",
+                  "x-wrtn-prerequisite": {
+                    "method": "post",
+                    "path": "/connector/x/get-users",
+                    "jmesPath": "[].{value:name, label:name}"
+                  },
+                  "title": "user name",
+                  "description": "The original user name"
+                },
+                "userName": {
+                  "type": "string",
+                  "x-wrtn-prerequisite": {
+                    "method": "post",
+                    "path": "/connector/x/get-users",
+                    "jmesPath": "[].{value:userName, label:userName}"
+                  },
+                  "title": "twitter user name",
+                  "description": "The user name of twitter"
+                }
+              },
+              "required": [
+                "id",
+                "name",
+                "userName"
+              ]
+            },
+            "title": "user",
+            "description": "User information for search user tweet time line"
+          }
+        },
+        "required": [
+          "secretKey",
+          "user"
+        ]
+      },
+      "IX.IGetChunkDocumentOutput": {
+        "type": "object",
+        "properties": {
+          "documents": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "title": "id",
+                  "description": "Chunk document id"
+                },
+                "text": {
+                  "type": "string",
+                  "title": "text",
+                  "description": "Chunk document text"
+                },
+                "score": {
+                  "oneOf": [
+                    {
+                      "type": "null"
+                    },
+                    {
+                      "type": "number"
+                    }
+                  ],
+                  "title": "score",
+                  "description": "Chunk document score"
+                },
+                "image": {
+                  "oneOf": [
+                    {
+                      "type": "null"
+                    },
+                    {
+                      "type": "string"
+                    }
+                  ],
+                  "title": "image",
+                  "description": "Chunk document image"
+                },
+                "metadata": {
+                  "title": "metadata",
+                  "description": "Chunk document metadata"
+                }
+              },
+              "required": [
+                "id",
+                "text",
+                "score",
+                "image",
+                "metadata"
+              ]
+            },
+            "title": "Chunk Document List",
+            "description": "Chunk Document List"
+          }
+        },
+        "required": [
+          "documents"
+        ]
+      },
+      "IX.ISummarizeTweetInput": {
+        "type": "object",
+        "properties": {
+          "chatId": {
+            "type": "string",
+            "x-wrtn-prerequisite": {
+              "method": "post",
+              "path": "/connector/x/prepare-summarize",
+              "jmesPath": "{value:chatId, label:chatId}"
+            },
+            "title": "chatId",
+            "description": "\"chatId\" to get tweets. Pass the \"chatId\" obtained from the \"prepare-summarize-tweet\" API as-is."
+          },
+          "query": {
+            "type": "string",
+            "title": "query",
+            "description": "A query that describes what tweets you want to get. For example, it can be a keyword or a name of a person.\n\nAvoid using a query that is too broad, it may lead to irrelevant results.\n\nPut a single subject at a time. If you need multiple subjects, must make multiple requests for each subject no exceptions."
+          }
+        },
+        "required": [
+          "chatId",
+          "query"
+        ],
+        "title": "Information needed for tweet summary"
+      },
+      "IX.IGeneralSearchResponse": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "tweet ID",
+            "description": "The unique id of the tweet"
+          },
+          "userName": {
+            "type": "string",
+            "title": "user name",
+            "description": "The user name of the tweet"
+          },
+          "text": {
+            "type": "string",
+            "title": "tweet content",
+            "description": "The content text of the tweet"
+          },
+          "tweet_link": {
+            "type": "string",
+            "format": "iri",
+            "title": "tweet link",
+            "description": "The link of the tweet"
+          },
+          "metric": {
+            "$ref": "#/components/schemas/IX.IMetric",
+            "title": "metric",
+            "description": "Metric data for the tweet"
+          },
+          "thumbnail": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string",
+                "format": "iri"
+              }
+            ],
+            "title": "thumbnail",
+            "description": "Thumbnail Image URL of the tweet"
+          }
+        },
+        "required": [
+          "id",
+          "userName",
+          "text",
+          "tweet_link",
+          "metric",
+          "thumbnail"
+        ],
+        "title": "Tweet Search Result"
+      },
+      "IX.IMetric": {
+        "type": "object",
+        "properties": {
+          "retweet_count": {
+            "type": "integer",
+            "title": "Retweet Count"
+          },
+          "reply_count": {
+            "type": "integer",
+            "title": "Reply Count",
+            "description": "Indicates how many replies a tweet has."
+          },
+          "like_count": {
+            "type": "integer",
+            "title": "Like Count",
+            "description": "Indicates how many likes a tweet has received."
+          },
+          "quote_count": {
+            "type": "integer",
+            "title": "Quote Count",
+            "description": "Indicates how many times a tweet has been quoted."
+          },
+          "bookmark_count": {
+            "type": "integer",
+            "title": "Bookmark Count",
+            "description": "Indicates how many times a tweet has been bookmarked."
+          },
+          "impression_count": {
+            "type": "integer",
+            "title": "Impression Count",
+            "description": "Indicates how many times a tweet has been viewed."
+          }
+        },
+        "required": [
+          "retweet_count",
+          "reply_count",
+          "like_count",
+          "quote_count",
+          "bookmark_count",
+          "impression_count"
+        ],
+        "title": "Metric for tweet"
+      },
+      "IX.IGeneralSearchRequest": {
+        "type": "object",
+        "properties": {
+          "query": {
+            "type": "string",
+            "title": "search query",
+            "description": "Get tweets by query.\n\nThe query should be entered in natural language.\n\nFor example, if the user asks \"Search for what books are trending on Twitter these days,\" the query should be \"trending books.\""
+          },
+          "lang": {
+            "type": "string",
+            "title": "Tweet Settings Language",
+            "description": "Matches posts categorized by X in a specific language.\n\nYou can only pass a single BCP 47 language identifier.\n\nex) You want to setting korean language, you can pass \"ko\"."
+          },
+          "maxResults": {
+            "type": "integer",
+            "default": 10,
+            "title": "Maximum number of search results.",
+            "description": "Sets the maximum number of results to be searched."
+          },
+          "sort_order": {
+            "oneOf": [
+              {
+                "const": "recency"
+              },
+              {
+                "const": "relevancy"
+              }
+            ],
+            "title": "Sort order",
+            "description": "Determines the sort order.\n- recency: newest\n- relevancy: relevance"
+          },
+          "start_time": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Start time for search tweet",
+            "description": "The oldest UTC timestamp from which the Tweets will be provided.\n\nBy default, a request will return Tweets from up to 30 days ago if you do not include this parameter."
+          },
+          "end_time": {
+            "type": "string",
+            "format": "date-time",
+            "title": "End time for search tweet",
+            "description": "Used with start_time. The newest, most recent UTC timestamp to which the Tweets will be provided.\n\nIf used without start_time, Tweets from 30 days before end_time will be returned by default. If not specified, end_time will default to [now - 30 seconds]."
+          },
+          "isExcludeRetweet": {
+            "type": "boolean",
+            "title": "Whether to remove retweets",
+            "description": "Sets whether to remove retweeted tweets from search results."
+          },
+          "isExcludeReply": {
+            "type": "boolean",
+            "title": "Whether to remove replies",
+            "description": "Sets whether to remove replied tweets from search results."
+          },
+          "isExcludeQuote": {
+            "type": "boolean",
+            "title": "Whether to remove quotes",
+            "description": "Sets whether to remove quoted tweets from search results."
+          }
+        },
+        "required": [
+          "query",
+          "lang",
+          "maxResults",
+          "sort_order"
+        ],
+        "title": "Tweet Search Condition"
+      }
+    }
+  },
+  "tags": [],
+  "x-samchon-emended": true
+}

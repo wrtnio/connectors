@@ -15,9 +15,9 @@
     }
   ],
   "info": {
-    "title": "Discord",
-    "description": "디스코드로 메세지를 보내요.",
-    "version": "0.1.443",
+    "title": "discord",
+    "version": "0.1.444",
+    "description": "wrtn-ecosystem connectors and sdk",
     "license": {
       "name": "AGPL-3.0-only"
     }

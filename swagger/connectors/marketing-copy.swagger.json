@@ -1,0 +1,422 @@
+{
+  "openapi": "3.1.0",
+  "servers": [
+    {
+      "url": "https://studio-connector-api.wrtn.ai",
+      "description": "Production Server"
+    },
+    {
+      "url": "https://studio-connector-poc.dev.wrtn.club",
+      "description": "Develop Server"
+    },
+    {
+      "url": "http://localhost:3003",
+      "description": "Local Server"
+    }
+  ],
+  "info": {
+    "title": "marketing-copy",
+    "version": "0.1.444",
+    "description": "wrtn-ecosystem connectors and sdk",
+    "license": {
+      "name": "AGPL-3.0-only"
+    }
+  },
+  "paths": {
+    "/connector/marketing-copy/generate-copy": {
+      "post": {
+        "summary": "Generate marketing copy",
+        "description": "Generates marketing copy from given input",
+        "tags": [],
+        "parameters": [],
+        "requestBody": {
+          "description": "Input for generating marketing copy",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IMarketingCopyGenerator.IGenerateMarketingCopyInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Generated marketing copy",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MyPartialIMarketingCopyComponents"
+                }
+              }
+            }
+          }
+        },
+        "x-samchon-accessor": [
+          "connector",
+          "marketing_copy",
+          "generate_copy",
+          "generateCopy"
+        ],
+        "x-samchon-controller": "MarketingCopyController",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Marketing_full.svg"
+      }
+    },
+    "/connector/marketing-copy/generate-copy-image": {
+      "post": {
+        "summary": "Generate a marketing copy image",
+        "description": "Generates a marketing copy image from the given input",
+        "tags": [],
+        "parameters": [],
+        "requestBody": {
+          "description": "Input for generating a marketing copy image",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IMarketingCopyGenerator.IGenerateMarketingCopyImageInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Generated marketing copy image",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IMarketingCopyImage"
+                }
+              }
+            }
+          }
+        },
+        "x-samchon-accessor": [
+          "connector",
+          "marketing_copy",
+          "generate_copy_image",
+          "generateCopyImage"
+        ],
+        "x-samchon-controller": "MarketingCopyController",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Marketing_full.svg"
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "MyPartialIMarketingCopyComponents": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "title": "The title of your marketing copy",
+            "description": "The title of your marketing copy."
+          },
+          "cta": {
+            "type": "string",
+            "title": "This is the CTA phrase in your marketing copy",
+            "description": "This is the CTA phrase in your marketing copy."
+          },
+          "subtitle": {
+            "type": "string",
+            "title": "A description of the marketing copy",
+            "description": "Here is a description of the marketing copy."
+          }
+        },
+        "required": []
+      },
+      "IMarketingCopyGenerator.IGenerateMarketingCopyInput": {
+        "type": "object",
+        "properties": {
+          "keyword": {
+            "$ref": "#/components/schemas/IKeywordExtraction.IExtractKeywordOutput",
+            "title": "Keywords",
+            "description": "Overall keywords in your marketing copy"
+          },
+          "marketingPurpose": {
+            "$ref": "#/components/schemas/IMarketingPurpose",
+            "title": "Marketing Purpose",
+            "description": "Purpose of marketing and product information"
+          },
+          "distributionChannel": {
+            "$ref": "#/components/schemas/IDistributionChannel",
+            "title": "Marketing Channel",
+            "description": "Channel information for using marketing copy"
+          },
+          "referenceContent": {
+            "$ref": "#/components/schemas/IConnector.IReferenceContent",
+            "title": "References",
+            "description": "References for Creating Marketing Copy"
+          }
+        },
+        "required": [
+          "keyword",
+          "marketingPurpose",
+          "distributionChannel",
+          "referenceContent"
+        ],
+        "title": "Input for creating marketing copy"
+      },
+      "IKeywordExtraction.IExtractKeywordOutput": {
+        "type": "object",
+        "properties": {
+          "keyword": {
+            "type": "string",
+            "description": "Extracted Keywords"
+          }
+        },
+        "required": [
+          "keyword"
+        ]
+      },
+      "IMarketingPurpose": {
+        "type": "object",
+        "properties": {
+          "purpose": {
+            "oneOf": [
+              {
+                "const": "sign_up"
+              },
+              {
+                "const": "purchase"
+              },
+              {
+                "const": "visit"
+              }
+            ],
+            "title": "Marketing purpose",
+            "description": "The purpose is to do marketing.\n\nOnly three possible values are available: sign_up, purchase, and visit."
+          },
+          "product_name": {
+            "type": "string",
+            "title": "This is the product name to be marketed",
+            "description": "This is the product name to be marketed."
+          },
+          "unique_selling_point": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "title": "This is the selling point of the product",
+            "description": "This is the selling point of the product."
+          },
+          "user_benefit": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "title": "Benefits of the product you are marketing",
+            "description": "Benefits of the product you are marketing."
+          }
+        },
+        "required": [
+          "purpose",
+          "product_name",
+          "unique_selling_point",
+          "user_benefit"
+        ]
+      },
+      "IDistributionChannel": {
+        "type": "object",
+        "properties": {
+          "channel": {
+            "oneOf": [
+              {
+                "const": "youtube"
+              },
+              {
+                "const": "facebook"
+              },
+              {
+                "const": "kakao"
+              },
+              {
+                "const": "instagram_feed"
+              },
+              {
+                "const": "instagram_story"
+              },
+              {
+                "const": "naver"
+              }
+            ],
+            "title": "Channels to use marketing copy",
+            "description": "Channels to use marketing copy.\n\nOnly 6 possible values are possible: facebook, instagram_feed, instagram_story, youtube, naver, kakao."
+          },
+          "components": {
+            "type": "array",
+            "items": {
+              "oneOf": [
+                {
+                  "const": "title"
+                },
+                {
+                  "const": "cta"
+                },
+                {
+                  "const": "subtitle"
+                }
+              ]
+            },
+            "title": "Information to retrieve from the channel where the marketing copy will be used",
+            "description": "Information to retrieve from the channel where the marketing copy will be used.\n\nOnly three possible values are possible: title, cta, subtitle."
+          }
+        },
+        "required": [
+          "channel",
+          "components"
+        ]
+      },
+      "IConnector.IReferenceContent": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "title": "Title",
+            "description": "The title of the output"
+          },
+          "type": {
+            "oneOf": [
+              {
+                "const": "video"
+              },
+              {
+                "const": "image"
+              },
+              {
+                "const": "news_article"
+              },
+              {
+                "const": "research_paper"
+              }
+            ],
+            "title": "Output Type",
+            "description": "Video, image, news article, research paper\n\nIt must be one of: video, image, news_article, research_paper"
+          },
+          "source": {
+            "oneOf": [
+              {
+                "const": "youtube"
+              },
+              {
+                "const": "facebook"
+              },
+              {
+                "const": "instagram"
+              },
+              {
+                "const": "google_search"
+              },
+              {
+                "const": "arxiv"
+              },
+              {
+                "const": "google_news"
+              }
+            ],
+            "title": "Source of output",
+            "description": "youtube, facebook, instagram, google_search, arxiv, google_news\n\nIt must be one of: youtube, facebook, instagram, google_search, arxiv, google_news"
+          },
+          "url": {
+            "type": "string",
+            "format": "iri",
+            "title": "URL address",
+            "description": "The URL address of the output"
+          },
+          "contents": {
+            "type": "string",
+            "title": "Output Content",
+            "description": "Here is the content of the output"
+          },
+          "image": {
+            "type": "string",
+            "format": "iri",
+            "title": "Output Image URL",
+            "description": "The URL address of the image of the output"
+          },
+          "statistics": {
+            "$ref": "#/components/schemas/MyPartialRecordIConnector.MetricTypenumberTypeint32",
+            "title": "Output statistics information",
+            "description": "Output statistics information\n\nPossible values: view_count, like_count, rank"
+          }
+        },
+        "required": [
+          "title",
+          "type",
+          "source",
+          "url"
+        ]
+      },
+      "MyPartialRecordIConnector.MetricTypenumberTypeint32": {
+        "type": "object",
+        "properties": {
+          "view_count": {
+            "type": "integer"
+          },
+          "like_count": {
+            "type": "integer"
+          },
+          "rank": {
+            "type": "integer"
+          }
+        },
+        "required": []
+      },
+      "IMarketingCopyImage": {
+        "type": "object",
+        "properties": {
+          "imageUrl": {
+            "type": "string",
+            "format": "iri",
+            "contentMediaType": "image/*",
+            "title": "Image URL of the generated marketing copy draft",
+            "description": "Image URL of the generated marketing copy draft."
+          }
+        },
+        "required": [
+          "imageUrl"
+        ]
+      },
+      "IMarketingCopyGenerator.IGenerateMarketingCopyImageInput": {
+        "type": "object",
+        "properties": {
+          "copy": {
+            "$ref": "#/components/schemas/MyPartialIMarketingCopyComponents",
+            "title": "Marketing Copy Creation Results",
+            "description": "Marketing Copy Creation Results Related to Marketing Copy Image"
+          },
+          "keyword": {
+            "$ref": "#/components/schemas/IKeywordExtraction.IExtractKeywordOutput",
+            "title": "Keywords",
+            "description": "Overall keywords for marketing copy images"
+          },
+          "marketingPurpose": {
+            "$ref": "#/components/schemas/IMarketingPurpose",
+            "title": "Marketing Purpose",
+            "description": "Purpose of marketing and product information"
+          },
+          "distributionChannel": {
+            "$ref": "#/components/schemas/IDistributionChannel",
+            "title": "Marketing Channel",
+            "description": "Channel information for using marketing copy"
+          },
+          "referenceContent": {
+            "$ref": "#/components/schemas/IConnector.IReferenceContent",
+            "title": "References",
+            "description": "References for Creating Marketing Copy"
+          }
+        },
+        "required": [
+          "copy",
+          "keyword",
+          "marketingPurpose",
+          "distributionChannel",
+          "referenceContent"
+        ],
+        "title": "Input for generating marketing copy images"
+      }
+    }
+  },
+  "tags": [],
+  "x-samchon-emended": true
+}

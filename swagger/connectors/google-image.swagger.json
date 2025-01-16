@@ -1,0 +1,150 @@
+{
+  "openapi": "3.1.0",
+  "servers": [
+    {
+      "url": "https://studio-connector-api.wrtn.ai",
+      "description": "Production Server"
+    },
+    {
+      "url": "https://studio-connector-poc.dev.wrtn.club",
+      "description": "Develop Server"
+    },
+    {
+      "url": "http://localhost:3003",
+      "description": "Local Server"
+    }
+  ],
+  "info": {
+    "title": "google-image",
+    "version": "0.1.444",
+    "description": "wrtn-ecosystem connectors and sdk",
+    "license": {
+      "name": "AGPL-3.0-only"
+    }
+  },
+  "paths": {
+    "/connector/google-image": {
+      "patch": {
+        "summary": "Search Google Image",
+        "description": "Search Google for images based on the search terms you enter",
+        "tags": [
+          "Google Image"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "description": "Image Search conditions",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IGoogleImage.IRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Image search results",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/IGoogleImage.IResponse"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-samchon-accessor": [
+          "connector",
+          "google_image",
+          "search"
+        ],
+        "x-samchon-controller": "GoogleImageController",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleImage_full.svg",
+        "x-wrtn-function-select-benchmarks": [
+          "구글에서 이미지 좀 검색해줘"
+        ]
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "IGoogleImage.IResponse": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "title": "title",
+            "description": "Image title"
+          },
+          "imageUrl": {
+            "type": "string",
+            "format": "iri",
+            "title": "url",
+            "description": "Image url"
+          },
+          "thumbnail": {
+            "type": "string",
+            "format": "iri",
+            "title": "thumbnail",
+            "description": "Image Thumbnail"
+          }
+        },
+        "required": [
+          "title",
+          "imageUrl",
+          "thumbnail"
+        ],
+        "title": "Google Image Search Result"
+      },
+      "IGoogleImage.IRequest": {
+        "type": "object",
+        "properties": {
+          "query": {
+            "type": "string",
+            "title": "Search Query",
+            "description": "Set a search query to get images."
+          },
+          "lang": {
+            "type": "string",
+            "title": "Language Setting",
+            "description": "Choose which language you want to use as your search term.\n\nYou can only pass a single BCP 47 language identifier.\n\nex) You want to setting korean language, you can pass \"ko\"."
+          },
+          "ratio": {
+            "oneOf": [
+              {
+                "const": "s"
+              },
+              {
+                "const": "t"
+              },
+              {
+                "const": "w"
+              },
+              {
+                "const": "xw"
+              }
+            ],
+            "title": "Image Ratio",
+            "description": "Set the ratio of the images to be retrieved as search results"
+          }
+        },
+        "required": [
+          "query",
+          "lang",
+          "ratio"
+        ],
+        "title": "Google Image Search Condition"
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "Google Image"
+    }
+  ],
+  "x-samchon-emended": true
+}

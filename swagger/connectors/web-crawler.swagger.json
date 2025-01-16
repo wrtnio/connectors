@@ -1,0 +1,112 @@
+{
+  "openapi": "3.1.0",
+  "servers": [
+    {
+      "url": "https://studio-connector-api.wrtn.ai",
+      "description": "Production Server"
+    },
+    {
+      "url": "https://studio-connector-poc.dev.wrtn.club",
+      "description": "Develop Server"
+    },
+    {
+      "url": "http://localhost:3003",
+      "description": "Local Server"
+    }
+  ],
+  "info": {
+    "title": "web-crawler",
+    "version": "0.1.444",
+    "description": "wrtn-ecosystem connectors and sdk",
+    "license": {
+      "name": "AGPL-3.0-only"
+    }
+  },
+  "paths": {
+    "/connector/crawler/get-web-content": {
+      "patch": {
+        "summary": "Get HTML content from the URL",
+        "description": "Get HTML content from the URL\n\nThis API accepts a URL as input and returns the HTML content of the body of the corresponding web page.\nIt fetches only the <body> element, excluding the head and other parts of the HTML structure, providing developers\nwith a streamlined way to access the main content of a web page for further processing or analysis.\n\nThe API includes a \"Wait For Selector\" option, allowing it to wait for a specific CSS selector\nto be present in the DOM before returning the content.\nThis is useful for ensuring that dynamic elements or data are fully loaded.",
+        "tags": [
+          "Web Crawler"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IWebCrawler.IRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IWebCrawler.IResponse"
+                }
+              }
+            }
+          }
+        },
+        "x-samchon-accessor": [
+          "connector",
+          "crawler",
+          "get_web_content",
+          "getWebContent"
+        ],
+        "x-samchon-controller": "WebCrawlerController"
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "IWebCrawler.IResponse": {
+        "type": "object",
+        "properties": {
+          "url": {
+            "type": "string",
+            "format": "iri",
+            "title": "Crawled url"
+          },
+          "content": {
+            "type": "string",
+            "title": "Crawled content"
+          }
+        },
+        "required": [
+          "url",
+          "content"
+        ],
+        "title": "Response from crawled web page"
+      },
+      "IWebCrawler.IRequest": {
+        "type": "object",
+        "properties": {
+          "url": {
+            "type": "string",
+            "title": "Target URL to crawl"
+          },
+          "wait_for": {
+            "type": "string",
+            "title": "Wait for a CSS selector to appear before returning content. (not required)"
+          }
+        },
+        "required": [
+          "url"
+        ],
+        "title": "Request to crawl a web page"
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "Web Crawler"
+    }
+  ],
+  "x-samchon-emended": true
+}
