@@ -1033,6 +1033,7 @@ export class GithubController {
    *
    * The content of the body is omitted, so if you want to see it, you should use the detailed lookup connector.
    * If the user wants to see the body property, '/connector/github/repositories/issues/get-detail' connector must be called.
+   * You do not know who owns the repository, so you must ask the user who owns the repository and fill the owner field of the request interface.
    *
    * @summary List repository issues
    * @param input
