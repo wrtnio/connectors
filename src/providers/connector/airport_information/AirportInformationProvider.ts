@@ -46,51 +46,51 @@ export class AirportInformationProvider {
     }
   }
 
-  async saveToDatabase(): Promise<void> {
-    const fileUrl =
-      "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/airport_inforamtion.csv";
-    const match = fileUrl.match(AwsProvider.S3BucketURL);
-    if (!match) throw new Error("Invalid S3 URL");
+  // async saveToDatabase(): Promise<void> {
+  //   const fileUrl =
+  //     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/airport_inforamtion.csv";
+  //   const match = fileUrl.match(AwsProvider.S3BucketURL);
+  //   if (!match) throw new Error("Invalid S3 URL");
 
-    const fileBuffer = await AwsProvider.getObject({ fileUrl });
-    const s3Stream = new Readable();
-    s3Stream.push(fileBuffer);
-    s3Stream.push(null);
+  //   const fileBuffer = await AwsProvider.getObject({ fileUrl });
+  //   const s3Stream = new Readable();
+  //   s3Stream.push(fileBuffer);
+  //   s3Stream.push(null);
 
-    const records: any = [];
-    return new Promise<void>((resolve, reject) => {
-      s3Stream
-        .pipe(csv.parse({ headers: true }))
-        .on("data", (row) => {
-          records.push(row);
-        })
-        .on("end", async () => {
-          try {
-            for (const record of records) {
-              await ConnectorGlobal.prisma.airport_informations.create({
-                data: {
-                  id: v4(),
-                  kr_country_name: record["한글국가명"],
-                  kr_city_name: record["한글도시명"],
-                  ko_airport_name: record["한글공항"],
-                  airport_code: record["공항코드"],
-                  en_airport_name: record["영문공항명"],
-                  en_city_name: record["영문도시명"],
-                  created_at: new Date(),
-                },
-              });
-            }
-            this.logger.log("CSV data saved to database successfully.");
-            resolve();
-          } catch (error) {
-            this.logger.error(`Database Save Error: ${error}`);
-            reject(error);
-          }
-        })
-        .on("error", (error) => {
-          this.logger.error(`CSV Parsing Error: ${error}`);
-          reject(error);
-        });
-    });
-  }
+  //   const records: any = [];
+  //   return new Promise<void>((resolve, reject) => {
+  //     s3Stream
+  //       .pipe(csv.parse({ headers: true }))
+  //       .on("data", (row) => {
+  //         records.push(row);
+  //       })
+  //       .on("end", async () => {
+  //         try {
+  //           for (const record of records) {
+  //             await ConnectorGlobal.prisma.airport_informations.create({
+  //               data: {
+  //                 id: v4(),
+  //                 kr_country_name: record["한글국가명"],
+  //                 kr_city_name: record["한글도시명"],
+  //                 ko_airport_name: record["한글공항"],
+  //                 airport_code: record["공항코드"],
+  //                 en_airport_name: record["영문공항명"],
+  //                 en_city_name: record["영문도시명"],
+  //                 created_at: new Date(),
+  //               },
+  //             });
+  //           }
+  //           this.logger.log("CSV data saved to database successfully.");
+  //           resolve();
+  //         } catch (error) {
+  //           this.logger.error(`Database Save Error: ${error}`);
+  //           reject(error);
+  //         }
+  //       })
+  //       .on("error", (error) => {
+  //         this.logger.error(`CSV Parsing Error: ${error}`);
+  //         reject(error);
+  //       });
+  //   });
+  // }
 }
