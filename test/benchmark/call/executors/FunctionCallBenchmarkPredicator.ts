@@ -56,7 +56,6 @@ export namespace FunctionCallBenchmarkPredicator {
     const input = JSON.parse(toolCall.function.arguments);
     return typia.is<IJudgeProps>(input) && input.next;
   };
-
   export const success = (props: {
     application: IHttpLlmApplication<"chatgpt">;
     operations: Map<Function, Function>;
@@ -83,6 +82,7 @@ export namespace FunctionCallBenchmarkPredicator {
           operations: props.operations,
           function: props.expected.function,
         });
+        console.log(target);
         return props.functionList.some(({ function: func }) => func === target);
       case "allOf":
         return props.expected.allOf.every((expected) => call(expected));
@@ -94,6 +94,7 @@ export namespace FunctionCallBenchmarkPredicator {
 
         for (const history of props.functionList) {
           if (targeted.done) {
+            console.log("targeted.done");
             return true;
           }
 
@@ -106,7 +107,7 @@ export namespace FunctionCallBenchmarkPredicator {
             return false;
           }
         }
-        return true;
+        return !!targeted.done;
     }
   };
 
