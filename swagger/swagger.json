@@ -15,7 +15,7 @@
     }
   ],
   "info": {
-    "version": "0.1.444",
+    "version": "0.1.445",
     "title": "@wrtn/connector",
     "description": "wrtn-ecosystem connectors and sdk",
     "license": {
@@ -4768,7 +4768,47 @@
         ]
       }
     },
-    "/connector/naver/cafe": {
+    "/connector/naver-blog": {
+      "patch": {
+        "summary": "Naver blog search",
+        "description": "Search Naver blog content",
+        "tags": [
+          "Naver Blog"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "description": "Conditions for Naver blog search",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/INaverBlog.INaverKeywordInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/INaverBlog.IBlogNaverOutput"
+                }
+              }
+            }
+          }
+        },
+        "x-samchon-accessor": [
+          "connector",
+          "naver_blog",
+          "blogList"
+        ],
+        "x-samchon-controller": "NaverBlogController",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/NaverBlog_full.svg"
+      }
+    },
+    "/connector/naver-cafe": {
       "patch": {
         "summary": "Naver Cafe search",
         "description": "Search Naver Cafe contents",
@@ -4781,7 +4821,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/INaver.INaverKeywordInput"
+                "$ref": "#/components/schemas/INaverCafe.INaverKeywordInput"
               }
             }
           },
@@ -4793,7 +4833,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/INaver.ICafeNaverOutput"
+                  "$ref": "#/components/schemas/INaverCafe.ICafeNaverOutput"
                 }
               }
             }
@@ -4801,58 +4841,14 @@
         },
         "x-samchon-accessor": [
           "connector",
-          "naver",
-          "cafe",
+          "naver_cafe",
           "cafeList"
         ],
-        "x-samchon-controller": "NaverController",
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/NaverCafe_full.svg",
-        "x-wrtn-standalone": true
+        "x-samchon-controller": "NaverCafeController",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/NaverCafe_full.svg"
       }
     },
-    "/connector/naver/blog": {
-      "patch": {
-        "summary": "Naver blog search",
-        "description": "Search Naver blog content",
-        "tags": [
-          "Naver"
-        ],
-        "parameters": [],
-        "requestBody": {
-          "description": "Conditions for Naver blog search",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/INaver.INaverKeywordInput"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "200": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/INaver.IBlogNaverOutput"
-                }
-              }
-            }
-          }
-        },
-        "x-samchon-accessor": [
-          "connector",
-          "naver",
-          "blog",
-          "blogList"
-        ],
-        "x-samchon-controller": "NaverController",
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/NaverBlog_full.svg",
-        "x-wrtn-standalone": true
-      }
-    },
-    "/connector/naver/news": {
+    "/connector/naver-news": {
       "patch": {
         "summary": "Search Naver News",
         "description": "Search Naver News",
@@ -4865,7 +4861,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/INaver.INaverKeywordInput"
+                "$ref": "#/components/schemas/INaverNews.INaverKeywordInput"
               }
             }
           },
@@ -4877,7 +4873,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/INaver.INewsNaverOutput"
+                  "$ref": "#/components/schemas/INaverNews.INewsNaverOutput"
                 }
               }
             }
@@ -4885,11 +4881,10 @@
         },
         "x-samchon-accessor": [
           "connector",
-          "naver",
-          "news",
+          "naver_news",
           "newsList"
         ],
-        "x-samchon-controller": "NaverController",
+        "x-samchon-controller": "NaverNewsController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/NaverNews_full.svg"
       }
     },
@@ -18200,96 +18195,92 @@
         ],
         "title": "Next Cafe Search Results"
       },
-      "INaver.ICafeNaverOutput": {
+      "INaverBlog.IBlogNaverOutput": {
         "type": "object",
         "properties": {
-          "data": {
-            "type": "object",
-            "properties": {
-              "lastBuildDate": {
-                "type": "string",
-                "title": "The time the search results were generated",
-                "description": "The time the search results were generated."
-              },
-              "total": {
-                "type": "number",
-                "title": "Total number of search results",
-                "description": "Total number of search results."
-              },
-              "start": {
-                "type": "number",
-                "title": "The starting position of the search",
-                "description": "The starting position of the search results."
-              },
-              "display": {
-                "type": "number",
-                "title": "The number of search results to display at one time",
-                "description": "The number of search results to display at one time."
-              },
-              "items": {
-                "type": "array",
-                "items": {
-                  "$ref": "#/components/schemas/INaver.ICafeNaverItemOutput"
-                },
-                "title": "Individual search results",
-                "description": "Individual search results."
-              }
+          "lastBuildDate": {
+            "type": "string",
+            "title": "The time the search results were generated",
+            "description": "The time the search results were generated."
+          },
+          "total": {
+            "type": "number",
+            "title": "Total number of search results",
+            "description": "Total number of search results."
+          },
+          "start": {
+            "type": "number",
+            "title": "The starting position of the search",
+            "description": "The starting position of the search results."
+          },
+          "display": {
+            "type": "number",
+            "title": "The number of search results to display at one time",
+            "description": "The number of search results to display at one time."
+          },
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/INaverBlog.IBlogNaverItemOutput"
             },
-            "required": [
-              "lastBuildDate",
-              "total",
-              "start",
-              "display",
-              "items"
-            ],
-            "title": "Naver Cafe search result data",
-            "description": "Naver Cafe search result data."
+            "title": "Individual search results",
+            "description": "Individual search results."
           }
         },
         "required": [
-          "data"
+          "lastBuildDate",
+          "total",
+          "start",
+          "display",
+          "items"
         ],
-        "title": "Naver Cafe Search Results"
+        "title": "Naver blog search results"
       },
-      "INaver.ICafeNaverItemOutput": {
+      "INaverBlog.IBlogNaverItemOutput": {
         "type": "object",
         "properties": {
           "title": {
             "type": "string",
             "title": "Post title",
-            "description": "Title of Naver Cafe post."
+            "description": "Title of Naver blog post."
           },
           "link": {
             "type": "string",
             "title": "Post link",
-            "description": "Link to Naver Cafe post."
+            "description": "Link to Naver blog post."
           },
           "description": {
             "type": "string",
             "title": "Summary of post",
-            "description": "Summary of Naver Cafe post."
+            "description": "Summary of Naver blog post."
           },
-          "cafename": {
+          "bloggername": {
             "type": "string",
-            "title": "The name of the cafe where the post is located",
-            "description": "The name of the cafe where the Naver Cafe post is located."
+            "title": "The name of the blog that contains the blog post",
+            "description": "The name of the blog that contains the Naver blog post."
           },
-          "cafeurl": {
+          "bloggerlink": {
             "type": "string",
-            "title": "Link to the cafe where the post is located",
-            "description": "Link to the cafe where the Naver Cafe post is located."
+            "title": "Address of the blog that contains the blog post",
+            "description": "Address of the blog that contains the Naver blog post."
+          },
+          "postdate": {
+            "type": "string",
+            "title": "The date the blog post was created",
+            "description": "The date the Naver blog post was created."
           }
         },
         "required": [
           "title",
           "link",
           "description",
-          "cafename",
-          "cafeurl"
+          "bloggername",
+          "bloggerlink",
+          "postdate"
         ],
-        "title": "Naver Cafe Search Data"
+        "title": "Naver blog search data"
       },
-      "INaver.INaverKeywordInput": {
+      "INaverBlog.INaverKeywordInput": {
         "type": "object",
         "properties": {
           "andKeywords": {
@@ -18337,92 +18328,144 @@
         ],
         "title": "Search Conditions"
       },
-      "INaver.IBlogNaverOutput": {
+      "INaverCafe.ICafeNaverOutput": {
         "type": "object",
         "properties": {
-          "lastBuildDate": {
-            "type": "string",
-            "title": "The time the search results were generated",
-            "description": "The time the search results were generated."
-          },
-          "total": {
-            "type": "number",
-            "title": "Total number of search results",
-            "description": "Total number of search results."
-          },
-          "start": {
-            "type": "number",
-            "title": "The starting position of the search",
-            "description": "The starting position of the search results."
-          },
-          "display": {
-            "type": "number",
-            "title": "The number of search results to display at one time",
-            "description": "The number of search results to display at one time."
-          },
-          "items": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/INaver.IBlogNaverItemOutput"
+          "data": {
+            "type": "object",
+            "properties": {
+              "lastBuildDate": {
+                "type": "string",
+                "title": "The time the search results were generated",
+                "description": "The time the search results were generated."
+              },
+              "total": {
+                "type": "number",
+                "title": "Total number of search results",
+                "description": "Total number of search results."
+              },
+              "start": {
+                "type": "number",
+                "title": "The starting position of the search",
+                "description": "The starting position of the search results."
+              },
+              "display": {
+                "type": "number",
+                "title": "The number of search results to display at one time",
+                "description": "The number of search results to display at one time."
+              },
+              "items": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/INaverCafe.ICafeNaverItemOutput"
+                },
+                "title": "Individual search results",
+                "description": "Individual search results."
+              }
             },
-            "title": "Individual search results",
-            "description": "Individual search results."
+            "required": [
+              "lastBuildDate",
+              "total",
+              "start",
+              "display",
+              "items"
+            ],
+            "title": "Naver Cafe search result data",
+            "description": "Naver Cafe search result data."
           }
         },
         "required": [
-          "lastBuildDate",
-          "total",
-          "start",
-          "display",
-          "items"
+          "data"
         ],
-        "title": "Naver blog search results"
+        "title": "Naver Cafe Search Results"
       },
-      "INaver.IBlogNaverItemOutput": {
+      "INaverCafe.ICafeNaverItemOutput": {
         "type": "object",
         "properties": {
           "title": {
             "type": "string",
             "title": "Post title",
-            "description": "Title of Naver blog post."
+            "description": "Title of Naver Cafe post."
           },
           "link": {
             "type": "string",
             "title": "Post link",
-            "description": "Link to Naver blog post."
+            "description": "Link to Naver Cafe post."
           },
           "description": {
             "type": "string",
             "title": "Summary of post",
-            "description": "Summary of Naver blog post."
+            "description": "Summary of Naver Cafe post."
           },
-          "bloggername": {
+          "cafename": {
             "type": "string",
-            "title": "The name of the blog that contains the blog post",
-            "description": "The name of the blog that contains the Naver blog post."
+            "title": "The name of the cafe where the post is located",
+            "description": "The name of the cafe where the Naver Cafe post is located."
           },
-          "bloggerlink": {
+          "cafeurl": {
             "type": "string",
-            "title": "Address of the blog that contains the blog post",
-            "description": "Address of the blog that contains the Naver blog post."
-          },
-          "postdate": {
-            "type": "string",
-            "title": "The date the blog post was created",
-            "description": "The date the Naver blog post was created."
+            "title": "Link to the cafe where the post is located",
+            "description": "Link to the cafe where the Naver Cafe post is located."
           }
         },
         "required": [
           "title",
           "link",
           "description",
-          "bloggername",
-          "bloggerlink",
-          "postdate"
+          "cafename",
+          "cafeurl"
         ],
-        "title": "Naver blog search data"
+        "title": "Naver Cafe Search Data"
       },
-      "INaver.INewsNaverOutput": {
+      "INaverCafe.INaverKeywordInput": {
+        "type": "object",
+        "properties": {
+          "andKeywords": {
+            "type": "string",
+            "x-wrtn-placeholder": "뤼튼",
+            "title": "Must-include keywords",
+            "description": "Keywords that must be included in search results."
+          },
+          "orKeywords": {
+            "type": "string",
+            "x-wrtn-placeholder": "스튜디오",
+            "title": "Keywords that would be good to include",
+            "description": "Keywords that you would like to see included in the search results."
+          },
+          "notKeywords": {
+            "type": "string",
+            "x-wrtn-placeholder": "폭력",
+            "title": "Keywords that should not be included",
+            "description": "Keywords that should not be included in search results."
+          },
+          "display": {
+            "type": "number",
+            "minimum": 1,
+            "maximum": 100,
+            "default": 10,
+            "x-wrtn-placeholder": "10",
+            "title": "Number to search",
+            "description": "Set how many search results to retrieve.\nMinimum 1, maximum 100, default 10."
+          },
+          "sort": {
+            "oneOf": [
+              {
+                "const": "sim"
+              },
+              {
+                "const": "date"
+              }
+            ],
+            "title": "Sort by",
+            "description": "Indicates how to sort.\n\n- sim: Sort by accuracy descending (default).\n- date: Sort by date descending."
+          }
+        },
+        "required": [
+          "andKeywords"
+        ],
+        "title": "Search Conditions"
+      },
+      "INaverNews.INewsNaverOutput": {
         "type": "object",
         "properties": {
           "lastBuildDate": {
@@ -18448,7 +18491,7 @@
           "items": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/INaver.INewsNaverItemOutput"
+              "$ref": "#/components/schemas/INaverNews.INewsNaverItemOutput"
             },
             "title": "Individual search results",
             "description": "Individual search results."
@@ -18462,7 +18505,7 @@
           "items"
         ]
       },
-      "INaver.INewsNaverItemOutput": {
+      "INaverNews.INewsNaverItemOutput": {
         "type": "object",
         "properties": {
           "title": {
@@ -18501,6 +18544,54 @@
           "pubDate"
         ],
         "title": "Naver News Search Data"
+      },
+      "INaverNews.INaverKeywordInput": {
+        "type": "object",
+        "properties": {
+          "andKeywords": {
+            "type": "string",
+            "x-wrtn-placeholder": "뤼튼",
+            "title": "Must-include keywords",
+            "description": "Keywords that must be included in search results."
+          },
+          "orKeywords": {
+            "type": "string",
+            "x-wrtn-placeholder": "스튜디오",
+            "title": "Keywords that would be good to include",
+            "description": "Keywords that you would like to see included in the search results."
+          },
+          "notKeywords": {
+            "type": "string",
+            "x-wrtn-placeholder": "폭력",
+            "title": "Keywords that should not be included",
+            "description": "Keywords that should not be included in search results."
+          },
+          "display": {
+            "type": "number",
+            "minimum": 1,
+            "maximum": 100,
+            "default": 10,
+            "x-wrtn-placeholder": "10",
+            "title": "Number to search",
+            "description": "Set how many search results to retrieve.\nMinimum 1, maximum 100, default 10."
+          },
+          "sort": {
+            "oneOf": [
+              {
+                "const": "sim"
+              },
+              {
+                "const": "date"
+              }
+            ],
+            "title": "Sort by",
+            "description": "Indicates how to sort.\n\n- sim: Sort by accuracy descending (default).\n- date: Sort by date descending."
+          }
+        },
+        "required": [
+          "andKeywords"
+        ],
+        "title": "Search Conditions"
       },
       "IYoutubeSearch.ISearchOutput": {
         "type": "object",
@@ -41316,7 +41407,7 @@
                 "const": ""
               },
               {
-                "$ref": "#/components/schemas/__type.o2185"
+                "$ref": "#/components/schemas/__type.o2184"
               }
             ],
             "title": "replies"
@@ -41763,14 +41854,14 @@
           "name"
         ]
       },
-      "__type.o2185": {
+      "__type.o2184": {
         "type": "object",
         "properties": {
           "kind": {
             "const": "Listing"
           },
           "data": {
-            "$ref": "#/components/schemas/__type.o2186"
+            "$ref": "#/components/schemas/__type.o2185"
           }
         },
         "required": [
@@ -41778,7 +41869,7 @@
           "data"
         ]
       },
-      "__type.o2186": {
+      "__type.o2185": {
         "type": "object",
         "properties": {
           "after": {
@@ -41798,7 +41889,7 @@
             "items": {
               "oneOf": [
                 {
-                  "$ref": "#/components/schemas/__type.o2187"
+                  "$ref": "#/components/schemas/__type.o2186"
                 },
                 {
                   "type": "object",
@@ -41872,7 +41963,7 @@
           "before"
         ]
       },
-      "__type.o2187": {
+      "__type.o2186": {
         "type": "object",
         "properties": {
           "kind": {
@@ -44132,6 +44223,9 @@
     },
     {
       "name": "Daum"
+    },
+    {
+      "name": "Naver Blog"
     },
     {
       "name": "Naver"

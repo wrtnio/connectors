@@ -1,0 +1,205 @@
+{
+  "openapi": "3.1.0",
+  "servers": [
+    {
+      "url": "https://studio-connector-api.wrtn.ai",
+      "description": "Production Server"
+    },
+    {
+      "url": "https://studio-connector-poc.dev.wrtn.club",
+      "description": "Develop Server"
+    },
+    {
+      "url": "http://localhost:3003",
+      "description": "Local Server"
+    }
+  ],
+  "info": {
+    "title": "naver-news",
+    "version": "0.1.445",
+    "description": "wrtn-ecosystem connectors and sdk",
+    "license": {
+      "name": "AGPL-3.0-only"
+    }
+  },
+  "paths": {
+    "/connector/naver-news": {
+      "patch": {
+        "summary": "Search Naver News",
+        "description": "Search Naver News",
+        "tags": [
+          "Naver"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "description": "Conditions for searching Naver News",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/INaverNews.INaverKeywordInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/INaverNews.INewsNaverOutput"
+                }
+              }
+            }
+          }
+        },
+        "x-samchon-accessor": [
+          "connector",
+          "naver_news",
+          "newsList"
+        ],
+        "x-samchon-controller": "NaverNewsController",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/NaverNews_full.svg"
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "INaverNews.INewsNaverOutput": {
+        "type": "object",
+        "properties": {
+          "lastBuildDate": {
+            "type": "string",
+            "title": "The time the search results were generated",
+            "description": "The time the search results were generated."
+          },
+          "total": {
+            "type": "number",
+            "title": "Total number of search results",
+            "description": "Total number of search results."
+          },
+          "start": {
+            "type": "number",
+            "title": "The starting position of the search",
+            "description": "The starting position of the search results."
+          },
+          "display": {
+            "type": "number",
+            "title": "The number of search results to display at one time",
+            "description": "The number of search results to display at one time."
+          },
+          "items": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/INaverNews.INewsNaverItemOutput"
+            },
+            "title": "Individual search results",
+            "description": "Individual search results."
+          }
+        },
+        "required": [
+          "lastBuildDate",
+          "total",
+          "start",
+          "display",
+          "items"
+        ]
+      },
+      "INaverNews.INewsNaverItemOutput": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "title": "Title",
+            "description": "News Title."
+          },
+          "link": {
+            "type": "string",
+            "format": "iri",
+            "title": "Naver News URL",
+            "description": "Naver News URL."
+          },
+          "originallink": {
+            "type": "string",
+            "format": "iri",
+            "title": "Original URL",
+            "description": "Original URL of news article."
+          },
+          "description": {
+            "type": "string",
+            "title": "Summary of the news article</b>",
+            "description": "The part that matches the search term <b>is wrapped in tags."
+          },
+          "pubDate": {
+            "type": "string",
+            "title": "News article publication time",
+            "description": "The time the news article was provided to Naver."
+          }
+        },
+        "required": [
+          "title",
+          "link",
+          "originallink",
+          "description",
+          "pubDate"
+        ],
+        "title": "Naver News Search Data"
+      },
+      "INaverNews.INaverKeywordInput": {
+        "type": "object",
+        "properties": {
+          "andKeywords": {
+            "type": "string",
+            "x-wrtn-placeholder": "뤼튼",
+            "title": "Must-include keywords",
+            "description": "Keywords that must be included in search results."
+          },
+          "orKeywords": {
+            "type": "string",
+            "x-wrtn-placeholder": "스튜디오",
+            "title": "Keywords that would be good to include",
+            "description": "Keywords that you would like to see included in the search results."
+          },
+          "notKeywords": {
+            "type": "string",
+            "x-wrtn-placeholder": "폭력",
+            "title": "Keywords that should not be included",
+            "description": "Keywords that should not be included in search results."
+          },
+          "display": {
+            "type": "number",
+            "minimum": 1,
+            "maximum": 100,
+            "default": 10,
+            "x-wrtn-placeholder": "10",
+            "title": "Number to search",
+            "description": "Set how many search results to retrieve.\nMinimum 1, maximum 100, default 10."
+          },
+          "sort": {
+            "oneOf": [
+              {
+                "const": "sim"
+              },
+              {
+                "const": "date"
+              }
+            ],
+            "title": "Sort by",
+            "description": "Indicates how to sort.\n\n- sim: Sort by accuracy descending (default).\n- date: Sort by date descending."
+          }
+        },
+        "required": [
+          "andKeywords"
+        ],
+        "title": "Search Conditions"
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "Naver"
+    }
+  ],
+  "x-samchon-emended": true
+}
