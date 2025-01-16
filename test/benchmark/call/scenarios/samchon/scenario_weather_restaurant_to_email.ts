@@ -16,8 +16,8 @@ export const scenario_weather_restaurant_to_email =
 이후 이러한 내용들을 모두 조리있게 요약하여, 나에게 메일로 보내다오.
 나의 메일은 studio-test-2024@wrtn.io 야`,
     expected: {
-      type: "allOf",
-      allOf: [
+      type: "array",
+      items: [
         {
           type: "standalone",
           function: OpenDataController.prototype.getShortTermForecast,

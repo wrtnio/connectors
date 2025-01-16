@@ -844,19 +844,26 @@ export class SlackProvider {
     let response: Awaited<ReturnType<typeof this.getImChannels>>["channels"] =
       [];
     do {
-      const { next_cursor, channels } = await this.getImChannels({
-        secretKey: input.secretKey,
-        ...(nextCursor ? { cursor: nextCursor } : {}),
-        limit: 1000,
-      });
+      const { next_cursor: next_next_cursor, channels } =
+        await this.getImChannels({
+          secretKey: input.secretKey,
+          ...(nextCursor ? { cursor: nextCursor } : {}),
+          limit: 1000,
+        });
 
       response = response.concat(channels);
-      nextCursor = next_cursor;
+      if (nextCursor === next_next_cursor) {
+        // 이번에 조회했던 다음 커서 값이, 다음 페이지 조회 후 나온 커서와 동일할 경우 break.
+        break;
+      }
+
+      nextCursor = next_next_cursor;
+
+      console.log("nextCursor: ", nextCursor);
     } while (nextCursor);
 
     return response;
   }
-
   async getImChannels(
     input: ISlack.IGetChannelInput,
   ): Promise<ISlack.IGetImChannelOutput> {

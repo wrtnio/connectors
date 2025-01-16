@@ -1,4 +1,3 @@
-import { ExcelController } from "../../../../../src/controllers/connector/excel/ExcelController";
 import { GoogleSheetController } from "../../../../../src/controllers/connector/google-sheet/GoogleSheetController";
 import { NaverController } from "../../../../../src/controllers/connector/naver/NaverController";
 import { IFunctionCallBenchmarkScenario } from "../../structures/IFunctionCallBenchmarkScenario";
@@ -17,14 +16,12 @@ export const scenario_soccer_news_to_google_sheet =
           function: NaverController.prototype.newsList,
         },
         {
-          type: "anyOf",
-          anyOf: [
-            ExcelController.prototype.createSheets,
-            GoogleSheetController.prototype.createGoogleSheet,
-          ].map((func) => ({
-            type: "standalone",
-            function: func,
-          })),
+          type: "standalone",
+          function: GoogleSheetController.prototype.createGoogleSheet,
+        },
+        {
+          type: "standalone",
+          function: GoogleSheetController.prototype.appendGoogleSheet,
         },
       ],
     },

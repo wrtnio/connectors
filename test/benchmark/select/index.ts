@@ -99,6 +99,7 @@ const main = async (): Promise<void> => {
   const executor: FunctionSelectBenchmarkExecutor =
     new FunctionSelectBenchmarkExecutor(
       {
+        type: "chatgpt",
         api: new OpenAI({
           apiKey: ConnectorGlobal.env.OPENAI_API_KEY,
         }),

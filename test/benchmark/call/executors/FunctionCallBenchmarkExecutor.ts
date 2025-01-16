@@ -1,21 +1,20 @@
 import { IConnection } from "@nestia/fetcher";
 import {
-  IChatGptService,
-  INestiaChatPrompt,
-  INestiaChatTokenUsage,
-  NestiaChatAgent,
+  INestiaAgentEvent,
+  INestiaAgentPrompt,
+  INestiaAgentProvider,
+  INestiaAgentTokenUsage,
+  NestiaAgent,
 } from "@nestia/agent";
 import {
   ChatGptTypeChecker,
   HttpLlm,
   IChatGptSchema,
   IHttpLlmApplication,
-  IHttpLlmFunction,
   OpenApiTypeChecker,
 } from "@samchon/openapi";
 import { IFunctionCallBenchmarkResult } from "../structures/IFunctionCallBenchmarkResult";
 import { IFunctionCallBenchmarkScenario } from "../structures/IFunctionCallBenchmarkScenario";
-import { IFunctionCallBenchmarkExpected } from "../structures/IFunctionCallBenchmarkExpected";
 import { IFunctionCallBenchmarkOptions } from "../structures/IFunctionCallBenchmarkOptions";
 import { Semaphore } from "tstl";
 import { ConnectorGlobal } from "../../../../src/ConnectorGlobal";
@@ -25,7 +24,7 @@ export namespace FunctionCallBenchmarkExecutor {
   export interface IProps {
     application: IHttpLlmApplication<"chatgpt">;
     operations: Map<Function, Function>;
-    service: IChatGptService;
+    provider: INestiaAgentProvider;
     connection: IConnection;
     options: IFunctionCallBenchmarkOptions;
     semaphore: Semaphore;
@@ -55,10 +54,18 @@ export namespace FunctionCallBenchmarkExecutor {
     props: IProps,
   ): Promise<IFunctionCallBenchmarkResult.ITrial> => {
     const started_at: Date = new Date();
-    const agent: NestiaChatAgent = new NestiaChatAgent({
-      application: props.application,
-      service: props.service,
-      connection: props.connection,
+    const responses: INestiaAgentEvent.IResponse[] = [];
+
+    const agent: NestiaAgent = new NestiaAgent({
+      controllers: [
+        {
+          protocol: "http",
+          name: "connectors",
+          application: props.application,
+          connection: props.connection,
+        },
+      ],
+      provider: props.provider,
       config: {
         capacity: props.options.capacity,
         eliticism: true,
@@ -67,16 +74,19 @@ export namespace FunctionCallBenchmarkExecutor {
     });
     try {
       agent.on("call", (event) => {
-        if (event.function.separated?.human) {
+        if (event.operation.function.separated?.human) {
           event.arguments = HttpLlm.mergeParameters({
-            function: event.function,
+            function: event.operation.function,
             llm: event.arguments ?? {},
             human: fillArgument(
-              event.function.separated.human.$defs,
-              event.function.separated.human,
+              event.operation.function.separated.human.$defs,
+              event.operation.function.separated.human,
             ),
           });
         }
+      });
+      agent.on("response", async (r) => {
+        responses.push(r);
       });
 
       await agent.conversate(props.scenario.prompt);
@@ -87,40 +97,45 @@ export namespace FunctionCallBenchmarkExecutor {
           operations: props.operations,
           expected: props.scenario.expected,
           functionList: agent
-            .getHistories()
-            .filter((h) => h.kind === "execute"),
+            .getPromptHistories()
+            .filter((h) => h.type === "execute")
+            .filter((h) => h.protocol === "http"),
           strict: false,
         }) === false &&
         (await FunctionCallBenchmarkPredicator.isNext({
-          service: props.service,
-          history: agent.getHistories().at(-1) ?? null,
+          provider: props.provider,
+          history: agent.getPromptHistories().at(-1) ?? null,
         })) === true
       )
         await agent.conversate(
           "진행해줘, 그리고 더 이상 나한테 물어보지 말고 너 스스로의 판단으로 나아가줘.",
         );
 
-      const histories: INestiaChatPrompt[] = agent.getHistories();
-      const usage: INestiaChatTokenUsage = agent.getTokenUsage();
+      const histories: INestiaAgentPrompt[] = agent.getPromptHistories();
+      const usage: INestiaAgentTokenUsage = agent.getTokenUsage();
 
       return {
         histories,
+        responses,
         usage,
         select: FunctionCallBenchmarkPredicator.success({
           application: props.application,
           operations: props.operations,
           expected: props.scenario.expected,
           functionList: histories
-            .filter((h) => h.kind === "select")
-            .map((h) => h.functions)
-            .flat(),
+            .filter((h) => h.type === "select")
+            .map((h) => h.operations)
+            .flat()
+            .filter((h) => h.protocol === "http"),
           strict: false,
         }),
         execute: FunctionCallBenchmarkPredicator.success({
           application: props.application,
           operations: props.operations,
           expected: props.scenario.expected,
-          functionList: histories.filter((h) => h.kind === "execute"),
+          functionList: histories
+            .filter((h) => h.type === "execute")
+            .filter((h) => h.protocol === "http"),
           strict: false,
         }),
         error: null,
@@ -130,6 +145,7 @@ export namespace FunctionCallBenchmarkExecutor {
     } catch (error) {
       return {
         histories: [],
+        responses,
         usage: agent.getTokenUsage(),
         select: false,
         execute: false,

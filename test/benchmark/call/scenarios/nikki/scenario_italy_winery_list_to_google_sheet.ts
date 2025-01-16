@@ -1,6 +1,5 @@
 import { IFunctionCallBenchmarkScenario } from "../../structures/IFunctionCallBenchmarkScenario";
 import { GoogleMapController } from "../../../../../src/controllers/connector/google_map/GoogleMapController";
-import { ExcelController } from "../../../../../src/controllers/connector/excel/ExcelController";
 import { GoogleSheetController } from "../../../../../src/controllers/connector/google-sheet/GoogleSheetController";
 
 export const scenario_italy_winery_list_to_excel =
@@ -21,14 +20,12 @@ export const scenario_italy_winery_list_to_excel =
           function: GoogleMapController.prototype.search,
         },
         {
-          type: "anyOf",
-          anyOf: [
-            ExcelController.prototype.createSheets,
-            GoogleSheetController.prototype.createGoogleSheet,
-          ].map((func) => ({
-            type: "standalone",
-            function: func,
-          })),
+          type: "standalone",
+          function: GoogleSheetController.prototype.createGoogleSheet,
+        },
+        {
+          type: "standalone",
+          function: GoogleSheetController.prototype.appendGoogleSheet,
         },
       ],
     },

@@ -1,20 +1,20 @@
 import { IHttpLlmApplication, IHttpLlmFunction } from "@samchon/openapi";
 import { IFunctionCallBenchmarkExpected } from "../structures/IFunctionCallBenchmarkExpected";
-import { IChatGptService, INestiaChatPrompt } from "@nestia/agent";
 import OpenAI from "openai";
 import typia from "typia";
+import { INestiaAgentPrompt, INestiaAgentProvider } from "@nestia/agent";
 
 export namespace FunctionCallBenchmarkPredicator {
   export const isNext = async (props: {
-    service: IChatGptService;
-    history: INestiaChatPrompt | null;
+    provider: INestiaAgentProvider;
+    history: INestiaAgentPrompt | null;
   }): Promise<boolean> => {
-    if (props.history?.kind !== "text" || props.history.role !== "assistant")
+    if (props.history?.type !== "text" || props.history.role !== "assistant")
       return false;
     const result: OpenAI.ChatCompletion =
-      await props.service.api.chat.completions.create(
+      await props.provider.api.chat.completions.create(
         {
-          model: props.service.model,
+          model: props.provider.model,
           messages: [
             {
               role: "system",
@@ -44,7 +44,7 @@ export namespace FunctionCallBenchmarkPredicator {
           tool_choice: "required",
           parallel_tool_calls: false,
         },
-        props.service.options,
+        props.provider.options,
       );
     const toolCall: OpenAI.ChatCompletionMessageToolCall | undefined = (
       result.choices[0]?.message.tool_calls ?? []

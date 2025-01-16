@@ -291,21 +291,11 @@ export class ArticleController {
   /**
    * List up all summarized articles with pagination and searching options
    *
-   * Because it is looking at the user's individual writing, user cannot inquire other than your own writing.
-   * Because it is a call to a text stored in the connector server's own DB,
-   * it may be appropriate to call this connector if the user asks to call the text without saying the service name.
-   * It is recommended that you first ask the user for the service name.
-   * If you are asked to look up the text under the names of `Swal`, `Wrtn Technologies`, `Wrtn`, `user own DB`, `user DB`, etc., you should call this connector.
-   *
-   * A list of pageed articles will appear.
-   * The article contains abbreviated body content, so you can infer what you have from the title and body.
-   *
-   * If you want to see the full text instead of the omitted text,
-   * or if you want to see the history of this article being exported to Notion or other services,
-   * please look up the details.
-   * Here, we only show the content of the text up to 100 characters, so if you want to see the latter, you need to look up the details.
-   * You can view all the snapshots of this article if you want to look at them in detail.
-   * The detailed lookup connector is 'PATCH connector/swal/articles/:id'.
+   * Users can only view their own writings.
+   * As this retrieves text from the connector server's database, confirm the service name if unspecified.
+   * Use this connector for requests mentioning Swal, Wrtn Technologies, Wrtn, user own DB, etc.
+   * Displays paginated articles with abbreviated content (up to 100 characters).
+   * To view full content, export history (e.g., Notion), or detailed snapshots, use the detailed lookup connector: PATCH connector/swal/articles/:id.
    *
    * @summary List up all summarized articles
    * @param input Request info of pagination and searching options.
@@ -323,22 +313,16 @@ export class ArticleController {
   /**
    * Write Article to User Database
    *
-   * Posts are managed in a snapshot-based structure, enabling rollback at any time.
-   * When a post is created, the system automatically generates the first snapshot.
-   * The most recent snapshot reflects the current state of the post.
-   * By editing the post or exporting it to external services, you can track which version—i.e., which snapshot—was exported and synchronize it using foreign keys.
-   * This system is designed to efficiently handle any post-like documents, such as those from Google Docs, Notion, or Reddit.
-   * Using Markdown as the standard format for writing and versioning, it identifies changes through a diff algorithm whenever edits are made.
-   * This allows you to compare previous and current versions, track changes, and synchronize updates across services.
-   * As these APIs store data exclusively in the Wrtn Technologies Ecosystem Team's database without relying on external APIs,
-   * this setup serves as an ideal starting point for creating and managing documents efficiently with robust version control.
-   *
-   * If the user asked to edit the text, it would most likely not be this connector.
-   * There is a separate connector for the update, so please use it.
-   *
-   * If the user asks you to write without any service names,
-   * you may be referring to this connector.
-   * Ask the user to confirm.
+   * Posts use a snapshot-based structure for rollback anytime.
+   * Creating a post automatically generates the first snapshot, and the latest snapshot reflects the current state.
+   * Edits and exports track versions through snapshots, allowing synchronization via foreign keys.
+   * This system handles post-like documents (e.g., Google Docs, Notion, Reddit) efficiently.
+   * Markdown is the standard format, with changes identified using a diff algorithm.
+   * Compare versions, track edits, and synchronize updates across services.
+   * All data is stored exclusively in the Wrtn Technologies database, independent of external APIs.
+   * This setup ensures efficient document management with robust version control.
+   * Editing is managed by a separate connector. Use it for updates.
+   * For writing without service names, confirm with the user.
    *
    * @sumamry Write Article
    * @param input Article Information to Create

@@ -5,9 +5,9 @@ import path from "path";
 import { ConnectorConfiguration } from "../../../../src/ConnectorConfiguration";
 import { IFunctionCallBenchmarkResult } from "../structures/IFunctionCallBenchmarkResult";
 import { IFunctionCallBenchmarkOptions } from "../structures/IFunctionCallBenchmarkOptions";
-import { INestiaChatTokenUsage } from "@nestia/agent";
 import { OpenAIPriceComputer } from "../../../helpers/OpenAIPriceComputer";
 import { IFunctionCallBenchmarkScenario } from "../structures/IFunctionCallBenchmarkScenario";
+import { INestiaAgentTokenUsage } from "@nestia/agent";
 
 export namespace FunctionCallBenchmarkReporter {
   export interface IProps {
@@ -21,7 +21,7 @@ export namespace FunctionCallBenchmarkReporter {
     const everything: IFunctionCallBenchmarkResult.ITrial[] = props.results
       .map((r) => r.trials)
       .flat();
-    const usage: INestiaChatTokenUsage = aggregateUsages(
+    const usage: INestiaAgentTokenUsage = aggregateUsages(
       everything.map((t) => t.usage),
     );
     const price: OpenAIPriceComputer.IOutput = OpenAIPriceComputer.get(usage);
@@ -93,7 +93,7 @@ export namespace FunctionCallBenchmarkReporter {
   const reportResult = async (
     result: IFunctionCallBenchmarkResult,
   ): Promise<void> => {
-    const usage: INestiaChatTokenUsage = aggregateUsages(
+    const usage: INestiaAgentTokenUsage = aggregateUsages(
       result.trials.map((t) => t.usage),
     );
     const price: OpenAIPriceComputer.IOutput = OpenAIPriceComputer.get(usage);
@@ -142,73 +142,78 @@ export namespace FunctionCallBenchmarkReporter {
     );
     await Promise.all(
       result.trials.map((t, i) =>
-        reportTrial(
-          `${LOCATION}/${result.location}/${i + 1}.${t.select ? "success" : "failure"}.${t.execute ? "success" : "failure"}.md`,
-          result.scenario,
-          t,
-        ),
+        reportTrial({
+          directory: `${LOCATION}/${result.location}`,
+          fileName: `${i + 1}.${t.select ? "success" : "failure"}.${t.execute ? "success" : "failure"}`,
+          scenario: result.scenario,
+          trial: t,
+        }),
       ),
     );
   };
 
-  const reportTrial = async (
-    location: string,
-    scenario: IFunctionCallBenchmarkScenario,
-    trial: IFunctionCallBenchmarkResult.ITrial,
-  ): Promise<void> => {
-    const price = OpenAIPriceComputer.get(trial.usage);
+  const reportTrial = async (p: {
+    directory: string;
+    fileName: string;
+    scenario: IFunctionCallBenchmarkScenario;
+    trial: IFunctionCallBenchmarkResult.ITrial;
+  }): Promise<void> => {
+    const price = OpenAIPriceComputer.get(p.trial.usage);
     const content: string[] = [
-      `# ${scenario.title}`,
+      `# ${p.scenario.title}`,
       `## Prompt`,
-      scenario.prompt,
+      p.scenario.prompt,
       ``,
       `## Summary`,
-      `  - Status: ${trial.execute ? "success" : "failure"}`,
+      `  - Status: ${p.trial.execute ? "success" : "failure"}`,
       `  - Token Usage: $${price.total.toLocaleString()}`,
       `    - Prompt: $${price.prompt.toLocaleString()}`,
-      `      - Total: ${trial.usage.prompt.total.toLocaleString()}`,
-      `      - Audio: ${trial.usage.prompt.audio.toLocaleString()}`,
-      `      - Cached: ${trial.usage.prompt.cached.toLocaleString()}`,
+      `      - Total: ${p.trial.usage.prompt.total.toLocaleString()}`,
+      `      - Audio: ${p.trial.usage.prompt.audio.toLocaleString()}`,
+      `      - Cached: ${p.trial.usage.prompt.cached.toLocaleString()}`,
       `    - Completion: $${price.completion.toLocaleString()}`,
-      `      - Total: ${trial.usage.completion.total.toLocaleString()}`,
-      `      - Accepted Prediction: ${trial.usage.completion.accepted_prediction.toLocaleString()}`,
-      `      - Audio: ${trial.usage.completion.audio.toLocaleString()}`,
-      `      - Reasoning: ${trial.usage.completion.reasoning.toLocaleString()}`,
-      `      - Rejected Prediction: ${trial.usage.completion.rejected_prediction.toLocaleString()}`,
-      `  - Time: ${(trial.completed_at.getTime() - trial.started_at.getTime()).toLocaleString()} ms`,
+      `      - Total: ${p.trial.usage.completion.total.toLocaleString()}`,
+      `      - Accepted Prediction: ${p.trial.usage.completion.accepted_prediction.toLocaleString()}`,
+      `      - Audio: ${p.trial.usage.completion.audio.toLocaleString()}`,
+      `      - Reasoning: ${p.trial.usage.completion.reasoning.toLocaleString()}`,
+      `      - Rejected Prediction: ${p.trial.usage.completion.rejected_prediction.toLocaleString()}`,
+      `  - Time: ${(p.trial.completed_at.getTime() - p.trial.started_at.getTime()).toLocaleString()} ms`,
       ``,
       `## Function Calls`,
       `### Selections`,
-      ...trial.histories
-        .filter((h) => h.kind === "select")
-        .map((h) => h.functions)
+      ...p.trial.histories
+        .filter((h) => h.type === "select")
+        .map((h) => h.operations)
         .flat()
+        .filter((o) => o.protocol === "http")
         .map(
           (r) =>
             `  - \`${r.function.method.toUpperCase()} ${r.function.path}\`: ${r.reason}`,
         ),
       "",
       `### Completions`,
-      ...trial.histories
-        .filter((h) => h.kind === "execute")
+      ...p.trial.histories
+        .filter((h) => h.type === "execute")
+        .filter((h) => h.protocol === "http")
         .map((h) => [
-          `  - \`${h.function.method.toUpperCase()} ${h.function.path}\`: ${h.response.status}`,
+          `  - \`${h.function.method.toUpperCase()} ${h.function.path}\`: ${h.value.status}`,
         ])
         .flat(),
       "",
       `## History`,
-      ...trial.histories
+      ...p.trial.histories
         .map((h) => {
-          if (h.kind === "text") return [`### Text (${h.role})`, h.text, ""];
-          else if (h.kind === "describe")
+          if (h.type === "text") return [`### Text (${h.role})`, h.text, ""];
+          else if (h.type === "describe")
             return [
               `### Describe`,
               h.text,
               "",
               ...h.executions
+                .filter((e) => e.protocol === "http")
                 .map((e) => [
                   `#### \`${e.function.method.toUpperCase()} ${e.function.path}\``,
-                  `Status: ${e.response.status}`,
+                  `Status: ${e.value.status}`,
                   "",
                   `<details>`,
                   `  <summary> Arguments </summary>`,
@@ -223,7 +228,7 @@ export namespace FunctionCallBenchmarkReporter {
                   `  <summary> Response </summary>`,
                   "",
                   "```json",
-                  JSON.stringify(e.response, null, 2),
+                  JSON.stringify(e.value, null, 2),
                   "```",
                   "",
                   `</details>`,
@@ -232,38 +237,54 @@ export namespace FunctionCallBenchmarkReporter {
                 .flat(),
               "",
             ];
-          else if (h.kind === "select")
+          else if (h.type === "select")
             return [
               `### Select`,
-              ...h.functions.map(
-                (f) =>
-                  `  - \`${f.function.method.toUpperCase()} ${f.function.path}\`: ${f.reason}`,
-              ),
+              ...h.operations
+                .filter((o) => o.protocol === "http")
+                .map(
+                  (o) =>
+                    `  - \`${o.function.method.toUpperCase()} ${o.function.path}\`: ${o.reason}`,
+                ),
               "",
             ];
-          else if (h.kind === "cancel")
+          else if (h.type === "cancel")
             return [
               `### Cancel`,
-              ...h.functions.map(
-                (f) =>
-                  `  - \`${f.function.method.toUpperCase()} ${f.function.path}\`: ${f.reason}`,
-              ),
+              ...h.operations
+                .filter((o) => o.protocol === "http")
+                .map(
+                  (o) =>
+                    `  - \`${o.function.method.toUpperCase()} ${o.function.path}\`: ${o.reason}`,
+                ),
               "",
             ];
           return [];
         })
         .flat(),
     ];
+    try {
+      await fs.promises.mkdir(`${p.directory}/responses`);
+    } catch {}
+    await Promise.all(
+      p.trial.responses.map((r, i) =>
+        fs.promises.writeFile(
+          `${p.directory}/responses/${p.fileName}.response.${i}.json`,
+          JSON.stringify(r, null, 2),
+          "utf8",
+        ),
+      ),
+    );
     await fs.promises.writeFile(
-      path.resolve(location),
+      `${path.resolve(`${p.directory}/${p.fileName}`)}.md`,
       content.join("\n"),
       "utf8",
     );
   };
 
   const aggregateUsages = (
-    usages: INestiaChatTokenUsage[],
-  ): INestiaChatTokenUsage =>
+    usages: INestiaAgentTokenUsage[],
+  ): INestiaAgentTokenUsage =>
     usages.reduce(
       (a, b) => ({
         total: a.total + b.total,

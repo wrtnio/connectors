@@ -80,6 +80,7 @@ const NESTIA_CONFIG: sdk.INestiaConfig[] = [
       },
       output: `packages/api/connectors/${title}.swagger.json`,
     });
+
   }),
 ];
 
