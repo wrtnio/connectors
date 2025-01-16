@@ -56,7 +56,7 @@ import { KoreaEximbankModule } from "./korea_eximbank/KoreaEximbankModule";
 import { LlmModule } from "./llm/LlmModule";
 import { MarketingCopyModule } from "./marketing/MarketingCopyModule";
 import { MarpModule } from "./marp/MarpModule";
-import { NaverModule } from "./naver/NaverModule";
+import { NaverBlogModule } from "./naver_blog/NaverBlogModule";
 import { NotionModule } from "./notion/NotionModule";
 import { OpenDataModule } from "./open_data/OpenDataModule";
 import { PromptModule } from "./prompts/PromptModule";
@@ -79,6 +79,8 @@ import { WebCrawlerModule } from "./web_crawler/WebCrawlerModule";
 import { XModule } from "./x/XModule";
 import { YoutubeSearchModule } from "./youtube_search/YoutubeSearchModule";
 import { ZoomModule } from "./zoom/ZoomModule";
+import { NaverCafeModule } from "./naver_cafe/NaverCafeModule";
+import { NaverNewsModule } from "./naver_news/NaverNewsModule";
 // import { GoogleShoppingAmazonModule } from "./google_shopping/google_shopping_amazon/GoogleShoppingAmazonModule";
 // import { GoogleShoppingEbayModule } from "./google_shopping/google_shopping_ebay/GoogleShoppingEbayModule";
 // import { GoogleShoppingWalmartModule } from "./google_shopping/google_shopping_walmart/GoogleShoppingWalmartModule";
@@ -143,7 +145,9 @@ import { ZoomModule } from "./zoom/ZoomModule";
     GoogleAdsModule,
     ArxivSearchModule,
     DaumModule,
-    NaverModule,
+    NaverBlogModule,
+    NaverCafeModule,
+    NaverNewsModule,
     YoutubeSearchModule,
     GoogleScholarModule,
     CsvModule,
