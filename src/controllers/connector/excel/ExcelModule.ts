@@ -2,10 +2,8 @@ import { Module } from "@nestjs/common";
 
 import { ExcelController } from "./ExcelController";
 
-import { AwsModule } from "../aws/AwsModule";
-
 @Module({
-  imports: [AwsModule],
+  imports: [],
   controllers: [ExcelController],
   providers: [],
   exports: [],

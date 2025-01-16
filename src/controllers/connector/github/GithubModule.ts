@@ -1,12 +1,11 @@
 import { Module } from "@nestjs/common";
 import { GithubProvider } from "../../../providers/connector/github/GithubProvider";
-import { AwsModule } from "../aws/AwsModule";
-import { RagModule } from "../rag/RagModule";
 import { GithubController } from "./GithubController";
+import { RagProvider } from "../../../providers/connector/rag/RagProvider";
 
 @Module({
-  imports: [RagModule, AwsModule],
+  imports: [],
   controllers: [GithubController],
-  providers: [GithubProvider],
+  providers: [GithubProvider, RagProvider],
 })
 export class GithubModule {}
