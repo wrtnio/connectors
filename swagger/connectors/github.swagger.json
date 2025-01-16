@@ -16,7 +16,7 @@
   ],
   "info": {
     "title": "github",
-    "version": "0.1.445",
+    "version": "0.1.446",
     "description": "wrtn-ecosystem connectors and sdk",
     "license": {
       "name": "AGPL-3.0-only"
@@ -2608,94 +2608,6 @@
         "x-wrtn-function-select-benchmarks": [
           "Github에서 이슈 생성해줘"
         ]
-      }
-    },
-    "/connector/rag/analyze": {
-      "post": {
-        "summary": "Request RAG analysis",
-        "description": "Request RAG analysis for the input file\n\nThis connector can be used when creating a chatbot that compares multiple research papers.",
-        "tags": [
-          "RAG"
-        ],
-        "parameters": [],
-        "requestBody": {
-          "description": "Information about the file to be analyzed",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/IRag.IAnalyzeInput"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "201": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/IRag.IAnalysisOutput"
-                }
-              }
-            }
-          }
-        },
-        "x-samchon-accessor": [
-          "connector",
-          "rag",
-          "analyze"
-        ],
-        "x-samchon-controller": "RagController",
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/RAG_full.svg"
-      }
-    },
-    "/connector/rag/generate/{chatId}": {
-      "post": {
-        "summary": "Generate RAG-based results",
-        "description": "Generates requested results based on RAG analysis\n\nA connector that can be used to generate answers to user questions through a chatbot that compares multiple research papers.",
-        "tags": [
-          "RAG"
-        ],
-        "parameters": [
-          {
-            "name": "chatId",
-            "in": "path",
-            "schema": {
-              "type": "string"
-            },
-            "required": true
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/IRag.IGenerateInput"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "201": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/IRag.IGenerateOutput"
-                }
-              }
-            }
-          }
-        },
-        "x-samchon-accessor": [
-          "connector",
-          "rag",
-          "generate"
-        ],
-        "x-samchon-controller": "RagController",
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/RAG_full.svg"
       }
     }
   },
@@ -11044,76 +10956,12 @@
           "title",
           "secretKey"
         ]
-      },
-      "IRag.IAnalysisOutput": {
-        "type": "object",
-        "properties": {
-          "chatId": {
-            "type": "string",
-            "title": "chat id",
-            "description": "Chat id required for RAG generation results.\nReturns the chat id for the analyzed file to generate chat results for the file analyzed by RAG.\nThe same chat id is required to analyze multiple files and generate results for multiple files in the same chat."
-          }
-        },
-        "required": [
-          "chatId"
-        ],
-        "title": "RAG analysis results"
-      },
-      "IRag.IAnalyzeInput": {
-        "type": "object",
-        "properties": {
-          "url": {
-            "type": "array",
-            "items": {
-              "type": "string",
-              "format": "uri",
-              "contentMediaType": "application/pdf, application/vnd.openxmlformats-officedocument.wordprocessingml.document, application/vnd.hancom.hwp, text/plain, text/html"
-            },
-            "title": "Knowledge that the chatbot will use to answer",
-            "description": "Knowledge that the chatbot will use to answer"
-          }
-        },
-        "required": [
-          "url"
-        ],
-        "title": "Knowledge that the chatbot will use to answer"
-      },
-      "IRag.IGenerateOutput": {
-        "type": "object",
-        "properties": {
-          "answer": {
-            "type": "string",
-            "title": "Response to utterance",
-            "description": "Response to RAG-based creation request."
-          }
-        },
-        "required": [
-          "answer"
-        ],
-        "title": "Chat results via RAG"
-      },
-      "IRag.IGenerateInput": {
-        "type": "object",
-        "properties": {
-          "query": {
-            "type": "string",
-            "title": "User utterance",
-            "description": "This is a user utterance."
-          }
-        },
-        "required": [
-          "query"
-        ],
-        "title": "Information required for chatting via RAG"
       }
     }
   },
   "tags": [
     {
       "name": "Github"
-    },
-    {
-      "name": "RAG"
     }
   ],
   "x-samchon-emended": true
