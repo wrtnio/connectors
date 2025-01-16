@@ -1,4 +1,4 @@
-import { NaverController } from "../../../../../src/controllers/connector/naver/NaverController";
+import { NaverNewsController } from "../../../../../src/controllers/connector/naver_news/NaverNewsController";
 import { IFunctionCallBenchmarkScenario } from "../../structures/IFunctionCallBenchmarkScenario";
 import { scenario_google_slide_operations } from "../internal/scenario_google_slide_operations";
 
@@ -13,7 +13,7 @@ export const scenario_soccer_news_to_google_slide =
       items: [
         {
           type: "standalone",
-          function: NaverController.prototype.newsList,
+          function: NaverNewsController.prototype.newsList,
         },
         ...scenario_google_slide_operations().items,
       ],

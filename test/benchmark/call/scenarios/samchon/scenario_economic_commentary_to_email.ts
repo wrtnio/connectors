@@ -1,6 +1,6 @@
 import { GmailController } from "../../../../../src/controllers/connector/gmail/GmailController";
 import { GoogleSearchController } from "../../../../../src/controllers/connector/google_search/GoogleSearchController";
-import { NaverController } from "../../../../../src/controllers/connector/naver/NaverController";
+import { NaverNewsController } from "../../../../../src/controllers/connector/naver_news/NaverNewsController";
 import { IFunctionCallBenchmarkScenario } from "../../structures/IFunctionCallBenchmarkScenario";
 
 export const scenario_economic_commentary_to_email =
@@ -20,7 +20,7 @@ export const scenario_economic_commentary_to_email =
           anyOf: [
             {
               type: "standalone",
-              function: NaverController.prototype.newsList,
+              function: NaverNewsController.prototype.newsList,
             },
             {
               type: "standalone",
