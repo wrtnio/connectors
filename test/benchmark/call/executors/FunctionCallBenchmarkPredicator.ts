@@ -56,7 +56,6 @@ export namespace FunctionCallBenchmarkPredicator {
     const input = JSON.parse(toolCall.function.arguments);
     return typia.is<IJudgeProps>(input) && input.next;
   };
-
   export const success = (props: {
     application: IHttpLlmApplication<"chatgpt">;
     operations: Map<Function, Function>;
@@ -106,7 +105,7 @@ export namespace FunctionCallBenchmarkPredicator {
             return false;
           }
         }
-        return true;
+        return !!targeted.done;
     }
   };
 
