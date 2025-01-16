@@ -82,7 +82,6 @@ export namespace FunctionCallBenchmarkPredicator {
           operations: props.operations,
           function: props.expected.function,
         });
-        console.log(target);
         return props.functionList.some(({ function: func }) => func === target);
       case "allOf":
         return props.expected.allOf.every((expected) => call(expected));
@@ -94,7 +93,6 @@ export namespace FunctionCallBenchmarkPredicator {
 
         for (const history of props.functionList) {
           if (targeted.done) {
-            console.log("targeted.done");
             return true;
           }
 
