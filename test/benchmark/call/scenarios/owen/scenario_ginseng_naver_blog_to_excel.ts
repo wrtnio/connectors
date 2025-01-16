@@ -1,8 +1,8 @@
 import { IFunctionCallBenchmarkScenario } from "../../structures/IFunctionCallBenchmarkScenario";
-import { NaverController } from "../../../../../src/controllers/connector/naver/NaverController";
 import { ExcelController } from "../../../../../src/controllers/connector/excel/ExcelController";
 import { GoogleSheetController } from "../../../../../src/controllers/connector/google-sheet/GoogleSheetController";
 import { CsvController } from "../../../../../src/controllers/connector/csv/CsvController";
+import { NaverBlogController } from "../../../../../src/controllers/connector/naver_blog/NaverBlogController";
 
 export const scenario_ginseng_naver_blog_to_excel =
   (): IFunctionCallBenchmarkScenario => ({
@@ -19,7 +19,7 @@ export const scenario_ginseng_naver_blog_to_excel =
       items: [
         {
           type: "standalone",
-          function: NaverController.prototype.blogList,
+          function: NaverBlogController.prototype.blogList,
         },
         {
           type: "anyOf",

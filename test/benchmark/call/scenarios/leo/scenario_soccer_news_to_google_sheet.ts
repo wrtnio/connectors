@@ -1,5 +1,5 @@
 import { GoogleSheetController } from "../../../../../src/controllers/connector/google-sheet/GoogleSheetController";
-import { NaverController } from "../../../../../src/controllers/connector/naver/NaverController";
+import { NaverNewsController } from "../../../../../src/controllers/connector/naver_news/NaverNewsController";
 import { IFunctionCallBenchmarkScenario } from "../../structures/IFunctionCallBenchmarkScenario";
 
 export const scenario_soccer_news_to_google_sheet =
@@ -13,7 +13,7 @@ export const scenario_soccer_news_to_google_sheet =
       items: [
         {
           type: "standalone",
-          function: NaverController.prototype.newsList,
+          function: NaverNewsController.prototype.newsList,
         },
         {
           type: "standalone",
