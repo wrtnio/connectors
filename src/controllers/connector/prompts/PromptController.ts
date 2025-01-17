@@ -20,7 +20,7 @@ export class PromptController {
    */
   @HumanRoute()
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Prompt_prompt_full.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/connector_default.svg",
   )
   @core.TypedRoute.Post("/generate")
   async generate(

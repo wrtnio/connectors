@@ -18,7 +18,7 @@ export class XController {
    * @returns user information
    */
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/X_full.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/x.svg",
   )
   @core.TypedRoute.Patch("/get-users")
   async getUsers(
@@ -36,7 +36,7 @@ export class XController {
    * @returns user information
    */
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/X_full.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/x.svg",
   )
   @core.TypedRoute.Patch("/get-influencers")
   async getPreDefinedInfluencers(
@@ -66,7 +66,7 @@ export class XController {
    * @returns
    */
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/X_full.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/x.svg",
   )
   @core.TypedRoute.Post("/prepare-summarize")
   async prepareSummary(
@@ -94,7 +94,7 @@ export class XController {
    * @returns
    */
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/X_full.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/x.svg",
   )
   @core.TypedRoute.Post("/summarize")
   async summarizeTweet(
@@ -116,7 +116,7 @@ export class XController {
    * @returns
    */
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/X_full.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/x.svg",
   )
   @core.TypedRoute.Patch("/general-search")
   async generalSearch(

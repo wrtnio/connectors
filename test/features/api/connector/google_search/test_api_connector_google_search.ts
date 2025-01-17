@@ -16,63 +16,52 @@ export const test_api_connector_google_search = async (
   );
   typia.assert(search_result);
 
-  const wanted_result =
-    await CApi.functional.connector.google_search.wanted.searchForWanted(
-      connection,
-      {
-        andKeywords: ["NestJS"],
-        orKeywords: [],
-        notKeywords: [],
-        max_results: 20,
-      },
-    );
+  const wanted_result = await CApi.functional.connector.wanted.searchForWanted(
+    connection,
+    {
+      andKeywords: ["NestJS"],
+      orKeywords: [],
+      notKeywords: [],
+      max_results: 20,
+    },
+  );
   typia.assert(wanted_result);
 
   const incruit_result =
-    await CApi.functional.connector.google_search.incruit.searchForIncruit(
-      connection,
-      {
-        andKeywords: ["React"],
-        orKeywords: [],
-        notKeywords: [],
-        max_results: 10,
-      },
-    );
+    await CApi.functional.connector.incruit.searchForIncruit(connection, {
+      andKeywords: ["React"],
+      orKeywords: [],
+      notKeywords: [],
+      max_results: 10,
+    });
   typia.assert(incruit_result);
 
   const saramin_result =
-    await CApi.functional.connector.google_search.saramin.searchForSaramin(
-      connection,
-      {
-        andKeywords: ["JAVA"],
-        orKeywords: [],
-        notKeywords: [],
-        max_results: 10,
-      },
-    );
+    await CApi.functional.connector.saramin.searchForSaramin(connection, {
+      andKeywords: ["JAVA"],
+      orKeywords: [],
+      notKeywords: [],
+      max_results: 10,
+    });
   typia.assert(saramin_result);
 
-  const jumpit_result =
-    await CApi.functional.connector.google_search.jumpit.searchForJumpit(
-      connection,
-      {
-        andKeywords: ["파이썬"],
-        orKeywords: [],
-        notKeywords: [],
-        max_results: 10,
-      },
-    );
+  const jumpit_result = await CApi.functional.connector.jumpit.searchForJumpit(
+    connection,
+    {
+      andKeywords: ["파이썬"],
+      orKeywords: [],
+      notKeywords: [],
+      max_results: 10,
+    },
+  );
   typia.assert(jumpit_result);
 
   const careerly_result =
-    await CApi.functional.connector.google_search.careerly.searchForCareerly(
-      connection,
-      {
-        andKeywords: [""],
-        orKeywords: [],
-        notKeywords: [],
-        max_results: 10,
-      },
-    );
+    await CApi.functional.connector.careely.searchForCareerly(connection, {
+      andKeywords: [""],
+      orKeywords: [],
+      notKeywords: [],
+      max_results: 10,
+    });
   typia.assert(careerly_result);
 };

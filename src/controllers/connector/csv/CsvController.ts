@@ -22,7 +22,7 @@ export class CsvController {
   @SelectBenchmark("CSV 파일 좀 읽어줘")
   @SelectBenchmark("CSV 좀 읽어줘")
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/CSV_full.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/csv.svg",
   )
   @core.TypedRoute.Patch("read")
   @ApiTags("CSV")
@@ -40,7 +40,7 @@ export class CsvController {
    */
   @SelectBenchmark("CSV 파일 좀 만들어줘")
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/CSV_full.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/csv.svg",
   )
   @core.TypedRoute.Post("write")
   @ApiTags("CSV")
@@ -60,7 +60,7 @@ export class CsvController {
   @SelectBenchmark("CSV 파일 엑셀로 변환해줘")
   @core.TypedRoute.Post("csv-to-excel")
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/CSV_full.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/csv.svg",
   )
   @ApiTags("CSV")
   async csvToExcel(

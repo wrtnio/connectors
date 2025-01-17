@@ -21,7 +21,7 @@ export class GoogleScholarController {
   @Standalone()
   @core.TypedRoute.Patch()
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleScholar_full.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/google_scholar.svg",
   )
   @ApiTags("Google Scholar")
   async search(

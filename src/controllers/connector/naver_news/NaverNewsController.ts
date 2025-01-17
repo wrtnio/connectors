@@ -18,7 +18,7 @@ export class NaverNewsController {
    */
   @core.TypedRoute.Patch("")
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/NaverNews_full.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/naver_news.svg",
   )
   @ApiTags("Naver")
   async newsList(

@@ -25,7 +25,7 @@ export class GoogleShoppingUniqloController {
   @Standalone()
   @core.TypedRoute.Patch("uniqlo")
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Uniqlo_full.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/uniqlo.svg",
   )
   @ApiTags("Uniqlo")
   async uniqlo(

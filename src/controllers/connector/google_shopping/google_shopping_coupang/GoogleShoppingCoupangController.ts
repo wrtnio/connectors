@@ -24,7 +24,7 @@ export class GoogleShoppingCoupangController {
   @Standalone()
   @core.TypedRoute.Patch("coupang")
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Coupang_full.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/coupang.svg",
   )
   @ApiTags("Coupang")
   async coupang(

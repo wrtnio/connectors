@@ -19,7 +19,7 @@ export class GoogleSheetController {
    */
   @Standalone()
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleSheet_full.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/google_sheets.svg",
   )
   @ApiTags("Google Sheet")
   @core.TypedRoute.Patch()
@@ -37,7 +37,7 @@ export class GoogleSheetController {
    * @returns
    */
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleSheet_full.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/google_sheets.svg",
   )
   @ApiTags("Google Sheet")
   @core.TypedRoute.Post("append")
@@ -58,7 +58,7 @@ export class GoogleSheetController {
    */
   @Standalone()
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleSheet_full.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/google_sheets.svg",
   )
   @ApiTags("Google Sheet")
   @core.TypedRoute.Post("create")
@@ -76,7 +76,7 @@ export class GoogleSheetController {
    */
   @Standalone()
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleSheet_full.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/google_sheets.svg",
   )
   @ApiTags("Google Sheet")
   @core.TypedRoute.Post("/permission")
@@ -94,7 +94,7 @@ export class GoogleSheetController {
    */
   @Standalone()
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleSheet_full.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/google_sheets.svg",
   )
   @ApiTags("Google Sheet")
   @core.TypedRoute.Post("/header")
@@ -112,7 +112,7 @@ export class GoogleSheetController {
    */
   @Standalone()
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleSheet_full.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/google_sheets.svg",
   )
   @ApiTags("Google Sheet")
   @core.TypedRoute.Patch("/worksheet")
@@ -131,7 +131,7 @@ export class GoogleSheetController {
    */
   @Standalone()
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleSheet_full.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/google_sheets.svg",
   )
   @ApiTags("Google Sheet")
   @core.TypedRoute.Patch("/get-rows")

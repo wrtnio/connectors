@@ -24,7 +24,7 @@ export class GoogleShoppingMusinsaController {
   @Standalone()
   @core.TypedRoute.Patch("musinsa")
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Musinsa_full.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/musinsa.svg",
   )
   @ApiTags("Musinsa")
   async musinsa(

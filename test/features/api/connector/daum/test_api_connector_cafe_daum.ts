@@ -1,11 +1,11 @@
 import CApi from "@wrtn/connector-api/lib/index";
-import { IDaum } from "@wrtn/connector-api/lib/structures/connector/daum/IDaum";
+import { IDaumCafe } from "@wrtn/connector-api/lib/structures/connector/daum_cafe/IDaumCafe";
 import typia from "typia";
 
 export const test_api_connector_cafe_daum = async (
   connection: CApi.IConnection,
-): Promise<IDaum.ICafeDaumOutput> => {
-  const input: IDaum.ISearchDaumInput = {
+): Promise<IDaumCafe.ICafeOutput> => {
+  const input: IDaumCafe.ISearchInput = {
     andKeywords: "뤼튼",
     orKeywords: "AI",
     notKeywords: "openAI",
@@ -13,7 +13,7 @@ export const test_api_connector_cafe_daum = async (
     size: 10,
     sort: "accuracy",
   };
-  const result = await CApi.functional.connector.daum.cafe.searchCafe(
+  const result = await CApi.functional.connector.daum_cafe.searchCafe(
     connection,
     input,
   );

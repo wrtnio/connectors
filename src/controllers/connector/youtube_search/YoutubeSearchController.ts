@@ -30,7 +30,7 @@ export class YoutubeSearchController {
   @Standalone()
   @core.TypedRoute.Patch()
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Youtube_full.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/youtube.svg",
   )
   @ApiTags("Youtube")
   async search(
@@ -74,7 +74,7 @@ export class YoutubeSearchController {
   //  */
   // @core.TypedRoute.Patch("/official")
   // @RouteIcon(
-  //   "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Youtube_full.svg",
+  //   "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/youtube.svg",
   // )
   // @ApiTags("Youtube")
   // async searchVideo(
@@ -102,7 +102,7 @@ export class YoutubeSearchController {
   //  */
   // @core.TypedRoute.Patch("/transcript")
   // @RouteIcon(
-  //   "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Youtube_full.svg",
+  //   "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/youtube.svg",
   // )
   // @ApiTags("Youtube")
   // async transcript(

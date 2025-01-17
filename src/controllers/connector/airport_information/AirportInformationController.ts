@@ -27,7 +27,7 @@ export class AirportInformationController {
   @Standalone()
   @core.TypedRoute.Patch("search")
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/AirportInformation_full.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/airport_information.svg",
   )
   @ApiTags("Search Airport Information")
   async search(

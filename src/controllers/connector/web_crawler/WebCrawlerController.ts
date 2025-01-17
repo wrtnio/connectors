@@ -4,6 +4,7 @@ import core from "@nestia/core";
 import { retry } from "../../../utils/retry";
 import { IWebCrawler } from "@wrtn/connector-api/lib/structures/connector/web_crawler/IWebCrawler";
 import { ApiTags } from "@nestjs/swagger";
+import { RouteIcon } from "@wrtnio/decorators";
 
 @Controller("connector/crawler")
 export class WebCrawlerController {
@@ -23,6 +24,9 @@ export class WebCrawlerController {
    * @summary Get HTML content from the URL
    */
   @ApiTags("Web Crawler")
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/connector_default.svg",
+  )
   @core.TypedRoute.Patch("get-web-content")
   async getWebContent(
     @core.TypedBody() input: IWebCrawler.IRequest,

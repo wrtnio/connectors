@@ -25,7 +25,7 @@ export class GoogleShoppingEqlController {
   @Standalone()
   @core.TypedRoute.Patch("eql")
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/ECL_full.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/eql.svg",
   )
   @ApiTags("EQL")
   async hansumEQL(

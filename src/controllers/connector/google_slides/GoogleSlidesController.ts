@@ -17,11 +17,9 @@ export class GoogleSlidesController {
    * @param presentationId Presentation ID to convert
    * @param input Authentication information
    * @returns Link to download Hanshow files
-   *
-   * @internal
    */
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleSlides_full.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/google_slide.svg",
   )
   @HumanRoute()
   @ApiTags("Google Slide")
@@ -46,11 +44,9 @@ export class GoogleSlidesController {
    * @param presentationId Presentation ID to convert
    * @param input Authentication information
    * @returns Link to download PowerPoint files
-   *
-   * @internal
    */
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleSlides_full.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/google_slide.svg",
   )
   @HumanRoute()
   @ApiTags("Google Slide")
@@ -72,11 +68,9 @@ export class GoogleSlidesController {
    * @summary Retrieve a Google Slides presentation
    * @param input Condition DTO for retrieving a presentation
    * @returns Retrieve presentation information DTO
-   *
-   * @internal
    */
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleSlides_full.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/google_slide.svg",
   )
   @HumanRoute()
   @ApiTags("Google Slide")
@@ -101,11 +95,9 @@ export class GoogleSlidesController {
    * @param presentationId Presentation id to add slides to
    * @param input Template to add
    * @returns
-   *
-   * @internal
    */
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleSlides_full.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/google_slide.svg",
   )
   @HumanRoute()
   @ApiTags("Google Slide")
@@ -132,11 +124,9 @@ export class GoogleSlidesController {
    * @param presentationId Presentation id to add slides to
    * @param input Template to add
    * @returns
-   *
-   * @internal
    */
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleSlides_full.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/google_slide.svg",
   )
   @HumanRoute()
   @ApiTags("Google Slide")
@@ -164,11 +154,9 @@ export class GoogleSlidesController {
    * @param presentationId Presentation id to add slides to
    * @param input Template to add
    * @returns
-   *
-   * @internal
    */
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleSlides_full.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/google_slide.svg",
   )
   @HumanRoute()
   @ApiTags("Google Slide")
@@ -195,11 +183,9 @@ export class GoogleSlidesController {
    * @param presentationId Presentation id to add slides to
    * @param input Template to add
    * @returns
-   *
-   * @internal
    */
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleSlides_full.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/google_slide.svg",
   )
   @HumanRoute()
   @ApiTags("Google Slide")
@@ -227,11 +213,9 @@ export class GoogleSlidesController {
    * @param presentationId Presentation id to add slides to
    * @param input Template to add
    * @returns
-   *
-   * @internal
    */
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleSlides_full.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/google_slide.svg",
   )
   @HumanRoute()
   @ApiTags("Google Slide")
@@ -263,11 +247,9 @@ export class GoogleSlidesController {
    * @param presentationId Presentation id to add slides to
    * @param input Template to add
    * @returns
-   *
-   * @internal
    */
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleSlides_full.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/google_slide.svg",
   )
   @HumanRoute()
   @ApiTags("Google Slide")
@@ -292,11 +274,9 @@ export class GoogleSlidesController {
    * @summary Create a Google Slides presentation
    * @param input Condition DTO for creating a presentation
    * @returns Generated presentation information DTO
-   *
-   * @internal
    */
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleSlides_full.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/google_slide.svg",
   )
   @HumanRoute()
   @ApiTags("Google Slide")

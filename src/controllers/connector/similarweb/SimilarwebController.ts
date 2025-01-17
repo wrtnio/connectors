@@ -24,7 +24,7 @@ export class SimilarwebController {
    */
   @HumanRoute()
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/similarweb_full.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/similarweb.svg",
   )
   @TypedRoute.Patch("get-domain-info")
   async getDomainInfo(

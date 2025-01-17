@@ -22,7 +22,7 @@ export class HancellController {
    */
   @core.TypedRoute.Post("sheet")
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Hancel_full.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/hancel.svg",
   )
   @ApiTags("Hancel")
   async upsertSheet(
@@ -40,7 +40,7 @@ export class HancellController {
    */
   @Standalone()
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Hancel_full.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/hancel.svg",
   )
   @ApiTags("Hancel")
   @core.TypedRoute.Patch("read")

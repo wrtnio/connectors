@@ -19,11 +19,9 @@ export class StableDiffusionBetaController {
    * @summary Stable diffusion image generator node
    * @param input Information for image generation
    * @returns URL of the generated image
-   *
-   * @internal
    */
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/StableDifusion_full.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/stable_diffusion.svg",
   )
   @HumanRoute()
   @ApiTags("Stable Diffusion")

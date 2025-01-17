@@ -22,7 +22,7 @@ export class KakaoMapController {
    */
   @Standalone()
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/KakaoMap_full.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/kakao_map.svg",
   )
   @ApiTags("Kakao Map")
   @TypedRoute.Patch("search")

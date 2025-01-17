@@ -25,7 +25,7 @@ export class GoogleShoppingOliveYoungController {
   @Standalone()
   @core.TypedRoute.Patch("olive-young")
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/oliveYoung_full.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/olive_young.svg",
   )
   @ApiTags("Olive Young")
   async oliveYoung(

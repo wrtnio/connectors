@@ -25,7 +25,7 @@ export class GoogleShoppingMarketKurlyController {
   @Standalone()
   @core.TypedRoute.Patch("market-kurly")
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Kurly_full.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/kurly.svg",
   )
   @ApiTags("Market Kurly")
   async marketKurly(

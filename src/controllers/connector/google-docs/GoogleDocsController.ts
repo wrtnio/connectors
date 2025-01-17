@@ -25,6 +25,10 @@ export class GoogleDocsController {
    * @param input Google Docs infomation to write
    * @returns Created Google Docs and markdown File ids
    */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/google_docs.svg",
+  )
+  @ApiTags("Google Docs")
   @core.TypedRoute.Post("markdown")
   async write(
     @core.TypedBody() input: IGoogleDocs.IRequest,
@@ -41,6 +45,10 @@ export class GoogleDocsController {
    * @param input Google Drive and Docs Secret Key and information to clear file
    * @returns
    */
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/google_docs.svg",
+  )
+  @ApiTags("Google Docs")
   @core.TypedRoute.Delete("contents")
   async clear(
     @TypedBody() input: IGoogleDocs.IClearInput,
@@ -65,7 +73,7 @@ export class GoogleDocsController {
   @HumanRoute()
   @Standalone()
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Google+Docs_full.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/google_docs.svg",
   )
   @ApiTags("Google Docs")
   @core.TypedRoute.Post()
@@ -82,7 +90,7 @@ export class GoogleDocsController {
    * @param input Information for granting permission to Google Docs
    */
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Google+Docs_full.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/google_docs.svg",
   )
   @ApiTags("Google Docs")
   @core.TypedRoute.Post("/permission")
@@ -101,7 +109,7 @@ export class GoogleDocsController {
    * @returns Google Docs contents
    */
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Google+Docs_full.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/google_docs.svg",
   )
   @ApiTags("Google Docs")
   @core.TypedRoute.Patch("get/:id")
@@ -130,7 +138,7 @@ export class GoogleDocsController {
    * @returns Unique ID of the generated Google Docs
    */
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Google+Docs_full.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/google_docs.svg",
   )
   @ApiTags("Google Docs")
   @core.TypedRoute.Post("/template")
@@ -170,7 +178,7 @@ export class GoogleDocsController {
    * @param id Unique ID of the Google Docs to delete
    */
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Google+Docs_full.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/google_docs.svg",
   )
   @ApiTags("Google Docs")
   @core.TypedRoute.Delete(":id")
@@ -199,7 +207,7 @@ export class GoogleDocsController {
    */
   @Standalone()
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Google+Docs_full.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/google_docs.svg",
   )
   @ApiTags("Google Docs")
   @core.TypedRoute.Patch("get-list")
@@ -224,7 +232,7 @@ export class GoogleDocsController {
    */
   @HumanRoute()
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Google+Docs_full.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/google_docs.svg",
   )
   @ApiTags("Google Docs")
   @core.TypedRoute.Post("/append")

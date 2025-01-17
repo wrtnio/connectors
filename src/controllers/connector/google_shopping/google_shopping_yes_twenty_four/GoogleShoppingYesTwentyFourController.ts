@@ -25,7 +25,7 @@ export class GoogleShoppingYesTwentyFourController {
   @Standalone()
   @core.TypedRoute.Patch("yes-twenty-four")
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/yes24_full.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/yes24.svg",
   )
   @ApiTags("yes24")
   async yes24(

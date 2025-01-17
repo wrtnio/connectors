@@ -17,12 +17,11 @@ export class CalendlyController {
    * @summary Create a new scheduling link
    * @param input The necessary details to create the scheduling link.
    * @returns The created scheduling link details.
-   * @internal
    */
   @SelectBenchmark("calendly 미팅 좀 잡아줘")
   @HumanRoute()
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/calendly.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/calendly.svg",
   )
   @ApiTags("Calendly")
   @core.TypedRoute.Post("scheduling_links")
@@ -41,10 +40,9 @@ export class CalendlyController {
    * @summary List all event types
    * @param input The input required to retrieve event types.
    * @returns The list of event types.
-   * @internal
    */
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/calendly.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/calendly.svg",
   )
   @HumanRoute()
   @ApiTags("Calendly")
@@ -66,12 +64,11 @@ export class CalendlyController {
    * @param inviteeId The ID of the invitee.
    * @param input Additional input for cancel link retrieval.
    * @returns The cancel link for the invitee.
-   * @internal
    */
   @SelectBenchmark("calendly 미팅 좀 취소해줘")
   @HumanRoute()
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/calendly.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/calendly.svg",
   )
   @ApiTags("Calendly")
   @core.TypedRoute.Post("events/:eventId/invitees/:inviteeId/get-cancel-link")
@@ -108,12 +105,11 @@ export class CalendlyController {
    * @param eventId The UUID of the event.
    * @param input Additional input for event retrieval.
    * @returns The detailed information of the scheduled event.
-   * @internal
    */
   @SelectBenchmark("calendly 미팅 정보 좀 조회해줘")
   @HumanRoute()
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/calendly.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/calendly.svg",
   )
   @ApiTags("Calendly")
   @core.TypedRoute.Patch("get-events/:eventId")
@@ -136,12 +132,11 @@ export class CalendlyController {
    * @summary Get all scheduled events
    * @param input The input to filter scheduled events.
    * @returns The list of scheduled events.
-   * @internal
    */
   @SelectBenchmark("내 calendly에서 예약된 미팅들 좀 알려줘")
   @HumanRoute()
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/calendly.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/calendly.svg",
   )
   @ApiTags("Calendly")
   @core.TypedRoute.Patch("get-scheduled-events")
@@ -162,12 +157,11 @@ export class CalendlyController {
    * @param inviteeId The UUID of the invitee.
    * @param input Additional input for no-show marking.
    * @returns The result of the no-show marking.
-   * @internal
    */
   @SelectBenchmark("내 calendly에서 미팅에 노쇼한 사람 체크 좀 해줘")
   @HumanRoute()
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/calendly.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/calendly.svg",
   )
   @ApiTags("Calendly")
   @core.TypedRoute.Post("events/:eventId/invitees/:inviteeId/no-show")
@@ -194,12 +188,11 @@ export class CalendlyController {
    * @param inviteeId The UUID of the invitee.
    * @param input Additional input for invitee retrieval.
    * @returns The details of the invitee.
-   * @internal
    */
   @SelectBenchmark("내 calendly에서 미팅 참석자 정보 좀 찾아줘")
   @HumanRoute()
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/calendly.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/calendly.svg",
   )
   @ApiTags("Calendly")
   @core.TypedRoute.Patch("events/:eventId/invitees/:inviteeId")
@@ -224,12 +217,11 @@ export class CalendlyController {
    * @summary Get all invitees for a scheduled event
    * @param input The input to filter invitees.
    * @returns The list of invitees for the event.
-   * @internal
    */
   @SelectBenchmark("내 calendly에서 미팅 참석자 정보 좀 찾아줘")
   @HumanRoute()
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/calendly.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/calendly.svg",
   )
   @ApiTags("Calendly")
   @core.TypedRoute.Patch("events/get-invitees")
@@ -248,12 +240,11 @@ export class CalendlyController {
    * @summary Create a one-off event type
    * @param input The details needed to create a one-off event type.
    * @returns The created one-off event type details.
-   * @internal
    */
   @SelectBenchmark("내 calendly에서 1회성 미팅 초대 링크 좀 줄래?")
   @HumanRoute()
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/calendly.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/calendly.svg",
   )
   @ApiTags("Calendly")
   @core.TypedRoute.Post("one-off-event-types")
@@ -272,10 +263,9 @@ export class CalendlyController {
    * @summary Get authenticated user details
    * @param input The input required to get the user details.
    * @returns The authenticated user's details.
-   * @internal
    */
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/calendly.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/calendly.svg",
   )
   @HumanRoute()
   @ApiTags("Calendly")

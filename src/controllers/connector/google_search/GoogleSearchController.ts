@@ -23,7 +23,7 @@ export class GoogleSearchController {
   @Standalone()
   @core.TypedRoute.Patch("")
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleSearch_full.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/google_search.svg",
   )
   @ApiTags("Google Search")
   async search(

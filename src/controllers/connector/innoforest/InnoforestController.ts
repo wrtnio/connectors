@@ -1,7 +1,7 @@
 import { HumanRoute, TypedBody, TypedRoute } from "@nestia/core";
 import { Controller } from "@nestjs/common";
 import { IInnoforest } from "@wrtn/connector-api/lib/structures/connector/innoforest/IInnoforest";
-import { SelectBenchmark } from "@wrtnio/decorators";
+import { RouteIcon, SelectBenchmark } from "@wrtnio/decorators";
 import { InnoforestProvider } from "../../../providers/connector/innoforest/InnoforestProvider";
 
 @Controller("connector/innoforest")
@@ -27,6 +27,9 @@ export class InnoforestController {
   @SelectBenchmark("혁신의숲에서 회사 투자 라운드 좀 알려줘")
   @SelectBenchmark("혁신의숲에서 회사 정보 좀 찾아줘")
   @HumanRoute()
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/connector_default.svg",
+  )
   @TypedRoute.Patch("unify")
   async unify(
     @TypedBody() input: IInnoforest.IUnifyInput,
@@ -112,6 +115,9 @@ export class InnoforestController {
    * @internal
    */
   @HumanRoute()
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/connector_default.svg",
+  )
   @TypedRoute.Patch("search")
   async search(
     @TypedBody() input: IInnoforest.ISearchInput,
@@ -153,6 +159,9 @@ export class InnoforestController {
    * @internal
    */
   @HumanRoute()
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/connector_default.svg",
+  )
   @TypedRoute.Patch("seed/party/s1/getcorp")
   async getcorp(
     @TypedBody() input: IInnoforest.IGetcorpInput,
@@ -171,6 +180,9 @@ export class InnoforestController {
    * @internal
    */
   @HumanRoute()
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/connector_default.svg",
+  )
   @TypedRoute.Patch("seed/party/s1/getcorpfinance")
   async getcorpfinance(
     @TypedBody() input: IInnoforest.IGetcorpfinanceInput,
@@ -189,6 +201,9 @@ export class InnoforestController {
    * @internal
    */
   @HumanRoute()
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/connector_default.svg",
+  )
   @TypedRoute.Post("seed/party/s1/getcorpinvest")
   async getcorpinvest(
     @TypedBody() input: IInnoforest.IGetcorpinvestInput,
@@ -207,6 +222,9 @@ export class InnoforestController {
    * @internal
    */
   @HumanRoute()
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/connector_default.svg",
+  )
   @TypedRoute.Patch("seed/party/s1/getcorpcommon")
   async getcorpcommon(
     @TypedBody() input: IInnoforest.IGetcorpcommonInput,
@@ -225,6 +243,9 @@ export class InnoforestController {
    * @internal
    */
   @HumanRoute()
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/connector_default.svg",
+  )
   @TypedRoute.Patch("seed/party/s1/findproduct")
   async findproduct(
     @TypedBody() input: IInnoforest.IFindproductInput,
@@ -243,6 +264,9 @@ export class InnoforestController {
    * @internal
    */
   @HumanRoute()
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/connector_default.svg",
+  )
   @TypedRoute.Patch("seed/party/s1/findtraffic")
   async findtraffic(
     @TypedBody() input: IInnoforest.IFindtrafficInput,
@@ -261,6 +285,9 @@ export class InnoforestController {
    * @internal
    */
   @HumanRoute()
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/connector_default.svg",
+  )
   @TypedRoute.Patch("seed/party/s1/findsales")
   async findsales(
     @TypedBody() input: IInnoforest.IFindsalesInput,
@@ -279,6 +306,9 @@ export class InnoforestController {
    * @internal
    */
   @HumanRoute()
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/connector_default.svg",
+  )
   @TypedRoute.Patch("seed/party/s1/findsalesrebuy")
   async findsalesrebuy(
     @TypedBody() input: IInnoforest.IFindsalesrebuyInput,
@@ -297,6 +327,9 @@ export class InnoforestController {
    * @internal
    */
   @HumanRoute()
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/connector_default.svg",
+  )
   @TypedRoute.Patch("seed/party/s1/findsalesavgbuy")
   async findsalesavgbuy(
     @TypedBody() input: IInnoforest.IFindsalesavgbuyInput,
@@ -315,6 +348,9 @@ export class InnoforestController {
    * @internal
    */
   @HumanRoute()
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/connector_default.svg",
+  )
   @TypedRoute.Patch("seed/party/s1/findsalesperson")
   async findsalesperson(
     @TypedBody() input: IInnoforest.IFindsalespersonInput,
@@ -333,6 +369,9 @@ export class InnoforestController {
    * @internal
    */
   @HumanRoute()
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/connector_default.svg",
+  )
   @TypedRoute.Patch("seed/party/s1/findsaleshousehold")
   async findsaleshousehold(
     @TypedBody() input: IInnoforest.IFindsaleshouseholdInput,
@@ -351,6 +390,9 @@ export class InnoforestController {
    * @internal
    */
   @HumanRoute()
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/connector_default.svg",
+  )
   @TypedRoute.Patch("seed/party/s1/findsalesincome")
   async findsalesincome(
     @TypedBody() input: IInnoforest.IFindsalesincomeInput,
@@ -369,6 +411,9 @@ export class InnoforestController {
    * @internal
    */
   @HumanRoute()
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/connector_default.svg",
+  )
   @TypedRoute.Patch("seed/party/s1/findinvest")
   async findinvest(
     @TypedBody() input: IInnoforest.IFindinvestInput,
@@ -387,6 +432,9 @@ export class InnoforestController {
    * @internal
    */
   @HumanRoute()
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/connector_default.svg",
+  )
   @TypedRoute.Patch("seed/party/s1/findpatent")
   async findpatent(
     @TypedBody() input: IInnoforest.IFindpatentInput,
@@ -405,6 +453,9 @@ export class InnoforestController {
    * @internal
    */
   @HumanRoute()
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/connector_default.svg",
+  )
   @TypedRoute.Patch("seed/party/s1/findpatentword")
   async findpatentword(
     @TypedBody() input: IInnoforest.IFindpatentwordInput,
@@ -423,6 +474,9 @@ export class InnoforestController {
    * @internal
    */
   @HumanRoute()
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/connector_default.svg",
+  )
   @TypedRoute.Patch("seed/party/s1/findfinance")
   async findfinance(
     @TypedBody() input: IInnoforest.IFindfinanceInput,
@@ -441,6 +495,9 @@ export class InnoforestController {
    * @internal
    */
   @HumanRoute()
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/connector_default.svg",
+  )
   @TypedRoute.Patch("seed/party/s1/findemployee")
   async findemployee(
     @TypedBody() input: IInnoforest.IFindemployeeInput,
@@ -459,6 +516,9 @@ export class InnoforestController {
    * @internal
    */
   @HumanRoute()
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/connector_default.svg",
+  )
   @TypedRoute.Patch("seed/party/s1/findpress")
   async findpress(
     @TypedBody() input: IInnoforest.IFindpressInput,

@@ -24,7 +24,7 @@ export class GoogleShoppingAliexpressController {
   @Standalone()
   @core.TypedRoute.Patch("ali-express")
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/AliExpress_full.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/aliexpress.svg",
   )
   @ApiTags("AliExpress")
   async aliExpress(

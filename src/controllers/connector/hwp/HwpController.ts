@@ -21,7 +21,7 @@ export class HwpController {
    */
   @core.TypedRoute.Post("/parse")
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/HWP_full.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/hangul.svg",
   )
   @ApiTags("Hwp")
   async parseHwp(
