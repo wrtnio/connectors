@@ -20,12 +20,10 @@ export class KakaoTalkController {
    * @summary Send a message to a KakaoTalk(카카오톡) friend
    * @param input Conditions for sending the message
    * @returns Response and failure information
-   *
-   * @internal
    */
   @HumanRoute()
   @RouteIcon(
-    `https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/kakaoTalk_full.svg`,
+    `https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/kakao_talk.svg`,
   )
   @ApiTags("KakaoTalk")
   @core.TypedRoute.Post("message/text")
@@ -45,13 +43,11 @@ export class KakaoTalkController {
    * @summary Send a message to myself on KakaoTalk(카카오톡)
    * @param input Conditions for sending the message
    * @returns Response code
-   *
-   * @internal
    */
   @HumanRoute()
   @Standalone()
   @RouteIcon(
-    `https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/kakaoTalk_full.svg`,
+    `https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/kakao_talk.svg`,
   )
   @ApiTags("KakaoTalk")
   @core.TypedRoute.Post("memo/commerce")
@@ -71,13 +67,11 @@ export class KakaoTalkController {
    * @summary Send a message to myself on KakaoTalk(카카오톡)
    * @param input Conditions for sending the message
    * @returns Response code
-   *
-   * @internal
    */
   @HumanRoute()
   @Standalone()
   @RouteIcon(
-    `https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/kakaoTalk_full.svg`,
+    `https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/kakao_talk.svg`,
   )
   @ApiTags("KakaoTalk")
   @core.TypedRoute.Post("memo/location")
@@ -97,13 +91,11 @@ export class KakaoTalkController {
    * @summary Send a message to myself on KakaoTalk(카카오톡)
    * @param input Conditions for sending the message
    * @returns Response code
-   *
-   * @internal
    */
   @HumanRoute()
   @Standalone()
   @RouteIcon(
-    `https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/kakaoTalk_full.svg`,
+    `https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/kakao_talk.svg`,
   )
   @ApiTags("KakaoTalk")
   @core.TypedRoute.Post("memo/list")
@@ -123,13 +115,11 @@ export class KakaoTalkController {
    * @summary Send a message to myself on KakaoTalk(카카오톡)
    * @param input Conditions for sending the message
    * @returns Response code
-   *
-   * @internal
    */
   @HumanRoute()
   @Standalone()
   @RouteIcon(
-    `https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/kakaoTalk_full.svg`,
+    `https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/kakao_talk.svg`,
   )
   @ApiTags("KakaoTalk")
   @core.TypedRoute.Post("memo/feed")
@@ -149,13 +139,11 @@ export class KakaoTalkController {
    * @summary Send a message to myself on KakaoTalk(카카오톡)
    * @param input Conditions for sending the message
    * @returns Response code
-   *
-   * @internal
    */
   @HumanRoute()
   @Standalone()
   @RouteIcon(
-    `https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/kakaoTalk_full.svg`,
+    `https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/kakao_talk.svg`,
   )
   @ApiTags("KakaoTalk")
   @core.TypedRoute.Post("memo/text")
@@ -174,13 +162,11 @@ export class KakaoTalkController {
    * @param input Input conditions for creating an event
    *
    * @returns Created event ID condition
-   *
-   * @internal
    */
   @HumanRoute()
   @Standalone()
   @RouteIcon(
-    `https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/kakaoTalk_full.svg`,
+    `https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/kakao_talk.svg`,
   )
   @ApiTags("KakaoTalk")
   @core.TypedRoute.Post("calendars/events")
@@ -200,13 +186,11 @@ export class KakaoTalkController {
    * @summary Retrieve the list of friends on KakaoTalk(카카오톡)
    * @param input Conditions for retrieving the friend list
    * @returns Retrieved friend list
-   *
-   * @internal
    */
   @HumanRoute()
   @Standalone()
   @RouteIcon(
-    `https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/kakaoTalk_full.svg`,
+    `https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/kakao_talk.svg`,
   )
   @ApiTags("KakaoTalk")
   @core.TypedRoute.Patch("get-friends")
@@ -231,13 +215,11 @@ export class KakaoTalkController {
    * @summary Retrieve KakaoTalk(카카오톡) calendar events
    * @param input DTO for event retrieval.
    * @returns DTO containing event information.
-   *
-   * @internal
    */
   @HumanRoute()
   @Standalone()
   @RouteIcon(
-    `https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/kakaoTalk_full.svg`,
+    `https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/kakao_talk.svg`,
   )
   @ApiTags("KakaoTalk")
   @core.TypedRoute.Patch("get-events")
@@ -259,13 +241,11 @@ export class KakaoTalkController {
    * @summary Retrieve KakaoTalk(카카오톡) calendar lists
    * @param input Request DTO to retrieve calendars.
    * @returns Calendar list object.
-   *
-   * @internal
    */
   @HumanRoute()
   @Standalone()
   @RouteIcon(
-    `https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/kakaoTalk_full.svg`,
+    `https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/kakao_talk.svg`,
   )
   @ApiTags("KakaoTalk")
   @core.TypedRoute.Patch("get-calendars")
@@ -277,8 +257,6 @@ export class KakaoTalkController {
 
   /**
    * Issues a KakaoTalk(카카오톡) access token
-   *
-   * @internal
    *
    * @param query Authorization Code DTO.
    */
@@ -293,13 +271,11 @@ export class KakaoTalkController {
   /**
    * Refreshes the KakaoTalk(카카오톡) access token
    *
-   * @internal
-   *
    * @param input Request DTO for refresh.
    */
   @HumanRoute()
   @RouteIcon(
-    `https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/kakaoTalk_full.svg`,
+    `https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/kakao_talk.svg`,
   )
   @ApiTags("KakaoTalk")
   @core.TypedRoute.Post("refresh")

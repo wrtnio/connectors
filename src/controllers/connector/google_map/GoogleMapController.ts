@@ -21,7 +21,7 @@ export class GoogleMapController {
    * @summary Returns predictions for the given input in Google Maps
    */
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleMap_full.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/google_maps.svg",
   )
   @ApiTags("Google Map")
   @core.TypedRoute.Patch("autocomplete")
@@ -42,7 +42,7 @@ export class GoogleMapController {
   @SelectBenchmark("구글 맵에서 식당 리뷰 좀 봐줘")
   @Standalone()
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleMap_full.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/google_maps.svg",
   )
   @core.TypedRoute.Patch("review")
   @ApiTags("Google Map")
@@ -64,7 +64,7 @@ export class GoogleMapController {
    */
   @SelectBenchmark('구글 맵에서 "강남" 이라는 키워드로 장소 검색 좀 해줘')
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleMap_full.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/google_maps.svg",
   )
   @core.TypedRoute.Patch("search-text")
   @ApiTags("Google Map")
@@ -84,7 +84,7 @@ export class GoogleMapController {
   @SelectBenchmark("구글 맵에서 식당 좀 찾아줘")
   @Standalone()
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleMap_full.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/google_maps.svg",
   )
   @core.TypedRoute.Patch()
   @ApiTags("Google Map")

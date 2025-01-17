@@ -24,7 +24,7 @@ export class GoogleDriveController {
   @SelectBenchmark("구글 드라이브에 폴더 목록 좀 봐줘")
   @Standalone()
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleDrive_full.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/google_drive.svg",
   )
   @ApiTags("Google Drive")
   @core.TypedRoute.Patch("get/folders")
@@ -43,7 +43,7 @@ export class GoogleDriveController {
    * @returns A list of Google Drive files
    */
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleDrive_full.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/google_drive.svg",
   )
   @SelectBenchmark("드라이브에 파일 좀 찾아줘")
   @SelectBenchmark("드라이브에 파일 좀 조회해줘")
@@ -66,7 +66,7 @@ export class GoogleDriveController {
   @SelectBenchmark("드라이브에 폴더 좀 생성해줘")
   @Standalone()
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleDrive_full.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/google_drive.svg",
   )
   @ApiTags("Google Drive")
   @core.TypedRoute.Post("/folder")
@@ -85,7 +85,7 @@ export class GoogleDriveController {
    */
   @SelectBenchmark("드라이브에 파일 좀 생성해줘")
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleDrive_full.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/google_drive.svg",
   )
   @ApiTags("Google Drive")
   @core.TypedRoute.Post("/file")
@@ -103,7 +103,7 @@ export class GoogleDriveController {
    */
   @SelectBenchmark("드라이브에 파일 좀 삭제해줘")
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleDrive_full.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/google_drive.svg",
   )
   @ApiTags("Google Drive")
   @core.TypedRoute.Delete("/file/:id")
@@ -132,7 +132,7 @@ export class GoogleDriveController {
    */
   @SelectBenchmark("드라이브에 폴더 좀 삭제해줘")
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleDrive_full.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/google_drive.svg",
   )
   @ApiTags("Google Drive")
   @core.TypedRoute.Delete("/folder/:id")
@@ -162,7 +162,7 @@ export class GoogleDriveController {
   @SelectBenchmark("드라이브 파일에 접근 권한 좀 설정해줘")
   @SelectBenchmark("드라이브 폴더에 접근 권한 좀 설정해줘")
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleDrive_full.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/google_drive.svg",
   )
   @ApiTags("Google Drive")
   @core.TypedRoute.Post("permission")
@@ -181,7 +181,7 @@ export class GoogleDriveController {
    */
   @SelectBenchmark("드라이브 파일에 텍스트 좀 읽어줘")
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleDrive_full.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/google_drive.svg",
   )
   @ApiTags("Google Drive")
   @core.TypedRoute.Patch("get/file/:id")

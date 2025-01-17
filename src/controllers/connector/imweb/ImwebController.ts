@@ -23,11 +23,9 @@ export class ImwebController {
    * @summary Get my sales product from `Imweb`
    * @param input key and secret
    * @returns the seller's own goods
-   *
-   * @internal
    */
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Imweb_full.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/imweb.svg",
   )
   @HumanRoute()
   @ApiTags("Imweb")
@@ -42,13 +40,11 @@ export class ImwebController {
   /**
    * Issue Aimweb Access Token
    *
-   * @internal
-   *
    * @param input Request DTO for access token issuance.
    * @returns Response DTO containing access token.
    */
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Imweb_full.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/imweb.svg",
   )
   @HumanRoute()
   @ApiTags("Imweb")

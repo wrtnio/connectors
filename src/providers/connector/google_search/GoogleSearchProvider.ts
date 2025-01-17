@@ -91,34 +91,4 @@ export class GoogleSearchProvider {
   ): Promise<IGoogleSearch.IResponse[]> {
     return this.searchResult(input);
   }
-
-  async searchForWanted(
-    input: IGoogleSearch.IRequest,
-  ): Promise<IGoogleSearch.IResponse[]> {
-    return this.searchResult(input, "https://www.wanted.co.kr");
-  }
-
-  async searchForIncruit(
-    input: IGoogleSearch.IRequest,
-  ): Promise<IGoogleSearch.IResponse[]> {
-    return this.searchResult(input, "https://www.incruit.com");
-  }
-
-  async searchForSaramin(
-    input: IGoogleSearch.IRequest,
-  ): Promise<IGoogleSearch.IResponse[]> {
-    return this.searchResult(input, "https://www.saramin.co.kr/zf_user");
-  }
-
-  async searchForJumpit(
-    input: IGoogleSearch.IRequest,
-  ): Promise<IGoogleSearch.IResponse[]> {
-    return this.searchResult(input, "https://www.jumpit.co.kr");
-  }
-
-  async searchForCareerly(
-    input: IGoogleSearch.IRequest,
-  ): Promise<IGoogleSearch.IResponse[]> {
-    return this.searchResult(input, "https://careerly.co.kr");
-  }
 }

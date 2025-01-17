@@ -27,14 +27,12 @@ export class GoogleAdsController {
    * @summary Create keywords using keywords and URL
    * @param input Object containing URL
    * @returns List of recommended keywords, competition index and index, and unit price information for each keyword
-   *
-   * @internal
    */
   @SelectBenchmark("URL과 키워드 정보를 모두 이용해서 구글 광고 키워드 좀 줘")
   @HumanRoute()
   @Standalone()
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/googleAD_full.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/google_ads.svg",
   )
   @ApiTags("Google Ads")
   @core.TypedRoute.Post("generateKeywordIdeas/keywordsAndUrl")
@@ -68,14 +66,12 @@ export class GoogleAdsController {
    * @summary Create keywords using keywords
    * @param input Object containing URL
    * @returns List of recommended keywords, competition index and index, and unit price information for each keyword
-   *
-   * @internal
    */
   @SelectBenchmark("키워드 기반으로 광고 키워드 아이디어 좀 줘")
   @HumanRoute()
   @Standalone()
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/googleAD_full.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/google_ads.svg",
   )
   @ApiTags("Google Ads")
   @core.TypedRoute.Post("generateKeywordIdeas/keywords")
@@ -109,14 +105,12 @@ export class GoogleAdsController {
    * @summary Create keywords through URL
    * @param input Object containing the URL
    * @returns List of recommended keywords, competition index and index, and unit price information for each keyword
-   *
-   * @internal
    */
   @SelectBenchmark("URL 기반으로 광고 키워드 아이디어 좀 줘")
   @HumanRoute()
   @Standalone()
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/googleAD_full.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/google_ads.svg",
   )
   @ApiTags("Google Ads")
   @core.TypedRoute.Post("generateKeywordIdeas/url")
@@ -150,13 +144,11 @@ export class GoogleAdsController {
    *
    * @summary Register Wrtn as an administrator
    * @param input Customer information
-   *
-   * @internal
    */
   @SelectBenchmark("Wrtn 광고 계정에 내 계정 등록하게 링크 좀 줘")
   @HumanRoute()
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/googleAD_full.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/google_ads.svg",
   )
   @ApiTags("Google Ads")
   @core.TypedRoute.Post("customerClientLink")
@@ -182,14 +174,12 @@ export class GoogleAdsController {
    * @summary Get ad account
    * @param input Customer information
    * @returns List of ad accounts
-   *
-   * @internal
    */
   @SelectBenchmark("내 구글 광고 계정 좀 보여줘")
   @Standalone()
   @HumanRoute()
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/googleAD_full.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/google_ads.svg",
   )
   @ApiTags("Google Ads")
   @core.TypedRoute.Patch("get-customers")
@@ -214,13 +204,11 @@ export class GoogleAdsController {
    * @summary Search for a list of campaigns
    * @param input Customer information
    * @returns List of campaigns
-   *
-   * @internal
    */
   @SelectBenchmark("내 구글 광고 캠페인들 보여줘")
   @HumanRoute()
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/googleAD_full.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/google_ads.svg",
   )
   @ApiTags("Google Ads")
   @core.TypedRoute.Patch("get-campaigns")
@@ -246,13 +234,11 @@ export class GoogleAdsController {
    *
    * @summary Search for a list of ad groups. @param input Ad group list query condition
    * @returns Ad group list
-   *
-   * @internal
    */
   @SelectBenchmark("내 구글 광고 그룹들 보여줘")
   @HumanRoute()
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/googleAD_full.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/google_ads.svg",
   )
   @ApiTags("Google Ads")
   @core.TypedRoute.Patch("get-ad-groups")
@@ -288,13 +274,11 @@ export class GoogleAdsController {
    * @summary Retrieves a list of campaign ads
    * @param input Condition for retrieving the ad list
    * @returns Ad list
-   *
-   * @internal
    */
   @SelectBenchmark("내 구글 캠페인 내부에 있는 광고 그룹, 광고 목록을 보여줘")
   @HumanRoute()
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/googleAD_full.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/google_ads.svg",
   )
   @ApiTags("Google Ads")
   @core.TypedRoute.Patch("get-ads")
@@ -324,15 +308,13 @@ export class GoogleAdsController {
    * @summary Get the performance (metrics) of the ad group
    * @param input Ad metrics query conditions
    * @returns List of metrics
-   *
-   * @internal
    */
   @SelectBenchmark("광고 성과 좀 보여줘")
   @SelectBenchmark("내 구글 광고 지표 좀 보여줘")
   @SelectBenchmark("내 구글 광고 통계 좀 보여줘")
   @HumanRoute()
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/googleAD_full.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/google_ads.svg",
   )
   @ApiTags("Google Ads")
   @core.TypedRoute.Patch("ad-groups/get-metrics")
@@ -365,13 +347,11 @@ export class GoogleAdsController {
    * @summary Add keywords to the ad
    * @param input Add keyword condition
    * @returns List of keywords
-   *
-   * @internal
    */
   @SelectBenchmark("내가 등록한 구글 광고 키워드 목록 좀 보여줄래?")
   @HumanRoute()
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/googleAD_full.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/google_ads.svg",
   )
   @ApiTags("Google Ads")
   @core.TypedRoute.Patch("campaigns/ads/get-keywords")
@@ -405,14 +385,12 @@ export class GoogleAdsController {
    *
    * @summary Change the status of the ad
    * @param input The status of the ad to be changed
-   *
-   * @internal
    */
   @SelectBenchmark("구글 광고 꺼줘")
   @SelectBenchmark("구글 광고 켜줘")
   @HumanRoute()
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/googleAD_full.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/google_ads.svg",
   )
   @ApiTags("Google Ads")
   @core.TypedRoute.Put("campaigns/ads/status")
@@ -437,13 +415,11 @@ export class GoogleAdsController {
    * @summary Delete keywords from an ad
    * @param input Keyword deletion condition
    * @returns
-   *
-   * @internal
    */
   @SelectBenchmark("구글 광고 키워드 지워줘")
   @HumanRoute()
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/googleAD_full.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/google_ads.svg",
   )
   @ApiTags("Google Ads")
   @core.TypedRoute.Delete("campaigns/ads/keywords")
@@ -467,13 +443,11 @@ export class GoogleAdsController {
    * @summary Add keywords to ads
    * @param input Condition for adding keywords
    * @returns Name of the added keyword resource
-   *
-   * @internal
    */
   @SelectBenchmark("구글 광고 키워드 추가해줘")
   @HumanRoute()
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/googleAD_full.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/google_ads.svg",
   )
   @ApiTags("Google Ads")
   @core.TypedRoute.Post("campaigns/ads/keywords")
@@ -500,13 +474,11 @@ export class GoogleAdsController {
    * @summary View ad details
    * @param input Conditions for viewing ad details
    * @returns Ad details
-   *
-   * @internal
    */
   @SelectBenchmark("구글 광고 상세 조회해줘")
   @HumanRoute()
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/googleAD_full.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/google_ads.svg",
   )
   @ApiTags("Google Ads")
   @core.TypedRoute.Patch("campaigns/ads/get-details")
@@ -537,14 +509,12 @@ export class GoogleAdsController {
    * @summary Create an ad
    * @param input Ad creation conditions
    * @returns Generated ad information
-   *
-   * @internal
    */
   @SelectBenchmark("캠페인 광고 생성해줘")
   @SelectBenchmark("캠페인에 광고 생성해줘")
   @HumanRoute()
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/googleAD_full.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/google_ads.svg",
   )
   @ApiTags("Google Ads")
   @core.TypedRoute.Post("campaigns/ads")
@@ -576,13 +546,11 @@ export class GoogleAdsController {
    *
    * @summary Modify the campaign
    * @param input Campaign modification conditions
-   *
-   * @internal
    */
   @SelectBenchmark("캠페인 수정해줘")
   @HumanRoute()
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/googleAD_full.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/google_ads.svg",
   )
   @ApiTags("Google Ads")
   @core.TypedRoute.Put("campaigns")
@@ -614,13 +582,11 @@ export class GoogleAdsController {
    * @summary Create a campaign
    * @param input Campaign creation conditions
    * @returns Created campaign information
-   *
-   * @internal
    */
   @SelectBenchmark("캠페인 생성해줘")
   @HumanRoute()
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/googleAD_full.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/google_ads.svg",
   )
   @ApiTags("Google Ads")
   @core.TypedRoute.Post("campaigns")
@@ -665,13 +631,11 @@ export class GoogleAdsController {
    * @summary Create responsive search ads for your Google customer account all at once
    * @param input Conditions for creating ads from campaigns all at once
    * @returns Information from created campaigns to ads
-   *
-   * @internal
    */
   @SelectBenchmark("검색 광고 생성해줘")
   @HumanRoute()
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/googleAD_full.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/google_ads.svg",
   )
   @ApiTags("Google Ads")
   @core.TypedRoute.Post("search-ads")
@@ -732,13 +696,11 @@ export class GoogleAdsController {
    * @summary Create responsive display ads in Google Account Ads at once
    * @param input Conditions for creating ads from campaigns at once
    * @returns Information from created campaigns to ads
-   *
-   * @internal
    */
   @SelectBenchmark("디스플레이 광고 생성해줘")
   @HumanRoute()
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/googleAD_full.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/google_ads.svg",
   )
   @ApiTags("Google Ads")
   @core.TypedRoute.Post("display-ads")

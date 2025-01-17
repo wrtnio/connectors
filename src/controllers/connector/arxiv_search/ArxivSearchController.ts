@@ -21,7 +21,7 @@ export class ArxivSearchController {
   @Standalone()
   @core.TypedRoute.Patch()
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Arxiv_full.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/arxiv.svg",
   )
   @ApiTags("Arxiv")
   async search(

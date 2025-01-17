@@ -18,7 +18,7 @@ export class RedditController {
    * @summary Get hot posts from Reddit
    */
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/reddit_full.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/reddit.svg",
   )
   @TypedRoute.Patch("get-hot-posts")
   async getHotPosts(
@@ -37,7 +37,7 @@ export class RedditController {
    * @summary Get new posts from Reddit
    */
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/reddit_full.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/reddit.svg",
   )
   @TypedRoute.Patch("get-new-posts")
   async getNewPosts(
@@ -56,7 +56,7 @@ export class RedditController {
    * @summary Get top posts from Reddit
    */
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/reddit_full.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/reddit.svg",
   )
   @TypedRoute.Patch("get-top-posts")
   async getTopPosts(
@@ -75,7 +75,7 @@ export class RedditController {
    * @summary Get comments from a Reddit post
    */
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/reddit_full.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/reddit.svg",
   )
   @TypedRoute.Patch("get-comments")
   async getComments(
@@ -96,7 +96,7 @@ export class RedditController {
    * @summary Get information about a Reddit user
    */
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/reddit_full.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/reddit.svg",
   )
   @TypedRoute.Patch("get-user-about")
   async getUserAbout(
@@ -115,7 +115,7 @@ export class RedditController {
    * @summary Get posts submitted by a Reddit user
    */
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/reddit_full.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/reddit.svg",
   )
   @TypedRoute.Patch("get-user-submitted")
   async getUserSubmitted(
@@ -134,7 +134,7 @@ export class RedditController {
    * @summary Get comments made by a Reddit user
    */
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/reddit_full.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/reddit.svg",
   )
   @TypedRoute.Patch("get-user-comments")
   async getUserComments(
@@ -154,7 +154,7 @@ export class RedditController {
    * @summary Search for subreddits on Reddit
    */
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/reddit_full.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/reddit.svg",
   )
   @TypedRoute.Patch("search-subreddits")
   async searchSubreddits(
@@ -173,7 +173,7 @@ export class RedditController {
    * @summary Get information about a subreddit
    */
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/reddit_full.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/reddit.svg",
   )
   @TypedRoute.Patch("get-subreddit-about")
   async getSubredditAbout(
@@ -191,7 +191,7 @@ export class RedditController {
    * @summary Get popular subreddits
    */
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/reddit_full.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/reddit.svg",
   )
   @TypedRoute.Patch("get-popular-subreddits")
   async getPopularSubreddits(
@@ -209,7 +209,7 @@ export class RedditController {
    * @summary Get the best content from Reddit
    */
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/reddit_full.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/reddit.svg",
   )
   @TypedRoute.Patch("get-best-content")
   async getBestContent(

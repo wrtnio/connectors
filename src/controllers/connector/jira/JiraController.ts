@@ -20,7 +20,7 @@ export class JiraController {
    * @param input
    */
   @RouteIcon(
-    `https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/JIraCloud_full.svg`,
+    `https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/jira.svg`,
   )
   @ApiTags("Jira")
   @core.TypedRoute.Delete("issues/comments")
@@ -45,7 +45,7 @@ export class JiraController {
    * @returns
    */
   @RouteIcon(
-    `https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/JIraCloud_full.svg`,
+    `https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/jira.svg`,
   )
   @ApiTags("Jira")
   @core.TypedRoute.Put("issues/comments/markdown")
@@ -67,7 +67,7 @@ export class JiraController {
    * @param input condition of creation
    */
   @RouteIcon(
-    `https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/JIraCloud_full.svg`,
+    `https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/jira.svg`,
   )
   @ApiTags("Jira")
   @core.TypedRoute.Post("issues/comments/markdown")
@@ -94,7 +94,7 @@ export class JiraController {
    * @returns comments of this issue
    */
   @RouteIcon(
-    `https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/JIraCloud_full.svg`,
+    `https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/jira.svg`,
   )
   @ApiTags("Jira")
   @core.TypedRoute.Patch("issues/get-comments")
@@ -120,7 +120,7 @@ export class JiraController {
    * @returns
    */
   @RouteIcon(
-    `https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/JIraCloud_full.svg`,
+    `https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/jira.svg`,
   )
   @ApiTags("Jira")
   @core.TypedRoute.Patch("issues/get-transitions")
@@ -142,7 +142,7 @@ export class JiraController {
    * @returns
    */
   @RouteIcon(
-    `https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/JIraCloud_full.svg`,
+    `https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/jira.svg`,
   )
   @ApiTags("Jira")
   @core.TypedRoute.Delete("issues/asignee")
@@ -162,7 +162,7 @@ export class JiraController {
    * @returns
    */
   @RouteIcon(
-    `https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/JIraCloud_full.svg`,
+    `https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/jira.svg`,
   )
   @ApiTags("Jira")
   @core.TypedRoute.Put("issues/asignee")
@@ -185,7 +185,7 @@ export class JiraController {
    * @returns
    */
   @RouteIcon(
-    `https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/JIraCloud_full.svg`,
+    `https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/jira.svg`,
   )
   @ApiTags("Jira")
   @core.TypedRoute.Put("issues/status")
@@ -213,7 +213,7 @@ export class JiraController {
    * @param input fields to update
    */
   @RouteIcon(
-    `https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/JIraCloud_full.svg`,
+    `https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/jira.svg`,
   )
   @ApiTags("Jira")
   @core.TypedRoute.Put("issues/:id")
@@ -243,7 +243,7 @@ export class JiraController {
    * @returns id and key of created issue
    */
   @RouteIcon(
-    `https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/JIraCloud_full.svg`,
+    `https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/jira.svg`,
   )
   @ApiTags("Jira")
   @core.TypedRoute.Post("issues/markdown")
@@ -273,7 +273,7 @@ export class JiraController {
    * @returns Detailed Issue Information
    */
   @RouteIcon(
-    `https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/JIraCloud_full.svg`,
+    `https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/jira.svg`,
   )
   @ApiTags("Jira")
   @core.TypedRoute.Patch("get-issue-detail")
@@ -297,7 +297,7 @@ export class JiraController {
    * @returns paginated list of issues visible to the user
    */
   @RouteIcon(
-    `https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/JIraCloud_full.svg`,
+    `https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/jira.svg`,
   )
   @ApiTags("Jira")
   @core.TypedRoute.Patch("get-issues")
@@ -325,7 +325,7 @@ export class JiraController {
    * @returns paginated list of projects visible to the user
    */
   @RouteIcon(
-    `https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/JIraCloud_full.svg`,
+    `https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/jira.svg`,
   )
   @ApiTags("Jira")
   @core.TypedRoute.Patch("get-projects")
@@ -348,7 +348,7 @@ export class JiraController {
    * @returns paginated list of labels
    */
   @RouteIcon(
-    `https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/JIraCloud_full.svg`,
+    `https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/jira.svg`,
   )
   @ApiTags("Jira")
   @core.TypedRoute.Patch("get-issue-labels")
@@ -375,7 +375,7 @@ export class JiraController {
    * @returns issue types
    */
   @RouteIcon(
-    `https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/JIraCloud_full.svg`,
+    `https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/jira.svg`,
   )
   @ApiTags("Jira")
   @core.TypedRoute.Patch("get-issue-types")
@@ -397,7 +397,7 @@ export class JiraController {
    * @returns issue statuses
    */
   @RouteIcon(
-    `https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/JIraCloud_full.svg`,
+    `https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/jira.svg`,
   )
   @ApiTags("Jira")
   @core.TypedRoute.Patch("get-issue-statuses")
@@ -422,7 +422,7 @@ export class JiraController {
    * @returns issue priorities
    */
   @RouteIcon(
-    `https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/JIraCloud_full.svg`,
+    `https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/jira.svg`,
   )
   @ApiTags("Jira")
   @core.TypedRoute.Patch("get-issue-priorities")
@@ -444,7 +444,7 @@ export class JiraController {
    * @returns assignable users
    */
   @RouteIcon(
-    `https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/JIraCloud_full.svg`,
+    `https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/jira.svg`,
   )
   @ApiTags("Jira")
   @core.TypedRoute.Patch("issues/get-users-assignable")
@@ -469,7 +469,7 @@ export class JiraController {
    * @returns assignable users
    */
   @RouteIcon(
-    `https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/JIraCloud_full.svg`,
+    `https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/jira.svg`,
   )
   @ApiTags("Jira")
   @core.TypedRoute.Patch("projects/get-users-assignable")
@@ -494,7 +494,7 @@ export class JiraController {
    * @returns
    */
   @RouteIcon(
-    `https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/JIraCloud_full.svg`,
+    `https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/jira.svg`,
   )
   @ApiTags("Jira")
   @core.TypedRoute.Patch("get-status-categories")

@@ -16,12 +16,11 @@ export class ZoomController {
    * @summary Create a zoom meeting
    * @returns DTO of the created zoom meeting information.
    * @param input DTO of the user information and conditions for creating a meeting
-   * @internal
    */
   @HumanRoute()
   @Standalone()
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Zoom_full.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/zoom.svg",
   )
   @ApiTags("Zoom")
   @core.TypedRoute.Post("meetings")

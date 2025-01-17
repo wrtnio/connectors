@@ -21,7 +21,7 @@ export class DallE3Controller {
   @SelectBenchmark("dall-e로 그림 그려줘")
   @core.TypedRoute.Post("/generate")
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Dall-e3_full.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/dall_e.svg",
   )
   @ApiTags("Dall-e-3")
   async generateImage(

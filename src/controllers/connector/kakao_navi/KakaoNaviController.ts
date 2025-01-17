@@ -16,12 +16,10 @@ export class KakaoNaviController {
    * @summary Kakao Navi Directions
    * @param input Request conditions
    * @returns Directions results
-   *
-   * @internal
    */
   @HumanRoute()
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/KakaoNavi_full.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/kakao_navi.svg",
   )
   @ApiTags("Kakao Navi")
   @Standalone()

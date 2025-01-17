@@ -10,11 +10,11 @@ import { tags } from "typia";
  */
 type Sort = "accuracy" | "recency";
 
-export namespace IDaum {
+export namespace IDaumCafe {
   /**
    * @title Information needed for the next search
    */
-  export interface ISearchDaumInput {
+  export interface ISearchInput {
     /**
      * Set keywords that must be included in the following search results.
      *
@@ -60,87 +60,9 @@ export namespace IDaum {
   }
 
   /**
-   * @title Next blog search results
-   */
-  export interface IBlogDaumOutput {
-    /**
-     * @title meta
-     */
-    meta: {
-      /**
-       * Total number of documents searched.
-       *
-       * @title Number of searched contents
-       */
-      totalCount: number;
-
-      /**
-       * The number of content that can be exposed among the searched documents.
-       *
-       * @title The number of content that can be exposed among the searched documents
-       */
-      pageableCount: number;
-
-      /**
-       * If the value is false, you can request the next page by incrementing page.
-       *
-       * @title Whether the current page is the last page
-       */
-      isEnd: boolean;
-    };
-
-    /**
-     * @title documents
-     */
-    documents: {
-      /**
-       * The title of the document searched.
-       *
-       * @title The title of the document
-       */
-      title: string;
-
-      /**
-       * This is part of the text of the document that was searched.
-       *
-       * @title Part of the text of the document
-       */
-      contents: string;
-
-      /**
-       * The URL of the document being searched.
-       *
-       * @title Document URL
-       */
-      url: string;
-
-      /**
-       * The name of the blog searched.
-       *
-       * @title The name of the blog
-       */
-      blogName: string;
-
-      /**
-       * Representative preview image URL extracted from the search system.
-       *
-       * @title Thumbnail image URL
-       */
-      thumbnail: string & tags.ContentMediaType<"image/*">;
-
-      /**
-       * The time the document was created.
-       *
-       * @title Document Creation Time
-       */
-      dateTime: string;
-    }[];
-  }
-
-  /**
    * @title Next Cafe Search Results
    */
-  export interface ICafeDaumOutput {
+  export interface ICafeOutput {
     /**
      * @title metadata
      */

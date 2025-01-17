@@ -20,7 +20,7 @@ export class RagController {
    * @param input Information about the file to be analyzed
    */
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/RAG_full.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/rag.svg",
   )
   @ApiTags("RAG")
   @core.TypedRoute.Post("/analyze")
@@ -54,7 +54,7 @@ export class RagController {
    * @param input
    */
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/RAG_full.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/rag.svg",
   )
   @ApiTags("RAG")
   @core.TypedRoute.Post("/generate/:chatId")

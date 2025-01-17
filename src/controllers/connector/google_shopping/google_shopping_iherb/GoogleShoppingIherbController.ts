@@ -25,7 +25,7 @@ export class GoogleShoppingIherbController {
   @Standalone()
   @core.TypedRoute.Patch("iherb")
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/iHerb_full.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/iherb.svg",
   )
   @ApiTags("iHerb")
   async iherb(

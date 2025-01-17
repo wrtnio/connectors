@@ -26,7 +26,7 @@ export class GoogleShoppingOcoController {
   @Standalone()
   @core.TypedRoute.Patch("oco")
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/OCO_full.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/oco.svg",
   )
   @ApiTags("OCO")
   async oco(

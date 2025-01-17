@@ -25,7 +25,7 @@ export class GoogleShoppingTwentyNineCentimeterController {
   @Standalone()
   @core.TypedRoute.Patch("twenty-nine-centimeter")
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/29cm_full.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/29cm.svg",
   )
   @ApiTags("29CM")
   async twentyNineCentimeter(

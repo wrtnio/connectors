@@ -17,7 +17,7 @@ export class NaverCafeController {
    */
   @core.TypedRoute.Patch("")
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/NaverCafe_full.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/naver_cafe.svg",
   )
   @ApiTags("Naver")
   async cafeList(

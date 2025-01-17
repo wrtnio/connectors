@@ -25,7 +25,7 @@ export class GoogleCalendarController {
   @SelectBenchmark("캘린더 리스트 조회해줘")
   @Standalone()
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleCal_full.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/google_calendar.svg",
   )
   @ApiTags("Google Calendar")
   @core.TypedRoute.Patch("get-list")
@@ -46,7 +46,7 @@ export class GoogleCalendarController {
   @SelectBenchmark("구글 새 캘린더 만들어줘")
   @Standalone()
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleCal_full.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/google_calendar.svg",
   )
   @ApiTags("Google Calendar")
   @core.TypedRoute.Post("")
@@ -64,7 +64,7 @@ export class GoogleCalendarController {
    */
   @SelectBenchmark("구글 캘린더 중 이거 삭제해줘")
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleCal_full.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/google_calendar.svg",
   )
   @ApiTags("Google Calendar")
   @core.TypedRoute.Delete("/:calendarId")
@@ -97,7 +97,7 @@ export class GoogleCalendarController {
    */
   @SelectBenchmark("내 구글 캘린더에 등록된 일정 좀 봐줘")
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleCal_full.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/google_calendar.svg",
   )
   @ApiTags("Google Calendar")
   @core.TypedRoute.Patch("/:calendarId/get-events")
@@ -126,7 +126,7 @@ export class GoogleCalendarController {
    */
   @SelectBenchmark("구글 캘린더에 퀵 이벤트 하나 생성해줘")
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleCal_full.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/google_calendar.svg",
   )
   @ApiTags("Google Calendar")
   @core.TypedRoute.Post("/:calendarId/quick-event")
@@ -158,7 +158,7 @@ export class GoogleCalendarController {
    */
   @SelectBenchmark("구글 캘린더에 이벤트 하나 생성해줘")
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleCal_full.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/google_calendar.svg",
   )
   @ApiTags("Google Calendar")
   @core.TypedRoute.Post("/:calendarId/event")
@@ -189,7 +189,7 @@ export class GoogleCalendarController {
    */
   @SelectBenchmark("구글 캘린더에 이벤트 하나 수정해줘")
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleCal_full.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/google_calendar.svg",
   )
   @ApiTags("Google Calendar")
   @core.TypedRoute.Put("/:calendarId/event/:eventId")
@@ -232,7 +232,7 @@ export class GoogleCalendarController {
    */
   @SelectBenchmark("구글 캘린더에 이벤트 참석자 추가해줘")
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleCal_full.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/google_calendar.svg",
   )
   @ApiTags("Google Calendar")
   @core.TypedRoute.Put("/:calendarId/event/:eventId/attendees")
@@ -274,7 +274,7 @@ export class GoogleCalendarController {
    */
   @SelectBenchmark("구글 캘린더에 일정 지워줘")
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleCal_full.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/google_calendar.svg",
   )
   @ApiTags("Google Calendar")
   @core.TypedRoute.Delete("/:calendarId/event/:eventId")

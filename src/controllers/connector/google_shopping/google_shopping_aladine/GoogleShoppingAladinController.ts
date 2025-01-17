@@ -25,7 +25,7 @@ export class GoogleShoppingAladinController {
   @Standalone()
   @core.TypedRoute.Patch("aladine")
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/aladin_full.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/aladin.svg",
   )
   @ApiTags("Aladin")
   async aladine(

@@ -16,14 +16,12 @@ export class DiscordController {
    * @summary Create a DM channel
    * @param input
    * @returns Channel information
-   *
-   * @internal
    */
   @SelectBenchmark("디스코드 DM 채널 만들어줘")
   @HumanRoute()
   @core.TypedRoute.Post("create-dm")
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/discord.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/discord.svg",
   )
   @ApiTags("Discord")
   async createDM(
@@ -38,14 +36,12 @@ export class DiscordController {
    * @summary Modify server information
    * @param input
    * @returns Modified server information
-   *
-   * @internal
    */
   @SelectBenchmark("디스코드 길드 수정해줘")
   @HumanRoute()
   @core.TypedRoute.Post("modify-guild")
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/discord.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/discord.svg",
   )
   @ApiTags("Discord")
   async modifyGuild(
@@ -60,14 +56,12 @@ export class DiscordController {
    * @summary Get a list of channels
    * @param input
    * @returns List of channels
-   *
-   * @internal
    */
   @SelectBenchmark("디스코드 길드 채널 조회해줘")
   @HumanRoute()
   @core.TypedRoute.Patch("get-guild-channels")
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/discord.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/discord.svg",
   )
   @ApiTags("Discord")
   async getGuildChannels(
@@ -82,14 +76,12 @@ export class DiscordController {
    * @summary Create a channel
    * @param input
    * @returns Created channel information
-   *
-   * @internal
    */
   @SelectBenchmark("디스코드 길드 채널 생성해줘")
   @HumanRoute()
   @core.TypedRoute.Post("create-guild-channel")
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/discord.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/discord.svg",
   )
   @ApiTags("Discord")
   async createGuildChannel(
@@ -104,14 +96,12 @@ export class DiscordController {
    * @summary Get a list of members
    * @param input
    * @returns List of server members
-   *
-   * @internal
    */
   @SelectBenchmark("디스코드 길드 멤버 조회해줘")
   @HumanRoute()
   @core.TypedRoute.Patch("get-list-guild-members")
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/discord.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/discord.svg",
   )
   @ApiTags("Discord")
   async getListGuildMembers(
@@ -126,15 +116,13 @@ export class DiscordController {
    * @summary Kick members
    * @param input
    * @returns
-   *
-   * @internal
    */
   @SelectBenchmark("디스코드 길드 멤버 지워줘")
   @SelectBenchmark("디스코드 길드 멤버 추방해줘")
   @HumanRoute()
   @core.TypedRoute.Post("remove-guild-member")
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/discord.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/discord.svg",
   )
   @ApiTags("Discord")
   async removeGuildMember(
@@ -149,15 +137,13 @@ export class DiscordController {
    * @summary Modify channel information
    * @param input
    * @returns Modified channel information
-   *
-   * @internal
    */
   @SelectBenchmark("디스코드 채널 수정해줘")
   @SelectBenchmark("디스코드 채널 정보 수정해줘")
   @HumanRoute()
   @core.TypedRoute.Post("modify-channel")
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/discord.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/discord.svg",
   )
   @ApiTags("Discord")
   async modifyChannel(
@@ -172,14 +158,12 @@ export class DiscordController {
    * @summary Delete channel
    * @param input
    * @returns
-   *
-   * @internal
    */
   @SelectBenchmark("디스코드 채널 삭제해줘")
   @HumanRoute()
   @core.TypedRoute.Post("delete-channel")
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/discord.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/discord.svg",
   )
   @ApiTags("Discord")
   async deleteChannel(
@@ -194,15 +178,13 @@ export class DiscordController {
    * @summary Get a list of pinned messages
    * @param input
    * @returns a list of pinned messages
-   *
-   * @internal
    */
   @SelectBenchmark("디스코드 핀꽂은 메세지만 조회해줘")
   @SelectBenchmark("디스코드 메세지 고정해둔 것들 조회해줘")
   @HumanRoute()
   @core.TypedRoute.Patch("get-pinned-messages")
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/discord.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/discord.svg",
   )
   @ApiTags("Discord")
   async getPinnedMessages(
@@ -217,14 +199,12 @@ export class DiscordController {
    * @summary Pin a message
    * @param input
    * @returns
-   *
-   * @internal
    */
   @SelectBenchmark("디스코드 메시지 고정해줘")
   @HumanRoute()
   @core.TypedRoute.Post("pin-message")
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/discord.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/discord.svg",
   )
   @ApiTags("Discord")
   async pinMessage(
@@ -239,14 +219,12 @@ export class DiscordController {
    * @summary Unpin message
    * @param input
    * @returns
-   *
-   * @internal
    */
   @SelectBenchmark("디스코드 메시지 고정 해제해줘")
   @HumanRoute()
   @core.TypedRoute.Post("unpin-message")
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/discord.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/discord.svg",
   )
   @ApiTags("Discord")
   async unpinMessage(
@@ -261,14 +239,12 @@ export class DiscordController {
    * @summary Get a list of messages
    * @param input
    * @returns List of messages
-   *
-   * @internal
    */
   @SelectBenchmark("디스코드 메시지 조회해줘")
   @HumanRoute()
   @core.TypedRoute.Patch("get-channel-message-histories")
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/discord.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/discord.svg",
   )
   @ApiTags("Discord")
   async getChannelMessageHistories(
@@ -285,14 +261,12 @@ export class DiscordController {
    * @summary Send a message
    * @param input
    * @returns The generated message
-   *
-   * @internal
    */
   @SelectBenchmark("디스코드 메시지 보내줘")
   @HumanRoute()
   @core.TypedRoute.Post("create-message")
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/discord.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/discord.svg",
   )
   @ApiTags("Discord")
   async createMessage(
@@ -307,14 +281,12 @@ export class DiscordController {
    * @summary Modify message
    * @param input
    * @returns Modified message
-   *
-   * @internal
    */
   @SelectBenchmark("디스코드 메시지 수정해줘")
   @HumanRoute()
   @core.TypedRoute.Post("edit-message")
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/discord.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/discord.svg",
   )
   @ApiTags("Discord")
   async editMessage(
@@ -329,8 +301,6 @@ export class DiscordController {
    * @summary Delete message
    * @param input
    * @returns
-   *
-   * @internal
    */
   @SelectBenchmark("디스코드 메시지 삭제해줘")
   @SelectBenchmark("디스코드 메시지 취소해줘")
@@ -338,7 +308,7 @@ export class DiscordController {
   @HumanRoute()
   @core.TypedRoute.Post("delete-message")
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/discord.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/discord.svg",
   )
   @ApiTags("Discord")
   async deleteMessage(
@@ -353,8 +323,6 @@ export class DiscordController {
    * @summary Delete multiple messages
    * @param input
    * @returns
-   *
-   * @internal
    */
   @SelectBenchmark("디스코드 메시지 삭제해줘")
   @SelectBenchmark("디스코드 메시지 취소해줘")
@@ -362,7 +330,7 @@ export class DiscordController {
   @HumanRoute()
   @core.TypedRoute.Post("bulk-delete-message")
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/discord.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/discord.svg",
   )
   @ApiTags("Discord")
   async bulkDeleteMessage(

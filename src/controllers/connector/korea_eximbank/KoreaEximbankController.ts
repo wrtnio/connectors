@@ -13,13 +13,11 @@ export class KoreaEximbankController {
   /**
    * @summary Korea Export-Import Bank Current Exchange Rate Inquiry
    * @returns Exchange Rate Information
-   *
-   * @internal
    */
   @HumanRoute()
   @Standalone()
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/ExchangeRate_full.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/exchange_rate.svg",
   )
   @ApiTags("Korea Eximbank")
   @core.TypedRoute.Patch("exchange")

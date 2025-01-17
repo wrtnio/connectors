@@ -36,7 +36,7 @@ export class GmailController {
   @SelectBenchmark("지메일 보내줘")
   @Standalone()
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleMail_full.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/gmail.svg",
   )
   @ApiTags("Gmail")
   @core.TypedRoute.Post("send")
@@ -65,7 +65,7 @@ export class GmailController {
   @SelectBenchmark("메일 초안 생성해줘")
   @Standalone()
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleMail_full.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/gmail.svg",
   )
   @ApiTags("Gmail")
   @core.TypedRoute.Post("draft")
@@ -88,7 +88,7 @@ export class GmailController {
    */
   @SelectBenchmark("지메일 온 거 답장해줘")
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleMail_full.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/gmail.svg",
   )
   @ApiTags("Gmail")
   @core.TypedRoute.Post("reply/:id")
@@ -120,7 +120,7 @@ export class GmailController {
    */
   @SelectBenchmark("메일 상세 조회해줘")
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleMail_full.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/gmail.svg",
   )
   @ApiTags("Gmail")
   @core.TypedRoute.Patch("get/:id")
@@ -153,7 +153,7 @@ export class GmailController {
   @SelectBenchmark("메일 목록 조회해줘")
   @Standalone()
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleMail_full.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/gmail.svg",
   )
   @ApiTags("Gmail")
   @core.TypedRoute.Patch("read-list")
@@ -181,7 +181,7 @@ export class GmailController {
    */
   @SelectBenchmark("Gmail에서 메일 하나만 삭제해줘")
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleMail_full.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/gmail.svg",
   )
   @ApiTags("Gmail")
   @core.TypedRoute.Delete(":id/hardDelete")
@@ -212,7 +212,7 @@ export class GmailController {
    */
   @SelectBenchmark("메일 삭제해줘")
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleMail_full.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/gmail.svg",
   )
   @ApiTags("Gmail")
   @core.TypedRoute.Delete(":id")
@@ -245,7 +245,7 @@ export class GmailController {
   @SelectBenchmark("메일 라벨 생성해줘")
   @Standalone()
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleMail_full.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/gmail.svg",
   )
   @ApiTags("Gmail")
   @core.TypedRoute.Post("label")
@@ -266,7 +266,7 @@ export class GmailController {
    */
   @SelectBenchmark("메일에 라벨링해줘")
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleMail_full.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/gmail.svg",
   )
   @ApiTags("Gmail")
   @core.TypedRoute.Post("label/:mailId")
@@ -297,7 +297,7 @@ export class GmailController {
    */
   @SelectBenchmark("메일에 라벨 제거해줘")
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleMail_full.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/gmail.svg",
   )
   @ApiTags("Gmail")
   @core.TypedRoute.Delete("label/:mailId")
@@ -332,7 +332,7 @@ export class GmailController {
    */
   @SelectBenchmark("메일 삭제해줘")
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleMail_full.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/gmail.svg",
   )
   @ApiTags("Gmail")
   @core.TypedRoute.Delete()

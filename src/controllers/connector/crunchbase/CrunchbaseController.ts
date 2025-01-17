@@ -24,7 +24,7 @@ export class CrunchbaseController {
   @SelectBenchmark("Crunchbase에서 회사 투자 라운드 좀 알려줘")
   @HumanRoute()
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/crunchbase_full.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/crunchbase.svg",
   )
   @TypedRoute.Patch("get-organization-data")
   async getOrganizationData(
@@ -49,7 +49,7 @@ export class CrunchbaseController {
    * @internal
    */
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/crunchbase_full.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/crunchbase.svg",
   )
   @HumanRoute()
   @TypedRoute.Patch("auto-complete")

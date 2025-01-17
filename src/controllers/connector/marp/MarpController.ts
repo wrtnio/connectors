@@ -5,6 +5,7 @@ import { IMarp } from "@wrtn/connector-api/lib/structures/connector/marp/IMarp";
 
 import { ApiTags } from "@nestjs/swagger";
 import { MarpProvider } from "../../../providers/connector/marp/MarpProvider";
+import { RouteIcon } from "@wrtnio/decorators";
 
 @Controller("connector/marp")
 export class MarpController {
@@ -26,6 +27,9 @@ export class MarpController {
    * @returns The S3 link of the converted PPT
    */
   @core.TypedRoute.Post("/convert-to-ppt")
+  @RouteIcon(
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/marp.svg",
+  )
   @ApiTags("pptx", "hanshow", "ppt", "powerpoint", "markdown", "marp")
   @ApiTags("Marp")
   async convertToPpt(

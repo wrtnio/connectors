@@ -16,7 +16,7 @@ export class SlackController {
    * @returns array of slack block types
    */
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Slack_full.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/slack.svg",
   )
   @ApiTags("Slack")
   @Post("interactivity")
@@ -33,7 +33,7 @@ export class SlackController {
    * @returns
    */
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Slack_full.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/slack.svg",
   )
   @ApiTags("Slack")
   @TypedRoute.Post("vote")
@@ -52,7 +52,7 @@ export class SlackController {
    * @param input
    */
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Slack_full.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/slack.svg",
   )
   @ApiTags("Slack")
   @TypedRoute.Post("conversation/mark")
@@ -80,7 +80,7 @@ export class SlackController {
    * @returns scheduled message
    */
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Slack_full.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/slack.svg",
   )
   @ApiTags("Slack")
   @TypedRoute.Post("scheduleMessage/text")
@@ -102,7 +102,7 @@ export class SlackController {
    * @param input
    */
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Slack_full.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/slack.svg",
   )
   @ApiTags("Slack")
   @TypedRoute.Delete("scheduleMessage")
@@ -125,7 +125,7 @@ export class SlackController {
    * @returns created message
    */
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Slack_full.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/slack.svg",
   )
   @ApiTags("Slack")
   @TypedRoute.Post("postMessage/text/myself")
@@ -151,7 +151,7 @@ export class SlackController {
    * @returns created message
    */
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Slack_full.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/slack.svg",
   )
   @ApiTags("Slack")
   @TypedRoute.Post("postMessage/reply")
@@ -178,7 +178,7 @@ export class SlackController {
    * @returns created message
    */
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Slack_full.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/slack.svg",
   )
   @ApiTags("Slack")
   @TypedRoute.Post("postMessage/text")
@@ -199,7 +199,7 @@ export class SlackController {
    * @returns
    */
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Slack_full.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/slack.svg",
   )
   @ApiTags("Slack")
   @TypedRoute.Put("message")
@@ -225,7 +225,7 @@ export class SlackController {
    * @returns
    */
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Slack_full.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/slack.svg",
   )
   @ApiTags("Slack")
   @TypedRoute.Patch("get-scheduled-messages")
@@ -247,7 +247,7 @@ export class SlackController {
    * @returns
    */
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Slack_full.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/slack.svg",
   )
   @ApiTags("Slack")
   @TypedRoute.Patch("get-user-details")
@@ -277,7 +277,7 @@ export class SlackController {
    * @returns Users
    */
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Slack_full.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/slack.svg",
   )
   @ApiTags("Slack")
   @TypedRoute.Patch("get-users")
@@ -299,7 +299,7 @@ export class SlackController {
    * @returns Replies
    */
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Slack_full.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/slack.svg",
   )
   @ApiTags("Slack")
   @TypedRoute.Patch("get-replies")
@@ -324,7 +324,7 @@ export class SlackController {
    * @returns
    */
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Slack_full.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/slack.svg",
   )
   @ApiTags("Slack")
   @TypedRoute.Patch("get-channel-link-histories")
@@ -349,7 +349,7 @@ export class SlackController {
    * @returns channel histories
    */
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Slack_full.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/slack.svg",
   )
   @ApiTags("Slack")
   @TypedRoute.Patch("get-channel-histories")
@@ -374,7 +374,7 @@ export class SlackController {
    * @returns private channels
    */
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Slack_full.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/slack.svg",
   )
   @ApiTags("Slack")
   @TypedRoute.Patch("get-private-channels")
@@ -398,7 +398,7 @@ export class SlackController {
    * @returns public channels
    */
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Slack_full.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/slack.svg",
   )
   @ApiTags("Slack")
   @TypedRoute.Patch("get-public-channels")
@@ -424,7 +424,7 @@ export class SlackController {
    * @returns im channels
    */
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Slack_full.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/slack.svg",
   )
   @ApiTags("Slack")
   @TypedRoute.Patch("get-im-channels")
@@ -444,7 +444,7 @@ export class SlackController {
    * @param input
    */
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Slack_full.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/slack.svg",
   )
   @ApiTags("Slack")
   @TypedRoute.Patch("get-files")
@@ -465,7 +465,7 @@ export class SlackController {
    * @summary Get usergroups in workspace
    */
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Slack_full.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/slack.svg",
   )
   @ApiTags("Slack")
   @TypedRoute.Patch("get-user-groups")
@@ -485,7 +485,7 @@ export class SlackController {
    * @summary Get Requester's Information
    */
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Slack_full.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/slack.svg",
   )
   @ApiTags("Slack")
   @TypedRoute.Patch("me")
@@ -510,7 +510,7 @@ export class SlackController {
    * @summary Delete Messages
    */
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Slack_full.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/slack.svg",
   )
   @ApiTags("Slack")
   @TypedRoute.Delete("messages")

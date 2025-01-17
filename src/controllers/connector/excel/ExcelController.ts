@@ -19,7 +19,7 @@ export class ExcelController {
   @SelectBenchmark("엑셀 헤더 읽어줘")
   @core.TypedRoute.Patch("read/headers")
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/light/excel.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/excel.svg",
   )
   @ApiTags("Excel")
   async readHeaders(
@@ -37,7 +37,7 @@ export class ExcelController {
   @SelectBenchmark("엑셀 읽어줘")
   @core.TypedRoute.Patch("read")
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/light/excel.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/excel.svg",
   )
   @ApiTags("Excel")
   async read(
@@ -57,7 +57,7 @@ export class ExcelController {
    */
   @core.TypedRoute.Patch("worksheet")
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/light/excel.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/excel.svg",
   )
   @ApiTags("Excel")
   async worksheetList(
@@ -86,7 +86,7 @@ export class ExcelController {
   @SelectBenchmark("엑셀 데이터 올려줘")
   @core.TypedRoute.Post("rows/upload")
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/light/excel.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/excel.svg",
   )
   @ApiTags("Excel")
   async insertRowsByUpload(
@@ -111,7 +111,7 @@ export class ExcelController {
   @SelectBenchmark("엑셀 데이터 추가해줘")
   @core.TypedRoute.Post("rows")
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/light/excel.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/excel.svg",
   )
   @ApiTags("Excel")
   async insertRows(
@@ -135,7 +135,7 @@ export class ExcelController {
   @SelectBenchmark("엑셀 파일 만들어줘")
   @core.TypedRoute.Post()
   @RouteIcon(
-    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/light/excel.svg",
+    "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/excel.svg",
   )
   @ApiTags("Excel")
   async createSheets(

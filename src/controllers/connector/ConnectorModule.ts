@@ -10,7 +10,7 @@ import { ChatbotModule } from "./chatbot/ChatbotModule";
 import { CrunchbaseModule } from "./crunchbase/CrunchbaseModule";
 import { CsvModule } from "./csv/CsvModule";
 import { DallE3Module } from "./dall_e_3/DallE3Module";
-import { DaumModule } from "./daum/DaumModule";
+import { DaumBlogModule } from "./daum_blog/DaumBlogModule";
 import { DiscordModule } from "./discord/DiscordModule";
 import { ExcelModule } from "./excel/ExcelModule";
 import { KeywordExtractModule } from "./extract/KeywordExtractModule";
@@ -28,7 +28,6 @@ import { GoogleImageModule } from "./google_image/GoogleImageModule";
 import { GoogleMapModule } from "./google_map/GoogleMapModule";
 import { GoogleScholarModule } from "./google_scholar/GoolgeScholarModule";
 import { GoogleSearchModule } from "./google_search/GoogleSearchModule";
-import { GoogleSearchCareerModule } from "./google_search_career/GoogleSearchCareerModule";
 import { GoogleShoppingAladinModule } from "./google_shopping/google_shopping_aladine/GoogleShoppingAladinModule";
 import { GoogleShoppingAliexpressModule } from "./google_shopping/google_shopping_aliexpress/GoogleShoppingAliexpressModule";
 import { GoogleShoppingCoupangModule } from "./google_shopping/google_shopping_coupang/GoogleShoppingCoupangModule";
@@ -81,6 +80,12 @@ import { YoutubeSearchModule } from "./youtube_search/YoutubeSearchModule";
 import { ZoomModule } from "./zoom/ZoomModule";
 import { NaverCafeModule } from "./naver_cafe/NaverCafeModule";
 import { NaverNewsModule } from "./naver_news/NaverNewsModule";
+import { DaumCafeModule } from "./daum_cafe/DaumCafeModule";
+import { WantedModule } from "./wanted/WantedModule";
+import { IncruitModule } from "./incruit/IncruitModule";
+import { SaraminModule } from "./saramin/SaraminModule";
+import { JumpitModule } from "./jumpit/JumpitModule";
+import { CareerlyModule } from "./careerly/CareerlyModule";
 // import { GoogleShoppingAmazonModule } from "./google_shopping/google_shopping_amazon/GoogleShoppingAmazonModule";
 // import { GoogleShoppingEbayModule } from "./google_shopping/google_shopping_ebay/GoogleShoppingEbayModule";
 // import { GoogleShoppingWalmartModule } from "./google_shopping/google_shopping_walmart/GoogleShoppingWalmartModule";
@@ -126,7 +131,11 @@ import { NaverNewsModule } from "./naver_news/NaverNewsModule";
     StableDiffusionBetaModule,
     DallE3Module,
     GoogleSearchModule,
-    GoogleSearchCareerModule,
+    WantedModule,
+    IncruitModule,
+    SaraminModule,
+    JumpitModule,
+    CareerlyModule,
     GoogleShoppingAladinModule,
     GoogleShoppingAliexpressModule,
     GoogleShoppingCoupangModule,
@@ -144,7 +153,8 @@ import { NaverNewsModule } from "./naver_news/NaverNewsModule";
     // GoogleShoppingWalmartModule,
     GoogleAdsModule,
     ArxivSearchModule,
-    DaumModule,
+    DaumBlogModule,
+    DaumCafeModule,
     NaverBlogModule,
     NaverCafeModule,
     NaverNewsModule,
