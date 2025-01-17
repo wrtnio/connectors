@@ -16,7 +16,7 @@
   ],
   "info": {
     "title": "google-shopping-iherb",
-    "version": "0.1.447",
+    "version": "0.1.448",
     "description": "wrtn-ecosystem connectors and sdk",
     "license": {
       "name": "AGPL-3.0-only"
@@ -63,7 +63,7 @@
           "iherb"
         ],
         "x-samchon-controller": "GoogleShoppingIherbController",
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/iHerb_full.svg",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/iherb.svg",
         "x-wrtn-standalone": true,
         "x-wrtn-function-select-benchmarks": [
           "iherb에서 상품 좀 찾아줘"

@@ -16,7 +16,7 @@
   ],
   "info": {
     "title": "google-shopping-musinsa",
-    "version": "0.1.447",
+    "version": "0.1.448",
     "description": "wrtn-ecosystem connectors and sdk",
     "license": {
       "name": "AGPL-3.0-only"
@@ -63,7 +63,7 @@
           "musinsa"
         ],
         "x-samchon-controller": "GoogleShoppingMusinsaController",
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Musinsa_full.svg",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/musinsa.svg",
         "x-wrtn-standalone": true,
         "x-wrtn-function-select-benchmarks": [
           "무신사에서 상품 좀 찾아줘"

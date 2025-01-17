@@ -16,7 +16,7 @@
   ],
   "info": {
     "title": "google-shopping-yes-twenty-four",
-    "version": "0.1.447",
+    "version": "0.1.448",
     "description": "wrtn-ecosystem connectors and sdk",
     "license": {
       "name": "AGPL-3.0-only"
@@ -64,7 +64,7 @@
           "yes24"
         ],
         "x-samchon-controller": "GoogleShoppingYesTwentyFourController",
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/yes24_full.svg",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/yes24.svg",
         "x-wrtn-standalone": true,
         "x-wrtn-function-select-benchmarks": [
           "yes24에서 상품 좀 찾아줘"

@@ -16,7 +16,7 @@
   ],
   "info": {
     "title": "web-crawler",
-    "version": "0.1.447",
+    "version": "0.1.448",
     "description": "wrtn-ecosystem connectors and sdk",
     "license": {
       "name": "AGPL-3.0-only"
@@ -59,7 +59,8 @@
           "get_web_content",
           "getWebContent"
         ],
-        "x-samchon-controller": "WebCrawlerController"
+        "x-samchon-controller": "WebCrawlerController",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/connector_default.svg"
       }
     }
   },

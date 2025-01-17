@@ -16,7 +16,7 @@
   ],
   "info": {
     "title": "x",
-    "version": "0.1.447",
+    "version": "0.1.448",
     "description": "wrtn-ecosystem connectors and sdk",
     "license": {
       "name": "AGPL-3.0-only"
@@ -62,7 +62,7 @@
           "getUsers"
         ],
         "x-samchon-controller": "XController",
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/X_full.svg"
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/x.svg"
       }
     },
     "/connector/x/get-influencers": {
@@ -104,7 +104,7 @@
           "getPreDefinedInfluencers"
         ],
         "x-samchon-controller": "XController",
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/X_full.svg"
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/x.svg"
       }
     },
     "/connector/x/prepare-summarize": {
@@ -143,7 +143,7 @@
           "prepareSummary"
         ],
         "x-samchon-controller": "XController",
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/X_full.svg"
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/x.svg"
       }
     },
     "/connector/x/summarize": {
@@ -182,7 +182,7 @@
           "summarizeTweet"
         ],
         "x-samchon-controller": "XController",
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/X_full.svg"
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/x.svg"
       }
     },
     "/connector/x/general-search": {
@@ -223,7 +223,7 @@
           "generalSearch"
         ],
         "x-samchon-controller": "XController",
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/X_full.svg"
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/x.svg"
       }
     }
   },

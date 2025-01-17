@@ -16,16 +16,199 @@
   ],
   "info": {
     "title": "korea-eximbank",
-    "version": "0.1.447",
+    "version": "0.1.448",
     "description": "wrtn-ecosystem connectors and sdk",
     "license": {
       "name": "AGPL-3.0-only"
     }
   },
-  "paths": {},
+  "paths": {
+    "/connector/korea-eximbank/exchange": {
+      "patch": {
+        "summary": "Korea Export-Import Bank Current Exchange Rate Inquiry",
+        "tags": [
+          "Korea Eximbank"
+        ],
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "Exchange Rate Information",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "result": {
+                        "oneOf": [
+                          {
+                            "const": 1
+                          },
+                          {
+                            "const": 2
+                          },
+                          {
+                            "const": 3
+                          },
+                          {
+                            "const": 4
+                          }
+                        ],
+                        "title": "Summary of query results"
+                      },
+                      "cur_unit": {
+                        "oneOf": [
+                          {
+                            "type": "null"
+                          },
+                          {
+                            "type": "string",
+                            "x-wrtn-placeholder": "KRW"
+                          }
+                        ],
+                        "title": "currency code"
+                      },
+                      "ttb": {
+                        "oneOf": [
+                          {
+                            "type": "null"
+                          },
+                          {
+                            "type": "string"
+                          }
+                        ],
+                        "title": "When receiving a wire transfer (remittance)"
+                      },
+                      "tts": {
+                        "oneOf": [
+                          {
+                            "type": "null"
+                          },
+                          {
+                            "type": "string"
+                          }
+                        ],
+                        "title": "When sending a wire transfer (remittance)"
+                      },
+                      "deal_bas_r": {
+                        "oneOf": [
+                          {
+                            "type": "null"
+                          },
+                          {
+                            "type": "string"
+                          }
+                        ],
+                        "title": "Trading standard rate"
+                      },
+                      "bkpr": {
+                        "oneOf": [
+                          {
+                            "type": "null"
+                          },
+                          {
+                            "type": "string"
+                          }
+                        ],
+                        "title": "Book Price"
+                      },
+                      "yy_efee_r": {
+                        "oneOf": [
+                          {
+                            "type": "null"
+                          },
+                          {
+                            "type": "string"
+                          }
+                        ],
+                        "title": "Annual Conversion Rate"
+                      },
+                      "ten_dd_efee_r": {
+                        "oneOf": [
+                          {
+                            "type": "null"
+                          },
+                          {
+                            "type": "string"
+                          }
+                        ],
+                        "title": "10-day redemption rate"
+                      },
+                      "kftc_bkpr": {
+                        "oneOf": [
+                          {
+                            "type": "null"
+                          },
+                          {
+                            "type": "string"
+                          }
+                        ],
+                        "title": "Seoul Foreign Exchange Brokerage Book Price"
+                      },
+                      "kftc_deal_bas_r": {
+                        "oneOf": [
+                          {
+                            "type": "null"
+                          },
+                          {
+                            "type": "string"
+                          }
+                        ],
+                        "title": "Seoul Foreign Exchange Brokerage Trading Standard Rate"
+                      },
+                      "cur_nm": {
+                        "oneOf": [
+                          {
+                            "type": "null"
+                          },
+                          {
+                            "type": "string",
+                            "x-wrtn-placeholder": "한국 원"
+                          }
+                        ],
+                        "title": "Country/Currency Name"
+                      }
+                    },
+                    "required": [
+                      "result",
+                      "cur_unit",
+                      "ttb",
+                      "tts",
+                      "deal_bas_r",
+                      "bkpr",
+                      "yy_efee_r",
+                      "ten_dd_efee_r",
+                      "kftc_bkpr",
+                      "kftc_deal_bas_r",
+                      "cur_nm"
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-samchon-accessor": [
+          "connector",
+          "korea_eximbank",
+          "exchange",
+          "getExchange"
+        ],
+        "x-samchon-controller": "KoreaEximbankController",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/exchange_rate.svg",
+        "x-wrtn-standalone": true,
+        "x-samchon-human": true
+      }
+    }
+  },
   "components": {
     "schemas": {}
   },
-  "tags": [],
+  "tags": [
+    {
+      "name": "Korea Eximbank"
+    }
+  ],
   "x-samchon-emended": true
 }

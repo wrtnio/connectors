@@ -16,16 +16,688 @@
   ],
   "info": {
     "title": "kakao-navi",
-    "version": "0.1.447",
+    "version": "0.1.448",
     "description": "wrtn-ecosystem connectors and sdk",
     "license": {
       "name": "AGPL-3.0-only"
     }
   },
-  "paths": {},
-  "components": {
-    "schemas": {}
+  "paths": {
+    "/connector/kakao-navi/get-future-directions": {
+      "patch": {
+        "summary": "Kakao Navi Directions",
+        "description": "Finding directions with Kakao Navi",
+        "tags": [
+          "Kakao Navi"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "description": "Request conditions",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IKakaoNavi.IGetFutureDirectionsInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Directions results",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IKakaoNavi.SuccessCase"
+                }
+              }
+            }
+          }
+        },
+        "x-samchon-accessor": [
+          "connector",
+          "kakao_navi",
+          "get_future_directions",
+          "getFutureDirections"
+        ],
+        "x-samchon-controller": "KakaoNaviController",
+        "x-wrtn-standalone": true,
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/kakao_navi.svg",
+        "x-samchon-human": true
+      }
+    }
   },
-  "tags": [],
+  "components": {
+    "schemas": {
+      "IKakaoNavi.SuccessCase": {
+        "type": "object",
+        "properties": {
+          "trans_id": {
+            "type": "string",
+            "title": "Path Request ID"
+          },
+          "routes": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/IKakaoNavi.Route"
+            },
+            "title": "Path information"
+          }
+        },
+        "required": [
+          "trans_id",
+          "routes"
+        ],
+        "title": "Success response"
+      },
+      "IKakaoNavi.Route": {
+        "type": "object",
+        "properties": {
+          "result_code": {
+            "oneOf": [
+              {
+                "const": 0
+              },
+              {
+                "const": 1
+              },
+              {
+                "const": 101
+              },
+              {
+                "const": 102
+              },
+              {
+                "const": 103
+              },
+              {
+                "const": 104
+              },
+              {
+                "const": 105
+              },
+              {
+                "const": 106
+              },
+              {
+                "const": 107
+              },
+              {
+                "const": 201
+              },
+              {
+                "const": 202
+              },
+              {
+                "const": 203
+              },
+              {
+                "const": 204
+              },
+              {
+                "const": 205
+              },
+              {
+                "const": 206
+              },
+              {
+                "const": 207
+              },
+              {
+                "const": 301
+              },
+              {
+                "const": 302
+              },
+              {
+                "const": 303
+              },
+              {
+                "const": 304
+              }
+            ],
+            "title": "Path search result code"
+          },
+          "result_msg": {
+            "type": "string",
+            "title": "Path search result message"
+          },
+          "summary": {
+            "$ref": "#/components/schemas/IKakaoNavi.Summary",
+            "title": "Path Summary Information"
+          },
+          "sections": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/IKakaoNavi.Section"
+            },
+            "title": "Route information by section"
+          }
+        },
+        "required": [
+          "result_code",
+          "result_msg"
+        ]
+      },
+      "IKakaoNavi.Summary": {
+        "type": "object",
+        "properties": {
+          "origin": {
+            "$ref": "#/components/schemas/IKakaoNavi.Place",
+            "title": "Departure information"
+          },
+          "destination": {
+            "$ref": "#/components/schemas/IKakaoNavi.Place",
+            "title": "destination information"
+          },
+          "waypoints": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/IKakaoNavi.Place"
+            },
+            "title": "Transit Information"
+          },
+          "priority": {
+            "type": "string",
+            "title": "Path Finding Priority Options"
+          },
+          "fare": {
+            "$ref": "#/components/schemas/IKakaoNavi.Fare",
+            "title": "Rate Information"
+          },
+          "duration": {
+            "type": "integer",
+            "title": "Full search results move time (seconds)"
+          },
+          "bound": {
+            "$ref": "#/components/schemas/IKakaoNavi.Bound",
+            "title": "A rectangular bounding box that contains all paths"
+          },
+          "distance": {
+            "type": "integer",
+            "title": "Section Distance (meters)"
+          }
+        },
+        "required": [
+          "origin",
+          "destination",
+          "waypoints",
+          "priority",
+          "fare",
+          "duration",
+          "bound",
+          "distance"
+        ]
+      },
+      "IKakaoNavi.Place": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "title": "place name"
+          },
+          "x": {
+            "type": "number",
+            "title": "X coordinate (longitude)"
+          },
+          "y": {
+            "type": "number",
+            "title": "Y coordinate (latitude)"
+          }
+        },
+        "required": [
+          "name",
+          "x",
+          "y"
+        ]
+      },
+      "IKakaoNavi.Fare": {
+        "type": "object",
+        "properties": {
+          "taxi": {
+            "type": "number",
+            "title": "Taxi fare (won)"
+          },
+          "toll": {
+            "type": "number",
+            "title": "Toll fee (won)"
+          }
+        },
+        "required": [
+          "taxi",
+          "toll"
+        ],
+        "title": "Rate Information"
+      },
+      "IKakaoNavi.Bound": {
+        "type": "object",
+        "properties": {
+          "min_x": {
+            "type": "number",
+            "title": "X coordinate of the bottom left of the bounding box"
+          },
+          "min_y": {
+            "type": "number",
+            "title": "Y coordinate of the bottom left of the bounding box"
+          },
+          "max_x": {
+            "type": "number",
+            "title": "X coordinate of the upper right corner of the bounding box"
+          },
+          "max_y": {
+            "type": "number",
+            "title": "Y coordinate of the upper right corner of the bounding box"
+          }
+        },
+        "required": [
+          "min_x",
+          "min_y",
+          "max_x",
+          "max_y"
+        ],
+        "title": "Bounding box of a rectangle containing all paths"
+      },
+      "IKakaoNavi.Section": {
+        "type": "object",
+        "properties": {
+          "distance": {
+            "type": "integer",
+            "title": "Section Distance (meters)"
+          },
+          "duration": {
+            "type": "integer",
+            "title": "Full search results move time (seconds)"
+          },
+          "bound": {
+            "$ref": "#/components/schemas/IKakaoNavi.Bound",
+            "title": "A rectangular bounding box that contains all paths"
+          },
+          "roads": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/IKakaoNavi.Road"
+            },
+            "title": "Road Information"
+          },
+          "guides": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/IKakaoNavi.Guide"
+            },
+            "title": "Guide Information"
+          }
+        },
+        "required": [
+          "distance",
+          "duration",
+          "bound"
+        ],
+        "title": "Route information by section",
+        "description": "If there is a waypoint, a section is created equal to the number of waypoints plus 1."
+      },
+      "IKakaoNavi.Road": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "title": "road name"
+          },
+          "distance": {
+            "type": "integer",
+            "title": "Road length (meters)"
+          },
+          "duration": {
+            "type": "integer",
+            "title": "Estimated travel time (sec)",
+            "description": "Current estimated travel time and actual travel time are set to the same value"
+          },
+          "traffic_speed": {
+            "type": "number",
+            "title": "Current traffic information speed (km/h)"
+          },
+          "traffic_state": {
+            "oneOf": [
+              {
+                "const": 0
+              },
+              {
+                "const": 1
+              },
+              {
+                "const": 2
+              },
+              {
+                "const": 3
+              },
+              {
+                "const": 4
+              },
+              {
+                "const": 6
+              }
+            ],
+            "title": "Current traffic information status"
+          },
+          "vertexes": {
+            "type": "array",
+            "items": {
+              "type": "number"
+            },
+            "title": "A one-dimensional array consisting of X, Y coordinates"
+          }
+        },
+        "required": [
+          "name",
+          "distance",
+          "duration",
+          "traffic_speed",
+          "traffic_state",
+          "vertexes"
+        ],
+        "title": "Road Information"
+      },
+      "IKakaoNavi.Guide": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "oneOf": [
+              {
+                "const": 0
+              },
+              {
+                "const": 1
+              },
+              {
+                "const": 2
+              },
+              {
+                "const": 3
+              },
+              {
+                "const": 5
+              },
+              {
+                "const": 6
+              },
+              {
+                "const": 7
+              },
+              {
+                "const": 8
+              },
+              {
+                "const": 9
+              },
+              {
+                "const": 10
+              },
+              {
+                "const": 11
+              },
+              {
+                "const": 12
+              },
+              {
+                "const": 14
+              },
+              {
+                "const": 15
+              },
+              {
+                "const": 16
+              },
+              {
+                "const": 17
+              },
+              {
+                "const": 18
+              },
+              {
+                "const": 19
+              },
+              {
+                "const": 20
+              },
+              {
+                "const": 21
+              },
+              {
+                "const": 22
+              },
+              {
+                "const": 23
+              },
+              {
+                "const": 24
+              },
+              {
+                "const": 25
+              },
+              {
+                "const": 26
+              },
+              {
+                "const": 27
+              },
+              {
+                "const": 28
+              },
+              {
+                "const": 29
+              },
+              {
+                "const": 30
+              },
+              {
+                "const": 31
+              },
+              {
+                "const": 32
+              },
+              {
+                "const": 33
+              },
+              {
+                "const": 34
+              },
+              {
+                "const": 35
+              },
+              {
+                "const": 36
+              },
+              {
+                "const": 37
+              },
+              {
+                "const": 38
+              },
+              {
+                "const": 39
+              },
+              {
+                "const": 40
+              },
+              {
+                "const": 41
+              },
+              {
+                "const": 42
+              },
+              {
+                "const": 43
+              },
+              {
+                "const": 44
+              },
+              {
+                "const": 45
+              },
+              {
+                "const": 46
+              },
+              {
+                "const": 47
+              },
+              {
+                "const": 48
+              },
+              {
+                "const": 49
+              },
+              {
+                "const": 61
+              },
+              {
+                "const": 62
+              },
+              {
+                "const": 70
+              },
+              {
+                "const": 71
+              },
+              {
+                "const": 72
+              },
+              {
+                "const": 73
+              },
+              {
+                "const": 74
+              },
+              {
+                "const": 75
+              },
+              {
+                "const": 76
+              },
+              {
+                "const": 77
+              },
+              {
+                "const": 78
+              },
+              {
+                "const": 79
+              },
+              {
+                "const": 80
+              },
+              {
+                "const": 81
+              },
+              {
+                "const": 82
+              },
+              {
+                "const": 83
+              },
+              {
+                "const": 84
+              },
+              {
+                "const": 85
+              },
+              {
+                "const": 86
+              },
+              {
+                "const": 100
+              },
+              {
+                "const": 101
+              },
+              {
+                "const": 300
+              },
+              {
+                "const": 301
+              },
+              {
+                "const": 1000
+              }
+            ],
+            "title": "Guide type"
+          },
+          "guidance": {
+            "type": "string",
+            "title": "Guide text"
+          },
+          "road_index": {
+            "type": "integer",
+            "title": "Link index for the current guide"
+          },
+          "name": {
+            "type": "string",
+            "title": "place name"
+          },
+          "x": {
+            "type": "number",
+            "title": "X coordinate (longitude)"
+          },
+          "y": {
+            "type": "number",
+            "title": "Y coordinate (latitude)"
+          },
+          "duration": {
+            "type": "integer",
+            "title": "Full search results move time (seconds)"
+          },
+          "distance": {
+            "type": "integer",
+            "title": "Section Distance (meters)"
+          }
+        },
+        "required": [
+          "type",
+          "guidance",
+          "road_index",
+          "name",
+          "x",
+          "y",
+          "duration",
+          "distance"
+        ],
+        "title": "Guide information"
+      },
+      "IKakaoNavi.IGetFutureDirectionsInput": {
+        "type": "object",
+        "properties": {
+          "departure_time": {
+            "type": "string",
+            "x-wrtn-placeholder": "202406202000",
+            "title": "Departure time",
+            "description": "Set time after current time in YYYYMMDDHHMM format"
+          },
+          "origin": {
+            "type": "string",
+            "pattern": "([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?,[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)",
+            "x-wrtn-placeholder": "127.111202,37.394912",
+            "title": "Origin",
+            "description": "Longitude and latitude values in X, Y coordinate format"
+          },
+          "destination": {
+            "type": "string",
+            "pattern": "([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?,[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)",
+            "x-wrtn-placeholder": "127.111202,37.394912",
+            "title": "Destination",
+            "description": "Longitude and latitude values in X, Y coordinate format"
+          }
+        },
+        "required": [
+          "departure_time",
+          "origin",
+          "destination"
+        ],
+        "title": "Request Conditions"
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "Kakao Navi"
+    }
+  ],
   "x-samchon-emended": true
 }

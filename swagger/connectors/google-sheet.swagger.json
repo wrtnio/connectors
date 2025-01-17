@@ -16,7 +16,7 @@
   ],
   "info": {
     "title": "google-sheet",
-    "version": "0.1.447",
+    "version": "0.1.448",
     "description": "wrtn-ecosystem connectors and sdk",
     "license": {
       "name": "AGPL-3.0-only"
@@ -60,7 +60,7 @@
           "getHeaders"
         ],
         "x-samchon-controller": "GoogleSheetController",
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleSheet_full.svg",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/google_sheets.svg",
         "x-wrtn-standalone": true
       }
     },
@@ -102,7 +102,7 @@
           "appendGoogleSheet"
         ],
         "x-samchon-controller": "GoogleSheetController",
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleSheet_full.svg"
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/google_sheets.svg"
       }
     },
     "/connector/google-sheet/create": {
@@ -143,7 +143,7 @@
           "createGoogleSheet"
         ],
         "x-samchon-controller": "GoogleSheetController",
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleSheet_full.svg",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/google_sheets.svg",
         "x-wrtn-standalone": true
       }
     },
@@ -180,7 +180,7 @@
           "permission"
         ],
         "x-samchon-controller": "GoogleSheetController",
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleSheet_full.svg",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/google_sheets.svg",
         "x-wrtn-standalone": true
       }
     },
@@ -218,7 +218,7 @@
           "writeHeaders"
         ],
         "x-samchon-controller": "GoogleSheetController",
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleSheet_full.svg",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/google_sheets.svg",
         "x-wrtn-standalone": true
       }
     },
@@ -260,7 +260,7 @@
           "getWorkSheet"
         ],
         "x-samchon-controller": "GoogleSheetController",
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleSheet_full.svg",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/google_sheets.svg",
         "x-wrtn-standalone": true
       }
     },
@@ -301,7 +301,7 @@
           "readRows"
         ],
         "x-samchon-controller": "GoogleSheetController",
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleSheet_full.svg",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/google_sheets.svg",
         "x-wrtn-standalone": true
       }
     }

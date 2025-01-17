@@ -16,7 +16,7 @@
   ],
   "info": {
     "title": "reddit",
-    "version": "0.1.447",
+    "version": "0.1.448",
     "description": "wrtn-ecosystem connectors and sdk",
     "license": {
       "name": "AGPL-3.0-only"
@@ -58,7 +58,7 @@
           "getHotPosts"
         ],
         "x-samchon-controller": "RedditController",
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/reddit_full.svg"
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/reddit.svg"
       }
     },
     "/connector/reddit/get-new-posts": {
@@ -96,7 +96,7 @@
           "getNewPosts"
         ],
         "x-samchon-controller": "RedditController",
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/reddit_full.svg"
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/reddit.svg"
       }
     },
     "/connector/reddit/get-top-posts": {
@@ -134,7 +134,7 @@
           "getTopPosts"
         ],
         "x-samchon-controller": "RedditController",
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/reddit_full.svg"
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/reddit.svg"
       }
     },
     "/connector/reddit/get-comments": {
@@ -172,7 +172,7 @@
           "getComments"
         ],
         "x-samchon-controller": "RedditController",
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/reddit_full.svg"
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/reddit.svg"
       }
     },
     "/connector/reddit/get-user-about": {
@@ -210,7 +210,7 @@
           "getUserAbout"
         ],
         "x-samchon-controller": "RedditController",
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/reddit_full.svg"
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/reddit.svg"
       }
     },
     "/connector/reddit/get-user-submitted": {
@@ -248,7 +248,7 @@
           "getUserSubmitted"
         ],
         "x-samchon-controller": "RedditController",
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/reddit_full.svg"
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/reddit.svg"
       }
     },
     "/connector/reddit/get-user-comments": {
@@ -286,7 +286,7 @@
           "getUserComments"
         ],
         "x-samchon-controller": "RedditController",
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/reddit_full.svg"
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/reddit.svg"
       }
     },
     "/connector/reddit/search-subreddits": {
@@ -324,7 +324,7 @@
           "searchSubreddits"
         ],
         "x-samchon-controller": "RedditController",
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/reddit_full.svg"
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/reddit.svg"
       }
     },
     "/connector/reddit/get-subreddit-about": {
@@ -362,7 +362,7 @@
           "getSubredditAbout"
         ],
         "x-samchon-controller": "RedditController",
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/reddit_full.svg"
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/reddit.svg"
       }
     },
     "/connector/reddit/get-popular-subreddits": {
@@ -400,7 +400,7 @@
           "getPopularSubreddits"
         ],
         "x-samchon-controller": "RedditController",
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/reddit_full.svg"
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/reddit.svg"
       }
     },
     "/connector/reddit/get-best-content": {
@@ -438,7 +438,7 @@
           "getBestContent"
         ],
         "x-samchon-controller": "RedditController",
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/reddit_full.svg"
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/reddit.svg"
       }
     }
   },
@@ -3198,7 +3198,7 @@
                 "const": ""
               },
               {
-                "$ref": "#/components/schemas/__type.o2184"
+                "$ref": "#/components/schemas/__type.o2182"
               }
             ],
             "title": "replies"
@@ -3645,14 +3645,14 @@
           "name"
         ]
       },
-      "__type.o2184": {
+      "__type.o2182": {
         "type": "object",
         "properties": {
           "kind": {
             "const": "Listing"
           },
           "data": {
-            "$ref": "#/components/schemas/__type.o2185"
+            "$ref": "#/components/schemas/__type.o2183"
           }
         },
         "required": [
@@ -3660,7 +3660,7 @@
           "data"
         ]
       },
-      "__type.o2185": {
+      "__type.o2183": {
         "type": "object",
         "properties": {
           "after": {
@@ -3680,7 +3680,7 @@
             "items": {
               "oneOf": [
                 {
-                  "$ref": "#/components/schemas/__type.o2186"
+                  "$ref": "#/components/schemas/__type.o2184"
                 },
                 {
                   "type": "object",
@@ -3754,7 +3754,7 @@
           "before"
         ]
       },
-      "__type.o2186": {
+      "__type.o2184": {
         "type": "object",
         "properties": {
           "kind": {

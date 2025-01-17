@@ -16,7 +16,7 @@
   ],
   "info": {
     "title": "marp",
-    "version": "0.1.447",
+    "version": "0.1.448",
     "description": "wrtn-ecosystem connectors and sdk",
     "license": {
       "name": "AGPL-3.0-only"
@@ -66,7 +66,8 @@
           "convert_to_ppt",
           "convertToPpt"
         ],
-        "x-samchon-controller": "MarpController"
+        "x-samchon-controller": "MarpController",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/marp.svg"
       }
     }
   },

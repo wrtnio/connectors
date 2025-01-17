@@ -15,20 +15,20 @@
     }
   ],
   "info": {
-    "title": "daum",
-    "version": "0.1.447",
+    "title": "daum-blog",
+    "version": "0.1.448",
     "description": "wrtn-ecosystem connectors and sdk",
     "license": {
       "name": "AGPL-3.0-only"
     }
   },
   "paths": {
-    "/connector/daum/blog": {
+    "/connector/daum-blog": {
       "patch": {
         "summary": "Search the following blog",
         "description": "Search the following blog content",
         "tags": [
-          "Daum"
+          "Daum Blog"
         ],
         "parameters": [],
         "requestBody": {
@@ -36,7 +36,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/IDaum.ISearchDaumInput"
+                "$ref": "#/components/schemas/IDaumBlog.ISearchInput"
               }
             }
           },
@@ -48,7 +48,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/IDaum.IBlogDaumOutput"
+                  "$ref": "#/components/schemas/IDaumBlog.IBlogOutput"
                 }
               }
             }
@@ -56,65 +56,20 @@
         },
         "x-samchon-accessor": [
           "connector",
-          "daum",
-          "blog",
+          "daum_blog",
           "searchBlog"
         ],
-        "x-samchon-controller": "DaumController",
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/DaumBlog_full.svg",
+        "x-samchon-controller": "DaumBlogController",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/daum.svg",
         "x-wrtn-function-select-benchmarks": [
           "다음 블로그 검색 해줘"
-        ]
-      }
-    },
-    "/connector/daum/cafe": {
-      "patch": {
-        "summary": "Search for the following cafe",
-        "description": "Search for the following cafe content",
-        "tags": [
-          "Daum"
-        ],
-        "parameters": [],
-        "requestBody": {
-          "description": "Conditions for searching the following cafe",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/IDaum.ISearchDaumInput"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "200": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/IDaum.ICafeDaumOutput"
-                }
-              }
-            }
-          }
-        },
-        "x-samchon-accessor": [
-          "connector",
-          "daum",
-          "cafe",
-          "searchCafe"
-        ],
-        "x-samchon-controller": "DaumController",
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/DaumCafe_full.svg",
-        "x-wrtn-function-select-benchmarks": [
-          "다음 카페 검색 해줘"
         ]
       }
     }
   },
   "components": {
     "schemas": {
-      "IDaum.IBlogDaumOutput": {
+      "IDaumBlog.IBlogOutput": {
         "type": "object",
         "properties": {
           "meta": {
@@ -198,7 +153,7 @@
         ],
         "title": "Next blog search results"
       },
-      "IDaum.ISearchDaumInput": {
+      "IDaumBlog.ISearchInput": {
         "type": "object",
         "properties": {
           "andKeywords": {
@@ -252,96 +207,12 @@
           "andKeywords"
         ],
         "title": "Information needed for the next search"
-      },
-      "IDaum.ICafeDaumOutput": {
-        "type": "object",
-        "properties": {
-          "meta": {
-            "type": "object",
-            "properties": {
-              "totalCount": {
-                "type": "number",
-                "title": "Number of searched cafe contents",
-                "description": "Total number of searched cafes."
-              },
-              "pageableCount": {
-                "type": "number",
-                "title": "The number of contents that can be exposed among the searched cafe contents",
-                "description": "The number of contents that can be exposed among the searched cafe contents."
-              },
-              "isEnd": {
-                "type": "boolean",
-                "title": "Whether the current page is the last page",
-                "description": "If the value is false, you can request the next page by incrementing page."
-              }
-            },
-            "required": [
-              "totalCount",
-              "pageableCount",
-              "isEnd"
-            ],
-            "title": "metadata"
-          },
-          "documents": {
-            "type": "array",
-            "items": {
-              "type": "object",
-              "properties": {
-                "title": {
-                  "type": "string",
-                  "title": "The title of the document",
-                  "description": "The title of the document searched."
-                },
-                "contents": {
-                  "type": "string",
-                  "title": "Part of the text of the document",
-                  "description": "This is part of the text of the document that was searched."
-                },
-                "url": {
-                  "type": "string",
-                  "title": "Document URL",
-                  "description": "The URL of the document being searched."
-                },
-                "cafeName": {
-                  "type": "string",
-                  "title": "Cafe Name",
-                  "description": "The following cafe name is searched."
-                },
-                "thumbnail": {
-                  "type": "string",
-                  "contentMediaType": "image/*",
-                  "title": "Thumbnail image URL",
-                  "description": "Representative preview image URL extracted from the search system."
-                },
-                "dateTime": {
-                  "type": "string",
-                  "title": "Document Creation Time",
-                  "description": "The time the document was created."
-                }
-              },
-              "required": [
-                "title",
-                "contents",
-                "url",
-                "cafeName",
-                "thumbnail",
-                "dateTime"
-              ]
-            },
-            "title": "documents"
-          }
-        },
-        "required": [
-          "meta",
-          "documents"
-        ],
-        "title": "Next Cafe Search Results"
       }
     }
   },
   "tags": [
     {
-      "name": "Daum"
+      "name": "Daum Blog"
     }
   ],
   "x-samchon-emended": true

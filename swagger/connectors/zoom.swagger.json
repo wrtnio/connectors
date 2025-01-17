@@ -16,16 +16,999 @@
   ],
   "info": {
     "title": "zoom",
-    "version": "0.1.447",
+    "version": "0.1.448",
     "description": "wrtn-ecosystem connectors and sdk",
     "license": {
       "name": "AGPL-3.0-only"
     }
   },
-  "paths": {},
-  "components": {
-    "schemas": {}
+  "paths": {
+    "/connector/zoom/meetings": {
+      "post": {
+        "summary": "Create a zoom meeting",
+        "description": "Create a zoom meeting",
+        "tags": [
+          "Zoom"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "description": "DTO of the user information and conditions for creating a meeting",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IZoom.ICreateMeetingInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "DTO of the created zoom meeting information.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MyPartialIZoom.Meeting"
+                }
+              }
+            }
+          }
+        },
+        "x-samchon-accessor": [
+          "connector",
+          "zoom",
+          "meetings",
+          "createMeeting"
+        ],
+        "x-samchon-controller": "ZoomController",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/zoom.svg",
+        "x-wrtn-standalone": true,
+        "x-samchon-human": true
+      }
+    }
   },
-  "tags": [],
+  "components": {
+    "schemas": {
+      "MyPartialIZoom.Meeting": {
+        "type": "object",
+        "properties": {
+          "agenda": {
+            "type": "string",
+            "maxLength": 2000,
+            "title": "The meeting's agenda",
+            "description": "The meeting's agenda."
+          },
+          "default_password": {
+            "type": "boolean",
+            "title": "Whether to create a default password",
+            "description": "If this value is true and the user has enabled PMI settings with passwords, the user's meetings will use the PMI password."
+          },
+          "duration": {
+            "type": "integer",
+            "title": "The scheduled time (duration) of the meeting",
+            "description": "The scheduled time of the meeting, in minutes.\n\nUsed only when a meeting is scheduled."
+          },
+          "password": {
+            "type": "string",
+            "maxLength": 10,
+            "title": "Meeting password",
+            "description": "It means a password consisting of English uppercase and lowercase letters and '@', '-', '_', '*'."
+          },
+          "pre_schedule": {
+            "type": "boolean",
+            "title": "Whether to create a scheduled meeting via the `GSuite` app"
+          },
+          "assistant_id": {
+            "type": "string",
+            "title": "The ID of the user who hosted this meeting"
+          },
+          "host_email": {
+            "type": "string",
+            "format": "email",
+            "title": "The email address of the meeting organizer"
+          },
+          "id": {
+            "type": "integer",
+            "title": "Meeting ID"
+          },
+          "registration_url": {
+            "type": "string",
+            "format": "url",
+            "title": "URL where participants can register"
+          },
+          "created_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "The date and time this meeting was created"
+          },
+          "encrypted_password": {
+            "type": "string",
+            "title": "Encrypted password for 3rd party endpoints (H323/SIP)"
+          },
+          "pstn_password": {
+            "type": "string",
+            "title": "Password to join the meeting via PSTN"
+          },
+          "h323_password": {
+            "type": "string",
+            "title": "H.323/SIP room system password"
+          },
+          "join_url": {
+            "type": "string",
+            "format": "url",
+            "title": "The URL where participants can join the meeting"
+          },
+          "chat_join_url": {
+            "type": "string",
+            "format": "url",
+            "title": "URL where you can join the chat"
+          },
+          "occurrences": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/IZoom.Occurrence"
+            },
+            "title": "Information about recurring webinars"
+          },
+          "pmi": {
+            "type": "string",
+            "title": "Personal meeting ID (PMI)"
+          },
+          "recurrence": {
+            "$ref": "#/components/schemas/IZoom.Recurrence",
+            "title": "Information about the meeting's recurrence cycle"
+          },
+          "settings": {
+            "$ref": "#/components/schemas/MyPartialIZoom.Settings",
+            "title": "Zoom settings information"
+          },
+          "start_time": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Meeting start time"
+          },
+          "start_url": {
+            "type": "string",
+            "format": "url",
+            "title": "URL that allows you to join as the meeting host",
+            "description": "This URL should only be used by the meeting host and should not be shared with other participants.\n\nAnyone with this URL can log into the Zoom client with host privileges."
+          },
+          "timezone": {
+            "type": "string",
+            "title": "`start_time`의 timezone"
+          },
+          "topic": {
+            "type": "string",
+            "title": "Topic of the meeting"
+          },
+          "tracking_fields": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/IZoom.TrackingField"
+            }
+          },
+          "type": {
+            "oneOf": [
+              {
+                "const": 1
+              },
+              {
+                "const": 2
+              },
+              {
+                "const": 3
+              },
+              {
+                "const": 8
+              },
+              {
+                "const": 10
+              }
+            ],
+            "title": "Type of meeting",
+            "description": "- 1: Instant meeting.\n- 2: Scheduled meeting.\n- 3: Recurring meeting without fixed time.\n- 8: Recurring meeting with fixed time.\n- 10: Meeting with screen sharing only."
+          },
+          "dynamic_host_key": {
+            "type": "string",
+            "title": "미팅의 dynamic_host_key"
+          }
+        },
+        "required": []
+      },
+      "IZoom.Occurrence": {
+        "type": "object",
+        "properties": {
+          "duration": {
+            "type": "integer",
+            "title": "An integer representing the duration of the webinar"
+          },
+          "occurrence_id": {
+            "type": "string",
+            "title": "A unique identifier that identifies each webinar occurrence"
+          },
+          "start_time": {
+            "type": "string",
+            "format": "date-time",
+            "title": "Webinar start time"
+          },
+          "status": {
+            "oneOf": [
+              {
+                "const": "available"
+              },
+              {
+                "const": "deleted"
+              }
+            ],
+            "title": "Status of webinar occurrence",
+            "description": "Status of webinar occurrence."
+          }
+        },
+        "required": [
+          "duration",
+          "occurrence_id",
+          "start_time",
+          "status"
+        ],
+        "title": "Information about recurring webinars"
+      },
+      "IZoom.Recurrence": {
+        "type": "object",
+        "properties": {
+          "end_date_time": {
+            "type": "string",
+            "format": "date-time",
+            "title": "This means the last day before the meeting ends",
+            "description": "If the meeting is not cancelled, this means the last day of the meeting.\n\nCannot be used with `end_times`."
+          },
+          "end_times": {
+            "type": "integer",
+            "maximum": 60,
+            "default": 1,
+            "title": "The number of repetitions before the meeting is finally terminated",
+            "description": "Indicates how many times the meeting will repeat before it is canceled.\n\nIf end_times is set to 0, it means there is no end time."
+          },
+          "type": {
+            "oneOf": [
+              {
+                "const": 1
+              },
+              {
+                "const": 2
+              },
+              {
+                "const": 3
+              }
+            ],
+            "title": "Meeting repetition cycle",
+            "description": "1 is daily, 2 is weekly, 3 is monthly, indicating the repetition type."
+          },
+          "monthly_day": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 31,
+            "title": "The days from 1 to 31 of the month",
+            "description": "It means the days from 1 to 31 of the month, and is the value set when `type` is 3, that is, it repeats every month."
+          },
+          "monthly_week": {
+            "oneOf": [
+              {
+                "const": -1
+              },
+              {
+                "const": 1
+              },
+              {
+                "const": 2
+              },
+              {
+                "const": 3
+              },
+              {
+                "const": 4
+              }
+            ],
+            "title": "Indicates which week of each month",
+            "description": "Indicates which week of each month.\n\nThis is the value set when `type` is 3, that is, the meeting is repeated every month.\n\n- -1: Last week of the month.\n- 1: First week of the month.\n- 2: Second week of the month.\n- 3: Third week of the month.\n- 4: Fourth week of the month."
+          },
+          "monthly_week_day": {
+            "type": "string",
+            "title": "Indicates which day of the week it is each month",
+            "description": "This is the value set when `type` is 3, that is, a meeting that repeats every month.\n\nIf multiple days are selected, the numbers are connected using the `,` symbol in the form of '1,3'.\n\n- 1 - Sunday.\n- 2 - Monday.\n- 3 - Tuesday.\n- 4 - Wednesday.\n- 5 - Thursday.\n- 6 - Friday.\n- 7 - Saturday."
+          },
+          "repeat_interval": {
+            "type": "integer",
+            "title": "Interval between meetings",
+            "description": "When `type` is 1, i.e., for meetings set to daily, up to 90 (days) is possible.\n\nWhen `type` is 2, i.e., for meetings set to weekly, up to 12 (weeks) is possible.\n\nWhen `type` is 3, i.e., for meetings set to monthly, up to 3 (months) is possible."
+          },
+          "weekly_days": {
+            "type": "string",
+            "title": "Indicates which day of the week it is",
+            "description": "This is the value set when `type` is 2, that is, a meeting that repeats every week.\n\nIf multiple days are selected, the numbers are connected using the `,` symbol in the form of '1,3'.\n\n- 1 - Sunday.\n- 2 - Monday.\n- 3 - Tuesday.\n- 4 - Wednesday.\n- 5 - Thursday.\n- 6 - Friday.\n- 7 - Saturday."
+          }
+        },
+        "required": [
+          "type",
+          "monthly_day",
+          "monthly_week",
+          "monthly_week_day",
+          "repeat_interval",
+          "weekly_days"
+        ],
+        "title": "Information about the meeting's recurrence cycle"
+      },
+      "MyPartialIZoom.Settings": {
+        "type": "object",
+        "properties": {
+          "allow_multiple_devices": {
+            "type": "boolean",
+            "title": "Whether participants can join from multiple devices",
+            "description": "Sets whether participants can join from multiple devices in a meeting where registration is enabled."
+          },
+          "alternative_hosts": {
+            "type": "string",
+            "title": "A semicolon-separated list of email addresses or IDs for alternate hosts"
+          },
+          "alternative_hosts_email_notification": {
+            "type": "boolean",
+            "title": "Whether to send email notifications to alternate hosts"
+          },
+          "alternative_host_update_polls": {
+            "type": "boolean"
+          },
+          "approval_type": {
+            "oneOf": [
+              {
+                "const": 0
+              },
+              {
+                "const": 1
+              },
+              {
+                "const": 2
+              }
+            ],
+            "title": "Meeting registration approval settings",
+            "description": "- 0 : Automatic approval\n- 1 : Manual approval\n- 2 : No registration required (default)"
+          },
+          "approved_or_denied_countries_or_regions": {
+            "type": "object",
+            "properties": {
+              "approved_list": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "title": "List of approved countries or regions"
+              },
+              "denied_list": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                },
+                "title": "List of blocked countries or regions"
+              },
+              "enable": {
+                "type": "boolean",
+                "title": "Whether to enable or disable user authorization or blocking settings for specific countries and regions"
+              },
+              "method": {
+                "oneOf": [
+                  {
+                    "const": "deny"
+                  },
+                  {
+                    "const": "approve"
+                  }
+                ],
+                "title": "method"
+              }
+            },
+            "required": [
+              "enable"
+            ],
+            "title": "Approved/rejected country or region"
+          },
+          "audio": {
+            "oneOf": [
+              {
+                "const": "both"
+              },
+              {
+                "const": "telephony"
+              },
+              {
+                "const": "voip"
+              },
+              {
+                "const": "thirdParty"
+              }
+            ],
+            "title": "How participants join the audio portion of the meeting",
+            "description": "- `both` - Both telephony and VoIP.\n- `telephony` - Telephony only.\n- `voip` - VoIP only.\n- `thirdParty` - Third party audio conference."
+          },
+          "audio_conference_info": {
+            "type": "string",
+            "maxLength": 2048,
+            "title": "Third party audio conference info"
+          },
+          "authentication_domains": {
+            "type": "string",
+            "title": "The meeting's authenticated domains",
+            "description": "The meeting's authenticated domains.\n\nOnly Zoom users whose email address contains an authenticated domain can join the meeting.\n\nComma-separate multiple domains or use a wildcard for listing domains."
+          },
+          "authentication_exception": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "email": {
+                  "type": "string",
+                  "format": "email",
+                  "title": "The participant's email address"
+                },
+                "name": {
+                  "type": "string",
+                  "title": "The participant's name"
+                },
+                "join_url": {
+                  "type": "string",
+                  "format": "url",
+                  "title": "URL for participants to join the meeting"
+                }
+              },
+              "required": [
+                "email",
+                "name",
+                "join_url"
+              ]
+            },
+            "title": "A list of participants that can bypass meeting authentication",
+            "description": "A list of participants that can bypass meeting authentication.\n\nThese participants will receive a unique meeting invite."
+          },
+          "authentication_name": {
+            "type": "string",
+            "title": "Authentication name set in the authentication profile"
+          },
+          "authentication_option": {
+            "type": "string",
+            "title": "Meeting authentication option ID"
+          },
+          "auto_recording": {
+            "oneOf": [
+              {
+                "const": "none"
+              },
+              {
+                "const": "cloud"
+              }
+            ],
+            "title": "Automatic recording",
+            "description": "- `cloud` - Record on cloud.\n- `none` - Disabled."
+          },
+          "breakout_room": {
+            "type": "object",
+            "properties": {
+              "enable": {
+                "type": "boolean",
+                "title": "Set this field's value to true to enable the breakout room pre-assign option",
+                "description": "Set this field's value to true to enable the breakout room pre-assign option."
+              },
+              "rooms": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string",
+                      "title": "The breakout room's name",
+                      "description": "The breakout room's name."
+                    },
+                    "participants": {
+                      "type": "array",
+                      "items": {
+                        "type": "string",
+                        "format": "email"
+                      },
+                      "title": "Email addresses of the participants who are to be assigned to the breakout room",
+                      "description": "Email addresses of the participants who are to be assigned to the breakout room."
+                    }
+                  },
+                  "required": [
+                    "name",
+                    "participants"
+                  ]
+                },
+                "title": "Create a room or rooms",
+                "description": "Create a room or rooms."
+              }
+            },
+            "required": [
+              "enable"
+            ],
+            "title": "Setting to pre-assign breakout rooms"
+          },
+          "calendar_type": {
+            "oneOf": [
+              {
+                "const": 1
+              },
+              {
+                "const": 2
+              }
+            ],
+            "title": "The type of calendar integration used to schedule the meeting",
+            "description": "The type of calendar integration used to schedule the meeting.\n\n- 1 - Zoom Outlook add-in\n- 2 - Zoom for Google Workspace add-on\n\nWorks with the private_meeting field to determine whether to share details of meetings or not."
+          },
+          "close_registration": {
+            "type": "boolean",
+            "title": "Close registration after event date"
+          },
+          "cn_meeting": {
+            "type": "boolean",
+            "deprecated": true,
+            "title": "Host meeting in China"
+          },
+          "contact_email": {
+            "type": "string",
+            "format": "email",
+            "title": "The contact email address for meeting registration"
+          },
+          "contact_name": {
+            "type": "string",
+            "title": "The contact name for meeting registration"
+          },
+          "custom_keys": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "key": {
+                  "type": "string",
+                  "maxLength": 64,
+                  "title": "Custom key associated with the user"
+                },
+                "value": {
+                  "type": "string",
+                  "maxLength": 256,
+                  "title": "Value of the custom key associated with the user"
+                }
+              },
+              "required": [
+                "key",
+                "value"
+              ]
+            },
+            "maxItems": 10,
+            "title": "Custom keys and values assigned to the meeting"
+          },
+          "email_notification": {
+            "type": "boolean",
+            "title": "Whether to send email notifications to alternative hosts and users with scheduling privileges",
+            "description": "Whether to send email notifications to alternative hosts and users with scheduling privileges."
+          },
+          "encryption_type": {
+            "oneOf": [
+              {
+                "const": "enhanced_encryption"
+              },
+              {
+                "const": "e2ee"
+              }
+            ],
+            "title": "Choose between enhanced encryption and end-to-end encryption when starting or a meeting",
+            "description": "Choose between enhanced encryption and end-to-end encryption when starting or a meeting.\n\nWhen using end-to-end encryption, several features (e.g. cloud recording, phone/SIP/H.323 dial-in) will be automatically disabled.\n\n- enhanced_encryption - Enhanced encryption. Encryption is stored in the cloud if you enable this option.\n- e2ee - End-to-end encryption. The encryption key is stored in your local device and can not be obtained by anyone else. Enabling this setting also disables the join before host, cloud recording, streaming, live transcription, breakout rooms, polling, 1:1 private chat, and meeting reactions features."
+          },
+          "enforce_login": {
+            "type": "boolean",
+            "deprecated": true,
+            "title": "Only signed in users can join this meeting",
+            "description": "Only signed in users can join this meeting."
+          },
+          "enforce_login_domains": {
+            "type": "string",
+            "deprecated": true,
+            "title": "Only signed in users with specified domains can join meetings",
+            "description": "Only signed in users with specified domains can join meetings.\n\nThis field is deprecated and will not be supported in the future."
+          },
+          "focus_mode": {
+            "type": "boolean",
+            "title": "Whether the Focus Mode feature is enabled when the meeting starts"
+          },
+          "global_dial_in_countries": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "title": "List of global dial-in countries"
+          },
+          "global_dial_in_numbers": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "city": {
+                  "type": "string",
+                  "title": "city of the number",
+                  "description": "City of the number, such as Chicago."
+                },
+                "country": {
+                  "type": "string",
+                  "title": "The country code",
+                  "description": "The country code, such as BR."
+                },
+                "country_name": {
+                  "type": "string",
+                  "title": "Full name of country",
+                  "description": "Full name of country, such as Brazil."
+                },
+                "number": {
+                  "type": "string",
+                  "title": "A phone number",
+                  "description": "A phone number, such as `+1 2332357613`."
+                },
+                "type": {
+                  "oneOf": [
+                    {
+                      "const": "toll"
+                    },
+                    {
+                      "const": "tollfree"
+                    }
+                  ],
+                  "title": "Type of number"
+                }
+              },
+              "required": [
+                "city",
+                "country",
+                "country_name",
+                "number",
+                "type"
+              ]
+            },
+            "title": "Global dial-in countries or regions"
+          },
+          "host_video": {
+            "type": "boolean",
+            "title": "Start video when the host joins the meeting"
+          },
+          "in_meeting": {
+            "type": "boolean",
+            "deprecated": true,
+            "title": "Host meeting in India"
+          },
+          "jbh_time": {
+            "oneOf": [
+              {
+                "const": 0
+              },
+              {
+                "const": 5
+              },
+              {
+                "const": 10
+              }
+            ],
+            "title": "If the value of join_before_host field is set to true, use this field to indicate time limits when a participant may join a meeting before a host",
+            "description": "If the value of join_before_host field is set to true, use this field to indicate time limits when a participant may join a meeting before a host.\n\n- 0 - Allow participant to join anytime.\n- 5- Allow participant to join 5 minutes before meeting start time.\n- 10 - Allow participant to join 10 minutes before meeting start time."
+          },
+          "join_before_host": {
+            "type": "boolean",
+            "title": "Allow participants to join the meeting before the host starts the meeting. Only used for scheduled or recurring meetings",
+            "description": "Allow participants to join the meeting before the host starts the meeting. Only used for scheduled or recurring meetings."
+          },
+          "language_interpretation": {
+            "type": "object",
+            "properties": {
+              "enable": {
+                "type": "boolean",
+                "title": "Whether to enable language interpretation for the meeting",
+                "description": "Whether to enable language interpretation for the meeting."
+              },
+              "interpreters": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "email": {
+                      "type": "string",
+                      "format": "email",
+                      "title": "The interpreter's email address",
+                      "description": "The interpreter's email address."
+                    },
+                    "languages": {
+                      "type": "string",
+                      "title": "comma-separated list of the interpreter's languages",
+                      "description": "comma-separated list of the interpreter's languages.\n\nThe string must contain two country IDs.\n\nFor example, if the interpreter will translate from English to Chinese, then this value will be US,CN."
+                    }
+                  },
+                  "required": [
+                    "email",
+                    "languages"
+                  ]
+                },
+                "title": "Information about the meeting's sign language interpreters",
+                "description": "Information about the meeting's sign language interpreters."
+              }
+            },
+            "required": [
+              "enable"
+            ]
+          },
+          "sign_language_interpretation": {
+            "type": "object",
+            "properties": {
+              "enable": {
+                "type": "boolean",
+                "title": "Whether to enable sign language interpretation for the meeting",
+                "description": "Whether to enable sign language interpretation for the meeting."
+              },
+              "interpreters": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "email": {
+                      "type": "string",
+                      "format": "email",
+                      "title": "The interpreter's email address",
+                      "description": "The interpreter's email address."
+                    },
+                    "sign_language": {
+                      "type": "string",
+                      "title": "The interpreter's sign language",
+                      "description": "The interpreter's sign language.\n\nTo get this value, use the sign_language_interpretation object's languages and custom_languages values in the Get user settings API response."
+                    }
+                  },
+                  "required": [
+                    "email",
+                    "sign_language"
+                  ]
+                },
+                "title": "Information about the meeting's sign language interpreters",
+                "description": "Information about the meeting's sign language interpreters."
+              }
+            },
+            "required": [
+              "enable"
+            ],
+            "title": "The meeting's sign language interpretation settings",
+            "description": "The meeting's sign language interpretation settings.\n\nMake sure to add the language in the web portal in order to use it in the API. See link for details.\n\nNote: If this feature is not enabled on the host's account, this setting will not be applied to the meeting."
+          },
+          "meeting_authentication": {
+            "type": "boolean",
+            "title": "If true, only authenticated users can join the meeting",
+            "description": "If true, only authenticated users can join the meeting."
+          },
+          "mute_upon_entry": {
+            "type": "boolean",
+            "title": "Whether to mute participants upon entry",
+            "description": "Whether to mute participants upon entry."
+          },
+          "participant_video": {
+            "type": "boolean",
+            "title": "Whether to start meetings with the participant video on",
+            "description": "Whether to start meetings with the participant video on."
+          },
+          "private_meeting": {
+            "type": "boolean",
+            "title": "Whether to set the meeting as private",
+            "description": "Whether to set the meeting as private."
+          },
+          "registrants_confirmation_email": {
+            "type": "boolean",
+            "title": "Whether to send registrants an email confirmation",
+            "description": "Whether to send registrants an email confirmation.\n\n- true - Send a confirmation email.\n- false - Do not send a confirmation email."
+          },
+          "registrants_email_notification": {
+            "type": "boolean",
+            "title": "Whether to send registrants email notifications about their registration approval, cancellation, or rejection",
+            "description": "Whether to send registrants email notifications about their registration approval, cancellation, or rejection.\n\n- true - Send an email notification.\n- false - Do not send an email notification.\n\nSet this value to true to also use the registrants_confirmation_email parameter."
+          },
+          "registration_type": {
+            "oneOf": [
+              {
+                "const": 1
+              },
+              {
+                "const": 2
+              },
+              {
+                "const": 3
+              }
+            ],
+            "title": "The meeting's registration type",
+            "description": "The meeting's registration type.\n\n- 1 - Attendees register once and can attend any meeting occurrence.\n- 2 - Attendees must register for each meeting occurrence.\n- 3 - Attendees register once and can select one or more meeting occurrences to attend.\n\nThis field is only for recurring meetings with fixed times (8). This value defaults to 1."
+          },
+          "show_share_button": {
+            "type": "boolean",
+            "title": "Whether to include social media sharing buttons on the meeting's registration page",
+            "description": "Whether to include social media sharing buttons on the meeting's registration page.\n\nThis setting is only applied to meetings with registration enabled."
+          },
+          "use_pmi": {
+            "type": "boolean",
+            "title": "Whether to use a Personal Meeting ID (PMI) instead of a generated meeting ID",
+            "description": "Whether to use a Personal Meeting ID (PMI) instead of a generated meeting ID.\n\nThis field is only used for scheduled meetings (2), instant meetings (1), or recurring meetings with no fixed time (3)."
+          },
+          "waiting_room": {
+            "type": "boolean",
+            "title": "Whether to enable the Waiting Room feature. If this value is true, this disables the join_before_host setting",
+            "description": "Whether to enable the Waiting Room feature. If this value is true, this disables the join_before_host setting."
+          },
+          "watermark": {
+            "type": "boolean",
+            "title": "Whether to add a watermark when viewing a shared screen",
+            "description": "Whether to add a watermark when viewing a shared screen."
+          },
+          "host_save_video_order": {
+            "type": "boolean",
+            "title": "Whether the Allow host to save video order feature is enabled",
+            "description": "Whether the Allow host to save video order feature is enabled."
+          },
+          "internal_meeting": {
+            "type": "boolean",
+            "title": "Whether to set the meeting as an internal meeting",
+            "description": "Whether to set the meeting as an internal meeting."
+          },
+          "meeting_invitees": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "email": {
+                  "type": "string",
+                  "format": "email",
+                  "title": "The invitee's email address",
+                  "description": "The invitee's email address."
+                }
+              },
+              "required": [
+                "email"
+              ]
+            },
+            "title": "A list of the meeting's invitees",
+            "description": "A list of the meeting's invitees."
+          },
+          "continuous_meeting_chat": {
+            "type": "object",
+            "properties": {
+              "enable": {
+                "type": "boolean",
+                "title": "Whether to enable the Enable continuous meeting chat setting",
+                "description": "Whether to enable the Enable continuous meeting chat setting."
+              },
+              "auto_add_invited_external_users": {
+                "type": "boolean",
+                "title": "Whether to enable the Automatically add invited external users setting",
+                "description": "Whether to enable the Automatically add invited external users setting."
+              },
+              "channel_id": {
+                "type": "string",
+                "title": "The channel's ID",
+                "description": "The channel's ID."
+              }
+            },
+            "required": [
+              "enable",
+              "auto_add_invited_external_users"
+            ],
+            "title": "Information about the Enable continuous meeting chat feature",
+            "description": "Information about the Enable continuous meeting chat feature."
+          },
+          "participant_focused_meeting": {
+            "type": "boolean",
+            "title": "Whether to set the meeting as a participant focused meeting",
+            "description": "Whether to set the meeting as a participant focused meeting."
+          },
+          "push_change_to_calendar": {
+            "type": "boolean",
+            "title": "Whether to push meeting changes to the calendar",
+            "description": "Whether to push meeting changes to the calendar.\n\nTo enable this feature, configure the Configure Calendar and Contacts Service in the user's profile page of the Zoom web portal and enable the Automatically sync Zoom calendar events information bi-directionally between Zoom and integrated calendars.\n\nsetting in the Settings page of the Zoom web portal.\n\n- true - Push meeting changes to the calendar.\n- false - Do not push meeting changes to the calendar."
+          },
+          "resources": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "resource_type": {
+                  "const": "whiteboard",
+                  "title": "The resource type",
+                  "description": "The resource type."
+                },
+                "resource_id": {
+                  "type": "string",
+                  "title": "The resource ID",
+                  "description": "The resource ID."
+                },
+                "permission_level": {
+                  "oneOf": [
+                    {
+                      "const": "editor"
+                    },
+                    {
+                      "const": "viewer"
+                    },
+                    {
+                      "const": "commenter"
+                    }
+                  ],
+                  "title": "The permission levels for users to access the whiteboard",
+                  "description": "The permission levels for users to access the whiteboard.\n\n- `editor` - Users with link access can edit the board.\n- `commenter` - Users with link access can comment on the board.\n- `viewer` - Users with link access can view the board."
+                }
+              },
+              "required": [
+                "resource_type",
+                "resource_id",
+                "permission_level"
+              ]
+            },
+            "title": "The meeting's resources"
+          },
+          "auto_start_meeting_summary": {
+            "type": "boolean",
+            "title": "Whether to automatically start a meeting summary",
+            "description": "Whether to automatically start a meeting summary."
+          },
+          "auto_start_ai_companion_questions": {
+            "type": "boolean",
+            "title": "Whether to automatically start AI Companion questions",
+            "description": "Whether to automatically start AI Companion questions."
+          }
+        },
+        "required": []
+      },
+      "IZoom.TrackingField": {
+        "type": "object",
+        "properties": {
+          "field": {
+            "type": "string",
+            "title": "Label of `TrackingField`"
+          },
+          "value": {
+            "type": "string",
+            "title": "The value of `TrackingField`"
+          },
+          "visible": {
+            "type": "boolean",
+            "title": "Whether `TrackingField` is exposed"
+          }
+        },
+        "required": [
+          "field",
+          "value",
+          "visible"
+        ],
+        "description": "Information about the meeting's tracking fields."
+      },
+      "IZoom.ICreateMeetingInput": {
+        "type": "object",
+        "properties": {
+          "userId": {
+            "type": "string"
+          },
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "zoom",
+            "x-wrtn-secret-scopes": [
+              "meeting:write:admin",
+              "meeting:write"
+            ],
+            "title": "Select authentication information",
+            "description": "secret key."
+          }
+        },
+        "required": [
+          "userId",
+          "secretKey"
+        ]
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "Zoom"
+    }
+  ],
   "x-samchon-emended": true
 }

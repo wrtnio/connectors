@@ -16,7 +16,7 @@
   ],
   "info": {
     "title": "slack",
-    "version": "0.1.447",
+    "version": "0.1.448",
     "description": "wrtn-ecosystem connectors and sdk",
     "license": {
       "name": "AGPL-3.0-only"
@@ -59,7 +59,7 @@
           "vote"
         ],
         "x-samchon-controller": "SlackController",
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Slack_full.svg"
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/slack.svg"
       }
     },
     "/connector/slack/conversation/mark": {
@@ -95,7 +95,7 @@
           "mark"
         ],
         "x-samchon-controller": "SlackController",
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Slack_full.svg"
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/slack.svg"
       }
     },
     "/connector/slack/scheduleMessage/text": {
@@ -135,7 +135,7 @@
           "sendScheduleMessage"
         ],
         "x-samchon-controller": "SlackController",
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Slack_full.svg"
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/slack.svg"
       }
     },
     "/connector/slack/scheduleMessage": {
@@ -171,7 +171,7 @@
           "deleteScheduleMessage"
         ],
         "x-samchon-controller": "SlackController",
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Slack_full.svg"
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/slack.svg"
       }
     },
     "/connector/slack/postMessage/text/myself": {
@@ -213,7 +213,7 @@
           "sendTextToMyself"
         ],
         "x-samchon-controller": "SlackController",
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Slack_full.svg"
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/slack.svg"
       }
     },
     "/connector/slack/postMessage/reply": {
@@ -254,7 +254,7 @@
           "sendReply"
         ],
         "x-samchon-controller": "SlackController",
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Slack_full.svg"
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/slack.svg"
       }
     },
     "/connector/slack/postMessage/text": {
@@ -295,7 +295,7 @@
           "sendText"
         ],
         "x-samchon-controller": "SlackController",
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Slack_full.svg"
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/slack.svg"
       }
     },
     "/connector/slack/message": {
@@ -335,7 +335,7 @@
           "updateMessage"
         ],
         "x-samchon-controller": "SlackController",
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Slack_full.svg"
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/slack.svg"
       }
     },
     "/connector/slack/get-scheduled-messages": {
@@ -375,7 +375,7 @@
           "getScheduledMessages"
         ],
         "x-samchon-controller": "SlackController",
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Slack_full.svg"
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/slack.svg"
       }
     },
     "/connector/slack/get-user-details": {
@@ -418,7 +418,7 @@
           "getUserDetails"
         ],
         "x-samchon-controller": "SlackController",
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Slack_full.svg"
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/slack.svg"
       }
     },
     "/connector/slack/get-users": {
@@ -458,7 +458,7 @@
           "getUsers"
         ],
         "x-samchon-controller": "SlackController",
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Slack_full.svg"
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/slack.svg"
       }
     },
     "/connector/slack/get-replies": {
@@ -497,7 +497,7 @@
           "getReplies"
         ],
         "x-samchon-controller": "SlackController",
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Slack_full.svg"
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/slack.svg"
       }
     },
     "/connector/slack/get-channel-link-histories": {
@@ -537,7 +537,7 @@
           "getChannelLinkHistories"
         ],
         "x-samchon-controller": "SlackController",
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Slack_full.svg"
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/slack.svg"
       }
     },
     "/connector/slack/get-channel-histories": {
@@ -577,7 +577,7 @@
           "getChannelHistories"
         ],
         "x-samchon-controller": "SlackController",
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Slack_full.svg"
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/slack.svg"
       }
     },
     "/connector/slack/get-private-channels": {
@@ -620,7 +620,7 @@
           "getPrivateChannels"
         ],
         "x-samchon-controller": "SlackController",
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Slack_full.svg"
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/slack.svg"
       }
     },
     "/connector/slack/get-public-channels": {
@@ -663,7 +663,7 @@
           "getPublicChannels"
         ],
         "x-samchon-controller": "SlackController",
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Slack_full.svg"
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/slack.svg"
       }
     },
     "/connector/slack/get-im-channels": {
@@ -706,7 +706,7 @@
           "getImChannels"
         ],
         "x-samchon-controller": "SlackController",
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Slack_full.svg"
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/slack.svg"
       }
     },
     "/connector/slack/get-files": {
@@ -746,7 +746,7 @@
           "getFiles"
         ],
         "x-samchon-controller": "SlackController",
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Slack_full.svg"
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/slack.svg"
       }
     },
     "/connector/slack/get-user-groups": {
@@ -786,7 +786,7 @@
           "getUserGroups"
         ],
         "x-samchon-controller": "SlackController",
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Slack_full.svg"
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/slack.svg"
       }
     },
     "/connector/slack/me": {
@@ -826,7 +826,7 @@
           "getMyInfo"
         ],
         "x-samchon-controller": "SlackController",
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Slack_full.svg"
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/slack.svg"
       }
     },
     "/connector/slack/messages": {
@@ -862,7 +862,7 @@
           "deleteMessage"
         ],
         "x-samchon-controller": "SlackController",
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Slack_full.svg"
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/slack.svg"
       }
     }
   },

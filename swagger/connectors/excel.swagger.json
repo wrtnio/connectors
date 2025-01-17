@@ -16,7 +16,7 @@
   ],
   "info": {
     "title": "excel",
-    "version": "0.1.447",
+    "version": "0.1.448",
     "description": "wrtn-ecosystem connectors and sdk",
     "license": {
       "name": "AGPL-3.0-only"
@@ -65,7 +65,7 @@
           "readHeaders"
         ],
         "x-samchon-controller": "ExcelController",
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/light/excel.svg",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/excel.svg",
         "x-wrtn-function-select-benchmarks": [
           "엑셀 헤더 읽어줘"
         ]
@@ -109,7 +109,7 @@
           "read"
         ],
         "x-samchon-controller": "ExcelController",
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/light/excel.svg",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/excel.svg",
         "x-wrtn-function-select-benchmarks": [
           "엑셀 읽어줘"
         ]
@@ -153,7 +153,7 @@
           "worksheetList"
         ],
         "x-samchon-controller": "ExcelController",
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/light/excel.svg"
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/excel.svg"
       }
     },
     "/connector/excel/rows/upload": {
@@ -195,7 +195,7 @@
           "insertRowsByUpload"
         ],
         "x-samchon-controller": "ExcelController",
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/light/excel.svg",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/excel.svg",
         "x-wrtn-function-select-benchmarks": [
           "엑셀 데이터 올려줘"
         ]
@@ -239,7 +239,7 @@
           "insertRows"
         ],
         "x-samchon-controller": "ExcelController",
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/light/excel.svg",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/excel.svg",
         "x-wrtn-function-select-benchmarks": [
           "엑셀 데이터 추가해줘"
         ]
@@ -282,7 +282,7 @@
           "createSheets"
         ],
         "x-samchon-controller": "ExcelController",
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/light/excel.svg",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/excel.svg",
         "x-wrtn-function-select-benchmarks": [
           "엑셀 파일 만들어줘",
           "엑셀 생성해줘"

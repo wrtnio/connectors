@@ -16,16 +16,3118 @@
   ],
   "info": {
     "title": "google-ads",
-    "version": "0.1.447",
+    "version": "0.1.448",
     "description": "wrtn-ecosystem connectors and sdk",
     "license": {
       "name": "AGPL-3.0-only"
     }
   },
-  "paths": {},
-  "components": {
-    "schemas": {}
+  "paths": {
+    "/connector/google-ads/generateKeywordIdeas/keywordsAndUrl": {
+      "post": {
+        "summary": "Create keywords using keywords and URL",
+        "description": "Recommend keywords for Google Ads\n\nIn order to execute ads in Google Ads, you need to register keywords.\nA keyword must be registered to target the end users of the ad, and it is one of the `adGroupCriteria` mapped to `adGroup` among the resources of Google Ads.\nThis connector is a function to recommend such keywords, and when the user enters the keywords and URL that he or she wanted to register, it recommends other keywords that can be derived from them.\n\nThe request result is a list of keywords, the competition index, unit price, and the expected index values for each keyword when registering an ad.\n\nThis connector excludes keywords for adult ads, and the language condition is set to Korean and the geographical condition is set to Korea (South Korea).\n\nBefore calling the function, you need to ask the user for `customerId`, so you need to suggest a connector that can check `customerId`.",
+        "tags": [
+          "Google Ads"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "description": "Object containing URL",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IGoogleAds.IGenerateKeywordIdeaByKeywordsAndUrlInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "List of recommended keywords, competition index and index, and unit price information for each keyword",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IGoogleAds.IGenerateKeywordIdeaOutput"
+                }
+              }
+            }
+          }
+        },
+        "x-samchon-accessor": [
+          "connector",
+          "google_ads",
+          "generateKeywordIdeas",
+          "keywordsAndUrl"
+        ],
+        "x-samchon-controller": "GoogleAdsController",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/google_ads.svg",
+        "x-wrtn-standalone": true,
+        "x-samchon-human": true,
+        "x-wrtn-function-select-benchmarks": [
+          "URL과 키워드 정보를 모두 이용해서 구글 광고 키워드 좀 줘"
+        ]
+      }
+    },
+    "/connector/google-ads/generateKeywordIdeas/keywords": {
+      "post": {
+        "summary": "Create keywords using keywords",
+        "description": "Get keyword recommendations for Google Ads\n\nIn order to execute ads in Google Ads, you need to register keywords.\nA keyword must be registered to target the end users of the ad, and it is one of the `adGroupCriteria` mapped to `adGroup` among the resources of Google Ads.\nThis connector is a function to recommend such keywords, and when the user enters the keywords that he or she wanted to register, it recommends other keywords that can be derived from them.\n\nThe request result is a list of keywords, the competition index, unit price, and the expected index values when registering an ad for each keyword.\n\nThis connector excludes keywords for adult ads, and the language condition is set to Korean and the geographical condition is set to Korea (South Korea).\n\nBefore calling the function, you need to ask the user for `customerId`, so you need to suggest a connector that can check `customerId`.",
+        "tags": [
+          "Google Ads"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "description": "Object containing URL",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IGoogleAds.IGenerateKeywordIdeaByKeywordsInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "List of recommended keywords, competition index and index, and unit price information for each keyword",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IGoogleAds.IGenerateKeywordIdeaOutput"
+                }
+              }
+            }
+          }
+        },
+        "x-samchon-accessor": [
+          "connector",
+          "google_ads",
+          "generateKeywordIdeas",
+          "keywords"
+        ],
+        "x-samchon-controller": "GoogleAdsController",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/google_ads.svg",
+        "x-wrtn-standalone": true,
+        "x-samchon-human": true,
+        "x-wrtn-function-select-benchmarks": [
+          "키워드 기반으로 광고 키워드 아이디어 좀 줘"
+        ]
+      }
+    },
+    "/connector/google-ads/generateKeywordIdeas/url": {
+      "post": {
+        "summary": "Create keywords through URL",
+        "description": "Get keyword recommendations for Google Ads\n\nIn order to execute ads in Google Ads, you need to register keywords.\nA keyword must be registered to target the end users of the ad, and it is one of the `adGroupCriteria` mapped to `adGroup` among the resources of Google Ads.\nThis connector is a function to recommend such keywords, and when the user enters the URL that he or she wanted to register, it recommends other keywords that can be derived from it.\n\nThe request result is a list of keywords, competition index, unit price, and expected index values for each keyword when registering an ad.\n\nThis connector excludes keywords for adult ads, and the language condition is set to Korean and the geographical condition is set to Korea (South Korea).\n\nBefore calling the function, you need to ask the user for `customerId`, so you need to suggest a connector that can check `customerId`.",
+        "tags": [
+          "Google Ads"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "description": "Object containing the URL",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IGoogleAds.IGenerateKeywordIdeaByURLInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "List of recommended keywords, competition index and index, and unit price information for each keyword",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IGoogleAds.IGenerateKeywordIdeaOutput"
+                }
+              }
+            }
+          }
+        },
+        "x-samchon-accessor": [
+          "connector",
+          "google_ads",
+          "generateKeywordIdeas",
+          "url"
+        ],
+        "x-samchon-controller": "GoogleAdsController",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/google_ads.svg",
+        "x-wrtn-standalone": true,
+        "x-samchon-human": true,
+        "x-wrtn-function-select-benchmarks": [
+          "URL 기반으로 광고 키워드 아이디어 좀 줘"
+        ]
+      }
+    },
+    "/connector/google-ads/customerClientLink": {
+      "post": {
+        "summary": "Register Wrtn as an administrator",
+        "description": "Designate Wrtn as the advertising account manager of the user\n\nTo call the Google Ads API for a specific Google account, you must own the advertising account or be registered as an administrator.\nThis connector is a connector that sends a kind of invitation to all of the user's Google advertising accounts to register the `Wrtn` advertising account as the customer's administrator.\nAfter the connector is executed, an email registered to the customer account will be sent via Gmail.\nThose who receive the email can go to the dashboard through the email and give the `Wrtn` account administrator rights.\nIf `Wrtn` is registered as an administrator, he will be able to use other APIs created in Google Ads.\n\nThis administrator designation must be done before calling all Google Ads connectors except for connectors that do not receive `customerId` as an argument, such as keyword recommendations.\nHowever, even if this connector is called, `Wrtn` will not be designated as an administrator without the user's approval, so there is no need to worry.\n\nBefore calling the function, we need to ask the user for his `customerId`, so we need to suggest a connector that can check `customerId`.",
+        "tags": [
+          "Google Ads"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "description": "Customer information",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IGoogleAds.ISecret"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {}
+            }
+          }
+        },
+        "x-samchon-accessor": [
+          "connector",
+          "google_ads",
+          "customerClientLink",
+          "publish"
+        ],
+        "x-samchon-controller": "GoogleAdsController",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/google_ads.svg",
+        "x-samchon-human": true,
+        "x-wrtn-function-select-benchmarks": [
+          "Wrtn 광고 계정에 내 계정 등록하게 링크 좀 줘"
+        ]
+      }
+    },
+    "/connector/google-ads/get-customers": {
+      "patch": {
+        "summary": "Get ad account",
+        "description": "Get the customer's advertising account\n\nUsing the user's access token, search for the user's advertising account, i.e., `customer`, among the accounts where `Wrtn` is an administrator.\nEven if the user has an advertising account, if `Wrtn` is not an administrator, it will not be listed.\nTherefore, if `Wrtn` has never been registered as an administrator, you must call the `POST connector/google-ads/customerClientLink` connector.\n\nIn addition, this connector filters out advertising accounts that do not use the Korean currency unit `KRW`.\nThe reason for this is to prevent mistakes from occurring in other campaign budget modification or ad status change connectors in the future.\nWhen creating ads through the Google Ads connector, human errors may occur in budget settings depending on the currency unit of each account.\nFor example, if you register a budget for an account with a currency unit of `USD` as an account with a currency unit of `KRW`, a budget difference of the exchange rate may occur.\n\nBefore calling the function, we need to ask the user for his `customerId`, so we need to suggest a connector that can check `customerId`.",
+        "tags": [
+          "Google Ads"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "description": "Customer information",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IGoogleAds.IGetCustomerInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "List of ad accounts",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/IGoogleAds.CustomerClient"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-samchon-accessor": [
+          "connector",
+          "google_ads",
+          "get_customers",
+          "getCustomers"
+        ],
+        "x-samchon-controller": "GoogleAdsController",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/google_ads.svg",
+        "x-samchon-human": true,
+        "x-wrtn-standalone": true,
+        "x-wrtn-function-select-benchmarks": [
+          "내 구글 광고 계정 좀 보여줘"
+        ]
+      }
+    },
+    "/connector/google-ads/get-campaigns": {
+      "patch": {
+        "summary": "Search for a list of campaigns",
+        "description": "Get a list of campaigns for a Google customer account\n\nPass `customerId` to the user and search for campaigns in the customer's advertising account.\nIf `customerId` is not passed, `Wrtn` will automatically select only one advertising account that the user can access.\nA campaign corresponds to `campaign` among Google resources and is in charge of advertising channels, budgets, and the start and end dates of advertising execution.\nA channel refers to Google advertising products such as responsive search ads (=responsive search ads) and responsive display ads (=responsive display ads).\nIf a campaign is a search ad, there are only search ads in the ad group and ads.\nA user can use this connector to search for their campaigns and the status of the campaigns, and create ad groups for the desired campaigns, etc., for subsequent actions.\n\nBefore calling the function, you should ask the user for `customerId`, so you should suggest a connector that can check `customerId`.",
+        "tags": [
+          "Google Ads"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "description": "Customer information",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IGoogleAds.ISecret"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "List of campaigns",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/IGoogleAds.IGetCampaignsOutputResult"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-samchon-accessor": [
+          "connector",
+          "google_ads",
+          "get_campaigns",
+          "getCampaigns"
+        ],
+        "x-samchon-controller": "GoogleAdsController",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/google_ads.svg",
+        "x-samchon-human": true,
+        "x-wrtn-function-select-benchmarks": [
+          "내 구글 광고 캠페인들 보여줘"
+        ]
+      }
+    },
+    "/connector/google-ads/get-ad-groups": {
+      "patch": {
+        "summary": "Search for a list of ad groups.",
+        "description": "Get a list of ad groups in a Google customer account\n\nPass `customerId` to the user and search for ad groups (=adGroup) in the customer ad account.\nIf `customerId` is not passed, it will automatically select only one ad account that `Wrtn` can access from the user.\nIf `campaignId` is also passed, it will search only the child ad groups of the campaign.\nAd groups are the area in charge of targeting and are also the parents of ads (ads).\nThe result of this connector contains simple information about the campaign that is the parent of the ad group, information about the ad group,\na list of ads belonging to the ad group, their current status, and simple information.\nIt also contains information about keywords connected to the ad group.\n\nBefore calling the function, you should ask the user for `customerId`, so you should suggest a connector that can check `customerId`.",
+        "tags": [
+          "Google Ads"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "description": "Ad group list query condition",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IGoogleAds.IGetAdGroupInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Ad group list",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/IGoogleAds.IGetAdGroupsOutputResult"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-samchon-accessor": [
+          "connector",
+          "google_ads",
+          "get_ad_groups",
+          "getAdGroups"
+        ],
+        "x-samchon-controller": "GoogleAdsController",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/google_ads.svg",
+        "x-samchon-human": true,
+        "x-wrtn-function-select-benchmarks": [
+          "내 구글 광고 그룹들 보여줘"
+        ]
+      }
+    },
+    "/connector/google-ads/get-ads": {
+      "patch": {
+        "summary": "Retrieves a list of campaign ads",
+        "description": "Get the list of ads from the Google customer account\n\nPass the `customerId` to the user and search for the ads (=ad) in the customer's ad account.\nIf `customerId` is not passed, it will be automatically selected only if there is only one ad account accessible to `Wrtn` from the user.\nAn ad is a node at the end of a tree structure consisting of campaigns, ad groups, and ads, and is a section in charge of materials,\nand is also a unit exposed to end users.\nIf the resource name of an ad group (=adGroup) is passed as an argument, only the ads belonging to that ad group will be searched.\nThe purpose of this connector is to determine whether the user's ad is currently running or not.\nIn the case of `Wrtn` managers, campaigns and ad groups are not changed to `PAUSED` status unless the user directly changes the campaign and ad group status in the Google Ads dashboard.\nTherefore, in general, if the ad status is `ENABLED`, the ad is running, and if it is `PAUSED`, the ad is stopped. Again, the `Wrtn` connector does not change the status of a campaign or ad group.\n\nThis function can also be used to check whether an ad is being properly executed in addition to viewing the ad.\n\nEach ad has an evaluation history for ad review and policy, which exists as a property called `PolicySummary`.\n\nThis property contains whether the ad has been approved, and the `APPROVED` status means that Google has approved the review and determined it is eligible.\n\nYou can change the ad status in `PATCH connector/google-ads/campaigns/ads/status`.\n\nBefore calling the function, you should ask the user for their `customerId`, so you should suggest a connector that can check their `customerId`.",
+        "tags": [
+          "Google Ads"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "description": "Condition for retrieving the ad list",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IGoogleAds.IGetAdGroupAdInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Ad list",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/MyPickIGoogleAds.AdGroupAdstatusresourceNamepolicySummary"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-samchon-accessor": [
+          "connector",
+          "google_ads",
+          "get_ads",
+          "getAds"
+        ],
+        "x-samchon-controller": "GoogleAdsController",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/google_ads.svg",
+        "x-samchon-human": true,
+        "x-wrtn-function-select-benchmarks": [
+          "내 구글 캠페인 내부에 있는 광고 그룹, 광고 목록을 보여줘"
+        ]
+      }
+    },
+    "/connector/google-ads/ad-groups/get-metrics": {
+      "patch": {
+        "summary": "Get the performance (metrics) of the ad group",
+        "description": "View metrics per Google customer account ad\n\nPass `customerId` to the user and view statistical metrics for the customer ad group.\nIf `customerId` is not passed, `Wrtn` will automatically select only one ad account that the user can access.\nUsers can view ad metrics for a specific date through this connector,\nand these metrics include impressions, clicks, video views, views based on video playback range, and average page count.\nYou can also check simple information about the searched content, such as the resource name of the ad group.\nIn addition, `costMicros` information is provided, which is the advertising expenditure in micro units and means the amount actually executed.\nIf this figure is `1,000,000`, if the currency unit is `KRW`, 1 won was used.\nThis figure is the actual amount used, unlike the campaign budget, and according to Google policy, advertising costs may be slightly more than the budget. Also, the total spend of the ad group in the campaign must be equal to the total spend of the campaign.\n\nThis connector allows the user to check whether their ads are being executed efficiently in terms of cost and performance.\n\nBefore calling the function, you should ask the user for `customerId`, so you should suggest a connector that can check `customerId`.",
+        "tags": [
+          "Google Ads"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "description": "Ad metrics query conditions",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IGoogleAds.IGetMetricInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "List of metrics",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/IGoogleAds.IGetMetricOutputResult"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-samchon-accessor": [
+          "connector",
+          "google_ads",
+          "ad_groups",
+          "get_metrics",
+          "getMetrics"
+        ],
+        "x-samchon-controller": "GoogleAdsController",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/google_ads.svg",
+        "x-samchon-human": true,
+        "x-wrtn-function-select-benchmarks": [
+          "내 구글 광고 통계 좀 보여줘",
+          "내 구글 광고 지표 좀 보여줘",
+          "광고 성과 좀 보여줘"
+        ]
+      }
+    },
+    "/connector/google-ads/campaigns/ads/get-keywords": {
+      "patch": {
+        "summary": "Add keywords to the ad",
+        "description": "Add search keywords to ads in Google customer accounts\n\nStrictly speaking, add ad keywords to ad groups (=adGroup).\n\nFor convenience, this connector receives the resource name of the ad, finds the parent ad group of the ad, and then inserts the keyword.\nThe result value of this connector helps users check whether all keywords have been added properly by re-checking them after adding the keyword.\nHowever, not all keywords added are used in ads.\nKeywords are reviewed by Google and used for targeting, and at this time, keywords may be excluded from ad keywords due to inappropriate reviews.\nHowever, since ads will work properly if there are other keywords, it is advantageous to register various keywords so that users can be attracted.\n\nThere are also recommended connectors for keywords.\n\nThis connector receives an ad account as an argument from the user as authentication for the customer account, but this is also optional.\n\nIf `customerId` is not passed, it is automatically selected only if `Wrtn` has only one ad account accessible to the user.\n\nBefore calling the function, we need to ask the user for `customerId`, so we need to suggest a connector that can check `customerId`.",
+        "tags": [
+          "Google Ads"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "description": "Add keyword condition",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IGoogleAds.IGetKeywordsInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "List of keywords",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/IGoogleAds.IGetKeywordsOutputResult"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-samchon-accessor": [
+          "connector",
+          "google_ads",
+          "campaigns",
+          "ads",
+          "get_keywords",
+          "getKeywords"
+        ],
+        "x-samchon-controller": "GoogleAdsController",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/google_ads.svg",
+        "x-samchon-human": true,
+        "x-wrtn-function-select-benchmarks": [
+          "내가 등록한 구글 광고 키워드 목록 좀 보여줄래?"
+        ]
+      }
+    },
+    "/connector/google-ads/campaigns/ads/status": {
+      "put": {
+        "summary": "Change the status of the ad",
+        "description": "Change the ad status of a Google customer account\n\nChange the ad status by receiving the ID of the ad account and the resource name of the ad in the ad group (=`adGroupAd```ResourceName`).\n\nIf `customerId` is not passed, it is automatically selected only if there is only one ad account that `Wrtn` can access from the user.\n\nThe ad status supported by this connector is `ENABLED` and `PAUSED`, which means the execution and suspension of the ad, respectively.\nSince the `Wrtn` manager account only changes the status of the ad without changing the status of the campaign and ad group,\nunless the user changes the status of the campaign and ad group directly in the Google Ads dashboard, the ad status means whether or not spending occurs.\nIf the user wants to change the status of the ad group, instead of changing the status of the ad group, query the ad group and change the status of all ads in the ad group.\nIf the user wants to change the status of the campaign, instead of changing the status of the campaign, query the campaign and change the status of all ads in the campaign. However, if you change the status of a campaign, you must go down the campaign and ad group in the Google Ads ad structure and terminate all ads.\n\nAlso, our connector does not support deleting ads.\n\nIf there is a user who wants to delete a campaign, ad group, or ad, we recommend changing all child ads of the corresponding node to the `PAUSED` status.\n\nSince deleting an ad means losing the means to check previous performance and indicators, it is advantageous to terminate the ad instead of deleting it for future ad re-execution.\n\nBefore calling the function, you must ask the user for `customerId`, so you must suggest a connector that can check `customerId`.",
+        "tags": [
+          "Google Ads"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "description": "The status of the ad to be changed",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IGoogleAds.ISetOnOffInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {}
+            }
+          }
+        },
+        "x-samchon-accessor": [
+          "connector",
+          "google_ads",
+          "campaigns",
+          "ads",
+          "status",
+          "setOnOff"
+        ],
+        "x-samchon-controller": "GoogleAdsController",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/google_ads.svg",
+        "x-samchon-human": true,
+        "x-wrtn-function-select-benchmarks": [
+          "구글 광고 켜줘",
+          "구글 광고 꺼줘"
+        ]
+      }
+    },
+    "/connector/google-ads/campaigns/ads/keywords": {
+      "delete": {
+        "summary": "Delete keywords from an ad",
+        "description": "Delete keywords from specific ads in Google customer account\n\nReceive the resource name of keyword (=`AdGroupCriterion`) from the user and delete all of them.\nKeywords are `AdGroupCriterion` whose `type` is `KEYWORD`, so you should be careful because there may be other types of resources.\nIf all keywords are deleted in an ad, you should be careful because deleting keywords may affect ad execution, etc.\n\nIn addition, if you delete keywords from an ad, other ads that share the ad group that is the parent of the ad may also be affected.\n\nIf `customerId` is not passed, `Wrtn` will automatically select only one ad account that the user can access.\n\nBefore calling the function, you should ask the user for `customerId`, so you should suggest a connector that can check `customerId`.",
+        "tags": [
+          "Google Ads"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "description": "Keyword deletion condition",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IGoogleAds.IDeleteAdGroupCriteriaInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {}
+            }
+          }
+        },
+        "x-samchon-accessor": [
+          "connector",
+          "google_ads",
+          "campaigns",
+          "ads",
+          "keywords",
+          "deleteKeywords"
+        ],
+        "x-samchon-controller": "GoogleAdsController",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/google_ads.svg",
+        "x-samchon-human": true,
+        "x-wrtn-function-select-benchmarks": [
+          "구글 광고 키워드 지워줘"
+        ]
+      },
+      "post": {
+        "summary": "Add keywords to ads",
+        "description": "Add search keywords to ads in Google customer accounts\n\nStrictly speaking, add keywords to the ad group (=adGroup), which is the parent of the ad.\nSince keywords are added to ad groups, they are applied to all child ads.\n\nIf `customerId` is not passed, it is automatically selected only if there is only one ad account accessible to `Wrtn` from the user.\n\nBefore calling the function, you should ask the user for `customerId`, so you should suggest a connector that can check `customerId`.",
+        "tags": [
+          "Google Ads"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "description": "Condition for adding keywords",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IGoogleAds.ICreateAdGroupCriteriaInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Name of the added keyword resource",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "pattern": "(customers\\/(.*)\\/adGroupCriteria\\/[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?~[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)",
+                    "x-wrtn-placeholder": "customers/1/adGroupCriteria/1"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-samchon-accessor": [
+          "connector",
+          "google_ads",
+          "campaigns",
+          "ads",
+          "keywords",
+          "addKeywords"
+        ],
+        "x-samchon-controller": "GoogleAdsController",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/google_ads.svg",
+        "x-samchon-human": true,
+        "x-wrtn-function-select-benchmarks": [
+          "구글 광고 키워드 추가해줘"
+        ]
+      }
+    },
+    "/connector/google-ads/campaigns/ads/get-details": {
+      "patch": {
+        "summary": "View ad details",
+        "description": "View ad details\n\nDepending on the campaign, it is either a responsive search ad or a responsive display ad.\n\nIf `customerId` is not passed, it will be automatically selected only if the user has only one ad account that `Wrtn` can access.\n\nBefore calling the function, you should ask the user for `customerId`, so you should suggest a connector that can check `customerId`.",
+        "tags": [
+          "Google Ads"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "description": "Conditions for viewing ad details",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IGoogleAds.IGetAdGroupAdDetailInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Ad details",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IGoogleAds.IGetAdGroupAdDetailOutput"
+                }
+              }
+            }
+          }
+        },
+        "x-samchon-accessor": [
+          "connector",
+          "google_ads",
+          "campaigns",
+          "ads",
+          "get_details",
+          "getAdGroupAdDetail"
+        ],
+        "x-samchon-controller": "GoogleAdsController",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/google_ads.svg",
+        "x-samchon-human": true,
+        "x-wrtn-function-select-benchmarks": [
+          "구글 광고 상세 조회해줘"
+        ]
+      }
+    },
+    "/connector/google-ads/campaigns/ads": {
+      "post": {
+        "summary": "Create an ad",
+        "description": "Create an ad for a Google customer account\n\nThe `Wrtn` manager creates one ad per ad group for convenience.\nTherefore, this connector does not receive the resource name or ID of the ad group (=adGroup) to create the ad, and the ad group is created first when creating the ad.\nSince the types of ads that can be created depend on the campaign, you must create them after checking the campaign.\nFor example, search ads must be created in a search campaign.\n\nIf `customerId` is not passed, `Wrtn` will automatically select only one ad account that the user can access.\n\nThe ad is immediately moved to the review stage after creation, and if Google's review is passed, the ad will be executed and expenses will be incurred.\nHowever, when creating an ad with this connector, the ad status is set to `PAUSED`.\nThis is to allow users to check the campaign, ad group, ad, etc. again to check if they have been created in the desired state in case of an emergency.\nTherefore, even if the ad review is complete, the ad will not be executed, and no performance or expenses will be incurred. If the ad is checked to be correct, the user can change the ad status to `ENABLED` using the `ad edit connector`.\n\nBefore calling the function, you should ask the user for `customerId`, so you should suggest a connector that can check `customerId`.",
+        "tags": [
+          "Google Ads"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "description": "Ad creation conditions",
+          "content": {
+            "application/json": {
+              "schema": {
+                "oneOf": [
+                  {
+                    "$ref": "#/components/schemas/ISecretICreateAdGroupSearchAdInput"
+                  },
+                  {
+                    "$ref": "#/components/schemas/ISecretICreateAdGroupDisplayAdInput"
+                  }
+                ],
+                "discriminator": {
+                  "propertyName": "type",
+                  "mapping": {
+                    "SEARCH_STANDARD": "#/components/schemas/ISecretICreateAdGroupSearchAdInput",
+                    "DISPLAY_STANDARD": "#/components/schemas/ISecretICreateAdGroupDisplayAdInput"
+                  }
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Generated ad information",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IGoogleAds.IGetAdGroupsOutputResult"
+                }
+              }
+            }
+          }
+        },
+        "x-samchon-accessor": [
+          "connector",
+          "google_ads",
+          "campaigns",
+          "ads",
+          "appendAd"
+        ],
+        "x-samchon-controller": "GoogleAdsController",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/google_ads.svg",
+        "x-samchon-human": true,
+        "x-wrtn-function-select-benchmarks": [
+          "캠페인에 광고 생성해줘",
+          "캠페인 광고 생성해줘"
+        ]
+      }
+    },
+    "/connector/google-ads/campaigns": {
+      "put": {
+        "summary": "Modify the campaign",
+        "description": "Edit an ad campaign for your Google customer account\n\nEdit a campaign.\nThe only things you can edit in a campaign are the campaign name, budget, and end date.\nThe campaign name is a value for people to recognize and has no effect on the ad, so you can specify it as you like.\nFor the budget, you can enter the budget you want to advertise in Korean Won (KRW), and in this case, the daily ad spending will be formed above and below the budget.\nIn some cases, you may spend more than the budget, or if the ad optimization is not done, you may spend less than the budget.\nThe last end date can be used as a scheduled end date because the ad will not end and will continue to run if it is not specified.\nHowever, if you do not delete the end date that you have already specified, the ad may not be executed even if you turn it on later.\nIf you want to turn on the ad for a campaign that has ended, you must also change the campaign's scheduled end date.\n\nIf you do not pass `customerId`, it will be automatically selected only if there is only one ad account that `Wrtn` can access from the user.\n\nBefore calling the function, we need to ask the user for `customerId`, so we need to suggest a connector that can check `customerId`.\n\nOriginally, there is no amount limit, but in case of an emergency, we currently limit the function to 100,000 won per campaign.",
+        "tags": [
+          "Google Ads"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "description": "Campaign modification conditions",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IGoogleAds.IUpdateCampaignInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {}
+            }
+          }
+        },
+        "x-samchon-accessor": [
+          "connector",
+          "google_ads",
+          "campaigns",
+          "updateCampaign"
+        ],
+        "x-samchon-controller": "GoogleAdsController",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/google_ads.svg",
+        "x-samchon-human": true,
+        "x-wrtn-function-select-benchmarks": [
+          "캠페인 수정해줘"
+        ]
+      },
+      "post": {
+        "summary": "Create a campaign",
+        "description": "Create an ad campaign for your Google customer account\n\nCreate a campaign (=campaign).\nA campaign is located under an account in Google Ads, and is located at the top of the tree structure consisting of campaigns, ad groups, and ads.\nA campaign is a parent object for grouping ad groups, and is responsible for the duration, budget, purpose, channel, etc. of the ad.\nIf you do not specify a campaign name, a random name will be assigned. In this case, it may be difficult to identify.\nTherefore, it is recommended to give different names to each campaign according to its purpose so that you can distinguish them.\nThe name of the campaign is only for the user to easily identify, and does not affect the effectiveness of the ad at all, so you can rest assured.\n\nIf you do not pass `customerId`, it will be automatically selected only if there is only one ad account accessible to `Wrtn` from the user.\n\nYou should ask the user for `customerId` before calling the function, so you should suggest a connector that can check `customerId`.\n\nOriginally, there was no limit on the amount, but in preparation for an emergency, the function is currently limited to 100,000 won per campaign.",
+        "tags": [
+          "Google Ads"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "description": "Campaign creation conditions",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IGoogleAds.ICreateCampaignInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Created campaign information",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IGoogleAds.IGetCampaignsOutputResult"
+                }
+              }
+            }
+          }
+        },
+        "x-samchon-accessor": [
+          "connector",
+          "google_ads",
+          "campaigns",
+          "createCampaign"
+        ],
+        "x-samchon-controller": "GoogleAdsController",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/google_ads.svg",
+        "x-samchon-human": true,
+        "x-wrtn-function-select-benchmarks": [
+          "캠페인 생성해줘"
+        ]
+      }
+    },
+    "/connector/google-ads/search-ads": {
+      "post": {
+        "summary": "Create responsive search ads for your Google customer account all at once",
+        "description": "Create search ads in Google customer accounts at once\n\nCreating Google ads at once means creating campaigns, ad groups, and ads that exist in the Google Ads tree structure at once.\n\nIn this case, you do not need to specify which campaign to create ads for.\n\nThis is because everything from the first resource, the campaign, to the ad is created at once.\n\nThe campaign tree structure of Google Ads is such that the top campaign node is in charge of the budget, and when the ad is optimized, the ad group and ad share the budget of the campaign.\nIn simple terms, this means that the ad within the campaign learns and optimizes itself to determine which ad will be exposed to the end user.\n\nTherefore, it is easy to create ads in the connector structure that creates them at once, but it may not be suitable if you want to create multiple ads.\n\nHowever, if you have multiple ad materials and do not intend to create and compare multiple ads, it will be very convenient because you can easily execute the ad.\n\nIn most cases, there is no problem creating ads in this way.\n\nIf `customerId` is not passed, it is automatically selected only if there is only one ad account accessible to `Wrtn` from the user.\n\nThe ad is immediately reviewed after being created, and if Google's review is passed, the ad will be executed and expenses will be incurred.\nHowever, if an ad is created with this connector, the ad status is set to `PAUSED`.\nThis is to prepare for an emergency so that the user can check the campaign, ad group, ad, etc. again to see if they are in the desired state.\nTherefore, even if the ad review is complete, the ad will not be executed and no performance or expenses will be incurred.\n\nIf the ad is checked to be correct, the user can change the ad status to `ENABLED` using the `Ad Edit Connector`.\n\nBefore calling the function, you should ask the user for `customerId`, so you should suggest a connector that can check `customerId`.\n\nOriginally, there was no amount limit, but in preparation for an emergency, the function is currently limited to 100,000 won per campaign.",
+        "tags": [
+          "Google Ads"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "description": "Conditions for creating ads from campaigns all at once",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IGoogleAds.ICreateAdGroupSearchAdAtOnceInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Information from created campaigns to ads",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DeepStrictMergeHelperIGoogleAds.IGetCampaignsOutputResultIGoogleAds.AdWrapper"
+                }
+              }
+            }
+          }
+        },
+        "x-samchon-accessor": [
+          "connector",
+          "google_ads",
+          "search_ads",
+          "createSearchAd"
+        ],
+        "x-samchon-controller": "GoogleAdsController",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/google_ads.svg",
+        "x-samchon-human": true,
+        "x-wrtn-function-select-benchmarks": [
+          "검색 광고 생성해줘"
+        ]
+      }
+    },
+    "/connector/google-ads/display-ads": {
+      "post": {
+        "summary": "Create responsive display ads in Google Account Ads at once",
+        "description": "Create display ads in your Google customer account at once\n\nCreating Google ads at once means creating campaigns, ad groups, and ads that exist in the Google Ads tree structure at once.\n\nIn this case, you do not need to specify which campaign to create ads for.\n\nThis is because everything from the first resource, the campaign, to the ad is created at once.\n\nThe campaign tree structure of Google Ads is such that the top campaign node is in charge of the budget, and when the ad is optimized, the ad group and ad share the budget of the campaign.\nIn simple terms, this means that the ad within the campaign learns and optimizes itself to determine which ad will be exposed to the end user.\n\nTherefore, it is easy to create ads in the connector structure that creates them at once, but it may not be suitable if you want to create multiple ads.\n\nHowever, if you have multiple ad materials and do not intend to create and compare multiple ads, it will be very convenient because you can easily execute the ad.\n\nIn most cases, there is no problem creating ads in this way.\n\nIf `customerId` is not passed, it is automatically selected only if there is only one ad account accessible to `Wrtn` from the user.\n\nThe ad is immediately reviewed after being created, and if Google's review is passed, the ad will be executed and expenses will be incurred.\nHowever, if an ad is created with this connector, the ad status is set to `PAUSED`.\nThis is to prepare for an emergency so that the user can check the campaign, ad group, ad, etc. again to see if they are in the desired state.\nTherefore, even if the ad review is complete, the ad will not be executed and no performance or expenses will be incurred.\n\nIf the ad is checked to be correct, the user can change the ad status to `ENABLED` using the `Ad Edit Connector`.\n\nBefore calling the function, you should ask the user for `customerId`, so you should suggest a connector that can check `customerId`.\n\nOriginally, there was no amount limit, but in preparation for an emergency, the function is currently limited to 100,000 won per campaign.",
+        "tags": [
+          "Google Ads"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "description": "Conditions for creating ads from campaigns at once",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IGoogleAds.ICreateAdGroupDisplayAdAtOnceInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Information from created campaigns to ads",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DeepStrictMergeHelperIGoogleAds.IGetCampaignsOutputResultIGoogleAds.AdWrapper"
+                }
+              }
+            }
+          }
+        },
+        "x-samchon-accessor": [
+          "connector",
+          "google_ads",
+          "display_ads",
+          "createDisplayAd"
+        ],
+        "x-samchon-controller": "GoogleAdsController",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/google_ads.svg",
+        "x-samchon-human": true,
+        "x-wrtn-function-select-benchmarks": [
+          "디스플레이 광고 생성해줘"
+        ]
+      }
+    }
   },
-  "tags": [],
+  "components": {
+    "schemas": {
+      "IGoogleAds.IGenerateKeywordIdeaOutput": {
+        "type": "object",
+        "properties": {
+          "results": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/IGoogleAds.GeneratedKeyword"
+            },
+            "title": "Results List"
+          },
+          "totalSize": {
+            "type": "string",
+            "pattern": "^([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)$",
+            "title": "Total number of results"
+          },
+          "nextPageToken": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "title": "Token that can be used when viewing the next page",
+            "description": "If there is no next page, viewing is not possible"
+          }
+        },
+        "required": [
+          "results",
+          "totalSize"
+        ]
+      },
+      "IGoogleAds.GeneratedKeyword": {
+        "type": "object",
+        "properties": {
+          "keywordIdeaMetrics": {
+            "$ref": "#/components/schemas/IGoogleAds.KeywordIdeaMetrics",
+            "title": "Keyword metrics"
+          },
+          "text": {
+            "type": "string",
+            "title": "keyword"
+          }
+        },
+        "required": [
+          "keywordIdeaMetrics",
+          "text"
+        ]
+      },
+      "IGoogleAds.KeywordIdeaMetrics": {
+        "type": "object",
+        "properties": {
+          "competition": {
+            "oneOf": [
+              {
+                "const": "LOW"
+              },
+              {
+                "const": "MEDIUM"
+              },
+              {
+                "const": "HIGH"
+              }
+            ],
+            "title": "Competition level for search terms"
+          },
+          "monthlySearchVolumes": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/IGoogleAds.MonthlySearchVolumes"
+            },
+            "title": "Approximate number of searches this search term has been run on in the last 12 months"
+          },
+          "avgMonthlySearches": {
+            "type": "string",
+            "pattern": "^([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)$",
+            "title": "Approximate monthly searches for this search term over the past 12 months"
+          },
+          "competitionIndex": {
+            "type": "string",
+            "pattern": "^([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)$",
+            "title": "Competition Index"
+          },
+          "lowTopOfPageBidMicros": {
+            "type": "string",
+            "pattern": "^([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)$",
+            "title": "Keyword Micro Top Page Bid Subrange (20th Percentile)"
+          },
+          "highTopOfPageBidMicros": {
+            "type": "string",
+            "pattern": "^([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)$",
+            "title": "keyword detail page top bid (80th percentile)"
+          }
+        },
+        "required": [
+          "monthlySearchVolumes",
+          "avgMonthlySearches"
+        ]
+      },
+      "IGoogleAds.MonthlySearchVolumes": {
+        "type": "object",
+        "properties": {
+          "month": {
+            "oneOf": [
+              {
+                "const": "JANUARY"
+              },
+              {
+                "const": "FEBRUARY"
+              },
+              {
+                "const": "MARCH"
+              },
+              {
+                "const": "APRIL"
+              },
+              {
+                "const": "MAY"
+              },
+              {
+                "const": "JUNE"
+              },
+              {
+                "const": "JULY"
+              },
+              {
+                "const": "AUGUST"
+              },
+              {
+                "const": "SEPTEMBER"
+              },
+              {
+                "const": "OCTOBER"
+              },
+              {
+                "const": "NOVEMBER"
+              },
+              {
+                "const": "DECEMBER"
+              }
+            ],
+            "title": "The month in which the search volume occurred"
+          },
+          "year": {
+            "type": "string",
+            "title": "Year in which search volume occurred"
+          },
+          "monthlySearches": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string",
+                "pattern": "^([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)$"
+              }
+            ],
+            "title": "Approximate number of searches for the month",
+            "description": "A null value indicates that search volume for the month is not available."
+          }
+        },
+        "required": [
+          "month",
+          "year",
+          "monthlySearches"
+        ]
+      },
+      "IGoogleAds.IGenerateKeywordIdeaByKeywordsAndUrlInput": {
+        "type": "object",
+        "properties": {
+          "keywords": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "minItems": 1,
+            "title": "Search keywords for keyword generation"
+          },
+          "pageSize": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 10000,
+            "title": "Number of results per page"
+          },
+          "pageToken": {
+            "type": "string",
+            "title": "Next Page Token",
+            "description": "Use the page token that can be received from the previous request."
+          },
+          "customerId": {
+            "type": "string",
+            "pattern": "([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)",
+            "x-wrtn-placeholder": "1",
+            "x-wrtn-prerequisite": {
+              "method": "post",
+              "path": "connector/google-ads/get-customers",
+              "jmesPath": "[].{value:id, label:id}"
+            },
+            "title": "Customer Resource ID",
+            "description": "This is the customer's resource ID.\n\nIt means the remaining number format after removing 'customers/' from the `customers/${number}` format.\n\n`Wrtn`'s `google ads`-related connectors must receive the `customerId` property to determine which advertising account the customer has, that is, which advertising account among the customers, to use.\n\nSince most users have only one advertising account, if `customerId` is not provided as an argument, the advertising account that is retrieved as number 0 is used unconditionally.\n\nIf a user with two or more advertising accounts does not provide `customerId`, it is always considered a failure."
+          },
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "google",
+            "x-wrtn-secret-scopes": [
+              "https://www.googleapis.com/auth/adwords"
+            ],
+            "title": "Select authentication information",
+            "description": "secret key."
+          },
+          "url": {
+            "type": "string",
+            "title": "URL to reference when generating advertising keyword ideas"
+          }
+        },
+        "required": [
+          "keywords",
+          "secretKey",
+          "url"
+        ]
+      },
+      "IGoogleAds.IGenerateKeywordIdeaByKeywordsInput": {
+        "type": "object",
+        "properties": {
+          "keywords": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "minItems": 1,
+            "title": "Search keywords for keyword generation"
+          },
+          "pageSize": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 10000,
+            "title": "Number of results per page"
+          },
+          "pageToken": {
+            "type": "string",
+            "title": "Next Page Token",
+            "description": "Use the page token that can be received from the previous request."
+          },
+          "customerId": {
+            "type": "string",
+            "pattern": "([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)",
+            "x-wrtn-placeholder": "1",
+            "x-wrtn-prerequisite": {
+              "method": "post",
+              "path": "connector/google-ads/get-customers",
+              "jmesPath": "[].{value:id, label:id}"
+            },
+            "title": "Customer Resource ID",
+            "description": "This is the customer's resource ID.\n\nIt means the remaining number format after removing 'customers/' from the `customers/${number}` format.\n\n`Wrtn`'s `google ads`-related connectors must receive the `customerId` property to determine which advertising account the customer has, that is, which advertising account among the customers, to use.\n\nSince most users have only one advertising account, if `customerId` is not provided as an argument, the advertising account that is retrieved as number 0 is used unconditionally.\n\nIf a user with two or more advertising accounts does not provide `customerId`, it is always considered a failure."
+          },
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "google",
+            "x-wrtn-secret-scopes": [
+              "https://www.googleapis.com/auth/adwords"
+            ],
+            "title": "Select authentication information",
+            "description": "secret key."
+          }
+        },
+        "required": [
+          "keywords",
+          "secretKey"
+        ]
+      },
+      "IGoogleAds.IGenerateKeywordIdeaByURLInput": {
+        "type": "object",
+        "properties": {
+          "url": {
+            "type": "string",
+            "title": "URL to reference when generating advertising keyword ideas"
+          },
+          "pageSize": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 10000,
+            "title": "Number of results per page"
+          },
+          "pageToken": {
+            "type": "string",
+            "title": "Next Page Token",
+            "description": "Use the page token that can be received from the previous request."
+          },
+          "customerId": {
+            "type": "string",
+            "pattern": "([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)",
+            "x-wrtn-placeholder": "1",
+            "x-wrtn-prerequisite": {
+              "method": "post",
+              "path": "connector/google-ads/get-customers",
+              "jmesPath": "[].{value:id, label:id}"
+            },
+            "title": "Customer Resource ID",
+            "description": "This is the customer's resource ID.\n\nIt means the remaining number format after removing 'customers/' from the `customers/${number}` format.\n\n`Wrtn`'s `google ads`-related connectors must receive the `customerId` property to determine which advertising account the customer has, that is, which advertising account among the customers, to use.\n\nSince most users have only one advertising account, if `customerId` is not provided as an argument, the advertising account that is retrieved as number 0 is used unconditionally.\n\nIf a user with two or more advertising accounts does not provide `customerId`, it is always considered a failure."
+          },
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "google",
+            "x-wrtn-secret-scopes": [
+              "https://www.googleapis.com/auth/adwords"
+            ],
+            "title": "Select authentication information",
+            "description": "secret key."
+          }
+        },
+        "required": [
+          "url",
+          "secretKey"
+        ]
+      },
+      "IGoogleAds.ISecret": {
+        "type": "object",
+        "properties": {
+          "customerId": {
+            "type": "string",
+            "pattern": "([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)",
+            "x-wrtn-placeholder": "1",
+            "x-wrtn-prerequisite": {
+              "method": "post",
+              "path": "connector/google-ads/get-customers",
+              "jmesPath": "[].{value:id, label:id}"
+            },
+            "title": "Customer Resource ID",
+            "description": "This is the customer's resource ID.\n\nIt means the remaining number format after removing 'customers/' from the `customers/${number}` format.\n\n`Wrtn`'s `google ads`-related connectors must receive the `customerId` property to determine which advertising account the customer has, that is, which advertising account among the customers, to use.\n\nSince most users have only one advertising account, if `customerId` is not provided as an argument, the advertising account that is retrieved as number 0 is used unconditionally.\n\nIf a user with two or more advertising accounts does not provide `customerId`, it is always considered a failure."
+          },
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "google",
+            "x-wrtn-secret-scopes": [
+              "https://www.googleapis.com/auth/adwords"
+            ],
+            "title": "Select authentication information",
+            "description": "secret key."
+          }
+        },
+        "required": [
+          "secretKey"
+        ]
+      },
+      "IGoogleAds.CustomerClient": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)",
+            "x-wrtn-placeholder": "1",
+            "title": "Customer ID",
+            "description": "Each customer has a unique value."
+          },
+          "resourceName": {
+            "type": "string",
+            "pattern": "^(customers\\/[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?\\/customerClients\\/[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)$",
+            "title": "Customer Resource Name"
+          },
+          "descriptiveName": {
+            "type": "string",
+            "title": "Specified name"
+          },
+          "currencyCode": {
+            "type": "string",
+            "title": "Currency unit, currency code",
+            "description": "Means 'USD', 'EUR', 'KRW', etc."
+          }
+        },
+        "required": [
+          "id",
+          "resourceName",
+          "currencyCode"
+        ]
+      },
+      "IGoogleAds.IGetCustomerInput": {
+        "type": "object",
+        "properties": {
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "google",
+            "x-wrtn-secret-scopes": [
+              "https://www.googleapis.com/auth/adwords"
+            ],
+            "title": "Select authentication information",
+            "description": "secret key."
+          }
+        },
+        "required": [
+          "secretKey"
+        ]
+      },
+      "IGoogleAds.IGetCampaignsOutputResult": {
+        "type": "object",
+        "properties": {
+          "campaign": {
+            "$ref": "#/components/schemas/IGoogleAds.Campaign",
+            "title": "Campaign Information",
+            "description": "This refers to a google campaign information."
+          },
+          "campaignBudget": {
+            "$ref": "#/components/schemas/IGoogleAds.CampaignBudget",
+            "title": "Campaign Budget Information",
+            "description": "This refers to a campaign budget infomation."
+          }
+        },
+        "required": [
+          "campaign",
+          "campaignBudget"
+        ],
+        "title": "Campaign Information"
+      },
+      "IGoogleAds.Campaign": {
+        "type": "object",
+        "properties": {
+          "resourceName": {
+            "type": "string",
+            "pattern": "(customers\\/[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?\\/campaigns\\/[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)",
+            "x-wrtn-placeholder": "customers/1/campaigns/1",
+            "title": "Campaign Resource Name"
+          },
+          "status": {
+            "oneOf": [
+              {
+                "const": "ENABLED"
+              },
+              {
+                "const": "PAUSED"
+              },
+              {
+                "const": "REMOVED"
+              },
+              {
+                "const": "UNKNOWN"
+              },
+              {
+                "const": "UNSPECIFIED"
+              }
+            ],
+            "title": "Campaign Status"
+          },
+          "advertisingChannelType": {
+            "oneOf": [
+              {
+                "const": "DEMAND_GEN"
+              },
+              {
+                "const": "DISPLAY"
+              },
+              {
+                "const": "HOTEL"
+              },
+              {
+                "const": "LOCAL"
+              },
+              {
+                "const": "LOCAL_SERVICES"
+              },
+              {
+                "const": "MULTI_CHANNEL"
+              },
+              {
+                "const": "PERFORMANCE_MAX"
+              },
+              {
+                "const": "SEARCH"
+              },
+              {
+                "const": "SHOPPING"
+              },
+              {
+                "const": "SMART"
+              },
+              {
+                "const": "TRAVEL"
+              },
+              {
+                "const": "UNKNOWN"
+              },
+              {
+                "const": "UNSPECIFIED"
+              },
+              {
+                "const": "VIDEO"
+              }
+            ],
+            "title": "Campaign Advertising Channel"
+          },
+          "name": {
+            "type": "string",
+            "title": "Campaign Name"
+          },
+          "id": {
+            "type": "string",
+            "pattern": "([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)",
+            "x-wrtn-placeholder": "1",
+            "title": "Campaign ID"
+          },
+          "startDate": {
+            "type": "string",
+            "format": "date",
+            "title": "Campaign start date"
+          },
+          "endDate": {
+            "type": "string",
+            "format": "date",
+            "title": "Campaign End Date"
+          }
+        },
+        "required": [
+          "resourceName",
+          "status",
+          "advertisingChannelType",
+          "name",
+          "id",
+          "startDate",
+          "endDate"
+        ],
+        "title": "Google Ads Campaign"
+      },
+      "IGoogleAds.CampaignBudget": {
+        "type": "object",
+        "properties": {
+          "resourceName": {
+            "type": "string",
+            "pattern": "^(customers\\/[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?\\/campaignBudgets\\/[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)$",
+            "title": "Campaign Budget Resource Name"
+          },
+          "amountMicros": {
+            "type": "string",
+            "pattern": "^([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)$",
+            "title": "Budget (micro units)"
+          }
+        },
+        "required": [
+          "resourceName",
+          "amountMicros"
+        ]
+      },
+      "IGoogleAds.IGetAdGroupsOutputResult": {
+        "type": "object",
+        "properties": {
+          "campaign": {
+            "$ref": "#/components/schemas/MyPickIGoogleAds.CampaignidstatusresourceName",
+            "title": "campaign"
+          },
+          "adGroup": {
+            "$ref": "#/components/schemas/MyPickIGoogleAds.AdGroupidtyperesourceName",
+            "title": "Ad Group"
+          },
+          "adGroupAds": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/MyPickIGoogleAds.AdGroupAdresourceNamepolicySummary"
+            },
+            "title": "List of ads in ad group"
+          },
+          "keywords": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/DeepStrictMergeHelperIGoogleAds.KeywordMyPickIGoogleAds.AdGroupCriterionresourceNamecriterionId"
+            },
+            "title": "Keyword List"
+          }
+        },
+        "required": [
+          "campaign",
+          "adGroup",
+          "adGroupAds",
+          "keywords"
+        ]
+      },
+      "MyPickIGoogleAds.CampaignidstatusresourceName": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)",
+            "x-wrtn-placeholder": "1",
+            "title": "Campaign ID"
+          },
+          "status": {
+            "oneOf": [
+              {
+                "const": "ENABLED"
+              },
+              {
+                "const": "PAUSED"
+              },
+              {
+                "const": "REMOVED"
+              },
+              {
+                "const": "UNKNOWN"
+              },
+              {
+                "const": "UNSPECIFIED"
+              }
+            ],
+            "title": "Campaign Status"
+          },
+          "resourceName": {
+            "type": "string",
+            "pattern": "(customers\\/[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?\\/campaigns\\/[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)",
+            "x-wrtn-placeholder": "customers/1/campaigns/1",
+            "title": "Campaign Resource Name"
+          }
+        },
+        "required": [
+          "id",
+          "status",
+          "resourceName"
+        ]
+      },
+      "MyPickIGoogleAds.AdGroupidtyperesourceName": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)$",
+            "title": "ID of the advertising group"
+          },
+          "type": {
+            "oneOf": [
+              {
+                "const": "SEARCH_STANDARD"
+              },
+              {
+                "const": "DISPLAY_STANDARD"
+              }
+            ],
+            "title": "Type of ad group"
+          },
+          "resourceName": {
+            "type": "string",
+            "pattern": "(customers\\/[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?\\/adGroups\\/[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)",
+            "x-wrtn-placeholder": "customers/1/adGroups/1",
+            "title": "Ad Group Resource Name",
+            "description": "`customers/${number}/adGroups/${number}` format"
+          }
+        },
+        "required": [
+          "id",
+          "type",
+          "resourceName"
+        ]
+      },
+      "MyPickIGoogleAds.AdGroupAdresourceNamepolicySummary": {
+        "type": "object",
+        "properties": {
+          "resourceName": {
+            "type": "string",
+            "pattern": "(customers\\/[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?\\/adGroupAds\\/[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?~[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)",
+            "x-wrtn-placeholder": "customers/1/adGroupAds/1~1",
+            "title": "Resource name of the ad group ad",
+            "description": "`customers/${number}/adGroupAds/${number}~${number}` format"
+          },
+          "policySummary": {
+            "type": "object",
+            "properties": {
+              "approvalStatus": {
+                "oneOf": [
+                  {
+                    "const": "APPROVED"
+                  },
+                  {
+                    "const": "APPROVED_LIMITED"
+                  },
+                  {
+                    "const": "AREA_OF_INTEREST_ONLY"
+                  },
+                  {
+                    "const": "DISAPPROVED"
+                  },
+                  {
+                    "const": "UNKNOWN"
+                  },
+                  {
+                    "const": "UNSPECIFIED"
+                  }
+                ],
+                "title": "Ad approval status",
+                "description": "This is Google's decision on whether or not the ad can be sent."
+              },
+              "reviewStatus": {
+                "oneOf": [
+                  {
+                    "const": "ELIGIBLE_MAY_SERVE"
+                  },
+                  {
+                    "const": "REVIEWED"
+                  },
+                  {
+                    "const": "REVIEW_IN_PROGRESS"
+                  },
+                  {
+                    "const": "UNDER_APPEAL"
+                  },
+                  {
+                    "const": "UNKNOWN"
+                  },
+                  {
+                    "const": "UNSPECIFIED"
+                  }
+                ],
+                "title": "Ad Review Status",
+                "description": "Only ads that have been reviewed can see whether they have been approved or disapproved."
+              }
+            },
+            "required": [
+              "approvalStatus",
+              "reviewStatus"
+            ],
+            "title": "Evaluation of advertising review and policies"
+          }
+        },
+        "required": [
+          "resourceName",
+          "policySummary"
+        ]
+      },
+      "DeepStrictMergeHelperIGoogleAds.KeywordMyPickIGoogleAds.AdGroupCriterionresourceNamecriterionId": {
+        "type": "object",
+        "properties": {
+          "text": {
+            "type": "string"
+          },
+          "resourceName": {
+            "type": "string",
+            "pattern": "(customers\\/(.*)\\/adGroupCriteria\\/[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?~[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)",
+            "x-wrtn-placeholder": "customers/1/adGroupCriteria/1"
+          },
+          "criterionId": {
+            "type": "string",
+            "pattern": "^([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)$"
+          },
+          "matchType": {
+            "oneOf": [
+              {
+                "const": "UNSPECIFIED"
+              },
+              {
+                "const": "UNKNOWN"
+              },
+              {
+                "const": "EXACT"
+              },
+              {
+                "const": "PHRASE"
+              },
+              {
+                "const": "BROAD"
+              }
+            ]
+          }
+        },
+        "required": [
+          "text",
+          "resourceName",
+          "criterionId",
+          "matchType"
+        ]
+      },
+      "IGoogleAds.IGetAdGroupInput": {
+        "type": "object",
+        "properties": {
+          "campaignId": {
+            "type": "string",
+            "pattern": "([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)",
+            "x-wrtn-placeholder": "1",
+            "x-wrtn-prerequisite": {
+              "method": "post",
+              "path": "connector/google-ads/get-campaigns",
+              "jmesPath": "[].campaign.{value:name, label:id}"
+            },
+            "title": "ID of the parent campaign",
+            "description": "If you only want to search for the ID of the campaign"
+          },
+          "adGroupResourceName": {
+            "type": "string",
+            "pattern": "(customers\\/[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?\\/adGroups\\/[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)",
+            "x-wrtn-placeholder": "customers/1/adGroups/1",
+            "title": "Resource name of the ad group",
+            "description": "If you want to search only by the ad group resource name"
+          },
+          "customerId": {
+            "type": "string",
+            "pattern": "([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)",
+            "x-wrtn-placeholder": "1",
+            "x-wrtn-prerequisite": {
+              "method": "post",
+              "path": "connector/google-ads/get-customers",
+              "jmesPath": "[].{value:id, label:id}"
+            },
+            "title": "Customer Resource ID",
+            "description": "This is the customer's resource ID.\n\nIt means the remaining number format after removing 'customers/' from the `customers/${number}` format.\n\n`Wrtn`'s `google ads`-related connectors must receive the `customerId` property to determine which advertising account the customer has, that is, which advertising account among the customers, to use.\n\nSince most users have only one advertising account, if `customerId` is not provided as an argument, the advertising account that is retrieved as number 0 is used unconditionally.\n\nIf a user with two or more advertising accounts does not provide `customerId`, it is always considered a failure."
+          },
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "google",
+            "x-wrtn-secret-scopes": [
+              "https://www.googleapis.com/auth/adwords"
+            ],
+            "title": "Select authentication information",
+            "description": "secret key."
+          }
+        },
+        "required": [
+          "secretKey"
+        ]
+      },
+      "MyPickIGoogleAds.AdGroupAdstatusresourceNamepolicySummary": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "oneOf": [
+              {
+                "const": "ENABLED"
+              },
+              {
+                "const": "PAUSED"
+              },
+              {
+                "const": "REMOVED"
+              },
+              {
+                "const": "UNKNOWN"
+              },
+              {
+                "const": "UNSPECIFIED"
+              }
+            ],
+            "title": "Status of the ad"
+          },
+          "resourceName": {
+            "type": "string",
+            "pattern": "(customers\\/[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?\\/adGroupAds\\/[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?~[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)",
+            "x-wrtn-placeholder": "customers/1/adGroupAds/1~1",
+            "title": "Resource name of the ad group ad",
+            "description": "`customers/${number}/adGroupAds/${number}~${number}` format"
+          },
+          "policySummary": {
+            "type": "object",
+            "properties": {
+              "approvalStatus": {
+                "oneOf": [
+                  {
+                    "const": "APPROVED"
+                  },
+                  {
+                    "const": "APPROVED_LIMITED"
+                  },
+                  {
+                    "const": "AREA_OF_INTEREST_ONLY"
+                  },
+                  {
+                    "const": "DISAPPROVED"
+                  },
+                  {
+                    "const": "UNKNOWN"
+                  },
+                  {
+                    "const": "UNSPECIFIED"
+                  }
+                ],
+                "title": "Ad approval status",
+                "description": "This is Google's decision on whether or not the ad can be sent."
+              },
+              "reviewStatus": {
+                "oneOf": [
+                  {
+                    "const": "ELIGIBLE_MAY_SERVE"
+                  },
+                  {
+                    "const": "REVIEWED"
+                  },
+                  {
+                    "const": "REVIEW_IN_PROGRESS"
+                  },
+                  {
+                    "const": "UNDER_APPEAL"
+                  },
+                  {
+                    "const": "UNKNOWN"
+                  },
+                  {
+                    "const": "UNSPECIFIED"
+                  }
+                ],
+                "title": "Ad Review Status",
+                "description": "Only ads that have been reviewed can see whether they have been approved or disapproved."
+              }
+            },
+            "required": [
+              "approvalStatus",
+              "reviewStatus"
+            ],
+            "title": "Evaluation of advertising review and policies"
+          }
+        },
+        "required": [
+          "status",
+          "resourceName",
+          "policySummary"
+        ]
+      },
+      "IGoogleAds.IGetAdGroupAdInput": {
+        "type": "object",
+        "properties": {
+          "adGroupAdResourceName": {
+            "type": "string",
+            "pattern": "(customers\\/[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?\\/adGroupAds\\/[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?~[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)",
+            "x-wrtn-placeholder": "customers/1/adGroupAds/1~1",
+            "x-wrtn-prerequisite": {
+              "method": "post",
+              "path": "connector/google-ads/get-ads",
+              "jmesPath": "[].{value:resourceName, label:resourceName}"
+            },
+            "title": "Resource name of the ad group ad"
+          },
+          "customerId": {
+            "type": "string",
+            "pattern": "([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)",
+            "x-wrtn-placeholder": "1",
+            "x-wrtn-prerequisite": {
+              "method": "post",
+              "path": "connector/google-ads/get-customers",
+              "jmesPath": "[].{value:id, label:id}"
+            },
+            "title": "Customer Resource ID",
+            "description": "This is the customer's resource ID.\n\nIt means the remaining number format after removing 'customers/' from the `customers/${number}` format.\n\n`Wrtn`'s `google ads`-related connectors must receive the `customerId` property to determine which advertising account the customer has, that is, which advertising account among the customers, to use.\n\nSince most users have only one advertising account, if `customerId` is not provided as an argument, the advertising account that is retrieved as number 0 is used unconditionally.\n\nIf a user with two or more advertising accounts does not provide `customerId`, it is always considered a failure."
+          },
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "google",
+            "x-wrtn-secret-scopes": [
+              "https://www.googleapis.com/auth/adwords"
+            ],
+            "title": "Select authentication information",
+            "description": "secret key."
+          }
+        },
+        "required": [
+          "secretKey"
+        ]
+      },
+      "IGoogleAds.IGetMetricOutputResult": {
+        "type": "object",
+        "properties": {
+          "metrics": {
+            "type": "object",
+            "properties": {
+              "impressions": {
+                "type": "string",
+                "pattern": "^([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)$",
+                "title": "Number of exposures"
+              },
+              "clicks": {
+                "type": "string",
+                "pattern": "^([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)$",
+                "title": "Clicks"
+              },
+              "costMicros": {
+                "type": "string",
+                "pattern": "^([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)$",
+                "title": "Advertising Spend (in micro units)",
+                "description": "KRW value expressed in 1/1,000,000"
+              },
+              "videoViews": {
+                "type": "string",
+                "pattern": "^([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)$",
+                "title": "Video View"
+              },
+              "averagePageViews": {
+                "type": "string",
+                "pattern": "^([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)$",
+                "title": "Average Page Views"
+              },
+              "videoQuartileP25Rate": {
+                "type": "string",
+                "pattern": "^([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)$",
+                "title": "25% of the videos were viewed"
+              },
+              "videoQuartileP50Rate": {
+                "type": "string",
+                "pattern": "^([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)$",
+                "title": "50% of the video was viewed"
+              },
+              "videoQuartileP75Rate": {
+                "type": "string",
+                "pattern": "^([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)$",
+                "title": "75% of the videos were viewed"
+              },
+              "videoQuartileP100Rate": {
+                "type": "string",
+                "pattern": "^([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)$",
+                "title": "100% of the video has been viewed"
+              }
+            },
+            "required": [
+              "impressions",
+              "clicks",
+              "costMicros",
+              "videoViews"
+            ]
+          },
+          "adGroupAd": {
+            "$ref": "#/components/schemas/MyPickIGoogleAds.AdGroupAdresourceName"
+          }
+        },
+        "required": [
+          "metrics",
+          "adGroupAd"
+        ]
+      },
+      "MyPickIGoogleAds.AdGroupAdresourceName": {
+        "type": "object",
+        "properties": {
+          "resourceName": {
+            "type": "string",
+            "pattern": "(customers\\/[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?\\/adGroupAds\\/[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?~[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)",
+            "x-wrtn-placeholder": "customers/1/adGroupAds/1~1",
+            "title": "Resource name of the ad group ad",
+            "description": "`customers/${number}/adGroupAds/${number}~${number}` format"
+          }
+        },
+        "required": [
+          "resourceName"
+        ]
+      },
+      "IGoogleAds.IGetMetricInput": {
+        "type": "object",
+        "properties": {
+          "date": {
+            "type": "string",
+            "format": "date",
+            "title": "Statistics query date"
+          },
+          "customerId": {
+            "type": "string",
+            "pattern": "([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)",
+            "x-wrtn-placeholder": "1",
+            "x-wrtn-prerequisite": {
+              "method": "post",
+              "path": "connector/google-ads/get-customers",
+              "jmesPath": "[].{value:id, label:id}"
+            },
+            "title": "Customer Resource ID",
+            "description": "This is the customer's resource ID.\n\nIt means the remaining number format after removing 'customers/' from the `customers/${number}` format.\n\n`Wrtn`'s `google ads`-related connectors must receive the `customerId` property to determine which advertising account the customer has, that is, which advertising account among the customers, to use.\n\nSince most users have only one advertising account, if `customerId` is not provided as an argument, the advertising account that is retrieved as number 0 is used unconditionally.\n\nIf a user with two or more advertising accounts does not provide `customerId`, it is always considered a failure."
+          },
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "google",
+            "x-wrtn-secret-scopes": [
+              "https://www.googleapis.com/auth/adwords"
+            ],
+            "title": "Select authentication information",
+            "description": "secret key."
+          }
+        },
+        "required": [
+          "date",
+          "secretKey"
+        ]
+      },
+      "IGoogleAds.IGetKeywordsOutputResult": {
+        "type": "object",
+        "properties": {
+          "adGroupCriterion": {
+            "$ref": "#/components/schemas/MyPickAdGroupCriteriontypestatuskeywordresourceNamecriterionIdKeyword"
+          }
+        },
+        "required": [
+          "adGroupCriterion"
+        ]
+      },
+      "MyPickAdGroupCriteriontypestatuskeywordresourceNamecriterionIdKeyword": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "const": "KEYWORD",
+            "title": "type"
+          },
+          "status": {
+            "oneOf": [
+              {
+                "const": "ENABLED"
+              },
+              {
+                "const": "PAUSED"
+              },
+              {
+                "const": "REMOVED"
+              },
+              {
+                "const": "UNKNOWN"
+              },
+              {
+                "const": "UNSPECIFIED"
+              }
+            ],
+            "title": "Ad Group Standard Status"
+          },
+          "keyword": {
+            "$ref": "#/components/schemas/IGoogleAds.Keyword",
+            "title": "keyword"
+          },
+          "resourceName": {
+            "type": "string",
+            "pattern": "(customers\\/(.*)\\/adGroupCriteria\\/[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?~[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)",
+            "x-wrtn-placeholder": "customers/1/adGroupCriteria/1",
+            "title": "Ad Group Standard Resource Name",
+            "description": "Format: `customers/${number}/adGroupCriteria/number~${number}`"
+          },
+          "criterionId": {
+            "type": "string",
+            "pattern": "^([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)$",
+            "title": "Ad Group Standard ID",
+            "description": "Ad Group Standard ID"
+          },
+          "text": {
+            "type": "string",
+            "title": "Keyword Text"
+          },
+          "matchType": {
+            "oneOf": [
+              {
+                "const": "UNSPECIFIED"
+              },
+              {
+                "const": "UNKNOWN"
+              },
+              {
+                "const": "EXACT"
+              },
+              {
+                "const": "PHRASE"
+              },
+              {
+                "const": "BROAD"
+              }
+            ],
+            "title": "Keyword Match Type",
+            "description": "Keyword Match Type"
+          }
+        },
+        "required": [
+          "type",
+          "status",
+          "keyword",
+          "resourceName",
+          "criterionId",
+          "text",
+          "matchType"
+        ]
+      },
+      "IGoogleAds.Keyword": {
+        "type": "object",
+        "properties": {
+          "text": {
+            "type": "string",
+            "title": "Keyword Text"
+          },
+          "matchType": {
+            "oneOf": [
+              {
+                "const": "UNSPECIFIED"
+              },
+              {
+                "const": "UNKNOWN"
+              },
+              {
+                "const": "EXACT"
+              },
+              {
+                "const": "PHRASE"
+              },
+              {
+                "const": "BROAD"
+              }
+            ],
+            "title": "Keyword Match Type",
+            "description": "Keyword Match Type"
+          }
+        },
+        "required": [
+          "text",
+          "matchType"
+        ]
+      },
+      "IGoogleAds.IGetKeywordsInput": {
+        "type": "object",
+        "properties": {
+          "adGroupResourceName": {
+            "type": "string",
+            "pattern": "(customers\\/[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?\\/adGroups\\/[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)",
+            "x-wrtn-placeholder": "customers/1/adGroups/1",
+            "x-wrtn-prerequisite": {
+              "method": "post",
+              "path": "connector/google-ads/get-ad-groups",
+              "jmesPath": "[].adGroup.{value:resourceName, label:resourceName}"
+            },
+            "title": "Ad Group Resource Name",
+            "description": "Ad Group Resource Name"
+          },
+          "customerId": {
+            "type": "string",
+            "pattern": "([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)",
+            "x-wrtn-placeholder": "1",
+            "x-wrtn-prerequisite": {
+              "method": "post",
+              "path": "connector/google-ads/get-customers",
+              "jmesPath": "[].{value:id, label:id}"
+            },
+            "title": "Customer Resource ID",
+            "description": "This is the customer's resource ID.\n\nIt means the remaining number format after removing 'customers/' from the `customers/${number}` format.\n\n`Wrtn`'s `google ads`-related connectors must receive the `customerId` property to determine which advertising account the customer has, that is, which advertising account among the customers, to use.\n\nSince most users have only one advertising account, if `customerId` is not provided as an argument, the advertising account that is retrieved as number 0 is used unconditionally.\n\nIf a user with two or more advertising accounts does not provide `customerId`, it is always considered a failure."
+          },
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "google",
+            "x-wrtn-secret-scopes": [
+              "https://www.googleapis.com/auth/adwords"
+            ],
+            "title": "Select authentication information",
+            "description": "secret key."
+          }
+        },
+        "required": [
+          "adGroupResourceName",
+          "secretKey"
+        ],
+        "title": "Keyword search conditions"
+      },
+      "IGoogleAds.ISetOnOffInput": {
+        "type": "object",
+        "properties": {
+          "adGroupAdResourceName": {
+            "type": "string",
+            "pattern": "(customers\\/[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?\\/adGroupAds\\/[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?~[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)",
+            "x-wrtn-placeholder": "customers/1/adGroupAds/1~1",
+            "x-wrtn-prerequisite": {
+              "method": "post",
+              "path": "connector/google-ads/get-ads",
+              "jmesPath": "[].{value:resourceName, label:resourceName}"
+            },
+            "title": "Resource name of the ad group ad"
+          },
+          "status": {
+            "oneOf": [
+              {
+                "const": "ENABLED"
+              },
+              {
+                "const": "PAUSED"
+              }
+            ],
+            "title": "Ad Status"
+          },
+          "customerId": {
+            "type": "string",
+            "pattern": "([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)",
+            "x-wrtn-placeholder": "1",
+            "x-wrtn-prerequisite": {
+              "method": "post",
+              "path": "connector/google-ads/get-customers",
+              "jmesPath": "[].{value:id, label:id}"
+            },
+            "title": "Customer Resource ID",
+            "description": "This is the customer's resource ID.\n\nIt means the remaining number format after removing 'customers/' from the `customers/${number}` format.\n\n`Wrtn`'s `google ads`-related connectors must receive the `customerId` property to determine which advertising account the customer has, that is, which advertising account among the customers, to use.\n\nSince most users have only one advertising account, if `customerId` is not provided as an argument, the advertising account that is retrieved as number 0 is used unconditionally.\n\nIf a user with two or more advertising accounts does not provide `customerId`, it is always considered a failure."
+          },
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "google",
+            "x-wrtn-secret-scopes": [
+              "https://www.googleapis.com/auth/adwords"
+            ],
+            "title": "Select authentication information",
+            "description": "secret key."
+          }
+        },
+        "required": [
+          "adGroupAdResourceName",
+          "status",
+          "secretKey"
+        ]
+      },
+      "IGoogleAds.IDeleteAdGroupCriteriaInput": {
+        "type": "object",
+        "properties": {
+          "resourceNames": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "pattern": "(customers\\/(.*)\\/adGroupCriteria\\/[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?~[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)",
+              "x-wrtn-placeholder": "customers/1/adGroupCriteria/1",
+              "x-wrtn-prerequisite": {
+                "method": "post",
+                "path": "connector/google-ads/get-keywords",
+                "jmesPath": "[].adGroupCriterion.{value:resourceName, label:text}"
+              }
+            },
+            "title": "ID of the keyword to be deleted"
+          },
+          "customerId": {
+            "type": "string",
+            "pattern": "([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)",
+            "x-wrtn-placeholder": "1",
+            "x-wrtn-prerequisite": {
+              "method": "post",
+              "path": "connector/google-ads/get-customers",
+              "jmesPath": "[].{value:id, label:id}"
+            },
+            "title": "Customer Resource ID",
+            "description": "This is the customer's resource ID.\n\nIt means the remaining number format after removing 'customers/' from the `customers/${number}` format.\n\n`Wrtn`'s `google ads`-related connectors must receive the `customerId` property to determine which advertising account the customer has, that is, which advertising account among the customers, to use.\n\nSince most users have only one advertising account, if `customerId` is not provided as an argument, the advertising account that is retrieved as number 0 is used unconditionally.\n\nIf a user with two or more advertising accounts does not provide `customerId`, it is always considered a failure."
+          },
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "google",
+            "x-wrtn-secret-scopes": [
+              "https://www.googleapis.com/auth/adwords"
+            ],
+            "title": "Select authentication information",
+            "description": "secret key."
+          }
+        },
+        "required": [
+          "resourceNames",
+          "secretKey"
+        ],
+        "title": "Keyword deletion condition"
+      },
+      "IGoogleAds.ICreateAdGroupCriteriaInput": {
+        "type": "object",
+        "properties": {
+          "adGroupResourceName": {
+            "type": "string",
+            "pattern": "(customers\\/[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?\\/adGroups\\/[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)",
+            "x-wrtn-placeholder": "customers/1/adGroups/1",
+            "x-wrtn-prerequisite": {
+              "method": "post",
+              "path": "connector/google-ads/get-ad-groups",
+              "jmesPath": "[].adGroup.{value:resourceName, label:resourceName}"
+            },
+            "title": "Resource name of the ad group to which you want to add the keyword"
+          },
+          "keywords": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "title": "Keyword to generate"
+          },
+          "customerId": {
+            "type": "string",
+            "pattern": "([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)",
+            "x-wrtn-placeholder": "1",
+            "x-wrtn-prerequisite": {
+              "method": "post",
+              "path": "connector/google-ads/get-customers",
+              "jmesPath": "[].{value:id, label:id}"
+            },
+            "title": "Customer Resource ID",
+            "description": "This is the customer's resource ID.\n\nIt means the remaining number format after removing 'customers/' from the `customers/${number}` format.\n\n`Wrtn`'s `google ads`-related connectors must receive the `customerId` property to determine which advertising account the customer has, that is, which advertising account among the customers, to use.\n\nSince most users have only one advertising account, if `customerId` is not provided as an argument, the advertising account that is retrieved as number 0 is used unconditionally.\n\nIf a user with two or more advertising accounts does not provide `customerId`, it is always considered a failure."
+          },
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "google",
+            "x-wrtn-secret-scopes": [
+              "https://www.googleapis.com/auth/adwords"
+            ],
+            "title": "Select authentication information",
+            "description": "secret key."
+          }
+        },
+        "required": [
+          "adGroupResourceName",
+          "keywords",
+          "secretKey"
+        ]
+      },
+      "IGoogleAds.IGetAdGroupAdDetailOutput": {
+        "type": "object",
+        "properties": {
+          "resourceName": {
+            "type": "string",
+            "pattern": "(customers\\/[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?\\/adGroupAds\\/[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?~[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)",
+            "x-wrtn-placeholder": "customers/1/adGroupAds/1~1",
+            "title": "Resource name of the ad group ad"
+          },
+          "status": {
+            "oneOf": [
+              {
+                "const": "ENABLED"
+              },
+              {
+                "const": "PAUSED"
+              },
+              {
+                "const": "REMOVED"
+              },
+              {
+                "const": "UNKNOWN"
+              },
+              {
+                "const": "UNSPECIFIED"
+              }
+            ],
+            "title": "Current status of advertising"
+          },
+          "ad": {
+            "type": "object",
+            "properties": {
+              "resourceName": {
+                "type": "string",
+                "pattern": "^(customers\\/[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?\\/ads\\/[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)$",
+                "title": "Resource name of the advertisement"
+              },
+              "detail": {
+                "oneOf": [
+                  {
+                    "$ref": "#/components/schemas/IGoogleAds.ResponsiveSearchAd"
+                  },
+                  {
+                    "$ref": "#/components/schemas/IGoogleAds.ResponsiveDisplayAd"
+                  }
+                ],
+                "title": "Advertising material information"
+              }
+            },
+            "required": [
+              "resourceName",
+              "detail"
+            ],
+            "title": "Viewed Ad History"
+          }
+        },
+        "required": [
+          "resourceName",
+          "status",
+          "ad"
+        ]
+      },
+      "IGoogleAds.ResponsiveSearchAd": {
+        "type": "object",
+        "properties": {
+          "descriptions": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "text": {
+                  "type": "string",
+                  "title": "Registered description"
+                }
+              },
+              "required": [
+                "text"
+              ]
+            },
+            "title": "Description List"
+          },
+          "headlines": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "text": {
+                  "type": "string",
+                  "title": "Registered title"
+                }
+              },
+              "required": [
+                "text"
+              ]
+            },
+            "title": "List of titles"
+          }
+        },
+        "required": [
+          "descriptions",
+          "headlines"
+        ]
+      },
+      "IGoogleAds.ResponsiveDisplayAd": {
+        "type": "object",
+        "properties": {
+          "longHeadline": {
+            "title": "long title"
+          },
+          "businessName": {
+            "title": "Brand Name"
+          },
+          "marketingImages": {},
+          "squareMarketingImages": {},
+          "squareLogoImages": {},
+          "descriptions": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "text": {
+                  "type": "string",
+                  "title": "Registered description"
+                }
+              },
+              "required": [
+                "text"
+              ]
+            },
+            "title": "Description List"
+          },
+          "headlines": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "text": {
+                  "type": "string",
+                  "title": "Registered title"
+                }
+              },
+              "required": [
+                "text"
+              ]
+            },
+            "title": "List of titles"
+          }
+        },
+        "required": [
+          "longHeadline",
+          "businessName",
+          "marketingImages",
+          "squareMarketingImages",
+          "squareLogoImages",
+          "descriptions",
+          "headlines"
+        ]
+      },
+      "IGoogleAds.IGetAdGroupAdDetailInput": {
+        "type": "object",
+        "properties": {
+          "adGroupAdResourceName": {
+            "type": "string",
+            "pattern": "(customers\\/[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?\\/adGroupAds\\/[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?~[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)",
+            "x-wrtn-placeholder": "customers/1/adGroupAds/1~1",
+            "x-wrtn-prerequisite": {
+              "method": "post",
+              "path": "connector/google-ads/get-ads",
+              "jmesPath": "[].{value:resourceName, label:resourceName}"
+            },
+            "title": "Resource name of the ad group ad"
+          },
+          "customerId": {
+            "type": "string",
+            "pattern": "([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)",
+            "x-wrtn-placeholder": "1",
+            "x-wrtn-prerequisite": {
+              "method": "post",
+              "path": "connector/google-ads/get-customers",
+              "jmesPath": "[].{value:id, label:id}"
+            },
+            "title": "Customer Resource ID",
+            "description": "This is the customer's resource ID.\n\nIt means the remaining number format after removing 'customers/' from the `customers/${number}` format.\n\n`Wrtn`'s `google ads`-related connectors must receive the `customerId` property to determine which advertising account the customer has, that is, which advertising account among the customers, to use.\n\nSince most users have only one advertising account, if `customerId` is not provided as an argument, the advertising account that is retrieved as number 0 is used unconditionally.\n\nIf a user with two or more advertising accounts does not provide `customerId`, it is always considered a failure."
+          },
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "google",
+            "x-wrtn-secret-scopes": [
+              "https://www.googleapis.com/auth/adwords"
+            ],
+            "title": "Select authentication information",
+            "description": "secret key."
+          }
+        },
+        "required": [
+          "adGroupAdResourceName",
+          "secretKey"
+        ]
+      },
+      "ISecretICreateAdGroupSearchAdInput": {
+        "type": "object",
+        "properties": {
+          "customerId": {
+            "type": "string",
+            "pattern": "([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)",
+            "x-wrtn-placeholder": "1",
+            "x-wrtn-prerequisite": {
+              "method": "post",
+              "path": "connector/google-ads/get-customers",
+              "jmesPath": "[].{value:id, label:id}"
+            },
+            "title": "Customer Resource ID",
+            "description": "This is the customer's resource ID.\n\nIt means the remaining number format after removing 'customers/' from the `customers/${number}` format.\n\n`Wrtn`'s `google ads`-related connectors must receive the `customerId` property to determine which advertising account the customer has, that is, which advertising account among the customers, to use.\n\nSince most users have only one advertising account, if `customerId` is not provided as an argument, the advertising account that is retrieved as number 0 is used unconditionally.\n\nIf a user with two or more advertising accounts does not provide `customerId`, it is always considered a failure."
+          },
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "google",
+            "x-wrtn-secret-scopes": [
+              "https://www.googleapis.com/auth/adwords"
+            ],
+            "title": "Select authentication information",
+            "description": "secret key."
+          },
+          "finalUrl": {
+            "type": "string",
+            "format": "iri",
+            "title": "Homepage that is the target of the advertisement"
+          },
+          "headlines": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 30
+            },
+            "minItems": 1,
+            "maxItems": 15,
+            "title": "title list"
+          },
+          "descriptions": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 90
+            },
+            "minItems": 1,
+            "maxItems": 4,
+            "title": "Description List"
+          },
+          "type": {
+            "const": "SEARCH_STANDARD",
+            "title": "Ad Group Type"
+          },
+          "campaignResourceName": {
+            "type": "string",
+            "pattern": "(customers\\/[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?\\/campaigns\\/[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)",
+            "x-wrtn-placeholder": "customers/1/campaigns/1",
+            "x-wrtn-prerequisite": {
+              "method": "post",
+              "path": "connector/google-ads/get-campaigns",
+              "jmesPath": "[].campaign.{value:name, label:id}"
+            },
+            "title": "Campaign Resource Name"
+          },
+          "keywords": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "title": "Keyword to generate"
+          }
+        },
+        "required": [
+          "customerId",
+          "secretKey",
+          "finalUrl",
+          "headlines",
+          "descriptions",
+          "type",
+          "campaignResourceName",
+          "keywords"
+        ]
+      },
+      "ISecretICreateAdGroupDisplayAdInput": {
+        "type": "object",
+        "properties": {
+          "customerId": {
+            "type": "string",
+            "pattern": "([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)",
+            "x-wrtn-placeholder": "1",
+            "x-wrtn-prerequisite": {
+              "method": "post",
+              "path": "connector/google-ads/get-customers",
+              "jmesPath": "[].{value:id, label:id}"
+            },
+            "title": "Customer Resource ID",
+            "description": "This is the customer's resource ID.\n\nIt means the remaining number format after removing 'customers/' from the `customers/${number}` format.\n\n`Wrtn`'s `google ads`-related connectors must receive the `customerId` property to determine which advertising account the customer has, that is, which advertising account among the customers, to use.\n\nSince most users have only one advertising account, if `customerId` is not provided as an argument, the advertising account that is retrieved as number 0 is used unconditionally.\n\nIf a user with two or more advertising accounts does not provide `customerId`, it is always considered a failure."
+          },
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "google",
+            "x-wrtn-secret-scopes": [
+              "https://www.googleapis.com/auth/adwords"
+            ],
+            "title": "Select authentication information",
+            "description": "secret key."
+          },
+          "finalUrl": {
+            "type": "string",
+            "format": "iri",
+            "title": "Homepage that is the target of the advertisement"
+          },
+          "headlines": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 30
+            },
+            "minItems": 1,
+            "maxItems": 5,
+            "title": "List of short titles"
+          },
+          "longHeadline": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 90,
+            "title": "long title"
+          },
+          "descriptions": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 90
+            },
+            "minItems": 1,
+            "maxItems": 5,
+            "title": "Description List"
+          },
+          "businessName": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 25,
+            "title": "Business and Brand Name"
+          },
+          "landscapeImages": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "uri",
+              "contentMediaType": "image/*"
+            },
+            "minItems": 1,
+            "maxItems": 15,
+            "title": "Landscape image",
+            "description": "Landscape image with 1.91:1 resolution, recommended 5 frames"
+          },
+          "logoImages": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "uri",
+              "contentMediaType": "image/*"
+            },
+            "minItems": 1,
+            "maxItems": 5,
+            "title": "Logo image",
+            "description": "Square image, minimum size 128x128px, recommended 1200x1200px"
+          },
+          "squareImages": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "uri",
+              "contentMediaType": "image/*"
+            },
+            "minItems": 1,
+            "maxItems": 15,
+            "title": "Square image",
+            "description": "A landscape image with a 1.91:1 aspect ratio, with a minimum size of 300x300px, and a recommended size of 600x600px."
+          },
+          "type": {
+            "const": "DISPLAY_STANDARD",
+            "title": "Ad Group Type"
+          },
+          "campaignResourceName": {
+            "type": "string",
+            "pattern": "(customers\\/[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?\\/campaigns\\/[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)",
+            "x-wrtn-placeholder": "customers/1/campaigns/1",
+            "x-wrtn-prerequisite": {
+              "method": "post",
+              "path": "connector/google-ads/get-campaigns",
+              "jmesPath": "[].campaign.{value:name, label:id}"
+            },
+            "title": "Campaign Resource Name"
+          },
+          "keywords": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "title": "Keyword to generate"
+          }
+        },
+        "required": [
+          "customerId",
+          "secretKey",
+          "finalUrl",
+          "headlines",
+          "longHeadline",
+          "descriptions",
+          "businessName",
+          "landscapeImages",
+          "logoImages",
+          "squareImages",
+          "type",
+          "campaignResourceName",
+          "keywords"
+        ]
+      },
+      "IGoogleAds.IUpdateCampaignInput": {
+        "type": "object",
+        "properties": {
+          "campaignResourceName": {
+            "type": "string",
+            "pattern": "(customers\\/[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?\\/campaigns\\/[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)",
+            "x-wrtn-placeholder": "customers/1/campaigns/1",
+            "x-wrtn-prerequisite": {
+              "method": "post",
+              "path": "connector/google-ads/get-campaigns",
+              "jmesPath": "[].campaign.{value:name, label:id}"
+            },
+            "title": "Resource ID of the campaign to be modified"
+          },
+          "campaignName": {
+            "type": "string",
+            "title": "Campaign Name\n\nIf the name is left blank, a random name will be generated. The name must not be the same as a previously created campaign."
+          },
+          "campaignBudget": {
+            "type": "number",
+            "maximum": 100000,
+            "title": "Advertising Budget",
+            "description": "Korean currency unit, Won\n\nOriginally, there is no limit on the amount, but in preparation for an emergency, the function is currently limited to 100,000 won per campaign."
+          },
+          "endDate": {
+            "type": "string",
+            "format": "date",
+            "title": "Campaign End Time"
+          },
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "google",
+            "x-wrtn-secret-scopes": [
+              "https://www.googleapis.com/auth/adwords"
+            ],
+            "title": "Select authentication information",
+            "description": "secret key."
+          },
+          "customerId": {
+            "type": "string",
+            "pattern": "([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)",
+            "x-wrtn-placeholder": "1",
+            "x-wrtn-prerequisite": {
+              "method": "post",
+              "path": "connector/google-ads/get-customers",
+              "jmesPath": "[].{value:id, label:id}"
+            },
+            "title": "Customer Resource ID",
+            "description": "This is the customer's resource ID.\n\nIt means the remaining number format after removing 'customers/' from the `customers/${number}` format.\n\n`Wrtn`'s `google ads`-related connectors must receive the `customerId` property to determine which advertising account the customer has, that is, which advertising account among the customers, to use.\n\nSince most users have only one advertising account, if `customerId` is not provided as an argument, the advertising account that is retrieved as number 0 is used unconditionally.\n\nIf a user with two or more advertising accounts does not provide `customerId`, it is always considered a failure."
+          }
+        },
+        "required": [
+          "campaignResourceName",
+          "secretKey"
+        ],
+        "title": "Campaign Modification Conditions"
+      },
+      "IGoogleAds.ICreateCampaignInput": {
+        "type": "object",
+        "properties": {
+          "advertisingChannelType": {
+            "oneOf": [
+              {
+                "const": "SEARCH"
+              },
+              {
+                "const": "DISPLAY"
+              }
+            ],
+            "title": "Campaign Type"
+          },
+          "campaignName": {
+            "type": "string",
+            "title": "Campaign Name\n\nIf the name is left blank, a random name will be generated. The name must not be the same as a previously created campaign."
+          },
+          "startDate": {
+            "type": "string",
+            "format": "date",
+            "title": "Campaign start time"
+          },
+          "endDate": {
+            "type": "string",
+            "format": "date",
+            "title": "Campaign End Time"
+          },
+          "campaignBudget": {
+            "type": "number",
+            "maximum": 100000,
+            "title": "Advertising Budget",
+            "description": "Korean currency unit, Won\n\nOriginally, there is no limit on the amount, but in preparation for an emergency, the function is currently limited to 100,000 won per campaign."
+          },
+          "customerId": {
+            "type": "string",
+            "pattern": "([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)",
+            "x-wrtn-placeholder": "1",
+            "x-wrtn-prerequisite": {
+              "method": "post",
+              "path": "connector/google-ads/get-customers",
+              "jmesPath": "[].{value:id, label:id}"
+            },
+            "title": "Customer Resource ID",
+            "description": "This is the customer's resource ID.\n\nIt means the remaining number format after removing 'customers/' from the `customers/${number}` format.\n\n`Wrtn`'s `google ads`-related connectors must receive the `customerId` property to determine which advertising account the customer has, that is, which advertising account among the customers, to use.\n\nSince most users have only one advertising account, if `customerId` is not provided as an argument, the advertising account that is retrieved as number 0 is used unconditionally.\n\nIf a user with two or more advertising accounts does not provide `customerId`, it is always considered a failure."
+          },
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "google",
+            "x-wrtn-secret-scopes": [
+              "https://www.googleapis.com/auth/adwords"
+            ],
+            "title": "Select authentication information",
+            "description": "secret key."
+          }
+        },
+        "required": [
+          "advertisingChannelType",
+          "campaignBudget",
+          "secretKey"
+        ]
+      },
+      "DeepStrictMergeHelperIGoogleAds.IGetCampaignsOutputResultIGoogleAds.AdWrapper": {
+        "type": "object",
+        "properties": {
+          "ad": {
+            "$ref": "#/components/schemas/IGoogleAds.IGetAdGroupsOutputResult"
+          },
+          "campaignBudget": {
+            "$ref": "#/components/schemas/IGoogleAds.CampaignBudget"
+          },
+          "campaign": {
+            "$ref": "#/components/schemas/IGoogleAds.Campaign"
+          }
+        },
+        "required": [
+          "ad",
+          "campaignBudget",
+          "campaign"
+        ]
+      },
+      "IGoogleAds.ICreateAdGroupSearchAdAtOnceInput": {
+        "type": "object",
+        "properties": {
+          "ad": {
+            "$ref": "#/components/schemas/StrictOmitIGoogleAds.ICreateAdGroupSearchAdInputtypecustomerIdcampaignResourceName",
+            "title": "Ad Creation Conditions"
+          },
+          "campaign": {
+            "$ref": "#/components/schemas/StrictOmitIGoogleAds.ICreateCampaignInputsecretKeycustomerId",
+            "title": "Campaign Creation Conditions"
+          },
+          "customerId": {
+            "type": "string",
+            "pattern": "([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)",
+            "x-wrtn-placeholder": "1",
+            "x-wrtn-prerequisite": {
+              "method": "post",
+              "path": "connector/google-ads/get-customers",
+              "jmesPath": "[].{value:id, label:id}"
+            },
+            "title": "Customer Resource ID",
+            "description": "This is the customer's resource ID.\n\nIt means the remaining number format after removing 'customers/' from the `customers/${number}` format.\n\n`Wrtn`'s `google ads`-related connectors must receive the `customerId` property to determine which advertising account the customer has, that is, which advertising account among the customers, to use.\n\nSince most users have only one advertising account, if `customerId` is not provided as an argument, the advertising account that is retrieved as number 0 is used unconditionally.\n\nIf a user with two or more advertising accounts does not provide `customerId`, it is always considered a failure."
+          },
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "google",
+            "x-wrtn-secret-scopes": [
+              "https://www.googleapis.com/auth/adwords"
+            ],
+            "title": "Select authentication information",
+            "description": "secret key."
+          }
+        },
+        "required": [
+          "ad",
+          "campaign",
+          "secretKey"
+        ],
+        "title": "Request conditions for creating Google search campaigns and ads all at once"
+      },
+      "StrictOmitIGoogleAds.ICreateAdGroupSearchAdInputtypecustomerIdcampaignResourceName": {
+        "type": "object",
+        "properties": {
+          "keywords": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "title": "Keyword to generate"
+          },
+          "finalUrl": {
+            "type": "string",
+            "format": "iri",
+            "title": "Homepage that is the target of the advertisement"
+          },
+          "headlines": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 30
+            },
+            "minItems": 1,
+            "maxItems": 15,
+            "title": "title list"
+          },
+          "descriptions": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 90
+            },
+            "minItems": 1,
+            "maxItems": 4,
+            "title": "Description List"
+          }
+        },
+        "required": [
+          "keywords",
+          "finalUrl",
+          "headlines",
+          "descriptions"
+        ]
+      },
+      "StrictOmitIGoogleAds.ICreateCampaignInputsecretKeycustomerId": {
+        "type": "object",
+        "properties": {
+          "campaignName": {
+            "type": "string",
+            "title": "Campaign Name\n\nIf the name is left blank, a random name will be generated. The name must not be the same as a previously created campaign."
+          },
+          "campaignBudget": {
+            "type": "number",
+            "maximum": 100000,
+            "title": "Advertising Budget",
+            "description": "Korean currency unit, Won\n\nOriginally, there is no limit on the amount, but in preparation for an emergency, the function is currently limited to 100,000 won per campaign."
+          },
+          "endDate": {
+            "type": "string",
+            "format": "date",
+            "title": "Campaign End Time"
+          },
+          "advertisingChannelType": {
+            "oneOf": [
+              {
+                "const": "SEARCH"
+              },
+              {
+                "const": "DISPLAY"
+              }
+            ],
+            "title": "Campaign Type"
+          },
+          "startDate": {
+            "type": "string",
+            "format": "date",
+            "title": "Campaign start time"
+          }
+        },
+        "required": [
+          "campaignBudget",
+          "advertisingChannelType"
+        ]
+      },
+      "IGoogleAds.ICreateAdGroupDisplayAdAtOnceInput": {
+        "type": "object",
+        "properties": {
+          "ad": {
+            "$ref": "#/components/schemas/StrictOmitIGoogleAds.ICreateAdGroupDisplayAdInputtypecustomerIdcampaignResourceName",
+            "title": "Ad Creation Conditions"
+          },
+          "campaign": {
+            "$ref": "#/components/schemas/StrictOmitIGoogleAds.ICreateCampaignInputsecretKeycustomerId",
+            "title": "Campaign Creation Conditions"
+          },
+          "customerId": {
+            "type": "string",
+            "pattern": "([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)",
+            "x-wrtn-placeholder": "1",
+            "x-wrtn-prerequisite": {
+              "method": "post",
+              "path": "connector/google-ads/get-customers",
+              "jmesPath": "[].{value:id, label:id}"
+            },
+            "title": "Customer Resource ID",
+            "description": "This is the customer's resource ID.\n\nIt means the remaining number format after removing 'customers/' from the `customers/${number}` format.\n\n`Wrtn`'s `google ads`-related connectors must receive the `customerId` property to determine which advertising account the customer has, that is, which advertising account among the customers, to use.\n\nSince most users have only one advertising account, if `customerId` is not provided as an argument, the advertising account that is retrieved as number 0 is used unconditionally.\n\nIf a user with two or more advertising accounts does not provide `customerId`, it is always considered a failure."
+          },
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "google",
+            "x-wrtn-secret-scopes": [
+              "https://www.googleapis.com/auth/adwords"
+            ],
+            "title": "Select authentication information",
+            "description": "secret key."
+          }
+        },
+        "required": [
+          "ad",
+          "campaign",
+          "secretKey"
+        ],
+        "title": "Request conditions for creating ads from Google display campaigns at once"
+      },
+      "StrictOmitIGoogleAds.ICreateAdGroupDisplayAdInputtypecustomerIdcampaignResourceName": {
+        "type": "object",
+        "properties": {
+          "keywords": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "title": "Keyword to generate"
+          },
+          "finalUrl": {
+            "type": "string",
+            "format": "iri",
+            "title": "Homepage that is the target of the advertisement"
+          },
+          "headlines": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 30
+            },
+            "minItems": 1,
+            "maxItems": 5,
+            "title": "List of short titles"
+          },
+          "descriptions": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1,
+              "maxLength": 90
+            },
+            "minItems": 1,
+            "maxItems": 5,
+            "title": "Description List"
+          },
+          "longHeadline": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 90,
+            "title": "long title"
+          },
+          "businessName": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 25,
+            "title": "Business and Brand Name"
+          },
+          "landscapeImages": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "uri",
+              "contentMediaType": "image/*"
+            },
+            "minItems": 1,
+            "maxItems": 15,
+            "title": "Landscape image",
+            "description": "Landscape image with 1.91:1 resolution, recommended 5 frames"
+          },
+          "logoImages": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "uri",
+              "contentMediaType": "image/*"
+            },
+            "minItems": 1,
+            "maxItems": 5,
+            "title": "Logo image",
+            "description": "Square image, minimum size 128x128px, recommended 1200x1200px"
+          },
+          "squareImages": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "uri",
+              "contentMediaType": "image/*"
+            },
+            "minItems": 1,
+            "maxItems": 15,
+            "title": "Square image",
+            "description": "A landscape image with a 1.91:1 aspect ratio, with a minimum size of 300x300px, and a recommended size of 600x600px."
+          }
+        },
+        "required": [
+          "keywords",
+          "finalUrl",
+          "headlines",
+          "descriptions",
+          "longHeadline",
+          "businessName",
+          "landscapeImages",
+          "logoImages",
+          "squareImages"
+        ]
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "Google Ads"
+    }
+  ],
   "x-samchon-emended": true
 }

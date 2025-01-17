@@ -16,16 +16,168 @@
   ],
   "info": {
     "title": "story-image-generator",
-    "version": "0.1.447",
+    "version": "0.1.448",
     "description": "wrtn-ecosystem connectors and sdk",
     "license": {
       "name": "AGPL-3.0-only"
     }
   },
-  "paths": {},
-  "components": {
-    "schemas": {}
+  "paths": {
+    "/connector/stable-diffusion-beta/generate": {
+      "post": {
+        "summary": "Stable diffusion image generator node",
+        "description": "Generate an image using the stable diffusion model",
+        "tags": [
+          "Stable Diffusion"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "description": "Information for image generation",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IStableDiffusionBeta.IRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "URL of the generated image",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IStableDiffusionBeta.IResponse"
+                }
+              }
+            }
+          }
+        },
+        "x-samchon-accessor": [
+          "connector",
+          "stable_diffusion_beta",
+          "generate",
+          "generateImage"
+        ],
+        "x-samchon-controller": "StableDiffusionBetaController",
+        "x-wrtn-standalone": true,
+        "x-samchon-human": true,
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/stable_diffusion.svg"
+      }
+    }
   },
-  "tags": [],
+  "components": {
+    "schemas": {
+      "IStableDiffusionBeta.IResponse": {
+        "type": "object",
+        "properties": {
+          "imgUrl": {
+            "type": "string",
+            "format": "iri",
+            "contentMediaType": "image/*",
+            "title": "Generated image Url",
+            "description": "Generated image url"
+          }
+        },
+        "required": [
+          "imgUrl"
+        ],
+        "title": "Image creation result"
+      },
+      "IStableDiffusionBeta.IRequest": {
+        "type": "object",
+        "properties": {
+          "prompt": {
+            "type": "string",
+            "title": "prompt",
+            "description": "Please be specific about the elements, styles, and subjects you want to include in the image you want to generate. This prompt will instruct the model to reflect the desired features and details when generating the image."
+          },
+          "image_ratio": {
+            "oneOf": [
+              {
+                "const": "square"
+              },
+              {
+                "const": "landscape"
+              },
+              {
+                "const": "portrait"
+              }
+            ],
+            "title": "Image Size",
+            "description": "Preset image size to generate.\n\nOnly three possible values are available: \"square\", \"landscape\", and \"portrait\"."
+          },
+          "style_preset": {
+            "oneOf": [
+              {
+                "const": "3d-model"
+              },
+              {
+                "const": "analog-film"
+              },
+              {
+                "const": "anime"
+              },
+              {
+                "const": "cinematic"
+              },
+              {
+                "const": "comic-book"
+              },
+              {
+                "const": "digital-art"
+              },
+              {
+                "const": "enhance"
+              },
+              {
+                "const": "fantasy-art"
+              },
+              {
+                "const": "isometric"
+              },
+              {
+                "const": "line-art"
+              },
+              {
+                "const": "low-poly"
+              },
+              {
+                "const": "modeling-compound"
+              },
+              {
+                "const": "neon-punk"
+              },
+              {
+                "const": "origami"
+              },
+              {
+                "const": "photographic"
+              },
+              {
+                "const": "pixel-art"
+              },
+              {
+                "const": "tile-texture"
+              }
+            ],
+            "title": "Style Preset",
+            "description": "Generates an image in a specific style.\n\nThere are only 16 possible values: \"3d-model\", \"analog-film\", \"anime\", \"cinematic\", \"comic-book\", \"digital-art\", \"enhance\", \"fantasy-art\", \"isometric\", \"line-art\", \"low-poly\", \"modeling-compound\", \"neon-punk\", \"origami\", \"photographic\", \"pixel-art\", \"tile-texture\"."
+          }
+        },
+        "required": [
+          "prompt",
+          "image_ratio"
+        ],
+        "title": "Image Generator Settings"
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "Stable Diffusion"
+    }
+  ],
   "x-samchon-emended": true
 }

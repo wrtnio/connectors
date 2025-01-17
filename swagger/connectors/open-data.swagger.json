@@ -16,16 +16,2822 @@
   ],
   "info": {
     "title": "open-data",
-    "version": "0.1.447",
+    "version": "0.1.448",
     "description": "wrtn-ecosystem connectors and sdk",
     "license": {
       "name": "AGPL-3.0-only"
     }
   },
-  "paths": {},
-  "components": {
-    "schemas": {}
+  "paths": {
+    "/connector/open-data/getAddress": {
+      "patch": {
+        "summary": "Search for the address system of the Republic of Korea",
+        "description": "Search for the address system of the Republic of Korea\n\n- If you enter a postal address, you can convert it to a street address and a road name address.",
+        "tags": [
+          "Open Data"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IMSIT.IGetAddressInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IMSIT.IGetAddressOutput"
+                }
+              }
+            }
+          }
+        },
+        "x-samchon-accessor": [
+          "connector",
+          "open_data",
+          "getAddress"
+        ],
+        "x-samchon-controller": "OpenDataController",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/public.svg",
+        "x-samchon-human": true
+      }
+    },
+    "/connector/open-data/getRTMSDataSvcSHRent": {
+      "patch": {
+        "summary": "Retrieve multi-family lease and rental information",
+        "description": "[Ministry of Land, Infrastructure and Transport] Retrieves information on single-family homes and multi-family homes for lease or rent\n\nThis Connect is based on data obtained from public data portals in Korea.\nIf you talk about a specific organization here, it is an organization in Korea, and information or deducible facts that data or statistics point to can also be limited to Korea.\n\nYou need to look up the city, county, and district code first. (POST /connector/open-data/getStandardRegionCodeList connector)\nA connector that looks up the distirct code already exists, so call the preceding connector.\n\nSince this is Korean public data, most searches may have to be done in Korean.\nPlease be aware of this.",
+        "tags": [
+          "Open Data"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "description": "Query conditions",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IMOLIT.IGetRTMSDataSvcAptRentInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Information on leases and r",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IMOLIT.IgetRTMSDataSvcSHRentOutput"
+                }
+              }
+            }
+          }
+        },
+        "x-samchon-accessor": [
+          "connector",
+          "open_data",
+          "getRTMSDataSvcSHRent"
+        ],
+        "x-samchon-controller": "OpenDataController",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/public.svg",
+        "x-samchon-human": true
+      }
+    },
+    "/connector/open-data/getRTMSDataSvcOffiRent": {
+      "patch": {
+        "summary": "Retrieve officetel lease and rental information",
+        "description": "[Ministry of Land, Infrastructure and Transport] Retrieves officetel lease and rent information\n\nThis Connect is based on data obtained from public data portals in Korea.\nIf you talk about a specific organization here, it is an organization in Korea, and information or deducible facts that data or statistics point to can also be limited to Korea.\n\nYou need to look up the city, county, and district code first. (POST /connector/open-data/getStandardRegionCodeList connector)\nA connector that looks up the distirct code already exists, so call the preceding connector.\n\nSince this is Korean public data, most searches may have to be done in Korean.\nPlease be aware of this.",
+        "tags": [
+          "Open Data"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "description": "Query conditions",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IMOLIT.IGetRTMSDataSvcAptRentInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Information on leases and rents",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IMOLIT.IGetRTMSDataSvcOffiRentOutput"
+                }
+              }
+            }
+          }
+        },
+        "x-samchon-accessor": [
+          "connector",
+          "open_data",
+          "getRTMSDataSvcOffiRent"
+        ],
+        "x-samchon-controller": "OpenDataController",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/public.svg",
+        "x-samchon-human": true
+      }
+    },
+    "/connector/open-data/getRTMSDataSvcAptRent": {
+      "patch": {
+        "summary": "Retrieve apartment lease and rental information",
+        "description": "[Ministry of Land, Infrastructure and Transport] Retrieves apartment lease and rent information\n\nThis Connect is based on data obtained from public data portals in Korea.\nIf you talk about a specific organization here, it is an organization in Korea, and information or deducible facts that data or statistics point to can also be limited to Korea.\n\nYou need to look up the city, county, and district code first. (POST /connector/open-data/getStandardRegionCodeList connector)\nA connector that looks up the distirct code already exists, so call the preceding connector.\n\nSince this is Korean public data, most searches may have to be done in Korean.\nPlease be aware of this.",
+        "tags": [
+          "Open Data"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "description": "Query conditions",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IMOLIT.IGetRTMSDataSvcAptRentInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Information on leases and rents",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IMOLIT.IGetRTMSDataSvcAptRentOutput"
+                }
+              }
+            }
+          }
+        },
+        "x-samchon-accessor": [
+          "connector",
+          "open_data",
+          "getRTMSDataSvcAptRent"
+        ],
+        "x-samchon-controller": "OpenDataController",
+        "x-wrtn-standalone": true,
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/public.svg",
+        "x-samchon-human": true
+      }
+    },
+    "/connector/open-data/getLHLeaseInfo": {
+      "patch": {
+        "summary": "Retrieve LH rental housing information",
+        "description": "[Korea Land and Housing Corporation] Retrieves information on LH rental housing complexes\n\nThis Connect is based on data obtained from public data portals in Korea.\nIf you talk about a specific organization here, it is an organization in Korea, and information or deducible facts that data or statistics point to can also be limited to Korea.\n\nSince this is Korean public data, most searches may have to be done in Korean.\nThe types of houses you can choose from here are one of the following: '국민임대','공공임대','영구임대','행복주택','장기전세','매입임대','전세임대'.\nIn addition, you can inquire by city, county, and region(=시도군)\n\nIn the Korean urban system, inquiries can only be made at the level of '특별시', '광역시', '자치시', '자치도', '도', so if you want to see it in more detail, you should ask the user for pagenation.",
+        "tags": [
+          "Open Data"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "description": "Conditions for querying rental housing",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ILH.IGetLHLeaseInfoInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "LH rental housing information",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ILH.IGetLHLeaseInfoOutput"
+                }
+              }
+            }
+          }
+        },
+        "x-samchon-accessor": [
+          "connector",
+          "open_data",
+          "getLHLeaseInfo"
+        ],
+        "x-samchon-controller": "OpenDataController",
+        "x-wrtn-standalone": true,
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/public.svg",
+        "x-samchon-human": true
+      }
+    },
+    "/connector/open-data/getParkingLot": {
+      "patch": {
+        "summary": "Retrieve parking lot information",
+        "description": "[National Information Society Agency] Retrieves parking lot information\n\nThis Connect is based on data obtained from public data portals in Korea.\nIf you talk about a specific organization here, it is an organization in Korea, and information or deducible facts that data or statistics point to can also be limited to Korea.\nIf you don't know the exact road name(도로명주소) or lot number address(지번주소), you can't search it.\nLook up other public data connectors first or use map connectors to look up the correct address. (ex. kakao-map connector)\n\nSince this is Korean public data, most searches may have to be done in Korean.\nPlease be aware of this.",
+        "tags": [
+          "Open Data"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "description": "Conditions for querying parking lots",
+          "content": {
+            "application/json": {
+              "schema": {
+                "oneOf": [
+                  {
+                    "$ref": "#/components/schemas/IPaginationInputMyPickParkingLotrdnmadr"
+                  },
+                  {
+                    "$ref": "#/components/schemas/IPaginationInputMyPickParkingLotlnmadr"
+                  }
+                ]
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Parking lot information",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/INIA.IGetParkingLotOutput"
+                }
+              }
+            }
+          }
+        },
+        "x-samchon-accessor": [
+          "connector",
+          "open_data",
+          "getParkingLot"
+        ],
+        "x-samchon-controller": "OpenDataController",
+        "x-wrtn-standalone": true,
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/public.svg",
+        "x-samchon-human": true
+      }
+    },
+    "/connector/open-data/getBuildingInfo": {
+      "patch": {
+        "summary": "Retrieve building registration information",
+        "description": "[Ministry of Land, Infrastructure and Transport] Retrieves building registration information\n\nThis Connect is based on data obtained from public data portals in Korea.\nIf you talk about a specific organization here, it is an organization in Korea, and information or deducible facts that data or statistics point to can also be limited to Korea.\n\nYou need to look up the city, county, and district code first. (POST /connector/open-data/getStandardRegionCodeList connector)\nA connector that looks up the distirct code already exists, so call the preceding connector.\n\nSince this is Korean public data, most searches may have to be done in Korean.\nPlease be aware of this.",
+        "tags": [
+          "Open Data"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "description": "Conditions for querying building information",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IMOLIT.GetBuildingInfoInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Building information",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IMOLIT.GetBuildingInfoOutput"
+                }
+              }
+            }
+          }
+        },
+        "x-samchon-accessor": [
+          "connector",
+          "open_data",
+          "getBuildingInfo"
+        ],
+        "x-samchon-controller": "OpenDataController",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/public.svg",
+        "x-samchon-human": true
+      }
+    },
+    "/connector/open-data/getStandardRegionCodeList": {
+      "patch": {
+        "summary": "Retrieve administrative standard codes",
+        "description": "[Ministry of the Interior and Safety] Retrieves administrative standard codes for domestic regions\n\nThis Connect is based on data obtained from public data portals in Korea.\nIf you talk about a specific organization here, it is an organization in Korea, and information or deducible facts that data or statistics point to can also be limited to Korea.\nPublic data operating in a specific area-based class, such as building ledger information or building lease on a deposit basis information,\nmay all need to know the legal building code and the city, county, and district code (법정동 코드, 시군구 코드를 의미한다.).\nIn this case, this connector call must be preceded.\n\nSince this is Korean public data, most searches may have to be done in Korean.\nPlease be aware of this.\n\nFor the search, you should use the exact name that means the administrative district, just like the \"서울특별시\", not \"서울\".",
+        "tags": [
+          "Open Data"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "description": "Conditions for querying regions",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IOpenData.MinistryOfTheInteriorAndSafety.IGetStandardRegionCodeListInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Region codes",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IOpenData.MinistryOfTheInteriorAndSafety.IGetStandardRegionCodeListOutput"
+                }
+              }
+            }
+          }
+        },
+        "x-samchon-accessor": [
+          "connector",
+          "open_data",
+          "getStandardRegionCodeList"
+        ],
+        "x-samchon-controller": "OpenDataController",
+        "x-wrtn-standalone": true,
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/public.svg",
+        "x-samchon-human": true
+      }
+    },
+    "/connector/open-data/getStockPriceInfo": {
+      "patch": {
+        "summary": "Retrieve market capitalization and stock information",
+        "description": "[Financial Services Commission] Retrieves market capitalization and stock information\n\nThis Connect is based on data obtained from public data portals in Korea.\nIf you talk about a specific organization here, it is an organization in Korea, and information or deducible facts that data or statistics point to can also be limited to Korea.\n\nSince this is Korean public data, most searches may have to be done in Korean. for example \"삼성전자\".\nAlso, since this is based on the closing of the stock market, you can only look up from about two months ago (9 days ago) to yesterday from today's date.",
+        "tags": [
+          "Open Data"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "description": "Conditions for querying market capitalization",
+          "content": {
+            "application/json": {
+              "schema": {
+                "oneOf": [
+                  {
+                    "$ref": "#/components/schemas/IPaginationInputlikeItmsNm(stringMaxLength120PlaceholderSamsungElectronics)undefinedbasDt(stringPlaceholder...)undefined"
+                  },
+                  {
+                    "$ref": "#/components/schemas/IPaginationInputlikeItmsNm(stringMaxLength120PlaceholderSamsungElectronics)undefinedbeginBasDt(stringPlaceholder...)undefinedendBasDt(stringPlaceholder...)undefined"
+                  }
+                ]
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Market capitalization and stock information",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IOpenData.FinancialServicesCommission.IGetStockPriceInfoOutput"
+                }
+              }
+            }
+          }
+        },
+        "x-samchon-accessor": [
+          "connector",
+          "open_data",
+          "getStockPriceInfo"
+        ],
+        "x-samchon-controller": "OpenDataController",
+        "x-wrtn-standalone": true,
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/public.svg",
+        "x-samchon-human": true
+      }
+    },
+    "/connector/open-data/getShortTermForecast": {
+      "patch": {
+        "summary": "Retrieve today's weather from the Korea Meteorological Administration",
+        "description": "[Korea Meteorological Administration] Retrieves today's weather information\n\nLatitude and longitude coordinates are required for querying.\nWhen provided, the latitude and longitude will be used to get current weather data based on the 00 minute mark of each hour for that region.\nThe output will be converted from grid coordinates to latitude and longitude, and provide weather-related information such as current weather, wind direction, and wind speed for the region.\nThe currently provided information includes:\n\n- POP: Probability of Precipitation\n- PTY: Precipitation Type\n- PCP: Precipitation Amount in the Last Hour\n- REH: Humidity\n- SNO: Snowfall in the Last Hour\n- SKY: Sky Condition\n- TMP: Temperature in the Last Hour\n- TMN: Daily Minimum Temperature\n- TMX: Daily Maximum Temperature\n- UUU: Wind Speed (East-West Component)\n- VVV: Wind Speed (North-South Component)\n- WAV: Wave Height\n- VEC: Wind Direction\n- WSD: Wind Speed\n- T1H: Temperature\n- RN1: Precipitation Amount in the Last Hour\n- VEC: Wind Direction\n- T1H: Temperature\n\nThis Connect is based on data obtained from public data portals in Korea.\nIf you talk about a specific organization here, it is an organization in Korea, and information or deducible facts that data or statistics point to can also be limited to Korea.\n\nThere are two types in request body.\nOne is 'latitude_and_longitude' and the other is 'grid_coordinates'.\nThis function uses grid coordinate values to express Korean geographical conditions inside,\nso grid coordinates must be entered.\nHowever, grid coordinates also allow for latitude values because it is difficult for users to know their local coordinates. In this case,\nyou must deliver the values of nx and ny together with the values of 'latitude_and_longitude'.\nIf the latitude hardness value is delivered,\nit is converted to grid coordinate value from the inside and used.\n\nSince this is Korean public data, most searches may have to be done in Korean.\nPlease be aware of this.",
+        "tags": [
+          "Open Data"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "description": "DTO for weather query location",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IKoreaMeteorologicalAdministration.IGetVillageForecastInformationInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Weather information for the specified region",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "oneOf": [
+                    {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/IKoreaMeteorologicalAdministration.IGetForecastOutput"
+                      }
+                    },
+                    {
+                      "$ref": "#/components/schemas/IOpenWeather.IResponse"
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        },
+        "x-samchon-accessor": [
+          "connector",
+          "open_data",
+          "getShortTermForecast"
+        ],
+        "x-samchon-controller": "OpenDataController",
+        "x-wrtn-standalone": true,
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/public.svg",
+        "x-samchon-human": true
+      }
+    },
+    "/connector/open-data/getCopyRight": {
+      "post": {
+        "summary": "[Copyright Registration Information Service (New)]",
+        "description": "[Korea Copyright Commission] Searches for copyright information\n\nThis Connect is based on data obtained from public data portals in Korea.\nIf you talk about a specific organization here, it is an organization in Korea, and information or deducible facts that data or statistics point to can also be limited to Korea.\n\nSince this is Korean public data, most searches may have to be done in Korean.\nPlease be aware of this.\n\n- 제호(명칭) : 저작물의 명칭을 의미하는 말로, 사용자가 어려워할 수 있기 때문에 쉽게 풀어 말하는 것이 좋습니다.",
+        "tags": [
+          "Open Data"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "description": "Conditions for querying copyright",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/KoreaCopyrightCommission.IGetCopyRightInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Copyright information",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/KoreaCopyrightCommission.IGetCopyRightOutput"
+                }
+              }
+            }
+          }
+        },
+        "x-samchon-accessor": [
+          "connector",
+          "open_data",
+          "getCopyRight"
+        ],
+        "x-samchon-controller": "OpenDataController",
+        "x-wrtn-standalone": true,
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/public.svg",
+        "x-samchon-human": true
+      }
+    }
   },
-  "tags": [],
+  "components": {
+    "schemas": {
+      "IMSIT.IGetAddressOutput": {
+        "type": "object",
+        "properties": {
+          "NewAddressListResponse": {
+            "type": "object",
+            "properties": {
+              "cmmMsgHeader": {
+                "type": "object",
+                "properties": {
+                  "totalCount": {
+                    "type": "integer",
+                    "title": "totalCount"
+                  },
+                  "countPerPage": {
+                    "type": "integer",
+                    "title": "countPerPage"
+                  },
+                  "totalPage": {
+                    "type": "integer",
+                    "title": "totalPage"
+                  },
+                  "errMsg": {
+                    "type": "string",
+                    "title": "error message"
+                  }
+                },
+                "required": []
+              },
+              "newAddressListAreaCd": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "zipNo": {
+                      "type": "string",
+                      "title": "Postal address"
+                    },
+                    "lnmAdres": {
+                      "type": "string",
+                      "title": "street address"
+                    },
+                    "rnAdres": {
+                      "type": "string",
+                      "title": "Road name address"
+                    }
+                  },
+                  "required": [
+                    "zipNo",
+                    "lnmAdres",
+                    "rnAdres"
+                  ]
+                },
+                "title": "Address Data\n\nIf there is no data, the key itself does not exist, so in this case, there are no search results."
+              }
+            },
+            "required": [
+              "cmmMsgHeader"
+            ],
+            "title": "NewAddressListResponse\n\nSection containing header information for the response result"
+          }
+        },
+        "required": [
+          "NewAddressListResponse"
+        ]
+      },
+      "IMSIT.IGetAddressInput": {
+        "type": "object",
+        "properties": {
+          "srchwrd": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 200,
+            "title": "search term"
+          },
+          "countPerPage": {
+            "type": "integer",
+            "title": "Number of outputs per page"
+          },
+          "currentPage": {
+            "type": "integer",
+            "title": "Page number to be printed"
+          }
+        },
+        "required": [
+          "srchwrd"
+        ]
+      },
+      "IMOLIT.IgetRTMSDataSvcSHRentOutput": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "buildYear": {
+                  "type": "string",
+                  "title": "건축 연도"
+                },
+                "contractTerm": {
+                  "type": "string",
+                  "title": "계약 기간"
+                },
+                "contractType": {
+                  "type": "string",
+                  "title": "계약 유형"
+                },
+                "dealDay": {
+                  "type": "string",
+                  "title": "계약 날짜 (일)"
+                },
+                "dealMonth": {
+                  "type": "string",
+                  "title": "계약 날짜 (월)"
+                },
+                "dealYear": {
+                  "type": "string",
+                  "title": "계약 날짜 (년)"
+                },
+                "deposit": {
+                  "type": "string",
+                  "title": "보증금"
+                },
+                "houseType": {
+                  "type": "string",
+                  "title": "주택 유형"
+                },
+                "monthlyRent": {
+                  "type": "string",
+                  "title": "월세"
+                },
+                "preDeposit": {
+                  "type": "string",
+                  "title": "이전 보증금"
+                },
+                "preMonthlyRent": {
+                  "type": "string",
+                  "title": "이전 월세"
+                },
+                "sggCd": {
+                  "type": "string",
+                  "title": "시군구 코드"
+                },
+                "totalFloorAr": {
+                  "type": "string",
+                  "title": "총 층 면적"
+                },
+                "umdNm": {
+                  "type": "string",
+                  "title": "읍면동 이름"
+                },
+                "useRRRight": {
+                  "type": "string",
+                  "title": "지상권 사용 여부"
+                }
+              },
+              "required": [
+                "dealDay",
+                "dealMonth",
+                "dealYear",
+                "deposit",
+                "houseType",
+                "monthlyRent",
+                "sggCd",
+                "totalFloorAr",
+                "umdNm"
+              ]
+            },
+            "description": "계약 정보 아이템"
+          },
+          "numOfRows": {
+            "type": "number",
+            "title": "Num Of Rows"
+          },
+          "pageNo": {
+            "type": "number",
+            "title": "Page Number"
+          },
+          "totalCount": {
+            "type": "number",
+            "title": "Total Count"
+          }
+        },
+        "required": [
+          "data"
+        ]
+      },
+      "IMOLIT.IGetRTMSDataSvcAptRentInput": {
+        "type": "object",
+        "properties": {
+          "LAWD_CD": {
+            "type": "string",
+            "x-wrtn-prerequisite": {
+              "method": "post",
+              "path": "/connector/open-data/getStandardRegionCodeList",
+              "jmesPath": "rows[].{value:sigunguCd, label:sigunguNm}"
+            },
+            "title": "City/county/district code"
+          },
+          "DEAL_YMD": {
+            "type": "string",
+            "x-wrtn-placeholder": "202201",
+            "title": "Contract year and month of actual transaction data (6 digits)"
+          },
+          "page": {
+            "type": "integer",
+            "title": "page"
+          },
+          "limit": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 20,
+            "title": "limit"
+          }
+        },
+        "required": [
+          "LAWD_CD",
+          "DEAL_YMD",
+          "page",
+          "limit"
+        ]
+      },
+      "IMOLIT.IGetRTMSDataSvcOffiRentOutput": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "aptDong": {
+                  "type": "string",
+                  "title": "Block of Apartment",
+                  "description": "Indicates the block or building number of the apartment."
+                },
+                "aptNm": {
+                  "type": "string",
+                  "x-wrtn-placeholder": "Banseok Blessville",
+                  "title": "Name of Apartment",
+                  "description": "Indicates the name of the apartment; for example, \"Banseok Blessville.\""
+                },
+                "aptSeq": {
+                  "type": "string",
+                  "x-wrtn-placeholder": "11710-132",
+                  "title": "Apartment Sequence",
+                  "description": "Unique identifier for the apartment, e.g., \"11710-132.\""
+                },
+                "bonbun": {
+                  "type": "string",
+                  "x-wrtn-placeholder": "0055",
+                  "title": "Main Lot Number",
+                  "description": "Indicates the main lot number, e.g., \"0055.\""
+                },
+                "bubun": {
+                  "type": "string",
+                  "x-wrtn-placeholder": "0008",
+                  "title": "Sub Lot Number",
+                  "description": "Indicates the sub lot number, e.g., \"0008.\""
+                },
+                "buildYear": {
+                  "type": "string",
+                  "x-wrtn-placeholder": "2002",
+                  "title": "Year Built",
+                  "description": "Indicates the year the building was constructed, e.g., \"2002.\""
+                },
+                "buyerGbn": {
+                  "type": "string",
+                  "x-wrtn-placeholder": "Individual",
+                  "title": "Buyer Type",
+                  "description": "Indicates the type of buyer; for example, \"Individual.\""
+                },
+                "cdealDay": {
+                  "type": "string",
+                  "title": "Contract Date",
+                  "description": "Indicates the date of the contract."
+                },
+                "cdealType": {
+                  "type": "string",
+                  "title": "Contract Type",
+                  "description": "Indicates the type of contract."
+                },
+                "dealAmount": {
+                  "type": "string",
+                  "x-wrtn-placeholder": "83,900",
+                  "title": "Transaction Amount",
+                  "description": "Indicates the transaction amount in 10,000 KRW units (만원), e.g., \"83,900.\""
+                },
+                "dealDay": {
+                  "type": "string",
+                  "x-wrtn-placeholder": "30",
+                  "title": "Transaction Day",
+                  "description": "Indicates the day of the transaction, e.g., \"30.\""
+                },
+                "dealMonth": {
+                  "type": "string",
+                  "x-wrtn-placeholder": "6",
+                  "title": "Transaction Month",
+                  "description": "Indicates the month of the transaction, e.g., \"6.\""
+                },
+                "dealYear": {
+                  "type": "string",
+                  "x-wrtn-placeholder": "2024",
+                  "title": "Transaction Year",
+                  "description": "Indicates the year of the transaction, e.g., \"2024.\""
+                },
+                "dealingGbn": {
+                  "type": "string",
+                  "x-wrtn-placeholder": "Mediated Transaction",
+                  "title": "Transaction Type",
+                  "description": "Indicates the type of transaction; for example, \"Mediated Transaction.\""
+                },
+                "estateAgentSggNm": {
+                  "type": "string",
+                  "x-wrtn-placeholder": "Seoul Songpa-gu",
+                  "title": "Agent Location",
+                  "description": "Indicates the district where the real estate agent is located, e.g., \"Seoul Songpa-gu.\""
+                },
+                "excluUseAr": {
+                  "type": "string",
+                  "x-wrtn-placeholder": "83.15",
+                  "title": "Exclusive Use Area",
+                  "description": "Indicates the exclusive use area in square meters, e.g., \"83.15.\""
+                },
+                "floor": {
+                  "type": "string",
+                  "x-wrtn-placeholder": "3",
+                  "title": "Floor",
+                  "description": "Indicates the floor on which the transaction took place, e.g., \"3.\""
+                },
+                "jibun": {
+                  "type": "string",
+                  "x-wrtn-placeholder": "55-8",
+                  "title": "Lot Number (Jibun)",
+                  "description": "Indicates the lot number (Jibun), e.g., \"55-8.\""
+                },
+                "landCd": {
+                  "type": "string",
+                  "x-wrtn-placeholder": "1",
+                  "title": "Land Code",
+                  "description": "Indicates the land code, e.g., \"1.\""
+                },
+                "landLeaseholdGbn": {
+                  "type": "string",
+                  "x-wrtn-placeholder": "N",
+                  "title": "Land Leasehold Indicator",
+                  "description": "Indicates whether the land is leased; \"N\" for no."
+                },
+                "rgstDate": {
+                  "type": "string",
+                  "x-wrtn-placeholder": "24.10.02",
+                  "title": "Registration Date",
+                  "description": "Indicates the registration date, e.g., \"24.10.02.\""
+                },
+                "roadNm": {
+                  "type": "string",
+                  "x-wrtn-placeholder": "Dongnam-ro 23-gil",
+                  "title": "Road Name",
+                  "description": "Indicates the road name, e.g., \"Dongnam-ro 23-gil.\""
+                },
+                "roadNmBonbun": {
+                  "type": "string",
+                  "x-wrtn-placeholder": "00020",
+                  "title": "Road Main Number",
+                  "description": "Indicates the main number for the road, e.g., \"00020.\""
+                },
+                "roadNmBubun": {
+                  "type": "string",
+                  "x-wrtn-placeholder": "00000",
+                  "title": "Road Sub Number",
+                  "description": "Indicates the sub number for the road, e.g., \"00000.\""
+                },
+                "roadNmCd": {
+                  "type": "string",
+                  "x-wrtn-placeholder": "4169545",
+                  "title": "Road Code",
+                  "description": "Indicates the road code, e.g., \"4169545.\""
+                },
+                "roadNmSeq": {
+                  "type": "string",
+                  "x-wrtn-placeholder": "01",
+                  "title": "Road Sequence",
+                  "description": "Indicates the sequence number for the road, e.g., \"01.\""
+                },
+                "roadNmSggCd": {
+                  "type": "string",
+                  "x-wrtn-placeholder": "11710",
+                  "title": "Road District Code",
+                  "description": "Indicates the district code for the road, e.g., \"11710.\""
+                },
+                "roadNmbCd": {
+                  "type": "string",
+                  "x-wrtn-placeholder": "0",
+                  "title": "Road Number Code",
+                  "description": "Indicates the road number code, e.g., \"0.\""
+                },
+                "sggCd": {
+                  "type": "string",
+                  "x-wrtn-placeholder": "11710",
+                  "title": "District Code",
+                  "description": "Indicates the district code, e.g., \"11710.\""
+                },
+                "slerGbn": {
+                  "type": "string",
+                  "x-wrtn-placeholder": "Individual",
+                  "title": "Seller Type",
+                  "description": "Indicates the type of seller; for example, \"Individual.\""
+                },
+                "umdCd": {
+                  "type": "string",
+                  "x-wrtn-placeholder": "11200",
+                  "title": "Subdivision Code",
+                  "description": "Indicates the subdivision code, e.g., \"11200.\""
+                },
+                "umdNm": {
+                  "type": "string",
+                  "x-wrtn-placeholder": "Ogeum-dong",
+                  "title": "Subdivision Name",
+                  "description": "Indicates the name of the subdivision, e.g., \"Ogeum-dong.\""
+                }
+              },
+              "required": []
+            }
+          },
+          "numOfRows": {
+            "type": "number",
+            "title": "Num Of Rows"
+          },
+          "pageNo": {
+            "type": "number",
+            "title": "Page Number"
+          },
+          "totalCount": {
+            "type": "number",
+            "title": "Total Count"
+          }
+        },
+        "required": [
+          "data"
+        ]
+      },
+      "IMOLIT.IGetRTMSDataSvcAptRentOutput": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "aptDong": {
+                  "type": "string",
+                  "title": "Block of Apartment",
+                  "description": "Indicates the block or building number of the apartment."
+                },
+                "aptNm": {
+                  "type": "string",
+                  "x-wrtn-placeholder": "Banseok Blessville",
+                  "title": "Name of Apartment",
+                  "description": "Indicates the name of the apartment; for example, \"Banseok Blessville.\""
+                },
+                "aptSeq": {
+                  "type": "string",
+                  "x-wrtn-placeholder": "11710-132",
+                  "title": "Apartment Sequence",
+                  "description": "Unique identifier for the apartment, e.g., \"11710-132.\""
+                },
+                "bonbun": {
+                  "type": "string",
+                  "x-wrtn-placeholder": "0055",
+                  "title": "Main Lot Number",
+                  "description": "Indicates the main lot number, e.g., \"0055.\""
+                },
+                "bubun": {
+                  "type": "string",
+                  "x-wrtn-placeholder": "0008",
+                  "title": "Sub Lot Number",
+                  "description": "Indicates the sub lot number, e.g., \"0008.\""
+                },
+                "buildYear": {
+                  "type": "string",
+                  "x-wrtn-placeholder": "2002",
+                  "title": "Year Built",
+                  "description": "Indicates the year the building was constructed, e.g., \"2002.\""
+                },
+                "buyerGbn": {
+                  "type": "string",
+                  "x-wrtn-placeholder": "Individual",
+                  "title": "Buyer Type",
+                  "description": "Indicates the type of buyer; for example, \"Individual.\""
+                },
+                "cdealDay": {
+                  "type": "string",
+                  "title": "Contract Date",
+                  "description": "Indicates the date of the contract."
+                },
+                "cdealType": {
+                  "type": "string",
+                  "title": "Contract Type",
+                  "description": "Indicates the type of contract."
+                },
+                "dealAmount": {
+                  "type": "string",
+                  "x-wrtn-placeholder": "83,900",
+                  "title": "Transaction Amount",
+                  "description": "Indicates the transaction amount in 10,000 KRW units (만원), e.g., \"83,900.\""
+                },
+                "dealDay": {
+                  "type": "string",
+                  "x-wrtn-placeholder": "30",
+                  "title": "Transaction Day",
+                  "description": "Indicates the day of the transaction, e.g., \"30.\""
+                },
+                "dealMonth": {
+                  "type": "string",
+                  "x-wrtn-placeholder": "6",
+                  "title": "Transaction Month",
+                  "description": "Indicates the month of the transaction, e.g., \"6.\""
+                },
+                "dealYear": {
+                  "type": "string",
+                  "x-wrtn-placeholder": "2024",
+                  "title": "Transaction Year",
+                  "description": "Indicates the year of the transaction, e.g., \"2024.\""
+                },
+                "dealingGbn": {
+                  "type": "string",
+                  "x-wrtn-placeholder": "Mediated Transaction",
+                  "title": "Transaction Type",
+                  "description": "Indicates the type of transaction; for example, \"Mediated Transaction.\""
+                },
+                "estateAgentSggNm": {
+                  "type": "string",
+                  "x-wrtn-placeholder": "Seoul Songpa-gu",
+                  "title": "Agent Location",
+                  "description": "Indicates the district where the real estate agent is located, e.g., \"Seoul Songpa-gu.\""
+                },
+                "excluUseAr": {
+                  "type": "string",
+                  "x-wrtn-placeholder": "83.15",
+                  "title": "Exclusive Use Area",
+                  "description": "Indicates the exclusive use area in square meters, e.g., \"83.15.\""
+                },
+                "floor": {
+                  "type": "string",
+                  "x-wrtn-placeholder": "3",
+                  "title": "Floor",
+                  "description": "Indicates the floor on which the transaction took place, e.g., \"3.\""
+                },
+                "jibun": {
+                  "type": "string",
+                  "x-wrtn-placeholder": "55-8",
+                  "title": "Lot Number (Jibun)",
+                  "description": "Indicates the lot number (Jibun), e.g., \"55-8.\""
+                },
+                "landCd": {
+                  "type": "string",
+                  "x-wrtn-placeholder": "1",
+                  "title": "Land Code",
+                  "description": "Indicates the land code, e.g., \"1.\""
+                },
+                "landLeaseholdGbn": {
+                  "type": "string",
+                  "x-wrtn-placeholder": "N",
+                  "title": "Land Leasehold Indicator",
+                  "description": "Indicates whether the land is leased; \"N\" for no."
+                },
+                "rgstDate": {
+                  "type": "string",
+                  "x-wrtn-placeholder": "24.10.02",
+                  "title": "Registration Date",
+                  "description": "Indicates the registration date, e.g., \"24.10.02.\""
+                },
+                "roadNm": {
+                  "type": "string",
+                  "x-wrtn-placeholder": "Dongnam-ro 23-gil",
+                  "title": "Road Name",
+                  "description": "Indicates the road name, e.g., \"Dongnam-ro 23-gil.\""
+                },
+                "roadNmBonbun": {
+                  "type": "string",
+                  "x-wrtn-placeholder": "00020",
+                  "title": "Road Main Number",
+                  "description": "Indicates the main number for the road, e.g., \"00020.\""
+                },
+                "roadNmBubun": {
+                  "type": "string",
+                  "x-wrtn-placeholder": "00000",
+                  "title": "Road Sub Number",
+                  "description": "Indicates the sub number for the road, e.g., \"00000.\""
+                },
+                "roadNmCd": {
+                  "type": "string",
+                  "x-wrtn-placeholder": "4169545",
+                  "title": "Road Code",
+                  "description": "Indicates the road code, e.g., \"4169545.\""
+                },
+                "roadNmSeq": {
+                  "type": "string",
+                  "x-wrtn-placeholder": "01",
+                  "title": "Road Sequence",
+                  "description": "Indicates the sequence number for the road, e.g., \"01.\""
+                },
+                "roadNmSggCd": {
+                  "type": "string",
+                  "x-wrtn-placeholder": "11710",
+                  "title": "Road District Code",
+                  "description": "Indicates the district code for the road, e.g., \"11710.\""
+                },
+                "roadNmbCd": {
+                  "type": "string",
+                  "x-wrtn-placeholder": "0",
+                  "title": "Road Number Code",
+                  "description": "Indicates the road number code, e.g., \"0.\""
+                },
+                "sggCd": {
+                  "type": "string",
+                  "x-wrtn-placeholder": "11710",
+                  "title": "District Code",
+                  "description": "Indicates the district code, e.g., \"11710.\""
+                },
+                "slerGbn": {
+                  "type": "string",
+                  "x-wrtn-placeholder": "Individual",
+                  "title": "Seller Type",
+                  "description": "Indicates the type of seller; for example, \"Individual.\""
+                },
+                "umdCd": {
+                  "type": "string",
+                  "x-wrtn-placeholder": "11200",
+                  "title": "Subdivision Code",
+                  "description": "Indicates the subdivision code, e.g., \"11200.\""
+                },
+                "umdNm": {
+                  "type": "string",
+                  "x-wrtn-placeholder": "Ogeum-dong",
+                  "title": "Subdivision Name",
+                  "description": "Indicates the name of the subdivision, e.g., \"Ogeum-dong.\""
+                }
+              },
+              "required": []
+            }
+          },
+          "numOfRows": {
+            "type": "number",
+            "title": "Num Of Rows"
+          },
+          "pageNo": {
+            "type": "number",
+            "title": "Page Number"
+          },
+          "totalCount": {
+            "type": "number",
+            "title": "Total Count"
+          }
+        },
+        "required": [
+          "data"
+        ]
+      },
+      "ILH.IGetLHLeaseInfoOutput": {
+        "type": "object",
+        "properties": {
+          "nextPage": {
+            "type": "boolean",
+            "title": "Next page availability"
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "SUM_HSH_CNT": {
+                  "type": "string",
+                  "x-wrtn-placeholder": "873",
+                  "title": "Total number of households"
+                },
+                "RFE": {
+                  "type": "string",
+                  "x-wrtn-placeholder": "373500",
+                  "title": "Monthly rent (won)"
+                },
+                "RNUM": {
+                  "type": "string",
+                  "x-wrtn-placeholder": "1",
+                  "title": "order"
+                },
+                "HSH_CNT": {
+                  "type": "string",
+                  "x-wrtn-placeholder": "72",
+                  "title": "Number of generations"
+                },
+                "ARA_NM": {
+                  "type": "string",
+                  "x-wrtn-placeholder": "서울특별시 강남구",
+                  "title": "Region name"
+                },
+                "LS_GMY": {
+                  "type": "string",
+                  "x-wrtn-placeholder": "45003000",
+                  "title": "Rental Deposit"
+                },
+                "AIS_TP_CD_NM": {
+                  "type": "string",
+                  "x-wrtn-placeholder": "국민임대",
+                  "title": "Supply type name"
+                },
+                "SBD_LGO_NM": {
+                  "type": "string",
+                  "x-wrtn-placeholder": "서울강남 3블록",
+                  "title": "Name of the unit"
+                },
+                "ALL_CNT": {
+                  "type": "string",
+                  "x-wrtn-placeholder": "157",
+                  "title": "Total number"
+                },
+                "DDO_AR": {
+                  "type": "string",
+                  "x-wrtn-placeholder": "46.71",
+                  "title": "Exclusive area"
+                },
+                "MVIN_XPC_YM": {
+                  "type": "string",
+                  "x-wrtn-placeholder": "201311",
+                  "title": "First year of residency"
+                }
+              },
+              "required": [
+                "SUM_HSH_CNT",
+                "RFE",
+                "RNUM",
+                "HSH_CNT",
+                "ARA_NM",
+                "LS_GMY",
+                "AIS_TP_CD_NM",
+                "SBD_LGO_NM",
+                "ALL_CNT",
+                "DDO_AR",
+                "MVIN_XPC_YM"
+              ]
+            }
+          }
+        },
+        "required": [
+          "nextPage",
+          "data"
+        ],
+        "title": "LH rental housing inquiry response"
+      },
+      "ILH.IGetLHLeaseInfoInput": {
+        "type": "object",
+        "properties": {
+          "CNP_CD": {
+            "oneOf": [
+              {
+                "const": 11
+              },
+              {
+                "const": 26
+              },
+              {
+                "const": 27
+              },
+              {
+                "const": 28
+              },
+              {
+                "const": 29
+              },
+              {
+                "const": 30
+              },
+              {
+                "const": 31
+              },
+              {
+                "const": 41
+              },
+              {
+                "const": 42
+              },
+              {
+                "const": 43
+              },
+              {
+                "const": 44
+              },
+              {
+                "const": 45
+              },
+              {
+                "const": 46
+              },
+              {
+                "const": 47
+              },
+              {
+                "const": 48
+              },
+              {
+                "const": 50
+              },
+              {
+                "const": 36110
+              }
+            ],
+            "title": "Area Code",
+            "description": "It can be one of these numbers:\n- 11: Seoul\n- 26: Busan\n- 27: Daegu\n- 28: Incheon\n- 29: Gwangju\n- 30: Daejeon\n- 31: Ulsan\n- 36110: Sejong\n- 41: Gyeonggi\n- 42: Gangwon\n- 43: Chungcheongbuk\n- 44: Chungcheongnam\n- 45: Jeollabuk\n- 46: Jeollanam\n- 47: Gyeongsangbuk\n- 48: Gyeongsangnam\n- 50: Jeju"
+          },
+          "SPL_TP_CD": {
+            "oneOf": [
+              {
+                "const": "07"
+              },
+              {
+                "const": "08"
+              },
+              {
+                "const": "09"
+              },
+              {
+                "const": "10"
+              },
+              {
+                "const": "11"
+              },
+              {
+                "const": "13"
+              },
+              {
+                "const": "17"
+              }
+            ],
+            "title": "Supply Type Code",
+            "description": "It can be one of these numbers:\n- 07: National Rental\n- 08: Public Rental\n- 09: Permanent Rental\n- 10: Happy Housing\n- 11: Long-term Lease\n- 13: Purchase Lease\n- 17: Lease Lease"
+          },
+          "numOfRows": {
+            "type": "integer",
+            "default": 10,
+            "title": "Number of results per page"
+          },
+          "pageNo": {
+            "type": "integer",
+            "default": 1,
+            "title": "Page number"
+          }
+        },
+        "required": [
+          "CNP_CD"
+        ],
+        "title": "LH rental housing search conditions"
+      },
+      "INIA.IGetParkingLotOutput": {
+        "type": "object",
+        "properties": {
+          "parkingLots": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/INIA.ParkingLot"
+            },
+            "title": "Parking lot information"
+          },
+          "numOfRows": {
+            "type": "integer",
+            "default": 10,
+            "title": "Number of results per page"
+          },
+          "pageNo": {
+            "type": "integer",
+            "default": 1,
+            "title": "Page number"
+          },
+          "totalCount": {
+            "type": "number",
+            "title": "Total number of records"
+          }
+        },
+        "required": [
+          "parkingLots",
+          "totalCount"
+        ],
+        "title": "Parking lot inquiry response"
+      },
+      "INIA.ParkingLot": {
+        "type": "object",
+        "properties": {
+          "prkplceNo": {
+            "type": "string",
+            "title": "Parking lot management number"
+          },
+          "prkplceNm": {
+            "type": "string",
+            "title": "Parking lot name"
+          },
+          "prkplceSe": {
+            "type": "string",
+            "title": "Parking lot classification"
+          },
+          "prkplceType": {
+            "type": "string",
+            "title": "Parking lot type"
+          },
+          "rdnmadr": {
+            "type": "string",
+            "x-wrtn-prerequisite": {
+              "method": "post",
+              "path": "/connector/kakao-map/search",
+              "jmesPath": "documents[].{value:road_address_name, label:road_address_name}"
+            },
+            "title": "road name address (read name address)"
+          },
+          "lnmadr": {
+            "type": "string",
+            "x-wrtn-prerequisite": {
+              "method": "post",
+              "path": "/connector/kakao-map/search",
+              "jmesPath": "documents[].{value:address_name, label:address_name}"
+            },
+            "title": "Lot number address"
+          },
+          "prkcmprt": {
+            "type": "string",
+            "title": "Number of parking spaces"
+          },
+          "feedingSe": {
+            "type": "string",
+            "title": "Urgent Distinction"
+          },
+          "enforceSe": {
+            "type": "string",
+            "title": "Subtitle enforcement classification"
+          },
+          "operDay": {
+            "type": "string",
+            "title": "Operating days"
+          },
+          "weekdayOperOpenHhmm": {
+            "type": "string",
+            "title": "Weekday operation start time"
+          },
+          "weekdayOperColseHhmm": {
+            "type": "string",
+            "title": "Weekday operating closing time"
+          },
+          "satOperOperOpenHhmm": {
+            "type": "string",
+            "title": "Saturday operation start time"
+          },
+          "satOperCloseHhmm": {
+            "type": "string",
+            "title": "Saturday closing time"
+          },
+          "holidayOperOpenHhmm": {
+            "type": "string",
+            "title": "Holiday operation start time"
+          },
+          "holidayCloseOpenHhmm": {
+            "type": "string",
+            "title": "Holiday closing time"
+          },
+          "parkingchrgeInfo": {
+            "type": "string",
+            "title": "Rate information"
+          },
+          "basicTime": {
+            "type": "string",
+            "title": "Basic parking time"
+          },
+          "basicCharge": {
+            "type": "string",
+            "title": "Basic parking fee"
+          },
+          "addUnitTime": {
+            "type": "string",
+            "title": "Additional unit time"
+          },
+          "addUnitCharge": {
+            "type": "string",
+            "title": "Additional unit fee"
+          },
+          "dayCmmtktAdjTime": {
+            "type": "string",
+            "title": "1-day parking fee application time"
+          },
+          "dayCmmtkt": {
+            "type": "string",
+            "title": "1-day parking fee"
+          },
+          "monthCmmtkt": {
+            "type": "string",
+            "title": "Monthly pass fee"
+          },
+          "metpay": {
+            "type": "string",
+            "title": "Payment method"
+          },
+          "spcmnt": {
+            "type": "string",
+            "title": "Special Notes"
+          },
+          "institutionNm": {
+            "type": "string",
+            "title": "Management Agency Name"
+          },
+          "phoneNumber": {
+            "type": "string",
+            "title": "phone number"
+          },
+          "latitude": {
+            "type": "string",
+            "title": "Latitude"
+          },
+          "longitude": {
+            "type": "string",
+            "title": "Hardness"
+          },
+          "pwdbsPpkZoneYn": {
+            "type": "string",
+            "title": "Whether there is a parking area for the disabled"
+          },
+          "referenceDate": {
+            "type": "string",
+            "title": "Data reference date"
+          },
+          "instt_code": {
+            "type": "string",
+            "title": "Provider Code"
+          },
+          "instt_nm": {
+            "type": "string",
+            "title": "Provider Name of institution"
+          }
+        },
+        "required": []
+      },
+      "IPaginationInputMyPickParkingLotrdnmadr": {
+        "type": "object",
+        "properties": {
+          "numOfRows": {
+            "type": "integer",
+            "default": 10,
+            "title": "Number of results per page"
+          },
+          "pageNo": {
+            "type": "integer",
+            "default": 1,
+            "title": "Page number"
+          },
+          "rdnmadr": {
+            "type": "string",
+            "x-wrtn-prerequisite": {
+              "method": "post",
+              "path": "/connector/kakao-map/search",
+              "jmesPath": "documents[].{value:road_address_name, label:road_address_name}"
+            },
+            "title": "road name address (read name address)"
+          }
+        },
+        "required": []
+      },
+      "IPaginationInputMyPickParkingLotlnmadr": {
+        "type": "object",
+        "properties": {
+          "numOfRows": {
+            "type": "integer",
+            "default": 10,
+            "title": "Number of results per page"
+          },
+          "pageNo": {
+            "type": "integer",
+            "default": 1,
+            "title": "Page number"
+          },
+          "lnmadr": {
+            "type": "string",
+            "x-wrtn-prerequisite": {
+              "method": "post",
+              "path": "/connector/kakao-map/search",
+              "jmesPath": "documents[].{value:address_name, label:address_name}"
+            },
+            "title": "Lot number address"
+          }
+        },
+        "required": []
+      },
+      "IMOLIT.GetBuildingInfoOutput": {
+        "type": "object",
+        "properties": {
+          "bulidings": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/IMOLIT.Building"
+            },
+            "title": "Building Information List"
+          },
+          "numOfRows": {
+            "type": "integer",
+            "default": 10,
+            "title": "Number of results per page"
+          },
+          "pageNo": {
+            "type": "integer",
+            "default": 1,
+            "title": "Page number"
+          },
+          "totalCount": {
+            "type": "number",
+            "title": "Total number of records"
+          }
+        },
+        "required": [
+          "bulidings",
+          "totalCount"
+        ],
+        "title": "Building Inquiry Response"
+      },
+      "IMOLIT.Building": {
+        "type": "object",
+        "properties": {
+          "mainPurpsCdNm": {
+            "type": "string",
+            "title": "Primary purpose code name"
+          },
+          "etcPurps": {
+            "type": "string",
+            "title": "Other uses"
+          },
+          "roofCd": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "number"
+              }
+            ],
+            "title": "roof code"
+          },
+          "roofCdNm": {
+            "type": "string",
+            "title": "Roof code name"
+          },
+          "etcRoof": {
+            "type": "string",
+            "title": "Guitar Roof"
+          },
+          "hhldCnt": {
+            "type": "number",
+            "title": "Number of generations (generation)"
+          },
+          "fmlyCnt": {
+            "type": "number",
+            "title": "Number of households (households)"
+          },
+          "heit": {
+            "type": "number",
+            "title": "Height (m)"
+          },
+          "grndFlrCnt": {
+            "type": "number",
+            "title": "Number of floors above ground"
+          },
+          "ugrndFlrCnt": {
+            "type": "number",
+            "title": "Basement floor"
+          },
+          "rideUseElvtCnt": {
+            "type": "number",
+            "title": "Elevator driver"
+          },
+          "emgenUseElvtCnt": {
+            "type": "number",
+            "title": "Emergency Elevator"
+          },
+          "atchBldCnt": {
+            "type": "number",
+            "title": "Number of auxiliary buildings"
+          },
+          "atchBldArea": {
+            "type": "number",
+            "title": "Area of attached building (㎡)"
+          },
+          "totDongTotArea": {
+            "type": "number",
+            "title": "Total floor area (㎡)"
+          },
+          "indrMechUtcnt": {
+            "type": "number",
+            "title": "Indoor machine counter (large)"
+          },
+          "indrMechArea": {
+            "type": "number",
+            "title": "Indoor mechanical area (㎡)"
+          },
+          "oudrMechUtcnt": {
+            "type": "number",
+            "title": "Outdoor mechanical counter (large)"
+          },
+          "oudrMechArea": {
+            "type": "number",
+            "title": "Outdoor mechanical area (㎡)"
+          },
+          "indrAutoUtcnt": {
+            "type": "number",
+            "title": "Indoor self-sufficient stock (large)"
+          },
+          "indrAutoArea": {
+            "type": "number",
+            "title": "Indoor self-sufficient area (㎡)"
+          },
+          "oudrAutoUtcnt": {
+            "type": "number",
+            "title": "Outdoor self-propelled vehicle (large)"
+          },
+          "oudrAutoArea": {
+            "type": "number",
+            "title": "Outdoor self-contained area (㎡)"
+          },
+          "pmsDay": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "number"
+              }
+            ],
+            "title": "Permission Date"
+          },
+          "stcnsDay": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "number"
+              }
+            ],
+            "title": "Start date"
+          },
+          "useAprDay": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "number"
+              }
+            ],
+            "title": "Date of approval for use"
+          },
+          "pmsnoYear": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "number"
+              }
+            ],
+            "title": "License number year"
+          },
+          "pmsnoKikCd": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "number"
+              }
+            ],
+            "title": "License Number Agency Code"
+          },
+          "pmsnoKikCdNm": {
+            "type": "string",
+            "title": "License Number Agency Code Name"
+          },
+          "pmsnoGbCd": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "number"
+              }
+            ],
+            "title": "Permit number classification code"
+          },
+          "pmsnoGbCdNm": {
+            "type": "string",
+            "title": "Permit number classification code name"
+          },
+          "hoCnt": {
+            "type": "number",
+            "title": "lake"
+          },
+          "engrGrade": {
+            "type": "string",
+            "title": "Energy Efficiency Rating"
+          },
+          "engrRat": {
+            "type": "number",
+            "title": "Energy saving rate"
+          },
+          "engrEpi": {
+            "type": "number",
+            "title": "EPI score"
+          },
+          "gnBldGrade": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "number"
+              }
+            ],
+            "title": "Eco-friendly building rating"
+          },
+          "gnBldCert": {
+            "type": "number",
+            "title": "Eco-friendly building certification score"
+          },
+          "itgBldGrade": {
+            "type": "string",
+            "title": "Intelligent Building Rating"
+          },
+          "itgBldCert": {
+            "type": "number",
+            "title": "Intelligent Building Certification Score"
+          },
+          "crtnDay": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "number"
+              }
+            ],
+            "title": "Creation date"
+          },
+          "rnum": {
+            "type": "number",
+            "title": "order"
+          },
+          "platPlc": {
+            "type": "string",
+            "title": "Earth location"
+          },
+          "sigunguCd": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "number"
+              }
+            ],
+            "title": "City/county/district code"
+          },
+          "bjdongCd": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "number"
+              }
+            ],
+            "title": "Beopjeong-dong code"
+          },
+          "platGbCd": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "number"
+              }
+            ],
+            "title": "Earth Classification Code"
+          },
+          "bun": {
+            "type": "string",
+            "title": "number",
+            "description": "One of the Korean address names"
+          },
+          "ji": {
+            "type": "string",
+            "title": "Ji",
+            "description": "One of the Korean address names"
+          },
+          "mgmBldrgstPk": {
+            "type": "string",
+            "title": "Management Building Register PK"
+          },
+          "regstrGbCd": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "number"
+              }
+            ],
+            "title": "Colon Distinction Code"
+          },
+          "regstrGbCdNm": {
+            "type": "string",
+            "title": "Colon division code name"
+          },
+          "regstrKindCd": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "number"
+              }
+            ],
+            "title": "Colon type code"
+          },
+          "regstrKindCdNm": {
+            "type": "string",
+            "title": "Colon type code name"
+          },
+          "newPlatPlc": {
+            "type": "string",
+            "title": "Road name site location"
+          },
+          "bldNm": {
+            "type": "string",
+            "title": "Building name"
+          },
+          "splotNm": {
+            "type": "string",
+            "title": "Special place name"
+          },
+          "block": {
+            "type": "string",
+            "title": "block"
+          },
+          "lot": {
+            "type": "string",
+            "title": "lot"
+          },
+          "bylotCnt": {
+            "type": "number",
+            "title": "External index"
+          },
+          "naRoadCd": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "number"
+              }
+            ],
+            "title": "New address road code"
+          },
+          "naBjdongCd": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "number"
+              }
+            ],
+            "title": "New address law code"
+          },
+          "naUgrndCd": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "number"
+              }
+            ],
+            "title": "New address ground and underground code"
+          },
+          "naMainBun": {
+            "type": "number",
+            "title": "New address number"
+          },
+          "naSubBun": {
+            "type": "number",
+            "title": "New address number"
+          },
+          "dongNm": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "number"
+              }
+            ],
+            "title": "Same name"
+          },
+          "mainAtchGbCd": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "number"
+              }
+            ],
+            "title": "Main/Subordinate Classification Code"
+          },
+          "mainAtchGbCdNm": {
+            "type": "string",
+            "title": "Main/Subordinate Code Name"
+          },
+          "platArea": {
+            "type": "number",
+            "title": "Land area (㎡)"
+          },
+          "archArea": {
+            "type": "number",
+            "title": "Building area (㎡)"
+          },
+          "bcRat": {
+            "type": "number",
+            "title": "Building coverage ratio (%)"
+          },
+          "totArea": {
+            "type": "number",
+            "title": "Total floor area (㎡)"
+          },
+          "vlRatEstmTotArea": {
+            "type": "number",
+            "title": "Floor area ratio calculation area (㎡)"
+          },
+          "vlRat": {
+            "type": "number",
+            "title": "Volume ratio (%)"
+          },
+          "strctCd": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "number"
+              }
+            ],
+            "title": "Structure Code"
+          },
+          "strctCdNm": {
+            "type": "string",
+            "title": "Structure code name"
+          },
+          "etcStrct": {
+            "type": "string",
+            "title": "Other Structures"
+          },
+          "mainPurpsCd": {
+            "oneOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "number"
+              }
+            ],
+            "title": "Primary Purpose Code"
+          },
+          "rserthqkDsgnApplyYn": {
+            "oneOf": [
+              {
+                "const": 0
+              },
+              {
+                "const": 1
+              },
+              {
+                "const": " "
+              }
+            ],
+            "title": "Whether earthquake-resistant design is applied"
+          },
+          "rserthqkAblty": {
+            "type": "string",
+            "title": "seismic capacity"
+          }
+        },
+        "required": [
+          "crtnDay",
+          "platPlc",
+          "sigunguCd",
+          "bjdongCd",
+          "mgmBldrgstPk"
+        ]
+      },
+      "IMOLIT.GetBuildingInfoInput": {
+        "type": "object",
+        "properties": {
+          "sigunguCd": {
+            "type": "string",
+            "x-wrtn-prerequisite": {
+              "method": "post",
+              "path": "/connector/open-data/getStandardRegionCodeList",
+              "jmesPath": "rows[].{value:sigunguCd, label:sigunguNm}"
+            },
+            "title": "City/county/district code"
+          },
+          "bjdongCd": {
+            "type": "string",
+            "x-wrtn-prerequisite": {
+              "method": "post",
+              "path": "/connector/open-data/getStandardRegionCodeList",
+              "jmesPath": "rows[].{value:sigunguCd, label:sigunguNm}"
+            },
+            "title": "Beopjeong-dong Code"
+          },
+          "numOfRows": {
+            "type": "integer",
+            "default": 10,
+            "title": "Number of results per page"
+          },
+          "pageNo": {
+            "type": "integer",
+            "default": 1,
+            "title": "Page number"
+          }
+        },
+        "required": [
+          "sigunguCd",
+          "bjdongCd"
+        ],
+        "title": "Building search conditions"
+      },
+      "IOpenData.MinistryOfTheInteriorAndSafety.IGetStandardRegionCodeListOutput": {
+        "type": "object",
+        "properties": {
+          "rows": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "region_cd": {
+                  "type": "string",
+                  "title": "Region code"
+                },
+                "sido_cd": {
+                  "type": "string",
+                  "title": "City code"
+                },
+                "sgg_cd": {
+                  "type": "string",
+                  "title": "District code"
+                },
+                "sigunguCd": {
+                  "type": "string",
+                  "title": "City and District Code",
+                  "description": "Combination of city code and district code"
+                },
+                "sigunguNm": {
+                  "type": "string",
+                  "title": "District name"
+                },
+                "umd_cd": {
+                  "type": "string",
+                  "title": "Town/Village code"
+                },
+                "ri_cd": {
+                  "type": "string",
+                  "title": "Ri code"
+                },
+                "bjdongCd": {
+                  "type": "string",
+                  "title": "Legal Dong code",
+                  "description": "Combination of Town/Village code and Ri code"
+                },
+                "locatjumin_cd": {
+                  "type": "string",
+                  "title": "Resident region code"
+                },
+                "locatjijuk_cd": {
+                  "type": "string",
+                  "title": "Land region code"
+                },
+                "locatadd_nm": {
+                  "type": "string",
+                  "title": "Region address name"
+                },
+                "locat_order": {
+                  "type": "integer",
+                  "title": "Sequence"
+                },
+                "locat_rm": {
+                  "type": "string",
+                  "title": "Remark"
+                },
+                "locathigh_cd": {
+                  "type": "string",
+                  "title": "Parent region code"
+                },
+                "locallow_nm": {
+                  "type": "string",
+                  "title": "Lowest region name"
+                },
+                "adpt_de": {
+                  "type": "string",
+                  "title": "Date of creation"
+                }
+              },
+              "required": [
+                "region_cd",
+                "sigunguNm"
+              ]
+            }
+          },
+          "numOfRows": {
+            "type": "integer",
+            "default": 10,
+            "title": "Number of results per page"
+          },
+          "pageNo": {
+            "type": "integer",
+            "default": 1,
+            "title": "Page number"
+          },
+          "totalCount": {
+            "type": "number",
+            "title": "Total number of records"
+          }
+        },
+        "required": [
+          "rows",
+          "totalCount"
+        ],
+        "title": "Result of Administrative Standard Code Lookup"
+      },
+      "IOpenData.MinistryOfTheInteriorAndSafety.IGetStandardRegionCodeListInput": {
+        "type": "object",
+        "properties": {
+          "locatadd_nm": {
+            "oneOf": [
+              {
+                "const": "서울특별시"
+              },
+              {
+                "const": "부산광역시"
+              },
+              {
+                "const": "대구광역시"
+              },
+              {
+                "const": "인천광역시"
+              },
+              {
+                "const": "광주광역시"
+              },
+              {
+                "const": "대전광역시"
+              },
+              {
+                "const": "울산광역시"
+              },
+              {
+                "const": "세종특별자치시"
+              },
+              {
+                "const": "경기도"
+              },
+              {
+                "const": "충청북도"
+              },
+              {
+                "const": "충청남도"
+              },
+              {
+                "const": "경상북도"
+              },
+              {
+                "const": "경상남도"
+              },
+              {
+                "const": "전라남도"
+              },
+              {
+                "const": "제주특별자치도"
+              },
+              {
+                "const": "강원특별자치도"
+              },
+              {
+                "const": "전북특별자치도"
+              }
+            ],
+            "title": "Region address name",
+            "description": "It must be one of: \"Seoul Metropolitan City\",\"Busan Metropolitan City\",\"Daegu Metropolitan City\",\"Incheon Metropolitan City\",\"Gwangju Metropolitan City\",\"Daejeon Metropolitan City\",\"Ulsan Metropolitan City\",\"Sejong Special Self-Governing City\",\"Gyeonggi-do\",\"Chungcheongbuk-do\",\"Chungcheongnam-do\",\"Gyeongsangbuk-do\",\"Gyeongsangnam-do\",\"Jeollanam-do\",\"Jeju Special Self-Governing Province\",\"Gangwon Special Self-Governing Province\",\"Jeollabuk-do Special Self-Governing Province\""
+          },
+          "numOfRows": {
+            "type": "integer",
+            "default": 10,
+            "title": "Number of results per page"
+          },
+          "pageNo": {
+            "type": "integer",
+            "default": 1,
+            "title": "Page number"
+          }
+        },
+        "required": [
+          "locatadd_nm"
+        ],
+        "title": "Request for Administrative Standard Code Lookup"
+      },
+      "IOpenData.FinancialServicesCommission.IGetStockPriceInfoOutput": {
+        "type": "object",
+        "properties": {
+          "response": {
+            "type": "object",
+            "properties": {
+              "body": {
+                "type": "object",
+                "properties": {
+                  "numOfRows": {
+                    "type": "integer",
+                    "default": 10,
+                    "title": "Number of results per page"
+                  },
+                  "pageNo": {
+                    "type": "integer",
+                    "default": 1,
+                    "title": "Page number"
+                  },
+                  "totalCount": {
+                    "type": "number",
+                    "title": "Total number of records"
+                  },
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "item": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "basDt": {
+                              "type": "string",
+                              "x-wrtn-placeholder": "20220919",
+                              "title": "Base date"
+                            },
+                            "srtnCd": {
+                              "type": "string",
+                              "title": "Short code",
+                              "description": "6-digit code shorter than stock code and uniquely guaranteed"
+                            },
+                            "isinCd": {
+                              "type": "string",
+                              "title": "ISIN code",
+                              "description": "International Securities Identification Number"
+                            },
+                            "itmsNm": {
+                              "type": "string",
+                              "title": "Stock name"
+                            },
+                            "mrktCtg": {
+                              "oneOf": [
+                                {
+                                  "const": "KOSPI"
+                                },
+                                {
+                                  "const": "KOSDAQ"
+                                },
+                                {
+                                  "const": "KONEX"
+                                }
+                              ],
+                              "title": "Market category"
+                            },
+                            "clpr": {
+                              "type": "string",
+                              "title": "Closing price",
+                              "description": "Final price formed at the end of regular trading hours"
+                            },
+                            "vs": {
+                              "type": "string",
+                              "title": "Change",
+                              "description": "Fluctuation compared to the previous day"
+                            },
+                            "fltRt": {
+                              "type": "string",
+                              "title": "Rate of change",
+                              "description": "Ratio of fluctuation compared to the previous day"
+                            },
+                            "mkp": {
+                              "type": "string",
+                              "title": "Opening price",
+                              "description": "Initial price formed after opening"
+                            },
+                            "hipr": {
+                              "type": "string",
+                              "title": "Highest price",
+                              "description": "Highest price during the day"
+                            },
+                            "lopr": {
+                              "type": "string",
+                              "title": "Lowest price",
+                              "description": "Lowest price during the day"
+                            },
+                            "trqu": {
+                              "type": "string",
+                              "title": "Trading volume",
+                              "description": "Cumulative total of trade quantities"
+                            },
+                            "trPrc": {
+                              "type": "string",
+                              "title": "Trading amount",
+                              "description": "Cumulative total of trade prices * quantities"
+                            },
+                            "lstgStCnt": {
+                              "type": "string",
+                              "title": "Listed shares"
+                            },
+                            "mrktTotAmt": {
+                              "type": "string",
+                              "title": "Market capitalization",
+                              "description": "Closing price * listed shares"
+                            }
+                          },
+                          "required": [
+                            "basDt",
+                            "srtnCd",
+                            "isinCd",
+                            "itmsNm",
+                            "mrktCtg",
+                            "clpr",
+                            "vs",
+                            "fltRt",
+                            "mkp",
+                            "hipr",
+                            "lopr",
+                            "trqu",
+                            "trPrc",
+                            "lstgStCnt",
+                            "mrktTotAmt"
+                          ]
+                        }
+                      }
+                    },
+                    "required": [
+                      "item"
+                    ],
+                    "title": "Retrieved company information"
+                  }
+                },
+                "required": [
+                  "numOfRows",
+                  "pageNo",
+                  "totalCount",
+                  "items"
+                ]
+              }
+            },
+            "required": [
+              "body"
+            ]
+          }
+        },
+        "required": [
+          "response"
+        ],
+        "title": "Result of querying market capitalization and stock information"
+      },
+      "IPaginationInputlikeItmsNm(stringMaxLength120PlaceholderSamsungElectronics)undefinedbasDt(stringPlaceholder...)undefined": {
+        "type": "object",
+        "properties": {
+          "numOfRows": {
+            "type": "integer",
+            "default": 10,
+            "title": "Number of results per page"
+          },
+          "pageNo": {
+            "type": "integer",
+            "default": 1,
+            "title": "Page number"
+          },
+          "likeItmsNm": {
+            "type": "string",
+            "maxLength": 120,
+            "x-wrtn-placeholder": "Samsung Electronics",
+            "title": "Keyword for stock name search",
+            "description": "Search is only possible if it matches the exact company name that is listed, which is stored on the Korea Stock Exchange.\nSince it is a Korean company, most of it will be in Korean.\nPlease give Korean company name."
+          },
+          "basDt": {
+            "type": "string",
+            "x-wrtn-placeholder": "20220919",
+            "title": "Base date",
+            "description": "Searches for data matching the search value and base date\nYYYYMMDD format date string."
+          }
+        },
+        "required": []
+      },
+      "IPaginationInputlikeItmsNm(stringMaxLength120PlaceholderSamsungElectronics)undefinedbeginBasDt(stringPlaceholder...)undefinedendBasDt(stringPlaceholder...)undefined": {
+        "type": "object",
+        "properties": {
+          "numOfRows": {
+            "type": "integer",
+            "default": 10,
+            "title": "Number of results per page"
+          },
+          "pageNo": {
+            "type": "integer",
+            "default": 1,
+            "title": "Page number"
+          },
+          "likeItmsNm": {
+            "type": "string",
+            "maxLength": 120,
+            "x-wrtn-placeholder": "Samsung Electronics",
+            "title": "Keyword for stock name search",
+            "description": "Search is only possible if it matches the exact company name that is listed, which is stored on the Korea Stock Exchange.\nSince it is a Korean company, most of it will be in Korean.\nPlease give Korean company name."
+          },
+          "beginBasDt": {
+            "type": "string",
+            "x-wrtn-placeholder": "20220919",
+            "title": "Start date (inclusive)",
+            "description": "Searches for data where the base date is greater than or equal to the search value\nYYYYMMDD format date string."
+          },
+          "endBasDt": {
+            "type": "string",
+            "x-wrtn-placeholder": "20220919",
+            "title": "End date (exclusive)",
+            "description": "Searches for data where the base date is less than the search value\nYYYYMMDD format date string."
+          }
+        },
+        "required": []
+      },
+      "IKoreaMeteorologicalAdministration.IGetForecastOutput": {
+        "type": "object",
+        "properties": {
+          "baseDate": {
+            "type": "string",
+            "pattern": "^([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)$",
+            "title": "Date value composed of year, month, and day\n\ne.g., `20240619`"
+          },
+          "baseTime": {
+            "type": "string",
+            "pattern": "^([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)$",
+            "title": "Time value indicating the exact hour\n\ne.g., `1200`"
+          },
+          "category": {
+            "oneOf": [
+              {
+                "const": "POP"
+              },
+              {
+                "const": "PTY"
+              },
+              {
+                "const": "PCP"
+              },
+              {
+                "const": "REH"
+              },
+              {
+                "const": "SNO"
+              },
+              {
+                "const": "SKY"
+              },
+              {
+                "const": "TMP"
+              },
+              {
+                "const": "TMN"
+              },
+              {
+                "const": "TMX"
+              },
+              {
+                "const": "UUU"
+              },
+              {
+                "const": "VVV"
+              },
+              {
+                "const": "WAV"
+              },
+              {
+                "const": "VEC"
+              },
+              {
+                "const": "WSD"
+              },
+              {
+                "const": "T1H"
+              },
+              {
+                "const": "RN1"
+              }
+            ],
+            "title": "Category",
+            "description": "Classification of what each value represents"
+          },
+          "nx": {
+            "type": "number",
+            "title": "Longitude"
+          },
+          "ny": {
+            "type": "number",
+            "title": "Latitude"
+          },
+          "obsrValue": {
+            "type": "string",
+            "pattern": "^([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)$",
+            "title": "Value corresponding to the category"
+          }
+        },
+        "required": [
+          "baseDate",
+          "baseTime",
+          "category",
+          "nx",
+          "ny",
+          "obsrValue"
+        ]
+      },
+      "IOpenWeather.IResponse": {
+        "type": "object",
+        "properties": {
+          "city_name": {
+            "type": "string",
+            "title": "City Name",
+            "description": "city name"
+          },
+          "weather_main": {
+            "type": "string",
+            "title": "weather information",
+            "description": "weather main information"
+          },
+          "weather_description": {
+            "type": "string",
+            "title": "weather description",
+            "description": "weather description about weather main"
+          },
+          "temperature": {
+            "type": "number",
+            "title": "temperature",
+            "description": "temperature"
+          },
+          "feel_like_temperature": {
+            "type": "number",
+            "title": "feel like temperature",
+            "description": "feel like temperature"
+          },
+          "temperature_min": {
+            "type": "number",
+            "title": "minimum temperature",
+            "description": "minimum temperature"
+          },
+          "temperature_max": {
+            "type": "number",
+            "title": "maximum temperature",
+            "description": "maximum temperature"
+          },
+          "wind_speed": {
+            "type": "number",
+            "title": "wind_speed",
+            "description": "wind_speed"
+          },
+          "humidity": {
+            "type": "number",
+            "title": "humidity",
+            "description": "humidity"
+          }
+        },
+        "required": [
+          "city_name",
+          "weather_main",
+          "weather_description",
+          "temperature",
+          "feel_like_temperature",
+          "temperature_min",
+          "temperature_max",
+          "wind_speed",
+          "humidity"
+        ],
+        "title": "Get Weather Response"
+      },
+      "IKoreaMeteorologicalAdministration.IGetVillageForecastInformationInput": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "oneOf": [
+              {
+                "const": "latitude_and_longitude"
+              },
+              {
+                "const": "grid_coordinates"
+              }
+            ],
+            "title": "Definition of nx, ny",
+            "description": "use 'latitude_and_longitude' or 'grid_coordinates'.\nThis property can never be used except for these two strings."
+          },
+          "nx": {
+            "type": "number",
+            "maximum": 360,
+            "title": "Longitude or x_position",
+            "description": "If the type property in this object is 'latitude_and_longitude', this value means longitude.\nIf not, use x position value of grid coordinates in Korea."
+          },
+          "ny": {
+            "type": "number",
+            "maximum": 180,
+            "title": "Latitude or y_position",
+            "description": "If the type property in this object is 'latitude_and_longitude', this value means latitude.\nIf not, use y position value of grid coordinates in Korea."
+          }
+        },
+        "required": [
+          "type",
+          "nx",
+          "ny"
+        ],
+        "title": "Weather query request conditions"
+      },
+      "KoreaCopyrightCommission.IGetCopyRightOutput": {
+        "type": "object",
+        "properties": {
+          "currentCount": {
+            "type": "integer",
+            "title": "Current page count"
+          },
+          "matchCount": {
+            "type": "integer",
+            "title": "Number of copyrights matching the search criteria"
+          },
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/MyPickIGetCopyRightInputREG_IDCONT_TITLEAUTHOR_NAMEREG_DATEstringFormatdate"
+            },
+            "title": "Search Results"
+          },
+          "page": {
+            "type": "integer",
+            "default": 1,
+            "title": "Page number"
+          },
+          "perPage": {
+            "type": "integer",
+            "default": 10,
+            "title": "Number of results per page"
+          }
+        },
+        "required": [
+          "currentCount",
+          "matchCount",
+          "data"
+        ],
+        "title": "Copyright search results"
+      },
+      "MyPickIGetCopyRightInputREG_IDCONT_TITLEAUTHOR_NAMEREG_DATEstringFormatdate": {
+        "type": "object",
+        "properties": {
+          "REG_ID": {
+            "type": "string",
+            "title": "Copyright registration number",
+            "description": "Only copyrights that match exactly are searched."
+          },
+          "CONT_TITLE": {
+            "type": "string",
+            "x-wrtn-placeholder": "제호 (명칭)",
+            "title": "Title (Name)\n\nTitle refers to the name of the work."
+          },
+          "AUTHOR_NAME": {
+            "type": "string",
+            "x-wrtn-placeholder": "저작자 이름",
+            "title": "Copyright holder name\n\nThis refers to the name of the copyright holder. It can be a person's name, or the name of a company or specific organization."
+          },
+          "REG_DATE": {
+            "type": "string",
+            "format": "date",
+            "title": "Copyright registration date"
+          }
+        },
+        "required": [
+          "REG_DATE"
+        ]
+      },
+      "KoreaCopyrightCommission.IGetCopyRightInput": {
+        "type": "object",
+        "properties": {
+          "perPage": {
+            "type": "integer",
+            "default": 10,
+            "title": "Number of results per page"
+          },
+          "page": {
+            "type": "integer",
+            "default": 1,
+            "title": "Page number"
+          },
+          "REG_ID": {
+            "type": "string",
+            "title": "Copyright registration number",
+            "description": "Only copyrights that match exactly are searched."
+          },
+          "CONT_TITLE": {
+            "type": "string",
+            "x-wrtn-placeholder": "제호 (명칭)",
+            "title": "Title (Name)\n\nTitle refers to the name of the work."
+          },
+          "AUTHOR_NAME": {
+            "type": "string",
+            "x-wrtn-placeholder": "저작자 이름",
+            "title": "Copyright holder name\n\nThis refers to the name of the copyright holder. It can be a person's name, or the name of a company or specific organization."
+          }
+        },
+        "required": [],
+        "title": "Copyright inquiry conditions"
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "Open Data"
+    }
+  ],
   "x-samchon-emended": true
 }

@@ -16,16 +16,1238 @@
   ],
   "info": {
     "title": "google-slides",
-    "version": "0.1.447",
+    "version": "0.1.448",
     "description": "wrtn-ecosystem connectors and sdk",
     "license": {
       "name": "AGPL-3.0-only"
     }
   },
-  "paths": {},
-  "components": {
-    "schemas": {}
+  "paths": {
+    "/connector/google-slides/presentations/{id}/exports/hanshow": {
+      "post": {
+        "summary": "Export presentations to Hanshow files",
+        "description": "Export Google Slides presentations to Hanshow format",
+        "tags": [
+          "Google Slide"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "schema": {
+              "type": "string"
+            },
+            "required": true,
+            "description": " Presentation ID to convert"
+          }
+        ],
+        "requestBody": {
+          "description": "Authentication information",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IGoogleSlides.IExportPresentationInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Link to download Hanshow files",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IGoogleSlides.IExportHanshowOutput"
+                }
+              }
+            }
+          }
+        },
+        "x-samchon-accessor": [
+          "connector",
+          "google_slides",
+          "presentations",
+          "exports",
+          "hanshow"
+        ],
+        "x-samchon-controller": "GoogleSlidesController",
+        "x-samchon-human": true,
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/google_slide.svg"
+      }
+    },
+    "/connector/google-slides/presentations/{id}/exports/power-point": {
+      "post": {
+        "summary": "Export presentations to PPT files",
+        "description": "Export Google Slides presentations to PowerPoint format\n\nA connector that can be used when creating stories or picture books.",
+        "tags": [
+          "Google Slide"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "schema": {
+              "type": "string"
+            },
+            "required": true,
+            "description": " Presentation ID to convert"
+          }
+        ],
+        "requestBody": {
+          "description": "Authentication information",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IGoogleSlides.IExportPresentationInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Link to download PowerPoint files",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IGoogleSlides.IExportPresentationOutput"
+                }
+              }
+            }
+          }
+        },
+        "x-samchon-accessor": [
+          "connector",
+          "google_slides",
+          "presentations",
+          "exports",
+          "power_point",
+          "powerPoint"
+        ],
+        "x-samchon-controller": "GoogleSlidesController",
+        "x-samchon-human": true,
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/google_slide.svg"
+      }
+    },
+    "/connector/google-slides/get-presentations": {
+      "patch": {
+        "summary": "Retrieve a Google Slides presentation",
+        "description": "Retrieve a Google Slides presentation",
+        "tags": [
+          "Google Slide"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "description": "Condition DTO for retrieving a presentation",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IGoogleSlides.IGetPresentationInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Retrieve presentation information DTO",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IGoogleSlides.ISimplePresentationIdOutput"
+                }
+              }
+            }
+          }
+        },
+        "x-samchon-accessor": [
+          "connector",
+          "google_slides",
+          "get_presentations",
+          "getPresentation"
+        ],
+        "x-samchon-controller": "GoogleSlidesController",
+        "x-samchon-human": true,
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/google_slide.svg"
+      }
+    },
+    "/connector/google-slides/presentations/{id}/slides/quarter-divisions": {
+      "put": {
+        "summary": "Add \"QuarterDivision\" type image slides to a Google Slides presentation",
+        "description": "Add \"QuarterDivision\" type slides to a Google Slides presentation\n\nThe \"QuarterDivision\" type slides are templates that are designed to place images and text in the upper left, upper right, lower left, and lower right, like a four-cut cartoon.\nFour images are required for this template, and the text is located right under each image.\n\nYou may need an image when the user asks you to add a slide.\nIn this case, rather than inserting any image, you should first secure the image using a search connector or an image creation connector.\nIt is safe to ask the user for consent to this process.",
+        "tags": [
+          "Google Slide"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "schema": {
+              "type": "string"
+            },
+            "required": true,
+            "description": " Presentation id to add slides to"
+          }
+        ],
+        "requestBody": {
+          "description": "Template to add",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IGoogleSlides.AppendQuarterDivisionSlideInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IGoogleSlides.ISimplePresentationIdOutput"
+                }
+              }
+            }
+          }
+        },
+        "x-samchon-accessor": [
+          "connector",
+          "google_slides",
+          "presentations",
+          "slides",
+          "quarter_divisions",
+          "appendQuarterDivisionImageSlide"
+        ],
+        "x-samchon-controller": "GoogleSlidesController",
+        "x-samchon-human": true,
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/google_slide.svg"
+      }
+    },
+    "/connector/google-slides/presentations/{id}/slides/entires": {
+      "put": {
+        "summary": "Add entire type image slides to a Google Slides presentation",
+        "description": "Add \"Entire\" type slides to a Google Slides presentation\n\nThe \"Entire\" type of slide is a template that packs an image all over, and you can't put any extra text in it. Maybe it's usually suitable for putting a cover.\nBecause ordinary presentations have longer horizontal lengths, if you put a square image, gaps on the left and right can appear large.\n\nYou may need an image when the user asks you to add a slide.\nIn this case, rather than inserting any image, you should first secure the image using a search connector or an image creation connector.\nIt is safe to ask the user for consent to this process.",
+        "tags": [
+          "Google Slide"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "schema": {
+              "type": "string"
+            },
+            "required": true,
+            "description": " Presentation id to add slides to"
+          }
+        ],
+        "requestBody": {
+          "description": "Template to add",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IGoogleSlides.AppendEntireSlideInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IGoogleSlides.ISimplePresentationIdOutput"
+                }
+              }
+            }
+          }
+        },
+        "x-samchon-accessor": [
+          "connector",
+          "google_slides",
+          "presentations",
+          "slides",
+          "entires",
+          "appendEntireImageSlide"
+        ],
+        "x-samchon-controller": "GoogleSlidesController",
+        "x-samchon-human": true,
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/google_slide.svg"
+      }
+    },
+    "/connector/google-slides/presentations/{id}/slides/landscapes": {
+      "put": {
+        "summary": "Add \"Landscape\" type image slides to a Google Slides presentation",
+        "description": "Add \"Landscape\" type slides to a Google Slides presentation\n\nThe \"Landscape\" type template fits text underneath with a longer horizontal image tightly packed like a background.\nIt is suitable when the image is highlighted and the text is short.\nIt is suitable for marking images and titles as if they were on display.\n\nYou may need an image when the user asks you to add a slide.\nIn this case, rather than inserting any image, you should first secure the image using a search connector or an image creation connector.\nIt is safe to ask the user for consent to this process.",
+        "tags": [
+          "Google Slide"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "schema": {
+              "type": "string"
+            },
+            "required": true,
+            "description": " Presentation id to add slides to"
+          }
+        ],
+        "requestBody": {
+          "description": "Template to add",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IGoogleSlides.AppendLandscapeSlideInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IGoogleSlides.ISimplePresentationIdOutput"
+                }
+              }
+            }
+          }
+        },
+        "x-samchon-accessor": [
+          "connector",
+          "google_slides",
+          "presentations",
+          "slides",
+          "landscapes",
+          "appendLandscapeImageSlide"
+        ],
+        "x-samchon-controller": "GoogleSlidesController",
+        "x-samchon-human": true,
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/google_slide.svg"
+      }
+    },
+    "/connector/google-slides/presentations/{id}/slides/squares": {
+      "put": {
+        "summary": "Add \"Square\" type image slides to a Google Slides presentation",
+        "description": "Add \"Square\" type slides to a Google Slides presentation\n\nThe \"Square\" type slides put square images and text. In this case, you should put at least four to five lines of text, because there is so much space to put text.\nThe picture is on the left, and the text is on the right.\n\nYou may need an image when the user asks you to add a slide.\nIn this case, rather than inserting any image, you should first secure the image using a search connector or an image creation connector.\nIt is safe to ask the user for consent to this process.",
+        "tags": [
+          "Google Slide"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "schema": {
+              "type": "string"
+            },
+            "required": true,
+            "description": " Presentation id to add slides to"
+          }
+        ],
+        "requestBody": {
+          "description": "Template to add",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IGoogleSlides.AppendSquareSlideInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IGoogleSlides.ISimplePresentationIdOutput"
+                }
+              }
+            }
+          }
+        },
+        "x-samchon-accessor": [
+          "connector",
+          "google_slides",
+          "presentations",
+          "slides",
+          "squares",
+          "appendSquareImageSlide"
+        ],
+        "x-samchon-controller": "GoogleSlidesController",
+        "x-samchon-human": true,
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/google_slide.svg"
+      }
+    },
+    "/connector/google-slides/presentations/{id}/slides/verticals": {
+      "put": {
+        "summary": "Add \"Vertical\" type image slides to a Google Slides presentation",
+        "description": "Add \"Vertical\" type slides to a Google Slides presentation\n\nThe \"Vertical\" type is like a square type slide, with an image on the left and text on the right.\nIn this case, unlike the square type, the image is filled to the height of the presentation while maintaining the proportion.\nThis also allows for enough text.\n\nYou may need an image when the user asks you to add a slide.\nIn this case, rather than inserting any image, you should first secure the image using a search connector or an image creation connector.\nIt is safe to ask the user for consent to this process.",
+        "tags": [
+          "Google Slide"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "schema": {
+              "type": "string"
+            },
+            "required": true,
+            "description": " Presentation id to add slides to"
+          }
+        ],
+        "requestBody": {
+          "description": "Template to add",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IGoogleSlides.AppendVerticalSlideInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IGoogleSlides.ISimplePresentationIdOutput"
+                }
+              }
+            }
+          }
+        },
+        "x-samchon-accessor": [
+          "connector",
+          "google_slides",
+          "presentations",
+          "slides",
+          "verticals",
+          "appendVerticalImageSlide"
+        ],
+        "x-samchon-controller": "GoogleSlidesController",
+        "x-samchon-human": true,
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/google_slide.svg"
+      }
+    },
+    "/connector/google-slides/presentations/{id}/image-slide": {
+      "put": {
+        "summary": "Add image and text slides to a Google Slides presentation",
+        "description": "Add slides to a Google Slides presentation\n\nUse this connector with connector/google-slides/presentations when creating a story or picture book.\nWhen creating a story or picture book, insert the story and pictures created using this connector into the presentation created from connector/google-slides/presentations connector.\nBe careful not to use this connector when creating a story or picture book, as it may result in an empty picture book.\nSlide type must be one of: \"Vertical\", \"Square\", \"Landscape\", \"Entire\", \"QuarterDivision\".\nIt is common to choose a \"Square\" type when there is one image.\n\nYou may need an image when the user asks you to add a slide.\nIn this case, rather than inserting any image, you should first secure the image using a search connector or an image creation connector.\nIt is safe to ask the user for consent to this process.",
+        "deprecated": true,
+        "tags": [
+          "Google Slide"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "schema": {
+              "type": "string"
+            },
+            "required": true,
+            "description": " Presentation id to add slides to"
+          }
+        ],
+        "requestBody": {
+          "description": "Template to add",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IGoogleSlides.AppendSlideInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IGoogleSlides.ISimplePresentationIdOutput"
+                }
+              }
+            }
+          }
+        },
+        "x-samchon-accessor": [
+          "connector",
+          "google_slides",
+          "presentations",
+          "image_slide",
+          "appendImageSlide"
+        ],
+        "x-samchon-controller": "GoogleSlidesController",
+        "x-samchon-human": true,
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/google_slide.svg"
+      }
+    },
+    "/connector/google-slides/presentations": {
+      "post": {
+        "summary": "Create a Google Slides presentation",
+        "description": "Create a Google Slides presentation\n\nThis connector can be used when creating a story or picture book.\nPlease use it with the connector/google-slides/image-slide connector when creating a story or picture book.\nWhen creating a story or picture book, create a new presentation with this connector and insert the created story and picture into the slide using other connector.\nThis creates a blank presentation file, which is basically created with the first slide with no text.",
+        "tags": [
+          "Google Slide"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "description": "Condition DTO for creating a presentation",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IGoogleSlides.ICreatePresentationInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Generated presentation information DTO",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IGoogleSlides.ISimplePresentationIdOutput"
+                }
+              }
+            }
+          }
+        },
+        "x-samchon-accessor": [
+          "connector",
+          "google_slides",
+          "presentations",
+          "createPresentation"
+        ],
+        "x-samchon-controller": "GoogleSlidesController",
+        "x-samchon-human": true,
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/google_slide.svg"
+      }
+    }
   },
-  "tags": [],
+  "components": {
+    "schemas": {
+      "IGoogleSlides.IExportHanshowOutput": {
+        "type": "object",
+        "properties": {
+          "hanshow": {
+            "type": "string",
+            "format": "uri",
+            "title": "File download link"
+          }
+        },
+        "required": [
+          "hanshow"
+        ]
+      },
+      "IGoogleSlides.IExportPresentationInput": {
+        "type": "object",
+        "properties": {
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "google",
+            "x-wrtn-secret-scopes": [
+              "https://www.googleapis.com/auth/drive.file"
+            ],
+            "title": "Select authentication information",
+            "description": "secret key."
+          }
+        },
+        "required": [
+          "secretKey"
+        ],
+        "title": "Conditions for exporting slides to pptx"
+      },
+      "IGoogleSlides.IExportPresentationOutput": {
+        "type": "object",
+        "properties": {
+          "powerPoint": {
+            "type": "string",
+            "format": "uri",
+            "title": "File download link"
+          }
+        },
+        "required": [
+          "powerPoint"
+        ]
+      },
+      "IGoogleSlides.ISimplePresentationIdOutput": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "title": "The title of the presentation"
+          },
+          "pageSize": {
+            "$ref": "#/components/schemas/IGoogleSlides.Size",
+            "title": "The page size of the presentation"
+          },
+          "presentationId": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "title": "Presentation ID"
+          }
+        },
+        "required": []
+      },
+      "IGoogleSlides.Size": {
+        "type": "object",
+        "properties": {
+          "width": {
+            "$ref": "#/components/schemas/IGoogleSlides.Dimension",
+            "title": "Width of the object"
+          },
+          "height": {
+            "$ref": "#/components/schemas/IGoogleSlides.Dimension",
+            "title": "The height of the object"
+          }
+        },
+        "required": []
+      },
+      "IGoogleSlides.Dimension": {
+        "type": "object",
+        "properties": {
+          "magnitude": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "number"
+              }
+            ],
+            "title": "scale"
+          },
+          "unit": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "const": "UNIT_UNSPECIFIED"
+              },
+              {
+                "const": "EMU"
+              },
+              {
+                "const": "PT"
+              }
+            ],
+            "title": "Size units"
+          }
+        },
+        "required": []
+      },
+      "IGoogleSlides.IGetPresentationInput": {
+        "type": "object",
+        "properties": {
+          "presentationId": {
+            "type": "string",
+            "title": "The presentation ID to search for"
+          },
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "google",
+            "x-wrtn-secret-scopes": [
+              "https://www.googleapis.com/auth/presentations"
+            ],
+            "title": "Select authentication information",
+            "description": "secret key."
+          }
+        },
+        "required": [
+          "presentationId",
+          "secretKey"
+        ],
+        "title": "Condition DTO for presentation search"
+      },
+      "IGoogleSlides.AppendQuarterDivisionSlideInput": {
+        "type": "object",
+        "properties": {
+          "templates": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/StrictOmitIGoogleSlides.Template.QuarterDivisiontype"
+            },
+            "title": "templates",
+            "description": "As a slide to add, this template arrangement consists of the same type of template.\nTemplates have unconditional text except for the Entire type, and the image and text are paired.\nWhen the user creates a storyline, the text may be concise, but if it means a fairy tale book, a cartoon, or a speech bubble,\nit is better to substitute a text of sufficient length to grasp the context of the story even if viewed again later."
+          },
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "google",
+            "x-wrtn-secret-scopes": [
+              "https://www.googleapis.com/auth/presentations"
+            ],
+            "title": "Select authentication information",
+            "description": "secret key."
+          }
+        },
+        "required": [
+          "templates",
+          "secretKey"
+        ]
+      },
+      "StrictOmitIGoogleSlides.Template.QuarterDivisiontype": {
+        "type": "object",
+        "properties": {
+          "contents": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "url": {
+                  "type": "string",
+                  "format": "iri",
+                  "title": "URL of the image",
+                  "description": "If there is a problem with the image, the message below may appear.\nYou must insert only existing images, and if the image is too small, you can spit out errors, so insert an image of the appropriate size or create it yourself to insert the image.\nThe first error below is when the image does not exist, and the second is when the size or format of the image is not valid. The image must be in jpg, jpeg, and png formats.\n\n1. The provided image was not found.\n2. There was a problem retrieving the image. The provided image should be publicly accessible, within size limit, and in supported formats."
+                },
+                "text": {
+                  "$ref": "#/components/schemas/IGoogleSlides.InsertText",
+                  "title": "Text corresponding to the image"
+                }
+              },
+              "required": [
+                "url",
+                "text"
+              ]
+            },
+            "minItems": 4,
+            "maxItems": 4,
+            "title": "Contents of the slide",
+            "description": "Here, like a four-cut cartoon, four images and four texts must be put in, so the length of the arrangement must be 4.\nTherefore, you must prepare in advance by receiving or generating four images."
+          }
+        },
+        "required": [
+          "contents"
+        ]
+      },
+      "IGoogleSlides.InsertText": {
+        "type": "object",
+        "properties": {
+          "text": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string",
+                "minLength": 1
+              }
+            ],
+            "title": "Text to add"
+          },
+          "objectId": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "title": "ID"
+          }
+        },
+        "required": []
+      },
+      "IGoogleSlides.AppendEntireSlideInput": {
+        "type": "object",
+        "properties": {
+          "templates": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/StrictOmitIGoogleSlides.Template.Entiretype"
+            },
+            "title": "templates",
+            "description": "As a slide to add, this template arrangement consists of the same type of template.\nTemplates have unconditional text except for the Entire type, and the image and text are paired.\nWhen the user creates a storyline, the text may be concise, but if it means a fairy tale book, a cartoon, or a speech bubble,\nit is better to substitute a text of sufficient length to grasp the context of the story even if viewed again later."
+          },
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "google",
+            "x-wrtn-secret-scopes": [
+              "https://www.googleapis.com/auth/presentations"
+            ],
+            "title": "Select authentication information",
+            "description": "secret key."
+          }
+        },
+        "required": [
+          "templates",
+          "secretKey"
+        ]
+      },
+      "StrictOmitIGoogleSlides.Template.Entiretype": {
+        "type": "object",
+        "properties": {
+          "contents": {
+            "type": "object",
+            "properties": {
+              "url": {
+                "type": "string",
+                "format": "iri",
+                "title": "URL of the image",
+                "description": "If there is a problem with the image, the message below may appear.\nYou must insert only existing images, and if the image is too small, you can spit out errors, so insert an image of the appropriate size or create it yourself to insert the image.\nThe first error below is when the image does not exist, and the second is when the size or format of the image is not valid. The image must be in jpg, jpeg, and png formats.\n\n1. The provided image was not found.\n2. There was a problem retrieving the image. The provided image should be publicly accessible, within size limit, and in supported formats."
+              }
+            },
+            "required": [
+              "url"
+            ],
+            "title": "Contents of the slide"
+          }
+        },
+        "required": [
+          "contents"
+        ]
+      },
+      "IGoogleSlides.AppendLandscapeSlideInput": {
+        "type": "object",
+        "properties": {
+          "templates": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/StrictOmitIGoogleSlides.Template.Landscapetype"
+            },
+            "title": "templates",
+            "description": "As a slide to add, this template arrangement consists of the same type of template.\nTemplates have unconditional text except for the Entire type, and the image and text are paired.\nWhen the user creates a storyline, the text may be concise, but if it means a fairy tale book, a cartoon, or a speech bubble,\nit is better to substitute a text of sufficient length to grasp the context of the story even if viewed again later."
+          },
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "google",
+            "x-wrtn-secret-scopes": [
+              "https://www.googleapis.com/auth/presentations"
+            ],
+            "title": "Select authentication information",
+            "description": "secret key."
+          }
+        },
+        "required": [
+          "templates",
+          "secretKey"
+        ]
+      },
+      "StrictOmitIGoogleSlides.Template.Landscapetype": {
+        "type": "object",
+        "properties": {
+          "contents": {
+            "type": "object",
+            "properties": {
+              "url": {
+                "type": "string",
+                "format": "iri",
+                "title": "URL of the image",
+                "description": "If there is a problem with the image, the message below may appear.\nYou must insert only existing images, and if the image is too small, you can spit out errors, so insert an image of the appropriate size or create it yourself to insert the image.\nThe first error below is when the image does not exist, and the second is when the size or format of the image is not valid. The image must be in jpg, jpeg, and png formats.\n\n1. The provided image was not found.\n2. There was a problem retrieving the image. The provided image should be publicly accessible, within size limit, and in supported formats."
+              },
+              "text": {
+                "$ref": "#/components/schemas/IGoogleSlides.InsertText",
+                "title": "Text corresponding to the image"
+              }
+            },
+            "required": [
+              "url",
+              "text"
+            ],
+            "title": "Contents of the slide"
+          }
+        },
+        "required": [
+          "contents"
+        ]
+      },
+      "IGoogleSlides.AppendSquareSlideInput": {
+        "type": "object",
+        "properties": {
+          "templates": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/StrictOmitIGoogleSlides.Template.Squaretype"
+            },
+            "title": "templates",
+            "description": "As a slide to add, this template arrangement consists of the same type of template.\nTemplates have unconditional text except for the Entire type, and the image and text are paired.\nWhen the user creates a storyline, the text may be concise, but if it means a fairy tale book, a cartoon, or a speech bubble,\nit is better to substitute a text of sufficient length to grasp the context of the story even if viewed again later."
+          },
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "google",
+            "x-wrtn-secret-scopes": [
+              "https://www.googleapis.com/auth/presentations"
+            ],
+            "title": "Select authentication information",
+            "description": "secret key."
+          }
+        },
+        "required": [
+          "templates",
+          "secretKey"
+        ]
+      },
+      "StrictOmitIGoogleSlides.Template.Squaretype": {
+        "type": "object",
+        "properties": {
+          "contents": {
+            "type": "object",
+            "properties": {
+              "url": {
+                "type": "string",
+                "format": "iri",
+                "title": "URL of the image",
+                "description": "If there is a problem with the image, the message below may appear.\nYou must insert only existing images, and if the image is too small, you can spit out errors, so insert an image of the appropriate size or create it yourself to insert the image.\nThe first error below is when the image does not exist, and the second is when the size or format of the image is not valid. The image must be in jpg, jpeg, and png formats.\n\n1. The provided image was not found.\n2. There was a problem retrieving the image. The provided image should be publicly accessible, within size limit, and in supported formats."
+              },
+              "text": {
+                "$ref": "#/components/schemas/IGoogleSlides.InsertText",
+                "title": "Text corresponding to the image"
+              }
+            },
+            "required": [
+              "url",
+              "text"
+            ],
+            "title": "Contents of the slide"
+          }
+        },
+        "required": [
+          "contents"
+        ]
+      },
+      "IGoogleSlides.AppendVerticalSlideInput": {
+        "type": "object",
+        "properties": {
+          "templates": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/StrictOmitIGoogleSlides.Template.Verticaltype"
+            },
+            "title": "templates",
+            "description": "As a slide to add, this template arrangement consists of the same type of template.\nTemplates have unconditional text except for the Entire type, and the image and text are paired.\nWhen the user creates a storyline, the text may be concise, but if it means a fairy tale book, a cartoon, or a speech bubble,\nit is better to substitute a text of sufficient length to grasp the context of the story even if viewed again later."
+          },
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "google",
+            "x-wrtn-secret-scopes": [
+              "https://www.googleapis.com/auth/presentations"
+            ],
+            "title": "Select authentication information",
+            "description": "secret key."
+          }
+        },
+        "required": [
+          "templates",
+          "secretKey"
+        ]
+      },
+      "StrictOmitIGoogleSlides.Template.Verticaltype": {
+        "type": "object",
+        "properties": {
+          "contents": {
+            "type": "object",
+            "properties": {
+              "url": {
+                "type": "string",
+                "format": "iri",
+                "title": "URL of the image",
+                "description": "If there is a problem with the image, the message below may appear.\nYou must insert only existing images, and if the image is too small, you can spit out errors, so insert an image of the appropriate size or create it yourself to insert the image.\nThe first error below is when the image does not exist, and the second is when the size or format of the image is not valid. The image must be in jpg, jpeg, and png formats.\n\n1. The provided image was not found.\n2. There was a problem retrieving the image. The provided image should be publicly accessible, within size limit, and in supported formats."
+              },
+              "text": {
+                "$ref": "#/components/schemas/IGoogleSlides.InsertText",
+                "title": "Text corresponding to the image"
+              }
+            },
+            "required": [
+              "url",
+              "text"
+            ],
+            "title": "Contents of the slide"
+          }
+        },
+        "required": [
+          "contents"
+        ]
+      },
+      "IGoogleSlides.AppendSlideInput": {
+        "type": "object",
+        "properties": {
+          "templates": {
+            "type": "array",
+            "items": {
+              "oneOf": [
+                {
+                  "$ref": "#/components/schemas/IGoogleSlides.Template.QuarterDivision"
+                },
+                {
+                  "$ref": "#/components/schemas/IGoogleSlides.Template.Entire"
+                },
+                {
+                  "$ref": "#/components/schemas/IGoogleSlides.Template.Landscape"
+                },
+                {
+                  "$ref": "#/components/schemas/IGoogleSlides.Template.Square"
+                },
+                {
+                  "$ref": "#/components/schemas/IGoogleSlides.Template.Vertical"
+                }
+              ],
+              "discriminator": {
+                "propertyName": "type",
+                "mapping": {
+                  "QuarterDivision": "#/components/schemas/IGoogleSlides.Template.QuarterDivision",
+                  "Entire": "#/components/schemas/IGoogleSlides.Template.Entire",
+                  "Landscape": "#/components/schemas/IGoogleSlides.Template.Landscape",
+                  "Square": "#/components/schemas/IGoogleSlides.Template.Square",
+                  "Vertical": "#/components/schemas/IGoogleSlides.Template.Vertical"
+                }
+              }
+            },
+            "title": "A list of templates to create at once",
+            "description": "When creating a story or picture book, please use only squares."
+          },
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "google",
+            "x-wrtn-secret-scopes": [
+              "https://www.googleapis.com/auth/presentations"
+            ],
+            "title": "Select authentication information",
+            "description": "secret key."
+          }
+        },
+        "required": [
+          "templates",
+          "secretKey"
+        ],
+        "title": "Request DTO for pasting slides"
+      },
+      "IGoogleSlides.Template.QuarterDivision": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "const": "QuarterDivision",
+            "title": "The type of the template\n\ntype must be \"QuarterDivision\"."
+          },
+          "contents": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "url": {
+                  "type": "string",
+                  "format": "iri",
+                  "title": "URL of the image",
+                  "description": "If there is a problem with the image, the message below may appear.\nYou must insert only existing images, and if the image is too small, you can spit out errors, so insert an image of the appropriate size or create it yourself to insert the image.\nThe first error below is when the image does not exist, and the second is when the size or format of the image is not valid. The image must be in jpg, jpeg, and png formats.\n\n1. The provided image was not found.\n2. There was a problem retrieving the image. The provided image should be publicly accessible, within size limit, and in supported formats."
+                },
+                "text": {
+                  "$ref": "#/components/schemas/IGoogleSlides.InsertText",
+                  "title": "Text corresponding to the image"
+                }
+              },
+              "required": [
+                "url",
+                "text"
+              ]
+            },
+            "minItems": 4,
+            "maxItems": 4,
+            "title": "Contents of the slide",
+            "description": "Here, like a four-cut cartoon, four images and four texts must be put in, so the length of the arrangement must be 4.\nTherefore, you must prepare in advance by receiving or generating four images."
+          }
+        },
+        "required": [
+          "type",
+          "contents"
+        ],
+        "title": "4-part square (cut cartoon type)"
+      },
+      "IGoogleSlides.Template.Entire": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "const": "Entire",
+            "title": "The type of the template\n\ntype must be \"Entire\"."
+          },
+          "contents": {
+            "type": "object",
+            "properties": {
+              "url": {
+                "type": "string",
+                "format": "iri",
+                "title": "URL of the image",
+                "description": "If there is a problem with the image, the message below may appear.\nYou must insert only existing images, and if the image is too small, you can spit out errors, so insert an image of the appropriate size or create it yourself to insert the image.\nThe first error below is when the image does not exist, and the second is when the size or format of the image is not valid. The image must be in jpg, jpeg, and png formats.\n\n1. The provided image was not found.\n2. There was a problem retrieving the image. The provided image should be publicly accessible, within size limit, and in supported formats."
+              }
+            },
+            "required": [
+              "url"
+            ],
+            "title": "Contents of the slide"
+          }
+        },
+        "required": [
+          "type",
+          "contents"
+        ],
+        "title": "View all Horizontal (16:9)"
+      },
+      "IGoogleSlides.Template.Landscape": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "const": "Landscape",
+            "title": "The type of the template\n\ntype must be \"Landscape\"."
+          },
+          "contents": {
+            "type": "object",
+            "properties": {
+              "url": {
+                "type": "string",
+                "format": "iri",
+                "title": "URL of the image",
+                "description": "If there is a problem with the image, the message below may appear.\nYou must insert only existing images, and if the image is too small, you can spit out errors, so insert an image of the appropriate size or create it yourself to insert the image.\nThe first error below is when the image does not exist, and the second is when the size or format of the image is not valid. The image must be in jpg, jpeg, and png formats.\n\n1. The provided image was not found.\n2. There was a problem retrieving the image. The provided image should be publicly accessible, within size limit, and in supported formats."
+              },
+              "text": {
+                "$ref": "#/components/schemas/IGoogleSlides.InsertText",
+                "title": "Text corresponding to the image"
+              }
+            },
+            "required": [
+              "url",
+              "text"
+            ],
+            "title": "Contents of the slide"
+          }
+        },
+        "required": [
+          "type",
+          "contents"
+        ],
+        "title": "Horizontal"
+      },
+      "IGoogleSlides.Template.Square": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "const": "Square",
+            "title": "The type of the template\n\ntype must be \"Square\"."
+          },
+          "contents": {
+            "type": "object",
+            "properties": {
+              "url": {
+                "type": "string",
+                "format": "iri",
+                "title": "URL of the image",
+                "description": "If there is a problem with the image, the message below may appear.\nYou must insert only existing images, and if the image is too small, you can spit out errors, so insert an image of the appropriate size or create it yourself to insert the image.\nThe first error below is when the image does not exist, and the second is when the size or format of the image is not valid. The image must be in jpg, jpeg, and png formats.\n\n1. The provided image was not found.\n2. There was a problem retrieving the image. The provided image should be publicly accessible, within size limit, and in supported formats."
+              },
+              "text": {
+                "$ref": "#/components/schemas/IGoogleSlides.InsertText",
+                "title": "Text corresponding to the image"
+              }
+            },
+            "required": [
+              "url",
+              "text"
+            ],
+            "title": "Contents of the slide"
+          }
+        },
+        "required": [
+          "type",
+          "contents"
+        ],
+        "title": "Square",
+        "description": "When creating a story or picture book, please use only squares."
+      },
+      "IGoogleSlides.Template.Vertical": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "const": "Vertical",
+            "title": "The type of the template\n\ntype must be \"Vertical\""
+          },
+          "contents": {
+            "type": "object",
+            "properties": {
+              "url": {
+                "type": "string",
+                "format": "iri",
+                "title": "URL of the image",
+                "description": "If there is a problem with the image, the message below may appear.\nYou must insert only existing images, and if the image is too small, you can spit out errors, so insert an image of the appropriate size or create it yourself to insert the image.\nThe first error below is when the image does not exist, and the second is when the size or format of the image is not valid. The image must be in jpg, jpeg, and png formats.\n\n1. The provided image was not found.\n2. There was a problem retrieving the image. The provided image should be publicly accessible, within size limit, and in supported formats."
+              },
+              "text": {
+                "$ref": "#/components/schemas/IGoogleSlides.InsertText",
+                "title": "Text corresponding to the image"
+              }
+            },
+            "required": [
+              "url",
+              "text"
+            ],
+            "title": "Contents of the slide"
+          }
+        },
+        "required": [
+          "type",
+          "contents"
+        ],
+        "title": "vertical"
+      },
+      "IGoogleSlides.ICreatePresentationInput": {
+        "type": "object",
+        "properties": {
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "google",
+            "x-wrtn-secret-scopes": [
+              "https://www.googleapis.com/auth/presentations"
+            ],
+            "title": "Select authentication information",
+            "description": "secret key."
+          },
+          "title": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "title": "The title of the presentation"
+          }
+        },
+        "required": [
+          "secretKey"
+        ],
+        "title": "Request DTO for generating a presentation in Google Slides"
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "Google Slide"
+    }
+  ],
   "x-samchon-emended": true
 }

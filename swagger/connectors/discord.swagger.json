@@ -16,16 +16,2440 @@
   ],
   "info": {
     "title": "discord",
-    "version": "0.1.447",
+    "version": "0.1.448",
     "description": "wrtn-ecosystem connectors and sdk",
     "license": {
       "name": "AGPL-3.0-only"
     }
   },
-  "paths": {},
-  "components": {
-    "schemas": {}
+  "paths": {
+    "/connector/discord/create-dm": {
+      "post": {
+        "summary": "Create a DM channel",
+        "description": "Create a new DM channel",
+        "tags": [
+          "Discord"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IDiscord.ICreateDMRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Channel information",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IDiscord.IChannel"
+                }
+              }
+            }
+          }
+        },
+        "x-samchon-accessor": [
+          "connector",
+          "discord",
+          "create_dm",
+          "createDM"
+        ],
+        "x-samchon-controller": "DiscordController",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/discord.svg",
+        "x-samchon-human": true,
+        "x-wrtn-function-select-benchmarks": [
+          "디스코드 DM 채널 만들어줘"
+        ]
+      }
+    },
+    "/connector/discord/modify-guild": {
+      "post": {
+        "summary": "Modify server information",
+        "description": "Modify server information",
+        "tags": [
+          "Discord"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IDiscord.IModifyGuildRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Modified server information",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IDiscord.IGuild"
+                }
+              }
+            }
+          }
+        },
+        "x-samchon-accessor": [
+          "connector",
+          "discord",
+          "modify_guild",
+          "modifyGuild"
+        ],
+        "x-samchon-controller": "DiscordController",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/discord.svg",
+        "x-samchon-human": true,
+        "x-wrtn-function-select-benchmarks": [
+          "디스코드 길드 수정해줘"
+        ]
+      }
+    },
+    "/connector/discord/get-guild-channels": {
+      "patch": {
+        "summary": "Get a list of channels",
+        "description": "Get a list of channels on the server",
+        "tags": [
+          "Discord"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IDiscord.ISecret"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "List of channels",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/IDiscord.IChannel"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-samchon-accessor": [
+          "connector",
+          "discord",
+          "get_guild_channels",
+          "getGuildChannels"
+        ],
+        "x-samchon-controller": "DiscordController",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/discord.svg",
+        "x-samchon-human": true,
+        "x-wrtn-function-select-benchmarks": [
+          "디스코드 길드 채널 조회해줘"
+        ]
+      }
+    },
+    "/connector/discord/create-guild-channel": {
+      "post": {
+        "summary": "Create a channel",
+        "description": "Create a new channel on the server",
+        "tags": [
+          "Discord"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IDiscord.ICreateGuildChannelRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Created channel information",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IDiscord.IChannel"
+                }
+              }
+            }
+          }
+        },
+        "x-samchon-accessor": [
+          "connector",
+          "discord",
+          "create_guild_channel",
+          "createGuildChannel"
+        ],
+        "x-samchon-controller": "DiscordController",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/discord.svg",
+        "x-samchon-human": true,
+        "x-wrtn-function-select-benchmarks": [
+          "디스코드 길드 채널 생성해줘"
+        ]
+      }
+    },
+    "/connector/discord/get-list-guild-members": {
+      "patch": {
+        "summary": "Get a list of members",
+        "description": "Get a list of members on the server",
+        "tags": [
+          "Discord"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IDiscord.ISecret"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "List of server members",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/IDiscord.IGuildMember"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-samchon-accessor": [
+          "connector",
+          "discord",
+          "get_list_guild_members",
+          "getListGuildMembers"
+        ],
+        "x-samchon-controller": "DiscordController",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/discord.svg",
+        "x-samchon-human": true,
+        "x-wrtn-function-select-benchmarks": [
+          "디스코드 길드 멤버 조회해줘"
+        ]
+      }
+    },
+    "/connector/discord/remove-guild-member": {
+      "post": {
+        "summary": "Kick members",
+        "description": "Kicks selected members from the server",
+        "tags": [
+          "Discord"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IDiscord.IRemoveGuildMember"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {}
+            }
+          }
+        },
+        "x-samchon-accessor": [
+          "connector",
+          "discord",
+          "remove_guild_member",
+          "removeGuildMember"
+        ],
+        "x-samchon-controller": "DiscordController",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/discord.svg",
+        "x-samchon-human": true,
+        "x-wrtn-function-select-benchmarks": [
+          "디스코드 길드 멤버 추방해줘",
+          "디스코드 길드 멤버 지워줘"
+        ]
+      }
+    },
+    "/connector/discord/modify-channel": {
+      "post": {
+        "summary": "Modify channel information",
+        "description": "Modify channel information",
+        "tags": [
+          "Discord"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IDiscord.IModifyChannelRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Modified channel information",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IDiscord.IChannel"
+                }
+              }
+            }
+          }
+        },
+        "x-samchon-accessor": [
+          "connector",
+          "discord",
+          "modify_channel",
+          "modifyChannel"
+        ],
+        "x-samchon-controller": "DiscordController",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/discord.svg",
+        "x-samchon-human": true,
+        "x-wrtn-function-select-benchmarks": [
+          "디스코드 채널 정보 수정해줘",
+          "디스코드 채널 수정해줘"
+        ]
+      }
+    },
+    "/connector/discord/delete-channel": {
+      "post": {
+        "summary": "Delete channel",
+        "description": "Delete the selected channel",
+        "tags": [
+          "Discord"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IDiscord.IDeleteChannelRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {}
+            }
+          }
+        },
+        "x-samchon-accessor": [
+          "connector",
+          "discord",
+          "delete_channel",
+          "deleteChannel"
+        ],
+        "x-samchon-controller": "DiscordController",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/discord.svg",
+        "x-samchon-human": true,
+        "x-wrtn-function-select-benchmarks": [
+          "디스코드 채널 삭제해줘"
+        ]
+      }
+    },
+    "/connector/discord/get-pinned-messages": {
+      "patch": {
+        "summary": "Get a list of pinned messages",
+        "description": "Get a list of pinned messages in a channel",
+        "tags": [
+          "Discord"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IDiscord.IGetPinnedMessagesRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "a list of pinned messages",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/IDiscord.IMessage"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-samchon-accessor": [
+          "connector",
+          "discord",
+          "get_pinned_messages",
+          "getPinnedMessages"
+        ],
+        "x-samchon-controller": "DiscordController",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/discord.svg",
+        "x-samchon-human": true,
+        "x-wrtn-function-select-benchmarks": [
+          "디스코드 메세지 고정해둔 것들 조회해줘",
+          "디스코드 핀꽂은 메세지만 조회해줘"
+        ]
+      }
+    },
+    "/connector/discord/pin-message": {
+      "post": {
+        "summary": "Pin a message",
+        "description": "Pin a message to a channel",
+        "tags": [
+          "Discord"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IDiscord.IPinOrUnpinMessagesRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {}
+            }
+          }
+        },
+        "x-samchon-accessor": [
+          "connector",
+          "discord",
+          "pin_message",
+          "pinMessage"
+        ],
+        "x-samchon-controller": "DiscordController",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/discord.svg",
+        "x-samchon-human": true,
+        "x-wrtn-function-select-benchmarks": [
+          "디스코드 메시지 고정해줘"
+        ]
+      }
+    },
+    "/connector/discord/unpin-message": {
+      "post": {
+        "summary": "Unpin message",
+        "description": "Unpin a pinned message from a channel",
+        "tags": [
+          "Discord"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IDiscord.IPinOrUnpinMessagesRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {}
+            }
+          }
+        },
+        "x-samchon-accessor": [
+          "connector",
+          "discord",
+          "unpin_message",
+          "unpinMessage"
+        ],
+        "x-samchon-controller": "DiscordController",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/discord.svg",
+        "x-samchon-human": true,
+        "x-wrtn-function-select-benchmarks": [
+          "디스코드 메시지 고정 해제해줘"
+        ]
+      }
+    },
+    "/connector/discord/get-channel-message-histories": {
+      "patch": {
+        "summary": "Get a list of messages",
+        "description": "Get the messages that exist in the channel",
+        "tags": [
+          "Discord"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IDiscord.IGetChannelMessageHistoriesRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "List of messages",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/IDiscord.IMessage"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-samchon-accessor": [
+          "connector",
+          "discord",
+          "get_channel_message_histories",
+          "getChannelMessageHistories"
+        ],
+        "x-samchon-controller": "DiscordController",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/discord.svg",
+        "x-samchon-human": true,
+        "x-wrtn-function-select-benchmarks": [
+          "디스코드 메시지 조회해줘"
+        ]
+      }
+    },
+    "/connector/discord/create-message": {
+      "post": {
+        "summary": "Send a message",
+        "description": "Send a message",
+        "tags": [
+          "Discord"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IDiscord.ICreateMessageRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "The generated message",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IDiscord.IMessage"
+                }
+              }
+            }
+          }
+        },
+        "x-samchon-accessor": [
+          "connector",
+          "discord",
+          "create_message",
+          "createMessage"
+        ],
+        "x-samchon-controller": "DiscordController",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/discord.svg",
+        "x-samchon-human": true,
+        "x-wrtn-function-select-benchmarks": [
+          "디스코드 메시지 보내줘"
+        ]
+      }
+    },
+    "/connector/discord/edit-message": {
+      "post": {
+        "summary": "Modify message",
+        "description": "Modify the message",
+        "tags": [
+          "Discord"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IDiscord.IEditMessageRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Modified message",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IDiscord.IMessage"
+                }
+              }
+            }
+          }
+        },
+        "x-samchon-accessor": [
+          "connector",
+          "discord",
+          "edit_message",
+          "editMessage"
+        ],
+        "x-samchon-controller": "DiscordController",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/discord.svg",
+        "x-samchon-human": true,
+        "x-wrtn-function-select-benchmarks": [
+          "디스코드 메시지 수정해줘"
+        ]
+      }
+    },
+    "/connector/discord/delete-message": {
+      "post": {
+        "summary": "Delete message",
+        "description": "Delete message",
+        "tags": [
+          "Discord"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IDiscord.IDeleteMessageRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {}
+            }
+          }
+        },
+        "x-samchon-accessor": [
+          "connector",
+          "discord",
+          "delete_message",
+          "deleteMessage"
+        ],
+        "x-samchon-controller": "DiscordController",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/discord.svg",
+        "x-samchon-human": true,
+        "x-wrtn-function-select-benchmarks": [
+          "디스코드 메시지 전송 취소해줘",
+          "디스코드 메시지 취소해줘",
+          "디스코드 메시지 삭제해줘"
+        ]
+      }
+    },
+    "/connector/discord/bulk-delete-message": {
+      "post": {
+        "summary": "Delete multiple messages",
+        "description": "Delete multiple messages",
+        "tags": [
+          "Discord"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IDiscord.IBulkDeleteMessagesRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "",
+            "content": {
+              "application/json": {}
+            }
+          }
+        },
+        "x-samchon-accessor": [
+          "connector",
+          "discord",
+          "bulk_delete_message",
+          "bulkDeleteMessage"
+        ],
+        "x-samchon-controller": "DiscordController",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/discord.svg",
+        "x-samchon-human": true,
+        "x-wrtn-function-select-benchmarks": [
+          "디스코드 메시지 전송 취소해줘",
+          "디스코드 메시지 취소해줘",
+          "디스코드 메시지 삭제해줘"
+        ]
+      }
+    }
   },
-  "tags": [],
+  "components": {
+    "schemas": {
+      "IDiscord.IChannel": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "id"
+          },
+          "type": {
+            "type": "number",
+            "title": "type"
+          },
+          "guild_id": {
+            "type": "string",
+            "title": "guild_id"
+          },
+          "position": {
+            "type": "number",
+            "title": "position"
+          },
+          "permission_overwrites": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/IDiscord.IOverwrite"
+            },
+            "title": "permission_overwrites"
+          },
+          "name": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "title": "name"
+          },
+          "topic": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "title": "topic"
+          },
+          "recipients": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/IDiscord.IUser"
+            },
+            "title": "recipients"
+          },
+          "icon": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "title": "icon"
+          },
+          "owner_id": {
+            "type": "string",
+            "title": "owner_id"
+          },
+          "application_id": {
+            "type": "string",
+            "title": "application_id"
+          },
+          "managed": {
+            "type": "boolean",
+            "title": "managed"
+          },
+          "parent_id": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "title": "parent_id"
+          },
+          "last_pin_timestamp": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string",
+                "format": "date-time"
+              }
+            ],
+            "title": "last_pin_timestamp"
+          },
+          "rtc_region": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "title": "rtc_region"
+          },
+          "video_quality_mode": {
+            "type": "number",
+            "title": "video_quality_mode"
+          },
+          "message_count": {
+            "type": "number",
+            "title": "message_count"
+          },
+          "member_count": {
+            "type": "number",
+            "title": "member_count"
+          },
+          "thread_metadata": {
+            "$ref": "#/components/schemas/IDiscord.IThreadMetadata",
+            "title": "thread_metadata"
+          },
+          "member": {
+            "$ref": "#/components/schemas/IDiscord.IThreadMember",
+            "title": "member"
+          },
+          "default_auto_archive_duration": {
+            "type": "number",
+            "title": "default_auto_archive_duration"
+          },
+          "permissions": {
+            "type": "string",
+            "title": "permissions"
+          },
+          "flags": {
+            "type": "number",
+            "title": "flags"
+          },
+          "total_message_sent": {
+            "type": "number",
+            "title": "total_message_sent"
+          },
+          "available_tags": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/IDiscord.ITag"
+            },
+            "title": "available_tags"
+          },
+          "applied_tags": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "title": "applied_tags"
+          },
+          "default_reaction_emoji": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/IDiscord.IDefaultReaction"
+              }
+            ],
+            "title": "default_reaction_emoji"
+          },
+          "default_thread_rate_limit_per_user": {
+            "type": "number",
+            "title": "default_thread_rate_limit_per_user"
+          },
+          "default_sort_order": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "number"
+              }
+            ],
+            "title": "default_sort_order"
+          },
+          "default_forum_layout": {
+            "type": "number",
+            "title": "default_forum_layout"
+          }
+        },
+        "required": [
+          "id",
+          "type"
+        ],
+        "title": "채널 정보"
+      },
+      "IDiscord.IOverwrite": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "id"
+          },
+          "type": {
+            "type": "number",
+            "title": "type"
+          },
+          "allow": {
+            "type": "string",
+            "title": "allow"
+          },
+          "deny": {
+            "type": "string",
+            "title": "deny"
+          }
+        },
+        "required": [
+          "id",
+          "type",
+          "allow",
+          "deny"
+        ]
+      },
+      "IDiscord.IUser": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "유저 고유 id",
+            "description": "유저마다 발급된 고유 id 입니다."
+          },
+          "username": {
+            "type": "string",
+            "title": "유저 이름",
+            "description": "유저 이름입니다."
+          },
+          "discriminator": {
+            "type": "string",
+            "title": "유저의 discord tag 입니다",
+            "description": "유저의 discord tag 입니다."
+          },
+          "global_name": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "title": "유저가 설정한 이름",
+            "description": "유저가 설정한 이름입니다. 봇 유저는 어플리케이션 이름이 됩니다."
+          },
+          "bot": {
+            "type": "boolean",
+            "title": "봇 유저 여부",
+            "description": "봇 유저 여부입니다."
+          },
+          "email": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "title": "이메일",
+            "description": "유저 이메일입니다."
+          }
+        },
+        "required": [
+          "id",
+          "username",
+          "discriminator",
+          "global_name"
+        ],
+        "title": "유저 정보"
+      },
+      "IDiscord.IThreadMetadata": {
+        "type": "object",
+        "properties": {
+          "archived": {
+            "type": "boolean",
+            "title": "archived"
+          },
+          "auto_archive_duration": {
+            "type": "number",
+            "title": "auto_archive_duration"
+          },
+          "archive_timestamp": {
+            "type": "string",
+            "format": "date-time",
+            "title": "archive_timestamp"
+          },
+          "locked": {
+            "type": "boolean",
+            "title": "locked"
+          },
+          "invitable": {
+            "type": "boolean",
+            "title": "invitable"
+          },
+          "create_timestamp": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string",
+                "format": "date-time"
+              }
+            ],
+            "title": "create_timestamp"
+          }
+        },
+        "required": [
+          "archived",
+          "auto_archive_duration",
+          "archive_timestamp",
+          "locked"
+        ]
+      },
+      "IDiscord.IThreadMember": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "id"
+          },
+          "user_id": {
+            "type": "string",
+            "title": "user_id"
+          },
+          "join_timestamp": {
+            "type": "string",
+            "format": "date-time",
+            "title": "join_timestamp"
+          },
+          "flags": {
+            "type": "number",
+            "title": "flags"
+          },
+          "member": {
+            "$ref": "#/components/schemas/IDiscord.IGuildMember",
+            "title": "member"
+          }
+        },
+        "required": [
+          "join_timestamp",
+          "flags"
+        ]
+      },
+      "IDiscord.IGuildMember": {
+        "type": "object",
+        "properties": {
+          "user": {
+            "$ref": "#/components/schemas/IDiscord.IUser",
+            "title": "user"
+          },
+          "nick": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "title": "nick"
+          },
+          "avatar": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "title": "avatar"
+          },
+          "roles": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "title": "roles"
+          },
+          "joined_at": {
+            "type": "string",
+            "format": "date-time",
+            "title": "joined_at"
+          },
+          "premium_since": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string",
+                "format": "date-time"
+              }
+            ],
+            "title": "premium_since"
+          },
+          "deaf": {
+            "type": "boolean",
+            "title": "deaf"
+          },
+          "mute": {
+            "type": "boolean",
+            "title": "mute"
+          },
+          "flags": {
+            "type": "number",
+            "title": "flags"
+          },
+          "pending": {
+            "type": "boolean",
+            "title": "pending"
+          },
+          "permissions": {
+            "type": "string",
+            "title": "permissions"
+          },
+          "communication_disabled_until": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string",
+                "format": "date-time"
+              }
+            ],
+            "title": "communication_disabled_until"
+          },
+          "avatar_decoration_data": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/IDiscord.IAvatarDecorationData"
+              }
+            ],
+            "title": "avatar_decoration_data"
+          }
+        },
+        "required": [
+          "roles",
+          "joined_at",
+          "deaf",
+          "mute",
+          "flags"
+        ],
+        "title": "서버에 있는 멤버 정보"
+      },
+      "IDiscord.IAvatarDecorationData": {
+        "type": "object",
+        "properties": {
+          "asset": {
+            "type": "string",
+            "title": "asset"
+          },
+          "sku_id": {
+            "type": "string",
+            "title": "sku_id"
+          }
+        },
+        "required": [
+          "asset",
+          "sku_id"
+        ]
+      },
+      "IDiscord.ITag": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "id"
+          },
+          "name": {
+            "type": "string",
+            "title": "name"
+          },
+          "moderated": {
+            "type": "boolean",
+            "title": "moderated"
+          },
+          "emoji_id": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "title": "emoji_id"
+          },
+          "emoji_name": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "title": "emoji_name"
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "moderated",
+          "emoji_id",
+          "emoji_name"
+        ]
+      },
+      "IDiscord.IDefaultReaction": {
+        "type": "object",
+        "properties": {
+          "emoji_id": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "title": "emoji_id"
+          },
+          "emoji_name": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "title": "emoji_name"
+          }
+        },
+        "required": [
+          "emoji_id",
+          "emoji_name"
+        ]
+      },
+      "IDiscord.ICreateDMRequest": {
+        "type": "object",
+        "properties": {
+          "recipient_id": {
+            "type": "string",
+            "x-wrtn-prerequisite": {
+              "method": "post",
+              "path": "connector/discord/get-list-guild-members",
+              "jmesPath": "[].{value:user.id, label:user.username}"
+            },
+            "title": "상대방",
+            "description": "DM을 보낼 상대방을 선택해주세요."
+          },
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "discord",
+            "x-wrtn-secret-scopes": [
+              "bot"
+            ],
+            "title": "Select authentication information",
+            "description": "secret key."
+          }
+        },
+        "required": [
+          "recipient_id",
+          "secretKey"
+        ],
+        "title": "DM을 보내기 위해 필요한 정보"
+      },
+      "IDiscord.IGuild": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "id"
+          },
+          "name": {
+            "type": "string",
+            "title": "name"
+          },
+          "owner": {
+            "type": "boolean",
+            "title": "owner"
+          },
+          "owner_id": {
+            "type": "string",
+            "title": "owner_id"
+          },
+          "roles": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/IDiscord.IRole"
+            },
+            "title": "roles"
+          },
+          "features": {
+            "type": "array",
+            "items": {
+              "oneOf": [
+                {
+                  "const": "ANIMATED_BANNER"
+                },
+                {
+                  "const": "ANIMATED_ICON"
+                },
+                {
+                  "const": "APPLICATION_COMMAND_PERMISSIONS_V2"
+                },
+                {
+                  "const": "AUTO_MODERATION"
+                },
+                {
+                  "const": "BANNER"
+                },
+                {
+                  "const": "COMMUNITY"
+                },
+                {
+                  "const": "CREATOR_MONETIZABLE_PROVISIONAL"
+                },
+                {
+                  "const": "CREATOR_STORE_PAGE"
+                },
+                {
+                  "const": "DEVELOPER_SUPPORT_SERVER"
+                },
+                {
+                  "const": "DISCOVERABLE"
+                },
+                {
+                  "const": "FEATURABLE"
+                },
+                {
+                  "const": "INVITES_DISABLED"
+                },
+                {
+                  "const": "INVITE_SPLASH"
+                },
+                {
+                  "const": "MEMBER_VERIFICATION_GATE_ENABLED"
+                },
+                {
+                  "const": "MORE_STICKERS"
+                },
+                {
+                  "const": "NEWS"
+                },
+                {
+                  "const": "PARTNERED"
+                },
+                {
+                  "const": "PREVIEW_ENABLED"
+                },
+                {
+                  "const": "RAID_ALERTS_DISABLED"
+                },
+                {
+                  "const": "ROLE_ICONS"
+                },
+                {
+                  "const": "ROLE_SUBSCRIPTIONS_AVAILABLE_FOR_PURCHASE"
+                },
+                {
+                  "const": "ROLE_SUBSCRIPTIONS_ENABLED"
+                },
+                {
+                  "const": "TICKETED_EVENTS_ENABLED"
+                },
+                {
+                  "const": "VANITY_URL"
+                },
+                {
+                  "const": "VERIFIED"
+                },
+                {
+                  "const": "VIP_REGIONS"
+                },
+                {
+                  "const": "WELCOME_SCREEN_ENABLED"
+                }
+              ]
+            },
+            "title": "features"
+          },
+          "description": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "title": "description"
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "features"
+        ],
+        "title": "서버 정보"
+      },
+      "IDiscord.IRole": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "id"
+          },
+          "name": {
+            "type": "string",
+            "title": "name"
+          },
+          "color": {
+            "type": "number",
+            "title": "color"
+          },
+          "hoist": {
+            "type": "boolean",
+            "title": "hoist"
+          },
+          "icon": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "title": "icon"
+          },
+          "unicode_emoji": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "title": "unicode_emoji"
+          },
+          "position": {
+            "type": "number",
+            "title": "position"
+          },
+          "permissions": {
+            "type": "string",
+            "title": "permissions"
+          },
+          "managed": {
+            "type": "boolean",
+            "title": "managed"
+          },
+          "mentionable": {
+            "type": "boolean",
+            "title": "mentionable"
+          },
+          "tags": {
+            "$ref": "#/components/schemas/IDiscord.ITags",
+            "title": "tags"
+          },
+          "flags": {
+            "type": "number",
+            "title": "flags"
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "color",
+          "hoist",
+          "position",
+          "permissions",
+          "managed",
+          "mentionable",
+          "flags"
+        ]
+      },
+      "IDiscord.ITags": {
+        "type": "object",
+        "properties": {
+          "bot_id": {
+            "type": "string",
+            "title": "bot_id"
+          },
+          "integration_id": {
+            "type": "string",
+            "title": "integration_id"
+          },
+          "premium_subscriber": {
+            "type": "null",
+            "title": "premium_subscriber"
+          },
+          "subscription_listing_id": {
+            "type": "number",
+            "title": "subscription_listing_id"
+          },
+          "available_for_purchase": {
+            "type": "null",
+            "title": "available_for_purchase"
+          },
+          "guild_connections": {
+            "type": "null",
+            "title": "guild_connections"
+          }
+        },
+        "required": []
+      },
+      "IDiscord.IModifyGuildRequest": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "title": "수정할 이름",
+            "description": "수정할 서버 이름을 입력해주세요."
+          },
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "discord",
+            "x-wrtn-secret-scopes": [
+              "bot"
+            ],
+            "title": "Select authentication information",
+            "description": "secret key."
+          }
+        },
+        "required": [
+          "name",
+          "secretKey"
+        ],
+        "title": "서버 정보를 수정하기 위해 필요한 정보"
+      },
+      "IDiscord.ISecret": {
+        "type": "object",
+        "properties": {
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "discord",
+            "x-wrtn-secret-scopes": [
+              "bot"
+            ],
+            "title": "Select authentication information",
+            "description": "secret key."
+          }
+        },
+        "required": [
+          "secretKey"
+        ]
+      },
+      "IDiscord.ICreateGuildChannelRequest": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "maxLength": 100,
+            "title": "채널 이름",
+            "description": "생성할 서버 이름을 입력해주세요."
+          },
+          "type": {
+            "oneOf": [
+              {
+                "const": 0
+              },
+              {
+                "const": 1
+              }
+            ],
+            "title": "유형",
+            "description": "서버 유형을 선택해주세요."
+          },
+          "topic": {
+            "type": "string",
+            "maxLength": 1024,
+            "title": "주제",
+            "description": "채널 주제를 입력해주세요."
+          },
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "discord",
+            "x-wrtn-secret-scopes": [
+              "bot"
+            ],
+            "title": "Select authentication information",
+            "description": "secret key."
+          }
+        },
+        "required": [
+          "name",
+          "type",
+          "secretKey"
+        ],
+        "title": "채널을 생성하기 위해 필요한 정보"
+      },
+      "IDiscord.IRemoveGuildMember": {
+        "type": "object",
+        "properties": {
+          "userId": {
+            "type": "string",
+            "x-wrtn-prerequisite": {
+              "method": "post",
+              "path": "connector/discord/get-list-guild-members",
+              "jmesPath": "[].{value:user.id, label:user.username}"
+            },
+            "title": "멤버",
+            "description": "차단할 멤버를 선택해주세요."
+          },
+          "secretKey": {
+            "type": "string",
+            "x-wrtn-secret-key": "discord",
+            "x-wrtn-secret-scopes": [
+              "bot"
+            ],
+            "title": "Select authentication information",
+            "description": "secret key."
+          }
+        },
+        "required": [
+          "userId",
+          "secretKey"
+        ],
+        "title": "멤버를 차단 하기 위해 필요한 정보"
+      },
+      "IDiscord.IModifyChannelRequest": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "title": "수정할 채널 이름",
+            "description": "수정할 채널 이름을 입력해주세요."
+          },
+          "channelId": {
+            "type": "string",
+            "x-wrtn-prerequisite": {
+              "method": "post",
+              "path": "connector/discord/get-guild-channels",
+              "jmesPath": "[].{value:id, label:name}"
+            },
+            "title": "채널",
+            "description": "수정할 채널을 선택해주세요."
+          }
+        },
+        "required": [
+          "name",
+          "channelId"
+        ],
+        "title": "채널을 수정하기 위해 필요한 정보"
+      },
+      "IDiscord.IDeleteChannelRequest": {
+        "type": "object",
+        "properties": {
+          "channelId": {
+            "type": "string",
+            "x-wrtn-prerequisite": {
+              "method": "post",
+              "path": "connector/discord/get-guild-channels",
+              "jmesPath": "[].{value:id, label:name}"
+            },
+            "title": "채널",
+            "description": "삭제할 채널을 선택해주세요."
+          }
+        },
+        "required": [
+          "channelId"
+        ],
+        "title": "채널을 삭제하기 위해 필요한 정보"
+      },
+      "IDiscord.IMessage": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "id"
+          },
+          "channel_id": {
+            "type": "string",
+            "title": "channel_id"
+          },
+          "author": {
+            "$ref": "#/components/schemas/IDiscord.IUser",
+            "title": "author"
+          },
+          "content": {
+            "type": "string",
+            "title": "content"
+          },
+          "timestamp": {
+            "type": "string",
+            "format": "date-time",
+            "title": "timestamp"
+          },
+          "edited_timestamp": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string",
+                "format": "date-time"
+              }
+            ],
+            "title": "edited_timestamp"
+          },
+          "tts": {
+            "type": "boolean",
+            "title": "tts"
+          },
+          "mention_everyone": {
+            "type": "boolean",
+            "title": "mention_everyone"
+          },
+          "mentions": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/IDiscord.IUser"
+            },
+            "title": "mentions"
+          },
+          "mention_channels": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/IDiscord.IChannelMention"
+            },
+            "title": "mention_channels"
+          },
+          "attachments": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/IDiscord.IAttachment"
+            },
+            "title": "attachments"
+          },
+          "embeds": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/IDiscord.IEmbed"
+            },
+            "title": "embeds"
+          },
+          "reactions": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/IDiscord.IReaction"
+            },
+            "title": "reactions"
+          },
+          "pinned": {
+            "type": "boolean",
+            "title": "pinned"
+          },
+          "type": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 45,
+            "title": "type"
+          },
+          "thread": {
+            "$ref": "#/components/schemas/IDiscord.IChannel",
+            "title": "thread"
+          }
+        },
+        "required": [
+          "id",
+          "channel_id",
+          "author",
+          "content",
+          "timestamp",
+          "tts",
+          "mention_everyone",
+          "mentions",
+          "attachments",
+          "embeds",
+          "pinned",
+          "type"
+        ],
+        "title": "메세지 정보"
+      },
+      "IDiscord.IChannelMention": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "id"
+          },
+          "guild_id": {
+            "type": "string",
+            "title": "guild_id"
+          },
+          "type": {
+            "oneOf": [
+              {
+                "const": 0
+              },
+              {
+                "const": 1
+              }
+            ],
+            "title": "type"
+          },
+          "name": {
+            "type": "string",
+            "title": "name"
+          }
+        },
+        "required": [
+          "id",
+          "guild_id",
+          "type",
+          "name"
+        ]
+      },
+      "IDiscord.IAttachment": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "id"
+          },
+          "filename": {
+            "type": "string",
+            "title": "filename"
+          },
+          "title": {
+            "type": "string",
+            "title": "title"
+          },
+          "description": {
+            "type": "string",
+            "title": "description"
+          },
+          "conetnt_type": {
+            "type": "string",
+            "title": "conetnt_type"
+          },
+          "size": {
+            "type": "number",
+            "title": "size"
+          },
+          "url": {
+            "type": "string",
+            "title": "url"
+          },
+          "proxy_url": {
+            "type": "string",
+            "title": "proxy_url"
+          },
+          "height": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "number"
+              }
+            ],
+            "title": "height"
+          },
+          "width": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "number"
+              }
+            ],
+            "title": "width"
+          },
+          "ephemeral": {
+            "type": "boolean",
+            "title": "ephemeral"
+          },
+          "duration_secs": {
+            "type": "number",
+            "title": "duration_secs"
+          },
+          "waveform": {
+            "type": "string",
+            "title": "waveform"
+          },
+          "flags": {
+            "type": "number",
+            "title": "flags"
+          }
+        },
+        "required": [
+          "id",
+          "filename",
+          "size",
+          "url",
+          "proxy_url"
+        ]
+      },
+      "IDiscord.IEmbed": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "title": "title"
+          },
+          "type": {
+            "type": "string",
+            "title": "type"
+          },
+          "description": {
+            "type": "string",
+            "title": "description"
+          },
+          "url": {
+            "type": "string",
+            "title": "url"
+          },
+          "timestamp": {
+            "type": "string",
+            "format": "date-time",
+            "title": "timestamp"
+          },
+          "color": {
+            "type": "number",
+            "title": "color"
+          },
+          "footer": {
+            "$ref": "#/components/schemas/IDiscord.IEmbedFooter",
+            "title": "footer"
+          },
+          "image": {
+            "$ref": "#/components/schemas/IDiscord.IEmbedImage",
+            "title": "image"
+          },
+          "thumbnail": {
+            "$ref": "#/components/schemas/IDiscord.IEmbedThumbnail",
+            "title": "thumbnail"
+          },
+          "video": {
+            "$ref": "#/components/schemas/IDiscord.IEmbedVideo",
+            "title": "video"
+          },
+          "provider": {
+            "$ref": "#/components/schemas/IDiscord.IEmbedProvider",
+            "title": "provider"
+          },
+          "author": {
+            "$ref": "#/components/schemas/IDiscord.IEmbedAuthor",
+            "title": "author"
+          },
+          "fields": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/IDiscord.IEmbedField"
+            },
+            "title": "fields"
+          }
+        },
+        "required": []
+      },
+      "IDiscord.IEmbedFooter": {
+        "type": "object",
+        "properties": {
+          "text": {
+            "type": "string",
+            "title": "text"
+          },
+          "icon_url": {
+            "type": "string",
+            "title": "icon_url"
+          },
+          "proxy_icon_url": {
+            "type": "string",
+            "title": "proxy_icon_url"
+          }
+        },
+        "required": [
+          "text"
+        ]
+      },
+      "IDiscord.IEmbedImage": {
+        "type": "object",
+        "properties": {
+          "url": {
+            "type": "string",
+            "title": "url"
+          },
+          "proxy_url": {
+            "type": "string",
+            "title": "proxy_url"
+          },
+          "height": {
+            "type": "number",
+            "title": "height"
+          },
+          "width": {
+            "type": "number",
+            "title": "width"
+          }
+        },
+        "required": [
+          "url"
+        ]
+      },
+      "IDiscord.IEmbedThumbnail": {
+        "type": "object",
+        "properties": {
+          "url": {
+            "type": "string",
+            "title": "url"
+          },
+          "proxy_url": {
+            "type": "string",
+            "title": "proxy_url"
+          },
+          "height": {
+            "type": "number",
+            "title": "height"
+          },
+          "width": {
+            "type": "number",
+            "title": "width"
+          }
+        },
+        "required": [
+          "url"
+        ]
+      },
+      "IDiscord.IEmbedVideo": {
+        "type": "object",
+        "properties": {
+          "url": {
+            "type": "string",
+            "title": "url"
+          },
+          "proxy_url": {
+            "type": "string",
+            "title": "proxy_url"
+          },
+          "height": {
+            "type": "number",
+            "title": "height"
+          },
+          "width": {
+            "type": "number",
+            "title": "width"
+          }
+        },
+        "required": []
+      },
+      "IDiscord.IEmbedProvider": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "title": "name"
+          },
+          "url": {
+            "type": "string",
+            "title": "url"
+          }
+        },
+        "required": []
+      },
+      "IDiscord.IEmbedAuthor": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "title": "name"
+          },
+          "url": {
+            "type": "string",
+            "title": "url"
+          },
+          "icon_url": {
+            "type": "string",
+            "title": "icon_url"
+          },
+          "proxy_icon_url": {
+            "type": "string",
+            "title": "proxy_icon_url"
+          }
+        },
+        "required": [
+          "name"
+        ]
+      },
+      "IDiscord.IEmbedField": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "title": "name"
+          },
+          "value": {
+            "type": "string",
+            "title": "value"
+          },
+          "inline": {
+            "type": "boolean",
+            "title": "inline"
+          }
+        },
+        "required": [
+          "name",
+          "value"
+        ]
+      },
+      "IDiscord.IReaction": {
+        "type": "object",
+        "properties": {
+          "count": {
+            "type": "number",
+            "title": "count"
+          },
+          "count_details": {
+            "$ref": "#/components/schemas/IDiscord.IReactionCountDetails",
+            "title": "count_details"
+          },
+          "me": {
+            "type": "boolean",
+            "title": "me"
+          },
+          "me_burst": {
+            "type": "boolean",
+            "title": "me_burst"
+          },
+          "emoji": {
+            "$ref": "#/components/schemas/PartialIDiscord.IEmoji",
+            "title": "emoji"
+          }
+        },
+        "required": [
+          "count",
+          "count_details",
+          "me",
+          "me_burst",
+          "emoji"
+        ]
+      },
+      "IDiscord.IReactionCountDetails": {
+        "type": "object",
+        "properties": {
+          "burst": {
+            "type": "number",
+            "title": "burst"
+          },
+          "normal": {
+            "type": "number",
+            "title": "normal"
+          }
+        },
+        "required": [
+          "burst",
+          "normal"
+        ]
+      },
+      "PartialIDiscord.IEmoji": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "title": "id"
+          },
+          "name": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              }
+            ],
+            "title": "name"
+          },
+          "roles": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "title": "roles"
+          },
+          "user": {
+            "$ref": "#/components/schemas/IDiscord.IUser",
+            "title": "user"
+          },
+          "require_colons": {
+            "type": "boolean",
+            "title": "require_colons"
+          },
+          "managed": {
+            "type": "boolean",
+            "title": "managed"
+          },
+          "animated": {
+            "type": "boolean",
+            "title": "animated"
+          },
+          "available": {
+            "type": "boolean",
+            "title": "available"
+          }
+        },
+        "required": [],
+        "description": "Make all properties in T optional"
+      },
+      "IDiscord.IGetPinnedMessagesRequest": {
+        "type": "object",
+        "properties": {
+          "channelId": {
+            "type": "string",
+            "x-wrtn-prerequisite": {
+              "method": "post",
+              "path": "connector/discord/get-guild-channels",
+              "jmesPath": "[].{value:id, label:name}"
+            },
+            "title": "채널",
+            "description": "고정된 메세지를 가져올 채널을 선택해주세요."
+          }
+        },
+        "required": [
+          "channelId"
+        ],
+        "title": "고정된 메세지를 가져오기 위해 필요한 정보"
+      },
+      "IDiscord.IPinOrUnpinMessagesRequest": {
+        "type": "object",
+        "properties": {
+          "channelId": {
+            "type": "string",
+            "x-wrtn-prerequisite": {
+              "method": "post",
+              "path": "connector/discord/get-guild-channels",
+              "jmesPath": "[].{value:id, label:name}"
+            },
+            "title": "채널",
+            "description": "메세지를 고정 또는 고정 해제할 채널을 선택해주세요."
+          },
+          "messageId": {
+            "type": "string",
+            "x-wrtn-prerequisite": {
+              "method": "post",
+              "path": "/connector/discord/get-channel-message-histories",
+              "jmesPath": "[].{value:id, label:content}"
+            },
+            "title": "메세지",
+            "description": "고정 또는 고정 해제할 메세지를 선택해주세요."
+          }
+        },
+        "required": [
+          "channelId",
+          "messageId"
+        ],
+        "title": "메세지를 고정 또는 고정 해제하기 위해 필요한 정보"
+      },
+      "IDiscord.IGetChannelMessageHistoriesRequest": {
+        "type": "object",
+        "properties": {
+          "channelId": {
+            "type": "string",
+            "x-wrtn-prerequisite": {
+              "method": "post",
+              "path": "/connector/discord/get-guild-channels",
+              "jmesPath": "[].{value:id, label:name}"
+            },
+            "title": "채널",
+            "description": "메세지 목록을 가져올 채널을 선택해주세요."
+          }
+        },
+        "required": [
+          "channelId"
+        ],
+        "title": "채널의 메세지 목록을 가져오기 위해 필요한 정보"
+      },
+      "IDiscord.ICreateMessageRequest": {
+        "type": "object",
+        "properties": {
+          "channelId": {
+            "type": "string",
+            "x-wrtn-prerequisite": {
+              "method": "post",
+              "path": "/connector/discord/get-guild-channels",
+              "jmesPath": "[].{value:id, label:name}"
+            },
+            "title": "채널",
+            "description": "메세지를 생성할 채널을 선택해주세요."
+          },
+          "content": {
+            "type": "string",
+            "title": "메세지 내용",
+            "description": "메세지 내용을 입력해주세요."
+          }
+        },
+        "required": [
+          "channelId",
+          "content"
+        ],
+        "title": "메세지를 생성하기 위해 필요한 정보"
+      },
+      "IDiscord.IEditMessageRequest": {
+        "type": "object",
+        "properties": {
+          "channelId": {
+            "type": "string",
+            "x-wrtn-prerequisite": {
+              "method": "post",
+              "path": "/connector/discord/get-guild-channels",
+              "jmesPath": "[].{value:id, label:name}"
+            },
+            "title": "채널",
+            "description": "메세지를 수정할 채널을 선택해주세요."
+          },
+          "messageId": {
+            "type": "string",
+            "x-wrtn-prerequisite": {
+              "method": "post",
+              "path": "/connector/discord/get-channel-message-histories",
+              "jmesPath": "[].{value:id, label:content}"
+            },
+            "title": "수정할 메세지",
+            "description": "수정할 메세지를 선택해주세요."
+          },
+          "content": {
+            "type": "string",
+            "title": "수정할 내용",
+            "description": "수정할 내용을 입력해주세요."
+          }
+        },
+        "required": [
+          "channelId",
+          "messageId",
+          "content"
+        ],
+        "title": "메세지 수정하기 위해 필요한 정보"
+      },
+      "IDiscord.IDeleteMessageRequest": {
+        "type": "object",
+        "properties": {
+          "channelId": {
+            "type": "string",
+            "x-wrtn-prerequisite": {
+              "method": "post",
+              "path": "/connector/discord/get-guild-channels",
+              "jmesPath": "[].{value:id, label:name}"
+            },
+            "title": "채널",
+            "description": "메세지를 삭제할 채널을 선택해주세요."
+          },
+          "messageId": {
+            "type": "string",
+            "x-wrtn-prerequisite": {
+              "method": "post",
+              "path": "/connector/discord/get-channel-message-histories",
+              "jmesPath": "[].{value:id, label:content}"
+            },
+            "title": "삭제할 메세지",
+            "description": "삭제할 메세지를 선택해주세요"
+          }
+        },
+        "required": [
+          "channelId",
+          "messageId"
+        ],
+        "title": "메세지 삭제하기 위해 필요한 정보"
+      },
+      "IDiscord.IBulkDeleteMessagesRequest": {
+        "type": "object",
+        "properties": {
+          "channelId": {
+            "type": "string",
+            "x-wrtn-prerequisite": {
+              "method": "post",
+              "path": "/connector/discord/get-guild-channels",
+              "jmesPath": "[].{value:id, label:name}"
+            },
+            "title": "채널",
+            "description": "메세지를 삭제할 채널을 선택해주세요."
+          },
+          "messages": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "x-wrtn-prerequisite": {
+                "method": "post",
+                "path": "/connector/discord/get-channel-message-histories",
+                "jmesPath": "[].{value:id, label:content}"
+              }
+            },
+            "title": "삭제할 메세지들",
+            "description": "삭제할 메세지들을 선택해주세요"
+          }
+        },
+        "required": [
+          "channelId",
+          "messages"
+        ],
+        "title": "여러 개의 메세지를 한꺼번에 삭제하기 위해 필요한 정보"
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "Discord"
+    }
+  ],
   "x-samchon-emended": true
 }

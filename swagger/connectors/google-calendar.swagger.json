@@ -16,7 +16,7 @@
   ],
   "info": {
     "title": "google-calendar",
-    "version": "0.1.447",
+    "version": "0.1.448",
     "description": "wrtn-ecosystem connectors and sdk",
     "license": {
       "name": "AGPL-3.0-only"
@@ -63,7 +63,7 @@
           "readCalenders"
         ],
         "x-samchon-controller": "GoogleCalendarController",
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleCal_full.svg",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/google_calendar.svg",
         "x-wrtn-standalone": true,
         "x-wrtn-function-select-benchmarks": [
           "캘린더 리스트 조회해줘"
@@ -107,7 +107,7 @@
           "createCalendar"
         ],
         "x-samchon-controller": "GoogleCalendarController",
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleCal_full.svg",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/google_calendar.svg",
         "x-wrtn-standalone": true,
         "x-wrtn-function-select-benchmarks": [
           "구글 새 캘린더 만들어줘"
@@ -161,7 +161,7 @@
           "deleteCalendar"
         ],
         "x-samchon-controller": "GoogleCalendarController",
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleCal_full.svg",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/google_calendar.svg",
         "x-wrtn-function-select-benchmarks": [
           "구글 캘린더 중 이거 삭제해줘"
         ]
@@ -220,7 +220,7 @@
           "readEvents"
         ],
         "x-samchon-controller": "GoogleCalendarController",
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleCal_full.svg",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/google_calendar.svg",
         "x-wrtn-function-select-benchmarks": [
           "내 구글 캘린더에 등록된 일정 좀 봐줘"
         ]
@@ -275,7 +275,7 @@
           "createQuickEvent"
         ],
         "x-samchon-controller": "GoogleCalendarController",
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleCal_full.svg",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/google_calendar.svg",
         "x-wrtn-function-select-benchmarks": [
           "구글 캘린더에 퀵 이벤트 하나 생성해줘"
         ]
@@ -334,7 +334,7 @@
           "createEvent"
         ],
         "x-samchon-controller": "GoogleCalendarController",
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleCal_full.svg",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/google_calendar.svg",
         "x-wrtn-function-select-benchmarks": [
           "구글 캘린더에 이벤트 하나 생성해줘"
         ]
@@ -407,7 +407,7 @@
           "updateEvent"
         ],
         "x-samchon-controller": "GoogleCalendarController",
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleCal_full.svg",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/google_calendar.svg",
         "x-wrtn-function-select-benchmarks": [
           "구글 캘린더에 이벤트 하나 수정해줘"
         ]
@@ -473,7 +473,7 @@
           "deleteEvent"
         ],
         "x-samchon-controller": "GoogleCalendarController",
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleCal_full.svg",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/google_calendar.svg",
         "x-wrtn-function-select-benchmarks": [
           "구글 캘린더에 일정 지워줘"
         ]
@@ -547,7 +547,7 @@
           "addAttendeesToEvent"
         ],
         "x-samchon-controller": "GoogleCalendarController",
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleCal_full.svg",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/google_calendar.svg",
         "x-wrtn-function-select-benchmarks": [
           "구글 캘린더에 이벤트 참석자 추가해줘"
         ]

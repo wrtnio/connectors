@@ -16,7 +16,7 @@
   ],
   "info": {
     "title": "github",
-    "version": "0.1.447",
+    "version": "0.1.448",
     "description": "wrtn-ecosystem connectors and sdk",
     "license": {
       "name": "AGPL-3.0-only"
@@ -62,7 +62,7 @@
           "getReceivedEvents"
         ],
         "x-samchon-controller": "GithubController",
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/github.svg",
         "x-wrtn-function-select-benchmarks": [
           "Github에서 유저의 최근 이벤트 알려줘"
         ]
@@ -109,7 +109,7 @@
           "getUserPinnedRepositories"
         ],
         "x-samchon-controller": "GithubController",
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/github.svg",
         "x-wrtn-function-select-benchmarks": [
           "Github에서 유저의 대표 레포지토리들 조회해줘",
           "Github에서 유저가 핀 꽂은 레포들 알려줘"
@@ -154,7 +154,7 @@
           "getUserRepositories"
         ],
         "x-samchon-controller": "GithubController",
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/github.svg",
         "x-wrtn-function-select-benchmarks": [
           "Github에서 유저의 레포지토리들 조회해줘",
           "Github에서 유저 레포들 알려줘"
@@ -200,7 +200,7 @@
           "getUserOrganizationEvents"
         ],
         "x-samchon-controller": "GithubController",
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/github.svg",
         "x-wrtn-function-select-benchmarks": [
           "Github에서 organization에서 특정 유저 이벤트 조회해줘"
         ]
@@ -244,7 +244,7 @@
           "getOrganizationIssues"
         ],
         "x-samchon-controller": "GithubController",
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/github.svg",
         "x-wrtn-function-select-benchmarks": [
           "Github에서 organization에 생성되어 있는 이슈 좀 봐줘"
         ]
@@ -288,7 +288,7 @@
           "getOrganizationRepositories"
         ],
         "x-samchon-controller": "GithubController",
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/github.svg",
         "x-wrtn-function-select-benchmarks": [
           "Github에서 organization에 생성되어 있는 레포 좀 봐줘"
         ]
@@ -332,7 +332,7 @@
           "getOrganizationEvents"
         ],
         "x-samchon-controller": "GithubController",
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/github.svg",
         "x-wrtn-function-select-benchmarks": [
           "Github에서 organization에서 이벤트 조회해줘"
         ]
@@ -376,7 +376,7 @@
           "getCollaborators"
         ],
         "x-samchon-controller": "GithubController",
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/github.svg",
         "x-wrtn-function-select-benchmarks": [
           "Github에서 내 레포 코드 리뷰해줄 사람 찾아줘",
           "Github에서 레포 콜라보레이터 조회해줘"
@@ -418,7 +418,7 @@
           "deleteFileContents"
         ],
         "x-samchon-controller": "GithubController",
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/github.svg",
         "x-wrtn-function-select-benchmarks": [
           "Github에서 방금 커밋한 거 취소해줘",
           "Github에서 커밋된 파일 삭제해줘"
@@ -463,7 +463,7 @@
           "updateFileContents"
         ],
         "x-samchon-controller": "GithubController",
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/github.svg",
         "x-wrtn-function-select-benchmarks": [
           "Github에서 커밋 수정해줘"
         ]
@@ -506,7 +506,7 @@
           "createFileContents"
         ],
         "x-samchon-controller": "GithubController",
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/github.svg",
         "x-wrtn-function-select-benchmarks": [
           "Github에서 커밋해줘",
           "Github에서 커밋 추가해줘"
@@ -568,7 +568,7 @@
           "getRepositoryFolderStructures"
         ],
         "x-samchon-controller": "GithubController",
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/github.svg",
         "x-wrtn-function-select-benchmarks": [
           "Github에서 레포 폴더 구조 조회해줘",
           "Github에서 레포 폴더 구조 봐줘"
@@ -663,7 +663,7 @@
           "getBulkFileContents"
         ],
         "x-samchon-controller": "GithubController",
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/github.svg",
         "x-wrtn-function-select-benchmarks": [
           "Github에서 여러 개 읽어서 한 번에 유저가 짠 코드 좀 봐줘",
           "Github에서 여러 개 읽어서 한 번에 레포 코드 좀 봐줘"
@@ -754,7 +754,7 @@
           "getFileContents"
         ],
         "x-samchon-controller": "GithubController",
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/github.svg",
         "x-wrtn-function-select-benchmarks": [
           "Github에서 딱 파일 1개만 읽어서 유저가 짠 코드 좀 봐줘",
           "Github에서 딱 파일 1개만 읽어서 레포 코드 좀 봐줘"
@@ -812,7 +812,7 @@
           "getReadmeFile"
         ],
         "x-samchon-controller": "GithubController",
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/github.svg",
         "x-wrtn-function-select-benchmarks": [
           "Github에서 리드미 내용 보고 레포 설명해줘",
           "Github에서 리드미 읽어줘"
@@ -857,7 +857,7 @@
           "getRepoEvents"
         ],
         "x-samchon-controller": "GithubController",
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/github.svg",
         "x-wrtn-function-select-benchmarks": [
           "Github에서 레포 이벤트 조회해줘"
         ]
@@ -901,7 +901,7 @@
           "getNetworkRepoEvents"
         ],
         "x-samchon-controller": "GithubController",
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/github.svg",
         "x-wrtn-function-select-benchmarks": [
           "Github에서 레포 포크한 사람들 조회해줘"
         ]
@@ -945,7 +945,7 @@
           "getUserEvents"
         ],
         "x-samchon-controller": "GithubController",
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/github.svg",
         "x-wrtn-function-select-benchmarks": [
           "Github에서 내 개인 계정의 이벤트 조회해줘"
         ]
@@ -989,7 +989,7 @@
           "getUserOrganizations"
         ],
         "x-samchon-controller": "GithubController",
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/github.svg",
         "x-wrtn-function-select-benchmarks": [
           "Github에서 이 유저가 속한 Organization 조회해줘"
         ]
@@ -1032,7 +1032,7 @@
           "getEvents"
         ],
         "x-samchon-controller": "GithubController",
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg"
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/github.svg"
       }
     },
     "/connector/github/repositories/get-activities": {
@@ -1073,7 +1073,7 @@
           "getRepositoryActivities"
         ],
         "x-samchon-controller": "GithubController",
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/github.svg",
         "x-wrtn-function-select-benchmarks": [
           "Github에서 레포의 최근 이력 좀 조회해줘"
         ]
@@ -1117,7 +1117,7 @@
           "updatePullRequest"
         ],
         "x-samchon-controller": "GithubController",
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/github.svg",
         "x-wrtn-function-select-benchmarks": [
           "Github에서 PR 수정해줘"
         ]
@@ -1159,7 +1159,7 @@
           "createPullRequest"
         ],
         "x-samchon-controller": "GithubController",
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/github.svg",
         "x-wrtn-function-select-benchmarks": [
           "Github에서 PR 생성해줘",
           "Github에서 PR 보내줘"
@@ -1205,7 +1205,7 @@
           "getPullRequestComments"
         ],
         "x-samchon-controller": "GithubController",
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/github.svg",
         "x-wrtn-function-select-benchmarks": [
           "Github에서 PR 댓글 보여줘",
           "Github에서 PR 댓글 봐줘"
@@ -1251,7 +1251,7 @@
           "createPullRequestComments"
         ],
         "x-samchon-controller": "GithubController",
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/github.svg",
         "x-wrtn-function-select-benchmarks": [
           "Github에서 PR 댓글 좀 달아줘",
           "Github에서 PR 댓글 생성해줘"
@@ -1297,7 +1297,7 @@
           "readPullRequestRequestedReviewers"
         ],
         "x-samchon-controller": "GithubController",
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/github.svg",
         "x-wrtn-function-select-benchmarks": [
           "Github에서 이 PR 리뷰어 누구야?"
         ]
@@ -1338,7 +1338,7 @@
           "removeRequestedReviewers"
         ],
         "x-samchon-controller": "GithubController",
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/github.svg",
         "x-wrtn-function-select-benchmarks": [
           "Github에서 이 PR에 리뷰어 해제해줘"
         ]
@@ -1377,7 +1377,7 @@
           "requestReviewers"
         ],
         "x-samchon-controller": "GithubController",
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/github.svg",
         "x-wrtn-function-select-benchmarks": [
           "Github에서 이 PR에 리뷰어 지정해줘"
         ]
@@ -1423,7 +1423,7 @@
           "readReviewComments"
         ],
         "x-samchon-controller": "GithubController",
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/github.svg",
         "x-wrtn-function-select-benchmarks": [
           "Github에서 PR 리뷰에 달린 답글 좀 보여줘"
         ]
@@ -1468,7 +1468,7 @@
           "readReviews"
         ],
         "x-samchon-controller": "GithubController",
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/github.svg",
         "x-wrtn-function-select-benchmarks": [
           "Github에서 PR 리뷰 조회해줘",
           "Github에서 PR에 리뷰 있어?"
@@ -1514,7 +1514,7 @@
           "reviewPullRequest"
         ],
         "x-samchon-controller": "GithubController",
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/github.svg",
         "x-wrtn-function-select-benchmarks": [
           "Github에서 PR에 리뷰 좀 달아줘"
         ]
@@ -1559,7 +1559,7 @@
           "readPullRequestFiles"
         ],
         "x-samchon-controller": "GithubController",
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/github.svg",
         "x-wrtn-function-select-benchmarks": [
           "Github에서 PR 파일 좀 조회해봐"
         ]
@@ -1603,7 +1603,7 @@
           "readPullRequestCommits"
         ],
         "x-samchon-controller": "GithubController",
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/github.svg",
         "x-wrtn-function-select-benchmarks": [
           "Github에서 PR 커밋 목록 가져와봐"
         ]
@@ -1695,7 +1695,7 @@
           "readPullRequestDiff"
         ],
         "x-samchon-controller": "GithubController",
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/github.svg",
         "x-wrtn-function-select-benchmarks": [
           "Github에서 PR의 변경점이 뭐야?"
         ]
@@ -1740,7 +1740,7 @@
           "readPullRequestDetail"
         ],
         "x-samchon-controller": "GithubController",
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/github.svg",
         "x-wrtn-function-select-benchmarks": [
           "Github에서 이 PR에 대해 상세히 알려줘"
         ]
@@ -1784,7 +1784,7 @@
           "getRepositoryPullRequest"
         ],
         "x-samchon-controller": "GithubController",
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/github.svg",
         "x-wrtn-function-select-benchmarks": [
           "Github에서 PR 목록 좀 조회해줘"
         ]
@@ -1829,7 +1829,7 @@
           "getIssueDetail"
         ],
         "x-samchon-controller": "GithubController",
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/github.svg",
         "x-wrtn-function-select-benchmarks": [
           "Github에서 레포 이슈 상세 내용을 조회해줘"
         ]
@@ -1874,7 +1874,7 @@
           "getIssueComments"
         ],
         "x-samchon-controller": "GithubController",
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/github.svg",
         "x-wrtn-function-select-benchmarks": [
           "Github 레포 이슈에 달린 댓글을 조회해줘"
         ]
@@ -1919,7 +1919,7 @@
           "createIssueComments"
         ],
         "x-samchon-controller": "GithubController",
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/github.svg",
         "x-wrtn-function-select-benchmarks": [
           "Github, 이 레포 이슈에 댓글 달아줘"
         ]
@@ -1963,7 +1963,7 @@
           "getRepositoryIssues"
         ],
         "x-samchon-controller": "GithubController",
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/github.svg",
         "x-wrtn-function-select-benchmarks": [
           "Github에서 이 레포 이슈 목록 좀 가져와줘",
           "Github에서 레포에서 이슈 좀 찾아줄래?"
@@ -2007,7 +2007,7 @@
           "searchUser"
         ],
         "x-samchon-controller": "GithubController",
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/github.svg",
         "x-wrtn-function-select-benchmarks": [
           "Github에서 Github 유저 검색해줘"
         ]
@@ -2050,7 +2050,7 @@
           "getUserProfile"
         ],
         "x-samchon-controller": "GithubController",
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/github.svg",
         "x-wrtn-function-select-benchmarks": [
           "Github에서 Github 유저 상세 보여줘"
         ]
@@ -2093,7 +2093,7 @@
           "getAuthenticatedUserOrganizations"
         ],
         "x-samchon-controller": "GithubController",
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/github.svg",
         "x-wrtn-function-select-benchmarks": [
           "Github에서 내 Organization 조회해줘"
         ]
@@ -2136,7 +2136,7 @@
           "getRepositoryBranches"
         ],
         "x-samchon-controller": "GithubController",
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/github.svg",
         "x-wrtn-function-select-benchmarks": [
           "Github에서 레포에서 브랜치 좀 조회해줘"
         ]
@@ -2179,7 +2179,7 @@
           "createBranches"
         ],
         "x-samchon-controller": "GithubController",
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/github.svg",
         "x-wrtn-function-select-benchmarks": [
           "Github에서 브랜치 생성해줘"
         ]
@@ -2225,7 +2225,7 @@
           "getPullRequestAssociatedWithACommit"
         ],
         "x-samchon-controller": "GithubController",
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg"
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/github.svg"
       }
     },
     "/connector/github/get-commit-heads": {
@@ -2265,7 +2265,7 @@
           "getCommitHeads"
         ],
         "x-samchon-controller": "GithubController",
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg"
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/github.svg"
       }
     },
     "/connector/github/get-commit": {
@@ -2305,7 +2305,7 @@
           "getCommit"
         ],
         "x-samchon-controller": "GithubController",
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/github.svg",
         "x-wrtn-function-select-benchmarks": [
           "Github에서 커밋 상세 보여줘"
         ]
@@ -2348,7 +2348,7 @@
           "getCommitDiff"
         ],
         "x-samchon-controller": "GithubController",
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/github.svg",
         "x-wrtn-function-select-benchmarks": [
           "Github에서 커밋 상세 보여주되 달라진 diff를 알려줘"
         ]
@@ -2391,7 +2391,7 @@
           "getCommitList"
         ],
         "x-samchon-controller": "GithubController",
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/github.svg",
         "x-wrtn-function-select-benchmarks": [
           "Github에서 커밋 목록 보여줘"
         ]
@@ -2434,7 +2434,7 @@
           "getFollowers"
         ],
         "x-samchon-controller": "GithubController",
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/github.svg",
         "x-wrtn-function-select-benchmarks": [
           "Github에서 내 github 팔로워 보여줘"
         ]
@@ -2477,7 +2477,7 @@
           "getFollowees"
         ],
         "x-samchon-controller": "GithubController",
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/github.svg",
         "x-wrtn-function-select-benchmarks": [
           "Github에서 내가 github에서 팔로우한 사람 보여줘"
         ]
@@ -2520,7 +2520,7 @@
           "getLabels"
         ],
         "x-samchon-controller": "GithubController",
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/github.svg",
         "x-wrtn-function-select-benchmarks": [
           "Github에서 이 레포에 사용 가능한 issue 라벨 보여줘"
         ]
@@ -2563,7 +2563,7 @@
           "updateIssue"
         ],
         "x-samchon-controller": "GithubController",
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/github.svg",
         "x-wrtn-function-select-benchmarks": [
           "Github에서 이슈 수정해줘"
         ]
@@ -2604,7 +2604,7 @@
           "createIssue"
         ],
         "x-samchon-controller": "GithubController",
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/github.svg",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/github.svg",
         "x-wrtn-function-select-benchmarks": [
           "Github에서 이슈 생성해줘"
         ]

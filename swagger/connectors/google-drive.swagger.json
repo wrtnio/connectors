@@ -16,7 +16,7 @@
   ],
   "info": {
     "title": "google-drive",
-    "version": "0.1.447",
+    "version": "0.1.448",
     "description": "wrtn-ecosystem connectors and sdk",
     "license": {
       "name": "AGPL-3.0-only"
@@ -61,7 +61,7 @@
           "folderList"
         ],
         "x-samchon-controller": "GoogleDriveController",
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleDrive_full.svg",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/google_drive.svg",
         "x-wrtn-standalone": true,
         "x-wrtn-function-select-benchmarks": [
           "구글 드라이브에 폴더 목록 좀 봐줘"
@@ -110,7 +110,7 @@
           "드라이브에 파일 좀 조회해줘",
           "드라이브에 파일 좀 찾아줘"
         ],
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleDrive_full.svg"
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/google_drive.svg"
       }
     },
     "/connector/google-drive/folder": {
@@ -151,7 +151,7 @@
           "createFolder"
         ],
         "x-samchon-controller": "GoogleDriveController",
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleDrive_full.svg",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/google_drive.svg",
         "x-wrtn-standalone": true,
         "x-wrtn-function-select-benchmarks": [
           "드라이브에 폴더 좀 생성해줘"
@@ -196,7 +196,7 @@
           "createFile"
         ],
         "x-samchon-controller": "GoogleDriveController",
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleDrive_full.svg",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/google_drive.svg",
         "x-wrtn-function-select-benchmarks": [
           "드라이브에 파일 좀 생성해줘"
         ]
@@ -250,7 +250,7 @@
           "deleteFile"
         ],
         "x-samchon-controller": "GoogleDriveController",
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleDrive_full.svg",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/google_drive.svg",
         "x-wrtn-function-select-benchmarks": [
           "드라이브에 파일 좀 삭제해줘"
         ]
@@ -304,7 +304,7 @@
           "deleteFolder"
         ],
         "x-samchon-controller": "GoogleDriveController",
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleDrive_full.svg",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/google_drive.svg",
         "x-wrtn-function-select-benchmarks": [
           "드라이브에 폴더 좀 삭제해줘"
         ]
@@ -343,7 +343,7 @@
           "permission"
         ],
         "x-samchon-controller": "GoogleDriveController",
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleDrive_full.svg",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/google_drive.svg",
         "x-wrtn-function-select-benchmarks": [
           "드라이브 폴더에 접근 권한 좀 설정해줘",
           "드라이브 파일에 접근 권한 좀 설정해줘"
@@ -403,7 +403,7 @@
           "readFile"
         ],
         "x-samchon-controller": "GoogleDriveController",
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleDrive_full.svg",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/google_drive.svg",
         "x-wrtn-function-select-benchmarks": [
           "드라이브 파일에 텍스트 좀 읽어줘"
         ]

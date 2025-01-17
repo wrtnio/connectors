@@ -16,7 +16,7 @@
   ],
   "info": {
     "title": "google-docs",
-    "version": "0.1.447",
+    "version": "0.1.448",
     "description": "wrtn-ecosystem connectors and sdk",
     "license": {
       "name": "AGPL-3.0-only"
@@ -27,7 +27,9 @@
       "post": {
         "summary": "Write Google Docs by markdown format string",
         "description": "Generate Google Docs By markdown format string\n\nCreate a document with a markdown, which is the ID of the markdown file and the ID of the document.\nIn the case of Google Docs, URLs are included, so you can open and inquire files directly based on your ID.",
-        "tags": [],
+        "tags": [
+          "Google Docs"
+        ],
         "parameters": [],
         "requestBody": {
           "description": "Google Docs infomation to write",
@@ -58,14 +60,17 @@
           "markdown",
           "write"
         ],
-        "x-samchon-controller": "GoogleDocsController"
+        "x-samchon-controller": "GoogleDocsController",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/google_docs.svg"
       }
     },
     "/connector/google-docs/contents": {
       "delete": {
         "summary": "erase the entire contents of a file and make it an empty file",
         "description": "Remove entire contents of google docs\n\nMake Google Docs a blank file like you just created.",
-        "tags": [],
+        "tags": [
+          "Google Docs"
+        ],
         "parameters": [],
         "requestBody": {
           "description": "Google Drive and Docs Secret Key and information to clear file",
@@ -96,7 +101,8 @@
           "contents",
           "clear"
         ],
-        "x-samchon-controller": "GoogleDocsController"
+        "x-samchon-controller": "GoogleDocsController",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/google_docs.svg"
       }
     },
     "/connector/google-docs": {
@@ -137,7 +143,7 @@
           "createDocs"
         ],
         "x-samchon-controller": "GoogleDocsController",
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Google+Docs_full.svg",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/google_docs.svg",
         "x-wrtn-standalone": true,
         "x-samchon-human": true
       }
@@ -175,7 +181,7 @@
           "permission"
         ],
         "x-samchon-controller": "GoogleDocsController",
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Google+Docs_full.svg"
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/google_docs.svg"
       }
     },
     "/connector/google-docs/get/{id}": {
@@ -230,7 +236,7 @@
           "readDocs"
         ],
         "x-samchon-controller": "GoogleDocsController",
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Google+Docs_full.svg"
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/google_docs.svg"
       }
     },
     "/connector/google-docs/template": {
@@ -271,7 +277,7 @@
           "createDocByTemplate"
         ],
         "x-samchon-controller": "GoogleDocsController",
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Google+Docs_full.svg"
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/google_docs.svg"
       }
     },
     "/connector/google-docs/{id}": {
@@ -376,7 +382,7 @@
           "deleteById"
         ],
         "x-samchon-controller": "GoogleDocsController",
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Google+Docs_full.svg"
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/google_docs.svg"
       }
     },
     "/connector/google-docs/get-list": {
@@ -416,7 +422,7 @@
           "list"
         ],
         "x-samchon-controller": "GoogleDocsController",
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Google+Docs_full.svg",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/google_docs.svg",
         "x-wrtn-standalone": true
       }
     },
@@ -457,7 +463,7 @@
           "append"
         ],
         "x-samchon-controller": "GoogleDocsController",
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Google+Docs_full.svg",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/google_docs.svg",
         "x-samchon-human": true
       }
     }

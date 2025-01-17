@@ -16,7 +16,7 @@
   ],
   "info": {
     "title": "google-map",
-    "version": "0.1.447",
+    "version": "0.1.448",
     "description": "wrtn-ecosystem connectors and sdk",
     "license": {
       "name": "AGPL-3.0-only"
@@ -59,7 +59,7 @@
           "autocomplete"
         ],
         "x-samchon-controller": "GoogleMapController",
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleMap_full.svg"
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/google_maps.svg"
       }
     },
     "/connector/google-map/review": {
@@ -102,7 +102,7 @@
           "review"
         ],
         "x-samchon-controller": "GoogleMapController",
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleMap_full.svg",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/google_maps.svg",
         "x-wrtn-standalone": true,
         "x-wrtn-function-select-benchmarks": [
           "구글 맵에서 식당 리뷰 좀 봐줘",
@@ -148,7 +148,7 @@
           "searchText"
         ],
         "x-samchon-controller": "GoogleMapController",
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleMap_full.svg",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/google_maps.svg",
         "x-wrtn-function-select-benchmarks": [
           "구글 맵에서 \"강남\" 이라는 키워드로 장소 검색 좀 해줘"
         ]
@@ -194,7 +194,7 @@
           "search"
         ],
         "x-samchon-controller": "GoogleMapController",
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleMap_full.svg",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/google_maps.svg",
         "x-wrtn-standalone": true,
         "x-wrtn-function-select-benchmarks": [
           "구글 맵에서 식당 좀 찾아줘"

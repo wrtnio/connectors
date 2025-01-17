@@ -15,7 +15,7 @@
     }
   ],
   "info": {
-    "title": "google-search",
+    "title": "saramin",
     "version": "0.1.448",
     "description": "wrtn-ecosystem connectors and sdk",
     "license": {
@@ -23,16 +23,16 @@
     }
   },
   "paths": {
-    "/connector/google-search": {
+    "/connector/saramin": {
       "patch": {
-        "summary": "Google search",
-        "description": "Search Google for the search term you entered",
+        "summary": "Search for Saramin job postings",
+        "description": "Search for job postings in Saramin",
         "tags": [
-          "Google Search"
+          "Saramin"
         ],
         "parameters": [],
         "requestBody": {
-          "description": "Google search terms",
+          "description": "Search criteria",
           "content": {
             "application/json": {
               "schema": {
@@ -44,7 +44,7 @@
         },
         "responses": {
           "200": {
-            "description": "Google search results",
+            "description": "Search for Saramin job postings results",
             "content": {
               "application/json": {
                 "schema": {
@@ -59,14 +59,14 @@
         },
         "x-samchon-accessor": [
           "connector",
-          "google_search",
-          "search"
+          "saramin",
+          "searchForSaramin"
         ],
-        "x-samchon-controller": "GoogleSearchController",
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/google_search.svg",
+        "x-samchon-controller": "SaraminController",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/saramin.svg",
         "x-wrtn-standalone": true,
         "x-wrtn-function-select-benchmarks": [
-          "구글 검색 좀 해줘"
+          "사람인에서 채용 공고 좀 찾아줘"
         ]
       }
     }
@@ -148,7 +148,7 @@
   },
   "tags": [
     {
-      "name": "Google Search"
+      "name": "Saramin"
     }
   ],
   "x-samchon-emended": true

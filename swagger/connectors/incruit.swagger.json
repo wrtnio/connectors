@@ -15,7 +15,7 @@
     }
   ],
   "info": {
-    "title": "google-search",
+    "title": "incruit",
     "version": "0.1.448",
     "description": "wrtn-ecosystem connectors and sdk",
     "license": {
@@ -23,16 +23,16 @@
     }
   },
   "paths": {
-    "/connector/google-search": {
+    "/connector/incruit": {
       "patch": {
-        "summary": "Google search",
-        "description": "Search Google for the search term you entered",
+        "summary": "Search Incruit job postings",
+        "description": "Search for job postings on Incruit",
         "tags": [
-          "Google Search"
+          "Incruit"
         ],
         "parameters": [],
         "requestBody": {
-          "description": "Google search terms",
+          "description": "Search conditions",
           "content": {
             "application/json": {
               "schema": {
@@ -44,7 +44,7 @@
         },
         "responses": {
           "200": {
-            "description": "Google search results",
+            "description": "Search results for Incruit job postings",
             "content": {
               "application/json": {
                 "schema": {
@@ -59,14 +59,14 @@
         },
         "x-samchon-accessor": [
           "connector",
-          "google_search",
-          "search"
+          "incruit",
+          "searchForIncruit"
         ],
-        "x-samchon-controller": "GoogleSearchController",
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/google_search.svg",
+        "x-samchon-controller": "IncruitController",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/incruit.svg",
         "x-wrtn-standalone": true,
         "x-wrtn-function-select-benchmarks": [
-          "구글 검색 좀 해줘"
+          "인크루트에서 채용 공고 좀 찾아줘"
         ]
       }
     }
@@ -148,7 +148,7 @@
   },
   "tags": [
     {
-      "name": "Google Search"
+      "name": "Incruit"
     }
   ],
   "x-samchon-emended": true

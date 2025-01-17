@@ -16,7 +16,7 @@
   ],
   "info": {
     "title": "jira",
-    "version": "0.1.447",
+    "version": "0.1.448",
     "description": "wrtn-ecosystem connectors and sdk",
     "license": {
       "name": "AGPL-3.0-only"
@@ -57,7 +57,7 @@
           "deleteComment"
         ],
         "x-samchon-controller": "JiraController",
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/JIraCloud_full.svg"
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/jira.svg"
       }
     },
     "/connector/jira/issues/comments/markdown": {
@@ -95,7 +95,7 @@
           "updateComment"
         ],
         "x-samchon-controller": "JiraController",
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/JIraCloud_full.svg"
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/jira.svg"
       },
       "post": {
         "summary": "creates a comment on an issue",
@@ -136,7 +136,7 @@
           "createComment"
         ],
         "x-samchon-controller": "JiraController",
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/JIraCloud_full.svg"
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/jira.svg"
       }
     },
     "/connector/jira/issues/get-comments": {
@@ -178,7 +178,7 @@
           "getComments"
         ],
         "x-samchon-controller": "JiraController",
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/JIraCloud_full.svg"
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/jira.svg"
       }
     },
     "/connector/jira/issues/get-transitions": {
@@ -219,7 +219,7 @@
           "getTransitions"
         ],
         "x-samchon-controller": "JiraController",
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/JIraCloud_full.svg"
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/jira.svg"
       }
     },
     "/connector/jira/issues/asignee": {
@@ -255,7 +255,7 @@
           "unassign"
         ],
         "x-samchon-controller": "JiraController",
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/JIraCloud_full.svg"
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/jira.svg"
       },
       "put": {
         "summary": "assign the assignee",
@@ -290,7 +290,7 @@
           "assign"
         ],
         "x-samchon-controller": "JiraController",
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/JIraCloud_full.svg"
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/jira.svg"
       }
     },
     "/connector/jira/issues/status": {
@@ -327,7 +327,7 @@
           "updateIssueStatus"
         ],
         "x-samchon-controller": "JiraController",
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/JIraCloud_full.svg"
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/jira.svg"
       }
     },
     "/connector/jira/issues/{id}": {
@@ -374,7 +374,7 @@
           "updateIssue"
         ],
         "x-samchon-controller": "JiraController",
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/JIraCloud_full.svg"
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/jira.svg"
       }
     },
     "/connector/jira/issues/markdown": {
@@ -416,7 +416,7 @@
           "createIssueByMarkdown"
         ],
         "x-samchon-controller": "JiraController",
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/JIraCloud_full.svg"
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/jira.svg"
       }
     },
     "/connector/jira/get-issue-detail": {
@@ -456,7 +456,7 @@
           "getIssueDetail"
         ],
         "x-samchon-controller": "JiraController",
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/JIraCloud_full.svg"
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/jira.svg"
       }
     },
     "/connector/jira/get-issues": {
@@ -497,7 +497,7 @@
           "getIssues"
         ],
         "x-samchon-controller": "JiraController",
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/JIraCloud_full.svg"
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/jira.svg"
       }
     },
     "/connector/jira/get-projects": {
@@ -538,7 +538,7 @@
           "getProjects"
         ],
         "x-samchon-controller": "JiraController",
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/JIraCloud_full.svg"
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/jira.svg"
       }
     },
     "/connector/jira/get-issue-labels": {
@@ -578,7 +578,7 @@
           "getIssueLabels"
         ],
         "x-samchon-controller": "JiraController",
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/JIraCloud_full.svg"
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/jira.svg"
       }
     },
     "/connector/jira/get-issue-types": {
@@ -618,7 +618,7 @@
           "getIssueTypes"
         ],
         "x-samchon-controller": "JiraController",
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/JIraCloud_full.svg"
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/jira.svg"
       }
     },
     "/connector/jira/get-issue-statuses": {
@@ -658,7 +658,7 @@
           "getIssueStatus"
         ],
         "x-samchon-controller": "JiraController",
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/JIraCloud_full.svg"
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/jira.svg"
       }
     },
     "/connector/jira/get-issue-priorities": {
@@ -701,7 +701,7 @@
           "getIssuePriorities"
         ],
         "x-samchon-controller": "JiraController",
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/JIraCloud_full.svg"
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/jira.svg"
       }
     },
     "/connector/jira/issues/get-users-assignable": {
@@ -745,7 +745,7 @@
           "getUsersAssignableInIssue"
         ],
         "x-samchon-controller": "JiraController",
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/JIraCloud_full.svg"
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/jira.svg"
       }
     },
     "/connector/jira/projects/get-users-assignable": {
@@ -789,7 +789,7 @@
           "getUsersAssignableInProject"
         ],
         "x-samchon-controller": "JiraController",
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/JIraCloud_full.svg"
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/jira.svg"
       }
     },
     "/connector/jira/get-status-categories": {
@@ -832,7 +832,7 @@
           "getStatusCategories"
         ],
         "x-samchon-controller": "JiraController",
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/JIraCloud_full.svg"
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/jira.svg"
       }
     }
   },

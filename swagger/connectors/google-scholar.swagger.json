@@ -16,7 +16,7 @@
   ],
   "info": {
     "title": "google-scholar",
-    "version": "0.1.447",
+    "version": "0.1.448",
     "description": "wrtn-ecosystem connectors and sdk",
     "license": {
       "name": "AGPL-3.0-only"
@@ -63,7 +63,7 @@
           "search"
         ],
         "x-samchon-controller": "GoogleScholarController",
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleScholar_full.svg",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/google_scholar.svg",
         "x-wrtn-standalone": true,
         "x-wrtn-function-select-benchmarks": [
           "google scholar에서 논문 좀 찾아줘"

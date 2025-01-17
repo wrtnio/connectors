@@ -16,7 +16,7 @@
   ],
   "info": {
     "title": "gmail",
-    "version": "0.1.447",
+    "version": "0.1.448",
     "description": "wrtn-ecosystem connectors and sdk",
     "license": {
       "name": "AGPL-3.0-only"
@@ -60,7 +60,7 @@
           "send"
         ],
         "x-samchon-controller": "GmailController",
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleMail_full.svg",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/gmail.svg",
         "x-wrtn-standalone": true,
         "x-wrtn-function-select-benchmarks": [
           "지메일 보내줘",
@@ -101,7 +101,7 @@
           "draft"
         ],
         "x-samchon-controller": "GmailController",
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleMail_full.svg",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/gmail.svg",
         "x-wrtn-standalone": true,
         "x-wrtn-function-select-benchmarks": [
           "메일 초안 생성해줘"
@@ -159,7 +159,7 @@
           "reply"
         ],
         "x-samchon-controller": "GmailController",
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleMail_full.svg",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/gmail.svg",
         "x-wrtn-function-select-benchmarks": [
           "지메일 온 거 답장해줘"
         ]
@@ -218,7 +218,7 @@
           "findEmail"
         ],
         "x-samchon-controller": "GmailController",
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleMail_full.svg",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/gmail.svg",
         "x-wrtn-function-select-benchmarks": [
           "메일 상세 조회해줘"
         ]
@@ -262,7 +262,7 @@
           "findEmails"
         ],
         "x-samchon-controller": "GmailController",
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleMail_full.svg",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/gmail.svg",
         "x-wrtn-standalone": true,
         "x-wrtn-function-select-benchmarks": [
           "메일 목록 조회해줘"
@@ -315,7 +315,7 @@
           "hardDelete"
         ],
         "x-samchon-controller": "GmailController",
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleMail_full.svg",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/gmail.svg",
         "x-wrtn-function-select-benchmarks": [
           "Gmail에서 메일 하나만 삭제해줘"
         ]
@@ -368,7 +368,7 @@
           "removeMail"
         ],
         "x-samchon-controller": "GmailController",
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleMail_full.svg",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/gmail.svg",
         "x-wrtn-function-select-benchmarks": [
           "메일 삭제해줘"
         ]
@@ -412,7 +412,7 @@
           "createLabel"
         ],
         "x-samchon-controller": "GmailController",
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleMail_full.svg",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/gmail.svg",
         "x-wrtn-standalone": true,
         "x-wrtn-function-select-benchmarks": [
           "메일 라벨 생성해줘"
@@ -468,7 +468,7 @@
           "addLabelToMail"
         ],
         "x-samchon-controller": "GmailController",
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleMail_full.svg",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/gmail.svg",
         "x-wrtn-function-select-benchmarks": [
           "메일에 라벨링해줘"
         ]
@@ -522,7 +522,7 @@
           "removeLabelFromMail"
         ],
         "x-samchon-controller": "GmailController",
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleMail_full.svg",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/gmail.svg",
         "x-wrtn-function-select-benchmarks": [
           "메일에 라벨 제거해줘"
         ]
@@ -560,7 +560,7 @@
           "deleteMailList"
         ],
         "x-samchon-controller": "GmailController",
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/GoogleMail_full.svg",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/gmail.svg",
         "x-wrtn-function-select-benchmarks": [
           "메일 삭제해줘"
         ]
