@@ -5,11 +5,11 @@ import { RouteIcon, SelectBenchmark } from "@wrtnio/decorators";
 import { IDallE3 } from "@wrtn/connector-api/lib/structures/connector/dall_e_3/IDallE3";
 
 import { ApiTags } from "@nestjs/swagger";
-import { DallE3Provider } from "../../../providers/connector/dall_e_3/DallE3Provider";
+import { DallEProvider } from "../../../providers/connector/dall_e/DallEProvider";
 
-@Controller("connector/dall-e-3")
-export class DallE3Controller {
-  constructor(private readonly dallE3Provider: DallE3Provider) {}
+@Controller("connector/dall-e")
+export class DallEController {
+  constructor(private readonly dallEProvider: DallEProvider) {}
 
   /**
    * Generate an image using the dall-e-3 model
@@ -23,10 +23,10 @@ export class DallE3Controller {
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/dall_e.svg",
   )
-  @ApiTags("Dall-e-3")
+  @ApiTags("Dall-e")
   async generateImage(
     @core.TypedBody() input: IDallE3.IRequest,
   ): Promise<IDallE3.IResponse> {
-    return this.dallE3Provider.generateImage(input);
+    return this.dallEProvider.generateImage(input);
   }
 }

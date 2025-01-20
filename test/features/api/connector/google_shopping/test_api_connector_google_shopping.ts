@@ -67,14 +67,11 @@ export const test_api_connector_google_shopping = async (
   typia.assert(coupang);
 
   const marketKurly =
-    await CApi.functional.connector.google_shopping.market_kurly.marketKurly(
-      connection,
-      {
-        keyword: "사과",
-        lang: "ko",
-        max_results: 10,
-      },
-    );
+    await CApi.functional.connector.google_shopping.kurly.Kurly(connection, {
+      keyword: "사과",
+      lang: "ko",
+      max_results: 10,
+    });
   typia.assert(marketKurly);
 
   const iHerb = await CApi.functional.connector.google_shopping.iherb(

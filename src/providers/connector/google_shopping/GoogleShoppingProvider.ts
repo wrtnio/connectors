@@ -133,7 +133,7 @@ export class GoogleShoppingProvider {
     );
   }
 
-  async marketKurly(
+  async kurly(
     input: IGoogleShopping.IRequestStandAlone,
   ): Promise<IGoogleShopping.IResponse[]> {
     return this.getGoogleShoppingResults(input, "mr:1,merchagg:m128922144");

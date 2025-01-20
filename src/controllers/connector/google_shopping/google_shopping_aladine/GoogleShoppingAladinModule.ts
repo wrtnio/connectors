@@ -1,12 +1,12 @@
 import { Module } from "@nestjs/common";
 
 import { GoogleShoppingProvider } from "../../../../providers/connector/google_shopping/GoogleShoppingProvider";
-import { GoogleShoppingAladinController } from "./GoogleShoppingAladinController";
+import { GoogleShoppingAladineController } from "./GoogleShoppingAladineController";
 
 @Module({
   imports: [],
-  controllers: [GoogleShoppingAladinController],
+  controllers: [GoogleShoppingAladineController],
   providers: [GoogleShoppingProvider],
   exports: [GoogleShoppingProvider],
 })
-export class GoogleShoppingAladinModule {}
+export class GoogleShoppingAladineModule {}

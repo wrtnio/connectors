@@ -5,4 +5,4 @@ import { SweetTrackerController } from "./SweetTrackerController";
 @Module({
   controllers: [SweetTrackerController],
 })
-export class SweetTackerModule {}
+export class SweetTrackerModule {}
