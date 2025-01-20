@@ -618,6 +618,28 @@ export class GithubProvider {
       },
     );
 
+    if (res.data.data?.repository === null) {
+      const errors = res.data.errors;
+      if (errors instanceof Array) {
+        const not_found_repository_error = errors.find((error) => {
+          const errorMessage = error.message;
+          if (typeof errorMessage === "string") {
+            if (
+              errorMessage.startsWith(
+                "Could not resolve to a Repository with the name",
+              )
+            ) {
+              return true;
+            }
+          }
+          return false;
+        });
+
+        const error_message = not_found_repository_error.message;
+        return { error_message };
+      }
+    }
+
     const issues = res.data.data?.repository?.issues;
     const pageInfo = issues?.pageInfo;
     const fetchedIssues: IGithub.FetchedIssue[] = issues.edges?.map(

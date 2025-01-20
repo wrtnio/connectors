@@ -1926,28 +1926,35 @@ export namespace IGithub {
     issue?: number;
   }
 
-  export interface IFetchRepositoryOutput {
-    /**
-     * @title issues
-     */
-    fetchedIssues: StrictOmit<FetchedIssue, "body">[];
+  export type IFetchRepositoryOutput =
+    | {
+        /**
+         * @title issues
+         */
+        fetchedIssues: StrictOmit<FetchedIssue, "body">[];
 
-    /**
-     * @title page info
-     */
-    pageInfo: {
-      /**
-       * @title Cursor to be used to look up the next page
-       */
-      endCursor?: string;
-      /**
-       * @title hasNextPage
-       *
-       * true if there is a next page
-       */
-      hasNextPage: boolean;
-    };
-  }
+        /**
+         * @title page info
+         */
+        pageInfo: {
+          /**
+           * @title Cursor to be used to look up the next page
+           */
+          endCursor?: string;
+          /**
+           * @title hasNextPage
+           *
+           * true if there is a next page
+           */
+          hasNextPage: boolean;
+        };
+      }
+    | {
+        /**
+         * @title Error Message
+         */
+        error_message: string;
+      };
 
   export interface FetchedIssue
     extends MyPick<Issue, "number" | "title" | "body"> {
