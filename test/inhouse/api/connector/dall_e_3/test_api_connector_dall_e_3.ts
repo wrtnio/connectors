@@ -43,10 +43,9 @@ I REPEAT: unless the user said otherwise, always use Korean.
 Generate the marketing copy.`,
     image_ratio: "square",
   };
-  const output =
-    await CApi.functional.connector.dall_e_3.generate.generateImage(
-      connection,
-      requestBody,
-    );
+  const output = await CApi.functional.connector.dall_e.generate.generateImage(
+    connection,
+    requestBody,
+  );
   typia.assert<IDallE3.IResponse>(output);
 };
