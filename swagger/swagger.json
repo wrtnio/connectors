@@ -15,7 +15,7 @@
     }
   ],
   "info": {
-    "version": "0.1.449",
+    "version": "0.1.450",
     "title": "@wrtn/connector",
     "description": "wrtn-ecosystem connectors and sdk",
     "license": {
@@ -23,1021 +23,6 @@
     }
   },
   "paths": {
-    "/connector/swal/articles/{id}/sync/dev-to": {
-      "post": {
-        "summary": "Syncronize article version",
-        "description": "upgrade or downgrade version of exported dev.to\n\nSynchronize on a snapshot basis,\nsuch as upgrading or downgrading the version of a document exported to DevTo.\nIf user specify the id of the snapshot in the names from and to among the internal properties,\nfind the exported text from `from` and start synchronizing to the version of `to`.\nIf user want to revert to the past version of the snapshot,\nuser can put the current version in 'from' and the past version in 'to'.",
-        "tags": [],
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "schema": {
-              "type": "string",
-              "format": "uuid",
-              "x-wrtn-prerequisite": {
-                "method": "patch",
-                "path": "/connector/swal/articles",
-                "jmesPath": "data[].{ value: id, label: snapshot.title }"
-              }
-            },
-            "required": true,
-            "description": " Target article's {@link IArticle.id }, Not snapshot ID"
-          }
-        ],
-        "requestBody": {
-          "description": "DevTo Secret and snapshot information to sync",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/IArticle.ISync.ToDevToInput"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "201": {
-            "description": "Response of Synchronization",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/IArticle.ISync.ToDevToOutput"
-                }
-              }
-            }
-          }
-        },
-        "security": [
-          {
-            "bearer": []
-          }
-        ],
-        "x-samchon-accessor": [
-          "connector",
-          "swal",
-          "articles",
-          "sync",
-          "dev_to",
-          "syncToDevTo"
-        ],
-        "x-samchon-controller": "ArticleController",
-        "x-wrtn-function-select-benchmarks": [
-          "dev.to에 동기화해줘"
-        ]
-      }
-    },
-    "/connector/swal/articles/{id}/sync/google-docs": {
-      "post": {
-        "summary": "Syncronize article version",
-        "description": "upgrade or downgrade version of exported google docs file\n\nSynchronize on a snapshot basis,\nsuch as upgrading or downgrading the version of a document exported to GoogleDocs.\nIf user specify the id of the snapshot in the names from and to among the internal properties,\nfind the exported text from `from` and start synchronizing to the version of `to`.\nIf user want to revert to the past version of the snapshot,\nuser can put the current version in 'from' and the past version in 'to'.",
-        "tags": [],
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "schema": {
-              "type": "string",
-              "format": "uuid",
-              "x-wrtn-prerequisite": {
-                "method": "patch",
-                "path": "/connector/swal/articles",
-                "jmesPath": "data[].{ value: id, label: snapshot.title }"
-              }
-            },
-            "required": true,
-            "description": " Target article's {@link IArticle.id }, Not snapshot ID"
-          }
-        ],
-        "requestBody": {
-          "description": "GoogleDocs Secret and snapshot information to sync",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/IArticle.ISync.ToGoogleDocsInput"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "201": {
-            "description": "Response of Synchronization",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/IArticle.ISync.ToGoogleDocsOutput"
-                }
-              }
-            }
-          }
-        },
-        "security": [
-          {
-            "bearer": []
-          }
-        ],
-        "x-samchon-accessor": [
-          "connector",
-          "swal",
-          "articles",
-          "sync",
-          "google_docs",
-          "syncToGoogleDocs"
-        ],
-        "x-samchon-controller": "ArticleController",
-        "x-wrtn-function-select-benchmarks": [
-          "google docs에 동기화해줘"
-        ]
-      }
-    },
-    "/connector/swal/articles/{id}/sync/notion": {
-      "post": {
-        "summary": "Syncronize article version",
-        "description": "upgrade or downgrade version of exported notion page\n\nSynchronize on a snapshot basis,\nsuch as upgrading or downgrading the version of a document exported to Notion.\nIf user specify the id of the snapshot in the names from and to among the internal properties,\nfind the exported text from `from` and start synchronizing to the version of `to`.\nIf user want to revert to the past version of the snapshot,\nuser can put the current version in 'from' and the past version in 'to'.",
-        "tags": [],
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "schema": {
-              "type": "string",
-              "format": "uuid",
-              "x-wrtn-prerequisite": {
-                "method": "patch",
-                "path": "/connector/swal/articles",
-                "jmesPath": "data[].{ value: id, label: snapshot.title }"
-              }
-            },
-            "required": true,
-            "description": " Target article's {@link IArticle.id }, Not snapshot ID"
-          }
-        ],
-        "requestBody": {
-          "description": "Notion Secret and snapshot information to sync",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/IArticle.ISync.ToNotionInput"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "201": {
-            "description": "Response of Synchronization",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/IArticle.ISync.ToNotionOutput"
-                }
-              }
-            }
-          }
-        },
-        "security": [
-          {
-            "bearer": []
-          }
-        ],
-        "x-samchon-accessor": [
-          "connector",
-          "swal",
-          "articles",
-          "sync",
-          "notion",
-          "syncToNotion"
-        ],
-        "x-samchon-controller": "ArticleController",
-        "x-wrtn-function-select-benchmarks": [
-          "노션에 동기화해줘"
-        ]
-      }
-    },
-    "/connector/swal/articles/{id}/exports/dev-to": {
-      "post": {
-        "summary": "Exports specified article to dev_to",
-        "description": "Export the text to Dev.to\n\nThe exported text is recorded by creating a\n{@link IArticleExport bbs_article_exports} object based on the snapshot.\nYou can upgrade and downgrade the version using\nthe 'POST /connector/swal/articles/:id/exports/sync/dev_to' connector in the future.\nAlso, it doesn't matter if you export the same version of the text multiple times.\n\nBecause each export generates a new text,\nyou must use the `sync` connector if you want to change the version of an already exported text.",
-        "tags": [],
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "schema": {
-              "type": "string",
-              "format": "uuid",
-              "x-wrtn-prerequisite": {
-                "method": "patch",
-                "path": "/connector/swal/articles",
-                "jmesPath": "data[].{ value: id, label: snapshot.title }"
-              }
-            },
-            "required": true,
-            "description": " Target article's {@link IArticle.id }, Not snapshot ID"
-          }
-        ],
-        "requestBody": {
-          "description": "DevTo Secret and snapshot information to export",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/IArticle.IExport.ToDevToInput"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "201": {
-            "description": "Article Infomation and dev_to secretKey",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/IArticle.IExport.ToDevToOutput"
-                }
-              }
-            }
-          }
-        },
-        "security": [
-          {
-            "bearer": []
-          }
-        ],
-        "x-samchon-accessor": [
-          "connector",
-          "swal",
-          "articles",
-          "exports",
-          "dev_to",
-          "exportsToDevTo"
-        ],
-        "x-samchon-controller": "ArticleController",
-        "x-wrtn-function-select-benchmarks": [
-          "dev.to로 내보내줘"
-        ]
-      }
-    },
-    "/connector/swal/articles/{id}/exports/google-docs": {
-      "post": {
-        "summary": "Exports specified article to google_docs",
-        "description": "Export the text to GoogleDocs\n\nThe exported text is recorded by creating a\n{@link IArticleExport bbs_article_exports} object based on the snapshot.\nYou can upgrade and downgrade the version using\nthe 'POST /connector/swal/articles/:id/exports/sync/google_docs' connector in the future.\nAlso, it doesn't matter if you export the same version of the text multiple times.\n\nBecause each export generates a new text,\nyou must use the `sync` connector if you want to change the version of an already exported text.",
-        "tags": [],
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "schema": {
-              "type": "string",
-              "format": "uuid",
-              "x-wrtn-prerequisite": {
-                "method": "patch",
-                "path": "/connector/swal/articles",
-                "jmesPath": "data[].{ value: id, label: snapshot.title }"
-              }
-            },
-            "required": true,
-            "description": " Target article's {@link IArticle.id }, Not snapshot ID"
-          }
-        ],
-        "requestBody": {
-          "description": "GoogleDocs Secret and snapshot information to export",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/IArticle.IExport.ToGoogleDocsInput"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "201": {
-            "description": "Article Infomation and google_docs secretKey",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/IArticle.IExport.ToGoogleDocsOutput"
-                }
-              }
-            }
-          }
-        },
-        "security": [
-          {
-            "bearer": []
-          }
-        ],
-        "x-samchon-accessor": [
-          "connector",
-          "swal",
-          "articles",
-          "exports",
-          "google_docs",
-          "exportsToGoogleDocs"
-        ],
-        "x-samchon-controller": "ArticleController",
-        "x-wrtn-function-select-benchmarks": [
-          "google docs로 내보내줘"
-        ]
-      }
-    },
-    "/connector/swal/articles/{id}/exports/notion": {
-      "post": {
-        "summary": "Exports specified article to notion",
-        "description": "Export the text to Notion\n\nThe exported text is recorded by creating a\n{@link IArticleExport bbs_article_exports} object based on the snapshot.\nYou can upgrade and downgrade the version using\nthe 'POST /connector/swal/articles/:id/exports/sync/notion' connector in the future.\nAlso, it doesn't matter if you export the same version of the text multiple times.\n\nBecause each export generates a new text,\nyou must use the `sync` connector if you want to change the version of an already exported text.",
-        "tags": [],
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "schema": {
-              "type": "string",
-              "format": "uuid",
-              "x-wrtn-prerequisite": {
-                "method": "patch",
-                "path": "/connector/swal/articles",
-                "jmesPath": "data[].{ value: id, label: snapshot.title }"
-              }
-            },
-            "required": true,
-            "description": " Target article's {@link IArticle.id }, Not snapshot ID"
-          }
-        ],
-        "requestBody": {
-          "description": "Notion Secret and snapshot information to export",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/IArticle.IExport.ToNotionInput"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "201": {
-            "description": "Article Infomation and notion secretKey",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/IArticle.IExport.ToNotionOutput"
-                }
-              }
-            }
-          }
-        },
-        "security": [
-          {
-            "bearer": []
-          }
-        ],
-        "x-samchon-accessor": [
-          "connector",
-          "swal",
-          "articles",
-          "exports",
-          "notion",
-          "exportsToNotion"
-        ],
-        "x-samchon-controller": "ArticleController",
-        "x-wrtn-function-select-benchmarks": [
-          "notion으로 내보내줘"
-        ]
-      }
-    },
-    "/connector/swal/articles/{id}": {
-      "patch": {
-        "description": "Read an entire contents of article with its every snapshots\n\nAll text content that is not omitted is shown here, so you can also see how the text has been modified at once.\nThis connector reads an article with its every snapshots {@link IArticle.ISnapshot snapshots}\nThis detail contains the entire content created for each version of the document,\nas well as the connection information to the external services from which it was exported.",
-        "tags": [],
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "schema": {
-              "type": "string",
-              "format": "uuid",
-              "x-wrtn-prerequisite": {
-                "method": "patch",
-                "path": "/connector/swal/articles",
-                "jmesPath": "data[].{ value: id, label: snapshot.title }"
-              }
-            },
-            "required": true,
-            "description": " Target article's {@link IArticle.id }, Not snapshot ID"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Article Infomation",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/StrictOmitIArticleIArticle.ISnapshotpassword"
-                }
-              }
-            }
-          }
-        },
-        "security": [
-          {
-            "bearer": []
-          }
-        ],
-        "x-samchon-accessor": [
-          "connector",
-          "swal",
-          "articles",
-          "at"
-        ],
-        "x-samchon-controller": "ArticleController",
-        "x-wrtn-function-select-benchmarks": [
-          "글 내용 보여줘"
-        ]
-      },
-      "delete": {
-        "summary": "Remove an specified article",
-        "description": "Erase an article\n\nPerforms soft deletion to the article.\nThis makes the article no longer available, regardless of the number of snapshots.",
-        "tags": [],
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "schema": {
-              "type": "string",
-              "format": "uuid",
-              "x-wrtn-prerequisite": {
-                "method": "patch",
-                "path": "/connector/swal/articles",
-                "jmesPath": "data[].{ value: id, label: snapshot.title }"
-              }
-            },
-            "required": true,
-            "description": " Target article's {@link IArticle.id }, Not snapshot ID"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "",
-            "content": {
-              "application/json": {}
-            }
-          }
-        },
-        "security": [
-          {
-            "bearer": []
-          }
-        ],
-        "x-samchon-accessor": [
-          "connector",
-          "swal",
-          "articles",
-          "remove"
-        ],
-        "x-samchon-controller": "ArticleController",
-        "x-wrtn-function-select-benchmarks": [
-          "내 글 삭제해줘"
-        ]
-      },
-      "put": {
-        "summary": "Updates the specified article with new data",
-        "description": "Update an existing article in the User Database\n\nThis function takes the updated article data as input and updates the corresponding\narticle record in the User Database. It uses the DocumentProvider to apply the changes.\nThe input must adhere to the structure defined by `IArticle.IUpdate`.\nReturns the updated document or the result of the update operation.",
-        "tags": [],
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "schema": {
-              "type": "string",
-              "format": "uuid",
-              "x-wrtn-prerequisite": {
-                "method": "patch",
-                "path": "/connector/swal/articles",
-                "jmesPath": "data[].{ value: id, label: snapshot.title }"
-              }
-            },
-            "required": true
-          }
-        ],
-        "requestBody": {
-          "description": "- The new data to update the article. It must match the `IArticle.IUpdate` type.",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/IArticle.IUpdate"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "200": {
-            "description": "The result of the update operation from the DocumentProvider.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/IArticle.ISnapshot"
-                }
-              }
-            }
-          }
-        },
-        "security": [
-          {
-            "bearer": []
-          }
-        ],
-        "x-samchon-accessor": [
-          "connector",
-          "swal",
-          "articles",
-          "update"
-        ],
-        "x-samchon-controller": "ArticleController",
-        "x-wrtn-function-select-benchmarks": [
-          "내 글 수정해줘"
-        ]
-      }
-    },
-    "/connector/swal/articles": {
-      "patch": {
-        "summary": "List up all summarized articles",
-        "description": "List up all summarized articles with pagination and searching options\n\nUsers can only view their own writings.\nAs this retrieves text from the connector server's database, confirm the service name if unspecified.\nUse this connector for requests mentioning Swal, Wrtn Technologies, Wrtn, user own DB, etc.\nDisplays paginated articles with abbreviated content (up to 100 characters).\nTo view full content, export history (e.g., Notion), or detailed snapshots, use the detailed lookup connector: PATCH connector/swal/articles/:id.",
-        "tags": [],
-        "parameters": [],
-        "requestBody": {
-          "description": "Request info of pagination and searching options.",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/IArticle.IRequest"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "200": {
-            "description": "Paginated summarized articles.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/IPageIArticle.ISummary"
-                }
-              }
-            }
-          }
-        },
-        "security": [
-          {
-            "bearer": []
-          }
-        ],
-        "x-samchon-accessor": [
-          "connector",
-          "swal",
-          "articles",
-          "index"
-        ],
-        "x-samchon-controller": "ArticleController",
-        "x-wrtn-function-select-benchmarks": [
-          "내 글 조회해줘"
-        ]
-      },
-      "post": {
-        "description": "Write Article to User Database\n\nPosts use a snapshot-based structure for rollback anytime.\nCreating a post automatically generates the first snapshot, and the latest snapshot reflects the current state.\nEdits and exports track versions through snapshots, allowing synchronization via foreign keys.\nThis system handles post-like documents (e.g., Google Docs, Notion, Reddit) efficiently.\nMarkdown is the standard format, with changes identified using a diff algorithm.\nCompare versions, track edits, and synchronize updates across services.\nAll data is stored exclusively in the Wrtn Technologies database, independent of external APIs.\nThis setup ensures efficient document management with robust version control.\nEditing is managed by a separate connector. Use it for updates.\nFor writing without service names, confirm with the user.",
-        "tags": [],
-        "parameters": [],
-        "requestBody": {
-          "description": "Article Information to Create",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/IArticle.ICreate"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "201": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/StrictOmitIArticleIArticle.ISnapshotpassword"
-                }
-              }
-            }
-          }
-        },
-        "security": [
-          {
-            "bearer": []
-          }
-        ],
-        "x-samchon-accessor": [
-          "connector",
-          "swal",
-          "articles",
-          "write"
-        ],
-        "x-samchon-controller": "ArticleController",
-        "x-wrtn-function-select-benchmarks": [
-          "내 개인 DB에 글 좀 써줘"
-        ]
-      }
-    },
-    "/connector/swal/spreadsheets/{id}/exports/google-sheets": {
-      "post": {
-        "summary": "Exports specified spreadsheet to GoogleSheets",
-        "description": "Export the spreadsheet to GoogleSheets\n\nThe exported spreadsheet is recorded by creating a\n{@link ISpreadsheetExport bbs_spreadsheet_exports} object based on the snapshot.\nYou can upgrade and downgrade the version using\nthe 'POST /connector/swal/spreadsheets/:id/exports/sync/google-sheets' connector in the future.\nAlso, it doesn't matter if you export the same version of the spreadsheet multiple times.\n\nBecause each export generates a new file,\nyou must use the `sync` connector if you want to change the version of an already exported file.",
-        "tags": [],
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "schema": {
-              "type": "string",
-              "format": "uuid",
-              "x-wrtn-prerequisite": {
-                "method": "patch",
-                "path": "/connector/swal/spreadsheets",
-                "jmesPath": "data[].{ value: id, label: snapshot.title }"
-              }
-            },
-            "required": true,
-            "description": " Target spreadsheet's {@link ISpreadsheet.id }, Not snapshot ID"
-          }
-        ],
-        "requestBody": {
-          "description": "GoogleSheets export configuration and snapshot information to export",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/ISpreadsheet.IExport.ToGoogleSheetsToInput"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "201": {
-            "description": "Spreadsheet Information and GoogleSheets export details",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ISpreadsheet.IExport.ToGoogleSheetsToOutput"
-                }
-              }
-            }
-          }
-        },
-        "security": [
-          {
-            "bearer": []
-          }
-        ],
-        "x-samchon-accessor": [
-          "connector",
-          "swal",
-          "spreadsheets",
-          "exports",
-          "google_sheets",
-          "exportsToGoogleSheets"
-        ],
-        "x-samchon-controller": "SpreadsheetController",
-        "x-samchon-human": true
-      }
-    },
-    "/connector/swal/spreadsheets/{id}/exports/excel": {
-      "post": {
-        "summary": "Exports specified spreadsheet to Excel",
-        "description": "Export the spreadsheet to Excel\n\nThe exported spreadsheet is recorded by creating a\n{@link ISpreadsheetExport bbs_spreadsheet_exports} object based on the snapshot.\nYou can upgrade and downgrade the version using\nthe 'POST /connector/swal/spreadsheets/:id/exports/sync/excel' connector in the future.\nAlso, it doesn't matter if you export the same version of the spreadsheet multiple times.\n\nBecause each export generates a new file,\nyou must use the `sync` connector if you want to change the version of an already exported file.",
-        "tags": [],
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "schema": {
-              "type": "string",
-              "format": "uuid",
-              "x-wrtn-prerequisite": {
-                "method": "patch",
-                "path": "/connector/swal/spreadsheets",
-                "jmesPath": "data[].{ value: id, label: snapshot.title }"
-              }
-            },
-            "required": true,
-            "description": " Target spreadsheet's {@link ISpreadsheet.id }, Not snapshot ID"
-          }
-        ],
-        "requestBody": {
-          "description": "Excel export configuration and snapshot information to export",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/ISpreadsheet.IExport.SnapshotInput"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "201": {
-            "description": "Spreadsheet Information and Excel export details",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ISpreadsheet.IExport.ToExcelToOutput"
-                }
-              }
-            }
-          }
-        },
-        "security": [
-          {
-            "bearer": []
-          }
-        ],
-        "x-samchon-accessor": [
-          "connector",
-          "swal",
-          "spreadsheets",
-          "exports",
-          "excel",
-          "exportsToExcel"
-        ],
-        "x-samchon-controller": "SpreadsheetController",
-        "x-samchon-human": true
-      }
-    },
-    "/connector/swal/spreadsheets/{id}": {
-      "patch": {
-        "summary": "Read individual detailed spreadsheet including full data",
-        "description": "Read an entire contents of spreadsheet with its every snapshot\n\nAll data content that is not omitted is shown here, so you can also see how the spreadsheet has been modified over time.\nThis connector reads a spreadsheet with its every snapshot {@link ISpreadsheet.ISnapshot snapshots}.\nThis detailed view contains the full data created for each version of the spreadsheet,\nas well as the connection information to the external services to which it was exported.\n\nBy examining the snapshots, you can track changes made to the spreadsheet, compare versions, and understand its history.\nIf the user is interested in a specific version of the spreadsheet or wants to check its export history to external services like Google Sheets or Excel,\nthis connector is the correct choice.",
-        "tags": [],
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            },
-            "required": true,
-            "description": " Target spreadsheet's {@link ISpreadsheet.id }, Not snapshot ID"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Spreadsheet Information",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ISpreadsheetISpreadsheet.ISnapshot"
-                }
-              }
-            }
-          }
-        },
-        "security": [
-          {
-            "bearer": []
-          }
-        ],
-        "x-samchon-accessor": [
-          "connector",
-          "swal",
-          "spreadsheets",
-          "at"
-        ],
-        "x-samchon-controller": "SpreadsheetController",
-        "x-samchon-human": true
-      }
-    },
-    "/connector/swal/spreadsheets/{id}/cells": {
-      "post": {
-        "summary": "Insert or update cells in a spreadsheet (snapshot-based structure)",
-        "description": "Insert or update cells in a spreadsheet\n\nThis connector allows adding or updating cells in an existing spreadsheet.\nThe spreadsheet is identified by its {@link ISpreadsheet.id}, and the input should include\nthe cell data to be inserted or updated.\n\nSpreadsheets in the system are managed as snapshots, meaning each update creates a new snapshot\nto preserve version history. Cells, like other spreadsheet components, are part of this snapshot\nstructure. This allows tracking changes to the spreadsheet over time and facilitates rollbacks or\ncomparisons between versions.\n\nWhen updating the spreadsheet, it modifies only the provided cells, leaving other\ncells unchanged. This is particularly useful for partial updates without altering the\nexisting structure or data in the spreadsheet.\n\nIf you want to create a new spreadsheet entirely, please use the `POST /connector/swal/spreadsheets` connector instead.",
-        "tags": [],
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "schema": {
-              "type": "string",
-              "format": "uuid"
-            },
-            "required": true,
-            "description": " Target spreadsheet's {@link ISpreadsheet.id }"
-          }
-        ],
-        "requestBody": {
-          "description": "Contains the cells to be inserted or updated",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/RequiredPickISpreadsheet.ICreatecells"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "201": {
-            "description": "Updated spreadsheet data after modifying the cells",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ISpreadsheetISpreadsheet.ISnapshot"
-                }
-              }
-            }
-          }
-        },
-        "security": [
-          {
-            "bearer": []
-          }
-        ],
-        "x-samchon-accessor": [
-          "connector",
-          "swal",
-          "spreadsheets",
-          "cells",
-          "insertCells"
-        ],
-        "x-samchon-controller": "SpreadsheetController",
-        "x-samchon-human": true
-      }
-    },
-    "/connector/swal/spreadsheets": {
-      "patch": {
-        "summary": "List up all summarized spreadsheets",
-        "description": "List up all summarized spreadsheets with pagination and searching options\n\nBecause it is looking at the user's individual spreadsheets, the user cannot inquire about spreadsheets other than their own.\nBecause it is a call to data stored in the connector server's own DB,\nit may be appropriate to call this connector if the user asks to call the data without saying the service name.\nIt is recommended that you first ask the user for the service name.\nIf you are asked to look up the spreadsheets under the names of `Swal`, `Wrtn Technologies`, `Wrtn`, `user own DB`, `user DB`, etc., you should call this connector.\n\nA list of paged spreadsheets will appear.\nThe spreadsheet contains abbreviated data previews, so you can infer its contents from the title and preview.\n\nIf you want to see the full data instead of the abbreviated preview,\nor if you want to see the history of this spreadsheet being exported to Google Sheets or other services,\nplease look up the details.\nHere, we only show a preview of the data up to 100 cells, so if you want to see the latter, you need to look up the details.\nYou can view all the snapshots of this spreadsheet if you want to look at them in detail.\nThe detailed lookup connector is 'PATCH connector/swal/spreadsheets/:id'.",
-        "tags": [],
-        "parameters": [],
-        "requestBody": {
-          "description": "Request info of pagination and searching options.",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/ISpreadsheet.IRequest"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "200": {
-            "description": "Paginated summarized spreadsheets.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/IPageISpreadsheet.ISummary"
-                }
-              }
-            }
-          }
-        },
-        "security": [
-          {
-            "bearer": []
-          }
-        ],
-        "x-samchon-accessor": [
-          "connector",
-          "swal",
-          "spreadsheets",
-          "index"
-        ],
-        "x-samchon-controller": "SpreadsheetController",
-        "x-samchon-human": true
-      },
-      "post": {
-        "summary": "Create Spreadsheet",
-        "description": "Create Spreadsheet in User Database\n\nSpreadsheets are managed in a snapshot-based structure, enabling rollback at any time.\nWhen a spreadsheet is created, the system automatically generates the first snapshot.\nThe most recent snapshot reflects the current state of the spreadsheet.\nBy editing the spreadsheet or exporting it to external services, you can track which version—i.e., which snapshot—was exported and synchronize it using foreign keys.\nThis system is designed to efficiently handle any spreadsheet-like documents, such as those from Google Sheets, Excel, or Airtable.\nUsing a structured data format as the standard for writing and versioning, it identifies changes through a diff algorithm whenever edits are made.\nThis allows you to compare previous and current versions, track changes, and synchronize updates across services.\nAs these APIs store data exclusively in the Wrtn Technologies Ecosystem Team's database without relying on external APIs,\nthis setup serves as an ideal starting point for creating and managing spreadsheets efficiently with robust version control.\n\nIf the user asked to edit the spreadsheet, it would most likely not be this connector.\nThere is a separate connector for the update, so please use it.\n\nIf the user asks you to create a spreadsheet without any service names,\nyou may be referring to this connector.\nAsk the user to confirm.\n\nPlease insert the correct data without omitting the data or adding the phrase that you have omitted it.",
-        "tags": [],
-        "parameters": [],
-        "requestBody": {
-          "description": "Spreadsheet Information to Create",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/ISpreadsheet.ICreate"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "201": {
-            "description": "",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ISpreadsheetISpreadsheet.ISnapshot"
-                }
-              }
-            }
-          }
-        },
-        "security": [
-          {
-            "bearer": []
-          }
-        ],
-        "x-samchon-accessor": [
-          "connector",
-          "swal",
-          "spreadsheets",
-          "create"
-        ],
-        "x-samchon-controller": "SpreadsheetController",
-        "x-samchon-human": true
-      }
-    },
-    "/connector/marketing-copy/generate-copy": {
-      "post": {
-        "summary": "Generate marketing copy",
-        "description": "Generates marketing copy from given input",
-        "tags": [],
-        "parameters": [],
-        "requestBody": {
-          "description": "Input for generating marketing copy",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/IMarketingCopyGenerator.IGenerateMarketingCopyInput"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "201": {
-            "description": "Generated marketing copy",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/MyPartialIMarketingCopyComponents"
-                }
-              }
-            }
-          }
-        },
-        "x-samchon-accessor": [
-          "connector",
-          "marketing_copy",
-          "generate_copy",
-          "generateCopy"
-        ],
-        "x-samchon-controller": "MarketingCopyController",
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Marketing_full.svg"
-      }
-    },
-    "/connector/marketing-copy/generate-copy-image": {
-      "post": {
-        "summary": "Generate a marketing copy image",
-        "description": "Generates a marketing copy image from the given input",
-        "tags": [],
-        "parameters": [],
-        "requestBody": {
-          "description": "Input for generating a marketing copy image",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/IMarketingCopyGenerator.IGenerateMarketingCopyImageInput"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "201": {
-            "description": "Generated marketing copy image",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/IMarketingCopyImage"
-                }
-              }
-            }
-          }
-        },
-        "x-samchon-accessor": [
-          "connector",
-          "marketing_copy",
-          "generate_copy_image",
-          "generateCopyImage"
-        ],
-        "x-samchon-controller": "MarketingCopyController",
-        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icon/fulls/Marketing_full.svg"
-      }
-    },
     "/connector/rag/analyze": {
       "post": {
         "summary": "Request RAG analysis",
@@ -5922,12 +4907,12 @@
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/stable_diffusion.svg"
       }
     },
-    "/connector/dall-e-3/generate": {
+    "/connector/dall-e/generate": {
       "post": {
         "summary": "dall-e-3 image generator node",
         "description": "Generate an image using the dall-e-3 model",
         "tags": [
-          "Dall-e-3"
+          "Dall-e"
         ],
         "parameters": [],
         "requestBody": {
@@ -5955,11 +4940,11 @@
         },
         "x-samchon-accessor": [
           "connector",
-          "dall_e_3",
+          "dall_e",
           "generate",
           "generateImage"
         ],
-        "x-samchon-controller": "DallE3Controller",
+        "x-samchon-controller": "DallEController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/dall_e.svg",
         "x-wrtn-function-select-benchmarks": [
           "dall-e로 그림 그려줘"
@@ -6287,7 +5272,7 @@
           "google_shopping",
           "aladine"
         ],
-        "x-samchon-controller": "GoogleShoppingAladinController",
+        "x-samchon-controller": "GoogleShoppingAladineController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/aladin.svg",
         "x-wrtn-standalone": true,
         "x-wrtn-function-select-benchmarks": [
@@ -6485,12 +5470,12 @@
         ]
       }
     },
-    "/connector/google-shopping/market-kurly": {
+    "/connector/google-shopping/kurly": {
       "patch": {
-        "summary": "Market Kurly Search",
-        "description": "Search for products on Market Kurly\nMarket Kurly is a service where you can purchase groceries.",
+        "summary": "Kurly Search",
+        "description": "Search for products on Kurly\nKurly is a service where you can purchase groceries.",
         "tags": [
-          "Market Kurly"
+          "Kurly"
         ],
         "parameters": [],
         "requestBody": {
@@ -6522,14 +5507,14 @@
         "x-samchon-accessor": [
           "connector",
           "google_shopping",
-          "market_kurly",
-          "marketKurly"
+          "kurly",
+          "Kurly"
         ],
-        "x-samchon-controller": "GoogleShoppingMarketKurlyController",
+        "x-samchon-controller": "GoogleShoppingKurlyController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/kurly.svg",
         "x-wrtn-standalone": true,
         "x-wrtn-function-select-benchmarks": [
-          "마켓컬리에서 상품 좀 찾아줘"
+          "컬리에서 상품 좀 찾아줘"
         ]
       }
     },
@@ -16609,2216 +15594,6 @@
   },
   "components": {
     "schemas": {
-      "IArticle.ISync.ToDevToOutput": {
-        "type": "object",
-        "properties": {
-          "isSuccess": {
-            "type": "boolean",
-            "title": "response",
-            "description": "Indicates whether synchronization is successful or not"
-          },
-          "article": {
-            "$ref": "#/components/schemas/StrictOmitIArticleIArticle.ISnapshotpassword",
-            "title": "article information"
-          }
-        },
-        "required": [
-          "isSuccess",
-          "article"
-        ]
-      },
-      "StrictOmitIArticleIArticle.ISnapshotpassword": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string",
-            "format": "uuid",
-            "title": "Primary Key"
-          },
-          "created_at": {
-            "type": "string",
-            "format": "date-time",
-            "title": "Creation time of article",
-            "description": "The most recent snapshot made is the higher version,\nand in fact, this time value can serve as the version."
-          },
-          "external_user_id": {
-            "type": "string",
-            "format": "uuid",
-            "title": "External User ID"
-          },
-          "snapshots": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/IArticle.ISnapshot"
-            },
-            "minItems": 1,
-            "title": "List of snapshot contents",
-            "description": "It is created for the first time when an article is created, and is\naccumulated every time the article is modified."
-          },
-          "deleted_at": {
-            "oneOf": [
-              {
-                "type": "null"
-              },
-              {
-                "type": "string",
-                "format": "date-time"
-              }
-            ],
-            "title": "Deletion time of article"
-          }
-        },
-        "required": [
-          "id",
-          "created_at",
-          "external_user_id",
-          "snapshots",
-          "deleted_at"
-        ]
-      },
-      "IArticle.ISnapshot": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string",
-            "format": "uuid",
-            "title": "Primary Key"
-          },
-          "created_at": {
-            "type": "string",
-            "format": "date-time",
-            "title": "Creation time of snapshot record",
-            "description": "In other words, creation time or update time or article"
-          },
-          "files": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/IAttachmentFile"
-            },
-            "title": "List of attachment files"
-          },
-          "bbs_article_exports": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/IArticleExport"
-            },
-            "title": "History of this snapshot being exported",
-            "description": "If it has been exported,\nthe location of the export will be recorded in the properties."
-          },
-          "title": {
-            "type": "string",
-            "title": "Title of article",
-            "description": "Title of article."
-          },
-          "format": {
-            "const": "md",
-            "title": "format",
-            "description": "Format of body.\n\nSame meaning with extension like `html`, `md`, `txt`."
-          },
-          "body": {
-            "type": "string",
-            "title": "Content body of article",
-            "description": "Content body of article."
-          }
-        },
-        "required": [
-          "id",
-          "created_at",
-          "files",
-          "bbs_article_exports",
-          "title",
-          "format",
-          "body"
-        ]
-      },
-      "IAttachmentFile": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string",
-            "format": "uuid",
-            "title": "Primary Key",
-            "description": "Primary Key."
-          },
-          "created_at": {
-            "type": "string",
-            "format": "date-time",
-            "title": "date time for creation of this file"
-          },
-          "name": {
-            "type": "string",
-            "maxLength": 255,
-            "title": "File name",
-            "description": "File name, except extension.\n\nPossible to make empty string like `.gitignore` case."
-          },
-          "extension": {
-            "oneOf": [
-              {
-                "type": "null"
-              },
-              {
-                "type": "string",
-                "minLength": 1,
-                "maxLength": 8
-              }
-            ],
-            "title": "File extension",
-            "description": "Extension.\n\nPossible to omit like `README` case.\nExtensions must exclude dot characters."
-          },
-          "url": {
-            "type": "string",
-            "format": "uri",
-            "title": "File url",
-            "description": "URL path of the real file.\n\nIn addition to the case of attaching a file,\nit is recommended to attach the URL address of the file when linking within the markdown document."
-          }
-        },
-        "required": [
-          "id",
-          "created_at",
-          "name",
-          "extension",
-          "url"
-        ],
-        "title": "Attachment File"
-      },
-      "IArticleExport": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string",
-            "format": "uuid",
-            "title": "Primary Key"
-          },
-          "bbs_article_snapshot_id": {
-            "type": "string",
-            "format": "uuid",
-            "title": "Snapshot ID"
-          },
-          "provider": {
-            "type": "string",
-            "title": "provider name",
-            "description": "It means the name of the service from which the article was exported,\nand if the service name is motion,\nit means that the same article is posted in the corresponding url of the provider service."
-          },
-          "uid": {
-            "oneOf": [
-              {
-                "type": "null"
-              },
-              {
-                "type": "string"
-              }
-            ],
-            "title": "Unique Document ID in external service"
-          },
-          "url": {
-            "oneOf": [
-              {
-                "type": "null"
-              },
-              {
-                "type": "string",
-                "format": "iri"
-              }
-            ],
-            "title": "URL",
-            "description": "This is a redirect link that allows you to locate the exported document,\nwhich is stored at export time."
-          },
-          "created_at": {
-            "type": "string",
-            "format": "date-time",
-            "title": "Creation time of {@link IArticleExport}"
-          },
-          "deleted_at": {
-            "oneOf": [
-              {
-                "type": "null"
-              },
-              {
-                "type": "string",
-                "format": "date-time"
-              }
-            ],
-            "title": "Deletion time ot {@link IArticleExport}"
-          }
-        },
-        "required": [
-          "id",
-          "bbs_article_snapshot_id",
-          "provider",
-          "uid",
-          "url",
-          "created_at",
-          "deleted_at"
-        ]
-      },
-      "IArticle.ISync.ToDevToInput": {
-        "type": "object",
-        "properties": {
-          "dev_to": {
-            "type": "object",
-            "properties": {
-              "secretKey": {
-                "type": "string",
-                "x-wrtn-secret-key": "dev_to",
-                "x-wrtn-secret-scopes": [],
-                "title": "Dev.to API Key for synchronization"
-              }
-            },
-            "required": [
-              "secretKey"
-            ],
-            "title": "Dev.to API Key for synchronization"
-          },
-          "snapshot": {
-            "type": "object",
-            "properties": {
-              "from": {
-                "type": "string",
-                "format": "uuid",
-                "x-wrtn-prerequisite": {
-                  "method": "patch",
-                  "path": "/connector/swal/articles/:id",
-                  "jmesPath": "snapshot[].{ value: id, label: ['created_at ', created_at].join(':', @) }"
-                },
-                "title": "ID of the snapshot to be previously synchronized",
-                "description": "The user synchronizes the text associated with that snapshot.\n\nFor example, when you have v1 and v2,\nif you pass v1 by ID,\nyou replace the exported document in snapshot v1 with the exported document\nin v2 and update the properties,\nincluding the title and content of the exported document.\n\nIf you want to synchronize the notion documents linked to the snapshot at once,\nplease only forward the snapshot's ID (=`from` property).\nIf you want to synchronize only some of the documents exported from that snapshot, pass only the ID of bbs_article_exports.\nbbs_article_exports is the point of connection between snapshots and documents exported from those snapshots."
-              },
-              "to": {
-                "type": "string",
-                "format": "uuid",
-                "x-wrtn-prerequisite": {
-                  "method": "patch",
-                  "path": "/connector/swal/articles/:id",
-                  "jmesPath": "snapshot[].{ value: id, label: ['created_at ', created_at].join(':', @) }"
-                },
-                "title": "The ID of the snapshot that will be after synchronization"
-              },
-              "article_snapshot_exports": {
-                "type": "object",
-                "properties": {
-                  "ids": {
-                    "type": "array",
-                    "items": {
-                      "type": "string",
-                      "format": "uuid"
-                    },
-                    "minItems": 1,
-                    "title": "IDs of IArticleExport",
-                    "description": "IDs of {@link IArticleExport bbs_article_exports}\n\nIf you want to synchronize the notion documents linked to the snapshot at once,\nplease only forward the snapshot's ID (=`from` property).\nIf you want to synchronize only some of the documents exported from that snapshot, pass only the ID of bbs_article_exports.\nbbs_article_exports is the point of connection between snapshots and documents exported from those snapshots.\n\nIf it is to be specified, it must be an array of at least one size."
-                  }
-                },
-                "required": [],
-                "title": "Exported Document's information"
-              }
-            },
-            "required": [
-              "from",
-              "to"
-            ],
-            "title": "snapshot information for synchronization"
-          }
-        },
-        "required": [
-          "dev_to",
-          "snapshot"
-        ]
-      },
-      "IArticle.ISync.ToGoogleDocsOutput": {
-        "type": "object",
-        "properties": {
-          "isSuccess": {
-            "type": "boolean",
-            "title": "response",
-            "description": "Indicates whether synchronization is successful or not"
-          },
-          "article": {
-            "$ref": "#/components/schemas/StrictOmitIArticleIArticle.ISnapshotpassword",
-            "title": "article information"
-          }
-        },
-        "required": [
-          "isSuccess",
-          "article"
-        ]
-      },
-      "IArticle.ISync.ToGoogleDocsInput": {
-        "type": "object",
-        "properties": {
-          "google_docs": {
-            "type": "object",
-            "properties": {
-              "secretKey": {
-                "type": "string",
-                "x-wrtn-secret-key": "google",
-                "x-wrtn-secret-scopes": [
-                  "https://www.googleapis.com/auth/drive.file"
-                ],
-                "title": "Google Docs Secret Key for synchronization"
-              }
-            },
-            "required": [
-              "secretKey"
-            ],
-            "title": "Google Docs SecretKey for synchronization"
-          },
-          "snapshot": {
-            "type": "object",
-            "properties": {
-              "from": {
-                "type": "string",
-                "format": "uuid",
-                "x-wrtn-prerequisite": {
-                  "method": "patch",
-                  "path": "/connector/swal/articles/:id",
-                  "jmesPath": "snapshot[].{ value: id, label: ['created_at ', created_at].join(':', @) }"
-                },
-                "title": "ID of the snapshot to be previously synchronized",
-                "description": "The user synchronizes the text associated with that snapshot.\n\nFor example, when you have v1 and v2,\nif you pass v1 by ID,\nyou replace the exported document in snapshot v1 with the exported document\nin v2 and update the properties,\nincluding the title and content of the exported document.\n\nIf you want to synchronize the notion documents linked to the snapshot at once,\nplease only forward the snapshot's ID (=`from` property).\nIf you want to synchronize only some of the documents exported from that snapshot, pass only the ID of bbs_article_exports.\nbbs_article_exports is the point of connection between snapshots and documents exported from those snapshots."
-              },
-              "to": {
-                "type": "string",
-                "format": "uuid",
-                "x-wrtn-prerequisite": {
-                  "method": "patch",
-                  "path": "/connector/swal/articles/:id",
-                  "jmesPath": "snapshot[].{ value: id, label: ['created_at ', created_at].join(':', @) }"
-                },
-                "title": "The ID of the snapshot that will be after synchronization"
-              },
-              "article_snapshot_exports": {
-                "type": "object",
-                "properties": {
-                  "ids": {
-                    "type": "array",
-                    "items": {
-                      "type": "string",
-                      "format": "uuid"
-                    },
-                    "minItems": 1,
-                    "title": "IDs of IArticleExport",
-                    "description": "IDs of {@link IArticleExport bbs_article_exports}\n\nIf you want to synchronize the notion documents linked to the snapshot at once,\nplease only forward the snapshot's ID (=`from` property).\nIf you want to synchronize only some of the documents exported from that snapshot, pass only the ID of bbs_article_exports.\nbbs_article_exports is the point of connection between snapshots and documents exported from those snapshots.\n\nIf it is to be specified, it must be an array of at least one size."
-                  }
-                },
-                "required": [],
-                "title": "Exported Document's information"
-              }
-            },
-            "required": [
-              "from",
-              "to"
-            ],
-            "title": "snapshot information for synchronization"
-          }
-        },
-        "required": [
-          "google_docs",
-          "snapshot"
-        ]
-      },
-      "IArticle.ISync.ToNotionOutput": {
-        "type": "object",
-        "properties": {
-          "isSuccess": {
-            "type": "boolean",
-            "title": "response",
-            "description": "Indicates whether synchronization is successful or not"
-          },
-          "article": {
-            "$ref": "#/components/schemas/StrictOmitIArticleIArticle.ISnapshotpassword",
-            "title": "article information"
-          }
-        },
-        "required": [
-          "isSuccess",
-          "article"
-        ]
-      },
-      "IArticle.ISync.ToNotionInput": {
-        "type": "object",
-        "properties": {
-          "notion": {
-            "type": "object",
-            "properties": {
-              "secretKey": {
-                "type": "string",
-                "x-wrtn-secret-key": "notion",
-                "title": "Notion Secret Key for synchronization"
-              }
-            },
-            "required": [
-              "secretKey"
-            ],
-            "title": "Notion SecretKey for synchronization"
-          },
-          "snapshot": {
-            "type": "object",
-            "properties": {
-              "from": {
-                "type": "string",
-                "format": "uuid",
-                "x-wrtn-prerequisite": {
-                  "method": "patch",
-                  "path": "/connector/swal/articles/:id",
-                  "jmesPath": "snapshot[].{ value: id, label: ['created_at ', created_at].join(':', @) }"
-                },
-                "title": "ID of the snapshot to be previously synchronized",
-                "description": "The user synchronizes the text associated with that snapshot.\n\nFor example, when you have v1 and v2,\nif you pass v1 by ID,\nyou replace the exported document in snapshot v1 with the exported document\nin v2 and update the properties,\nincluding the title and content of the exported document.\n\nIf you want to synchronize the notion documents linked to the snapshot at once,\nplease only forward the snapshot's ID (=`from` property).\nIf you want to synchronize only some of the documents exported from that snapshot, pass only the ID of bbs_article_exports.\nbbs_article_exports is the point of connection between snapshots and documents exported from those snapshots."
-              },
-              "to": {
-                "type": "string",
-                "format": "uuid",
-                "x-wrtn-prerequisite": {
-                  "method": "patch",
-                  "path": "/connector/swal/articles/:id",
-                  "jmesPath": "snapshot[].{ value: id, label: ['created_at ', created_at].join(':', @) }"
-                },
-                "title": "The ID of the snapshot that will be after synchronization"
-              },
-              "article_snapshot_exports": {
-                "type": "object",
-                "properties": {
-                  "ids": {
-                    "type": "array",
-                    "items": {
-                      "type": "string",
-                      "format": "uuid"
-                    },
-                    "minItems": 1,
-                    "title": "IDs of IArticleExport",
-                    "description": "IDs of {@link IArticleExport bbs_article_exports}\n\nIf you want to synchronize the notion documents linked to the snapshot at once,\nplease only forward the snapshot's ID (=`from` property).\nIf you want to synchronize only some of the documents exported from that snapshot, pass only the ID of bbs_article_exports.\nbbs_article_exports is the point of connection between snapshots and documents exported from those snapshots.\n\nIf it is to be specified, it must be an array of at least one size."
-                  }
-                },
-                "required": [],
-                "title": "Exported Document's information"
-              }
-            },
-            "required": [
-              "from",
-              "to"
-            ],
-            "title": "snapshot information for synchronization"
-          }
-        },
-        "required": [
-          "notion",
-          "snapshot"
-        ]
-      },
-      "IArticle.IExport.ToDevToOutput": {
-        "type": "object",
-        "properties": {
-          "dev_to": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string",
-                "title": "Created dev.to Article ID"
-              },
-              "title": {
-                "type": "string",
-                "title": "Title of Created dev.to Article"
-              },
-              "link": {
-                "type": "string",
-                "title": "File URL"
-              }
-            },
-            "required": [
-              "id",
-              "title",
-              "link"
-            ],
-            "title": "About the google doc that was successfully exported"
-          },
-          "article_snapshot_exports": {
-            "$ref": "#/components/schemas/StrictOmitIArticleExportdeleted_at",
-            "title": "Exporting infomation"
-          }
-        },
-        "required": [
-          "dev_to",
-          "article_snapshot_exports"
-        ]
-      },
-      "StrictOmitIArticleExportdeleted_at": {
-        "type": "object",
-        "properties": {
-          "provider": {
-            "type": "string",
-            "title": "provider name",
-            "description": "It means the name of the service from which the article was exported,\nand if the service name is motion,\nit means that the same article is posted in the corresponding url of the provider service."
-          },
-          "url": {
-            "oneOf": [
-              {
-                "type": "null"
-              },
-              {
-                "type": "string",
-                "format": "iri"
-              }
-            ],
-            "title": "URL",
-            "description": "This is a redirect link that allows you to locate the exported document,\nwhich is stored at export time."
-          },
-          "id": {
-            "type": "string",
-            "format": "uuid",
-            "title": "Primary Key"
-          },
-          "created_at": {
-            "type": "string",
-            "format": "date-time",
-            "title": "Creation time of {@link IArticleExport}"
-          },
-          "bbs_article_snapshot_id": {
-            "type": "string",
-            "format": "uuid",
-            "title": "Snapshot ID"
-          },
-          "uid": {
-            "oneOf": [
-              {
-                "type": "null"
-              },
-              {
-                "type": "string"
-              }
-            ],
-            "title": "Unique Document ID in external service"
-          }
-        },
-        "required": [
-          "provider",
-          "url",
-          "id",
-          "created_at",
-          "bbs_article_snapshot_id",
-          "uid"
-        ]
-      },
-      "IArticle.IExport.ToDevToInput": {
-        "type": "object",
-        "properties": {
-          "dev_to": {
-            "$ref": "#/components/schemas/StrictOmitIDevTo.ICreateInputarticle",
-            "title": "dev.to Secret Key and information to create file"
-          },
-          "snapshot": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string",
-                "x-wrtn-prerequisite": {
-                  "method": "patch",
-                  "path": "/connector/swal/articles/:id",
-                  "jmesPath": "snapshot[].{ value: id, label: ['created_at ', created_at].join(':', @) }"
-                },
-                "title": "Snapshot ID of the article you want to export to another service"
-              }
-            },
-            "required": [
-              "id"
-            ],
-            "title": "snapshot information to export"
-          }
-        },
-        "required": [
-          "dev_to",
-          "snapshot"
-        ],
-        "title": "Conditions and secret keys for exporting to dev.to"
-      },
-      "StrictOmitIDevTo.ICreateInputarticle": {
-        "type": "object",
-        "properties": {
-          "secretKey": {
-            "type": "string",
-            "x-wrtn-secret-key": "dev_to",
-            "x-wrtn-secret-scopes": [],
-            "title": "Select authentication information",
-            "description": "secret key."
-          }
-        },
-        "required": [
-          "secretKey"
-        ]
-      },
-      "IArticle.IExport.ToGoogleDocsOutput": {
-        "type": "object",
-        "properties": {
-          "google_docs": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string",
-                "title": "Created Google Docs File ID"
-              },
-              "title": {
-                "type": "string",
-                "title": "Title of Created Google Docs File"
-              },
-              "link": {
-                "type": "string",
-                "title": "File URL"
-              }
-            },
-            "required": [
-              "id",
-              "title",
-              "link"
-            ],
-            "title": "About the google doc that was successfully exported"
-          },
-          "article_snapshot_exports": {
-            "$ref": "#/components/schemas/StrictOmitIArticleExportdeleted_at",
-            "title": "Exporting infomation"
-          }
-        },
-        "required": [
-          "google_docs",
-          "article_snapshot_exports"
-        ]
-      },
-      "IArticle.IExport.ToGoogleDocsInput": {
-        "type": "object",
-        "properties": {
-          "google_docs": {
-            "$ref": "#/components/schemas/StrictOmitIGoogleDocs.IRequestnamemarkdown",
-            "title": "Google Docs Secret Key and information to create file"
-          },
-          "snapshot": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string",
-                "x-wrtn-prerequisite": {
-                  "method": "patch",
-                  "path": "/connector/swal/articles/:id",
-                  "jmesPath": "snapshot[].{ value: id, label: ['created_at ', created_at].join(':', @) }"
-                },
-                "title": "Snapshot ID of the article you want to export to another service"
-              }
-            },
-            "required": [
-              "id"
-            ],
-            "title": "snapshot information to export"
-          }
-        },
-        "required": [
-          "google_docs",
-          "snapshot"
-        ],
-        "title": "Conditions and secret keys for exporting to Google Docs"
-      },
-      "StrictOmitIGoogleDocs.IRequestnamemarkdown": {
-        "type": "object",
-        "properties": {
-          "secretKey": {
-            "type": "string",
-            "x-wrtn-secret-key": "google",
-            "x-wrtn-secret-scopes": [
-              "https://www.googleapis.com/auth/drive.file"
-            ],
-            "title": "Select authentication information",
-            "description": "secret key."
-          },
-          "folderId": {
-            "type": "string",
-            "x-wrtn-prerequisite": {
-              "method": "post",
-              "path": "/connector/google-drive/get/folders",
-              "jmesPath": "data[].{value:id, label:name}"
-            },
-            "title": "Google Drive Folder ID",
-            "description": "Folder id that will contain the file to be created in the drive"
-          }
-        },
-        "required": [
-          "secretKey"
-        ]
-      },
-      "IArticle.IExport.ToNotionOutput": {
-        "type": "object",
-        "properties": {
-          "notion": {
-            "oneOf": [
-              {
-                "$ref": "#/components/schemas/INotion.Common.IError"
-              },
-              {
-                "$ref": "#/components/schemas/INotion.___ICreatePageOutput"
-              }
-            ],
-            "title": "About the notion page that was successfully exported"
-          },
-          "article_snapshot_exports": {
-            "$ref": "#/components/schemas/StrictOmitIArticleExportdeleted_at",
-            "title": "Exporting infomation"
-          }
-        },
-        "required": [
-          "notion",
-          "article_snapshot_exports"
-        ],
-        "title": "Conditions and secret keys for exporting to Notion"
-      },
-      "INotion.Common.IError": {
-        "type": "object",
-        "properties": {
-          "name": {
-            "type": "string",
-            "title": "name",
-            "description": "for example, APIResponseError"
-          },
-          "code": {
-            "type": "string",
-            "title": "code",
-            "description": "for example, object_not_found"
-          },
-          "status": {
-            "type": "number",
-            "title": "status",
-            "description": "for example, 404"
-          },
-          "body": {
-            "type": "string",
-            "title": "serialized body",
-            "description": "for example, '{\"object\":\"error\",\"status\":404,\"code\":\"object_not_found\",\"message\":\"Could not find page with ID: 6f8304d2-de52-417d-a032-b340a421a8c1. Make sure the relevant pages and databases are shared with your integration.\",\"request_id\":\"3e773c7e-c703-40a8-9b13-635ad750c3a2\"}'"
-          }
-        },
-        "required": [
-          "name",
-          "code",
-          "status",
-          "body"
-        ]
-      },
-      "INotion.___ICreatePageOutput": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string",
-            "title": "page id",
-            "description": "Unique id of the generated page"
-          },
-          "title": {
-            "type": "string",
-            "title": "tilte\n\nTitle of the document you just created"
-          },
-          "link": {
-            "type": "string",
-            "format": "iri",
-            "title": "page link"
-          }
-        },
-        "required": [
-          "id",
-          "title",
-          "link"
-        ],
-        "title": "Page creation result"
-      },
-      "IArticle.IExport.ToNotionInput": {
-        "type": "object",
-        "properties": {
-          "notion": {
-            "type": "object",
-            "properties": {
-              "secretKey": {
-                "type": "string",
-                "x-wrtn-secret-key": "notion",
-                "title": "Notion Secret Key for exporting"
-              },
-              "parentPageId": {
-                "oneOf": [
-                  {
-                    "type": "string",
-                    "x-wrtn-prerequisite": {
-                      "method": "post",
-                      "path": "/connector/notion/get/page",
-                      "jmesPath": "[].{value:pageId, label:title}"
-                    },
-                    "x-wrtn-placeholder": "부모 페이지를 선택하세요."
-                  },
-                  {
-                    "type": "string",
-                    "x-wrtn-prerequisite": {
-                      "method": "post",
-                      "path": "/connector/notion/page",
-                      "jmesPath": "[].{value:id, label:id}"
-                    },
-                    "x-wrtn-placeholder": "부모 페이지를 선택하세요."
-                  }
-                ],
-                "title": "Parent Page ID for exporting"
-              }
-            },
-            "required": [
-              "secretKey",
-              "parentPageId"
-            ],
-            "title": "Notion SecretKey and Parent Page ID to export"
-          },
-          "snapshot": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string",
-                "x-wrtn-prerequisite": {
-                  "method": "patch",
-                  "path": "/connector/swal/articles/:id",
-                  "jmesPath": "snapshot[].{ value: id, label: ['created_at ', created_at].join(':', @) }"
-                },
-                "title": "Snapshot ID of the article you want to export to another service"
-              }
-            },
-            "required": [
-              "id"
-            ],
-            "title": "snapshot information to export"
-          }
-        },
-        "required": [
-          "notion",
-          "snapshot"
-        ]
-      },
-      "IArticle.IUpdate": {
-        "type": "object",
-        "properties": {
-          "props": {
-            "$ref": "#/components/schemas/IArticle.ICreate",
-            "title": "props"
-          }
-        },
-        "required": [
-          "props"
-        ],
-        "title": "Article to update"
-      },
-      "IArticle.ICreate": {
-        "type": "object",
-        "properties": {
-          "format": {
-            "const": "md",
-            "title": "format",
-            "description": "Format of body.\n\nSame meaning with extension like `html`, `md`, `txt`."
-          },
-          "title": {
-            "type": "string",
-            "title": "Title of article",
-            "description": "Title of article."
-          },
-          "body": {
-            "type": "string",
-            "title": "Content body of article",
-            "description": "Content body of article."
-          },
-          "files": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/IAttachmentFile.ICreate"
-            },
-            "title": "List of attachment files",
-            "description": "List of attachment files."
-          }
-        },
-        "required": [
-          "format",
-          "title",
-          "body"
-        ],
-        "title": "Article to write"
-      },
-      "IAttachmentFile.ICreate": {
-        "type": "object",
-        "properties": {
-          "name": {
-            "type": "string",
-            "maxLength": 255,
-            "title": "File name",
-            "description": "File name, except extension.\n\nPossible to make empty string like `.gitignore` case."
-          },
-          "extension": {
-            "oneOf": [
-              {
-                "type": "null"
-              },
-              {
-                "type": "string",
-                "minLength": 1,
-                "maxLength": 8
-              }
-            ],
-            "title": "File extension",
-            "description": "Extension.\n\nPossible to omit like `README` case.\nExtensions must exclude dot characters."
-          },
-          "url": {
-            "type": "string",
-            "format": "uri",
-            "title": "File url",
-            "description": "URL path of the real file.\n\nIn addition to the case of attaching a file,\nit is recommended to attach the URL address of the file when linking within the markdown document."
-          }
-        },
-        "required": [
-          "name",
-          "extension",
-          "url"
-        ]
-      },
-      "IPageIArticle.ISummary": {
-        "type": "object",
-        "properties": {
-          "pagination": {
-            "$ref": "#/components/schemas/IPage.IPagination",
-            "description": "Page information"
-          },
-          "data": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/IArticle.ISummary"
-            },
-            "description": "List of records"
-          }
-        },
-        "required": [
-          "pagination",
-          "data"
-        ],
-        "description": "A page\n\nCollection of records with pagination indformation"
-      },
-      "IPage.IPagination": {
-        "type": "object",
-        "properties": {
-          "current": {
-            "type": "integer",
-            "description": "Current page number"
-          },
-          "limit": {
-            "type": "integer",
-            "description": "Limitation of records per a page"
-          },
-          "records": {
-            "type": "integer",
-            "description": "Count of total records in database"
-          },
-          "pages": {
-            "type": "integer",
-            "description": "Number of total pages\n\nEqual to {@link records} / {@link limit} with ceiling."
-          }
-        },
-        "required": [
-          "current",
-          "limit",
-          "records",
-          "pages"
-        ],
-        "description": "Page information"
-      },
-      "IArticle.ISummary": {
-        "type": "object",
-        "properties": {
-          "snapshot": {
-            "$ref": "#/components/schemas/StrictOmitISnapshotbodybodystringMaxLength100",
-            "title": "Last Snapshot"
-          },
-          "id": {
-            "type": "string",
-            "format": "uuid",
-            "title": "Primary Key"
-          },
-          "created_at": {
-            "type": "string",
-            "format": "date-time",
-            "title": "Creation time of article",
-            "description": "The most recent snapshot made is the higher version,\nand in fact, this time value can serve as the version."
-          }
-        },
-        "required": [
-          "snapshot",
-          "id",
-          "created_at"
-        ]
-      },
-      "StrictOmitISnapshotbodybodystringMaxLength100": {
-        "type": "object",
-        "properties": {
-          "title": {
-            "type": "string",
-            "title": "Title of article",
-            "description": "Title of article."
-          },
-          "bbs_article_exports": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/IArticleExport"
-            },
-            "title": "History of this snapshot being exported",
-            "description": "If it has been exported,\nthe location of the export will be recorded in the properties."
-          },
-          "format": {
-            "const": "md",
-            "title": "format",
-            "description": "Format of body.\n\nSame meaning with extension like `html`, `md`, `txt`."
-          },
-          "id": {
-            "type": "string",
-            "format": "uuid",
-            "title": "Primary Key"
-          },
-          "created_at": {
-            "type": "string",
-            "format": "date-time",
-            "title": "Creation time of snapshot record",
-            "description": "In other words, creation time or update time or article"
-          },
-          "files": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/IAttachmentFile"
-            },
-            "title": "List of attachment files"
-          },
-          "body": {
-            "type": "string",
-            "maxLength": 100,
-            "title": "Summarized Body",
-            "description": "Summarized Body Content\n\nThis is the content of the text that has been omitted so that only 100 characters appear.\nIf you want to see the whole thing, use the detailed lookup connector."
-          }
-        },
-        "required": [
-          "title",
-          "bbs_article_exports",
-          "format",
-          "id",
-          "created_at",
-          "files",
-          "body"
-        ]
-      },
-      "IArticle.IRequest": {
-        "type": "object",
-        "properties": {
-          "search": {
-            "$ref": "#/components/schemas/IArticle.IRequest.ISearch",
-            "title": "search"
-          },
-          "sort": {
-            "type": "array",
-            "items": {
-              "oneOf": [
-                {
-                  "const": "-created_at"
-                },
-                {
-                  "const": "-snapshot.created_at"
-                },
-                {
-                  "const": "-snapshot.title"
-                },
-                {
-                  "const": "+created_at"
-                },
-                {
-                  "const": "+snapshot.created_at"
-                },
-                {
-                  "const": "+snapshot.title"
-                }
-              ]
-            },
-            "title": "sort"
-          },
-          "page": {
-            "type": "integer",
-            "title": "Page number",
-            "description": "Page number."
-          },
-          "limit": {
-            "type": "integer",
-            "title": "Limitation of records per a page",
-            "description": "Limitation of records per a page."
-          }
-        },
-        "required": [],
-        "title": "Query Condition"
-      },
-      "IArticle.IRequest.ISearch": {
-        "type": "object",
-        "properties": {
-          "ids": {
-            "type": "array",
-            "items": {
-              "type": "string",
-              "format": "uuid"
-            },
-            "title": "Article IDs",
-            "description": "Article IDs, not Article Snapshot ID\n\nIt is Article's ID, Not Article Snapshot ID and {@link IArticleExport bbs_article_exports} ID."
-          },
-          "snapshot": {
-            "type": "object",
-            "properties": {
-              "format": {
-                "const": "md",
-                "title": "Format of article"
-              },
-              "title": {
-                "type": "string",
-                "title": "Title of article",
-                "description": "This property is not a complete match, but a feature\nthat allows user to search for a title that contains that character.\nThis property should be undefined unless the user wants to see his or her writing\nand only wants to find a title that contains a particular text.\n\nIf user want to search for something that contains a specific title,\nuser can put the keyword user want in it.\nYou must put keywords that must be included.\nIf user don't have anything to search for,\nuser can put in or not empty characters."
-              }
-            },
-            "required": [],
-            "title": "Last Snapshot"
-          }
-        },
-        "required": [],
-        "title": "Search Conditions",
-        "description": "If an attribute exists,\nit returns only the result of 'AND' calculations of all the attributes.\nFor example, if the format is 'md' and 'title' is 'swal',\nit will only look up the case where it is marked down and 'swal' is included in the title."
-      },
-      "ISpreadsheet.IExport.ToGoogleSheetsToOutput": {
-        "type": "object",
-        "properties": {
-          "google_sheets": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string",
-                "title": "Created google sheets spreadsheet ID"
-              },
-              "title": {
-                "type": "string",
-                "title": "Title of Created google sheets spreadsheet"
-              },
-              "link": {
-                "type": "string",
-                "title": "File URL"
-              }
-            },
-            "required": [
-              "id",
-              "title",
-              "link"
-            ]
-          },
-          "spreadsheet_exports": {
-            "$ref": "#/components/schemas/StrictOmitISpreadsheetExportdeleted_at",
-            "title": "Exporting infomation"
-          }
-        },
-        "required": [
-          "google_sheets",
-          "spreadsheet_exports"
-        ]
-      },
-      "StrictOmitISpreadsheetExportdeleted_at": {
-        "type": "object",
-        "properties": {
-          "provider": {
-            "type": "string",
-            "title": "provider name",
-            "description": "It means the name of the service from which the post was exported,\nand if the service name is motion,\nit means that the same post is posted in the corresponding url of the provider service."
-          },
-          "url": {
-            "oneOf": [
-              {
-                "type": "null"
-              },
-              {
-                "type": "string",
-                "format": "iri"
-              }
-            ],
-            "title": "URL",
-            "description": "This is a redirect link that allows you to locate the exported spreadsheet,\nwhich is stored at export time."
-          },
-          "id": {
-            "type": "string",
-            "format": "uuid",
-            "title": "Primary Key"
-          },
-          "created_at": {
-            "type": "string",
-            "format": "date-time",
-            "title": "Creation time of {@link ISpreadsheetExport}"
-          },
-          "uid": {
-            "oneOf": [
-              {
-                "type": "null"
-              },
-              {
-                "type": "string"
-              }
-            ],
-            "title": "Unique spreadsheet ID in external service"
-          },
-          "spreadsheet_snapshot_id": {
-            "type": "string",
-            "format": "uuid",
-            "title": "Snapshot ID"
-          }
-        },
-        "required": [
-          "provider",
-          "url",
-          "id",
-          "created_at",
-          "uid",
-          "spreadsheet_snapshot_id"
-        ]
-      },
-      "ISpreadsheet.IExport.ToGoogleSheetsToInput": {
-        "type": "object",
-        "properties": {
-          "google_sheets": {
-            "type": "object",
-            "properties": {
-              "secret": {
-                "type": "string",
-                "x-wrtn-secret-key": "google",
-                "x-wrtn-secret-scopes": [
-                  "https://www.googleapis.com/auth/spreadsheets",
-                  "https://www.googleapis.com/auth/drive.file"
-                ]
-              }
-            },
-            "required": [
-              "secret"
-            ]
-          },
-          "snapshot": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string",
-                "x-wrtn-prerequisite": {
-                  "method": "patch",
-                  "path": "/connector/swal/spreadsheets/:id",
-                  "jmesPath": "data[].{ value: id, label: ['created_at ', created_at].join(':', @) }"
-                },
-                "title": "Snapshot ID of the spreadsheet you want to export to another service"
-              }
-            },
-            "required": [
-              "id"
-            ],
-            "title": "snapshot information to export"
-          }
-        },
-        "required": [
-          "google_sheets",
-          "snapshot"
-        ]
-      },
-      "ISpreadsheet.IExport.ToExcelToOutput": {
-        "type": "object",
-        "properties": {
-          "excel": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string",
-                "title": "Created excel spreadsheet ID"
-              },
-              "title": {
-                "type": "string",
-                "title": "Title of Created excel spreadsheet"
-              },
-              "link": {
-                "type": "string",
-                "title": "File URL"
-              }
-            },
-            "required": [
-              "id",
-              "title",
-              "link"
-            ]
-          },
-          "spreadsheet_exports": {
-            "$ref": "#/components/schemas/StrictOmitISpreadsheetExportdeleted_at",
-            "title": "Exporting infomation"
-          }
-        },
-        "required": [
-          "excel",
-          "spreadsheet_exports"
-        ]
-      },
-      "ISpreadsheet.IExport.SnapshotInput": {
-        "type": "object",
-        "properties": {
-          "snapshot": {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string",
-                "x-wrtn-prerequisite": {
-                  "method": "patch",
-                  "path": "/connector/swal/spreadsheets/:id",
-                  "jmesPath": "data[].{ value: id, label: ['created_at ', created_at].join(':', @) }"
-                },
-                "title": "Snapshot ID of the spreadsheet you want to export to another service"
-              }
-            },
-            "required": [
-              "id"
-            ],
-            "title": "snapshot information to export"
-          }
-        },
-        "required": [
-          "snapshot"
-        ]
-      },
-      "ISpreadsheetISpreadsheet.ISnapshot": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string",
-            "format": "uuid",
-            "title": "Primary Key"
-          },
-          "external_user_id": {
-            "type": "string",
-            "format": "uuid",
-            "title": "External User ID"
-          },
-          "spreadsheet_cells": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/StrictOmitISpreadsheetCellspreadsheet_id"
-            },
-            "title": "cells"
-          },
-          "snapshots": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/ISpreadsheet.ISnapshot"
-            },
-            "minItems": 1,
-            "title": "List of snapshot contents",
-            "description": "It is created for the first time when an spreadsheet is created, and is\naccumulated every time the spreadsheet is modified."
-          },
-          "created_at": {
-            "type": "string",
-            "format": "date-time",
-            "title": "Creation time of spreadsheet",
-            "description": "The most recent snapshot made is the higher version,\nand in fact, this time value can serve as the version."
-          },
-          "deleted_at": {
-            "oneOf": [
-              {
-                "type": "null"
-              },
-              {
-                "type": "string",
-                "format": "date-time"
-              }
-            ],
-            "title": "Deletion time of spreadsheet"
-          },
-          "total_cell_count": {
-            "type": "integer",
-            "title": "Total count of cells"
-          }
-        },
-        "required": [
-          "id",
-          "external_user_id",
-          "spreadsheet_cells",
-          "snapshots",
-          "created_at",
-          "deleted_at",
-          "total_cell_count"
-        ]
-      },
-      "StrictOmitISpreadsheetCellspreadsheet_id": {
-        "type": "object",
-        "properties": {
-          "spreadsheet_cell_snapshots": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/MyPickISpreadsheetCell.ISnapshotvalueidcreated_attype"
-            },
-            "title": "Snapshots",
-            "description": "All Snapshot of Cell"
-          },
-          "id": {
-            "type": "string",
-            "format": "uuid",
-            "title": "Primary Key"
-          },
-          "created_at": {
-            "type": "string",
-            "format": "date-time",
-            "title": "Creation time of spreadsheet cell"
-          },
-          "column": {
-            "type": "integer",
-            "minimum": 1,
-            "maximum": 26,
-            "title": "Column Number",
-            "description": "It counts from 1"
-          },
-          "row": {
-            "type": "integer",
-            "minimum": 1,
-            "maximum": 1000,
-            "title": "Row Number",
-            "description": "It counts from 1"
-          },
-          "mv_last": {
-            "type": "object",
-            "properties": {
-              "snapshot": {
-                "$ref": "#/components/schemas/MyPickISpreadsheetCell.ISnapshotvaluecreated_attype"
-              }
-            },
-            "required": [
-              "snapshot"
-            ],
-            "title": "Last Snapshot"
-          }
-        },
-        "required": [
-          "spreadsheet_cell_snapshots",
-          "id",
-          "created_at",
-          "column",
-          "row",
-          "mv_last"
-        ]
-      },
-      "MyPickISpreadsheetCell.ISnapshotvalueidcreated_attype": {
-        "type": "object",
-        "properties": {
-          "value": {
-            "oneOf": [
-              {
-                "type": "null"
-              },
-              {
-                "type": "string"
-              }
-            ],
-            "title": "value",
-            "description": "If the value of the final cell is in the erased form, null.\nA null value will be stored only when the value of this cell disappears after modification, and other than that, null can never be entered.\nThis is to indicate that the value has been explicitly deleted to prevent the cell value of the previous snapshot from being exposed when a cell is soft-delete."
-          },
-          "id": {
-            "type": "string",
-            "format": "uuid",
-            "title": "Primary Key"
-          },
-          "created_at": {
-            "type": "string",
-            "format": "date-time",
-            "title": "Creation time of spreadsheet cell snapshot"
-          },
-          "type": {
-            "const": "text",
-            "title": "Format type of this cell\n\nFor example, date, datetime, bool, text an so on.\nIf you want add new type, please discuss within our team."
-          }
-        },
-        "required": [
-          "value",
-          "id",
-          "created_at",
-          "type"
-        ]
-      },
-      "MyPickISpreadsheetCell.ISnapshotvaluecreated_attype": {
-        "type": "object",
-        "properties": {
-          "value": {
-            "oneOf": [
-              {
-                "type": "null"
-              },
-              {
-                "type": "string"
-              }
-            ],
-            "title": "value",
-            "description": "If the value of the final cell is in the erased form, null.\nA null value will be stored only when the value of this cell disappears after modification, and other than that, null can never be entered.\nThis is to indicate that the value has been explicitly deleted to prevent the cell value of the previous snapshot from being exposed when a cell is soft-delete."
-          },
-          "created_at": {
-            "type": "string",
-            "format": "date-time",
-            "title": "Creation time of spreadsheet cell snapshot"
-          },
-          "type": {
-            "const": "text",
-            "title": "Format type of this cell\n\nFor example, date, datetime, bool, text an so on.\nIf you want add new type, please discuss within our team."
-          }
-        },
-        "required": [
-          "value",
-          "created_at",
-          "type"
-        ]
-      },
-      "ISpreadsheet.ISnapshot": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string",
-            "format": "uuid",
-            "title": "Primary Key"
-          },
-          "created_at": {
-            "type": "string",
-            "format": "date-time",
-            "title": "Creation time of snapshot record",
-            "description": "In other words, creation time or update time or spreadsheet"
-          },
-          "spreadsheet_exports": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/ISpreadsheetExport.ISummary"
-            },
-            "title": "History of this snapshot being exported",
-            "description": "If it has been exported,\nthe location of the export will be recorded in the properties."
-          },
-          "title": {
-            "type": "string",
-            "title": "title"
-          },
-          "description": {
-            "oneOf": [
-              {
-                "type": "null"
-              },
-              {
-                "type": "string"
-              }
-            ],
-            "title": "description",
-            "description": "If user want to export this sheet to an external service,\nthe description may not be exposed depending on the service user want to export.\nHowever, because it may be difficult to find out what this sheet was intended by looking at the title alone,\nan explanatory property is placed."
-          }
-        },
-        "required": [
-          "id",
-          "created_at",
-          "spreadsheet_exports",
-          "title"
-        ]
-      },
-      "ISpreadsheetExport.ISummary": {
-        "type": "object",
-        "properties": {
-          "provider": {
-            "type": "string",
-            "title": "provider name",
-            "description": "It means the name of the service from which the post was exported,\nand if the service name is motion,\nit means that the same post is posted in the corresponding url of the provider service."
-          },
-          "url": {
-            "oneOf": [
-              {
-                "type": "null"
-              },
-              {
-                "type": "string",
-                "format": "iri"
-              }
-            ],
-            "title": "URL",
-            "description": "This is a redirect link that allows you to locate the exported spreadsheet,\nwhich is stored at export time."
-          },
-          "id": {
-            "type": "string",
-            "format": "uuid",
-            "title": "Primary Key"
-          },
-          "created_at": {
-            "type": "string",
-            "format": "date-time",
-            "title": "Creation time of {@link ISpreadsheetExport}"
-          },
-          "uid": {
-            "oneOf": [
-              {
-                "type": "null"
-              },
-              {
-                "type": "string"
-              }
-            ],
-            "title": "Unique spreadsheet ID in external service"
-          }
-        },
-        "required": [
-          "provider",
-          "url",
-          "id",
-          "created_at",
-          "uid"
-        ]
-      },
-      "RequiredPickISpreadsheet.ICreatecells": {
-        "type": "object",
-        "properties": {
-          "cells": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/ISpreadsheetCell.ICreate"
-            },
-            "title": "cells"
-          }
-        },
-        "required": [
-          "cells"
-        ],
-        "description": "Make all properties in T required"
-      },
-      "ISpreadsheetCell.ICreate": {
-        "type": "object",
-        "properties": {
-          "column": {
-            "type": "integer",
-            "minimum": 1,
-            "maximum": 26,
-            "title": "Column Number",
-            "description": "It counts from 1"
-          },
-          "row": {
-            "type": "integer",
-            "minimum": 1,
-            "maximum": 1000,
-            "title": "Row Number",
-            "description": "It counts from 1"
-          },
-          "snapshot": {
-            "$ref": "#/components/schemas/MyPickISpreadsheetCell.ISnapshot.ICreatevaluetype",
-            "title": "Last Snapshot"
-          }
-        },
-        "required": [
-          "column",
-          "row",
-          "snapshot"
-        ]
-      },
-      "MyPickISpreadsheetCell.ISnapshot.ICreatevaluetype": {
-        "type": "object",
-        "properties": {
-          "value": {
-            "type": "string",
-            "title": "value",
-            "description": "If the value of the final cell is in the erased form, null.\nA null value will be stored only when the value of this cell disappears after modification, and other than that, null can never be entered.\nThis is to indicate that the value has been explicitly deleted to prevent the cell value of the previous snapshot from being exposed when a cell is soft-delete."
-          },
-          "type": {
-            "const": "text",
-            "title": "Format type of this cell\n\nFor example, date, datetime, bool, text an so on.\nIf you want add new type, please discuss within our team."
-          }
-        },
-        "required": [
-          "value",
-          "type"
-        ]
-      },
-      "IPageISpreadsheet.ISummary": {
-        "type": "object",
-        "properties": {
-          "pagination": {
-            "$ref": "#/components/schemas/IPage.IPagination",
-            "description": "Page information"
-          },
-          "data": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/ISpreadsheet.ISummary"
-            },
-            "description": "List of records"
-          }
-        },
-        "required": [
-          "pagination",
-          "data"
-        ],
-        "description": "A page\n\nCollection of records with pagination indformation"
-      },
-      "ISpreadsheet.ISummary": {
-        "type": "object",
-        "properties": {
-          "mv_last": {
-            "type": "object",
-            "properties": {
-              "snapshot": {
-                "$ref": "#/components/schemas/ISpreadsheet.ISnapshot"
-              }
-            },
-            "required": [
-              "snapshot"
-            ]
-          },
-          "spreadsheet_cells": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/StrictOmitISpreadsheetCellspreadsheet_id"
-            },
-            "minItems": 0,
-            "maxItems": 100,
-            "title": "Summarized Cell Contents",
-            "description": "It is the summarized cell content, and only up to 100 are searched.\nYou can check the whole thing by searching in detail."
-          },
-          "id": {
-            "type": "string",
-            "format": "uuid",
-            "title": "Primary Key"
-          },
-          "created_at": {
-            "type": "string",
-            "format": "date-time",
-            "title": "Creation time of spreadsheet",
-            "description": "The most recent snapshot made is the higher version,\nand in fact, this time value can serve as the version."
-          },
-          "total_cell_count": {
-            "type": "integer",
-            "title": "Total count of cells"
-          }
-        },
-        "required": [
-          "mv_last",
-          "spreadsheet_cells",
-          "id",
-          "created_at",
-          "total_cell_count"
-        ]
-      },
-      "ISpreadsheet.IRequest": {
-        "type": "object",
-        "properties": {
-          "search": {
-            "$ref": "#/components/schemas/ISpreadsheet.IRequest.ISearch",
-            "title": "Search"
-          },
-          "sort": {
-            "type": "array",
-            "items": {
-              "oneOf": [
-                {
-                  "const": "-created_at"
-                },
-                {
-                  "const": "-snapshot.created_at"
-                },
-                {
-                  "const": "-snapshot.title"
-                },
-                {
-                  "const": "+created_at"
-                },
-                {
-                  "const": "+snapshot.created_at"
-                },
-                {
-                  "const": "+snapshot.title"
-                }
-              ]
-            },
-            "title": "Sort"
-          },
-          "page": {
-            "type": "integer",
-            "title": "Page number",
-            "description": "Page number."
-          },
-          "limit": {
-            "type": "integer",
-            "title": "Limitation of records per a page",
-            "description": "Limitation of records per a page."
-          }
-        },
-        "required": [],
-        "title": "Request"
-      },
-      "ISpreadsheet.IRequest.ISearch": {
-        "type": "object",
-        "properties": {
-          "ids": {
-            "type": "array",
-            "items": {
-              "type": "string",
-              "format": "uuid"
-            },
-            "title": "Spreadsheet IDs",
-            "description": "Spreadsheet IDs, not Spreadsheet Snapshot ID\nIt is Spreadsheet's ID, Not Spreadsheet Snapshot ID and {@link ISpreadsheetExport spreadsheet_exports} ID."
-          },
-          "snapshot": {
-            "type": "object",
-            "properties": {
-              "title": {
-                "type": "string",
-                "title": "Title of spreadsheet",
-                "description": "This property is not a complete match, but a feature\nthat allows you to search for a title that contains that character."
-              },
-              "description": {
-                "type": "string",
-                "title": "Description of spreadsheet",
-                "description": "This property is not a complete match, but a feature\nthat allows you to search for a title that contains that character."
-              },
-              "minimum_cell_count": {
-                "type": "integer",
-                "title": "minimum count of cells",
-                "description": "It means the number of cells you wish to have at least.\nYou can adjust this value when you want to look up a lot of written sheets."
-              }
-            },
-            "required": [],
-            "title": "Last Snapshot"
-          }
-        },
-        "required": [
-          "snapshot"
-        ],
-        "title": "Search Conditions",
-        "description": "If an attribute exists,\nit returns only the result of 'AND' calculations of all the attributes."
-      },
-      "ISpreadsheet.ICreate": {
-        "type": "object",
-        "properties": {
-          "title": {
-            "type": "string",
-            "title": "title"
-          },
-          "description": {
-            "oneOf": [
-              {
-                "type": "null"
-              },
-              {
-                "type": "string"
-              }
-            ],
-            "title": "description",
-            "description": "If user want to export this sheet to an external service,\nthe description may not be exposed depending on the service user want to export.\nHowever, because it may be difficult to find out what this sheet was intended by looking at the title alone,\nan explanatory property is placed."
-          },
-          "cells": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/ISpreadsheetCell.ICreate"
-            },
-            "title": "cells"
-          }
-        },
-        "required": [
-          "title"
-        ]
-      },
-      "MyPartialIMarketingCopyComponents": {
-        "type": "object",
-        "properties": {
-          "title": {
-            "type": "string",
-            "title": "The title of your marketing copy",
-            "description": "The title of your marketing copy."
-          },
-          "cta": {
-            "type": "string",
-            "title": "This is the CTA phrase in your marketing copy",
-            "description": "This is the CTA phrase in your marketing copy."
-          },
-          "subtitle": {
-            "type": "string",
-            "title": "A description of the marketing copy",
-            "description": "Here is a description of the marketing copy."
-          }
-        },
-        "required": []
-      },
-      "IMarketingCopyGenerator.IGenerateMarketingCopyInput": {
-        "type": "object",
-        "properties": {
-          "keyword": {
-            "$ref": "#/components/schemas/IKeywordExtraction.IExtractKeywordOutput",
-            "title": "Keywords",
-            "description": "Overall keywords in your marketing copy"
-          },
-          "marketingPurpose": {
-            "$ref": "#/components/schemas/IMarketingPurpose",
-            "title": "Marketing Purpose",
-            "description": "Purpose of marketing and product information"
-          },
-          "distributionChannel": {
-            "$ref": "#/components/schemas/IDistributionChannel",
-            "title": "Marketing Channel",
-            "description": "Channel information for using marketing copy"
-          },
-          "referenceContent": {
-            "$ref": "#/components/schemas/IConnector.IReferenceContent",
-            "title": "References",
-            "description": "References for Creating Marketing Copy"
-          }
-        },
-        "required": [
-          "keyword",
-          "marketingPurpose",
-          "distributionChannel",
-          "referenceContent"
-        ],
-        "title": "Input for creating marketing copy"
-      },
-      "IKeywordExtraction.IExtractKeywordOutput": {
-        "type": "object",
-        "properties": {
-          "keyword": {
-            "type": "string",
-            "description": "Extracted Keywords"
-          }
-        },
-        "required": [
-          "keyword"
-        ]
-      },
-      "IMarketingPurpose": {
-        "type": "object",
-        "properties": {
-          "purpose": {
-            "oneOf": [
-              {
-                "const": "sign_up"
-              },
-              {
-                "const": "purchase"
-              },
-              {
-                "const": "visit"
-              }
-            ],
-            "title": "Marketing purpose",
-            "description": "The purpose is to do marketing.\n\nOnly three possible values are available: sign_up, purchase, and visit."
-          },
-          "product_name": {
-            "type": "string",
-            "title": "This is the product name to be marketed",
-            "description": "This is the product name to be marketed."
-          },
-          "unique_selling_point": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            },
-            "title": "This is the selling point of the product",
-            "description": "This is the selling point of the product."
-          },
-          "user_benefit": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            },
-            "title": "Benefits of the product you are marketing",
-            "description": "Benefits of the product you are marketing."
-          }
-        },
-        "required": [
-          "purpose",
-          "product_name",
-          "unique_selling_point",
-          "user_benefit"
-        ]
-      },
-      "IDistributionChannel": {
-        "type": "object",
-        "properties": {
-          "channel": {
-            "oneOf": [
-              {
-                "const": "youtube"
-              },
-              {
-                "const": "facebook"
-              },
-              {
-                "const": "kakao"
-              },
-              {
-                "const": "instagram_feed"
-              },
-              {
-                "const": "instagram_story"
-              },
-              {
-                "const": "naver"
-              }
-            ],
-            "title": "Channels to use marketing copy",
-            "description": "Channels to use marketing copy.\n\nOnly 6 possible values are possible: facebook, instagram_feed, instagram_story, youtube, naver, kakao."
-          },
-          "components": {
-            "type": "array",
-            "items": {
-              "oneOf": [
-                {
-                  "const": "title"
-                },
-                {
-                  "const": "cta"
-                },
-                {
-                  "const": "subtitle"
-                }
-              ]
-            },
-            "title": "Information to retrieve from the channel where the marketing copy will be used",
-            "description": "Information to retrieve from the channel where the marketing copy will be used.\n\nOnly three possible values are possible: title, cta, subtitle."
-          }
-        },
-        "required": [
-          "channel",
-          "components"
-        ]
-      },
-      "IConnector.IReferenceContent": {
-        "type": "object",
-        "properties": {
-          "title": {
-            "type": "string",
-            "title": "Title",
-            "description": "The title of the output"
-          },
-          "type": {
-            "oneOf": [
-              {
-                "const": "video"
-              },
-              {
-                "const": "image"
-              },
-              {
-                "const": "news_article"
-              },
-              {
-                "const": "research_paper"
-              }
-            ],
-            "title": "Output Type",
-            "description": "Video, image, news article, research paper\n\nIt must be one of: video, image, news_article, research_paper"
-          },
-          "source": {
-            "oneOf": [
-              {
-                "const": "youtube"
-              },
-              {
-                "const": "facebook"
-              },
-              {
-                "const": "instagram"
-              },
-              {
-                "const": "google_search"
-              },
-              {
-                "const": "arxiv"
-              },
-              {
-                "const": "google_news"
-              }
-            ],
-            "title": "Source of output",
-            "description": "youtube, facebook, instagram, google_search, arxiv, google_news\n\nIt must be one of: youtube, facebook, instagram, google_search, arxiv, google_news"
-          },
-          "url": {
-            "type": "string",
-            "format": "iri",
-            "title": "URL address",
-            "description": "The URL address of the output"
-          },
-          "contents": {
-            "type": "string",
-            "title": "Output Content",
-            "description": "Here is the content of the output"
-          },
-          "image": {
-            "type": "string",
-            "format": "iri",
-            "title": "Output Image URL",
-            "description": "The URL address of the image of the output"
-          },
-          "statistics": {
-            "$ref": "#/components/schemas/MyPartialRecordIConnector.MetricTypenumberTypeint32",
-            "title": "Output statistics information",
-            "description": "Output statistics information\n\nPossible values: view_count, like_count, rank"
-          }
-        },
-        "required": [
-          "title",
-          "type",
-          "source",
-          "url"
-        ]
-      },
-      "MyPartialRecordIConnector.MetricTypenumberTypeint32": {
-        "type": "object",
-        "properties": {
-          "view_count": {
-            "type": "integer"
-          },
-          "like_count": {
-            "type": "integer"
-          },
-          "rank": {
-            "type": "integer"
-          }
-        },
-        "required": []
-      },
-      "IMarketingCopyImage": {
-        "type": "object",
-        "properties": {
-          "imageUrl": {
-            "type": "string",
-            "format": "iri",
-            "contentMediaType": "image/*",
-            "title": "Image URL of the generated marketing copy draft",
-            "description": "Image URL of the generated marketing copy draft."
-          }
-        },
-        "required": [
-          "imageUrl"
-        ]
-      },
-      "IMarketingCopyGenerator.IGenerateMarketingCopyImageInput": {
-        "type": "object",
-        "properties": {
-          "copy": {
-            "$ref": "#/components/schemas/MyPartialIMarketingCopyComponents",
-            "title": "Marketing Copy Creation Results",
-            "description": "Marketing Copy Creation Results Related to Marketing Copy Image"
-          },
-          "keyword": {
-            "$ref": "#/components/schemas/IKeywordExtraction.IExtractKeywordOutput",
-            "title": "Keywords",
-            "description": "Overall keywords for marketing copy images"
-          },
-          "marketingPurpose": {
-            "$ref": "#/components/schemas/IMarketingPurpose",
-            "title": "Marketing Purpose",
-            "description": "Purpose of marketing and product information"
-          },
-          "distributionChannel": {
-            "$ref": "#/components/schemas/IDistributionChannel",
-            "title": "Marketing Channel",
-            "description": "Channel information for using marketing copy"
-          },
-          "referenceContent": {
-            "$ref": "#/components/schemas/IConnector.IReferenceContent",
-            "title": "References",
-            "description": "References for Creating Marketing Copy"
-          }
-        },
-        "required": [
-          "copy",
-          "keyword",
-          "marketingPurpose",
-          "distributionChannel",
-          "referenceContent"
-        ],
-        "title": "Input for generating marketing copy images"
-      },
       "IRag.IAnalysisOutput": {
         "type": "object",
         "properties": {
@@ -19075,6 +15850,52 @@
           "data"
         ],
         "title": "Information for adding data"
+      },
+      "ISpreadsheetCell.ICreate": {
+        "type": "object",
+        "properties": {
+          "column": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 26,
+            "title": "Column Number",
+            "description": "It counts from 1"
+          },
+          "row": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 1000,
+            "title": "Row Number",
+            "description": "It counts from 1"
+          },
+          "snapshot": {
+            "$ref": "#/components/schemas/MyPickISpreadsheetCell.ISnapshot.ICreatevaluetype",
+            "title": "Last Snapshot"
+          }
+        },
+        "required": [
+          "column",
+          "row",
+          "snapshot"
+        ]
+      },
+      "MyPickISpreadsheetCell.ISnapshot.ICreatevaluetype": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "string",
+            "title": "value",
+            "description": "If the value of the final cell is in the erased form, null.\nA null value will be stored only when the value of this cell disappears after modification, and other than that, null can never be entered.\nThis is to indicate that the value has been explicitly deleted to prevent the cell value of the previous snapshot from being exposed when a cell is soft-delete."
+          },
+          "type": {
+            "const": "text",
+            "title": "Format type of this cell\n\nFor example, date, datetime, bool, text an so on.\nIf you want add new type, please discuss within our team."
+          }
+        },
+        "required": [
+          "value",
+          "type"
+        ]
       },
       "IExcel.IInsertExcelRowInput": {
         "type": "object",
@@ -32013,14 +28834,14 @@
         "type": "object",
         "properties": {
           "adGroupCriterion": {
-            "$ref": "#/components/schemas/MyPickAdGroupCriteriontypestatuskeywordresourceNamecriterionIdKeyword"
+            "$ref": "#/components/schemas/MyPickAdGroupCriteriontypestatusresourceNamecriterionIdkeywordKeyword"
           }
         },
         "required": [
           "adGroupCriterion"
         ]
       },
-      "MyPickAdGroupCriteriontypestatuskeywordresourceNamecriterionIdKeyword": {
+      "MyPickAdGroupCriteriontypestatusresourceNamecriterionIdkeywordKeyword": {
         "type": "object",
         "properties": {
           "type": {
@@ -32047,10 +28868,6 @@
             ],
             "title": "Ad Group Standard Status"
           },
-          "keyword": {
-            "$ref": "#/components/schemas/IGoogleAds.Keyword",
-            "title": "keyword"
-          },
           "resourceName": {
             "type": "string",
             "pattern": "(customers\\/(.*)\\/adGroupCriteria\\/[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?~[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)",
@@ -32063,6 +28880,10 @@
             "pattern": "^([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)$",
             "title": "Ad Group Standard ID",
             "description": "Ad Group Standard ID"
+          },
+          "keyword": {
+            "$ref": "#/components/schemas/IGoogleAds.Keyword",
+            "title": "keyword"
           },
           "text": {
             "type": "string",
@@ -32093,9 +28914,9 @@
         "required": [
           "type",
           "status",
-          "keyword",
           "resourceName",
           "criterionId",
+          "keyword",
           "text",
           "matchType"
         ]
@@ -33163,6 +29984,101 @@
           "references"
         ],
         "title": "Search Results"
+      },
+      "IConnector.IReferenceContent": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "title": "Title",
+            "description": "The title of the output"
+          },
+          "type": {
+            "oneOf": [
+              {
+                "const": "video"
+              },
+              {
+                "const": "image"
+              },
+              {
+                "const": "news_article"
+              },
+              {
+                "const": "research_paper"
+              }
+            ],
+            "title": "Output Type",
+            "description": "Video, image, news article, research paper\n\nIt must be one of: video, image, news_article, research_paper"
+          },
+          "source": {
+            "oneOf": [
+              {
+                "const": "youtube"
+              },
+              {
+                "const": "facebook"
+              },
+              {
+                "const": "instagram"
+              },
+              {
+                "const": "google_search"
+              },
+              {
+                "const": "arxiv"
+              },
+              {
+                "const": "google_news"
+              }
+            ],
+            "title": "Source of output",
+            "description": "youtube, facebook, instagram, google_search, arxiv, google_news\n\nIt must be one of: youtube, facebook, instagram, google_search, arxiv, google_news"
+          },
+          "url": {
+            "type": "string",
+            "format": "iri",
+            "title": "URL address",
+            "description": "The URL address of the output"
+          },
+          "contents": {
+            "type": "string",
+            "title": "Output Content",
+            "description": "Here is the content of the output"
+          },
+          "image": {
+            "type": "string",
+            "format": "iri",
+            "title": "Output Image URL",
+            "description": "The URL address of the image of the output"
+          },
+          "statistics": {
+            "$ref": "#/components/schemas/MyPartialRecordIConnector.MetricTypenumberTypeint32",
+            "title": "Output statistics information",
+            "description": "Output statistics information\n\nPossible values: view_count, like_count, rank"
+          }
+        },
+        "required": [
+          "title",
+          "type",
+          "source",
+          "url"
+        ]
+      },
+      "MyPartialRecordIConnector.MetricTypenumberTypeint32": {
+        "type": "object",
+        "properties": {
+          "view_count": {
+            "type": "integer"
+          },
+          "like_count": {
+            "type": "integer"
+          },
+          "rank": {
+            "type": "integer"
+          }
+        },
+        "required": []
       },
       "IConnector.ISearchInput": {
         "type": "object",
@@ -34349,6 +31265,37 @@
         "required": [
           "block_id",
           "secretKey"
+        ]
+      },
+      "INotion.Common.IError": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "title": "name",
+            "description": "for example, APIResponseError"
+          },
+          "code": {
+            "type": "string",
+            "title": "code",
+            "description": "for example, object_not_found"
+          },
+          "status": {
+            "type": "number",
+            "title": "status",
+            "description": "for example, 404"
+          },
+          "body": {
+            "type": "string",
+            "title": "serialized body",
+            "description": "for example, '{\"object\":\"error\",\"status\":404,\"code\":\"object_not_found\",\"message\":\"Could not find page with ID: 6f8304d2-de52-417d-a032-b340a421a8c1. Make sure the relevant pages and databases are shared with your integration.\",\"request_id\":\"3e773c7e-c703-40a8-9b13-635ad750c3a2\"}'"
+          }
+        },
+        "required": [
+          "name",
+          "code",
+          "status",
+          "body"
         ]
       },
       "INotion.IAppendPageByMarkdownInput": {
@@ -38283,6 +35230,31 @@
         "title": "Information needed to find an item in the database",
         "additionalProperties": {}
       },
+      "INotion.___ICreatePageOutput": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "page id",
+            "description": "Unique id of the generated page"
+          },
+          "title": {
+            "type": "string",
+            "title": "tilte\n\nTitle of the document you just created"
+          },
+          "link": {
+            "type": "string",
+            "format": "iri",
+            "title": "page link"
+          }
+        },
+        "required": [
+          "id",
+          "title",
+          "link"
+        ],
+        "title": "Page creation result"
+      },
       "INotion.ICreatePageByMarkdownInput": {
         "type": "object",
         "properties": {
@@ -41419,7 +38391,7 @@
           "files": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/MyPickISlack.Filechannelsnameidusercreatedsizecomments_countmimetypeurl_privateurl_private_downloadthumb_1024"
+              "$ref": "#/components/schemas/MyPickISlack.Filechannelsnameidusersizecreatedcomments_countmimetypeurl_privateurl_private_downloadthumb_1024"
             }
           },
           "paging": {
@@ -41457,7 +38429,7 @@
         ],
         "title": "File Lookup Results"
       },
-      "MyPickISlack.Filechannelsnameidusercreatedsizecomments_countmimetypeurl_privateurl_private_downloadthumb_1024": {
+      "MyPickISlack.Filechannelsnameidusersizecreatedcomments_countmimetypeurl_privateurl_private_downloadthumb_1024": {
         "type": "object",
         "properties": {
           "channels": {
@@ -41480,13 +38452,13 @@
             "type": "string",
             "title": "user"
           },
-          "created": {
-            "type": "number",
-            "title": "created"
-          },
           "size": {
             "type": "integer",
             "title": "size"
+          },
+          "created": {
+            "type": "number",
+            "title": "created"
           },
           "comments_count": {
             "type": "integer",
@@ -41517,8 +38489,8 @@
           "name",
           "id",
           "user",
-          "created",
           "size",
+          "created",
           "comments_count",
           "mimetype"
         ]
@@ -41996,7 +38968,7 @@
           "comments": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/MyPickCommentidcreatedauthorupdatedupdateAuthorbodyany"
+              "$ref": "#/components/schemas/MyPickCommentidauthorcreatedupdatedupdateAuthorbodyany"
             },
             "title": "comments"
           },
@@ -42026,20 +38998,20 @@
           "total"
         ]
       },
-      "MyPickCommentidcreatedauthorupdatedupdateAuthorbodyany": {
+      "MyPickCommentidauthorcreatedupdatedupdateAuthorbodyany": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string",
             "title": "id of comment"
           },
-          "created": {
-            "type": "string",
-            "title": "created time of this comment"
-          },
           "author": {
             "$ref": "#/components/schemas/MyPickIJira.UseractiveaccountIddisplayName",
             "title": "author of this comment"
+          },
+          "created": {
+            "type": "string",
+            "title": "created time of this comment"
           },
           "updated": {
             "type": "string",
@@ -42055,8 +39027,8 @@
         },
         "required": [
           "id",
-          "created",
           "author",
+          "created",
           "updated",
           "updateAuthor",
           "body"
@@ -43256,10 +40228,6 @@
             },
             "title": "status"
           },
-          "keyword": {
-            "type": "string",
-            "title": "search keyword\n\nIt is a keyword you want to find in the title or explanation of an issue, which is useful when searching."
-          },
           "labels": {
             "type": "array",
             "items": {
@@ -43276,6 +40244,10 @@
             "default": 50,
             "title": "max results",
             "description": "The maximum number of items to return per page.\nIn the issue, it seems that up to 100 can be viewed at a time."
+          },
+          "keyword": {
+            "type": "string",
+            "title": "search keyword\n\nIt is a keyword you want to find in the title or explanation of an issue, which is useful when searching."
           },
           "startAt": {
             "type": "integer",
@@ -47387,13 +44359,13 @@
             "const": "file",
             "title": "type"
           },
-          "path": {
-            "type": "string",
-            "title": "path\n\nIt must be unique as a path for identifying that file in the root folder."
-          },
           "size": {
             "type": "number",
             "title": "Indicates the file size in bytes"
+          },
+          "path": {
+            "type": "string",
+            "title": "path\n\nIt must be unique as a path for identifying that file in the root folder."
           },
           "sha": {
             "type": "string",
@@ -47415,8 +44387,8 @@
           "name",
           "url",
           "type",
-          "path",
           "size",
+          "path",
           "sha"
         ]
       },
@@ -59353,10 +56325,6 @@
             "type": "boolean",
             "title": "Whether the post is hidden"
           },
-          "created": {
-            "type": "number",
-            "title": "Creation time"
-          },
           "thumbnail": {
             "type": "string",
             "title": "Thumbnail URL"
@@ -59368,6 +56336,10 @@
           "locked": {
             "type": "boolean",
             "title": "Whether the post is locked"
+          },
+          "created": {
+            "type": "number",
+            "title": "Creation time"
           },
           "domain": {
             "type": "string",
@@ -60659,7 +57631,7 @@
                 "const": ""
               },
               {
-                "$ref": "#/components/schemas/__type.o2185"
+                "$ref": "#/components/schemas/__type.o2179"
               }
             ],
             "title": "replies"
@@ -60733,10 +57705,6 @@
             "type": "string",
             "title": "The name of the post"
           },
-          "created": {
-            "type": "number",
-            "title": "Creation time"
-          },
           "author": {
             "type": "string",
             "title": "Author of the post"
@@ -60744,6 +57712,10 @@
           "locked": {
             "type": "boolean",
             "title": "Whether the post is locked"
+          },
+          "created": {
+            "type": "number",
+            "title": "Creation time"
           },
           "score": {
             "type": "number",
@@ -61106,14 +58078,14 @@
           "name"
         ]
       },
-      "__type.o2185": {
+      "__type.o2179": {
         "type": "object",
         "properties": {
           "kind": {
             "const": "Listing"
           },
           "data": {
-            "$ref": "#/components/schemas/__type.o2186"
+            "$ref": "#/components/schemas/__type.o2180"
           }
         },
         "required": [
@@ -61121,7 +58093,7 @@
           "data"
         ]
       },
-      "__type.o2186": {
+      "__type.o2180": {
         "type": "object",
         "properties": {
           "after": {
@@ -61141,7 +58113,7 @@
             "items": {
               "oneOf": [
                 {
-                  "$ref": "#/components/schemas/__type.o2187"
+                  "$ref": "#/components/schemas/__type.o2181"
                 },
                 {
                   "type": "object",
@@ -61215,7 +58187,7 @@
           "before"
         ]
       },
-      "__type.o2187": {
+      "__type.o2181": {
         "type": "object",
         "properties": {
           "kind": {
@@ -63441,7 +60413,7 @@
       "name": "Stable Diffusion"
     },
     {
-      "name": "Dall-e-3"
+      "name": "Dall-e"
     },
     {
       "name": "Google Search"
@@ -63477,7 +60449,7 @@
       "name": "iHerb"
     },
     {
-      "name": "Market Kurly"
+      "name": "Kurly"
     },
     {
       "name": "OCO"

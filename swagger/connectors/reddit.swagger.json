@@ -16,7 +16,7 @@
   ],
   "info": {
     "title": "reddit",
-    "version": "0.1.449",
+    "version": "0.1.450",
     "description": "wrtn-ecosystem connectors and sdk",
     "license": {
       "name": "AGPL-3.0-only"
@@ -1892,10 +1892,6 @@
             "type": "boolean",
             "title": "Whether the post is hidden"
           },
-          "created": {
-            "type": "number",
-            "title": "Creation time"
-          },
           "thumbnail": {
             "type": "string",
             "title": "Thumbnail URL"
@@ -1907,6 +1903,10 @@
           "locked": {
             "type": "boolean",
             "title": "Whether the post is locked"
+          },
+          "created": {
+            "type": "number",
+            "title": "Creation time"
           },
           "domain": {
             "type": "string",
@@ -3198,7 +3198,7 @@
                 "const": ""
               },
               {
-                "$ref": "#/components/schemas/__type.o2185"
+                "$ref": "#/components/schemas/__type.o2179"
               }
             ],
             "title": "replies"
@@ -3272,10 +3272,6 @@
             "type": "string",
             "title": "The name of the post"
           },
-          "created": {
-            "type": "number",
-            "title": "Creation time"
-          },
           "author": {
             "type": "string",
             "title": "Author of the post"
@@ -3283,6 +3279,10 @@
           "locked": {
             "type": "boolean",
             "title": "Whether the post is locked"
+          },
+          "created": {
+            "type": "number",
+            "title": "Creation time"
           },
           "score": {
             "type": "number",
@@ -3645,14 +3645,14 @@
           "name"
         ]
       },
-      "__type.o2185": {
+      "__type.o2179": {
         "type": "object",
         "properties": {
           "kind": {
             "const": "Listing"
           },
           "data": {
-            "$ref": "#/components/schemas/__type.o2186"
+            "$ref": "#/components/schemas/__type.o2180"
           }
         },
         "required": [
@@ -3660,7 +3660,7 @@
           "data"
         ]
       },
-      "__type.o2186": {
+      "__type.o2180": {
         "type": "object",
         "properties": {
           "after": {
@@ -3680,7 +3680,7 @@
             "items": {
               "oneOf": [
                 {
-                  "$ref": "#/components/schemas/__type.o2187"
+                  "$ref": "#/components/schemas/__type.o2181"
                 },
                 {
                   "type": "object",
@@ -3754,7 +3754,7 @@
           "before"
         ]
       },
-      "__type.o2187": {
+      "__type.o2181": {
         "type": "object",
         "properties": {
           "kind": {

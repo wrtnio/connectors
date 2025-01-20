@@ -15,20 +15,20 @@
     }
   ],
   "info": {
-    "title": "dall-e3",
-    "version": "0.1.449",
+    "title": "dall-e",
+    "version": "0.1.450",
     "description": "wrtn-ecosystem connectors and sdk",
     "license": {
       "name": "AGPL-3.0-only"
     }
   },
   "paths": {
-    "/connector/dall-e-3/generate": {
+    "/connector/dall-e/generate": {
       "post": {
         "summary": "dall-e-3 image generator node",
         "description": "Generate an image using the dall-e-3 model",
         "tags": [
-          "Dall-e-3"
+          "Dall-e"
         ],
         "parameters": [],
         "requestBody": {
@@ -56,11 +56,11 @@
         },
         "x-samchon-accessor": [
           "connector",
-          "dall_e_3",
+          "dall_e",
           "generate",
           "generateImage"
         ],
-        "x-samchon-controller": "DallE3Controller",
+        "x-samchon-controller": "DallEController",
         "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/dall_e.svg",
         "x-wrtn-function-select-benchmarks": [
           "dall-e로 그림 그려줘"
@@ -120,7 +120,7 @@
   },
   "tags": [
     {
-      "name": "Dall-e-3"
+      "name": "Dall-e"
     }
   ],
   "x-samchon-emended": true

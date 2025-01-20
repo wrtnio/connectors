@@ -16,7 +16,7 @@
   ],
   "info": {
     "title": "slack",
-    "version": "0.1.449",
+    "version": "0.1.450",
     "description": "wrtn-ecosystem connectors and sdk",
     "license": {
       "name": "AGPL-3.0-only"
@@ -2798,7 +2798,7 @@
           "files": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/MyPickISlack.Filechannelsnameidusercreatedsizecomments_countmimetypeurl_privateurl_private_downloadthumb_1024"
+              "$ref": "#/components/schemas/MyPickISlack.Filechannelsnameidusersizecreatedcomments_countmimetypeurl_privateurl_private_downloadthumb_1024"
             }
           },
           "paging": {
@@ -2836,7 +2836,7 @@
         ],
         "title": "File Lookup Results"
       },
-      "MyPickISlack.Filechannelsnameidusercreatedsizecomments_countmimetypeurl_privateurl_private_downloadthumb_1024": {
+      "MyPickISlack.Filechannelsnameidusersizecreatedcomments_countmimetypeurl_privateurl_private_downloadthumb_1024": {
         "type": "object",
         "properties": {
           "channels": {
@@ -2859,13 +2859,13 @@
             "type": "string",
             "title": "user"
           },
-          "created": {
-            "type": "number",
-            "title": "created"
-          },
           "size": {
             "type": "integer",
             "title": "size"
+          },
+          "created": {
+            "type": "number",
+            "title": "created"
           },
           "comments_count": {
             "type": "integer",
@@ -2896,8 +2896,8 @@
           "name",
           "id",
           "user",
-          "created",
           "size",
+          "created",
           "comments_count",
           "mimetype"
         ]

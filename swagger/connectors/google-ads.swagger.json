@@ -16,7 +16,7 @@
   ],
   "info": {
     "title": "google-ads",
-    "version": "0.1.449",
+    "version": "0.1.450",
     "description": "wrtn-ecosystem connectors and sdk",
     "license": {
       "name": "AGPL-3.0-only"
@@ -1988,14 +1988,14 @@
         "type": "object",
         "properties": {
           "adGroupCriterion": {
-            "$ref": "#/components/schemas/MyPickAdGroupCriteriontypestatuskeywordresourceNamecriterionIdKeyword"
+            "$ref": "#/components/schemas/MyPickAdGroupCriteriontypestatusresourceNamecriterionIdkeywordKeyword"
           }
         },
         "required": [
           "adGroupCriterion"
         ]
       },
-      "MyPickAdGroupCriteriontypestatuskeywordresourceNamecriterionIdKeyword": {
+      "MyPickAdGroupCriteriontypestatusresourceNamecriterionIdkeywordKeyword": {
         "type": "object",
         "properties": {
           "type": {
@@ -2022,10 +2022,6 @@
             ],
             "title": "Ad Group Standard Status"
           },
-          "keyword": {
-            "$ref": "#/components/schemas/IGoogleAds.Keyword",
-            "title": "keyword"
-          },
           "resourceName": {
             "type": "string",
             "pattern": "(customers\\/(.*)\\/adGroupCriteria\\/[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?~[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)",
@@ -2038,6 +2034,10 @@
             "pattern": "^([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)$",
             "title": "Ad Group Standard ID",
             "description": "Ad Group Standard ID"
+          },
+          "keyword": {
+            "$ref": "#/components/schemas/IGoogleAds.Keyword",
+            "title": "keyword"
           },
           "text": {
             "type": "string",
@@ -2068,9 +2068,9 @@
         "required": [
           "type",
           "status",
-          "keyword",
           "resourceName",
           "criterionId",
+          "keyword",
           "text",
           "matchType"
         ]

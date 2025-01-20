@@ -16,7 +16,7 @@
   ],
   "info": {
     "title": "jira",
-    "version": "0.1.449",
+    "version": "0.1.450",
     "description": "wrtn-ecosystem connectors and sdk",
     "license": {
       "name": "AGPL-3.0-only"
@@ -1033,7 +1033,7 @@
           "comments": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/MyPickCommentidcreatedauthorupdatedupdateAuthorbodyany"
+              "$ref": "#/components/schemas/MyPickCommentidauthorcreatedupdatedupdateAuthorbodyany"
             },
             "title": "comments"
           },
@@ -1063,20 +1063,20 @@
           "total"
         ]
       },
-      "MyPickCommentidcreatedauthorupdatedupdateAuthorbodyany": {
+      "MyPickCommentidauthorcreatedupdatedupdateAuthorbodyany": {
         "type": "object",
         "properties": {
           "id": {
             "type": "string",
             "title": "id of comment"
           },
-          "created": {
-            "type": "string",
-            "title": "created time of this comment"
-          },
           "author": {
             "$ref": "#/components/schemas/MyPickIJira.UseractiveaccountIddisplayName",
             "title": "author of this comment"
+          },
+          "created": {
+            "type": "string",
+            "title": "created time of this comment"
           },
           "updated": {
             "type": "string",
@@ -1092,8 +1092,8 @@
         },
         "required": [
           "id",
-          "created",
           "author",
+          "created",
           "updated",
           "updateAuthor",
           "body"
@@ -2293,10 +2293,6 @@
             },
             "title": "status"
           },
-          "keyword": {
-            "type": "string",
-            "title": "search keyword\n\nIt is a keyword you want to find in the title or explanation of an issue, which is useful when searching."
-          },
           "labels": {
             "type": "array",
             "items": {
@@ -2313,6 +2309,10 @@
             "default": 50,
             "title": "max results",
             "description": "The maximum number of items to return per page.\nIn the issue, it seems that up to 100 can be viewed at a time."
+          },
+          "keyword": {
+            "type": "string",
+            "title": "search keyword\n\nIt is a keyword you want to find in the title or explanation of an issue, which is useful when searching."
           },
           "startAt": {
             "type": "integer",

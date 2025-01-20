@@ -16,7 +16,7 @@
   ],
   "info": {
     "title": "github",
-    "version": "0.1.449",
+    "version": "0.1.450",
     "description": "wrtn-ecosystem connectors and sdk",
     "license": {
       "name": "AGPL-3.0-only"
@@ -4921,13 +4921,13 @@
             "const": "file",
             "title": "type"
           },
-          "path": {
-            "type": "string",
-            "title": "path\n\nIt must be unique as a path for identifying that file in the root folder."
-          },
           "size": {
             "type": "number",
             "title": "Indicates the file size in bytes"
+          },
+          "path": {
+            "type": "string",
+            "title": "path\n\nIt must be unique as a path for identifying that file in the root folder."
           },
           "sha": {
             "type": "string",
@@ -4949,8 +4949,8 @@
           "name",
           "url",
           "type",
-          "path",
           "size",
+          "path",
           "sha"
         ]
       },
