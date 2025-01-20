@@ -15,7 +15,7 @@
     }
   ],
   "info": {
-    "version": "0.1.448",
+    "version": "0.1.449",
     "title": "@wrtn/connector",
     "description": "wrtn-ecosystem connectors and sdk",
     "license": {
@@ -8241,7 +8241,30 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/INotion.IAppendPageByMarkdownOutput"
+                  "oneOf": [
+                    {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string",
+                          "title": "page id",
+                          "description": "Unique id of the generated page"
+                        },
+                        "link": {
+                          "type": "string",
+                          "format": "iri",
+                          "title": "page link"
+                        }
+                      },
+                      "required": [
+                        "id",
+                        "link"
+                      ]
+                    },
+                    {
+                      "$ref": "#/components/schemas/INotion.Common.IError"
+                    }
+                  ]
                 }
               }
             }
@@ -9117,7 +9140,14 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/INotion.ICreatePageOutput"
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/INotion.Common.IError"
+                    },
+                    {
+                      "$ref": "#/components/schemas/INotion.___ICreatePageOutput"
+                    }
+                  ]
                 }
               }
             }
@@ -9157,7 +9187,14 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/INotion.ICreatePageOutput"
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/INotion.Common.IError"
+                    },
+                    {
+                      "$ref": "#/components/schemas/INotion.___ICreatePageOutput"
+                    }
+                  ]
                 }
               }
             }
@@ -9281,7 +9318,30 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/INotion.IAppendPageByMarkdownOutput"
+                  "oneOf": [
+                    {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string",
+                          "title": "page id",
+                          "description": "Unique id of the generated page"
+                        },
+                        "link": {
+                          "type": "string",
+                          "format": "iri",
+                          "title": "page link"
+                        }
+                      },
+                      "required": [
+                        "id",
+                        "link"
+                      ]
+                    },
+                    {
+                      "$ref": "#/components/schemas/INotion.Common.IError"
+                    }
+                  ]
                 }
               }
             }
@@ -9361,7 +9421,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/INotion.IAddDatabasePropertyOutput"
+                  "$ref": "#/components/schemas/INotion.ICreateDatabaseOutput"
                 }
               }
             }
@@ -9401,7 +9461,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/INotion.IDeleteDatabasePropertyOutput"
+                  "$ref": "#/components/schemas/INotion.ICreateDatabaseOutput"
                 }
               }
             }
@@ -9442,7 +9502,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/INotion.IAddItemsToDatabaseOutput"
+                  "$ref": "#/components/schemas/INotion.ICreateDatabaseOutput"
                 }
               }
             }
@@ -13445,7 +13505,53 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/IGithub.IFetchRepositoryOutput"
+                  "oneOf": [
+                    {
+                      "type": "object",
+                      "properties": {
+                        "fetchedIssues": {
+                          "type": "array",
+                          "items": {
+                            "$ref": "#/components/schemas/StrictOmitIGithub.FetchedIssuebody"
+                          },
+                          "title": "issues"
+                        },
+                        "pageInfo": {
+                          "type": "object",
+                          "properties": {
+                            "endCursor": {
+                              "type": "string",
+                              "title": "Cursor to be used to look up the next page"
+                            },
+                            "hasNextPage": {
+                              "type": "boolean",
+                              "title": "hasNextPage\n\ntrue if there is a next page"
+                            }
+                          },
+                          "required": [
+                            "hasNextPage"
+                          ],
+                          "title": "page info"
+                        }
+                      },
+                      "required": [
+                        "fetchedIssues",
+                        "pageInfo"
+                      ]
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "error_message": {
+                          "type": "string",
+                          "title": "Error Message"
+                        }
+                      },
+                      "required": [
+                        "error_message"
+                      ]
+                    }
+                  ]
                 }
               }
             }
@@ -13512,7 +13618,7 @@
     "/connector/github/get-user-profile": {
       "patch": {
         "summary": "Look up the user's detailed profile",
-        "description": "Look up the user's detailed profile",
+        "description": "Look up the user's detailed profile\n\nThe property information you can find at the time of inquiry is as follows.\n\n- avatar_url, bio, blog, company, created_at, email,\n- followers, following, id, location, login, name,\n- pinned_repositories, profile_repository, public_gists,\n- public_repos, twitter_username, type, updated_at",
         "tags": [
           "Github"
         ],
@@ -17237,7 +17343,14 @@
         "type": "object",
         "properties": {
           "notion": {
-            "$ref": "#/components/schemas/INotion.ICreatePageOutput",
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/INotion.Common.IError"
+              },
+              {
+                "$ref": "#/components/schemas/INotion.___ICreatePageOutput"
+              }
+            ],
             "title": "About the notion page that was successfully exported"
           },
           "article_snapshot_exports": {
@@ -17251,7 +17364,38 @@
         ],
         "title": "Conditions and secret keys for exporting to Notion"
       },
-      "INotion.ICreatePageOutput": {
+      "INotion.Common.IError": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "title": "name",
+            "description": "for example, APIResponseError"
+          },
+          "code": {
+            "type": "string",
+            "title": "code",
+            "description": "for example, object_not_found"
+          },
+          "status": {
+            "type": "number",
+            "title": "status",
+            "description": "for example, 404"
+          },
+          "body": {
+            "type": "string",
+            "title": "serialized body",
+            "description": "for example, '{\"object\":\"error\",\"status\":404,\"code\":\"object_not_found\",\"message\":\"Could not find page with ID: 6f8304d2-de52-417d-a032-b340a421a8c1. Make sure the relevant pages and databases are shared with your integration.\",\"request_id\":\"3e773c7e-c703-40a8-9b13-635ad750c3a2\"}'"
+          }
+        },
+        "required": [
+          "name",
+          "code",
+          "status",
+          "body"
+        ]
+      },
+      "INotion.___ICreatePageOutput": {
         "type": "object",
         "properties": {
           "id": {
@@ -34207,25 +34351,6 @@
           "secretKey"
         ]
       },
-      "INotion.IAppendPageByMarkdownOutput": {
-        "type": "object",
-        "properties": {
-          "link": {
-            "type": "string",
-            "format": "iri",
-            "title": "page link"
-          },
-          "id": {
-            "type": "string",
-            "title": "page id",
-            "description": "Unique id of the generated page"
-          }
-        },
-        "required": [
-          "link",
-          "id"
-        ]
-      },
       "INotion.IAppendPageByMarkdownInput": {
         "type": "object",
         "properties": {
@@ -38572,33 +38697,6 @@
         "title": "Notion Database title property",
         "description": "This property is used when adding a title property to a database.\nThis property must be added when creating a database.\nIt must never be omitted.\nThe title property can only accept text.\nItems added to that property can be used as pages, and content can also be added to the pages.\nThis is a property for creating items that should be expressed as topics or titles.\nFor example, when creating an English vocabulary list, if you need three properties: word, meaning, and idiom, you should be able to create words as title properties because words can be used as topics or titles."
       },
-      "INotion.IAddDatabasePropertyOutput": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string",
-            "title": "id",
-            "description": "Database id"
-          },
-          "title": {
-            "type": "string",
-            "title": "title",
-            "description": "Database title"
-          },
-          "url": {
-            "type": "string",
-            "format": "iri",
-            "title": "url",
-            "description": "Database page url"
-          }
-        },
-        "required": [
-          "id",
-          "title",
-          "url"
-        ],
-        "title": "Information database for added property"
-      },
       "INotion.IAddDatabasePropertyInput": {
         "type": "object",
         "properties": {
@@ -38631,33 +38729,6 @@
         ],
         "title": "Information needed to add a property to the database"
       },
-      "INotion.IDeleteDatabasePropertyOutput": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string",
-            "title": "id",
-            "description": "Database id"
-          },
-          "title": {
-            "type": "string",
-            "title": "title",
-            "description": "Database title"
-          },
-          "url": {
-            "type": "string",
-            "format": "iri",
-            "title": "url",
-            "description": "Database page url"
-          }
-        },
-        "required": [
-          "id",
-          "title",
-          "url"
-        ],
-        "title": "Information database for deleted property"
-      },
       "INotion.IDeleteDatabasePropertyInput": {
         "type": "object",
         "properties": {
@@ -38689,33 +38760,6 @@
           "secretKey"
         ],
         "title": "Information needed to delete a property to the database"
-      },
-      "INotion.IAddItemsToDatabaseOutput": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string",
-            "title": "id",
-            "description": "Database id"
-          },
-          "title": {
-            "type": "string",
-            "title": "title",
-            "description": "Database title"
-          },
-          "url": {
-            "type": "string",
-            "format": "iri",
-            "title": "url",
-            "description": "Database page url"
-          }
-        },
-        "required": [
-          "id",
-          "title",
-          "url"
-        ],
-        "title": "Information database for added items"
       },
       "INotion.IAddItemsToDatabaseInput": {
         "type": "object",
@@ -50855,39 +50899,6 @@
           "secretKey"
         ]
       },
-      "IGithub.IFetchRepositoryOutput": {
-        "type": "object",
-        "properties": {
-          "fetchedIssues": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/StrictOmitIGithub.FetchedIssuebody"
-            },
-            "title": "issues"
-          },
-          "pageInfo": {
-            "type": "object",
-            "properties": {
-              "endCursor": {
-                "type": "string",
-                "title": "Cursor to be used to look up the next page"
-              },
-              "hasNextPage": {
-                "type": "boolean",
-                "title": "hasNextPage\n\ntrue if there is a next page"
-              }
-            },
-            "required": [
-              "hasNextPage"
-            ],
-            "title": "page info"
-          }
-        },
-        "required": [
-          "fetchedIssues",
-          "pageInfo"
-        ]
-      },
       "StrictOmitIGithub.FetchedIssuebody": {
         "type": "object",
         "properties": {
@@ -60648,7 +60659,7 @@
                 "const": ""
               },
               {
-                "$ref": "#/components/schemas/__type.o2182"
+                "$ref": "#/components/schemas/__type.o2185"
               }
             ],
             "title": "replies"
@@ -61095,14 +61106,14 @@
           "name"
         ]
       },
-      "__type.o2182": {
+      "__type.o2185": {
         "type": "object",
         "properties": {
           "kind": {
             "const": "Listing"
           },
           "data": {
-            "$ref": "#/components/schemas/__type.o2183"
+            "$ref": "#/components/schemas/__type.o2186"
           }
         },
         "required": [
@@ -61110,7 +61121,7 @@
           "data"
         ]
       },
-      "__type.o2183": {
+      "__type.o2186": {
         "type": "object",
         "properties": {
           "after": {
@@ -61130,7 +61141,7 @@
             "items": {
               "oneOf": [
                 {
-                  "$ref": "#/components/schemas/__type.o2184"
+                  "$ref": "#/components/schemas/__type.o2187"
                 },
                 {
                   "type": "object",
@@ -61204,7 +61215,7 @@
           "before"
         ]
       },
-      "__type.o2184": {
+      "__type.o2187": {
         "type": "object",
         "properties": {
           "kind": {

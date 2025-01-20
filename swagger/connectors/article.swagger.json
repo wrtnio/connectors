@@ -16,7 +16,7 @@
   ],
   "info": {
     "title": "article",
-    "version": "0.1.448",
+    "version": "0.1.449",
     "description": "wrtn-ecosystem connectors and sdk",
     "license": {
       "name": "AGPL-3.0-only"
@@ -1387,7 +1387,14 @@
         "type": "object",
         "properties": {
           "notion": {
-            "$ref": "#/components/schemas/INotion.ICreatePageOutput",
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/INotion.Common.IError"
+              },
+              {
+                "$ref": "#/components/schemas/INotion.___ICreatePageOutput"
+              }
+            ],
             "title": "About the notion page that was successfully exported"
           },
           "article_snapshot_exports": {
@@ -1401,7 +1408,38 @@
         ],
         "title": "Conditions and secret keys for exporting to Notion"
       },
-      "INotion.ICreatePageOutput": {
+      "INotion.Common.IError": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "title": "name",
+            "description": "for example, APIResponseError"
+          },
+          "code": {
+            "type": "string",
+            "title": "code",
+            "description": "for example, object_not_found"
+          },
+          "status": {
+            "type": "number",
+            "title": "status",
+            "description": "for example, 404"
+          },
+          "body": {
+            "type": "string",
+            "title": "serialized body",
+            "description": "for example, '{\"object\":\"error\",\"status\":404,\"code\":\"object_not_found\",\"message\":\"Could not find page with ID: 6f8304d2-de52-417d-a032-b340a421a8c1. Make sure the relevant pages and databases are shared with your integration.\",\"request_id\":\"3e773c7e-c703-40a8-9b13-635ad750c3a2\"}'"
+          }
+        },
+        "required": [
+          "name",
+          "code",
+          "status",
+          "body"
+        ]
+      },
+      "INotion.___ICreatePageOutput": {
         "type": "object",
         "properties": {
           "id": {

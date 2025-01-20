@@ -16,7 +16,7 @@
   ],
   "info": {
     "title": "notion",
-    "version": "0.1.448",
+    "version": "0.1.449",
     "description": "wrtn-ecosystem connectors and sdk",
     "license": {
       "name": "AGPL-3.0-only"
@@ -82,7 +82,30 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/INotion.IAppendPageByMarkdownOutput"
+                  "oneOf": [
+                    {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string",
+                          "title": "page id",
+                          "description": "Unique id of the generated page"
+                        },
+                        "link": {
+                          "type": "string",
+                          "format": "iri",
+                          "title": "page link"
+                        }
+                      },
+                      "required": [
+                        "id",
+                        "link"
+                      ]
+                    },
+                    {
+                      "$ref": "#/components/schemas/INotion.Common.IError"
+                    }
+                  ]
                 }
               }
             }
@@ -958,7 +981,14 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/INotion.ICreatePageOutput"
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/INotion.Common.IError"
+                    },
+                    {
+                      "$ref": "#/components/schemas/INotion.___ICreatePageOutput"
+                    }
+                  ]
                 }
               }
             }
@@ -998,7 +1028,14 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/INotion.ICreatePageOutput"
+                  "oneOf": [
+                    {
+                      "$ref": "#/components/schemas/INotion.Common.IError"
+                    },
+                    {
+                      "$ref": "#/components/schemas/INotion.___ICreatePageOutput"
+                    }
+                  ]
                 }
               }
             }
@@ -1122,7 +1159,30 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/INotion.IAppendPageByMarkdownOutput"
+                  "oneOf": [
+                    {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string",
+                          "title": "page id",
+                          "description": "Unique id of the generated page"
+                        },
+                        "link": {
+                          "type": "string",
+                          "format": "iri",
+                          "title": "page link"
+                        }
+                      },
+                      "required": [
+                        "id",
+                        "link"
+                      ]
+                    },
+                    {
+                      "$ref": "#/components/schemas/INotion.Common.IError"
+                    }
+                  ]
                 }
               }
             }
@@ -1202,7 +1262,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/INotion.IAddDatabasePropertyOutput"
+                  "$ref": "#/components/schemas/INotion.ICreateDatabaseOutput"
                 }
               }
             }
@@ -1242,7 +1302,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/INotion.IDeleteDatabasePropertyOutput"
+                  "$ref": "#/components/schemas/INotion.ICreateDatabaseOutput"
                 }
               }
             }
@@ -1283,7 +1343,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/INotion.IAddItemsToDatabaseOutput"
+                  "$ref": "#/components/schemas/INotion.ICreateDatabaseOutput"
                 }
               }
             }
@@ -1341,23 +1401,35 @@
           "secretKey"
         ]
       },
-      "INotion.IAppendPageByMarkdownOutput": {
+      "INotion.Common.IError": {
         "type": "object",
         "properties": {
-          "link": {
+          "name": {
             "type": "string",
-            "format": "iri",
-            "title": "page link"
+            "title": "name",
+            "description": "for example, APIResponseError"
           },
-          "id": {
+          "code": {
             "type": "string",
-            "title": "page id",
-            "description": "Unique id of the generated page"
+            "title": "code",
+            "description": "for example, object_not_found"
+          },
+          "status": {
+            "type": "number",
+            "title": "status",
+            "description": "for example, 404"
+          },
+          "body": {
+            "type": "string",
+            "title": "serialized body",
+            "description": "for example, '{\"object\":\"error\",\"status\":404,\"code\":\"object_not_found\",\"message\":\"Could not find page with ID: 6f8304d2-de52-417d-a032-b340a421a8c1. Make sure the relevant pages and databases are shared with your integration.\",\"request_id\":\"3e773c7e-c703-40a8-9b13-635ad750c3a2\"}'"
           }
         },
         "required": [
-          "link",
-          "id"
+          "name",
+          "code",
+          "status",
+          "body"
         ]
       },
       "INotion.IAppendPageByMarkdownInput": {
@@ -5292,7 +5364,7 @@
         "title": "Information needed to find an item in the database",
         "additionalProperties": {}
       },
-      "INotion.ICreatePageOutput": {
+      "INotion.___ICreatePageOutput": {
         "type": "object",
         "properties": {
           "id": {
@@ -5731,33 +5803,6 @@
         "title": "Notion Database title property",
         "description": "This property is used when adding a title property to a database.\nThis property must be added when creating a database.\nIt must never be omitted.\nThe title property can only accept text.\nItems added to that property can be used as pages, and content can also be added to the pages.\nThis is a property for creating items that should be expressed as topics or titles.\nFor example, when creating an English vocabulary list, if you need three properties: word, meaning, and idiom, you should be able to create words as title properties because words can be used as topics or titles."
       },
-      "INotion.IAddDatabasePropertyOutput": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string",
-            "title": "id",
-            "description": "Database id"
-          },
-          "title": {
-            "type": "string",
-            "title": "title",
-            "description": "Database title"
-          },
-          "url": {
-            "type": "string",
-            "format": "iri",
-            "title": "url",
-            "description": "Database page url"
-          }
-        },
-        "required": [
-          "id",
-          "title",
-          "url"
-        ],
-        "title": "Information database for added property"
-      },
       "INotion.IAddDatabasePropertyInput": {
         "type": "object",
         "properties": {
@@ -5790,33 +5835,6 @@
         ],
         "title": "Information needed to add a property to the database"
       },
-      "INotion.IDeleteDatabasePropertyOutput": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string",
-            "title": "id",
-            "description": "Database id"
-          },
-          "title": {
-            "type": "string",
-            "title": "title",
-            "description": "Database title"
-          },
-          "url": {
-            "type": "string",
-            "format": "iri",
-            "title": "url",
-            "description": "Database page url"
-          }
-        },
-        "required": [
-          "id",
-          "title",
-          "url"
-        ],
-        "title": "Information database for deleted property"
-      },
       "INotion.IDeleteDatabasePropertyInput": {
         "type": "object",
         "properties": {
@@ -5848,33 +5866,6 @@
           "secretKey"
         ],
         "title": "Information needed to delete a property to the database"
-      },
-      "INotion.IAddItemsToDatabaseOutput": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string",
-            "title": "id",
-            "description": "Database id"
-          },
-          "title": {
-            "type": "string",
-            "title": "title",
-            "description": "Database title"
-          },
-          "url": {
-            "type": "string",
-            "format": "iri",
-            "title": "url",
-            "description": "Database page url"
-          }
-        },
-        "required": [
-          "id",
-          "title",
-          "url"
-        ],
-        "title": "Information database for added items"
       },
       "INotion.IAddItemsToDatabaseInput": {
         "type": "object",

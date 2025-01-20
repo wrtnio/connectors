@@ -16,7 +16,7 @@
   ],
   "info": {
     "title": "reddit",
-    "version": "0.1.448",
+    "version": "0.1.449",
     "description": "wrtn-ecosystem connectors and sdk",
     "license": {
       "name": "AGPL-3.0-only"
@@ -3198,7 +3198,7 @@
                 "const": ""
               },
               {
-                "$ref": "#/components/schemas/__type.o2182"
+                "$ref": "#/components/schemas/__type.o2185"
               }
             ],
             "title": "replies"
@@ -3645,14 +3645,14 @@
           "name"
         ]
       },
-      "__type.o2182": {
+      "__type.o2185": {
         "type": "object",
         "properties": {
           "kind": {
             "const": "Listing"
           },
           "data": {
-            "$ref": "#/components/schemas/__type.o2183"
+            "$ref": "#/components/schemas/__type.o2186"
           }
         },
         "required": [
@@ -3660,7 +3660,7 @@
           "data"
         ]
       },
-      "__type.o2183": {
+      "__type.o2186": {
         "type": "object",
         "properties": {
           "after": {
@@ -3680,7 +3680,7 @@
             "items": {
               "oneOf": [
                 {
-                  "$ref": "#/components/schemas/__type.o2184"
+                  "$ref": "#/components/schemas/__type.o2187"
                 },
                 {
                   "type": "object",
@@ -3754,7 +3754,7 @@
           "before"
         ]
       },
-      "__type.o2184": {
+      "__type.o2187": {
         "type": "object",
         "properties": {
           "kind": {

@@ -16,7 +16,7 @@
   ],
   "info": {
     "title": "github",
-    "version": "0.1.448",
+    "version": "0.1.449",
     "description": "wrtn-ecosystem connectors and sdk",
     "license": {
       "name": "AGPL-3.0-only"
@@ -1949,7 +1949,53 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/IGithub.IFetchRepositoryOutput"
+                  "oneOf": [
+                    {
+                      "type": "object",
+                      "properties": {
+                        "fetchedIssues": {
+                          "type": "array",
+                          "items": {
+                            "$ref": "#/components/schemas/StrictOmitIGithub.FetchedIssuebody"
+                          },
+                          "title": "issues"
+                        },
+                        "pageInfo": {
+                          "type": "object",
+                          "properties": {
+                            "endCursor": {
+                              "type": "string",
+                              "title": "Cursor to be used to look up the next page"
+                            },
+                            "hasNextPage": {
+                              "type": "boolean",
+                              "title": "hasNextPage\n\ntrue if there is a next page"
+                            }
+                          },
+                          "required": [
+                            "hasNextPage"
+                          ],
+                          "title": "page info"
+                        }
+                      },
+                      "required": [
+                        "fetchedIssues",
+                        "pageInfo"
+                      ]
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "error_message": {
+                          "type": "string",
+                          "title": "Error Message"
+                        }
+                      },
+                      "required": [
+                        "error_message"
+                      ]
+                    }
+                  ]
                 }
               }
             }
@@ -2016,7 +2062,7 @@
     "/connector/github/get-user-profile": {
       "patch": {
         "summary": "Look up the user's detailed profile",
-        "description": "Look up the user's detailed profile",
+        "description": "Look up the user's detailed profile\n\nThe property information you can find at the time of inquiry is as follows.\n\n- avatar_url, bio, blog, company, created_at, email,\n- followers, following, id, location, login, name,\n- pinned_repositories, profile_repository, public_gists,\n- public_repos, twitter_username, type, updated_at",
         "tags": [
           "Github"
         ],
@@ -8385,39 +8431,6 @@
           "owner",
           "repo",
           "secretKey"
-        ]
-      },
-      "IGithub.IFetchRepositoryOutput": {
-        "type": "object",
-        "properties": {
-          "fetchedIssues": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/StrictOmitIGithub.FetchedIssuebody"
-            },
-            "title": "issues"
-          },
-          "pageInfo": {
-            "type": "object",
-            "properties": {
-              "endCursor": {
-                "type": "string",
-                "title": "Cursor to be used to look up the next page"
-              },
-              "hasNextPage": {
-                "type": "boolean",
-                "title": "hasNextPage\n\ntrue if there is a next page"
-              }
-            },
-            "required": [
-              "hasNextPage"
-            ],
-            "title": "page info"
-          }
-        },
-        "required": [
-          "fetchedIssues",
-          "pageInfo"
         ]
       },
       "StrictOmitIGithub.FetchedIssuebody": {
