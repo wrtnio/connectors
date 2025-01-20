@@ -21,7 +21,7 @@ export const test_api_connector_notion_delete_block_and_page = async (
     );
 
   await CApi.functional.connector.notion.page.block.deleteBlock(connection, {
-    block_id: page.id as string,
+    block_id: (page as any).id as string,
     secretKey: ConnectorGlobal.env.NOTION_TEST_SECRET,
   });
 };

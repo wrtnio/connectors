@@ -302,6 +302,10 @@ export namespace DocumentProvider {
         markdown: snapshot.body,
       });
 
+      if (!("id" in notion)) {
+        throw new Error("노션 페이지 생성에 실패하였습니다.");
+      }
+
       const article_snapshot_exports = await BbsArticleExportProvider.exports(
         snapshot,
       )({
