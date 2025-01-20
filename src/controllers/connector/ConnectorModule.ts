@@ -4,16 +4,12 @@ import { LoggerModule } from "nestjs-pino";
 import { AISearchModule } from "./ai_search/AISearchModule";
 import { AirportInformationModule } from "./airport_information/AirportInformationModule";
 import { ArxivSearchModule } from "./arxiv_search/ArxivSearchModule";
-import { AwsModule } from "./aws/AwsModule";
 import { CalendlyModule } from "./calendly/CalendlyModule";
-import { ChatbotModule } from "./chatbot/ChatbotModule";
 import { CrunchbaseModule } from "./crunchbase/CrunchbaseModule";
 import { CsvModule } from "./csv/CsvModule";
-import { DallE3Module } from "./dall_e_3/DallE3Module";
 import { DaumBlogModule } from "./daum_blog/DaumBlogModule";
 import { DiscordModule } from "./discord/DiscordModule";
 import { ExcelModule } from "./excel/ExcelModule";
-import { KeywordExtractModule } from "./extract/KeywordExtractModule";
 import { FigmaModule } from "./figma/FigmaModule";
 import { GithubModule } from "./github/GithubModule";
 import { GmailModule } from "./gmail/GmailModule";
@@ -28,12 +24,12 @@ import { GoogleImageModule } from "./google_image/GoogleImageModule";
 import { GoogleMapModule } from "./google_map/GoogleMapModule";
 import { GoogleScholarModule } from "./google_scholar/GoolgeScholarModule";
 import { GoogleSearchModule } from "./google_search/GoogleSearchModule";
-import { GoogleShoppingAladinModule } from "./google_shopping/google_shopping_aladine/GoogleShoppingAladinModule";
+import { GoogleShoppingAladineModule } from "./google_shopping/google_shopping_aladine/GoogleShoppingAladinModule";
 import { GoogleShoppingAliexpressModule } from "./google_shopping/google_shopping_aliexpress/GoogleShoppingAliexpressModule";
 import { GoogleShoppingCoupangModule } from "./google_shopping/google_shopping_coupang/GoogleShoppingCoupangModule";
 import { GoogleShoppingEqlModule } from "./google_shopping/google_shopping_eql/GoogleShoppingEqlModule";
 import { GoogleShoppingIherbModule } from "./google_shopping/google_shopping_iherb/GoogleShoppingIherbModule";
-import { GoogleShoppingMarketKurlyModule } from "./google_shopping/google_shopping_market_kurly/GoogleShoppingMarketKurlyModule";
+import { GoogleShoppingKurlyModule } from "./google_shopping/google_shopping_kurly/GoogleShoppingKurlyModule";
 import { GoogleShoppingMusinsaModule } from "./google_shopping/google_shopping_musinsa/GoogleShoppingMusinsaModule";
 import { GoogleShoppingOcoModule } from "./google_shopping/google_shopping_oco/GoogleShoppingOcoModule";
 import { GoogleShoppingOliveYoungModule } from "./google_shopping/google_shopping_olive_young/GoogleShoppingOliveYoungModule";
@@ -46,14 +42,11 @@ import { HancellModule } from "./hancell/HancellModule";
 import { HwpModule } from "./hwp/HwpModule";
 import { ImwebModule } from "./imweb/ImwebModule";
 import { InnoforestModule } from "./innoforest/InnoforestModule";
-import { GoogleModule } from "./internal/google/GoogleModule";
 import { JiraModule } from "./jira/JiraModule";
 import { KakaoMapModule } from "./kakao_map/KakaoMapModule";
 import { KakaoNaviModule } from "./kakao_navi/KakaoNaviModule";
 import { KakaoTalkModule } from "./kakao_talk/KakaoTalkModule";
 import { KoreaEximbankModule } from "./korea_eximbank/KoreaEximbankModule";
-import { LlmModule } from "./llm/LlmModule";
-import { MarketingCopyModule } from "./marketing/MarketingCopyModule";
 import { MarpModule } from "./marp/MarpModule";
 import { NaverBlogModule } from "./naver_blog/NaverBlogModule";
 import { NotionModule } from "./notion/NotionModule";
@@ -64,15 +57,10 @@ import { RedditModule } from "./reddit/RedditModule";
 import { ShortLinkModule } from "./short_link/ShortLinkModule";
 import { SimilarwebModule } from "./similarweb/SimilarwebModule";
 import { SlackModule } from "./slack/SlackModule";
-import { RankModule } from "./sort/RankModule";
 import { StableDiffusionBetaModule } from "./stable_diffustion_beta/StableDiffusionBetaModule";
 import { StoryGeneratorModule } from "./story_generator/StoryGeneratorModule";
 import { StoryImageGeneratorModule } from "./story_image_generator/StoryImageGeneratorModule";
-import { StudentReportGeneratorModule } from "./student_report_generator/StudentReportGeneratorModule";
-import { ArticleModule } from "./swal/article/ArticleModule";
-import { SpreadsheetModule } from "./swal/spreadsheet/SpreadsheetModule";
-import { SweetTackerModule } from "./sweet_tracker/SweetTrackerModule";
-import { ToolModule } from "./tool/ToolModule";
+import { SweetTrackerModule } from "./sweet_tracker/SweetTrackerModule";
 import { TypeformModule } from "./typeform/TypeformModule";
 import { WebCrawlerModule } from "./web_crawler/WebCrawlerModule";
 import { XModule } from "./x/XModule";
@@ -86,6 +74,7 @@ import { IncruitModule } from "./incruit/IncruitModule";
 import { SaraminModule } from "./saramin/SaraminModule";
 import { JumpitModule } from "./jumpit/JumpitModule";
 import { CareerlyModule } from "./careerly/CareerlyModule";
+import { DallEModule } from "./dall_e/DallEModule";
 // import { GoogleShoppingAmazonModule } from "./google_shopping/google_shopping_amazon/GoogleShoppingAmazonModule";
 // import { GoogleShoppingEbayModule } from "./google_shopping/google_shopping_ebay/GoogleShoppingEbayModule";
 // import { GoogleShoppingWalmartModule } from "./google_shopping/google_shopping_walmart/GoogleShoppingWalmartModule";
@@ -94,13 +83,13 @@ import { CareerlyModule } from "./careerly/CareerlyModule";
   // connectors that require DI of some sort shall be declared as modules
   // the rest can be simply imported as controllers
   imports: [
-    ArticleModule,
-    SpreadsheetModule,
-    KeywordExtractModule,
-    RankModule,
-    MarketingCopyModule,
-    StudentReportGeneratorModule,
-    AwsModule,
+    // ArticleModule,
+    // SpreadsheetModule,
+    // KeywordExtractModule,
+    // RankModule,
+    // MarketingCopyModule,
+    // StudentReportGeneratorModule,
+    // AwsModule,
     RagModule,
     HwpModule,
     ExcelModule,
@@ -108,15 +97,13 @@ import { CareerlyModule } from "./careerly/CareerlyModule";
     GoogleSheetModule,
     GoogleCalendarModule,
     GoogleDriveModule,
-    LlmModule,
-    GoogleModule,
+    // LlmModule,
+    // GoogleModule,
     GmailModule,
     LoggerModule,
-    ToolModule,
-    ChatbotModule,
     FigmaModule,
     ZoomModule,
-    SweetTackerModule,
+    SweetTrackerModule,
     HancellModule,
     KakaoTalkModule,
     KakaoMapModule,
@@ -129,19 +116,19 @@ import { CareerlyModule } from "./careerly/CareerlyModule";
     StoryGeneratorModule,
     StoryImageGeneratorModule,
     StableDiffusionBetaModule,
-    DallE3Module,
+    DallEModule,
     GoogleSearchModule,
     WantedModule,
     IncruitModule,
     SaraminModule,
     JumpitModule,
     CareerlyModule,
-    GoogleShoppingAladinModule,
+    GoogleShoppingAladineModule,
     GoogleShoppingAliexpressModule,
     GoogleShoppingCoupangModule,
     GoogleShoppingEqlModule,
     GoogleShoppingIherbModule,
-    GoogleShoppingMarketKurlyModule,
+    GoogleShoppingKurlyModule,
     GoogleShoppingOcoModule,
     GoogleShoppingOliveYoungModule,
     GoogleShoppingTwentyNineCentimeterModule,

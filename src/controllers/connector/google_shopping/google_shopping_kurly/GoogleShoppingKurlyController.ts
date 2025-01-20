@@ -8,29 +8,29 @@ import { GoogleShoppingProvider } from "../../../../providers/connector/google_s
 import { retry } from "../../../../utils/retry";
 
 @Controller("connector/google-shopping")
-export class GoogleShoppingMarketKurlyController {
+export class GoogleShoppingKurlyController {
   constructor(
     private readonly googleShoppingProvider: GoogleShoppingProvider,
   ) {}
 
   /**
-   * Search for products on Market Kurly
-   * Market Kurly is a service where you can purchase groceries.
+   * Search for products on Kurly
+   * Kurly is a service where you can purchase groceries.
    *
-   * @summary Market Kurly Search
+   * @summary Kurly Search
    * @param input Search conditions
    * @returns Search results
    */
-  @SelectBenchmark("마켓컬리에서 상품 좀 찾아줘")
+  @SelectBenchmark("컬리에서 상품 좀 찾아줘")
   @Standalone()
-  @core.TypedRoute.Patch("market-kurly")
+  @core.TypedRoute.Patch("kurly")
   @RouteIcon(
     "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/kurly.svg",
   )
-  @ApiTags("Market Kurly")
-  async marketKurly(
+  @ApiTags("Kurly")
+  async Kurly(
     @core.TypedBody() input: IGoogleShopping.IRequestStandAlone,
   ): Promise<IGoogleShopping.IResponse[]> {
-    return retry(() => this.googleShoppingProvider.marketKurly(input))();
+    return retry(() => this.googleShoppingProvider.kurly(input))();
   }
 }

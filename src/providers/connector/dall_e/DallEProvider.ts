@@ -12,7 +12,7 @@ import { OpenAIProvider } from "../../open_ai/OpenAIProvider";
 import { AwsProvider } from "../aws/AwsProvider";
 
 @Injectable()
-export class DallE3Provider {
+export class DallEProvider {
   constructor(
     private openAIProvider: OpenAIProvider,
     private httpService: HttpService,
