@@ -1074,6 +1074,13 @@ export class GithubController {
   /**
    * Look up the user's detailed profile
    *
+   * The property information you can find at the time of inquiry is as follows.
+   *
+   * - avatar_url, bio, blog, company, created_at, email,
+   * - followers, following, id, location, login, name,
+   * - pinned_repositories, profile_repository, public_gists,
+   * - public_repos, twitter_username, type, updated_at
+   *
    * @summary Look up the user's detailed profile
    * @param input
    * @returns detailed profile

@@ -5,7 +5,7 @@ import { ConnectorGlobal } from "../../../../../src/ConnectorGlobal";
 export async function test_api_connector_github_repository_read_issue_detail(
   connection: CApi.IConnection,
 ) {
-  const { fetchedIssues } =
+  const res =
     await CApi.functional.connector.github.repositories.get_issues.getRepositoryIssues(
       connection,
       {
@@ -19,6 +19,12 @@ export async function test_api_connector_github_repository_read_issue_detail(
       },
     );
 
+  if ("error_message" in res) {
+    // 에러로 인한 실패
+    throw new Error(res.error_message);
+  }
+
+  const fetchedIssues = res.fetchedIssues;
   typia.assert(fetchedIssues);
 
   for await (const issue of fetchedIssues) {

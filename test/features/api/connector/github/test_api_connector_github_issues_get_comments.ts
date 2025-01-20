@@ -49,7 +49,7 @@ export async function test_api_connector_github_repository_issues_get_comments(
     typia.assert(comment_2);
   }
 
-  const { fetchedIssues } =
+  const res =
     await CApi.functional.connector.github.repositories.get_issues.getRepositoryIssues(
       connection,
       {
@@ -61,6 +61,13 @@ export async function test_api_connector_github_repository_issues_get_comments(
         secretKey: ConnectorGlobal.env.G_GITHUB_TEST_SECRET,
       },
     );
+
+  if ("error_message" in res) {
+    // 에러로 인한 실패
+    throw new Error(res.error_message);
+  }
+
+  const fetchedIssues = res.fetchedIssues;
 
   for await (const issue of fetchedIssues) {
     const comment =

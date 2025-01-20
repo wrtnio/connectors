@@ -6,12 +6,13 @@ import { BlockObjectRequest } from "@notionhq/client/build/src/api-endpoints";
 import { markdownToBlocks } from "@tryfabric/martian";
 import { Block } from "@tryfabric/martian/build/src/notion/blocks";
 import { INotion } from "@wrtn/connector-api/lib/structures/connector/notion/INotion";
+import { NotionToMarkdown } from "notion-to-md";
+import typia from "typia";
+import { v4 } from "uuid";
 import { retry } from "../../../utils/retry";
 import { OAuthSecretProvider } from "../../internal/oauth_secret/OAuthSecretProvider";
 import { IOAuthSecret } from "../../internal/oauth_secret/structures/IOAuthSecret";
-import { NotionToMarkdown } from "notion-to-md";
 import { AwsProvider } from "../aws/AwsProvider";
-import { v4 } from "uuid";
 
 export namespace NotionProvider {
   export async function deleteBlock(
@@ -240,6 +241,10 @@ export namespace NotionProvider {
         link: `https://www.notion.so/${uuid}`,
       };
     } catch (error) {
+      if (typia.is<INotion.Common.IError>(error)) {
+        return error;
+      }
+
       console.error(JSON.stringify(error));
       throw error;
     }
@@ -740,7 +745,10 @@ export namespace NotionProvider {
       const uuid = input.pageId.replaceAll("-", "");
       return { id: input.pageId, link: `https://notion.so/${uuid}` };
     } catch (error) {
-      console.error(JSON.stringify(error));
+      console.log("here", typia.validateEquals<INotion.Common.IError>(error));
+      if (typia.is<INotion.Common.IError>(error)) {
+        return error;
+      }
       throw error;
     }
   }
@@ -750,6 +758,10 @@ export namespace NotionProvider {
   ): Promise<INotion.ICreatePageOutput> {
     try {
       const page = await createPage(input);
+      if (typia.is<INotion.Common.IError>(page)) {
+        return page;
+      }
+
       await NotionProvider.appendBlocksByMarkdown({
         ...input,
         pageId: page.id,
@@ -762,7 +774,6 @@ export namespace NotionProvider {
         link: `https://notion.so/${uuid}`,
       };
     } catch (error) {
-      console.error(JSON.stringify(error));
       throw error;
     }
   }

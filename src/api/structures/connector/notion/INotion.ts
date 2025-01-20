@@ -1542,15 +1542,58 @@ export namespace INotion {
       Placeholder<"부모 페이지를 선택하세요.">;
   }
 
-  export type IAppendPageByMarkdownOutput = MyPick<
-    ICreatePageOutput,
-    "id" | "link"
-  >;
+  export namespace Common {
+    export interface IError {
+      /**
+       * for example, APIResponseError
+       *
+       * @title name
+       */
+      name: string;
+
+      /**
+       * for example, object_not_found
+       *
+       * @title code
+       */
+      code: string;
+
+      /**
+       * for example, 404
+       *
+       * @title status
+       */
+      status: number;
+
+      /**
+       * for example, '{"object":"error","status":404,"code":"object_not_found","message":"Could not find page with ID: 6f8304d2-de52-417d-a032-b340a421a8c1. Make sure the relevant pages and databases are shared with your integration.","request_id":"3e773c7e-c703-40a8-9b13-635ad750c3a2"}'
+       *
+       * @title serialized body
+       */
+      body: string;
+    }
+  }
+
+  export type IAppendPageByMarkdownOutput =
+    | {
+        /**
+         * Unique id of the generated page
+         *
+         * @title page id
+         */
+        id: string;
+
+        /**
+         * @title page link
+         */
+        link: string & tags.Format<"iri">;
+      }
+    | INotion.Common.IError;
 
   /**
    * @title Page creation result
    */
-  export interface ICreatePageOutput {
+  export interface __ICreatePageOutput {
     /**
      * Unique id of the generated page
      *
@@ -1570,6 +1613,11 @@ export namespace INotion {
      */
     link: string & tags.Format<"iri">;
   }
+
+  /**
+   * @title Page creation result
+   */
+  export type ICreatePageOutput = __ICreatePageOutput | INotion.Common.IError;
 
   /**
    * @title User Information
@@ -1942,7 +1990,7 @@ export namespace INotion {
   /**
    * @title Page Information
    */
-  interface ICommonPageOutputInterface extends ICreatePageOutput {
+  interface ICommonPageOutputInterface extends __ICreatePageOutput {
     /**
      * Type of page object
      *
@@ -2721,8 +2769,7 @@ export namespace INotion {
   /**
    * @title Information database for added property
    */
-  export interface IAddDatabasePropertyOutput
-    extends INotion.ICreateDatabaseOutput {}
+  export type IAddDatabasePropertyOutput = INotion.ICreateDatabaseOutput;
 
   /**
    * @title Information needed to delete a property to the database
@@ -2751,8 +2798,7 @@ export namespace INotion {
   /**
    * @title Information database for deleted property
    */
-  export interface IDeleteDatabasePropertyOutput
-    extends INotion.ICreateDatabaseOutput {}
+  export type IDeleteDatabasePropertyOutput = INotion.ICreateDatabaseOutput;
 
   /**
    * @title Information needed to add an items to the database
@@ -2828,8 +2874,7 @@ export namespace INotion {
   /**
    * @title Information database for added items
    */
-  export interface IAddItemsToDatabaseOutput
-    extends INotion.ICreateDatabaseOutput {}
+  export type IAddItemsToDatabaseOutput = INotion.ICreateDatabaseOutput;
 
   export interface IDatabasePropertyOutput {
     id: string;

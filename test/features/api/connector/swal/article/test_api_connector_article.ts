@@ -474,7 +474,10 @@ export const test_api_connector_article_exports_1 = async (
   const information = exportedArticle.snapshots[
     target.snapshots.length - 1
   ].bbs_article_exports.find((el) => {
-    return el.uid === exported.notion.id && el.url === exported.notion.link;
+    return (
+      el.uid === (exported.notion as any).id &&
+      el.url === (exported.notion as any).link
+    );
   });
 
   typia.assertEquals<IArticleExport>(information);

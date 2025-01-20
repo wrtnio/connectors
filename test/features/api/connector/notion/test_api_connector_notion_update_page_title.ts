@@ -23,7 +23,7 @@ export const test_api_connector_notion_update_page_title = async (
     {
       secretKey: ConnectorGlobal.env.NOTION_TEST_SECRET,
       title: title_to_update,
-      pageId: pageToUpdate.id,
+      pageId: (pageToUpdate as any).id,
     },
   );
 

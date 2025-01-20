@@ -1,5 +1,6 @@
 import CApi from "@wrtn/connector-api/lib/index";
 import assert, { deepStrictEqual } from "assert";
+import { randomUUID } from "crypto";
 import typia from "typia";
 import { ConnectorGlobal } from "../../../../../src/ConnectorGlobal";
 
@@ -21,6 +22,11 @@ export async function test_api_connector_github_repositories_get_issues_desc(
     );
 
   typia.assert(res);
+
+  if ("error_message" in res) {
+    // 에러로 인한 실패
+    throw new Error(res.error_message);
+  }
 
   const counts = res.fetchedIssues.map((el) => el.comments.totalCount);
   deepStrictEqual(
@@ -50,6 +56,11 @@ export async function test_api_connector_github_repositories_get_issues_asc(
 
   typia.assert(res);
 
+  if ("error_message" in res) {
+    // 에러로 인한 실패
+    throw new Error(res.error_message);
+  }
+
   const counts = res.fetchedIssues.map((el) => el.comments.totalCount);
   deepStrictEqual(
     counts,
@@ -77,15 +88,15 @@ export async function test_api_connector_github_repositories_get_issues_sort_by_
   typia.assert(res);
 }
 
-export async function test_api_connector_github_repositories_get_issues_sort_by_updated_at(
+export async function test_api_connector_github_repositories_get_issues_of_non_existant_repository(
   connection: CApi.IConnection,
 ) {
   const res =
     await CApi.functional.connector.github.repositories.get_issues.getRepositoryIssues(
       connection,
       {
-        owner: "samchon",
-        repo: "nestia",
+        owner: "kakasoo",
+        repo: randomUUID(),
         direction: "ASC",
         sort: "UPDATED_AT",
         per_page: 10,
@@ -95,10 +106,4 @@ export async function test_api_connector_github_repositories_get_issues_sort_by_
     );
 
   typia.assert(res);
-
-  const counts = res.fetchedIssues.map((el) => el.updatedAt);
-  deepStrictEqual(
-    counts,
-    counts.sort((a, b) => new Date(b).getTime() - new Date(a).getTime()),
-  );
 }
