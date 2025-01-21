@@ -15,7 +15,7 @@
     }
   ],
   "info": {
-    "version": "0.1.450",
+    "version": "0.1.451",
     "title": "@wrtn/connector",
     "description": "wrtn-ecosystem connectors and sdk",
     "license": {
@@ -45473,6 +45473,9 @@
           "secretKey": {
             "type": "string",
             "x-wrtn-secret-key": "github",
+            "x-wrtn-secret-scopes": [
+              "repo"
+            ],
             "title": "Select authentication information",
             "description": "secret key."
           }
@@ -47812,6 +47815,9 @@
           "secretKey": {
             "type": "string",
             "x-wrtn-secret-key": "github",
+            "x-wrtn-secret-scopes": [
+              "repo"
+            ],
             "title": "Select authentication information",
             "description": "secret key."
           }
@@ -47847,6 +47853,9 @@
           "secretKey": {
             "type": "string",
             "x-wrtn-secret-key": "github",
+            "x-wrtn-secret-scopes": [
+              "repo"
+            ],
             "title": "Select authentication information",
             "description": "secret key."
           },
