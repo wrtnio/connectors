@@ -891,7 +891,7 @@ export class GithubController {
    * If there are too many changes, the connector can export a 406 error.
    * In this case, it may be difficult to determine each change, but it is recommended to use the List pull requests connector.
    *
-   * The numbers after the @@ symbol represent the number of start lines and the number of changed lines.
+   * The numbers after the /@/@ symbol represent the number of start lines and the number of changed lines.
    * The details are given in Response Type. However, since this line represents the start line,
    * a particular line of code should be relative to the value of the position considering the letter of the line.
    *
