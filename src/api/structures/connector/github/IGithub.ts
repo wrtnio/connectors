@@ -286,6 +286,34 @@ export namespace IGithub {
       }>;
   }
 
+  export interface ISingleLinePullRequestComment
+    extends MyPick<IGithub.ReviewComment, "path" | "body"> {
+    /**
+     * The line of the blob in the pull request diff that the comment applies to.
+     * For a multi-line comment, the last line of the range that your comment applies to.
+     *
+     * @title line
+     */
+    line?: number & tags.Type<"uint64"> & tags.Minimum<1>;
+
+    /**
+     * In a split diff view, the side of the diff that the pull request's changes appear on.
+     * Can be LEFT or RIGHT. Use LEFT for deletions that appear in red.
+     * Use RIGHT for additions that appear in green or unchanged lines that appear
+     * in white and are shown for context.
+     *
+     * For a multi-line comment, side represents whether the last line of the comment range
+     * is a deletion or addition. For more information, see "Diff view options"
+     * in the GitHub Help documentation.
+     *
+     * @title side
+     */
+    side?: ("LEFT" | "RIGHT") & tags.Default<"RIGHT">;
+  }
+
+  /**
+   * @title Comment of Pull Request
+   */
   export interface IPullRequestComment
     extends MyPick<IGithub.ReviewComment, "path" | "body"> {
     /**
@@ -341,13 +369,6 @@ export namespace IGithub {
      * @title in_reply_to
      */
     in_reply_to?: string;
-
-    /**
-     * The level at which the comment is targeted.
-     *
-     * @title Subject Type
-     */
-    subject_type?: "line" | "file";
   }
 
   export type IReviewPullRequestOutput = MyPick<IGithub.Review, "id">;
@@ -383,9 +404,24 @@ export namespace IGithub {
       | tags.Constant<"COMMENT", { title: "COMMENT" }>;
 
     /**
-     * @title comments
+     * @title Comments
      *
      * Use the following table to specify the location, destination, and contents of the draft review comment.
+     *
+     * An optional array of comments associated with the pull request.
+     * Each comment provides details such as the file path, line numbers,
+     * and content of the comment.
+     *
+     * - For single-line comments:
+     *   The `line` property specifies the exact line number in the file.
+     *   The `side` property indicates whether the line is from the original version (`LEFT`)
+     *   or the updated version (`RIGHT`) of the file.
+     *
+     * - For multi-line comments:
+     *   The `start_line` and `start_side` properties define the beginning of the range,
+     *   while the `line` and `side` properties define the end of the range.
+     *   Both the starting and ending positions can refer to either `LEFT` or `RIGHT`.
+     *
      */
     comments?: IPullRequestComment[];
   }
