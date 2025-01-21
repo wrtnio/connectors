@@ -412,7 +412,7 @@ export class GithubProvider {
         if (typia.is<IGithub.IReadPullRequestDiffOutput>(data)) {
           return data;
         } else {
-          console.log(JSON.stringify((err as any).response.data, null, 2));
+          console.log(JSON.stringify((err as any).response.data));
         }
       }
       throw err;
