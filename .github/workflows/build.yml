@@ -84,7 +84,7 @@ jobs:
       - name: test
         run: | # sweet_tracker, google_ads는 현재 테스트 대상이 아님
           npm run test -- \
-            --exclude sweet_tracker korea_exim kakao jira slack github figma discord \
+            --exclude sweet_tracker korea_exim kakao jira slack github figma discord similarweb crunchbase \
             google_ads google_slides google_calendar google_docs google_drive google_flight \
             open_data calendly notion naver typeform x_summarize x_prepare_summarize x_get_pre_defined_influencers x_get_users airport youtube_official innoforest
 
