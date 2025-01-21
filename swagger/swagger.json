@@ -15,7 +15,7 @@
     }
   ],
   "info": {
-    "version": "0.1.453",
+    "version": "0.1.454",
     "title": "@wrtn/connector",
     "description": "wrtn-ecosystem connectors and sdk",
     "license": {
@@ -12019,7 +12019,7 @@
     "/connector/github/repositories/pull-requests/reviews": {
       "post": {
         "summary": "Create a review for a pull request",
-        "description": "Create a review for a pull request\n\nPull request reviews created in the PENDING state are not submitted and therefore do not include the submitted_at property in the response. To create a pending review for a pull request, leave the event parameter blank.\nThe position value equals the number of lines down from the first \"@@\" hunk header in the file you want to add a comment. The line just below the \"@@\" line is position 1, the next line is position 2, and so on. The position in the diff continues to increase through lines of whitespace and additional hunks until the beginning of a new file.",
+        "description": "Create a review for a pull request\n\nPull request reviews created in the PENDING state are not submitted and therefore do not include the `submitted_at` property in the response. To create a pending review, leave the event parameter blank.\nThe `position` value equals the number of lines down from the first \"@@\" hunk header in the file you want to add a comment. The line just below the \"@@\" line is position 1, the next line is position 2, and so on. When calculating `position`, you need to count newline characters (`\\n`) accurately, as they contribute to the line count. This means whitespace lines and additional hunks also affect the `position`. The position continues to increase through lines of whitespace and additional hunks until the beginning of a new file, where it resets to 1.\n**Important**: Please distinguish between when you want to **submit a review** and when you want to **add a comment** to a pull request. If you want to create a review, leave it in the PENDING state, but if you want to add a comment, use the **comment API**, not the review API. These are handled by different APIs, so make sure to use the correct one based on the intended action.\nWhen adding comments to a pull request review, you can specify multiple lines for the comment. This can be useful if you want to explain code across several lines. To do so, use the **multi-line comment functionality** in the API. This allows you to specify a range of lines, which is especially helpful when explaining larger blocks of code or providing feedback on multiple lines at once.",
         "tags": [
           "Github"
         ],
@@ -46384,7 +46384,7 @@
             "items": {
               "$ref": "#/components/schemas/IGithub.IPullRequestComment"
             },
-            "title": "comments\n\nUse the following table to specify the location, destination, and contents of the draft review comment."
+            "title": "Comments\n\nUse the following table to specify the location, destination, and contents of the draft review comment.\n\nAn optional array of comments associated with the pull request.\nEach comment provides details such as the file path, line numbers,\nand content of the comment.\n\n- For single-line comments:\nThe `line` property specifies the exact line number in the file.\nThe `side` property indicates whether the line is from the original version (`LEFT`)\nor the updated version (`RIGHT`) of the file.\n\n- For multi-line comments:\nThe `start_line` and `start_side` properties define the beginning of the range,\nwhile the `line` and `side` properties define the end of the range.\nBoth the starting and ending positions can refer to either `LEFT` or `RIGHT`."
           },
           "owner": {
             "type": "string",
@@ -46446,6 +46446,7 @@
         "properties": {
           "line": {
             "type": "integer",
+            "minimum": 1,
             "title": "line",
             "description": "The line of the blob in the pull request diff that the comment applies to.\nFor a multi-line comment, the last line of the range that your comment applies to."
           },
@@ -46459,12 +46460,12 @@
               }
             ],
             "title": "side",
-            "description": "n a split diff view, the side of the diff that the pull request's changes appear on.\nCan be LEFT or RIGHT. Use LEFT for deletions that appear in red.\nUse RIGHT for additions that appear in green or unchanged lines that appear\nin white and are shown for context.\n\nFor a multi-line comment, side represents whether the last line of the comment range\nis a deletion or addition. For more information, see \"Diff view options\"\nin the GitHub Help documentation."
+            "description": "In a split diff view, the side of the diff that the pull request's changes appear on.\nCan be LEFT or RIGHT. Use LEFT for deletions that appear in red.\nUse RIGHT for additions that appear in green or unchanged lines that appear\nin white and are shown for context.\n\nFor a multi-line comment, side represents whether the last line of the comment range\nis a deletion or addition. For more information, see \"Diff view options\"\nin the GitHub Help documentation."
           },
           "start_line": {
             "type": "integer",
             "title": "start_line",
-            "description": "Required when using multi-line comments unless using in_reply_to.\nThe start_line is the first line in the pull request diff that your\nmulti-line comment applies to. To learn more about multi-line comments,\nsee \"Commenting on a pull request\" in the GitHub Help documentation."
+            "description": "**Required when using multi-line comments unless using in_reply_to.**\n\nThe start_line is the first line in the pull request diff that your\nmulti-line comment applies to. To learn more about multi-line comments,\nsee \"Commenting on a pull request\" in the GitHub Help documentation."
           },
           "start_side": {
             "oneOf": [
@@ -46476,7 +46477,12 @@
               }
             ],
             "title": "start_side",
-            "description": "Required when using multi-line comments unless using in_reply_to.\nThe start_side is the starting side of the diff that the comment applies to.\nCan be LEFT or RIGHT. To learn more about multi-line comments,\nsee \"Commenting on a pull request\" in the GitHub Help documentation.\nSee side in this table for additional context."
+            "description": "**Required when using multi-line comments unless using in_reply_to.**\n\nThe start_side is the starting side of the diff that the comment applies to.\nCan be LEFT or RIGHT. To learn more about multi-line comments,\nsee \"Commenting on a pull request\" in the GitHub Help documentation.\nSee side in this table for additional context."
+          },
+          "in_reply_to": {
+            "type": "string",
+            "title": "in_reply_to",
+            "description": "The ID of the review comment to reply to.\nTo find the ID of a review comment with \"List review comments on a pull request\".\nWhen specified, all parameters other than body in the request body are ignored."
           },
           "path": {
             "type": "string",
@@ -46490,7 +46496,8 @@
         },
         "required": [
           "path"
-        ]
+        ],
+        "title": "Comment of Pull Request"
       },
       "IGithub.IReadPullRequestFileOutput": {
         "type": "object",
