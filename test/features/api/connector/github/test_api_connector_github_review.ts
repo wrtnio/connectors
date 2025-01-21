@@ -50,14 +50,50 @@ export async function test_api_connector_github_request_review_and_delete_review
   assert(added.users.length === 1);
   assert(added.users.at(0)?.login === "wrtn-studio-store");
 
+  const files =
+    await CApi.functional.connector.github.repositories.pull_requests.get_files.readPullRequestFiles(
+      connection,
+      {
+        owner: "studio-pro",
+        repo: "github_connector",
+        pull_number: created.number as number,
+        secretKey: ConnectorGlobal.env.G_GITHUB_TEST_SECRET,
+      },
+    );
+
+  const first_file = files.result[0];
+
   await CApi.functional.connector.github.repositories.pull_requests.reviews.reviewPullRequest(
     connection,
     {
       owner: "studio-pro",
       repo: "github_connector",
       pull_number: created.number as number,
-      secretKey: ConnectorGlobal.env.G_GITHUB_TEST_SECRET,
+      secretKey: ConnectorGlobal.env.G_GITHUB_TEST_SECRET_2,
       body: "TEST REVIEW",
+      event: "COMMENT",
+      comments: [
+        {
+          path: first_file.filename,
+          body: "HAHA1",
+          start_line: 1,
+          line: 2,
+          start_side: "RIGHT",
+        },
+        {
+          path: first_file.filename,
+          body: "HAHA2",
+          start_line: 3,
+          line: 4,
+          start_side: "RIGHT",
+        },
+        {
+          path: first_file.filename,
+          body: "HAHA3",
+          line: 5,
+          side: "RIGHT",
+        },
+      ],
     },
   );
 

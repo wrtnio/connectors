@@ -286,6 +286,34 @@ export namespace IGithub {
       }>;
   }
 
+  export interface ISingleLinePullRequestComment
+    extends MyPick<IGithub.ReviewComment, "path" | "body"> {
+    /**
+     * The line of the blob in the pull request diff that the comment applies to.
+     * For a multi-line comment, the last line of the range that your comment applies to.
+     *
+     * @title line
+     */
+    line?: number & tags.Type<"uint64"> & tags.Minimum<1>;
+
+    /**
+     * In a split diff view, the side of the diff that the pull request's changes appear on.
+     * Can be LEFT or RIGHT. Use LEFT for deletions that appear in red.
+     * Use RIGHT for additions that appear in green or unchanged lines that appear
+     * in white and are shown for context.
+     *
+     * For a multi-line comment, side represents whether the last line of the comment range
+     * is a deletion or addition. For more information, see "Diff view options"
+     * in the GitHub Help documentation.
+     *
+     * @title side
+     */
+    side?: ("LEFT" | "RIGHT") & tags.Default<"RIGHT">;
+  }
+
+  /**
+   * @title Comment of Pull Request
+   */
   export interface IPullRequestComment
     extends MyPick<IGithub.ReviewComment, "path" | "body"> {
     /**
@@ -294,10 +322,10 @@ export namespace IGithub {
      *
      * @title line
      */
-    line?: number & tags.Type<"uint64">;
+    line?: number & tags.Type<"uint64"> & tags.Minimum<1>;
 
     /**
-     * n a split diff view, the side of the diff that the pull request's changes appear on.
+     * In a split diff view, the side of the diff that the pull request's changes appear on.
      * Can be LEFT or RIGHT. Use LEFT for deletions that appear in red.
      * Use RIGHT for additions that appear in green or unchanged lines that appear
      * in white and are shown for context.
@@ -311,7 +339,8 @@ export namespace IGithub {
     side?: ("LEFT" | "RIGHT") & tags.Default<"RIGHT">;
 
     /**
-     * Required when using multi-line comments unless using in_reply_to.
+     * **Required when using multi-line comments unless using in_reply_to.**
+     *
      * The start_line is the first line in the pull request diff that your
      * multi-line comment applies to. To learn more about multi-line comments,
      * see "Commenting on a pull request" in the GitHub Help documentation.
@@ -321,7 +350,8 @@ export namespace IGithub {
     start_line?: number & tags.Type<"uint64">;
 
     /**
-     * Required when using multi-line comments unless using in_reply_to.
+     * **Required when using multi-line comments unless using in_reply_to.**
+     *
      * The start_side is the starting side of the diff that the comment applies to.
      * Can be LEFT or RIGHT. To learn more about multi-line comments,
      * see "Commenting on a pull request" in the GitHub Help documentation.
@@ -330,6 +360,15 @@ export namespace IGithub {
      * @title start_side
      */
     start_side?: ("LEFT" | "RIGHT") & tags.Default<"RIGHT">;
+
+    /**
+     * The ID of the review comment to reply to.
+     * To find the ID of a review comment with "List review comments on a pull request".
+     * When specified, all parameters other than body in the request body are ignored.
+     *
+     * @title in_reply_to
+     */
+    in_reply_to?: string;
   }
 
   export type IReviewPullRequestOutput = MyPick<IGithub.Review, "id">;
@@ -365,9 +404,24 @@ export namespace IGithub {
       | tags.Constant<"COMMENT", { title: "COMMENT" }>;
 
     /**
-     * @title comments
+     * @title Comments
      *
      * Use the following table to specify the location, destination, and contents of the draft review comment.
+     *
+     * An optional array of comments associated with the pull request.
+     * Each comment provides details such as the file path, line numbers,
+     * and content of the comment.
+     *
+     * - For single-line comments:
+     *   The `line` property specifies the exact line number in the file.
+     *   The `side` property indicates whether the line is from the original version (`LEFT`)
+     *   or the updated version (`RIGHT`) of the file.
+     *
+     * - For multi-line comments:
+     *   The `start_line` and `start_side` properties define the beginning of the range,
+     *   while the `line` and `side` properties define the end of the range.
+     *   Both the starting and ending positions can refer to either `LEFT` or `RIGHT`.
+     *
      */
     comments?: IPullRequestComment[];
   }
@@ -513,6 +567,36 @@ export namespace IGithub {
   export type IReadPullRequestDetailOutput = PullRequest;
 
   /**
+   * Called diff, and if it comes out in the form of a string,
+   * it's in the form of 'application/vnd.github.v3.diff'.
+   *
+   * Explains the GitHub diff header format, such as `-48,6 +49,8`.
+   *
+   * Description:
+   * This format appears in GitHub code diffs to describe the location and size of changes in a file.
+   * It provides information for both the original (LEFT) and modified (RIGHT) versions of the file.
+   *
+   * Parameters:
+   * - diffHeader (string): The diff header string, such as `-48,6 +49,8`.
+   *
+   * Example:
+   * Understanding the components of the diff header:
+   * - `-48,6` refers to the LEFT side (original file):
+   *    - `48`: The starting line number of the changed block in the original file.
+   *    - `6`: The number of lines in the block from the original file.
+   *
+   * - `+49,8` refers to the RIGHT side (modified file):
+   *    - `49`: The starting line number of the changed block in the modified file.
+   *    - `8`: The number of lines in the block from the modified file.
+   *
+   * - Additional context (if any) follows the header, describing the location of changes, such as the function
+   *   or class name. This is optional and may be omitted if no specific context exists.
+   *
+   * Notes:
+   * - Ensure that the line counts (`6`, `8`) are accurate, even if newline characters are included.
+   * - LEFT represents the original state of the file, and RIGHT represents the modified state.
+   * - Line counts refer to consecutive lines in the changed block.
+   *
    * @title Diff or Error
    */
   export type IReadPullRequestDiffOutput =
