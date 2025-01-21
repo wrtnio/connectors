@@ -792,7 +792,7 @@ export namespace IGithub {
   >;
 
   export interface IGetCollaboratorInput
-    extends ICommon.ISecret<"github", ["admin:org", "repo"]>,
+    extends IGithub.Common.ISecret,
       MyPick<ICommonPaginationInput, "page" | "per_page"> {
     /**
      * The owner's name and the repository's name can be combined to form '${owner}/${repo}' and can be a unique path name for a single repository.
@@ -2410,7 +2410,7 @@ export namespace IGithub {
   }
 
   export interface IGetAuthenticatedUserIssueInput
-    extends ICommon.ISecret<"github", ["user", "repo"]>,
+    extends IGithub.Common.ISecret,
       MyPick<ICommonPaginationInput, "page" | "per_page"> {
     /**
      * The order to sort by.
