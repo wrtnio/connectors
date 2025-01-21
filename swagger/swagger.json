@@ -15,7 +15,7 @@
     }
   ],
   "info": {
-    "version": "0.1.452",
+    "version": "0.1.453",
     "title": "@wrtn/connector",
     "description": "wrtn-ecosystem connectors and sdk",
     "license": {
@@ -45931,7 +45931,8 @@
           },
           "path": {
             "type": "string",
-            "title": "path"
+            "title": "path",
+            "description": "The relative path to the file that necessitates a review comment."
           },
           "position": {
             "oneOf": [
@@ -45942,8 +45943,9 @@
                 "type": "integer"
               }
             ],
+            "deprecated": true,
             "title": "position",
-            "description": "The position in the diff where you want to add a review comment.\nNote this value is not the same as the line number in the file.\nThe position value equals the number of lines down from the first \"@@\" hunk header in the file you want to add a comment.\nThe line just below the \"@@\" line is position 1, the next line is position 2, and so on. The position in the diff continues to increase through lines of whitespace and additional hunks until the beginning of a new file.\n\nPosition value, which is the number of rows based on diff_hunk."
+            "description": "This parameter is closing down. Use 'line' instead.\n\nThe position in the diff where you want to add a review comment.\nNote this value is not the same as the line number in the file.\nThe position value equals the number of lines down from the first \"@@\" hunk header in the file you want to add a comment.\nThe line just below the \"@@\" line is position 1, the next line is position 2, and so on. The position in the diff continues to increase through lines of whitespace and additional hunks until the beginning of a new file.\n\nPosition value, which is the number of rows based on diff_hunk."
           },
           "original_position": {
             "type": "integer",
@@ -45951,7 +45953,8 @@
           },
           "commit_id": {
             "type": "string",
-            "title": "commit_id"
+            "title": "commit_id",
+            "description": "The SHA of the commit needing a comment.\nNot using the latest commit SHA may render your comment outdated\nif a subsequent commit modifies the line you specify as the position."
           },
           "original_commit_id": {
             "type": "string",
@@ -46022,7 +46025,6 @@
           "pull_request_review_id",
           "diff_hunk",
           "path",
-          "position",
           "original_position",
           "commit_id",
           "original_commit_id",
@@ -46444,48 +46446,50 @@
         "properties": {
           "line": {
             "type": "integer",
-            "title": "line"
+            "title": "line",
+            "description": "The line of the blob in the pull request diff that the comment applies to.\nFor a multi-line comment, the last line of the range that your comment applies to."
           },
           "side": {
-            "type": "string",
-            "title": "side"
+            "oneOf": [
+              {
+                "const": "LEFT"
+              },
+              {
+                "const": "RIGHT"
+              }
+            ],
+            "title": "side",
+            "description": "n a split diff view, the side of the diff that the pull request's changes appear on.\nCan be LEFT or RIGHT. Use LEFT for deletions that appear in red.\nUse RIGHT for additions that appear in green or unchanged lines that appear\nin white and are shown for context.\n\nFor a multi-line comment, side represents whether the last line of the comment range\nis a deletion or addition. For more information, see \"Diff view options\"\nin the GitHub Help documentation."
           },
           "start_line": {
             "type": "integer",
-            "title": "start_line"
+            "title": "start_line",
+            "description": "Required when using multi-line comments unless using in_reply_to.\nThe start_line is the first line in the pull request diff that your\nmulti-line comment applies to. To learn more about multi-line comments,\nsee \"Commenting on a pull request\" in the GitHub Help documentation."
           },
           "start_side": {
-            "type": "string",
-            "title": "start_side"
+            "oneOf": [
+              {
+                "const": "LEFT"
+              },
+              {
+                "const": "RIGHT"
+              }
+            ],
+            "title": "start_side",
+            "description": "Required when using multi-line comments unless using in_reply_to.\nThe start_side is the starting side of the diff that the comment applies to.\nCan be LEFT or RIGHT. To learn more about multi-line comments,\nsee \"Commenting on a pull request\" in the GitHub Help documentation.\nSee side in this table for additional context."
           },
           "path": {
             "type": "string",
-            "title": "path"
+            "title": "path",
+            "description": "The relative path to the file that necessitates a review comment."
           },
           "body": {
             "type": "string",
             "title": "body"
-          },
-          "position": {
-            "oneOf": [
-              {
-                "type": "null"
-              },
-              {
-                "type": "integer"
-              }
-            ],
-            "title": "position",
-            "description": "The position in the diff where you want to add a review comment.\nNote this value is not the same as the line number in the file.\nThe position value equals the number of lines down from the first \"@@\" hunk header in the file you want to add a comment.\nThe line just below the \"@@\" line is position 1, the next line is position 2, and so on. The position in the diff continues to increase through lines of whitespace and additional hunks until the beginning of a new file.\n\nPosition value, which is the number of rows based on diff_hunk."
           }
         },
         "required": [
-          "line",
-          "side",
-          "start_line",
-          "start_side",
-          "path",
-          "position"
+          "path"
         ]
       },
       "IGithub.IReadPullRequestFileOutput": {
@@ -57965,7 +57969,7 @@
                 "const": ""
               },
               {
-                "$ref": "#/components/schemas/__type.o2171"
+                "$ref": "#/components/schemas/__type.o2173"
               }
             ],
             "title": "replies"
@@ -58412,14 +58416,14 @@
           "name"
         ]
       },
-      "__type.o2171": {
+      "__type.o2173": {
         "type": "object",
         "properties": {
           "kind": {
             "const": "Listing"
           },
           "data": {
-            "$ref": "#/components/schemas/__type.o2172"
+            "$ref": "#/components/schemas/__type.o2174"
           }
         },
         "required": [
@@ -58427,7 +58431,7 @@
           "data"
         ]
       },
-      "__type.o2172": {
+      "__type.o2174": {
         "type": "object",
         "properties": {
           "after": {
@@ -58447,7 +58451,7 @@
             "items": {
               "oneOf": [
                 {
-                  "$ref": "#/components/schemas/__type.o2173"
+                  "$ref": "#/components/schemas/__type.o2175"
                 },
                 {
                   "type": "object",
@@ -58521,7 +58525,7 @@
           "before"
         ]
       },
-      "__type.o2173": {
+      "__type.o2175": {
         "type": "object",
         "properties": {
           "kind": {
