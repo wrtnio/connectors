@@ -20,7 +20,9 @@ export function retry<T extends any[], ReturnType>(
     delayMs?: number; // 이 시간 값은 backoff에 영향을 주는 값
   },
 ) {
-  return async function (...args: T): Promise<Awaited<ReturnType>> {
+  return async function retryImplements(
+    ...args: T
+  ): Promise<Awaited<ReturnType>> {
     let attempts = 0;
     while (attempts < count) {
       let timeoutId: NodeJS.Timeout | null = null;
