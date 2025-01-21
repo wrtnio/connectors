@@ -442,13 +442,13 @@ export namespace IGithub {
      *
      * // Example: Shortened diff snippet
      *
+     * If there is no change, the line numbers of LEFT and RIGHT are treated as the same.
      * ```diff
      * \@\@ -55,9 +55,9 \@\@
-     *     "@nestia/fetcher": "^4.5.1", // Because there's no change, left, right 55 line.
-     * -   "@nestia/agent": "^0.3.3", // left 56 line.
-     * +   "@nestia/agent": "^0.3.6", // right 56 line.
-     * -   "@nestia/sdk": "^4.5.1", // left 57 line.
-     * +   "@nestia/sdk": "^4.6.0", // right 57 line.
+     * -   "@nestia/agent": "^0.3.3", // left 55 line.
+     * +   "@nestia/agent": "^0.3.6", // right 55 line.
+     * -   "@nestia/sdk": "^4.5.1", // left 56 line.
+     * +   "@nestia/sdk": "^4.6.0", // right 56 line.
      * \@\@ -97,7 +97,7 \@\@
      * -   "@nestia/core": "^4.5.1", // left 97 line.
      * +   "@nestia/core": "^4.6.0", // right 98 line.
@@ -630,6 +630,42 @@ export namespace IGithub {
    * - Additional context (if any) follows the header, describing the location of changes, such as the function
    *   or class name. This is optional and may be omitted if no specific context exists.
    *
+   * # Diff Analysis Guide:
+   * 1. Use `\@\@` to locate the changed lines:
+   * - Format: \@\@ -, +, \@\@
+   * - Example: \@\@ -55,9 +55,9 \@\@
+   * - Old file: starts at line 55, spans 9 lines.
+   * - New file: starts at line 55, spans 9 lines.
+   *
+   * 2. Identify changes:
+   * - Lines starting with `-` are removed.
+   * - Lines starting with `+` are added.
+   *
+   * 3. Map changes to line numbers:
+   * - Use `` as the base for added lines.
+   * - Example: If `\@\@ -55,9 +55,9 \@\@` and the 4th line is added, it maps to line 58 (55 + 3).
+   *
+   * 4. Repeat for all `\@\@` blocks to track all changes.
+   *
+   *
+   * // Example: Shortened diff snippet
+   *
+   * If there is no change, the line numbers of LEFT and RIGHT are treated as the same.
+   * ```diff
+   * \@\@ -55,9 +55,9 \@\@
+   * -   "@nestia/agent": "^0.3.3", // left 55 line.
+   * +   "@nestia/agent": "^0.3.6", // right 55 line.
+   * -   "@nestia/sdk": "^4.5.1", // left 56 line.
+   * +   "@nestia/sdk": "^4.6.0", // right 56 line.
+   * \@\@ -97,7 +97,7 \@\@
+   * -   "@nestia/core": "^4.5.1", // left 97 line.
+   * +   "@nestia/core": "^4.6.0", // right 98 line.
+   * \@\@ -114,7 +114,7 \@\@
+   * -   "@wrtnio/schema": "^3.2.0", // left 114 line.
+   * +   "@wrtnio/schema": "^3.2.1", // right 114 line.
+   * `;
+   * ```
+   *   *
    * Notes:
    * - Ensure that the line counts (`6`, `8`) are accurate, even if newline characters are included.
    * - LEFT represents the original state of the file, and RIGHT represents the modified state.
