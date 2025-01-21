@@ -16,7 +16,7 @@
   ],
   "info": {
     "title": "jira",
-    "version": "0.1.451",
+    "version": "0.1.452",
     "description": "wrtn-ecosystem connectors and sdk",
     "license": {
       "name": "AGPL-3.0-only"
@@ -2744,6 +2744,15 @@
       "IJira.IGetIssueAssignableInput": {
         "type": "object",
         "properties": {
+          "project": {
+            "type": "string",
+            "x-wrtn-prerequisite": {
+              "method": "post",
+              "path": "/connector/jira/get-projects",
+              "jmesPath": "values[].{value:key, label:name}"
+            },
+            "title": "key of project\n\nIt refers to the key of the project to search for the user to be assigned."
+          },
           "maxResults": {
             "type": "integer",
             "default": 50,
@@ -2755,15 +2764,6 @@
             "default": 0,
             "title": "page offset",
             "description": "The index of the first item to return in a page of results (page offset)."
-          },
-          "project": {
-            "type": "string",
-            "x-wrtn-prerequisite": {
-              "method": "post",
-              "path": "/connector/jira/get-projects",
-              "jmesPath": "values[].{value:key, label:name}"
-            },
-            "title": "key of project\n\nIt refers to the key of the project to search for the user to be assigned."
           },
           "issueKey": {
             "type": "string",

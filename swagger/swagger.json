@@ -15,7 +15,7 @@
     }
   ],
   "info": {
-    "version": "0.1.451",
+    "version": "0.1.452",
     "title": "@wrtn/connector",
     "description": "wrtn-ecosystem connectors and sdk",
     "license": {
@@ -40679,6 +40679,15 @@
       "IJira.IGetIssueAssignableInput": {
         "type": "object",
         "properties": {
+          "project": {
+            "type": "string",
+            "x-wrtn-prerequisite": {
+              "method": "post",
+              "path": "/connector/jira/get-projects",
+              "jmesPath": "values[].{value:key, label:name}"
+            },
+            "title": "key of project\n\nIt refers to the key of the project to search for the user to be assigned."
+          },
           "maxResults": {
             "type": "integer",
             "default": 50,
@@ -40690,15 +40699,6 @@
             "default": 0,
             "title": "page offset",
             "description": "The index of the first item to return in a page of results (page offset)."
-          },
-          "project": {
-            "type": "string",
-            "x-wrtn-prerequisite": {
-              "method": "post",
-              "path": "/connector/jira/get-projects",
-              "jmesPath": "values[].{value:key, label:name}"
-            },
-            "title": "key of project\n\nIt refers to the key of the project to search for the user to be assigned."
           },
           "issueKey": {
             "type": "string",
@@ -42687,6 +42687,15 @@
           "secretKey": {
             "type": "string",
             "x-wrtn-secret-key": "github",
+            "x-wrtn-secret-scopes": [
+              "repo",
+              "user",
+              "admin:repo_hook",
+              "admin:org",
+              "gist",
+              "notifications",
+              "project"
+            ],
             "title": "Select authentication information",
             "description": "secret key."
           }
@@ -42703,7 +42712,13 @@
             "type": "string",
             "x-wrtn-secret-key": "github",
             "x-wrtn-secret-scopes": [
-              "repo"
+              "repo",
+              "user",
+              "admin:repo_hook",
+              "admin:org",
+              "gist",
+              "notifications",
+              "project"
             ],
             "title": "Select authentication information",
             "description": "secret key."
@@ -43203,7 +43218,13 @@
             "type": "string",
             "x-wrtn-secret-key": "github",
             "x-wrtn-secret-scopes": [
-              "repo"
+              "repo",
+              "user",
+              "admin:repo_hook",
+              "admin:org",
+              "gist",
+              "notifications",
+              "project"
             ],
             "title": "Select authentication information",
             "description": "secret key."
@@ -43237,6 +43258,15 @@
           "secretKey": {
             "type": "string",
             "x-wrtn-secret-key": "github",
+            "x-wrtn-secret-scopes": [
+              "repo",
+              "user",
+              "admin:repo_hook",
+              "admin:org",
+              "gist",
+              "notifications",
+              "project"
+            ],
             "title": "Select authentication information",
             "description": "secret key."
           }
@@ -43397,8 +43427,13 @@
             "type": "string",
             "x-wrtn-secret-key": "github",
             "x-wrtn-secret-scopes": [
+              "repo",
               "user",
-              "repo"
+              "admin:repo_hook",
+              "admin:org",
+              "gist",
+              "notifications",
+              "project"
             ],
             "title": "Select authentication information",
             "description": "secret key."
@@ -43916,8 +43951,13 @@
             "type": "string",
             "x-wrtn-secret-key": "github",
             "x-wrtn-secret-scopes": [
+              "repo",
+              "user",
+              "admin:repo_hook",
               "admin:org",
-              "repo"
+              "gist",
+              "notifications",
+              "project"
             ],
             "title": "Select authentication information",
             "description": "secret key."
@@ -43953,7 +43993,13 @@
             "type": "string",
             "x-wrtn-secret-key": "github",
             "x-wrtn-secret-scopes": [
-              "repo"
+              "repo",
+              "user",
+              "admin:repo_hook",
+              "admin:org",
+              "gist",
+              "notifications",
+              "project"
             ],
             "title": "Select authentication information",
             "description": "secret key."
@@ -43963,14 +44009,14 @@
             "title": "owner's name",
             "description": "The owner's name and the repository's name can be combined to form '${owner}/${repo}' and can be a unique path name for a single repository.\nSo the owner here is the nickname of the repository owner, not the name of the person committing or the author."
           },
+          "repo": {
+            "type": "string",
+            "title": "repository name\n\nThe owner's name and the repository's name can be combined to form '${owner}/${repo}' and can be a unique path name for a single repository."
+          },
           "path": {
             "type": "string",
             "title": "path parameters",
             "description": "It refers to the path of the file, and is the path of the file including folders and extensions.\nIf you want to make index.ts in src, you need to add 'src/index.ts'."
-          },
-          "repo": {
-            "type": "string",
-            "title": "repository name\n\nThe owner's name and the repository's name can be combined to form '${owner}/${repo}' and can be a unique path name for a single repository."
           },
           "sha": {
             "type": "string",
@@ -44041,8 +44087,8 @@
           "message",
           "secretKey",
           "owner",
-          "path",
           "repo",
+          "path",
           "sha"
         ]
       },
@@ -44190,7 +44236,13 @@
             "type": "string",
             "x-wrtn-secret-key": "github",
             "x-wrtn-secret-scopes": [
-              "repo"
+              "repo",
+              "user",
+              "admin:repo_hook",
+              "admin:org",
+              "gist",
+              "notifications",
+              "project"
             ],
             "title": "Select authentication information",
             "description": "secret key."
@@ -44290,7 +44342,13 @@
             "type": "string",
             "x-wrtn-secret-key": "github",
             "x-wrtn-secret-scopes": [
-              "repo"
+              "repo",
+              "user",
+              "admin:repo_hook",
+              "admin:org",
+              "gist",
+              "notifications",
+              "project"
             ],
             "title": "Select authentication information",
             "description": "secret key."
@@ -44404,6 +44462,15 @@
           "secretKey": {
             "type": "string",
             "x-wrtn-secret-key": "github",
+            "x-wrtn-secret-scopes": [
+              "repo",
+              "user",
+              "admin:repo_hook",
+              "admin:org",
+              "gist",
+              "notifications",
+              "project"
+            ],
             "title": "Select authentication information",
             "description": "secret key."
           },
@@ -44482,6 +44549,15 @@
           "secretKey": {
             "type": "string",
             "x-wrtn-secret-key": "github",
+            "x-wrtn-secret-scopes": [
+              "repo",
+              "user",
+              "admin:repo_hook",
+              "admin:org",
+              "gist",
+              "notifications",
+              "project"
+            ],
             "title": "Select authentication information",
             "description": "secret key."
           }
@@ -44516,6 +44592,15 @@
           "secretKey": {
             "type": "string",
             "x-wrtn-secret-key": "github",
+            "x-wrtn-secret-scopes": [
+              "repo",
+              "user",
+              "admin:repo_hook",
+              "admin:org",
+              "gist",
+              "notifications",
+              "project"
+            ],
             "title": "Select authentication information",
             "description": "secret key."
           }
@@ -44532,6 +44617,15 @@
           "secretKey": {
             "type": "string",
             "x-wrtn-secret-key": "github",
+            "x-wrtn-secret-scopes": [
+              "repo",
+              "user",
+              "admin:repo_hook",
+              "admin:org",
+              "gist",
+              "notifications",
+              "project"
+            ],
             "title": "Select authentication information",
             "description": "secret key."
           },
@@ -44578,6 +44672,15 @@
           "secretKey": {
             "type": "string",
             "x-wrtn-secret-key": "github",
+            "x-wrtn-secret-scopes": [
+              "repo",
+              "user",
+              "admin:repo_hook",
+              "admin:org",
+              "gist",
+              "notifications",
+              "project"
+            ],
             "title": "Select authentication information",
             "description": "secret key."
           }
@@ -44611,6 +44714,15 @@
           "secretKey": {
             "type": "string",
             "x-wrtn-secret-key": "github",
+            "x-wrtn-secret-scopes": [
+              "repo",
+              "user",
+              "admin:repo_hook",
+              "admin:org",
+              "gist",
+              "notifications",
+              "project"
+            ],
             "title": "Select authentication information",
             "description": "secret key."
           }
@@ -44719,7 +44831,13 @@
             "type": "string",
             "x-wrtn-secret-key": "github",
             "x-wrtn-secret-scopes": [
-              "user"
+              "repo",
+              "user",
+              "admin:repo_hook",
+              "admin:org",
+              "gist",
+              "notifications",
+              "project"
             ],
             "title": "Select authentication information",
             "description": "secret key."
@@ -44762,6 +44880,15 @@
           "secretKey": {
             "type": "string",
             "x-wrtn-secret-key": "github",
+            "x-wrtn-secret-scopes": [
+              "repo",
+              "user",
+              "admin:repo_hook",
+              "admin:org",
+              "gist",
+              "notifications",
+              "project"
+            ],
             "title": "Select authentication information",
             "description": "secret key."
           }
@@ -45025,7 +45152,13 @@
             "type": "string",
             "x-wrtn-secret-key": "github",
             "x-wrtn-secret-scopes": [
-              "repo"
+              "repo",
+              "user",
+              "admin:repo_hook",
+              "admin:org",
+              "gist",
+              "notifications",
+              "project"
             ],
             "title": "Select authentication information",
             "description": "secret key."
@@ -45114,7 +45247,13 @@
             "type": "string",
             "x-wrtn-secret-key": "github",
             "x-wrtn-secret-scopes": [
-              "repo"
+              "repo",
+              "user",
+              "admin:repo_hook",
+              "admin:org",
+              "gist",
+              "notifications",
+              "project"
             ],
             "title": "Select authentication information",
             "description": "secret key."
@@ -45234,7 +45373,13 @@
             "type": "string",
             "x-wrtn-secret-key": "github",
             "x-wrtn-secret-scopes": [
-              "repo"
+              "repo",
+              "user",
+              "admin:repo_hook",
+              "admin:org",
+              "gist",
+              "notifications",
+              "project"
             ],
             "title": "Select authentication information",
             "description": "secret key."
@@ -45419,7 +45564,13 @@
             "type": "string",
             "x-wrtn-secret-key": "github",
             "x-wrtn-secret-scopes": [
-              "repo"
+              "repo",
+              "user",
+              "admin:repo_hook",
+              "admin:org",
+              "gist",
+              "notifications",
+              "project"
             ],
             "title": "Select authentication information",
             "description": "secret key."
@@ -45474,7 +45625,13 @@
             "type": "string",
             "x-wrtn-secret-key": "github",
             "x-wrtn-secret-scopes": [
-              "repo"
+              "repo",
+              "user",
+              "admin:repo_hook",
+              "admin:org",
+              "gist",
+              "notifications",
+              "project"
             ],
             "title": "Select authentication information",
             "description": "secret key."
@@ -45599,7 +45756,13 @@
             "type": "string",
             "x-wrtn-secret-key": "github",
             "x-wrtn-secret-scopes": [
-              "repo"
+              "repo",
+              "user",
+              "admin:repo_hook",
+              "admin:org",
+              "gist",
+              "notifications",
+              "project"
             ],
             "title": "Select authentication information",
             "description": "secret key."
@@ -45672,7 +45835,13 @@
             "type": "string",
             "x-wrtn-secret-key": "github",
             "x-wrtn-secret-scopes": [
-              "repo"
+              "repo",
+              "user",
+              "admin:repo_hook",
+              "admin:org",
+              "gist",
+              "notifications",
+              "project"
             ],
             "title": "Select authentication information",
             "description": "secret key."
@@ -45913,7 +46082,13 @@
             "type": "string",
             "x-wrtn-secret-key": "github",
             "x-wrtn-secret-scopes": [
-              "repo"
+              "repo",
+              "user",
+              "admin:repo_hook",
+              "admin:org",
+              "gist",
+              "notifications",
+              "project"
             ],
             "title": "Select authentication information",
             "description": "secret key."
@@ -46130,7 +46305,13 @@
             "type": "string",
             "x-wrtn-secret-key": "github",
             "x-wrtn-secret-scopes": [
-              "repo"
+              "repo",
+              "user",
+              "admin:repo_hook",
+              "admin:org",
+              "gist",
+              "notifications",
+              "project"
             ],
             "title": "Select authentication information",
             "description": "secret key."
@@ -46239,7 +46420,13 @@
             "type": "string",
             "x-wrtn-secret-key": "github",
             "x-wrtn-secret-scopes": [
-              "repo"
+              "repo",
+              "user",
+              "admin:repo_hook",
+              "admin:org",
+              "gist",
+              "notifications",
+              "project"
             ],
             "title": "Select authentication information",
             "description": "secret key."
@@ -46479,7 +46666,13 @@
             "type": "string",
             "x-wrtn-secret-key": "github",
             "x-wrtn-secret-scopes": [
-              "repo"
+              "repo",
+              "user",
+              "admin:repo_hook",
+              "admin:org",
+              "gist",
+              "notifications",
+              "project"
             ],
             "title": "Select authentication information",
             "description": "secret key."
@@ -46700,7 +46893,13 @@
             "type": "string",
             "x-wrtn-secret-key": "github",
             "x-wrtn-secret-scopes": [
-              "repo"
+              "repo",
+              "user",
+              "admin:repo_hook",
+              "admin:org",
+              "gist",
+              "notifications",
+              "project"
             ],
             "title": "Select authentication information",
             "description": "secret key."
@@ -47495,6 +47694,15 @@
           "secretKey": {
             "type": "string",
             "x-wrtn-secret-key": "github",
+            "x-wrtn-secret-scopes": [
+              "repo",
+              "user",
+              "admin:repo_hook",
+              "admin:org",
+              "gist",
+              "notifications",
+              "project"
+            ],
             "title": "Select authentication information",
             "description": "secret key."
           },
@@ -47510,13 +47718,13 @@
             "title": "per_page",
             "description": "The number of results per page (max 100)."
           },
-          "after": {
-            "type": "string",
-            "title": "after\ncursor of next page"
-          },
           "repo": {
             "type": "string",
             "title": "repository name\n\nThe owner's name and the repository's name can be combined to form '${owner}/${repo}' and can be a unique path name for a single repository."
+          },
+          "after": {
+            "type": "string",
+            "title": "after\ncursor of next page"
           },
           "state": {
             "oneOf": [
@@ -47816,7 +48024,13 @@
             "type": "string",
             "x-wrtn-secret-key": "github",
             "x-wrtn-secret-scopes": [
-              "repo"
+              "repo",
+              "user",
+              "admin:repo_hook",
+              "admin:org",
+              "gist",
+              "notifications",
+              "project"
             ],
             "title": "Select authentication information",
             "description": "secret key."
@@ -47854,7 +48068,13 @@
             "type": "string",
             "x-wrtn-secret-key": "github",
             "x-wrtn-secret-scopes": [
-              "repo"
+              "repo",
+              "user",
+              "admin:repo_hook",
+              "admin:org",
+              "gist",
+              "notifications",
+              "project"
             ],
             "title": "Select authentication information",
             "description": "secret key."
@@ -48082,6 +48302,15 @@
           "secretKey": {
             "type": "string",
             "x-wrtn-secret-key": "github",
+            "x-wrtn-secret-scopes": [
+              "repo",
+              "user",
+              "admin:repo_hook",
+              "admin:org",
+              "gist",
+              "notifications",
+              "project"
+            ],
             "title": "Select authentication information",
             "description": "secret key."
           }
@@ -48258,6 +48487,15 @@
           "secretKey": {
             "type": "string",
             "x-wrtn-secret-key": "github",
+            "x-wrtn-secret-scopes": [
+              "repo",
+              "user",
+              "admin:repo_hook",
+              "admin:org",
+              "gist",
+              "notifications",
+              "project"
+            ],
             "title": "Select authentication information",
             "description": "secret key."
           }
@@ -48735,6 +48973,15 @@
           "secretKey": {
             "type": "string",
             "x-wrtn-secret-key": "github",
+            "x-wrtn-secret-scopes": [
+              "repo",
+              "user",
+              "admin:repo_hook",
+              "admin:org",
+              "gist",
+              "notifications",
+              "project"
+            ],
             "title": "Select authentication information",
             "description": "secret key."
           }
@@ -48814,7 +49061,13 @@
             "type": "string",
             "x-wrtn-secret-key": "github",
             "x-wrtn-secret-scopes": [
-              "user"
+              "repo",
+              "user",
+              "admin:repo_hook",
+              "admin:org",
+              "gist",
+              "notifications",
+              "project"
             ],
             "title": "Select authentication information",
             "description": "secret key."
@@ -48946,7 +49199,13 @@
             "type": "string",
             "x-wrtn-secret-key": "github",
             "x-wrtn-secret-scopes": [
-              "repo"
+              "repo",
+              "user",
+              "admin:repo_hook",
+              "admin:org",
+              "gist",
+              "notifications",
+              "project"
             ],
             "title": "Select authentication information",
             "description": "secret key."
@@ -49018,7 +49277,13 @@
             "type": "string",
             "x-wrtn-secret-key": "github",
             "x-wrtn-secret-scopes": [
-              "repo"
+              "repo",
+              "user",
+              "admin:repo_hook",
+              "admin:org",
+              "gist",
+              "notifications",
+              "project"
             ],
             "title": "Select authentication information",
             "description": "secret key."
@@ -49398,6 +49663,15 @@
           "secretKey": {
             "type": "string",
             "x-wrtn-secret-key": "github",
+            "x-wrtn-secret-scopes": [
+              "repo",
+              "user",
+              "admin:repo_hook",
+              "admin:org",
+              "gist",
+              "notifications",
+              "project"
+            ],
             "title": "Select authentication information",
             "description": "secret key."
           }
@@ -49550,6 +49824,15 @@
           "secretKey": {
             "type": "string",
             "x-wrtn-secret-key": "github",
+            "x-wrtn-secret-scopes": [
+              "repo",
+              "user",
+              "admin:repo_hook",
+              "admin:org",
+              "gist",
+              "notifications",
+              "project"
+            ],
             "title": "Select authentication information",
             "description": "secret key."
           }
@@ -49660,7 +49943,13 @@
             "type": "string",
             "x-wrtn-secret-key": "github",
             "x-wrtn-secret-scopes": [
-              "repo"
+              "repo",
+              "user",
+              "admin:repo_hook",
+              "admin:org",
+              "gist",
+              "notifications",
+              "project"
             ],
             "title": "Select authentication information",
             "description": "secret key."
@@ -49883,7 +50172,13 @@
             "type": "string",
             "x-wrtn-secret-key": "github",
             "x-wrtn-secret-scopes": [
-              "repo"
+              "repo",
+              "user",
+              "admin:repo_hook",
+              "admin:org",
+              "gist",
+              "notifications",
+              "project"
             ],
             "title": "Select authentication information",
             "description": "secret key."
@@ -50024,7 +50319,13 @@
             "type": "string",
             "x-wrtn-secret-key": "github",
             "x-wrtn-secret-scopes": [
-              "user"
+              "repo",
+              "user",
+              "admin:repo_hook",
+              "admin:org",
+              "gist",
+              "notifications",
+              "project"
             ],
             "title": "Select authentication information",
             "description": "secret key."
@@ -50134,7 +50435,13 @@
             "type": "string",
             "x-wrtn-secret-key": "github",
             "x-wrtn-secret-scopes": [
-              "user"
+              "repo",
+              "user",
+              "admin:repo_hook",
+              "admin:org",
+              "gist",
+              "notifications",
+              "project"
             ],
             "title": "Select authentication information",
             "description": "secret key."
@@ -50270,7 +50577,13 @@
             "type": "string",
             "x-wrtn-secret-key": "github",
             "x-wrtn-secret-scopes": [
-              "repo"
+              "repo",
+              "user",
+              "admin:repo_hook",
+              "admin:org",
+              "gist",
+              "notifications",
+              "project"
             ],
             "title": "Select authentication information",
             "description": "secret key."
@@ -50316,7 +50629,13 @@
             "type": "string",
             "x-wrtn-secret-key": "github",
             "x-wrtn-secret-scopes": [
-              "repo"
+              "repo",
+              "user",
+              "admin:repo_hook",
+              "admin:org",
+              "gist",
+              "notifications",
+              "project"
             ],
             "title": "Select authentication information",
             "description": "secret key."
@@ -50404,7 +50723,13 @@
             "type": "string",
             "x-wrtn-secret-key": "github",
             "x-wrtn-secret-scopes": [
-              "repo"
+              "repo",
+              "user",
+              "admin:repo_hook",
+              "admin:org",
+              "gist",
+              "notifications",
+              "project"
             ],
             "title": "Select authentication information",
             "description": "secret key."
@@ -57640,7 +57965,7 @@
                 "const": ""
               },
               {
-                "$ref": "#/components/schemas/__type.o2179"
+                "$ref": "#/components/schemas/__type.o2171"
               }
             ],
             "title": "replies"
@@ -58087,14 +58412,14 @@
           "name"
         ]
       },
-      "__type.o2179": {
+      "__type.o2171": {
         "type": "object",
         "properties": {
           "kind": {
             "const": "Listing"
           },
           "data": {
-            "$ref": "#/components/schemas/__type.o2180"
+            "$ref": "#/components/schemas/__type.o2172"
           }
         },
         "required": [
@@ -58102,7 +58427,7 @@
           "data"
         ]
       },
-      "__type.o2180": {
+      "__type.o2172": {
         "type": "object",
         "properties": {
           "after": {
@@ -58122,7 +58447,7 @@
             "items": {
               "oneOf": [
                 {
-                  "$ref": "#/components/schemas/__type.o2181"
+                  "$ref": "#/components/schemas/__type.o2173"
                 },
                 {
                   "type": "object",
@@ -58196,7 +58521,7 @@
           "before"
         ]
       },
-      "__type.o2181": {
+      "__type.o2173": {
         "type": "object",
         "properties": {
           "kind": {
