@@ -1232,22 +1232,27 @@ export class GithubProvider {
   async createIssueComments(
     input: IGithub.ICreateIssueCommentInput,
   ): Promise<IGithub.ICreateIssueCommentOutput> {
-    const { owner, repo, issue_number, secretKey, body } = input;
-    const token = await this.getToken(secretKey);
-    const url = `https://api.github.com/repos/${owner}/${repo}/issues/${issue_number}/comments`;
-    const res = await axios.post(
-      url,
-      {
-        body,
-      },
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
+    try {
+      const { owner, repo, issue_number, secretKey, body } = input;
+      const token = await this.getToken(secretKey);
+      const url = `https://api.github.com/repos/${owner}/${repo}/issues/${issue_number}/comments`;
+      const res = await axios.post(
+        url,
+        {
+          body,
         },
-      },
-    );
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        },
+      );
 
-    return res.data;
+      return res.data;
+    } catch (err) {
+      console.error(JSON.stringify(err, null, 2));
+      throw err;
+    }
   }
 
   async getOrganizationRepositories(

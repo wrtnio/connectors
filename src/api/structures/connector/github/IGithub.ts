@@ -6,6 +6,21 @@ import { StrictOmit } from "../../types/strictOmit";
 import { ICommon } from "../common/ISecretValue";
 
 export namespace IGithub {
+  export namespace Common {
+    export type ISecret = ICommon.ISecret<
+      "github",
+      [
+        "repo",
+        "user",
+        "admin:repo_hook",
+        "admin:org",
+        "gist",
+        "notifications",
+        "project",
+      ]
+    >;
+  }
+
   export interface ICommonPaginationOutput {
     /**
      * However, since true and false are judged by comparing the number of requested objects with the number of searched objects,
@@ -493,8 +508,7 @@ export namespace IGithub {
         status: string;
       };
 
-  export interface IReadPullRequestDetailInput
-    extends ICommon.ISecret<"github", ["repo"]> {
+  export interface IReadPullRequestDetailInput extends IGithub.Common.ISecret {
     /**
      * The owner's name and the repository's name can be combined to form '${owner}/${repo}' and can be a unique path name for a single repository.
      * So the owner here is the nickname of the repository owner, not the name of the person committing or the author.
@@ -555,7 +569,7 @@ export namespace IGithub {
   }
 
   export interface IGetAuthenticatedUserOrganizationInput
-    extends ICommon.ISecret<"github", ["user"]>,
+    extends IGithub.Common.ISecret,
       MyPick<IGithub.ICommonPaginationInput, "page" | "per_page"> {}
 
   export type IGetRepositoryFolderStructureOutput = (
@@ -693,7 +707,7 @@ export namespace IGithub {
 
   export type IGetBulkFileContentOutput = IGetFileContentOutput[];
 
-  export interface IGetBulkFileContentInput extends ICommon.ISecret<"github"> {
+  export interface IGetBulkFileContentInput extends IGithub.Common.ISecret {
     /**
      * The owner's name and the repository's name can be combined to form '${owner}/${repo}' and can be a unique path name for a single repository.
      * So the owner here is the nickname of the repository owner, not the name of the person committing or the author.
@@ -728,7 +742,7 @@ export namespace IGithub {
     "secretKey" | "owner" | "repo"
   >;
 
-  export interface IGetFileContentInput extends ICommon.ISecret<"github"> {
+  export interface IGetFileContentInput extends IGithub.Common.ISecret {
     /**
      * The owner's name and the repository's name can be combined to form '${owner}/${repo}' and can be a unique path name for a single repository.
      * So the owner here is the nickname of the repository owner, not the name of the person committing or the author.
@@ -875,8 +889,7 @@ export namespace IGithub {
     };
   }
 
-  export interface ICreateFileContentInput
-    extends ICommon.ISecret<"github", ["repo"]> {
+  export interface ICreateFileContentInput extends IGithub.Common.ISecret {
     /**
      * The owner's name and the repository's name can be combined to form '${owner}/${repo}' and can be a unique path name for a single repository.
      * So the owner here is the nickname of the repository owner, not the name of the person committing or the author.
@@ -995,7 +1008,7 @@ export namespace IGithub {
     | "changed_files"
   >[];
 
-  export interface IGetPullRequestInput extends ICommon.ISecret<"github"> {
+  export interface IGetPullRequestInput extends IGithub.Common.ISecret {
     /**
      * @title user's nickname
      */
@@ -1040,7 +1053,7 @@ export namespace IGithub {
     files: IGithub.File[];
   };
 
-  export interface IGetCommitHeadInput extends ICommon.ISecret<"github"> {
+  export interface IGetCommitHeadInput extends IGithub.Common.ISecret {
     /**
      * @title user's nickname
      */
@@ -1064,7 +1077,7 @@ export namespace IGithub {
       }>;
   }
 
-  export interface ICallInput extends ICommon.ISecret<"github"> {
+  export interface ICallInput extends IGithub.Common.ISecret {
     /**
      * @title github api endpoint
      */
@@ -1268,7 +1281,7 @@ export namespace IGithub {
 
   export interface IGetEventInput
     extends StrictOmit<ICommonPaginationInput, "order">,
-      ICommon.ISecret<"github"> {}
+      IGithub.Common.ISecret {}
 
   export interface IGetRepositoryActivityOutput
     extends ICommonPaginationOutput {
@@ -1280,7 +1293,7 @@ export namespace IGithub {
 
   export interface IGetRepositoryActivityInput
     extends StrictOmit<ICommonPaginationInput, "order" | "page">,
-      ICommon.ISecret<"github", ["repo"]> {
+      IGithub.Common.ISecret {
     /**
      * The order to sort by.
      * Default: asc when using full_name, otherwise desc.
@@ -1343,7 +1356,7 @@ export namespace IGithub {
     activity_type?: Activity["activity_type"];
   }
 
-  export type IGetMyProfileInput = ICommon.ISecret<"github">;
+  export type IGetMyProfileInput = IGithub.Common.ISecret;
   export interface IGetFolloweeOutput extends ICommonPaginationOutput {
     /**
      * @title followees
@@ -1377,8 +1390,7 @@ export namespace IGithub {
 
   export type ICreateIssueOutput = IGithub.Issue;
 
-  export interface ICreateIssueInput
-    extends ICommon.ISecret<"github", ["repo"]> {
+  export interface ICreateIssueInput extends IGithub.Common.ISecret {
     /**
      * @title user's nickname
      */
@@ -1422,7 +1434,7 @@ export namespace IGithub {
 
   export interface IGetFolloweeInput
     extends ICommonPaginationInput,
-      ICommon.ISecret<"github", ["user"]> {
+      IGithub.Common.ISecret {
     /**
      * @title user's nickname
      */
@@ -1462,7 +1474,7 @@ export namespace IGithub {
 
   export interface IGetLabelInput
     extends MyPick<ICommonPaginationInput, "per_page" | "page">,
-      ICommon.ISecret<"github", ["repo"]> {
+      IGithub.Common.ISecret {
     /**
      * @title user's nickname
      */
@@ -1483,7 +1495,7 @@ export namespace IGithub {
 
   export interface IGetFollowerInput
     extends ICommonPaginationInput,
-      ICommon.ISecret<"github", ["user"]> {
+      IGithub.Common.ISecret {
     /**
      * @title user's nickname
      */
@@ -1509,7 +1521,7 @@ export namespace IGithub {
 
   export interface IGetCommitListInput
     extends ICommonPaginationInput,
-      ICommon.ISecret<"github", ["repo"]> {
+      IGithub.Common.ISecret {
     /**
      * @title user's nickname
      */
@@ -1612,7 +1624,7 @@ export namespace IGithub {
     files: IGithub.File[];
   }
 
-  export interface IGetCommitInput extends ICommon.ISecret<"github", ["repo"]> {
+  export interface IGetCommitInput extends IGithub.Common.ISecret {
     /**
      * @title user's nickname
      */
@@ -1643,7 +1655,7 @@ export namespace IGithub {
 
   export interface IGetBranchInput
     extends StrictOmit<ICommonPaginationInput, "order">,
-      ICommon.ISecret<"github", ["repo"]> {
+      IGithub.Common.ISecret {
     /**
      * @title user's nickname
      */
@@ -1677,8 +1689,7 @@ export namespace IGithub {
     };
   }
 
-  export interface ICreateBranchInput
-    extends ICommon.ISecret<"github", ["repo"]> {
+  export interface ICreateBranchInput extends IGithub.Common.ISecret {
     /**
      * @title user's nickname
      */
@@ -1761,7 +1772,7 @@ export namespace IGithub {
 
   export interface IGetRepositoryInput
     extends StrictOmit<ICommonPaginationInput, "order" | "per_page">,
-      ICommon.ISecret<"github", ["repo"]> {
+      IGithub.Common.ISecret {
     /**
      * The number of results per page (max 10).
      *
@@ -1852,8 +1863,7 @@ export namespace IGithub {
     "title" | "number" | "id"
   >;
 
-  export interface ICreatePullRequestInput
-    extends ICommon.ISecret<"github", ["repo"]> {
+  export interface ICreatePullRequestInput extends IGithub.Common.ISecret {
     /**
      * The owner's name and the repository's name can be combined to form '${owner}/${repo}' and can be a unique path name for a single repository.
      * So the owner here is the nickname of the repository owner, not the name of the person committing or the author.
@@ -2263,8 +2273,7 @@ export namespace IGithub {
     extends IGetIssueDetailInput,
       MyPick<ICommonPaginationInput, "page" | "per_page"> {}
 
-  export interface IGetIssueDetailInput
-    extends ICommon.ISecret<"github", ["repo"]> {
+  export interface IGetIssueDetailInput extends IGithub.Common.ISecret {
     /**
      * @title issue number to get detailed info
      */
@@ -2291,7 +2300,7 @@ export namespace IGithub {
     repo: Repository["name"];
   }
 
-  export interface IFetchRepositoryInput extends ICommon.ISecret<"github"> {
+  export interface IFetchRepositoryInput extends IGithub.Common.ISecret {
     /**
      * @title after
      * cursor of next page
@@ -2603,7 +2612,7 @@ export namespace IGithub {
     pinned_repositories: IGithub.IGetUserPinnedRepositoryOutput;
   }
 
-  export interface IGetUserProfileInput extends ICommon.ISecret<"github"> {
+  export interface IGetUserProfileInput extends IGithub.Common.ISecret {
     /**
      * @title username
      */
@@ -2621,7 +2630,7 @@ export namespace IGithub {
 
   export interface ISearchUserInput
     extends ICommonPaginationInput,
-      ICommon.ISecret<"github"> {
+      IGithub.Common.ISecret {
     /**
      * The query contains one or more search keywords and qualifiers.
      * Qualifiers allow you to limit your search to specific areas of GitHub.
