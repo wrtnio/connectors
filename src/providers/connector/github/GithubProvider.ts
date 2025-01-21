@@ -410,7 +410,7 @@ export class GithubProvider {
         },
       });
 
-      return res.data;
+      return { diff: res.data };
     } catch (err) {
       if (err instanceof AxiosError) {
         const data = err.response?.data;

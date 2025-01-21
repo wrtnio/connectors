@@ -604,77 +604,79 @@ export namespace IGithub {
 
   export type IReadPullRequestDetailOutput = PullRequest;
 
-  /**
-   * Called diff, and if it comes out in the form of a string,
-   * it's in the form of 'application/vnd.github.v3.diff'.
-   *
-   * Explains the GitHub diff header format, such as `-48,6 +49,8`.
-   *
-   * Description:
-   * This format appears in GitHub code diffs to describe the location and size of changes in a file.
-   * It provides information for both the original (LEFT) and modified (RIGHT) versions of the file.
-   *
-   * Parameters:
-   * - diffHeader (string): The diff header string, such as `-48,6 +49,8`.
-   *
-   * Example:
-   * Understanding the components of the diff header:
-   * - `-48,6` refers to the LEFT side (original file):
-   *    - `48`: The starting line number of the changed block in the original file.
-   *    - `6`: The number of lines in the block from the original file.
-   *
-   * - `+49,8` refers to the RIGHT side (modified file):
-   *    - `49`: The starting line number of the changed block in the modified file.
-   *    - `8`: The number of lines in the block from the modified file.
-   *
-   * - Additional context (if any) follows the header, describing the location of changes, such as the function
-   *   or class name. This is optional and may be omitted if no specific context exists.
-   *
-   * # Diff Analysis Guide:
-   * 1. Use `\@\@` to locate the changed lines:
-   * - Format: \@\@ -, +, \@\@
-   * - Example: \@\@ -55,9 +55,9 \@\@
-   * - Old file: starts at line 55, spans 9 lines.
-   * - New file: starts at line 55, spans 9 lines.
-   *
-   * 2. Identify changes:
-   * - Lines starting with `-` are removed.
-   * - Lines starting with `+` are added.
-   *
-   * 3. Map changes to line numbers:
-   * - Use `` as the base for added lines.
-   * - Example: If `\@\@ -55,9 +55,9 \@\@` and the 4th line is added, it maps to line 58 (55 + 3).
-   *
-   * 4. Repeat for all `\@\@` blocks to track all changes.
-   *
-   *
-   * // Example: Shortened diff snippet
-   *
-   * If there is no change, the line numbers of LEFT and RIGHT are treated as the same.
-   * ```diff
-   * \@\@ -55,9 +55,9 \@\@
-   * -   "@nestia/agent": "^0.3.3", // left 55 line.
-   * +   "@nestia/agent": "^0.3.6", // right 55 line.
-   * -   "@nestia/sdk": "^4.5.1", // left 56 line.
-   * +   "@nestia/sdk": "^4.6.0", // right 56 line.
-   * \@\@ -97,7 +97,7 \@\@
-   * -   "@nestia/core": "^4.5.1", // left 97 line.
-   * +   "@nestia/core": "^4.6.0", // right 98 line.
-   * \@\@ -114,7 +114,7 \@\@
-   * -   "@wrtnio/schema": "^3.2.0", // left 114 line.
-   * +   "@wrtnio/schema": "^3.2.1", // right 114 line.
-   * `;
-   * ```
-   *   *
-   * Notes:
-   * - Ensure that the line counts (`6`, `8`) are accurate, even if newline characters are included.
-   * - LEFT represents the original state of the file, and RIGHT represents the modified state.
-   * - Line counts refer to consecutive lines in the changed block.
-   *
-   * @title Diff or Error
-   */
   export type IReadPullRequestDiffOutput =
-    | string
+    | {
+        /**
+         * Called diff, and if it comes out in the form of a string,
+         * it's in the form of 'application/vnd.github.v3.diff'.
+         *
+         * Explains the GitHub diff header format, such as `-48,6 +49,8`.
+         *
+         * Description:
+         * This format appears in GitHub code diffs to describe the location and size of changes in a file.
+         * It provides information for both the original (LEFT) and modified (RIGHT) versions of the file.
+         *
+         * Parameters:
+         * - diffHeader (string): The diff header string, such as `-48,6 +49,8`.
+         *
+         * Example:
+         * Understanding the components of the diff header:
+         * - `-48,6` refers to the LEFT side (original file):
+         *    - `48`: The starting line number of the changed block in the original file.
+         *    - `6`: The number of lines in the block from the original file.
+         *
+         * - `+49,8` refers to the RIGHT side (modified file):
+         *    - `49`: The starting line number of the changed block in the modified file.
+         *    - `8`: The number of lines in the block from the modified file.
+         *
+         * - Additional context (if any) follows the header, describing the location of changes, such as the function
+         *   or class name. This is optional and may be omitted if no specific context exists.
+         *
+         * # Diff Analysis Guide:
+         * 1. Use `\@\@` to locate the changed lines:
+         * - Format: \@\@ -, +, \@\@
+         * - Example: \@\@ -55,9 +55,9 \@\@
+         * - Old file: starts at line 55, spans 9 lines.
+         * - New file: starts at line 55, spans 9 lines.
+         *
+         * 2. Identify changes:
+         * - Lines starting with `-` are removed.
+         * - Lines starting with `+` are added.
+         *
+         * 3. Map changes to line numbers:
+         * - Use `` as the base for added lines.
+         * - Example: If `\@\@ -55,9 +55,9 \@\@` and the 4th line is added, it maps to line 58 (55 + 3).
+         *
+         * 4. Repeat for all `\@\@` blocks to track all changes.
+         *
+         *
+         * // Example: Shortened diff snippet
+         *
+         * If there is no change, the line numbers of LEFT and RIGHT are treated as the same.
+         * ```diff
+         * \@\@ -55,9 +55,9 \@\@
+         * -   "@nestia/agent": "^0.3.3", // left 55 line.
+         * +   "@nestia/agent": "^0.3.6", // right 55 line.
+         * -   "@nestia/sdk": "^4.5.1", // left 56 line.
+         * +   "@nestia/sdk": "^4.6.0", // right 56 line.
+         * \@\@ -97,7 +97,7 \@\@
+         * -   "@nestia/core": "^4.5.1", // left 97 line.
+         * +   "@nestia/core": "^4.6.0", // right 98 line.
+         * \@\@ -114,7 +114,7 \@\@
+         * -   "@wrtnio/schema": "^3.2.0", // left 114 line.
+         * +   "@wrtnio/schema": "^3.2.1", // right 114 line.
+         * `;
+         * ```
+         *   *
+         * Notes:
+         * - Ensure that the line counts (`6`, `8`) are accurate, even if newline characters are included.
+         * - LEFT represents the original state of the file, and RIGHT represents the modified state.
+         * - Line counts refer to consecutive lines in the changed block.
+         *
+         * @title Diff or Error
+         */
+        diff: string;
+      }
     | {
         /**
          * @title Error Message
