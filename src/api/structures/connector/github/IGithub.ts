@@ -441,21 +441,24 @@ export namespace IGithub {
      *
      *
      * // Example: Shortened diff snippet
-     * const diffData = `
-     * \@\@ -55,9 +55,9 \@\@
-     * -   "\@nestia/agent": "^0.3.3",
-     * +   "\@nestia/agent": "^0.3.6",
-     * -   "\@nestia/sdk": "^4.5.1",
-     * +   "\@nestia/sdk": "^4.6.0",
-     * \@\@ -97,7 +97,7 \@\@
-     * -   "\@nestia/core": "^4.5.1",
-     * +   "\@nestia/core": "^4.6.0",
-     * \@\@ -114,7 +114,7 \@\@
-     * -   "\@wrtnio/schema": "^3.2.0",
-     * +   "\@wrtnio/schema": "^3.2.1",
-     * `;
      *
-     * // Analyze the diff to extract changed line numbers.
+     * ```diff
+     * \@\@ -55,9 +55,9 \@\@
+     *     "@nestia/fetcher": "^4.5.1", // Because there's no change, left, right 55 line.
+     * -   "@nestia/agent": "^0.3.3", // left 56 line.
+     * +   "@nestia/agent": "^0.3.6", // right 56 line.
+     * -   "@nestia/sdk": "^4.5.1", // left 57 line.
+     * +   "@nestia/sdk": "^4.6.0", // right 57 line.
+     * \@\@ -97,7 +97,7 \@\@
+     * -   "@nestia/core": "^4.5.1", // left 97 line.
+     * +   "@nestia/core": "^4.6.0", // right 98 line.
+     * \@\@ -114,7 +114,7 \@\@
+     * -   "@wrtnio/schema": "^3.2.0", // left 114 line.
+     * +   "@wrtnio/schema": "^3.2.1", // right 114 line.
+     * `;
+     * ```
+     *
+     * Analyze the diff to extract changed line numbers.
      *
      */
     comments?: IPullRequestComment[];
