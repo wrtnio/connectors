@@ -2263,7 +2263,8 @@ export namespace IGithub {
     extends IGetIssueDetailInput,
       MyPick<ICommonPaginationInput, "page" | "per_page"> {}
 
-  export interface IGetIssueDetailInput extends ICommon.ISecret<"github"> {
+  export interface IGetIssueDetailInput
+    extends ICommon.ISecret<"github", ["repo"]> {
     /**
      * @title issue number to get detailed info
      */
