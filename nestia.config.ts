@@ -5,6 +5,7 @@ import { OpenApi } from "@samchon/openapi";
 import { StudioModule } from "./src/StudioModule";
 import { ConnectorModule } from "./src/controllers/connector/ConnectorModule";
 import { LoggerModule } from "nestjs-pino";
+import { Type } from "@nestjs/common";
 
 const toKebabCase = (str: string) => {
   return str
@@ -14,7 +15,7 @@ const toKebabCase = (str: string) => {
 };
 
 const swagger = (props: {
-  module: Function;
+  module: Type<any>;
   info: Partial<OpenApi.IDocument.IInfo>;
   output: string;
 }): sdk.INestiaConfig => ({
