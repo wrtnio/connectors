@@ -808,10 +808,10 @@ export class GithubController {
   /**
    * Create a review for a pull request
    *
-   * Pull request reviews created in the PENDING state are not submitted and therefore do not include the `submitted_at` property in the response. To create a pending review, leave the event parameter blank.
-   * The `position` value equals the number of lines down from the first "@@" hunk header in the file you want to add a comment. The line just below the "@@" line is position 1, the next line is position 2, and so on. When calculating `position`, you need to count newline characters (`\n`) accurately, as they contribute to the line count. This means whitespace lines and additional hunks also affect the `position`. The position continues to increase through lines of whitespace and additional hunks until the beginning of a new file, where it resets to 1.
-   * **Important**: Please distinguish between when you want to **submit a review** and when you want to **add a comment** to a pull request. If you want to create a review, leave it in the PENDING state, but if you want to add a comment, use the **comment API**, not the review API. These are handled by different APIs, so make sure to use the correct one based on the intended action.
-   * When adding comments to a pull request review, you can specify multiple lines for the comment. This can be useful if you want to explain code across several lines. To do so, use the **multi-line comment functionality** in the API. This allows you to specify a range of lines, which is especially helpful when explaining larger blocks of code or providing feedback on multiple lines at once.
+   * PENDING pull request reviews are not submitted and therefore do not include the submitted_at property in the response. Leave the event parameter blank to create a pending review.
+   * The position value indicates the line number in the file, counting from the first "@@" hunk header. The line below "@@" is position 1, the next is position 2, and so on.  Newline characters (\n), whitespace lines and additional hunks affect the position. The position resets to 1 when a new file begins.
+   * Important: Differentiate between submitting a review and adding a comment to a pull request. Leave a review in the PENDING state to submit it later. Use the comment API, not the review API, to add a comment.
+   * You can specify multiple lines for a comment in a pull request review using the multi-line comment functionality in the API. This is helpful for explaining larger blocks of code or providing feedback on multiple lines at once.
    *
    * @summary Create a review for a pull request
    * @param input
