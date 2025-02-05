@@ -1,3 +1,4 @@
+import "./Tracer";
 import { Params } from "nestjs-pino";
 
 export const pinoLoggerParams: Params = {
