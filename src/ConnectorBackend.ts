@@ -67,6 +67,9 @@ export class ConnectorBackend {
       "0.0.0.0",
     );
 
+    this.application_.useLogger(this.application_.get(Logger));
+    this.application_.useGlobalFilters(new HttpExceptionFilter());
+
     //----
     // POST-PROCESSES
     //----
