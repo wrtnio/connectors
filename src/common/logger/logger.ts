@@ -1,12 +1,4 @@
-import tracer from "dd-trace";
 import { Params } from "nestjs-pino";
-
-tracer.init({
-  logInjection: true,
-  tags: {
-    track_error: true,
-  },
-});
 
 export const pinoLoggerParams: Params = {
   pinoHttp: {
