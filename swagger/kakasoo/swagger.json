@@ -1,0 +1,478 @@
+{
+  "openapi": "3.1.0",
+  "servers": [
+    {
+      "url": "https://studio-connector-poc.dev.wrtn.club",
+      "description": "Develop Server"
+    }
+  ],
+  "info": {
+    "version": "0.1.462",
+    "title": "@wrtn/connector",
+    "description": "wrtn-ecosystem connectors and sdk",
+    "license": {
+      "name": "AGPL-3.0-only"
+    }
+  },
+  "paths": {
+    "/connector/arxiv-search": {
+      "patch": {
+        "summary": "Archive Paper Search",
+        "description": "Searches the archive for papers based on the search criteria you entered",
+        "tags": [
+          "Arxiv"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "description": "Archive Paper Search Criteria",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IConnector.ISearchInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "A list of papers found in the archive based on the search criteria.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/IConnector.ISearchOutput"
+                }
+              }
+            }
+          }
+        },
+        "x-samchon-accessor": [
+          "connector",
+          "arxiv_search",
+          "search"
+        ],
+        "x-samchon-controller": "ArxivSearchController",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/arxiv.svg",
+        "x-wrtn-standalone": true,
+        "x-wrtn-function-select-benchmarks": [
+          "Arxiv에서 논문 찾아줘"
+        ]
+      }
+    },
+    "/connector/google-scholar": {
+      "patch": {
+        "summary": "Search Google Scholar paper list",
+        "description": "Get a list of papers in Google Scholar",
+        "tags": [
+          "Google Scholar"
+        ],
+        "parameters": [],
+        "requestBody": {
+          "description": "Google Scholar paper search criteria",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/IGoogleScholar.ISearchInput"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Google Scholar paper list",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/IGoogleScholar.ISearchOutput"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "x-samchon-accessor": [
+          "connector",
+          "google_scholar",
+          "search"
+        ],
+        "x-samchon-controller": "GoogleScholarController",
+        "x-wrtn-icon": "https://ecosystem-connector.s3.ap-northeast-2.amazonaws.com/icons/google_scholar.svg",
+        "x-wrtn-standalone": true,
+        "x-wrtn-function-select-benchmarks": [
+          "google scholar에서 논문 좀 찾아줘"
+        ]
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "IConnector.ISearchOutput": {
+        "type": "object",
+        "properties": {
+          "references": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/IConnector.IReferenceContent"
+            },
+            "title": "Output Information",
+            "description": "Contains output information for search results"
+          }
+        },
+        "required": [
+          "references"
+        ],
+        "title": "Search Results"
+      },
+      "IConnector.IReferenceContent": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "title": "Title",
+            "description": "The title of the output"
+          },
+          "type": {
+            "oneOf": [
+              {
+                "const": "video"
+              },
+              {
+                "const": "image"
+              },
+              {
+                "const": "news_article"
+              },
+              {
+                "const": "research_paper"
+              }
+            ],
+            "title": "Output Type",
+            "description": "Video, image, news article, research paper\n\nIt must be one of: video, image, news_article, research_paper"
+          },
+          "source": {
+            "oneOf": [
+              {
+                "const": "youtube"
+              },
+              {
+                "const": "facebook"
+              },
+              {
+                "const": "instagram"
+              },
+              {
+                "const": "google_search"
+              },
+              {
+                "const": "arxiv"
+              },
+              {
+                "const": "google_news"
+              }
+            ],
+            "title": "Source of output",
+            "description": "youtube, facebook, instagram, google_search, arxiv, google_news\n\nIt must be one of: youtube, facebook, instagram, google_search, arxiv, google_news"
+          },
+          "url": {
+            "type": "string",
+            "format": "iri",
+            "title": "URL address",
+            "description": "The URL address of the output"
+          },
+          "contents": {
+            "type": "string",
+            "title": "Output Content",
+            "description": "Here is the content of the output"
+          },
+          "image": {
+            "type": "string",
+            "format": "iri",
+            "title": "Output Image URL",
+            "description": "The URL address of the image of the output"
+          },
+          "statistics": {
+            "$ref": "#/components/schemas/MyPartialRecordIConnector.MetricTypenumberTypeint32",
+            "title": "Output statistics information",
+            "description": "Output statistics information\n\nPossible values: view_count, like_count, rank"
+          }
+        },
+        "required": [
+          "title",
+          "type",
+          "source",
+          "url"
+        ]
+      },
+      "MyPartialRecordIConnector.MetricTypenumberTypeint32": {
+        "type": "object",
+        "properties": {
+          "view_count": {
+            "type": "integer"
+          },
+          "like_count": {
+            "type": "integer"
+          },
+          "rank": {
+            "type": "integer"
+          }
+        },
+        "required": []
+      },
+      "IConnector.ISearchInput": {
+        "type": "object",
+        "properties": {
+          "num_results": {
+            "type": "integer",
+            "x-wrtn-placeholder": "10",
+            "title": "Number of search results",
+            "description": "Sets how many search results to retrieve"
+          },
+          "from_date": {
+            "type": "string",
+            "format": "date",
+            "title": "Start date for search results",
+            "description": "Set the start date for search results"
+          },
+          "to_date": {
+            "type": "string",
+            "format": "date",
+            "title": "End date for the search results",
+            "description": "Set the end date for the search results"
+          },
+          "and_keywords": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1,
+              "x-wrtn-placeholder": "biology"
+            },
+            "title": "Must be included keywords",
+            "description": "Keywords that must be included in search results"
+          },
+          "or_keywords": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1,
+              "x-wrtn-placeholder": "ecosystem"
+            },
+            "title": "Keywords that you would like to see included",
+            "description": "Keywords that you would like to see included in your search results"
+          },
+          "not_keywords": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "minLength": 1,
+              "x-wrtn-placeholder": "pollution"
+            },
+            "title": "Keywords that should not be included",
+            "description": "Keywords that should not be included in search results"
+          }
+        },
+        "required": [
+          "and_keywords"
+        ],
+        "title": "Search criteria",
+        "description": "Enter your search criteria"
+      },
+      "IGoogleScholar.ISearchOutput": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "title": "Unique id of search result data",
+            "description": "Unique id of search result data."
+          },
+          "title": {
+            "type": "string",
+            "title": "Title of the paper searched",
+            "description": "This is the title of the paper searched."
+          },
+          "link": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string",
+                "format": "iri"
+              }
+            ],
+            "title": "Link to the searched paper",
+            "description": "Here is the link to the searched paper."
+          },
+          "snippet": {
+            "type": "string",
+            "title": "Snippet of the search results",
+            "description": "Here is a snippet of the search results."
+          },
+          "publication_info": {
+            "type": "string",
+            "title": "Publication Summary Information",
+            "description": "Here is the publication summary information for the searched paper."
+          },
+          "resource": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/IGoogleScholar.IResource"
+                }
+              }
+            ],
+            "title": "Reference information",
+            "description": "Here is the reference information for the searched paper."
+          },
+          "citation_count": {
+            "type": "integer",
+            "title": "Number of times cited",
+            "description": "The number of times the searched paper was cited."
+          },
+          "related_pages_link": {
+            "type": "string",
+            "format": "iri",
+            "title": "Links to related academic materials",
+            "description": "Here are links to academic materials related to the searched paper."
+          },
+          "version_info": {
+            "$ref": "#/components/schemas/IGoogleScholar.IVersion",
+            "title": "Version information",
+            "description": "Here is the version information for the searched paper."
+          }
+        },
+        "required": [
+          "id",
+          "title",
+          "link",
+          "snippet",
+          "publication_info",
+          "resource",
+          "citation_count",
+          "related_pages_link",
+          "version_info"
+        ],
+        "title": "Search Results"
+      },
+      "IGoogleScholar.IResource": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "title": "Title of the reference material",
+            "description": "Title of the reference material."
+          },
+          "file_format": {
+            "type": "string",
+            "title": "Reference file format",
+            "description": "This is the format of the reference file."
+          },
+          "link": {
+            "type": "string",
+            "format": "iri",
+            "title": "Link to the reference material",
+            "description": "Here is a link to the reference material."
+          }
+        },
+        "required": [
+          "title",
+          "link"
+        ],
+        "title": "References"
+      },
+      "IGoogleScholar.IVersion": {
+        "type": "object",
+        "properties": {
+          "version": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "integer"
+              }
+            ],
+            "title": "Version information",
+            "description": "Here is the version information."
+          },
+          "link": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string",
+                "format": "iri"
+              }
+            ],
+            "title": "Version-related links",
+            "description": "Here are the version-related links."
+          }
+        },
+        "required": [
+          "version",
+          "link"
+        ],
+        "title": "version"
+      },
+      "IGoogleScholar.ISearchInput": {
+        "type": "object",
+        "properties": {
+          "andKeyword": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "x-wrtn-placeholder": "biology"
+            },
+            "title": "Keywords that must be included",
+            "description": "Keywords that must be included in search results."
+          },
+          "orKeyword": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "x-wrtn-placeholder": "ecosystem"
+            },
+            "title": "Keywords that you would like to see included",
+            "description": "Keywords that you would like to see included in your search results."
+          },
+          "notKeyword": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "x-wrtn-placeholder": "pollution"
+            },
+            "title": "Keywords to exclude",
+            "description": "Keywords that should not be included in search results."
+          },
+          "max_results": {
+            "type": "integer",
+            "x-wrtn-placeholder": "10",
+            "title": "Number of search results",
+            "description": "Sets how many search results to retrieve."
+          }
+        },
+        "required": [
+          "andKeyword",
+          "max_results"
+        ],
+        "title": "Search Conditions"
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "Arxiv"
+    },
+    {
+      "name": "Google Scholar"
+    }
+  ],
+  "x-samchon-emended": true
+}
