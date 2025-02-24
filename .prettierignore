@@ -1,7 +1,7 @@
 dist
 bin
 node_modules
-packages
+packages/api
 src/api/functional
 src/api/utils/NestiaSimulator.ts
 README.md
