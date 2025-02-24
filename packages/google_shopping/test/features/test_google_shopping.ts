@@ -2,7 +2,7 @@ import { GoogleShoppingService } from "@wrtnlabs/connector-google-shopping";
 import typia from "typia";
 import { TestGlobal } from "../TestGlobal";
 
-export const test_api_connector_google_shopping = async () => {
+export const test_google_shopping = async () => {
   const googleShoppingService = new GoogleShoppingService({
     apiKey: TestGlobal.env.SERP_API_KEY,
   });
