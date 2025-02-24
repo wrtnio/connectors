@@ -33,7 +33,7 @@ const requestBody = {
   minutesBeforeReminders: 2,
 };
 
-export const test_api_connector_google_calendar = async () => {
+export const test_google_calendar = async () => {
   const googleCalendarService = new GoogleCalendarService({
     clientId: TestGlobal.env.GOOGLE_CLIENT_ID,
     clientSecret: TestGlobal.env.GOOGLE_CLIENT_SECRET,
