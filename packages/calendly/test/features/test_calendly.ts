@@ -10,9 +10,7 @@ export const test_calendly = async () => {
   });
 
   // get_me
-  console.log("hi");
   const me = await calendlyService.getUserInfo();
-  console.log(`me: ${me}`);
   typia.assert(me);
 
   // create one off event type
