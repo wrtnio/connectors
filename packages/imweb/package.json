@@ -1,5 +1,5 @@
 {
-  "name": "@wrtnlabs/connector-notion",
+  "name": "@wrtnlabs/connector-imweb",
   "version": "0.0.1",
   "description": "",
   "main": "src/index.ts",
@@ -22,7 +22,6 @@
     "@rollup/plugin-typescript": "^12.1.1",
     "@trivago/prettier-plugin-sort-imports": "^4.3.0",
     "chalk": "^4.1.2",
-    "crypto": "^1.0.1",
     "dotenv": "^16.3.1",
     "dotenv-expand": "^10.0.0",
     "eslint": "^9.20.1",
@@ -38,11 +37,7 @@
     "typescript-transform-paths": "^3.5.1"
   },
   "dependencies": {
-    "@notionhq/client": "^2.2.16",
-    "@tryfabric/martian": "^1.2.4",
-    "@wrtnlabs/connector-shared": "workspace:^",
     "axios": "^1.7.9",
-    "notion-to-md": "^3.1.1",
     "typia": "^7.6.4"
   }
 }
