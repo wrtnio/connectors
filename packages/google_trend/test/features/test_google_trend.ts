@@ -5,7 +5,7 @@ import {
 import typia from "typia";
 import { TestGlobal } from "../TestGlobal";
 
-export const test_api_connector_google_trend = async () => {
+export const test_google_trend = async () => {
   const googleTrendService = new GoogleTrendService({
     apiKey: TestGlobal.env.SERP_API_KEY,
   });
