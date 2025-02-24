@@ -2,7 +2,7 @@ import { GoogleSearchService } from "@wrtnlabs/connector-google-search";
 import typia from "typia";
 import { TestGlobal } from "../TestGlobal";
 
-export const test_api_connector_google_search = async () => {
+export const test_google_search = async () => {
   const googleSearchService = new GoogleSearchService({
     apiKey: TestGlobal.env.SERP_API_KEY,
   });
