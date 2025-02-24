@@ -1,0 +1,83 @@
+import typia from "typia";
+import { GmailService } from "../../src/gmail/GmailService";
+import { TestGlobal } from "../TestGlobal";
+import { IGmailService } from "@wrtnlabs/connector-gmail";
+import { RandomGenerator } from "@nestia/e2e";
+
+export const test_gmail = async () => {
+  const gmailService = new GmailService({
+    clientId: TestGlobal.env.GOOGLE_CLIENT_ID,
+    clientSecret: TestGlobal.env.GOOGLE_CLIENT_SECRET,
+    secret: TestGlobal.env.GOOGLE_TEST_SECRET,
+  });
+
+  /**
+   * Send Email.
+   */
+  const sendEmailOutput = await gmailService.sendEmail({
+    to: ["store@wrtn.io"],
+    subject: "안녕하세요",
+    body: "Gmail Connector 테스트 입니다.",
+    cc: ["store@wrtn.io"],
+  });
+
+  const emailId = sendEmailOutput.id;
+
+  /**
+   * Find Email.
+   */
+  const email = await gmailService.findEmail(emailId);
+  typia.assert<IGmailService.IFindGmailOutput>(email);
+
+  /**
+   * Find Emails.
+   */
+  const emailList = await gmailService.findEmails({
+    from: "store@wrtn.io",
+  });
+  typia.assert<IGmailService.IFindGmailListOutput>(emailList);
+
+  /**
+   * Remove Email. (move mail to trash)
+   */
+  await gmailService.removeEmail(emailId);
+
+  /**
+   * Create Label.
+   */
+  const label = await gmailService.createLabel({
+    labelName: RandomGenerator.name(),
+  });
+  typia.assert<IGmailService.ILabelOutput>(label);
+
+  /**
+   * Add Label To Email.
+   */
+  await gmailService.addLabelToMail(emailId, {
+    labelIds: [label.id],
+  });
+
+  /**
+   * Remove Label From Email.
+   */
+  await gmailService.removeLabelFromMail(emailId, {
+    labelIds: [label.id],
+  });
+
+  /**
+   * Reply To Email.
+   */
+  const reply = await gmailService.reply(emailId, {
+    replyText: "답장입니다.",
+  });
+
+  /**
+   * remove Email. (hard delete)
+   */
+  await gmailService.hardDelete(emailId);
+
+  /**
+   * remove Reply Email. (hard delete)
+   */
+  await gmailService.hardDelete(reply.id);
+};
