@@ -38,7 +38,7 @@
     "typescript-transform-paths": "^3.5.1"
   },
   "dependencies": {
-    "@notionhq/client": "^2.2.15",
+    "@notionhq/client": "^2.2.16",
     "@tryfabric/martian": "^1.2.4",
     "@wrtnlabs/connector-shared": "workspace:^",
     "axios": "^1.7.9",
