@@ -24,17 +24,16 @@ jobs:
         options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 20.x
+      - name: Setup pnpm
+        run: npm install -g pnpm
       - uses: actions/cache@v4
         with:
-          path: ~/.npm
-          key: ${{ runner.os }}-node-${{ hashFiles('**/package.json') }}
+          path: ~/.pnpm-store
+          key: ${{ runner.os }}-pnpm-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: |
-            ${{ runner.os }}-node-
+            ${{ runner.os }}-pnpm-
       - name: Install
-        run: npm install
+        run: pnpm install
       - name: Secrets to Env
         run: |
           rm .env
@@ -43,8 +42,8 @@ jobs:
           SECRETS_CONTEXT: ${{ toJson(secrets) }}
       - name: Build Test Program
         run: |
-          npm run build:sdk
-          npm run build:test
+          pnpm build:sdk
+          pnpm build:test
       - name: Upload build artifact
         uses: actions/upload-artifact@v4
         with:
@@ -65,7 +64,7 @@ jobs:
           path: |
             ./bin
       - name: install dependencies
-        run: npm install
+        run: pnpm install
       - name: Secrets to Env
         run: |
           rm .env
@@ -83,7 +82,7 @@ jobs:
           npx prisma db push
       - name: test
         run: | # sweet_tracker, google_ads는 현재 테스트 대상이 아님
-          npm run test -- \
+          pnpm test \
             --exclude sweet_tracker korea_exim kakao jira slack github figma discord similarweb crunchbase \
             google_ads google_slides google_calendar google_docs google_drive google_flight \
             open_data calendly notion naver typeform x_summarize x_prepare_summarize x_get_pre_defined_influencers x_get_users airport youtube_official innoforest
@@ -101,7 +100,7 @@ jobs:
           path: |
             ./bin
       - name: install dependencies
-        run: npm install
+        run: pnpm install
       - name: Secrets to Env
         run: |
           rm .env
@@ -109,7 +108,7 @@ jobs:
         env:
           SECRETS_CONTEXT: ${{ toJson(secrets) }}
       - name: test
-        run: npm run test -- --include innoforest
+        run: pnpm test --include innoforest
 
   test-kakao:
     runs-on: ubuntu-latest
@@ -124,7 +123,7 @@ jobs:
           path: |
             ./bin
       - name: install dependencies
-        run: npm install
+        run: pnpm install
       - name: Secrets to Env
         run: |
           rm .env
@@ -132,7 +131,7 @@ jobs:
         env:
           SECRETS_CONTEXT: ${{ toJson(secrets) }}
       - name: test
-        run: npm run test -- --include kakao
+        run: pnpm test --include kakao
 
   # test-jira:
   #   runs-on: ubuntu-latest
@@ -147,7 +146,7 @@ jobs:
   #         path: |
   #           ./bin
   #     - name: install dependencies
-  #       run: npm install
+  #       run: pnpm install
   #     - name: Secrets to Env
   #       run: |
   #         rm .env
@@ -155,7 +154,7 @@ jobs:
   #       env:
   #         SECRETS_CONTEXT: ${{ toJson(secrets) }}
   #     - name: test
-  #       run: npm run test -- --include jira
+  #       run: pnpm test --include jira
 
   test-slack:
     runs-on: ubuntu-latest
@@ -170,7 +169,7 @@ jobs:
           path: |
             ./bin
       - name: install dependencies
-        run: npm install
+        run: pnpm install
       - name: Secrets to Env
         run: |
           rm .env
@@ -187,7 +186,7 @@ jobs:
           sleep 5;
           npx prisma db push
       - name: test
-        run: npm run test -- --include slack
+        run: pnpm test --include slack
 
   test-open_data:
     runs-on: ubuntu-latest
@@ -202,7 +201,7 @@ jobs:
           path: |
             ./bin
       - name: install dependencies
-        run: npm install
+        run: pnpm install
       - name: Secrets to Env
         run: |
           rm .env
@@ -210,7 +209,7 @@ jobs:
         env:
           SECRETS_CONTEXT: ${{ toJson(secrets) }}
       - name: test
-        run: npm run test -- --include open_data --exclude get_short_term open_data_get_address # 기상청은 따로 테스트 코드가 돌게 수정, 주소 조회는 서버 IP 제한이 있는 것으로 보여 제외
+        run: pnpmun test --include open_data --exclude get_short_term open_data_get_address # 기상청은 따로 테스트 코드가 돌게 수정, 주소 조회는 서버 IP 제한이 있는 것으로 보여 제외
 
   test-get_short_term: # 기상청 테스트 코드
     runs-on: ubuntu-latest
@@ -225,7 +224,7 @@ jobs:
           path: |
             ./bin
       - name: install dependencies
-        run: npm install
+        run: pnpm install
       - name: Secrets to Env
         run: |
           rm .env
@@ -233,7 +232,7 @@ jobs:
         env:
           SECRETS_CONTEXT: ${{ toJson(secrets) }}
       - name: test
-        run: npm run test -- --include get_short_term
+        run: pnpm test --include get_short_term
 
   test-github:
     runs-on: ubuntu-latest
@@ -248,7 +247,7 @@ jobs:
           path: |
             ./bin
       - name: install dependencies
-        run: npm install
+        run: pnpm install
       - name: Secrets to Env
         run: |
           rm .env
@@ -256,7 +255,7 @@ jobs:
         env:
           SECRETS_CONTEXT: ${{ toJson(secrets) }}
       - name: test
-        run: npm run test -- --include github
+        run: pnpm test --include github
 
   test-figma:
     runs-on: ubuntu-latest
@@ -271,7 +270,7 @@ jobs:
           path: |
             ./bin
       - name: install dependencies
-        run: npm install
+        run: pnpm install
       - name: Secrets to Env
         run: |
           rm .env
@@ -279,7 +278,7 @@ jobs:
         env:
           SECRETS_CONTEXT: ${{ toJson(secrets) }}
       - name: test
-        run: npm run test -- --include figma
+        run: pnpm test --include figma
 
   # test-discord:
   #   runs-on: ubuntu-latest
@@ -294,7 +293,7 @@ jobs:
   #         path: |
   #           ./bin
   #     - name: install dependencies
-  #       run: npm install
+  #       run: pnpm install
   #     - name: Secrets to Env
   #       run: |
   #         rm .env
@@ -302,7 +301,7 @@ jobs:
   #       env:
   #         SECRETS_CONTEXT: ${{ toJson(secrets) }}
   #     - name: test
-  #       run: npm run test -- --include discord
+  #       run: pnpm test --include discord
 
   test-google_slides:
     runs-on: ubuntu-latest
@@ -317,7 +316,7 @@ jobs:
           path: |
             ./bin
       - name: install dependencies
-        run: npm install
+        run: pnpm install
       - name: Secrets to Env
         run: |
           rm .env
@@ -325,7 +324,7 @@ jobs:
         env:
           SECRETS_CONTEXT: ${{ toJson(secrets) }}
       - name: test
-        run: npm run test -- --include google_slides
+        run: pnpm test --include google_slides
 
   test-google_calendar:
     runs-on: ubuntu-latest
@@ -340,7 +339,7 @@ jobs:
           path: |
             ./bin
       - name: install dependencies
-        run: npm install
+        run: pnpm install
       - name: Secrets to Env
         run: |
           rm .env
@@ -348,7 +347,7 @@ jobs:
         env:
           SECRETS_CONTEXT: ${{ toJson(secrets) }}
       - name: test
-        run: npm run test -- --include google_calendar
+        run: pnpm test --include google_calendar
 
   test-google_docs:
     runs-on: ubuntu-latest
@@ -363,7 +362,7 @@ jobs:
           path: |
             ./bin
       - name: install dependencies
-        run: npm install
+        run: pnpm install
       - name: Secrets to Env
         run: |
           rm .env
@@ -371,7 +370,7 @@ jobs:
         env:
           SECRETS_CONTEXT: ${{ toJson(secrets) }}
       - name: test
-        run: npm run test -- --include google_docs
+        run: pnpm test --include google_docs
 
   test-google_drive:
     runs-on: ubuntu-latest
@@ -386,7 +385,7 @@ jobs:
           path: |
             ./bin
       - name: install dependencies
-        run: npm install
+        run: pnpm install
       - name: Secrets to Env
         run: |
           rm .env
@@ -394,7 +393,7 @@ jobs:
         env:
           SECRETS_CONTEXT: ${{ toJson(secrets) }}
       - name: test
-        run: npm run test -- --include google_drive
+        run: pnpm test --include google_drive
 
   test-calendly:
     runs-on: ubuntu-latest
@@ -409,7 +408,7 @@ jobs:
           path: |
             ./bin
       - name: install dependencies
-        run: npm install
+        run: pnpm install
       - name: Secrets to Env
         run: |
           rm .env
@@ -417,7 +416,7 @@ jobs:
         env:
           SECRETS_CONTEXT: ${{ toJson(secrets) }}
       - name: test
-        run: npm run test -- --include calendly
+        run: pnpm test --include calendly
 
   test-notion:
     runs-on: ubuntu-latest
@@ -432,7 +431,7 @@ jobs:
           path: |
             ./bin
       - name: install dependencies
-        run: npm install
+        run: pnpm install
       - name: Secrets to Env
         run: |
           rm .env
@@ -440,7 +439,7 @@ jobs:
         env:
           SECRETS_CONTEXT: ${{ toJson(secrets) }}
       - name: test
-        run: npm run test -- --include notion
+        run: pnpm test --include notion
 
   test-naver:
     runs-on: ubuntu-latest
@@ -455,7 +454,7 @@ jobs:
           path: |
             ./bin
       - name: install dependencies
-        run: npm install
+        run: pnpm install
       - name: Secrets to Env
         run: |
           rm .env
@@ -463,4 +462,4 @@ jobs:
         env:
           SECRETS_CONTEXT: ${{ toJson(secrets) }}
       - name: test
-        run: npm run test -- --include naver
+        run: pnpm test --include naver
