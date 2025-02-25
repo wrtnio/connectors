@@ -42,6 +42,7 @@ jobs:
           SECRETS_CONTEXT: ${{ toJson(secrets) }}
       - name: Build Test Program
         run: |
+          pnpm build:prisma
           pnpm build:sdk
           pnpm build:test
       - name: Upload build artifact
