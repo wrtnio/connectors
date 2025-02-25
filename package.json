@@ -12,7 +12,7 @@
     "test:inhouse": "cross-env NODE_ENV=test node bin/test/inhouse.js",
     "test:webpack": "pnpm run webpack && cross-env NODE_ENV=test node bin/test/webpack.js",
     "------------------------BUILDS------------------------": "",
-    "build": "pnpm run build:sdk && pnpm run build:main && pnpm run build:test",
+    "build": "pnpm run build:prisma && pnpm run build:sdk && pnpm run build:main && pnpm run build:test",
     "build:api": "rimraf packages/api/lib && nestia sdk && tsc -p packages/api/tsconfig.json && ts-node build/validate-api.ts",
     "build:main": "rimraf lib && tsc",
     "build:sdk": "rimraf src/api/functional && nestia sdk",
