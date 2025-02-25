@@ -222,7 +222,7 @@ jobs:
         env:
           SECRETS_CONTEXT: ${{ toJson(secrets) }}
       - name: test
-        run: pnpmun test --include open_data --exclude get_short_term open_data_get_address # 기상청은 따로 테스트 코드가 돌게 수정, 주소 조회는 서버 IP 제한이 있는 것으로 보여 제외
+        run: pnpm test --include open_data --exclude get_short_term open_data_get_address # 기상청은 따로 테스트 코드가 돌게 수정, 주소 조회는 서버 IP 제한이 있는 것으로 보여 제외
 
   test-get_short_term: # 기상청 테스트 코드
     runs-on: ubuntu-latest
