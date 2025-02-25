@@ -64,6 +64,8 @@ jobs:
           name: build
           path: |
             ./bin
+      - name: Setup pnpm
+        run: npm install -g pnpm
       - name: install dependencies
         run: pnpm install
       - name: Secrets to Env
@@ -100,6 +102,8 @@ jobs:
           name: build
           path: |
             ./bin
+      - name: Setup pnpm
+        run: npm install -g pnpm
       - name: install dependencies
         run: pnpm install
       - name: Secrets to Env
@@ -123,6 +127,8 @@ jobs:
           name: build
           path: |
             ./bin
+      - name: Setup pnpm
+        run: npm install -g pnpm
       - name: install dependencies
         run: pnpm install
       - name: Secrets to Env
@@ -146,6 +152,8 @@ jobs:
   #         name: build
   #         path: |
   #           ./bin
+  #     - name: Setup pnpm
+  #       run: npm install -g pnpm
   #     - name: install dependencies
   #       run: pnpm install
   #     - name: Secrets to Env
@@ -169,6 +177,8 @@ jobs:
           name: build
           path: |
             ./bin
+      - name: Setup pnpm
+        run: npm install -g pnpm
       - name: install dependencies
         run: pnpm install
       - name: Secrets to Env
@@ -201,6 +211,8 @@ jobs:
           name: build
           path: |
             ./bin
+      - name: Setup pnpm
+        run: npm install -g pnpm
       - name: install dependencies
         run: pnpm install
       - name: Secrets to Env
@@ -224,6 +236,8 @@ jobs:
           name: build
           path: |
             ./bin
+      - name: Setup pnpm
+        run: npm install -g pnpm
       - name: install dependencies
         run: pnpm install
       - name: Secrets to Env
@@ -247,6 +261,8 @@ jobs:
           name: build
           path: |
             ./bin
+      - name: Setup pnpm
+        run: npm install -g pnpm
       - name: install dependencies
         run: pnpm install
       - name: Secrets to Env
@@ -270,6 +286,8 @@ jobs:
           name: build
           path: |
             ./bin
+      - name: Setup pnpm
+        run: npm install -g pnpm
       - name: install dependencies
         run: pnpm install
       - name: Secrets to Env
@@ -293,6 +311,8 @@ jobs:
   #         name: build
   #         path: |
   #           ./bin
+  #     - name: Setup pnpm
+  #     run: npm install -g pnpm
   #     - name: install dependencies
   #       run: pnpm install
   #     - name: Secrets to Env
@@ -316,6 +336,8 @@ jobs:
           name: build
           path: |
             ./bin
+      - name: Setup pnpm
+        run: npm install -g pnpm
       - name: install dependencies
         run: pnpm install
       - name: Secrets to Env
@@ -339,6 +361,8 @@ jobs:
           name: build
           path: |
             ./bin
+      - name: Setup pnpm
+        run: npm install -g pnpm
       - name: install dependencies
         run: pnpm install
       - name: Secrets to Env
@@ -362,6 +386,8 @@ jobs:
           name: build
           path: |
             ./bin
+      - name: Setup pnpm
+        run: npm install -g pnpm
       - name: install dependencies
         run: pnpm install
       - name: Secrets to Env
@@ -385,6 +411,8 @@ jobs:
           name: build
           path: |
             ./bin
+      - name: Setup pnpm
+        run: npm install -g pnpm
       - name: install dependencies
         run: pnpm install
       - name: Secrets to Env
@@ -408,6 +436,8 @@ jobs:
           name: build
           path: |
             ./bin
+      - name: Setup pnpm
+        run: npm install -g pnpm
       - name: install dependencies
         run: pnpm install
       - name: Secrets to Env
@@ -431,6 +461,8 @@ jobs:
           name: build
           path: |
             ./bin
+      - name: Setup pnpm
+        run: npm install -g pnpm
       - name: install dependencies
         run: pnpm install
       - name: Secrets to Env
@@ -454,6 +486,8 @@ jobs:
           name: build
           path: |
             ./bin
+      - name: Setup pnpm
+        run: npm install -g pnpm
       - name: install dependencies
         run: pnpm install
       - name: Secrets to Env
